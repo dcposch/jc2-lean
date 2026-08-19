@@ -10,7 +10,7 @@ Each subdirectory is a self-contained lake project with its own
 
 | Project | Contents | Status |
 |---|---|---|
-| [`theorem-a/`](theorem-a/) | Theorem A: polynomial ODE rigidity (if AC' − νA'C is a nonzero constant then deg A ≤ 1), char 0 over any integral domain, plus a characteristic-p strengthening | built green; axioms = the 3 standard |
+| [`theorem-a/`](theorem-a/) | Theorem A: polynomial ODE rigidity (if AC' − νA'C is a nonzero constant then deg A ≤ 1), char 0 over any integral domain, plus a characteristic-p strengthening | **registered: [PALOMAR-2026-08-19-000005 v1](https://palomar-registry.org/entry?id=PALOMAR-2026-08-19-000005&version=1)** |
 | [`vertex-gap/`](vertex-gap/) | Vertex-gap obstruction at type (2,2): Theorem 3.4 + side-symmetric companion, corner enumeration, side-symmetric gap condition | built green; axioms = the 3 standard |
 
 Campaign artifacts: [paper + verification](https://doi.org/10.5281/zenodo.21894922),

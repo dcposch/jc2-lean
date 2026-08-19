@@ -1,3 +1,5 @@
+**Registered:** [PALOMAR-2026-08-19-000005 v1](https://palomar-registry.org/entry?id=PALOMAR-2026-08-19-000005&version=1)
+
 # jc72108-theorem-a
 
 Lean 4 / Mathlib formalization of **Theorem A** (ODE rigidity, all weights;
