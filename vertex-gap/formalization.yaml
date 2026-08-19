@@ -98,7 +98,8 @@ sources:
     author_endorsement: "not-contacted"
 
 related_formalizations:
-  - id: "jc72108-theorem-a"
+  - id: "PALOMAR-2026-08-19-000005"
+    relationship: "sibling project from the same campaign and repository"
     note: >-
       Sibling Palomar project (theorem-a/ in the same repository): Theorem A
       (ODE rigidity), the rigidity engine of the depth-two block analysis of
