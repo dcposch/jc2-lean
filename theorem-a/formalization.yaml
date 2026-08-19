@@ -1,0 +1,236 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+# formalization.yaml v0.4
+version: "v0.4"
+
+project:
+  name: "jc72108-theorem-a"
+  description: >-
+    Lean 4 / Mathlib formalization of Theorem A (ODE rigidity, all weights;
+    label thm:ode, Theorem 6.1 in the current compilation of the campaign
+    paper): if polynomials A, C over an integral domain of characteristic
+    zero and an integer weight nu >= 1 satisfy A*C' - nu*A'*C = c for a
+    nonzero constant c, then deg A <= 1 (TheoremA).  Also a standalone
+    positive-characteristic strengthening extracted from the same proof
+    (TheoremA_charP): the same conclusion over a domain of characteristic p
+    under the degree bounds nu*deg A < p and deg C < p.  The theorem is the
+    rigidity engine of the depth-two block analysis in the campaign on the
+    plane Jacobian problem at Newton-degree pair (72,108).
+  authors:
+    - "Dan Clemens Posch"
+  license: "Apache-2.0"
+  responsible_maintainers:
+    - "Dan Clemens Posch"
+
+classification:
+  arxiv: ["math.AG", "math.AC"]
+  msc2020: ["14R15"]
+
+sources:
+  - title: >-
+      Sheet-number obstruction theory for the plane Jacobian Conjecture:
+      campaign theory bundle v1
+    authors:
+      - "Dan Clemens Posch"
+    id: "doi:10.5281/zenodo.22002825"
+    type: "working paper (archived campaign theory bundle)"
+    location: "MATHIEU.md, Sections 5.1 and 5.4"
+    relationship: "formalizes"
+    note: >-
+      Theorem A is stated and proved in MATHIEU.md Section 5.1 of the bundle,
+      with the characteristic discussion in Section 5.4; it is the same
+      result as the theorem labelled thm:ode ("ODE rigidity, all weights",
+      Theorem 6.1 in the current compilation, Section 6) of the campaign
+      paper in preparation.  The formalization states it over an integral
+      domain (the source says field; the proof needs no division once
+      denominators are cleared).  TheoremA_charP is a standalone
+      strengthening extracted from the Section 6 proof and
+      positive-characteristic remark (MATHIEU.md Section 5.4), not a theorem
+      displayed verbatim in the source: in the source's application nu = k,
+      deg A <= d2, deg C <= k*d2, so the recorded conservative bound
+      p > (k+1)*d2 implies its two degree hypotheses.  The log-residue
+      block-variety theorem of the same section (thm:R, Theorem 6.5 in the
+      current compilation) is NOT formalized here.
+    license: "CC-BY-4.0"
+    author_endorsement: "participated"
+  - title: >-
+      Artifact for: A Vertex-Gap Obstruction for Low-Degree Strip Pairs in
+      the Plane Jacobian Conjecture
+    authors:
+      - "Dan Clemens Posch"
+    id: "doi:10.5281/zenodo.21894922"
+    type: "software"
+    location: "https://doi.org/10.5281/zenodo.21894922"
+    relationship: "background"
+    note: >-
+      The broader campaign reproduction artifact (pipeline, exact-arithmetic
+      certificates, review documents).  The paper version archived in this
+      record predates the ODE theorem, so it is cited as campaign context
+      only, not as the formalized source.
+    license: "MIT"
+    author_endorsement: "participated"
+  - title: >-
+      An application of Newton-Puiseux charts to the Jacobian problem
+    authors:
+      - "Henryk Zoladek"
+    type: "article (Topology 47 (2008), no. 6, 431-469)"
+    location: "Appendix, Lemma A.7 (also Lemma 3.9 and equation (3.14))"
+    relationship: "background"
+    note: >-
+      Prior art with an explicit directional qualification: via
+      (C/A^nu)' = c/A^(nu+1), Lemma A.7 (a non-rationality lemma for
+      Darboux/Schwarz-Christoffel integrals, attributed there to
+      Liouville-era classics) yields the case of Theorem A where A has at
+      least two distinct roots; perfect-power A needs a separate evaluation
+      argument.  Zoladek applies the same weighted ODE inside the Jacobian
+      problem (his Lemma 3.9 and eq. (3.14)).  This project does not prove
+      or formalize Lemma A.7 itself; the campaign proof of Theorem A was
+      found independently before locating this reference, stays inside
+      F[y], and covers all cases uniformly.
+    license: "unknown"
+    author_endorsement: "not-contacted"
+  - title: >-
+      Nonzero constant Wronskians of polynomials and Laurent polynomials, and
+      geometric consequences
+    authors:
+      - "Carlos Hermoso"
+      - "Juan Gerardo Alcázar"
+    id: "arXiv:2410.18867"
+    type: "article (arXiv preprint, 2024)"
+    location: "Theorem 4 (n = 2)"
+    relationship: "independently-proves"
+    note: >-
+      Their Theorem 4 at n = 2 shows that two polynomials with nonzero
+      constant Wronskian both have degree at most one; in particular it
+      implies TheoremA for nu = 1.  TheoremA extends the deg A <= 1
+      conclusion to all integer weights nu >= 1 by a different, purely
+      polynomial mechanism, proved independently.
+    license: "unknown"
+    author_endorsement: "not-contacted"
+
+related_formalizations: []
+
+status:
+  scope: >-
+    Fully formalized and proved: TheoremA (characteristic zero, over any
+    integral domain) and TheoremA_charP (characteristic p under nu*deg A < p
+    and deg C < p, a standalone strengthening extracted from the source's
+    proof and characteristic remark).  Not formalized: everything else in
+    the campaign theory - the strip-reduction combinatorics, the
+    block-to-ODE bridge (label lem:bridge, Lemma 6.3 in the current
+    compilation), the log-residue functional and the block-variety theorem
+    (label thm:R, Theorem 6.5 in the current compilation), and the (72,108)
+    application.  Degrees are stated with Polynomial.natDegree
+    (natDegree 0 = 0; harmless, as the hypotheses force A nonzero).
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: []
+
+automation:
+  methods:
+    - method: "agent"
+      models: ["Claude Fable 5 (Anthropic)"]
+      framework: "Claude Code (Claude Agent SDK)"
+      tool_setup: >-
+        AI-assisted: statement design and proofs drafted and debugged by a
+        Claude agent against the pinned Mathlib, using the campaign's proof
+        of Theorem A (thm:ode; MATHIEU.md Section 5.1) as specification;
+        machine-checked by the Lean kernel via lake build, with an axiom
+        audit script.
+      cost:
+        wall_time: "under one day of agent time"
+        spend_usd: "subscription-based"
+        hardware: "local machine (macOS, elan/lake)"
+      prompting_notes: >-
+        Campaign-directed prompt supplying the informal proof (degree
+        bookkeeping: leading-coefficient lemma, forced deg C = nu*deg A,
+        kernel subtraction of lc(C)/lc(A)^nu * A^nu) and Palomar's submission
+        constraints.
+    - method: "manual"
+      models: []
+      framework: "n/a"
+      tool_setup: >-
+        Human campaign direction, mathematical review of the informal proof,
+        statement audit of Challenge.lean, and final submission review.
+      cost:
+        wall_time: "a few hours of human review"
+        spend_usd: "not tracked"
+        hardware: "local machine"
+      prompting_notes: "n/a"
+  spend_usd: "subscription-based"
+  notes: >-
+    Proofs were drafted by Claude (Fable) agents in a human-directed research
+    campaign; the informal theorem and proof had previously passed
+    campaign-internal adversarial review, including independent AI
+    re-derivations and exact-arithmetic machine checks of the proof's two
+    computational identities.  This formalization is machine-checked; a
+    campaign-internal semantic-fidelity review by an independent AI reviewer
+    compared both Lean statements with the source (verdict: faithful) and
+    its attribution corrections are incorporated.  The human author reviewed
+    the statements and takes responsibility.
+
+fidelity:
+  divergences: >-
+    (1) TheoremA is stated over an arbitrary integral domain of characteristic
+    zero; the source states a field.  The formalized statement is stronger and
+    specializes to the source's.  (2) The kernel subtraction clears
+    denominators (D = lc(A)^nu * C - lc(C) * A^nu instead of the source's
+    C - (lc(C)/lc(A)^nu) * A^nu), which is why no field structure is needed.
+    (3) TheoremA_charP is a standalone strengthening extracted from the
+    Section 6 proof and positive-characteristic remark; the source records
+    only the conservative block-level bound p > (k+1)*d2 and does not display
+    the standalone statement.  In the source's application (nu = k,
+    deg A <= d2, deg C <= k*d2) that bound implies the two formalized
+    hypotheses nu*deg A < p and deg C < p.  No other divergences known.
+
+review:
+  status: >-
+    self-assessed plus campaign-internal AI fidelity review; statements
+    human-audited against the source; not yet externally peer-reviewed
+  reviewers:
+    - "Dan Clemens Posch"
+  notes: >-
+    The human author audited Challenge.lean against Theorem A (label thm:ode,
+    "ODE rigidity, all weights") of the campaign paper and MATHIEU.md
+    Section 5.1 of the archived bundle.  A campaign-internal
+    semantic-fidelity review by an independent AI reviewer compared both Lean
+    statements with the source, returned verdict "faithful" (including the
+    integral-domain strengthening and the extracted characteristic-p
+    statement), and flagged attribution defects that are corrected in this
+    version.  The informal proof was adversarially reviewed inside the
+    campaign by independent AI systems with independently written
+    verification code; the Lean proofs here were produced afterwards and are
+    kernel-checked.  No external human peer review yet.
+
+alignment:
+  namespace: "(root); helper lemmas live in JC72108 inside Solution.lean"
+  statements:
+    - source: >-
+        Theorem A, label thm:ode ("ODE rigidity, all weights"; Theorem 6.1
+        in the current compilation), Section 6 of the campaign paper;
+        MATHIEU.md Section 5.1 of the archived theory bundle
+      lean: "TheoremA"
+      module: "Challenge"
+      status: "proved"
+      note: >-
+        Same statement over an integral domain instead of a field (a
+        strengthening); degree as natDegree; the weight nu enters as a
+        natural number cast into F[y].
+    - source: >-
+        Section 6 closing positive-characteristic remark (bound
+        p > (k+1)*d2) of the campaign paper; MATHIEU.md Section 5.4
+      lean: "TheoremA_charP"
+      module: "Challenge"
+      status: "proved (adapted: standalone strengthening extracted from the source)"
+      note: >-
+        A standalone strengthening extracted from the source's proof and
+        remark, not displayed verbatim there; the source's conservative
+        bound implies the two formalized degree hypotheses in its
+        application.  Proved sorry-free in Solution.lean.
+  # The same two declarations appear verbatim in Solution.lean with proofs;
+  # comparator.json compares them.
+
+acknowledgements: >-
+  The Mathlib community (the formalization is a thin layer over Mathlib's
+  polynomial API); Anthropic Claude (Fable) agents for drafting,
+  verification, and fidelity review; the Palomar starter template for the
+  repository layout.
