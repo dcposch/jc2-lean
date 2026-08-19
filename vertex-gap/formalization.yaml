@@ -1,0 +1,269 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+# formalization.yaml v0.4
+version: "v0.4"
+
+project:
+  name: "jc2-vertex-gap"
+  description: >-
+    Lean 4 / Mathlib formalization of the vertex-gap obstruction at
+    (k,d2) = (2,2) (label thm:22, Theorem 3.4 in the current compilation)
+    from the campaign paper "A Vertex-Gap Obstruction for Low-Degree Strip
+    Pairs in the Plane Jacobian Conjecture": for polynomials P, Q in K[x,y]
+    over a field K of characteristic not in {2,3,5}, supported in the
+    normalized type-(2,2) Newton strips along (1,2) with [P,Q] = x^2, the
+    block coefficients satisfy a3 = 0 and a2^2*a6 = 0 - so the generic
+    chart a2*a6 != 0 of the strip family is empty (VertexGap22, plus the
+    side-symmetric companion VertexGap22_swapped in the mirrored labels).
+    Also formalized: the arithmetic corner-enumeration lemma behind the
+    vertex normalization (lem:enum, Lemma 2.2; CornerEnumeration) and the
+    side-symmetric form of the gap condition, hypothesis (ii) as corrected
+    by the erratum recorded in Section 8 (GapConditionSideSymm).  The
+    theorem is the mechanism that empties the generic chart of the (8,28)
+    strip subcase in the campaign on the plane Jacobian problem at
+    Newton-degree pair (72,108).
+  authors:
+    - "Dan Clemens Posch"
+  license: "Apache-2.0"
+  responsible_maintainers:
+    - "Dan Clemens Posch"
+
+classification:
+  arxiv: ["math.AG", "math.AC"]
+  msc2020: ["14R15"]
+
+sources:
+  - title: >-
+      A Vertex-Gap Obstruction for Low-Degree Strip Pairs in the Plane
+      Jacobian Conjecture (campaign paper, archived with its reproduction
+      artifact "Artifact for: A Vertex-Gap Obstruction for Low-Degree Strip
+      Pairs in the Plane Jacobian Conjecture")
+    authors:
+      - "Dan Clemens Posch"
+    id: "doi:10.5281/zenodo.21894922"
+    type: "working paper (archived with the campaign reproduction artifact)"
+    location: >-
+      Theorem 3.4 (label thm:22) and its proof, Section 3; Definition 2.1
+      (def:strip), Lemma 2.2 (lem:enum) and hypotheses (i)/(ii), Section 2;
+      Remark 3.5 (radical membership) and Remark 3.7 (excluded primes),
+      Section 3; erratum record ("the gap condition must be stated
+      side-symmetrically"), Section 8
+    relationship: "formalizes"
+    note: >-
+      VertexGap22 formalizes Theorem 3.4 in the paper's normalized labels
+      (bottom corner (1,0) on the P side), with the Newton-polygon
+      hypotheses rendered as explicit lattice-support inequalities;
+      VertexGap22_swapped is the side-symmetric companion (corner (1,0) on
+      the Q side), whose proof is the paper's label normalization
+      (P,Q) -> (Q,-P).  CornerEnumeration is Lemma 2.2 verbatim (stated for
+      all k, including k = 0; the paper's context has k >= 1).
+      GapConditionSideSymm is hypothesis (ii) in the side-symmetric form
+      required by the erratum.  See the fidelity section for the exact
+      divergences.
+    license: "MIT"
+    author_endorsement: "participated"
+  - title: >-
+      Sheet-number obstruction theory for the plane Jacobian Conjecture:
+      campaign theory bundle v1
+    authors:
+      - "Dan Clemens Posch"
+    id: "doi:10.5281/zenodo.22002825"
+    type: "working paper (archived campaign theory bundle)"
+    location: "SURPLUS.md and LEMMA.md (campaign-internal form of the theorem and its reviews)"
+    relationship: "background"
+    note: >-
+      The campaign-internal write-up and adversarial reviews of the same
+      obstruction (surplus relation, radical-membership erratum,
+      side-symmetry correction) that became Sections 2-3 of the paper.
+    license: "CC-BY-4.0"
+    author_endorsement: "participated"
+  - title: >-
+      Increasing the degree of a possible counterexample to the Jacobian
+      conjecture from 100 to 108
+    authors:
+      - "J. A. Guccione"
+      - "J. J. Guccione"
+      - "R. Horruitiner"
+      - "C. Valqui"
+    id: "arXiv:2204.14178v1"
+    type: "article (arXiv preprint, 2022, unrefereed; version pinned at v1)"
+    location: "Proposition 4.3"
+    relationship: "background"
+    note: >-
+      Source of the strip families to which the theorem is applied in the
+      campaign (subcase (2) at Newton-degree pair (72,108)).  The
+      formalized theorems are unconditional statements about strip pairs
+      and do not depend on this reduction; only the campaign application
+      inherits it.
+    license: "unknown"
+    author_endorsement: "not-contacted"
+
+related_formalizations:
+  - id: "jc72108-theorem-a"
+    note: >-
+      Sibling Palomar project (theorem-a/ in the same repository): Theorem A
+      (ODE rigidity), the rigidity engine of the depth-two block analysis of
+      the same campaign, pinned to the same Lean/Mathlib toolchain.
+
+status:
+  scope: >-
+    Fully formalized and proved: the (2,2) vertex-gap obstruction
+    (VertexGap22 and its side-symmetric companion VertexGap22_swapped, both
+    at polynomial level with the Jacobian bracket hypothesis [P,Q] = x^2
+    stated via MvPolynomial.pderiv), the corner-enumeration lemma
+    (CornerEnumeration = lem:enum), and the side-symmetric gap condition
+    (GapConditionSideSymm = hypothesis (ii) per the erratum).  Inside the
+    proof, the vertex equation, the gap kill, and all nine block keys of
+    the (2,2) cell are derived from the bracket, and the paper's
+    elimination cascade (cancellations C1/C2, the rigidity event a3 = 0,
+    the pinning surplus) is certified by explicit linear_combination
+    steps.  NOT formalized: the general-cell counting propositions
+    (Propositions 3.2 and 3.3), the gap-kill lemma at general (k,d2)
+    (only its (2,2) instances appear, inside the proof), the scheme-level
+    radical-membership refinement (Remark 3.5), the (2,3)/(2,4) variants
+    and k >= 3 rigidity certificates (Section 4), the (8,28) worked
+    example (Section 5), the log-residue functional and block-variety
+    theorem (Section 6), the GGHV chart reduction and the (72,108)
+    application (Sections 7-8).
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: []
+
+automation:
+  methods:
+    - method: "agent"
+      models: ["Claude Fable 5 (Anthropic)"]
+      framework: "Claude Code (Claude Agent SDK)"
+      tool_setup: >-
+        AI-assisted: statement design and proofs drafted and debugged by a
+        Claude agent against the pinned Mathlib, using the paper's proof of
+        Theorem 3.4 as specification; the twelve key equations and the
+        elimination cascade were first re-verified by the agent with an
+        independent exact-arithmetic enumeration over a large prime field
+        before being formalized; machine-checked by the Lean kernel via
+        lake build, with an axiom audit script.
+      cost:
+        wall_time: "under one day of agent time"
+        spend_usd: "subscription-based"
+        hardware: "local machine (macOS, elan/lake)"
+      prompting_notes: >-
+        Campaign-directed prompt supplying the paper source and Palomar's
+        submission constraints; the agent chose the self-contained
+        polynomial/support-combinatorics core per the campaign's scoping
+        instruction (semantic fidelity over coverage).
+    - method: "manual"
+      models: []
+      framework: "n/a"
+      tool_setup: >-
+        Human campaign direction, mathematical review of the informal
+        proof, statement audit of Challenge.lean, and final submission
+        review.
+      cost:
+        wall_time: "a few hours of human review"
+        spend_usd: "not tracked"
+        hardware: "local machine"
+      prompting_notes: "n/a"
+  spend_usd: "subscription-based"
+  notes: >-
+    Proofs were drafted by a Claude (Fable) agent in a human-directed
+    research campaign; the informal theorem and proof had previously passed
+    campaign-internal adversarial review (independent AI re-derivations,
+    exact-arithmetic replays, and the two corrections - side-symmetry and
+    radical membership - now incorporated in the paper).  This
+    formalization is machine-checked; the human author reviewed the
+    statements and takes responsibility.
+
+fidelity:
+  divergences: >-
+    (1) Labels: the paper states Theorem 3.4 after normalizing the labels
+    of the pair (Lemma 2.2 plus the swap (P,Q) -> (Q,-P)); VertexGap22 is
+    the normalized-label statement and VertexGap22_swapped the mirrored
+    one, so the pair of theorems is the side-symmetric content of the
+    printed theorem.  (2) The Newton-polygon hypotheses (S1)-(S3) and (i)
+    of the source are rendered as explicit lattice-support inequalities:
+    P in the strip 0 <= 2i-j <= 2, Q in the strip 0 <= 2i-j <= 3 together
+    with i <= 2j.  The last inequality (support of the wide member on or
+    above the line through (0,0) and its bottom corner (2,1)) is carried
+    in the paper by the polygon shape - "the points of a gap column lie
+    strictly above the bottom edge" of N(Q), whose bottom edge runs from
+    (0,0) to (k,1) - rather than by a displayed inequality; it is
+    load-bearing for the gap kill and is made explicit here.  (3) The
+    saturation clause of (S2) (nonvanishing bottom-corner coefficients)
+    and the uniqueness clause of (i) are not assumed: with the support
+    inequalities they are consequences (the vertex equation
+    a_{(1,0)}*b_{(2,1)} = 1 is derived from the bracket), so the
+    formalized statement is harmlessly stronger.  Strip lengths are
+    unconstrained, covering the paper's "strips of any lengths containing
+    the block columns".  (4) "Characteristic not in {2,3,5}" is rendered
+    as (2:K) != 0, (3:K) != 0, (5:K) != 0, equivalent for fields.  The
+    formalized cascade in fact consumes only the invertibility of 2 and 3
+    (it keeps the factor 5 on the b9-pivot instead of dividing by it);
+    (5:K) != 0 is retained in the statements for fidelity with the print
+    but is unused by the proof - consistent with Remark 3.7, which
+    observes (without claim) that the obstruction appears to persist mod
+    5, and which claims sharpness of {2,3,5} only for the paper's own
+    pivot derivation.  (5) The conclusion is the variety-level statement
+    of Theorem 3.4 (every solution satisfies a3 = 0 and a2^2*a6 = 0); the
+    scheme-level refinement of Remark 3.5 (u^2 in the block ideal but u
+    not in it) is not formalized.  (6) CornerEnumeration is stated for all
+    natural k (the paper's context has k >= 1; the statement also holds at
+    k = 0) and omits the unused uniqueness clause of hypothesis (i).
+    No other divergences known.
+
+review:
+  status: >-
+    self-assessed; statements audited against the source by the human
+    author; the informal theorem previously passed campaign-internal
+    adversarial review (independent AI re-derivations and exact-arithmetic
+    replays); not yet externally peer-reviewed
+  reviewers:
+    - "Dan Clemens Posch"
+  notes: >-
+    The key equations and the cascade formalized here were re-checked
+    during formalization by an independent random-evaluation enumeration
+    over a large prime field (all twelve keys and the identically-zero
+    top stratum matched the bracket coefficients; the cascade's
+    consistency and both obstruction events reproduced).  The Lean proofs
+    are kernel-checked; kernel-only (no native_decide), axioms exactly
+    propext, Classical.choice, Quot.sound.
+
+alignment:
+  namespace: "(root); helper lemmas live in JC72108.VertexGap inside Solution.lean"
+  statements:
+    - source: >-
+        Lemma 2.2 (label lem:enum), Section 2 of the campaign paper
+      lean: "CornerEnumeration"
+      module: "Challenge"
+      status: "proved"
+      note: >-
+        Stated for all k : Nat (source context has k >= 1); the unused
+        uniqueness clause of hypothesis (i) is omitted.
+    - source: >-
+        Hypothesis (ii) (gap condition), Section 2, in the side-symmetric
+        form required by the erratum recorded in Section 8
+      lean: "GapConditionSideSymm"
+      module: "Challenge"
+      status: "proved"
+    - source: >-
+        Theorem 3.4 (label thm:22, "vertex-gap obstruction,
+        (k,d2) = (2,2)"), Section 3, in the paper's normalized labels
+      lean: "VertexGap22"
+      module: "Challenge"
+      status: "proved"
+      note: >-
+        Newton-polygon hypotheses as explicit support inequalities;
+        saturation derived, not assumed; (5:K) != 0 retained but unused by
+        the formal proof; conclusion at variety level.
+    - source: >-
+        Theorem 3.4, mirrored labels (the paper's normalization
+        (P,Q) -> (Q,-P), Section 2, run in reverse)
+      lean: "VertexGap22_swapped"
+      module: "Challenge"
+      status: "proved (adapted: the side-symmetric companion statement)"
+  # The same four declarations appear verbatim in Solution.lean with
+  # proofs; comparator.json compares them.
+
+acknowledgements: >-
+  The Mathlib community (the formalization is a thin layer over Mathlib's
+  MvPolynomial and Finsupp API); Anthropic Claude (Fable) agents for
+  drafting and verification; the Palomar starter template for the
+  repository layout.
