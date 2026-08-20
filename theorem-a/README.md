@@ -45,7 +45,7 @@ independent one: pure degree bookkeeping inside `F[y]`.
 | `formalization.yaml` | structured metadata (sources, automation, review) |
 | `scripts/check_axioms.sh` | axiom audit for the Solution theorems |
 
-Toolchain: Lean `v4.32.2`, Mathlib tag `v4.32.2` (pinned in
+Toolchain: Lean `v4.34.0-rc1`, Mathlib master revision `20bc12820422504f9e52ee6caebf8182a9015336` (pinned in
 `lake-manifest.json`).
 
 ## Build and check

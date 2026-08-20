@@ -2,8 +2,8 @@
 
 PUSHED 2026-08-19: repo github.com/dcposch/jc2-lean (public, branch master), project path `theorem-a`, commit c59d6ef0d5ea85707d78980ea03c38608285d446.
 
-Status when this file was written: `lake build` green on Lean v4.32.2 +
-Mathlib v4.32.2; `scripts/check_axioms.sh` passes (both theorems use only
+Status when this file was written: `lake build` green on Lean v4.34.0-rc1 +
+Mathlib master 20bc1282...5336; `scripts/check_axioms.sh` passes (both theorems use only
 `propext`, `Classical.choice`, `Quot.sound`); no git repo initialized yet, by
 design.
 
