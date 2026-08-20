@@ -1,3 +1,5 @@
+**Registered:** [PALOMAR-2026-08-20-000001 v1](https://palomar-registry.org/entry?id=PALOMAR-2026-08-20-000001&version=1)
+
 # jc2-vertex-gap
 
 Lean 4 / Mathlib formalization of the **vertex-gap obstruction at
