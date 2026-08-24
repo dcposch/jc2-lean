@@ -2,15 +2,15 @@
 
 This file maps every hand-written declaration in `Challenge.lean` to the
 informal source or identifies it as formalization infrastructure. Source line
-numbers refer to the parent campaign working tree now rooted at
-`/Users/dc/code/math/jc2` as of 2026-08-20; the cited campaign files now live
-under `ladder/` or `cases/` there.
+numbers refer to the parent campaign working tree as of 2026-08-20; the cited
+campaign paths are relative to that repository and now begin with `ladder/` or
+`cases/`.
 
 The primary sources requested for this layer are:
 
-- `SHEET6-TEMPLATE.md` §0 and §1a (lines 33–80);
-- `SHEET6-DIRECTIONB.md` header/gauge and §§0–1 (lines 22–92);
-- `SHEET6-DIRECTIONB.md` §7.S3 (lines 1091–1140).
+- `ladder/SHEET6-TEMPLATE.md` §0 and §1a (lines 33–80);
+- `ladder/SHEET6-DIRECTIONB.md` header/gauge and §§0–1 (lines 22–92);
+- `ladder/SHEET6-DIRECTIONB.md` §7.S3 (lines 1091–1140).
 
 The same sheet's §§7, 8, 8.S, and 9 supply the explicitly requested no-log,
 D23, and D25 extension data.  Exact orbit-registry details referenced by the
@@ -21,8 +21,8 @@ listed rather than pretending the prose prints every branch coefficient.
 
 | Lean declaration | Informal source | Fidelity note |
 | --- | --- | --- |
-| `newtonDegreePair` | campaign target stated by the task; `plan-72-108.md` lines 1–4 | Stored as the campaign label `(72,108)`.  It is deliberately not identified with the template's chart degrees `(168,252)`; some source conventions order `(deg P,deg Q)` oppositely. |
-| `totalDefect` | `SHEET6-TEMPLATE.md` lines 61–64 | Literal `td=6`. |
+| `newtonDegreePair` | campaign target stated by the task; `jc72108/plan-72-108.md` lines 1–4 | Stored as the campaign label `(72,108)`.  It is deliberately not identified with the template's chart degrees `(168,252)`; some source conventions order `(deg P,deg Q)` oppositely. |
+| `totalDefect` | `ladder/SHEET6-TEMPLATE.md` lines 61–64 | Literal `td=6`. |
 | `templateType` | Template lines 61–62 | Literal `(alpha,beta)=(2,3)`. |
 | `fExponentPair` | Template lines 61–63 | Literal `(k_f,l_f)=(126,42)`. |
 | `gExponentPair` | Template lines 61–63 | Literal `(k_g,l_g)=(189,63)`. |
