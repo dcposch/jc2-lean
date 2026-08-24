@@ -1,0 +1,128 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+# formalization.yaml v0.4
+version: "v0.4"
+
+project:
+  name: "jc72108-depth-witness"
+  description: >-
+    Definition-only Lean 4 / Mathlib layer for finite depth-window survival
+    on the (72,108), total-defect-6 residue-A chart over ZMod 105337.  It
+    constructs the normalized chart jets from the exact nine-orbit registry,
+    states the Jacobian row recurrence through parameter depth D, and records
+    the D21 CORE2 and D23/D25 frontier metadata without expanding the large
+    polynomial systems.  No nonemptiness or emptiness verdict theorem is
+    asserted in this phase.
+  authors:
+    - "Dan Clemens Posch"
+  license: "Apache-2.0"
+  responsible_maintainers:
+    - "Dan Clemens Posch"
+
+classification:
+  arxiv: ["math.AG", "math.AC"]
+  msc2020: ["14R15", "13P10"]
+
+sources:
+  - title: "SHEET6-TEMPLATE.md - coefficient-level lift of the two-pole rigid template"
+    authors: ["Dan Clemens Posch"]
+    id: "campaign-working-tree:SHEET6-TEMPLATE.md"
+    type: "campaign working document"
+    location: "Sections 0 and 1a"
+    relationship: "formalizes definitions from"
+    license: "unknown"
+    author_endorsement: "participated"
+  - title: "SHEET6-DIRECTIONB.md - the J-jet strike at the resonant direction b"
+    authors: ["Dan Clemens Posch"]
+    id: "campaign-working-tree:SHEET6-DIRECTIONB.md"
+    type: "campaign working document and computation record"
+    location: "Header and Sections 0-1, 7, 7.S3, 8, 8.S, and 9"
+    relationship: "formalizes definitions from"
+    license: "unknown"
+    author_endorsement: "participated"
+
+related_formalizations:
+  - id: "PALOMAR-2026-08-19-000005"
+    relationship: "sibling project from the same campaign and repository"
+    note: "Theorem A (ODE rigidity), using the identical Lean/Mathlib pins."
+  - id: "PALOMAR-2026-08-20-000001"
+    relationship: "sibling project from the same campaign and repository"
+    note: "Vertex-gap obstruction, using the identical Lean/Mathlib pins."
+
+status:
+  scope: >-
+    Definition-only phase.  Formalized: fixed ZMod 105337 coefficient setup;
+    template exponent ladder and approximate-root recurrence; exact residue-A
+    orbit registry and phase-twisted factor products; the structural Jacobian
+    recurrence for rows k < D; D21/D23/D25 extension predicates; CORE2 pivot,
+    residual, coordinate, and frontier metadata; parameterized proposition
+    HasDepthWitness D.  Not formalized: expanded solver polynomials, CORE2
+    elimination equivalence, witness coordinates, Groebner certificates,
+    nonemptiness/emptiness, formal-germ or characteristic-zero conclusions.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: []
+
+automation:
+  methods:
+    - method: "agent"
+      models: ["GPT-5.6 Sol (OpenAI)"]
+      framework: "OpenAI Codex"
+      tool_setup: >-
+        AI-assisted source audit, structural Lean definition design, and
+        elaboration against the pinned Mathlib; checked by lake build and an
+        axiom audit.  No native_decide is used.
+      cost:
+        wall_time: "one agent session"
+        spend_usd: "subscription-based"
+        hardware: "local machine (macOS)"
+      prompting_notes: >-
+        Campaign-directed request for the definitional layer only, with the
+        D25 verdict explicitly deferred and expanded polynomial lists barred.
+    - method: "manual"
+      models: []
+      framework: "n/a"
+      tool_setup: "Human campaign direction and planned fidelity review."
+      cost:
+        wall_time: "not yet recorded"
+        spend_usd: "not tracked"
+        hardware: "n/a"
+      prompting_notes: "n/a"
+  spend_usd: "subscription-based"
+  notes: >-
+    The definitions were implemented by Codex.  A separate Grok fidelity
+    review is planned; the Lean kernel currently accepts the full project.
+
+fidelity:
+  divergences: >-
+    Expanded CORE2/Row_22/Row_24 polynomial lists are intentionally replaced
+    by the exact orbit product and displayed Jacobian row recurrence.  CORE2
+    is recorded as computational metadata, and its equivalence proof is
+    deferred to the certificate layer.  HasDepthWitness asks for an actual
+    ZMod 105337 point, not merely geometric nonemptiness over an algebraic
+    closure.  IsCampaignDepth is capped by D <= 42 because only rows 0..41
+    are pure y-side in the source.  The campaign pair (72,108) is metadata
+    and is not identified with chart degrees (168,252).  No other known
+    divergence.
+
+review:
+  status: "self-assessed; separate Grok fidelity review pending"
+  reviewers: ["OpenAI Codex"]
+  notes: >-
+    All definitions typecheck on the pinned toolchain.  Fixed finite-field
+    identities are proved by ordinary kernel decide, never native_decide.
+
+alignment:
+  namespace: "JC72108.DepthWitness"
+  statements:
+    - source: "SHEET6-DIRECTIONB.md Section 0 Jacobian row identity"
+      lean: "jacobianRow, rowTarget, WindowConditions"
+      module: "Challenge"
+      status: "defined"
+    - source: "D21/D23/D25 depth ladder"
+      lean: "DepthExtension, D23Extension, D25Extension"
+      module: "Challenge"
+      status: "defined"
+    - source: "Palomar phase-2 existence-statement template"
+      lean: "HasDepthWitness"
+      module: "Challenge"
+      status: "defined; truth value not asserted"

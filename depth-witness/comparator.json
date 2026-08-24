@@ -1,0 +1,28 @@
+{
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
+  "theorem_names": [
+    "JC72108.DepthWitness.windowPrime_prime",
+    "JC72108.DepthWitness.sqrtThree_sq",
+    "JC72108.DepthWitness.zeta42_pow",
+    "JC72108.DepthWitness.zeta42_primitive",
+    "JC72108.DepthWitness.etaB_seventh",
+    "JC72108.DepthWitness.fLead_value",
+    "JC72108.DepthWitness.gLead_value",
+    "JC72108.DepthWitness.lead_tower_relation"
+  ],
+  "definition_names": [
+    "JC72108.DepthWitness.towerTerm",
+    "JC72108.DepthWitness.orbitCoefficient",
+    "JC72108.DepthWitness.phi",
+    "JC72108.DepthWitness.gamma",
+    "JC72108.DepthWitness.jacobianRow",
+    "JC72108.DepthWitness.WindowConditions",
+    "JC72108.DepthWitness.HasDepthWitness",
+    "JC72108.DepthWitness.DepthExtension",
+    "JC72108.DepthWitness.D23Extension",
+    "JC72108.DepthWitness.D25Extension"
+  ],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
+  "enable_nanoda": true
+}
