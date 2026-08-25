@@ -1,0 +1,135 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "jc2-max11-partial-y-degree-closure"
+  description: >-
+    Lean 4 / Mathlib proof of the exact finite degree-routing certificate
+    through maximum partial y-degree eleven.  For any symmetric predicate on
+    degree pairs satisfying the zero, gcd-at-most-two, divisibility, and
+    equal-degree routes, the single additional leaf (6,9) closes every ordered
+    pair through eleven.  This project does not itself prove those route
+    hypotheses for Keller pairs or exclude the cube-core (6,9) branch.
+  authors:
+    - "Dan Clemens Posch"
+  license: "Apache-2.0"
+  responsible_maintainers:
+    - "Dan Clemens Posch"
+
+classification:
+  arxiv: ["math.AG", "math.AC", "math.CO"]
+  msc2020: ["14R15", "05A99"]
+
+sources:
+  - title: "GCD3 (6,9) coverage composition and the max-(11) threshold"
+    authors:
+      - "Dan Clemens Posch"
+    type: "other"
+    location: "sources/gcd3-69-coverage-composition-20260824.md"
+    relationship: "formalizes"
+    note: >-
+      Exact frozen campaign report containing the finite routing rules, the
+      exhaustive table through eleven, the recursive dependency graph, and
+      the frontier at twelve.  The Lean extraction formalizes that finite
+      composition only, not all mathematical leaves cited by the report.
+    license: "CC-BY-4.0"
+    author_endorsement: "participated"
+  - title: "Hostile different-model review: GCD3 (6,9) coverage composition"
+    authors:
+      - "Claude review agent under the JC2 campaign"
+    type: "other"
+    location: "sources/gcd3-69-coverage-composition-review-claude-20260824.md"
+    relationship: "background"
+    note: >-
+      Campaign-internal independent audit of the informal composition, copied
+      byte-for-byte.  It is not an external human review and does not review
+      this Lean extraction.
+    license: "CC-BY-4.0"
+    author_endorsement: "n/a"
+
+status:
+  scope: >-
+    Fully proved: the exact unordered route classification through eleven;
+    uniqueness of the primitive pair (6,9); strict recursive closure for an
+    arbitrary symmetric predicate Good; and the frontier checksum showing
+    (8,12) and (9,12) as the first new primitive pairs at maximum twelve.  Not
+    proved here: the interpretation of Good as automorphy of Keller pairs,
+    scalar-extension/descent, any of the classical degree-reduction theorems,
+    or the cube-core (6,9) exclusion.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+  main_results:
+    - declaration: "MaxPartialDegreeElevenClosure"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+
+automation:
+  methods:
+    - method: "agent"
+      models: ["OpenAI Codex (GPT-5 family)"]
+      framework: "Codex"
+      tool_setup: >-
+        Agent-assisted extraction of the finite recursion, Lean proof
+        development, exhaustive arithmetic checking, build/debug cycles, and
+        source-alignment review against pinned Mathlib.
+      cost:
+        wall_time: "under one day of agent time"
+        spend_usd: "subscription-based"
+        hardware: "local Apple-silicon macOS machine"
+      prompting_notes: >-
+        The formalization isolates the exact finite composition from the
+        deeper algebraic leaves so its logical dependencies are explicit.
+    - method: "manual"
+      models: []
+      framework: "n/a"
+      tool_setup: "Human mathematical direction and responsibility for publication."
+      cost:
+        wall_time: "not separately recorded"
+        spend_usd: "not tracked"
+        hardware: "local machine"
+      prompting_notes: "n/a"
+  spend_usd: "subscription-based"
+  notes: >-
+    No external human review of the Lean project has yet occurred.  The
+    submitted proofs use only kernel-checked Mathlib tactics.
+
+fidelity:
+  divergences: >-
+    The source's final theorem concerns automorphy of characteristic-zero
+    bivariate Keller pairs.  This project deliberately abstracts that property
+    to Good and assumes each cited mathematical route as a hypothesis.  It
+    formalizes the complete finite recursion and frontier arithmetic, but not
+    the algebraic content of those hypotheses.  No other divergences are known.
+
+review:
+  status: >-
+    self-assessed; informal source passed campaign-internal different-model
+    hostile review; Lean statements and source alignment await human audit;
+    no external peer review
+  reviewers:
+    - "Dan Clemens Posch"
+  notes: >-
+    The copied hostile review predates and does not inspect the Lean code.
+    Kernel axiom reports and the project audit script find no sorryAx or
+    non-permitted axioms in Solution.lean.
+
+alignment:
+  namespace: "(root)"
+  statements:
+    - source: "Finite routing table and recursive closure, Sections 6--8"
+      lean: "MaxPartialDegreeElevenClosure"
+      module: "Challenge"
+      status: >-
+        exact abstract recursion proved; Keller-pair route theorems remain
+        hypotheses
+    - source: "Maximum-twelve frontier checksum, Section 9"
+      lean: "Max12FirstPrimitives"
+      module: "Challenge"
+      status: "exact finite arithmetic statement proved"
+
+acknowledgements: >-
+  The Mathlib community, the Palomar registry conventions, and the campaign
+  review agents that audited the informal composition source.

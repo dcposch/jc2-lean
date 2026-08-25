@@ -1,0 +1,16 @@
+name = "jc2_max11_partial_y"
+version = "0.1.0"
+defaultTargets = ["Challenge", "Solution"]
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "20bc12820422504f9e52ee6caebf8182a9015336"
+
+[[lean_lib]]
+name = "Challenge"
+roots = ["Challenge"]
+
+[[lean_lib]]
+name = "Solution"
+roots = ["Solution"]

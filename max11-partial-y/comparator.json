@@ -1,0 +1,13 @@
+{
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
+  "theorem_names": [
+    "Max11RouteClassification",
+    "Max11UniquePrimitive",
+    "MaxPartialDegreeElevenClosure",
+    "Max12FirstPrimitives"
+  ],
+  "definition_names": [],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
+  "enable_nanoda": true
+}
