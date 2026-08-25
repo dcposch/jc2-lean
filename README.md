@@ -18,6 +18,9 @@ campaign to settle the question.
 
 ## Public progress
 
+- **2026-08-25** · [PALOMAR-2026-08-25-000002](https://palomar-registry.org/entry.html?id=PALOMAR-2026-08-25-000002&version=1):
+  [`gcd3-69-noncube/`](gcd3-69-noncube/), the two-sheet lower-Pfaffian reduction
+  and nonconstant `C ≠ 0` elliptic-trajectory exclusion at partial degrees `(6,9)`
 - **2026-08-20** · [PALOMAR-2026-08-20-000001](https://palomar-registry.org/entry?id=PALOMAR-2026-08-20-000001&version=1):
   [`vertex-gap/`](vertex-gap/), the vertex-gap obstruction for low-degree strip pairs
 - **2026-08-19** · [PALOMAR-2026-08-19-000005](https://palomar-registry.org/entry?id=PALOMAR-2026-08-19-000005&version=1):
