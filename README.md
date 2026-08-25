@@ -26,6 +26,17 @@ campaign to settle the question.
 - **2026-08-19** · [PALOMAR-2026-08-19-000005](https://palomar-registry.org/entry?id=PALOMAR-2026-08-19-000005&version=1):
   [`theorem-a/`](theorem-a/), the strip rigidity lemma (Lean 4, kernel-checked)
 
+## Unpublished candidate formalizations
+
+- [`gcd3-69-core/`](gcd3-69-core/) formalizes six self-contained algebraic
+  foundations of the new `(6,9)` common-cubic gate. It does not formalize the
+  later `(6,9), 3|H` exclusion or maximum-partial-degree-eleven composition.
+- [`strip-block/`](strip-block/) formalizes the weighted-ODE encoding, inner
+  rigidity, residue coefficient identity, and the final logical intersection
+  for the uniform depth-two block. The raw triangular block elimination and
+  outer-column theorem remain to be formalized, so this is scaffolding rather
+  than a complete formalization of the paper's `thm:R`.
+
 Campaign artifacts: [paper + verification](https://doi.org/10.5281/zenodo.21894922),
 [theory bundle](https://doi.org/10.5281/zenodo.22002825).
 

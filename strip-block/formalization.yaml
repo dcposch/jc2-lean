@@ -1,0 +1,203 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+# formalization.yaml v0.4
+version: "v0.4"
+
+project:
+  name: "jc2-strip-block-core"
+  description: >-
+    Lean 4 / Mathlib formalization of a supporting algebraic core for the
+    uniform depth-two log-residue result (thm:R, Theorem 6.5 in the current
+    campaign-paper compilation).  It proves an exact finite-coefficient
+    encoding of the weighted ODE (BlockToODEBridge), the resulting one-way
+    characteristic-zero rigidity statement (InnerBlockRigidity), an exact
+    binomial-transform coefficient identity for the displayed residue
+    functional (OuterResidueIdentity), and the final variety intersection
+    conditional on an explicit interface supplying the substantive inner
+    and outer elimination equivalences (LogResidueBlockVariety).  It is not
+    a complete formalization of thm:R.
+  authors:
+    - "Dan Clemens Posch"
+  license: "Apache-2.0"
+  responsible_maintainers:
+    - "Dan Clemens Posch"
+
+classification:
+  arxiv: ["math.AG", "math.AC"]
+  msc2020: ["14R15"]
+
+sources:
+  - title: >-
+      Sheet-number obstruction theory for the plane Jacobian Conjecture:
+      campaign theory bundle v1
+    authors:
+      - "Dan Clemens Posch"
+    id: "doi:10.5281/zenodo.22002825"
+    type: "working paper (archived campaign theory bundle)"
+    location: >-
+      Section 6 material: block-to-ODE bridge, outer-column residue
+      calculation, and log-residue description of the block variety
+    relationship: "partially formalizes"
+    note: >-
+      The package formalizes the algebraic statements described in status
+      and alignment below.  It does not formalize the source's actual
+      triangular block elimination or outer-column lemma; those missing
+      equivalences are exposed as fields of DepthTwoBlockData.  A local copy
+      of the weighted-ODE rigidity proof is included only to keep the package
+      standalone; that theorem is already separately registered in the
+      sibling theorem-a project.
+    license: "CC-BY-4.0"
+    author_endorsement: "participated"
+  - title: >-
+      A Vertex-Gap Obstruction for Low-Degree Strip Pairs in the Plane
+      Jacobian Conjecture
+    authors:
+      - "Dan Clemens Posch"
+    id: "doi:10.5281/zenodo.21894922"
+    type: "working paper and reproduction artifact"
+    location: >-
+      Section 6 in the current compilation, especially lem:bridge,
+      lem:outer, and thm:R
+    relationship: "background"
+    note: >-
+      The archived record supplies the surrounding strip-pair definitions,
+      exact-arithmetic artifact, and campaign context.  The current source
+      compilation contains the uniform residue theorem used as the
+      specification for this partial formalization.
+    license: "MIT"
+    author_endorsement: "participated"
+
+related_formalizations:
+  - id: "PALOMAR-2026-08-19-000005"
+    relationship: "reuses a local standalone copy of the sibling theorem"
+    note: >-
+      Theorem A (weighted-ODE rigidity) is already fully formalized and
+      registered in theorem-a/.  This package copies the proof locally so
+      the project remains Mathlib-only and standalone.
+  - id: "PALOMAR-2026-08-20-000001"
+    relationship: "same campaign; complementary concrete block theorem"
+    note: >-
+      vertex-gap/ formalizes the actual polynomial/support equations and
+      elimination for the concrete (k,d2)=(2,2) vertex-gap obstruction.
+
+status:
+  scope: >-
+    Fully proved in this package: (1) BlockToODEBridge, saying that the
+    explicitly defined finite coefficient condition innerBlockKeysVanish is
+    equivalent to A*C' - k*A'*C = 1 under the displayed degree bounds; (2)
+    InnerBlockRigidity, the implication from that condition to deg A <= 1 in
+    characteristic zero; (3) OuterResidueIdentity, identifying the displayed
+    R_{k,d} with coefficient k+2 of an explicit finite binomial transform;
+    and (4) LogResidueBlockVariety, the final elementary intersection once
+    the actual inner- and outer-extra equivalences are supplied as fields of
+    DepthTwoBlockData.  NOT formalized: the Newton-strip-to-block reduction,
+    the triangular inner solve for the paper's d2-1 actual inner extras, the
+    normalized-binomial converse, or the outer-column calculation including
+    its precise nonzero scalar.  Therefore thm:R itself is not yet fully
+    formalized.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: []
+
+automation:
+  methods:
+    - method: "agent"
+      models: ["OpenAI Codex (GPT-5)"]
+      framework: "Codex"
+      tool_setup: >-
+        AI-assisted statement design, Lean proof drafting, debugging against
+        the pinned Mathlib API, axiom auditing, and Palomar-style package
+        preparation.  The local weighted-ODE proof was adapted from the
+        already machine-checked sibling theorem-a project.
+      cost:
+        wall_time: "under one day of agent time"
+        spend_usd: "subscription-based"
+        hardware: "local machine (macOS, elan/lake)"
+      prompting_notes: >-
+        Human-directed task to test whether the uniform strip/log-residue
+        result was suitable for a further Palomar formalization, with an
+        explicit requirement not to hide unformalized reductions behind the
+        public theorem statement.
+    - method: "manual"
+      models: []
+      framework: "n/a"
+      tool_setup: >-
+        Human campaign direction and responsibility for mathematical source,
+        final statement audit, and any publication decision.
+      cost:
+        wall_time: "not yet recorded"
+        spend_usd: "not tracked"
+        hardware: "local machine"
+      prompting_notes: "n/a"
+  spend_usd: "subscription-based"
+  notes: >-
+    Solution.lean and Rigidity.lean are kernel-checked.  The scope boundary is
+    part of the formalization: the two source-specific elimination inputs are
+    named fields of DepthTwoBlockData, not hidden axioms or informal claims.
+
+fidelity:
+  divergences: >-
+    This is a partial supporting formalization, not a declaration-equivalent
+    translation of thm:R.  First, innerBlockKeysVanish is a purpose-built
+    finite coefficient encoding that already quantifies the polynomial C;
+    the source instead defines actual extra keys after a triangular solve and
+    proves their equivalence to existence of C.  Second,
+    OuterResidueIdentity proves only the elementary binomial-transform
+    coefficient formula for R_{k,d}; it does not derive the surviving outer
+    extra from the solved outer column or certify the scalar displayed in
+    lem:outer.  Third, LogResidueBlockVariety assumes both missing locus
+    identifications through DepthTwoBlockData and proves only the final
+    logical assembly.  Fourth, the assembly theorem is stated over any field
+    because characteristic zero is needed in the missing/rigidity input, not
+    in the final zero-product argument itself.  The finite encoding and ODE
+    rigidity are stated over commutative integral domains where possible,
+    strengthening the field assumptions for those isolated pieces.
+
+review:
+  status: >-
+    self-assessed partial formalization; exact scope audited against the
+    source during package preparation; not externally peer-reviewed and not
+    yet recommended as a full-theorem Palomar submission
+  reviewers:
+    - "Dan Clemens Posch"
+  notes: >-
+    Any later submission should retain the explicit partial-scope warning.
+    To claim a full formalization of thm:R, it must first replace the two
+    DepthTwoBlockData equivalence fields with proofs from definitions of the
+    actual block equations.
+
+alignment:
+  namespace: "(root); local rigidity helper lives in StripBlock.Rigidity"
+  statements:
+    - source: "lem:bridge, coefficient/ODE part"
+      lean: "BlockToODEBridge"
+      module: "Challenge"
+      status: "proved (adapted encoding, not the actual eliminated extras)"
+      note: >-
+        Exact equivalence for innerBlockKeysVanish as defined in Lean.  This
+        does not formalize the source's triangular identification of its
+        actual d2-1 inner extras with the encoding.
+    - source: "inner half of thm:R, using thm:ode"
+      lean: "InnerBlockRigidity"
+      module: "Challenge"
+      status: "proved (one-way implication for the encoding)"
+      note: >-
+        Uses the local characteristic-zero weighted-ODE rigidity theorem.
+        The normalized-binomial converse is not present.
+    - source: "definition of R_{k,d2} in Section 6"
+      lean: "OuterResidueIdentity"
+      module: "Challenge"
+      status: "proved (finite coefficient identity only)"
+      note: >-
+        Does not formalize lem:outer or its scalar factor.
+    - source: "final set-theoretic intersection in thm:R"
+      lean: "LogResidueBlockVariety"
+      module: "Challenge"
+      status: "proved conditional on DepthTwoBlockData"
+      note: >-
+        The substantive source-specific inner_iff and outer_iff facts are
+        hypotheses, not conclusions of this theorem.
+
+acknowledgements: >-
+  The Mathlib community; OpenAI Codex for assisted formalization and package
+  preparation; the Palomar project conventions used by the two sibling
+  formalizations.

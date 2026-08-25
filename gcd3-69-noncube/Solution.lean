@@ -21,6 +21,466 @@ rational ODE.
 open Polynomial
 open scoped BigOperators
 
+/-- The degree-six member of the aligned eight-high-row normal form. -/
+noncomputable def GCD369AlignedF {K : Type*} [Field K]
+    (a0 a1 a2 a3 a4 : K) : K[X] :=
+  X ^ 6 + C a4 * X ^ 4 + C a3 * X ^ 3 + C a2 * X ^ 2 + C a1 * X + C a0
+
+/-- The degree-nine member of the aligned eight-high-row normal form, with
+the sole surviving high-row integration constant `kappa`. -/
+noncomputable def GCD369AlignedG {K : Type*} [Field K]
+    (a0 a1 a2 a3 a4 kappa : K) : K[X] :=
+  X ^ 9
+    + C (3 * a4 / 2) * X ^ 7
+    + C (3 * a3 / 2) * X ^ 6
+    + C (3 * (4 * a2 + a4 ^ 2) / 8) * X ^ 5
+    + C (3 * (2 * a1 + a3 * a4) / 4) * X ^ 4
+    + C ((24 * a0 + 12 * a2 * a4 + 6 * a3 ^ 2 - a4 ^ 3) / 16) * X ^ 3
+    + C (3 * (4 * a1 * a4 + 4 * a2 * a3 - a3 * a4 ^ 2) / 16) * X ^ 2
+    + C (3 * (32 * a0 * a4 + 32 * a1 * a3 + 16 * a2 ^ 2
+        - 8 * a2 * a4 ^ 2 - 8 * a3 ^ 2 * a4 + a4 ^ 4) / 128) * X
+    + C ((24 * a0 * a3 + 24 * a1 * a2 - 6 * a1 * a4 ^ 2
+        - 12 * a2 * a3 * a4 - 2 * a3 ^ 3 + 3 * a3 * a4 ^ 3) / 32)
+    + C kappa * (X ^ 3 + C (a4 / 2) * X + C (a3 / 2))
+
+/-- Evaluation at a differential indeterminate commutes with formal
+polynomial differentiation when the derivation kills the coefficient field
+and sends the indeterminate to one. -/
+theorem GCD369PolynomialEvalDerivative {k L : Type*} [Field k] [Field L]
+    [Algebra k L] [Differential L] (x : L)
+    (hconst : ∀ c : k, Differential.deriv (algebraMap k L c) = 0)
+    (hx : Differential.deriv x = 1) (P : k[X]) :
+    Differential.deriv (aeval x P) = aeval x P.derivative := by
+  rw [Derivation.apply_aeval_eq (R := ℤ) (A := k) Differential.deriv x P]
+  rw [hx]
+  simp only [smul_eq_mul, mul_one]
+  let dk : Derivation ℤ k L := Differential.deriv.compAlgebraMap k
+  have hz : dk.mapCoeffs P = 0 := by
+    ext n
+    simp [dk, hconst]
+  rw [hz]
+  simp
+
+set_option maxHeartbeats 2000000 in
+/-- The complete five-row lower bracket after clearing the common denominator `128`.
+The identity is universal over a commutative ring: `fx` and `Gx` are the
+formal `z`-derivatives, while `fdot` and `Gdot` are coefficient velocities. -/
+theorem GCD369LowerBracketIdentity {R : Type*} [CommRing R]
+    (x a0 a1 a2 a3 a4 kappa v0 v1 v2 v3 v4 : R) :
+    let fx :=
+      6 * x ^ 5 + 4 * a4 * x ^ 3 + 3 * a3 * x ^ 2 + 2 * a2 * x + a1
+    let Gx :=
+      1152 * x ^ 8
+        + 1344 * a4 * x ^ 6
+        + 1152 * a3 * x ^ 5
+        + 240 * (4 * a2 + a4 ^ 2) * x ^ 4
+        + 384 * (2 * a1 + a3 * a4) * x ^ 3
+        + 24 * (24 * a0 + 12 * a2 * a4 + 6 * a3 ^ 2 - a4 ^ 3) * x ^ 2
+        + 48 * (4 * a1 * a4 + 4 * a2 * a3 - a3 * a4 ^ 2) * x
+        + 3 * (32 * a0 * a4 + 32 * a1 * a3 + 16 * a2 ^ 2
+            - 8 * a2 * a4 ^ 2 - 8 * a3 ^ 2 * a4 + a4 ^ 4)
+        + 384 * kappa * x ^ 2 + 64 * kappa * a4
+    let fdot := v4 * x ^ 4 + v3 * x ^ 3 + v2 * x ^ 2 + v1 * x + v0
+    let Gdot :=
+      192 * v4 * x ^ 7
+        + 192 * v3 * x ^ 6
+        + 48 * (4 * v2 + 2 * a4 * v4) * x ^ 5
+        + 96 * (2 * v1 + v3 * a4 + a3 * v4) * x ^ 4
+        + 8 * (24 * v0 + 12 * (v2 * a4 + a2 * v4) + 12 * a3 * v3
+            - 3 * a4 ^ 2 * v4) * x ^ 3
+        + 24 * (4 * (v1 * a4 + a1 * v4) + 4 * (v2 * a3 + a2 * v3)
+            - (v3 * a4 ^ 2 + 2 * a3 * a4 * v4)) * x ^ 2
+        + 3 * (32 * (v0 * a4 + a0 * v4) + 32 * (v1 * a3 + a1 * v3)
+            + 32 * a2 * v2 - 8 * (v2 * a4 ^ 2 + 2 * a2 * a4 * v4)
+            - 8 * (2 * a3 * v3 * a4 + a3 ^ 2 * v4) + 4 * a4 ^ 3 * v4) * x
+        + 4 * (24 * (v0 * a3 + a0 * v3) + 24 * (v1 * a2 + a1 * v2)
+            - 6 * (v1 * a4 ^ 2 + 2 * a1 * a4 * v4)
+            - 12 * (v2 * a3 * a4 + a2 * v3 * a4 + a2 * a3 * v4)
+            - 6 * a3 ^ 2 * v3 + 3 * (v3 * a4 ^ 3 + 3 * a3 * a4 ^ 2 * v4))
+        + 64 * kappa * v4 * x + 64 * kappa * v3
+    let row4 := 3 * (-96 * a0 * a4 * v4 + 192 * a0 * v2 - 96 * a1 * a3 * v4
+        - 96 * a1 * a4 * v3 + 192 * a1 * v1 - 48 * a2 ^ 2 * v4
+        - 96 * a2 * a3 * v3 + 72 * a2 * a4 ^ 2 * v4 - 96 * a2 * a4 * v2
+        + 192 * a2 * v0 + 72 * a3 ^ 2 * a4 * v4 - 48 * a3 ^ 2 * v2
+        + 72 * a3 * a4 ^ 2 * v3 - 96 * a3 * a4 * v1 - 15 * a4 ^ 4 * v4
+        + 24 * a4 ^ 3 * v2 - 48 * a4 ^ 2 * v0 - 64 * a4 * kappa * v4
+        + 128 * kappa * v2)
+    let row3 := 3 * (-96 * a0 * a3 * v4 - 96 * a0 * a4 * v3 + 192 * a0 * v1
+        - 96 * a1 * a2 * v4 - 96 * a1 * a3 * v3 + 72 * a1 * a4 ^ 2 * v4
+        - 96 * a1 * a4 * v2 + 192 * a1 * v0 - 48 * a2 ^ 2 * v3
+        + 144 * a2 * a3 * a4 * v4 - 96 * a2 * a3 * v2
+        + 72 * a2 * a4 ^ 2 * v3 - 96 * a2 * a4 * v1 + 24 * a3 ^ 3 * v4
+        + 72 * a3 ^ 2 * a4 * v3 - 48 * a3 ^ 2 * v1 - 60 * a3 * a4 ^ 3 * v4
+        + 72 * a3 * a4 ^ 2 * v2 - 96 * a3 * a4 * v0 - 64 * a3 * kappa * v4
+        - 15 * a4 ^ 4 * v3 + 24 * a4 ^ 3 * v1 - 64 * a4 * kappa * v3
+        + 128 * kappa * v1)
+    let row2 := -192 * a0 * a2 * v4 - 288 * a0 * a3 * v3 + 96 * a0 * a4 * v2
+        + 576 * a0 * v0 - 96 * a1 ^ 2 * v4 - 288 * a1 * a2 * v3
+        + 192 * a1 * a3 * a4 * v4 - 288 * a1 * a3 * v2 + 24 * a1 * a4 ^ 2 * v3
+        + 96 * a1 * a4 * v1 + 96 * a2 ^ 2 * a4 * v4 - 144 * a2 ^ 2 * v2
+        + 192 * a2 * a3 ^ 2 * v4 + 240 * a2 * a3 * a4 * v3
+        - 288 * a2 * a3 * v1 - 24 * a2 * a4 ^ 3 * v4 + 24 * a2 * a4 ^ 2 * v2
+        + 96 * a2 * a4 * v0 - 128 * a2 * kappa * v4 + 72 * a3 ^ 3 * v3
+        - 108 * a3 ^ 2 * a4 ^ 2 * v4 + 120 * a3 ^ 2 * a4 * v2
+        - 144 * a3 ^ 2 * v0 - 36 * a3 * a4 ^ 3 * v3 + 24 * a3 * a4 ^ 2 * v1
+        - 192 * a3 * kappa * v3 + 3 * a4 ^ 4 * v2 - 24 * a4 ^ 3 * v0
+        + 64 * a4 * kappa * v2 + 384 * kappa * v0
+    let row1 := -96 * a0 * a1 * v4 - 192 * a0 * a2 * v3 + 96 * a0 * a4 * v1
+        - 96 * a1 ^ 2 * v3 + 144 * a1 * a2 * a4 * v4 - 288 * a1 * a2 * v2
+        + 24 * a1 * a3 ^ 2 * v4 + 48 * a1 * a3 * a4 * v3 - 12 * a1 * a4 ^ 3 * v4
+        + 24 * a1 * a4 ^ 2 * v2 + 96 * a1 * a4 * v0 - 64 * a1 * kappa * v4
+        + 96 * a2 ^ 2 * a3 * v4 + 96 * a2 ^ 2 * a4 * v3 - 144 * a2 ^ 2 * v1
+        + 48 * a2 * a3 ^ 2 * v3 - 72 * a2 * a3 * a4 ^ 2 * v4
+        + 96 * a2 * a3 * a4 * v2 - 24 * a2 * a4 ^ 3 * v3 + 24 * a2 * a4 ^ 2 * v1
+        - 128 * a2 * kappa * v3 - 24 * a3 ^ 2 * a4 * v1 - 48 * a3 * a4 ^ 2 * v0
+        + 3 * a4 ^ 4 * v1 + 64 * a4 * kappa * v1
+    let row0 := -96 * a0 * a1 * v3 + 96 * a0 * a4 * v0 + 48 * a1 ^ 2 * a4 * v4
+        - 96 * a1 ^ 2 * v2 + 48 * a1 * a2 * a3 * v4 + 48 * a1 * a2 * a4 * v3
+        - 96 * a1 * a2 * v1 + 24 * a1 * a3 ^ 2 * v3 - 36 * a1 * a3 * a4 ^ 2 * v4
+        + 48 * a1 * a3 * a4 * v2 - 12 * a1 * a4 ^ 3 * v3 + 24 * a1 * a4 ^ 2 * v1
+        - 64 * a1 * kappa * v3 + 48 * a2 ^ 2 * v0 - 24 * a2 * a4 ^ 2 * v0
+        - 24 * a3 ^ 2 * a4 * v0 + 3 * a4 ^ 4 * v0 + 64 * a4 * kappa * v0
+    fdot * Gx - fx * Gdot =
+      row4 * x ^ 4 + row3 * x ^ 3 + row2 * x ^ 2 + row1 * x + row0 := by
+  dsimp only
+  ring
+
+
+set_option maxHeartbeats 2000000 in
+/-- Vanishing of the four lower zero rows makes the four triangular
+Pfaffian invariants differential constants.  The displayed normalizations are
+the integral multiples used by `GCD369InvariantFibreDichotomy`. -/
+theorem GCD369LowerFirstIntegrals {K : Type*} [Field K] [CharZero K] [Differential K]
+    (a0 a1 a2 a3 a4 kappa : K) (hkappa : Differential.deriv kappa = 0) :
+    let v0 := Differential.deriv a0
+    let v1 := Differential.deriv a1
+    let v2 := Differential.deriv a2
+    let v3 := Differential.deriv a3
+    let v4 := Differential.deriv a4
+    let row4 := 3 * (-96 * a0 * a4 * v4 + 192 * a0 * v2 - 96 * a1 * a3 * v4
+        - 96 * a1 * a4 * v3 + 192 * a1 * v1 - 48 * a2 ^ 2 * v4
+        - 96 * a2 * a3 * v3 + 72 * a2 * a4 ^ 2 * v4 - 96 * a2 * a4 * v2
+        + 192 * a2 * v0 + 72 * a3 ^ 2 * a4 * v4 - 48 * a3 ^ 2 * v2
+        + 72 * a3 * a4 ^ 2 * v3 - 96 * a3 * a4 * v1 - 15 * a4 ^ 4 * v4
+        + 24 * a4 ^ 3 * v2 - 48 * a4 ^ 2 * v0 - 64 * a4 * kappa * v4
+        + 128 * kappa * v2)
+    let row3 := 3 * (-96 * a0 * a3 * v4 - 96 * a0 * a4 * v3 + 192 * a0 * v1
+        - 96 * a1 * a2 * v4 - 96 * a1 * a3 * v3 + 72 * a1 * a4 ^ 2 * v4
+        - 96 * a1 * a4 * v2 + 192 * a1 * v0 - 48 * a2 ^ 2 * v3
+        + 144 * a2 * a3 * a4 * v4 - 96 * a2 * a3 * v2
+        + 72 * a2 * a4 ^ 2 * v3 - 96 * a2 * a4 * v1 + 24 * a3 ^ 3 * v4
+        + 72 * a3 ^ 2 * a4 * v3 - 48 * a3 ^ 2 * v1 - 60 * a3 * a4 ^ 3 * v4
+        + 72 * a3 * a4 ^ 2 * v2 - 96 * a3 * a4 * v0 - 64 * a3 * kappa * v4
+        - 15 * a4 ^ 4 * v3 + 24 * a4 ^ 3 * v1 - 64 * a4 * kappa * v3
+        + 128 * kappa * v1)
+    let row2 := -192 * a0 * a2 * v4 - 288 * a0 * a3 * v3 + 96 * a0 * a4 * v2
+        + 576 * a0 * v0 - 96 * a1 ^ 2 * v4 - 288 * a1 * a2 * v3
+        + 192 * a1 * a3 * a4 * v4 - 288 * a1 * a3 * v2 + 24 * a1 * a4 ^ 2 * v3
+        + 96 * a1 * a4 * v1 + 96 * a2 ^ 2 * a4 * v4 - 144 * a2 ^ 2 * v2
+        + 192 * a2 * a3 ^ 2 * v4 + 240 * a2 * a3 * a4 * v3
+        - 288 * a2 * a3 * v1 - 24 * a2 * a4 ^ 3 * v4 + 24 * a2 * a4 ^ 2 * v2
+        + 96 * a2 * a4 * v0 - 128 * a2 * kappa * v4 + 72 * a3 ^ 3 * v3
+        - 108 * a3 ^ 2 * a4 ^ 2 * v4 + 120 * a3 ^ 2 * a4 * v2
+        - 144 * a3 ^ 2 * v0 - 36 * a3 * a4 ^ 3 * v3 + 24 * a3 * a4 ^ 2 * v1
+        - 192 * a3 * kappa * v3 + 3 * a4 ^ 4 * v2 - 24 * a4 ^ 3 * v0
+        + 64 * a4 * kappa * v2 + 384 * kappa * v0
+    let row1 := -96 * a0 * a1 * v4 - 192 * a0 * a2 * v3 + 96 * a0 * a4 * v1
+        - 96 * a1 ^ 2 * v3 + 144 * a1 * a2 * a4 * v4 - 288 * a1 * a2 * v2
+        + 24 * a1 * a3 ^ 2 * v4 + 48 * a1 * a3 * a4 * v3 - 12 * a1 * a4 ^ 3 * v4
+        + 24 * a1 * a4 ^ 2 * v2 + 96 * a1 * a4 * v0 - 64 * a1 * kappa * v4
+        + 96 * a2 ^ 2 * a3 * v4 + 96 * a2 ^ 2 * a4 * v3 - 144 * a2 ^ 2 * v1
+        + 48 * a2 * a3 ^ 2 * v3 - 72 * a2 * a3 * a4 ^ 2 * v4
+        + 96 * a2 * a3 * a4 * v2 - 24 * a2 * a4 ^ 3 * v3 + 24 * a2 * a4 ^ 2 * v1
+        - 128 * a2 * kappa * v3 - 24 * a3 ^ 2 * a4 * v1 - 48 * a3 * a4 ^ 2 * v0
+        + 3 * a4 ^ 4 * v1 + 64 * a4 * kappa * v1
+    let I4 := 3 * (64 * a0 * a2 - 16 * a0 * a4 ^ 2 + 32 * a1 ^ 2
+        - 32 * a1 * a3 * a4 - 16 * a2 ^ 2 * a4 - 16 * a2 * a3 ^ 2
+        + 8 * a2 * a4 ^ 3 + 12 * a3 ^ 2 * a4 ^ 2 - a4 ^ 5)
+        + 32 * kappa * (4 * a2 - a4 ^ 2)
+    let I3 := 3 * (64 * a0 * a1 - 32 * a0 * a3 * a4 - 32 * a1 * a2 * a4
+        - 16 * a1 * a3 ^ 2 + 8 * a1 * a4 ^ 3 - 16 * a2 ^ 2 * a3
+        + 24 * a2 * a3 * a4 ^ 2 + 8 * a3 ^ 3 * a4 - 5 * a3 * a4 ^ 4)
+        + 64 * kappa * (2 * a1 - a3 * a4)
+    let I2 :=
+      1152 * a0 ^ 2 - 768 * a0 * a2 * a4 - 576 * a0 * a3 ^ 2
+        + 192 * a0 * a4 ^ 3 + 1536 * a0 * kappa - 384 * a1 ^ 2 * a4
+        - 1152 * a1 * a2 * a3 + 672 * a1 * a3 * a4 ^ 2 - 192 * a2 ^ 3
+        + 336 * a2 ^ 2 * a4 ^ 2 + 768 * a2 * a3 ^ 2 * a4 - 132 * a2 * a4 ^ 4
+        - 512 * a2 * a4 * kappa + 72 * a3 ^ 4 - 288 * a3 ^ 2 * a4 ^ 3
+        - 384 * a3 ^ 2 * kappa + 15 * a4 ^ 6 + 128 * a4 ^ 3 * kappa
+    let I1 :=
+      96 * a0 * a1 * a4 + 192 * a0 * a2 * a3 - 96 * a0 * a3 * a4 ^ 2
+        + 96 * a1 ^ 2 * a3 + 144 * a1 * a2 ^ 2 - 120 * a1 * a2 * a4 ^ 2
+        - 120 * a1 * a3 ^ 2 * a4 + 21 * a1 * a4 ^ 4 + 64 * a1 * a4 * kappa
+        - 144 * a2 ^ 2 * a3 * a4 - 48 * a2 * a3 ^ 3 + 96 * a2 * a3 * a4 ^ 3
+        + 128 * a2 * a3 * kappa + 48 * a3 ^ 3 * a4 ^ 2 - 15 * a3 * a4 ^ 5
+        - 64 * a3 * a4 ^ 2 * kappa
+    row4 = 0 → row3 = 0 → row2 = 0 → row1 = 0 →
+      Differential.deriv I4 = 0 ∧ Differential.deriv I3 = 0
+        ∧ Differential.deriv I2 = 0 ∧ Differential.deriv I1 = 0 := by
+  dsimp only
+  intro hrow4 hrow3 hrow2 hrow1
+  have hnat (n : ℕ) : Differential.deriv (n : K) = 0 :=
+    Differential.deriv.map_natCast n
+  have hOfNat (n : ℕ) [n.AtLeastTwo] :
+      Differential.deriv (ofNat(n) : K) = 0 := by
+    exact hnat n
+  have hconstOfNat (n : ℕ) [n.AtLeastTwo] (x : K) :
+      Differential.deriv ((ofNat(n) : K) * x) =
+        (ofNat(n) : K) * Differential.deriv x := by
+    rw [Derivation.leibniz, hOfNat]
+    simp
+  have hI4 : Differential.deriv
+      (3 * (64 * a0 * a2 - 16 * a0 * a4 ^ 2 + 32 * a1 ^ 2
+        - 32 * a1 * a3 * a4 - 16 * a2 ^ 2 * a4 - 16 * a2 * a3 ^ 2
+        + 8 * a2 * a4 ^ 3 + 12 * a3 ^ 2 * a4 ^ 2 - a4 ^ 5)
+        + 32 * kappa * (4 * a2 - a4 ^ 2)) =
+      (3 * (-96 * a0 * a4 * Differential.deriv a4
+        + 192 * a0 * Differential.deriv a2 - 96 * a1 * a3 * Differential.deriv a4
+        - 96 * a1 * a4 * Differential.deriv a3 + 192 * a1 * Differential.deriv a1
+        - 48 * a2 ^ 2 * Differential.deriv a4 - 96 * a2 * a3 * Differential.deriv a3
+        + 72 * a2 * a4 ^ 2 * Differential.deriv a4
+        - 96 * a2 * a4 * Differential.deriv a2 + 192 * a2 * Differential.deriv a0
+        + 72 * a3 ^ 2 * a4 * Differential.deriv a4
+        - 48 * a3 ^ 2 * Differential.deriv a2
+        + 72 * a3 * a4 ^ 2 * Differential.deriv a3
+        - 96 * a3 * a4 * Differential.deriv a1 - 15 * a4 ^ 4 * Differential.deriv a4
+        + 24 * a4 ^ 3 * Differential.deriv a2
+        - 48 * a4 ^ 2 * Differential.deriv a0
+        - 64 * a4 * kappa * Differential.deriv a4
+        + 128 * kappa * Differential.deriv a2)) / 3 := by
+    simp only [map_add, map_sub, hconstOfNat, Derivation.leibniz,
+      Derivation.leibniz_pow, hkappa]
+    ring
+  have hI3 : Differential.deriv
+      (3 * (64 * a0 * a1 - 32 * a0 * a3 * a4 - 32 * a1 * a2 * a4
+        - 16 * a1 * a3 ^ 2 + 8 * a1 * a4 ^ 3 - 16 * a2 ^ 2 * a3
+        + 24 * a2 * a3 * a4 ^ 2 + 8 * a3 ^ 3 * a4 - 5 * a3 * a4 ^ 4)
+        + 64 * kappa * (2 * a1 - a3 * a4)) =
+      (3 * (-96 * a0 * a3 * Differential.deriv a4
+        - 96 * a0 * a4 * Differential.deriv a3 + 192 * a0 * Differential.deriv a1
+        - 96 * a1 * a2 * Differential.deriv a4 - 96 * a1 * a3 * Differential.deriv a3
+        + 72 * a1 * a4 ^ 2 * Differential.deriv a4
+        - 96 * a1 * a4 * Differential.deriv a2 + 192 * a1 * Differential.deriv a0
+        - 48 * a2 ^ 2 * Differential.deriv a3
+        + 144 * a2 * a3 * a4 * Differential.deriv a4
+        - 96 * a2 * a3 * Differential.deriv a2
+        + 72 * a2 * a4 ^ 2 * Differential.deriv a3
+        - 96 * a2 * a4 * Differential.deriv a1 + 24 * a3 ^ 3 * Differential.deriv a4
+        + 72 * a3 ^ 2 * a4 * Differential.deriv a3
+        - 48 * a3 ^ 2 * Differential.deriv a1
+        - 60 * a3 * a4 ^ 3 * Differential.deriv a4
+        + 72 * a3 * a4 ^ 2 * Differential.deriv a2
+        - 96 * a3 * a4 * Differential.deriv a0
+        - 64 * a3 * kappa * Differential.deriv a4
+        - 15 * a4 ^ 4 * Differential.deriv a3
+        + 24 * a4 ^ 3 * Differential.deriv a1
+        - 64 * a4 * kappa * Differential.deriv a3
+        + 128 * kappa * Differential.deriv a1)) / 3 := by
+    simp only [map_add, map_sub, hconstOfNat, Derivation.leibniz,
+      Derivation.leibniz_pow, hkappa]
+    ring
+  have hI2 : Differential.deriv
+      (1152 * a0 ^ 2 - 768 * a0 * a2 * a4 - 576 * a0 * a3 ^ 2
+        + 192 * a0 * a4 ^ 3 + 1536 * a0 * kappa - 384 * a1 ^ 2 * a4
+        - 1152 * a1 * a2 * a3 + 672 * a1 * a3 * a4 ^ 2 - 192 * a2 ^ 3
+        + 336 * a2 ^ 2 * a4 ^ 2 + 768 * a2 * a3 ^ 2 * a4 - 132 * a2 * a4 ^ 4
+        - 512 * a2 * a4 * kappa + 72 * a3 ^ 4 - 288 * a3 ^ 2 * a4 ^ 3
+        - 384 * a3 ^ 2 * kappa + 15 * a4 ^ 6 + 128 * a4 ^ 3 * kappa) =
+      4 * (-192 * a0 * a2 * Differential.deriv a4
+        - 288 * a0 * a3 * Differential.deriv a3 + 96 * a0 * a4 * Differential.deriv a2
+        + 576 * a0 * Differential.deriv a0 - 96 * a1 ^ 2 * Differential.deriv a4
+        - 288 * a1 * a2 * Differential.deriv a3
+        + 192 * a1 * a3 * a4 * Differential.deriv a4
+        - 288 * a1 * a3 * Differential.deriv a2
+        + 24 * a1 * a4 ^ 2 * Differential.deriv a3
+        + 96 * a1 * a4 * Differential.deriv a1
+        + 96 * a2 ^ 2 * a4 * Differential.deriv a4
+        - 144 * a2 ^ 2 * Differential.deriv a2
+        + 192 * a2 * a3 ^ 2 * Differential.deriv a4
+        + 240 * a2 * a3 * a4 * Differential.deriv a3
+        - 288 * a2 * a3 * Differential.deriv a1
+        - 24 * a2 * a4 ^ 3 * Differential.deriv a4
+        + 24 * a2 * a4 ^ 2 * Differential.deriv a2
+        + 96 * a2 * a4 * Differential.deriv a0
+        - 128 * a2 * kappa * Differential.deriv a4
+        + 72 * a3 ^ 3 * Differential.deriv a3
+        - 108 * a3 ^ 2 * a4 ^ 2 * Differential.deriv a4
+        + 120 * a3 ^ 2 * a4 * Differential.deriv a2
+        - 144 * a3 ^ 2 * Differential.deriv a0
+        - 36 * a3 * a4 ^ 3 * Differential.deriv a3
+        + 24 * a3 * a4 ^ 2 * Differential.deriv a1
+        - 192 * a3 * kappa * Differential.deriv a3
+        + 3 * a4 ^ 4 * Differential.deriv a2
+        - 24 * a4 ^ 3 * Differential.deriv a0
+        + 64 * a4 * kappa * Differential.deriv a2
+        + 384 * kappa * Differential.deriv a0)
+      - 2 * a4 * (3 * (-96 * a0 * a4 * Differential.deriv a4
+        + 192 * a0 * Differential.deriv a2 - 96 * a1 * a3 * Differential.deriv a4
+        - 96 * a1 * a4 * Differential.deriv a3 + 192 * a1 * Differential.deriv a1
+        - 48 * a2 ^ 2 * Differential.deriv a4 - 96 * a2 * a3 * Differential.deriv a3
+        + 72 * a2 * a4 ^ 2 * Differential.deriv a4
+        - 96 * a2 * a4 * Differential.deriv a2 + 192 * a2 * Differential.deriv a0
+        + 72 * a3 ^ 2 * a4 * Differential.deriv a4
+        - 48 * a3 ^ 2 * Differential.deriv a2
+        + 72 * a3 * a4 ^ 2 * Differential.deriv a3
+        - 96 * a3 * a4 * Differential.deriv a1
+        - 15 * a4 ^ 4 * Differential.deriv a4
+        + 24 * a4 ^ 3 * Differential.deriv a2
+        - 48 * a4 ^ 2 * Differential.deriv a0
+        - 64 * a4 * kappa * Differential.deriv a4
+        + 128 * kappa * Differential.deriv a2)) := by
+    simp only [map_add, map_sub, hconstOfNat, Derivation.leibniz,
+      Derivation.leibniz_pow, hkappa]
+    ring
+  have hI1 : Differential.deriv
+      (96 * a0 * a1 * a4 + 192 * a0 * a2 * a3 - 96 * a0 * a3 * a4 ^ 2
+        + 96 * a1 ^ 2 * a3 + 144 * a1 * a2 ^ 2 - 120 * a1 * a2 * a4 ^ 2
+        - 120 * a1 * a3 ^ 2 * a4 + 21 * a1 * a4 ^ 4 + 64 * a1 * a4 * kappa
+        - 144 * a2 ^ 2 * a3 * a4 - 48 * a2 * a3 ^ 3 + 96 * a2 * a3 * a4 ^ 3
+        + 128 * a2 * a3 * kappa + 48 * a3 ^ 3 * a4 ^ 2 - 15 * a3 * a4 ^ 5
+        - 64 * a3 * a4 ^ 2 * kappa) =
+      -(-96 * a0 * a1 * Differential.deriv a4
+        - 192 * a0 * a2 * Differential.deriv a3 + 96 * a0 * a4 * Differential.deriv a1
+        - 96 * a1 ^ 2 * Differential.deriv a3
+        + 144 * a1 * a2 * a4 * Differential.deriv a4
+        - 288 * a1 * a2 * Differential.deriv a2
+        + 24 * a1 * a3 ^ 2 * Differential.deriv a4
+        + 48 * a1 * a3 * a4 * Differential.deriv a3
+        - 12 * a1 * a4 ^ 3 * Differential.deriv a4
+        + 24 * a1 * a4 ^ 2 * Differential.deriv a2
+        + 96 * a1 * a4 * Differential.deriv a0
+        - 64 * a1 * kappa * Differential.deriv a4
+        + 96 * a2 ^ 2 * a3 * Differential.deriv a4
+        + 96 * a2 ^ 2 * a4 * Differential.deriv a3
+        - 144 * a2 ^ 2 * Differential.deriv a1
+        + 48 * a2 * a3 ^ 2 * Differential.deriv a3
+        - 72 * a2 * a3 * a4 ^ 2 * Differential.deriv a4
+        + 96 * a2 * a3 * a4 * Differential.deriv a2
+        - 24 * a2 * a4 ^ 3 * Differential.deriv a3
+        + 24 * a2 * a4 ^ 2 * Differential.deriv a1
+        - 128 * a2 * kappa * Differential.deriv a3
+        - 24 * a3 ^ 2 * a4 * Differential.deriv a1
+        - 48 * a3 * a4 ^ 2 * Differential.deriv a0
+        + 3 * a4 ^ 4 * Differential.deriv a1
+        + 64 * a4 * kappa * Differential.deriv a1)
+      + (a3 * (3 * (-96 * a0 * a4 * Differential.deriv a4
+        + 192 * a0 * Differential.deriv a2 - 96 * a1 * a3 * Differential.deriv a4
+        - 96 * a1 * a4 * Differential.deriv a3 + 192 * a1 * Differential.deriv a1
+        - 48 * a2 ^ 2 * Differential.deriv a4 - 96 * a2 * a3 * Differential.deriv a3
+        + 72 * a2 * a4 ^ 2 * Differential.deriv a4
+        - 96 * a2 * a4 * Differential.deriv a2 + 192 * a2 * Differential.deriv a0
+        + 72 * a3 ^ 2 * a4 * Differential.deriv a4
+        - 48 * a3 ^ 2 * Differential.deriv a2
+        + 72 * a3 * a4 ^ 2 * Differential.deriv a3
+        - 96 * a3 * a4 * Differential.deriv a1
+        - 15 * a4 ^ 4 * Differential.deriv a4
+        + 24 * a4 ^ 3 * Differential.deriv a2
+        - 48 * a4 ^ 2 * Differential.deriv a0
+        - 64 * a4 * kappa * Differential.deriv a4
+        + 128 * kappa * Differential.deriv a2))
+        + a4 * (3 * (-96 * a0 * a3 * Differential.deriv a4
+          - 96 * a0 * a4 * Differential.deriv a3 + 192 * a0 * Differential.deriv a1
+          - 96 * a1 * a2 * Differential.deriv a4
+          - 96 * a1 * a3 * Differential.deriv a3
+          + 72 * a1 * a4 ^ 2 * Differential.deriv a4
+          - 96 * a1 * a4 * Differential.deriv a2 + 192 * a1 * Differential.deriv a0
+          - 48 * a2 ^ 2 * Differential.deriv a3
+          + 144 * a2 * a3 * a4 * Differential.deriv a4
+          - 96 * a2 * a3 * Differential.deriv a2
+          + 72 * a2 * a4 ^ 2 * Differential.deriv a3
+          - 96 * a2 * a4 * Differential.deriv a1
+          + 24 * a3 ^ 3 * Differential.deriv a4
+          + 72 * a3 ^ 2 * a4 * Differential.deriv a3
+          - 48 * a3 ^ 2 * Differential.deriv a1
+          - 60 * a3 * a4 ^ 3 * Differential.deriv a4
+          + 72 * a3 * a4 ^ 2 * Differential.deriv a2
+          - 96 * a3 * a4 * Differential.deriv a0
+          - 64 * a3 * kappa * Differential.deriv a4
+          - 15 * a4 ^ 4 * Differential.deriv a3
+          + 24 * a4 ^ 3 * Differential.deriv a1
+          - 64 * a4 * kappa * Differential.deriv a3
+          + 128 * kappa * Differential.deriv a1))) / 3 := by
+    simp only [map_add, map_sub, hconstOfNat, Derivation.leibniz,
+      Derivation.leibniz_pow, hkappa]
+    ring
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · rw [hI4, hrow4]
+    simp
+  · rw [hI3, hrow3]
+    simp
+  · rw [hI2, hrow2, hrow4]
+    ring
+  · rw [hI1, hrow1, hrow4, hrow3]
+    ring
+
+
+set_option maxHeartbeats 2000000 in
+/-- The coefficient weights `(0,2,1,0,2,0)` induce invariant weights
+`(1,2,0,1)` modulo three. -/
+theorem GCD369KummerInvariantWeights {K : Type*} [Field K] [CharZero K]
+    (sigma : K ≃+* K) (omega a0 a1 a2 a3 a4 kappa : K)
+    (homega3 : omega ^ 3 = 1)
+    (ha0 : sigma a0 = a0) (ha1 : sigma a1 = omega ^ 2 * a1)
+    (ha2 : sigma a2 = omega * a2) (ha3 : sigma a3 = a3)
+    (ha4 : sigma a4 = omega ^ 2 * a4) (hkappa : sigma kappa = kappa) :
+    let p4 := 3 * (64 * a0 * a2 - 16 * a0 * a4 ^ 2 + 32 * a1 ^ 2
+        - 32 * a1 * a3 * a4 - 16 * a2 ^ 2 * a4 - 16 * a2 * a3 ^ 2
+        + 8 * a2 * a4 ^ 3 + 12 * a3 ^ 2 * a4 ^ 2 - a4 ^ 5)
+        + 32 * kappa * (4 * a2 - a4 ^ 2)
+    let p3 := 3 * (64 * a0 * a1 - 32 * a0 * a3 * a4 - 32 * a1 * a2 * a4
+        - 16 * a1 * a3 ^ 2 + 8 * a1 * a4 ^ 3 - 16 * a2 ^ 2 * a3
+        + 24 * a2 * a3 * a4 ^ 2 + 8 * a3 ^ 3 * a4 - 5 * a3 * a4 ^ 4)
+        + 64 * kappa * (2 * a1 - a3 * a4)
+    let n2 :=
+      1152 * a0 ^ 2 - 768 * a0 * a2 * a4 - 576 * a0 * a3 ^ 2
+        + 192 * a0 * a4 ^ 3 + 1536 * a0 * kappa - 384 * a1 ^ 2 * a4
+        - 1152 * a1 * a2 * a3 + 672 * a1 * a3 * a4 ^ 2 - 192 * a2 ^ 3
+        + 336 * a2 ^ 2 * a4 ^ 2 + 768 * a2 * a3 ^ 2 * a4 - 132 * a2 * a4 ^ 4
+        - 512 * a2 * a4 * kappa + 72 * a3 ^ 4 - 288 * a3 ^ 2 * a4 ^ 3
+        - 384 * a3 ^ 2 * kappa + 15 * a4 ^ 6 + 128 * a4 ^ 3 * kappa
+    let p1 :=
+      96 * a0 * a1 * a4 + 192 * a0 * a2 * a3 - 96 * a0 * a3 * a4 ^ 2
+        + 96 * a1 ^ 2 * a3 + 144 * a1 * a2 ^ 2 - 120 * a1 * a2 * a4 ^ 2
+        - 120 * a1 * a3 ^ 2 * a4 + 21 * a1 * a4 ^ 4 + 64 * a1 * a4 * kappa
+        - 144 * a2 ^ 2 * a3 * a4 - 48 * a2 * a3 ^ 3 + 96 * a2 * a3 * a4 ^ 3
+        + 128 * a2 * a3 * kappa + 48 * a3 ^ 3 * a4 ^ 2 - 15 * a3 * a4 ^ 5
+        - 64 * a3 * a4 ^ 2 * kappa
+    sigma p4 = omega * p4 ∧ sigma p3 = omega ^ 2 * p3
+      ∧ sigma n2 = n2 ∧ sigma p1 = omega * p1 := by
+  have hperiod (n : Nat) : omega ^ (n + 3) = omega ^ n := by
+    rw [pow_add, homega3, mul_one]
+  have h4 : omega ^ 4 = omega := by simpa using hperiod 1
+  have h5 : omega ^ 5 = omega ^ 2 := by simpa using hperiod 2
+  have h6 : omega ^ 6 = 1 := by
+    calc
+      omega ^ 6 = omega ^ 3 := by simpa using hperiod 3
+      _ = 1 := homega3
+  have h7 : omega ^ 7 = omega := by simpa using hperiod 4 |>.trans h4
+  have h8 : omega ^ 8 = omega ^ 2 := by simpa using hperiod 5 |>.trans h5
+  have h9 : omega ^ 9 = 1 := by simpa using hperiod 6 |>.trans h6
+  have h10 : omega ^ 10 = omega := by simpa using hperiod 7 |>.trans h7
+  have h11 : omega ^ 11 = omega ^ 2 := by simpa using hperiod 8 |>.trans h8
+  have h12 : omega ^ 12 = 1 := by simpa using hperiod 9 |>.trans h9
+  dsimp only
+  simp only [map_add, map_sub, map_mul, map_pow, map_ofNat, ha0, ha1, ha2, ha3,
+    ha4, hkappa]
+  constructor
+  · ring_nf
+    simp only [h4, h7, h10]
+    ring
+  constructor
+  · ring_nf
+    simp only [h5, h8]
+    ring
+  constructor
+  · ring_nf
+    simp only [homega3, h6, h9, h12]
+    ring
+  · ring_nf
+    simp only [h4, h7, h10]
+    ring
+
 /-- Every field-valued solution of the four lower-Pfaffian invariant equations
 lies on one of the two displayed reduced sheets.  The first disjunct is the
 zero-bracket sheet `P_A`; the second is the elliptic sheet `P_B`.  No converse
@@ -125,6 +585,123 @@ theorem GCD369InvariantFibreDichotomy {K : Type*} [Field K] [CharZero K]
           - (96 * a1) * ha1
       exact (mul_eq_zero.mp hprod).resolve_left hA
 
+/-- Cyclic Kummer weights force the three nonzero-weight first integrals to
+vanish.  The weight-zero integral descends to a fixed differential constant;
+the fixed-constant hypothesis isolates the constant-field input. -/
+theorem GCD369KummerInvariantLanding {K : Type*} [Field K] [CharZero K]
+    [Differential K] (sigma : K ≃+* K) (omega p4 p3 n2 p1 : K)
+    (homega : omega ≠ 1) (homega2 : omega ^ 2 ≠ 1)
+    (hfix : ∀ c : K, Differential.deriv c = 0 → sigma c = c)
+    (hd4 : Differential.deriv p4 = 0) (hd3 : Differential.deriv p3 = 0)
+    (hd2 : Differential.deriv n2 = 0) (hd1 : Differential.deriv p1 = 0)
+    (hw4 : sigma p4 = omega * p4) (hw3 : sigma p3 = omega ^ 2 * p3)
+    (hw2 : sigma n2 = n2) (hw1 : sigma p1 = omega * p1) :
+    p4 = 0 ∧ p3 = 0 ∧ p1 = 0 ∧
+      ∃ mu : K, Differential.deriv mu = 0 ∧ sigma mu = mu ∧ n2 - 512 * mu = 0 := by
+  have hp4fix := hfix p4 hd4
+  have hp3fix := hfix p3 hd3
+  have hp1fix := hfix p1 hd1
+  have h4prod : (omega - 1) * p4 = 0 := by
+    rw [sub_mul, one_mul, ← hw4]
+    exact sub_eq_zero.mpr hp4fix
+  have h3prod : (omega ^ 2 - 1) * p3 = 0 := by
+    rw [sub_mul, one_mul, ← hw3]
+    exact sub_eq_zero.mpr hp3fix
+  have h1prod : (omega - 1) * p1 = 0 := by
+    rw [sub_mul, one_mul, ← hw1]
+    exact sub_eq_zero.mpr hp1fix
+  have hp4 : p4 = 0 :=
+    (mul_eq_zero.mp h4prod).resolve_left (sub_ne_zero.mpr homega)
+  have hp3 : p3 = 0 :=
+    (mul_eq_zero.mp h3prod).resolve_left (sub_ne_zero.mpr homega2)
+  have hp1 : p1 = 0 :=
+    (mul_eq_zero.mp h1prod).resolve_left (sub_ne_zero.mpr homega)
+  refine ⟨hp4, hp3, hp1, n2 / 512, ?_, ?_, ?_⟩
+  · have h512 : Differential.deriv (512 : K) = 0 :=
+      Differential.deriv.map_natCast 512
+    rw [div_eq_mul_inv, Derivation.leibniz, Derivation.leibniz_inv, hd2, h512]
+    simp
+  · simp only [map_div₀, hw2, map_ofNat]
+  · field_simp
+    ring
+
+/-- Composition of constant first integrals, coefficient weights, and the
+complete reduced invariant-fibre decomposition. -/
+theorem GCD369KummerFibreDichotomy {K : Type*} [Field K] [CharZero K]
+    [Differential K] (sigma : K ≃+* K) (omega a0 a1 a2 a3 a4 kappa : K)
+    (homega3 : omega ^ 3 = 1) (homega : omega ≠ 1) (homega2 : omega ^ 2 ≠ 1)
+    (hfix : ∀ c : K, Differential.deriv c = 0 → sigma c = c)
+    (ha0 : sigma a0 = a0) (ha1 : sigma a1 = omega ^ 2 * a1)
+    (ha2 : sigma a2 = omega * a2) (ha3 : sigma a3 = a3)
+    (ha4 : sigma a4 = omega ^ 2 * a4) (hkappa : sigma kappa = kappa) :
+    let A := 4 * a2 - a4 ^ 2
+    let B := 2 * a1 - a3 * a4
+    let w := 4 * a0 - a3 ^ 2
+    let e4 :=
+      64 * a0 * a2 - 16 * a0 * a4 ^ 2 + 32 * a1 ^ 2 - 32 * a1 * a3 * a4
+        - 16 * a2 ^ 2 * a4 - 16 * a2 * a3 ^ 2 + 8 * a2 * a4 ^ 3
+        + 12 * a3 ^ 2 * a4 ^ 2 - a4 ^ 5
+    let e3 :=
+      64 * a0 * a1 - 32 * a0 * a3 * a4 - 32 * a1 * a2 * a4
+        - 16 * a1 * a3 ^ 2 + 8 * a1 * a4 ^ 3 - 16 * a2 ^ 2 * a3
+        + 24 * a2 * a3 * a4 ^ 2 + 8 * a3 ^ 3 * a4 - 5 * a3 * a4 ^ 4
+    let p4 := 3 * e4 + 32 * kappa * A
+    let p3 := 3 * e3 + 64 * kappa * B
+    let n2 :=
+      1152 * a0 ^ 2 - 768 * a0 * a2 * a4 - 576 * a0 * a3 ^ 2
+        + 192 * a0 * a4 ^ 3 + 1536 * a0 * kappa - 384 * a1 ^ 2 * a4
+        - 1152 * a1 * a2 * a3 + 672 * a1 * a3 * a4 ^ 2 - 192 * a2 ^ 3
+        + 336 * a2 ^ 2 * a4 ^ 2 + 768 * a2 * a3 ^ 2 * a4 - 132 * a2 * a4 ^ 4
+        - 512 * a2 * a4 * kappa + 72 * a3 ^ 4 - 288 * a3 ^ 2 * a4 ^ 3
+        - 384 * a3 ^ 2 * kappa + 15 * a4 ^ 6 + 128 * a4 ^ 3 * kappa
+    let p1 :=
+      96 * a0 * a1 * a4 + 192 * a0 * a2 * a3 - 96 * a0 * a3 * a4 ^ 2
+        + 96 * a1 ^ 2 * a3 + 144 * a1 * a2 ^ 2 - 120 * a1 * a2 * a4 ^ 2
+        - 120 * a1 * a3 ^ 2 * a4 + 21 * a1 * a4 ^ 4 + 64 * a1 * a4 * kappa
+        - 144 * a2 ^ 2 * a3 * a4 - 48 * a2 * a3 ^ 3 + 96 * a2 * a3 * a4 ^ 3
+        + 128 * a2 * a3 * kappa + 48 * a3 ^ 3 * a4 ^ 2 - 15 * a3 * a4 ^ 5
+        - 64 * a3 * a4 ^ 2 * kappa
+    Differential.deriv p4 = 0 → Differential.deriv p3 = 0 →
+      Differential.deriv n2 = 0 → Differential.deriv p1 = 0 →
+      ∃ mu : K, Differential.deriv mu = 0 ∧ sigma mu = mu ∧
+        ((A = 0 ∧ B = 0 ∧ 9 * w ^ 2 + 48 * kappa * w - 64 * mu = 0)
+          ∨ (a3 = 0 ∧ a1 = 0
+            ∧ 384 * a2 ^ 3 - 432 * a2 ^ 2 * a4 ^ 2 + 144 * a2 * a4 ^ 4
+                - 15 * a4 ^ 6 + 1024 * (kappa ^ 2 + mu) = 0
+            ∧ 48 * a0 - 12 * a2 * a4 + 3 * a4 ^ 3 + 32 * kappa = 0)) := by
+  dsimp only
+  intro hd4 hd3 hd2 hd1
+  have hweights := GCD369KummerInvariantWeights sigma omega a0 a1 a2 a3 a4 kappa
+    homega3 ha0 ha1 ha2 ha3 ha4 hkappa
+  dsimp only at hweights
+  rcases hweights with ⟨hw4, hw3, hw2, hw1⟩
+  obtain ⟨hp4, hp3, hp1, mu, hdmu, hsmu, hp2⟩ :=
+    GCD369KummerInvariantLanding sigma omega
+      (3 * (64 * a0 * a2 - 16 * a0 * a4 ^ 2 + 32 * a1 ^ 2
+        - 32 * a1 * a3 * a4 - 16 * a2 ^ 2 * a4 - 16 * a2 * a3 ^ 2
+        + 8 * a2 * a4 ^ 3 + 12 * a3 ^ 2 * a4 ^ 2 - a4 ^ 5)
+        + 32 * kappa * (4 * a2 - a4 ^ 2))
+      (3 * (64 * a0 * a1 - 32 * a0 * a3 * a4 - 32 * a1 * a2 * a4
+        - 16 * a1 * a3 ^ 2 + 8 * a1 * a4 ^ 3 - 16 * a2 ^ 2 * a3
+        + 24 * a2 * a3 * a4 ^ 2 + 8 * a3 ^ 3 * a4 - 5 * a3 * a4 ^ 4)
+        + 64 * kappa * (2 * a1 - a3 * a4))
+      (1152 * a0 ^ 2 - 768 * a0 * a2 * a4 - 576 * a0 * a3 ^ 2
+        + 192 * a0 * a4 ^ 3 + 1536 * a0 * kappa - 384 * a1 ^ 2 * a4
+        - 1152 * a1 * a2 * a3 + 672 * a1 * a3 * a4 ^ 2 - 192 * a2 ^ 3
+        + 336 * a2 ^ 2 * a4 ^ 2 + 768 * a2 * a3 ^ 2 * a4 - 132 * a2 * a4 ^ 4
+        - 512 * a2 * a4 * kappa + 72 * a3 ^ 4 - 288 * a3 ^ 2 * a4 ^ 3
+        - 384 * a3 ^ 2 * kappa + 15 * a4 ^ 6 + 128 * a4 ^ 3 * kappa)
+      (96 * a0 * a1 * a4 + 192 * a0 * a2 * a3 - 96 * a0 * a3 * a4 ^ 2
+        + 96 * a1 ^ 2 * a3 + 144 * a1 * a2 ^ 2 - 120 * a1 * a2 * a4 ^ 2
+        - 120 * a1 * a3 ^ 2 * a4 + 21 * a1 * a4 ^ 4 + 64 * a1 * a4 * kappa
+        - 144 * a2 ^ 2 * a3 * a4 - 48 * a2 * a3 ^ 3 + 96 * a2 * a3 * a4 ^ 3
+        + 128 * a2 * a3 * kappa + 48 * a3 ^ 3 * a4 ^ 2 - 15 * a3 * a4 ^ 5
+        - 64 * a3 * a4 ^ 2 * kappa)
+      homega homega2 hfix hd4 hd3 hd2 hd1 hw4 hw3 hw2 hw1
+  refine ⟨mu, hdmu, hsmu, ?_⟩
+  exact GCD369InvariantFibreDichotomy a0 a1 a2 a3 a4 kappa mu
+    hp4 hp3 hp2 hp1
+
 /-- Every path on the first reduced sheet has zero source bracket.  This is
 the coefficientwise differential identity behind the common-power sheet and
 its two constant deformations. -/
@@ -180,6 +757,130 @@ theorem GCD369ZeroBracketSheet {K : Type*} [Field K] [CharZero K] [Differential 
     - derivative (K0 ^ 2 + C d) * delta (K0 ^ 3 + C (kappa + 3 * d / 2) * K0) = 0
   rw [hf, hg, hdf, hdg]
   ring
+
+/-- The complete eight-high-row normal form restricted to the first reduced
+sheet is exactly the common-cubic family used by
+`GCD369ZeroBracketSheet`.  Here `a₄=2u`, `a₃=2v`, `a₂=u²`,
+`a₁=2uv`, and `a₀=v²+d` have already been substituted. -/
+theorem GCD369HighRowZeroSheet {K : Type*} [Field K] [CharZero K]
+    (u v d kappa : K) :
+    let f : K[X] :=
+      X ^ 6 + C (2 * u) * X ^ 4 + C (2 * v) * X ^ 3 + C (u ^ 2) * X ^ 2
+        + C (2 * u * v) * X + C (v ^ 2 + d)
+    let g : K[X] :=
+      X ^ 9
+        + C (3 * (2 * u) / 2) * X ^ 7
+        + C (3 * (2 * v) / 2) * X ^ 6
+        + C (3 * (4 * u ^ 2 + (2 * u) ^ 2) / 8) * X ^ 5
+        + C (3 * (2 * (2 * u * v) + (2 * v) * (2 * u)) / 4) * X ^ 4
+        + C ((24 * (v ^ 2 + d) + 12 * u ^ 2 * (2 * u)
+            + 6 * (2 * v) ^ 2 - (2 * u) ^ 3) / 16) * X ^ 3
+        + C (3 * (4 * (2 * u * v) * (2 * u) + 4 * u ^ 2 * (2 * v)
+            - (2 * v) * (2 * u) ^ 2) / 16) * X ^ 2
+        + C (3 * (32 * (v ^ 2 + d) * (2 * u) + 32 * (2 * u * v) * (2 * v)
+            + 16 * (u ^ 2) ^ 2 - 8 * u ^ 2 * (2 * u) ^ 2
+            - 8 * (2 * v) ^ 2 * (2 * u) + (2 * u) ^ 4) / 128) * X
+        + C ((24 * (v ^ 2 + d) * (2 * v) + 24 * (2 * u * v) * u ^ 2
+            - 6 * (2 * u * v) * (2 * u) ^ 2 - 12 * u ^ 2 * (2 * v) * (2 * u)
+            - 2 * (2 * v) ^ 3 + 3 * (2 * v) * (2 * u) ^ 3) / 32)
+        + C kappa * (X ^ 3 + C u * X + C v)
+    let K0 : K[X] := X ^ 3 + C u * X + C v
+    f = K0 ^ 2 + C d ∧ g = K0 ^ 3 + C (kappa + 3 * d / 2) * K0 := by
+  have hb7 : 3 * (2 * u) / 2 = 3 * u := by ring
+  have hb6 : 3 * (2 * v) / 2 = 3 * v := by ring
+  have hb5 : 3 * (4 * u ^ 2 + (2 * u) ^ 2) / 8 = 3 * u ^ 2 := by ring
+  have hb4 : 3 * (2 * (2 * u * v) + (2 * v) * (2 * u)) / 4 = 6 * u * v := by ring
+  have hb3 :
+      (24 * (v ^ 2 + d) + 12 * u ^ 2 * (2 * u) + 6 * (2 * v) ^ 2
+          - (2 * u) ^ 3) / 16 = u ^ 3 + 3 * v ^ 2 + 3 * d / 2 := by ring
+  have hb2 :
+      3 * (4 * (2 * u * v) * (2 * u) + 4 * u ^ 2 * (2 * v)
+          - (2 * v) * (2 * u) ^ 2) / 16 = 3 * u ^ 2 * v := by ring
+  have hb1 :
+      3 * (32 * (v ^ 2 + d) * (2 * u) + 32 * (2 * u * v) * (2 * v)
+          + 16 * (u ^ 2) ^ 2 - 8 * u ^ 2 * (2 * u) ^ 2
+          - 8 * (2 * v) ^ 2 * (2 * u) + (2 * u) ^ 4) / 128
+        = 3 * u * v ^ 2 + 3 * u * d / 2 := by ring
+  have hb0 :
+      (24 * (v ^ 2 + d) * (2 * v) + 24 * (2 * u * v) * u ^ 2
+          - 6 * (2 * u * v) * (2 * u) ^ 2 - 12 * u ^ 2 * (2 * v) * (2 * u)
+          - 2 * (2 * v) ^ 3 + 3 * (2 * v) * (2 * u) ^ 3) / 32
+        = v ^ 3 + 3 * d * v / 2 := by ring
+  have hdu : 3 * u * d / 2 = u * (3 * d / 2) := by ring
+  have hdv : 3 * d * v / 2 = v * (3 * d / 2) := by ring
+  dsimp only
+  rw [hb7, hb6, hb5, hb4, hb3, hb2, hb1, hb0]
+  constructor
+  · simp only [C_mul, C_add, C_sub, C_pow, C_ofNat, C_eq_natCast]
+    ring
+  · simp only [C_mul, C_add, C_sub, C_pow, C_ofNat, C_eq_natCast]
+    rw [hdu, hdv]
+    simp only [C_mul]
+    ring
+
+set_option maxHeartbeats 2000000 in
+/-- The first invariant sheet cannot carry a nonzero terminal Keller row.
+This theorem derives the constancy of the lower deformation parameter from
+the invariant equation instead of assuming it, identifies the complete
+high-row pair with the common-cubic family, and then applies its zero-bracket
+identity. -/
+theorem GCD369ZeroSheetTerminalExclusion {K : Type*} [Field K] [CharZero K]
+    [Differential K] (a0 a1 a2 a3 a4 kappa mu terminal : K)
+    (hkappa : Differential.deriv kappa = 0)
+    (hmu : Differential.deriv mu = 0)
+    (hA : 4 * a2 - a4 ^ 2 = 0) (hB : 2 * a1 - a3 * a4 = 0)
+    (hquad : 9 * (4 * a0 - a3 ^ 2) ^ 2
+      + 48 * kappa * (4 * a0 - a3 ^ 2) - 64 * mu = 0)
+    (hterminal :
+      Differential.mapCoeffs (GCD369AlignedF a0 a1 a2 a3 a4)
+          * derivative (GCD369AlignedG a0 a1 a2 a3 a4 kappa)
+        - derivative (GCD369AlignedF a0 a1 a2 a3 a4)
+          * Differential.mapCoeffs (GCD369AlignedG a0 a1 a2 a3 a4 kappa)
+        = C terminal)
+    (hterminal0 : terminal ≠ 0) : False := by
+  let u := a4 / 2
+  let v := a3 / 2
+  let d := a0 - v ^ 2
+  have ha4 : a4 = 2 * u := by dsimp [u]; ring
+  have ha3 : a3 = 2 * v := by dsimp [v]; ring
+  have ha2 : a2 = u ^ 2 := by
+    dsimp [u]
+    linear_combination (1 / 4) * hA
+  have ha1 : a1 = 2 * u * v := by
+    dsimp [u, v]
+    linear_combination (1 / 2) * hB
+  have ha0 : a0 = v ^ 2 + d := by dsimp [d]; ring
+  have hpoly : 9 * d ^ 2 + 12 * kappa * d - 4 * mu = 0 := by
+    dsimp [d, v]
+    linear_combination (1 / 16) * hquad
+  have hnat (n : ℕ) : Differential.deriv (n : K) = 0 :=
+    Differential.deriv.map_natCast n
+  have hOfNat (n : ℕ) [n.AtLeastTwo] :
+      Differential.deriv (ofNat(n) : K) = 0 := hnat n
+  have hdpoly := congrArg Differential.deriv hpoly
+  have hdprod : (18 * d + 12 * kappa) * Differential.deriv d = 0 := by
+    simp only [map_add, map_sub, Derivation.leibniz, Derivation.leibniz_pow,
+      hOfNat, hkappa, hmu, map_zero] at hdpoly
+    linear_combination hdpoly
+  have hd : Differential.deriv d = 0 := by
+    by_cases hcoef : 18 * d + 12 * kappa = 0
+    · have hdcoef := congrArg Differential.deriv hcoef
+      simp only [map_add, Derivation.leibniz, hOfNat, hkappa, map_zero] at hdcoef
+      linear_combination (1 / 18) * hdcoef
+    · exact (mul_eq_zero.mp hdprod).resolve_left hcoef
+  rw [ha4, ha3, ha2, ha1, ha0] at hterminal
+  rw [GCD369AlignedF, GCD369AlignedG] at hterminal
+  have hhigh := GCD369HighRowZeroSheet u v d kappa
+  dsimp only at hhigh
+  have hu : 2 * u / 2 = u := by ring
+  have hv : 2 * v / 2 = v := by ring
+  rw [hu, hv] at hterminal
+  rw [hhigh.1, hhigh.2] at hterminal
+  have hzero := GCD369ZeroBracketSheet (2 * u) (2 * v) d kappa hd hkappa
+  dsimp only at hzero
+  rw [hu, hv] at hzero
+  rw [hzero] at hterminal
+  exact hterminal0 (C_injective (by simpa using hterminal.symm))
 
 /-- On the second reduced sheet, the coordinates `X=8a₂-2a₄²` and
 `Y=3a₄X` satisfy the elliptic equation from the lower-Pfaffian calculation. -/
@@ -319,6 +1020,90 @@ theorem GCD369EllipticNonzeroExclusion {K : Type*} [Field K] [CharZero K]
     rw [hforbid, zero_pow (by norm_num : (3 : Nat) ≠ 0), mul_zero, zero_mul] at hterm
     exact (mul_ne_zero (pow_ne_zero 3 (mul_ne_zero (by norm_num) hj)) hother) hterm.symm
 
+/-- The forbidden-value exclusion on a nonzero elliptic fibre needs no
+chosen square root: algebraic closedness supplies one automatically. -/
+theorem GCD369EllipticNonzeroExclusionAutoRoot {K : Type*} [Field K]
+    [CharZero K] [IsAlgClosed K] (C0 j : K) (hC : C0 ≠ 0) (hj : j ≠ 0)
+    (N D H : K[X])
+    (hnonconstant : 0 < N.natDegree ∨ 0 < D.natDegree)
+    (hcoprime : ∀ x : K, eval x N = 0 → eval x D ≠ 0)
+    (hterminal : ∀ x : K, eval x D ≠ 0 →
+      let Y := eval x N / eval x D
+      let Ydot :=
+        eval x (derivative N * D - N * derivative D) / (eval x D) ^ 2
+      3 * eval x H * (7 * Y ^ 2 - 12288 * C0) ^ 3 * Ydot ^ 3
+        = (147456 * j) ^ 3 * (Y ^ 2 - 4096 * C0)) : False := by
+  obtain ⟨t, ht⟩ :=
+    IsAlgClosed.exists_pow_nat_eq (12288 * C0 / 7) (by norm_num : 0 < 2)
+  apply GCD369EllipticNonzeroExclusion C0 j t hC hj ?_ N D H
+    hnonconstant hcoprime hterminal
+  linear_combination 7 * ht
+
+/-- Cleared polynomial form of the nonzero-elliptic exclusion.  It is the
+result of substituting `Y=N/D` into the cubed terminal equation and
+multiplying by `D^12`; hence it is independent of a chosen rational-function
+implementation. -/
+theorem GCD369EllipticClearedNonzeroExclusion {K : Type*} [Field K]
+    [CharZero K] [IsAlgClosed K] (C0 j : K) (hC : C0 ≠ 0) (hj : j ≠ 0)
+    (N D H : K[X])
+    (hnonconstant : 0 < N.natDegree ∨ 0 < D.natDegree)
+    (hcoprime : ∀ x : K, eval x N = 0 → eval x D ≠ 0)
+    (hpoly :
+      C 3 * H * (C 7 * N ^ 2 - C (12288 * C0) * D ^ 2) ^ 3
+          * (derivative N * D - N * derivative D) ^ 3
+        = C ((147456 * j) ^ 3) * (N ^ 2 - C (4096 * C0) * D ^ 2) * D ^ 10) :
+    False := by
+  apply GCD369EllipticNonzeroExclusionAutoRoot C0 j hC hj N D H
+    hnonconstant hcoprime
+  intro x hxD
+  dsimp only
+  have heval := congrArg (eval x) hpoly
+  simp only [eval_mul, eval_sub, eval_pow, eval_C] at heval ⊢
+  field_simp [hxD]
+  convert heval using 1 <;> ring
+
+/-- A constant `Y` path on the elliptic sheet is already incompatible with
+the uncleared terminal Keller row.  When `X=0`, the polynomial formula for
+`beta` vanishes directly; when `X≠0`, the terminal one-form identity forces
+the same conclusion. -/
+theorem GCD369EllipticConstantExclusion {K : Type*} [Field K] [CharZero K]
+    (a2 a4 a2dot a4dot C0 s j : K) (hj : j ≠ 0) :
+    let X := 8 * a2 - 2 * a4 ^ 2
+    let Y := 3 * a4 * X
+    let Xdot := 8 * a2dot - 4 * a4 * a4dot
+    let Ydot := 3 * a4dot * X + 3 * a4 * Xdot
+    let beta :=
+      3 * (4 * a2 - 3 * a4 ^ 2) * (4 * a2 - a4 ^ 2) * (4 * a2 + a4 ^ 2)
+          / 2048 * a4dot
+        + 3 * a4 * (4 * a2 - a4 ^ 2) * (4 * a2 + a4 ^ 2) / 512 * a2dot
+    Y ^ 2 = 3 * X ^ 3 + 4096 * C0 → 2 * Y * Ydot = 9 * X ^ 2 * Xdot →
+      Ydot = 0 → s * beta = j → False := by
+  dsimp only
+  intro hcurve htangent hYdot hKeller
+  by_cases hX : 8 * a2 - 2 * a4 ^ 2 = 0
+  · have hfactor : 4 * a2 - a4 ^ 2 = 0 := by
+      linear_combination (1 / 2) * hX
+    have hbeta :
+        3 * (4 * a2 - 3 * a4 ^ 2) * (4 * a2 - a4 ^ 2) * (4 * a2 + a4 ^ 2)
+              / 2048 * a4dot
+            + 3 * a4 * (4 * a2 - a4 ^ 2) * (4 * a2 + a4 ^ 2) / 512 * a2dot = 0 := by
+      rw [hfactor]
+      ring
+    rw [hbeta, mul_zero] at hKeller
+    exact hj hKeller.symm
+  · have hterminal :=
+      GCD369EllipticTerminalForm a2 a4 a2dot a4dot C0 hcurve htangent
+    rw [hYdot, mul_zero] at hterminal
+    have hleft : (147456 : K) * (8 * a2 - 2 * a4 ^ 2) ≠ 0 :=
+      mul_ne_zero (by norm_num) hX
+    have hbeta :
+        3 * (4 * a2 - 3 * a4 ^ 2) * (4 * a2 - a4 ^ 2) * (4 * a2 + a4 ^ 2)
+              / 2048 * a4dot
+            + 3 * a4 * (4 * a2 - a4 ^ 2) * (4 * a2 + a4 ^ 2) / 512 * a2dot = 0 :=
+      (mul_eq_zero.mp hterminal).resolve_left hleft
+    rw [hbeta, mul_zero] at hKeller
+    exact hj hKeller.symm
+
 /-- On the special fibre `C=kappa²+mu=0`, the elliptic-sheet equation factors
 without division into the zero-bracket intersection and the shifted
 Davenport--Stothers sheet. -/
@@ -338,6 +1123,98 @@ theorem GCD369SpecialFibreDichotomy {K : Type*} [Field K] [CharZero K]
     exact Or.inl ((pow_eq_zero_iff (by norm_num : (2 : Nat) ≠ 0)).mp
       ((mul_eq_zero.mp h).resolve_left h34))
   · exact Or.inr (sub_eq_zero.mp hlast)
+
+/-- The zero-`X` part of the special elliptic fibre is precisely its
+intersection with the zero-bracket sheet.  This implication is proved before
+any division by `X`. -/
+theorem GCD369EllipticZeroXToZeroSheet {K : Type*} [Field K] [CharZero K]
+    (a0 a1 a2 a3 a4 kappa mu : K)
+    (ha3 : a3 = 0) (ha1 : a1 = 0) (hC : kappa ^ 2 + mu = 0)
+    (hlinear : 48 * a0 - 12 * a2 * a4 + 3 * a4 ^ 3 + 32 * kappa = 0)
+    (hX : 8 * a2 - 2 * a4 ^ 2 = 0) :
+    (4 * a2 - a4 ^ 2 = 0) ∧ (2 * a1 - a3 * a4 = 0)
+      ∧ 9 * (4 * a0 - a3 ^ 2) ^ 2 + 48 * kappa * (4 * a0 - a3 ^ 2)
+        - 64 * mu = 0 := by
+  have hA : 4 * a2 - a4 ^ 2 = 0 := by
+    linear_combination (1 / 2) * hX
+  have hsmall : 48 * a0 + 32 * kappa = 0 := by
+    linear_combination hlinear + (3 * a4 / 2) * hX
+  have hsq : (48 * a0 + 32 * kappa) ^ 2 = 0 := by
+    rw [hsmall, zero_pow (by norm_num : (2 : Nat) ≠ 0)]
+  refine ⟨hA, ?_, ?_⟩
+  · rw [ha3, ha1]
+    ring
+  · rw [ha3]
+    linear_combination (1 / 16) * hsq - 64 * hC
+
+/-- On the nonzero-`X` part of the special elliptic fibre, the coefficient
+coordinates are exactly the shifted Davenport--Stothers parameters. -/
+theorem GCD369EllipticShiftedDSParameters {K : Type*} [Field K] [CharZero K]
+    (a0 a2 a4 kappa mu : K) (hC : kappa ^ 2 + mu = 0)
+    (hEB : 384 * a2 ^ 3 - 432 * a2 ^ 2 * a4 ^ 2 + 144 * a2 * a4 ^ 4
+      - 15 * a4 ^ 6 + 1024 * (kappa ^ 2 + mu) = 0)
+    (hX : 8 * a2 - 2 * a4 ^ 2 ≠ 0)
+    (hlinear : 48 * a0 - 12 * a2 * a4 + 3 * a4 ^ 3 + 32 * kappa = 0) :
+    ∃ lambda : K, a4 = 4 * lambda ∧ a2 = 10 * lambda ^ 2
+      ∧ a0 = 6 * lambda ^ 3 - 2 * kappa / 3 := by
+  have hsplit := GCD369SpecialFibreDichotomy a2 a4 kappa mu hC hEB
+  dsimp only at hsplit
+  rcases hsplit with hzero | hshifted
+  · exact False.elim (hX hzero)
+  · let lambda := a4 / 4
+    refine ⟨lambda, by dsimp [lambda]; ring, ?_, ?_⟩
+    · dsimp [lambda]
+      linear_combination (1 / 8) * hshifted
+    · dsimp [lambda]
+      linear_combination (1 / 48) * hlinear + (a4 / 32) * hshifted
+
+/-- Substituting the nonzero-`X` special-fibre parameters into the complete
+eight-high-row normal form gives exactly the shifted Davenport--Stothers
+pair. -/
+theorem GCD369HighRowShiftedDS {K : Type*} [Field K] [CharZero K]
+    (a0 a1 a2 a3 a4 kappa lambda : K)
+    (ha4 : a4 = 4 * lambda) (ha3 : a3 = 0) (ha2 : a2 = 10 * lambda ^ 2)
+    (ha1 : a1 = 0) (ha0 : a0 = 6 * lambda ^ 3 - 2 * kappa / 3) :
+    let f : K[X] :=
+      X ^ 6 + C a4 * X ^ 4 + C a3 * X ^ 3 + C a2 * X ^ 2 + C a1 * X + C a0
+    let g : K[X] :=
+      X ^ 9
+        + C (3 * a4 / 2) * X ^ 7
+        + C (3 * a3 / 2) * X ^ 6
+        + C (3 * (4 * a2 + a4 ^ 2) / 8) * X ^ 5
+        + C (3 * (2 * a1 + a3 * a4) / 4) * X ^ 4
+        + C ((24 * a0 + 12 * a2 * a4 + 6 * a3 ^ 2 - a4 ^ 3) / 16) * X ^ 3
+        + C (3 * (4 * a1 * a4 + 4 * a2 * a3 - a3 * a4 ^ 2) / 16) * X ^ 2
+        + C (3 * (32 * a0 * a4 + 32 * a1 * a3 + 16 * a2 ^ 2
+            - 8 * a2 * a4 ^ 2 - 8 * a3 ^ 2 * a4 + a4 ^ 4) / 128) * X
+        + C ((24 * a0 * a3 + 24 * a1 * a2 - 6 * a1 * a4 ^ 2
+            - 12 * a2 * a3 * a4 - 2 * a3 ^ 3 + 3 * a3 * a4 ^ 3) / 32)
+        + C kappa * (X ^ 3 + C (a4 / 2) * X + C (a3 / 2))
+    f = X ^ 6 + C (4 * lambda) * X ^ 4 + C (10 * lambda ^ 2) * X ^ 2
+          + C (6 * lambda ^ 3 - 2 * kappa / 3)
+      ∧ g =
+        X ^ 9 + C (6 * lambda) * X ^ 7 + C (21 * lambda ^ 2) * X ^ 5
+          + C (35 * lambda ^ 3) * X ^ 3 + C (63 * lambda ^ 4 / 2) * X := by
+  rw [ha4, ha3, ha2, ha1, ha0]
+  have hb7 : 3 * (4 * lambda) / 2 = 6 * lambda := by ring
+  have hhalf4 : 4 * lambda / 2 = 2 * lambda := by ring
+  have hb5 : 3 * (4 * (10 * lambda ^ 2) + (4 * lambda) ^ 2) / 8
+      = 21 * lambda ^ 2 := by ring
+  have hb3 :
+      (24 * (6 * lambda ^ 3 - 2 * kappa / 3)
+          + 12 * (10 * lambda ^ 2) * (4 * lambda) + 6 * 0 ^ 2 - (4 * lambda) ^ 3) / 16
+        = 35 * lambda ^ 3 - kappa := by ring
+  have hb1 :
+      3 * (32 * (6 * lambda ^ 3 - 2 * kappa / 3) * (4 * lambda)
+          + 32 * 0 * 0 + 16 * (10 * lambda ^ 2) ^ 2
+          - 8 * (10 * lambda ^ 2) * (4 * lambda) ^ 2
+          - 8 * 0 ^ 2 * (4 * lambda) + (4 * lambda) ^ 4) / 128
+        = 63 * lambda ^ 4 / 2 - 2 * kappa * lambda := by ring
+  dsimp only
+  rw [hb7, hhalf4, hb5, hb3, hb1]
+  constructor <;>
+    simp only [map_zero, C_0, C_mul, C_add, C_sub, C_pow, C_ofNat, C_eq_natCast,
+      zero_mul, mul_zero, add_zero, zero_add, sub_zero] <;> simp <;> ring
 
 /-- Exact bracket of the shifted Davenport--Stothers trajectory, in the
 denominator-free normalization obtained by doubling its degree-nine member. -/

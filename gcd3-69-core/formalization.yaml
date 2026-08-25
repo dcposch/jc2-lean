@@ -1,0 +1,178 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+# formalization.yaml v0.4
+version: "v0.4"
+
+project:
+  name: "jc2-gcd3-69-core"
+  description: >-
+    Lean 4 / Mathlib formalization of six reusable algebraic statements from
+    the first common-cubic gate at actual partial degrees (6,9): the exact
+    top-row identity, nontrivial Kummer alignment, simultaneous depression,
+    invariance of a simple generated field under a nonzero base-field scalar,
+    an explicit order-three Davenport--Stothers certificate, and its general
+    differential identity.  This project intentionally does not formalize the
+    later (6,9), 3|H exclusion or the maximum-eleven automorphism theorem.
+  authors:
+    - "Dan Clemens Posch"
+  license: "Apache-2.0"
+  responsible_maintainers:
+    - "Dan Clemens Posch"
+
+classification:
+  arxiv: ["math.AG", "math.AC"]
+  msc2020: ["14R15"]
+
+sources:
+  - title: "GCD3 (6,9) common-cubic first gate"
+    authors:
+      - "Dan Clemens Posch"
+    type: "working campaign report"
+    location: "jc2/xmodel/gcd3-69-common-cubic-first-gate-20260824.md"
+    relationship: "formalizes"
+    note: >-
+      Source for the y^13 cancellation, Kummer alignment, simultaneous
+      depression, normalized constant-W scheme, Davenport--Stothers family,
+      and differential identity.  The Lean project extracts only
+      self-contained algebraic statements from this report.
+    license: "CC-BY-4.0"
+    author_endorsement: "participated"
+  - title: "Hostile different-model review: GCD3 (6,9) common-cubic first gate"
+    authors:
+      - "Grok review agent under the JC2 campaign"
+    type: "campaign review report"
+    location: "jc2/xmodel/gcd3-69-common-cubic-first-gate-review-grok-20260824.md"
+    relationship: "background"
+    note: >-
+      Independent reconstruction and scope audit of the informal first gate.
+      It explicitly forbids promotion of this gate alone to a (6,9)
+      exclusion.  It is not an external human peer review of the Lean code.
+    license: "unknown"
+    author_endorsement: "not-contacted"
+  - title: "GCD3 (6,9) mixed-cube-factor adversarial control"
+    authors:
+      - "Dan Clemens Posch"
+    type: "working campaign report"
+    location: "jc2/xmodel/gcd3-69-mixed-cube-factor-control-20260824.md"
+    relationship: "background"
+    note: >-
+      Motivation for the abstract simple-field generator lemma formalized as
+      GCD369CubeFactorNeutral.  The report's full divisor and trajectory
+      analysis is not formalized here.
+    license: "CC-BY-4.0"
+    author_endorsement: "participated"
+
+related_formalizations:
+  - id: "PALOMAR-2026-08-19-000005"
+    relationship: "sibling project from the same campaign and repository"
+    note: "Theorem A, the weighted polynomial ODE-rigidity theorem."
+  - id: "PALOMAR-2026-08-20-000001"
+    relationship: "sibling project from the same campaign and repository"
+    note: "The normalized (2,2) vertex-gap obstruction."
+
+status:
+  scope: >-
+    Fully formalized and proved: GCD369TopRowIdentity,
+    GCD369KummerAlignment, GCD369SimultaneousDepression,
+    GCD369CubeFactorNeutral, GCD369DavenportStothersCertificate, and
+    GCD369DavenportStothersDerivativeIdentity.  Not formalized: derivation of
+    the Kummer model from an arbitrary Keller pair; the eight high source
+    rows; lower Pfaffian and terminal rows; target-translation corrections;
+    cube-mismatch and cube-trajectory closures; the coverage composition;
+    the (6,9), 3|H exclusion; the maximum-eleven theorem; or JC2.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: []
+
+automation:
+  methods:
+    - method: "agent"
+      models: ["OpenAI Codex (GPT-5 family)"]
+      framework: "Codex"
+      tool_setup: >-
+        AI-assisted statement extraction, Lean proof development, and
+        metadata drafting against pinned Mathlib; all Solution declarations
+        checked by Lean and separately audited with #print axioms.
+      cost:
+        wall_time: "under one day of agent time"
+        spend_usd: "subscription-based"
+        hardware: "local machine (macOS)"
+      prompting_notes: >-
+        Campaign-directed task emphasizing an honest, self-contained first
+        gate rather than formalizing the 144-case coverage bookkeeping or
+        claiming the full maximum-eleven theorem.
+    - method: "manual"
+      models: []
+      framework: "n/a"
+      tool_setup: >-
+        Human campaign direction and responsibility for statement and source
+        review.
+      cost:
+        wall_time: "not yet recorded"
+        spend_usd: "not tracked"
+        hardware: "local machine"
+      prompting_notes: "n/a"
+  spend_usd: "subscription-based"
+  notes: >-
+    The Lean formalization is machine-checked.  The source mathematics had
+    campaign-internal adversarial model review, but this project has not yet
+    received external human peer review.
+
+fidelity:
+  divergences: >-
+    (1) GCD369KummerAlignment abstracts the campaign situation to a
+    characteristic-zero domain with hypotheses saying that differential
+    constants are sigma-fixed and A,B have common weight omega; it does not
+    construct the Kummer extension or assert sigma(s)=omega*s.  These omitted
+    facts are not used by the alignment argument once the stated hypotheses
+    are available.  (2) GCD369CubeFactorNeutral is the general elementary
+    simple-field statement underlying the mixed-cube-factor control, not its
+    full divisor analysis.  (3) The Davenport--Stothers certificate is written
+    in the denominator-free parameter lambda=2*mu; over a characteristic-zero
+    field this parametrizes the same family as the source's lambda.  (4) The
+    formalization stops at first-gate algebra and makes no claim that a Keller
+    trajectory enters or persists on the Davenport--Stothers component.  No
+    other divergences known.
+
+review:
+  status: >-
+    self-assessed; informal source passed campaign-internal different-model
+    review; Lean statements and source alignment await human audit; no
+    external peer review
+  reviewers:
+    - "Dan Clemens Posch"
+  notes: >-
+    Kernel checks show no sorryAx or custom axioms in Solution.lean.  The
+    cited hostile review is evidence about the informal source and its scope,
+    not an independent review of this Lean extraction.
+
+alignment:
+  namespace: "(root)"
+  statements:
+    - source: "First-gate top-row cancellation"
+      lean: "GCD369TopRowIdentity"
+      module: "Challenge"
+      status: "proved"
+    - source: "First-gate nontrivial-Kummer alignment"
+      lean: "GCD369KummerAlignment"
+      module: "Challenge"
+      status: "proved (abstracted hypotheses)"
+    - source: "Aligned simultaneous depression"
+      lean: "GCD369SimultaneousDepression"
+      module: "Challenge"
+      status: "proved"
+    - source: "Mixed cube-factor field-class neutrality"
+      lean: "GCD369CubeFactorNeutral"
+      module: "Challenge"
+      status: "proved (general elementary form)"
+    - source: "Order-three Davenport--Stothers explicit family"
+      lean: "GCD369DavenportStothersCertificate"
+      module: "Challenge"
+      status: "proved (reparametrized by lambda=2*mu)"
+    - source: "Davenport--Stothers differential identity"
+      lean: "GCD369DavenportStothersDerivativeIdentity"
+      module: "Challenge"
+      status: "proved"
+
+acknowledgements: >-
+  The Mathlib community; the Palomar registry conventions; campaign review
+  agents that audited the informal first-gate scope.

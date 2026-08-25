@@ -1,0 +1,15 @@
+{
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
+  "theorem_names": [
+    "GCD369TopRowIdentity",
+    "GCD369KummerAlignment",
+    "GCD369SimultaneousDepression",
+    "GCD369CubeFactorNeutral",
+    "GCD369DavenportStothersCertificate",
+    "GCD369DavenportStothersDerivativeIdentity"
+  ],
+  "definition_names": [],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
+  "enable_nanoda": true
+}
