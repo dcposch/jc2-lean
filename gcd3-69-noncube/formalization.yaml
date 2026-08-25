@@ -1,0 +1,183 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "jc2-gcd3-69-noncube-reduction"
+  description: >-
+    Lean 4 / Mathlib formalization of the exact two-sheet reduction in the
+    aligned nontrivial cubic-Kummer analysis at actual partial degrees (6,9).
+    The four lower-Pfaffian invariant equations are proved to have exactly two
+    field-valued reduced branches: a common-power sheet with zero source
+    bracket and an elliptic sheet.  The formalization derives the elliptic
+    equation and terminal one-form, excludes its C != 0 fibre by a finite
+    forbidden-value argument, factors the C=0 fibre, and verifies the shifted
+    Davenport--Stothers bracket, terminal descent, infinity arithmetic, and
+    one-root cube conclusion.  It does not formalize the remaining
+    finite-place valuation classification and therefore does not claim the
+    full noncube branch, all (6,9), maximum eleven, or JC2.
+  authors:
+    - "Dan Clemens Posch"
+  license: "Apache-2.0"
+  responsible_maintainers:
+    - "Dan Clemens Posch"
+
+classification:
+  arxiv: ["math.AG", "math.AC"]
+  msc2020: ["14R15", "13P10"]
+
+sources:
+  - title: "GCD3 (6,9) lower-Pfaffian successor gate"
+    authors:
+      - "Dan Clemens Posch"
+    type: "other"
+    location: "sources/gcd3-69-lower-pfaffian-successor-20260824.md"
+    relationship: "formalizes"
+    note: >-
+      Exact frozen campaign report for the invariant fibre, its two reduced
+      sheets, the elliptic terminal obstruction, and the shifted
+      Davenport--Stothers valuation endgame.  The source is included
+      byte-for-byte in this public project; its original SHA-256 is recorded
+      in README.md.  The Lean project formalizes the algebraic decomposition,
+      the complete C != 0 exclusion, and the displayed special-fibre/endgame
+      identities, but not the finite-place valuation classification.
+    license: "CC-BY-4.0"
+    author_endorsement: "participated"
+  - title: "Hostile different-model review: GCD3 (6,9) lower-Pfaffian successor"
+    authors:
+      - "Grok 4.6 review agent under the JC2 campaign"
+    type: "other"
+    location: "sources/gcd3-69-lower-pfaffian-successor-review-grok-20260824.md"
+    relationship: "background"
+    note: >-
+      Campaign-internal independent reconstruction and scope audit of the
+      informal source, copied byte-for-byte.  It is not an external human peer
+      review and does not review this Lean extraction.
+    license: "CC-BY-4.0"
+    author_endorsement: "n/a"
+
+status:
+  scope: >-
+    Fully proved: the field-valued invariant-fibre dichotomy; zero bracket on
+    the P_A sheet; the P_B elliptic equation and terminal form; exclusion of
+    the C != 0 rational elliptic sheet; the C=0 factorization; the shifted
+    Davenport--Stothers bracket and terminal descent; and the final infinity
+    support and one-root cube arithmetic.  Not proved: derivation of the
+    finite-place exponent classification from the rational ODE, hence the
+    complete aligned noncube exclusion and every larger Jacobian-conjecture
+    claim.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+  main_results:
+    - declaration: "GCD369InvariantFibreDichotomy"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "GCD369EllipticNonzeroExclusion"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "GCD369SpecialFibreDichotomy"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+
+automation:
+  methods:
+    - method: "agent"
+      models: ["OpenAI Codex (GPT-5 family)"]
+      framework: "Codex"
+      tool_setup: >-
+        Agent-assisted statement extraction, exact-algebra certificate
+        translation, Lean proof development, build/debug cycles, source
+        alignment, and metadata preparation against pinned Mathlib.
+      cost:
+        wall_time: "under one day of agent time"
+        spend_usd: "subscription-based"
+        hardware: "local Apple-silicon macOS machine"
+      prompting_notes: >-
+        The task required a source-faithful first substantive noncube entry,
+        explicit disclosure of remaining valuation gaps, and Palomar-ready
+        Challenge/Solution packaging.
+    - method: "manual"
+      models: []
+      framework: "n/a"
+      tool_setup: "Human mathematical direction and responsibility for publication."
+      cost:
+        wall_time: "not separately recorded"
+        spend_usd: "not tracked"
+        hardware: "local machine"
+      prompting_notes: "n/a"
+  spend_usd: "subscription-based"
+  notes: >-
+    The Singular decomposition and SymPy replay in the source were used to
+    discover and independently review the informal identities.  The submitted
+    Lean proofs do not invoke either system: all algebraic certificates are
+    checked by Lean's kernel.  No external human review of the Lean project has
+    yet occurred.
+
+fidelity:
+  divergences: >-
+    (1) GCD369InvariantFibreDichotomy states the exact field-valued reduced
+    point dichotomy implied by the source's radical equality; it does not
+    formalize equality of ideals, primary components, or the embedded
+    nonreduced component.  (2) GCD369EllipticNonzeroExclusion presents a
+    rational function by numerator and denominator and assumes no common
+    finite root.  Instead of the source's valuation at the forbidden value,
+    it uses direct evaluation there; the hypotheses ensure the denominator is
+    nonzero, and the resulting contradiction is stronger but has the same
+    scope, including ramification.  (3) GCD369EllipticTerminalForm takes the
+    elliptic curve and tangent equations explicitly.  (4) The shifted
+    Davenport--Stothers bracket doubles the degree-nine polynomial to remove
+    the coefficient 63/2, so its bracket constant is 1134 rather than 567.
+    (5) The finite-place valuation step from the descended rational ODE to the
+    exponent classification remains unformalized; only the subsequent
+    infinity-support and cube conclusions are proved.  No other divergences
+    are known.
+
+review:
+  status: >-
+    self-assessed; informal source passed campaign-internal different-model
+    hostile review; Lean statements and source alignment await human audit;
+    no external peer review
+  reviewers:
+    - "Dan Clemens Posch"
+  notes: >-
+    The copied hostile review independently reconstructs the informal
+    mathematics but predates and does not inspect the Lean code.  Kernel axiom
+    reports and the project audit script find no sorryAx or non-permitted
+    axioms in Solution.lean.
+
+alignment:
+  namespace: "(root)"
+  statements:
+    - source: "Universal reduced invariant fibre, equations (5)--(7)"
+      lean: "GCD369InvariantFibreDichotomy"
+      module: "Challenge"
+      status: "proved as the exact field-valued reduced-point dichotomy"
+    - source: "Zero-bracket sheet, equation (8)"
+      lean: "GCD369ZeroBracketSheet"
+      module: "Challenge"
+      status: "proved"
+    - source: "Elliptic coordinate and terminal form, equations (9)--(13)"
+      lean: >-
+        GCD369EllipticSheetEquation; GCD369EllipticTerminalForm;
+        GCD369ForbiddenNumerator; GCD369EllipticNonzeroExclusion
+      module: "Challenge"
+      status: "proved, with direct evaluation replacing the local valuation"
+    - source: "Special fibre and shifted Davenport--Stothers endgame, equations (16)--(21)"
+      lean: >-
+        GCD369SpecialFibreDichotomy; GCD369ShiftedDSBracket;
+        GCD369ShiftedDSTerminalDescent; GCD369DSInfinitySupport;
+        GCD369DSOneRootCube
+      module: "Challenge"
+      status: >-
+        displayed identities and post-classification arithmetic proved;
+        finite-place exponent classification not formalized
+
+acknowledgements: >-
+  The Mathlib community, the Palomar registry conventions, and the campaign
+  review agents that audited the informal lower-Pfaffian source.
