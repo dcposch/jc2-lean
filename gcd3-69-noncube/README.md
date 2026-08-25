@@ -63,7 +63,7 @@ included campaign source and its review.
   support is a singleton, gives the exact one-root forms for `H` and `B`, and
   concludes that `H` is a cube when `3 | deg(H)`.
 - `GCD369ShiftedDSNumeratorConstant` proves that the numerator in a reduced
-  presentation `q=N/B` is constant.
+  presentation `q=N/B` with `B ≠ 0` is constant.
 - `GCD369ShiftedDSRationalCube` combines those steps into the full rational
   valuation closure, including explicit numerator, support, and exponent data.
 - `GCD369ShiftedDSNoncubeExclusion` is the headline v2 result: the cleared
@@ -98,6 +98,29 @@ the preceding formalized terminal descent.  Still out of scope are the
 landing from an arbitrary Keller pair into the invariant fibre and its
 shifted-DS parametrization, the cube-core branch, a general `(6,9)` exclusion,
 the maximum-partial-degree-eleven theorem, and the plane Jacobian conjecture.
+
+## Relationship to earlier literature
+
+Common-power leading forms and degree reductions are standard themes in the
+plane Jacobian literature; the nearest broad antecedents are Moh's
+root-configuration analysis (*J. Reine Angew. Math.* 340 (1983), 140–212)
+and Guccione–Guccione–Valqui's Newton-polygon treatment
+([*J. Algebra* 471 (2017), 13–74](https://doi.org/10.1016/j.jalgebra.2016.09.020)).
+Those works concern global or total-degree reductions.  This package instead
+checks a selected lower-Pfaffian implication at actual partial degrees `(6,9)`;
+it neither reproduces nor strengthens their global theorems, and no such
+theorem is imported into the Lean proofs.
+
+The displayed degree-`(6,9)` polynomial family belongs to the classical
+Davenport–Stothers theory.  Shioda records the order-three Birch example and
+`St(3)=1` ([*Comment. Math. Univ. St. Pauli* 54 (2005), 49–68](https://doi.org/10.14992/00008689)),
+while Zannier studies equality cases of Davenport's bound
+([*Acta Arith.* 71 (1995), 107–137](https://doi.org/10.4064/AA-71-2-107-137)).
+The explicit family is therefore not claimed as new.  The selected result here
+adapts it to the shifted rational ODE produced by the campaign's invariant
+fibre and proves, in Lean, the finite-place classification, one-point support,
+and noncube contradiction; it does not reprove the classical classification
+of Davenport–Stothers triples.
 
 The source report and its campaign-internal hostile review are copied exactly
 under `sources/`; their SHA-256 digests agree with the frozen originals:

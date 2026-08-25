@@ -231,10 +231,10 @@ theorem GCD369ShiftedDSPolynomialCube {K : Type*} [Field K] [CharZero K]
       ∧ H = u ^ 3 := by
   sorry
 
-/-- In a reduced presentation `q = N / B`, the cleared shifted
+/-- In a reduced presentation `q = N / B` with `B ≠ 0`, the cleared shifted
 Davenport--Stothers ODE forces the numerator `N` to be constant. -/
 theorem GCD369ShiftedDSNumeratorConstant {K : Type*} [Field K] [CharZero K]
-    [IsAlgClosed K] (H N B : K[X]) (j : K) (hj : j ≠ 0)
+    [IsAlgClosed K] (H N B : K[X]) (j : K) (hB : B ≠ 0) (hj : j ≠ 0)
     (hreduced : ∀ x : K, eval x N = 0 → eval x B ≠ 0)
     (hODE :
       C 189 * H ^ 4 * N ^ 6

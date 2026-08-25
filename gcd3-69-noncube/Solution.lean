@@ -792,13 +792,13 @@ theorem GCD369ShiftedDSPolynomialCube {K : Type*} [Field K] [CharZero K]
     omega
   exact ⟨a, k, u, hk, hHform, hBform, hHform.trans hu⟩
 
-/-- In a reduced presentation `q = N / B`, the cleared shifted
+/-- In a reduced presentation `q = N / B` with `B ≠ 0`, the cleared shifted
 Davenport--Stothers ODE forces the numerator `N` to be constant.  A root of a
 nonconstant numerator would annihilate the left side while reducedness keeps
 the right side nonzero. -/
 theorem GCD369ShiftedDSNumeratorConstant {K : Type*} [Field K] [CharZero K]
     [IsAlgClosed K] (H N B : K[X]) (j : K)
-    (hj : j ≠ 0)
+    (hB : B ≠ 0) (hj : j ≠ 0)
     (hreduced : ∀ x : K, eval x N = 0 → eval x B ≠ 0)
     (hODE :
       C 189 * H ^ 4 * N ^ 6
@@ -837,7 +837,7 @@ theorem GCD369ShiftedDSRationalCube {K : Type*} [Field K] [CharZero K]
       ∧ B = C B.leadingCoeff * (X - C a) ^ (2 + 5 * k)
       ∧ H = u ^ 3 := by
   have hNdegree :=
-    GCD369ShiftedDSNumeratorConstant H N B j hj hreduced hODE
+    GCD369ShiftedDSNumeratorConstant H N B j hB hj hreduced hODE
   let n := N.coeff 0
   have hNconstant : N = C n := by
     exact eq_C_of_natDegree_le_zero (Nat.le_zero.mpr hNdegree)

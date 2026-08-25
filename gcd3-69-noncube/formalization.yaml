@@ -153,8 +153,9 @@ fidelity:
     the coefficient 63/2, so its bracket constant is 1134 rather than 567.
     (5) The v2 valuation theorem uses a reduced polynomial presentation
     `q=N/B` over an algebraically closed characteristic-zero coefficient
-    field.  Pointwise reducedness means every zero of `N` is not a zero of
-    `B`; the theorem first proves `N` constant and then works entirely with
+    field, and explicitly assumes the effective-domain condition `B != 0`.
+    Pointwise reducedness means every zero of `N` is not a zero of `B`; the
+    theorem first proves `N` constant and then works entirely with
     polynomial root multiplicities.  This is the global polynomial form of
     the source's finite valuations.  (6) The headline exclusion begins with
     the cleared shifted-DS ODE; it does not itself derive that parametrization
