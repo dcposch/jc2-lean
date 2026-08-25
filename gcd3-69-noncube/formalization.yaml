@@ -2,22 +2,15 @@
 version: "v0.4"
 
 project:
-  name: "jc2-gcd3-69-noncube-reduction"
+  name: "jc2-gcd3-69-aligned-noncube-exclusion"
   description: >-
-    Lean 4 / Mathlib formalization of a two-sheet implication in the
-    aligned nontrivial cubic-Kummer analysis at actual partial degrees (6,9).
-    Every field-valued solution of the four lower-Pfaffian invariant equations
-    is proved to lie on a common-power sheet with zero source bracket or on an
-    elliptic sheet; converse inclusions and existence of the sheets are not
-    compared.  The formalization derives the elliptic equation and terminal
-    one-form, excludes nonconstant reduced rational trajectories on its
-    C != 0 fibre by a finite forbidden-value argument, factors the C=0 fibre,
-    and verifies the shifted Davenport--Stothers bracket and terminal descent.
-    Version 2 derives the finite-place valuation classification directly from
-    the reduced rational ODE, proves the one-point support theorem, and
-    excludes that sheet in the noncube Kummer branch.  It does not claim the
-    preceding landing from an arbitrary Keller pair, the cube branch, all
-    (6,9), maximum eleven, or JC2.
+    Lean 4 / Mathlib proof of the aligned noncube exclusion at actual partial
+    degrees (6,9).  From the actual aligned Keller bracket and explicit
+    cubic-Kummer/function-field hypotheses, the formalization extracts the
+    four lower rows, derives the invariant two-sheet split, and excludes the
+    zero sheet, all nonzero elliptic trajectories, and the special shifted
+    Davenport--Stothers fibre.  It does not claim the cube branch, all (6,9),
+    maximum eleven, or the plane Jacobian conjecture.
   authors:
     - "Dan Clemens Posch"
   license: "Apache-2.0"
@@ -40,13 +33,10 @@ sources:
       sheets, the elliptic terminal obstruction, and the shifted
       Davenport--Stothers valuation endgame.  The source is included
       byte-for-byte in this public project; its original SHA-256 is recorded
-      in README.md.  The Lean project formalizes the implication from the
-      invariant equations to the displayed sheet disjunction, the C != 0
-      exclusion for nonconstant reduced rational trajectories, and the
-      displayed special-fibre/endgame identities, and the complete reduced
-      rational valuation closure of the shifted Davenport--Stothers ODE, but
-      not converse sheet inclusions, sheet existence, or the preceding
-      landing from an arbitrary Keller pair.
+      in README.md.  The Lean project formalizes the actual bracket-to-row and
+      row-to-invariant landing, the displayed sheet disjunction, both constant
+      and nonconstant C != 0 elliptic exclusions, the special-fibre split, and
+      the complete reduced-rational shifted Davenport--Stothers closure.
     license: "CC-BY-4.0"
     author_endorsement: "participated"
   - title: "Hostile different-model review: GCD3 (6,9) lower-Pfaffian successor"
@@ -64,39 +54,21 @@ sources:
 
 status:
   scope: >-
-    Fully proved: every field-valued solution of the invariant equations lies
-    on P_A or P_B; zero bracket on the P_A sheet; the P_B elliptic equation and
-    terminal form; exclusion of nonconstant reduced rational trajectories on
-    the C != 0 elliptic sheet; the C=0 factorization; the shifted
-    Davenport--Stothers bracket and terminal descent; the finite-place
-    exponent classification from the reduced rational ODE, including the
-    cancelled case; constancy of its numerator; the one-point support theorem;
-    the exact one-root forms; and exclusion of the shifted DS sheet under the
-    noncube Kummer hypothesis.  Not proved: converse inclusions or existence
-    for the two displayed sheets; exclusion of constant C != 0 trajectories;
-    the preceding landing from every aligned Keller pair into the shifted DS
-    parametrization; the cube-core branch; or any larger Jacobian-conjecture
-    claim.
+    Fully proved under the displayed aligned/Kummer and reduced rational
+    presentation hypotheses: extraction of all four lower rows from the
+    actual Keller bracket; first-integral and invariant-fibre landing; zero
+    bracket and terminal exclusion on P_A; the P_B elliptic equation and
+    actual terminal row; exclusion of constant and nonconstant trajectories
+    on C != 0; the C=0 factorization; shifted Davenport--Stothers terminal
+    descent and complete rational valuation closure; and contradiction of the
+    noncube core.  Not proved: construction of the aligned/Kummer presentation
+    from every arbitrary Keller pair, the cube-core branch, all (6,9), maximum
+    eleven, or any larger Jacobian-conjecture claim.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
   main_results:
-    - declaration: "GCD369InvariantFibreDichotomy"
-      file: "Solution.lean"
-      sorry_count: 0
-      axioms: ["propext", "Classical.choice", "Quot.sound"]
-      comparator_config: "comparator.json"
-    - declaration: "GCD369EllipticNonzeroExclusion"
-      file: "Solution.lean"
-      sorry_count: 0
-      axioms: ["propext", "Classical.choice", "Quot.sound"]
-      comparator_config: "comparator.json"
-    - declaration: "GCD369SpecialFibreDichotomy"
-      file: "Solution.lean"
-      sorry_count: 0
-      axioms: ["propext", "Classical.choice", "Quot.sound"]
-      comparator_config: "comparator.json"
-    - declaration: "GCD369ShiftedDSNoncubeExclusion"
+    - declaration: "GCD369AlignedNoncubeExclusion"
       file: "Solution.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
@@ -116,9 +88,9 @@ automation:
         spend_usd: "subscription-based"
         hardware: "local Apple-silicon macOS machine"
       prompting_notes: >-
-        The task required a source-faithful noncube entry, followed by a v2
-        proof of the missing cancellation-sensitive finite-place valuation
-        argument and Palomar-ready Challenge/Solution packaging.
+        The task first required a source-faithful two-sheet entry and a v2
+        cancellation-sensitive valuation closure, then the complete aligned
+        noncube dispatcher and Palomar-ready Challenge/Solution packaging.
     - method: "manual"
       models: []
       framework: "n/a"
@@ -138,28 +110,22 @@ automation:
 
 fidelity:
   divergences: >-
-    (1) GCD369InvariantFibreDichotomy states only the field-valued implication
-    from the four invariant equations to the displayed sheet disjunction; it
-    does not formalize either converse inclusion, existence of points on both
-    sheets, equality of ideals, primary components, or the embedded nonreduced
-    component.  (2) GCD369EllipticNonzeroExclusion presents a nonconstant
-    rational function by numerator and denominator and assumes no common
-    finite root.  Instead of the source's valuation at the forbidden value,
-    it uses direct evaluation there; the hypotheses ensure the denominator is
-    nonzero, and the resulting contradiction includes ramified preimages but
-    does not exclude constant trajectories.  (3) GCD369EllipticTerminalForm takes the
-    elliptic curve and tangent equations explicitly.  (4) The shifted
+    (1) The theorem begins with the aligned normal form and explicit
+    cubic-Kummer/function-field data; it does not construct these from every
+    arbitrary Keller pair.  (2) Rational functions are presented by reduced
+    numerator/denominator pairs over an algebraically closed constant field.
+    The nonzero elliptic exclusion uses direct evaluation at a forbidden value
+    rather than the source's equivalent local-valuation phrasing; constant
+    trajectories are handled separately from the uncleared Keller row.
+    (3) The shifted
     Davenport--Stothers bracket doubles the degree-nine polynomial to remove
     the coefficient 63/2, so its bracket constant is 1134 rather than 567.
-    (5) The v2 valuation theorem uses a reduced polynomial presentation
-    `q=N/B` over an algebraically closed characteristic-zero coefficient
-    field, and explicitly assumes the effective-domain condition `B != 0`.
+    (4) The valuation theorem explicitly assumes the effective-domain
+    condition `B != 0`.
     Pointwise reducedness means every zero of `N` is not a zero of `B`; the
     theorem first proves `N` constant and then works entirely with
     polynomial root multiplicities.  This is the global polynomial form of
-    the source's finite valuations.  (6) The headline exclusion begins with
-    the cleared shifted-DS ODE; it does not itself derive that parametrization
-    from an arbitrary Keller pair.  No other divergences are known.
+    the source's finite valuations.  No other divergences are known.
 
 review:
   status: >-
@@ -177,40 +143,14 @@ review:
 alignment:
   namespace: "(root)"
   statements:
-    - source: "Universal reduced invariant fibre, equations (5)--(7)"
-      lean: "GCD369InvariantFibreDichotomy"
+    - source: "Aligned noncube branch, equations (5)--(21)"
+      lean: "GCD369AlignedNoncubeExclusion"
       module: "Challenge"
       status: >-
-        proved in the forward direction: every field-valued solution lies on
-        one of the two displayed sheets; converse inclusions and sheet
-        existence are not compared
-    - source: "Zero-bracket sheet, equation (8)"
-      lean: "GCD369ZeroBracketSheet"
-      module: "Challenge"
-      status: "proved"
-    - source: "Elliptic coordinate and terminal form, equations (9)--(13)"
-      lean: >-
-        GCD369EllipticSheetEquation; GCD369EllipticTerminalForm;
-        GCD369ForbiddenNumerator; GCD369EllipticNonzeroExclusion
-      module: "Challenge"
-      status: >-
-        proved for nonconstant reduced rational trajectories, with direct
-        evaluation replacing the local valuation; constant trajectories are
-        not excluded
-    - source: "Special fibre and shifted Davenport--Stothers endgame, equations (16)--(21)"
-      lean: >-
-        GCD369SpecialFibreDichotomy; GCD369ShiftedDSBracket;
-        GCD369ShiftedDSTerminalDescent; GCD369WeightedWronskianLocal;
-        GCD369ShiftedDSFinitePlace; GCD369WeightedWronskianDegree;
-        GCD369ShiftedDSPolynomialCube; GCD369ShiftedDSNumeratorConstant;
-        GCD369ShiftedDSRationalCube; GCD369ShiftedDSNoncubeExclusion;
-        GCD369DSInfinitySupport; GCD369DSOneRootCube
-      module: "Challenge"
-      status: >-
-        displayed identities, full reduced-rational finite-place
-        classification, infinity support, exact one-root forms, cube
-        conclusion, and noncube exclusion proved; preceding landing into the
-        shifted-DS parametrization is not compared
+        actual bracket-to-invariant landing, two-sheet dispatch, elliptic
+        exclusions, special-fibre reduction, and shifted-DS noncube
+        contradiction proved under the displayed aligned/Kummer and reduced
+        function-field hypotheses
 
 acknowledgements: >-
   The Mathlib community, the Palomar registry conventions, and the campaign

@@ -2,26 +2,12 @@
   "challenge_module": "Challenge",
   "solution_module": "Solution",
   "theorem_names": [
-    "GCD369InvariantFibreDichotomy",
-    "GCD369ZeroBracketSheet",
-    "GCD369EllipticSheetEquation",
-    "GCD369EllipticTerminalForm",
-    "GCD369ForbiddenNumerator",
-    "GCD369EllipticNonzeroExclusion",
-    "GCD369SpecialFibreDichotomy",
-    "GCD369ShiftedDSBracket",
-    "GCD369ShiftedDSTerminalDescent",
-    "GCD369WeightedWronskianLocal",
-    "GCD369ShiftedDSFinitePlace",
-    "GCD369WeightedWronskianDegree",
-    "GCD369ShiftedDSPolynomialCube",
-    "GCD369ShiftedDSNumeratorConstant",
-    "GCD369ShiftedDSRationalCube",
-    "GCD369ShiftedDSNoncubeExclusion",
-    "GCD369DSInfinitySupport",
-    "GCD369DSOneRootCube"
+    "GCD369AlignedNoncubeExclusion"
   ],
-  "definition_names": [],
+  "definition_names": [
+    "GCD369AlignedF",
+    "GCD369AlignedG"
+  ],
   "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
   "enable_nanoda": true
 }

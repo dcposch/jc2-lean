@@ -3,7 +3,7 @@
 set -eu
 cd "$(dirname "$0")/.."
 
-THEOREMS="GCD369InvariantFibreDichotomy GCD369ZeroBracketSheet GCD369EllipticSheetEquation GCD369EllipticTerminalForm GCD369ForbiddenNumerator GCD369EllipticNonzeroExclusion GCD369SpecialFibreDichotomy GCD369ShiftedDSBracket GCD369ShiftedDSTerminalDescent GCD369WeightedWronskianLocal GCD369ShiftedDSFinitePlace GCD369WeightedWronskianDegree GCD369ShiftedDSPolynomialCube GCD369ShiftedDSNumeratorConstant GCD369ShiftedDSRationalCube GCD369ShiftedDSNoncubeExclusion GCD369DSInfinitySupport GCD369DSOneRootCube"
+THEOREMS="$(sed -n 's/^theorem \(GCD369[^ ]*\).*/\1/p' Solution.lean)"
 PROBE="import Solution\n"
 for thm in $THEOREMS; do
   PROBE="${PROBE}#print axioms ${thm}\n"
@@ -29,4 +29,5 @@ for thm in $THEOREMS; do
     exit 1
   fi
 done
-echo "OK: all eighteen gcd3-69-noncube theorems use only permitted axioms."
+COUNT="$(printf '%s\n' $THEOREMS | wc -l | tr -d ' ')"
+echo "OK: all $COUNT gcd3-69-noncube theorems use only permitted axioms."

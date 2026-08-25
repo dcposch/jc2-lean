@@ -8,14 +8,12 @@ import Mathlib
 /-!
 # The lower-Pfaffian noncube gate at partial degrees `(6,9)`
 
-This module proves algebraic implications and terminal identities used in the
-aligned nontrivial cubic-Kummer branch.  The central theorem shows that every
-field-valued solution of the four Kummer-forced invariant equations lies on
-the zero-bracket sheet or the elliptic sheet displayed in the source report;
-it does not prove converse inclusions or existence of either sheet.  The v2
-theorems also close the shifted Davenport--Stothers sheet by deriving its
-finite-place classification and one-point cube conclusion from the reduced
-rational ODE.
+This module proves the aligned noncube exclusion in the nontrivial
+cubic-Kummer branch.  It extracts the lower rows from the actual Keller
+bracket, derives the invariant two-sheet split, and excludes the zero sheet,
+the constant and nonconstant elliptic cases, and the special shifted
+Davenport--Stothers fibre under the displayed reduced function-field
+presentations.
 -/
 
 open Polynomial
@@ -43,6 +41,243 @@ noncomputable def GCD369AlignedG {K : Type*} [Field K]
         - 12 * a2 * a3 * a4 - 2 * a3 ^ 3 + 3 * a3 * a4 ^ 3) / 32)
     + C kappa * (X ^ 3 + C (a4 / 2) * X + C (a3 / 2))
 
+set_option maxHeartbeats 2000000 in
+set_option maxRecDepth 10000 in
+theorem GCD369AlignedKellerRow4 {K : Type*} [Field K] [CharZero K] [Differential K]
+    (a0 a1 a2 a3 a4 kappa terminal : K)
+    (hkappa : Differential.deriv kappa = 0)
+    (hD :
+      Differential.mapCoeffs (GCD369AlignedF a0 a1 a2 a3 a4)
+          * derivative (GCD369AlignedG a0 a1 a2 a3 a4 kappa)
+        - derivative (GCD369AlignedF a0 a1 a2 a3 a4)
+          * Differential.mapCoeffs (GCD369AlignedG a0 a1 a2 a3 a4 kappa)
+        = C terminal) :
+    3 * (-96 * a0 * a4 * Differential.deriv a4
+        + 192 * a0 * Differential.deriv a2 - 96 * a1 * a3 * Differential.deriv a4
+        - 96 * a1 * a4 * Differential.deriv a3 + 192 * a1 * Differential.deriv a1
+        - 48 * a2 ^ 2 * Differential.deriv a4
+        - 96 * a2 * a3 * Differential.deriv a3
+        + 72 * a2 * a4 ^ 2 * Differential.deriv a4
+        - 96 * a2 * a4 * Differential.deriv a2 + 192 * a2 * Differential.deriv a0
+        + 72 * a3 ^ 2 * a4 * Differential.deriv a4
+        - 48 * a3 ^ 2 * Differential.deriv a2
+        + 72 * a3 * a4 ^ 2 * Differential.deriv a3
+        - 96 * a3 * a4 * Differential.deriv a1
+        - 15 * a4 ^ 4 * Differential.deriv a4
+        + 24 * a4 ^ 3 * Differential.deriv a2
+        - 48 * a4 ^ 2 * Differential.deriv a0
+        - 64 * a4 * kappa * Differential.deriv a4
+        + 128 * kappa * Differential.deriv a2) = 0 := by
+  have hnat (n : ℕ) : Differential.deriv (n : K) = 0 :=
+    Differential.deriv.map_natCast n
+  have hOfNat (n : ℕ) [n.AtLeastTwo] :
+      Differential.deriv (ofNat(n) : K) = 0 := hnat n
+  have hCpowCoeff (a : K) (n m : ℕ) :
+      (C a ^ n : K[X]).coeff m = if m = 0 then a ^ n else 0 := by
+    rw [← C_pow]
+    exact coeff_C
+  have h4 := congrArg (fun p : K[X] => p.coeff 4) hD
+  rw [GCD369AlignedF, GCD369AlignedG] at h4
+  simp only [coeff_sub, coeff_mul, Differential.coeff_mapCoeffs, coeff_derivative,
+    coeff_C, if_neg (by norm_num : (4 : Nat) ≠ 0)] at h4
+  simp only [Finset.Nat.sum_antidiagonal_eq_sum_range_succ_mk] at h4
+  simp only [mul_assoc] at h4
+  simp [Finset.sum_range_succ, C_mul, C_pow, coeff_C, coeff_C_mul, coeff_mul_C,
+    coeff_mul_X_pow', coeff_X, coeff_X_pow,
+    hkappa, div_eq_mul_inv, Derivation.leibniz,
+    Derivation.leibniz_inv, Derivation.leibniz_pow, hOfNat] at h4
+  simp_rw [hCpowCoeff] at h4
+  simp [hOfNat] at h4
+  norm_num at h4
+  field_simp at h4
+  ring_nf at h4
+  linear_combination (1 / 1024) * h4
+
+set_option maxHeartbeats 2000000 in
+set_option maxRecDepth 10000 in
+theorem GCD369AlignedKellerRow3 {K : Type*} [Field K] [CharZero K] [Differential K]
+    (a0 a1 a2 a3 a4 kappa terminal : K)
+    (hkappa : Differential.deriv kappa = 0)
+    (hD :
+      Differential.mapCoeffs (GCD369AlignedF a0 a1 a2 a3 a4)
+          * derivative (GCD369AlignedG a0 a1 a2 a3 a4 kappa)
+        - derivative (GCD369AlignedF a0 a1 a2 a3 a4)
+          * Differential.mapCoeffs (GCD369AlignedG a0 a1 a2 a3 a4 kappa)
+        = C terminal) :
+    3 * (-96 * a0 * a3 * Differential.deriv a4
+        - 96 * a0 * a4 * Differential.deriv a3 + 192 * a0 * Differential.deriv a1
+        - 96 * a1 * a2 * Differential.deriv a4
+        - 96 * a1 * a3 * Differential.deriv a3
+        + 72 * a1 * a4 ^ 2 * Differential.deriv a4
+        - 96 * a1 * a4 * Differential.deriv a2 + 192 * a1 * Differential.deriv a0
+        - 48 * a2 ^ 2 * Differential.deriv a3
+        + 144 * a2 * a3 * a4 * Differential.deriv a4
+        - 96 * a2 * a3 * Differential.deriv a2
+        + 72 * a2 * a4 ^ 2 * Differential.deriv a3
+        - 96 * a2 * a4 * Differential.deriv a1
+        + 24 * a3 ^ 3 * Differential.deriv a4
+        + 72 * a3 ^ 2 * a4 * Differential.deriv a3
+        - 48 * a3 ^ 2 * Differential.deriv a1
+        - 60 * a3 * a4 ^ 3 * Differential.deriv a4
+        + 72 * a3 * a4 ^ 2 * Differential.deriv a2
+        - 96 * a3 * a4 * Differential.deriv a0
+        - 64 * a3 * kappa * Differential.deriv a4
+        - 15 * a4 ^ 4 * Differential.deriv a3
+        + 24 * a4 ^ 3 * Differential.deriv a1
+        - 64 * a4 * kappa * Differential.deriv a3
+        + 128 * kappa * Differential.deriv a1) = 0 := by
+  have hnat (n : ℕ) : Differential.deriv (n : K) = 0 :=
+    Differential.deriv.map_natCast n
+  have hOfNat (n : ℕ) [n.AtLeastTwo] :
+      Differential.deriv (ofNat(n) : K) = 0 := hnat n
+  have hCpowCoeff (a : K) (n m : ℕ) :
+      (C a ^ n : K[X]).coeff m = if m = 0 then a ^ n else 0 := by
+    rw [← C_pow]
+    exact coeff_C
+  have h3 := congrArg (fun p : K[X] => p.coeff 3) hD
+  rw [GCD369AlignedF, GCD369AlignedG] at h3
+  simp only [coeff_sub, coeff_mul, Differential.coeff_mapCoeffs, coeff_derivative,
+    coeff_C, if_neg (by norm_num : (3 : Nat) ≠ 0)] at h3
+  simp only [Finset.Nat.sum_antidiagonal_eq_sum_range_succ_mk] at h3
+  simp only [mul_assoc] at h3
+  simp [Finset.sum_range_succ, C_mul, C_pow, coeff_C, coeff_C_mul, coeff_mul_C,
+    coeff_mul_X_pow', coeff_X, coeff_X_pow,
+    hkappa, div_eq_mul_inv, Derivation.leibniz,
+    Derivation.leibniz_inv, Derivation.leibniz_pow, hOfNat] at h3
+  simp_rw [hCpowCoeff] at h3
+  simp [hOfNat] at h3
+  norm_num at h3
+  field_simp at h3
+  ring_nf at h3
+  linear_combination (1 / 1024) * h3
+
+set_option maxHeartbeats 2000000 in
+set_option maxRecDepth 10000 in
+theorem GCD369AlignedKellerRow2 {K : Type*} [Field K] [CharZero K] [Differential K]
+    (a0 a1 a2 a3 a4 kappa terminal : K)
+    (hkappa : Differential.deriv kappa = 0)
+    (hD :
+      Differential.mapCoeffs (GCD369AlignedF a0 a1 a2 a3 a4)
+          * derivative (GCD369AlignedG a0 a1 a2 a3 a4 kappa)
+        - derivative (GCD369AlignedF a0 a1 a2 a3 a4)
+          * Differential.mapCoeffs (GCD369AlignedG a0 a1 a2 a3 a4 kappa)
+        = C terminal) :
+    -192 * a0 * a2 * Differential.deriv a4
+        - 288 * a0 * a3 * Differential.deriv a3
+        + 96 * a0 * a4 * Differential.deriv a2 + 576 * a0 * Differential.deriv a0
+        - 96 * a1 ^ 2 * Differential.deriv a4
+        - 288 * a1 * a2 * Differential.deriv a3
+        + 192 * a1 * a3 * a4 * Differential.deriv a4
+        - 288 * a1 * a3 * Differential.deriv a2
+        + 24 * a1 * a4 ^ 2 * Differential.deriv a3
+        + 96 * a1 * a4 * Differential.deriv a1
+        + 96 * a2 ^ 2 * a4 * Differential.deriv a4
+        - 144 * a2 ^ 2 * Differential.deriv a2
+        + 192 * a2 * a3 ^ 2 * Differential.deriv a4
+        + 240 * a2 * a3 * a4 * Differential.deriv a3
+        - 288 * a2 * a3 * Differential.deriv a1
+        - 24 * a2 * a4 ^ 3 * Differential.deriv a4
+        + 24 * a2 * a4 ^ 2 * Differential.deriv a2
+        + 96 * a2 * a4 * Differential.deriv a0
+        - 128 * a2 * kappa * Differential.deriv a4
+        + 72 * a3 ^ 3 * Differential.deriv a3
+        - 108 * a3 ^ 2 * a4 ^ 2 * Differential.deriv a4
+        + 120 * a3 ^ 2 * a4 * Differential.deriv a2
+        - 144 * a3 ^ 2 * Differential.deriv a0
+        - 36 * a3 * a4 ^ 3 * Differential.deriv a3
+        + 24 * a3 * a4 ^ 2 * Differential.deriv a1
+        - 192 * a3 * kappa * Differential.deriv a3
+        + 3 * a4 ^ 4 * Differential.deriv a2
+        - 24 * a4 ^ 3 * Differential.deriv a0
+        + 64 * a4 * kappa * Differential.deriv a2
+        + 384 * kappa * Differential.deriv a0 = 0 := by
+  have hnat (n : ℕ) : Differential.deriv (n : K) = 0 :=
+    Differential.deriv.map_natCast n
+  have hOfNat (n : ℕ) [n.AtLeastTwo] :
+      Differential.deriv (ofNat(n) : K) = 0 := hnat n
+  have hCpowCoeff (a : K) (n m : ℕ) :
+      (C a ^ n : K[X]).coeff m = if m = 0 then a ^ n else 0 := by
+    rw [← C_pow]
+    exact coeff_C
+  have h2 := congrArg (fun p : K[X] => p.coeff 2) hD
+  rw [GCD369AlignedF, GCD369AlignedG] at h2
+  simp only [coeff_sub, coeff_mul, Differential.coeff_mapCoeffs, coeff_derivative,
+    coeff_C, if_neg (by norm_num : (2 : Nat) ≠ 0)] at h2
+  simp only [Finset.Nat.sum_antidiagonal_eq_sum_range_succ_mk] at h2
+  simp only [mul_assoc] at h2
+  simp [Finset.sum_range_succ, C_mul, C_pow, coeff_C, coeff_C_mul, coeff_mul_C,
+    coeff_mul_X_pow', coeff_X, coeff_X_pow,
+    hkappa, div_eq_mul_inv, Derivation.leibniz,
+    Derivation.leibniz_inv, Derivation.leibniz_pow, hOfNat] at h2
+  simp_rw [hCpowCoeff] at h2
+  simp [hOfNat] at h2
+  norm_num at h2
+  field_simp at h2
+  ring_nf at h2
+  linear_combination (1 / 1024) * h2
+
+set_option maxHeartbeats 2000000 in
+set_option maxRecDepth 10000 in
+theorem GCD369AlignedKellerRow1 {K : Type*} [Field K] [CharZero K] [Differential K]
+    (a0 a1 a2 a3 a4 kappa terminal : K)
+    (hkappa : Differential.deriv kappa = 0)
+    (hD :
+      Differential.mapCoeffs (GCD369AlignedF a0 a1 a2 a3 a4)
+          * derivative (GCD369AlignedG a0 a1 a2 a3 a4 kappa)
+        - derivative (GCD369AlignedF a0 a1 a2 a3 a4)
+          * Differential.mapCoeffs (GCD369AlignedG a0 a1 a2 a3 a4 kappa)
+        = C terminal) :
+    -96 * a0 * a1 * Differential.deriv a4
+        - 192 * a0 * a2 * Differential.deriv a3
+        + 96 * a0 * a4 * Differential.deriv a1
+        - 96 * a1 ^ 2 * Differential.deriv a3
+        + 144 * a1 * a2 * a4 * Differential.deriv a4
+        - 288 * a1 * a2 * Differential.deriv a2
+        + 24 * a1 * a3 ^ 2 * Differential.deriv a4
+        + 48 * a1 * a3 * a4 * Differential.deriv a3
+        - 12 * a1 * a4 ^ 3 * Differential.deriv a4
+        + 24 * a1 * a4 ^ 2 * Differential.deriv a2
+        + 96 * a1 * a4 * Differential.deriv a0
+        - 64 * a1 * kappa * Differential.deriv a4
+        + 96 * a2 ^ 2 * a3 * Differential.deriv a4
+        + 96 * a2 ^ 2 * a4 * Differential.deriv a3
+        - 144 * a2 ^ 2 * Differential.deriv a1
+        + 48 * a2 * a3 ^ 2 * Differential.deriv a3
+        - 72 * a2 * a3 * a4 ^ 2 * Differential.deriv a4
+        + 96 * a2 * a3 * a4 * Differential.deriv a2
+        - 24 * a2 * a4 ^ 3 * Differential.deriv a3
+        + 24 * a2 * a4 ^ 2 * Differential.deriv a1
+        - 128 * a2 * kappa * Differential.deriv a3
+        - 24 * a3 ^ 2 * a4 * Differential.deriv a1
+        - 48 * a3 * a4 ^ 2 * Differential.deriv a0
+        + 3 * a4 ^ 4 * Differential.deriv a1
+        + 64 * a4 * kappa * Differential.deriv a1 = 0 := by
+  have hnat (n : ℕ) : Differential.deriv (n : K) = 0 :=
+    Differential.deriv.map_natCast n
+  have hOfNat (n : ℕ) [n.AtLeastTwo] :
+      Differential.deriv (ofNat(n) : K) = 0 := hnat n
+  have hCpowCoeff (a : K) (n m : ℕ) :
+      (C a ^ n : K[X]).coeff m = if m = 0 then a ^ n else 0 := by
+    rw [← C_pow]
+    exact coeff_C
+  have h1 := congrArg (fun p : K[X] => p.coeff 1) hD
+  rw [GCD369AlignedF, GCD369AlignedG] at h1
+  simp only [coeff_sub, coeff_mul, Differential.coeff_mapCoeffs, coeff_derivative,
+    coeff_C, if_neg (by norm_num : (1 : Nat) ≠ 0)] at h1
+  simp only [Finset.Nat.sum_antidiagonal_eq_sum_range_succ_mk] at h1
+  simp only [mul_assoc] at h1
+  simp [Finset.sum_range_succ, C_mul, C_pow, coeff_C, coeff_C_mul, coeff_mul_C,
+    coeff_mul_X_pow', coeff_X, coeff_X_pow,
+    hkappa, div_eq_mul_inv, Derivation.leibniz,
+    Derivation.leibniz_inv, Derivation.leibniz_pow, hOfNat] at h1
+  simp_rw [hCpowCoeff] at h1
+  simp [hOfNat] at h1
+  norm_num at h1
+  field_simp at h1
+  ring_nf at h1
+  linear_combination (1 / 1024) * h1
+
+
 /-- Evaluation at a differential indeterminate commutes with formal
 polynomial differentiation when the derivation kills the coefficient field
 and sends the indeterminate to one. -/
@@ -60,6 +295,33 @@ theorem GCD369PolynomialEvalDerivative {k L : Type*} [Field k] [Field L]
     simp [dk, hconst]
   rw [hz]
   simp
+
+/-- A rational presentation whose derivative is nonzero must have a
+nonconstant numerator or denominator.  This supplies the nonconstant-map
+hypothesis required by the elliptic forbidden-value argument. -/
+theorem GCD369RationalPresentationNonconstant
+    {k L : Type*} [Field k] [Field L] [Algebra k L] [Differential L]
+    (x Y : L) (N D : k[X])
+    (hconst : ∀ c : k, Differential.deriv (algebraMap k L c) = 0)
+    (hY : Y = aeval x N / aeval x D)
+    (hYdot : Differential.deriv Y ≠ 0) :
+    0 < N.natDegree ∨ 0 < D.natDegree := by
+  by_contra hdegree
+  push Not at hdegree
+  have hNdegree : N.natDegree = 0 := Nat.eq_zero_of_le_zero hdegree.1
+  have hDdegree : D.natDegree = 0 := Nat.eq_zero_of_le_zero hdegree.2
+  have hNconstant : N = C (N.coeff 0) :=
+    eq_C_of_natDegree_le_zero (Nat.le_zero.mpr hNdegree)
+  have hDconstant : D = C (D.coeff 0) :=
+    eq_C_of_natDegree_le_zero (Nat.le_zero.mpr hDdegree)
+  have hd := congrArg Differential.deriv hY
+  rw [hNconstant, hDconstant] at hd
+  simp only [aeval_C] at hd
+  have hquot := Differential.deriv.leibniz_div
+    (algebraMap k L (N.coeff 0)) (algebraMap k L (D.coeff 0))
+  rw [hquot, hconst, hconst] at hd
+  simp only [smul_zero, sub_zero] at hd
+  exact hYdot hd
 
 set_option maxHeartbeats 2000000 in
 /-- The complete five-row lower bracket after clearing the common denominator `128`.
@@ -702,6 +964,47 @@ theorem GCD369KummerFibreDichotomy {K : Type*} [Field K] [CharZero K]
   exact GCD369InvariantFibreDichotomy a0 a1 a2 a3 a4 kappa mu
     hp4 hp3 hp2 hp1
 
+/-- The actual aligned Keller identity forces the four lower first integrals
+and hence the complete Kummer invariant-fibre dichotomy. -/
+theorem GCD369AlignedKellerFibreDichotomy
+    {K : Type*} [Field K] [CharZero K] [Differential K]
+    (sigma : K ≃+* K) (omega a0 a1 a2 a3 a4 kappa terminal : K)
+    (homega3 : omega ^ 3 = 1) (homega : omega ≠ 1) (homega2 : omega ^ 2 ≠ 1)
+    (hfix : ∀ c : K, Differential.deriv c = 0 → sigma c = c)
+    (ha0 : sigma a0 = a0) (ha1 : sigma a1 = omega ^ 2 * a1)
+    (ha2 : sigma a2 = omega * a2) (ha3 : sigma a3 = a3)
+    (ha4 : sigma a4 = omega ^ 2 * a4)
+    (hkappaSigma : sigma kappa = kappa)
+    (hkappaDot : Differential.deriv kappa = 0)
+    (hterminal :
+      Differential.mapCoeffs (GCD369AlignedF a0 a1 a2 a3 a4)
+          * derivative (GCD369AlignedG a0 a1 a2 a3 a4 kappa)
+        - derivative (GCD369AlignedF a0 a1 a2 a3 a4)
+          * Differential.mapCoeffs (GCD369AlignedG a0 a1 a2 a3 a4 kappa)
+        = C terminal) :
+    ∃ mu : K, Differential.deriv mu = 0 ∧ sigma mu = mu ∧
+      (((4 * a2 - a4 ^ 2 = 0) ∧ (2 * a1 - a3 * a4 = 0)
+          ∧ 9 * (4 * a0 - a3 ^ 2) ^ 2
+            + 48 * kappa * (4 * a0 - a3 ^ 2) - 64 * mu = 0)
+        ∨ (a3 = 0 ∧ a1 = 0
+          ∧ 384 * a2 ^ 3 - 432 * a2 ^ 2 * a4 ^ 2 + 144 * a2 * a4 ^ 4
+              - 15 * a4 ^ 6 + 1024 * (kappa ^ 2 + mu) = 0
+          ∧ 48 * a0 - 12 * a2 * a4 + 3 * a4 ^ 3 + 32 * kappa = 0)) := by
+  have hrow4 := GCD369AlignedKellerRow4 a0 a1 a2 a3 a4 kappa terminal
+    hkappaDot hterminal
+  have hrow3 := GCD369AlignedKellerRow3 a0 a1 a2 a3 a4 kappa terminal
+    hkappaDot hterminal
+  have hrow2 := GCD369AlignedKellerRow2 a0 a1 a2 a3 a4 kappa terminal
+    hkappaDot hterminal
+  have hrow1 := GCD369AlignedKellerRow1 a0 a1 a2 a3 a4 kappa terminal
+    hkappaDot hterminal
+  have hintegrals := GCD369LowerFirstIntegrals a0 a1 a2 a3 a4 kappa hkappaDot
+    hrow4 hrow3 hrow2 hrow1
+  exact GCD369KummerFibreDichotomy sigma omega a0 a1 a2 a3 a4 kappa
+    homega3 homega homega2 hfix ha0 ha1 ha2 ha3 ha4 hkappaSigma
+    hintegrals.1 hintegrals.2.1 hintegrals.2.2.1 hintegrals.2.2.2
+
+
 /-- Every path on the first reduced sheet has zero source bracket.  This is
 the coefficientwise differential identity behind the common-power sheet and
 its two constant deformations. -/
@@ -882,6 +1185,56 @@ theorem GCD369ZeroSheetTerminalExclusion {K : Type*} [Field K] [CharZero K]
   rw [hzero] at hterminal
   exact hterminal0 (C_injective (by simpa using hterminal.symm))
 
+set_option maxHeartbeats 2000000 in
+/-- On the elliptic sheet, the constant coefficient of the actual aligned
+Jacobian bracket is exactly the polynomial one-form `beta` from the source
+calculation.  This connects the full high-row pair, rather than a separately
+assumed terminal model, to the elliptic endgame. -/
+theorem GCD369EllipticTerminalRow {K : Type*} [Field K] [CharZero K]
+    [Differential K]
+    (a0 a1 a2 a3 a4 kappa terminal : K)
+    (hkappa : Differential.deriv kappa = 0)
+    (ha3 : a3 = 0) (ha1 : a1 = 0)
+    (hlinear : 48 * a0 - 12 * a2 * a4 + 3 * a4 ^ 3 + 32 * kappa = 0)
+    (hterminal :
+      Differential.mapCoeffs (GCD369AlignedF a0 a1 a2 a3 a4)
+          * derivative (GCD369AlignedG a0 a1 a2 a3 a4 kappa)
+        - derivative (GCD369AlignedF a0 a1 a2 a3 a4)
+          * Differential.mapCoeffs (GCD369AlignedG a0 a1 a2 a3 a4 kappa)
+        = C terminal) :
+    let beta :=
+      3 * (4 * a2 - 3 * a4 ^ 2) * (4 * a2 - a4 ^ 2) * (4 * a2 + a4 ^ 2)
+          / 2048 * Differential.deriv a4
+        + 3 * a4 * (4 * a2 - a4 ^ 2) * (4 * a2 + a4 ^ 2) / 512
+          * Differential.deriv a2
+    beta = terminal := by
+  dsimp only
+  have hnat (n : ℕ) : Differential.deriv (n : K) = 0 :=
+    Differential.deriv.map_natCast n
+  have hOfNat (n : ℕ) [n.AtLeastTwo] :
+      Differential.deriv (ofNat(n) : K) = 0 := hnat n
+  have hlinDeriv := congrArg Differential.deriv hlinear
+  simp only [map_add, map_sub, Derivation.leibniz, Derivation.leibniz_pow,
+    hOfNat, hkappa, map_zero, smul_eq_mul, nsmul_eq_mul] at hlinDeriv
+  rw [ha3, ha1] at hterminal
+  rw [GCD369AlignedF, GCD369AlignedG] at hterminal
+  have h0 := congrArg (fun P : K[X] => P.coeff 0) hterminal
+  simp only [coeff_sub, coeff_mul, Differential.coeff_mapCoeffs,
+    coeff_derivative, coeff_C] at h0
+  norm_num at h0
+  have hfactor :
+      3 * (32 * a0 * a4 + 16 * a2 ^ 2 - 8 * a2 * a4 ^ 2 + a4 ^ 4) / 128
+          + kappa * (a4 / 2) = 3 * (16 * a2 ^ 2 - a4 ^ 4) / 128 := by
+    linear_combination (a4 / 64) * hlinear
+  rw [hfactor] at h0
+  have ha0dot :
+      Differential.deriv a0 = a4 / 4 * Differential.deriv a2
+        + (4 * a2 - 3 * a4 ^ 2) / 16 * Differential.deriv a4 := by
+    linear_combination (1 / 48) * hlinDeriv
+  rw [ha0dot] at h0
+  field_simp at h0 ⊢
+  linear_combination 128 * h0
+
 /-- On the second reduced sheet, the coordinates `X=8a₂-2a₄²` and
 `Y=3a₄X` satisfy the elliptic equation from the lower-Pfaffian calculation. -/
 theorem GCD369EllipticSheetEquation {K : Type*} [Field K] [CharZero K]
@@ -913,6 +1266,86 @@ theorem GCD369EllipticTerminalForm {K : Type*} [Field K] [CharZero K]
   intro hcurve htangent
   linear_combination
     (54 * a4 ^ 2 * a4dot - 72 * a4 * a2dot - 72 * a2 * a4dot) * hcurve
+
+/-- Cubing the elliptic terminal one-form introduces no spurious hypothesis
+once the original (uncubed) Keller equation is retained.  Differentiating the
+elliptic curve supplies its tangent equation, and `s³=h` eliminates the
+Kummer coordinate without division. -/
+theorem GCD369EllipticCubedTerminal {K : Type*} [Field K] [CharZero K]
+    [Differential K] (a2 a4 C0 s h j : K)
+    (hCdot : Differential.deriv C0 = 0) :
+    let X := 8 * a2 - 2 * a4 ^ 2
+    let Y := 3 * a4 * X
+    let beta :=
+      3 * (4 * a2 - 3 * a4 ^ 2) * (4 * a2 - a4 ^ 2) * (4 * a2 + a4 ^ 2)
+          / 2048 * Differential.deriv a4
+        + 3 * a4 * (4 * a2 - a4 ^ 2) * (4 * a2 + a4 ^ 2) / 512
+          * Differential.deriv a2
+    s ^ 3 = h → Y ^ 2 = 3 * X ^ 3 + 4096 * C0 → s * beta = j →
+      3 * h * (7 * Y ^ 2 - 12288 * C0) ^ 3
+          * Differential.deriv Y ^ 3
+        = (147456 * j) ^ 3 * (Y ^ 2 - 4096 * C0) := by
+  dsimp only
+  intro hs hcurve hKeller
+  have hnat (n : ℕ) : Differential.deriv (n : K) = 0 :=
+    Differential.deriv.map_natCast n
+  have hOfNat (n : ℕ) [n.AtLeastTwo] :
+      Differential.deriv (ofNat(n) : K) = 0 := hnat n
+  have hXdot :
+      Differential.deriv (8 * a2 - 2 * a4 ^ 2) =
+        8 * Differential.deriv a2 - 4 * a4 * Differential.deriv a4 := by
+    simp only [map_sub, Derivation.leibniz, Derivation.leibniz_pow,
+      hOfNat, smul_eq_mul, nsmul_eq_mul]
+    ring
+  have hYdot :
+      Differential.deriv (3 * a4 * (8 * a2 - 2 * a4 ^ 2)) =
+        3 * Differential.deriv a4 * (8 * a2 - 2 * a4 ^ 2)
+          + 3 * a4 * (8 * Differential.deriv a2 - 4 * a4 * Differential.deriv a4) := by
+    rw [Derivation.leibniz, hXdot]
+    simp only [Derivation.leibniz, hOfNat]
+    ring
+  have hcurveD := congrArg Differential.deriv hcurve
+  simp only [map_add, Derivation.leibniz, Derivation.leibniz_pow,
+    hOfNat, hCdot, smul_eq_mul, nsmul_eq_mul, mul_zero, add_zero] at hcurveD
+  have htangent :
+      2 * (3 * a4 * (8 * a2 - 2 * a4 ^ 2))
+          * (3 * Differential.deriv a4 * (8 * a2 - 2 * a4 ^ 2)
+            + 3 * a4 * (8 * Differential.deriv a2
+              - 4 * a4 * Differential.deriv a4))
+        = 9 * (8 * a2 - 2 * a4 ^ 2) ^ 2
+          * (8 * Differential.deriv a2 - 4 * a4 * Differential.deriv a4) := by
+    rw [hXdot] at hcurveD
+    norm_num at hcurveD
+    linear_combination hcurveD
+  have hform := GCD369EllipticTerminalForm a2 a4
+    (Differential.deriv a2) (Differential.deriv a4) C0 hcurve htangent
+  have hXcube :
+      3 * (8 * a2 - 2 * a4 ^ 2) ^ 3 =
+        (3 * a4 * (8 * a2 - 2 * a4 ^ 2)) ^ 2 - 4096 * C0 := by
+    linear_combination -hcurve
+  calc
+    3 * h
+          * (7 * (3 * a4 * (8 * a2 - 2 * a4 ^ 2)) ^ 2 - 12288 * C0) ^ 3
+          * Differential.deriv (3 * a4 * (8 * a2 - 2 * a4 ^ 2)) ^ 3 =
+        3 * s ^ 3
+          * ((7 * (3 * a4 * (8 * a2 - 2 * a4 ^ 2)) ^ 2 - 12288 * C0)
+            * (3 * Differential.deriv a4 * (8 * a2 - 2 * a4 ^ 2)
+              + 3 * a4 * (8 * Differential.deriv a2
+                - 4 * a4 * Differential.deriv a4))) ^ 3 := by
+          rw [← hs, hYdot]
+          ring
+    _ = 3 * s ^ 3
+          * (147456 * (8 * a2 - 2 * a4 ^ 2)
+            * (3 * (4 * a2 - 3 * a4 ^ 2) * (4 * a2 - a4 ^ 2)
+                * (4 * a2 + a4 ^ 2) / 2048 * Differential.deriv a4
+              + 3 * a4 * (4 * a2 - a4 ^ 2) * (4 * a2 + a4 ^ 2) / 512
+                * Differential.deriv a2)) ^ 3 := by rw [← hform]
+    _ = (147456 * j) ^ 3 * (3 * (8 * a2 - 2 * a4 ^ 2) ^ 3) := by
+          rw [← hKeller]
+          ring
+    _ = (147456 * j) ^ 3
+          * ((3 * a4 * (8 * a2 - 2 * a4 ^ 2)) ^ 2 - 4096 * C0) := by
+          rw [hXcube]
 
 /-- At least one of the two finite forbidden-value numerators is
 nonconstant whenever a polynomial numerator/denominator pair is nonconstant
@@ -1062,6 +1495,54 @@ theorem GCD369EllipticClearedNonzeroExclusion {K : Type*} [Field K]
   field_simp [hxD]
   convert heval using 1 <;> ring
 
+/-- A rational presentation over an algebraically closed constant field
+cannot solve the nonconstant, nonzero-`C` elliptic terminal equation.  The
+injective evaluation map abstracts the standard embedding `k[X] ↪ k(x)`;
+the proof differentiates `N/D`, clears denominators, and invokes the
+forbidden-value exclusion above. -/
+theorem GCD369EllipticRationalPresentationExclusion
+    {k L : Type*} [Field k] [CharZero k] [IsAlgClosed k]
+    [Field L] [CharZero L] [Algebra k L] [Differential L]
+    (x h Y : L) (C0 j : k) (hC : C0 ≠ 0) (hj : j ≠ 0)
+    (N D H : k[X]) (hD : D ≠ 0)
+    (hnonconstant : 0 < N.natDegree ∨ 0 < D.natDegree)
+    (hcoprime : ∀ z : k, eval z N = 0 → eval z D ≠ 0)
+    (hconst : ∀ c : k, Differential.deriv (algebraMap k L c) = 0)
+    (hx : Differential.deriv x = 1)
+    (hinj : Function.Injective (aeval x : k[X] → L))
+    (hh : h = aeval x H) (hY : Y = aeval x N / aeval x D)
+    (hterminal :
+      3 * h * (7 * Y ^ 2 - 12288 * algebraMap k L C0) ^ 3
+          * Differential.deriv Y ^ 3
+        = (147456 * algebraMap k L j) ^ 3
+          * (Y ^ 2 - 4096 * algebraMap k L C0)) : False := by
+  have hDaeval : aeval x D ≠ 0 := by
+    intro hz
+    apply hD
+    apply hinj
+    simpa using hz
+  have hYdot :
+      Differential.deriv Y =
+        aeval x (derivative N * D - N * derivative D) / (aeval x D) ^ 2 := by
+    have hd := congrArg Differential.deriv hY
+    have hquot :=
+      Differential.deriv.leibniz_div (aeval x N) (aeval x D)
+    rw [hquot] at hd
+    rw [GCD369PolynomialEvalDerivative x hconst hx N,
+      GCD369PolynomialEvalDerivative x hconst hx D] at hd
+    simp only [smul_eq_mul] at hd
+    rw [hd]
+    simp only [map_sub, map_mul]
+    field_simp [hDaeval]
+  apply GCD369EllipticClearedNonzeroExclusion C0 j hC hj N D H
+    hnonconstant hcoprime
+  apply hinj
+  have hcleared := hterminal
+  rw [hh, hYdot, hY] at hcleared
+  field_simp [hDaeval] at hcleared
+  simp only [map_mul, map_pow, map_sub, map_ofNat, aeval_C] at hcleared ⊢
+  convert hcleared using 1 <;> ring
+
 /-- A constant `Y` path on the elliptic sheet is already incompatible with
 the uncleared terminal Keller row.  When `X=0`, the polynomial formula for
 `beta` vanishes directly; when `X≠0`, the terminal one-form identity forces
@@ -1103,6 +1584,60 @@ theorem GCD369EllipticConstantExclusion {K : Type*} [Field K] [CharZero K]
       (mul_eq_zero.mp hterminal).resolve_left hleft
     rw [hbeta, mul_zero] at hKeller
     exact hj hKeller.symm
+
+/-- A constant actual elliptic coordinate contradicts the original Keller row;
+the tangent relation is derived internally from the constant-fibre curve. -/
+theorem GCD369EllipticConstantTerminalExclusion
+    {K : Type*} [Field K] [CharZero K] [Differential K]
+    (a2 a4 C0 s j : K) (hCdot : Differential.deriv C0 = 0) (hj : j ≠ 0)
+    (hcurve :
+      (3 * a4 * (8 * a2 - 2 * a4 ^ 2)) ^ 2 =
+        3 * (8 * a2 - 2 * a4 ^ 2) ^ 3 + 4096 * C0)
+    (hYconstant :
+      Differential.deriv (3 * a4 * (8 * a2 - 2 * a4 ^ 2)) = 0)
+    (hKeller :
+      s * (3 * (4 * a2 - 3 * a4 ^ 2) * (4 * a2 - a4 ^ 2)
+              * (4 * a2 + a4 ^ 2) / 2048 * Differential.deriv a4
+            + 3 * a4 * (4 * a2 - a4 ^ 2) * (4 * a2 + a4 ^ 2) / 512
+              * Differential.deriv a2) = j) : False := by
+  have hnat (n : ℕ) : Differential.deriv (n : K) = 0 :=
+    Differential.deriv.map_natCast n
+  have hOfNat (n : ℕ) [n.AtLeastTwo] :
+      Differential.deriv (ofNat(n) : K) = 0 := hnat n
+  have hXdot :
+      Differential.deriv (8 * a2 - 2 * a4 ^ 2) =
+        8 * Differential.deriv a2 - 4 * a4 * Differential.deriv a4 := by
+    simp only [map_sub, Derivation.leibniz, Derivation.leibniz_pow,
+      hOfNat, smul_eq_mul, nsmul_eq_mul]
+    ring
+  have hYdot :
+      Differential.deriv (3 * a4 * (8 * a2 - 2 * a4 ^ 2)) =
+        3 * Differential.deriv a4 * (8 * a2 - 2 * a4 ^ 2)
+          + 3 * a4 * (8 * Differential.deriv a2
+            - 4 * a4 * Differential.deriv a4) := by
+    rw [Derivation.leibniz, hXdot]
+    simp only [Derivation.leibniz, hOfNat]
+    ring
+  have hcurveD := congrArg Differential.deriv hcurve
+  simp only [map_add, Derivation.leibniz, Derivation.leibniz_pow,
+    hOfNat, hCdot, smul_eq_mul, nsmul_eq_mul, mul_zero, add_zero] at hcurveD
+  have htangent :
+      2 * (3 * a4 * (8 * a2 - 2 * a4 ^ 2))
+          * (3 * Differential.deriv a4 * (8 * a2 - 2 * a4 ^ 2)
+            + 3 * a4 * (8 * Differential.deriv a2
+              - 4 * a4 * Differential.deriv a4))
+        = 9 * (8 * a2 - 2 * a4 ^ 2) ^ 2
+          * (8 * Differential.deriv a2 - 4 * a4 * Differential.deriv a4) := by
+    rw [hXdot] at hcurveD
+    norm_num at hcurveD
+    linear_combination hcurveD
+  apply GCD369EllipticConstantExclusion a2 a4
+    (Differential.deriv a2) (Differential.deriv a4) C0 s j hj
+    hcurve htangent
+  · rw [← hYdot]
+    exact hYconstant
+  · exact hKeller
+
 
 /-- On the special fibre `C=kappa²+mu=0`, the elliptic-sheet equation factors
 without division into the zero-bracket intersection and the shifted
@@ -1215,6 +1750,39 @@ theorem GCD369HighRowShiftedDS {K : Type*} [Field K] [CharZero K]
   constructor <;>
     simp only [map_zero, C_0, C_mul, C_add, C_sub, C_pow, C_ofNat, C_eq_natCast,
       zero_mul, mul_zero, add_zero, zero_add, sub_zero] <;> simp <;> ring
+
+/-- The constant coefficient of the actual aligned bracket on the shifted
+Davenport--Stothers sheet is `567 λ⁶ λ'`.  This is obtained from the elliptic
+terminal-row theorem after substituting the shifted parameters. -/
+theorem GCD369ShiftedDSTerminalRow {K : Type*} [Field K] [CharZero K]
+    [Differential K]
+    (a0 a1 a2 a3 a4 kappa lambda terminal : K)
+    (hkappa : Differential.deriv kappa = 0)
+    (ha4 : a4 = 4 * lambda) (ha3 : a3 = 0)
+    (ha2 : a2 = 10 * lambda ^ 2) (ha1 : a1 = 0)
+    (ha0 : a0 = 6 * lambda ^ 3 - 2 * kappa / 3)
+    (hterminal :
+      Differential.mapCoeffs (GCD369AlignedF a0 a1 a2 a3 a4)
+          * derivative (GCD369AlignedG a0 a1 a2 a3 a4 kappa)
+        - derivative (GCD369AlignedF a0 a1 a2 a3 a4)
+          * Differential.mapCoeffs (GCD369AlignedG a0 a1 a2 a3 a4 kappa)
+        = C terminal) :
+    567 * lambda ^ 6 * Differential.deriv lambda = terminal := by
+  have hlinear :
+      48 * a0 - 12 * a2 * a4 + 3 * a4 ^ 3 + 32 * kappa = 0 := by
+    rw [ha0, ha2, ha4]
+    ring
+  have hbeta := GCD369EllipticTerminalRow a0 a1 a2 a3 a4 kappa terminal
+    hkappa ha3 ha1 hlinear hterminal
+  dsimp only at hbeta
+  rw [ha4, ha2] at hbeta
+  have hnat (n : ℕ) : Differential.deriv (n : K) = 0 :=
+    Differential.deriv.map_natCast n
+  have hOfNat (n : ℕ) [n.AtLeastTwo] :
+      Differential.deriv (ofNat(n) : K) = 0 := hnat n
+  simp only [Derivation.leibniz, Derivation.leibniz_pow, hOfNat,
+    zero_mul, add_zero, nsmul_eq_mul] at hbeta
+  linear_combination hbeta
 
 /-- Exact bracket of the shifted Davenport--Stothers trajectory, in the
 denominator-free normalization obtained by doubling its degree-nine member. -/
@@ -1764,6 +2332,191 @@ theorem GCD369ShiftedDSNoncubeExclusion {K : Type*} [Field K] [CharZero K]
       hreduced hODE
   exact hnoncube ⟨u, hcube⟩
 
+/-- A rational presentation of the shifted Davenport--Stothers terminal
+equation is impossible in the noncube branch.  Differentiating `H(x)` and
+`N(x)/B(x)` and clearing `B^8` produces exactly the polynomial ODE consumed
+by `GCD369ShiftedDSNoncubeExclusion`. -/
+theorem GCD369ShiftedDSRationalPresentationExclusion
+    {k L : Type*} [Field k] [CharZero k] [IsAlgClosed k]
+    [Field L] [CharZero L] [Algebra k L] [Differential L]
+    (x h q : L) (j : k) (H N B : k[X])
+    (hH : H ≠ 0) (hN : N ≠ 0) (hB : B ≠ 0) (hj : j ≠ 0)
+    (hdegreeDiv : 3 ∣ H.natDegree)
+    (hnoncube : ¬ ∃ u : k[X], H = u ^ 3)
+    (hreduced : ∀ z : k, eval z N = 0 → eval z B ≠ 0)
+    (hconst : ∀ c : k, Differential.deriv (algebraMap k L c) = 0)
+    (hx : Differential.deriv x = 1)
+    (hinj : Function.Injective (aeval x : k[X] → L))
+    (hh : h = aeval x H) (hq : q = aeval x N / aeval x B)
+    (hterminal :
+      189 * h ^ 4 * q ^ 6
+          * (2 * Differential.deriv h * q + 3 * h * Differential.deriv q)
+        = algebraMap k L j) : False := by
+  have hBaeval : aeval x B ≠ 0 := by
+    intro hz
+    apply hB
+    apply hinj
+    simpa using hz
+  have hhdot : Differential.deriv h = aeval x (derivative H) := by
+    rw [hh, GCD369PolynomialEvalDerivative x hconst hx H]
+  have hqdot :
+      Differential.deriv q =
+        aeval x (derivative N * B - N * derivative B) / (aeval x B) ^ 2 := by
+    have hd := congrArg Differential.deriv hq
+    have hquot :=
+      Differential.deriv.leibniz_div (aeval x N) (aeval x B)
+    rw [hquot] at hd
+    rw [GCD369PolynomialEvalDerivative x hconst hx N,
+      GCD369PolynomialEvalDerivative x hconst hx B] at hd
+    simp only [smul_eq_mul] at hd
+    rw [hd]
+    simp only [map_sub, map_mul]
+    field_simp [hBaeval]
+  apply GCD369ShiftedDSNoncubeExclusion H N B j hH hN hB hj hdegreeDiv
+    hnoncube hreduced
+  apply hinj
+  have hcleared := hterminal
+  rw [hhdot, hqdot, hh, hq] at hcleared
+  field_simp [hBaeval] at hcleared
+  simp only [map_mul, map_pow, map_add, map_sub, map_ofNat, aeval_C] at hcleared ⊢
+  convert hcleared using 1 <;> ring
+
+/-- No aligned Keller pair in the nontrivial cubic-Kummer branch can have
+a noncube polynomial core.  The proof derives the invariant-fibre split from
+the actual bracket, excludes the zero sheet, dispatches constant and
+nonconstant nonzero elliptic fibres, and closes the special fibre through the
+shifted Davenport--Stothers rational valuation theorem. -/
+theorem GCD369AlignedNoncubeExclusion
+    {k L : Type*} [Field k] [CharZero k] [IsAlgClosed k]
+    [Field L] [CharZero L] [Algebra k L] [Differential L]
+    (sigma : L ≃+* L)
+    (omega x s h q a0 a1 a2 a3 a4 kappa terminal : L) (j : k)
+    (H NY DY Nq Bq : k[X])
+    (homega3 : omega ^ 3 = 1) (homega : omega ≠ 1) (homega2 : omega ^ 2 ≠ 1)
+    (hfix : ∀ c : L, Differential.deriv c = 0 → sigma c = c)
+    (ha0 : sigma a0 = a0) (ha1 : sigma a1 = omega ^ 2 * a1)
+    (ha2 : sigma a2 = omega * a2) (ha3 : sigma a3 = a3)
+    (ha4 : sigma a4 = omega ^ 2 * a4)
+    (hkappaSigma : sigma kappa = kappa)
+    (hkappaDot : Differential.deriv kappa = 0)
+    (hconstants : ∀ c : L, Differential.deriv c = 0 →
+      ∃ c0 : k, c = algebraMap k L c0)
+    (hconst : ∀ c : k, Differential.deriv (algebraMap k L c) = 0)
+    (hx : Differential.deriv x = 1)
+    (hinj : Function.Injective (aeval x : k[X] → L))
+    (hterminal :
+      Differential.mapCoeffs (GCD369AlignedF a0 a1 a2 a3 a4)
+          * derivative (GCD369AlignedG a0 a1 a2 a3 a4 kappa)
+        - derivative (GCD369AlignedF a0 a1 a2 a3 a4)
+          * Differential.mapCoeffs (GCD369AlignedG a0 a1 a2 a3 a4 kappa)
+        = C terminal)
+    (hs : s ^ 3 = h) (hKeller : s * terminal = algebraMap k L j) (hj : j ≠ 0)
+    (hh : h = aeval x H) (hH : H ≠ 0) (hdegreeDiv : 3 ∣ H.natDegree)
+    (hnoncube : ¬ ∃ u : k[X], H = u ^ 3)
+    (hY : 3 * a4 * (8 * a2 - 2 * a4 ^ 2) = aeval x NY / aeval x DY)
+    (hDY : DY ≠ 0)
+    (hYreduced : ∀ z : k, eval z NY = 0 → eval z DY ≠ 0)
+    (hlambda : a4 / 4 = s ^ 2 * q)
+    (hq : q = aeval x Nq / aeval x Bq)
+    (hNq : Nq ≠ 0) (hBq : Bq ≠ 0)
+    (hqreduced : ∀ z : k, eval z Nq = 0 → eval z Bq ≠ 0) : False := by
+  have hjL : algebraMap k L j ≠ 0 :=
+    by simpa only [map_zero] using (FaithfulSMul.algebraMap_injective k L).ne hj
+  have hterminal0 : terminal ≠ 0 := by
+    intro hz
+    rw [hz, mul_zero] at hKeller
+    exact hjL hKeller.symm
+  obtain ⟨mu, hmu, _hmuSigma, hsheet⟩ :=
+    GCD369AlignedKellerFibreDichotomy sigma omega a0 a1 a2 a3 a4 kappa terminal
+      homega3 homega homega2 hfix ha0 ha1 ha2 ha3 ha4 hkappaSigma
+      hkappaDot hterminal
+  rcases hsheet with hzero | helliptic
+  · exact GCD369ZeroSheetTerminalExclusion a0 a1 a2 a3 a4 kappa mu terminal
+      hkappaDot hmu hzero.1 hzero.2.1 hzero.2.2 hterminal hterminal0
+  · rcases helliptic with ⟨ha3zero, ha1zero, hEB, hlinear⟩
+    have hcurve := GCD369EllipticSheetEquation a2 a4 kappa mu hEB
+    dsimp only at hcurve
+    have hbeta := GCD369EllipticTerminalRow a0 a1 a2 a3 a4 kappa terminal
+      hkappaDot ha3zero ha1zero hlinear hterminal
+    dsimp only at hbeta
+    have hKellerBeta :
+        s * (3 * (4 * a2 - 3 * a4 ^ 2) * (4 * a2 - a4 ^ 2)
+                * (4 * a2 + a4 ^ 2) / 2048 * Differential.deriv a4
+              + 3 * a4 * (4 * a2 - a4 ^ 2) * (4 * a2 + a4 ^ 2) / 512
+                * Differential.deriv a2) = algebraMap k L j := by
+      rw [hbeta]
+      exact hKeller
+    have hCdot : Differential.deriv (kappa ^ 2 + mu) = 0 := by
+      rw [map_add, Derivation.leibniz_pow, hkappaDot, hmu]
+      simp
+    obtain ⟨C0, hCbase⟩ := hconstants (kappa ^ 2 + mu) hCdot
+    by_cases hC0 : C0 = 0
+    · have hCzero : kappa ^ 2 + mu = 0 := by
+        rw [hCbase, hC0, map_zero]
+      by_cases hX : 8 * a2 - 2 * a4 ^ 2 = 0
+      · obtain ⟨hA, hB, hquad⟩ :=
+          GCD369EllipticZeroXToZeroSheet a0 a1 a2 a3 a4 kappa mu
+            ha3zero ha1zero hCzero hlinear hX
+        exact GCD369ZeroSheetTerminalExclusion
+          a0 a1 a2 a3 a4 kappa mu terminal hkappaDot hmu hA hB hquad
+          hterminal hterminal0
+      · obtain ⟨lambda, ha4lambda, ha2lambda, ha0lambda⟩ :=
+          GCD369EllipticShiftedDSParameters a0 a2 a4 kappa mu
+            hCzero hEB hX hlinear
+        have hlambdaA4 : lambda = a4 / 4 := by
+          rw [ha4lambda]
+          ring
+        have hlambdaSq : lambda = s ^ 2 * q := hlambdaA4.trans hlambda
+        have hshiftedRow := GCD369ShiftedDSTerminalRow
+          a0 a1 a2 a3 a4 kappa lambda terminal hkappaDot
+          ha4lambda ha3zero ha2lambda ha1zero ha0lambda hterminal
+        have hshiftedKeller :
+            567 * s * lambda ^ 6 * Differential.deriv lambda = algebraMap k L j := by
+          calc
+            567 * s * lambda ^ 6 * Differential.deriv lambda =
+                s * (567 * lambda ^ 6 * Differential.deriv lambda) := by ring
+            _ = s * terminal := by rw [hshiftedRow]
+            _ = algebraMap k L j := hKeller
+        have hhdot :
+            Differential.deriv h = 3 * s ^ 2 * Differential.deriv s := by
+          have hd := congrArg Differential.deriv hs
+          norm_num [Derivation.leibniz_pow, nsmul_eq_mul, smul_eq_mul] at hd
+          simpa [mul_assoc] using hd.symm
+        have hlambdaDot :
+            Differential.deriv lambda =
+              2 * s * Differential.deriv s * q + s ^ 2 * Differential.deriv q := by
+          have hd := congrArg Differential.deriv hlambdaSq
+          simp only [Derivation.leibniz, Derivation.leibniz_pow,
+            nsmul_eq_mul] at hd
+          linear_combination hd
+        have hdescent := GCD369ShiftedDSTerminalDescent s h lambda q
+          (Differential.deriv s) (Differential.deriv q)
+          (Differential.deriv h) (Differential.deriv lambda)
+          hs hlambdaSq hhdot hlambdaDot
+        have hweighted :
+            189 * h ^ 4 * q ^ 6
+                * (2 * Differential.deriv h * q + 3 * h * Differential.deriv q)
+              = algebraMap k L j := hdescent.symm.trans hshiftedKeller
+        exact GCD369ShiftedDSRationalPresentationExclusion
+          x h q j H Nq Bq hH hNq hBq hj hdegreeDiv hnoncube hqreduced
+          hconst hx hinj hh hq hweighted
+    · by_cases hYdot :
+          Differential.deriv (3 * a4 * (8 * a2 - 2 * a4 ^ 2)) = 0
+      · exact GCD369EllipticConstantTerminalExclusion
+          a2 a4 (kappa ^ 2 + mu) s (algebraMap k L j)
+          hCdot hjL hcurve hYdot hKellerBeta
+      · have hnonconstant := GCD369RationalPresentationNonconstant
+          x (3 * a4 * (8 * a2 - 2 * a4 ^ 2)) NY DY
+          hconst hY hYdot
+        have hcubed := GCD369EllipticCubedTerminal
+          a2 a4 (kappa ^ 2 + mu) s h (algebraMap k L j)
+          hCdot hs hcurve hKellerBeta
+        rw [hCbase] at hcubed
+        exact GCD369EllipticRationalPresentationExclusion
+          x h (3 * a4 * (8 * a2 - 2 * a4 ^ 2)) C0 j hC0 hj
+          NY DY H hDY hnonconstant hYreduced hconst hx hinj hh hY hcubed
+
+
 /-- The infinity-degree arithmetic in the shifted Davenport--Stothers
 valuation classification forces a single finite support point. -/
 theorem GCD369DSInfinitySupport (r totalK Hdeg Bdeg : Nat)
@@ -1793,6 +2546,7 @@ theorem GCD369DSOneRootCube {K : Type*} [Field K] [IsAlgClosed K]
   omega
 
 #print axioms GCD369InvariantFibreDichotomy
+#print axioms GCD369AlignedKellerFibreDichotomy
 #print axioms GCD369ZeroBracketSheet
 #print axioms GCD369EllipticSheetEquation
 #print axioms GCD369EllipticTerminalForm
@@ -1808,5 +2562,6 @@ theorem GCD369DSOneRootCube {K : Type*} [Field K] [IsAlgClosed K]
 #print axioms GCD369ShiftedDSNumeratorConstant
 #print axioms GCD369ShiftedDSRationalCube
 #print axioms GCD369ShiftedDSNoncubeExclusion
+#print axioms GCD369AlignedNoncubeExclusion
 #print axioms GCD369DSInfinitySupport
 #print axioms GCD369DSOneRootCube
