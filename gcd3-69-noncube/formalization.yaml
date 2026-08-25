@@ -12,10 +12,12 @@ project:
     compared.  The formalization derives the elliptic equation and terminal
     one-form, excludes nonconstant reduced rational trajectories on its
     C != 0 fibre by a finite forbidden-value argument, factors the C=0 fibre,
-    and verifies the shifted Davenport--Stothers bracket, terminal descent,
-    infinity arithmetic, and one-root cube conclusion.  It does not formalize
-    the remaining finite-place valuation classification and therefore does
-    not claim the full noncube branch, all (6,9), maximum eleven, or JC2.
+    and verifies the shifted Davenport--Stothers bracket and terminal descent.
+    Version 2 derives the finite-place valuation classification directly from
+    the reduced rational ODE, proves the one-point support theorem, and
+    excludes that sheet in the noncube Kummer branch.  It does not claim the
+    preceding landing from an arbitrary Keller pair, the cube branch, all
+    (6,9), maximum eleven, or JC2.
   authors:
     - "Dan Clemens Posch"
   license: "Apache-2.0"
@@ -41,9 +43,10 @@ sources:
       in README.md.  The Lean project formalizes the implication from the
       invariant equations to the displayed sheet disjunction, the C != 0
       exclusion for nonconstant reduced rational trajectories, and the
-      displayed special-fibre/endgame identities, but not converse sheet
-      inclusions, sheet existence, or the finite-place valuation
-      classification.
+      displayed special-fibre/endgame identities, and the complete reduced
+      rational valuation closure of the shifted Davenport--Stothers ODE, but
+      not converse sheet inclusions, sheet existence, or the preceding
+      landing from an arbitrary Keller pair.
     license: "CC-BY-4.0"
     author_endorsement: "participated"
   - title: "Hostile different-model review: GCD3 (6,9) lower-Pfaffian successor"
@@ -65,12 +68,15 @@ status:
     on P_A or P_B; zero bracket on the P_A sheet; the P_B elliptic equation and
     terminal form; exclusion of nonconstant reduced rational trajectories on
     the C != 0 elliptic sheet; the C=0 factorization; the shifted
-    Davenport--Stothers bracket and terminal descent; and the final infinity
-    support and one-root cube arithmetic.  Not proved: converse inclusions or
-    existence for the two displayed sheets; exclusion of constant C != 0
-    trajectories; derivation of the finite-place exponent classification from
-    the rational ODE; the complete aligned noncube exclusion; or any larger
-    Jacobian-conjecture claim.
+    Davenport--Stothers bracket and terminal descent; the finite-place
+    exponent classification from the reduced rational ODE, including the
+    cancelled case; constancy of its numerator; the one-point support theorem;
+    the exact one-root forms; and exclusion of the shifted DS sheet under the
+    noncube Kummer hypothesis.  Not proved: converse inclusions or existence
+    for the two displayed sheets; exclusion of constant C != 0 trajectories;
+    the preceding landing from every aligned Keller pair into the shifted DS
+    parametrization; the cube-core branch; or any larger Jacobian-conjecture
+    claim.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
@@ -90,6 +96,11 @@ status:
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator.json"
+    - declaration: "GCD369ShiftedDSNoncubeExclusion"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
 
 automation:
   methods:
@@ -105,9 +116,9 @@ automation:
         spend_usd: "subscription-based"
         hardware: "local Apple-silicon macOS machine"
       prompting_notes: >-
-        The task required a source-faithful first substantive noncube entry,
-        explicit disclosure of remaining valuation gaps, and Palomar-ready
-        Challenge/Solution packaging.
+        The task required a source-faithful noncube entry, followed by a v2
+        proof of the missing cancellation-sensitive finite-place valuation
+        argument and Palomar-ready Challenge/Solution packaging.
     - method: "manual"
       models: []
       framework: "n/a"
@@ -140,10 +151,14 @@ fidelity:
     elliptic curve and tangent equations explicitly.  (4) The shifted
     Davenport--Stothers bracket doubles the degree-nine polynomial to remove
     the coefficient 63/2, so its bracket constant is 1134 rather than 567.
-    (5) The finite-place valuation step from the descended rational ODE to the
-    exponent classification remains unformalized; only the subsequent
-    infinity-support and cube conclusions are proved.  No other divergences
-    are known.
+    (5) The v2 valuation theorem uses a reduced polynomial presentation
+    `q=N/B` over an algebraically closed characteristic-zero coefficient
+    field.  Pointwise reducedness means every zero of `N` is not a zero of
+    `B`; the theorem first proves `N` constant and then works entirely with
+    polynomial root multiplicities.  This is the global polynomial form of
+    the source's finite valuations.  (6) The headline exclusion begins with
+    the cleared shifted-DS ODE; it does not itself derive that parametrization
+    from an arbitrary Keller pair.  No other divergences are known.
 
 review:
   status: >-
@@ -184,12 +199,17 @@ alignment:
     - source: "Special fibre and shifted Davenport--Stothers endgame, equations (16)--(21)"
       lean: >-
         GCD369SpecialFibreDichotomy; GCD369ShiftedDSBracket;
-        GCD369ShiftedDSTerminalDescent; GCD369DSInfinitySupport;
-        GCD369DSOneRootCube
+        GCD369ShiftedDSTerminalDescent; GCD369WeightedWronskianLocal;
+        GCD369ShiftedDSFinitePlace; GCD369WeightedWronskianDegree;
+        GCD369ShiftedDSPolynomialCube; GCD369ShiftedDSNumeratorConstant;
+        GCD369ShiftedDSRationalCube; GCD369ShiftedDSNoncubeExclusion;
+        GCD369DSInfinitySupport; GCD369DSOneRootCube
       module: "Challenge"
       status: >-
-        displayed identities and post-classification arithmetic proved;
-        finite-place exponent classification not formalized
+        displayed identities, full reduced-rational finite-place
+        classification, infinity support, exact one-root forms, cube
+        conclusion, and noncube exclusion proved; preceding landing into the
+        shifted-DS parametrization is not compared
 
 acknowledgements: >-
   The Mathlib community, the Palomar registry conventions, and the campaign

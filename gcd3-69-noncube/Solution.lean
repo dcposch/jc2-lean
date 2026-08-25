@@ -12,10 +12,14 @@ This module proves algebraic implications and terminal identities used in the
 aligned nontrivial cubic-Kummer branch.  The central theorem shows that every
 field-valued solution of the four Kummer-forced invariant equations lies on
 the zero-bracket sheet or the elliptic sheet displayed in the source report;
-it does not prove converse inclusions or existence of either sheet.
+it does not prove converse inclusions or existence of either sheet.  The v2
+theorems also close the shifted Davenport--Stothers sheet by deriving its
+finite-place classification and one-point cube conclusion from the reduced
+rational ODE.
 -/
 
 open Polynomial
+open scoped BigOperators
 
 /-- Every field-valued solution of the four lower-Pfaffian invariant equations
 lies on one of the two displayed reduced sheets.  The first disjunct is the
@@ -369,6 +373,520 @@ theorem GCD369ShiftedDSTerminalDescent {K : Type*} [Field K] [CharZero K]
   rw [hlambda, hlambdaDot, hhdot, ← hs]
   ring
 
+/-- Local order calculation for the weighted Wronskian in the shifted
+Davenport--Stothers ODE.  Away from the resonant equality `2e = 3m`, its
+order is exactly `e + m - 1`; at resonance the order gains at least one.
+This is the cancellation-sensitive step that was left implicit in version 1. -/
+theorem GCD369WeightedWronskianLocal {K : Type*} [Field K] [CharZero K]
+    (H B : K[X]) (x : K) (hH : H ≠ 0) (hB : B ≠ 0)
+    (hW : 2 * derivative H * B - 3 * H * derivative B ≠ 0)
+    (hsupport : 0 < H.rootMultiplicity x + B.rootMultiplicity x) :
+    let e := H.rootMultiplicity x
+    let m := B.rootMultiplicity x
+    (((2 : K) * e ≠ 3 * m) →
+        (2 * derivative H * B - 3 * H * derivative B).rootMultiplicity x
+          = e + m - 1)
+      ∧ (((2 : K) * e = 3 * m) →
+        e + m ≤
+          (2 * derivative H * B - 3 * H * derivative B).rootMultiplicity x) := by
+  dsimp only
+  let L : K[X] := X - C x
+  let e := H.rootMultiplicity x
+  let m := B.rootMultiplicity x
+  let H₀ := H /ₘ L ^ e
+  let B₀ := B /ₘ L ^ m
+  let R : K[X] :=
+    C (2 * (e : K) - 3 * (m : K)) * H₀ * B₀
+      + L * (2 * derivative H₀ * B₀ - 3 * H₀ * derivative B₀)
+  have hHL : L ^ e * H₀ = H := by
+    simpa [L, e, H₀] using H.pow_mul_divByMonic_rootMultiplicity_eq x
+  have hBL : L ^ m * B₀ = B := by
+    simpa [L, m, B₀] using B.pow_mul_divByMonic_rootMultiplicity_eq x
+  have hH₀eval : eval x H₀ ≠ 0 := by
+    simpa [L, e, H₀] using H.eval_divByMonic_pow_rootMultiplicity_ne_zero x hH
+  have hB₀eval : eval x B₀ ≠ 0 := by
+    simpa [L, m, B₀] using B.eval_divByMonic_pow_rootMultiplicity_ne_zero x hB
+  have hpowDerivative (n : Nat) :
+      L * derivative (L ^ n) = C (n : K) * L ^ n := by
+    cases n with
+    | zero => simp
+    | succ n =>
+        simp only [derivative_pow, Nat.add_sub_cancel,
+          Nat.cast_add, Nat.cast_one]
+        rw [show derivative L = 1 by simp [L]]
+        simp only [mul_one]
+        rw [pow_succ]
+        ring
+  have hHDerivative :
+      L * derivative H = L ^ e * (C (e : K) * H₀ + L * derivative H₀) := by
+    rw [← hHL, derivative_mul]
+    rw [mul_add, ← mul_assoc, hpowDerivative]
+    ring
+  have hBDerivative :
+      L * derivative B = L ^ m * (C (m : K) * B₀ + L * derivative B₀) := by
+    rw [← hBL, derivative_mul]
+    rw [mul_add, ← mul_assoc, hpowDerivative]
+    ring
+  have hfactor :
+      L * (2 * derivative H * B - 3 * H * derivative B) = L ^ (e + m) * R := by
+    calc
+      L * (2 * derivative H * B - 3 * H * derivative B)
+          = 2 * (L * derivative H) * B - 3 * H * (L * derivative B) := by ring
+      _ = 2 * (L ^ e * (C (e : K) * H₀ + L * derivative H₀)) * (L ^ m * B₀)
+            - 3 * (L ^ e * H₀) * (L ^ m * (C (m : K) * B₀ + L * derivative B₀)) := by
+          rw [hHDerivative, hBDerivative, hHL, hBL]
+      _ = L ^ (e + m) * R := by
+        rw [pow_add]
+        dsimp [R]
+        simp only [map_sub, map_mul, map_ofNat, map_natCast]
+        ring
+  have hL : L ≠ 0 := by simpa [L] using X_sub_C_ne_zero x
+  have hLW : L * (2 * derivative H * B - 3 * H * derivative B) ≠ 0 :=
+    mul_ne_zero hL hW
+  have hpowR : L ^ (e + m) * R ≠ 0 := hfactor ▸ hLW
+  have hR : R ≠ 0 := right_ne_zero_of_mul hpowR
+  have hrmFactor := congrArg (rootMultiplicity x) hfactor
+  rw [rootMultiplicity_mul hLW, rootMultiplicity_mul hpowR,
+    rootMultiplicity_X_sub_C_self, rootMultiplicity_X_sub_C_pow] at hrmFactor
+  constructor
+  · intro hcoefficient
+    have hReval : eval x R ≠ 0 := by
+      dsimp [R, L]
+      simp only [eval_add, eval_mul, eval_C, eval_sub, eval_X, sub_self, zero_mul,
+        ]
+      simpa only [add_zero] using
+        mul_ne_zero (mul_ne_zero (sub_ne_zero.mpr hcoefficient) hH₀eval) hB₀eval
+    have hRroot : ¬ R.IsRoot x := by simpa [IsRoot] using hReval
+    have hRmult : R.rootMultiplicity x = 0 := rootMultiplicity_eq_zero hRroot
+    rw [hRmult, add_zero] at hrmFactor
+    omega
+  · intro hcoefficient
+    have hRroot : R.IsRoot x := by
+      dsimp [R, L]
+      simp only [IsRoot, eval_add, eval_mul, eval_C, eval_sub, eval_X, sub_self,
+        zero_mul]
+      rw [sub_eq_zero.mpr hcoefficient]
+      simp
+    have hRpos : 0 < R.rootMultiplicity x := (rootMultiplicity_pos hR).mpr hRroot
+    omega
+
+/-- Every finite point in the support of a polynomial solution of the cleared
+shifted Davenport--Stothers ODE belongs simultaneously to the core and the
+denominator.  Its two orders are necessarily `3 + 7k` and `2 + 5k` with
+`k > 0`.  In particular, the resonant cancellation `2e = 3m` is impossible. -/
+theorem GCD369ShiftedDSFinitePlace {K : Type*} [Field K] [CharZero K]
+    (H B : K[X]) (c j : K) (hH : H ≠ 0) (hB : B ≠ 0) (hc : c ≠ 0) (hj : j ≠ 0)
+    (hODE :
+      C c * H ^ 4 * (2 * derivative H * B - 3 * H * derivative B)
+        = C j * B ^ 8)
+    (x : K) (hx : H.IsRoot x ∨ B.IsRoot x) :
+    ∃ k : Nat, 0 < k ∧ H.rootMultiplicity x = 3 + 7 * k
+      ∧ B.rootMultiplicity x = 2 + 5 * k := by
+  let W := 2 * derivative H * B - 3 * H * derivative B
+  have hB8 : B ^ 8 ≠ 0 := pow_ne_zero 8 hB
+  have hjC : C j ≠ 0 := C_ne_zero.mpr hj
+  have hright : C j * B ^ 8 ≠ 0 := mul_ne_zero hjC hB8
+  have hW : W ≠ 0 := by
+    intro hWzero
+    change C c * H ^ 4 * W = C j * B ^ 8 at hODE
+    rw [hWzero, mul_zero] at hODE
+    exact hright hODE.symm
+  let e := H.rootMultiplicity x
+  let m := B.rootMultiplicity x
+  have hsupport : 0 < e + m := by
+    rcases hx with hxH | hxB
+    · have : 0 < e := by simpa [e] using (rootMultiplicity_pos hH).mpr hxH
+      omega
+    · have : 0 < m := by simpa [m] using (rootMultiplicity_pos hB).mpr hxB
+      omega
+  have hpowMultiplicity (P : K[X]) (hP : P ≠ 0) (n : Nat) :
+      (P ^ n).rootMultiplicity x = n * P.rootMultiplicity x := by
+    induction n with
+    | zero => simp
+    | succ n ih =>
+        rw [pow_succ, rootMultiplicity_mul (mul_ne_zero (pow_ne_zero _ hP) hP), ih]
+        simp [Nat.succ_mul]
+  have hcC : (C c : K[X]) ≠ 0 := C_ne_zero.mpr hc
+  have hleftInner : C c * H ^ 4 ≠ 0 := mul_ne_zero hcC (pow_ne_zero 4 hH)
+  have hleft : C c * H ^ 4 * W ≠ 0 := mul_ne_zero hleftInner hW
+  have hmult := congrArg (rootMultiplicity x) hODE
+  rw [rootMultiplicity_mul hleft, rootMultiplicity_mul hleftInner,
+    rootMultiplicity_C, hpowMultiplicity H hH,
+    rootMultiplicity_mul hright, rootMultiplicity_C,
+    hpowMultiplicity B hB] at hmult
+  simp only [zero_add] at hmult
+  change 4 * e + W.rootMultiplicity x = 8 * m at hmult
+  have hlocal := GCD369WeightedWronskianLocal H B x hH hB (by simpa [W] using hW)
+    (by simpa [e, m] using hsupport)
+  dsimp only at hlocal
+  by_cases hresonant : (2 : K) * e = 3 * m
+  · have hresonantNat : 2 * e = 3 * m := by exact_mod_cast hresonant
+    have hlower : e + m ≤ W.rootMultiplicity x := by
+      simpa [W, e, m] using hlocal.2 hresonant
+    omega
+  · have horder : W.rootMultiplicity x = e + m - 1 := by
+      simpa [W, e, m] using hlocal.1 hresonant
+    have harithmetic : 5 * e = 7 * m + 1 := by omega
+    let k := e / 7
+    have hremainder : e % 7 = 3 := by
+      have hdecomp := Nat.mod_add_div e 7
+      have hlt := Nat.mod_lt e (by norm_num : 0 < 7)
+      omega
+    have he : e = 3 + 7 * k := by
+      have hdecomp := Nat.mod_add_div e 7
+      dsimp [k]
+      omega
+    have hm : m = 2 + 5 * k := by omega
+    have hresonantNat : 2 * e ≠ 3 * m := by
+      intro h
+      apply hresonant
+      exact_mod_cast h
+    have hk : 0 < k := by omega
+    exact ⟨k, hk, by simpa [e] using he, by simpa [m] using hm⟩
+
+/-- Degree at infinity of the weighted Wronskian.  The only possible leading
+cancellation is the explicit resonance `2 deg(H) = 3 deg(B)`. -/
+theorem GCD369WeightedWronskianDegree {K : Type*} [Field K] [CharZero K]
+    (H B : K[X]) (hH : H ≠ 0) (hB : B ≠ 0)
+    (hHdegree : 0 < H.natDegree) (hBdegree : 0 < B.natDegree)
+    (hnonresonant :
+      (2 : K) * (H.natDegree : K) ≠ 3 * (B.natDegree : K)) :
+    (2 * derivative H * B - 3 * H * derivative B).natDegree
+      = H.natDegree + B.natDegree - 1 := by
+  let n := H.natDegree + B.natDegree - 1
+  let W := 2 * derivative H * B - 3 * H * derivative B
+  have hHderivativeDegree : (derivative H).natDegree = H.natDegree - 1 :=
+    natDegree_derivative H
+  have hBderivativeDegree : (derivative B).natDegree = B.natDegree - 1 :=
+    natDegree_derivative B
+  have hfirstCoeff :
+      (derivative H * B).coeff n
+        = H.leadingCoeff * (H.natDegree : K) * B.leadingCoeff := by
+    calc
+      (derivative H * B).coeff n =
+          (derivative H * B).coeff ((derivative H).natDegree + B.natDegree) := by
+            congr 1
+            dsimp [n]
+            omega
+      _ = (derivative H).leadingCoeff * B.leadingCoeff :=
+        coeff_mul_degree_add_degree _ _
+      _ = H.leadingCoeff * (H.natDegree : K) * B.leadingCoeff := by
+        rw [leadingCoeff_derivative]
+  have hsecondCoeff :
+      (H * derivative B).coeff n
+        = H.leadingCoeff * B.leadingCoeff * (B.natDegree : K) := by
+    calc
+      (H * derivative B).coeff n =
+          (H * derivative B).coeff (H.natDegree + (derivative B).natDegree) := by
+            congr 1
+            dsimp [n]
+            omega
+      _ = H.leadingCoeff * (derivative B).leadingCoeff :=
+        coeff_mul_degree_add_degree _ _
+      _ = H.leadingCoeff * B.leadingCoeff * (B.natDegree : K) := by
+        rw [leadingCoeff_derivative]
+        ring
+  have hWform : W = C 2 * (derivative H * B) - C 3 * (H * derivative B) := by
+    dsimp [W]
+    norm_num [C_ofNat]
+    ring
+  have hcoefficient : W.coeff n ≠ 0 := by
+    rw [hWform, coeff_sub, coeff_C_mul, coeff_C_mul, hfirstCoeff, hsecondCoeff]
+    have hHleading : H.leadingCoeff ≠ 0 := leadingCoeff_ne_zero.mpr hH
+    have hBleading : B.leadingCoeff ≠ 0 := leadingCoeff_ne_zero.mpr hB
+    have hproduct :
+        H.leadingCoeff * B.leadingCoeff
+            * ((2 : K) * (H.natDegree : K) - 3 * (B.natDegree : K)) ≠ 0 :=
+      mul_ne_zero (mul_ne_zero hHleading hBleading) (sub_ne_zero.mpr hnonresonant)
+    convert hproduct using 1 <;> ring
+  have hdegreeUpper : W.natDegree ≤ n := by
+    rw [hWform]
+    refine (natDegree_sub_le _ _).trans ?_
+    rw [max_le_iff]
+    constructor
+    · refine (natDegree_C_mul_le _ _).trans ?_
+      refine (natDegree_mul_le).trans ?_
+      dsimp [n]
+      omega
+    · refine (natDegree_C_mul_le _ _).trans ?_
+      refine (natDegree_mul_le).trans ?_
+      dsimp [n]
+      omega
+  exact natDegree_eq_of_le_of_coeff_ne_zero hdegreeUpper hcoefficient
+
+/-- Global closure of the cleared shifted Davenport--Stothers ODE.  Over an
+algebraically closed characteristic-zero field, a nonconstant polynomial core
+whose degree is divisible by three has exactly one finite zero; the local
+orders are `3 + 7k` and `2 + 5k` with `k > 0`, and the core is a polynomial
+cube.  No finite-place support or exponent classification is assumed. -/
+theorem GCD369ShiftedDSPolynomialCube {K : Type*} [Field K] [CharZero K]
+    [IsAlgClosed K] (H B : K[X]) (c j : K)
+    (hH : H ≠ 0) (hB : B ≠ 0) (hc : c ≠ 0) (hj : j ≠ 0)
+    (hHdegree : 0 < H.natDegree) (hdegreeDiv : 3 ∣ H.natDegree)
+    (hODE :
+      C c * H ^ 4 * (2 * derivative H * B - 3 * H * derivative B)
+        = C j * B ^ 8) :
+    ∃ a : K, ∃ k : Nat, ∃ u : K[X], 0 < k
+      ∧ H = C H.leadingCoeff * (X - C a) ^ (3 + 7 * k)
+      ∧ B = C B.leadingCoeff * (X - C a) ^ (2 + 5 * k)
+      ∧ H = u ^ 3 := by
+  classical
+  let W := 2 * derivative H * B - 3 * H * derivative B
+  have hB8 : B ^ 8 ≠ 0 := pow_ne_zero 8 hB
+  have hjC : C j ≠ 0 := C_ne_zero.mpr hj
+  have hright : C j * B ^ 8 ≠ 0 := mul_ne_zero hjC hB8
+  have hW : W ≠ 0 := by
+    intro hWzero
+    change C c * H ^ 4 * W = C j * B ^ 8 at hODE
+    rw [hWzero, mul_zero] at hODE
+    exact hright hODE.symm
+  have hHdegree' : H.degree ≠ 0 :=
+    ne_of_gt (natDegree_pos_iff_degree_pos.mp hHdegree)
+  obtain ⟨x₀, hx₀⟩ := IsAlgClosed.exists_root H hHdegree'
+  have hx₀class :=
+    GCD369ShiftedDSFinitePlace H B c j hH hB hc hj hODE x₀ (Or.inl hx₀)
+  obtain ⟨k₀, hk₀, _, hx₀Bmult⟩ := hx₀class
+  have hx₀B : B.IsRoot x₀ := by
+    apply (rootMultiplicity_pos hB).mp
+    rw [hx₀Bmult]
+    omega
+  have hBdegree : 0 < B.natDegree :=
+    natDegree_pos_iff_degree_pos.mpr (degree_pos_of_root hB hx₀B)
+  let S : Finset K := H.roots.toFinset ∪ B.roots.toFinset
+  have hx₀S : x₀ ∈ S := by
+    apply Finset.mem_union_left
+    simpa [S] using (mem_roots hH).mpr hx₀
+  have hSnonempty : S.Nonempty := ⟨x₀, hx₀S⟩
+  have hclass (x : K) (hx : x ∈ S) :
+      ∃ k : Nat, 0 < k ∧ H.rootMultiplicity x = 3 + 7 * k
+        ∧ B.rootMultiplicity x = 2 + 5 * k := by
+    have hx' : H.IsRoot x ∨ B.IsRoot x := by
+      rw [Finset.mem_union] at hx
+      rcases hx with hxH | hxB
+      · exact Or.inl ((mem_roots hH).mp (by simpa [S] using hxH))
+      · exact Or.inr ((mem_roots hB).mp (by simpa [S] using hxB))
+    exact GCD369ShiftedDSFinitePlace H B c j hH hB hc hj hODE x hx'
+  have hsumH : ∑ x ∈ S, H.rootMultiplicity x = H.natDegree := by
+    calc
+      ∑ x ∈ S, H.rootMultiplicity x = ∑ x ∈ S, H.roots.count x := by
+        apply Finset.sum_congr rfl
+        intro x _
+        exact (count_roots H).symm
+      _ = H.roots.card := by
+        apply Multiset.sum_count_eq_card
+        intro x hx
+        apply Finset.mem_union_left
+        simpa [S] using hx
+      _ = H.natDegree := (IsAlgClosed.splits H).natDegree_eq_card_roots.symm
+  have hsumB : ∑ x ∈ S, B.rootMultiplicity x = B.natDegree := by
+    calc
+      ∑ x ∈ S, B.rootMultiplicity x = ∑ x ∈ S, B.roots.count x := by
+        apply Finset.sum_congr rfl
+        intro x _
+        exact (count_roots B).symm
+      _ = B.roots.card := by
+        apply Multiset.sum_count_eq_card
+        intro x hx
+        apply Finset.mem_union_right
+        simpa [S] using hx
+      _ = B.natDegree := (IsAlgClosed.splits B).natDegree_eq_card_roots.symm
+  have hpointEquation (x : K) (hx : x ∈ S) :
+      5 * H.rootMultiplicity x = 7 * B.rootMultiplicity x + 1 := by
+    obtain ⟨k, _, he, hm⟩ := hclass x hx
+    omega
+  have hpointStrict (x : K) (hx : x ∈ S) :
+      2 * H.rootMultiplicity x < 3 * B.rootMultiplicity x := by
+    obtain ⟨k, hk, he, hm⟩ := hclass x hx
+    omega
+  have hsumEquation : 5 * H.natDegree = 7 * B.natDegree + S.card := by
+    have hsum := Finset.sum_congr rfl hpointEquation
+    rw [Finset.sum_add_distrib] at hsum
+    simp only [Finset.sum_const, nsmul_eq_mul, mul_one] at hsum
+    have hfive : (∑ x ∈ S, 5 * H.rootMultiplicity x) = 5 * H.natDegree := by
+      rw [← Finset.mul_sum, hsumH]
+    have hseven : (∑ x ∈ S, 7 * B.rootMultiplicity x) = 7 * B.natDegree := by
+      rw [← Finset.mul_sum, hsumB]
+    rw [hfive, hseven] at hsum
+    exact hsum
+  have hdegreeStrict : 2 * H.natDegree < 3 * B.natDegree := by
+    have hsumStrict := Finset.sum_lt_sum_of_nonempty hSnonempty hpointStrict
+    rw [← Finset.mul_sum, ← Finset.mul_sum, hsumH, hsumB] at hsumStrict
+    exact hsumStrict
+  have hdegreeNonresonant :
+      (2 : K) * (H.natDegree : K) ≠ 3 * (B.natDegree : K) := by
+    have hne : 2 * H.natDegree ≠ 3 * B.natDegree := ne_of_lt hdegreeStrict
+    exact_mod_cast hne
+  have hWdegree : W.natDegree = H.natDegree + B.natDegree - 1 := by
+    simpa [W] using GCD369WeightedWronskianDegree H B hH hB hHdegree hBdegree
+      hdegreeNonresonant
+  have hcC : C c ≠ (0 : K[X]) := C_ne_zero.mpr hc
+  have hleftInner : C c * H ^ 4 ≠ 0 := mul_ne_zero hcC (pow_ne_zero 4 hH)
+  have hleft : C c * H ^ 4 * W ≠ 0 := mul_ne_zero hleftInner hW
+  have hdegreeODE := congrArg natDegree hODE
+  rw [natDegree_mul hleftInner hW, natDegree_mul hcC (pow_ne_zero 4 hH),
+    natDegree_C, natDegree_pow, natDegree_mul hjC hB8, natDegree_C,
+    natDegree_pow] at hdegreeODE
+  simp only [zero_add] at hdegreeODE
+  change 4 * H.natDegree + W.natDegree = 8 * B.natDegree at hdegreeODE
+  have hdegreeEquation : 5 * H.natDegree = 7 * B.natDegree + 1 := by omega
+  have hScard : S.card = 1 := by omega
+  obtain ⟨a, hS⟩ := Finset.card_eq_one.mp hScard
+  have haS : a ∈ S := by simp [hS]
+  obtain ⟨k, hk, haHmult, haBmult⟩ := hclass a haS
+  have hrootsH : H.roots = Multiset.replicate H.roots.card a := by
+    apply Multiset.eq_replicate_of_mem
+    intro b hb
+    have hbS : b ∈ S := by
+      apply Finset.mem_union_left
+      simpa [S] using hb
+    rw [hS] at hbS
+    simpa using hbS
+  have hrootsB : B.roots = Multiset.replicate B.roots.card a := by
+    apply Multiset.eq_replicate_of_mem
+    intro b hb
+    have hbS : b ∈ S := by
+      apply Finset.mem_union_right
+      simpa [S] using hb
+    rw [hS] at hbS
+    simpa using hbS
+  have hHcard : H.roots.card = H.rootMultiplicity a := by
+    rw [← count_roots H, hrootsH]
+    simp
+  have hBcard : B.roots.card = B.rootMultiplicity a := by
+    rw [← count_roots B, hrootsB]
+    simp
+  have hHform : H = C H.leadingCoeff * (X - C a) ^ (3 + 7 * k) := by
+    calc
+      H = C H.leadingCoeff * (H.roots.map fun x => X - C x).prod :=
+        (IsAlgClosed.splits H).eq_prod_roots
+      _ = C H.leadingCoeff * (X - C a) ^ (3 + 7 * k) := by
+        rw [hrootsH]
+        simp only [Multiset.map_replicate, Multiset.prod_replicate]
+        rw [hHcard, haHmult]
+  have hBform : B = C B.leadingCoeff * (X - C a) ^ (2 + 5 * k) := by
+    calc
+      B = C B.leadingCoeff * (B.roots.map fun x => X - C x).prod :=
+        (IsAlgClosed.splits B).eq_prod_roots
+      _ = C B.leadingCoeff * (X - C a) ^ (2 + 5 * k) := by
+        rw [hrootsB]
+        simp only [Multiset.map_replicate, Multiset.prod_replicate]
+        rw [hBcard, haBmult]
+  have hdivLocal : 3 ∣ 3 + 7 * k := by
+    rw [← haHmult, ← hHcard, ← (IsAlgClosed.splits H).natDegree_eq_card_roots]
+    exact hdegreeDiv
+  obtain ⟨ell, hkMultiple⟩ : ∃ ell : Nat, k = 3 * ell := by
+    have hprod : 3 ∣ 7 * k := (Nat.dvd_add_iff_right (dvd_refl 3)).mpr hdivLocal
+    have hkdiv : 3 ∣ k :=
+      (by norm_num : Nat.Coprime 3 7).dvd_of_dvd_mul_left hprod
+    rcases hkdiv with ⟨ell, rfl⟩
+    exact ⟨ell, rfl⟩
+  obtain ⟨root, hroot⟩ :=
+    IsAlgClosed.exists_pow_nat_eq H.leadingCoeff (by norm_num : 0 < 3)
+  let u : K[X] := C root * (X - C a) ^ (1 + 7 * ell)
+  have hu : C H.leadingCoeff * (X - C a) ^ (3 + 7 * k) = u ^ 3 := by
+    dsimp [u]
+    rw [hkMultiple, mul_pow, ← C_pow, hroot]
+    congr 1
+    rw [← pow_mul]
+    congr 1
+    omega
+  exact ⟨a, k, u, hk, hHform, hBform, hHform.trans hu⟩
+
+/-- In a reduced presentation `q = N / B`, the cleared shifted
+Davenport--Stothers ODE forces the numerator `N` to be constant.  A root of a
+nonconstant numerator would annihilate the left side while reducedness keeps
+the right side nonzero. -/
+theorem GCD369ShiftedDSNumeratorConstant {K : Type*} [Field K] [CharZero K]
+    [IsAlgClosed K] (H N B : K[X]) (j : K)
+    (hj : j ≠ 0)
+    (hreduced : ∀ x : K, eval x N = 0 → eval x B ≠ 0)
+    (hODE :
+      C 189 * H ^ 4 * N ^ 6
+          * (2 * derivative H * N * B
+            + 3 * H * (derivative N * B - N * derivative B))
+        = C j * B ^ 8) :
+    N.natDegree = 0 := by
+  by_contra hdegree
+  have hdegreePos : 0 < N.degree := by
+    rw [← natDegree_pos_iff_degree_pos]
+    omega
+  obtain ⟨x, hx⟩ := IsAlgClosed.exists_root N (ne_of_gt hdegreePos)
+  have hxB : eval x B ≠ 0 := hreduced x hx
+  have heval := congrArg (eval x) hODE
+  simp only [eval_mul, eval_pow, eval_C] at heval
+  rw [hx, zero_pow (by norm_num : (6 : Nat) ≠ 0), mul_zero, zero_mul] at heval
+  have hright : j * eval x B ^ 8 ≠ 0 := mul_ne_zero hj (pow_ne_zero 8 hxB)
+  exact hright heval.symm
+
+/-- Complete valuation closure for a reduced rational trajectory
+`q = N / B`.  The ODE itself makes `N` constant, identifies the unique common
+finite support point and both local exponents, and proves that a core of
+degree divisible by three is a cube. -/
+theorem GCD369ShiftedDSRationalCube {K : Type*} [Field K] [CharZero K]
+    [IsAlgClosed K] (H N B : K[X]) (j : K)
+    (hH : H ≠ 0) (hN : N ≠ 0) (hB : B ≠ 0) (hj : j ≠ 0)
+    (hHdegree : 0 < H.natDegree) (hdegreeDiv : 3 ∣ H.natDegree)
+    (hreduced : ∀ x : K, eval x N = 0 → eval x B ≠ 0)
+    (hODE :
+      C 189 * H ^ 4 * N ^ 6
+          * (2 * derivative H * N * B
+            + 3 * H * (derivative N * B - N * derivative B))
+        = C j * B ^ 8) :
+    ∃ n a : K, ∃ k : Nat, ∃ u : K[X], n ≠ 0 ∧ N = C n ∧ 0 < k
+      ∧ H = C H.leadingCoeff * (X - C a) ^ (3 + 7 * k)
+      ∧ B = C B.leadingCoeff * (X - C a) ^ (2 + 5 * k)
+      ∧ H = u ^ 3 := by
+  have hNdegree :=
+    GCD369ShiftedDSNumeratorConstant H N B j hj hreduced hODE
+  let n := N.coeff 0
+  have hNconstant : N = C n := by
+    exact eq_C_of_natDegree_le_zero (Nat.le_zero.mpr hNdegree)
+  have hn : n ≠ 0 := by
+    intro hnzero
+    rw [hNconstant, hnzero, C_0] at hN
+    exact hN rfl
+  let W := 2 * derivative H * B - 3 * H * derivative B
+  have hODE' : C (189 * n ^ 7) * H ^ 4 * W = C j * B ^ 8 := by
+    rw [hNconstant] at hODE
+    dsimp [W]
+    simp only [derivative_C, zero_mul, zero_sub, C_mul, C_pow] at hODE ⊢
+    convert hODE using 1 <;> ring
+  have hc : 189 * n ^ 7 ≠ 0 := mul_ne_zero (by norm_num) (pow_ne_zero 7 hn)
+  obtain ⟨a, k, u, hk, hHform, hBform, hcube⟩ :=
+    GCD369ShiftedDSPolynomialCube H B (189 * n ^ 7) j hH hB hc hj hHdegree
+      hdegreeDiv hODE'
+  exact ⟨n, a, k, u, hn, hNconstant, hk, hHform, hBform, hcube⟩
+
+/-- The shifted Davenport--Stothers sheet has no reduced rational trajectory
+in the noncube Kummer branch.  Unlike version 1, this theorem assumes neither
+the finite-place exponent classification nor the one-point support result:
+both are derived from the cleared ODE by the preceding theorems. -/
+theorem GCD369ShiftedDSNoncubeExclusion {K : Type*} [Field K] [CharZero K]
+    [IsAlgClosed K] (H N B : K[X]) (j : K)
+    (hH : H ≠ 0) (hN : N ≠ 0) (hB : B ≠ 0) (hj : j ≠ 0)
+    (hdegreeDiv : 3 ∣ H.natDegree)
+    (hnoncube : ¬ ∃ u : K[X], H = u ^ 3)
+    (hreduced : ∀ x : K, eval x N = 0 → eval x B ≠ 0)
+    (hODE :
+      C 189 * H ^ 4 * N ^ 6
+          * (2 * derivative H * N * B
+            + 3 * H * (derivative N * B - N * derivative B))
+        = C j * B ^ 8) : False := by
+  have hHdegree : 0 < H.natDegree := by
+    by_contra hnotPositive
+    have hdegreeZero : H.natDegree = 0 := by omega
+    have hconstant : H = C (H.coeff 0) :=
+      eq_C_of_natDegree_le_zero (Nat.le_zero.mpr hdegreeZero)
+    obtain ⟨root, hroot⟩ :=
+      IsAlgClosed.exists_pow_nat_eq (H.coeff 0) (by norm_num : 0 < 3)
+    apply hnoncube
+    refine ⟨C root, ?_⟩
+    rw [hconstant, ← C_pow, hroot]
+  obtain ⟨_, _, _, u, _, _, _, _, _, hcube⟩ :=
+    GCD369ShiftedDSRationalCube H N B j hH hN hB hj hHdegree hdegreeDiv
+      hreduced hODE
+  exact hnoncube ⟨u, hcube⟩
+
 /-- The infinity-degree arithmetic in the shifted Davenport--Stothers
 valuation classification forces a single finite support point. -/
 theorem GCD369DSInfinitySupport (r totalK Hdeg Bdeg : Nat)
@@ -406,5 +924,12 @@ theorem GCD369DSOneRootCube {K : Type*} [Field K] [IsAlgClosed K]
 #print axioms GCD369SpecialFibreDichotomy
 #print axioms GCD369ShiftedDSBracket
 #print axioms GCD369ShiftedDSTerminalDescent
+#print axioms GCD369WeightedWronskianLocal
+#print axioms GCD369ShiftedDSFinitePlace
+#print axioms GCD369WeightedWronskianDegree
+#print axioms GCD369ShiftedDSPolynomialCube
+#print axioms GCD369ShiftedDSNumeratorConstant
+#print axioms GCD369ShiftedDSRationalCube
+#print axioms GCD369ShiftedDSNoncubeExclusion
 #print axioms GCD369DSInfinitySupport
 #print axioms GCD369DSOneRootCube

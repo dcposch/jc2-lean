@@ -11,6 +11,13 @@
     "GCD369SpecialFibreDichotomy",
     "GCD369ShiftedDSBracket",
     "GCD369ShiftedDSTerminalDescent",
+    "GCD369WeightedWronskianLocal",
+    "GCD369ShiftedDSFinitePlace",
+    "GCD369WeightedWronskianDegree",
+    "GCD369ShiftedDSPolynomialCube",
+    "GCD369ShiftedDSNumeratorConstant",
+    "GCD369ShiftedDSRationalCube",
+    "GCD369ShiftedDSNoncubeExclusion",
     "GCD369DSInfinitySupport",
     "GCD369DSOneRootCube"
   ],

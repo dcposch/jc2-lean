@@ -1,4 +1,4 @@
-# Two-sheet reduction of the nontrivial cubic–Kummer `(6,9)` branch
+# Two-sheet reduction and noncube closure at partial degrees `(6,9)`
 
 This Lean 4 project formalizes an algebraic reduction in the lower-Pfaffian
 analysis of the plane Jacobian conjecture at actual partial degrees `(6,9)`.
@@ -9,7 +9,10 @@ the converse inclusions or existence of either sheet.  The formalization also
 excludes nonconstant reduced rational trajectories on the nonsingular
 (`C ≠ 0`) elliptic sheet when they satisfy its terminal Keller equation, and
 certifies the special-fibre factorization and shifted Davenport–Stothers
-endgame identities.
+endgame identities.  Version 2 additionally derives the complete finite-place
+valuation classification from the reduced rational ODE itself, proves that
+the support consists of one point, and excludes the shifted
+Davenport–Stothers sheet in the noncube Kummer branch.
 
 The result is aimed at researchers studying polynomial automorphisms, the
 Jacobian conjecture, and exact algebraic decompositions arising in formal or
@@ -49,6 +52,23 @@ included campaign source and its review.
   denominator-free normalization (the degree-nine polynomial is doubled).
 - `GCD369ShiftedDSTerminalDescent` proves the exact chain-rule descent from
   `s³=h`, `λ=s²q` to the weighted rational ODE.
+- `GCD369WeightedWronskianLocal` proves the cancellation-sensitive local
+  order formula for `2H'B-3HB'`, including the resonant case.
+- `GCD369ShiftedDSFinitePlace` derives, at every finite support point, the
+  exact orders `ord(H)=3+7k`, `ord(B)=2+5k`, with `k>0`, directly from the
+  cleared ODE.
+- `GCD369WeightedWronskianDegree` proves the corresponding exact degree at
+  infinity when the explicit leading resonance is absent.
+- `GCD369ShiftedDSPolynomialCube` sums the local orders, proves that the
+  support is a singleton, gives the exact one-root forms for `H` and `B`, and
+  concludes that `H` is a cube when `3 | deg(H)`.
+- `GCD369ShiftedDSNumeratorConstant` proves that the numerator in a reduced
+  presentation `q=N/B` is constant.
+- `GCD369ShiftedDSRationalCube` combines those steps into the full rational
+  valuation closure, including explicit numerator, support, and exponent data.
+- `GCD369ShiftedDSNoncubeExclusion` is the headline v2 result: the cleared
+  shifted Davenport–Stothers ODE has no reduced rational trajectory satisfying
+  the noncube Kummer and `3 | deg(H)` hypotheses.
 - `GCD369DSInfinitySupport` formalizes the degree arithmetic that forces the
   valuation-classified Davenport–Stothers path to have one finite support
   point.
@@ -64,18 +84,20 @@ In the branch `A=4a₂-a₄²=0`, an explicit consequence of the first invariant
 certificates then force `a₃=a₁=0`, the linear `P_B` equation, and `E_B=0`.
 The subsequent theorems verify the source bracket, elliptic coordinates,
 terminal form, forbidden-value contradiction, special fibre, and shifted
-Davenport–Stothers identities directly in Mathlib.
+Davenport–Stothers identities directly in Mathlib.  For v2, a reduced
+presentation `q=N/B` is substituted into the descended ODE.  Reducedness first
+forces `N` to be constant.  Root multiplicities of the weighted Wronskian then
+give the exact finite orders, with the resonant cancellation separately ruled
+out.  Summing over the algebraically closed field and comparing the exact
+leading degree forces a single support point; `3 | deg(H)` makes its exponent
+and leading scalar cubic.
 
-This project does **not** yet prove that the full aligned nontrivial-Kummer
-`(6,9)` branch is empty.  The remaining mathematical bridge is the finite-place
-valuation classification of the shifted Davenport–Stothers rational ODE: from
-that ODE one must derive the common one-point factorization with exponents
-`ord(h)=3+7k` and `-ord(q)=2+5k`, including the cancelled leading case.  The
-last two Lean theorems check the infinity and cube conclusions once that
-classification is available.  Also out of scope are the preceding landing
-from an arbitrary Keller pair, the cube-core branch, a general `(6,9)`
-exclusion, the maximum-partial-degree-eleven theorem, and the plane Jacobian
-conjecture.
+This closes the shifted Davenport–Stothers sheet of the aligned nontrivial-
+Kummer branch, conditional on the displayed reduced rational ODE obtained by
+the preceding formalized terminal descent.  Still out of scope are the
+landing from an arbitrary Keller pair into the invariant fibre and its
+shifted-DS parametrization, the cube-core branch, a general `(6,9)` exclusion,
+the maximum-partial-degree-eleven theorem, and the plane Jacobian conjecture.
 
 The source report and its campaign-internal hostile review are copied exactly
 under `sources/`; their SHA-256 digests agree with the frozen originals:

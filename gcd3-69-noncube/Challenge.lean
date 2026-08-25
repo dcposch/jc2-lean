@@ -12,7 +12,10 @@ This module proves algebraic implications and terminal identities used in the
 aligned nontrivial cubic-Kummer branch.  The central theorem shows that every
 field-valued solution of the four Kummer-forced invariant equations lies on
 the zero-bracket sheet or the elliptic sheet displayed in the source report;
-it does not prove converse inclusions or existence of either sheet.
+it does not prove converse inclusions or existence of either sheet.  The v2
+theorems also close the shifted Davenport--Stothers sheet by deriving its
+finite-place classification and one-point cube conclusion from the reduced
+rational ODE.
 -/
 
 open Polynomial
@@ -165,6 +168,115 @@ theorem GCD369ShiftedDSTerminalDescent {K : Type*} [Field K] [CharZero K]
     (hlambdaDot : lambdaDot = 2 * s * sdot * q + s ^ 2 * qdot) :
     567 * s * lambda ^ 6 * lambdaDot
       = 189 * h ^ 4 * q ^ 6 * (2 * hdot * q + 3 * h * qdot) := by
+  sorry
+
+/-- Local order calculation for the weighted Wronskian in the shifted
+Davenport--Stothers ODE.  Away from the resonant equality `2e = 3m`, its
+order is exactly `e + m - 1`; at resonance the order gains at least one.
+This is the cancellation-sensitive step that was left implicit in version 1. -/
+theorem GCD369WeightedWronskianLocal {K : Type*} [Field K] [CharZero K]
+    (H B : K[X]) (x : K) (hH : H ≠ 0) (hB : B ≠ 0)
+    (hW : 2 * derivative H * B - 3 * H * derivative B ≠ 0)
+    (hsupport : 0 < H.rootMultiplicity x + B.rootMultiplicity x) :
+    let e := H.rootMultiplicity x
+    let m := B.rootMultiplicity x
+    (((2 : K) * e ≠ 3 * m) →
+        (2 * derivative H * B - 3 * H * derivative B).rootMultiplicity x
+          = e + m - 1)
+      ∧ (((2 : K) * e = 3 * m) →
+        e + m ≤
+          (2 * derivative H * B - 3 * H * derivative B).rootMultiplicity x) := by
+  sorry
+
+/-- Every finite point in the support of a polynomial solution of the cleared
+shifted Davenport--Stothers ODE belongs simultaneously to the core and the
+denominator.  Its two orders are necessarily `3 + 7k` and `2 + 5k` with
+`k > 0`.  In particular, the resonant cancellation `2e = 3m` is impossible. -/
+theorem GCD369ShiftedDSFinitePlace {K : Type*} [Field K] [CharZero K]
+    (H B : K[X]) (c j : K) (hH : H ≠ 0) (hB : B ≠ 0) (hc : c ≠ 0) (hj : j ≠ 0)
+    (hODE :
+      C c * H ^ 4 * (2 * derivative H * B - 3 * H * derivative B)
+        = C j * B ^ 8)
+    (x : K) (hx : H.IsRoot x ∨ B.IsRoot x) :
+    ∃ k : Nat, 0 < k ∧ H.rootMultiplicity x = 3 + 7 * k
+      ∧ B.rootMultiplicity x = 2 + 5 * k := by
+  sorry
+
+/-- Degree at infinity of the weighted Wronskian.  The only possible leading
+cancellation is the explicit resonance `2 deg(H) = 3 deg(B)`. -/
+theorem GCD369WeightedWronskianDegree {K : Type*} [Field K] [CharZero K]
+    (H B : K[X]) (hH : H ≠ 0) (hB : B ≠ 0)
+    (hHdegree : 0 < H.natDegree) (hBdegree : 0 < B.natDegree)
+    (hnonresonant :
+      (2 : K) * (H.natDegree : K) ≠ 3 * (B.natDegree : K)) :
+    (2 * derivative H * B - 3 * H * derivative B).natDegree
+      = H.natDegree + B.natDegree - 1 := by
+  sorry
+
+/-- Global closure of the cleared shifted Davenport--Stothers ODE.  Over an
+algebraically closed characteristic-zero field, a nonconstant polynomial core
+whose degree is divisible by three has exactly one finite zero; the local
+orders are `3 + 7k` and `2 + 5k` with `k > 0`, and the core is a polynomial
+cube.  No finite-place support or exponent classification is assumed. -/
+theorem GCD369ShiftedDSPolynomialCube {K : Type*} [Field K] [CharZero K]
+    [IsAlgClosed K] (H B : K[X]) (c j : K)
+    (hH : H ≠ 0) (hB : B ≠ 0) (hc : c ≠ 0) (hj : j ≠ 0)
+    (hHdegree : 0 < H.natDegree) (hdegreeDiv : 3 ∣ H.natDegree)
+    (hODE :
+      C c * H ^ 4 * (2 * derivative H * B - 3 * H * derivative B)
+        = C j * B ^ 8) :
+    ∃ a : K, ∃ k : Nat, ∃ u : K[X], 0 < k
+      ∧ H = C H.leadingCoeff * (X - C a) ^ (3 + 7 * k)
+      ∧ B = C B.leadingCoeff * (X - C a) ^ (2 + 5 * k)
+      ∧ H = u ^ 3 := by
+  sorry
+
+/-- In a reduced presentation `q = N / B`, the cleared shifted
+Davenport--Stothers ODE forces the numerator `N` to be constant. -/
+theorem GCD369ShiftedDSNumeratorConstant {K : Type*} [Field K] [CharZero K]
+    [IsAlgClosed K] (H N B : K[X]) (j : K) (hj : j ≠ 0)
+    (hreduced : ∀ x : K, eval x N = 0 → eval x B ≠ 0)
+    (hODE :
+      C 189 * H ^ 4 * N ^ 6
+          * (2 * derivative H * N * B
+            + 3 * H * (derivative N * B - N * derivative B))
+        = C j * B ^ 8) :
+    N.natDegree = 0 := by
+  sorry
+
+/-- Complete valuation closure for a reduced rational trajectory
+`q = N / B`: the numerator is constant, the common support is a singleton,
+the local exponents are explicit, and the core is a cube. -/
+theorem GCD369ShiftedDSRationalCube {K : Type*} [Field K] [CharZero K]
+    [IsAlgClosed K] (H N B : K[X]) (j : K)
+    (hH : H ≠ 0) (hN : N ≠ 0) (hB : B ≠ 0) (hj : j ≠ 0)
+    (hHdegree : 0 < H.natDegree) (hdegreeDiv : 3 ∣ H.natDegree)
+    (hreduced : ∀ x : K, eval x N = 0 → eval x B ≠ 0)
+    (hODE :
+      C 189 * H ^ 4 * N ^ 6
+          * (2 * derivative H * N * B
+            + 3 * H * (derivative N * B - N * derivative B))
+        = C j * B ^ 8) :
+    ∃ n a : K, ∃ k : Nat, ∃ u : K[X], n ≠ 0 ∧ N = C n ∧ 0 < k
+      ∧ H = C H.leadingCoeff * (X - C a) ^ (3 + 7 * k)
+      ∧ B = C B.leadingCoeff * (X - C a) ^ (2 + 5 * k)
+      ∧ H = u ^ 3 := by
+  sorry
+
+/-- The shifted Davenport--Stothers sheet has no reduced rational trajectory
+in the noncube Kummer branch.  The finite-place classification and one-point
+support conclusion are derived from the ODE rather than assumed. -/
+theorem GCD369ShiftedDSNoncubeExclusion {K : Type*} [Field K] [CharZero K]
+    [IsAlgClosed K] (H N B : K[X]) (j : K)
+    (hH : H ≠ 0) (hN : N ≠ 0) (hB : B ≠ 0) (hj : j ≠ 0)
+    (hdegreeDiv : 3 ∣ H.natDegree)
+    (hnoncube : ¬ ∃ u : K[X], H = u ^ 3)
+    (hreduced : ∀ x : K, eval x N = 0 → eval x B ≠ 0)
+    (hODE :
+      C 189 * H ^ 4 * N ^ 6
+          * (2 * derivative H * N * B
+            + 3 * H * (derivative N * B - N * derivative B))
+        = C j * B ^ 8) : False := by
   sorry
 
 /-- The infinity-degree arithmetic in the shifted Davenport--Stothers
