@@ -4,17 +4,18 @@ version: "v0.4"
 project:
   name: "jc2-gcd3-69-noncube-reduction"
   description: >-
-    Lean 4 / Mathlib formalization of the exact two-sheet reduction in the
+    Lean 4 / Mathlib formalization of a two-sheet implication in the
     aligned nontrivial cubic-Kummer analysis at actual partial degrees (6,9).
-    The four lower-Pfaffian invariant equations are proved to have exactly two
-    field-valued reduced branches: a common-power sheet with zero source
-    bracket and an elliptic sheet.  The formalization derives the elliptic
-    equation and terminal one-form, excludes its C != 0 fibre by a finite
-    forbidden-value argument, factors the C=0 fibre, and verifies the shifted
-    Davenport--Stothers bracket, terminal descent, infinity arithmetic, and
-    one-root cube conclusion.  It does not formalize the remaining
-    finite-place valuation classification and therefore does not claim the
-    full noncube branch, all (6,9), maximum eleven, or JC2.
+    Every field-valued solution of the four lower-Pfaffian invariant equations
+    is proved to lie on a common-power sheet with zero source bracket or on an
+    elliptic sheet; converse inclusions and existence of the sheets are not
+    compared.  The formalization derives the elliptic equation and terminal
+    one-form, excludes nonconstant reduced rational trajectories on its
+    C != 0 fibre by a finite forbidden-value argument, factors the C=0 fibre,
+    and verifies the shifted Davenport--Stothers bracket, terminal descent,
+    infinity arithmetic, and one-root cube conclusion.  It does not formalize
+    the remaining finite-place valuation classification and therefore does
+    not claim the full noncube branch, all (6,9), maximum eleven, or JC2.
   authors:
     - "Dan Clemens Posch"
   license: "Apache-2.0"
@@ -37,9 +38,12 @@ sources:
       sheets, the elliptic terminal obstruction, and the shifted
       Davenport--Stothers valuation endgame.  The source is included
       byte-for-byte in this public project; its original SHA-256 is recorded
-      in README.md.  The Lean project formalizes the algebraic decomposition,
-      the complete C != 0 exclusion, and the displayed special-fibre/endgame
-      identities, but not the finite-place valuation classification.
+      in README.md.  The Lean project formalizes the implication from the
+      invariant equations to the displayed sheet disjunction, the C != 0
+      exclusion for nonconstant reduced rational trajectories, and the
+      displayed special-fibre/endgame identities, but not converse sheet
+      inclusions, sheet existence, or the finite-place valuation
+      classification.
     license: "CC-BY-4.0"
     author_endorsement: "participated"
   - title: "Hostile different-model review: GCD3 (6,9) lower-Pfaffian successor"
@@ -57,14 +61,16 @@ sources:
 
 status:
   scope: >-
-    Fully proved: the field-valued invariant-fibre dichotomy; zero bracket on
-    the P_A sheet; the P_B elliptic equation and terminal form; exclusion of
-    the C != 0 rational elliptic sheet; the C=0 factorization; the shifted
+    Fully proved: every field-valued solution of the invariant equations lies
+    on P_A or P_B; zero bracket on the P_A sheet; the P_B elliptic equation and
+    terminal form; exclusion of nonconstant reduced rational trajectories on
+    the C != 0 elliptic sheet; the C=0 factorization; the shifted
     Davenport--Stothers bracket and terminal descent; and the final infinity
-    support and one-root cube arithmetic.  Not proved: derivation of the
-    finite-place exponent classification from the rational ODE, hence the
-    complete aligned noncube exclusion and every larger Jacobian-conjecture
-    claim.
+    support and one-root cube arithmetic.  Not proved: converse inclusions or
+    existence for the two displayed sheets; exclusion of constant C != 0
+    trajectories; derivation of the finite-place exponent classification from
+    the rational ODE; the complete aligned noncube exclusion; or any larger
+    Jacobian-conjecture claim.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
@@ -121,15 +127,16 @@ automation:
 
 fidelity:
   divergences: >-
-    (1) GCD369InvariantFibreDichotomy states the exact field-valued reduced
-    point dichotomy implied by the source's radical equality; it does not
-    formalize equality of ideals, primary components, or the embedded
-    nonreduced component.  (2) GCD369EllipticNonzeroExclusion presents a
+    (1) GCD369InvariantFibreDichotomy states only the field-valued implication
+    from the four invariant equations to the displayed sheet disjunction; it
+    does not formalize either converse inclusion, existence of points on both
+    sheets, equality of ideals, primary components, or the embedded nonreduced
+    component.  (2) GCD369EllipticNonzeroExclusion presents a nonconstant
     rational function by numerator and denominator and assumes no common
     finite root.  Instead of the source's valuation at the forbidden value,
     it uses direct evaluation there; the hypotheses ensure the denominator is
-    nonzero, and the resulting contradiction is stronger but has the same
-    scope, including ramification.  (3) GCD369EllipticTerminalForm takes the
+    nonzero, and the resulting contradiction includes ramified preimages but
+    does not exclude constant trajectories.  (3) GCD369EllipticTerminalForm takes the
     elliptic curve and tangent equations explicitly.  (4) The shifted
     Davenport--Stothers bracket doubles the degree-nine polynomial to remove
     the coefficient 63/2, so its bracket constant is 1134 rather than 567.
@@ -157,7 +164,10 @@ alignment:
     - source: "Universal reduced invariant fibre, equations (5)--(7)"
       lean: "GCD369InvariantFibreDichotomy"
       module: "Challenge"
-      status: "proved as the exact field-valued reduced-point dichotomy"
+      status: >-
+        proved in the forward direction: every field-valued solution lies on
+        one of the two displayed sheets; converse inclusions and sheet
+        existence are not compared
     - source: "Zero-bracket sheet, equation (8)"
       lean: "GCD369ZeroBracketSheet"
       module: "Challenge"
@@ -167,7 +177,10 @@ alignment:
         GCD369EllipticSheetEquation; GCD369EllipticTerminalForm;
         GCD369ForbiddenNumerator; GCD369EllipticNonzeroExclusion
       module: "Challenge"
-      status: "proved, with direct evaluation replacing the local valuation"
+      status: >-
+        proved for nonconstant reduced rational trajectories, with direct
+        evaluation replacing the local valuation; constant trajectories are
+        not excluded
     - source: "Special fibre and shifted Davenport--Stothers endgame, equations (16)--(21)"
       lean: >-
         GCD369SpecialFibreDichotomy; GCD369ShiftedDSBracket;

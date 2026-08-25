@@ -8,19 +8,19 @@ import Mathlib
 /-!
 # The lower-Pfaffian noncube gate at partial degrees `(6,9)`
 
-This module proves the exact algebraic decomposition and terminal identities
-used in the aligned nontrivial cubic-Kummer branch.  The central theorem is a
-field-valued version of the universal reduced-fibre calculation: the four
-Kummer-forced invariant equations have exactly the zero-bracket sheet and the
-elliptic sheet displayed in the source report.
+This module proves algebraic implications and terminal identities used in the
+aligned nontrivial cubic-Kummer branch.  The central theorem shows that every
+field-valued solution of the four Kummer-forced invariant equations lies on
+the zero-bracket sheet or the elliptic sheet displayed in the source report;
+it does not prove converse inclusions or existence of either sheet.
 -/
 
 open Polynomial
 
-/-- The four lower-Pfaffian invariant equations have only the two reduced
-field-valued sheets found by the universal primary decomposition.  The first
-disjunct is the zero-bracket sheet `P_A`; the second is the elliptic sheet
-`P_B`. -/
+/-- Every field-valued solution of the four lower-Pfaffian invariant equations
+lies on one of the two displayed reduced sheets.  The first disjunct is the
+zero-bracket sheet `P_A`; the second is the elliptic sheet `P_B`.  No converse
+inclusion or existence statement is asserted. -/
 theorem GCD369InvariantFibreDichotomy {K : Type*} [Field K] [CharZero K]
     (a0 a1 a2 a3 a4 kappa mu : K) :
     let A := 4 * a2 - a4 ^ 2
@@ -242,10 +242,12 @@ theorem GCD369ForbiddenNumerator {K : Type*} [Field K] [CharZero K]
   · rw [hDdeg] at hD
     omega
 
-/-- The nonzero-`C` elliptic sheet cannot satisfy the cleared terminal Keller
-equation.  This formalizes the forbidden finite-value argument directly with
-a reduced polynomial presentation `Y=N/D`; ramification is harmless because
-the vanishing forbidden factor already contradicts the nonzero right side. -/
+/-- A nonconstant reduced rational trajectory on the nonzero-`C` elliptic
+sheet cannot satisfy the cleared terminal Keller equation.  This formalizes
+the forbidden finite-value argument directly with a reduced polynomial
+presentation `Y=N/D`; ramification is harmless because the vanishing forbidden
+factor already contradicts the nonzero right side.  Constant trajectories are
+not covered. -/
 theorem GCD369EllipticNonzeroExclusion {K : Type*} [Field K] [CharZero K]
     [IsAlgClosed K] (C0 j t : K) (hC : C0 ≠ 0) (hj : j ≠ 0)
     (ht : 7 * t ^ 2 = 12288 * C0) (N D H : K[X])

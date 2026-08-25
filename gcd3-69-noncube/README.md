@@ -1,13 +1,15 @@
 # Two-sheet reduction of the nontrivial cubic–Kummer `(6,9)` branch
 
-This Lean 4 project formalizes the main exact algebraic reduction in the
-lower-Pfaffian analysis of the plane Jacobian conjecture at actual partial
-degrees `(6,9)`.  Four Kummer-forced invariant equations cut out, at every
-field-valued point, exactly two reduced sheets: a common-power sheet with
-identically zero source bracket and an elliptic sheet.  The formalization also
-excludes the nonsingular (`C ≠ 0`) elliptic sheet by its terminal Keller
-equation and certifies the special-fibre factorization and shifted
-Davenport–Stothers endgame identities.
+This Lean 4 project formalizes an algebraic reduction in the lower-Pfaffian
+analysis of the plane Jacobian conjecture at actual partial degrees `(6,9)`.
+It proves that every field-valued solution of four Kummer-forced invariant
+equations lies on at least one of two displayed sheets: a common-power sheet
+with identically zero source bracket or an elliptic sheet.  It does not prove
+the converse inclusions or existence of either sheet.  The formalization also
+excludes nonconstant reduced rational trajectories on the nonsingular
+(`C ≠ 0`) elliptic sheet when they satisfy its terminal Keller equation, and
+certifies the special-fibre factorization and shifted Davenport–Stothers
+endgame identities.
 
 The result is aimed at researchers studying polynomial automorphisms, the
 Jacobian conjecture, and exact algebraic decompositions arising in formal or
@@ -21,8 +23,10 @@ included campaign source and its review.
   either the three equations defining the zero-bracket sheet `P_A`, or all
   four equations defining the elliptic sheet `P_B`.  This is the
   field-valued, reduced-point form of the source's universal radical
-  decomposition.  Its Lean proof uses explicit ideal-membership certificates
-  and field case splits; it does not call a computer algebra system.
+  decomposition in the implication direction used here; the compared theorem
+  does not prove either converse inclusion or existence of points on the
+  sheets.  Its Lean proof uses explicit ideal-membership certificates and
+  field case splits; it does not call a computer algebra system.
 - `GCD369ZeroBracketSheet` proves that every differential path of the form
   `f=K₀²+d`, `g=K₀³+(κ+3d/2)K₀`, with `d` and `κ` constant, has zero source
   bracket.
@@ -34,10 +38,11 @@ included campaign source and its review.
   numerators of a nonconstant polynomial numerator/denominator pair is
   nonconstant.
 - `GCD369EllipticNonzeroExclusion` combines algebraic closedness, a reduced
-  rational presentation, and the cleared terminal equation to exclude the
-  entire `C ≠ 0` elliptic sheet.  At a finite preimage of one of the two
-  forbidden values, the left side vanishes and the right side is nonzero.
-  This also covers ramified preimages.
+  rational presentation, nonconstancy, and the cleared terminal equation to
+  exclude nonconstant reduced rational trajectories on the `C ≠ 0` elliptic
+  sheet.  At a finite preimage of one of the two forbidden values, the left
+  side vanishes and the right side is nonzero.  This also covers ramified
+  preimages; constant trajectories are not excluded by this declaration.
 - `GCD369SpecialFibreDichotomy` proves, without division, that `C=0` factors
   as `X=0` or `X=3a₄²`.
 - `GCD369ShiftedDSBracket` proves the shifted Davenport–Stothers bracket in a
