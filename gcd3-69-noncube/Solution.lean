@@ -41,6 +41,74 @@ noncomputable def GCD369AlignedG {K : Type*} [Field K]
         - 12 * a2 * a3 * a4 - 2 * a3 ^ 3 + 3 * a3 * a4 ^ 3) / 32)
     + C kappa * (X ^ 3 + C (a4 / 2) * X + C (a3 / 2))
 
+/-- The first denominator-cleared `(6,9)` source row makes the normalized
+alignment discriminator differential-constant. -/
+theorem GCD369AlignmentDiscriminatorDerivative
+    {K : Type*} [Field K] [CharZero K] [Differential K]
+    (s a b : K) (hs : s ≠ 0)
+    (hrow :
+      3 * s ^ 4 * Differential.deriv a
+          - 15 * s ^ 3 * a * Differential.deriv s
+        - 2 * s * Differential.deriv b
+          + 16 * b * Differential.deriv s = 0) :
+    Differential.deriv (3 * a / s ^ 5 - 2 * b / s ^ 8) = 0 := by
+  have hnat (n : ℕ) : Differential.deriv (n : K) = 0 :=
+    Differential.deriv.map_natCast n
+  have hOfNat (n : ℕ) [n.AtLeastTwo] :
+      Differential.deriv (ofNat(n) : K) = 0 := hnat n
+  calc
+    Differential.deriv (3 * a / s ^ 5 - 2 * b / s ^ 8) =
+        (3 * s ^ 4 * Differential.deriv a
+            - 15 * s ^ 3 * a * Differential.deriv s
+          - 2 * s * Differential.deriv b
+            + 16 * b * Differential.deriv s) / s ^ 9 := by
+      rw [map_sub]
+      simp [div_eq_mul_inv, Derivation.leibniz, Derivation.leibniz_inv,
+        Derivation.leibniz_pow, hOfNat]
+      field_simp [hs]
+      ring
+    _ = 0 := by rw [hrow, zero_div]
+
+/-- On a nontrivial cubic Kummer branch, the same discriminator is both
+differential-constant and weight one, hence vanishes. -/
+theorem GCD369KummerAlignmentFromFirstRow
+    {K : Type*} [Field K] [CharZero K] [Differential K]
+    (sigma : K ≃+* K) (omega s a b : K)
+    (homega3 : omega ^ 3 = 1) (homega : omega ≠ 1) (hs : s ≠ 0)
+    (hsigmaS : sigma s = omega * s)
+    (hsigmaA : sigma a = a) (hsigmaB : sigma b = b)
+    (hfix : ∀ c : K, Differential.deriv c = 0 → sigma c = c)
+    (hrow :
+      3 * s ^ 4 * Differential.deriv a
+          - 15 * s ^ 3 * a * Differential.deriv s
+        - 2 * s * Differential.deriv b
+          + 16 * b * Differential.deriv s = 0) :
+    3 * a / s ^ 5 - 2 * b / s ^ 8 = 0 := by
+  let delta := 3 * a / s ^ 5 - 2 * b / s ^ 8
+  have hconstant : Differential.deriv delta = 0 :=
+    GCD369AlignmentDiscriminatorDerivative s a b hs hrow
+  have hfixed : sigma delta = delta := hfix delta hconstant
+  have hsigmaDelta : sigma delta = omega * delta := by
+    have homega0 : omega ≠ 0 := by
+      intro homega0
+      simp [homega0] at homega3
+    have homega9 : omega ^ 9 = 1 := by
+      calc
+        omega ^ 9 = (omega ^ 3) ^ 3 := by ring
+        _ = 1 := by rw [homega3, one_pow]
+    change sigma (3 * a / s ^ 5 - 2 * b / s ^ 8) =
+      omega * (3 * a / s ^ 5 - 2 * b / s ^ 8)
+    simp only [map_sub, map_div₀, map_mul, map_pow, map_ofNat,
+      hsigmaS, hsigmaA, hsigmaB]
+    field_simp [hs, homega0]
+    ring_nf
+    rw [homega3, homega9]
+    ring
+  have hprod : (omega - 1) * delta = 0 := by
+    rw [sub_mul, one_mul, ← hsigmaDelta, hfixed]
+    exact sub_self delta
+  exact (mul_eq_zero.mp hprod).resolve_left (sub_ne_zero.mpr homega)
+
 set_option maxHeartbeats 2000000 in
 set_option maxRecDepth 10000 in
 theorem GCD369AlignedKellerRow4 {K : Type*} [Field K] [CharZero K] [Differential K]
@@ -2545,6 +2613,8 @@ theorem GCD369DSOneRootCube {K : Type*} [Field K] [IsAlgClosed K]
   congr 1
   omega
 
+#print axioms GCD369AlignmentDiscriminatorDerivative
+#print axioms GCD369KummerAlignmentFromFirstRow
 #print axioms GCD369InvariantFibreDichotomy
 #print axioms GCD369AlignedKellerFibreDichotomy
 #print axioms GCD369ZeroBracketSheet

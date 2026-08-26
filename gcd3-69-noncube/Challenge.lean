@@ -36,6 +36,36 @@ noncomputable def GCD369AlignedG {K : Type*} [Field K]
         - 12 * a2 * a3 * a4 - 2 * a3 ^ 3 + 3 * a3 * a4 ^ 3) / 32)
     + C kappa * (X ^ 3 + C (a4 / 2) * X + C (a3 / 2))
 
+/-- The first denominator-cleared `(6,9)` source row makes the normalized
+alignment discriminator differential-constant. -/
+theorem GCD369AlignmentDiscriminatorDerivative
+    {K : Type*} [Field K] [CharZero K] [Differential K]
+    (s a b : K) (hs : s ≠ 0)
+    (hrow :
+      3 * s ^ 4 * Differential.deriv a
+          - 15 * s ^ 3 * a * Differential.deriv s
+        - 2 * s * Differential.deriv b
+          + 16 * b * Differential.deriv s = 0) :
+    Differential.deriv (3 * a / s ^ 5 - 2 * b / s ^ 8) = 0 := by
+  sorry
+
+/-- On a nontrivial cubic Kummer branch, the same discriminator is both
+differential-constant and weight one, hence vanishes. -/
+theorem GCD369KummerAlignmentFromFirstRow
+    {K : Type*} [Field K] [CharZero K] [Differential K]
+    (sigma : K ≃+* K) (omega s a b : K)
+    (homega3 : omega ^ 3 = 1) (homega : omega ≠ 1) (hs : s ≠ 0)
+    (hsigmaS : sigma s = omega * s)
+    (hsigmaA : sigma a = a) (hsigmaB : sigma b = b)
+    (hfix : ∀ c : K, Differential.deriv c = 0 → sigma c = c)
+    (hrow :
+      3 * s ^ 4 * Differential.deriv a
+          - 15 * s ^ 3 * a * Differential.deriv s
+        - 2 * s * Differential.deriv b
+          + 16 * b * Differential.deriv s = 0) :
+    3 * a / s ^ 5 - 2 * b / s ^ 8 = 0 := by
+  sorry
+
 /-- No aligned Keller pair in the nontrivial cubic-Kummer branch can have a
 noncube polynomial core under the displayed function-field presentations. -/
 theorem GCD369AlignedNoncubeExclusion

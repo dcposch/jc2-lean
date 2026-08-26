@@ -16,6 +16,12 @@ the shifted parameter, and the noncube condition on `H`.  It does not assert
 the cube-core branch, a general `(6,9)` theorem, maximum partial degree eleven,
 or the plane Jacobian conjecture.
 
+The source-facing prelude now also formalizes the first alignment step:
+`GCD369AlignmentDiscriminatorDerivative` turns the denominator-cleared first
+Keller row into differential constancy of `3a/s⁵-2b/s⁸`, and
+`GCD369KummerAlignmentFromFirstRow` proves that a nontrivial cubic Kummer
+action forces this weight-one discriminator to vanish.
+
 The result is aimed at researchers studying polynomial automorphisms, the
 Jacobian conjecture, and exact algebraic decompositions arising in formal or
 computer-assisted proofs.  No claim of novelty or priority is made beyond the
@@ -23,6 +29,10 @@ included campaign source and its review.
 
 ## Compared declaration
 
+- `GCD369AlignmentDiscriminatorDerivative` proves the exact quotient-rule
+  form of the first denominator-cleared source row.
+- `GCD369KummerAlignmentFromFirstRow` derives the aligned condition from that
+  row and the explicit cubic Kummer action.
 - `GCD369AlignedNoncubeExclusion` proves that the displayed aligned Keller,
   Kummer, constant-field, and reduced function-field hypotheses are
   inconsistent with a noncube polynomial core.
