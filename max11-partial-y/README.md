@@ -24,6 +24,10 @@ the single opaque `(6,9)` premise by two exhaustive premises: closure of the
 normalized cube-core branch and closure of the normalized noncube-core branch.
 Thus its remaining mathematical inputs are exactly gcd-at-most-two and those
 two branch closures.
+The equivalent exclusion-form headline
+`Max11DegreeRoutes.Max11PlaneKellerGenerationWithNormalized69Exclusions`
+matches the output shape of the trajectory projects: if each normalized
+branch is impossible, its generation route follows immediately.
 
 ## Compared declarations
 
@@ -62,6 +66,9 @@ two branch closures.
   composes that split with the elementary degree routes.  It is the current
   source-honest top of the formal tower: gcd at most two and the two normalized
   branch closures remain explicit premises.
+- `Max11DegreeRoutes.Max11PlaneKellerGenerationWithNormalized69Exclusions`
+  gives the same composition using branch-impossibility premises, the exact
+  output interface expected from the cube and noncube exclusions.
 - `Max12FirstPrimitives` verifies the frontier checksum: at maximum twelve,
   the same direct routes first leave `(8,12)` and `(9,12)`.
 

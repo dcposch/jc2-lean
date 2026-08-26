@@ -12,7 +12,8 @@ project:
     K[P,Q]=K[x,y] from only the gcd-at-most-two and (6,9) route premises.
     A further source-facing theorem replaces the (6,9) premise by exhaustive
     normalized cube-core and noncube-core closure premises.  This project does
-    not itself prove those remaining deep branches.
+    not itself prove those remaining deep branches; an equivalent headline
+    accepts their exclusion (impossibility) forms directly.
   authors:
     - "Dan Clemens Posch"
   license: "Apache-2.0"
@@ -74,6 +75,11 @@ status:
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
   main_results:
+    - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithNormalized69Exclusions"
+      file: "DegreeRoutes.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
     - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithNormalized69Routes"
       file: "DegreeRoutes.lean"
       sorry_count: 0

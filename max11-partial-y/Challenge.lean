@@ -136,6 +136,16 @@ def PlaneKeller69NoncubeRoute {K : Type*} [Field K] : Prop :=
     Normalized69Source P Q h →
     (¬ ∃ u : Polynomial K, h = u ^ 3) → PlanePairGenerates P Q
 
+/-- Impossibility of every normalized cube-core `(6,9)` Keller source. -/
+def PlaneKeller69CubeExclusion {K : Type*} [Field K] : Prop :=
+  ∀ (P Q : MvPolynomial (Fin 2) K) (h : Polynomial K),
+    Normalized69Source P Q h → (∃ u : Polynomial K, h = u ^ 3) → False
+
+/-- Impossibility of every normalized noncube-core `(6,9)` Keller source. -/
+def PlaneKeller69NoncubeExclusion {K : Type*} [Field K] : Prop :=
+  ∀ (P Q : MvPolynomial (Fin 2) K) (h : Polynomial K),
+    Normalized69Source P Q h → (¬ ∃ u : Polynomial K, h = u ^ 3) → False
+
 /-- A genuine `(6,9)` Keller pair has square/cube leading coefficients with
 one nonzero common polynomial core. -/
 theorem planeKellerPair_69_commonCore {K : Type*}
@@ -182,6 +192,18 @@ theorem planeKellerAutomorphicAtDegrees_69_of_normalized_routes
     PlaneKellerAutomorphicAtDegrees (K := K) 6 9 := by
   sorry
 
+/-- Exclusion of the normalized cube branch implies its generation route. -/
+theorem planeKeller69CubeRoute_of_exclusion {K : Type*} [Field K]
+    (h : PlaneKeller69CubeExclusion (K := K)) :
+    PlaneKeller69CubeRoute (K := K) := by
+  sorry
+
+/-- Exclusion of the normalized noncube branch implies its generation route. -/
+theorem planeKeller69NoncubeRoute_of_exclusion {K : Type*} [Field K]
+    (h : PlaneKeller69NoncubeExclusion (K := K)) :
+    PlaneKeller69NoncubeRoute (K := K) := by
+  sorry
+
 /-- Concrete maximum-eleven composition in characteristic zero with the
 zero, equal-degree, and divisibility routes proved internally. -/
 theorem Max11PlaneKellerGenerationWithElementaryRoutes {K : Type*}
@@ -203,6 +225,20 @@ theorem Max11PlaneKellerGenerationWithNormalized69Routes {K : Type*}
       PlaneKellerAutomorphicAtDegrees (K := K) m n)
     (hcube : PlaneKeller69CubeRoute (K := K))
     (hnoncube : PlaneKeller69NoncubeRoute (K := K)) :
+    ∀ P Q : MvPolynomial (Fin 2) K,
+      MvPolynomial.degreeOf 1 P ≤ 11 →
+      MvPolynomial.degreeOf 1 Q ≤ 11 →
+      IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
+  sorry
+
+/-- Maximum-eleven composition stated in the exclusion form supplied by the
+cube and noncube trajectory projects. -/
+theorem Max11PlaneKellerGenerationWithNormalized69Exclusions {K : Type*}
+    [Field K] [CharZero K]
+    (hgcd : ∀ m n, Nat.gcd m n ≤ 2 →
+      PlaneKellerAutomorphicAtDegrees (K := K) m n)
+    (hcube : PlaneKeller69CubeExclusion (K := K))
+    (hnoncube : PlaneKeller69NoncubeExclusion (K := K)) :
     ∀ P Q : MvPolynomial (Fin 2) K,
       MvPolynomial.degreeOf 1 P ≤ 11 →
       MvPolynomial.degreeOf 1 Q ≤ 11 →

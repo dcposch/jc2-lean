@@ -450,6 +450,16 @@ def PlaneKeller69NoncubeRoute {K : Type*} [Field K] : Prop :=
     Normalized69Source P Q h →
     (¬ ∃ u : K[X], h = u ^ 3) → PlanePairGenerates P Q
 
+/-- Impossibility of every normalized cube-core `(6,9)` Keller source. -/
+def PlaneKeller69CubeExclusion {K : Type*} [Field K] : Prop :=
+  ∀ (P Q : MvPolynomial (Fin 2) K) (h : K[X]),
+    Normalized69Source P Q h → (∃ u : K[X], h = u ^ 3) → False
+
+/-- Impossibility of every normalized noncube-core `(6,9)` Keller source. -/
+def PlaneKeller69NoncubeExclusion {K : Type*} [Field K] : Prop :=
+  ∀ (P Q : MvPolynomial (Fin 2) K) (h : K[X]),
+    Normalized69Source P Q h → (¬ ∃ u : K[X], h = u ^ 3) → False
+
 /-- Independently rescaling the two target coordinates preserves their
 generated subalgebra. -/
 theorem adjoin_targetRescale_eq {K : Type*} [Field K]
@@ -597,6 +607,21 @@ theorem planeKellerAutomorphicAtDegrees_69_of_normalized_routes
     · exact hcube P0 Q0 h hsource hiscube
     · exact hnoncube P0 Q0 h hsource hiscube
   exact hgenerates.mp hgenerated0
+
+/-- An impossible cube-core source satisfies the cube route by explosion. -/
+theorem planeKeller69CubeRoute_of_exclusion {K : Type*} [Field K]
+    (h : PlaneKeller69CubeExclusion (K := K)) :
+    PlaneKeller69CubeRoute (K := K) := by
+  intro P Q core hsource hcube
+  exact (h P Q core hsource hcube).elim
+
+/-- An impossible noncube-core source satisfies the noncube route by
+explosion. -/
+theorem planeKeller69NoncubeRoute_of_exclusion {K : Type*} [Field K]
+    (h : PlaneKeller69NoncubeExclusion (K := K)) :
+    PlaneKeller69NoncubeRoute (K := K) := by
+  intro P Q core hsource hnoncube
+  exact (h P Q core hsource hnoncube).elim
 
 /-- Subtract a scalar multiple of a power of the first target coordinate
 from the second target coordinate. -/
@@ -796,5 +821,20 @@ theorem Max11PlaneKellerGenerationWithNormalized69Routes {K : Type*}
       IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
   exact Max11PlaneKellerGenerationWithElementaryRoutes hgcd
     (planeKellerAutomorphicAtDegrees_69_of_normalized_routes hcube hnoncube)
+
+/-- Maximum-eleven composition stated in the exclusion form supplied by the
+cube and noncube trajectory projects. -/
+theorem Max11PlaneKellerGenerationWithNormalized69Exclusions {K : Type*}
+    [Field K] [CharZero K]
+    (hgcd : ∀ m n, Nat.gcd m n ≤ 2 →
+      PlaneKellerAutomorphicAtDegrees (K := K) m n)
+    (hcube : PlaneKeller69CubeExclusion (K := K))
+    (hnoncube : PlaneKeller69NoncubeExclusion (K := K)) :
+    ∀ P Q : MvPolynomial (Fin 2) K,
+      degreeOf 1 P ≤ 11 → degreeOf 1 Q ≤ 11 →
+      IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
+  exact Max11PlaneKellerGenerationWithNormalized69Routes hgcd
+    (planeKeller69CubeRoute_of_exclusion hcube)
+    (planeKeller69NoncubeRoute_of_exclusion hnoncube)
 
 end Max11DegreeRoutes
