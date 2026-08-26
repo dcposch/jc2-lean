@@ -4,6 +4,7 @@ Released under the Apache License, Version 2.0; see LICENSE.
 Authors: Dan Clemens Posch (direction), OpenAI Codex agent (formalization)
 -/
 import Mathlib
+import Mathlib.FieldTheory.Differential.Basic
 
 /-!
 # The lower-Pfaffian noncube gate at partial degrees `(6,9)`
@@ -212,6 +213,36 @@ theorem GCD369PolynomialNoncubeKummerExtension
   exact GCD369NoncubeCubicKummerExtension
     (algebraMap K[X] (RatFunc K) H) (algebraMap K (RatFunc K) omega)
     hzeta3 hzeta (GCD369PolynomialNoncubeInRatFunc H hnoncube)
+
+/-- The canonical differential structure on the cubic adjoin-root extension
+differentiates the Kummer equation exactly. -/
+theorem GCD369KummerRootDerivative
+    {F : Type*} [Field F] [CharZero F] [Differential F]
+    (h : F) [Fact (Irreducible (X ^ 3 - C h : F[X]))]
+    [Fact (X ^ 3 - C h : F[X]).Monic] :
+    let s := AdjoinRoot.root (X ^ 3 - C h : F[X])
+    3 * s ^ 2 * Differential.deriv s =
+      algebraMap F (AdjoinRoot (X ^ 3 - C h)) (Differential.deriv h) := by
+  dsimp only
+  have hpow := congrArg Differential.deriv (root_X_pow_sub_C_pow 3 h)
+  change Differential.deriv (AdjoinRoot.root (X ^ 3 - C h) ^ 3) =
+    Differential.deriv (algebraMap F (AdjoinRoot (X ^ 3 - C h)) h) at hpow
+  rw [deriv_algebraMap] at hpow
+  simpa [Derivation.leibniz_pow, mul_assoc] using hpow
+
+/-- Every cubic Kummer deck automorphism commutes with the canonical
+derivative on the separable adjoin-root extension. -/
+theorem GCD369KummerDeckCommutesWithDerivative
+    {F : Type*} [Field F] [CharZero F] [Differential F]
+    (h : F) [Fact (Irreducible (X ^ 3 - C h : F[X]))]
+    [Fact (X ^ 3 - C h : F[X]).Monic] (eta : rootsOfUnity 3 F) :
+    ∀ z : AdjoinRoot (X ^ 3 - C h : F[X]),
+      (autAdjoinRootXPowSubC 3 h eta) (Differential.deriv z) =
+        Differential.deriv ((autAdjoinRootXPowSubC 3 h eta) z) := by
+  letI : Algebra.IsIntegral F (AdjoinRoot (X ^ 3 - C h : F[X])) :=
+    AdjoinRoot.isIntegral_of_monic Fact.out
+  intro z
+  exact Differential.algEquiv_deriv' (autAdjoinRootXPowSubC 3 h eta) z
 
 set_option maxHeartbeats 2000000 in
 set_option maxRecDepth 10000 in
@@ -2722,6 +2753,8 @@ theorem GCD369DSOneRootCube {K : Type*} [Field K] [IsAlgClosed K]
 #print axioms GCD369NoncubeCubicKummerExtension
 #print axioms GCD369PolynomialNoncubeInRatFunc
 #print axioms GCD369PolynomialNoncubeKummerExtension
+#print axioms GCD369KummerRootDerivative
+#print axioms GCD369KummerDeckCommutesWithDerivative
 #print axioms GCD369InvariantFibreDichotomy
 #print axioms GCD369AlignedKellerFibreDichotomy
 #print axioms GCD369ZeroBracketSheet

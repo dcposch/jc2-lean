@@ -7,6 +7,8 @@
     "GCD369NoncubeCubicKummerExtension",
     "GCD369PolynomialNoncubeInRatFunc",
     "GCD369PolynomialNoncubeKummerExtension",
+    "GCD369KummerRootDerivative",
+    "GCD369KummerDeckCommutesWithDerivative",
     "GCD369AlignedNoncubeExclusion"
   ],
   "definition_names": [

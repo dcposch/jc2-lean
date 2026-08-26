@@ -4,6 +4,7 @@ Released under the Apache License, Version 2.0; see LICENSE.
 Authors: Dan Clemens Posch (direction), OpenAI Codex agent (formalization)
 -/
 import Mathlib
+import Mathlib.FieldTheory.Differential.Basic
 
 /-!
 # Challenge: aligned noncube exclusion at partial degrees `(6,9)`
@@ -108,6 +109,28 @@ theorem GCD369PolynomialNoncubeKummerExtension
       sigma (AdjoinRoot.root p) ≠ AdjoinRoot.root p ∧
       ∀ c : RatFunc K, sigma (algebraMap (RatFunc K) (AdjoinRoot p) c) =
         algebraMap (RatFunc K) (AdjoinRoot p) c := by
+  sorry
+
+/-- The canonical differential structure on the cubic adjoin-root extension
+differentiates the Kummer equation exactly. -/
+theorem GCD369KummerRootDerivative
+    {F : Type*} [Field F] [CharZero F] [Differential F]
+    (h : F) [Fact (Irreducible (X ^ 3 - C h : F[X]))]
+    [Fact (X ^ 3 - C h : F[X]).Monic] :
+    let s := AdjoinRoot.root (X ^ 3 - C h : F[X])
+    3 * s ^ 2 * Differential.deriv s =
+      algebraMap F (AdjoinRoot (X ^ 3 - C h)) (Differential.deriv h) := by
+  sorry
+
+/-- Every cubic Kummer deck automorphism commutes with the canonical
+derivative on the separable adjoin-root extension. -/
+theorem GCD369KummerDeckCommutesWithDerivative
+    {F : Type*} [Field F] [CharZero F] [Differential F]
+    (h : F) [Fact (Irreducible (X ^ 3 - C h : F[X]))]
+    [Fact (X ^ 3 - C h : F[X]).Monic] (eta : rootsOfUnity 3 F) :
+    ∀ z : AdjoinRoot (X ^ 3 - C h : F[X]),
+      (autAdjoinRootXPowSubC 3 h eta) (Differential.deriv z) =
+        Differential.deriv ((autAdjoinRootXPowSubC 3 h eta) z) := by
   sorry
 
 /-- No aligned Keller pair in the nontrivial cubic-Kummer branch can have a

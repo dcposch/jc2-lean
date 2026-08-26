@@ -27,6 +27,9 @@ these are no longer merely assumed abstract objects.
 `GCD369PolynomialNoncubeInRatFunc` proves that polynomial noncubeness survives
 passage to `k(x)`, and `GCD369PolynomialNoncubeKummerExtension` composes both
 steps into the Kummer data used by the normalized noncube route.
+`GCD369KummerRootDerivative` differentiates the cubic root equation in the
+canonical extension, while `GCD369KummerDeckCommutesWithDerivative` proves
+that its deck action respects this differential structure.
 
 The result is aimed at researchers studying polynomial automorphisms, the
 Jacobian conjecture, and exact algebraic decompositions arising in formal or
@@ -45,6 +48,9 @@ included campaign source and its review.
   polynomial-to-function-field noncube bridge.
 - `GCD369PolynomialNoncubeKummerExtension` supplies the concrete Kummer data
   directly from a noncube polynomial core.
+- `GCD369KummerRootDerivative` and
+  `GCD369KummerDeckCommutesWithDerivative` connect that algebraic extension
+  to the differential-field structure used by the alignment theorem.
 - `GCD369AlignedNoncubeExclusion` proves that the displayed aligned Keller,
   Kummer, constant-field, and reduced function-field hypotheses are
   inconsistent with a noncube polynomial core.

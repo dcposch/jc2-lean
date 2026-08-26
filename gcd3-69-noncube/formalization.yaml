@@ -113,7 +113,9 @@ status:
     nontrivial base-fixing deck action are constructed from field-level
     noncubeness; reduced numerator/denominator coprimality proves that a
     polynomial noncube remains a noncube in the rational function field, so
-    the Kummer data are constructed directly from the polynomial core;
+    the Kummer data are constructed directly from the polynomial core; the
+    canonical differential extension satisfies the differentiated root
+    equation and every deck automorphism commutes with the derivative;
     extraction of all four lower rows from
     the actual Keller bracket; first-integral and invariant-fibre landing; zero
     bracket and terminal exclusion on P_A; the P_B elliptic equation and
@@ -127,6 +129,11 @@ status:
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
   main_results:
+    - declaration: "GCD369KummerDeckCommutesWithDerivative"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
     - declaration: "GCD369PolynomialNoncubeKummerExtension"
       file: "Solution.lean"
       sorry_count: 0
@@ -217,6 +224,12 @@ review:
 alignment:
   namespace: "(root)"
   statements:
+    - source: "Charged noncube landing, differential Kummer structure"
+      lean: "GCD369KummerDeckCommutesWithDerivative"
+      module: "Challenge"
+      status: >-
+        canonical root derivative and commutation of the Kummer deck action
+        with the separable differential extension are proved
     - source: "Charged noncube landing, polynomial core to rational Kummer data"
       lean: "GCD369PolynomialNoncubeKummerExtension"
       module: "Challenge"
