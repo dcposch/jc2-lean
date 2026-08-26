@@ -3841,6 +3841,75 @@ theorem noCommonRoot {K : Type*} [Field K] [CharZero K]
 
 end GCD369CubeEarlyLoadRows
 
+/-- The eight source-facing Faber alternatives before the later target
+fibres.  Each constructor retains the exact denominator-cleared coefficient
+equations, rather than a prepackaged Kuranishi row system. -/
+inductive GCD369CubeEarlyFaberLoad {K : Type*} [Field K]
+    (Xn Yn Zn u v : K) : Type where
+  | d (hprojective : u ≠ 0 ∨ v ≠ 0)
+      (hfaber : GCD369CubeDLeadingFaberRows Xn Yn Zn u v)
+  | c7 (hprojective : u ≠ 0 ∨ v ≠ 0)
+      (hfaber : GCD369CubeC7LeadingFaberRows Xn Yn Zn u v)
+  | c5 (hprojective : u ≠ 0 ∨ v ≠ 0)
+      (hfaber : GCD369CubeC5LeadingFaberRows Xn Yn Zn u v)
+  | c4 (hprojective : u ≠ 0 ∨ v ≠ 0)
+      (hfaber : GCD369CubeC4LeadingFaberRows Xn Yn Zn u v)
+  | c2 (hprojective : u ≠ 0 ∨ v ≠ 0)
+      (hfaber : GCD369CubeC2LeadingFaberRows Xn Yn Zn u v)
+  | c1 (hprojective : u ≠ 0 ∨ v ≠ 0)
+      (hfaber : GCD369CubeC1LeadingFaberRows Xn Yn Zn u v)
+  | rhoOne (hprojective : u ≠ 0 ∨ v ≠ 0)
+      (hfaber : GCD369CubeRhoOneLeadingFaberRows Xn Yn Zn u v)
+  | rhoTwo (hprojective : u ≠ 0 ∨ v ≠ 0)
+      (hfaber : GCD369CubeRhoTwoLeadingFaberRows Xn Yn Zn u v)
+
+namespace GCD369CubeEarlyFaberLoad
+
+/-- Convert exact Faber coefficient data to the corresponding normalized
+Kuranishi rows. -/
+def toRows {K : Type*} [Field K] [CharZero K] {Xn Yn Zn u v : K}
+    (L : GCD369CubeEarlyFaberLoad Xn Yn Zn u v) :
+    GCD369CubeEarlyLoadRows Xn Yn Zn u v :=
+  match L with
+  | .d hprojective hfaber =>
+      .d (GCD369CubeDExceptionalRows_of_faber hprojective hfaber)
+  | .c7 hprojective hfaber =>
+      .c7 (GCD369CubeC7Rows_of_faber hprojective hfaber)
+  | .c5 hprojective hfaber =>
+      .c5 (GCD369CubeC5Rows_of_faber hprojective hfaber)
+  | .c4 hprojective hfaber =>
+      .c4 (GCD369CubeC4Rows_of_faber hprojective hfaber)
+  | .c2 hprojective hfaber =>
+      .c2 (GCD369CubeC2Rows_of_faber hprojective hfaber)
+  | .c1 hprojective hfaber =>
+      .c1 (GCD369CubeC1Rows_of_faber hprojective hfaber)
+  | .rhoOne hprojective hfaber =>
+      .rhoOne (GCD369CubeRhoOneRows_of_faber hprojective hfaber)
+  | .rhoTwo hprojective hfaber =>
+      .rhoTwo (GCD369CubeRhoTwoRows_of_faber hprojective hfaber)
+
+/-- Scaled weight of an exact source-facing Faber alternative. -/
+def weight {K : Type*} [Field K] [CharZero K] {Xn Yn Zn u v : K}
+    (L : GCD369CubeEarlyFaberLoad Xn Yn Zn u v) : ℕ :=
+  L.toRows.weight
+
+/-- Every source-facing early Faber load has one of the eight audited
+weights. -/
+theorem weight_mem {K : Type*} [Field K] [CharZero K] {Xn Yn Zn u v : K}
+    (L : GCD369CubeEarlyFaberLoad Xn Yn Zn u v) :
+    L.weight ∈ ([1, 2, 4, 5, 7, 8, 10, 11] : List ℕ) :=
+  L.toRows.weight_mem
+
+/-- The exact Faber alternative itself supplies the no-common-root
+certificate needed by the boundary argument. -/
+theorem noCommonRoot {K : Type*} [Field K] [CharZero K]
+    {Xn Yn Zn u v : K} (L : GCD369CubeEarlyFaberLoad Xn Yn Zn u v) :
+    ∀ r : K, r ^ 3 + u * r + v = 0 →
+      Xn * r ^ 2 + Yn * r + Zn = 0 → False :=
+  L.toRows.noCommonRoot
+
+end GCD369CubeEarlyFaberLoad
+
 /-- Source-boundary data whose first nonzero row is one of the eight exact
 Kuranishi systems.  Neither an arbitrary weight nor an externally supplied
 resultant certificate appears among its fields. -/
@@ -3885,6 +3954,79 @@ theorem GCD369CubeExactEarlyBoundaryDataEmpty
     D.rows.weight D.rows.weight_mem D.q D.a D.h D.Xn D.Yn D.Zn D.u D.v D.r
       D.ha D.hh D.rows.noCommonRoot D.hKroot D.EF D.EG D.hEF D.hEG
       D.hfregular D.hgregular
+
+/-- Early source-boundary data stated entirely with the exact Faber
+coefficient alternative.  In contrast with `GCD369CubeExactEarlyBoundaryData`,
+the normalized row system is not a field of this structure. -/
+structure GCD369CubeFaberEarlyBoundaryData
+    (K : Type*) [Field K] [CharZero K] where
+  Xn : K
+  Yn : K
+  Zn : K
+  u : K
+  v : K
+  load : GCD369CubeEarlyFaberLoad Xn Yn Zn u v
+  q : ℚ
+  a : K
+  h : K
+  r : K
+  EF : HahnSeries ℚ K
+  EG : HahnSeries ℚ K
+  ha : a ≠ 0
+  hh : h ≠ 0
+  hKroot : r ^ 3 + u * r + v = 0
+  hEF : (↑(1 : ℚ) : WithTop ℚ) < EF.orderTop
+  hEG : (↑(3 / 2 : ℚ) : WithTop ℚ) < EG.orderTop
+  hfregular : (↑((12 : ℚ) / load.weight) : WithTop ℚ) ≤
+    let A : HahnSeries ℚ K := HahnSeries.single q a
+    let B : HahnSeries ℚ K := HahnSeries.single 0
+      (Xn * r ^ 2 + Yn * r + Zn)
+    let H : HahnSeries ℚ K := HahnSeries.single 1 h
+    (A ^ 2 + H * B + EF).orderTop
+  hgregular : (↑((18 : ℚ) / load.weight) : WithTop ℚ) ≤
+    let A : HahnSeries ℚ K := HahnSeries.single q a
+    let B : HahnSeries ℚ K := HahnSeries.single 0
+      (Xn * r ^ 2 + Yn * r + Zn)
+    let H : HahnSeries ℚ K := HahnSeries.single 1 h
+    let C32 : HahnSeries ℚ K := HahnSeries.single 0 (3 / 2)
+    (A ^ 3 + C32 * H * A * B + EG).orderTop
+
+namespace GCD369CubeFaberEarlyBoundaryData
+
+/-- Forget only the exact Faber presentation after deriving its normalized
+rows; no mathematical hypothesis is added by this conversion. -/
+def toExact {K : Type*} [Field K] [CharZero K]
+    (D : GCD369CubeFaberEarlyBoundaryData K) :
+    GCD369CubeExactEarlyBoundaryData K where
+  Xn := D.Xn
+  Yn := D.Yn
+  Zn := D.Zn
+  u := D.u
+  v := D.v
+  rows := D.load.toRows
+  q := D.q
+  a := D.a
+  h := D.h
+  r := D.r
+  EF := D.EF
+  EG := D.EG
+  ha := D.ha
+  hh := D.hh
+  hKroot := D.hKroot
+  hEF := D.hEF
+  hEG := D.hEG
+  hfregular := D.hfregular
+  hgregular := D.hgregular
+
+end GCD369CubeFaberEarlyBoundaryData
+
+/-- Every early boundary landing presented by its exact Faber coefficients
+is empty.  The weight, Kuranishi rows, and no-common-root certificate are all
+derived internally. -/
+theorem GCD369CubeFaberEarlyBoundaryDataEmpty
+    {K : Type*} [Field K] [CharZero K]
+    (D : GCD369CubeFaberEarlyBoundaryData K) : False :=
+  GCD369CubeExactEarlyBoundaryDataEmpty D.toExact
 
 /-- Local order of the numerator of a reduced rational derivative at a pole
 of the denominator.  If `N/B` is pointwise reduced and `B` has multiplicity
@@ -4903,7 +5045,7 @@ elliptic/cusp, bracket, and Davenport--Stothers data consumed by the branch
 proofs; there is no opaque admissibility predicate. -/
 inductive GCD369CubeTrajectoryLanding (K : Type*) [Field K] : Prop where
   | constantPole (D : GCD369CubeConstantPoleDegreeLanding)
-  | earlyBoundary (D : GCD369CubeExactEarlyBoundaryData K)
+  | earlyBoundary (D : GCD369CubeFaberEarlyBoundaryData K)
   | rhoFour
       (Xn Yn Zn u v : K)
       (h1 : 729 * u * Xn ^ 2 - 1458 * Xn * Zn - 729 * Yn ^ 2 = 0)
@@ -4989,7 +5131,7 @@ theorem GCD369CubeTrajectoryLandingEmpty {K : Type*}
   | constantPole D =>
       exact GCD369CubeConstantPoleDegreeLandingEmpty D
   | earlyBoundary D =>
-      exact GCD369CubeExactEarlyBoundaryDataEmpty D
+      exact GCD369CubeFaberEarlyBoundaryDataEmpty D
   | rhoFour Xn Yn Zn u v h1 h2 h3 h4 =>
       exact GCD369CubeRhoFourFirstLoadImpossible Xn Yn Zn u v h1 h2 h3 h4
   | terminalOnly Xn Yn Zn u v h1 h2 h3 h4 h5 =>
@@ -5114,6 +5256,9 @@ theorem GCD369CubeTrajectoryLandingEmpty {K : Type*}
 #print axioms GCD369CubeEarlyLoadRows.weight_mem
 #print axioms GCD369CubeEarlyLoadRows.noCommonRoot
 #print axioms GCD369CubeExactEarlyBoundaryDataEmpty
+#print axioms GCD369CubeEarlyFaberLoad.weight_mem
+#print axioms GCD369CubeEarlyFaberLoad.noCommonRoot
+#print axioms GCD369CubeFaberEarlyBoundaryDataEmpty
 #print axioms GCD369ReducedQuotientWronskianLocal
 #print axioms GCD369CubeRationalPrimitiveFinitePlace
 #print axioms GCD369CubeRationalPrimitiveRootCount
