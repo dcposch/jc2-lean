@@ -459,6 +459,108 @@ theorem GCD369CubeC5TerminalNonzero {K : Type*} [Field K] [CharZero K]
         (3 / 64 * u ^ 3 - 135 / 832 * v ^ 2) * hterminal
     exact (pow_ne_zero 8 hu) hu8
 
+/-- The localized unit certificate showing that a first-`c5` normal cannot
+share a root with its common cubic. -/
+theorem GCD369CubeC5NoCommonRootOnUChart
+    {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn r Tin u v : K)
+    (h1 :
+      40 * u ^ 3 - 360 * v ^ 2 + 243 * u * Xn ^ 2 -
+          486 * Xn * Zn - 243 * Yn ^ 2 = 0)
+    (h2 :
+      40 * u ^ 2 * v + 81 * v * Xn ^ 2 + 162 * u * Xn * Yn -
+          162 * Yn * Zn = 0)
+    (h3 :
+      2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+          2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0)
+    (h4 :
+      40 * u ^ 3 * v - 80 * v ^ 3 - 243 * u * v * Xn ^ 2 -
+          162 * u ^ 2 * Xn * Yn + 324 * v * Xn * Zn +
+          162 * v * Yn ^ 2 + 162 * u * Yn * Zn = 0)
+    (hK : r ^ 3 + u * r + v = 0)
+    (hphi : Xn * r ^ 2 + Yn * r + Zn = 0)
+    (hchart : Tin * u - 1 = 0) :
+    False := by
+  let C1 : K :=
+    81 / 832 * r * Tin ^ 8 * v ^ 3 - 9 / 104 * Tin ^ 8 * u ^ 2 * v ^ 2 -
+      9 / 320 * r * Tin ^ 5 * v + 135 / 832 * Tin ^ 6 * v ^ 2 +
+      1 / 40 * Tin ^ 5 * u ^ 2
+  let C2 : K :=
+    567 / 1664 * r * Tin ^ 8 * u * v ^ 2 + 243 / 208 * Tin ^ 8 * v ^ 3 -
+      63 / 640 * r * Tin ^ 5 * u + 405 / 1664 * Tin ^ 6 * u * v -
+      27 / 80 * Tin ^ 5 * v
+  let C3 : K :=
+    6561 / 208 * r ^ 2 * Tin ^ 8 * v ^ 2 +
+      2187 / 208 * Tin ^ 8 * u * v ^ 2 - 729 / 80 * r ^ 2 * Tin ^ 5 -
+      243 / 80 * Tin ^ 5 * u
+  let C4 : K :=
+    -729 / 1664 * r * Tin ^ 8 * v ^ 2 + 81 / 640 * r * Tin ^ 5 +
+      405 / 1664 * Tin ^ 6 * v
+  let C5 : K :=
+    -6561 / 104 * Xn ^ 2 * r * Tin ^ 8 * u * v ^ 2 +
+      19683 / 208 * Xn * Zn * r * Tin ^ 8 * v ^ 2 -
+      19683 / 208 * Xn ^ 2 * Tin ^ 8 * v ^ 3 -
+      6561 / 52 * Xn * Yn * Tin ^ 8 * u * v ^ 2 +
+      19683 / 208 * Yn * Zn * Tin ^ 8 * v ^ 2 +
+      729 / 40 * Xn ^ 2 * r * Tin ^ 5 * u -
+      2187 / 80 * Xn * Zn * r * Tin ^ 5 +
+      2187 / 80 * Xn ^ 2 * Tin ^ 5 * v +
+      729 / 20 * Xn * Yn * Tin ^ 5 * u -
+      2187 / 80 * Yn * Zn * Tin ^ 5
+  let C6 : K :=
+    6561 / 104 * Xn * r ^ 2 * Tin ^ 8 * u * v ^ 2 -
+      19683 / 208 * Zn * r ^ 2 * Tin ^ 8 * v ^ 2 +
+      19683 / 208 * Xn * r * Tin ^ 8 * v ^ 3 +
+      6561 / 104 * Yn * r * Tin ^ 8 * u * v ^ 2 +
+      19683 / 208 * Yn * Tin ^ 8 * v ^ 3 -
+      6561 / 208 * Zn * Tin ^ 8 * u * v ^ 2 -
+      729 / 40 * Xn * r ^ 2 * Tin ^ 5 * u +
+      2187 / 80 * Zn * r ^ 2 * Tin ^ 5 -
+      2187 / 80 * Xn * r * Tin ^ 5 * v -
+      729 / 40 * Yn * r * Tin ^ 5 * u -
+      2187 / 80 * Yn * Tin ^ 5 * v + 729 / 80 * Zn * Tin ^ 5 * u
+  let C7 : K :=
+    45 / 13 * Tin ^ 7 * u ^ 4 * v ^ 2 -
+      2025 / 26 * Tin ^ 7 * u * v ^ 4 +
+      45 / 13 * Tin ^ 6 * u ^ 3 * v ^ 2 -
+      2025 / 26 * Tin ^ 6 * v ^ 4 - 45 / 2 * Tin ^ 5 * u ^ 2 * v ^ 2 -
+      Tin ^ 4 * u ^ 4 - Tin ^ 3 * u ^ 3 - Tin ^ 2 * u ^ 2 - Tin * u - 1
+  have hone : (1 : K) = 0 := by
+    linear_combination C1 * h1 + C2 * h2 + C3 * h3 + C4 * h4 +
+      C5 * hK + C6 * hphi + C7 * hchart
+  exact one_ne_zero hone
+
+/-- At every nonzero projective first-`c5` landing, the common cubic and its
+normal have no common field-valued root. -/
+theorem GCD369CubeC5NoCommonRoot {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn u v : K) (hprojective : u ≠ 0 ∨ v ≠ 0)
+    (h1 :
+      40 * u ^ 3 - 360 * v ^ 2 + 243 * u * Xn ^ 2 -
+          486 * Xn * Zn - 243 * Yn ^ 2 = 0)
+    (h2 :
+      40 * u ^ 2 * v + 81 * v * Xn ^ 2 + 162 * u * Xn * Yn -
+          162 * Yn * Zn = 0)
+    (h3 :
+      2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+          2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0)
+    (h4 :
+      40 * u ^ 3 * v - 80 * v ^ 3 - 243 * u * v * Xn ^ 2 -
+          162 * u ^ 2 * Xn * Yn + 324 * v * Xn * Zn +
+          162 * v * Yn ^ 2 + 162 * u * Yn * Zn = 0) :
+    ∀ r : K, r ^ 3 + u * r + v = 0 →
+      Xn * r ^ 2 + Yn * r + Zn = 0 → False := by
+  have hsupport := GCD369CubeC5Support Xn Yn Zn u v h1 h2 h3 h4
+  have hu : u ≠ 0 := by
+    intro hu
+    have hv : v ≠ 0 := hprojective.resolve_left (fun h => h hu)
+    have hv3 : v ^ 3 = 0 := by
+      rw [hu] at hsupport
+      linear_combination (-1 / 3) * hsupport
+    exact (pow_ne_zero 3 hv) hv3
+  intro r hK hphi
+  exact GCD369CubeC5NoCommonRootOnUChart
+    Xn Yn Zn r u⁻¹ u v h1 h2 h3 h4 hK hphi (by simp [hu])
+
 /-- The first retained `c4` load projects to
 `u * (u^3 - 18*v^2) = 0`. -/
 theorem GCD369CubeC4Support {K : Type*} [Field K] [CharZero K]
@@ -1727,6 +1829,8 @@ theorem GCD369CubeDSMonomialExponent {K : Type*}
 #print axioms GCD369CubeC7TerminalNonzero
 #print axioms GCD369CubeC5Support
 #print axioms GCD369CubeC5TerminalNonzero
+#print axioms GCD369CubeC5NoCommonRootOnUChart
+#print axioms GCD369CubeC5NoCommonRoot
 #print axioms GCD369CubeC4Support
 #print axioms GCD369CubeC4TerminalNonzero
 #print axioms GCD369CubeC2Support
