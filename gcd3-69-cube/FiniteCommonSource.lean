@@ -513,29 +513,83 @@ structure TransverseScale
     GCD369CubeHahnRegular.constantCoeff Yn ≠ 0 ∨
     GCD369CubeHahnRegular.constantCoeff Zn ≠ 0
 
-/-- Reconstruct the lower three scaled sextic coefficients from a normalized
-transverse jet. -/
-theorem TransverseScale.regular2_eq
+/-- A transverse factorization at a prescribed positive Hahn scale.  Unlike
+`TransverseScale`, no normalized coefficient is required to have nonzero
+residue; this is the form needed at an active target-load scale. -/
+structure TransverseFactor
+    {k : Type*} [Field k] [CharZero k]
+    (S : GCD369CubeHahnCommonValueData k) where
+  delta : ℚ
+  hdelta : 0 < delta
+  Xn : GCD369CubeHahnRegular k
+  Yn : GCD369CubeHahnRegular k
+  Zn : GCD369CubeHahnRegular k
+  hnormal2 : S.normal2 =
+    GCD369CubeHahnRegular.monomial delta hdelta.le * Xn
+  hnormal1 : S.normal1 =
+    GCD369CubeHahnRegular.monomial delta hdelta.le * Yn
+  hnormal0 : S.normal0 =
+    GCD369CubeHahnRegular.monomial delta hdelta.le * Zn
+
+/-- Forget that an intrinsic transverse scale has a nonzero leading normal
+coefficient. -/
+def TransverseScale.factor
     {k : Type*} [Field k] [CharZero k]
     {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseScale) :
+    S.TransverseFactor where
+  delta := T.delta
+  hdelta := T.hdelta
+  Xn := T.Xn
+  Yn := T.Yn
+  Zn := T.Zn
+  hnormal2 := T.hnormal2
+  hnormal1 := T.hnormal1
+  hnormal0 := T.hnormal0
+
+/-- Factor all three normal coordinates at any prescribed positive scale
+that does not exceed their orders. -/
+noncomputable def transverseFactorOfBounds
+    {k : Type*} [Field k] [CharZero k]
+    (S : GCD369CubeHahnCommonValueData k) (delta : ℚ) (hdelta : 0 < delta)
+    (h2 : (↑delta : WithTop ℚ) ≤ S.normal2.1.orderTop)
+    (h1 : (↑delta : WithTop ℚ) ≤ S.normal1.1.orderTop)
+    (h0 : (↑delta : WithTop ℚ) ≤ S.normal0.1.orderTop) :
+    S.TransverseFactor where
+  delta := delta
+  hdelta := hdelta
+  Xn := GCD369CubeHahnRegular.shift S.normal2 delta h2
+  Yn := GCD369CubeHahnRegular.shift S.normal1 delta h1
+  Zn := GCD369CubeHahnRegular.shift S.normal0 delta h0
+  hnormal2 := (GCD369CubeHahnRegular.monomial_mul_shift
+    S.normal2 delta hdelta.le h2).symm
+  hnormal1 := (GCD369CubeHahnRegular.monomial_mul_shift
+    S.normal1 delta hdelta.le h1).symm
+  hnormal0 := (GCD369CubeHahnRegular.monomial_mul_shift
+    S.normal0 delta hdelta.le h0).symm
+
+/-- Reconstruct the lower three scaled sextic coefficients from a normalized
+transverse jet. -/
+theorem TransverseFactor.regular2_eq
+    {k : Type*} [Field k] [CharZero k]
+    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseFactor) :
     S.normal.sextic.scale.regular2 = S.cubicU ^ 2 + T.Xn *
       GCD369CubeHahnRegular.monomial T.delta T.hdelta.le := by
   have hn := T.hnormal2
   dsimp only [normal2] at hn
   linear_combination hn
 
-theorem TransverseScale.regular1_eq
+theorem TransverseFactor.regular1_eq
     {k : Type*} [Field k] [CharZero k]
-    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseScale) :
+    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseFactor) :
     S.normal.sextic.scale.regular1 = 2 * S.cubicU * S.cubicV + T.Yn *
       GCD369CubeHahnRegular.monomial T.delta T.hdelta.le := by
   have hn := T.hnormal1
   dsimp only [normal1] at hn
   linear_combination hn
 
-theorem TransverseScale.regular0_eq
+theorem TransverseFactor.regular0_eq
     {k : Type*} [Field k] [CharZero k]
-    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseScale) :
+    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseFactor) :
     S.normal.sextic.scale.regular0 = S.cubicV ^ 2 + T.Zn *
       GCD369CubeHahnRegular.monomial T.delta T.hdelta.le := by
   have hn := T.hnormal0
@@ -697,9 +751,9 @@ noncomputable def transverseScale
 /-- The ninth Faber value along the canonical transverse scale is the cubic
 value cubed, plus its first common-normal coupling, plus an error divisible
 by the square of the transverse monomial. -/
-theorem TransverseScale.faberNineExpansion
+theorem TransverseFactor.faberNineExpansion
     {k : Type*} [Field k] [CharZero k]
-    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseScale) :
+    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseFactor) :
     ∃ E : GCD369CubeHahnRegular k,
       GCD369CubeFaberNineValueQ GCD369CubeHahnRegular.ratCast
           S.normal.sextic.scale.regular0
@@ -762,9 +816,9 @@ theorem TransverseScale.faberNineExpansion
 
 /-- Exact first zero-high numerator identity at the normalized transverse
 Hahn scale. -/
-theorem TransverseScale.zeroHighN1Expansion
+theorem TransverseFactor.zeroHighN1Expansion
     {k : Type*} [Field k] [CharZero k]
-    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseScale) :
+    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseFactor) :
     729 * GCD369CubeFaberN1
         S.normal.sextic.scale.regular0 S.normal.sextic.scale.regular1
         S.normal.sextic.scale.regular2 S.normal.sextic.scale.regular3
@@ -786,9 +840,9 @@ theorem TransverseScale.zeroHighN1Expansion
 
 /-- Exact second zero-high numerator identity at the normalized transverse
 Hahn scale. -/
-theorem TransverseScale.zeroHighN2Expansion
+theorem TransverseFactor.zeroHighN2Expansion
     {k : Type*} [Field k] [CharZero k]
-    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseScale) :
+    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseFactor) :
     2187 * GCD369CubeFaberN2
         S.normal.sextic.scale.regular0 S.normal.sextic.scale.regular1
         S.normal.sextic.scale.regular2 S.normal.sextic.scale.regular3
@@ -811,9 +865,9 @@ theorem TransverseScale.zeroHighN2Expansion
 
 /-- Exact third zero-high numerator identity; its remainder is an explicit
 regular cubic-order term. -/
-theorem TransverseScale.zeroHighN3Expansion
+theorem TransverseFactor.zeroHighN3Expansion
     {k : Type*} [Field k] [CharZero k]
-    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseScale) :
+    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseFactor) :
     GCD369CubeFaberN3
         S.normal.sextic.scale.regular0 S.normal.sextic.scale.regular1
         S.normal.sextic.scale.regular2 S.normal.sextic.scale.regular3
@@ -838,9 +892,9 @@ theorem TransverseScale.zeroHighN3Expansion
 
 /-- Exact fourth zero-high numerator identity; its remainder is an explicit
 regular cubic-order term. -/
-theorem TransverseScale.zeroHighN4Expansion
+theorem TransverseFactor.zeroHighN4Expansion
     {k : Type*} [Field k] [CharZero k]
-    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseScale) :
+    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseFactor) :
     6561 * GCD369CubeFaberN4
         S.normal.sextic.scale.regular0 S.normal.sextic.scale.regular1
         S.normal.sextic.scale.regular2 S.normal.sextic.scale.regular3
@@ -864,9 +918,9 @@ theorem TransverseScale.zeroHighN4Expansion
 
 /-- The quadratic Hahn coefficient of the first zero-high numerator is the
 first universal normal row on the residue jet. -/
-theorem TransverseScale.zeroHighN1Coeff
+theorem TransverseFactor.zeroHighN1Coeff
     {k : Type*} [Field k] [CharZero k]
-    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseScale) :
+    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseFactor) :
     (729 * GCD369CubeFaberN1
         S.normal.sextic.scale.regular0 S.normal.sextic.scale.regular1
         S.normal.sextic.scale.regular2 S.normal.sextic.scale.regular3
@@ -885,9 +939,9 @@ theorem TransverseScale.zeroHighN1Coeff
     map_neg, map_ofNat, S.constantCoeff_cubicU] using h
 
 /-- Quadratic coefficient form of the second zero-high numerator. -/
-theorem TransverseScale.zeroHighN2Coeff
+theorem TransverseFactor.zeroHighN2Coeff
     {k : Type*} [Field k] [CharZero k]
-    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseScale) :
+    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseFactor) :
     (2187 * GCD369CubeFaberN2
         S.normal.sextic.scale.regular0 S.normal.sextic.scale.regular1
         S.normal.sextic.scale.regular2 S.normal.sextic.scale.regular3
@@ -908,9 +962,9 @@ theorem TransverseScale.zeroHighN2Coeff
 
 /-- Quadratic coefficient form of the third zero-high numerator; the cubic
 error vanishes at this exponent. -/
-theorem TransverseScale.zeroHighN3Coeff
+theorem TransverseFactor.zeroHighN3Coeff
     {k : Type*} [Field k] [CharZero k]
-    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseScale) :
+    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseFactor) :
     (GCD369CubeFaberN3
         S.normal.sextic.scale.regular0 S.normal.sextic.scale.regular1
         S.normal.sextic.scale.regular2 S.normal.sextic.scale.regular3
@@ -930,9 +984,9 @@ theorem TransverseScale.zeroHighN3Coeff
     S.constantCoeff_cubicV] using h
 
 /-- Quadratic coefficient form of the fourth zero-high numerator. -/
-theorem TransverseScale.zeroHighN4Coeff
+theorem TransverseFactor.zeroHighN4Coeff
     {k : Type*} [Field k] [CharZero k]
-    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseScale) :
+    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseFactor) :
     (6561 * GCD369CubeFaberN4
         S.normal.sextic.scale.regular0 S.normal.sextic.scale.regular1
         S.normal.sextic.scale.regular2 S.normal.sextic.scale.regular3
@@ -1113,15 +1167,17 @@ end GCD369CubePolynomialSource
 #print axioms GCD369CubeHahnCommonValueData.constantCoeff_cubicV
 #print axioms GCD369CubeHahnCommonValueData.normal_constantCoeff_zero
 #print axioms GCD369CubeHahnCommonValueData.transverseScale
-#print axioms GCD369CubeHahnCommonValueData.TransverseScale.faberNineExpansion
-#print axioms GCD369CubeHahnCommonValueData.TransverseScale.zeroHighN1Expansion
-#print axioms GCD369CubeHahnCommonValueData.TransverseScale.zeroHighN2Expansion
-#print axioms GCD369CubeHahnCommonValueData.TransverseScale.zeroHighN3Expansion
-#print axioms GCD369CubeHahnCommonValueData.TransverseScale.zeroHighN4Expansion
-#print axioms GCD369CubeHahnCommonValueData.TransverseScale.zeroHighN1Coeff
-#print axioms GCD369CubeHahnCommonValueData.TransverseScale.zeroHighN2Coeff
-#print axioms GCD369CubeHahnCommonValueData.TransverseScale.zeroHighN3Coeff
-#print axioms GCD369CubeHahnCommonValueData.TransverseScale.zeroHighN4Coeff
+#print axioms GCD369CubeHahnCommonValueData.TransverseScale.factor
+#print axioms GCD369CubeHahnCommonValueData.transverseFactorOfBounds
+#print axioms GCD369CubeHahnCommonValueData.TransverseFactor.faberNineExpansion
+#print axioms GCD369CubeHahnCommonValueData.TransverseFactor.zeroHighN1Expansion
+#print axioms GCD369CubeHahnCommonValueData.TransverseFactor.zeroHighN2Expansion
+#print axioms GCD369CubeHahnCommonValueData.TransverseFactor.zeroHighN3Expansion
+#print axioms GCD369CubeHahnCommonValueData.TransverseFactor.zeroHighN4Expansion
+#print axioms GCD369CubeHahnCommonValueData.TransverseFactor.zeroHighN1Coeff
+#print axioms GCD369CubeHahnCommonValueData.TransverseFactor.zeroHighN2Coeff
+#print axioms GCD369CubeHahnCommonValueData.TransverseFactor.zeroHighN3Coeff
+#print axioms GCD369CubeHahnCommonValueData.TransverseFactor.zeroHighN4Coeff
 #print axioms GCD369CubeHahnCommonValueData.leadingCubicRoot
 #print axioms GCD369CubeHahnCommonValueData.commonNormalEquation
 #print axioms GCD369CubePolynomialSource.finiteCommonValueData
