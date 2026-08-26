@@ -268,7 +268,7 @@ theorem GCD369CubeFaberLeadingComponentEquations {K : Type*}
       dsimp only [A, B] at hA ⊢
       linear_combination
         (1 / 24) * h3 +
-        (2 / 3 * (4 * a1 * a4 + 12 * a2 * a3 - 5 * a3 * a4 ^ 2)) * hrel +
+        (-2 / 3 * (4 * a1 * a4 + 12 * a2 * a3 - 5 * a3 * a4 ^ 2)) * hrel +
         ((64 * a0 * a4 + 16 * a2 ^ 2 - 24 * a2 * a4 ^ 2 -
           16 * a3 ^ 2 * a4 + 5 * a4 ^ 4) / 24) * hA
     have hB : B = 0 :=
