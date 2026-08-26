@@ -30,6 +30,9 @@ steps into the Kummer data used by the normalized noncube route.
 `GCD369KummerRootDerivative` differentiates the cubic root equation in the
 canonical extension, while `GCD369KummerDeckCommutesWithDerivative` proves
 that its deck action respects this differential structure.
+`GCD369RatFuncConstantsOfPolynomialDerivative` proves directly from reduced
+numerator/denominator coprimality that standard differentiation on `k(x)` has
+constant field exactly `k`.
 `GCD369AlgebraicDifferentialConstantsDescend` proves that an algebraic
 differential extension does not enlarge an algebraically closed constant
 field, and `GCD369BaseFixingAutomorphismFixesConstants` consequently removes
@@ -57,6 +60,9 @@ included campaign source and its review.
 - `GCD369KummerRootDerivative` and
   `GCD369KummerDeckCommutesWithDerivative` connect that algebraic extension
   to the differential-field structure used by the alignment theorem.
+- `GCD369RatFuncConstantsOfPolynomialDerivative` proves the rational base
+  constant-field theorem from the standard derivative of embedded
+  polynomials.
 - `GCD369AlgebraicDifferentialConstantsDescend` and
   `GCD369BaseFixingAutomorphismFixesConstants` supply constant-field descent
   through the algebraic Kummer extension and show that its base-fixing deck

@@ -9,6 +9,7 @@
     "GCD369PolynomialNoncubeKummerExtension",
     "GCD369KummerRootDerivative",
     "GCD369KummerDeckCommutesWithDerivative",
+    "GCD369RatFuncConstantsOfPolynomialDerivative",
     "GCD369AlgebraicDifferentialConstantsDescend",
     "GCD369BaseFixingAutomorphismFixesConstants",
     "GCD369KummerAlignmentFromBaseConstants",

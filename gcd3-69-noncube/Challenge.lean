@@ -133,6 +133,17 @@ theorem GCD369KummerDeckCommutesWithDerivative
         Differential.deriv ((autAdjoinRootXPowSubC 3 h eta) z) := by
   sorry
 
+/-- Any differential structure on `k(x)` that differentiates embedded
+polynomials in the standard way has constant field exactly `k`. -/
+theorem GCD369RatFuncConstantsOfPolynomialDerivative
+    {k : Type*} [Field k] [CharZero k] [Differential (RatFunc k)]
+    (hpoly : ∀ p : k[X],
+      Differential.deriv (algebraMap k[X] (RatFunc k) p) =
+        algebraMap k[X] (RatFunc k) p.derivative)
+    (r : RatFunc k) (hr : Differential.deriv r = 0) :
+    ∃ c : k, r = algebraMap k (RatFunc k) c := by
+  sorry
+
 /-- Constants do not enlarge in an algebraic differential extension when the
 base constant field is algebraically closed. -/
 theorem GCD369AlgebraicDifferentialConstantsDescend

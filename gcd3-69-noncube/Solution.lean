@@ -244,6 +244,69 @@ theorem GCD369KummerDeckCommutesWithDerivative
   intro z
   exact Differential.algEquiv_deriv' (autAdjoinRootXPowSubC 3 h eta) z
 
+/-- Any differential structure on `k(x)` that differentiates embedded
+polynomials in the standard way has constant field exactly `k`. -/
+theorem GCD369RatFuncConstantsOfPolynomialDerivative
+    {k : Type*} [Field k] [CharZero k] [Differential (RatFunc k)]
+    (hpoly : ∀ p : k[X],
+      Differential.deriv (algebraMap k[X] (RatFunc k) p) =
+        algebraMap k[X] (RatFunc k) p.derivative)
+    (r : RatFunc k) (hr : Differential.deriv r = 0) :
+    ∃ c : k, r = algebraMap k (RatFunc k) c := by
+  letI : Algebra ℤ (RatFunc k) := Ring.toIntAlgebra (RatFunc k)
+  have hquot :
+      Differential.deriv
+          (algebraMap k[X] (RatFunc k) r.num /
+            algebraMap k[X] (RatFunc k) r.denom) = 0 := by
+    rw [RatFunc.num_div_denom]
+    exact hr
+  rw [div_eq_mul_inv, Derivation.leibniz, Derivation.leibniz_inv,
+    hpoly, hpoly] at hquot
+  simp only [smul_eq_mul] at hquot
+  have hdenMap : algebraMap k[X] (RatFunc k) r.denom ≠ 0 :=
+    RatFunc.algebraMap_ne_zero r.denom_ne_zero
+  have hwmap :
+      algebraMap k[X] (RatFunc k) r.denom *
+          algebraMap k[X] (RatFunc k) r.num.derivative -
+        algebraMap k[X] (RatFunc k) r.num *
+          algebraMap k[X] (RatFunc k) r.denom.derivative = 0 := by
+    field_simp [hdenMap] at hquot
+    linear_combination hquot
+  have hw : r.denom * r.num.derivative - r.num * r.denom.derivative = 0 := by
+    apply (RatFunc.algebraMap_injective k)
+    simpa only [map_sub, map_mul, map_zero] using hwmap
+  have hdiv : r.denom ∣ r.denom.derivative := by
+    have : r.denom ∣ r.num * r.denom.derivative := by
+      use r.num.derivative
+      rw [← sub_eq_zero.mp hw]
+    exact r.isCoprime_num_denom.symm.dvd_of_dvd_mul_left this
+  have hdenDeriv : r.denom.derivative = 0 := by
+    by_contra hd
+    have hle : r.denom.natDegree ≤ r.denom.derivative.natDegree :=
+      natDegree_le_of_dvd hdiv hd
+    have hlt : r.denom.derivative.natDegree < r.denom.natDegree :=
+      natDegree_derivative_lt (fun hdegree ↦ by
+        apply hd
+        exact Polynomial.derivative_eq_zero.mpr hdegree)
+    exact (Nat.not_lt_of_ge hle) hlt
+  have hnumDeriv : r.num.derivative = 0 := by
+    have hprod : r.denom * r.num.derivative = 0 := by
+      simpa [hdenDeriv] using hw
+    exact (mul_eq_zero.mp hprod).resolve_left r.denom_ne_zero
+  let cn : k := r.num.coeff 0
+  let cd : k := r.denom.coeff 0
+  have hnumC : r.num = C cn := eq_C_of_derivative_eq_zero hnumDeriv
+  have hdenC : r.denom = C cd := eq_C_of_derivative_eq_zero hdenDeriv
+  refine ⟨cn / cd, ?_⟩
+  calc
+    r = algebraMap k[X] (RatFunc k) r.num /
+        algebraMap k[X] (RatFunc k) r.denom := (RatFunc.num_div_denom r).symm
+    _ = algebraMap k[X] (RatFunc k) (C cn) /
+        algebraMap k[X] (RatFunc k) (C cd) := by rw [hnumC, hdenC]
+    _ = algebraMap k (RatFunc k) (cn / cd) := by
+      rw [RatFunc.algebraMap_C, RatFunc.algebraMap_C, map_div₀]
+      rfl
+
 /-- Constants do not enlarge in an algebraic differential extension when the
 base constant field is algebraically closed. -/
 theorem GCD369AlgebraicDifferentialConstantsDescend
@@ -2867,6 +2930,7 @@ theorem GCD369DSOneRootCube {K : Type*} [Field K] [IsAlgClosed K]
 #print axioms GCD369PolynomialNoncubeKummerExtension
 #print axioms GCD369KummerRootDerivative
 #print axioms GCD369KummerDeckCommutesWithDerivative
+#print axioms GCD369RatFuncConstantsOfPolynomialDerivative
 #print axioms GCD369AlgebraicDifferentialConstantsDescend
 #print axioms GCD369BaseFixingAutomorphismFixesConstants
 #print axioms GCD369KummerAlignmentFromBaseConstants

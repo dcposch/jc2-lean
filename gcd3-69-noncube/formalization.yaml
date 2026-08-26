@@ -116,6 +116,8 @@ status:
     the Kummer data are constructed directly from the polynomial core; the
     canonical differential extension satisfies the differentiated root
     equation and every deck automorphism commutes with the derivative;
+    standard differentiation on the rational function field has precisely
+    the ground-field constants;
     algebraic differential extensions do not enlarge an algebraically closed
     constant field, so every base-fixing deck automorphism fixes constants;
     extraction of all four lower rows from
@@ -131,6 +133,11 @@ status:
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
   main_results:
+    - declaration: "GCD369RatFuncConstantsOfPolynomialDerivative"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
     - declaration: "GCD369BaseFixingAutomorphismFixesConstants"
       file: "Solution.lean"
       sorry_count: 0
@@ -241,6 +248,12 @@ review:
 alignment:
   namespace: "(root)"
   statements:
+    - source: "Charged noncube landing, rational base constant field"
+      lean: "GCD369RatFuncConstantsOfPolynomialDerivative"
+      module: "Challenge"
+      status: >-
+        reduced numerator/denominator coprimality and degree descent prove
+        that the standard derivative on k(x) has no constants outside k
     - source: "Noncube alignment from the rational base constant field"
       lean: "GCD369KummerAlignmentFromBaseConstants"
       module: "Challenge"
