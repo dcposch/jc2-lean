@@ -158,6 +158,197 @@ theorem GCD369CubeExceptionalOrbitSquarefree {K : Type*} [Field K] [CharZero K]
     exact (pow_ne_zero 3 hu) hu3
   exact hprojective.elim (fun h => h hu) (fun h => h hv)
 
+/-- The four forced quadratic rows for the normalized `d != 0` landing imply
+the exact exceptional-orbit equation.  The proof is the explicit
+ideal-membership certificate extracted from the deterministic Kuranishi
+replay. -/
+theorem GCD369CubeDExceptionalSupport {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn u v : K)
+    (h1 :
+      729 * u * Xn ^ 2 - 1458 * Xn * Zn - 729 * Yn ^ 2 +
+          320 * u ^ 3 * v - 960 * v ^ 3 = 0)
+    (h2 :
+      -2187 * v * Xn ^ 2 - 4374 * u * Xn * Yn + 4374 * Yn * Zn +
+          64 * u ^ 5 - 1440 * u ^ 2 * v ^ 2 = 0)
+    (_h3 :
+      2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+          2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0)
+    (h4 :
+      19683 * u * v * Xn ^ 2 + 13122 * u ^ 2 * Xn * Yn -
+          26244 * v * Xn * Zn - 13122 * v * Yn ^ 2 -
+          13122 * u * Yn * Zn + 160 * u ^ 6 - 5760 * u ^ 3 * v ^ 2 +
+          6480 * v ^ 4 = 0) :
+    2 * u ^ 6 - 90 * u ^ 3 * v ^ 2 + 135 * v ^ 4 = 0 := by
+  linear_combination (-9 / 88 * v) * h1 + (3 / 176 * u) * h2 + (1 / 176) * h4
+
+/-- The first retained `c7` load is supported on exactly the candidate
+projective divisor visible in its four Kuranishi rows. -/
+theorem GCD369CubeC7Support {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn u v : K)
+    (h1 :
+      56 * u ^ 4 - 1008 * u * v ^ 2 + 729 * u * Xn ^ 2 -
+          1458 * Xn * Zn - 729 * Yn ^ 2 = 0)
+    (h2 :
+      224 * u ^ 3 * v - 336 * v ^ 3 + 729 * v * Xn ^ 2 +
+          1458 * u * Xn * Yn - 1458 * Yn * Zn = 0)
+    (_h3 :
+      2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+          2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0)
+    (h4 :
+      224 * u ^ 4 * v - 1008 * u * v ^ 3 - 2187 * u * v * Xn ^ 2 -
+          1458 * u ^ 2 * Xn * Yn + 2916 * v * Xn * Zn +
+          1458 * v * Yn ^ 2 + 1458 * u * Yn * Zn = 0) :
+    u * v * (u ^ 3 - 6 * v ^ 2) = 0 := by
+  linear_combination (1 / 280 * v) * h1 + (1 / 560 * u) * h2 + (1 / 560) * h4
+
+/-- The first retained `c5` load projects to
+`v * (u^3 - 3*v^2) = 0`. -/
+theorem GCD369CubeC5Support {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn u v : K)
+    (h1 :
+      40 * u ^ 3 - 360 * v ^ 2 + 243 * u * Xn ^ 2 -
+          486 * Xn * Zn - 243 * Yn ^ 2 = 0)
+    (h2 :
+      40 * u ^ 2 * v + 81 * v * Xn ^ 2 + 162 * u * Xn * Yn -
+          162 * Yn * Zn = 0)
+    (_h3 :
+      2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+          2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0)
+    (h4 :
+      40 * u ^ 3 * v - 80 * v ^ 3 - 243 * u * v * Xn ^ 2 -
+          162 * u ^ 2 * Xn * Yn + 324 * v * Xn * Zn +
+          162 * v * Yn ^ 2 + 162 * u * Yn * Zn = 0) :
+    v * (u ^ 3 - 3 * v ^ 2) = 0 := by
+  linear_combination (1 / 160 * v) * h1 + (3 / 320 * u) * h2 + (3 / 320) * h4
+
+/-- The first retained `c4` load projects to
+`u * (u^3 - 18*v^2) = 0`. -/
+theorem GCD369CubeC4Support {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn u v : K)
+    (h1 :
+      32 * u * v - 27 * u * Xn ^ 2 + 54 * Xn * Zn + 27 * Yn ^ 2 = 0)
+    (h2 :
+      32 * u ^ 3 - 144 * v ^ 2 + 243 * v * Xn ^ 2 +
+          486 * u * Xn * Yn - 486 * Yn * Zn = 0)
+    (_h3 :
+      2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+          2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0)
+    (h4 :
+      8 * u ^ 4 - 96 * u * v ^ 2 - 243 * u * v * Xn ^ 2 -
+          162 * u ^ 2 * Xn * Yn + 324 * v * Xn * Zn +
+          162 * v * Yn ^ 2 + 162 * u * Yn * Zn = 0) :
+    u * (u ^ 3 - 18 * v ^ 2) = 0 := by
+  linear_combination (-9 / 28 * v) * h1 + (1 / 56 * u) * h2 + (3 / 56) * h4
+
+/-- The first retained `c2` load projects to `u^3 - 9*v^2 = 0`. -/
+theorem GCD369CubeC2Support {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn u v : K)
+    (h1 :
+      -16 * v + 9 * u * Xn ^ 2 - 18 * Xn * Zn - 9 * Yn ^ 2 = 0)
+    (h2 :
+      8 * u ^ 2 + 27 * v * Xn ^ 2 + 54 * u * Xn * Yn -
+          54 * Yn * Zn = 0)
+    (_h3 :
+      2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+          2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0)
+    (h4 :
+      16 * u ^ 3 - 72 * v ^ 2 - 243 * u * v * Xn ^ 2 -
+          162 * u ^ 2 * Xn * Yn + 324 * v * Xn * Zn +
+          162 * v * Yn ^ 2 + 162 * u * Yn * Zn = 0) :
+    u ^ 3 - 9 * v ^ 2 = 0 := by
+  linear_combination (9 / 20 * v) * h1 + (3 / 40 * u) * h2 + (1 / 40) * h4
+
+/-- The first retained `c1` load projects to the two coordinate axes
+`u*v = 0`. -/
+theorem GCD369CubeC1Support {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn u v : K)
+    (h1 : 8 * u - 9 * u * Xn ^ 2 + 18 * Xn * Zn + 9 * Yn ^ 2 = 0)
+    (h2 :
+      -8 * v + 9 * v * Xn ^ 2 + 18 * u * Xn * Yn - 18 * Yn * Zn = 0)
+    (_h3 :
+      2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+          2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0)
+    (h4 :
+      8 * u * v + 27 * u * v * Xn ^ 2 + 18 * u ^ 2 * Xn * Yn -
+          36 * v * Xn * Zn - 18 * v * Yn ^ 2 - 18 * u * Yn * Zn = 0) :
+    u * v = 0 := by
+  linear_combination (1 / 16 * v) * h1 + (-1 / 32 * u) * h2 + (1 / 32) * h4
+
+/-- With all high constants zero, a first `rho1` load forces `v = 0`. -/
+theorem GCD369CubeRhoOneSupport {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn u v : K)
+    (h1 : 729 * u * Xn ^ 2 - 1458 * Xn * Zn - 729 * Yn ^ 2 + 1944 = 0)
+    (h2 : -2187 * v * Xn ^ 2 - 4374 * u * Xn * Yn + 4374 * Yn * Zn = 0)
+    (_h3 :
+      2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+          2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0)
+    (h4 :
+      19683 * u * v * Xn ^ 2 + 13122 * u ^ 2 * Xn * Yn -
+          26244 * v * Xn * Zn - 13122 * v * Yn ^ 2 -
+          13122 * u * Yn * Zn = 0) :
+    v = 0 := by
+  linear_combination (1 / 1944 * v) * h1 + (-1 / 11664 * u) * h2 +
+    (-1 / 34992) * h4
+
+/-- With all high constants zero, a first `rho2` load forces `u = 0`. -/
+theorem GCD369CubeRhoTwoSupport {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn u v : K)
+    (h1 : 729 * u * Xn ^ 2 - 1458 * Xn * Zn - 729 * Yn ^ 2 = 0)
+    (h2 :
+      -2187 * v * Xn ^ 2 - 4374 * u * Xn * Yn + 4374 * Yn * Zn - 5832 = 0)
+    (_h3 :
+      2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+          2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0)
+    (h4 :
+      19683 * u * v * Xn ^ 2 + 13122 * u ^ 2 * Xn * Yn -
+          26244 * v * Xn * Zn - 13122 * v * Yn ^ 2 -
+          13122 * u * Yn * Zn = 0) :
+    u = 0 := by
+  linear_combination (1 / 972 * v) * h1 + (-1 / 5832 * u) * h2 +
+    (-1 / 17496) * h4
+
+/-- A first `rho4` load has no common quadratic landing.  The displayed
+contradiction is the exact unit-ideal certificate from the Kuranishi replay. -/
+theorem GCD369CubeRhoFourFirstLoadImpossible {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn u v : K)
+    (h1 : 729 * u * Xn ^ 2 - 1458 * Xn * Zn - 729 * Yn ^ 2 = 0)
+    (h2 : -2187 * v * Xn ^ 2 - 4374 * u * Xn * Yn + 4374 * Yn * Zn = 0)
+    (_h3 :
+      2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+          2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0)
+    (h4 :
+      19683 * u * v * Xn ^ 2 + 13122 * u ^ 2 * Xn * Yn -
+          26244 * v * Xn * Zn - 13122 * v * Yn ^ 2 -
+          13122 * u * Yn * Zn - 52488 = 0) :
+    False := by
+  have hone : (1 : K) = 0 := by
+    linear_combination (1 / 2916 * v) * h1 + (-1 / 17496 * u) * h2 +
+      (-1 / 52488) * h4
+  exact one_ne_zero hone
+
+/-- No quadratic normal direction can supply only the terminal row. -/
+theorem GCD369CubeTerminalOnlyQuadraticImpossible
+    {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn u v : K)
+    (h1 : 729 * u * Xn ^ 2 - 1458 * Xn * Zn - 729 * Yn ^ 2 = 0)
+    (h2 : -2187 * v * Xn ^ 2 - 4374 * u * Xn * Yn + 4374 * Yn * Zn = 0)
+    (_h3 :
+      2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+          2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0)
+    (_h4 :
+      19683 * u * v * Xn ^ 2 + 13122 * u ^ 2 * Xn * Yn -
+          26244 * v * Xn * Zn - 13122 * v * Yn ^ 2 -
+          13122 * u * Yn * Zn = 0)
+    (h5 :
+      -729 * u ^ 3 * Xn ^ 2 + 2187 * v ^ 2 * Xn ^ 2 +
+          4374 * u * v * Xn * Yn + 1458 * u ^ 2 * Xn * Zn +
+          729 * u ^ 2 * Yn ^ 2 - 4374 * v * Yn * Zn - 17496 = 0) :
+    False := by
+  have hone : (1 : K) = 0 := by
+    linear_combination (-1 / 17496 * u ^ 2) * h1 + (-1 / 17496 * v) * h2 +
+      (-1 / 17496) * h5
+  exact one_ne_zero hone
+
 private theorem gcd369_outside_nat (q : ℚ) (hq : q < 0 ∨ (0 < q ∧ q < 1))
     (n : ℕ) : q ≠ n := by
   intro h
@@ -1150,6 +1341,16 @@ theorem GCD369CubeDSMonomialExponent {K : Type*}
 #print axioms GCD369CubeDSBoundaryBezout
 #print axioms GCD369CubeDoubleRootNormalObstruction
 #print axioms GCD369CubeExceptionalOrbitSquarefree
+#print axioms GCD369CubeDExceptionalSupport
+#print axioms GCD369CubeC7Support
+#print axioms GCD369CubeC5Support
+#print axioms GCD369CubeC4Support
+#print axioms GCD369CubeC2Support
+#print axioms GCD369CubeC1Support
+#print axioms GCD369CubeRhoOneSupport
+#print axioms GCD369CubeRhoTwoSupport
+#print axioms GCD369CubeRhoFourFirstLoadImpossible
+#print axioms GCD369CubeTerminalOnlyQuadraticImpossible
 #print axioms GCD369CubeConstantPoleDegreeAudit
 #print axioms GCD369CubeBoundaryWeightAudit
 #print axioms GCD369ReducedQuotientWronskianLocal
