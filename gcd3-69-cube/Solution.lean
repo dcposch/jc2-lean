@@ -461,15 +461,19 @@ theorem GCD369CubeFaberDNormalCoefficients {K : Type*}
     GCD369CubeFaberDNormalExpansion Xn Yn Zn u v D
   constructor
   · rw [h1]
-    norm_num [coeff_C_mul_X_pow, coeff_X_pow_mul']
+    simp only [coeff_add, coeff_C_mul_X_pow, coeff_X_pow_mul']
+    norm_num
   constructor
   · rw [h2]
-    norm_num [coeff_C_mul_X_pow, coeff_X_pow_mul']
+    simp only [coeff_add, coeff_C_mul_X_pow, coeff_X_pow_mul']
+    norm_num
   constructor
   · rw [h3]
-    norm_num [coeff_C_mul_X_pow, coeff_X_pow_mul']
+    simp only [coeff_add, coeff_C_mul_X_pow, coeff_X_pow_mul']
+    norm_num
   · rw [h4]
-    norm_num [coeff_C_mul_X_pow, coeff_X_pow_mul']
+    simp only [coeff_add, coeff_C_mul_X_pow, coeff_X_pow_mul']
+    norm_num
 
 /-- Source-facing form of the first normalized `d` load: the four exact
 Faber numerators have zero quadratic coefficient on the common-normal arc. -/
@@ -2545,7 +2549,7 @@ theorem GCD369CubeDExceptionalRows_of_faber
   dsimp [GCD369CubeDLeadingFaberRows] at hfaber
   have hcoeff := GCD369CubeFaberDNormalCoefficients Xn Yn Zn u v 1
   dsimp at hcoeff
-  norm_num at hcoeff
+  simp only [C_1, one_mul, mul_one] at hcoeff
   rcases hfaber with ⟨hf1, hf2, hf3, hf4⟩
   rcases hcoeff with ⟨hc1, hc2, hc3, hc4⟩
   rw [hc1] at hf1
