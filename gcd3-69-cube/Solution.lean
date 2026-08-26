@@ -1489,6 +1489,45 @@ theorem GCD369CubeConstantPoleDegreeAudit :
     apply gcd369_outside_nat
     norm_num
 
+/-- Every integral-degree demand arising in the constant-core finite routing.
+The constructor names record the source row and the coefficient whose degree
+would have to equal the displayed rational number. -/
+inductive GCD369CubeConstantPoleDegreeLanding : Prop where
+  | dsA4 (n : ℕ) (h : (2 : ℚ) / 14 = n)
+  | dA4 (n : ℕ) (h : (2 : ℚ) / 13 = n)
+  | c7A4 (n : ℕ) (h : (2 : ℚ) / 12 = n)
+  | c7A3 (n : ℕ) (h : (3 : ℚ) / 12 = n)
+  | c5A4 (n : ℕ) (h : (2 : ℚ) / 10 = n)
+  | c4A3 (n : ℕ) (h : (3 : ℚ) / 9 = n)
+  | c2A4 (n : ℕ) (h : (2 : ℚ) / 7 = n)
+  | c1A4 (n : ℕ) (h : (2 : ℚ) / 6 = n)
+  | c1A3 (n : ℕ) (h : (3 : ℚ) / 6 = n)
+  | rho1A4 (n : ℕ) (h : (2 : ℚ) / 4 = n)
+  | rho2X (n : ℕ) (h : (-1 : ℚ) / 2 = n)
+  | rho2Y (n : ℕ) (h : (-1 : ℚ) / 6 = n)
+  | rho2Z (n : ℕ) (h : (1 : ℚ) / 6 = n)
+
+/-- The exact constant-core routing table has no integral polynomial-degree
+landing. -/
+theorem GCD369CubeConstantPoleDegreeLandingEmpty
+    (D : GCD369CubeConstantPoleDegreeLanding) : False := by
+  obtain ⟨hds, hd, hc7u, hc7v, hc5, hc4, hc2, hc1u, hc1v, hrho1,
+      hrho2X, hrho2Y, hrho2Z⟩ := GCD369CubeConstantPoleDegreeAudit
+  cases D with
+  | dsA4 n h => exact hds n h
+  | dA4 n h => exact hd n h
+  | c7A4 n h => exact hc7u n h
+  | c7A3 n h => exact hc7v n h
+  | c5A4 n h => exact hc5 n h
+  | c4A3 n h => exact hc4 n h
+  | c2A4 n h => exact hc2 n h
+  | c1A4 n h => exact hc1u n h
+  | c1A3 n h => exact hc1v n h
+  | rho1A4 n h => exact hrho1 n h
+  | rho2X n h => exact hrho2X n h
+  | rho2Y n h => exact hrho2Y n h
+  | rho2Z n h => exact hrho2Z n h
+
 /-- The original-boundary inequalities are strict for every early forced
 load, and become equalities for the first time at weight twelve. -/
 theorem GCD369CubeBoundaryWeightAudit :
@@ -2855,6 +2894,121 @@ theorem GCD369CubeDSAllCoreTerminalExclusion {K : Type*}
     obtain ⟨r, hf, hg⟩ := hboundary
     exact GCD369CubeDSBoundaryExclusion r hf hg
 
+/-- The concrete finite list of pole landings in the cube-core trajectory
+analysis.  Its constructors expose the original degree, boundary, Kuranishi,
+elliptic/cusp, bracket, and Davenport--Stothers data consumed by the branch
+proofs; there is no opaque admissibility predicate. -/
+inductive GCD369CubeTrajectoryLanding (K : Type*) [Field K] : Prop where
+  | constantPole (D : GCD369CubeConstantPoleDegreeLanding)
+  | earlyBoundary (D : GCD369CubeEarlyBoundaryData K)
+  | rhoFour
+      (Xn Yn Zn u v : K)
+      (h1 : 729 * u * Xn ^ 2 - 1458 * Xn * Zn - 729 * Yn ^ 2 = 0)
+      (h2 : -2187 * v * Xn ^ 2 - 4374 * u * Xn * Yn + 4374 * Yn * Zn = 0)
+      (h3 :
+        2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+          2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0)
+      (h4 :
+        19683 * u * v * Xn ^ 2 + 13122 * u ^ 2 * Xn * Yn -
+          26244 * v * Xn * Zn - 13122 * v * Yn ^ 2 -
+          13122 * u * Yn * Zn - 52488 = 0)
+  | terminalOnly
+      (Xn Yn Zn u v : K)
+      (h1 : 729 * u * Xn ^ 2 - 1458 * Xn * Zn - 729 * Yn ^ 2 = 0)
+      (h2 : -2187 * v * Xn ^ 2 - 4374 * u * Xn * Yn + 4374 * Yn * Zn = 0)
+      (h3 :
+        2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+          2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0)
+      (h4 :
+        19683 * u * v * Xn ^ 2 + 13122 * u ^ 2 * Xn * Yn -
+          26244 * v * Xn * Zn - 13122 * v * Yn ^ 2 -
+          13122 * u * Yn * Zn = 0)
+      (h5 :
+        -729 * u ^ 3 * Xn ^ 2 + 2187 * v ^ 2 * Xn ^ 2 +
+          4374 * u * v * Xn * Yn + 1458 * u ^ 2 * Xn * Zn +
+          729 * u ^ 2 * Yn ^ 2 - 4374 * v * Yn * Zn - 17496 = 0)
+  | doubleNormal
+      (S : K)
+      (hrows : 3 * S / 4 = 0 ∧ 3 * S / 4 = 0 ∧ (-1 / 16 : K) = 0 ∧
+        -(4 * S + 3) / 16 = 0)
+  | zeroSheet
+      (Kpoly Kdot : K[X]) (eta : K)
+      (hterminal :
+        let f := Kpoly ^ 2 + C eta
+        let g := Kpoly ^ 3 + C (3 * eta / 2) * Kpoly
+        let fdot := C 2 * Kpoly * Kdot
+        let gdot := (C 3 * Kpoly ^ 2 + C (3 * eta / 2)) * Kdot
+        fdot * derivative g - derivative f * gdot ≠ 0)
+  | mixedElliptic
+      (mu : K) (hmu : mu ≠ 0) (M N Den : K[X])
+      (hM : M ≠ 0) (hN : N ≠ 0) (hDen : Den ≠ 0)
+      (hMN : IsCoprime M N)
+      (hcurve :
+        C (72 : K) * M ^ 2 + C (-3 : K) * N ^ 3 +
+          C (-512 * mu) * Den ^ 6 = 0)
+      (hnonconstant : ¬
+        (M.natDegree = 0 ∧ N.natDegree = 0 ∧ Den.natDegree = 0))
+  | unmixedElliptic
+      (mu : K) (hmu : mu ≠ 0) (M N Den : K[X])
+      (hM : M ≠ 0) (hN : N ≠ 0) (hDen : Den ≠ 0)
+      (hMN : IsCoprime M N)
+      (hcurve :
+        C (1 : K) * M ^ 2 + C (-3 : K) * N ^ 3 +
+          C (-4096 * mu) * Den ^ 6 = 0)
+      (hnonconstant : ¬
+        (M.natDegree = 0 ∧ N.natDegree = 0 ∧ Den.natDegree = 0))
+  | mixedCusp
+      (nu j : K) (hnu : nu ≠ 0) (hj : j ≠ 0)
+      (s LN LB : K[X]) (hs : s ≠ 0) (hLN : LN ≠ 0) (hLB : LB ≠ 0)
+      (hlambdaReduced : ∀ x : K, eval x LN = 0 → eval x LB ≠ 0)
+      (hODE :
+        let P := C 19683 * LN ^ 13 - C (nu ^ 2) * LB ^ 13
+        let Q := C 1458 * LN ^ 6 * LB ^ 7
+        s * (derivative P * Q - P * derivative Q) = C j * Q ^ 2)
+  | davenportStothers
+      (j : K) (hj : j ≠ 0) (s LN LB : K[X])
+      (hs : s ≠ 0) (hLN : LN ≠ 0) (hLB : LB ≠ 0)
+      (hlambdaReduced : ∀ x : K, eval x LN = 0 → eval x LB ≠ 0)
+      (hODE :
+        s * (derivative (LN ^ 7) * LB ^ 7 - LN ^ 7 * derivative (LB ^ 7)) =
+          C j * (LB ^ 7) ^ 2)
+      (hboundary : ∃ r : K,
+        eval r (X ^ 6 + C 4 * X ^ 4 + C 10 * X ^ 2 + C 6 : K[X]) = 0 ∧
+        eval r (X ^ 9 + C 6 * X ^ 7 + C 21 * X ^ 5 + C 35 * X ^ 3 +
+          C (63 / 2) * X : K[X]) = 0)
+
+/-- Every landing in the exact finite cube-core list is impossible.  This is
+the source-completeness gluing theorem for the already certified branches. -/
+theorem GCD369CubeTrajectoryLandingEmpty {K : Type*}
+    [Field K] [CharZero K] [IsAlgClosed K]
+    (L : GCD369CubeTrajectoryLanding K) : False := by
+  cases L with
+  | constantPole D =>
+      exact GCD369CubeConstantPoleDegreeLandingEmpty D
+  | earlyBoundary D =>
+      exact GCD369CubeEarlyBoundaryDataEmpty D
+  | rhoFour Xn Yn Zn u v h1 h2 h3 h4 =>
+      exact GCD369CubeRhoFourFirstLoadImpossible Xn Yn Zn u v h1 h2 h3 h4
+  | terminalOnly Xn Yn Zn u v h1 h2 h3 h4 h5 =>
+      exact GCD369CubeTerminalOnlyQuadraticImpossible
+        Xn Yn Zn u v h1 h2 h3 h4 h5
+  | doubleNormal S hrows =>
+      exact (GCD369CubeDoubleRootNormalObstruction S) hrows
+  | zeroSheet Kpoly Kdot eta hterminal =>
+      exact GCD369CubeZeroSheetTerminalExclusion Kpoly Kdot eta hterminal
+  | mixedElliptic mu hmu M N Den hM hN hDen hMN hcurve hnonconstant =>
+      exact GCD369CubeMixedEllipticTerminalExclusion
+        mu hmu M N Den hM hN hDen hMN hcurve hnonconstant
+  | unmixedElliptic mu hmu M N Den hM hN hDen hMN hcurve hnonconstant =>
+      exact GCD369CubeUnmixedEllipticTerminalExclusion
+        mu hmu M N Den hM hN hDen hMN hcurve hnonconstant
+  | mixedCusp nu j hnu hj s LN LB hs hLN hLB hlambdaReduced hODE =>
+      exact GCD369CubeMixedCuspAllCoreTerminalExclusion
+        nu j hnu hj s LN LB hs hLN hLB hlambdaReduced hODE
+  | davenportStothers j hj s LN LB hs hLN hLB hlambdaReduced hODE hboundary =>
+      exact GCD369CubeDSAllCoreTerminalExclusion
+        j hj s LN LB hs hLN hLB hlambdaReduced hODE hboundary
+
 #print axioms GCD369CubeLowerRowTriangularity
 #print axioms GCD369CubeZeroSheetBracket
 #print axioms GCD369CubeZeroSheetTerminalExclusion
@@ -2902,6 +3056,7 @@ theorem GCD369CubeDSAllCoreTerminalExclusion {K : Type*}
 #print axioms GCD369CubeRhoFourFirstLoadImpossible
 #print axioms GCD369CubeTerminalOnlyQuadraticImpossible
 #print axioms GCD369CubeConstantPoleDegreeAudit
+#print axioms GCD369CubeConstantPoleDegreeLandingEmpty
 #print axioms GCD369CubeBoundaryWeightAudit
 #print axioms GCD369CubeBoundaryFirstOrderSeparation
 #print axioms GCD369CubeCommonCubicBoundaryFirstOrderSeparation
@@ -2934,3 +3089,4 @@ theorem GCD369CubeDSAllCoreTerminalExclusion {K : Type*}
 #print axioms GCD369CubeDSConstantCoreTerminalExclusion
 #print axioms GCD369CubeDSMonomialExponent
 #print axioms GCD369CubeDSAllCoreTerminalExclusion
+#print axioms GCD369CubeTrajectoryLandingEmpty
