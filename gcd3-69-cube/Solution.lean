@@ -1522,6 +1522,37 @@ theorem GCD369CubeCommonCubicBoundaryFirstOrderSeparation
   · exact hf
   · exact hg
 
+/-- In the only possible first-order cancellation regime, where the cubic
+has `h`-order `1/2` and `K^2+h*phi` cancels, the leading term of
+`K^3+(3/2)h*K*phi` has exact `h`-order `3/2`.  Rational-exponent Hahn series
+encode the Puiseux order used in the source boundary argument. -/
+theorem GCD369CubeBoundaryCancellationOrder
+    {K : Type*} [Field K] [CharZero K]
+    (a b h : K) (ha : a ≠ 0)
+    (hcancel : a ^ 2 + h * b = 0) :
+    let A : HahnSeries K ℚ := HahnSeries.single (1 / 2) a
+    let B : HahnSeries K ℚ := HahnSeries.single 0 b
+    let H : HahnSeries K ℚ := HahnSeries.single 1 h
+    let C32 : HahnSeries K ℚ := HahnSeries.single 0 (3 / 2)
+    (A ^ 3 + C32 * H * A * B).order = 3 / 2 := by
+  dsimp only
+  have hcoefficient : a ^ 3 + (3 / 2) * h * a * b ≠ 0 := by
+    have heq : a ^ 3 + (3 / 2) * h * a * b = (-1 / 2) * a ^ 3 := by
+      linear_combination (3 / 2 * a) * hcancel
+    rw [heq]
+    exact mul_ne_zero (by norm_num) (pow_ne_zero 3 ha)
+  have hseries :
+      (HahnSeries.single (1 / 2 : ℚ) a : HahnSeries K ℚ) ^ 3 +
+          HahnSeries.single 0 (3 / 2 : K) * HahnSeries.single 1 h *
+            HahnSeries.single (1 / 2) a * HahnSeries.single 0 b =
+        HahnSeries.single (3 / 2) (a ^ 3 + (3 / 2) * h * a * b) := by
+    rw [HahnSeries.single_pow]
+    norm_num
+    simp only [HahnSeries.single_mul_single]
+    norm_num
+    rw [HahnSeries.single_add]
+  rw [hseries, HahnSeries.order_single hcoefficient]
+
 /-- Local order of the numerator of a reduced rational derivative at a pole
 of the denominator.  If `N/B` is pointwise reduced and `B` has multiplicity
 `m > 0`, then `N'B-NB'` has multiplicity exactly `m-1`. -/
@@ -2508,6 +2539,7 @@ theorem GCD369CubeDSMonomialExponent {K : Type*}
 #print axioms GCD369CubeBoundaryWeightAudit
 #print axioms GCD369CubeBoundaryFirstOrderSeparation
 #print axioms GCD369CubeCommonCubicBoundaryFirstOrderSeparation
+#print axioms GCD369CubeBoundaryCancellationOrder
 #print axioms GCD369ReducedQuotientWronskianLocal
 #print axioms GCD369CubeRationalPrimitiveFinitePlace
 #print axioms GCD369CubeRationalPrimitiveRootCount
