@@ -11,9 +11,12 @@
     "GCD369KummerDeckCommutesWithDerivative",
     "GCD369RatFuncConstantsOfPolynomialDerivative",
     "GCD369RatFuncStandardDifferential",
+    "GCD369RatFuncDerivative",
+    "GCD369RatFuncConstants",
     "GCD369AlgebraicDifferentialConstantsDescend",
     "GCD369BaseFixingAutomorphismFixesConstants",
     "GCD369KummerAlignmentFromBaseConstants",
+    "GCD369PolynomialNoncubeDifferentialKummerPackage",
     "GCD369AlignedNoncubeExclusion"
   ],
   "definition_names": [

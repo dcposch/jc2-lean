@@ -35,13 +35,18 @@ numerator/denominator coprimality that standard differentiation on `k(x)` has
 constant field exactly `k`.
 `GCD369RatFuncStandardDifferential` constructs that quotient-rule differential
 structure and packages the derivative and constant-field conclusions without
-an existence hypothesis.
+an existence hypothesis.  `GCD369RatFuncDerivative` and
+`GCD369RatFuncConstants` expose those properties through the selected standard
+instance used by the later Kummer construction.
 `GCD369AlgebraicDifferentialConstantsDescend` proves that an algebraic
 differential extension does not enlarge an algebraically closed constant
 field, and `GCD369BaseFixingAutomorphismFixesConstants` consequently removes
 the need to assume separately that a base-fixing deck action fixes constants.
 `GCD369KummerAlignmentFromBaseConstants` then feeds that result directly into
 the first-row alignment argument.
+`GCD369PolynomialNoncubeDifferentialKummerPackage` composes the entire bridge:
+from a noncube polynomial it constructs the differential cubic Kummer field,
+deck action, extension constants, and the resulting first-row alignment.
 
 The result is aimed at researchers studying polynomial automorphisms, the
 Jacobian conjecture, and exact algebraic decompositions arising in formal or
@@ -68,6 +73,8 @@ included campaign source and its review.
   polynomials.
 - `GCD369RatFuncStandardDifferential` constructs the quotient-rule derivation
   on `k(x)` and packages its polynomial derivative and constant field.
+- `GCD369RatFuncDerivative` and `GCD369RatFuncConstants` expose the two
+  properties of the selected standard differential instance.
 - `GCD369AlgebraicDifferentialConstantsDescend` and
   `GCD369BaseFixingAutomorphismFixesConstants` supply constant-field descent
   through the algebraic Kummer extension and show that its base-fixing deck
@@ -75,6 +82,10 @@ included campaign source and its review.
 - `GCD369KummerAlignmentFromBaseConstants` composes this descent with the
   first denominator-cleared source row to prove alignment without a separate
   constant-fixing hypothesis.
+- `GCD369PolynomialNoncubeDifferentialKummerPackage` packages polynomial
+  noncubeness, the standard differential on `k(x)`, the cubic extension and
+  deck action, extension constant descent, and first-row alignment in one
+  theorem.
 - `GCD369AlignedNoncubeExclusion` proves that the displayed aligned Keller,
   Kummer, constant-field, and reduced function-field hypotheses are
   inconsistent with a noncube polynomial core.

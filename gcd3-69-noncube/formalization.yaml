@@ -133,6 +133,21 @@ status:
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
   main_results:
+    - declaration: "GCD369RatFuncConstants"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "GCD369PolynomialNoncubeDifferentialKummerPackage"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "GCD369RatFuncDerivative"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
     - declaration: "GCD369RatFuncStandardDifferential"
       file: "Solution.lean"
       sorry_count: 0
@@ -253,12 +268,18 @@ review:
 alignment:
   namespace: "(root)"
   statements:
-    - source: "Charged noncube landing, standard differential on k(x)"
-      lean: "GCD369RatFuncStandardDifferential"
+    - source: "Charged noncube landing, complete differential Kummer package"
+      lean: "GCD369PolynomialNoncubeDifferentialKummerPackage"
       module: "Challenge"
       status: >-
-        a quotient-rule derivation is constructed, proved to differentiate
-        embedded polynomials ordinarily, and shown to have constants exactly k
+        polynomial noncubeness constructs the irreducible differential Kummer
+        extension, deck action, constant descent, and first-row alignment
+    - source: "Charged noncube landing, standard differential on k(x)"
+      lean: "GCD369RatFuncDerivative"
+      module: "Challenge"
+      status: >-
+        a quotient-rule differential instance is constructed, differentiates
+        embedded polynomials ordinarily, and has constants exactly k
     - source: "Charged noncube landing, rational base constant field"
       lean: "GCD369RatFuncConstantsOfPolynomialDerivative"
       module: "Challenge"

@@ -437,6 +437,27 @@ theorem GCD369RatFuncStandardDifferential
     exact GCD369RatFuncConstantsOfPolynomialDerivative
       gcd369RatFuncDifferential_poly
 
+/-- The selected standard quotient-rule differential on `k(x)`. -/
+noncomputable instance GCD369RatFuncDifferential
+    (k : Type*) [Field k] [CharZero k] : Differential (RatFunc k) :=
+  (GCD369RatFuncStandardDifferential (k := k)).choose
+
+/-- The selected differential differentiates embedded polynomials by the
+ordinary polynomial derivative. -/
+theorem GCD369RatFuncDerivative
+    {k : Type*} [Field k] [CharZero k] (p : k[X]) :
+    Differential.deriv (algebraMap k[X] (RatFunc k) p) =
+      algebraMap k[X] (RatFunc k) p.derivative :=
+  (GCD369RatFuncStandardDifferential (k := k)).choose_spec.1 p
+
+/-- The constants of the selected standard differential on `k(x)` are
+exactly the elements of `k`. -/
+theorem GCD369RatFuncConstants
+    {k : Type*} [Field k] [CharZero k]
+    (r : RatFunc k) (hr : Differential.deriv r = 0) :
+    ∃ c : k, r = algebraMap k (RatFunc k) c :=
+  (GCD369RatFuncStandardDifferential (k := k)).choose_spec.2 r hr
+
 /-- Constants do not enlarge in an algebraic differential extension when the
 base constant field is algebraically closed. -/
 theorem GCD369AlgebraicDifferentialConstantsDescend
@@ -548,6 +569,161 @@ theorem GCD369KummerAlignmentFromBaseConstants
   exact GCD369KummerAlignmentFromFirstRow sigma omega s a b
     homega3 homega hs hsigmaS hsigmaA hsigmaB
     (GCD369BaseFixingAutomorphismFixesConstants sigma hsigmaF hFconstants) hrow
+
+/-- A polynomial noncube supplies the complete differential Kummer package:
+the irreducible cubic extension, deck action, constant descent, and first-row
+alignment. -/
+theorem GCD369PolynomialNoncubeDifferentialKummerPackage
+    {k : Type*} [Field k] [CharZero k] [IsAlgClosed k]
+    (H : k[X]) (omega : k)
+    (homega3 : omega ^ 3 = 1) (homega : omega ≠ 1)
+    (hnoncube : ¬ ∃ u : k[X], H = u ^ 3) :
+    ∃ Hp : Irreducible
+        (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X]),
+      letI : Fact (Irreducible
+          (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X])) := ⟨Hp⟩
+      letI : Fact
+          (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X]).Monic :=
+        ⟨monic_X_pow_sub_C _ (by norm_num)⟩
+      ∃ sigma : AdjoinRoot
+          (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X]) ≃+*
+        AdjoinRoot
+          (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X]),
+        AdjoinRoot.root
+            (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X]) ≠ 0 ∧
+        AdjoinRoot.root
+              (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X]) ^ 3 =
+          algebraMap (RatFunc k)
+            (AdjoinRoot
+              (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X]))
+            (algebraMap k[X] (RatFunc k) H) ∧
+        sigma (AdjoinRoot.root
+            (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X])) =
+          algebraMap (RatFunc k)
+              (AdjoinRoot
+                (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X]))
+              (algebraMap k (RatFunc k) omega) *
+            AdjoinRoot.root
+              (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X]) ∧
+        sigma (AdjoinRoot.root
+            (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X])) ≠
+          AdjoinRoot.root
+            (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X]) ∧
+        (∀ u : RatFunc k,
+          sigma (algebraMap (RatFunc k)
+              (AdjoinRoot
+                (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X])) u) =
+            algebraMap (RatFunc k)
+              (AdjoinRoot
+                (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X])) u) ∧
+        (3 * AdjoinRoot.root
+                (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X]) ^ 2 *
+            Differential.deriv (AdjoinRoot.root
+              (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X])) =
+          algebraMap (RatFunc k)
+              (AdjoinRoot
+                (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X]))
+            (Differential.deriv (algebraMap k[X] (RatFunc k) H))) ∧
+        (∀ z : AdjoinRoot
+            (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X]),
+          sigma (Differential.deriv z) = Differential.deriv (sigma z)) ∧
+        (∀ c : AdjoinRoot
+            (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X]),
+          Differential.deriv c = 0 →
+          ∃ c0 : k, c = algebraMap k
+            (AdjoinRoot
+              (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X])) c0) ∧
+        (∀ c : AdjoinRoot
+            (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X]),
+          Differential.deriv c = 0 → sigma c = c) ∧
+        (∀ a b : AdjoinRoot
+            (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X]),
+          sigma a = a → sigma b = b →
+          3 * AdjoinRoot.root
+                (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X]) ^ 4 *
+                Differential.deriv a
+              - 15 * AdjoinRoot.root
+                  (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X]) ^ 3 *
+                a * Differential.deriv (AdjoinRoot.root
+                  (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X]))
+              - 2 * AdjoinRoot.root
+                  (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X]) *
+                Differential.deriv b
+              + 16 * b * Differential.deriv (AdjoinRoot.root
+                  (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X])) = 0 →
+          3 * a / AdjoinRoot.root
+                  (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X]) ^ 5 -
+              2 * b / AdjoinRoot.root
+                  (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X]) ^ 8 = 0) := by
+  obtain ⟨Hp, sigma, hs0, hs3, hsigmaS, hsigmaNe, hsigmaF⟩ :=
+    GCD369PolynomialNoncubeKummerExtension H omega homega3 homega hnoncube
+  refine ⟨Hp, ?_⟩
+  letI : Fact (Irreducible
+      (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X])) := ⟨Hp⟩
+  letI : Fact
+      (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X]).Monic :=
+    ⟨monic_X_pow_sub_C _ (by norm_num)⟩
+  letI : Algebra.IsIntegral (RatFunc k)
+      (AdjoinRoot
+      (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X])) :=
+    AdjoinRoot.isIntegral_of_monic Fact.out
+  letI : CharZero
+      (AdjoinRoot
+        (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X])) :=
+    charZero_of_injective_algebraMap
+      (algebraMap (RatFunc k)
+        (AdjoinRoot
+          (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X]))).injective
+  have hFconstants : ∀ r : RatFunc k, Differential.deriv r = 0 →
+      ∃ c : k, r = algebraMap k (RatFunc k) c :=
+    GCD369RatFuncConstants
+  refine ⟨sigma, hs0, hs3, hsigmaS, hsigmaNe, hsigmaF,
+    GCD369KummerRootDerivative _, ?_, ?_, ?_, ?_⟩
+  · let sigmaAlg :
+        AdjoinRoot
+            (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X])
+          ≃ₐ[RatFunc k]
+        AdjoinRoot
+            (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X]) :=
+      { sigma with commutes' := hsigmaF }
+    intro z
+    exact Differential.algEquiv_deriv' sigmaAlg z
+  · exact GCD369AlgebraicDifferentialConstantsDescend hFconstants
+  · exact GCD369BaseFixingAutomorphismFixesConstants sigma hsigmaF
+      hFconstants
+  · intro a b ha hb hrow
+    have hzeta3 : (algebraMap k (RatFunc k) omega) ^ 3 = 1 := by
+      rw [← map_pow, homega3, map_one]
+    have hzeta : algebraMap k (RatFunc k) omega ≠ 1 := by
+      intro hzeta
+      apply homega
+      apply (algebraMap k (RatFunc k)).injective
+      simpa using hzeta
+    have homegaL3 :
+        (algebraMap (RatFunc k)
+            (AdjoinRoot
+              (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X]))
+            (algebraMap k (RatFunc k) omega)) ^ 3 = 1 := by
+      rw [← map_pow, hzeta3, map_one]
+    have homegaL :
+        algebraMap (RatFunc k)
+            (AdjoinRoot
+              (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X]))
+            (algebraMap k (RatFunc k) omega) ≠ 1 := by
+      intro hL
+      apply hzeta
+      apply (algebraMap (RatFunc k)
+        (AdjoinRoot
+          (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X]))).injective
+      simpa using hL
+    exact GCD369KummerAlignmentFromBaseConstants sigma
+      (algebraMap (RatFunc k)
+        (AdjoinRoot
+          (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X]))
+        (algebraMap k (RatFunc k) omega))
+      (AdjoinRoot.root
+        (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X]))
+      a b hsigmaF hFconstants homegaL3 homegaL hs0 hsigmaS ha hb hrow
 
 set_option maxHeartbeats 2000000 in
 set_option maxRecDepth 10000 in
@@ -3062,9 +3238,12 @@ theorem GCD369DSOneRootCube {K : Type*} [Field K] [IsAlgClosed K]
 #print axioms GCD369KummerDeckCommutesWithDerivative
 #print axioms GCD369RatFuncConstantsOfPolynomialDerivative
 #print axioms GCD369RatFuncStandardDifferential
+#print axioms GCD369RatFuncDerivative
+#print axioms GCD369RatFuncConstants
 #print axioms GCD369AlgebraicDifferentialConstantsDescend
 #print axioms GCD369BaseFixingAutomorphismFixesConstants
 #print axioms GCD369KummerAlignmentFromBaseConstants
+#print axioms GCD369PolynomialNoncubeDifferentialKummerPackage
 #print axioms GCD369InvariantFibreDichotomy
 #print axioms GCD369AlignedKellerFibreDichotomy
 #print axioms GCD369ZeroBracketSheet
