@@ -133,6 +133,35 @@ theorem GCD369KummerDeckCommutesWithDerivative
         Differential.deriv ((autAdjoinRootXPowSubC 3 h eta) z) := by
   sorry
 
+/-- Constants do not enlarge in an algebraic differential extension when the
+base constant field is algebraically closed. -/
+theorem GCD369AlgebraicDifferentialConstantsDescend
+    {k F L : Type*} [Field k] [IsAlgClosed k]
+    [Field F] [CharZero F] [Differential F]
+    [Field L] [Algebra k F] [Algebra F L] [Algebra k L]
+    [IsScalarTower k F L] [Differential L] [DifferentialAlgebra F L]
+    [Algebra.IsAlgebraic F L]
+    (hFconstants : ∀ a : F, Differential.deriv a = 0 →
+      ∃ a0 : k, a = algebraMap k F a0)
+    (c : L) (hc : Differential.deriv c = 0) :
+    ∃ c0 : k, c = algebraMap k L c0 := by
+  sorry
+
+/-- A base-fixing automorphism of such an algebraic differential extension
+fixes every differential constant. -/
+theorem GCD369BaseFixingAutomorphismFixesConstants
+    {k F L : Type*} [Field k] [IsAlgClosed k]
+    [Field F] [CharZero F] [Differential F]
+    [Field L] [Algebra k F] [Algebra F L] [Algebra k L]
+    [IsScalarTower k F L] [Differential L] [DifferentialAlgebra F L]
+    [Algebra.IsAlgebraic F L]
+    (sigma : L ≃+* L)
+    (hsigmaF : ∀ a : F, sigma (algebraMap F L a) = algebraMap F L a)
+    (hFconstants : ∀ a : F, Differential.deriv a = 0 →
+      ∃ a0 : k, a = algebraMap k F a0) :
+    ∀ c : L, Differential.deriv c = 0 → sigma c = c := by
+  sorry
+
 /-- No aligned Keller pair in the nontrivial cubic-Kummer branch can have a
 noncube polynomial core under the displayed function-field presentations. -/
 theorem GCD369AlignedNoncubeExclusion

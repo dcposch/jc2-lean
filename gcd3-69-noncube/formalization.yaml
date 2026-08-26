@@ -116,6 +116,8 @@ status:
     the Kummer data are constructed directly from the polynomial core; the
     canonical differential extension satisfies the differentiated root
     equation and every deck automorphism commutes with the derivative;
+    algebraic differential extensions do not enlarge an algebraically closed
+    constant field, so every base-fixing deck automorphism fixes constants;
     extraction of all four lower rows from
     the actual Keller bracket; first-integral and invariant-fibre landing; zero
     bracket and terminal exclusion on P_A; the P_B elliptic equation and
@@ -129,6 +131,16 @@ status:
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
   main_results:
+    - declaration: "GCD369BaseFixingAutomorphismFixesConstants"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "GCD369AlgebraicDifferentialConstantsDescend"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
     - declaration: "GCD369KummerDeckCommutesWithDerivative"
       file: "Solution.lean"
       sorry_count: 0
@@ -224,6 +236,13 @@ review:
 alignment:
   namespace: "(root)"
   statements:
+    - source: "Charged noncube landing, constant-field descent"
+      lean: "GCD369BaseFixingAutomorphismFixesConstants"
+      module: "Challenge"
+      status: >-
+        constants descend through algebraic differential extensions over an
+        algebraically closed base, hence base-fixing Kummer deck actions fix
+        every differential constant
     - source: "Charged noncube landing, differential Kummer structure"
       lean: "GCD369KummerDeckCommutesWithDerivative"
       module: "Challenge"

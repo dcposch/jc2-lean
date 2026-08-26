@@ -244,6 +244,93 @@ theorem GCD369KummerDeckCommutesWithDerivative
   intro z
   exact Differential.algEquiv_deriv' (autAdjoinRootXPowSubC 3 h eta) z
 
+/-- Constants do not enlarge in an algebraic differential extension when the
+base constant field is algebraically closed. -/
+theorem GCD369AlgebraicDifferentialConstantsDescend
+    {k F L : Type*} [Field k] [IsAlgClosed k]
+    [Field F] [CharZero F] [Differential F]
+    [Field L] [Algebra k F] [Algebra F L] [Algebra k L]
+    [IsScalarTower k F L] [Differential L] [DifferentialAlgebra F L]
+    [Algebra.IsAlgebraic F L]
+    (hFconstants : ∀ a : F, Differential.deriv a = 0 →
+      ∃ a0 : k, a = algebraMap k F a0)
+    (c : L) (hc : Differential.deriv c = 0) :
+    ∃ c0 : k, c = algebraMap k L c0 := by
+  let p : F[X] := minpoly F c
+  have hcIntegralF : IsIntegral F c := Algebra.IsIntegral.isIntegral c
+  have hpEval : aeval c p = 0 := minpoly.aeval F c
+  have hpDerivEval : aeval c (Differential.mapCoeffs p) = 0 := by
+    have h := congrArg Differential.deriv hpEval
+    rw [map_zero, Differential.deriv_aeval_eq, hc, mul_zero, add_zero] at h
+    exact h
+  have hpDvd : p ∣ Differential.mapCoeffs p := minpoly.dvd F c hpDerivEval
+  have hpMapZero : Differential.mapCoeffs p = 0 := by
+    by_contra hpMap
+    have hdegree : (Differential.mapCoeffs p).degree < (p.natDegree : WithBot ℕ) := by
+      rw [degree_lt_iff_coeff_zero]
+      intro m hm
+      rw [Differential.coeff_mapCoeffs]
+      by_cases htop : m = p.natDegree
+      · subst m
+        rw [coeff_natDegree, minpoly.monic hcIntegralF |>.leadingCoeff]
+        simp
+      · have hmgt : p.natDegree < m := lt_of_le_of_ne hm (Ne.symm htop)
+        rw [coeff_eq_zero_of_natDegree_lt hmgt]
+        exact map_zero Differential.deriv
+    have hnatDegree : (Differential.mapCoeffs p).natDegree < p.natDegree :=
+      (natDegree_lt_iff_degree_lt hpMap).mpr hdegree
+    have hle : p.natDegree ≤ (Differential.mapCoeffs p).natDegree :=
+      natDegree_le_of_dvd hpDvd hpMap
+    exact (Nat.not_lt_of_ge hle) hnatDegree
+  have hpCoeffConstant (n : ℕ) : Differential.deriv (p.coeff n) = 0 := by
+    have h := congrArg (fun q : F[X] ↦ q.coeff n) hpMapZero
+    simpa using h
+  choose coeff0 hcoeff0 using fun n ↦ hFconstants (p.coeff n) (hpCoeffConstant n)
+  let q : k[X] := ∑ n ∈ p.support, monomial n (coeff0 n)
+  have hqMap : q.map (algebraMap k F) = p := by
+    calc
+      q.map (algebraMap k F) =
+          ∑ n ∈ p.support, monomial n (algebraMap k F (coeff0 n)) := by
+            dsimp [q]
+            simp_rw [Polynomial.map_sum, map_monomial]
+      _ = ∑ n ∈ p.support, monomial n (p.coeff n) := by
+        simp_rw [hcoeff0]
+      _ = p := p.as_sum_support.symm
+  have hqMonic : q.Monic := by
+    apply Polynomial.monic_of_injective (algebraMap k F).injective
+    rw [hqMap]
+    exact minpoly.monic hcIntegralF
+  have hqEval : aeval c q = 0 := by
+    rw [← Polynomial.aeval_map_algebraMap F c q, hqMap]
+    exact hpEval
+  have hcIntegralK : IsIntegral k c := ⟨q, hqMonic, hqEval⟩
+  refine ⟨-(minpoly k c).coeff 0, ?_⟩
+  have hlead : (minpoly k c).leadingCoeff = 1 := minpoly.monic hcIntegralK
+  have hdegree : (minpoly k c).degree = 1 :=
+    IsAlgClosed.degree_eq_one_of_irreducible k (minpoly.irreducible hcIntegralK)
+  have heval : aeval c (minpoly k c) = 0 := minpoly.aeval k c
+  rw [eq_X_add_C_of_degree_eq_one hdegree, hlead, C_1, one_mul, aeval_add,
+    aeval_X, aeval_C, add_eq_zero_iff_eq_neg] at heval
+  exact heval.trans (map_neg (algebraMap k L) ((minpoly k c).coeff 0)).symm
+
+/-- A base-fixing automorphism of such an algebraic differential extension
+fixes every differential constant. -/
+theorem GCD369BaseFixingAutomorphismFixesConstants
+    {k F L : Type*} [Field k] [IsAlgClosed k]
+    [Field F] [CharZero F] [Differential F]
+    [Field L] [Algebra k F] [Algebra F L] [Algebra k L]
+    [IsScalarTower k F L] [Differential L] [DifferentialAlgebra F L]
+    [Algebra.IsAlgebraic F L]
+    (sigma : L ≃+* L)
+    (hsigmaF : ∀ a : F, sigma (algebraMap F L a) = algebraMap F L a)
+    (hFconstants : ∀ a : F, Differential.deriv a = 0 →
+      ∃ a0 : k, a = algebraMap k F a0) :
+    ∀ c : L, Differential.deriv c = 0 → sigma c = c := by
+  intro c hc
+  obtain ⟨c0, hc0⟩ :=
+    GCD369AlgebraicDifferentialConstantsDescend hFconstants c hc
+  rw [hc0, IsScalarTower.algebraMap_apply k F L, hsigmaF]
+
 set_option maxHeartbeats 2000000 in
 set_option maxRecDepth 10000 in
 theorem GCD369AlignedKellerRow4 {K : Type*} [Field K] [CharZero K] [Differential K]
@@ -2755,6 +2842,8 @@ theorem GCD369DSOneRootCube {K : Type*} [Field K] [IsAlgClosed K]
 #print axioms GCD369PolynomialNoncubeKummerExtension
 #print axioms GCD369KummerRootDerivative
 #print axioms GCD369KummerDeckCommutesWithDerivative
+#print axioms GCD369AlgebraicDifferentialConstantsDescend
+#print axioms GCD369BaseFixingAutomorphismFixesConstants
 #print axioms GCD369InvariantFibreDichotomy
 #print axioms GCD369AlignedKellerFibreDichotomy
 #print axioms GCD369ZeroBracketSheet
