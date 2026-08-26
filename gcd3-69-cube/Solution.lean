@@ -238,6 +238,121 @@ theorem GCD369CubeDExceptionalTerminalNonzero
       (1035 / 13376 * u ^ 3 * v - 405 / 3344 * v ^ 3) * hterminal
   exact (pow_ne_zero 11 hu) hu11
 
+/-- The localized unit certificate showing that the exceptional `d != 0`
+normal cannot share a root with its common cubic. -/
+theorem GCD369CubeDExceptionalNoCommonRootOnUChart
+    {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn r Tin u v : K)
+    (h1 :
+      729 * u * Xn ^ 2 - 1458 * Xn * Zn - 729 * Yn ^ 2 +
+          320 * u ^ 3 * v - 960 * v ^ 3 = 0)
+    (h2 :
+      -2187 * v * Xn ^ 2 - 4374 * u * Xn * Yn + 4374 * Yn * Zn +
+          64 * u ^ 5 - 1440 * u ^ 2 * v ^ 2 = 0)
+    (h3 :
+      2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+          2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0)
+    (h4 :
+      19683 * u * v * Xn ^ 2 + 13122 * u ^ 2 * Xn * Yn -
+          26244 * v * Xn * Zn - 13122 * v * Yn ^ 2 -
+          13122 * u * Yn * Zn + 160 * u ^ 6 - 5760 * u ^ 3 * v ^ 2 +
+          6480 * v ^ 4 = 0)
+    (hK : r ^ 3 + u * r + v = 0)
+    (hphi : Xn * r ^ 2 + Yn * r + Zn = 0)
+    (hchart : Tin * u - 1 = 0) :
+    False := by
+  let C1 : K :=
+    10935 / 43472 * r * Tin ^ 11 * v ^ 4 -
+      405 / 1976 * Tin ^ 11 * u ^ 2 * v ^ 3 -
+      27945 / 173888 * r * Tin ^ 8 * v ^ 2 +
+      405 / 836 * Tin ^ 9 * v ^ 3 +
+      1035 / 7904 * Tin ^ 8 * u ^ 2 * v - 9 / 176 * Tin ^ 6 * v
+  let C2 : K :=
+    -2025 / 21736 * r * Tin ^ 11 * u * v ^ 3 -
+      1215 / 3952 * Tin ^ 11 * v ^ 4 +
+      5175 / 86944 * r * Tin ^ 8 * u * v -
+      135 / 1672 * Tin ^ 9 * u * v ^ 2 +
+      3105 / 15808 * Tin ^ 8 * v ^ 2 + 3 / 352 * Tin ^ 6 * u
+  let C3 : K :=
+    885735 / 3952 * r ^ 2 * Tin ^ 11 * v ^ 3 +
+      295245 / 3952 * Tin ^ 11 * u * v ^ 3 -
+      2263545 / 15808 * r ^ 2 * Tin ^ 8 * v -
+      754515 / 15808 * Tin ^ 8 * u * v
+  let C4 : K :=
+    405 / 10868 * r * Tin ^ 11 * v ^ 3 -
+      1035 / 43472 * r * Tin ^ 8 * v -
+      45 / 1672 * Tin ^ 9 * v ^ 2 + 1 / 352 * Tin ^ 6
+  let C5 : K :=
+    2657205 / 1976 * Xn * Yn * r ^ 2 * Tin ^ 11 * v ^ 3 -
+      885735 / 1976 * Xn ^ 2 * r * Tin ^ 11 * u * v ^ 3 +
+      2657205 / 1976 * Yn ^ 2 * r * Tin ^ 11 * v ^ 3 +
+      2657205 / 3952 * Xn * Zn * r * Tin ^ 11 * v ^ 3 -
+      2657205 / 3952 * Xn ^ 2 * Tin ^ 11 * v ^ 4 -
+      885735 / 988 * Xn * Yn * Tin ^ 11 * u * v ^ 3 +
+      7971615 / 3952 * Yn * Zn * Tin ^ 11 * v ^ 3 -
+      6790635 / 7904 * Xn * Yn * r ^ 2 * Tin ^ 8 * v +
+      2263545 / 7904 * Xn ^ 2 * r * Tin ^ 8 * u * v -
+      6790635 / 7904 * Yn ^ 2 * r * Tin ^ 8 * v -
+      6790635 / 15808 * Xn * Zn * r * Tin ^ 8 * v +
+      6790635 / 15808 * Xn ^ 2 * Tin ^ 8 * v ^ 2 +
+      2263545 / 3952 * Xn * Yn * Tin ^ 8 * u * v -
+      20371905 / 15808 * Yn * Zn * Tin ^ 8 * v
+  let C6 : K :=
+    -2657205 / 1976 * Yn * r ^ 3 * Tin ^ 11 * v ^ 3 +
+      885735 / 1976 * Xn * r ^ 2 * Tin ^ 11 * u * v ^ 3 -
+      2657205 / 3952 * Zn * r ^ 2 * Tin ^ 11 * v ^ 3 +
+      2657205 / 3952 * Xn * r * Tin ^ 11 * v ^ 4 -
+      885735 / 988 * Yn * r * Tin ^ 11 * u * v ^ 3 +
+      6790635 / 7904 * Yn * r ^ 3 * Tin ^ 8 * v -
+      2657205 / 3952 * Yn * Tin ^ 11 * v ^ 4 -
+      885735 / 3952 * Zn * Tin ^ 11 * u * v ^ 3 -
+      2263545 / 7904 * Xn * r ^ 2 * Tin ^ 8 * u * v +
+      6790635 / 15808 * Zn * r ^ 2 * Tin ^ 8 * v -
+      6790635 / 15808 * Xn * r * Tin ^ 8 * v ^ 2 +
+      2263545 / 3952 * Yn * r * Tin ^ 8 * u * v +
+      6790635 / 15808 * Yn * Tin ^ 8 * v ^ 2 +
+      2263545 / 15808 * Zn * Tin ^ 8 * u * v
+  let C7 : K :=
+    1620 / 19 * Tin ^ 10 * u ^ 4 * v ^ 4 -
+      12150 / 19 * Tin ^ 10 * u * v ^ 6 +
+      1620 / 19 * Tin ^ 9 * u ^ 3 * v ^ 4 -
+      12150 / 19 * Tin ^ 9 * v ^ 6 +
+      180 / 19 * Tin ^ 8 * u ^ 5 * v ^ 2 -
+      6480 / 19 * Tin ^ 8 * u ^ 2 * v ^ 4 -
+      45 * Tin ^ 7 * u ^ 4 * v ^ 2 + 135 / 2 * Tin ^ 7 * u * v ^ 4 -
+      45 * Tin ^ 6 * u ^ 3 * v ^ 2 + 135 / 2 * Tin ^ 6 * v ^ 4 -
+      Tin ^ 5 * u ^ 5 - Tin ^ 4 * u ^ 4 - Tin ^ 3 * u ^ 3 -
+      Tin ^ 2 * u ^ 2 - Tin * u - 1
+  have hone : (1 : K) = 0 := by
+    linear_combination C1 * h1 + C2 * h2 + C3 * h3 + C4 * h4 +
+      C5 * hK + C6 * hphi + C7 * hchart
+  exact one_ne_zero hone
+
+/-- The exceptional `d != 0` normal and its common cubic have no common
+field-valued root on any nonzero projective landing. -/
+theorem GCD369CubeDExceptionalNoCommonRoot
+    {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn u v : K) (hu : u ≠ 0)
+    (h1 :
+      729 * u * Xn ^ 2 - 1458 * Xn * Zn - 729 * Yn ^ 2 +
+          320 * u ^ 3 * v - 960 * v ^ 3 = 0)
+    (h2 :
+      -2187 * v * Xn ^ 2 - 4374 * u * Xn * Yn + 4374 * Yn * Zn +
+          64 * u ^ 5 - 1440 * u ^ 2 * v ^ 2 = 0)
+    (h3 :
+      2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+          2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0)
+    (h4 :
+      19683 * u * v * Xn ^ 2 + 13122 * u ^ 2 * Xn * Yn -
+          26244 * v * Xn * Zn - 13122 * v * Yn ^ 2 -
+          13122 * u * Yn * Zn + 160 * u ^ 6 - 5760 * u ^ 3 * v ^ 2 +
+          6480 * v ^ 4 = 0) :
+    ∀ r : K, r ^ 3 + u * r + v = 0 →
+      Xn * r ^ 2 + Yn * r + Zn = 0 → False := by
+  intro r hK hphi
+  exact GCD369CubeDExceptionalNoCommonRootOnUChart
+    Xn Yn Zn r u⁻¹ u v h1 h2 h3 h4 hK hphi (by simp [hu])
+
 /-- The first retained `c7` load is supported on exactly the candidate
 projective divisor visible in its four Kuranishi rows. -/
 theorem GCD369CubeC7Support {K : Type*} [Field K] [CharZero K]
@@ -1606,6 +1721,8 @@ theorem GCD369CubeDSMonomialExponent {K : Type*}
 #print axioms GCD369CubeDExceptionalSupport
 #print axioms GCD369CubeDExceptionalCoordinatesNonzero
 #print axioms GCD369CubeDExceptionalTerminalNonzero
+#print axioms GCD369CubeDExceptionalNoCommonRootOnUChart
+#print axioms GCD369CubeDExceptionalNoCommonRoot
 #print axioms GCD369CubeC7Support
 #print axioms GCD369CubeC7TerminalNonzero
 #print axioms GCD369CubeC5Support
