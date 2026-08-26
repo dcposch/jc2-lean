@@ -44,7 +44,7 @@ theorem GCD369CubeNextJacobianRow
   have hcoeff := congrArg (fun r : k[X][X] => r.coeff 13) hjac
   simp only [GCD369CubeBivariateJacobian, coeff_sub, coeff_mul,
     GCD369CubeSourceXDeriv_coeff, coeff_derivative, coeff_C,
-    show (13 : ℕ) ≠ 0 by norm_num, if_false] at hcoeff
+    show (13 : ℕ) ≠ 0 by norm_num, ite_false] at hcoeff
   have hanti : (Finset.HasAntidiagonal.antidiagonal 13 :
       Finset (ℕ × ℕ)) =
       ({(0, 13), (1, 12), (2, 11), (3, 10), (4, 9), (5, 8), (6, 7),
@@ -58,6 +58,74 @@ theorem GCD369CubeNextJacobianRow
   have hC5 : C (5 : k) = (5 : k[X]) := C_eq_natCast 5
   rw [hC8, hC9, hC6, hC5]
   linear_combination hcoeff
+
+/-- For a sextic, the fifth Hasse derivative consists of exactly its top
+two coefficients. -/
+theorem GCD369CubeHasseFiveOfDegreeSix
+    {K : Type*} [Field K] [CharZero K]
+    (p : K[X]) (hp : p.natDegree = 6) :
+    hasseDeriv 5 p = C (p.coeff 5) + C (6 * p.coeff 6) * X := by
+  ext n
+  rw [hasseDeriv_coeff]
+  by_cases hn0 : n = 0
+  · subst n
+    norm_num
+  by_cases hn1 : n = 1
+  · subst n
+    norm_num
+  have hn2 : 2 ≤ n := by omega
+  have hcoeff : p.coeff (n + 5) = 0 := by
+    apply coeff_eq_zero_of_natDegree_lt
+    omega
+  rw [hcoeff, mul_zero]
+  rw [coeff_add, coeff_C_mul]
+  simp [coeff_C, coeff_X, hn0]
+  intro h
+  exact (hn1 h.symm).elim
+
+/-- For a nonic, the eighth Hasse derivative consists of exactly its top
+two coefficients. -/
+theorem GCD369CubeHasseEightOfDegreeNine
+    {K : Type*} [Field K] [CharZero K]
+    (q : K[X]) (hq : q.natDegree = 9) :
+    hasseDeriv 8 q = C (q.coeff 8) + C (9 * q.coeff 9) * X := by
+  ext n
+  rw [hasseDeriv_coeff]
+  by_cases hn0 : n = 0
+  · subst n
+    norm_num
+  by_cases hn1 : n = 1
+  · subst n
+    norm_num
+  have hn2 : 2 ≤ n := by omega
+  have hcoeff : q.coeff (n + 8) = 0 := by
+    apply coeff_eq_zero_of_natDegree_lt
+    omega
+  rw [hcoeff, mul_zero]
+  rw [coeff_add, coeff_C_mul]
+  simp [coeff_C, coeff_X, hn0]
+  intro h
+  exact (hn1 h.symm).elim
+
+/-- The Jacobian bracket for two polynomials over `k(x)`, using the
+quotient-rule derivative on coefficients and the ordinary derivative in the
+outer variable. -/
+noncomputable def GCD369CubeRatFuncJacobian
+    {k : Type*} [Field k] (p q : (RatFunc k)[X]) : (RatFunc k)[X] :=
+  GCD369CubeRatFuncCoefficientDerivative p * derivative q -
+    derivative p * GCD369CubeRatFuncCoefficientDerivative q
+
+/-- A common substitution in the outer variable scales this bracket by the
+ordinary derivative of the substituted coordinate. -/
+theorem GCD369CubeRatFuncJacobian_comp
+    {k : Type*} [Field k]
+    (p q L : (RatFunc k)[X]) :
+    GCD369CubeRatFuncJacobian (p.comp L) (q.comp L) =
+      derivative L * (GCD369CubeRatFuncJacobian p q).comp L := by
+  simp only [GCD369CubeRatFuncJacobian,
+    GCD369CubeRatFuncCoefficientDerivative_comp, derivative_comp,
+    sub_comp, mul_comp]
+  ring
 
 /-- A literal normalized polynomial cube source at partial degrees `(6,9)`.
 The two leading coefficients are the actual sixth and ninth powers of the
@@ -91,6 +159,284 @@ noncomputable def A {k : Type u} [Field k]
 noncomputable def B {k : Type u} [Field k]
     (S : GCD369CubePolynomialSource k) : RatFunc k :=
   algebraMap k[X] (RatFunc k) (S.q.coeff 8) / S.sRat ^ 8
+
+/-- The canonical coefficient embedding into the rational function field. -/
+noncomputable def coefficientMap {k : Type u} [Field k]
+    (_S : GCD369CubePolynomialSource k) : k[X] →+* RatFunc k :=
+  algebraMap k[X] (RatFunc k)
+
+/-- The original sextic after embedding its coefficient polynomials in
+`k(x)`. -/
+noncomputable def pRat {k : Type u} [Field k]
+    (S : GCD369CubePolynomialSource k) : (RatFunc k)[X] :=
+  S.p.map S.coefficientMap
+
+/-- The original nonic after embedding its coefficient polynomials in
+`k(x)`. -/
+noncomputable def qRat {k : Type u} [Field k]
+    (S : GCD369CubePolynomialSource k) : (RatFunc k)[X] :=
+  S.q.map S.coefficientMap
+
+/-- Translation used to depress the normalized sextic. -/
+noncomputable def translation {k : Type u} [Field k]
+    (S : GCD369CubePolynomialSource k) : RatFunc k := S.A / 6
+
+/-- The exact transformed sextic in the coordinate `z=s*y+r`. -/
+noncomputable def normalizedP {k : Type u} [Field k]
+    (S : GCD369CubePolynomialSource k) : (RatFunc k)[X] :=
+  GCD369CubeSourceTransform S.pRat S.sRat⁻¹
+    (-(S.sRat⁻¹ * S.translation))
+
+/-- The exact transformed nonic in the same coordinate `z=s*y+r`. -/
+noncomputable def normalizedQ {k : Type u} [Field k]
+    (S : GCD369CubePolynomialSource k) : (RatFunc k)[X] :=
+  GCD369CubeSourceTransform S.qRat S.sRat⁻¹
+    (-(S.sRat⁻¹ * S.translation))
+
+@[simp] theorem pRat_coeff
+    {k : Type u} [Field k] (S : GCD369CubePolynomialSource k) (n : ℕ) :
+    S.pRat.coeff n = algebraMap k[X] (RatFunc k) (S.p.coeff n) := by
+  simp [pRat, coefficientMap]
+
+@[simp] theorem qRat_coeff
+    {k : Type u} [Field k] (S : GCD369CubePolynomialSource k) (n : ℕ) :
+    S.qRat.coeff n = algebraMap k[X] (RatFunc k) (S.q.coeff n) := by
+  simp [qRat, coefficientMap]
+
+/-- Coefficientwise rational differentiation of the embedded sextic is the
+embedded inner-source derivative. -/
+theorem pRat_coefficientDerivative
+    {k : Type u} [Field k] (S : GCD369CubePolynomialSource k) :
+    GCD369CubeRatFuncCoefficientDerivative S.pRat =
+      (GCD369CubeSourceXDeriv S.p).map S.coefficientMap := by
+  ext n
+  simp [GCD369CubeRatFuncDerivative_polynomial,
+    GCD369CubeSourceXDeriv_coeff, coefficientMap]
+
+/-- Coefficientwise rational differentiation of the embedded nonic is the
+embedded inner-source derivative. -/
+theorem qRat_coefficientDerivative
+    {k : Type u} [Field k] (S : GCD369CubePolynomialSource k) :
+    GCD369CubeRatFuncCoefficientDerivative S.qRat =
+      (GCD369CubeSourceXDeriv S.q).map S.coefficientMap := by
+  ext n
+  simp [GCD369CubeRatFuncDerivative_polynomial,
+    GCD369CubeSourceXDeriv_coeff, coefficientMap]
+
+/-- Ordinary outer differentiation commutes with coefficient embedding for
+the sextic. -/
+theorem pRat_derivative
+    {k : Type u} [Field k] (S : GCD369CubePolynomialSource k) :
+    derivative S.pRat = (derivative S.p).map S.coefficientMap := by
+  simp [pRat, derivative_map]
+
+/-- Ordinary outer differentiation commutes with coefficient embedding for
+the nonic. -/
+theorem qRat_derivative
+    {k : Type u} [Field k] (S : GCD369CubePolynomialSource k) :
+    derivative S.qRat = (derivative S.q).map S.coefficientMap := by
+  simp [qRat, derivative_map]
+
+/-- Embedding the original bivariate source into `k(x)[y]` preserves its
+scalar Jacobian exactly. -/
+theorem pRat_qRat_jacobian
+    {k : Type u} [Field k] (S : GCD369CubePolynomialSource k) :
+    GCD369CubeRatFuncJacobian S.pRat S.qRat =
+      C (algebraMap k (RatFunc k) S.j) := by
+  calc
+    GCD369CubeRatFuncJacobian S.pRat S.qRat =
+        (GCD369CubeBivariateJacobian S.p S.q).map S.coefficientMap := by
+      simp [GCD369CubeRatFuncJacobian, GCD369CubeBivariateJacobian,
+        S.pRat_coefficientDerivative, S.qRat_coefficientDerivative,
+        S.pRat_derivative, S.qRat_derivative]
+    _ = (C (C S.j)).map S.coefficientMap := by rw [S.hjac]
+    _ = C (algebraMap k (RatFunc k) S.j) := by
+      simp [coefficientMap, RatFunc.algebraMap_C,
+        RatFunc.algebraMap_eq_C]
+
+theorem pRat_natDegree
+    {k : Type u} [Field k] (S : GCD369CubePolynomialSource k) :
+    S.pRat.natDegree = 6 := by
+  rw [pRat, natDegree_map_eq_of_injective]
+  · exact S.hp
+  · exact RatFunc.algebraMap_injective k
+
+theorem qRat_natDegree
+    {k : Type u} [Field k] (S : GCD369CubePolynomialSource k) :
+    S.qRat.natDegree = 9 := by
+  rw [qRat, natDegree_map_eq_of_injective]
+  · exact S.hq
+  · exact RatFunc.algebraMap_injective k
+
+/-- The normalized sextic is monic. -/
+theorem normalizedP_coeff_six
+    {k : Type u} [Field k] [CharZero k]
+    (S : GCD369CubePolynomialSource k) :
+    S.normalizedP.coeff 6 = 1 := by
+  rw [normalizedP, GCD369CubeSourceTransformCoeff]
+  have hhasse : hasseDeriv 6 S.pRat = C S.pRat.leadingCoeff := by
+    simpa [S.pRat_natDegree] using hasseDeriv_natDegree_eq_C S.pRat
+  rw [hhasse, eval_C]
+  have hsRat : S.sRat ≠ 0 := RatFunc.algebraMap_ne_zero S.hs
+  have hlead : S.pRat.leadingCoeff = S.sRat ^ 6 := by
+    rw [leadingCoeff, S.pRat_natDegree, S.pRat_coeff, S.hp6]
+    simp [sRat]
+  rw [hlead]
+  field_simp [hsRat]
+
+/-- The translation `r=A/6` removes the fifth sextic coefficient exactly. -/
+theorem normalizedP_coeff_five
+    {k : Type u} [Field k] [CharZero k]
+    (S : GCD369CubePolynomialSource k) :
+    S.normalizedP.coeff 5 = 0 := by
+  rw [normalizedP, GCD369CubeSourceTransformCoeff,
+    GCD369CubeHasseFiveOfDegreeSix S.pRat S.pRat_natDegree]
+  simp only [eval_add, eval_C, eval_mul, eval_X, S.pRat_coeff]
+  have hsRat : S.sRat ≠ 0 := RatFunc.algebraMap_ne_zero S.hs
+  rw [S.hp6]
+  simp only [map_pow]
+  dsimp only [translation, A]
+  field_simp [hsRat]
+  simp [sRat]
+
+/-- The normalized nonic is monic. -/
+theorem normalizedQ_coeff_nine
+    {k : Type u} [Field k] [CharZero k]
+    (S : GCD369CubePolynomialSource k) :
+    S.normalizedQ.coeff 9 = 1 := by
+  rw [normalizedQ, GCD369CubeSourceTransformCoeff]
+  have hhasse : hasseDeriv 9 S.qRat = C S.qRat.leadingCoeff := by
+    simpa [S.qRat_natDegree] using hasseDeriv_natDegree_eq_C S.qRat
+  rw [hhasse, eval_C]
+  have hsRat : S.sRat ≠ 0 := RatFunc.algebraMap_ne_zero S.hs
+  have hlead : S.qRat.leadingCoeff = S.sRat ^ 9 := by
+    rw [leadingCoeff, S.qRat_natDegree, S.qRat_coeff, S.hq9]
+    simp [sRat]
+  rw [hlead]
+  field_simp [hsRat]
+
+/-- The same translation turns the eighth nonic coefficient into the
+base-field constant `-delta/2` supplied by the source Jacobian row. -/
+theorem normalizedQ_coeff_eight
+    {k : Type u} [Field k] [CharZero k]
+    (S : GCD369CubePolynomialSource k) (delta : k)
+    (hdelta : 3 * S.A - 2 * S.B = algebraMap k (RatFunc k) delta) :
+    S.normalizedQ.coeff 8 = algebraMap k (RatFunc k) (-delta / 2) := by
+  have hcoeff : S.normalizedQ.coeff 8 = S.B - 9 * S.translation := by
+    rw [normalizedQ, GCD369CubeSourceTransformCoeff,
+      GCD369CubeHasseEightOfDegreeNine S.qRat S.qRat_natDegree]
+    simp only [eval_add, eval_C, eval_mul, eval_X, S.qRat_coeff]
+    have hsRat : S.sRat ≠ 0 := RatFunc.algebraMap_ne_zero S.hs
+    rw [S.hq9]
+    simp only [map_pow]
+    dsimp only [translation, B]
+    field_simp [hsRat]
+    simp [sRat]
+    ring
+  rw [hcoeff]
+  dsimp only [translation]
+  rw [_root_.map_div₀ (algebraMap k (RatFunc k)),
+    map_neg, map_ofNat]
+  rw [← hdelta]
+  ring
+
+/-- The invertible affine normalization preserves the sextic degree. -/
+theorem normalizedP_natDegree
+    {k : Type u} [Field k] (S : GCD369CubePolynomialSource k) :
+    S.normalizedP.natDegree = 6 := by
+  have hsRat : S.sRat ≠ 0 := RatFunc.algebraMap_ne_zero S.hs
+  unfold normalizedP GCD369CubeSourceTransform
+  let L : (RatFunc k)[X] :=
+    C S.sRat⁻¹ * X + C (-(S.sRat⁻¹ * S.translation))
+  change (S.pRat.comp L).natDegree = 6
+  have hLdegree : L.natDegree = 1 := by
+    exact natDegree_linear (inv_ne_zero hsRat)
+  have hp0 : S.pRat ≠ 0 := by
+    intro hp0
+    have hdegree := congrArg natDegree hp0
+    rw [S.pRat_natDegree, natDegree_zero] at hdegree
+    omega
+  have hL0 : L ≠ 0 := by
+    intro hL0
+    have hdegree := congrArg natDegree hL0
+    rw [hLdegree, natDegree_zero] at hdegree
+    omega
+  rw [natDegree_comp_eq_of_mul_ne_zero]
+  · rw [S.pRat_natDegree, hLdegree]
+  · exact mul_ne_zero (leadingCoeff_ne_zero.mpr hp0)
+      (pow_ne_zero _ (leadingCoeff_ne_zero.mpr hL0))
+
+/-- The same affine normalization preserves the nonic degree. -/
+theorem normalizedQ_natDegree
+    {k : Type u} [Field k] (S : GCD369CubePolynomialSource k) :
+    S.normalizedQ.natDegree = 9 := by
+  have hsRat : S.sRat ≠ 0 := RatFunc.algebraMap_ne_zero S.hs
+  unfold normalizedQ GCD369CubeSourceTransform
+  let L : (RatFunc k)[X] :=
+    C S.sRat⁻¹ * X + C (-(S.sRat⁻¹ * S.translation))
+  change (S.qRat.comp L).natDegree = 9
+  have hLdegree : L.natDegree = 1 := by
+    exact natDegree_linear (inv_ne_zero hsRat)
+  have hq0 : S.qRat ≠ 0 := by
+    intro hq0
+    have hdegree := congrArg natDegree hq0
+    rw [S.qRat_natDegree, natDegree_zero] at hdegree
+    omega
+  have hL0 : L ≠ 0 := by
+    intro hL0
+    have hdegree := congrArg natDegree hL0
+    rw [hLdegree, natDegree_zero] at hdegree
+    omega
+  rw [natDegree_comp_eq_of_mul_ne_zero]
+  · rw [S.qRat_natDegree, hLdegree]
+  · exact mul_ne_zero (leadingCoeff_ne_zero.mpr hq0)
+      (pow_ne_zero _ (leadingCoeff_ne_zero.mpr hL0))
+
+/-- The normalized sextic is literally the depressed sextic determined by
+its five lower coefficients. -/
+theorem normalizedP_eq_depressed
+    {k : Type u} [Field k] [CharZero k]
+    (S : GCD369CubePolynomialSource k) :
+    S.normalizedP = GCD369CubeDepressedSextic
+      (S.normalizedP.coeff 0) (S.normalizedP.coeff 1)
+      (S.normalizedP.coeff 2) (S.normalizedP.coeff 3)
+      (S.normalizedP.coeff 4) := by
+  ext n
+  by_cases hn : n ≤ 6
+  · interval_cases n <;>
+      simp [GCD369CubeDepressedSextic, coeff_monomial,
+        S.normalizedP_coeff_five,
+        S.normalizedP_coeff_six]
+  · have hn6 : 6 < n := by omega
+    have hleft : S.normalizedP.coeff n = 0 := by
+      apply coeff_eq_zero_of_natDegree_lt
+      simpa [S.normalizedP_natDegree]
+    rw [hleft]
+    have hn0 : n ≠ 0 := by omega
+    have hn1 : n ≠ 1 := by omega
+    have hn2 : n ≠ 2 := by omega
+    have hn3 : n ≠ 3 := by omega
+    have hn4 : n ≠ 4 := by omega
+    have hn6' : n ≠ 6 := by omega
+    simp [GCD369CubeDepressedSextic, coeff_monomial, coeff_C, hn0,
+      hn1.symm, hn2.symm, hn3.symm, hn4.symm, hn6'.symm]
+
+/-- The common affine source normalization divides the original scalar
+Jacobian by the cube-root polynomial, with all derivatives of the moving
+scale and translation cancelling by the chain rule. -/
+theorem normalized_jacobian
+    {k : Type u} [Field k] (S : GCD369CubePolynomialSource k) :
+    GCD369CubeRatFuncJacobian S.normalizedP S.normalizedQ =
+      C (algebraMap k (RatFunc k) S.j / S.sRat) := by
+  rw [normalizedP, normalizedQ]
+  simp only [GCD369CubeSourceTransform]
+  rw [GCD369CubeRatFuncJacobian_comp, S.pRat_qRat_jacobian]
+  simp only [derivative_add, derivative_mul, derivative_C, derivative_X,
+    mul_one, zero_mul, add_zero, zero_add, C_comp]
+  rw [← C_mul]
+  have hsRat : S.sRat ≠ 0 := RatFunc.algebraMap_ne_zero S.hs
+  congr 1
+  field_simp [hsRat]
 
 /-- The denominator-cleared source row forced by the original Jacobian. -/
 theorem firstRow
@@ -182,6 +528,10 @@ theorem alignmentConstant
 end GCD369CubePolynomialSource
 
 #print axioms GCD369CubeNextJacobianRow
+#print axioms GCD369CubeRatFuncJacobian_comp
+#print axioms GCD369CubePolynomialSource.pRat_qRat_jacobian
+#print axioms GCD369CubePolynomialSource.normalizedP_eq_depressed
+#print axioms GCD369CubePolynomialSource.normalized_jacobian
 #print axioms GCD369CubePolynomialSource.firstRow
 #print axioms GCD369CubePolynomialSource.alignmentPresentation
 #print axioms GCD369CubePolynomialSource.alignmentDerivative_zero

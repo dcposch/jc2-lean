@@ -102,6 +102,142 @@ theorem GCD369CubeRatFuncDerivative_polynomial
   rw [GCD369CubeRatFuncDerivative_div p 1 one_ne_zero]
   simp
 
+/-- The quotient-rule derivative is additive on the rational function
+field. -/
+theorem GCD369CubeRatFuncDerivative_add
+    {k : Type*} [Field k] (r t : RatFunc k) :
+    GCD369CubeRatFuncDerivative (r + t) =
+      GCD369CubeRatFuncDerivative r + GCD369CubeRatFuncDerivative t := by
+  induction r using RatFunc.induction_on with
+  | f p q hq =>
+    induction t using RatFunc.induction_on with
+    | f p' q' hq' =>
+      have hqmap : algebraMap k[X] (RatFunc k) q ≠ 0 :=
+        RatFunc.algebraMap_ne_zero hq
+      have hqmap' : algebraMap k[X] (RatFunc k) q' ≠ 0 :=
+        RatFunc.algebraMap_ne_zero hq'
+      have hqq' : q * q' ≠ 0 := mul_ne_zero hq hq'
+      rw [show algebraMap k[X] (RatFunc k) p /
+              algebraMap k[X] (RatFunc k) q +
+            algebraMap k[X] (RatFunc k) p' /
+              algebraMap k[X] (RatFunc k) q' =
+            algebraMap k[X] (RatFunc k) (p * q' + p' * q) /
+              algebraMap k[X] (RatFunc k) (q * q') by
+          simp only [map_add, map_mul]
+          field_simp [hqmap, hqmap']]
+      rw [GCD369CubeRatFuncDerivative_div _ _ hqq',
+        GCD369CubeRatFuncDerivative_div p q hq,
+        GCD369CubeRatFuncDerivative_div p' q' hq']
+      simp only [derivative_mul, map_add, map_mul]
+      field_simp [hqmap, hqmap']
+      ring
+
+/-- The quotient-rule derivative satisfies Leibniz's rule. -/
+theorem GCD369CubeRatFuncDerivative_mul
+    {k : Type*} [Field k] (r t : RatFunc k) :
+    GCD369CubeRatFuncDerivative (r * t) =
+      r * GCD369CubeRatFuncDerivative t +
+        t * GCD369CubeRatFuncDerivative r := by
+  induction r using RatFunc.induction_on with
+  | f p q hq =>
+    induction t using RatFunc.induction_on with
+    | f p' q' hq' =>
+      have hqmap : algebraMap k[X] (RatFunc k) q ≠ 0 :=
+        RatFunc.algebraMap_ne_zero hq
+      have hqmap' : algebraMap k[X] (RatFunc k) q' ≠ 0 :=
+        RatFunc.algebraMap_ne_zero hq'
+      have hqq' : q * q' ≠ 0 := mul_ne_zero hq hq'
+      rw [show (algebraMap k[X] (RatFunc k) p /
+              algebraMap k[X] (RatFunc k) q) *
+            (algebraMap k[X] (RatFunc k) p' /
+              algebraMap k[X] (RatFunc k) q') =
+            algebraMap k[X] (RatFunc k) (p * p') /
+              algebraMap k[X] (RatFunc k) (q * q') by
+          simp only [map_mul]
+          field_simp [hqmap, hqmap']]
+      rw [GCD369CubeRatFuncDerivative_div _ _ hqq',
+        GCD369CubeRatFuncDerivative_div p q hq,
+        GCD369CubeRatFuncDerivative_div p' q' hq']
+      simp only [derivative_mul, map_add, map_mul]
+      field_simp [hqmap, hqmap']
+      ring
+
+/-- The quotient-rule derivative is linear over the base field. -/
+theorem GCD369CubeRatFuncDerivative_smul
+    {k : Type*} [Field k] (c : k) (r : RatFunc k) :
+    GCD369CubeRatFuncDerivative (c • r) =
+      c • GCD369CubeRatFuncDerivative r := by
+  simp only [Algebra.smul_def, GCD369CubeRatFuncDerivative_mul,
+    GCD369CubeRatFuncDerivative_C, mul_zero, add_zero]
+
+/-- The quotient rule packaged as the canonical `k`-derivation of `k(x)`. -/
+noncomputable def GCD369CubeRatFuncDerivation
+    {k : Type*} [Field k] : Derivation k (RatFunc k) (RatFunc k) :=
+  Derivation.mk
+    ({
+      toFun := GCD369CubeRatFuncDerivative
+      map_add' := GCD369CubeRatFuncDerivative_add
+      map_smul' := GCD369CubeRatFuncDerivative_smul
+    } : RatFunc k →ₗ[k] RatFunc k)
+    (by simpa using GCD369CubeRatFuncDerivative_C (1 : k))
+    (by
+      intro a b
+      change GCD369CubeRatFuncDerivative (a * b) =
+        a * GCD369CubeRatFuncDerivative b +
+          b * GCD369CubeRatFuncDerivative a
+      exact GCD369CubeRatFuncDerivative_mul a b)
+
+/-- Coefficientwise `x`-derivative of a polynomial over `k(x)`. -/
+noncomputable def GCD369CubeRatFuncCoefficientDerivative
+    {k : Type*} [Field k] (p : (RatFunc k)[X]) : (RatFunc k)[X] :=
+  PolynomialModule.equivPolynomialSelf
+    (GCD369CubeRatFuncDerivation.mapCoeffs p)
+
+@[simp] theorem GCD369CubeRatFuncCoefficientDerivative_coeff
+    {k : Type*} [Field k] (p : (RatFunc k)[X]) (n : ℕ) :
+    (GCD369CubeRatFuncCoefficientDerivative p).coeff n =
+      GCD369CubeRatFuncDerivative (p.coeff n) := by
+  rfl
+
+/-- The coefficientwise derivative itself is the induced derivation on
+polynomials over `k(x)`. -/
+noncomputable def GCD369CubeRatFuncPolynomialDerivation
+    {k : Type*} [Field k] :
+    Derivation k (RatFunc k)[X] (RatFunc k)[X] :=
+  PolynomialModule.equivPolynomialSelf.compDer
+    GCD369CubeRatFuncDerivation.mapCoeffs
+
+@[simp] theorem GCD369CubeRatFuncPolynomialDerivation_apply
+    {k : Type*} [Field k] (p : (RatFunc k)[X]) :
+    GCD369CubeRatFuncPolynomialDerivation p =
+      GCD369CubeRatFuncCoefficientDerivative p := by
+  rfl
+
+/-- Coefficientwise differentiation obeys the full chain rule for
+polynomial composition. -/
+theorem GCD369CubeRatFuncCoefficientDerivative_comp
+    {k : Type*} [Field k] (p L : (RatFunc k)[X]) :
+    GCD369CubeRatFuncCoefficientDerivative (p.comp L) =
+      (GCD369CubeRatFuncCoefficientDerivative p).comp L +
+        (derivative p).comp L *
+          GCD369CubeRatFuncCoefficientDerivative L := by
+  change GCD369CubeRatFuncPolynomialDerivation (p.comp L) =
+    (GCD369CubeRatFuncCoefficientDerivative p).comp L +
+      (derivative p).comp L *
+        GCD369CubeRatFuncCoefficientDerivative L
+  induction p using Polynomial.induction_on' with
+  | add p q hp hq =>
+      rw [add_comp, map_add, hp, hq, derivative_add, add_comp]
+      simp [GCD369CubeRatFuncCoefficientDerivative,
+        GCD369CubeRatFuncDerivation]
+      ring
+  | monomial n a =>
+      rw [monomial_comp, Derivation.leibniz, Derivation.leibniz_pow]
+      simp [GCD369CubeRatFuncPolynomialDerivation,
+        GCD369CubeRatFuncCoefficientDerivative,
+        GCD369CubeRatFuncDerivation, derivative_monomial, monomial_comp]
+      ring
+
 /-- In characteristic zero the constant field of the quotient-rule
 derivative on `k(x)` is exactly `k`. -/
 theorem GCD369CubeRatFuncConstants
@@ -1134,6 +1270,9 @@ end GCD369CubeRatFuncPoleSource
 #print axioms GCD369CubeRatFuncDerivative_zero
 #print axioms GCD369CubeRatFuncDerivative_C
 #print axioms GCD369CubeRatFuncDerivative_polynomial
+#print axioms GCD369CubeRatFuncDerivative_add
+#print axioms GCD369CubeRatFuncDerivative_mul
+#print axioms GCD369CubeRatFuncCoefficientDerivative_comp
 #print axioms GCD369CubeRatFuncConstants
 #print axioms GCD369CubeFaberR5_C
 #print axioms GCD369CubeRatFuncWeightedPresentation
