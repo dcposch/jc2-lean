@@ -1548,9 +1548,6 @@ theorem GCD369CubeBoundaryCancellationOrder
         HahnSeries.single (3 / 2) (a ^ 3 + (3 / 2) * h * a * b) := by
     rw [HahnSeries.single_pow]
     norm_num
-    simp only [HahnSeries.single_mul_single]
-    norm_num
-    rw [HahnSeries.single_add]
   rw [hseries, HahnSeries.order_single hcoefficient]
 
 /-- Local order of the numerator of a reduced rational derivative at a pole
