@@ -850,6 +850,70 @@ theorem GCD369CubeRhoOneTerminalNonzero {K : Type*} [Field K] [CharZero K]
     linear_combination (1 / 1944 * u ^ 2) * h1 + (1 / 1944) * hterminal
   exact (pow_ne_zero 2 hu) hu2
 
+/-- The `v=0`, `u!=0` chart certificate for a first-`rho1` landing. -/
+theorem GCD369CubeRhoOneNoCommonRootOnVZeroChart
+    {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn r Tin u v : K)
+    (h1 : 729 * u * Xn ^ 2 - 1458 * Xn * Zn - 729 * Yn ^ 2 + 1944 = 0)
+    (h2 : -2187 * v * Xn ^ 2 - 4374 * u * Xn * Yn + 4374 * Yn * Zn = 0)
+    (h3 :
+      2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+          2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0)
+    (_h4 :
+      19683 * u * v * Xn ^ 2 + 13122 * u ^ 2 * Xn * Yn -
+          26244 * v * Xn * Zn - 13122 * v * Yn ^ 2 -
+          13122 * u * Yn * Zn = 0)
+    (hK : r ^ 3 + u * r + v = 0)
+    (hphi : Xn * r ^ 2 + Yn * r + Zn = 0)
+    (hv : v = 0) (hchart : Tin * u - 1 = 0) :
+    False := by
+  let C1 : K :=
+    -1 / 1296 * r ^ 2 * Tin ^ 2 * u + 1 / 1296 * r ^ 2 * Tin +
+      1 / 1944 * Tin * u
+  let C2 : K := -1 / 1296 * r ^ 3 * Tin ^ 2 - 1 / 3888 * r * Tin
+  let C3 : K := -9 / 16 * r ^ 2 * Tin ^ 2 - 3 / 16 * Tin
+  let C5 : K :=
+    -27 / 16 * Xn * Yn * r ^ 2 * Tin ^ 2 +
+      27 / 16 * Xn ^ 2 * r * Tin ^ 2 * u -
+      27 / 16 * Yn ^ 2 * r * Tin ^ 2 - 27 / 16 * Xn * Zn * r * Tin ^ 2 -
+      9 / 16 * Xn ^ 2 * r * Tin - 9 / 8 * Xn * Yn * Tin
+  let C6 : K :=
+    27 / 16 * Yn * r ^ 3 * Tin ^ 2 -
+      27 / 16 * Xn * r ^ 2 * Tin ^ 2 * u +
+      27 / 16 * Zn * r ^ 2 * Tin ^ 2 + 9 / 16 * Xn * r ^ 2 * Tin +
+      9 / 16 * Yn * r * Tin + 9 / 16 * Zn * Tin
+  let C7 : K :=
+    -27 / 16 * Xn ^ 2 * r ^ 3 * Tin ^ 2 -
+      27 / 16 * Xn * Yn * r ^ 2 * Tin ^ 2 -
+      27 / 16 * Xn ^ 2 * r * Tin ^ 2 * u +
+      27 / 16 * Yn ^ 2 * r * Tin ^ 2 + 27 / 16 * Xn * Zn * r * Tin ^ 2
+  let C8 : K := 3 / 2 * r ^ 2 * Tin - 1
+  have hone : (1 : K) = 0 := by
+    linear_combination C1 * h1 + C2 * h2 + C3 * h3 + C5 * hK +
+      C6 * hphi + C7 * hv + C8 * hchart
+  exact one_ne_zero hone
+
+/-- At every projective first-`rho1` landing, the common cubic and its normal
+have no common field-valued root. -/
+theorem GCD369CubeRhoOneNoCommonRoot {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn u v : K) (hprojective : u ≠ 0 ∨ v ≠ 0)
+    (h1 : 729 * u * Xn ^ 2 - 1458 * Xn * Zn - 729 * Yn ^ 2 + 1944 = 0)
+    (h2 : -2187 * v * Xn ^ 2 - 4374 * u * Xn * Yn + 4374 * Yn * Zn = 0)
+    (h3 :
+      2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+          2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0)
+    (h4 :
+      19683 * u * v * Xn ^ 2 + 13122 * u ^ 2 * Xn * Yn -
+          26244 * v * Xn * Zn - 13122 * v * Yn ^ 2 -
+          13122 * u * Yn * Zn = 0) :
+    ∀ r : K, r ^ 3 + u * r + v = 0 →
+      Xn * r ^ 2 + Yn * r + Zn = 0 → False := by
+  have hv : v = 0 := GCD369CubeRhoOneSupport Xn Yn Zn u v h1 h2 h3 h4
+  have hu : u ≠ 0 := hprojective.resolve_right (fun h => h hv)
+  intro r hK hphi
+  exact GCD369CubeRhoOneNoCommonRootOnVZeroChart
+    Xn Yn Zn r u⁻¹ u v h1 h2 h3 h4 hK hphi hv (by simp [hu])
+
 /-- With all high constants zero, a first `rho2` load forces `u = 0`. -/
 theorem GCD369CubeRhoTwoSupport {K : Type*} [Field K] [CharZero K]
     (Xn Yn Zn u v : K)
@@ -892,6 +956,66 @@ theorem GCD369CubeRhoTwoTerminalNonzero {K : Type*} [Field K] [CharZero K]
   have hv0 : v = 0 := by
     linear_combination (-1 / 5832 * v) * h2 + (-1 / 5832) * hterminal
   exact hv hv0
+
+/-- The `u=0`, `v!=0` chart certificate for a first-`rho2` landing. -/
+theorem GCD369CubeRhoTwoNoCommonRootOnUZeroChart
+    {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn r Tin u v : K)
+    (h1 : 729 * u * Xn ^ 2 - 1458 * Xn * Zn - 729 * Yn ^ 2 = 0)
+    (h2 :
+      -2187 * v * Xn ^ 2 - 4374 * u * Xn * Yn + 4374 * Yn * Zn - 5832 = 0)
+    (h3 :
+      2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+          2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0)
+    (_h4 :
+      19683 * u * v * Xn ^ 2 + 13122 * u ^ 2 * Xn * Yn -
+          26244 * v * Xn * Zn - 13122 * v * Yn ^ 2 -
+          13122 * u * Yn * Zn = 0)
+    (hK : r ^ 3 + u * r + v = 0)
+    (hphi : Xn * r ^ 2 + Yn * r + Zn = 0)
+    (hu : u = 0) (hchart : Tin * v - 1 = 0) :
+    False := by
+  let C1 : K := 1 / 1944 * r * Tin * v
+  let C2 : K := 1 / 2916 * r ^ 3 * Tin + 1 / 5832 * Tin * v
+  let C3 : K := 1 / 8 * r ^ 2 * Tin
+  let C5 : K :=
+    3 / 8 * Xn * Zn * r * Tin + 3 / 8 * Xn ^ 2 * Tin * v -
+      9 / 8 * Yn * Zn * Tin + 2 * Tin
+  let C6 : K :=
+    -3 / 8 * Zn * r ^ 2 * Tin + 3 / 8 * Xn * r * Tin * v +
+      3 / 8 * Yn * Tin * v
+  let C7 : K :=
+    3 / 2 * Xn * Yn * r ^ 3 * Tin - 1 / 4 * Xn ^ 2 * r ^ 2 * Tin * u +
+      1 / 4 * Yn ^ 2 * r ^ 2 * Tin + 1 / 8 * Xn * Zn * r ^ 2 * Tin -
+      3 / 4 * Xn ^ 2 * r * Tin * v + 9 / 8 * Yn * Zn * r * Tin +
+      3 / 4 * Xn * Yn * Tin * v - 2 * r * Tin
+  let C8 : K := -1
+  have hone : (1 : K) = 0 := by
+    linear_combination C1 * h1 + C2 * h2 + C3 * h3 + C5 * hK +
+      C6 * hphi + C7 * hu + C8 * hchart
+  exact one_ne_zero hone
+
+/-- At every projective first-`rho2` landing, the common cubic and its normal
+have no common field-valued root. -/
+theorem GCD369CubeRhoTwoNoCommonRoot {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn u v : K) (hprojective : u ≠ 0 ∨ v ≠ 0)
+    (h1 : 729 * u * Xn ^ 2 - 1458 * Xn * Zn - 729 * Yn ^ 2 = 0)
+    (h2 :
+      -2187 * v * Xn ^ 2 - 4374 * u * Xn * Yn + 4374 * Yn * Zn - 5832 = 0)
+    (h3 :
+      2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+          2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0)
+    (h4 :
+      19683 * u * v * Xn ^ 2 + 13122 * u ^ 2 * Xn * Yn -
+          26244 * v * Xn * Zn - 13122 * v * Yn ^ 2 -
+          13122 * u * Yn * Zn = 0) :
+    ∀ r : K, r ^ 3 + u * r + v = 0 →
+      Xn * r ^ 2 + Yn * r + Zn = 0 → False := by
+  have hu : u = 0 := GCD369CubeRhoTwoSupport Xn Yn Zn u v h1 h2 h3 h4
+  have hv : v ≠ 0 := hprojective.resolve_left (fun h => h hu)
+  intro r hK hphi
+  exact GCD369CubeRhoTwoNoCommonRootOnUZeroChart
+    Xn Yn Zn r v⁻¹ u v h1 h2 h3 h4 hK hphi hu (by simp [hv])
 
 /-- A first `rho4` load has no common quadratic landing.  The displayed
 contradiction is the exact unit-ideal certificate from the Kuranishi replay. -/
@@ -1949,8 +2073,12 @@ theorem GCD369CubeDSMonomialExponent {K : Type*}
 #print axioms GCD369CubeC1NoCommonRoot
 #print axioms GCD369CubeRhoOneSupport
 #print axioms GCD369CubeRhoOneTerminalNonzero
+#print axioms GCD369CubeRhoOneNoCommonRootOnVZeroChart
+#print axioms GCD369CubeRhoOneNoCommonRoot
 #print axioms GCD369CubeRhoTwoSupport
 #print axioms GCD369CubeRhoTwoTerminalNonzero
+#print axioms GCD369CubeRhoTwoNoCommonRootOnUZeroChart
+#print axioms GCD369CubeRhoTwoNoCommonRoot
 #print axioms GCD369CubeRhoFourFirstLoadImpossible
 #print axioms GCD369CubeTerminalOnlyQuadraticImpossible
 #print axioms GCD369CubeConstantPoleDegreeAudit
