@@ -293,6 +293,40 @@ theorem constantCoeff_shift_ne_zero
   rw [constantCoeff_shift]
   exact HahnSeries.coeff_orderTop_ne horder
 
+/-- Regular Hahn series have no coefficients at negative exponents. -/
+theorem coeff_eq_zero_of_neg
+    {k : Type*} [Field k] (x : GCD369CubeHahnRegular k)
+    {e : ℚ} (he : e < 0) : x.1.coeff e = 0 := by
+  apply HahnSeries.coeff_eq_zero_of_lt_orderTop
+  exact (WithTop.coe_lt_coe.mpr he).trans_le x.2
+
+/-- At the exact exponent of a positive monomial power, multiplication by a
+regular series exposes that series' residue. -/
+theorem coeff_monomial_pow_mul_at
+    {k : Type*} [Field k] (delta : ℚ) (hdelta : 0 < delta) (n : ℕ)
+    (x : GCD369CubeHahnRegular k) :
+    ((monomial delta hdelta.le) ^ n * x).1.coeff ((n : ℚ) * delta) =
+      GCD369CubeHahnRegular.constantCoeff x := by
+  change ((HahnSeries.single delta (1 : k)) ^ n * x.1).coeff
+      ((n : ℚ) * delta) = x.1.coeff 0
+  rw [HahnSeries.single_pow, HahnSeries.coeff_single_mul]
+  simp [nsmul_eq_mul]
+
+/-- A higher positive monomial power contributes nothing at the exponent of
+a lower power when its remaining factor is regular. -/
+theorem coeff_monomial_pow_mul_of_lt
+    {k : Type*} [Field k] (delta : ℚ) (hdelta : 0 < delta)
+    (m n : ℕ) (hmn : m < n) (x : GCD369CubeHahnRegular k) :
+    ((monomial delta hdelta.le) ^ n * x).1.coeff ((m : ℚ) * delta) = 0 := by
+  change ((HahnSeries.single delta (1 : k)) ^ n * x.1).coeff
+      ((m : ℚ) * delta) = 0
+  rw [HahnSeries.single_pow, HahnSeries.coeff_single_mul]
+  simp only [one_pow, one_mul]
+  apply coeff_eq_zero_of_neg x
+  rw [nsmul_eq_mul]
+  have hcast : (m : ℚ) < n := by exact_mod_cast hmn
+  nlinarith
+
 end GCD369CubeHahnRegular
 
 /-- A scaled original-value packet together with its certified nonzero
@@ -756,6 +790,9 @@ end GCD369CubePolynomialSource
 #print axioms GCD369CubeHahnRegular.monomial_mul_shift
 #print axioms GCD369CubeHahnRegular.constantCoeff_shift
 #print axioms GCD369CubeHahnRegular.constantCoeff_shift_ne_zero
+#print axioms GCD369CubeHahnRegular.coeff_eq_zero_of_neg
+#print axioms GCD369CubeHahnRegular.coeff_monomial_pow_mul_at
+#print axioms GCD369CubeHahnRegular.coeff_monomial_pow_mul_of_lt
 #print axioms GCD369CubeHahnCommonValueData.normal_constantCoeff_zero
 #print axioms GCD369CubeHahnCommonValueData.transverseScale
 #print axioms GCD369CubeHahnCommonValueData.TransverseScale.faberNineExpansion
