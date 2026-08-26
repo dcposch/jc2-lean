@@ -478,6 +478,110 @@ theorem GCD369CubeFaberC4Numerators {K : Type*} [Field K] [CharZero K]
       GCD369CubeFaberN4]
     ring
 
+/-! ### Integral numerators on the first `c2` and `c1` loads -/
+
+/-- Denominator-cleared first Faber invariant on the `c2` load. -/
+def GCD369CubeFaberC2N1 {K : Type*} [CommRing K]
+    (a0 a1 a2 a3 a4 c2 : K) : K :=
+  729 * GCD369CubeFaberN1 a0 a1 a2 a3 a4 + c2 * (20736 * a3)
+
+/-- Denominator-cleared second Faber invariant on the `c2` load. -/
+def GCD369CubeFaberC2N2 {K : Type*} [CommRing K]
+    (a0 a1 a2 a3 a4 c2 : K) : K :=
+  2187 * GCD369CubeFaberN2 a0 a1 a2 a3 a4 + c2 *
+    (62208 * a2 - 20736 * a4 ^ 2)
+
+/-- Denominator-cleared third Faber invariant on the `c2` load. -/
+def GCD369CubeFaberC2N3 {K : Type*} [CommRing K]
+    (a0 a1 a2 a3 a4 c2 : K) : K :=
+  243 * GCD369CubeFaberN3 a0 a1 a2 a3 a4 + c2 *
+    (82944 * a1 - 41472 * a3 * a4)
+
+/-- Denominator-cleared fourth Faber invariant on the `c2` load. -/
+def GCD369CubeFaberC2N4 {K : Type*} [CommRing K]
+    (a0 a1 a2 a3 a4 c2 : K) : K :=
+  6561 * GCD369CubeFaberN4 a0 a1 a2 a3 a4 + c2 *
+    (559872 * a0 - 186624 * a2 * a4 - 93312 * a3 ^ 2 +
+      41472 * a4 ^ 3)
+
+/-- The specialized integral `c2` numerators clear the original Faber
+denominators. -/
+theorem GCD369CubeFaberC2Numerators {K : Type*} [Field K] [CharZero K]
+    (a0 a1 a2 a3 a4 c2 : K) :
+    62208 * GCD369CubeFaberR1 a0 a1 a2 a3 a4 0 0 0 0 0 c2 0 =
+        GCD369CubeFaberC2N1 a0 a1 a2 a3 a4 c2 ∧
+    186624 * GCD369CubeFaberR2 a0 a1 a2 a3 a4 0 0 0 0 0 c2 0 =
+        GCD369CubeFaberC2N2 a0 a1 a2 a3 a4 c2 ∧
+    248832 * GCD369CubeFaberR3 a0 a1 a2 a3 a4 0 0 0 0 0 c2 0 =
+        GCD369CubeFaberC2N3 a0 a1 a2 a3 a4 c2 ∧
+    1679616 * GCD369CubeFaberR4 a0 a1 a2 a3 a4 0 0 0 0 0 c2 0 =
+        GCD369CubeFaberC2N4 a0 a1 a2 a3 a4 c2 := by
+  constructor
+  · norm_num [GCD369CubeFaberR1, GCD369CubeFaberC2N1,
+      GCD369CubeFaberN1]
+    ring
+  constructor
+  · norm_num [GCD369CubeFaberR2, GCD369CubeFaberC2N2,
+      GCD369CubeFaberN2]
+    ring
+  constructor
+  · norm_num [GCD369CubeFaberR3, GCD369CubeFaberC2N3,
+      GCD369CubeFaberN3]
+    ring
+  · norm_num [GCD369CubeFaberR4, GCD369CubeFaberC2N4,
+      GCD369CubeFaberN4]
+    ring
+
+/-- Denominator-cleared first Faber invariant on the `c1` load. -/
+def GCD369CubeFaberC1N1 {K : Type*} [CommRing K]
+    (a0 a1 a2 a3 a4 c1 : K) : K :=
+  729 * GCD369CubeFaberN1 a0 a1 a2 a3 a4 + c1 * (10368 * a4)
+
+/-- Denominator-cleared second Faber invariant on the `c1` load. -/
+def GCD369CubeFaberC1N2 {K : Type*} [CommRing K]
+    (a0 a1 a2 a3 a4 c1 : K) : K :=
+  2187 * GCD369CubeFaberN2 a0 a1 a2 a3 a4 + c1 * (31104 * a3)
+
+/-- Denominator-cleared third Faber invariant on the `c1` load. -/
+def GCD369CubeFaberC1N3 {K : Type*} [CommRing K]
+    (a0 a1 a2 a3 a4 c1 : K) : K :=
+  243 * GCD369CubeFaberN3 a0 a1 a2 a3 a4 + c1 *
+    (41472 * a2 - 10368 * a4 ^ 2)
+
+/-- Denominator-cleared fourth Faber invariant on the `c1` load. -/
+def GCD369CubeFaberC1N4 {K : Type*} [CommRing K]
+    (a0 a1 a2 a3 a4 c1 : K) : K :=
+  6561 * GCD369CubeFaberN4 a0 a1 a2 a3 a4 + c1 *
+    (279936 * a1 - 93312 * a3 * a4)
+
+/-- The specialized integral `c1` numerators clear the original Faber
+denominators. -/
+theorem GCD369CubeFaberC1Numerators {K : Type*} [Field K] [CharZero K]
+    (a0 a1 a2 a3 a4 c1 : K) :
+    62208 * GCD369CubeFaberR1 a0 a1 a2 a3 a4 0 0 0 0 0 0 c1 =
+        GCD369CubeFaberC1N1 a0 a1 a2 a3 a4 c1 ∧
+    186624 * GCD369CubeFaberR2 a0 a1 a2 a3 a4 0 0 0 0 0 0 c1 =
+        GCD369CubeFaberC1N2 a0 a1 a2 a3 a4 c1 ∧
+    248832 * GCD369CubeFaberR3 a0 a1 a2 a3 a4 0 0 0 0 0 0 c1 =
+        GCD369CubeFaberC1N3 a0 a1 a2 a3 a4 c1 ∧
+    1679616 * GCD369CubeFaberR4 a0 a1 a2 a3 a4 0 0 0 0 0 0 c1 =
+        GCD369CubeFaberC1N4 a0 a1 a2 a3 a4 c1 := by
+  constructor
+  · norm_num [GCD369CubeFaberR1, GCD369CubeFaberC1N1,
+      GCD369CubeFaberN1]
+    ring
+  constructor
+  · norm_num [GCD369CubeFaberR2, GCD369CubeFaberC1N2,
+      GCD369CubeFaberN2]
+    ring
+  constructor
+  · norm_num [GCD369CubeFaberR3, GCD369CubeFaberC1N3,
+      GCD369CubeFaberN3]
+    ring
+  · norm_num [GCD369CubeFaberR4, GCD369CubeFaberC1N4,
+      GCD369CubeFaberN4]
+    ring
+
 /-! ### Exact common-normal expansion -/
 
 /-- First universal Kuranishi row on the common-cubic normal cone. -/
@@ -980,6 +1084,191 @@ def GCD369CubeC4LeadingFaberRows {K : Type*} [Field K]
   (GCD369CubeFaberC4N2 A0 A1 A2 A3 A4 (H ^ 2)).coeff 2 = 0 ∧
   (GCD369CubeFaberC4N3 A0 A1 A2 A3 A4 (H ^ 2)).coeff 2 = 0 ∧
   (GCD369CubeFaberC4N4 A0 A1 A2 A3 A4 (H ^ 2)).coeff 2 = 0
+
+/-- Exact common-normal expansion with `c2 = T h^2`. -/
+theorem GCD369CubeFaberC2NormalExpansion {K : Type*}
+    [Field K] [CharZero K] (Xn Yn Zn u v T : K) :
+    let H : K[X] := X
+    let A0 : K[X] := C (v ^ 2) + C Zn * H
+    let A1 : K[X] := C (2 * u * v) + C Yn * H
+    let A2 : K[X] := C (u ^ 2) + C Xn * H
+    let A3 : K[X] := C (2 * v)
+    let A4 : K[X] := C (2 * u)
+    ∃ Q1 Q2 Q3 Q4 : K[X],
+      GCD369CubeFaberC2N1 A0 A1 A2 A3 A4 (C T * H ^ 2) =
+          C (-2592 * (-16 * T * v + 9 * u * Xn ^ 2 -
+            18 * Xn * Zn - 9 * Yn ^ 2)) * H ^ 2 + H ^ 3 * Q1 ∧
+      GCD369CubeFaberC2N2 A0 A1 A2 A3 A4 (C T * H ^ 2) =
+          C (-2592 * (8 * T * u ^ 2 + 27 * v * Xn ^ 2 +
+            54 * u * Xn * Yn - 54 * Yn * Zn)) * H ^ 2 + H ^ 3 * Q2 ∧
+      GCD369CubeFaberC2N3 A0 A1 A2 A3 A4 (C T * H ^ 2) =
+          C (31104 * GCD369CubeNormalRow3 Xn Yn Zn u v) * H ^ 2 + H ^ 3 * Q3 ∧
+      GCD369CubeFaberC2N4 A0 A1 A2 A3 A4 (C T * H ^ 2) =
+          C (-2592 * (16 * T * u ^ 3 - 72 * T * v ^ 2 -
+            243 * u * v * Xn ^ 2 - 162 * u ^ 2 * Xn * Yn +
+            324 * v * Xn * Zn + 162 * v * Yn ^ 2 +
+            162 * u * Yn * Zn)) * H ^ 2 + H ^ 3 * Q4 := by
+  dsimp
+  refine ⟨0, C (62208 * T * Xn),
+    C (82944 * T * Yn - 15552 * Xn ^ 3),
+    C (T * (559872 * Zn - 373248 * u * Xn) - 314928 * Yn * Xn ^ 2), ?_⟩
+  simp only [GCD369CubeFaberC2N1, GCD369CubeFaberC2N2,
+    GCD369CubeFaberC2N3, GCD369CubeFaberC2N4,
+    GCD369CubeFaberN1, GCD369CubeFaberN2,
+    GCD369CubeFaberN3, GCD369CubeFaberN4,
+    GCD369CubeNormalRow3,
+    C_add, C_mul, C_pow, C_neg, C_sub, C_ofNat, C_zero]
+  constructor
+  · ring
+  constructor
+  · ring
+  constructor <;> ring
+
+/-- Coefficient form of `GCD369CubeFaberC2NormalExpansion`. -/
+theorem GCD369CubeFaberC2NormalCoefficients {K : Type*}
+    [Field K] [CharZero K] (Xn Yn Zn u v T : K) :
+    let H : K[X] := X
+    let A0 : K[X] := C (v ^ 2) + C Zn * H
+    let A1 : K[X] := C (2 * u * v) + C Yn * H
+    let A2 : K[X] := C (u ^ 2) + C Xn * H
+    let A3 : K[X] := C (2 * v)
+    let A4 : K[X] := C (2 * u)
+    (GCD369CubeFaberC2N1 A0 A1 A2 A3 A4 (C T * H ^ 2)).coeff 2 =
+        -2592 * (-16 * T * v + 9 * u * Xn ^ 2 -
+          18 * Xn * Zn - 9 * Yn ^ 2) ∧
+    (GCD369CubeFaberC2N2 A0 A1 A2 A3 A4 (C T * H ^ 2)).coeff 2 =
+        -2592 * (8 * T * u ^ 2 + 27 * v * Xn ^ 2 +
+          54 * u * Xn * Yn - 54 * Yn * Zn) ∧
+    (GCD369CubeFaberC2N3 A0 A1 A2 A3 A4 (C T * H ^ 2)).coeff 2 =
+        31104 * GCD369CubeNormalRow3 Xn Yn Zn u v ∧
+    (GCD369CubeFaberC2N4 A0 A1 A2 A3 A4 (C T * H ^ 2)).coeff 2 =
+        -2592 * (16 * T * u ^ 3 - 72 * T * v ^ 2 -
+          243 * u * v * Xn ^ 2 - 162 * u ^ 2 * Xn * Yn +
+          324 * v * Xn * Zn + 162 * v * Yn ^ 2 +
+          162 * u * Yn * Zn) := by
+  dsimp
+  obtain ⟨Q1, Q2, Q3, Q4, h1, h2, h3, h4⟩ :=
+    GCD369CubeFaberC2NormalExpansion Xn Yn Zn u v T
+  constructor
+  · rw [h1]
+    simp only [coeff_add, coeff_C_mul_X_pow, coeff_X_pow_mul']
+    norm_num
+  constructor
+  · rw [h2]
+    simp only [coeff_add, coeff_C_mul_X_pow, coeff_X_pow_mul']
+    norm_num
+  constructor
+  · rw [h3]
+    simp only [coeff_add, coeff_C_mul_X_pow, coeff_X_pow_mul']
+    norm_num
+  · rw [h4]
+    simp only [coeff_add, coeff_C_mul_X_pow, coeff_X_pow_mul']
+    norm_num
+
+/-- Source-facing normalized `c2` load. -/
+def GCD369CubeC2LeadingFaberRows {K : Type*} [Field K]
+    (Xn Yn Zn u v : K) : Prop :=
+  let H : K[X] := X
+  let A0 : K[X] := C (v ^ 2) + C Zn * H
+  let A1 : K[X] := C (2 * u * v) + C Yn * H
+  let A2 : K[X] := C (u ^ 2) + C Xn * H
+  let A3 : K[X] := C (2 * v)
+  let A4 : K[X] := C (2 * u)
+  (GCD369CubeFaberC2N1 A0 A1 A2 A3 A4 (H ^ 2)).coeff 2 = 0 ∧
+  (GCD369CubeFaberC2N2 A0 A1 A2 A3 A4 (H ^ 2)).coeff 2 = 0 ∧
+  (GCD369CubeFaberC2N3 A0 A1 A2 A3 A4 (H ^ 2)).coeff 2 = 0 ∧
+  (GCD369CubeFaberC2N4 A0 A1 A2 A3 A4 (H ^ 2)).coeff 2 = 0
+
+/-- Exact common-normal expansion with `c1 = T h^2`. -/
+theorem GCD369CubeFaberC1NormalExpansion {K : Type*}
+    [Field K] [CharZero K] (Xn Yn Zn u v T : K) :
+    let H : K[X] := X
+    let A0 : K[X] := C (v ^ 2) + C Zn * H
+    let A1 : K[X] := C (2 * u * v) + C Yn * H
+    let A2 : K[X] := C (u ^ 2) + C Xn * H
+    let A3 : K[X] := C (2 * v)
+    let A4 : K[X] := C (2 * u)
+    ∃ Q1 Q2 Q3 Q4 : K[X],
+      GCD369CubeFaberC1N1 A0 A1 A2 A3 A4 (C T * H ^ 2) =
+          C (2592 * (8 * T * u - 9 * u * Xn ^ 2 +
+            18 * Xn * Zn + 9 * Yn ^ 2)) * H ^ 2 + H ^ 3 * Q1 ∧
+      GCD369CubeFaberC1N2 A0 A1 A2 A3 A4 (C T * H ^ 2) =
+          C (-7776 * (-8 * T * v + 9 * v * Xn ^ 2 +
+            18 * u * Xn * Yn - 18 * Yn * Zn)) * H ^ 2 + H ^ 3 * Q2 ∧
+      GCD369CubeFaberC1N3 A0 A1 A2 A3 A4 (C T * H ^ 2) =
+          C (31104 * GCD369CubeNormalRow3 Xn Yn Zn u v) * H ^ 2 + H ^ 3 * Q3 ∧
+      GCD369CubeFaberC1N4 A0 A1 A2 A3 A4 (C T * H ^ 2) =
+          C (23328 * (8 * T * u * v + 27 * u * v * Xn ^ 2 +
+            18 * u ^ 2 * Xn * Yn - 36 * v * Xn * Zn -
+            18 * v * Yn ^ 2 - 18 * u * Yn * Zn)) * H ^ 2 + H ^ 3 * Q4 := by
+  dsimp
+  refine ⟨0, 0, C (41472 * T * Xn - 15552 * Xn ^ 3),
+    C (279936 * T * Yn - 314928 * Yn * Xn ^ 2), ?_⟩
+  simp only [GCD369CubeFaberC1N1, GCD369CubeFaberC1N2,
+    GCD369CubeFaberC1N3, GCD369CubeFaberC1N4,
+    GCD369CubeFaberN1, GCD369CubeFaberN2,
+    GCD369CubeFaberN3, GCD369CubeFaberN4,
+    GCD369CubeNormalRow3,
+    C_add, C_mul, C_pow, C_neg, C_sub, C_ofNat, C_zero]
+  constructor
+  · ring
+  constructor
+  · ring
+  constructor <;> ring
+
+/-- Coefficient form of `GCD369CubeFaberC1NormalExpansion`. -/
+theorem GCD369CubeFaberC1NormalCoefficients {K : Type*}
+    [Field K] [CharZero K] (Xn Yn Zn u v T : K) :
+    let H : K[X] := X
+    let A0 : K[X] := C (v ^ 2) + C Zn * H
+    let A1 : K[X] := C (2 * u * v) + C Yn * H
+    let A2 : K[X] := C (u ^ 2) + C Xn * H
+    let A3 : K[X] := C (2 * v)
+    let A4 : K[X] := C (2 * u)
+    (GCD369CubeFaberC1N1 A0 A1 A2 A3 A4 (C T * H ^ 2)).coeff 2 =
+        2592 * (8 * T * u - 9 * u * Xn ^ 2 +
+          18 * Xn * Zn + 9 * Yn ^ 2) ∧
+    (GCD369CubeFaberC1N2 A0 A1 A2 A3 A4 (C T * H ^ 2)).coeff 2 =
+        -7776 * (-8 * T * v + 9 * v * Xn ^ 2 +
+          18 * u * Xn * Yn - 18 * Yn * Zn) ∧
+    (GCD369CubeFaberC1N3 A0 A1 A2 A3 A4 (C T * H ^ 2)).coeff 2 =
+        31104 * GCD369CubeNormalRow3 Xn Yn Zn u v ∧
+    (GCD369CubeFaberC1N4 A0 A1 A2 A3 A4 (C T * H ^ 2)).coeff 2 =
+        23328 * (8 * T * u * v + 27 * u * v * Xn ^ 2 +
+          18 * u ^ 2 * Xn * Yn - 36 * v * Xn * Zn -
+          18 * v * Yn ^ 2 - 18 * u * Yn * Zn) := by
+  dsimp
+  obtain ⟨Q1, Q2, Q3, Q4, h1, h2, h3, h4⟩ :=
+    GCD369CubeFaberC1NormalExpansion Xn Yn Zn u v T
+  constructor
+  · rw [h1]
+    simp only [coeff_add, coeff_C_mul_X_pow, coeff_X_pow_mul']
+    norm_num
+  constructor
+  · rw [h2]
+    simp only [coeff_add, coeff_C_mul_X_pow, coeff_X_pow_mul']
+    norm_num
+  constructor
+  · rw [h3]
+    simp only [coeff_add, coeff_C_mul_X_pow, coeff_X_pow_mul']
+    norm_num
+  · rw [h4]
+    simp only [coeff_add, coeff_C_mul_X_pow, coeff_X_pow_mul']
+    norm_num
+
+/-- Source-facing normalized `c1` load. -/
+def GCD369CubeC1LeadingFaberRows {K : Type*} [Field K]
+    (Xn Yn Zn u v : K) : Prop :=
+  let H : K[X] := X
+  let A0 : K[X] := C (v ^ 2) + C Zn * H
+  let A1 : K[X] := C (2 * u * v) + C Yn * H
+  let A2 : K[X] := C (u ^ 2) + C Xn * H
+  let A3 : K[X] := C (2 * v)
+  let A4 : K[X] := C (2 * u)
+  (GCD369CubeFaberC1N1 A0 A1 A2 A3 A4 (H ^ 2)).coeff 2 = 0 ∧
+  (GCD369CubeFaberC1N2 A0 A1 A2 A3 A4 (H ^ 2)).coeff 2 = 0 ∧
+  (GCD369CubeFaberC1N3 A0 A1 A2 A3 A4 (H ^ 2)).coeff 2 = 0 ∧
+  (GCD369CubeFaberC1N4 A0 A1 A2 A3 A4 (H ^ 2)).coeff 2 = 0
 
 /-- Vanishing of the first four zero-high-constant Faber invariants is
 equivalent, in the direction needed below, to vanishing of their primitive
@@ -3230,6 +3519,43 @@ def GCD369CubeC2Rows {K : Type*} [Field K]
       162 * u ^ 2 * Xn * Yn + 324 * v * Xn * Zn +
       162 * v * Yn ^ 2 + 162 * u * Yn * Zn = 0
 
+/-- The normalized `c2` rows are forced by the exact Faber coefficients. -/
+theorem GCD369CubeC2Rows_of_faber
+    {K : Type*} [Field K] [CharZero K]
+    {Xn Yn Zn u v : K} (hprojective : u ≠ 0 ∨ v ≠ 0)
+    (hfaber : GCD369CubeC2LeadingFaberRows Xn Yn Zn u v) :
+    GCD369CubeC2Rows Xn Yn Zn u v := by
+  dsimp [GCD369CubeC2LeadingFaberRows] at hfaber
+  have hcoeff := GCD369CubeFaberC2NormalCoefficients Xn Yn Zn u v 1
+  dsimp at hcoeff
+  simp only [C_1, one_mul, mul_one] at hcoeff
+  rcases hfaber with ⟨hf1, hf2, hf3, hf4⟩
+  rcases hcoeff with ⟨hc1, hc2, hc3, hc4⟩
+  rw [hc1] at hf1
+  rw [hc2] at hf2
+  rw [hc3] at hf3
+  rw [hc4] at hf4
+  have hr1 :
+      -16 * v + 9 * u * Xn ^ 2 - 18 * Xn * Zn - 9 * Yn ^ 2 = 0 := by
+    exact (mul_eq_zero.mp hf1).resolve_left (by norm_num)
+  have hr2 :
+      8 * u ^ 2 + 27 * v * Xn ^ 2 + 54 * u * Xn * Yn -
+          54 * Yn * Zn = 0 := by
+    exact (mul_eq_zero.mp hf2).resolve_left (by norm_num)
+  have hr3 : GCD369CubeNormalRow3 Xn Yn Zn u v = 0 := by
+    exact (mul_eq_zero.mp hf3).resolve_left (by norm_num)
+  have hr4 :
+      16 * u ^ 3 - 72 * v ^ 2 - 243 * u * v * Xn ^ 2 -
+          162 * u ^ 2 * Xn * Yn + 324 * v * Xn * Zn +
+          162 * v * Yn ^ 2 + 162 * u * Yn * Zn = 0 := by
+    exact (mul_eq_zero.mp hf4).resolve_left (by norm_num)
+  rw [GCD369CubeNormalRow3] at hr3
+  refine ⟨hprojective, ?_, ?_, ?_, ?_⟩
+  · linear_combination hr1
+  · linear_combination hr2
+  · linear_combination hr3
+  · linear_combination hr4
+
 /-- The normalized first-`c1` Kuranishi rows. -/
 def GCD369CubeC1Rows {K : Type*} [Field K]
     (Xn Yn Zn u v : K) : Prop :=
@@ -3240,6 +3566,42 @@ def GCD369CubeC1Rows {K : Type*} [Field K]
       2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0 ∧
   8 * u * v + 27 * u * v * Xn ^ 2 + 18 * u ^ 2 * Xn * Yn -
       36 * v * Xn * Zn - 18 * v * Yn ^ 2 - 18 * u * Yn * Zn = 0
+
+/-- The normalized `c1` rows are forced by the exact Faber coefficients. -/
+theorem GCD369CubeC1Rows_of_faber
+    {K : Type*} [Field K] [CharZero K]
+    {Xn Yn Zn u v : K} (hprojective : u ≠ 0 ∨ v ≠ 0)
+    (hfaber : GCD369CubeC1LeadingFaberRows Xn Yn Zn u v) :
+    GCD369CubeC1Rows Xn Yn Zn u v := by
+  dsimp [GCD369CubeC1LeadingFaberRows] at hfaber
+  have hcoeff := GCD369CubeFaberC1NormalCoefficients Xn Yn Zn u v 1
+  dsimp at hcoeff
+  simp only [C_1, one_mul, mul_one] at hcoeff
+  rcases hfaber with ⟨hf1, hf2, hf3, hf4⟩
+  rcases hcoeff with ⟨hc1, hc2, hc3, hc4⟩
+  rw [hc1] at hf1
+  rw [hc2] at hf2
+  rw [hc3] at hf3
+  rw [hc4] at hf4
+  have hr1 :
+      8 * u - 9 * u * Xn ^ 2 + 18 * Xn * Zn + 9 * Yn ^ 2 = 0 := by
+    exact (mul_eq_zero.mp hf1).resolve_left (by norm_num)
+  have hr2 :
+      -8 * v + 9 * v * Xn ^ 2 + 18 * u * Xn * Yn -
+          18 * Yn * Zn = 0 := by
+    exact (mul_eq_zero.mp hf2).resolve_left (by norm_num)
+  have hr3 : GCD369CubeNormalRow3 Xn Yn Zn u v = 0 := by
+    exact (mul_eq_zero.mp hf3).resolve_left (by norm_num)
+  have hr4 :
+      8 * u * v + 27 * u * v * Xn ^ 2 + 18 * u ^ 2 * Xn * Yn -
+          36 * v * Xn * Zn - 18 * v * Yn ^ 2 - 18 * u * Yn * Zn = 0 := by
+    exact (mul_eq_zero.mp hf4).resolve_left (by norm_num)
+  rw [GCD369CubeNormalRow3] at hr3
+  refine ⟨hprojective, ?_, ?_, ?_, ?_⟩
+  · linear_combination hr1
+  · linear_combination hr2
+  · linear_combination hr3
+  · linear_combination hr4
 
 /-- The normalized first-`rho1` Kuranishi rows. -/
 def GCD369CubeRhoOneRows {K : Type*} [Field K]
@@ -4533,6 +4895,14 @@ theorem GCD369CubeTrajectoryLandingEmpty {K : Type*}
 #print axioms GCD369CubeFaberC4NormalExpansion
 #print axioms GCD369CubeFaberC4NormalCoefficients
 #print axioms GCD369CubeC4Rows_of_faber
+#print axioms GCD369CubeFaberC2Numerators
+#print axioms GCD369CubeFaberC2NormalExpansion
+#print axioms GCD369CubeFaberC2NormalCoefficients
+#print axioms GCD369CubeC2Rows_of_faber
+#print axioms GCD369CubeFaberC1Numerators
+#print axioms GCD369CubeFaberC1NormalExpansion
+#print axioms GCD369CubeFaberC1NormalCoefficients
+#print axioms GCD369CubeC1Rows_of_faber
 #print axioms GCD369CubeFaberZeroHighNumerators
 #print axioms GCD369CubeFaberLeadingComponentEquations
 #print axioms GCD369CubeFaberLeadingComponentClassification
