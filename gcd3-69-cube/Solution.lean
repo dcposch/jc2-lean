@@ -1778,8 +1778,16 @@ inequalities appearing in the original-value reconstruction. -/
 structure GCD369CubeEarlyBoundaryData (K : Type*) [Field K] where
   k : ℕ
   q : ℚ
-  a h Xn Yn Zn u v r : K
-  EF EG : HahnSeries ℚ K
+  a : K
+  h : K
+  Xn : K
+  Yn : K
+  Zn : K
+  u : K
+  v : K
+  r : K
+  EF : HahnSeries ℚ K
+  EG : HahnSeries ℚ K
   hk : k ∈ ([1, 2, 4, 5, 7, 8, 10, 11] : List ℕ)
   ha : a ≠ 0
   hh : h ≠ 0
