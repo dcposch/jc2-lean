@@ -91,6 +91,54 @@ def GCD369CubeHahnRegular.constantCoeff
   map_zero' := by simp
   map_add' x y := by simp [HahnSeries.coeff_add]
 
+theorem GCD369CubeHahnRegular.constantCoeff_fullN1
+    {k : Type*} [Field k] (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 :
+      GCD369CubeHahnRegular k) :
+    constantCoeff (GCD369CubeFaberFullN1
+      a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1) =
+    GCD369CubeFaberFullN1
+      (constantCoeff a0) (constantCoeff a1) (constantCoeff a2)
+      (constantCoeff a3) (constantCoeff a4) (constantCoeff d)
+      (constantCoeff c7) (constantCoeff c5) (constantCoeff c4)
+      (constantCoeff c3) (constantCoeff c2) (constantCoeff c1) := by
+  simp only [map_add, map_sub, map_mul, map_pow, map_ofNat]
+
+theorem GCD369CubeHahnRegular.constantCoeff_fullN2
+    {k : Type*} [Field k] (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 :
+      GCD369CubeHahnRegular k) :
+    constantCoeff (GCD369CubeFaberFullN2
+      a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1) =
+    GCD369CubeFaberFullN2
+      (constantCoeff a0) (constantCoeff a1) (constantCoeff a2)
+      (constantCoeff a3) (constantCoeff a4) (constantCoeff d)
+      (constantCoeff c7) (constantCoeff c5) (constantCoeff c4)
+      (constantCoeff c3) (constantCoeff c2) (constantCoeff c1) := by
+  simp only [map_add, map_sub, map_mul, map_pow, map_ofNat]
+
+theorem GCD369CubeHahnRegular.constantCoeff_fullN3
+    {k : Type*} [Field k] (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 :
+      GCD369CubeHahnRegular k) :
+    constantCoeff (GCD369CubeFaberFullN3
+      a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1) =
+    GCD369CubeFaberFullN3
+      (constantCoeff a0) (constantCoeff a1) (constantCoeff a2)
+      (constantCoeff a3) (constantCoeff a4) (constantCoeff d)
+      (constantCoeff c7) (constantCoeff c5) (constantCoeff c4)
+      (constantCoeff c3) (constantCoeff c2) (constantCoeff c1) := by
+  simp only [map_add, map_sub, map_mul, map_pow, map_ofNat]
+
+theorem GCD369CubeHahnRegular.constantCoeff_fullN4
+    {k : Type*} [Field k] (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 :
+      GCD369CubeHahnRegular k) :
+    constantCoeff (GCD369CubeFaberFullN4
+      a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1) =
+    GCD369CubeFaberFullN4
+      (constantCoeff a0) (constantCoeff a1) (constantCoeff a2)
+      (constantCoeff a3) (constantCoeff a4) (constantCoeff d)
+      (constantCoeff c7) (constantCoeff c5) (constantCoeff c4)
+      (constantCoeff c3) (constantCoeff c2) (constantCoeff c1) := by
+  simp only [map_add, map_sub, map_mul, map_pow, map_ofNat]
+
 /-! ## Canonical shape of a weighted pole scale -/
 
 /-- Multiplication by a Hahn monomial of weight `w*p` makes a series regular
@@ -362,6 +410,37 @@ def regular3 {k : Type*} [Field k] (S : GCD369CubeHahnPoleScale k) :
 def regular4 {k : Type*} [Field k] (S : GCD369CubeHahnPoleScale k) :
     GCD369CubeHahnRegular k := ⟨S.scaled4, S.scaled4_regular⟩
 
+/-- Multiplying a regular series by a nonnegative power of the pole
+uniformizer remains regular. -/
+def weightedRegular {k : Type*} [Field k]
+    (S : GCD369CubeHahnPoleScale k) (w : ℕ)
+    (x : GCD369CubeHahnRegular k) : GCD369CubeHahnRegular k := by
+  refine ⟨S.t ^ w * x.1, ?_⟩
+  apply GCD369CubeHahn_scaled_orderTop_nonneg S.p w x.1
+  have hx : (0 : ℚ) ≤ x.1.order :=
+    HahnSeries.zero_le_orderTop_iff.mp x.2
+  have hpw : (0 : ℚ) ≤ (w : ℚ) * S.p :=
+    mul_nonneg (Nat.cast_nonneg w) (le_of_lt S.hp)
+  exact add_nonneg hpw hx
+
+/-- Every positive-weight regular input has zero residue after scaling. -/
+theorem weightedRegular_constantCoeff_zero {k : Type*} [Field k]
+    (S : GCD369CubeHahnPoleScale k) (w : ℕ) (hw : 0 < w)
+    (x : GCD369CubeHahnRegular k) :
+    GCD369CubeHahnRegular.constantCoeff (S.weightedRegular w x) = 0 := by
+  change (S.t ^ w * x.1).coeff 0 = 0
+  rw [GCD369CubeHahn_coeff_zero_mul_of_nonneg]
+  · simp only [t, HahnSeries.single_pow]
+    have hwp : w • S.p ≠ 0 := by
+      simp [ne_of_gt S.hp, Nat.ne_of_gt hw]
+    rw [HahnSeries.coeff_single_of_ne (Ne.symm hwp), zero_mul]
+  · have hpw : (0 : ℚ) ≤ (w : ℚ) * S.p :=
+      mul_nonneg (Nat.cast_nonneg w) (le_of_lt S.hp)
+    simpa [t] using
+      (GCD369CubeHahn_scaled_orderTop_nonneg S.p w
+        (1 : HahnSeries ℚ k) (by simpa using hpw))
+  · exact x.2
+
 /-- At least one weighted leading coefficient is nonzero. -/
 theorem leading_nonzero {k : Type*} [Field k]
     (S : GCD369CubeHahnPoleScale k) :
@@ -459,36 +538,33 @@ theorem leading_N4 {k : Type*} [Field k]
         map_ofNat, map_neg]
     _ = _ := rfl
 
-/-- Four vanishing homogeneous rows at a weighted pole give the exact
-projective source consumed by the leading common-cubic/DS classification. -/
+/-- Vanishing constant coefficients in the four homogeneous rows at a
+weighted pole give the exact projective source consumed by the leading
+common-cubic/DS classification. -/
 noncomputable def leadingFaberSourceOfNumerators
     {k : Type*} [Field k] [CharZero k]
     (S : GCD369CubeHahnPoleScale k)
-    (h1 : GCD369CubeFaberN1
-      S.scaled0 S.scaled1 S.scaled2 S.scaled3 S.scaled4 = 0)
-    (h2 : GCD369CubeFaberN2
-      S.scaled0 S.scaled1 S.scaled2 S.scaled3 S.scaled4 = 0)
-    (h3 : GCD369CubeFaberN3
-      S.scaled0 S.scaled1 S.scaled2 S.scaled3 S.scaled4 = 0)
-    (h4 : GCD369CubeFaberN4
-      S.scaled0 S.scaled1 S.scaled2 S.scaled3 S.scaled4 = 0) :
+    (h1 : (GCD369CubeFaberN1
+      S.scaled0 S.scaled1 S.scaled2 S.scaled3 S.scaled4).coeff 0 = 0)
+    (h2 : (GCD369CubeFaberN2
+      S.scaled0 S.scaled1 S.scaled2 S.scaled3 S.scaled4).coeff 0 = 0)
+    (h3 : (GCD369CubeFaberN3
+      S.scaled0 S.scaled1 S.scaled2 S.scaled3 S.scaled4).coeff 0 = 0)
+    (h4 : (GCD369CubeFaberN4
+      S.scaled0 S.scaled1 S.scaled2 S.scaled3 S.scaled4).coeff 0 = 0) :
     GCD369CubeLeadingFaberSource k := by
   have hn1 : GCD369CubeFaberN1
       S.leading0 S.leading1 S.leading2 S.leading3 S.leading4 = 0 := by
     rw [S.leading_N1, h1]
-    simp
   have hn2 : GCD369CubeFaberN2
       S.leading0 S.leading1 S.leading2 S.leading3 S.leading4 = 0 := by
     rw [S.leading_N2, h2]
-    simp
   have hn3 : GCD369CubeFaberN3
       S.leading0 S.leading1 S.leading2 S.leading3 S.leading4 = 0 := by
     rw [S.leading_N3, h3]
-    simp
   have hn4 : GCD369CubeFaberN4
       S.leading0 S.leading1 S.leading2 S.leading3 S.leading4 = 0 := by
     rw [S.leading_N4, h4]
-    simp
   exact {
     a0 := S.leading0
     a1 := S.leading1
@@ -532,8 +608,419 @@ noncomputable def leadingFaberSourceOfNumerators
 
 end GCD369CubeHahnPoleScale
 
+/-! ## Scaled Faber equations -/
+
+/-- A weighted pole scale together with the four actual Faber invariant
+equations.  Higher target parameters and invariant values are elements of the
+regular local ring; positive scaling therefore kills all of their residues. -/
+structure GCD369CubeHahnFaberPoleData
+    (k : Type*) [Field k] [CharZero k] where
+  scale : GCD369CubeHahnPoleScale k
+  d : GCD369CubeHahnRegular k
+  c7 : GCD369CubeHahnRegular k
+  c5 : GCD369CubeHahnRegular k
+  c4 : GCD369CubeHahnRegular k
+  c3 : GCD369CubeHahnRegular k
+  c2 : GCD369CubeHahnRegular k
+  c1 : GCD369CubeHahnRegular k
+  rho1 : GCD369CubeHahnRegular k
+  rho2 : GCD369CubeHahnRegular k
+  rho3 : GCD369CubeHahnRegular k
+  rho4 : GCD369CubeHahnRegular k
+  hr1 : GCD369CubeFaberR1
+    scale.a0 scale.a1 scale.a2 scale.a3 scale.a4
+      d.1 c7.1 c5.1 c4.1 c3.1 c2.1 c1.1 = rho1.1
+  hr2 : GCD369CubeFaberR2
+    scale.a0 scale.a1 scale.a2 scale.a3 scale.a4
+      d.1 c7.1 c5.1 c4.1 c3.1 c2.1 c1.1 = rho2.1
+  hr3 : GCD369CubeFaberR3
+    scale.a0 scale.a1 scale.a2 scale.a3 scale.a4
+      d.1 c7.1 c5.1 c4.1 c3.1 c2.1 c1.1 = rho3.1
+  hr4 : GCD369CubeFaberR4
+    scale.a0 scale.a1 scale.a2 scale.a3 scale.a4
+      d.1 c7.1 c5.1 c4.1 c3.1 c2.1 c1.1 = rho4.1
+
+namespace GCD369CubeHahnFaberPoleData
+
+set_option maxRecDepth 10000 in
+theorem scaledFullN1
+    {k : Type*} [Field k] [CharZero k]
+    (S : GCD369CubeHahnFaberPoleData k) :
+    GCD369CubeFaberFullN1
+      S.scale.scaled0 S.scale.scaled1 S.scale.scaled2
+      S.scale.scaled3 S.scale.scaled4
+      (S.scale.weightedRegular 1 S.d).1
+      (S.scale.weightedRegular 2 S.c7).1
+      (S.scale.weightedRegular 4 S.c5).1
+      (S.scale.weightedRegular 5 S.c4).1
+      (S.scale.weightedRegular 6 S.c3).1
+      (S.scale.weightedRegular 7 S.c2).1
+      (S.scale.weightedRegular 8 S.c1).1 =
+    62208 * (S.scale.weightedRegular 10 S.rho1).1 := by
+  letI : CharZero (HahnSeries ℚ k) :=
+    charZero_of_injective_algebraMap (R := k)
+      (RingHom.injective (algebraMap k (HahnSeries ℚ k)))
+  have horig := S.hr1
+  rw [GCD369CubeFaberR1] at horig
+  have horigFull : GCD369CubeFaberFullN1
+      S.scale.a0 S.scale.a1 S.scale.a2 S.scale.a3 S.scale.a4
+      S.d.1 S.c7.1 S.c5.1 S.c4.1 S.c3.1 S.c2.1 S.c1.1 =
+        62208 * S.rho1.1 := by
+    linear_combination 62208 * horig
+  calc
+    _ = S.scale.t ^ 10 * GCD369CubeFaberFullN1
+        S.scale.a0 S.scale.a1 S.scale.a2 S.scale.a3 S.scale.a4
+        S.d.1 S.c7.1 S.c5.1 S.c4.1 S.c3.1 S.c2.1 S.c1.1 := by
+      simpa only [GCD369CubeHahnPoleScale.scaled0,
+        GCD369CubeHahnPoleScale.scaled1,
+        GCD369CubeHahnPoleScale.scaled2,
+        GCD369CubeHahnPoleScale.scaled3,
+        GCD369CubeHahnPoleScale.scaled4,
+        GCD369CubeHahnPoleScale.weightedRegular, pow_one] using
+        (GCD369CubeFaberFullNWeights
+        S.scale.t S.scale.a0 S.scale.a1 S.scale.a2 S.scale.a3 S.scale.a4
+          S.d.1 S.c7.1 S.c5.1 S.c4.1 S.c3.1 S.c2.1 S.c1.1).1
+    _ = 62208 * (S.scale.weightedRegular 10 S.rho1).1 := by
+      rw [horigFull]
+      change S.scale.t ^ 10 * (62208 * S.rho1.1) =
+        62208 * (S.scale.t ^ 10 * S.rho1.1)
+      ring
+
+set_option maxRecDepth 10000 in
+theorem scaledFullN2
+    {k : Type*} [Field k] [CharZero k]
+    (S : GCD369CubeHahnFaberPoleData k) :
+    GCD369CubeFaberFullN2
+      S.scale.scaled0 S.scale.scaled1 S.scale.scaled2
+      S.scale.scaled3 S.scale.scaled4
+      (S.scale.weightedRegular 1 S.d).1
+      (S.scale.weightedRegular 2 S.c7).1
+      (S.scale.weightedRegular 4 S.c5).1
+      (S.scale.weightedRegular 5 S.c4).1
+      (S.scale.weightedRegular 6 S.c3).1
+      (S.scale.weightedRegular 7 S.c2).1
+      (S.scale.weightedRegular 8 S.c1).1 =
+    186624 * (S.scale.weightedRegular 11 S.rho2).1 := by
+  letI : CharZero (HahnSeries ℚ k) :=
+    charZero_of_injective_algebraMap (R := k)
+      (RingHom.injective (algebraMap k (HahnSeries ℚ k)))
+  have horig := S.hr2
+  rw [GCD369CubeFaberR2] at horig
+  have horigFull : GCD369CubeFaberFullN2
+      S.scale.a0 S.scale.a1 S.scale.a2 S.scale.a3 S.scale.a4
+      S.d.1 S.c7.1 S.c5.1 S.c4.1 S.c3.1 S.c2.1 S.c1.1 =
+        186624 * S.rho2.1 := by
+    linear_combination 186624 * horig
+  calc
+    _ = S.scale.t ^ 11 * GCD369CubeFaberFullN2
+        S.scale.a0 S.scale.a1 S.scale.a2 S.scale.a3 S.scale.a4
+        S.d.1 S.c7.1 S.c5.1 S.c4.1 S.c3.1 S.c2.1 S.c1.1 := by
+      simpa only [GCD369CubeHahnPoleScale.scaled0,
+        GCD369CubeHahnPoleScale.scaled1,
+        GCD369CubeHahnPoleScale.scaled2,
+        GCD369CubeHahnPoleScale.scaled3,
+        GCD369CubeHahnPoleScale.scaled4,
+        GCD369CubeHahnPoleScale.weightedRegular, pow_one] using
+        (GCD369CubeFaberFullNWeights
+          S.scale.t S.scale.a0 S.scale.a1 S.scale.a2 S.scale.a3 S.scale.a4
+            S.d.1 S.c7.1 S.c5.1 S.c4.1 S.c3.1 S.c2.1 S.c1.1).2.1
+    _ = 186624 * (S.scale.weightedRegular 11 S.rho2).1 := by
+      rw [horigFull]
+      change S.scale.t ^ 11 * (186624 * S.rho2.1) =
+        186624 * (S.scale.t ^ 11 * S.rho2.1)
+      ring
+
+set_option maxRecDepth 10000 in
+theorem scaledFullN3
+    {k : Type*} [Field k] [CharZero k]
+    (S : GCD369CubeHahnFaberPoleData k) :
+    GCD369CubeFaberFullN3
+      S.scale.scaled0 S.scale.scaled1 S.scale.scaled2
+      S.scale.scaled3 S.scale.scaled4
+      (S.scale.weightedRegular 1 S.d).1
+      (S.scale.weightedRegular 2 S.c7).1
+      (S.scale.weightedRegular 4 S.c5).1
+      (S.scale.weightedRegular 5 S.c4).1
+      (S.scale.weightedRegular 6 S.c3).1
+      (S.scale.weightedRegular 7 S.c2).1
+      (S.scale.weightedRegular 8 S.c1).1 =
+    248832 * (S.scale.weightedRegular 12 S.rho3).1 := by
+  letI : CharZero (HahnSeries ℚ k) :=
+    charZero_of_injective_algebraMap (R := k)
+      (RingHom.injective (algebraMap k (HahnSeries ℚ k)))
+  have horig := S.hr3
+  rw [GCD369CubeFaberR3] at horig
+  have horigFull : GCD369CubeFaberFullN3
+      S.scale.a0 S.scale.a1 S.scale.a2 S.scale.a3 S.scale.a4
+      S.d.1 S.c7.1 S.c5.1 S.c4.1 S.c3.1 S.c2.1 S.c1.1 =
+        248832 * S.rho3.1 := by
+    linear_combination 248832 * horig
+  calc
+    _ = S.scale.t ^ 12 * GCD369CubeFaberFullN3
+        S.scale.a0 S.scale.a1 S.scale.a2 S.scale.a3 S.scale.a4
+        S.d.1 S.c7.1 S.c5.1 S.c4.1 S.c3.1 S.c2.1 S.c1.1 := by
+      simpa only [GCD369CubeHahnPoleScale.scaled0,
+        GCD369CubeHahnPoleScale.scaled1,
+        GCD369CubeHahnPoleScale.scaled2,
+        GCD369CubeHahnPoleScale.scaled3,
+        GCD369CubeHahnPoleScale.scaled4,
+        GCD369CubeHahnPoleScale.weightedRegular, pow_one] using
+        (GCD369CubeFaberFullNWeights
+          S.scale.t S.scale.a0 S.scale.a1 S.scale.a2 S.scale.a3 S.scale.a4
+            S.d.1 S.c7.1 S.c5.1 S.c4.1 S.c3.1 S.c2.1 S.c1.1).2.2.1
+    _ = 248832 * (S.scale.weightedRegular 12 S.rho3).1 := by
+      rw [horigFull]
+      change S.scale.t ^ 12 * (248832 * S.rho3.1) =
+        248832 * (S.scale.t ^ 12 * S.rho3.1)
+      ring
+
+set_option maxRecDepth 10000 in
+theorem scaledFullN4
+    {k : Type*} [Field k] [CharZero k]
+    (S : GCD369CubeHahnFaberPoleData k) :
+    GCD369CubeFaberFullN4
+      S.scale.scaled0 S.scale.scaled1 S.scale.scaled2
+      S.scale.scaled3 S.scale.scaled4
+      (S.scale.weightedRegular 1 S.d).1
+      (S.scale.weightedRegular 2 S.c7).1
+      (S.scale.weightedRegular 4 S.c5).1
+      (S.scale.weightedRegular 5 S.c4).1
+      (S.scale.weightedRegular 6 S.c3).1
+      (S.scale.weightedRegular 7 S.c2).1
+      (S.scale.weightedRegular 8 S.c1).1 =
+    1679616 * (S.scale.weightedRegular 13 S.rho4).1 := by
+  letI : CharZero (HahnSeries ℚ k) :=
+    charZero_of_injective_algebraMap (R := k)
+      (RingHom.injective (algebraMap k (HahnSeries ℚ k)))
+  have horig := S.hr4
+  rw [GCD369CubeFaberR4] at horig
+  have horigFull : GCD369CubeFaberFullN4
+      S.scale.a0 S.scale.a1 S.scale.a2 S.scale.a3 S.scale.a4
+      S.d.1 S.c7.1 S.c5.1 S.c4.1 S.c3.1 S.c2.1 S.c1.1 =
+        1679616 * S.rho4.1 := by
+    linear_combination 1679616 * horig
+  calc
+    _ = S.scale.t ^ 13 * GCD369CubeFaberFullN4
+        S.scale.a0 S.scale.a1 S.scale.a2 S.scale.a3 S.scale.a4
+        S.d.1 S.c7.1 S.c5.1 S.c4.1 S.c3.1 S.c2.1 S.c1.1 := by
+      simpa only [GCD369CubeHahnPoleScale.scaled0,
+        GCD369CubeHahnPoleScale.scaled1,
+        GCD369CubeHahnPoleScale.scaled2,
+        GCD369CubeHahnPoleScale.scaled3,
+        GCD369CubeHahnPoleScale.scaled4,
+        GCD369CubeHahnPoleScale.weightedRegular, pow_one] using
+        (GCD369CubeFaberFullNWeights
+          S.scale.t S.scale.a0 S.scale.a1 S.scale.a2 S.scale.a3 S.scale.a4
+            S.d.1 S.c7.1 S.c5.1 S.c4.1 S.c3.1 S.c2.1 S.c1.1).2.2.2
+    _ = 1679616 * (S.scale.weightedRegular 13 S.rho4).1 := by
+      rw [horigFull]
+      change S.scale.t ^ 13 * (1679616 * S.rho4.1) =
+        1679616 * (S.scale.t ^ 13 * S.rho4.1)
+      ring
+
+theorem leadingN1_zero
+    {k : Type*} [Field k] [CharZero k]
+    (S : GCD369CubeHahnFaberPoleData k) :
+    GCD369CubeFaberN1
+      S.scale.leading0 S.scale.leading1 S.scale.leading2
+      S.scale.leading3 S.scale.leading4 = 0 := by
+  have hd := S.scale.weightedRegular_constantCoeff_zero 1 (by norm_num) S.d
+  have hc7 := S.scale.weightedRegular_constantCoeff_zero 2 (by norm_num) S.c7
+  have hc5 := S.scale.weightedRegular_constantCoeff_zero 4 (by norm_num) S.c5
+  have hc4 := S.scale.weightedRegular_constantCoeff_zero 5 (by norm_num) S.c4
+  have hc3 := S.scale.weightedRegular_constantCoeff_zero 6 (by norm_num) S.c3
+  have hc2 := S.scale.weightedRegular_constantCoeff_zero 7 (by norm_num) S.c2
+  have hc1 := S.scale.weightedRegular_constantCoeff_zero 8 (by norm_num) S.c1
+  have hrho :=
+    S.scale.weightedRegular_constantCoeff_zero 10 (by norm_num) S.rho1
+  have hsub :
+      GCD369CubeFaberFullN1
+        S.scale.regular0 S.scale.regular1 S.scale.regular2
+        S.scale.regular3 S.scale.regular4
+        (S.scale.weightedRegular 1 S.d)
+        (S.scale.weightedRegular 2 S.c7)
+        (S.scale.weightedRegular 4 S.c5)
+        (S.scale.weightedRegular 5 S.c4)
+        (S.scale.weightedRegular 6 S.c3)
+        (S.scale.weightedRegular 7 S.c2)
+        (S.scale.weightedRegular 8 S.c1) =
+      62208 * S.scale.weightedRegular 10 S.rho1 := by
+    apply Subtype.ext
+    exact S.scaledFullN1
+  have hres := congrArg GCD369CubeHahnRegular.constantCoeff hsub
+  rw [GCD369CubeHahnRegular.constantCoeff_fullN1,
+    hd, hc7, hc5, hc4, hc3, hc2, hc1, map_mul, map_ofNat, hrho,
+    mul_zero] at hres
+  have hfull : GCD369CubeFaberFullN1
+      S.scale.leading0 S.scale.leading1 S.scale.leading2
+      S.scale.leading3 S.scale.leading4 0 0 0 0 0 0 0 = 0 := by
+    change GCD369CubeFaberFullN1
+      (S.scale.scaled0.coeff 0) (S.scale.scaled1.coeff 0)
+      (S.scale.scaled2.coeff 0) (S.scale.scaled3.coeff 0)
+      (S.scale.scaled4.coeff 0) 0 0 0 0 0 0 0 = 0 at hres
+    exact hres
+  rw [(GCD369CubeFaberFullN_zeroHigh
+    S.scale.leading0 S.scale.leading1 S.scale.leading2
+      S.scale.leading3 S.scale.leading4).1] at hfull
+  exact (mul_eq_zero.mp hfull).resolve_left (by norm_num)
+
+theorem leadingN2_zero
+    {k : Type*} [Field k] [CharZero k]
+    (S : GCD369CubeHahnFaberPoleData k) :
+    GCD369CubeFaberN2
+      S.scale.leading0 S.scale.leading1 S.scale.leading2
+      S.scale.leading3 S.scale.leading4 = 0 := by
+  have hd := S.scale.weightedRegular_constantCoeff_zero 1 (by norm_num) S.d
+  have hc7 := S.scale.weightedRegular_constantCoeff_zero 2 (by norm_num) S.c7
+  have hc5 := S.scale.weightedRegular_constantCoeff_zero 4 (by norm_num) S.c5
+  have hc4 := S.scale.weightedRegular_constantCoeff_zero 5 (by norm_num) S.c4
+  have hc3 := S.scale.weightedRegular_constantCoeff_zero 6 (by norm_num) S.c3
+  have hc2 := S.scale.weightedRegular_constantCoeff_zero 7 (by norm_num) S.c2
+  have hc1 := S.scale.weightedRegular_constantCoeff_zero 8 (by norm_num) S.c1
+  have hrho :=
+    S.scale.weightedRegular_constantCoeff_zero 11 (by norm_num) S.rho2
+  have hsub :
+      GCD369CubeFaberFullN2
+        S.scale.regular0 S.scale.regular1 S.scale.regular2
+        S.scale.regular3 S.scale.regular4
+        (S.scale.weightedRegular 1 S.d)
+        (S.scale.weightedRegular 2 S.c7)
+        (S.scale.weightedRegular 4 S.c5)
+        (S.scale.weightedRegular 5 S.c4)
+        (S.scale.weightedRegular 6 S.c3)
+        (S.scale.weightedRegular 7 S.c2)
+        (S.scale.weightedRegular 8 S.c1) =
+      186624 * S.scale.weightedRegular 11 S.rho2 := by
+    apply Subtype.ext
+    exact S.scaledFullN2
+  have hres := congrArg GCD369CubeHahnRegular.constantCoeff hsub
+  rw [GCD369CubeHahnRegular.constantCoeff_fullN2,
+    hd, hc7, hc5, hc4, hc3, hc2, hc1, map_mul, map_ofNat, hrho,
+    mul_zero] at hres
+  have hfull : GCD369CubeFaberFullN2
+      S.scale.leading0 S.scale.leading1 S.scale.leading2
+      S.scale.leading3 S.scale.leading4 0 0 0 0 0 0 0 = 0 := by
+    change GCD369CubeFaberFullN2
+      (S.scale.scaled0.coeff 0) (S.scale.scaled1.coeff 0)
+      (S.scale.scaled2.coeff 0) (S.scale.scaled3.coeff 0)
+      (S.scale.scaled4.coeff 0) 0 0 0 0 0 0 0 = 0 at hres
+    exact hres
+  rw [(GCD369CubeFaberFullN_zeroHigh
+    S.scale.leading0 S.scale.leading1 S.scale.leading2
+      S.scale.leading3 S.scale.leading4).2.1] at hfull
+  exact (mul_eq_zero.mp hfull).resolve_left (by norm_num)
+
+set_option maxRecDepth 10000 in
+theorem leadingN3_zero
+    {k : Type*} [Field k] [CharZero k]
+    (S : GCD369CubeHahnFaberPoleData k) :
+    GCD369CubeFaberN3
+      S.scale.leading0 S.scale.leading1 S.scale.leading2
+      S.scale.leading3 S.scale.leading4 = 0 := by
+  have hd := S.scale.weightedRegular_constantCoeff_zero 1 (by norm_num) S.d
+  have hc7 := S.scale.weightedRegular_constantCoeff_zero 2 (by norm_num) S.c7
+  have hc5 := S.scale.weightedRegular_constantCoeff_zero 4 (by norm_num) S.c5
+  have hc4 := S.scale.weightedRegular_constantCoeff_zero 5 (by norm_num) S.c4
+  have hc3 := S.scale.weightedRegular_constantCoeff_zero 6 (by norm_num) S.c3
+  have hc2 := S.scale.weightedRegular_constantCoeff_zero 7 (by norm_num) S.c2
+  have hc1 := S.scale.weightedRegular_constantCoeff_zero 8 (by norm_num) S.c1
+  have hrho :=
+    S.scale.weightedRegular_constantCoeff_zero 12 (by norm_num) S.rho3
+  have hsub :
+      GCD369CubeFaberFullN3
+        S.scale.regular0 S.scale.regular1 S.scale.regular2
+        S.scale.regular3 S.scale.regular4
+        (S.scale.weightedRegular 1 S.d)
+        (S.scale.weightedRegular 2 S.c7)
+        (S.scale.weightedRegular 4 S.c5)
+        (S.scale.weightedRegular 5 S.c4)
+        (S.scale.weightedRegular 6 S.c3)
+        (S.scale.weightedRegular 7 S.c2)
+        (S.scale.weightedRegular 8 S.c1) =
+      248832 * S.scale.weightedRegular 12 S.rho3 := by
+    apply Subtype.ext
+    exact S.scaledFullN3
+  have hres := congrArg GCD369CubeHahnRegular.constantCoeff hsub
+  rw [GCD369CubeHahnRegular.constantCoeff_fullN3,
+    hd, hc7, hc5, hc4, hc3, hc2, hc1, map_mul, map_ofNat, hrho,
+    mul_zero] at hres
+  have hfull : GCD369CubeFaberFullN3
+      S.scale.leading0 S.scale.leading1 S.scale.leading2
+      S.scale.leading3 S.scale.leading4 0 0 0 0 0 0 0 = 0 := by
+    change GCD369CubeFaberFullN3
+      (S.scale.scaled0.coeff 0) (S.scale.scaled1.coeff 0)
+      (S.scale.scaled2.coeff 0) (S.scale.scaled3.coeff 0)
+      (S.scale.scaled4.coeff 0) 0 0 0 0 0 0 0 = 0 at hres
+    exact hres
+  rw [(GCD369CubeFaberFullN_zeroHigh
+    S.scale.leading0 S.scale.leading1 S.scale.leading2
+      S.scale.leading3 S.scale.leading4).2.2.1] at hfull
+  exact (mul_eq_zero.mp hfull).resolve_left (by norm_num)
+
+set_option maxRecDepth 10000 in
+theorem leadingN4_zero
+    {k : Type*} [Field k] [CharZero k]
+    (S : GCD369CubeHahnFaberPoleData k) :
+    GCD369CubeFaberN4
+      S.scale.leading0 S.scale.leading1 S.scale.leading2
+      S.scale.leading3 S.scale.leading4 = 0 := by
+  have hd := S.scale.weightedRegular_constantCoeff_zero 1 (by norm_num) S.d
+  have hc7 := S.scale.weightedRegular_constantCoeff_zero 2 (by norm_num) S.c7
+  have hc5 := S.scale.weightedRegular_constantCoeff_zero 4 (by norm_num) S.c5
+  have hc4 := S.scale.weightedRegular_constantCoeff_zero 5 (by norm_num) S.c4
+  have hc3 := S.scale.weightedRegular_constantCoeff_zero 6 (by norm_num) S.c3
+  have hc2 := S.scale.weightedRegular_constantCoeff_zero 7 (by norm_num) S.c2
+  have hc1 := S.scale.weightedRegular_constantCoeff_zero 8 (by norm_num) S.c1
+  have hrho :=
+    S.scale.weightedRegular_constantCoeff_zero 13 (by norm_num) S.rho4
+  have hsub :
+      GCD369CubeFaberFullN4
+        S.scale.regular0 S.scale.regular1 S.scale.regular2
+        S.scale.regular3 S.scale.regular4
+        (S.scale.weightedRegular 1 S.d)
+        (S.scale.weightedRegular 2 S.c7)
+        (S.scale.weightedRegular 4 S.c5)
+        (S.scale.weightedRegular 5 S.c4)
+        (S.scale.weightedRegular 6 S.c3)
+        (S.scale.weightedRegular 7 S.c2)
+        (S.scale.weightedRegular 8 S.c1) =
+      1679616 * S.scale.weightedRegular 13 S.rho4 := by
+    apply Subtype.ext
+    exact S.scaledFullN4
+  have hres := congrArg GCD369CubeHahnRegular.constantCoeff hsub
+  rw [GCD369CubeHahnRegular.constantCoeff_fullN4,
+    hd, hc7, hc5, hc4, hc3, hc2, hc1, map_mul, map_ofNat, hrho,
+    mul_zero] at hres
+  have hfull : GCD369CubeFaberFullN4
+      S.scale.leading0 S.scale.leading1 S.scale.leading2
+      S.scale.leading3 S.scale.leading4 0 0 0 0 0 0 0 = 0 := by
+    change GCD369CubeFaberFullN4
+      (S.scale.scaled0.coeff 0) (S.scale.scaled1.coeff 0)
+      (S.scale.scaled2.coeff 0) (S.scale.scaled3.coeff 0)
+      (S.scale.scaled4.coeff 0) 0 0 0 0 0 0 0 = 0 at hres
+    exact hres
+  rw [(GCD369CubeFaberFullN_zeroHigh
+    S.scale.leading0 S.scale.leading1 S.scale.leading2
+      S.scale.leading3 S.scale.leading4).2.2.2] at hfull
+  exact (mul_eq_zero.mp hfull).resolve_left (by norm_num)
+
+/-- The actual scaled invariant equations produce the exact nonzero leading
+Faber source; no common-cubic/DS branch is assumed. -/
+noncomputable def toLeadingFaberSource
+    {k : Type*} [Field k] [CharZero k]
+    (S : GCD369CubeHahnFaberPoleData k) :
+    GCD369CubeLeadingFaberSource k :=
+  S.scale.leadingFaberSourceOfNumerators
+    (by rw [← S.scale.leading_N1]; exact S.leadingN1_zero)
+    (by rw [← S.scale.leading_N2]; exact S.leadingN2_zero)
+    (by rw [← S.scale.leading_N3]; exact S.leadingN3_zero)
+    (by rw [← S.scale.leading_N4]; exact S.leadingN4_zero)
+
+end GCD369CubeHahnFaberPoleData
+
 #print axioms GCD369CubeHahn_coeff_zero_mul_of_nonneg
 #print axioms GCD369CubeHahnRegular.constantCoeff
 #print axioms GCD369CubeHahnPoleScale.ofSomePole
 #print axioms GCD369CubeHahnPoleScale.leading_nonzero
 #print axioms GCD369CubeHahnPoleScale.leadingFaberSourceOfNumerators
+#print axioms GCD369CubeHahnFaberPoleData.toLeadingFaberSource

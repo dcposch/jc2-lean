@@ -106,25 +106,76 @@ These are the five normalized Laurent invariants reconstructed by the exact
 Faber replay.  Keeping the formulas in Lean lets later leading-component and
 first-load arguments reduce to kernel-checked polynomial identities. -/
 
+/-- Denominator-cleared normalized Faber--Laurent invariant `r1`, defined
+over a commutative ring so residue maps can evaluate it functorially. -/
+abbrev GCD369CubeFaberFullN1 {K : Type*} [CommRing K]
+    (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 : K) : K :=
+  46656*a0*a2 + 27648*a0*a3*d - 11664*a0*a4 ^ 2 + 12096*a0*a4*c7 + 51840*a0*c5 + 23328*a1 ^ 2 + 27648*a1*a2*d - 23328*a1*a3*a4 + 12096*a1*a3*c7 - 9216*a1*a4 ^ 2*d + 41472*a1*c4 - 11664*a2 ^ 2*a4 + 6048*a2 ^ 2*c7 - 11664*a2*a3 ^ 2 - 18432*a2*a3*a4*d + 5832*a2*a4 ^ 3 - 5040*a2*a4 ^ 2*c7 - 8640*a2*a4*c5 + 31104*a2*c3 - 3072*a3 ^ 3*d + 8748*a3 ^ 2*a4 ^ 2 - 5040*a3 ^ 2*a4*c7 - 4320*a3 ^ 2*c5 + 5120*a3*a4 ^ 3*d - 13824*a3*a4*c4 + 20736*a3*c2 - 729*a4 ^ 5 + 770*a4 ^ 4*c7 + 1680*a4 ^ 3*c5 - 7776*a4 ^ 2*c3 + 10368*a4*c1
+
 /-- The normalized Faber--Laurent invariant `r1`. -/
 def GCD369CubeFaberR1 {K : Type*} [Field K]
     (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 : K) : K :=
-  (46656*a0*a2 + 27648*a0*a3*d - 11664*a0*a4 ^ 2 + 12096*a0*a4*c7 + 51840*a0*c5 + 23328*a1 ^ 2 + 27648*a1*a2*d - 23328*a1*a3*a4 + 12096*a1*a3*c7 - 9216*a1*a4 ^ 2*d + 41472*a1*c4 - 11664*a2 ^ 2*a4 + 6048*a2 ^ 2*c7 - 11664*a2*a3 ^ 2 - 18432*a2*a3*a4*d + 5832*a2*a4 ^ 3 - 5040*a2*a4 ^ 2*c7 - 8640*a2*a4*c5 + 31104*a2*c3 - 3072*a3 ^ 3*d + 8748*a3 ^ 2*a4 ^ 2 - 5040*a3 ^ 2*a4*c7 - 4320*a3 ^ 2*c5 + 5120*a3*a4 ^ 3*d - 13824*a3*a4*c4 + 20736*a3*c2 - 729*a4 ^ 5 + 770*a4 ^ 4*c7 + 1680*a4 ^ 3*c5 - 7776*a4 ^ 2*c3 + 10368*a4*c1)/62208
+  GCD369CubeFaberFullN1 a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 / 62208
+
+/-- Denominator-cleared normalized Faber--Laurent invariant `r2`. -/
+abbrev GCD369CubeFaberFullN2 {K : Type*} [CommRing K]
+    (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 : K) : K :=
+  139968*a0*a1 + 82944*a0*a2*d - 69984*a0*a3*a4 + 36288*a0*a3*c7 - 27648*a0*a4 ^ 2*d + 124416*a0*c4 + 41472*a1 ^ 2*d - 69984*a1*a2*a4 + 36288*a1*a2*c7 - 34992*a1*a3 ^ 2 - 55296*a1*a3*a4*d + 17496*a1*a4 ^ 3 - 15120*a1*a4 ^ 2*c7 - 25920*a1*a4*c5 + 93312*a1*c3 - 34992*a2 ^ 2*a3 - 27648*a2 ^ 2*a4*d - 27648*a2*a3 ^ 2*d + 52488*a2*a3*a4 ^ 2 - 30240*a2*a3*a4*c7 - 25920*a2*a3*c5 + 15360*a2*a4 ^ 3*d - 41472*a2*a4*c4 + 62208*a2*c2 + 17496*a3 ^ 3*a4 - 5040*a3 ^ 3*c7 + 23040*a3 ^ 2*a4 ^ 2*d - 20736*a3 ^ 2*c4 - 10935*a3*a4 ^ 4 + 9240*a3*a4 ^ 3*c7 + 15120*a3*a4 ^ 2*c5 - 46656*a3*a4*c3 + 31104*a3*c1 - 2048*a4 ^ 5*d + 9216*a4 ^ 3*c4 - 20736*a4 ^ 2*c2
 
 /-- The normalized Faber--Laurent invariant `r2`. -/
 def GCD369CubeFaberR2 {K : Type*} [Field K]
     (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 : K) : K :=
-  (139968*a0*a1 + 82944*a0*a2*d - 69984*a0*a3*a4 + 36288*a0*a3*c7 - 27648*a0*a4 ^ 2*d + 124416*a0*c4 + 41472*a1 ^ 2*d - 69984*a1*a2*a4 + 36288*a1*a2*c7 - 34992*a1*a3 ^ 2 - 55296*a1*a3*a4*d + 17496*a1*a4 ^ 3 - 15120*a1*a4 ^ 2*c7 - 25920*a1*a4*c5 + 93312*a1*c3 - 34992*a2 ^ 2*a3 - 27648*a2 ^ 2*a4*d - 27648*a2*a3 ^ 2*d + 52488*a2*a3*a4 ^ 2 - 30240*a2*a3*a4*c7 - 25920*a2*a3*c5 + 15360*a2*a4 ^ 3*d - 41472*a2*a4*c4 + 62208*a2*c2 + 17496*a3 ^ 3*a4 - 5040*a3 ^ 3*c7 + 23040*a3 ^ 2*a4 ^ 2*d - 20736*a3 ^ 2*c4 - 10935*a3*a4 ^ 4 + 9240*a3*a4 ^ 3*c7 + 15120*a3*a4 ^ 2*c5 - 46656*a3*a4*c3 + 31104*a3*c1 - 2048*a4 ^ 5*d + 9216*a4 ^ 3*c4 - 20736*a4 ^ 2*c2)/186624
+  GCD369CubeFaberFullN2 a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 / 186624
+
+/-- Denominator-cleared normalized Faber--Laurent invariant `r3`. -/
+abbrev GCD369CubeFaberFullN3 {K : Type*} [CommRing K]
+    (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 : K) : K :=
+  93312*a0 ^ 2 + 110592*a0*a1*d - 62208*a0*a2*a4 + 48384*a0*a2*c7 - 46656*a0*a3 ^ 2 - 55296*a0*a3*a4*d + 15552*a0*a4 ^ 3 - 12096*a0*a4 ^ 2*c7 + 124416*a0*c3 - 31104*a1 ^ 2*a4 + 24192*a1 ^ 2*c7 - 93312*a1*a2*a3 - 55296*a1*a2*a4*d - 36864*a1*a3 ^ 2*d + 54432*a1*a3*a4 ^ 2 - 32256*a1*a3*a4*c7 - 34560*a1*a3*c5 + 14336*a1*a4 ^ 3*d - 27648*a1*a4*c4 + 82944*a1*c2 - 15552*a2 ^ 3 - 36864*a2 ^ 2*a3*d + 27216*a2 ^ 2*a4 ^ 2 - 16128*a2 ^ 2*a4*c7 - 17280*a2 ^ 2*c5 + 62208*a2*a3 ^ 2*a4 - 20160*a2*a3 ^ 2*c7 + 49152*a2*a3*a4 ^ 2*d - 55296*a2*a3*c4 - 10692*a2*a4 ^ 4 + 8960*a2*a4 ^ 3*c7 + 14400*a2*a4 ^ 2*c5 - 41472*a2*a4*c3 + 41472*a2*c1 + 5832*a3 ^ 4 + 18432*a3 ^ 3*a4*d - 23328*a3 ^ 2*a4 ^ 3 + 15120*a3 ^ 2*a4 ^ 2*c7 + 17280*a3 ^ 2*a4*c5 - 31104*a3 ^ 2*c3 - 10240*a3*a4 ^ 4*d + 27648*a3*a4 ^ 2*c4 - 41472*a3*a4*c2 + 1215*a4 ^ 6 - 1232*a4 ^ 5*c7 - 2520*a4 ^ 4*c5 + 10368*a4 ^ 3*c3 - 10368*a4 ^ 2*c1
 
 /-- The normalized Faber--Laurent invariant `r3`. -/
 def GCD369CubeFaberR3 {K : Type*} [Field K]
     (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 : K) : K :=
-  (93312*a0 ^ 2 + 110592*a0*a1*d - 62208*a0*a2*a4 + 48384*a0*a2*c7 - 46656*a0*a3 ^ 2 - 55296*a0*a3*a4*d + 15552*a0*a4 ^ 3 - 12096*a0*a4 ^ 2*c7 + 124416*a0*c3 - 31104*a1 ^ 2*a4 + 24192*a1 ^ 2*c7 - 93312*a1*a2*a3 - 55296*a1*a2*a4*d - 36864*a1*a3 ^ 2*d + 54432*a1*a3*a4 ^ 2 - 32256*a1*a3*a4*c7 - 34560*a1*a3*c5 + 14336*a1*a4 ^ 3*d - 27648*a1*a4*c4 + 82944*a1*c2 - 15552*a2 ^ 3 - 36864*a2 ^ 2*a3*d + 27216*a2 ^ 2*a4 ^ 2 - 16128*a2 ^ 2*a4*c7 - 17280*a2 ^ 2*c5 + 62208*a2*a3 ^ 2*a4 - 20160*a2*a3 ^ 2*c7 + 49152*a2*a3*a4 ^ 2*d - 55296*a2*a3*c4 - 10692*a2*a4 ^ 4 + 8960*a2*a4 ^ 3*c7 + 14400*a2*a4 ^ 2*c5 - 41472*a2*a4*c3 + 41472*a2*c1 + 5832*a3 ^ 4 + 18432*a3 ^ 3*a4*d - 23328*a3 ^ 2*a4 ^ 3 + 15120*a3 ^ 2*a4 ^ 2*c7 + 17280*a3 ^ 2*a4*c5 - 31104*a3 ^ 2*c3 - 10240*a3*a4 ^ 4*d + 27648*a3*a4 ^ 2*c4 - 41472*a3*a4*c2 + 1215*a4 ^ 6 - 1232*a4 ^ 5*c7 - 2520*a4 ^ 4*c5 + 10368*a4 ^ 3*c3 - 10368*a4 ^ 2*c1)/248832
+  GCD369CubeFaberFullN3 a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 / 248832
+
+/-- Denominator-cleared normalized Faber--Laurent invariant `r4`. -/
+abbrev GCD369CubeFaberFullN4 {K : Type*} [CommRing K]
+    (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 : K) : K :=
+  373248*a0 ^ 2*d - 209952*a0*a1*a4 + 326592*a0*a1*c7 - 419904*a0*a2*a3 - 248832*a0*a2*a4*d - 124416*a0*a3 ^ 2*d + 209952*a0*a3*a4 ^ 2 - 108864*a0*a3*a4*c7 + 55296*a0*a4 ^ 3*d + 559872*a0*c2 - 209952*a1 ^ 2*a3 - 124416*a1 ^ 2*a4*d - 314928*a1*a2 ^ 2 - 373248*a1*a2*a3*d + 262440*a1*a2*a4 ^ 2 - 163296*a1*a2*a4*c7 - 233280*a1*a2*c5 + 262440*a1*a3 ^ 2*a4 - 81648*a1*a3 ^ 2*c7 + 207360*a1*a3*a4 ^ 2*d - 186624*a1*a3*c4 - 45927*a1*a4 ^ 4 + 37800*a1*a4 ^ 3*c7 + 58320*a1*a4 ^ 2*c5 - 139968*a1*a4*c3 + 279936*a1*c1 - 82944*a2 ^ 3*d + 314928*a2 ^ 2*a3*a4 - 108864*a2 ^ 2*a3*c7 + 124416*a2 ^ 2*a4 ^ 2*d - 186624*a2 ^ 2*c4 + 104976*a2*a3 ^ 3 + 248832*a2*a3 ^ 2*a4*d - 209952*a2*a3*a4 ^ 3 + 136080*a2*a3*a4 ^ 2*c7 + 155520*a2*a3*a4*c5 - 279936*a2*a3*c3 - 46080*a2*a4 ^ 4*d + 124416*a2*a4 ^ 2*c4 - 186624*a2*a4*c2 + 20736*a3 ^ 4*d - 104976*a3 ^ 3*a4 ^ 2 + 45360*a3 ^ 3*a4*c7 + 25920*a3 ^ 3*c5 - 92160*a3 ^ 2*a4 ^ 3*d + 124416*a3 ^ 2*a4*c4 - 93312*a3 ^ 2*c2 + 32805*a3*a4 ^ 5 - 27720*a3*a4 ^ 4*c7 - 45360*a3*a4 ^ 3*c5 + 139968*a3*a4 ^ 2*c3 - 93312*a3*a4*c1 + 5120*a4 ^ 6*d - 20736*a4 ^ 4*c4 + 41472*a4 ^ 3*c2
 
 /-- The normalized Faber--Laurent invariant `r4`. -/
 def GCD369CubeFaberR4 {K : Type*} [Field K]
     (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 : K) : K :=
-  (373248*a0 ^ 2*d - 209952*a0*a1*a4 + 326592*a0*a1*c7 - 419904*a0*a2*a3 - 248832*a0*a2*a4*d - 124416*a0*a3 ^ 2*d + 209952*a0*a3*a4 ^ 2 - 108864*a0*a3*a4*c7 + 55296*a0*a4 ^ 3*d + 559872*a0*c2 - 209952*a1 ^ 2*a3 - 124416*a1 ^ 2*a4*d - 314928*a1*a2 ^ 2 - 373248*a1*a2*a3*d + 262440*a1*a2*a4 ^ 2 - 163296*a1*a2*a4*c7 - 233280*a1*a2*c5 + 262440*a1*a3 ^ 2*a4 - 81648*a1*a3 ^ 2*c7 + 207360*a1*a3*a4 ^ 2*d - 186624*a1*a3*c4 - 45927*a1*a4 ^ 4 + 37800*a1*a4 ^ 3*c7 + 58320*a1*a4 ^ 2*c5 - 139968*a1*a4*c3 + 279936*a1*c1 - 82944*a2 ^ 3*d + 314928*a2 ^ 2*a3*a4 - 108864*a2 ^ 2*a3*c7 + 124416*a2 ^ 2*a4 ^ 2*d - 186624*a2 ^ 2*c4 + 104976*a2*a3 ^ 3 + 248832*a2*a3 ^ 2*a4*d - 209952*a2*a3*a4 ^ 3 + 136080*a2*a3*a4 ^ 2*c7 + 155520*a2*a3*a4*c5 - 279936*a2*a3*c3 - 46080*a2*a4 ^ 4*d + 124416*a2*a4 ^ 2*c4 - 186624*a2*a4*c2 + 20736*a3 ^ 4*d - 104976*a3 ^ 3*a4 ^ 2 + 45360*a3 ^ 3*a4*c7 + 25920*a3 ^ 3*c5 - 92160*a3 ^ 2*a4 ^ 3*d + 124416*a3 ^ 2*a4*c4 - 93312*a3 ^ 2*c2 + 32805*a3*a4 ^ 5 - 27720*a3*a4 ^ 4*c7 - 45360*a3*a4 ^ 3*c5 + 139968*a3*a4 ^ 2*c3 - 93312*a3*a4*c1 + 5120*a4 ^ 6*d - 20736*a4 ^ 4*c4 + 41472*a4 ^ 3*c2)/1679616
+  GCD369CubeFaberFullN4 a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 / 1679616
+
+/-- The four denominator-cleared invariants are weighted-homogeneous over
+every commutative ring. -/
+theorem GCD369CubeFaberFullNWeights {K : Type*} [CommRing K]
+    (t a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 : K) :
+    GCD369CubeFaberFullN1 (t ^ 6 * a0) (t ^ 5 * a1) (t ^ 4 * a2)
+        (t ^ 3 * a3) (t ^ 2 * a4) (t * d) (t ^ 2 * c7) (t ^ 4 * c5)
+        (t ^ 5 * c4) (t ^ 6 * c3) (t ^ 7 * c2) (t ^ 8 * c1) =
+      t ^ 10 * GCD369CubeFaberFullN1
+        a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 ∧
+    GCD369CubeFaberFullN2 (t ^ 6 * a0) (t ^ 5 * a1) (t ^ 4 * a2)
+        (t ^ 3 * a3) (t ^ 2 * a4) (t * d) (t ^ 2 * c7) (t ^ 4 * c5)
+        (t ^ 5 * c4) (t ^ 6 * c3) (t ^ 7 * c2) (t ^ 8 * c1) =
+      t ^ 11 * GCD369CubeFaberFullN2
+        a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 ∧
+    GCD369CubeFaberFullN3 (t ^ 6 * a0) (t ^ 5 * a1) (t ^ 4 * a2)
+        (t ^ 3 * a3) (t ^ 2 * a4) (t * d) (t ^ 2 * c7) (t ^ 4 * c5)
+        (t ^ 5 * c4) (t ^ 6 * c3) (t ^ 7 * c2) (t ^ 8 * c1) =
+      t ^ 12 * GCD369CubeFaberFullN3
+        a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 ∧
+    GCD369CubeFaberFullN4 (t ^ 6 * a0) (t ^ 5 * a1) (t ^ 4 * a2)
+        (t ^ 3 * a3) (t ^ 2 * a4) (t * d) (t ^ 2 * c7) (t ^ 4 * c5)
+        (t ^ 5 * c4) (t ^ 6 * c3) (t ^ 7 * c2) (t ^ 8 * c1) =
+      t ^ 13 * GCD369CubeFaberFullN4
+        a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 := by
+  constructor
+  · ring
+  constructor
+  · ring
+  constructor <;> ring
 
 /-- The normalized Faber--Laurent invariant `r5`. -/
 def GCD369CubeFaberR5 {K : Type*} [Field K]
@@ -235,6 +286,30 @@ def GCD369CubeFaberN4 {K : Type*} [CommRing K]
     40 * a1 * a3 ^ 2 * a4 - 7 * a1 * a4 ^ 4 + 48 * a2 ^ 2 * a3 * a4 +
     16 * a2 * a3 ^ 3 - 32 * a2 * a3 * a4 ^ 3 -
     16 * a3 ^ 3 * a4 ^ 2 + 5 * a3 * a4 ^ 5
+
+/-- The full denominator-cleared rows specialize to the primitive leading
+rows after all higher target coefficients vanish. -/
+theorem GCD369CubeFaberFullN_zeroHigh {K : Type*} [CommRing K]
+    (a0 a1 a2 a3 a4 : K) :
+    GCD369CubeFaberFullN1 a0 a1 a2 a3 a4 0 0 0 0 0 0 0 =
+        729 * GCD369CubeFaberN1 a0 a1 a2 a3 a4 ∧
+    GCD369CubeFaberFullN2 a0 a1 a2 a3 a4 0 0 0 0 0 0 0 =
+        2187 * GCD369CubeFaberN2 a0 a1 a2 a3 a4 ∧
+    GCD369CubeFaberFullN3 a0 a1 a2 a3 a4 0 0 0 0 0 0 0 =
+        243 * GCD369CubeFaberN3 a0 a1 a2 a3 a4 ∧
+    GCD369CubeFaberFullN4 a0 a1 a2 a3 a4 0 0 0 0 0 0 0 =
+        6561 * GCD369CubeFaberN4 a0 a1 a2 a3 a4 := by
+  constructor
+  · simp only [GCD369CubeFaberN1]
+    ring
+  constructor
+  · simp only [GCD369CubeFaberN2]
+    ring
+  constructor
+  · simp only [GCD369CubeFaberN3]
+    ring
+  · simp only [GCD369CubeFaberN4]
+    ring
 
 /-! ### Integral numerators on the first `d` load -/
 
