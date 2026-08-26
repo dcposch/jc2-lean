@@ -274,6 +274,155 @@ theorem leadingCoefficient_power_of_dvd {K : Type*}
       _ = 0 := by rw [hscaled, sub_self, mul_zero]
   exact eq_C_mul_of_wronskian_eq_zero (pow_ne_zero k hpcoeff) hW
 
+/-- The `(6,9)` weighted leading-coefficient equation has the expected UFD
+shape: the two nonzero coefficients are scalar multiples of the square and
+cube of one common polynomial core. -/
+theorem commonCore_of_weightedWronskian_69 {K : Type*}
+    [Field K] [CharZero K] {a b : K[X]} (ha : a ≠ 0) (hb : b ≠ 0)
+    (hweighted :
+      Polynomial.C (9 : K) * b * a.derivative =
+        Polynomial.C (6 : K) * a * b.derivative) :
+    ∃ (alpha beta : K) (h : K[X]),
+      alpha ≠ 0 ∧ beta ≠ 0 ∧ h ≠ 0 ∧
+        a = Polynomial.C alpha * h ^ 2 ∧
+        b = Polynomial.C beta * h ^ 3 := by
+  classical
+  have hrel :
+      Polynomial.C (3 : K) * b * a.derivative =
+        Polynomial.C (2 : K) * a * b.derivative := by
+    have hC3 : Polynomial.C (3 : K) ≠ 0 := by norm_num
+    have h33 : Polynomial.C (3 : K) * Polynomial.C (3 : K) =
+        Polynomial.C (9 : K) := by
+      rw [← Polynomial.C_mul]
+      norm_num
+    have h32 : Polynomial.C (3 : K) * Polynomial.C (2 : K) =
+        Polynomial.C (6 : K) := by
+      rw [← Polynomial.C_mul]
+      norm_num
+    apply mul_left_cancel₀ hC3
+    calc
+      Polynomial.C (3 : K) *
+          (Polynomial.C (3 : K) * b * a.derivative) =
+          Polynomial.C (9 : K) * b * a.derivative := by
+        rw [← h33]
+        ring
+      _ = Polynomial.C (6 : K) * a * b.derivative := hweighted
+      _ = Polynomial.C (3 : K) *
+          (Polynomial.C (2 : K) * a * b.derivative) := by
+        rw [← h32]
+        ring
+  have hW : Polynomial.wronskian (a ^ 3) (b ^ 2) = 0 := by
+    rw [Polynomial.wronskian, Polynomial.derivative_pow,
+      Polynomial.derivative_pow]
+    calc
+      a ^ 3 * (Polynomial.C (2 : K) * b ^ (2 - 1) * b.derivative) -
+          (Polynomial.C (3 : K) * a ^ (3 - 1) * a.derivative) * b ^ 2 =
+          a ^ 2 * b *
+            (Polynomial.C (2 : K) * a * b.derivative -
+              Polynomial.C (3 : K) * b * a.derivative) := by ring
+      _ = 0 := by rw [hrel, sub_self, mul_zero]
+  obtain ⟨c, hcubes⟩ :=
+    eq_C_mul_of_wronskian_eq_zero (pow_ne_zero 2 hb) hW
+  have hc : c ≠ 0 := by
+    intro hczero
+    apply pow_ne_zero 3 ha
+    rw [hcubes, hczero, Polynomial.C_0, zero_mul]
+  letI := EuclideanDomain.gcdMonoid K[X]
+  let d := gcd a b
+  let a' := a / d
+  let b' := b / d
+  have hd : d ≠ 0 := gcd_ne_zero_of_right hb
+  have hda : d * a' = a :=
+    EuclideanDomain.mul_div_cancel' hd (gcd_dvd_left a b)
+  have hdb : d * b' = b :=
+    EuclideanDomain.mul_div_cancel' hd (gcd_dvd_right a b)
+  have hb' : b' ≠ 0 := by
+    intro hb'zero
+    apply hb
+    rw [← hdb, hb'zero, mul_zero]
+  have hcop : IsCoprime a' b' := isCoprime_div_gcd_div_gcd hb
+  have hreduced : d * a' ^ 3 = Polynomial.C c * b' ^ 2 := by
+    apply mul_left_cancel₀ (pow_ne_zero 2 hd)
+    calc
+      d ^ 2 * (d * a' ^ 3) = (d * a') ^ 3 := by ring
+      _ = a ^ 3 := by rw [hda]
+      _ = Polynomial.C c * b ^ 2 := hcubes
+      _ = Polynomial.C c * (d * b') ^ 2 := by rw [hdb]
+      _ = d ^ 2 * (Polynomial.C c * b' ^ 2) := by ring
+  have hCunit : IsUnit (Polynomial.C c) := by
+    exact Polynomial.isUnit_C.mpr (isUnit_iff_ne_zero.mpr hc)
+  have ha'dvd : a' ∣ Polynomial.C c * b' ^ 2 := by
+    refine ⟨d * a' ^ 2, ?_⟩
+    rw [← hreduced]
+    ring
+  have ha'unit : IsUnit a' := by
+    apply isUnit_of_dvd_unit
+      (hcop.pow_right.dvd_of_dvd_mul_right ha'dvd) hCunit
+  have hdassoc : Associated d (b' ^ 2) :=
+    (associated_mul_unit_left d (a' ^ 3) (ha'unit.pow 3)).symm |>.trans
+      (Associated.of_eq hreduced) |>.trans
+        (associated_unit_mul_left (b' ^ 2) (Polynomial.C c) hCunit)
+  have haassoc : Associated a (b' ^ 2) :=
+    (Associated.of_eq hda.symm).trans
+      ((associated_mul_unit_left d a' ha'unit).trans hdassoc)
+  have hbassoc : Associated b (b' ^ 3) := by
+    apply (Associated.of_eq hdb.symm).trans
+    have hmul := hdassoc.mul_right b'
+    exact hmul.trans (Associated.of_eq (by ring))
+  obtain ⟨ua, hua⟩ := haassoc.symm
+  obtain ⟨ub, hub⟩ := hbassoc.symm
+  obtain ⟨alpha, halphaUnit, halpha⟩ :=
+    Polynomial.isUnit_iff.mp ua.isUnit
+  obtain ⟨beta, hbetaUnit, hbeta⟩ :=
+    Polynomial.isUnit_iff.mp ub.isUnit
+  refine ⟨alpha, beta, b', ?_, ?_, hb', ?_, ?_⟩
+  · exact (isUnit_iff_ne_zero.mp halphaUnit)
+  · exact (isUnit_iff_ne_zero.mp hbetaUnit)
+  · calc
+      a = b' ^ 2 * (ua : K[X]) := hua.symm
+      _ = Polynomial.C alpha * b' ^ 2 := by rw [halpha]; ring
+  · calc
+      b = b' ^ 3 * (ub : K[X]) := hub.symm
+      _ = Polynomial.C beta * b' ^ 3 := by rw [hbeta]; ring
+
+/-- An actual bivariate Keller pair of positive partial `y`-degrees `(6,9)`
+produces a nonzero common leading core directly from its Jacobian equation. -/
+theorem planeKellerPair_69_commonCore {K : Type*}
+    [Field K] [CharZero K] {P Q : MvPolynomial (Fin 2) K}
+    (hP : degreeOf 1 P = 6) (hQ : degreeOf 1 Q = 9)
+    (hKeller : IsPlaneKellerPair P Q) :
+    let p := (Polynomial.Bivariate.equivMvPolynomial K).symm P
+    let q := (Polynomial.Bivariate.equivMvPolynomial K).symm Q
+    ∃ (alpha beta : K) (h : K[X]),
+      alpha ≠ 0 ∧ beta ≠ 0 ∧ h ≠ 0 ∧
+        p.coeff 6 = Polynomial.C alpha * h ^ 2 ∧
+        q.coeff 9 = Polynomial.C beta * h ^ 3 := by
+  dsimp only
+  let p := (Polynomial.Bivariate.equivMvPolynomial K).symm P
+  let q := (Polynomial.Bivariate.equivMvPolynomial K).symm Q
+  have hm : p.natDegree = 6 := by
+    simpa only [p, natDegree_bivariate_eq_degreeOf_y] using hP
+  have hn : q.natDegree = 9 := by
+    simpa only [q, natDegree_bivariate_eq_degreeOf_y] using hQ
+  have hp : p ≠ 0 := by
+    intro hp
+    rw [hp, Polynomial.natDegree_zero] at hm
+    omega
+  have hq : q ≠ 0 := by
+    intro hq
+    rw [hq, Polynomial.natDegree_zero] at hn
+    omega
+  have hpcoeff : p.coeff 6 ≠ 0 := by
+    rw [← hm, Polynomial.coeff_natDegree]
+    exact Polynomial.leadingCoeff_ne_zero.mpr hp
+  have hqcoeff : q.coeff 9 ≠ 0 := by
+    rw [← hn, Polynomial.coeff_natDegree]
+    exact Polynomial.leadingCoeff_ne_zero.mpr hq
+  obtain ⟨j, -, hjac⟩ := bivariateJacobian_eq_C_of_keller hKeller
+  have hweighted := leadingCoefficient_weightedWronskian
+    hm hn (by norm_num) (by norm_num) hjac
+  exact commonCore_of_weightedWronskian_69 hpcoeff hqcoeff hweighted
+
 /-- Subtract a scalar multiple of a power of the first target coordinate
 from the second target coordinate. -/
 def targetShear {K : Type*} [CommRing K] (c : K) (k : ℕ)

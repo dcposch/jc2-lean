@@ -108,6 +108,21 @@ end Max11ClassicalRoutes
 
 namespace Max11DegreeRoutes
 
+/-- A genuine `(6,9)` Keller pair has square/cube leading coefficients with
+one nonzero common polynomial core. -/
+theorem planeKellerPair_69_commonCore {K : Type*}
+    [Field K] [CharZero K] {P Q : MvPolynomial (Fin 2) K}
+    (hP : MvPolynomial.degreeOf 1 P = 6)
+    (hQ : MvPolynomial.degreeOf 1 Q = 9)
+    (hKeller : IsPlaneKellerPair P Q) :
+    let p := (Polynomial.Bivariate.equivMvPolynomial K).symm P
+    let q := (Polynomial.Bivariate.equivMvPolynomial K).symm Q
+    ∃ (alpha beta : K) (h : Polynomial K),
+      alpha ≠ 0 ∧ beta ≠ 0 ∧ h ≠ 0 ∧
+        p.coeff 6 = Polynomial.C alpha * h ^ 2 ∧
+        q.coeff 9 = Polynomial.C beta * h ^ 3 := by
+  sorry
+
 /-- Concrete maximum-eleven composition in characteristic zero with the
 zero, equal-degree, and divisibility routes proved internally. -/
 theorem Max11PlaneKellerGenerationWithElementaryRoutes {K : Type*}

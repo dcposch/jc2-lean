@@ -7,6 +7,7 @@
     "MaxPartialDegreeElevenClosure",
     "Max11PlaneKellerGeneration",
     "Max11ClassicalRoutes.Max11PlaneKellerGenerationWithZeroRoute",
+    "Max11DegreeRoutes.planeKellerPair_69_commonCore",
     "Max11DegreeRoutes.Max11PlaneKellerGenerationWithElementaryRoutes",
     "Max12FirstPrimitives"
   ],

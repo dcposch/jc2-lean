@@ -38,6 +38,11 @@ unconditional standalone proof of maximum eleven.
   equation for the leading `y`-coefficients, identifying the required leading
   power, and applying a degree-lowering triangular target shear.  Only the
   gcd-at-most-two theorem and global `(6,9)` leaf remain as premises.
+- `Max11DegreeRoutes.planeKellerPair_69_commonCore` starts that remaining
+  exceptional leaf from a genuine Keller pair: the top Jacobian row and UFD
+  factorization produce nonzero `alpha`, `beta`, and `h` with leading
+  coefficients `alpha*h^2` and `beta*h^3`.  No cube/noncube landing is
+  assumed in this theorem.
 - `Max12FirstPrimitives` verifies the frontier checksum: at maximum twelve,
   the same direct routes first leave `(8,12)` and `(9,12)`.
 

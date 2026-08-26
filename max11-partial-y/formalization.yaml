@@ -60,12 +60,19 @@ status:
     the frontier checksum showing (8,12) and (9,12) as the first new primitive
     pairs at maximum twelve.  The degree routes include a kernel-checked
     weighted-Wronskian leading-coefficient argument and triangular target
-    shear.  Not proved here: scalar-extension/descent, the gcd-at-most-two
-    premise, or the global (6,9) leaf.
+    shear.  The same argument is specialized to a genuine (6,9) Keller pair,
+    deriving its nonzero square/cube common leading core without assuming a
+    later landing case.  Not proved here: scalar-extension/descent, the
+    gcd-at-most-two premise, or the rest of the global (6,9) leaf.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
   main_results:
+    - declaration: "Max11DegreeRoutes.planeKellerPair_69_commonCore"
+      file: "DegreeRoutes.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
     - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithElementaryRoutes"
       file: "DegreeRoutes.lean"
       sorry_count: 0
