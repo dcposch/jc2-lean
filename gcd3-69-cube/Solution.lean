@@ -406,6 +406,168 @@ theorem GCD369CubeC7TerminalNonzero {K : Type*} [Field K] [CharZero K]
         (1 / 280 * u ^ 4 - 9 / 340 * u * v ^ 2) * hterminal
     exact (pow_ne_zero 10 hu) hu10
 
+/-- The `u=0`, `v!=0` chart certificate for a first-`c7` landing. -/
+theorem GCD369CubeC7NoCommonRootOnUZeroChart
+    {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn r Tin u v : K)
+    (h1 :
+      56 * u ^ 4 - 1008 * u * v ^ 2 + 729 * u * Xn ^ 2 -
+          1458 * Xn * Zn - 729 * Yn ^ 2 = 0)
+    (h2 :
+      224 * u ^ 3 * v - 336 * v ^ 3 + 729 * v * Xn ^ 2 +
+          1458 * u * Xn * Yn - 1458 * Yn * Zn = 0)
+    (h3 :
+      2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+          2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0)
+    (_h4 :
+      224 * u ^ 4 * v - 1008 * u * v ^ 3 - 2187 * u * v * Xn ^ 2 -
+          1458 * u ^ 2 * Xn * Yn + 2916 * v * Xn * Zn +
+          1458 * v * Yn ^ 2 + 1458 * u * Yn * Zn = 0)
+    (hK : r ^ 3 + u * r + v = 0)
+    (hphi : Xn * r ^ 2 + Yn * r + Zn = 0)
+    (hu : u = 0) (hchart : Tin * v - 1 = 0) :
+    False := by
+  let C1 : K := -1 / 336 * r * Tin ^ 4 * v
+  let C2 : K := -1 / 336 * Tin ^ 4 * v
+  let C3 : K := -81 / 112 * r ^ 2 * Tin ^ 4
+  let C5 : K :=
+    -243 / 112 * Xn * Zn * r * Tin ^ 4 +
+      243 / 112 * Xn ^ 2 * Tin ^ 4 * v - 243 / 112 * Yn * Zn * Tin ^ 4
+  let C6 : K :=
+    243 / 112 * Zn * r ^ 2 * Tin ^ 4 -
+      243 / 112 * Xn * r * Tin ^ 4 * v - 243 / 112 * Yn * Tin ^ 4 * v
+  let C7 : K :=
+    81 / 56 * Xn ^ 2 * r ^ 2 * Tin ^ 4 * u +
+      1 / 6 * r * Tin ^ 4 * u ^ 3 * v -
+      81 / 56 * Yn ^ 2 * r ^ 2 * Tin ^ 4 -
+      81 / 112 * Xn * Zn * r ^ 2 * Tin ^ 4 +
+      2 / 3 * Tin ^ 4 * u ^ 2 * v ^ 2 - 3 * r * Tin ^ 4 * v ^ 3 +
+      243 / 112 * Yn * Zn * r * Tin ^ 4 + 243 / 56 * Xn * Yn * Tin ^ 4 * v
+  let C8 : K := -Tin ^ 3 * v ^ 3 - Tin ^ 2 * v ^ 2 - Tin * v - 1
+  have hone : (1 : K) = 0 := by
+    linear_combination C1 * h1 + C2 * h2 + C3 * h3 + C5 * hK +
+      C6 * hphi + C7 * hu + C8 * hchart
+  exact one_ne_zero hone
+
+/-- The localized `u!=0` chart certificate for a first-`c7` landing. -/
+theorem GCD369CubeC7NoCommonRootOnUChart
+    {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn r Tin u v : K)
+    (h1 :
+      56 * u ^ 4 - 1008 * u * v ^ 2 + 729 * u * Xn ^ 2 -
+          1458 * Xn * Zn - 729 * Yn ^ 2 = 0)
+    (h2 :
+      224 * u ^ 3 * v - 336 * v ^ 3 + 729 * v * Xn ^ 2 +
+          1458 * u * Xn * Yn - 1458 * Yn * Zn = 0)
+    (h3 :
+      2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+          2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0)
+    (h4 :
+      224 * u ^ 4 * v - 1008 * u * v ^ 3 - 2187 * u * v * Xn ^ 2 -
+          1458 * u ^ 2 * Xn * Yn + 2916 * v * Xn * Zn +
+          1458 * v * Yn ^ 2 + 1458 * u * Yn * Zn = 0)
+    (hK : r ^ 3 + u * r + v = 0)
+    (hphi : Xn * r ^ 2 + Yn * r + Zn = 0)
+    (hchart : Tin * u - 1 = 0) :
+    False := by
+  let C1 : K :=
+    -81 / 680 * Tin ^ 10 * v ^ 4 + 27 / 170 * r * Tin ^ 9 * v ^ 3 +
+      27 / 1190 * Tin ^ 7 * v ^ 2 - 3 / 140 * r * Tin ^ 6 * v +
+      1 / 56 * Tin ^ 4
+  let C2 : K :=
+    -81 / 1360 * Tin ^ 10 * u * v ^ 3 -
+      297 / 1360 * r * Tin ^ 9 * u * v ^ 2 + 81 / 136 * Tin ^ 9 * v ^ 3 +
+      27 / 68 * r * Tin ^ 8 * v ^ 2 + 369 / 4760 * Tin ^ 7 * u * v +
+      33 / 1120 * r * Tin ^ 6 * u - 9 / 112 * Tin ^ 6 * v -
+      3 / 56 * r * Tin ^ 5
+  let C3 : K :=
+    19683 / 136 * r ^ 2 * Tin ^ 9 * v ^ 2 +
+      6561 / 136 * Tin ^ 8 * v ^ 2 - 2187 / 112 * r ^ 2 * Tin ^ 6 -
+      729 / 112 * Tin ^ 5
+  let C4 : K :=
+    -81 / 1360 * Tin ^ 10 * v ^ 3 - 297 / 1360 * r * Tin ^ 9 * v ^ 2 +
+      369 / 4760 * Tin ^ 7 * v + 33 / 1120 * r * Tin ^ 6
+  let C5 : K :=
+    59049 / 136 * Xn * Zn * r * Tin ^ 9 * v ^ 2 -
+      59049 / 136 * Xn ^ 2 * Tin ^ 9 * v ^ 3 -
+      19683 / 68 * Xn ^ 2 * r * Tin ^ 8 * v ^ 2 +
+      59049 / 136 * Yn * Zn * Tin ^ 9 * v ^ 2 -
+      19683 / 34 * Xn * Yn * Tin ^ 8 * v ^ 2 -
+      6561 / 112 * Xn * Zn * r * Tin ^ 6 +
+      6561 / 112 * Xn ^ 2 * Tin ^ 6 * v +
+      2187 / 56 * Xn ^ 2 * r * Tin ^ 5 -
+      6561 / 112 * Yn * Zn * Tin ^ 6 + 2187 / 28 * Xn * Yn * Tin ^ 5
+  let C6 : K :=
+    -59049 / 136 * Zn * r ^ 2 * Tin ^ 9 * v ^ 2 +
+      59049 / 136 * Xn * r * Tin ^ 9 * v ^ 3 +
+      19683 / 68 * Xn * r ^ 2 * Tin ^ 8 * v ^ 2 -
+      59049 / 136 * Zn * Tin ^ 9 * u * v ^ 2 +
+      59049 / 136 * Yn * Tin ^ 9 * v ^ 3 +
+      19683 / 68 * Yn * r * Tin ^ 8 * v ^ 2 +
+      19683 / 68 * Zn * Tin ^ 8 * v ^ 2 +
+      6561 / 112 * Zn * r ^ 2 * Tin ^ 6 -
+      6561 / 112 * Xn * r * Tin ^ 6 * v -
+      2187 / 56 * Xn * r ^ 2 * Tin ^ 5 +
+      6561 / 112 * Zn * Tin ^ 6 * u - 6561 / 112 * Yn * Tin ^ 6 * v -
+      2187 / 56 * Yn * r * Tin ^ 5 - 2187 / 56 * Zn * Tin ^ 5
+  let C7 : K :=
+    567 / 17 * Tin ^ 9 * u ^ 3 * v ^ 4 -
+      19683 / 68 * Xn ^ 2 * r ^ 2 * Tin ^ 8 * u * v ^ 2 +
+      1512 / 17 * r * Tin ^ 8 * u ^ 3 * v ^ 3 -
+      3402 / 17 * Tin ^ 9 * v ^ 6 +
+      19683 / 68 * Yn ^ 2 * r ^ 2 * Tin ^ 8 * v ^ 2 +
+      19683 / 34 * Xn * Zn * r ^ 2 * Tin ^ 8 * v ^ 2 -
+      1701 / 17 * Tin ^ 8 * u ^ 2 * v ^ 4 -
+      2268 / 17 * r * Tin ^ 8 * v ^ 5 -
+      59049 / 68 * Xn * Yn * Tin ^ 8 * v ^ 3 +
+      59049 / 136 * Zn ^ 2 * Tin ^ 8 * v ^ 2 -
+      6561 / 68 * Xn ^ 2 * Tin ^ 7 * u * v ^ 2 -
+      1701 / 17 * Tin ^ 7 * u * v ^ 4 +
+      6561 / 68 * Yn ^ 2 * Tin ^ 7 * v ^ 2 +
+      6561 / 34 * Xn * Zn * Tin ^ 7 * v ^ 2 -
+      36 * Tin ^ 6 * u ^ 3 * v ^ 2 +
+      2187 / 56 * Xn ^ 2 * r ^ 2 * Tin ^ 5 * u -
+      12 * r * Tin ^ 5 * u ^ 3 * v + 27 * Tin ^ 6 * v ^ 4 -
+      2187 / 56 * Yn ^ 2 * r ^ 2 * Tin ^ 5 -
+      2187 / 28 * Xn * Zn * r ^ 2 * Tin ^ 5 -
+      18 * Tin ^ 5 * u ^ 2 * v ^ 2 + 18 * r * Tin ^ 5 * v ^ 3 +
+      6561 / 56 * Xn * Yn * Tin ^ 5 * v -
+      6561 / 112 * Zn ^ 2 * Tin ^ 5 + 729 / 56 * Xn ^ 2 * Tin ^ 4 * u -
+      18 * Tin ^ 4 * u * v ^ 2 - 729 / 56 * Yn ^ 2 * Tin ^ 4 -
+      729 / 28 * Xn * Zn * Tin ^ 4 - Tin ^ 3 * u ^ 3 -
+      Tin ^ 2 * u ^ 2 - Tin * u - 1
+  have hone : (1 : K) = 0 := by
+    linear_combination C1 * h1 + C2 * h2 + C3 * h3 + C4 * h4 +
+      C5 * hK + C6 * hphi + C7 * hchart
+  exact one_ne_zero hone
+
+/-- At every projective first-`c7` landing, the common cubic and its normal
+have no common field-valued root. -/
+theorem GCD369CubeC7NoCommonRoot {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn u v : K) (hprojective : u ≠ 0 ∨ v ≠ 0)
+    (h1 :
+      56 * u ^ 4 - 1008 * u * v ^ 2 + 729 * u * Xn ^ 2 -
+          1458 * Xn * Zn - 729 * Yn ^ 2 = 0)
+    (h2 :
+      224 * u ^ 3 * v - 336 * v ^ 3 + 729 * v * Xn ^ 2 +
+          1458 * u * Xn * Yn - 1458 * Yn * Zn = 0)
+    (h3 :
+      2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+          2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0)
+    (h4 :
+      224 * u ^ 4 * v - 1008 * u * v ^ 3 - 2187 * u * v * Xn ^ 2 -
+          1458 * u ^ 2 * Xn * Yn + 2916 * v * Xn * Zn +
+          1458 * v * Yn ^ 2 + 1458 * u * Yn * Zn = 0) :
+    ∀ r : K, r ^ 3 + u * r + v = 0 →
+      Xn * r ^ 2 + Yn * r + Zn = 0 → False := by
+  intro r hK hphi
+  by_cases hu : u = 0
+  · have hv : v ≠ 0 := hprojective.resolve_left (fun h => h hu)
+    exact GCD369CubeC7NoCommonRootOnUZeroChart
+      Xn Yn Zn r v⁻¹ u v h1 h2 h3 h4 hK hphi hu (by simp [hv])
+  · exact GCD369CubeC7NoCommonRootOnUChart
+      Xn Yn Zn r u⁻¹ u v h1 h2 h3 h4 hK hphi (by simp [hu])
+
 /-- The first retained `c5` load projects to
 `v * (u^3 - 3*v^2) = 0`. -/
 theorem GCD369CubeC5Support {K : Type*} [Field K] [CharZero K]
@@ -2058,6 +2220,9 @@ theorem GCD369CubeDSMonomialExponent {K : Type*}
 #print axioms GCD369CubeDExceptionalNoCommonRoot
 #print axioms GCD369CubeC7Support
 #print axioms GCD369CubeC7TerminalNonzero
+#print axioms GCD369CubeC7NoCommonRootOnUZeroChart
+#print axioms GCD369CubeC7NoCommonRootOnUChart
+#print axioms GCD369CubeC7NoCommonRoot
 #print axioms GCD369CubeC5Support
 #print axioms GCD369CubeC5TerminalNonzero
 #print axioms GCD369CubeC5NoCommonRootOnUChart
