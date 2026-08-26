@@ -1,6 +1,6 @@
 name = "jc2_max11_partial_y"
 version = "0.1.0"
-defaultTargets = ["Challenge", "Solution"]
+defaultTargets = ["Challenge", "Solution", "ClassicalRoutes"]
 
 [[require]]
 name = "mathlib"
@@ -14,3 +14,7 @@ roots = ["Challenge"]
 [[lean_lib]]
 name = "Solution"
 roots = ["Solution"]
+
+[[lean_lib]]
+name = "ClassicalRoutes"
+roots = ["ClassicalRoutes"]

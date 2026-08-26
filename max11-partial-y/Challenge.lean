@@ -83,6 +83,29 @@ theorem Max11PlaneKellerGeneration {K : Type*} [Field K]
       IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
   sorry
 
+namespace Max11ClassicalRoutes
+
+/-- Concrete maximum-eleven composition in characteristic zero with the
+zero-partial-degree route proved internally. -/
+theorem Max11PlaneKellerGenerationWithZeroRoute {K : Type*}
+    [Field K] [CharZero K]
+    (hgcd : ∀ m n, Nat.gcd m n ≤ 2 →
+      PlaneKellerAutomorphicAtDegrees (K := K) m n)
+    (hdiv : ∀ m n, m < n → m ∣ n →
+      (∀ r, r < n → PlaneKellerAutomorphicAtDegrees (K := K) m r) →
+      PlaneKellerAutomorphicAtDegrees (K := K) m n)
+    (hequal : ∀ n,
+      (∀ r, r < n → PlaneKellerAutomorphicAtDegrees (K := K) r n) →
+      PlaneKellerAutomorphicAtDegrees (K := K) n n)
+    (h69 : PlaneKellerAutomorphicAtDegrees (K := K) 6 9) :
+    ∀ P Q : MvPolynomial (Fin 2) K,
+      MvPolynomial.degreeOf 1 P ≤ 11 →
+      MvPolynomial.degreeOf 1 Q ≤ 11 →
+      IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
+  sorry
+
+end Max11ClassicalRoutes
+
 /-- At maximum degree twelve, the same routes leave exactly `(8,12)` and
 `(9,12)` as the first new primitive unordered pairs. -/
 theorem Max12FirstPrimitives (m : ℕ) (hm : m ≤ 12) :

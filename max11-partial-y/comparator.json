@@ -1,11 +1,12 @@
 {
   "challenge_module": "Challenge",
-  "solution_module": "Solution",
+  "solution_module": "ClassicalRoutes",
   "theorem_names": [
     "Max11RouteClassification",
     "Max11UniquePrimitive",
     "MaxPartialDegreeElevenClosure",
     "Max11PlaneKellerGeneration",
+    "Max11ClassicalRoutes.Max11PlaneKellerGenerationWithZeroRoute",
     "Max12FirstPrimitives"
   ],
   "definition_names": [

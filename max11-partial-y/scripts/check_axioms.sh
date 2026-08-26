@@ -1,10 +1,12 @@
 #!/bin/sh
-# Verify that every Solution theorem uses only Palomar's permitted axioms.
+# Verify that every Solution/ClassicalRoutes theorem uses only Palomar's permitted axioms.
 set -eu
 cd "$(dirname "$0")/.."
 
-THEOREMS="$(sed -n 's/^theorem \([^ ]*\).*/\1/p' Solution.lean)"
-PROBE="import Solution\n"
+BASE_THEOREMS="$(sed -n 's/^theorem \([^ ]*\).*/\1/p' Solution.lean)"
+ROUTE_THEOREMS="$(sed -n 's/^theorem \([^ ]*\).*/Max11ClassicalRoutes.\1/p' ClassicalRoutes.lean)"
+THEOREMS="$BASE_THEOREMS $ROUTE_THEOREMS"
+PROBE="import ClassicalRoutes\n"
 for thm in $THEOREMS; do
   PROBE="${PROBE}#print axioms ${thm}\n"
 done
