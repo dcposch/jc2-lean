@@ -6,14 +6,15 @@ zero-degree, gcd-at-most-two, equal-degree, and divisibility reduction rules
 are supplied, closing the single primitive pair `(6,9)` closes every ordered
 pair `(m,n)` with `m,n ≤ 11`.
 
-The formal result is deliberately abstract in the predicate `Good m n`.
-Instantiating `Good` with “all characteristic-zero Keller pairs of actual
-partial `y`-degrees `(m,n)` are automorphisms” recovers the degree-recursion
-step of the reviewed max-(11) theorem, provided the cited mathematical route
-theorems are supplied.  This package does not formalize those classical route
-theorems or the cube-core `(6,9)` exclusion, so it is a formal composition
-certificate rather than a standalone Lean proof of the polynomial-automorphism
-claim.
+The original abstract routing certificate remains available, and the headline
+`Max11PlaneKellerGeneration` now instantiates it with actual bivariate
+polynomials.  It defines the two-variable Jacobian using `MvPolynomial.pderiv`,
+uses `degreeOf 1` for the actual partial `y`-degree, and concludes the concrete
+coordinate-ring equality `K[P,Q] = K[x,y]` via `Algebra.adjoin`.  The theorem's
+premises are the cited zero, gcd-at-most-two, divisibility, equal-degree, and
+`(6,9)` route theorems at this concrete predicate.  Those deep premises are
+not reproved here, so this remains a formal composition theorem rather than an
+unconditional standalone proof of maximum eleven.
 
 ## Compared declarations
 
@@ -24,6 +25,9 @@ claim.
 - `MaxPartialDegreeElevenClosure` proves the recursive closure theorem for an
   arbitrary symmetric predicate `Good`.  Its induction follows the strict
   sum decrease of every equal-degree or divisibility child.
+- `Max11PlaneKellerGeneration` specializes that recursion to actual bivariate
+  Keller pairs and concludes that the two coordinates generate the full
+  polynomial ring.  Target-coordinate symmetry is proved internally.
 - `Max12FirstPrimitives` verifies the frontier checksum: at maximum twelve,
   the same direct routes first leave `(8,12)` and `(9,12)`.
 
