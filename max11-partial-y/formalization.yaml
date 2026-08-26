@@ -68,7 +68,9 @@ status:
     the leading coefficients to a literal square and cube while preserving
     degree, Keller, and generation.  The next actual Jacobian row is also
     extracted: in cube-root weights it makes the alignment discriminator
-    3*A-2*B constant.  The literal cube/noncube split is then
+    3*A-2*B constant.  A denominator-cleared version is proved directly from
+    leading rows s^6,s^9 without assuming divisibility of the next
+    coefficients.  The literal cube/noncube split is then
     composed into a genuine (6,9) theorem
     conditional exactly on closure of those two normalized branches.  Not
     proved here: scalar-extension/descent, the gcd-at-most-two premise, or
@@ -98,6 +100,11 @@ status:
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator.json"
     - declaration: "Max11DegreeRoutes.planeKellerPair_69_alignmentDiscriminator_constant"
+      file: "DegreeRoutes.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.planeKellerPair_69_cubeDiscriminatorNumerator_eq_zero"
       file: "DegreeRoutes.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]

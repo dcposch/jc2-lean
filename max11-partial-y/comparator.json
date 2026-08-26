@@ -9,6 +9,7 @@
     "Max11ClassicalRoutes.Max11PlaneKellerGenerationWithZeroRoute",
     "Max11DegreeRoutes.planeKellerPair_69_commonCore",
     "Max11DegreeRoutes.planeKellerPair_69_alignmentDiscriminator_constant",
+    "Max11DegreeRoutes.planeKellerPair_69_cubeDiscriminatorNumerator_eq_zero",
     "Max11DegreeRoutes.planeKellerPair_69_normalize",
     "Max11DegreeRoutes.planeKellerAutomorphicAtDegrees_69_of_normalized_routes",
     "Max11DegreeRoutes.planeKeller69CubeRoute_of_exclusion",

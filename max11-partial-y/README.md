@@ -59,6 +59,10 @@ branch is impossible, its generation route follows immediately.
   for the first two source coefficients it proves `(3*A-2*B)'=0`, hence
   `3*A-2*B` is constant—the source discriminator preceding the aligned and
   cube-mismatch branches.
+- `Max11DegreeRoutes.planeKellerPair_69_cubeDiscriminatorNumerator_eq_zero`
+  gives the stronger denominator-cleared cube-core row directly from an
+  actual Keller pair with leading coefficients `s^6,s^9`; it makes no prior
+  divisibility assumption on the next coefficients.
 - `Max11DegreeRoutes.planeKellerPair_69_normalize` removes those two nonzero
   scalar factors by independent target rescalings.  The normalized pair has
   literal leading coefficients `h^2` and `h^3`, the same partial degrees,

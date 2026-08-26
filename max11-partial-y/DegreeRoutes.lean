@@ -245,6 +245,51 @@ theorem nextCoefficientJacobianRow_69 {K : Type*}
   rw [hC8, hC9, hC6, hC5]
   linear_combination hcoeff
 
+/-- Denominator-cleared form of the cube-core alignment discriminator.  It
+requires only the literal leading rows `s^6,s^9`; the next coefficients need
+not already be divisible by `s^5,s^8`. -/
+theorem cubeDiscriminatorNumerator_eq_zero_69 {K : Type*}
+    [Field K] [CharZero K] {p q : K[X][Y]} {j : K} {s : K[X]}
+    (hp : p.natDegree = 6) (hq : q.natDegree = 9)
+    (hjac : bivariateJacobian p q = Polynomial.C (Polynomial.C j))
+    (hs : s ≠ 0)
+    (hp6 : p.coeff 6 = s ^ 6) (hq9 : q.coeff 9 = s ^ 9) :
+    (3 : K[X]) * s ^ 4 * (p.coeff 5).derivative -
+        (15 : K[X]) * s ^ 3 * p.coeff 5 * s.derivative -
+      (2 : K[X]) * s * (q.coeff 8).derivative +
+        (16 : K[X]) * q.coeff 8 * s.derivative = 0 := by
+  have hrow := nextCoefficientJacobianRow_69 hp hq hjac
+  rw [hp6, hq9] at hrow
+  have hC8 : Polynomial.C (8 : K) = (8 : K[X]) :=
+    Polynomial.C_eq_natCast 8
+  have hC9 : Polynomial.C (9 : K) = (9 : K[X]) :=
+    Polynomial.C_eq_natCast 9
+  have hC6 : Polynomial.C (6 : K) = (6 : K[X]) :=
+    Polynomial.C_eq_natCast 6
+  have hC5 : Polynomial.C (5 : K) = (5 : K[X]) :=
+    Polynomial.C_eq_natCast 5
+  rw [hC8, hC9, hC6, hC5] at hrow
+  have hscaled : (3 : K[X]) * s ^ 5 *
+      ((3 : K[X]) * s ^ 4 * (p.coeff 5).derivative -
+          (15 : K[X]) * s ^ 3 * p.coeff 5 * s.derivative -
+        (2 : K[X]) * s * (q.coeff 8).derivative +
+          (16 : K[X]) * q.coeff 8 * s.derivative) = 0 := by
+    calc
+      (3 : K[X]) * s ^ 5 *
+          ((3 : K[X]) * s ^ 4 * (p.coeff 5).derivative -
+              (15 : K[X]) * s ^ 3 * p.coeff 5 * s.derivative -
+            (2 : K[X]) * s * (q.coeff 8).derivative +
+              (16 : K[X]) * q.coeff 8 * s.derivative) =
+          (s ^ 6).derivative * (q.coeff 8 * (8 : K[X])) +
+            (p.coeff 5).derivative * (s ^ 9 * (9 : K[X])) -
+          ((s ^ 6 * (6 : K[X])) * (q.coeff 8).derivative +
+            (p.coeff 5 * (5 : K[X])) * (s ^ 9).derivative) := by
+              simp only [Polynomial.derivative_pow, Polynomial.C_eq_natCast]
+              ring
+      _ = 0 := hrow
+  exact (mul_eq_zero.mp hscaled).resolve_left
+    (mul_ne_zero (by norm_num) (pow_ne_zero 5 hs))
+
 /-- In the cube-root coordinates of a normalized `(6,9)` source, the first
 non-leading Jacobian row says that the alignment discriminator `3A-2B` is
 constant.  This is the exact source row used before the cube/noncube branch
@@ -311,6 +356,32 @@ theorem planeKellerPair_69_alignmentDiscriminator_constant {K : Type*}
     hpdegree hqdegree hjac hs hp6 hq9 hp5 hq8
   refine ⟨((3 : K[X]) * A - (2 : K[X]) * B).coeff 0, ?_⟩
   exact Polynomial.eq_C_of_derivative_eq_zero hderivative
+
+/-- An actual cube-core `(6,9)` Keller pair satisfies the denominator-cleared
+first alignment row, without any divisibility assumption on its next two
+coefficients. -/
+theorem planeKellerPair_69_cubeDiscriminatorNumerator_eq_zero {K : Type*}
+    [Field K] [CharZero K] {P Q : MvPolynomial (Fin 2) K} {s : K[X]}
+    (hP : degreeOf 1 P = 6) (hQ : degreeOf 1 Q = 9)
+    (hKeller : IsPlaneKellerPair P Q) (hs : s ≠ 0)
+    (hp6 : ((Polynomial.Bivariate.equivMvPolynomial K).symm P).coeff 6 = s ^ 6)
+    (hq9 : ((Polynomial.Bivariate.equivMvPolynomial K).symm Q).coeff 9 = s ^ 9) :
+    let a := ((Polynomial.Bivariate.equivMvPolynomial K).symm P).coeff 5
+    let b := ((Polynomial.Bivariate.equivMvPolynomial K).symm Q).coeff 8
+    (3 : K[X]) * s ^ 4 * a.derivative -
+        (15 : K[X]) * s ^ 3 * a * s.derivative -
+      (2 : K[X]) * s * b.derivative +
+        (16 : K[X]) * b * s.derivative = 0 := by
+  dsimp only
+  let p := (Polynomial.Bivariate.equivMvPolynomial K).symm P
+  let q := (Polynomial.Bivariate.equivMvPolynomial K).symm Q
+  have hpdegree : p.natDegree = 6 := by
+    simpa only [p, natDegree_bivariate_eq_degreeOf_y] using hP
+  have hqdegree : q.natDegree = 9 := by
+    simpa only [q, natDegree_bivariate_eq_degreeOf_y] using hQ
+  obtain ⟨j, -, hjac⟩ := bivariateJacobian_eq_C_of_keller hKeller
+  exact cubeDiscriminatorNumerator_eq_zero_69 hpdegree hqdegree hjac
+    hs hp6 hq9
 
 /-- When the positive outer degree of `q` is a multiple of that of `p`, the
 top coefficient of `q` is a scalar multiple of the corresponding power of
