@@ -345,6 +345,71 @@ noncomputable def GCD369CubeFaberNormalForm.ofMonic
       hq := by simpa only [F9, F8, F7, F6, F5, F4, F3, F2, F1] using
         hqDecomposition }
 
+namespace GCD369CubeFaberNormalForm
+
+/-- The first free Faber coefficient is literally the eighth nonic
+coefficient. -/
+theorem d_eq_coeff_eight
+    {k : Type*} [Field k]
+    {a0 a1 a2 a3 a4 : RatFunc k} {q : (RatFunc k)[X]}
+    (N : GCD369CubeFaberNormalForm a0 a1 a2 a3 a4 q) :
+    N.d = q.coeff 8 := by
+  have h := congrArg (fun p : (RatFunc k)[X] => p.coeff 8) N.hq
+  norm_num [GCD369CubeFaberNine, GCD369CubeFaberEight,
+    GCD369CubeFaberSeven, GCD369CubeFaberSix, GCD369CubeFaberFive,
+    GCD369CubeFaberFour, GCD369CubeFaberThree, GCD369CubeFaberTwo,
+    GCD369CubeFaberOne, GCD369CubeDepressedSextic,
+    coeff_add, coeff_C_mul, coeff_monomial] at h
+  exact h.symm
+
+end GCD369CubeFaberNormalForm
+
+/-- Base-field representatives of all free Faber coefficients. -/
+structure GCD369CubeFaberConstantParameters
+    {k : Type*} [Field k]
+    {a0 a1 a2 a3 a4 : RatFunc k} {q : (RatFunc k)[X]}
+    (N : GCD369CubeFaberNormalForm a0 a1 a2 a3 a4 q) where
+  d : k
+  c7 : k
+  c6 : k
+  c5 : k
+  c4 : k
+  c3 : k
+  c2 : k
+  c1 : k
+  c0 : k
+  hd : N.d = algebraMap k (RatFunc k) d
+  hc7 : N.c7 = algebraMap k (RatFunc k) c7
+  hc6 : N.c6 = algebraMap k (RatFunc k) c6
+  hc5 : N.c5 = algebraMap k (RatFunc k) c5
+  hc4 : N.c4 = algebraMap k (RatFunc k) c4
+  hc3 : N.c3 = algebraMap k (RatFunc k) c3
+  hc2 : N.c2 = algebraMap k (RatFunc k) c2
+  hc1 : N.c1 = algebraMap k (RatFunc k) c1
+  hc0 : N.c0 = algebraMap k (RatFunc k) c0
+
+namespace GCD369CubeFaberNormalForm
+
+/-- Zero derivative descends every Faber coefficient to the base field. -/
+noncomputable def constantParameters
+    {k : Type*} [Field k] [CharZero k]
+    {a0 a1 a2 a3 a4 : RatFunc k} {q : (RatFunc k)[X]}
+    (N : GCD369CubeFaberNormalForm a0 a1 a2 a3 a4 q) :
+    GCD369CubeFaberConstantParameters N := by
+  choose d hd using GCD369CubeRatFuncConstants N.d N.hd
+  choose c7 hc7 using GCD369CubeRatFuncConstants N.c7 N.hc7
+  choose c6 hc6 using GCD369CubeRatFuncConstants N.c6 N.hc6
+  choose c5 hc5 using GCD369CubeRatFuncConstants N.c5 N.hc5
+  choose c4 hc4 using GCD369CubeRatFuncConstants N.c4 N.hc4
+  choose c3 hc3 using GCD369CubeRatFuncConstants N.c3 N.hc3
+  choose c2 hc2 using GCD369CubeRatFuncConstants N.c2 N.hc2
+  choose c1 hc1 using GCD369CubeRatFuncConstants N.c1 N.hc1
+  choose c0 hc0 using GCD369CubeRatFuncConstants N.c0 N.hc0
+  exact ⟨d, c7, c6, c5, c4, c3, c2, c1, c0,
+    hd, hc7, hc6, hc5, hc4, hc3, hc2, hc1, hc0⟩
+
+end GCD369CubeFaberNormalForm
+
 namespace GCD369CubePolynomialSource
 
 /-- The literal normalized nonic of a polynomial cube source admits the
@@ -364,6 +429,24 @@ noncomputable def faberNormalForm
     rw [hJ, natDegree_C]
     norm_num
 
+/-- The mismatch coefficient in the Faber form is the affine-alignment
+constant already extracted from the literal source. -/
+theorem faberNormalForm_d
+    {k : Type*} [Field k] [CharZero k]
+    (S : GCD369CubePolynomialSource k) (delta : k)
+    (hdelta : 3 * S.A - 2 * S.B = algebraMap k (RatFunc k) delta) :
+    S.faberNormalForm.d = algebraMap k (RatFunc k) (-delta / 2) := by
+  rw [GCD369CubeFaberNormalForm.d_eq_coeff_eight,
+    S.normalizedQ_coeff_eight delta hdelta]
+
+/-- All free coefficients of the literal source normal form, represented in
+the base field. -/
+noncomputable def faberConstantParameters
+    {k : Type*} [Field k] [CharZero k]
+    (S : GCD369CubePolynomialSource k) :
+    GCD369CubeFaberConstantParameters S.faberNormalForm :=
+  S.faberNormalForm.constantParameters
+
 end GCD369CubePolynomialSource
 
 #print axioms GCD369CubeRatFuncJacobian_topRow
@@ -371,3 +454,4 @@ end GCD369CubePolynomialSource
 #print axioms GCD369CubeFaberPeel.ofData
 #print axioms GCD369CubeFaberNormalForm.ofMonic
 #print axioms GCD369CubePolynomialSource.faberNormalForm
+#print axioms GCD369CubePolynomialSource.faberNormalForm_d
