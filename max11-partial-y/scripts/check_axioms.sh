@@ -20,12 +20,12 @@ OUT="$(printf '%b' "$PROBE" | lake env lean --stdin 2>&1)" || {
 echo "$OUT"
 
 for thm in $THEOREMS; do
-  LINE="$(echo "$OUT" | grep "'$thm' depends on axioms" || true)"
-  if [ -z "$LINE" ]; then
+  BLOCK="$(echo "$OUT" | sed -n "/'$thm' depends on axioms/,/]/p" | head -20)"
+  if [ -z "$BLOCK" ]; then
     echo "FAIL: no axiom report for $thm"
     exit 1
   fi
-  BAD="$(echo "$LINE" | sed -e 's/.*axioms: \[//' -e 's/\]//' -e 's/,/\n/g' \
+  BAD="$(echo "$BLOCK" | tr '\n' ' ' | sed -e 's/.*axioms: \[//' -e 's/\].*//' -e 's/,/\n/g' \
     | tr -d ' ' | grep -v -E '^(propext|Classical\.choice|Quot\.sound)$' || true)"
   if [ -n "$BAD" ]; then
     echo "FAIL: $thm depends on non-permitted axioms: $BAD"

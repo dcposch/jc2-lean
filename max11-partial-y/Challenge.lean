@@ -161,6 +161,24 @@ theorem planeKellerPair_69_commonCore {K : Type*}
         q.coeff 9 = Polynomial.C beta * h ^ 3 := by
   sorry
 
+/-- If the first two coefficient rows of a genuine `(6,9)` pair are written
+in cube-root weights `(6,5;9,8)`, the alignment discriminator `3A-2B` is a
+constant polynomial. -/
+theorem planeKellerPair_69_alignmentDiscriminator_constant {K : Type*}
+    [Field K] [CharZero K] {P Q : MvPolynomial (Fin 2) K}
+    {s A B : Polynomial K}
+    (hP : MvPolynomial.degreeOf 1 P = 6)
+    (hQ : MvPolynomial.degreeOf 1 Q = 9)
+    (hKeller : IsPlaneKellerPair P Q)
+    (hs : s ≠ 0)
+    (hp6 : ((Polynomial.Bivariate.equivMvPolynomial K).symm P).coeff 6 = s ^ 6)
+    (hq9 : ((Polynomial.Bivariate.equivMvPolynomial K).symm Q).coeff 9 = s ^ 9)
+    (hp5 : ((Polynomial.Bivariate.equivMvPolynomial K).symm P).coeff 5 = s ^ 5 * A)
+    (hq8 : ((Polynomial.Bivariate.equivMvPolynomial K).symm Q).coeff 8 = s ^ 8 * B) :
+    ∃ c : K, (3 : Polynomial K) * A - (2 : Polynomial K) * B =
+      Polynomial.C c := by
+  sorry
+
 /-- A genuine `(6,9)` Keller pair can be normalized so that its leading
 coefficients are a literal square and cube of one nonzero polynomial, without
 changing either the Keller property or coordinate generation. -/

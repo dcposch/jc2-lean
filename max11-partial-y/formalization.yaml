@@ -66,7 +66,9 @@ status:
     deriving its nonzero square/cube common leading core without assuming a
     later landing case; independent nonzero target rescaling then normalizes
     the leading coefficients to a literal square and cube while preserving
-    degree, Keller, and generation.  The literal cube/noncube split is then
+    degree, Keller, and generation.  The next actual Jacobian row is also
+    extracted: in cube-root weights it makes the alignment discriminator
+    3*A-2*B constant.  The literal cube/noncube split is then
     composed into a genuine (6,9) theorem
     conditional exactly on closure of those two normalized branches.  Not
     proved here: scalar-extension/descent, the gcd-at-most-two premise, or
@@ -91,6 +93,11 @@ status:
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator.json"
     - declaration: "Max11DegreeRoutes.planeKellerPair_69_normalize"
+      file: "DegreeRoutes.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.planeKellerPair_69_alignmentDiscriminator_constant"
       file: "DegreeRoutes.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]

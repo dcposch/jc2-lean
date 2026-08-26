@@ -213,6 +213,105 @@ theorem leadingCoefficient_weightedWronskian {K : Type*}
     _ = Polynomial.C (m : K) * p.coeff m *
         (q.coeff n).derivative := by ring
 
+/-- The first row below the leading weighted-Wronskian row for outer degrees
+`(6,9)`. -/
+theorem nextCoefficientJacobianRow_69 {K : Type*}
+    [Field K] [CharZero K] {p q : K[X][Y]} {j : K}
+    (hp : p.natDegree = 6) (hq : q.natDegree = 9)
+    (hjac : bivariateJacobian p q = Polynomial.C (Polynomial.C j)) :
+    (p.coeff 6).derivative * (q.coeff 8 * Polynomial.C (8 : K)) +
+        (p.coeff 5).derivative * (q.coeff 9 * Polynomial.C (9 : K)) -
+      ((p.coeff 6 * Polynomial.C (6 : K)) * (q.coeff 8).derivative +
+        (p.coeff 5 * Polynomial.C (5 : K)) * (q.coeff 9).derivative) = 0 := by
+  have hcoeff := congrArg (fun r : K[X][Y] => r.coeff 13) hjac
+  simp only [bivariateJacobian, Polynomial.coeff_sub, Polynomial.coeff_mul,
+    coeff_xderiv, Polynomial.coeff_derivative, Polynomial.coeff_C,
+    show (13 : ℕ) ≠ 0 by norm_num, if_false] at hcoeff
+  have hanti : (Finset.HasAntidiagonal.antidiagonal 13 : Finset (ℕ × ℕ)) =
+      ({(0, 13), (1, 12), (2, 11), (3, 10), (4, 9), (5, 8), (6, 7),
+        (7, 6), (8, 5), (9, 4), (10, 3), (11, 2), (12, 1), (13, 0)} :
+        Finset (ℕ × ℕ)) := by decide
+  rw [hanti] at hcoeff
+  norm_num [hp, hq,
+    Polynomial.coeff_eq_zero_of_natDegree_lt] at hcoeff ⊢
+  have hC8 : Polynomial.C (8 : K) = (8 : K[X]) :=
+    Polynomial.C_eq_natCast 8
+  have hC9 : Polynomial.C (9 : K) = (9 : K[X]) :=
+    Polynomial.C_eq_natCast 9
+  have hC6 : Polynomial.C (6 : K) = (6 : K[X]) :=
+    Polynomial.C_eq_natCast 6
+  have hC5 : Polynomial.C (5 : K) = (5 : K[X]) :=
+    Polynomial.C_eq_natCast 5
+  rw [hC8, hC9, hC6, hC5]
+  linear_combination hcoeff
+
+/-- In the cube-root coordinates of a normalized `(6,9)` source, the first
+non-leading Jacobian row says that the alignment discriminator `3A-2B` is
+constant.  This is the exact source row used before the cube/noncube branch
+analysis; no landing hypothesis occurs here. -/
+theorem alignmentDiscriminator_derivative_eq_zero_69 {K : Type*}
+    [Field K] [CharZero K] {p q : K[X][Y]} {j : K}
+    {s A B : K[X]} (hp : p.natDegree = 6) (hq : q.natDegree = 9)
+    (hjac : bivariateJacobian p q = Polynomial.C (Polynomial.C j))
+    (hs : s ≠ 0)
+    (hp6 : p.coeff 6 = s ^ 6) (hq9 : q.coeff 9 = s ^ 9)
+    (hp5 : p.coeff 5 = s ^ 5 * A) (hq8 : q.coeff 8 = s ^ 8 * B) :
+    ((3 : K[X]) * A - (2 : K[X]) * B).derivative = 0 := by
+  have hrow := nextCoefficientJacobianRow_69 hp hq hjac
+  rw [hp6, hq9, hp5, hq8] at hrow
+  have hC8 : Polynomial.C (8 : K) = (8 : K[X]) :=
+    Polynomial.C_eq_natCast 8
+  have hC9 : Polynomial.C (9 : K) = (9 : K[X]) :=
+    Polynomial.C_eq_natCast 9
+  have hC6 : Polynomial.C (6 : K) = (6 : K[X]) :=
+    Polynomial.C_eq_natCast 6
+  have hC5 : Polynomial.C (5 : K) = (5 : K[X]) :=
+    Polynomial.C_eq_natCast 5
+  rw [hC8, hC9, hC6, hC5] at hrow
+  have hscaled :
+      (3 : K[X]) * s ^ 14 *
+          ((3 : K[X]) * A - (2 : K[X]) * B).derivative = 0 := by
+    calc
+      (3 : K[X]) * s ^ 14 *
+          ((3 : K[X]) * A - (2 : K[X]) * B).derivative =
+          (s ^ 6).derivative * (s ^ 8 * B * (8 : K[X])) +
+            (s ^ 5 * A).derivative * (s ^ 9 * (9 : K[X])) -
+          ((s ^ 6 * (6 : K[X])) * (s ^ 8 * B).derivative +
+            (s ^ 5 * A * (5 : K[X])) * (s ^ 9).derivative) := by
+              simp only [Polynomial.derivative_sub, Polynomial.derivative_mul,
+                Polynomial.derivative_pow, Polynomial.derivative_natCast,
+                Polynomial.derivative_ofNat, Polynomial.C_eq_natCast,
+                zero_mul, zero_add]
+              ring
+      _ = 0 := hrow
+  exact (mul_eq_zero.mp hscaled).resolve_left
+    (mul_ne_zero (by norm_num) (pow_ne_zero 14 hs))
+
+/-- Actual bivariate Keller data imply the constant alignment discriminator
+once the first two coefficient rows are expressed in cube-root weights. -/
+theorem planeKellerPair_69_alignmentDiscriminator_constant {K : Type*}
+    [Field K] [CharZero K] {P Q : MvPolynomial (Fin 2) K}
+    {s A B : K[X]}
+    (hP : degreeOf 1 P = 6) (hQ : degreeOf 1 Q = 9)
+    (hKeller : IsPlaneKellerPair P Q)
+    (hs : s ≠ 0)
+    (hp6 : ((Polynomial.Bivariate.equivMvPolynomial K).symm P).coeff 6 = s ^ 6)
+    (hq9 : ((Polynomial.Bivariate.equivMvPolynomial K).symm Q).coeff 9 = s ^ 9)
+    (hp5 : ((Polynomial.Bivariate.equivMvPolynomial K).symm P).coeff 5 = s ^ 5 * A)
+    (hq8 : ((Polynomial.Bivariate.equivMvPolynomial K).symm Q).coeff 8 = s ^ 8 * B) :
+    ∃ c : K, (3 : K[X]) * A - (2 : K[X]) * B = Polynomial.C c := by
+  let p := (Polynomial.Bivariate.equivMvPolynomial K).symm P
+  let q := (Polynomial.Bivariate.equivMvPolynomial K).symm Q
+  have hpdegree : p.natDegree = 6 := by
+    simpa only [p, natDegree_bivariate_eq_degreeOf_y] using hP
+  have hqdegree : q.natDegree = 9 := by
+    simpa only [q, natDegree_bivariate_eq_degreeOf_y] using hQ
+  obtain ⟨j, -, hjac⟩ := bivariateJacobian_eq_C_of_keller hKeller
+  have hderivative := alignmentDiscriminator_derivative_eq_zero_69
+    hpdegree hqdegree hjac hs hp6 hq9 hp5 hq8
+  refine ⟨((3 : K[X]) * A - (2 : K[X]) * B).coeff 0, ?_⟩
+  exact Polynomial.eq_C_of_derivative_eq_zero hderivative
+
 /-- When the positive outer degree of `q` is a multiple of that of `p`, the
 top coefficient of `q` is a scalar multiple of the corresponding power of
 the top coefficient of `p`.  This is the cancellation needed for the

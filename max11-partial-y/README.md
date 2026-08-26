@@ -54,6 +54,11 @@ branch is impossible, its generation route follows immediately.
   factorization produce nonzero `alpha`, `beta`, and `h` with leading
   coefficients `alpha*h^2` and `beta*h^3`.  No cube/noncube landing is
   assumed in this theorem.
+- `Max11DegreeRoutes.planeKellerPair_69_alignmentDiscriminator_constant`
+  extracts the next actual Jacobian coefficient row.  In cube-root weights
+  for the first two source coefficients it proves `(3*A-2*B)'=0`, hence
+  `3*A-2*B` is constant—the source discriminator preceding the aligned and
+  cube-mismatch branches.
 - `Max11DegreeRoutes.planeKellerPair_69_normalize` removes those two nonzero
   scalar factors by independent target rescalings.  The normalized pair has
   literal leading coefficients `h^2` and `h^3`, the same partial degrees,
