@@ -935,6 +935,71 @@ theorem unmixedEllipticRatFuncTerminalExclusion
 
 end GCD369CubeLaterInvariantSource
 
+/-! ## Complete later-fibre source -/
+
+/-- The actual rational-function source remaining after all early Faber
+loads vanish.  The two surviving invariants are required to descend to the
+constant field, and the terminal row and original DS boundary are retained.
+No elliptic, cusp, zero-sheet, or Davenport--Stothers landing is selected by
+the caller. -/
+structure GCD369CubeLaterRatFuncTerminalSource
+    (k : Type u) [Field k] where
+  faber : GCD369CubeLaterInvariantSource (RatFunc k)
+  mu : k
+  nu : k
+  j : k
+  s : k[X]
+  hs : s ≠ 0
+  hj : j ≠ 0
+  hrho3const : 6 * faber.rho3 = algebraMap k (RatFunc k) mu
+  hrho4const : 6 * faber.rho4 = algebraMap k (RatFunc k) nu
+  hterminal :
+    algebraMap k[X] (RatFunc k) s *
+        GCD369CubeRatFuncDerivative
+          (GCD369CubeFaberR5
+            faber.a0 faber.a1 faber.a2 faber.a3 faber.a4
+              0 0 0 0 0 0 0) =
+      algebraMap k (RatFunc k) j
+  hboundary : ∃ r : k,
+    eval r (X ^ 6 + C 4 * X ^ 4 + C 10 * X ^ 2 + C 6 : k[X]) = 0 ∧
+    eval r (X ^ 9 + C 6 * X ^ 7 + C 21 * X ^ 5 + C 35 * X ^ 3 +
+      C (63 / 2) * X : k[X]) = 0
+
+namespace GCD369CubeLaterRatFuncTerminalSource
+
+/-- Every actual later-invariant rational-function source is impossible.
+The proof makes the exhaustive `nu`/`mu` split itself and derives the
+vanishing invariants needed on the singular and zero fibres. -/
+theorem empty
+    {k : Type u} [Field k] [CharZero k] [IsAlgClosed k]
+    (S : GCD369CubeLaterRatFuncTerminalSource k) : False := by
+  by_cases hnu : S.nu = 0
+  · have hrho4 : S.faber.rho4 = 0 := by
+      have h := S.hrho4const
+      rw [hnu, map_zero] at h
+      linear_combination (1 / 6 : RatFunc k) * h
+    by_cases hmu : S.mu = 0
+    · have hrho3 : S.faber.rho3 = 0 := by
+        have h := S.hrho3const
+        rw [hmu, map_zero] at h
+        linear_combination (1 / 6 : RatFunc k) * h
+      exact S.faber.zeroInvariantRatFuncTerminalExclusion
+        S.j S.hj S.s S.hs hrho3 hrho4 S.hterminal S.hboundary
+    · exact S.faber.unmixedEllipticRatFuncTerminalExclusion
+        S.mu S.j hmu S.hj S.s S.hrho3const hrho4 S.hterminal
+  · by_cases hmu : S.mu = 0
+    · have hrho3 : S.faber.rho3 = 0 := by
+        have h := S.hrho3const
+        rw [hmu, map_zero] at h
+        linear_combination (1 / 6 : RatFunc k) * h
+      exact S.faber.mixedCuspRatFuncTerminalExclusion
+        S.nu S.j hnu S.hj S.s S.hs hrho3 S.hrho4const S.hterminal
+    · exact S.faber.mixedEllipticRatFuncTerminalExclusion
+        S.mu S.nu S.j hmu hnu S.hj S.s
+          S.hrho3const S.hrho4const S.hterminal
+
+end GCD369CubeLaterRatFuncTerminalSource
+
 #print axioms GCD369CubeRatFuncReducedPresentation
 #print axioms GCD369CubeRatFuncDerivative_div
 #print axioms GCD369CubeRatFuncDerivative_zero
@@ -959,3 +1024,4 @@ end GCD369CubeLaterInvariantSource
   GCD369CubeLaterInvariantSource.unmixedEllipticCurveOfTerminal
 #print axioms
   GCD369CubeLaterInvariantSource.unmixedEllipticRatFuncTerminalExclusion
+#print axioms GCD369CubeLaterRatFuncTerminalSource.empty
