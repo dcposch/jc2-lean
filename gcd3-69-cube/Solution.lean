@@ -118,6 +118,187 @@ theorem GCD369CubeFaberDSValues {K : Type*} [Field K] [CharZero K]
   norm_num [GCD369CubeFaberR1, GCD369CubeFaberR2, GCD369CubeFaberR3,
     GCD369CubeFaberR4, GCD369CubeFaberR5] <;> ring_nf <;> simp
 
+/-- Primitive numerator of the zero-high-constant invariant `r1`. -/
+def GCD369CubeFaberN1 {K : Type*} [Field K]
+    (a0 a1 a2 a3 a4 : K) : K :=
+  64 * a0 * a2 - 16 * a0 * a4 ^ 2 + 32 * a1 ^ 2 -
+    32 * a1 * a3 * a4 - 16 * a2 ^ 2 * a4 - 16 * a2 * a3 ^ 2 +
+    8 * a2 * a4 ^ 3 + 12 * a3 ^ 2 * a4 ^ 2 - a4 ^ 5
+
+/-- Primitive numerator of the zero-high-constant invariant `r2`. -/
+def GCD369CubeFaberN2 {K : Type*} [Field K]
+    (a0 a1 a2 a3 a4 : K) : K :=
+  64 * a0 * a1 - 32 * a0 * a3 * a4 - 32 * a1 * a2 * a4 -
+    16 * a1 * a3 ^ 2 + 8 * a1 * a4 ^ 3 - 16 * a2 ^ 2 * a3 +
+    24 * a2 * a3 * a4 ^ 2 + 8 * a3 ^ 3 * a4 - 5 * a3 * a4 ^ 4
+
+/-- Primitive numerator of the zero-high-constant invariant `r3`. -/
+def GCD369CubeFaberN3 {K : Type*} [Field K]
+    (a0 a1 a2 a3 a4 : K) : K :=
+  384 * a0 ^ 2 - 256 * a0 * a2 * a4 - 192 * a0 * a3 ^ 2 +
+    64 * a0 * a4 ^ 3 - 128 * a1 ^ 2 * a4 - 384 * a1 * a2 * a3 +
+    224 * a1 * a3 * a4 ^ 2 - 64 * a2 ^ 3 + 112 * a2 ^ 2 * a4 ^ 2 +
+    256 * a2 * a3 ^ 2 * a4 - 44 * a2 * a4 ^ 4 + 24 * a3 ^ 4 -
+    96 * a3 ^ 2 * a4 ^ 3 + 5 * a4 ^ 6
+
+/-- Primitive numerator of the zero-high-constant invariant `r4`. -/
+def GCD369CubeFaberN4 {K : Type*} [Field K]
+    (a0 a1 a2 a3 a4 : K) : K :=
+  -32 * a0 * a1 * a4 - 64 * a0 * a2 * a3 + 32 * a0 * a3 * a4 ^ 2 -
+    32 * a1 ^ 2 * a3 - 48 * a1 * a2 ^ 2 + 40 * a1 * a2 * a4 ^ 2 +
+    40 * a1 * a3 ^ 2 * a4 - 7 * a1 * a4 ^ 4 + 48 * a2 ^ 2 * a3 * a4 +
+    16 * a2 * a3 ^ 3 - 32 * a2 * a3 * a4 ^ 3 -
+    16 * a3 ^ 3 * a4 ^ 2 + 5 * a3 * a4 ^ 5
+
+/-- Vanishing of the first four zero-high-constant Faber invariants is
+equivalent, in the direction needed below, to vanishing of their primitive
+integral numerators. -/
+theorem GCD369CubeFaberZeroHighNumerators {K : Type*}
+    [Field K] [CharZero K] (a0 a1 a2 a3 a4 : K)
+    (hr1 : GCD369CubeFaberR1 a0 a1 a2 a3 a4 0 0 0 0 0 0 0 = 0)
+    (hr2 : GCD369CubeFaberR2 a0 a1 a2 a3 a4 0 0 0 0 0 0 0 = 0)
+    (hr3 : GCD369CubeFaberR3 a0 a1 a2 a3 a4 0 0 0 0 0 0 0 = 0)
+    (hr4 : GCD369CubeFaberR4 a0 a1 a2 a3 a4 0 0 0 0 0 0 0 = 0) :
+    GCD369CubeFaberN1 a0 a1 a2 a3 a4 = 0 ∧
+    GCD369CubeFaberN2 a0 a1 a2 a3 a4 = 0 ∧
+    GCD369CubeFaberN3 a0 a1 a2 a3 a4 = 0 ∧
+    GCD369CubeFaberN4 a0 a1 a2 a3 a4 = 0 := by
+  have hscale1 :
+      GCD369CubeFaberR1 a0 a1 a2 a3 a4 0 0 0 0 0 0 0 =
+        (3 / 256) * GCD369CubeFaberN1 a0 a1 a2 a3 a4 := by
+    simp only [GCD369CubeFaberR1, GCD369CubeFaberN1]
+    ring
+  have hscale2 :
+      GCD369CubeFaberR2 a0 a1 a2 a3 a4 0 0 0 0 0 0 0 =
+        (3 / 256) * GCD369CubeFaberN2 a0 a1 a2 a3 a4 := by
+    simp only [GCD369CubeFaberR2, GCD369CubeFaberN2]
+    ring
+  have hscale3 :
+      GCD369CubeFaberR3 a0 a1 a2 a3 a4 0 0 0 0 0 0 0 =
+        (1 / 1024) * GCD369CubeFaberN3 a0 a1 a2 a3 a4 := by
+    simp only [GCD369CubeFaberR3, GCD369CubeFaberN3]
+    ring
+  have hscale4 :
+      GCD369CubeFaberR4 a0 a1 a2 a3 a4 0 0 0 0 0 0 0 =
+        (1 / 256) * GCD369CubeFaberN4 a0 a1 a2 a3 a4 := by
+    simp only [GCD369CubeFaberR4, GCD369CubeFaberN4]
+    ring
+  rw [hscale1] at hr1
+  rw [hscale2] at hr2
+  rw [hscale3] at hr3
+  rw [hscale4] at hr4
+  exact ⟨
+    (mul_eq_zero.mp hr1).resolve_left (by norm_num),
+    (mul_eq_zero.mp hr2).resolve_left (by norm_num),
+    (mul_eq_zero.mp hr3).resolve_left (by norm_num),
+    (mul_eq_zero.mp hr4).resolve_left (by norm_num)⟩
+
+/-- The reduced zero-high-constant leading scheme has only the common-cubic
+and Davenport--Stothers components.  This is a pointwise proof over every
+characteristic-zero field: a compact fourth-power ideal certificate supplies
+the radical relation, and the remaining split is elementary. -/
+theorem GCD369CubeFaberLeadingComponentEquations {K : Type*}
+    [Field K] [CharZero K] (a0 a1 a2 a3 a4 : K)
+    (h1 : GCD369CubeFaberN1 a0 a1 a2 a3 a4 = 0)
+    (h2 : GCD369CubeFaberN2 a0 a1 a2 a3 a4 = 0)
+    (h3 : GCD369CubeFaberN3 a0 a1 a2 a3 a4 = 0)
+    (h4 : GCD369CubeFaberN4 a0 a1 a2 a3 a4 = 0) :
+    (4 * a2 - a4 ^ 2 = 0 ∧ 2 * a1 - a3 * a4 = 0 ∧
+      4 * a0 - a3 ^ 2 = 0) ∨
+    (a3 = 0 ∧ a1 = 0 ∧ 8 * a2 - 5 * a4 ^ 2 = 0 ∧
+      20 * a0 - 3 * a2 * a4 = 0) := by
+  have hrelpow : (a3 * a4 - 2 * a1) ^ 4 = 0 := by
+    linear_combination
+      (1 / 6 * a2 * a3 ^ 2 - 1 / 3 * a1 * a3 * a4 + 1 / 2 * a1 ^ 2) * h1 +
+      (-1 / 8 * a3 * a4 ^ 3 + 1 / 3 * a2 * a3 * a4 +
+        5 / 24 * a1 * a4 ^ 2 - 1 / 2 * a1 * a2) * h2 +
+      (-1 / 8 * a3 * a4 ^ 2 + 1 / 6 * a2 * a3 +
+        1 / 6 * a1 * a4) * h4
+  have hrel : a3 * a4 - 2 * a1 = 0 :=
+    (pow_eq_zero_iff (by norm_num : (4 : ℕ) ≠ 0)).mp hrelpow
+  let A : K := 4 * a2 - a4 ^ 2
+  let B : K := 4 * a0 - a3 ^ 2
+  by_cases ha3 : a3 = 0
+  · have ha1 : a1 = 0 := by
+      linear_combination (-1 / 2) * hrel + (a4 / 2) * ha3
+    have hfactor :
+        A * (16 * a0 - 4 * a2 * a4 + a4 ^ 3) = 0 := by
+      dsimp only [A]
+      linear_combination h1 - 8 * hrel
+    by_cases hA : A = 0
+    · have h3zero := h3
+      rw [ha3, ha1] at h3zero
+      have ha0sq : a0 ^ 2 = 0 := by
+        dsimp only [A] at hA
+        linear_combination
+          (1 / 384) * h3zero -
+          ((-64 * a0 * a4 - 16 * a2 ^ 2 + 24 * a2 * a4 ^ 2 -
+            5 * a4 ^ 4) / 384) * hA
+      have ha0 : a0 = 0 :=
+        (pow_eq_zero_iff (by norm_num : (2 : ℕ) ≠ 0)).mp ha0sq
+      exact Or.inl ⟨hA, by linear_combination -hrel,
+        by rw [ha3, ha0]; norm_num⟩
+    · have hC : 16 * a0 - 4 * a2 * a4 + a4 ^ 3 = 0 :=
+        (mul_eq_zero.mp hfactor).resolve_left hA
+      have h3zero := h3
+      rw [ha3, ha1] at h3zero
+      have hAD : A ^ 2 * (8 * a2 - 5 * a4 ^ 2) = 0 := by
+        dsimp only [A]
+        linear_combination
+          (48 * a0 - 20 * a2 * a4 + 5 * a4 ^ 3) * hC - 2 * h3zero
+      have hD : 8 * a2 - 5 * a4 ^ 2 = 0 :=
+        (mul_eq_zero.mp hAD).resolve_left (pow_ne_zero 2 hA)
+      exact Or.inr ⟨ha3, ha1, hD, by
+        linear_combination (5 / 4) * hC + (a4 / 4) * hD⟩
+  · have hAsqProduct : a3 * A ^ 2 = 0 := by
+      dsimp only [A]
+      linear_combination
+        -h2 - 4 * (8 * a0 - 4 * a2 * a4 - 2 * a3 ^ 2 + a4 ^ 3) * hrel
+    have hAsq : A ^ 2 = 0 :=
+      (mul_eq_zero.mp hAsqProduct).resolve_left ha3
+    have hA : A = 0 :=
+      (pow_eq_zero_iff (by norm_num : (2 : ℕ) ≠ 0)).mp hAsq
+    have hBsq : B ^ 2 = 0 := by
+      dsimp only [A, B] at hA ⊢
+      linear_combination
+        (1 / 24) * h3 +
+        (2 / 3 * (4 * a1 * a4 + 12 * a2 * a3 - 5 * a3 * a4 ^ 2)) * hrel +
+        ((64 * a0 * a4 + 16 * a2 ^ 2 - 24 * a2 * a4 ^ 2 -
+          16 * a3 ^ 2 * a4 + 5 * a4 ^ 4) / 24) * hA
+    have hB : B = 0 :=
+      (pow_eq_zero_iff (by norm_num : (2 : ℕ) ≠ 0)).mp hBsq
+    exact Or.inl ⟨hA, by linear_combination -hrel, hB⟩
+
+/-- Actual vanishing of `r1,...,r4` therefore parameterizes the leading point
+as either a common cubic or the unique normalized DS curve. -/
+theorem GCD369CubeFaberLeadingComponentClassification {K : Type*}
+    [Field K] [CharZero K] (a0 a1 a2 a3 a4 : K)
+    (hr1 : GCD369CubeFaberR1 a0 a1 a2 a3 a4 0 0 0 0 0 0 0 = 0)
+    (hr2 : GCD369CubeFaberR2 a0 a1 a2 a3 a4 0 0 0 0 0 0 0 = 0)
+    (hr3 : GCD369CubeFaberR3 a0 a1 a2 a3 a4 0 0 0 0 0 0 0 = 0)
+    (hr4 : GCD369CubeFaberR4 a0 a1 a2 a3 a4 0 0 0 0 0 0 0 = 0) :
+    (∃ u v : K,
+      a4 = 2 * u ∧ a3 = 2 * v ∧ a2 = u ^ 2 ∧
+      a1 = 2 * u * v ∧ a0 = v ^ 2) ∨
+    (∃ lambda : K,
+      a4 = 4 * lambda ∧ a3 = 0 ∧ a2 = 10 * lambda ^ 2 ∧
+      a1 = 0 ∧ a0 = 6 * lambda ^ 3) := by
+  obtain ⟨h1, h2, h3, h4⟩ :=
+    GCD369CubeFaberZeroHighNumerators a0 a1 a2 a3 a4 hr1 hr2 hr3 hr4
+  rcases GCD369CubeFaberLeadingComponentEquations a0 a1 a2 a3 a4
+      h1 h2 h3 h4 with hcommon | hds
+  · rcases hcommon with ⟨ha2, ha1, ha0⟩
+    left
+    refine ⟨a4 / 2, a3 / 2, by ring, by ring, ?_, ?_, ?_⟩
+    · linear_combination (1 / 4) * ha2
+    · linear_combination (1 / 2) * ha1
+    · linear_combination (1 / 4) * ha0
+  · rcases hds with ⟨ha3, ha1, ha2, ha0⟩
+    right
+    refine ⟨a4 / 4, by ring, ha3, ?_, ha1, ?_⟩
+    · linear_combination (1 / 8) * ha2
+    · linear_combination (1 / 20) * ha0 + (3 / 160 * a4) * ha2
+
 
 /-- The five polynomial parts multiplying the derivatives of the first five
 negative Laurent coefficients form a triangular basis.  Consequently a
@@ -3346,6 +3527,9 @@ theorem GCD369CubeTrajectoryLandingEmpty {K : Type*}
 #print axioms GCD369CubeFaberInvariantWeights
 #print axioms GCD369CubeFaberCommonValues
 #print axioms GCD369CubeFaberDSValues
+#print axioms GCD369CubeFaberZeroHighNumerators
+#print axioms GCD369CubeFaberLeadingComponentEquations
+#print axioms GCD369CubeFaberLeadingComponentClassification
 #print axioms GCD369CubeLowerRowTriangularity
 #print axioms GCD369CubeZeroSheetBracket
 #print axioms GCD369CubeZeroSheetTerminalExclusion
