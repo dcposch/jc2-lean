@@ -113,6 +113,29 @@ noncomputable def targetRescale {K : Type*} [CommRing K] (u : K)
     (P : MvPolynomial (Fin 2) K) : MvPolynomial (Fin 2) K :=
   MvPolynomial.C u * P
 
+/-- The source-facing normalized form of a genuine partial-degree `(6,9)`
+Keller pair. -/
+def Normalized69Source {K : Type*} [Field K]
+    (P Q : MvPolynomial (Fin 2) K) (h : Polynomial K) : Prop :=
+  h ≠ 0 ∧
+  MvPolynomial.degreeOf 1 P = 6 ∧
+  MvPolynomial.degreeOf 1 Q = 9 ∧
+  ((Polynomial.Bivariate.equivMvPolynomial K).symm P).coeff 6 = h ^ 2 ∧
+  ((Polynomial.Bivariate.equivMvPolynomial K).symm Q).coeff 9 = h ^ 3 ∧
+  IsPlaneKellerPair P Q
+
+/-- Closure of the normalized `(6,9)` cube-core branch. -/
+def PlaneKeller69CubeRoute {K : Type*} [Field K] : Prop :=
+  ∀ (P Q : MvPolynomial (Fin 2) K) (h : Polynomial K),
+    Normalized69Source P Q h →
+    (∃ u : Polynomial K, h = u ^ 3) → PlanePairGenerates P Q
+
+/-- Closure of the normalized `(6,9)` noncube-core branch. -/
+def PlaneKeller69NoncubeRoute {K : Type*} [Field K] : Prop :=
+  ∀ (P Q : MvPolynomial (Fin 2) K) (h : Polynomial K),
+    Normalized69Source P Q h →
+    (¬ ∃ u : Polynomial K, h = u ^ 3) → PlanePairGenerates P Q
+
 /-- A genuine `(6,9)` Keller pair has square/cube leading coefficients with
 one nonzero common polynomial core. -/
 theorem planeKellerPair_69_commonCore {K : Type*}
@@ -150,6 +173,15 @@ theorem planeKellerPair_69_normalize {K : Type*}
           (targetRescale beta⁻¹ Q) ↔ PlanePairGenerates P Q) := by
   sorry
 
+/-- The two exhaustive normalized core branches imply the global genuine
+partial-degree `(6,9)` Keller leaf. -/
+theorem planeKellerAutomorphicAtDegrees_69_of_normalized_routes
+    {K : Type*} [Field K] [CharZero K]
+    (hcube : PlaneKeller69CubeRoute (K := K))
+    (hnoncube : PlaneKeller69NoncubeRoute (K := K)) :
+    PlaneKellerAutomorphicAtDegrees (K := K) 6 9 := by
+  sorry
+
 /-- Concrete maximum-eleven composition in characteristic zero with the
 zero, equal-degree, and divisibility routes proved internally. -/
 theorem Max11PlaneKellerGenerationWithElementaryRoutes {K : Type*}
@@ -157,6 +189,20 @@ theorem Max11PlaneKellerGenerationWithElementaryRoutes {K : Type*}
     (hgcd : ∀ m n, Nat.gcd m n ≤ 2 →
       PlaneKellerAutomorphicAtDegrees (K := K) m n)
     (h69 : PlaneKellerAutomorphicAtDegrees (K := K) 6 9) :
+    ∀ P Q : MvPolynomial (Fin 2) K,
+      MvPolynomial.degreeOf 1 P ≤ 11 →
+      MvPolynomial.degreeOf 1 Q ≤ 11 →
+      IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
+  sorry
+
+/-- Maximum-eleven composition with the exceptional leaf split into its
+source-facing normalized cube and noncube branches. -/
+theorem Max11PlaneKellerGenerationWithNormalized69Routes {K : Type*}
+    [Field K] [CharZero K]
+    (hgcd : ∀ m n, Nat.gcd m n ≤ 2 →
+      PlaneKellerAutomorphicAtDegrees (K := K) m n)
+    (hcube : PlaneKeller69CubeRoute (K := K))
+    (hnoncube : PlaneKeller69NoncubeRoute (K := K)) :
     ∀ P Q : MvPolynomial (Fin 2) K,
       MvPolynomial.degreeOf 1 P ≤ 11 →
       MvPolynomial.degreeOf 1 Q ≤ 11 →

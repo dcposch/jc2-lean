@@ -18,6 +18,13 @@ remaining premises are the gcd-at-most-two theorem and the global `(6,9)`
 leaf, so this remains a formal composition theorem rather than an
 unconditional standalone proof of maximum eleven.
 
+The further source-facing headline
+`Max11DegreeRoutes.Max11PlaneKellerGenerationWithNormalized69Routes` replaces
+the single opaque `(6,9)` premise by two exhaustive premises: closure of the
+normalized cube-core branch and closure of the normalized noncube-core branch.
+Thus its remaining mathematical inputs are exactly gcd-at-most-two and those
+two branch closures.
+
 ## Compared declarations
 
 - `Max11RouteClassification` proves that every unordered pair through eleven
@@ -48,6 +55,13 @@ unconditional standalone proof of maximum eleven.
   literal leading coefficients `h^2` and `h^3`, the same partial degrees,
   remains Keller, and generates the full ring exactly when the original pair
   does.
+- `Max11DegreeRoutes.planeKellerAutomorphicAtDegrees_69_of_normalized_routes`
+  performs the exhaustive literal cube/noncube split on that normalized core
+  and transports generation back to the original pair.
+- `Max11DegreeRoutes.Max11PlaneKellerGenerationWithNormalized69Routes`
+  composes that split with the elementary degree routes.  It is the current
+  source-honest top of the formal tower: gcd at most two and the two normalized
+  branch closures remain explicit premises.
 - `Max12FirstPrimitives` verifies the frontier checksum: at maximum twelve,
   the same direct routes first leave `(8,12)` and `(9,12)`.
 

@@ -10,8 +10,9 @@ project:
     strengthened characteristic-zero theorem proves the zero-degree,
     equal-degree, and divisibility routes internally and concludes
     K[P,Q]=K[x,y] from only the gcd-at-most-two and (6,9) route premises.
-    This project does not itself prove those remaining deep premises or
-    exclude the cube-core (6,9) branch.
+    A further source-facing theorem replaces the (6,9) premise by exhaustive
+    normalized cube-core and noncube-core closure premises.  This project does
+    not itself prove those remaining deep branches.
   authors:
     - "Dan Clemens Posch"
   license: "Apache-2.0"
@@ -64,12 +65,25 @@ status:
     deriving its nonzero square/cube common leading core without assuming a
     later landing case; independent nonzero target rescaling then normalizes
     the leading coefficients to a literal square and cube while preserving
-    degree, Keller, and generation.  Not proved here: scalar-extension/descent, the
-    gcd-at-most-two premise, or the rest of the global (6,9) leaf.
+    degree, Keller, and generation.  The literal cube/noncube split is then
+    composed into a genuine (6,9) theorem
+    conditional exactly on closure of those two normalized branches.  Not
+    proved here: scalar-extension/descent, the gcd-at-most-two premise, or
+    closure of either normalized (6,9) branch.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
   main_results:
+    - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithNormalized69Routes"
+      file: "DegreeRoutes.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.planeKellerAutomorphicAtDegrees_69_of_normalized_routes"
+      file: "DegreeRoutes.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
     - declaration: "Max11DegreeRoutes.planeKellerPair_69_normalize"
       file: "DegreeRoutes.lean"
       sorry_count: 0
@@ -137,10 +151,11 @@ fidelity:
     bivariate Keller pairs.  The concrete Lean theorem now uses exactly that
     polynomial/Jacobian/ring-generation predicate.  The strengthened theorem
     proves the zero-degree, equal-degree, and divisibility routes, but assumes
-    the gcd-at-most-two theorem and the (6,9) leaf.  It formalizes the complete
-    finite recursion and its concrete conclusion, not the algebraic proofs of
-    those remaining premises or scalar-extension descent.  No other
-    divergences are known.
+    the gcd-at-most-two theorem.  The source-facing version splits the (6,9)
+    leaf into explicit normalized cube and noncube closure premises.  It
+    formalizes the complete finite recursion and its concrete conclusion, not
+    the algebraic proofs of those remaining premises or scalar-extension
+    descent.  No other divergences are known.
 
 review:
   status: >-
@@ -165,13 +180,13 @@ alignment:
         exact abstract recursion proved; Keller-pair route theorems remain
         hypotheses
     - source: "Maximum actual partial y-degree eleven theorem, Sections 1 and 6"
-      lean: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithElementaryRoutes"
+      lean: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithNormalized69Routes"
       module: "Challenge"
       status: >-
         exact bivariate polynomial conclusion and finite composition proved;
         the zero, equal-degree, and divisibility routes are proved, while the
-        gcd-at-most-two theorem and global (6,9) leaf remain explicit
-        hypotheses
+        gcd-at-most-two theorem and the normalized cube/noncube (6,9) branch
+        closures remain explicit hypotheses
     - source: "Maximum-twelve frontier checksum, Section 9"
       lean: "Max12FirstPrimitives"
       module: "Challenge"

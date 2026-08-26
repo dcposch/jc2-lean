@@ -428,6 +428,28 @@ def targetRescale {K : Type*} [CommRing K] (u : K)
     (P : MvPolynomial (Fin 2) K) : MvPolynomial (Fin 2) K :=
   MvPolynomial.C u * P
 
+/-- The source-facing normalized form of a genuine partial-degree `(6,9)`
+Keller pair. -/
+def Normalized69Source {K : Type*} [Field K]
+    (P Q : MvPolynomial (Fin 2) K) (h : K[X]) : Prop :=
+  h ≠ 0 ∧
+  degreeOf 1 P = 6 ∧ degreeOf 1 Q = 9 ∧
+  ((Polynomial.Bivariate.equivMvPolynomial K).symm P).coeff 6 = h ^ 2 ∧
+  ((Polynomial.Bivariate.equivMvPolynomial K).symm Q).coeff 9 = h ^ 3 ∧
+  IsPlaneKellerPair P Q
+
+/-- Closure of the normalized `(6,9)` cube-core branch. -/
+def PlaneKeller69CubeRoute {K : Type*} [Field K] : Prop :=
+  ∀ (P Q : MvPolynomial (Fin 2) K) (h : K[X]),
+    Normalized69Source P Q h →
+    (∃ u : K[X], h = u ^ 3) → PlanePairGenerates P Q
+
+/-- Closure of the normalized `(6,9)` noncube-core branch. -/
+def PlaneKeller69NoncubeRoute {K : Type*} [Field K] : Prop :=
+  ∀ (P Q : MvPolynomial (Fin 2) K) (h : K[X]),
+    Normalized69Source P Q h →
+    (¬ ∃ u : K[X], h = u ^ 3) → PlanePairGenerates P Q
+
 /-- Independently rescaling the two target coordinates preserves their
 generated subalgebra. -/
 theorem adjoin_targetRescale_eq {K : Type*} [Field K]
@@ -553,6 +575,28 @@ theorem planeKellerPair_69_normalize {K : Type*}
       alpha⁻¹ beta⁻¹ (inv_ne_zero halpha) (inv_ne_zero hbeta)
   · exact planePairGenerates_targetRescale_iff alpha⁻¹ beta⁻¹
       (inv_ne_zero halpha) (inv_ne_zero hbeta) P Q
+
+/-- The literal cube/noncube split of the normalized common core is
+exhaustive, so closure of those two source-facing branches proves the genuine
+partial-degree `(6,9)` Keller leaf. -/
+theorem planeKellerAutomorphicAtDegrees_69_of_normalized_routes
+    {K : Type*} [Field K] [CharZero K]
+    (hcube : PlaneKeller69CubeRoute (K := K))
+    (hnoncube : PlaneKeller69NoncubeRoute (K := K)) :
+    PlaneKellerAutomorphicAtDegrees (K := K) 6 9 := by
+  intro P Q hP hQ hKeller
+  obtain ⟨alpha, beta, h, _, _, hh, hP0, hQ0,
+      hpcoeff, hqcoeff, hKeller0, hgenerates⟩ :=
+    planeKellerPair_69_normalize hP hQ hKeller
+  let P0 := targetRescale alpha⁻¹ P
+  let Q0 := targetRescale beta⁻¹ Q
+  have hsource : Normalized69Source P0 Q0 h := by
+    exact ⟨hh, hP0, hQ0, hpcoeff, hqcoeff, hKeller0⟩
+  have hgenerated0 : PlanePairGenerates P0 Q0 := by
+    by_cases hiscube : ∃ u : K[X], h = u ^ 3
+    · exact hcube P0 Q0 h hsource hiscube
+    · exact hnoncube P0 Q0 h hsource hiscube
+  exact hgenerates.mp hgenerated0
 
 /-- Subtract a scalar multiple of a power of the first target coordinate
 from the second target coordinate. -/
@@ -738,5 +782,19 @@ theorem Max11PlaneKellerGenerationWithElementaryRoutes {K : Type*}
   exact Max11ClassicalRoutes.Max11PlaneKellerGenerationWithZeroRoute
     hgcd planeKellerAutomorphicAtDegrees_of_dvd
       planeKellerAutomorphicAtDegrees_equal h69
+
+/-- Maximum-eleven composition with the exceptional leaf split into its
+source-facing normalized cube and noncube branches. -/
+theorem Max11PlaneKellerGenerationWithNormalized69Routes {K : Type*}
+    [Field K] [CharZero K]
+    (hgcd : ∀ m n, Nat.gcd m n ≤ 2 →
+      PlaneKellerAutomorphicAtDegrees (K := K) m n)
+    (hcube : PlaneKeller69CubeRoute (K := K))
+    (hnoncube : PlaneKeller69NoncubeRoute (K := K)) :
+    ∀ P Q : MvPolynomial (Fin 2) K,
+      degreeOf 1 P ≤ 11 → degreeOf 1 Q ≤ 11 →
+      IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
+  exact Max11PlaneKellerGenerationWithElementaryRoutes hgcd
+    (planeKellerAutomorphicAtDegrees_69_of_normalized_routes hcube hnoncube)
 
 end Max11DegreeRoutes
