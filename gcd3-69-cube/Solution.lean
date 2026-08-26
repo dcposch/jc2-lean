@@ -205,21 +205,21 @@ theorem GCD369CubeFaberDSValues {K : Type*} [Field K] [CharZero K]
     GCD369CubeFaberR4, GCD369CubeFaberR5] <;> ring_nf <;> simp
 
 /-- Primitive numerator of the zero-high-constant invariant `r1`. -/
-def GCD369CubeFaberN1 {K : Type*} [Field K]
+def GCD369CubeFaberN1 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 : K) : K :=
   64 * a0 * a2 - 16 * a0 * a4 ^ 2 + 32 * a1 ^ 2 -
     32 * a1 * a3 * a4 - 16 * a2 ^ 2 * a4 - 16 * a2 * a3 ^ 2 +
     8 * a2 * a4 ^ 3 + 12 * a3 ^ 2 * a4 ^ 2 - a4 ^ 5
 
 /-- Primitive numerator of the zero-high-constant invariant `r2`. -/
-def GCD369CubeFaberN2 {K : Type*} [Field K]
+def GCD369CubeFaberN2 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 : K) : K :=
   64 * a0 * a1 - 32 * a0 * a3 * a4 - 32 * a1 * a2 * a4 -
     16 * a1 * a3 ^ 2 + 8 * a1 * a4 ^ 3 - 16 * a2 ^ 2 * a3 +
     24 * a2 * a3 * a4 ^ 2 + 8 * a3 ^ 3 * a4 - 5 * a3 * a4 ^ 4
 
 /-- Primitive numerator of the zero-high-constant invariant `r3`. -/
-def GCD369CubeFaberN3 {K : Type*} [Field K]
+def GCD369CubeFaberN3 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 : K) : K :=
   384 * a0 ^ 2 - 256 * a0 * a2 * a4 - 192 * a0 * a3 ^ 2 +
     64 * a0 * a4 ^ 3 - 128 * a1 ^ 2 * a4 - 384 * a1 * a2 * a3 +
@@ -228,13 +228,77 @@ def GCD369CubeFaberN3 {K : Type*} [Field K]
     96 * a3 ^ 2 * a4 ^ 3 + 5 * a4 ^ 6
 
 /-- Primitive numerator of the zero-high-constant invariant `r4`. -/
-def GCD369CubeFaberN4 {K : Type*} [Field K]
+def GCD369CubeFaberN4 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 : K) : K :=
   -32 * a0 * a1 * a4 - 64 * a0 * a2 * a3 + 32 * a0 * a3 * a4 ^ 2 -
     32 * a1 ^ 2 * a3 - 48 * a1 * a2 ^ 2 + 40 * a1 * a2 * a4 ^ 2 +
     40 * a1 * a3 ^ 2 * a4 - 7 * a1 * a4 ^ 4 + 48 * a2 ^ 2 * a3 * a4 +
     16 * a2 * a3 ^ 3 - 32 * a2 * a3 * a4 ^ 3 -
     16 * a3 ^ 3 * a4 ^ 2 + 5 * a3 * a4 ^ 5
+
+/-! ### Exact common-normal expansion -/
+
+/-- First universal Kuranishi row on the common-cubic normal cone. -/
+def GCD369CubeNormalRow1 {K : Type*} [CommRing K]
+    (Xn Yn Zn u : K) : K :=
+  729 * u * Xn ^ 2 - 1458 * Xn * Zn - 729 * Yn ^ 2
+
+/-- Second universal Kuranishi row on the common-cubic normal cone. -/
+def GCD369CubeNormalRow2 {K : Type*} [CommRing K]
+    (Xn Yn Zn u v : K) : K :=
+  -2187 * v * Xn ^ 2 - 4374 * u * Xn * Yn + 4374 * Yn * Zn
+
+/-- Third universal Kuranishi row on the common-cubic normal cone. -/
+def GCD369CubeNormalRow3 {K : Type*} [CommRing K]
+    (Xn Yn Zn u v : K) : K :=
+  2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+    2 * u * Yn ^ 2 + 3 * Zn ^ 2
+
+/-- Fourth universal Kuranishi row on the common-cubic normal cone. -/
+def GCD369CubeNormalRow4 {K : Type*} [CommRing K]
+    (Xn Yn Zn u v : K) : K :=
+  19683 * u * v * Xn ^ 2 + 13122 * u ^ 2 * Xn * Yn -
+    26244 * v * Xn * Zn - 13122 * v * Yn ^ 2 -
+    13122 * u * Yn * Zn
+
+/-- Exact expansion of the first four zero-high Faber numerators along
+`(z^3+uz+v)^2 + h(Xz^2+Yz+Z)`.  In particular their constant and linear
+terms vanish, their quadratic terms are exactly the four Kuranishi rows,
+and the only higher terms are the displayed cubic monomials. -/
+theorem GCD369CubeFaberCommonNormalNumerators {K : Type*}
+    [Field K] [CharZero K] (Xn Yn Zn u v : K) :
+    let H : K[X] := X
+    let A0 : K[X] := C (v ^ 2) + C Zn * H
+    let A1 : K[X] := C (2 * u * v) + C Yn * H
+    let A2 : K[X] := C (u ^ 2) + C Xn * H
+    let A3 : K[X] := C (2 * v)
+    let A4 : K[X] := C (2 * u)
+    GCD369CubeFaberN1 A0 A1 A2 A3 A4 =
+        C ((-32 / 729) * GCD369CubeNormalRow1 Xn Yn Zn u) * H ^ 2 ∧
+    GCD369CubeFaberN2 A0 A1 A2 A3 A4 =
+        C ((32 / 2187) * GCD369CubeNormalRow2 Xn Yn Zn u v) * H ^ 2 ∧
+    GCD369CubeFaberN3 A0 A1 A2 A3 A4 =
+        C (128 * GCD369CubeNormalRow3 Xn Yn Zn u v) * H ^ 2 -
+          C (64 * Xn ^ 3) * H ^ 3 ∧
+    GCD369CubeFaberN4 A0 A1 A2 A3 A4 =
+        C ((32 / 6561) * GCD369CubeNormalRow4 Xn Yn Zn u v) * H ^ 2 -
+          C (48 * Yn * Xn ^ 2) * H ^ 3 := by
+  dsimp
+  constructor
+  · simp only [GCD369CubeFaberN1, GCD369CubeNormalRow1]
+    push_cast
+    ring
+  constructor
+  · simp only [GCD369CubeFaberN2, GCD369CubeNormalRow2]
+    push_cast
+    ring
+  constructor
+  · simp only [GCD369CubeFaberN3, GCD369CubeNormalRow3]
+    push_cast
+    ring
+  · simp only [GCD369CubeFaberN4, GCD369CubeNormalRow4]
+    push_cast
+    ring
 
 /-- Vanishing of the first four zero-high-constant Faber invariants is
 equivalent, in the direction needed below, to vanishing of their primitive
@@ -3625,6 +3689,7 @@ theorem GCD369CubeTrajectoryLandingEmpty {K : Type*}
 #print axioms GCD369CubeFaberInvariantWeights
 #print axioms GCD369CubeFaberCommonValues
 #print axioms GCD369CubeFaberDSValues
+#print axioms GCD369CubeFaberCommonNormalNumerators
 #print axioms GCD369CubeFaberZeroHighNumerators
 #print axioms GCD369CubeFaberLeadingComponentEquations
 #print axioms GCD369CubeFaberLeadingComponentClassification
