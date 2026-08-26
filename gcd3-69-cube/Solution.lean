@@ -1883,6 +1883,235 @@ theorem GCD369CubeEarlyBoundaryDataEmpty
     D.k D.hk D.q D.a D.h D.Xn D.Yn D.Zn D.u D.v D.r D.ha D.hh
       D.hnocommon D.hKroot D.EF D.EG D.hEF D.hEG D.hfregular D.hgregular
 
+/-! ## Exact early-load handoff
+
+The generic source-boundary record above is useful independently, but the
+cube trajectory has more structure: its early pole is produced by exactly
+one of eight normalized Kuranishi systems.  The following predicates retain
+those equations verbatim.  Their finite sum removes `k` and the
+no-common-root certificate from the source-facing input: both are derived
+from the selected row system. -/
+
+/-- The normalized `d != 0` Kuranishi rows at the first common-cubic load. -/
+def GCD369CubeDExceptionalRows {K : Type*} [Field K]
+    (Xn Yn Zn u v : K) : Prop :=
+  (u ≠ 0 ∨ v ≠ 0) ∧
+  729 * u * Xn ^ 2 - 1458 * Xn * Zn - 729 * Yn ^ 2 +
+      320 * u ^ 3 * v - 960 * v ^ 3 = 0 ∧
+  -2187 * v * Xn ^ 2 - 4374 * u * Xn * Yn + 4374 * Yn * Zn +
+      64 * u ^ 5 - 1440 * u ^ 2 * v ^ 2 = 0 ∧
+  2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+      2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0 ∧
+  19683 * u * v * Xn ^ 2 + 13122 * u ^ 2 * Xn * Yn -
+      26244 * v * Xn * Zn - 13122 * v * Yn ^ 2 -
+      13122 * u * Yn * Zn + 160 * u ^ 6 - 5760 * u ^ 3 * v ^ 2 +
+      6480 * v ^ 4 = 0
+
+/-- The normalized first-`c7` Kuranishi rows. -/
+def GCD369CubeC7Rows {K : Type*} [Field K]
+    (Xn Yn Zn u v : K) : Prop :=
+  (u ≠ 0 ∨ v ≠ 0) ∧
+  56 * u ^ 4 - 1008 * u * v ^ 2 + 729 * u * Xn ^ 2 -
+      1458 * Xn * Zn - 729 * Yn ^ 2 = 0 ∧
+  224 * u ^ 3 * v - 336 * v ^ 3 + 729 * v * Xn ^ 2 +
+      1458 * u * Xn * Yn - 1458 * Yn * Zn = 0 ∧
+  2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+      2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0 ∧
+  224 * u ^ 4 * v - 1008 * u * v ^ 3 - 2187 * u * v * Xn ^ 2 -
+      1458 * u ^ 2 * Xn * Yn + 2916 * v * Xn * Zn +
+      1458 * v * Yn ^ 2 + 1458 * u * Yn * Zn = 0
+
+/-- The normalized first-`c5` Kuranishi rows. -/
+def GCD369CubeC5Rows {K : Type*} [Field K]
+    (Xn Yn Zn u v : K) : Prop :=
+  (u ≠ 0 ∨ v ≠ 0) ∧
+  40 * u ^ 3 - 360 * v ^ 2 + 243 * u * Xn ^ 2 -
+      486 * Xn * Zn - 243 * Yn ^ 2 = 0 ∧
+  40 * u ^ 2 * v + 81 * v * Xn ^ 2 + 162 * u * Xn * Yn -
+      162 * Yn * Zn = 0 ∧
+  2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+      2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0 ∧
+  40 * u ^ 3 * v - 80 * v ^ 3 - 243 * u * v * Xn ^ 2 -
+      162 * u ^ 2 * Xn * Yn + 324 * v * Xn * Zn +
+      162 * v * Yn ^ 2 + 162 * u * Yn * Zn = 0
+
+/-- The normalized first-`c4` Kuranishi rows. -/
+def GCD369CubeC4Rows {K : Type*} [Field K]
+    (Xn Yn Zn u v : K) : Prop :=
+  (u ≠ 0 ∨ v ≠ 0) ∧
+  32 * u * v - 27 * u * Xn ^ 2 + 54 * Xn * Zn + 27 * Yn ^ 2 = 0 ∧
+  32 * u ^ 3 - 144 * v ^ 2 + 243 * v * Xn ^ 2 +
+      486 * u * Xn * Yn - 486 * Yn * Zn = 0 ∧
+  2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+      2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0 ∧
+  8 * u ^ 4 - 96 * u * v ^ 2 - 243 * u * v * Xn ^ 2 -
+      162 * u ^ 2 * Xn * Yn + 324 * v * Xn * Zn +
+      162 * v * Yn ^ 2 + 162 * u * Yn * Zn = 0
+
+/-- The normalized first-`c2` Kuranishi rows. -/
+def GCD369CubeC2Rows {K : Type*} [Field K]
+    (Xn Yn Zn u v : K) : Prop :=
+  (u ≠ 0 ∨ v ≠ 0) ∧
+  -16 * v + 9 * u * Xn ^ 2 - 18 * Xn * Zn - 9 * Yn ^ 2 = 0 ∧
+  8 * u ^ 2 + 27 * v * Xn ^ 2 + 54 * u * Xn * Yn -
+      54 * Yn * Zn = 0 ∧
+  2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+      2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0 ∧
+  16 * u ^ 3 - 72 * v ^ 2 - 243 * u * v * Xn ^ 2 -
+      162 * u ^ 2 * Xn * Yn + 324 * v * Xn * Zn +
+      162 * v * Yn ^ 2 + 162 * u * Yn * Zn = 0
+
+/-- The normalized first-`c1` Kuranishi rows. -/
+def GCD369CubeC1Rows {K : Type*} [Field K]
+    (Xn Yn Zn u v : K) : Prop :=
+  (u ≠ 0 ∨ v ≠ 0) ∧
+  8 * u - 9 * u * Xn ^ 2 + 18 * Xn * Zn + 9 * Yn ^ 2 = 0 ∧
+  -8 * v + 9 * v * Xn ^ 2 + 18 * u * Xn * Yn - 18 * Yn * Zn = 0 ∧
+  2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+      2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0 ∧
+  8 * u * v + 27 * u * v * Xn ^ 2 + 18 * u ^ 2 * Xn * Yn -
+      36 * v * Xn * Zn - 18 * v * Yn ^ 2 - 18 * u * Yn * Zn = 0
+
+/-- The normalized first-`rho1` Kuranishi rows. -/
+def GCD369CubeRhoOneRows {K : Type*} [Field K]
+    (Xn Yn Zn u v : K) : Prop :=
+  (u ≠ 0 ∨ v ≠ 0) ∧
+  729 * u * Xn ^ 2 - 1458 * Xn * Zn - 729 * Yn ^ 2 + 1944 = 0 ∧
+  -2187 * v * Xn ^ 2 - 4374 * u * Xn * Yn + 4374 * Yn * Zn = 0 ∧
+  2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+      2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0 ∧
+  19683 * u * v * Xn ^ 2 + 13122 * u ^ 2 * Xn * Yn -
+      26244 * v * Xn * Zn - 13122 * v * Yn ^ 2 -
+      13122 * u * Yn * Zn = 0
+
+/-- The normalized first-`rho2` Kuranishi rows. -/
+def GCD369CubeRhoTwoRows {K : Type*} [Field K]
+    (Xn Yn Zn u v : K) : Prop :=
+  (u ≠ 0 ∨ v ≠ 0) ∧
+  729 * u * Xn ^ 2 - 1458 * Xn * Zn - 729 * Yn ^ 2 = 0 ∧
+  -2187 * v * Xn ^ 2 - 4374 * u * Xn * Yn + 4374 * Yn * Zn - 5832 = 0 ∧
+  2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+      2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0 ∧
+  19683 * u * v * Xn ^ 2 + 13122 * u ^ 2 * Xn * Yn -
+      26244 * v * Xn * Zn - 13122 * v * Yn ^ 2 -
+      13122 * u * Yn * Zn = 0
+
+/-- The eight source rows that can occur before the later-target fibers. -/
+inductive GCD369CubeEarlyLoadRows {K : Type*} [Field K]
+    (Xn Yn Zn u v : K) : Type where
+  | d (hrows : GCD369CubeDExceptionalRows Xn Yn Zn u v)
+  | c7 (hrows : GCD369CubeC7Rows Xn Yn Zn u v)
+  | c5 (hrows : GCD369CubeC5Rows Xn Yn Zn u v)
+  | c4 (hrows : GCD369CubeC4Rows Xn Yn Zn u v)
+  | c2 (hrows : GCD369CubeC2Rows Xn Yn Zn u v)
+  | c1 (hrows : GCD369CubeC1Rows Xn Yn Zn u v)
+  | rhoOne (hrows : GCD369CubeRhoOneRows Xn Yn Zn u v)
+  | rhoTwo (hrows : GCD369CubeRhoTwoRows Xn Yn Zn u v)
+
+namespace GCD369CubeEarlyLoadRows
+
+/-- Scaled weight of the selected first nonzero source/target row. -/
+def weight {K : Type*} [Field K] {Xn Yn Zn u v : K}
+    (R : GCD369CubeEarlyLoadRows Xn Yn Zn u v) : ℕ :=
+  match R with
+  | .d _ => 1
+  | .c7 _ => 2
+  | .c5 _ => 4
+  | .c4 _ => 5
+  | .c2 _ => 7
+  | .c1 _ => 8
+  | .rhoOne _ => 10
+  | .rhoTwo _ => 11
+
+/-- The exact early-load sum has precisely the eight weights used by the
+source boundary order theorem. -/
+theorem weight_mem {K : Type*} [Field K] {Xn Yn Zn u v : K}
+    (R : GCD369CubeEarlyLoadRows Xn Yn Zn u v) :
+    R.weight ∈ ([1, 2, 4, 5, 7, 8, 10, 11] : List ℕ) := by
+  cases R <;> simp [weight]
+
+/-- The exact Kuranishi rows imply the common cubic and its normal have no
+common field-valued root; this fact is no longer supplied by the caller. -/
+theorem noCommonRoot {K : Type*} [Field K] [CharZero K]
+    {Xn Yn Zn u v : K} (R : GCD369CubeEarlyLoadRows Xn Yn Zn u v) :
+    ∀ r : K, r ^ 3 + u * r + v = 0 →
+      Xn * r ^ 2 + Yn * r + Zn = 0 → False := by
+  cases R with
+  | d hrows =>
+      rcases hrows with ⟨hprojective, h1, h2, h3, h4⟩
+      have horbit := GCD369CubeDExceptionalSupport Xn Yn Zn u v h1 h2 h3 h4
+      have hu :=
+        (GCD369CubeDExceptionalCoordinatesNonzero u v hprojective horbit).1
+      exact GCD369CubeDExceptionalNoCommonRoot Xn Yn Zn u v hu h1 h2 h3 h4
+  | c7 hrows =>
+      rcases hrows with ⟨hprojective, h1, h2, h3, h4⟩
+      exact GCD369CubeC7NoCommonRoot Xn Yn Zn u v hprojective h1 h2 h3 h4
+  | c5 hrows =>
+      rcases hrows with ⟨hprojective, h1, h2, h3, h4⟩
+      exact GCD369CubeC5NoCommonRoot Xn Yn Zn u v hprojective h1 h2 h3 h4
+  | c4 hrows =>
+      rcases hrows with ⟨hprojective, h1, h2, h3, h4⟩
+      exact GCD369CubeC4NoCommonRoot Xn Yn Zn u v hprojective h1 h2 h3 h4
+  | c2 hrows =>
+      rcases hrows with ⟨hprojective, h1, h2, h3, h4⟩
+      exact GCD369CubeC2NoCommonRoot Xn Yn Zn u v hprojective h1 h2 h3 h4
+  | c1 hrows =>
+      rcases hrows with ⟨hprojective, h1, h2, h3, h4⟩
+      exact GCD369CubeC1NoCommonRoot Xn Yn Zn u v hprojective h1 h2 h3 h4
+  | rhoOne hrows =>
+      rcases hrows with ⟨hprojective, h1, h2, h3, h4⟩
+      exact GCD369CubeRhoOneNoCommonRoot Xn Yn Zn u v hprojective h1 h2 h3 h4
+  | rhoTwo hrows =>
+      rcases hrows with ⟨hprojective, h1, h2, h3, h4⟩
+      exact GCD369CubeRhoTwoNoCommonRoot Xn Yn Zn u v hprojective h1 h2 h3 h4
+
+end GCD369CubeEarlyLoadRows
+
+/-- Source-boundary data whose first nonzero row is one of the eight exact
+Kuranishi systems.  Neither an arbitrary weight nor an externally supplied
+resultant certificate appears among its fields. -/
+structure GCD369CubeExactEarlyBoundaryData (K : Type*) [Field K] where
+  Xn : K
+  Yn : K
+  Zn : K
+  u : K
+  v : K
+  rows : GCD369CubeEarlyLoadRows Xn Yn Zn u v
+  q : ℚ
+  a : K
+  h : K
+  r : K
+  EF : HahnSeries ℚ K
+  EG : HahnSeries ℚ K
+  ha : a ≠ 0
+  hh : h ≠ 0
+  hKroot : r ^ 3 + u * r + v = 0
+  hEF : (↑(1 : ℚ) : WithTop ℚ) < EF.orderTop
+  hEG : (↑(3 / 2 : ℚ) : WithTop ℚ) < EG.orderTop
+  hfregular : (↑((12 : ℚ) / rows.weight) : WithTop ℚ) ≤
+    let A : HahnSeries ℚ K := HahnSeries.single q a
+    let B : HahnSeries ℚ K := HahnSeries.single 0
+      (Xn * r ^ 2 + Yn * r + Zn)
+    let H : HahnSeries ℚ K := HahnSeries.single 1 h
+    (A ^ 2 + H * B + EF).orderTop
+  hgregular : (↑((18 : ℚ) / rows.weight) : WithTop ℚ) ≤
+    let A : HahnSeries ℚ K := HahnSeries.single q a
+    let B : HahnSeries ℚ K := HahnSeries.single 0
+      (Xn * r ^ 2 + Yn * r + Zn)
+    let H : HahnSeries ℚ K := HahnSeries.single 1 h
+    let C32 : HahnSeries ℚ K := HahnSeries.single 0 (3 / 2)
+    (A ^ 3 + C32 * H * A * B + EG).orderTop
+
+/-- Every exact early Kuranishi landing violates one of the two original
+source boundary inequalities. -/
+theorem GCD369CubeExactEarlyBoundaryDataEmpty
+    {K : Type*} [Field K] [CharZero K]
+    (D : GCD369CubeExactEarlyBoundaryData K) : False := by
+  exact GCD369CubeEarlyCommonCubicBoundaryExclusion
+    D.rows.weight D.rows.weight_mem D.q D.a D.h D.Xn D.Yn D.Zn D.u D.v D.r
+      D.ha D.hh D.rows.noCommonRoot D.hKroot D.EF D.EG D.hEF D.hEG
+      D.hfregular D.hgregular
+
 /-- Local order of the numerator of a reduced rational derivative at a pole
 of the denominator.  If `N/B` is pointwise reduced and `B` has multiplicity
 `m > 0`, then `N'B-NB'` has multiplicity exactly `m-1`. -/
@@ -2900,7 +3129,7 @@ elliptic/cusp, bracket, and Davenport--Stothers data consumed by the branch
 proofs; there is no opaque admissibility predicate. -/
 inductive GCD369CubeTrajectoryLanding (K : Type*) [Field K] : Prop where
   | constantPole (D : GCD369CubeConstantPoleDegreeLanding)
-  | earlyBoundary (D : GCD369CubeEarlyBoundaryData K)
+  | earlyBoundary (D : GCD369CubeExactEarlyBoundaryData K)
   | rhoFour
       (Xn Yn Zn u v : K)
       (h1 : 729 * u * Xn ^ 2 - 1458 * Xn * Zn - 729 * Yn ^ 2 = 0)
@@ -2986,7 +3215,7 @@ theorem GCD369CubeTrajectoryLandingEmpty {K : Type*}
   | constantPole D =>
       exact GCD369CubeConstantPoleDegreeLandingEmpty D
   | earlyBoundary D =>
-      exact GCD369CubeEarlyBoundaryDataEmpty D
+      exact GCD369CubeExactEarlyBoundaryDataEmpty D
   | rhoFour Xn Yn Zn u v h1 h2 h3 h4 =>
       exact GCD369CubeRhoFourFirstLoadImpossible Xn Yn Zn u v h1 h2 h3 h4
   | terminalOnly Xn Yn Zn u v h1 h2 h3 h4 h5 =>
@@ -3068,6 +3297,9 @@ theorem GCD369CubeTrajectoryLandingEmpty {K : Type*}
 #print axioms GCD369CubeEarlyBoundaryLeadingOrderContradiction
 #print axioms GCD369CubeEarlyCommonCubicBoundaryExclusion
 #print axioms GCD369CubeEarlyBoundaryDataEmpty
+#print axioms GCD369CubeEarlyLoadRows.weight_mem
+#print axioms GCD369CubeEarlyLoadRows.noCommonRoot
+#print axioms GCD369CubeExactEarlyBoundaryDataEmpty
 #print axioms GCD369ReducedQuotientWronskianLocal
 #print axioms GCD369CubeRationalPrimitiveFinitePlace
 #print axioms GCD369CubeRationalPrimitiveRootCount
