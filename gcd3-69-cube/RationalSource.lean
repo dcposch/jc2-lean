@@ -90,6 +90,74 @@ theorem GCD369CubeRatFuncDerivative_C
   rw [GCD369CubeRatFuncDerivative_div (C c) 1 one_ne_zero]
   simp
 
+/-- The quotient-rule derivative differentiates an embedded polynomial by
+its ordinary polynomial derivative. -/
+theorem GCD369CubeRatFuncDerivative_polynomial
+    {k : Type*} [Field k] (p : k[X]) :
+    GCD369CubeRatFuncDerivative (algebraMap k[X] (RatFunc k) p) =
+      algebraMap k[X] (RatFunc k) p.derivative := by
+  rw [show algebraMap k[X] (RatFunc k) p =
+      algebraMap k[X] (RatFunc k) p /
+        algebraMap k[X] (RatFunc k) 1 by simp]
+  rw [GCD369CubeRatFuncDerivative_div p 1 one_ne_zero]
+  simp
+
+/-- In characteristic zero the constant field of the quotient-rule
+derivative on `k(x)` is exactly `k`. -/
+theorem GCD369CubeRatFuncConstants
+    {k : Type*} [Field k] [CharZero k]
+    (r : RatFunc k) (hr : GCD369CubeRatFuncDerivative r = 0) :
+    ∃ c : k, r = algebraMap k (RatFunc k) c := by
+  have hrep := RatFunc.num_div_denom r
+  have hderiv := congrArg GCD369CubeRatFuncDerivative hrep
+  rw [GCD369CubeRatFuncDerivative_div r.num r.denom r.denom_ne_zero] at hderiv
+  have hdenMap : algebraMap k[X] (RatFunc k) r.denom ≠ 0 :=
+    RatFunc.algebraMap_ne_zero r.denom_ne_zero
+  have hwmap :
+      algebraMap k[X] (RatFunc k) r.denom *
+          algebraMap k[X] (RatFunc k) r.num.derivative -
+        algebraMap k[X] (RatFunc k) r.num *
+          algebraMap k[X] (RatFunc k) r.denom.derivative = 0 := by
+    rw [hr] at hderiv
+    field_simp [hdenMap] at hderiv
+    simpa using hderiv
+  have hw : r.denom * r.num.derivative -
+      r.num * r.denom.derivative = 0 := by
+    apply RatFunc.algebraMap_injective k
+    simpa only [map_sub, map_mul, map_zero] using hwmap
+  have hdiv : r.denom ∣ r.denom.derivative := by
+    have hdvd : r.denom ∣ r.num * r.denom.derivative := by
+      use r.num.derivative
+      rw [← sub_eq_zero.mp hw]
+    exact r.isCoprime_num_denom.symm.dvd_of_dvd_mul_left hdvd
+  have hdenDerivative : r.denom.derivative = 0 := by
+    by_contra hd
+    have hle : r.denom.natDegree ≤ r.denom.derivative.natDegree :=
+      natDegree_le_of_dvd hdiv hd
+    have hlt : r.denom.derivative.natDegree < r.denom.natDegree :=
+      natDegree_derivative_lt (fun hdegree ↦ by
+        apply hd
+        exact derivative_eq_zero.mpr hdegree)
+    exact (Nat.not_lt_of_ge hle) hlt
+  have hnumDerivative : r.num.derivative = 0 := by
+    have hproduct : r.denom * r.num.derivative = 0 := by
+      simpa [hdenDerivative] using hw
+    exact (mul_eq_zero.mp hproduct).resolve_left r.denom_ne_zero
+  let cn : k := r.num.coeff 0
+  let cd : k := r.denom.coeff 0
+  have hnumC : r.num = C cn := eq_C_of_derivative_eq_zero hnumDerivative
+  have hdenC : r.denom = C cd := eq_C_of_derivative_eq_zero hdenDerivative
+  refine ⟨cn / cd, ?_⟩
+  calc
+    r = algebraMap k[X] (RatFunc k) r.num /
+        algebraMap k[X] (RatFunc k) r.denom :=
+      (RatFunc.num_div_denom r).symm
+    _ = algebraMap k[X] (RatFunc k) (C cn) /
+        algebraMap k[X] (RatFunc k) (C cd) := by rw [hnumC, hdenC]
+    _ = algebraMap k (RatFunc k) (cn / cd) := by
+      rw [RatFunc.algebraMap_C, RatFunc.algebraMap_C, map_div₀]
+      rfl
+
 /-- The terminal Faber invariant commutes with embedding the base field into
 its rational-function field. -/
 theorem GCD369CubeFaberR5_C
@@ -1065,6 +1133,8 @@ end GCD369CubeRatFuncPoleSource
 #print axioms GCD369CubeRatFuncDerivative_div
 #print axioms GCD369CubeRatFuncDerivative_zero
 #print axioms GCD369CubeRatFuncDerivative_C
+#print axioms GCD369CubeRatFuncDerivative_polynomial
+#print axioms GCD369CubeRatFuncConstants
 #print axioms GCD369CubeFaberR5_C
 #print axioms GCD369CubeRatFuncWeightedPresentation
 #print axioms GCD369CubeRatFuncEllipticConstancy
