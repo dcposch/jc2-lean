@@ -161,6 +161,77 @@ theorem GCD369CubeFaberNineCommonNormalExpansionQ
   dsimp only [P] at hE
   linear_combination hE
 
+namespace GCD369CubeHahnRegular
+
+/-- A regular Hahn series with zero residue has strictly positive extended
+order (with the zero series represented by `\top`). -/
+theorem orderTop_pos_of_constantCoeff_zero
+    {k : Type*} [Field k] (x : GCD369CubeHahnRegular k)
+    (hx : GCD369CubeHahnRegular.constantCoeff x = 0) :
+    (↑(0 : ℚ) : WithTop ℚ) < x.1.orderTop := by
+  apply lt_of_le_of_ne x.2
+  exact (HahnSeries.orderTop_ne_of_coeff_eq_zero hx).symm
+
+/-- A nonnegative Hahn monomial, packaged in the regular local ring. -/
+def monomial {k : Type*} [Field k] (delta : ℚ) (hdelta : 0 ≤ delta) :
+    GCD369CubeHahnRegular k :=
+  ⟨HahnSeries.single delta 1, by
+    change (↑(0 : ℚ) : WithTop ℚ) ≤
+      (HahnSeries.single delta (1 : k)).orderTop
+    rw [HahnSeries.orderTop_single one_ne_zero]
+    exact_mod_cast hdelta⟩
+
+/-- Divide a regular series by a Hahn monomial whose exponent does not
+exceed its order.  The quotient stays in the regular local ring. -/
+def shift {k : Type*} [Field k]
+    (x : GCD369CubeHahnRegular k) (delta : ℚ)
+    (hdelta : (↑delta : WithTop ℚ) ≤ x.1.orderTop) :
+    GCD369CubeHahnRegular k :=
+  ⟨HahnSeries.single (-delta) 1 * x.1, by
+    change (↑(0 : ℚ) : WithTop ℚ) ≤
+      (HahnSeries.single (-delta) (1 : k) * x.1).orderTop
+    rw [HahnSeries.orderTop_mul,
+      HahnSeries.orderTop_single one_ne_zero]
+    have h := add_le_add_left hdelta (↑(-delta) : WithTop ℚ)
+    simpa [add_comm] using h⟩
+
+/-- Shifting and then restoring the selected monomial recovers the original
+regular series exactly. -/
+theorem monomial_mul_shift
+    {k : Type*} [Field k]
+    (x : GCD369CubeHahnRegular k) (delta : ℚ) (hdelta0 : 0 ≤ delta)
+    (hdelta : (↑delta : WithTop ℚ) ≤ x.1.orderTop) :
+    monomial delta hdelta0 * shift x delta hdelta = x := by
+  apply Subtype.ext
+  change HahnSeries.single delta 1 *
+      (HahnSeries.single (-delta) 1 * x.1) = x.1
+  rw [← mul_assoc, HahnSeries.single_mul_single]
+  simp
+
+/-- The residue after shifting by `delta` is the original coefficient at
+that exponent. -/
+theorem constantCoeff_shift
+    {k : Type*} [Field k]
+    (x : GCD369CubeHahnRegular k) (delta : ℚ)
+    (hdelta : (↑delta : WithTop ℚ) ≤ x.1.orderTop) :
+    GCD369CubeHahnRegular.constantCoeff (shift x delta hdelta) =
+      x.1.coeff delta := by
+  change (HahnSeries.single (-delta) 1 * x.1).coeff 0 = x.1.coeff delta
+  rw [HahnSeries.coeff_single_mul]
+  simp
+
+/-- Shifting by the exact finite order exposes a nonzero residue. -/
+theorem constantCoeff_shift_ne_zero
+    {k : Type*} [Field k]
+    (x : GCD369CubeHahnRegular k) (delta : ℚ)
+    (horder : x.1.orderTop = (↑delta : WithTop ℚ)) :
+    GCD369CubeHahnRegular.constantCoeff
+        (shift x delta horder.symm.le) ≠ 0 := by
+  rw [constantCoeff_shift]
+  exact HahnSeries.coeff_orderTop_ne horder
+
+end GCD369CubeHahnRegular
+
 /-- A scaled original-value packet together with its certified nonzero
 common-cubic leading component. -/
 structure GCD369CubeHahnCommonValueData
@@ -198,6 +269,28 @@ def normal1 {k : Type*} [Field k] [CharZero k]
 def normal0 {k : Type*} [Field k] [CharZero k]
     (S : GCD369CubeHahnCommonValueData k) : GCD369CubeHahnRegular k :=
   S.normal.sextic.scale.regular0 - S.cubicV ^ 2
+
+/-- A first nonzero transverse common-cubic jet, normalized by its exact
+positive Hahn order.  At least one of the three normalized coefficients has
+nonzero residue. -/
+structure TransverseScale
+    {k : Type*} [Field k] [CharZero k]
+    (S : GCD369CubeHahnCommonValueData k) where
+  delta : ℚ
+  hdelta : 0 < delta
+  Xn : GCD369CubeHahnRegular k
+  Yn : GCD369CubeHahnRegular k
+  Zn : GCD369CubeHahnRegular k
+  hnormal2 : S.normal2 =
+    GCD369CubeHahnRegular.monomial delta hdelta.le * Xn
+  hnormal1 : S.normal1 =
+    GCD369CubeHahnRegular.monomial delta hdelta.le * Yn
+  hnormal0 : S.normal0 =
+    GCD369CubeHahnRegular.monomial delta hdelta.le * Zn
+  hleading :
+    GCD369CubeHahnRegular.constantCoeff Xn ≠ 0 ∨
+    GCD369CubeHahnRegular.constantCoeff Yn ≠ 0 ∨
+    GCD369CubeHahnRegular.constantCoeff Zn ≠ 0
 
 /-- The moving cubic and its transverse quadratic evaluated at the recovered
 scaled source coordinate. -/
@@ -243,6 +336,126 @@ theorem normal_constantCoeff_zero
   · simp only [normal0, map_sub, map_pow, hv]
     change S.normal.sextic.scale.leading0 - S.v ^ 2 = 0
     rw [S.ha0, sub_self]
+
+/-- If the exact sextic is not already a moving cubic square, its three
+transverse coordinates have a canonical first positive order and normalized
+leading jet. -/
+noncomputable def transverseScale
+    {k : Type*} [Field k] [CharZero k]
+    (S : GCD369CubeHahnCommonValueData k)
+    (hnonzero : S.normal2 ≠ 0 ∨ S.normal1 ≠ 0 ∨ S.normal0 ≠ 0) :
+    S.TransverseScale := by
+  let o2 : WithTop ℚ := S.normal2.1.orderTop
+  let o1 : WithTop ℚ := S.normal1.1.orderTop
+  let o0 : WithTop ℚ := S.normal0.1.orderTop
+  let D : WithTop ℚ := min (min o2 o1) o0
+  have hD2 : D ≤ o2 := by
+    dsimp only [D]
+    exact (min_le_left _ _).trans (min_le_left _ _)
+  have hD1 : D ≤ o1 := by
+    dsimp only [D]
+    exact (min_le_left _ _).trans (min_le_right _ _)
+  have hD0 : D ≤ o0 := by
+    dsimp only [D]
+    exact min_le_right _ _
+  have hDne : D ≠ ⊤ := by
+    intro hDtop
+    rcases hnonzero with h2 | h1 | h0
+    · have h2' : S.normal2.1 ≠ 0 := by
+        intro hz
+        apply h2
+        exact Subtype.ext hz
+      have ho2 : o2 = ⊤ := top_unique (hDtop ▸ hD2)
+      exact (HahnSeries.orderTop_ne_top.mpr h2') ho2
+    · have h1' : S.normal1.1 ≠ 0 := by
+        intro hz
+        apply h1
+        exact Subtype.ext hz
+      have ho1 : o1 = ⊤ := top_unique (hDtop ▸ hD1)
+      exact (HahnSeries.orderTop_ne_top.mpr h1') ho1
+    · have h0' : S.normal0.1 ≠ 0 := by
+        intro hz
+        apply h0
+        exact Subtype.ext hz
+      have ho0 : o0 = ⊤ := top_unique (hDtop ▸ hD0)
+      exact (HahnSeries.orderTop_ne_top.mpr h0') ho0
+  let delta : ℚ := D.untop hDne
+  have hdelta_coe : (↑delta : WithTop ℚ) = D := by
+    exact WithTop.coe_untop D hDne
+  obtain ⟨hz2, hz1, hz0⟩ := S.normal_constantCoeff_zero
+  have hp2 : (↑(0 : ℚ) : WithTop ℚ) < o2 :=
+    GCD369CubeHahnRegular.orderTop_pos_of_constantCoeff_zero S.normal2 hz2
+  have hp1 : (↑(0 : ℚ) : WithTop ℚ) < o1 :=
+    GCD369CubeHahnRegular.orderTop_pos_of_constantCoeff_zero S.normal1 hz1
+  have hp0 : (↑(0 : ℚ) : WithTop ℚ) < o0 :=
+    GCD369CubeHahnRegular.orderTop_pos_of_constantCoeff_zero S.normal0 hz0
+  have hDpos : (↑(0 : ℚ) : WithTop ℚ) < D := by
+    dsimp only [D]
+    exact lt_min (lt_min hp2 hp1) hp0
+  have hdelta_top : (↑(0 : ℚ) : WithTop ℚ) < (↑delta : WithTop ℚ) := by
+    rw [hdelta_coe]
+    exact hDpos
+  have hdelta : 0 < delta := WithTop.coe_lt_coe.mp hdelta_top
+  have hb2 : (↑delta : WithTop ℚ) ≤ S.normal2.1.orderTop := by
+    change (↑delta : WithTop ℚ) ≤ o2
+    rw [hdelta_coe]
+    exact hD2
+  have hb1 : (↑delta : WithTop ℚ) ≤ S.normal1.1.orderTop := by
+    change (↑delta : WithTop ℚ) ≤ o1
+    rw [hdelta_coe]
+    exact hD1
+  have hb0 : (↑delta : WithTop ℚ) ≤ S.normal0.1.orderTop := by
+    change (↑delta : WithTop ℚ) ≤ o0
+    rw [hdelta_coe]
+    exact hD0
+  let Xn := GCD369CubeHahnRegular.shift S.normal2 delta hb2
+  let Yn := GCD369CubeHahnRegular.shift S.normal1 delta hb1
+  let Zn := GCD369CubeHahnRegular.shift S.normal0 delta hb0
+  refine {
+    delta := delta
+    hdelta := hdelta
+    Xn := Xn
+    Yn := Yn
+    Zn := Zn
+    hnormal2 := ?_
+    hnormal1 := ?_
+    hnormal0 := ?_
+    hleading := ?_
+  }
+  · exact (GCD369CubeHahnRegular.monomial_mul_shift
+      S.normal2 delta hdelta.le hb2).symm
+  · exact (GCD369CubeHahnRegular.monomial_mul_shift
+      S.normal1 delta hdelta.le hb1).symm
+  · exact (GCD369CubeHahnRegular.monomial_mul_shift
+      S.normal0 delta hdelta.le hb0).symm
+  · have hchoice : D = o2 ∨ D = o1 ∨ D = o0 := by
+      rcases min_choice (min o2 o1) o0 with hout | hout
+      · rcases min_choice o2 o1 with hin | hin
+        · exact Or.inl (by simpa only [D] using hout.trans hin)
+        · exact Or.inr (Or.inl (by simpa only [D] using hout.trans hin))
+      · exact Or.inr (Or.inr (by simpa only [D] using hout))
+    rcases hchoice with h2 | h1 | h0
+    · left
+      have horder : S.normal2.1.orderTop = (↑delta : WithTop ℚ) := by
+        change o2 = (↑delta : WithTop ℚ)
+        exact (hdelta_coe.trans h2).symm
+      simpa only [Xn] using
+        (GCD369CubeHahnRegular.constantCoeff_shift_ne_zero
+          S.normal2 delta horder)
+    · right; left
+      have horder : S.normal1.1.orderTop = (↑delta : WithTop ℚ) := by
+        change o1 = (↑delta : WithTop ℚ)
+        exact (hdelta_coe.trans h1).symm
+      simpa only [Yn] using
+        (GCD369CubeHahnRegular.constantCoeff_shift_ne_zero
+          S.normal1 delta horder)
+    · right; right
+      have horder : S.normal0.1.orderTop = (↑delta : WithTop ℚ) := by
+        change o0 = (↑delta : WithTop ℚ)
+        exact (hdelta_coe.trans h0).symm
+      simpa only [Zn] using
+        (GCD369CubeHahnRegular.constantCoeff_shift_ne_zero
+          S.normal0 delta horder)
 
 /-- The recovered residue is a root of the certified limiting common cubic. -/
 theorem leadingCubicRoot
@@ -387,7 +600,12 @@ end GCD369CubePolynomialSource
 
 #print axioms GCD369CubeZeroLoadNormal_commonRoot
 #print axioms GCD369CubeFaberNineCommonNormalExpansionQ
+#print axioms GCD369CubeHahnRegular.orderTop_pos_of_constantCoeff_zero
+#print axioms GCD369CubeHahnRegular.monomial_mul_shift
+#print axioms GCD369CubeHahnRegular.constantCoeff_shift
+#print axioms GCD369CubeHahnRegular.constantCoeff_shift_ne_zero
 #print axioms GCD369CubeHahnCommonValueData.normal_constantCoeff_zero
+#print axioms GCD369CubeHahnCommonValueData.transverseScale
 #print axioms GCD369CubeHahnCommonValueData.leadingCubicRoot
 #print axioms GCD369CubeHahnCommonValueData.commonNormalEquation
 #print axioms GCD369CubePolynomialSource.finiteCommonValueData
