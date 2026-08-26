@@ -528,6 +528,20 @@ theorem zeroSheetTerminalValue {K : Type u} [Field K] [CharZero K]
   dsimp only [GCD369CubeFaberR5]
   ring
 
+/-- The second unmixed sheet has the exact elliptic coordinates from the
+trajectory report, with `mu = 6 * rho3`. -/
+theorem unmixedEllipticCurve {K : Type u} [Field K] [CharZero K]
+    (S : GCD369CubeLaterInvariantSource K)
+    (hsheet :
+      384 * S.a2 ^ 3 - 432 * S.a2 ^ 2 * S.a4 ^ 2 +
+          144 * S.a2 * S.a4 ^ 4 - 15 * S.a4 ^ 6 +
+          6144 * S.rho3 = 0) :
+    let X := 8 * S.a2 - 2 * S.a4 ^ 2
+    let Y := 3 * S.a4 * X
+    Y ^ 2 = 3 * X ^ 3 + 4096 * (6 * S.rho3) := by
+  dsimp only
+  linear_combination (-4) * hsheet
+
 set_option maxHeartbeats 4000000 in
 /-- When `rho4` vanishes, the same exact Faber source automatically lies on
 one of the two unmixed reduced sheets: the zero-bracket sheet or the elliptic
@@ -693,4 +707,5 @@ end GCD369CubeLaterInvariantSource
 #print axioms GCD369CubeLaterInvariantSource.mixedCoordinates
 #print axioms GCD369CubeLaterInvariantSource.mixedCuspCoordinates
 #print axioms GCD369CubeLaterInvariantSource.zeroSheetTerminalValue
+#print axioms GCD369CubeLaterInvariantSource.unmixedEllipticCurve
 #print axioms GCD369CubeLaterInvariantSource.unmixedCoordinates

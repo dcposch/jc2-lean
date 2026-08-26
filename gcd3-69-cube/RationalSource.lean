@@ -340,6 +340,28 @@ theorem unmixedEllipticCoordinatesOfTerminal
     exact False.elim (hjmap hterminal.symm)
   · exact helliptic
 
+/-- Source-facing coordinate form of the surviving unmixed elliptic fibre. -/
+theorem unmixedEllipticCurveOfTerminal
+    {k : Type*} [Field k] [CharZero k]
+    (S : GCD369CubeLaterInvariantSource (RatFunc k))
+    (j : k) (hj : j ≠ 0) (s : k[X])
+    (hrho4 : S.rho4 = 0)
+    (hterminal :
+      algebraMap k[X] (RatFunc k) s *
+          GCD369CubeRatFuncDerivative
+            (GCD369CubeFaberR5
+              S.a0 S.a1 S.a2 S.a3 S.a4 0 0 0 0 0 0 0) =
+        algebraMap k (RatFunc k) j) :
+    let Xc := 8 * S.a2 - 2 * S.a4 ^ 2
+    let Yc := 3 * S.a4 * Xc
+    S.a3 = 0 ∧ S.a1 = 0 ∧
+      (48 * S.a0 - 12 * S.a2 * S.a4 + 3 * S.a4 ^ 3 = 0) ∧
+      Yc ^ 2 = 3 * Xc ^ 3 + 4096 * (6 * S.rho3) := by
+  dsimp only
+  obtain ⟨ha3, ha1, hsheet, hlinear⟩ :=
+    S.unmixedEllipticCoordinatesOfTerminal j hj s hrho4 hterminal
+  exact ⟨ha3, ha1, hlinear, S.unmixedEllipticCurve hsheet⟩
+
 end GCD369CubeLaterInvariantSource
 
 #print axioms GCD369CubeRatFuncReducedPresentation
@@ -353,3 +375,5 @@ end GCD369CubeLaterInvariantSource
   GCD369CubeLaterInvariantSource.zeroInvariantRatFuncTerminalExclusion
 #print axioms
   GCD369CubeLaterInvariantSource.unmixedEllipticCoordinatesOfTerminal
+#print axioms
+  GCD369CubeLaterInvariantSource.unmixedEllipticCurveOfTerminal
