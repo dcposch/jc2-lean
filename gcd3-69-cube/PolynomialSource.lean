@@ -141,6 +141,73 @@ theorem GCD369CubeRatFuncJacobian_coeff
   simp only [coeff_sub, coeff_mul,
     GCD369CubeRatFuncCoefficientDerivative_coeff, coeff_derivative]
 
+/-- The zeroth Faber polynomial. -/
+noncomputable def GCD369CubeFaberZero {K : Type*} [Field K]
+    (_a0 _a1 _a2 _a3 _a4 : K) : K[X] :=
+  monomial 0 1
+
+/-- The first Faber polynomial. -/
+noncomputable def GCD369CubeFaberOne {K : Type*} [Field K]
+    (_a0 _a1 _a2 _a3 _a4 : K) : K[X] :=
+  monomial 1 1
+
+/-- The second Faber polynomial, the polynomial part of `f^(1/3)`. -/
+noncomputable def GCD369CubeFaberTwo {K : Type*} [Field K]
+    (_a0 _a1 _a2 _a3 a4 : K) : K[X] :=
+  monomial 2 1 + monomial 0 (a4 / 3)
+
+/-- The third Faber polynomial, the polynomial part of `f^(1/2)`. -/
+noncomputable def GCD369CubeFaberThree {K : Type*} [Field K]
+    (_a0 _a1 _a2 a3 a4 : K) : K[X] :=
+  monomial 3 1 + monomial 1 (a4 / 2) + monomial 0 (a3 / 2)
+
+/-- The fourth Faber polynomial, the polynomial part of `f^(2/3)`. -/
+noncomputable def GCD369CubeFaberFour {K : Type*} [Field K]
+    (_a0 _a1 a2 a3 a4 : K) : K[X] :=
+  monomial 4 1 + monomial 2 (2 * a4 / 3) +
+    monomial 1 (2 * a3 / 3) +
+    monomial 0 (2 * a2 / 3 - a4 ^ 2 / 9)
+
+/-- The fifth Faber polynomial, the polynomial part of `f^(5/6)`. -/
+noncomputable def GCD369CubeFaberFive {K : Type*} [Field K]
+    (_a0 a1 a2 a3 a4 : K) : K[X] :=
+  monomial 5 1 + monomial 3 (5 * a4 / 6) +
+    monomial 2 (5 * a3 / 6) +
+    monomial 1 (5 * a2 / 6 - 5 * a4 ^ 2 / 72) +
+    monomial 0 (5 * a1 / 6 - 5 * a3 * a4 / 36)
+
+/-- The sixth Faber polynomial is the depressed sextic itself. -/
+noncomputable def GCD369CubeFaberSix {K : Type*} [Field K]
+    (a0 a1 a2 a3 a4 : K) : K[X] :=
+  GCD369CubeDepressedSextic a0 a1 a2 a3 a4
+
+/-- The seventh Faber polynomial, i.e. the polynomial part of `f^(7/6)`. -/
+noncomputable def GCD369CubeFaberSeven {K : Type*} [Field K]
+    (a0 a1 a2 a3 a4 : K) : K[X] :=
+  monomial 7 1 + monomial 5 (7 * a4 / 6) +
+    monomial 4 (7 * a3 / 6) +
+    monomial 3 (7 * a2 / 6 + 7 * a4 ^ 2 / 72) +
+    monomial 2 (7 * a1 / 6 + 7 * a3 * a4 / 36) +
+    monomial 1 (7 * a0 / 6 + 7 * a2 * a4 / 36 +
+      7 * a3 ^ 2 / 72 - 35 * a4 ^ 3 / 1296) +
+    monomial 0 (7 * a1 * a4 / 36 + 7 * a2 * a3 / 36 -
+      35 * a3 * a4 ^ 2 / 432)
+
+/-- The eighth Faber polynomial, i.e. the polynomial part of `f^(4/3)`. -/
+noncomputable def GCD369CubeFaberEight {K : Type*} [Field K]
+    (a0 a1 a2 a3 a4 : K) : K[X] :=
+  monomial 8 1 + monomial 6 (4 * a4 / 3) +
+    monomial 5 (4 * a3 / 3) +
+    monomial 4 (4 * a2 / 3 + 2 * a4 ^ 2 / 9) +
+    monomial 3 (4 * a1 / 3 + 4 * a3 * a4 / 9) +
+    monomial 2 (4 * a0 / 3 + 4 * a2 * a4 / 9 +
+      2 * a3 ^ 2 / 9 - 4 * a4 ^ 3 / 81) +
+    monomial 1 (4 * a1 * a4 / 9 + 4 * a2 * a3 / 9 -
+      4 * a3 * a4 ^ 2 / 27) +
+    monomial 0 (4 * a0 * a4 / 9 + 4 * a1 * a3 / 9 +
+      2 * a2 ^ 2 / 9 - 4 * a2 * a4 ^ 2 / 27 -
+      4 * a3 ^ 2 * a4 / 27 + 5 * a4 ^ 4 / 243)
+
 /-- The ninth Faber polynomial, i.e. the polynomial part of the formal
 power `f^(3/2)` for the depressed sextic `f`. -/
 noncomputable def GCD369CubeFaberNine {K : Type*} [Field K]
@@ -228,6 +295,419 @@ theorem GCD369CubeFaberNine_highRows
         hD0, hD1, hD2, hD3, hD4, hD8, hD16, hD32, hD128] at hn ⊢ <;>
       ring
   · exact natDegree_le_iff_coeff_eq_zero.mp hB n (by omega)
+
+set_option maxRecDepth 100000 in
+set_option maxHeartbeats 4000000 in
+/-- The eighth Faber polynomial has the same high-row cancellation. -/
+theorem GCD369CubeFaberEight_highRows
+    {k : Type*} [Field k] [CharZero k]
+    (a0 a1 a2 a3 a4 : RatFunc k) :
+    (GCD369CubeRatFuncJacobian
+      (GCD369CubeDepressedSextic a0 a1 a2 a3 a4)
+      (GCD369CubeFaberEight a0 a1 a2 a3 a4)).natDegree ≤ 4 := by
+  have hD0 : GCD369CubeRatFuncDerivative (0 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_zero
+  have hD1 : GCD369CubeRatFuncDerivative (1 : RatFunc k) = 0 := by
+    simpa using GCD369CubeRatFuncDerivative_C (1 : k)
+  have hD2 : GCD369CubeRatFuncDerivative (2 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_ofNat 2
+  have hD3 : GCD369CubeRatFuncDerivative (3 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_ofNat 3
+  have hD4 : GCD369CubeRatFuncDerivative (4 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_ofNat 4
+  have hD5 : GCD369CubeRatFuncDerivative (5 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_ofNat 5
+  have hD9 : GCD369CubeRatFuncDerivative (9 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_ofNat 9
+  have hD27 : GCD369CubeRatFuncDerivative (27 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_ofNat 27
+  have hD81 : GCD369CubeRatFuncDerivative (81 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_ofNat 81
+  have hD243 : GCD369CubeRatFuncDerivative (243 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_ofNat 243
+  let f := GCD369CubeDepressedSextic a0 a1 a2 a3 a4
+  let g := GCD369CubeFaberEight a0 a1 a2 a3 a4
+  let B := GCD369CubeRatFuncJacobian f g
+  have hf : f.natDegree = 6 := by
+    dsimp [f, GCD369CubeDepressedSextic]
+    compute_degree <;> norm_num
+  have hg : g.natDegree = 8 := by
+    dsimp [g, GCD369CubeFaberEight]
+    compute_degree <;> norm_num
+  have hB : B.natDegree ≤ 13 := by
+    dsimp only [B, GCD369CubeRatFuncJacobian]
+    apply le_trans (natDegree_sub_le _ _)
+    apply max_le
+    · apply le_trans natDegree_mul_le
+      apply le_trans (Nat.add_le_add
+        (GCD369CubeRatFuncCoefficientDerivative_natDegree_le f)
+        (natDegree_derivative_le g))
+      omega
+    · apply le_trans natDegree_mul_le
+      apply le_trans (Nat.add_le_add
+        (natDegree_derivative_le f)
+        (GCD369CubeRatFuncCoefficientDerivative_natDegree_le g))
+      omega
+  change B.natDegree ≤ 4
+  apply natDegree_le_iff_coeff_eq_zero.mpr
+  intro n hn
+  by_cases hn13 : n ≤ 13
+  · interval_cases n <;>
+      rw [GCD369CubeRatFuncJacobian_coeff] <;>
+      simp only [Finset.Nat.sum_antidiagonal_eq_sum_range_succ_mk] <;>
+      norm_num [Finset.sum_range_succ, f, g,
+        GCD369CubeDepressedSextic, GCD369CubeFaberEight,
+        coeff_add, coeff_monomial,
+        GCD369CubeRatFuncDerivative_add, GCD369CubeRatFuncDerivative_mul,
+        GCD369CubeRatFuncDerivative_neg, GCD369CubeRatFuncDerivative_sub,
+        GCD369CubeRatFuncDerivative_pow,
+        GCD369CubeRatFuncDerivative_div_general,
+        hD0, hD1, hD2, hD3, hD4, hD5, hD9, hD27, hD81, hD243] at hn ⊢ <;>
+      ring
+  · exact natDegree_le_iff_coeff_eq_zero.mp hB n (by omega)
+
+set_option maxRecDepth 100000 in
+set_option maxHeartbeats 4000000 in
+/-- The seventh Faber polynomial has the same high-row cancellation. -/
+theorem GCD369CubeFaberSeven_highRows
+    {k : Type*} [Field k] [CharZero k]
+    (a0 a1 a2 a3 a4 : RatFunc k) :
+    (GCD369CubeRatFuncJacobian
+      (GCD369CubeDepressedSextic a0 a1 a2 a3 a4)
+      (GCD369CubeFaberSeven a0 a1 a2 a3 a4)).natDegree ≤ 4 := by
+  have hD0 : GCD369CubeRatFuncDerivative (0 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_zero
+  have hD1 : GCD369CubeRatFuncDerivative (1 : RatFunc k) = 0 := by
+    simpa using GCD369CubeRatFuncDerivative_C (1 : k)
+  have hD6 : GCD369CubeRatFuncDerivative (6 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_ofNat 6
+  have hD7 : GCD369CubeRatFuncDerivative (7 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_ofNat 7
+  have hD35 : GCD369CubeRatFuncDerivative (35 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_ofNat 35
+  have hD36 : GCD369CubeRatFuncDerivative (36 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_ofNat 36
+  have hD72 : GCD369CubeRatFuncDerivative (72 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_ofNat 72
+  have hD432 : GCD369CubeRatFuncDerivative (432 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_ofNat 432
+  have hD1296 : GCD369CubeRatFuncDerivative (1296 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_ofNat 1296
+  let f := GCD369CubeDepressedSextic a0 a1 a2 a3 a4
+  let g := GCD369CubeFaberSeven a0 a1 a2 a3 a4
+  let B := GCD369CubeRatFuncJacobian f g
+  have hf : f.natDegree = 6 := by
+    dsimp [f, GCD369CubeDepressedSextic]
+    compute_degree <;> norm_num
+  have hg : g.natDegree = 7 := by
+    dsimp [g, GCD369CubeFaberSeven]
+    compute_degree <;> norm_num
+  have hB : B.natDegree ≤ 12 := by
+    dsimp only [B, GCD369CubeRatFuncJacobian]
+    apply le_trans (natDegree_sub_le _ _)
+    apply max_le
+    · apply le_trans natDegree_mul_le
+      apply le_trans (Nat.add_le_add
+        (GCD369CubeRatFuncCoefficientDerivative_natDegree_le f)
+        (natDegree_derivative_le g))
+      omega
+    · apply le_trans natDegree_mul_le
+      apply le_trans (Nat.add_le_add
+        (natDegree_derivative_le f)
+        (GCD369CubeRatFuncCoefficientDerivative_natDegree_le g))
+      omega
+  change B.natDegree ≤ 4
+  apply natDegree_le_iff_coeff_eq_zero.mpr
+  intro n hn
+  by_cases hn12 : n ≤ 12
+  · interval_cases n <;>
+      rw [GCD369CubeRatFuncJacobian_coeff] <;>
+      simp only [Finset.Nat.sum_antidiagonal_eq_sum_range_succ_mk] <;>
+      norm_num [Finset.sum_range_succ, f, g,
+        GCD369CubeDepressedSextic, GCD369CubeFaberSeven,
+        coeff_add, coeff_monomial,
+        GCD369CubeRatFuncDerivative_add, GCD369CubeRatFuncDerivative_mul,
+        GCD369CubeRatFuncDerivative_neg, GCD369CubeRatFuncDerivative_sub,
+        GCD369CubeRatFuncDerivative_pow,
+        GCD369CubeRatFuncDerivative_div_general,
+        hD0, hD1, hD6, hD7, hD35, hD36, hD72, hD432, hD1296] at hn ⊢ <;>
+      ring
+  · exact natDegree_le_iff_coeff_eq_zero.mp hB n (by omega)
+
+set_option maxRecDepth 100000 in
+set_option maxHeartbeats 4000000 in
+/-- The fifth Faber polynomial has the same high-row cancellation. -/
+theorem GCD369CubeFaberFive_highRows
+    {k : Type*} [Field k] [CharZero k]
+    (a0 a1 a2 a3 a4 : RatFunc k) :
+    (GCD369CubeRatFuncJacobian
+      (GCD369CubeDepressedSextic a0 a1 a2 a3 a4)
+      (GCD369CubeFaberFive a0 a1 a2 a3 a4)).natDegree ≤ 4 := by
+  have hD0 : GCD369CubeRatFuncDerivative (0 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_zero
+  have hD1 : GCD369CubeRatFuncDerivative (1 : RatFunc k) = 0 := by
+    simpa using GCD369CubeRatFuncDerivative_C (1 : k)
+  have hD5 : GCD369CubeRatFuncDerivative (5 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_ofNat 5
+  have hD6 : GCD369CubeRatFuncDerivative (6 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_ofNat 6
+  have hD36 : GCD369CubeRatFuncDerivative (36 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_ofNat 36
+  have hD72 : GCD369CubeRatFuncDerivative (72 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_ofNat 72
+  let f := GCD369CubeDepressedSextic a0 a1 a2 a3 a4
+  let g := GCD369CubeFaberFive a0 a1 a2 a3 a4
+  let B := GCD369CubeRatFuncJacobian f g
+  have hf : f.natDegree = 6 := by
+    dsimp [f, GCD369CubeDepressedSextic]
+    compute_degree <;> norm_num
+  have hg : g.natDegree = 5 := by
+    dsimp [g, GCD369CubeFaberFive]
+    compute_degree <;> norm_num
+  have hB : B.natDegree ≤ 10 := by
+    dsimp only [B, GCD369CubeRatFuncJacobian]
+    apply le_trans (natDegree_sub_le _ _)
+    apply max_le
+    · apply le_trans natDegree_mul_le
+      apply le_trans (Nat.add_le_add
+        (GCD369CubeRatFuncCoefficientDerivative_natDegree_le f)
+        (natDegree_derivative_le g))
+      omega
+    · apply le_trans natDegree_mul_le
+      apply le_trans (Nat.add_le_add
+        (natDegree_derivative_le f)
+        (GCD369CubeRatFuncCoefficientDerivative_natDegree_le g))
+      omega
+  change B.natDegree ≤ 4
+  apply natDegree_le_iff_coeff_eq_zero.mpr
+  intro n hn
+  by_cases hn10 : n ≤ 10
+  · interval_cases n <;>
+      rw [GCD369CubeRatFuncJacobian_coeff] <;>
+      simp only [Finset.Nat.sum_antidiagonal_eq_sum_range_succ_mk] <;>
+      norm_num [Finset.sum_range_succ, f, g,
+        GCD369CubeDepressedSextic, GCD369CubeFaberFive,
+        coeff_add, coeff_monomial,
+        GCD369CubeRatFuncDerivative_add, GCD369CubeRatFuncDerivative_mul,
+        GCD369CubeRatFuncDerivative_neg, GCD369CubeRatFuncDerivative_sub,
+        GCD369CubeRatFuncDerivative_pow,
+        GCD369CubeRatFuncDerivative_div_general,
+        hD0, hD1, hD5, hD6, hD36, hD72] at hn ⊢ <;>
+      ring
+  · exact natDegree_le_iff_coeff_eq_zero.mp hB n (by omega)
+
+set_option maxRecDepth 100000 in
+set_option maxHeartbeats 4000000 in
+/-- The fourth Faber polynomial has the same high-row cancellation. -/
+theorem GCD369CubeFaberFour_highRows
+    {k : Type*} [Field k] [CharZero k]
+    (a0 a1 a2 a3 a4 : RatFunc k) :
+    (GCD369CubeRatFuncJacobian
+      (GCD369CubeDepressedSextic a0 a1 a2 a3 a4)
+      (GCD369CubeFaberFour a0 a1 a2 a3 a4)).natDegree ≤ 4 := by
+  have hD0 : GCD369CubeRatFuncDerivative (0 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_zero
+  have hD1 : GCD369CubeRatFuncDerivative (1 : RatFunc k) = 0 := by
+    simpa using GCD369CubeRatFuncDerivative_C (1 : k)
+  have hD2 : GCD369CubeRatFuncDerivative (2 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_ofNat 2
+  have hD3 : GCD369CubeRatFuncDerivative (3 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_ofNat 3
+  have hD9 : GCD369CubeRatFuncDerivative (9 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_ofNat 9
+  let f := GCD369CubeDepressedSextic a0 a1 a2 a3 a4
+  let g := GCD369CubeFaberFour a0 a1 a2 a3 a4
+  let B := GCD369CubeRatFuncJacobian f g
+  have hf : f.natDegree = 6 := by
+    dsimp [f, GCD369CubeDepressedSextic]
+    compute_degree <;> norm_num
+  have hg : g.natDegree = 4 := by
+    dsimp [g, GCD369CubeFaberFour]
+    compute_degree <;> norm_num
+  have hB : B.natDegree ≤ 9 := by
+    dsimp only [B, GCD369CubeRatFuncJacobian]
+    apply le_trans (natDegree_sub_le _ _)
+    apply max_le
+    · apply le_trans natDegree_mul_le
+      apply le_trans (Nat.add_le_add
+        (GCD369CubeRatFuncCoefficientDerivative_natDegree_le f)
+        (natDegree_derivative_le g))
+      omega
+    · apply le_trans natDegree_mul_le
+      apply le_trans (Nat.add_le_add
+        (natDegree_derivative_le f)
+        (GCD369CubeRatFuncCoefficientDerivative_natDegree_le g))
+      omega
+  change B.natDegree ≤ 4
+  apply natDegree_le_iff_coeff_eq_zero.mpr
+  intro n hn
+  by_cases hn9 : n ≤ 9
+  · interval_cases n <;>
+      rw [GCD369CubeRatFuncJacobian_coeff] <;>
+      simp only [Finset.Nat.sum_antidiagonal_eq_sum_range_succ_mk] <;>
+      norm_num [Finset.sum_range_succ, f, g,
+        GCD369CubeDepressedSextic, GCD369CubeFaberFour,
+        coeff_add, coeff_monomial,
+        GCD369CubeRatFuncDerivative_add, GCD369CubeRatFuncDerivative_mul,
+        GCD369CubeRatFuncDerivative_neg, GCD369CubeRatFuncDerivative_sub,
+        GCD369CubeRatFuncDerivative_pow,
+        GCD369CubeRatFuncDerivative_div_general,
+        hD0, hD1, hD2, hD3, hD9] at hn ⊢ <;>
+      ring
+  · exact natDegree_le_iff_coeff_eq_zero.mp hB n (by omega)
+
+set_option maxRecDepth 100000 in
+set_option maxHeartbeats 4000000 in
+/-- The third Faber polynomial has the same high-row cancellation. -/
+theorem GCD369CubeFaberThree_highRows
+    {k : Type*} [Field k] [CharZero k]
+    (a0 a1 a2 a3 a4 : RatFunc k) :
+    (GCD369CubeRatFuncJacobian
+      (GCD369CubeDepressedSextic a0 a1 a2 a3 a4)
+      (GCD369CubeFaberThree a0 a1 a2 a3 a4)).natDegree ≤ 4 := by
+  have hD0 : GCD369CubeRatFuncDerivative (0 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_zero
+  have hD1 : GCD369CubeRatFuncDerivative (1 : RatFunc k) = 0 := by
+    simpa using GCD369CubeRatFuncDerivative_C (1 : k)
+  have hD2 : GCD369CubeRatFuncDerivative (2 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_ofNat 2
+  let f := GCD369CubeDepressedSextic a0 a1 a2 a3 a4
+  let g := GCD369CubeFaberThree a0 a1 a2 a3 a4
+  let B := GCD369CubeRatFuncJacobian f g
+  have hf : f.natDegree = 6 := by
+    dsimp [f, GCD369CubeDepressedSextic]
+    compute_degree <;> norm_num
+  have hg : g.natDegree = 3 := by
+    dsimp [g, GCD369CubeFaberThree]
+    compute_degree <;> norm_num
+  have hB : B.natDegree ≤ 8 := by
+    dsimp only [B, GCD369CubeRatFuncJacobian]
+    apply le_trans (natDegree_sub_le _ _)
+    apply max_le
+    · apply le_trans natDegree_mul_le
+      apply le_trans (Nat.add_le_add
+        (GCD369CubeRatFuncCoefficientDerivative_natDegree_le f)
+        (natDegree_derivative_le g))
+      omega
+    · apply le_trans natDegree_mul_le
+      apply le_trans (Nat.add_le_add
+        (natDegree_derivative_le f)
+        (GCD369CubeRatFuncCoefficientDerivative_natDegree_le g))
+      omega
+  change B.natDegree ≤ 4
+  apply natDegree_le_iff_coeff_eq_zero.mpr
+  intro n hn
+  by_cases hn8 : n ≤ 8
+  · interval_cases n <;>
+      rw [GCD369CubeRatFuncJacobian_coeff] <;>
+      simp only [Finset.Nat.sum_antidiagonal_eq_sum_range_succ_mk] <;>
+      norm_num [Finset.sum_range_succ, f, g,
+        GCD369CubeDepressedSextic, GCD369CubeFaberThree,
+        coeff_add, coeff_monomial,
+        GCD369CubeRatFuncDerivative_add, GCD369CubeRatFuncDerivative_mul,
+        GCD369CubeRatFuncDerivative_neg, GCD369CubeRatFuncDerivative_sub,
+        GCD369CubeRatFuncDerivative_pow,
+        GCD369CubeRatFuncDerivative_div_general,
+        hD0, hD1, hD2] at hn ⊢ <;>
+      ring
+  · exact natDegree_le_iff_coeff_eq_zero.mp hB n (by omega)
+
+set_option maxRecDepth 100000 in
+set_option maxHeartbeats 4000000 in
+/-- The second Faber polynomial has the same high-row cancellation. -/
+theorem GCD369CubeFaberTwo_highRows
+    {k : Type*} [Field k] [CharZero k]
+    (a0 a1 a2 a3 a4 : RatFunc k) :
+    (GCD369CubeRatFuncJacobian
+      (GCD369CubeDepressedSextic a0 a1 a2 a3 a4)
+      (GCD369CubeFaberTwo a0 a1 a2 a3 a4)).natDegree ≤ 4 := by
+  have hD0 : GCD369CubeRatFuncDerivative (0 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_zero
+  have hD1 : GCD369CubeRatFuncDerivative (1 : RatFunc k) = 0 := by
+    simpa using GCD369CubeRatFuncDerivative_C (1 : k)
+  have hD3 : GCD369CubeRatFuncDerivative (3 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_ofNat 3
+  let f := GCD369CubeDepressedSextic a0 a1 a2 a3 a4
+  let g := GCD369CubeFaberTwo a0 a1 a2 a3 a4
+  let B := GCD369CubeRatFuncJacobian f g
+  have hf : f.natDegree = 6 := by
+    dsimp [f, GCD369CubeDepressedSextic]
+    compute_degree <;> norm_num
+  have hg : g.natDegree = 2 := by
+    dsimp [g, GCD369CubeFaberTwo]
+    compute_degree <;> norm_num
+  have hB : B.natDegree ≤ 7 := by
+    dsimp only [B, GCD369CubeRatFuncJacobian]
+    apply le_trans (natDegree_sub_le _ _)
+    apply max_le
+    · apply le_trans natDegree_mul_le
+      apply le_trans (Nat.add_le_add
+        (GCD369CubeRatFuncCoefficientDerivative_natDegree_le f)
+        (natDegree_derivative_le g))
+      omega
+    · apply le_trans natDegree_mul_le
+      apply le_trans (Nat.add_le_add
+        (natDegree_derivative_le f)
+        (GCD369CubeRatFuncCoefficientDerivative_natDegree_le g))
+      omega
+  change B.natDegree ≤ 4
+  apply natDegree_le_iff_coeff_eq_zero.mpr
+  intro n hn
+  by_cases hn7 : n ≤ 7
+  · interval_cases n <;>
+      rw [GCD369CubeRatFuncJacobian_coeff] <;>
+      simp only [Finset.Nat.sum_antidiagonal_eq_sum_range_succ_mk] <;>
+      norm_num [Finset.sum_range_succ, f, g,
+        GCD369CubeDepressedSextic, GCD369CubeFaberTwo,
+        coeff_add, coeff_monomial,
+        GCD369CubeRatFuncDerivative_add, GCD369CubeRatFuncDerivative_mul,
+        GCD369CubeRatFuncDerivative_neg, GCD369CubeRatFuncDerivative_sub,
+        GCD369CubeRatFuncDerivative_pow,
+        GCD369CubeRatFuncDerivative_div_general,
+        hD0, hD1, hD3] at hn ⊢ <;>
+      ring
+  · exact natDegree_le_iff_coeff_eq_zero.mp hB n (by omega)
+
+/-- The sixth Faber polynomial brackets with itself to zero. -/
+theorem GCD369CubeFaberSix_highRows
+    {k : Type*} [Field k]
+    (a0 a1 a2 a3 a4 : RatFunc k) :
+    (GCD369CubeRatFuncJacobian
+      (GCD369CubeDepressedSextic a0 a1 a2 a3 a4)
+      (GCD369CubeFaberSix a0 a1 a2 a3 a4)).natDegree ≤ 4 := by
+  unfold GCD369CubeRatFuncJacobian GCD369CubeFaberSix
+  ring
+  norm_num
+
+/-- The first Faber bracket is the coefficientwise derivative of the
+depressed sextic, hence has outer degree at most four. -/
+theorem GCD369CubeFaberOne_highRows
+    {k : Type*} [Field k]
+    (a0 a1 a2 a3 a4 : RatFunc k) :
+    (GCD369CubeRatFuncJacobian
+      (GCD369CubeDepressedSextic a0 a1 a2 a3 a4)
+      (GCD369CubeFaberOne a0 a1 a2 a3 a4)).natDegree ≤ 4 := by
+  have hD0 : GCD369CubeRatFuncDerivative (0 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_zero
+  have hD1 : GCD369CubeRatFuncDerivative (1 : RatFunc k) = 0 := by
+    simpa using GCD369CubeRatFuncDerivative_C (1 : k)
+  unfold GCD369CubeRatFuncJacobian GCD369CubeDepressedSextic
+    GCD369CubeFaberOne
+  simp only [GCD369CubeRatFuncCoefficientDerivative_add,
+    GCD369CubeRatFuncCoefficientDerivative_monomial,
+    derivative_add, derivative_monomial, hD0, hD1]
+  norm_num
+  compute_degree
+
+/-- The zeroth Faber polynomial is constant, so its bracket vanishes. -/
+theorem GCD369CubeFaberZero_highRows
+    {k : Type*} [Field k]
+    (a0 a1 a2 a3 a4 : RatFunc k) :
+    (GCD369CubeRatFuncJacobian
+      (GCD369CubeDepressedSextic a0 a1 a2 a3 a4)
+      (GCD369CubeFaberZero a0 a1 a2 a3 a4)).natDegree ≤ 4 := by
+  unfold GCD369CubeRatFuncJacobian GCD369CubeFaberZero
+  simp [GCD369CubeRatFuncCoefficientDerivative_one]
 
 /-- A literal normalized polynomial cube source at partial degrees `(6,9)`.
 The two leading coefficients are the actual sixth and ninth powers of the
@@ -633,6 +1113,15 @@ end GCD369CubePolynomialSource
 #print axioms GCD369CubeRatFuncJacobian_comp
 #print axioms GCD369CubeRatFuncJacobian_coeff
 #print axioms GCD369CubeFaberNine_highRows
+#print axioms GCD369CubeFaberEight_highRows
+#print axioms GCD369CubeFaberSeven_highRows
+#print axioms GCD369CubeFaberSix_highRows
+#print axioms GCD369CubeFaberFive_highRows
+#print axioms GCD369CubeFaberFour_highRows
+#print axioms GCD369CubeFaberThree_highRows
+#print axioms GCD369CubeFaberTwo_highRows
+#print axioms GCD369CubeFaberOne_highRows
+#print axioms GCD369CubeFaberZero_highRows
 #print axioms GCD369CubePolynomialSource.pRat_qRat_jacobian
 #print axioms GCD369CubePolynomialSource.normalizedP_eq_depressed
 #print axioms GCD369CubePolynomialSource.normalized_jacobian

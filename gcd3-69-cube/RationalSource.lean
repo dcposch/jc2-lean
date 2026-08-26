@@ -270,6 +270,12 @@ noncomputable def GCD369CubeRatFuncPolynomialDerivation
   change GCD369CubeRatFuncPolynomialDerivation (0 : (RatFunc k)[X]) = 0
   exact map_zero _
 
+@[simp] theorem GCD369CubeRatFuncCoefficientDerivative_one
+    {k : Type*} [Field k] :
+    GCD369CubeRatFuncCoefficientDerivative (1 : (RatFunc k)[X]) = 0 := by
+  change GCD369CubeRatFuncPolynomialDerivation (1 : (RatFunc k)[X]) = 0
+  exact Derivation.map_one_eq_zero _
+
 @[simp] theorem GCD369CubeRatFuncCoefficientDerivative_C
     {k : Type*} [Field k] (r : RatFunc k) :
     GCD369CubeRatFuncCoefficientDerivative (C r) =
