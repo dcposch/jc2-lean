@@ -1117,7 +1117,7 @@ theorem GCD369CubeFaberC2NormalExpansion {K : Type*}
     GCD369CubeFaberN1, GCD369CubeFaberN2,
     GCD369CubeFaberN3, GCD369CubeFaberN4,
     GCD369CubeNormalRow3,
-    C_add, C_mul, C_pow, C_neg, C_sub, C_ofNat, C_zero]
+    C_add, C_mul, C_pow, C_neg, C_sub, C_ofNat]
   constructor
   · ring
   constructor
@@ -1209,7 +1209,7 @@ theorem GCD369CubeFaberC1NormalExpansion {K : Type*}
     GCD369CubeFaberN1, GCD369CubeFaberN2,
     GCD369CubeFaberN3, GCD369CubeFaberN4,
     GCD369CubeNormalRow3,
-    C_add, C_mul, C_pow, C_neg, C_sub, C_ofNat, C_zero]
+    C_add, C_mul, C_pow, C_neg, C_sub, C_ofNat]
   constructor
   · ring
   constructor
