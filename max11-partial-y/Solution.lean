@@ -82,7 +82,91 @@ theorem MaxPartialDegreeElevenClosure (Good : ℕ → ℕ → Prop)
         · rcases hspecial with ⟨rfl, rfl⟩
           exact h69
 
+/-- The Jacobian determinant of an ordered pair of bivariate polynomials,
+with variables `0=x` and `1=y`. -/
+def PlaneJacobian {K : Type*} [CommRing K]
+    (P Q : MvPolynomial (Fin 2) K) : MvPolynomial (Fin 2) K :=
+  MvPolynomial.pderiv 0 P * MvPolynomial.pderiv 1 Q -
+    MvPolynomial.pderiv 1 P * MvPolynomial.pderiv 0 Q
+
+/-- A bivariate Keller pair has a nonzero constant Jacobian. -/
+def IsPlaneKellerPair {K : Type*} [CommRing K]
+    (P Q : MvPolynomial (Fin 2) K) : Prop :=
+  ∃ j : K, j ≠ 0 ∧ PlaneJacobian P Q = MvPolynomial.C j
+
+/-- The coordinate-ring formulation of polynomial invertibility:
+`K[P,Q] = K[x,y]`. -/
+def PlanePairGenerates {K : Type*} [CommRing K]
+    (P Q : MvPolynomial (Fin 2) K) : Prop :=
+  Algebra.adjoin K ({P, Q} : Set (MvPolynomial (Fin 2) K)) = ⊤
+
+/-- The concrete degree predicate used by the maximum-eleven theorem. -/
+def PlaneKellerAutomorphicAtDegrees {K : Type*} [Field K]
+    (m n : ℕ) : Prop :=
+  ∀ P Q : MvPolynomial (Fin 2) K,
+    MvPolynomial.degreeOf 1 P = m →
+    MvPolynomial.degreeOf 1 Q = n →
+    IsPlaneKellerPair P Q → PlanePairGenerates P Q
+
+/-- Swapping the target coordinates preserves the Keller condition, changing
+the nonzero Jacobian constant only by sign. -/
+theorem IsPlaneKellerPair.swap {K : Type*} [Field K]
+    {P Q : MvPolynomial (Fin 2) K} (h : IsPlaneKellerPair P Q) :
+    IsPlaneKellerPair Q P := by
+  rcases h with ⟨j, hj, hjac⟩
+  refine ⟨-j, neg_ne_zero.mpr hj, ?_⟩
+  calc
+    PlaneJacobian Q P = -PlaneJacobian P Q := by
+      simp only [PlaneJacobian]
+      ring
+    _ = -(MvPolynomial.C j) := congrArg Neg.neg hjac
+    _ = MvPolynomial.C (-j) := by simp
+
+/-- Ring generation is symmetric in the two target coordinates. -/
+theorem PlanePairGenerates.swap {K : Type*} [Field K]
+    {P Q : MvPolynomial (Fin 2) K} (h : PlanePairGenerates P Q) :
+    PlanePairGenerates Q P := by
+  simpa [PlanePairGenerates, Set.pair_comm] using h
+
+/-- The concrete degree predicate inherits target-swap symmetry. -/
+theorem PlaneKellerAutomorphicAtDegrees.swap {K : Type*} [Field K]
+    {m n : ℕ} (h : PlaneKellerAutomorphicAtDegrees (K := K) m n) :
+    PlaneKellerAutomorphicAtDegrees (K := K) n m := by
+  intro P Q hP hQ hKeller
+  exact PlanePairGenerates.swap (h Q P hQ hP hKeller.swap)
+
+/-- Concrete maximum-partial-`y`-degree-eleven composition.  Its conclusion
+is the actual coordinate-ring equality for every bivariate Keller pair; its
+hypotheses are precisely the four standard degree-route theorems and the
+exceptional `(6,9)` leaf, now stated for that concrete predicate rather than
+for an opaque `Good`. -/
+theorem Max11PlaneKellerGeneration {K : Type*} [Field K]
+    (hzero : ∀ n, PlaneKellerAutomorphicAtDegrees (K := K) 0 n)
+    (hgcd : ∀ m n, Nat.gcd m n ≤ 2 →
+      PlaneKellerAutomorphicAtDegrees (K := K) m n)
+    (hdiv : ∀ m n, m < n → m ∣ n →
+      (∀ r, r < n → PlaneKellerAutomorphicAtDegrees (K := K) m r) →
+      PlaneKellerAutomorphicAtDegrees (K := K) m n)
+    (hequal : ∀ n,
+      (∀ r, r < n → PlaneKellerAutomorphicAtDegrees (K := K) r n) →
+      PlaneKellerAutomorphicAtDegrees (K := K) n n)
+    (h69 : PlaneKellerAutomorphicAtDegrees (K := K) 6 9) :
+    ∀ P Q : MvPolynomial (Fin 2) K,
+      MvPolynomial.degreeOf 1 P ≤ 11 →
+      MvPolynomial.degreeOf 1 Q ≤ 11 →
+      IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
+  have hall := MaxPartialDegreeElevenClosure
+    (PlaneKellerAutomorphicAtDegrees (K := K))
+    (fun _ _ h => h.swap) hzero hgcd hdiv hequal h69
+  intro P Q hPdegree hQdegree hKeller
+  exact hall (MvPolynomial.degreeOf 1 P) (MvPolynomial.degreeOf 1 Q)
+    hPdegree hQdegree P Q rfl rfl hKeller
+
 #print axioms Max11RouteClassification
 #print axioms Max11UniquePrimitive
 #print axioms MaxPartialDegreeElevenClosure
 #print axioms Max12FirstPrimitives
+#print axioms IsPlaneKellerPair.swap
+#print axioms PlanePairGenerates.swap
+#print axioms PlaneKellerAutomorphicAtDegrees.swap
+#print axioms Max11PlaneKellerGeneration
