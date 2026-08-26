@@ -15,8 +15,8 @@ load.
 -/
 
 /-- A nonzero common-normal vector satisfying the four zero-load Faber rows
-has an explicit common root with the underlying cubic. -/
-theorem GCD369CubeZeroLoadNormal_commonRoot
+lies on the unique singular-cubic tangent branch. -/
+theorem GCD369CubeZeroLoadNormal_parametrization
     {K : Type*} [Field K] [CharZero K]
     (Xn Yn Zn u v : K)
     (hnonzero : Xn ≠ 0 ∨ Yn ≠ 0 ∨ Zn ≠ 0)
@@ -25,8 +25,8 @@ theorem GCD369CubeZeroLoadNormal_commonRoot
     (h3 : GCD369CubeNormalRow3 Xn Yn Zn u v = 0)
     (_h4 : GCD369CubeNormalRow4 Xn Yn Zn u v = 0) :
     ∃ r : K,
-      r ^ 3 + u * r + v = 0 ∧
-      Xn * r ^ 2 + Yn * r + Zn = 0 := by
+      Xn ≠ 0 ∧ u = -3 * r ^ 2 ∧ v = 2 * r ^ 3 ∧
+      Yn = r * Xn ∧ Zn = -2 * r ^ 2 * Xn := by
   have he1 : u * Xn ^ 2 - 2 * Xn * Zn - Yn ^ 2 = 0 := by
     dsimp [GCD369CubeNormalRow1] at h1
     linear_combination (1 / 729) * h1
@@ -66,12 +66,52 @@ theorem GCD369CubeZeroLoadNormal_commonRoot
     dsimp only [r] at hu hZ ⊢
     field_simp [hX] at hu hZ ⊢
     linear_combination Xn * he2 - 2 * Yn * hu + 2 * Yn * hZ
+  refine ⟨r, hX, hu, hv, ?_, hZ⟩
+  · dsimp only [r]
+    field_simp [hX]
+
+/-- In particular, the zero-load normal quadratic and the limiting cubic
+share their distinguished singular root. -/
+theorem GCD369CubeZeroLoadNormal_commonRoot
+    {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn u v : K)
+    (hnonzero : Xn ≠ 0 ∨ Yn ≠ 0 ∨ Zn ≠ 0)
+    (h1 : GCD369CubeNormalRow1 Xn Yn Zn u = 0)
+    (h2 : GCD369CubeNormalRow2 Xn Yn Zn u v = 0)
+    (h3 : GCD369CubeNormalRow3 Xn Yn Zn u v = 0)
+    (h4 : GCD369CubeNormalRow4 Xn Yn Zn u v = 0) :
+    ∃ r : K,
+      r ^ 3 + u * r + v = 0 ∧
+      Xn * r ^ 2 + Yn * r + Zn = 0 := by
+  obtain ⟨r, _hX, hu, hv, hY, hZ⟩ :=
+    GCD369CubeZeroLoadNormal_parametrization
+      Xn Yn Zn u v hnonzero h1 h2 h3 h4
   refine ⟨r, ?_, ?_⟩
   · rw [hu, hv]
     ring
-  · rw [hZ]
-    dsimp only [r]
-    field_simp [hX]
+  · rw [hY, hZ]
+    ring
+
+/-- The singular cubic and its zero-load normal quadratic have the exact
+factorizations exposed by the parametrization. -/
+theorem GCD369CubeZeroLoadNormal_factorization
+    {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn u v x : K)
+    (hnonzero : Xn ≠ 0 ∨ Yn ≠ 0 ∨ Zn ≠ 0)
+    (h1 : GCD369CubeNormalRow1 Xn Yn Zn u = 0)
+    (h2 : GCD369CubeNormalRow2 Xn Yn Zn u v = 0)
+    (h3 : GCD369CubeNormalRow3 Xn Yn Zn u v = 0)
+    (h4 : GCD369CubeNormalRow4 Xn Yn Zn u v = 0) :
+    ∃ r : K, Xn ≠ 0 ∧
+      x ^ 3 + u * x + v = (x - r) ^ 2 * (x + 2 * r) ∧
+      Xn * x ^ 2 + Yn * x + Zn = Xn * (x - r) * (x + 2 * r) := by
+  obtain ⟨r, hX, hu, hv, hY, hZ⟩ :=
+    GCD369CubeZeroLoadNormal_parametrization
+      Xn Yn Zn u v hnonzero h1 h2 h3 h4
+  refine ⟨r, hX, ?_, ?_⟩
+  · rw [hu, hv]
+    ring
+  · rw [hY, hZ]
     ring
 
 set_option maxRecDepth 10000 in
@@ -707,7 +747,9 @@ theorem finiteLeadingCommonCubicRoot
 
 end GCD369CubePolynomialSource
 
+#print axioms GCD369CubeZeroLoadNormal_parametrization
 #print axioms GCD369CubeZeroLoadNormal_commonRoot
+#print axioms GCD369CubeZeroLoadNormal_factorization
 #print axioms GCD369CubeFaberNineCommonNormalExpansionQ
 #print axioms GCD369CubeHahnRegular.two_mul_ratCast_half
 #print axioms GCD369CubeHahnRegular.orderTop_pos_of_constantCoeff_zero
