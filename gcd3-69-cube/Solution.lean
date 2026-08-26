@@ -24,7 +24,7 @@ later boundary arguments come from the original polynomial, rather than from
 an independent normal-form assumption. -/
 
 /-- The polynomial obtained from `f(z)` by the source change `z = s*y + r`. -/
-def GCD369CubeSourceTransform {R : Type*} [CommSemiring R]
+noncomputable def GCD369CubeSourceTransform {R : Type*} [CommSemiring R]
     (f : R[X]) (s r : R) : R[X] :=
   f.comp (C s * X + C r)
 
@@ -52,7 +52,7 @@ theorem GCD369CubeSourceTransformInverse {K : Type*} [Field K]
     (f : K[X]) (s r : K) (hs : s ≠ 0) :
     GCD369CubeSourceTransform (GCD369CubeSourceTransform f s r)
         s⁻¹ (-s⁻¹ * r) = f := by
-  simp [GCD369CubeSourceTransform, comp_assoc, mul_add, hs]
+  simp [GCD369CubeSourceTransform, comp_assoc, mul_add, ← C_mul, hs]
 
 /-- Consequently the scaled Taylor data determine the original polynomial. -/
 theorem GCD369CubeSourceTransform_injective {K : Type*} [Field K]
@@ -61,10 +61,11 @@ theorem GCD369CubeSourceTransform_injective {K : Type*} [Field K]
   intro f g hfg
   have hinv := congrArg
     (fun p : K[X] => GCD369CubeSourceTransform p s⁻¹ (-s⁻¹ * r)) hfg
-  simpa [GCD369CubeSourceTransformInverse, hs] using hinv
+  exact (GCD369CubeSourceTransformInverse f s r hs).symm.trans
+    (hinv.trans (GCD369CubeSourceTransformInverse g s r hs))
 
 /-- The monic depressed sextic used by the cube-core Faber reduction. -/
-def GCD369CubeDepressedSextic {R : Type*} [Semiring R]
+noncomputable def GCD369CubeDepressedSextic {R : Type*} [Semiring R]
     (a0 a1 a2 a3 a4 : R) : R[X] :=
   monomial 6 1 + monomial 4 a4 + monomial 3 a3 +
     monomial 2 a2 + monomial 1 a1 + monomial 0 a0
@@ -75,7 +76,8 @@ theorem GCD369CubeDepressedSexticHasseFive {K : Type*}
     [Field K] [CharZero K] (a0 a1 a2 a3 a4 r : K) :
     (hasseDeriv 5 (GCD369CubeDepressedSextic a0 a1 a2 a3 a4)).eval r =
       6 * r := by
-  norm_num [GCD369CubeDepressedSextic, hasseDeriv_monomial]
+  norm_num [GCD369CubeDepressedSextic, hasseDeriv_monomial,
+    hasseDeriv_C, Nat.choose_eq_zero_of_lt]
 
 /-- For `P(y)=f(sy+r)`, the fifth source coefficient is exactly `6s^5r`.
 In particular, when `s` is nonzero it determines the translation `r`. -/
