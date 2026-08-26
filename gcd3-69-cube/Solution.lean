@@ -1582,9 +1582,12 @@ theorem GCD369CubeBoundaryCancellationOrderWithHigherTerms
         (HahnSeries.order_eq_orderTop_of_ne_zero hGne).symm
       _ = (↑(3 / 2 : ℚ) : WithTop ℚ) :=
         congrArg (fun q : ℚ => (q : WithTop ℚ)) hGorder
-  apply HahnSeries.orderTop_add_eq_left
-  rw [hGtop]
-  exact hE
+  have hGE : G.orderTop < E.orderTop := by
+    rw [hGtop]
+    exact hE
+  calc
+    (G + E).orderTop = G.orderTop := HahnSeries.orderTop_add_eq_left hGE
+    _ = (↑(3 / 2 : ℚ) : WithTop ℚ) := hGtop
 
 /-- A source value required to vanish to order strictly greater than `3/2`
 cannot contain the forced cancellation term plus only higher-order errors. -/
