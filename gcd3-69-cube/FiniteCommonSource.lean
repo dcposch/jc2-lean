@@ -201,6 +201,54 @@ theorem GCD369CubeFaberNineCommonNormalExpansionQ
   dsimp only [P] at hE
   linear_combination hE
 
+/-- The four zero-high common-normal numerator expansions require only a
+commutative ring.  This version can therefore be instantiated directly in
+the regular Hahn local ring, retaining certified regular cubic errors. -/
+theorem GCD369CubeFaberCommonNormalNumeratorsCommRing
+    {R : Type*} [CommRing R] (Xn Yn Zn u v : R) :
+    let H : R[X] := X
+    let A0 : R[X] := C (v ^ 2) + C Zn * H
+    let A1 : R[X] := C (2 * u * v) + C Yn * H
+    let A2 : R[X] := C (u ^ 2) + C Xn * H
+    let A3 : R[X] := C (2 * v)
+    let A4 : R[X] := C (2 * u)
+    729 * GCD369CubeFaberN1 A0 A1 A2 A3 A4 =
+        C (-32 * GCD369CubeNormalRow1 Xn Yn Zn u) * H ^ 2 ∧
+    2187 * GCD369CubeFaberN2 A0 A1 A2 A3 A4 =
+        C (32 * GCD369CubeNormalRow2 Xn Yn Zn u v) * H ^ 2 ∧
+    GCD369CubeFaberN3 A0 A1 A2 A3 A4 =
+        C (128 * GCD369CubeNormalRow3 Xn Yn Zn u v) * H ^ 2 -
+          C (64 * Xn ^ 3) * H ^ 3 ∧
+    6561 * GCD369CubeFaberN4 A0 A1 A2 A3 A4 =
+        C (32 * GCD369CubeNormalRow4 Xn Yn Zn u v) * H ^ 2 -
+          C (314928 * Yn * Xn ^ 2) * H ^ 3 := by
+  dsimp only
+  constructor
+  · simp only [GCD369CubeFaberN1, GCD369CubeNormalRow1]
+    simp only [C_mul, C_pow, C_neg, C_sub, C_ofNat]
+    ring
+  constructor
+  · simp only [GCD369CubeFaberN2, GCD369CubeNormalRow2]
+    simp only [C_add, C_mul, C_pow, C_neg, C_sub, C_ofNat]
+    ring
+  constructor
+  · simp only [GCD369CubeFaberN3, GCD369CubeNormalRow3]
+    simp only [C_add, C_mul, C_pow, C_sub, C_ofNat]
+    ring
+  · simp only [GCD369CubeFaberN4, GCD369CubeNormalRow4]
+    simp only [C_add, C_mul, C_pow, C_sub, C_ofNat]
+    ring
+
+/-- The fourth primitive numerator commutes with arbitrary commutative-ring
+homomorphisms. -/
+theorem GCD369CubeFaberN4_map
+    {R L : Type*} [CommRing R] [CommRing L] (f : R →+* L)
+    (a0 a1 a2 a3 a4 : R) :
+    f (GCD369CubeFaberN4 a0 a1 a2 a3 a4) =
+      GCD369CubeFaberN4 (f a0) (f a1) (f a2) (f a3) (f a4) := by
+  simp only [GCD369CubeFaberN4, map_add, map_sub, map_mul, map_pow,
+    map_neg, map_ofNat]
+
 namespace GCD369CubeHahnRegular
 
 /-- The explicit rational constants in the regular local ring satisfy the
@@ -408,6 +456,35 @@ structure TransverseScale
     GCD369CubeHahnRegular.constantCoeff Xn ≠ 0 ∨
     GCD369CubeHahnRegular.constantCoeff Yn ≠ 0 ∨
     GCD369CubeHahnRegular.constantCoeff Zn ≠ 0
+
+/-- Reconstruct the lower three scaled sextic coefficients from a normalized
+transverse jet. -/
+theorem TransverseScale.regular2_eq
+    {k : Type*} [Field k] [CharZero k]
+    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseScale) :
+    S.normal.sextic.scale.regular2 = S.cubicU ^ 2 + T.Xn *
+      GCD369CubeHahnRegular.monomial T.delta T.hdelta.le := by
+  have hn := T.hnormal2
+  dsimp only [normal2] at hn
+  linear_combination hn
+
+theorem TransverseScale.regular1_eq
+    {k : Type*} [Field k] [CharZero k]
+    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseScale) :
+    S.normal.sextic.scale.regular1 = 2 * S.cubicU * S.cubicV + T.Yn *
+      GCD369CubeHahnRegular.monomial T.delta T.hdelta.le := by
+  have hn := T.hnormal1
+  dsimp only [normal1] at hn
+  linear_combination hn
+
+theorem TransverseScale.regular0_eq
+    {k : Type*} [Field k] [CharZero k]
+    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseScale) :
+    S.normal.sextic.scale.regular0 = S.cubicV ^ 2 + T.Zn *
+      GCD369CubeHahnRegular.monomial T.delta T.hdelta.le := by
+  have hn := T.hnormal0
+  dsimp only [normal0] at hn
+  linear_combination hn
 
 /-- The moving cubic and its transverse quadratic evaluated at the recovered
 scaled source coordinate. -/
@@ -640,6 +717,108 @@ theorem TransverseScale.faberNineExpansion
   dsimp only [GCD369CubeFaberNineValueQ]
   linear_combination hev
 
+/-- Exact first zero-high numerator identity at the normalized transverse
+Hahn scale. -/
+theorem TransverseScale.zeroHighN1Expansion
+    {k : Type*} [Field k] [CharZero k]
+    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseScale) :
+    729 * GCD369CubeFaberN1
+        S.normal.sextic.scale.regular0 S.normal.sextic.scale.regular1
+        S.normal.sextic.scale.regular2 S.normal.sextic.scale.regular3
+        S.normal.sextic.scale.regular4 =
+      (-32 * GCD369CubeNormalRow1 T.Xn T.Yn T.Zn S.cubicU) *
+        (GCD369CubeHahnRegular.monomial T.delta T.hdelta.le) ^ 2 := by
+  let H : GCD369CubeHahnRegular k :=
+    GCD369CubeHahnRegular.monomial T.delta T.hdelta.le
+  have hp := (GCD369CubeFaberCommonNormalNumeratorsCommRing
+    T.Xn T.Yn T.Zn S.cubicU S.cubicV).1
+  have h := congrArg
+    (fun p : (GCD369CubeHahnRegular k)[X] => p.eval H) hp
+  simp only [GCD369CubeFaberN1, Polynomial.eval_add, Polynomial.eval_sub,
+    Polynomial.eval_mul, Polynomial.eval_pow, Polynomial.eval_C, Polynomial.eval_X,
+    Polynomial.eval_ofNat] at h
+  rw [T.regular0_eq, T.regular1_eq, T.regular2_eq,
+    S.regular3_eq_two_cubicV, S.regular4_eq_two_cubicU]
+  simpa only [H, GCD369CubeFaberN1] using h
+
+/-- Exact second zero-high numerator identity at the normalized transverse
+Hahn scale. -/
+theorem TransverseScale.zeroHighN2Expansion
+    {k : Type*} [Field k] [CharZero k]
+    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseScale) :
+    2187 * GCD369CubeFaberN2
+        S.normal.sextic.scale.regular0 S.normal.sextic.scale.regular1
+        S.normal.sextic.scale.regular2 S.normal.sextic.scale.regular3
+        S.normal.sextic.scale.regular4 =
+      (32 * GCD369CubeNormalRow2
+        T.Xn T.Yn T.Zn S.cubicU S.cubicV) *
+        (GCD369CubeHahnRegular.monomial T.delta T.hdelta.le) ^ 2 := by
+  let H : GCD369CubeHahnRegular k :=
+    GCD369CubeHahnRegular.monomial T.delta T.hdelta.le
+  have hp := (GCD369CubeFaberCommonNormalNumeratorsCommRing
+    T.Xn T.Yn T.Zn S.cubicU S.cubicV).2.1
+  have h := congrArg
+    (fun p : (GCD369CubeHahnRegular k)[X] => p.eval H) hp
+  simp only [GCD369CubeFaberN2, Polynomial.eval_add, Polynomial.eval_sub,
+    Polynomial.eval_mul, Polynomial.eval_pow, Polynomial.eval_C,
+    Polynomial.eval_X, Polynomial.eval_ofNat] at h
+  rw [T.regular0_eq, T.regular1_eq, T.regular2_eq,
+    S.regular3_eq_two_cubicV, S.regular4_eq_two_cubicU]
+  simpa only [H, GCD369CubeFaberN2] using h
+
+/-- Exact third zero-high numerator identity; its remainder is an explicit
+regular cubic-order term. -/
+theorem TransverseScale.zeroHighN3Expansion
+    {k : Type*} [Field k] [CharZero k]
+    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseScale) :
+    GCD369CubeFaberN3
+        S.normal.sextic.scale.regular0 S.normal.sextic.scale.regular1
+        S.normal.sextic.scale.regular2 S.normal.sextic.scale.regular3
+        S.normal.sextic.scale.regular4 =
+      (128 * GCD369CubeNormalRow3
+        T.Xn T.Yn T.Zn S.cubicU S.cubicV) *
+          (GCD369CubeHahnRegular.monomial T.delta T.hdelta.le) ^ 2 -
+        (64 * T.Xn ^ 3) *
+          (GCD369CubeHahnRegular.monomial T.delta T.hdelta.le) ^ 3 := by
+  let H : GCD369CubeHahnRegular k :=
+    GCD369CubeHahnRegular.monomial T.delta T.hdelta.le
+  have hp := (GCD369CubeFaberCommonNormalNumeratorsCommRing
+    T.Xn T.Yn T.Zn S.cubicU S.cubicV).2.2.1
+  have h := congrArg
+    (fun p : (GCD369CubeHahnRegular k)[X] => p.eval H) hp
+  simp only [GCD369CubeFaberN3, Polynomial.eval_add, Polynomial.eval_sub,
+    Polynomial.eval_mul, Polynomial.eval_pow, Polynomial.eval_C,
+    Polynomial.eval_X, Polynomial.eval_ofNat] at h
+  rw [T.regular0_eq, T.regular1_eq, T.regular2_eq,
+    S.regular3_eq_two_cubicV, S.regular4_eq_two_cubicU]
+  simpa only [H, GCD369CubeFaberN3] using h
+
+/-- Exact fourth zero-high numerator identity; its remainder is an explicit
+regular cubic-order term. -/
+theorem TransverseScale.zeroHighN4Expansion
+    {k : Type*} [Field k] [CharZero k]
+    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseScale) :
+    6561 * GCD369CubeFaberN4
+        S.normal.sextic.scale.regular0 S.normal.sextic.scale.regular1
+        S.normal.sextic.scale.regular2 S.normal.sextic.scale.regular3
+        S.normal.sextic.scale.regular4 =
+      (32 * GCD369CubeNormalRow4
+        T.Xn T.Yn T.Zn S.cubicU S.cubicV) *
+          (GCD369CubeHahnRegular.monomial T.delta T.hdelta.le) ^ 2 -
+        (314928 * T.Yn * T.Xn ^ 2) *
+          (GCD369CubeHahnRegular.monomial T.delta T.hdelta.le) ^ 3 := by
+  let H : GCD369CubeHahnRegular k :=
+    GCD369CubeHahnRegular.monomial T.delta T.hdelta.le
+  have hp := (GCD369CubeFaberCommonNormalNumeratorsCommRing
+    T.Xn T.Yn T.Zn S.cubicU S.cubicV).2.2.2
+  have h := congrArg (Polynomial.evalRingHom H) hp
+  simp only [map_add, map_mul, map_sub, map_pow, map_ofNat,
+    GCD369CubeFaberN4_map, Polynomial.coe_evalRingHom,
+    Polynomial.eval_C, Polynomial.eval_X] at h
+  rw [T.regular0_eq, T.regular1_eq, T.regular2_eq,
+    S.regular3_eq_two_cubicV, S.regular4_eq_two_cubicU]
+  simpa only [H] using h
+
 /-- The recovered residue is a root of the certified limiting common cubic. -/
 theorem leadingCubicRoot
     {k : Type*} [Field k] [CharZero k]
@@ -785,6 +964,8 @@ end GCD369CubePolynomialSource
 #print axioms GCD369CubeZeroLoadNormal_commonRoot
 #print axioms GCD369CubeZeroLoadNormal_factorization
 #print axioms GCD369CubeFaberNineCommonNormalExpansionQ
+#print axioms GCD369CubeFaberCommonNormalNumeratorsCommRing
+#print axioms GCD369CubeFaberN4_map
 #print axioms GCD369CubeHahnRegular.two_mul_ratCast_half
 #print axioms GCD369CubeHahnRegular.orderTop_pos_of_constantCoeff_zero
 #print axioms GCD369CubeHahnRegular.monomial_mul_shift
@@ -796,6 +977,10 @@ end GCD369CubePolynomialSource
 #print axioms GCD369CubeHahnCommonValueData.normal_constantCoeff_zero
 #print axioms GCD369CubeHahnCommonValueData.transverseScale
 #print axioms GCD369CubeHahnCommonValueData.TransverseScale.faberNineExpansion
+#print axioms GCD369CubeHahnCommonValueData.TransverseScale.zeroHighN1Expansion
+#print axioms GCD369CubeHahnCommonValueData.TransverseScale.zeroHighN2Expansion
+#print axioms GCD369CubeHahnCommonValueData.TransverseScale.zeroHighN3Expansion
+#print axioms GCD369CubeHahnCommonValueData.TransverseScale.zeroHighN4Expansion
 #print axioms GCD369CubeHahnCommonValueData.leadingCubicRoot
 #print axioms GCD369CubeHahnCommonValueData.commonNormalEquation
 #print axioms GCD369CubePolynomialSource.finiteCommonValueData
