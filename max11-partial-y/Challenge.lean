@@ -124,6 +124,22 @@ def Normalized69Source {K : Type*} [Field K]
   ((Polynomial.Bivariate.equivMvPolynomial K).symm Q).coeff 9 = h ^ 3 ∧
   IsPlaneKellerPair P Q
 
+/-- The first source row available on the literal cube-core branch. -/
+def Cube69FirstRowSource {K : Type*} [Field K]
+    (P Q : MvPolynomial (Fin 2) K) (s : Polynomial K) : Prop :=
+  s ≠ 0 ∧
+  MvPolynomial.degreeOf 1 P = 6 ∧
+  MvPolynomial.degreeOf 1 Q = 9 ∧
+  ((Polynomial.Bivariate.equivMvPolynomial K).symm P).coeff 6 = s ^ 6 ∧
+  ((Polynomial.Bivariate.equivMvPolynomial K).symm Q).coeff 9 = s ^ 9 ∧
+  IsPlaneKellerPair P Q ∧
+  let a := ((Polynomial.Bivariate.equivMvPolynomial K).symm P).coeff 5
+  let b := ((Polynomial.Bivariate.equivMvPolynomial K).symm Q).coeff 8
+  (3 : Polynomial K) * s ^ 4 * a.derivative -
+      (15 : Polynomial K) * s ^ 3 * a * s.derivative -
+    (2 : Polynomial K) * s * b.derivative +
+      (16 : Polynomial K) * b * s.derivative = 0
+
 /-- Closure of the normalized `(6,9)` cube-core branch. -/
 def PlaneKeller69CubeRoute {K : Type*} [Field K] : Prop :=
   ∀ (P Q : MvPolynomial (Fin 2) K) (h : Polynomial K),
@@ -217,6 +233,21 @@ theorem planeKellerPair_69_normalize {K : Type*}
         (targetRescale beta⁻¹ Q) ∧
       (PlanePairGenerates (targetRescale alpha⁻¹ P)
           (targetRescale beta⁻¹ Q) ↔ PlanePairGenerates P Q) := by
+  sorry
+
+/-- Every genuine `(6,9)` Keller pair normalizes into an exhaustive source
+dichotomy: either a literal cube core satisfying its first denominator-cleared
+row, or a noncube normalized core. -/
+theorem planeKellerPair_69_sourceDichotomy {K : Type*}
+    [Field K] [CharZero K] {P Q : MvPolynomial (Fin 2) K}
+    (hP : MvPolynomial.degreeOf 1 P = 6)
+    (hQ : MvPolynomial.degreeOf 1 Q = 9)
+    (hKeller : IsPlaneKellerPair P Q) :
+    ∃ (P0 Q0 : MvPolynomial (Fin 2) K) (h : Polynomial K),
+      Normalized69Source P0 Q0 h ∧
+      (PlanePairGenerates P0 Q0 ↔ PlanePairGenerates P Q) ∧
+      ((∃ s : Polynomial K, h = s ^ 3 ∧ Cube69FirstRowSource P0 Q0 s) ∨
+        ¬ ∃ s : Polynomial K, h = s ^ 3) := by
   sorry
 
 /-- The two exhaustive normalized core branches imply the global genuine

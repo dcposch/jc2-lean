@@ -63,6 +63,11 @@ branch is impossible, its generation route follows immediately.
   gives the stronger denominator-cleared cube-core row directly from an
   actual Keller pair with leading coefficients `s^6,s^9`; it makes no prior
   divisibility assumption on the next coefficients.
+- `Max11DegreeRoutes.planeKellerPair_69_sourceDichotomy` packages the genuine
+  source handoff: after normalization, every pair has either a noncube core or
+  a nonzero cube root `s` with leading rows `s^6,s^9` and the first
+  denominator-cleared cube-discriminator row.  Generation is transported
+  equivalently back to the original pair.
 - `Max11DegreeRoutes.planeKellerPair_69_normalize` removes those two nonzero
   scalar factors by independent target rescalings.  The normalized pair has
   literal leading coefficients `h^2` and `h^3`, the same partial degrees,

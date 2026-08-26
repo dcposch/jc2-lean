@@ -608,6 +608,21 @@ def Normalized69Source {K : Type*} [Field K]
   ((Polynomial.Bivariate.equivMvPolynomial K).symm Q).coeff 9 = h ^ 3 ∧
   IsPlaneKellerPair P Q
 
+/-- The first source row available on the literal cube-core branch. -/
+def Cube69FirstRowSource {K : Type*} [Field K]
+    (P Q : MvPolynomial (Fin 2) K) (s : K[X]) : Prop :=
+  s ≠ 0 ∧
+  degreeOf 1 P = 6 ∧ degreeOf 1 Q = 9 ∧
+  ((Polynomial.Bivariate.equivMvPolynomial K).symm P).coeff 6 = s ^ 6 ∧
+  ((Polynomial.Bivariate.equivMvPolynomial K).symm Q).coeff 9 = s ^ 9 ∧
+  IsPlaneKellerPair P Q ∧
+  let a := ((Polynomial.Bivariate.equivMvPolynomial K).symm P).coeff 5
+  let b := ((Polynomial.Bivariate.equivMvPolynomial K).symm Q).coeff 8
+  (3 : K[X]) * s ^ 4 * a.derivative -
+      (15 : K[X]) * s ^ 3 * a * s.derivative -
+    (2 : K[X]) * s * b.derivative +
+      (16 : K[X]) * b * s.derivative = 0
+
 /-- Closure of the normalized `(6,9)` cube-core branch. -/
 def PlaneKeller69CubeRoute {K : Type*} [Field K] : Prop :=
   ∀ (P Q : MvPolynomial (Fin 2) K) (h : K[X]),
@@ -755,6 +770,50 @@ theorem planeKellerPair_69_normalize {K : Type*}
       alpha⁻¹ beta⁻¹ (inv_ne_zero halpha) (inv_ne_zero hbeta)
   · exact planePairGenerates_targetRescale_iff alpha⁻¹ beta⁻¹
       (inv_ne_zero halpha) (inv_ne_zero hbeta) P Q
+
+/-- Every genuine `(6,9)` Keller pair normalizes into an exhaustive source
+dichotomy: either a literal cube core satisfying its first denominator-cleared
+row, or a noncube normalized core. -/
+theorem planeKellerPair_69_sourceDichotomy {K : Type*}
+    [Field K] [CharZero K] {P Q : MvPolynomial (Fin 2) K}
+    (hP : degreeOf 1 P = 6) (hQ : degreeOf 1 Q = 9)
+    (hKeller : IsPlaneKellerPair P Q) :
+    ∃ (P0 Q0 : MvPolynomial (Fin 2) K) (h : K[X]),
+      Normalized69Source P0 Q0 h ∧
+      (PlanePairGenerates P0 Q0 ↔ PlanePairGenerates P Q) ∧
+      ((∃ s : K[X], h = s ^ 3 ∧ Cube69FirstRowSource P0 Q0 s) ∨
+        ¬ ∃ s : K[X], h = s ^ 3) := by
+  obtain ⟨alpha, beta, h, _, _, hh, hP0, hQ0, hpcoeff, hqcoeff,
+      hKeller0, hgenerates⟩ := planeKellerPair_69_normalize hP hQ hKeller
+  let P0 := targetRescale alpha⁻¹ P
+  let Q0 := targetRescale beta⁻¹ Q
+  refine ⟨P0, Q0, h, ⟨hh, hP0, hQ0, hpcoeff, hqcoeff, hKeller0⟩,
+    hgenerates, ?_⟩
+  by_cases hcube : ∃ s : K[X], h = s ^ 3
+  · left
+    obtain ⟨s, hs⟩ := hcube
+    have hs0 : s ≠ 0 := by
+      intro hs0
+      apply hh
+      rw [hs, hs0, zero_pow (by norm_num)]
+    have hp6 : ((Polynomial.Bivariate.equivMvPolynomial K).symm P0).coeff 6 =
+        s ^ 6 := by
+      calc
+        ((Polynomial.Bivariate.equivMvPolynomial K).symm P0).coeff 6 = h ^ 2 :=
+          hpcoeff
+        _ = (s ^ 3) ^ 2 := by rw [hs]
+        _ = s ^ 6 := by ring
+    have hq9 : ((Polynomial.Bivariate.equivMvPolynomial K).symm Q0).coeff 9 =
+        s ^ 9 := by
+      calc
+        ((Polynomial.Bivariate.equivMvPolynomial K).symm Q0).coeff 9 = h ^ 3 :=
+          hqcoeff
+        _ = (s ^ 3) ^ 3 := by rw [hs]
+        _ = s ^ 9 := by ring
+    have hrow := planeKellerPair_69_cubeDiscriminatorNumerator_eq_zero
+      hP0 hQ0 hKeller0 hs0 hp6 hq9
+    exact ⟨s, hs, hs0, hP0, hQ0, hp6, hq9, hKeller0, hrow⟩
+  · exact Or.inr hcube
 
 /-- The literal cube/noncube split of the normalized common core is
 exhaustive, so closure of those two source-facing branches proves the genuine
