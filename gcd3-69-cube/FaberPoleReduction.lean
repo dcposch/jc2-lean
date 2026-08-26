@@ -61,7 +61,7 @@ theorem faberPrimitiveData_nonempty
   let r5 := S.terminalFaberInvariant
   obtain ⟨N, B, hB, hvalue, hreduced⟩ :=
     GCD369CubeRatFuncReducedPresentation r5
-  have hrow := S.faberLowerRows
+  have hrow := S.faberLowerRowsOfNormalForm S.faberNormalForm
   have hrow5 :
       6 * GCD369CubeRatFuncDerivative r5 =
         algebraMap k (RatFunc k) S.j / S.sRat := by

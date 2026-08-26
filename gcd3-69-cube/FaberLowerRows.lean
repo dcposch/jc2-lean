@@ -161,12 +161,16 @@ namespace GCD369CubePolynomialSource
 
 set_option maxRecDepth 100000 in
 set_option maxHeartbeats 16000000 in
-/-- The literal polynomial source produces the complete five lower-row
-system: four first integrals and the exact terminal derivative `j/s`. -/
-theorem faberLowerRows
+/-- Any certified Faber normal form of the literal source produces the
+complete five lower-row system: four first integrals and the exact terminal
+derivative `j/s`. -/
+theorem faberLowerRowsOfNormalForm
     {k : Type*} [Field k] [CharZero k]
-    (S : GCD369CubePolynomialSource k) :
-    let N := S.faberNormalForm
+    (S : GCD369CubePolynomialSource k)
+    (N : GCD369CubeFaberNormalForm
+      (S.normalizedP.coeff 0) (S.normalizedP.coeff 1)
+      (S.normalizedP.coeff 2) (S.normalizedP.coeff 3)
+      (S.normalizedP.coeff 4) S.normalizedQ) :
     GCD369CubeRatFuncDerivative
         (GCD369CubeFaberR1
           (S.normalizedP.coeff 0) (S.normalizedP.coeff 1)
@@ -198,46 +202,13 @@ theorem faberLowerRows
           (S.normalizedP.coeff 4)
           N.d N.c7 N.c5 N.c4 N.c3 N.c2 N.c1) =
       algebraMap k (RatFunc k) S.j / S.sRat := by
-  let N := S.faberNormalForm
-  change
-    GCD369CubeRatFuncDerivative
-        (GCD369CubeFaberR1
-          (S.normalizedP.coeff 0) (S.normalizedP.coeff 1)
-          (S.normalizedP.coeff 2) (S.normalizedP.coeff 3)
-          (S.normalizedP.coeff 4)
-          N.d N.c7 N.c5 N.c4 N.c3 N.c2 N.c1) = 0 ∧
-    GCD369CubeRatFuncDerivative
-        (GCD369CubeFaberR2
-          (S.normalizedP.coeff 0) (S.normalizedP.coeff 1)
-          (S.normalizedP.coeff 2) (S.normalizedP.coeff 3)
-          (S.normalizedP.coeff 4)
-          N.d N.c7 N.c5 N.c4 N.c3 N.c2 N.c1) = 0 ∧
-    GCD369CubeRatFuncDerivative
-        (GCD369CubeFaberR3
-          (S.normalizedP.coeff 0) (S.normalizedP.coeff 1)
-          (S.normalizedP.coeff 2) (S.normalizedP.coeff 3)
-          (S.normalizedP.coeff 4)
-          N.d N.c7 N.c5 N.c4 N.c3 N.c2 N.c1) = 0 ∧
-    GCD369CubeRatFuncDerivative
-        (GCD369CubeFaberR4
-          (S.normalizedP.coeff 0) (S.normalizedP.coeff 1)
-          (S.normalizedP.coeff 2) (S.normalizedP.coeff 3)
-          (S.normalizedP.coeff 4)
-          N.d N.c7 N.c5 N.c4 N.c3 N.c2 N.c1) = 0 ∧
-    6 * GCD369CubeRatFuncDerivative
-        (GCD369CubeFaberR5
-          (S.normalizedP.coeff 0) (S.normalizedP.coeff 1)
-          (S.normalizedP.coeff 2) (S.normalizedP.coeff 3)
-          (S.normalizedP.coeff 4)
-          N.d N.c7 N.c5 N.c4 N.c3 N.c2 N.c1) =
-      algebraMap k (RatFunc k) S.j / S.sRat
   have hq : S.normalizedQ =
       GCD369CubeFaberNormalPolynomial
         (S.normalizedP.coeff 0) (S.normalizedP.coeff 1)
         (S.normalizedP.coeff 2) (S.normalizedP.coeff 3)
         (S.normalizedP.coeff 4)
         N.d N.c7 N.c6 N.c5 N.c4 N.c3 N.c2 N.c1 N.c0 := by
-    simpa only [N, GCD369CubeFaberNormalPolynomial] using N.hq
+    simpa only [GCD369CubeFaberNormalPolynomial] using N.hq
   have hjac :
       GCD369CubeRatFuncJacobian
           (GCD369CubeDepressedSextic
@@ -313,4 +284,4 @@ theorem faberLowerRows
 end GCD369CubePolynomialSource
 
 #print axioms GCD369CubeFaberLowerRows
-#print axioms GCD369CubePolynomialSource.faberLowerRows
+#print axioms GCD369CubePolynomialSource.faberLowerRowsOfNormalForm

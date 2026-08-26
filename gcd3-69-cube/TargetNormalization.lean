@@ -381,9 +381,24 @@ noncomputable def targetNormalizedFaberNormalForm
         S.targetNormalizedSource_normalizedQ hd
   }
 
+/-- Ground-field representatives of the first four Faber invariants in the
+explicit `d = c₃ = 0` target-normalized gauge. -/
+noncomputable def targetNormalizedFirstIntegralConstants
+    {k : Type*} [Field k] [CharZero k]
+    (S : GCD369CubePolynomialSource k)
+    (hd : S.faberConstantParameters.d = 0) :
+    let T := S.targetNormalizedSource
+    GCD369CubeFaberFirstIntegralConstantsAt T
+      (S.targetNormalizedFaberNormalForm hd) := by
+  let T := S.targetNormalizedSource
+  exact Classical.choice
+    (T.faberFirstIntegralConstantsAt_nonempty
+      (S.targetNormalizedFaberNormalForm hd))
+
 end GCD369CubePolynomialSource
 
 #print axioms GCD369CubeFaberNormalPolynomial_targetTranslate
 #print axioms GCD369CubeFaberNormalPolynomial_killC3
 #print axioms GCD369CubePolynomialSource.targetTranslate
 #print axioms GCD369CubePolynomialSource.targetNormalizedFaberNormalForm
+#print axioms GCD369CubePolynomialSource.targetNormalizedFirstIntegralConstants
