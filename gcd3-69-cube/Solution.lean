@@ -51,8 +51,17 @@ theorem GCD369CubeSourceTransformValue {R : Type*} [CommSemiring R]
 theorem GCD369CubeSourceTransformInverse {K : Type*} [Field K]
     (f : K[X]) (s r : K) (hs : s ≠ 0) :
     GCD369CubeSourceTransform (GCD369CubeSourceTransform f s r)
-        s⁻¹ (-s⁻¹ * r) = f := by
-  simp [GCD369CubeSourceTransform, comp_assoc, mul_add, ← C_mul, hs]
+        s⁻¹ (-(s⁻¹ * r)) = f := by
+  have hconstant : s * (-(s⁻¹ * r)) = -r := by
+    rw [mul_neg, ← mul_assoc, mul_inv_cancel₀ hs, one_mul]
+  have hcoordinate :
+      (C s * X + C r).comp (C s⁻¹ * X + C (-(s⁻¹ * r))) = X := by
+    simp only [add_comp, mul_comp, C_comp, X_comp]
+    rw [mul_add, ← mul_assoc (C s) (C s⁻¹) X, C_mul,
+      mul_inv_cancel₀ hs, C_1, one_mul, C_mul, hconstant]
+    simp
+  rw [GCD369CubeSourceTransform, GCD369CubeSourceTransform, comp_assoc,
+    hcoordinate, comp_X]
 
 /-- Consequently the scaled Taylor data determine the original polynomial. -/
 theorem GCD369CubeSourceTransform_injective {K : Type*} [Field K]
@@ -60,7 +69,7 @@ theorem GCD369CubeSourceTransform_injective {K : Type*} [Field K]
     Function.Injective (fun f : K[X] => GCD369CubeSourceTransform f s r) := by
   intro f g hfg
   have hinv := congrArg
-    (fun p : K[X] => GCD369CubeSourceTransform p s⁻¹ (-s⁻¹ * r)) hfg
+    (fun p : K[X] => GCD369CubeSourceTransform p s⁻¹ (-(s⁻¹ * r))) hfg
   exact (GCD369CubeSourceTransformInverse f s r hs).symm.trans
     (hinv.trans (GCD369CubeSourceTransformInverse g s r hs))
 
