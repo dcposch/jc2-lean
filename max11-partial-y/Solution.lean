@@ -84,7 +84,7 @@ theorem MaxPartialDegreeElevenClosure (Good : ℕ → ℕ → Prop)
 
 /-- The Jacobian determinant of an ordered pair of bivariate polynomials,
 with variables `0=x` and `1=y`. -/
-def PlaneJacobian {K : Type*} [CommRing K]
+noncomputable def PlaneJacobian {K : Type*} [CommRing K]
     (P Q : MvPolynomial (Fin 2) K) : MvPolynomial (Fin 2) K :=
   MvPolynomial.pderiv 0 P * MvPolynomial.pderiv 1 Q -
     MvPolynomial.pderiv 1 P * MvPolynomial.pderiv 0 Q
