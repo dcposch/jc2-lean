@@ -14,6 +14,111 @@ partial-degree `(6,9)` reduction.
 
 open Polynomial
 
+/-! ## Explicit Faber invariants
+
+These are the five normalized Laurent invariants reconstructed by the exact
+Faber replay.  Keeping the formulas in Lean lets later leading-component and
+first-load arguments reduce to kernel-checked polynomial identities. -/
+
+/-- The normalized Faber--Laurent invariant `r1`. -/
+def GCD369CubeFaberR1 {K : Type*} [Field K]
+    (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 : K) : K :=
+  (46656*a0*a2 + 27648*a0*a3*d - 11664*a0*a4 ^ 2 + 12096*a0*a4*c7 + 51840*a0*c5 + 23328*a1 ^ 2 + 27648*a1*a2*d - 23328*a1*a3*a4 + 12096*a1*a3*c7 - 9216*a1*a4 ^ 2*d + 41472*a1*c4 - 11664*a2 ^ 2*a4 + 6048*a2 ^ 2*c7 - 11664*a2*a3 ^ 2 - 18432*a2*a3*a4*d + 5832*a2*a4 ^ 3 - 5040*a2*a4 ^ 2*c7 - 8640*a2*a4*c5 + 31104*a2*c3 - 3072*a3 ^ 3*d + 8748*a3 ^ 2*a4 ^ 2 - 5040*a3 ^ 2*a4*c7 - 4320*a3 ^ 2*c5 + 5120*a3*a4 ^ 3*d - 13824*a3*a4*c4 + 20736*a3*c2 - 729*a4 ^ 5 + 770*a4 ^ 4*c7 + 1680*a4 ^ 3*c5 - 7776*a4 ^ 2*c3 + 10368*a4*c1)/62208
+
+/-- The normalized Faber--Laurent invariant `r2`. -/
+def GCD369CubeFaberR2 {K : Type*} [Field K]
+    (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 : K) : K :=
+  (139968*a0*a1 + 82944*a0*a2*d - 69984*a0*a3*a4 + 36288*a0*a3*c7 - 27648*a0*a4 ^ 2*d + 124416*a0*c4 + 41472*a1 ^ 2*d - 69984*a1*a2*a4 + 36288*a1*a2*c7 - 34992*a1*a3 ^ 2 - 55296*a1*a3*a4*d + 17496*a1*a4 ^ 3 - 15120*a1*a4 ^ 2*c7 - 25920*a1*a4*c5 + 93312*a1*c3 - 34992*a2 ^ 2*a3 - 27648*a2 ^ 2*a4*d - 27648*a2*a3 ^ 2*d + 52488*a2*a3*a4 ^ 2 - 30240*a2*a3*a4*c7 - 25920*a2*a3*c5 + 15360*a2*a4 ^ 3*d - 41472*a2*a4*c4 + 62208*a2*c2 + 17496*a3 ^ 3*a4 - 5040*a3 ^ 3*c7 + 23040*a3 ^ 2*a4 ^ 2*d - 20736*a3 ^ 2*c4 - 10935*a3*a4 ^ 4 + 9240*a3*a4 ^ 3*c7 + 15120*a3*a4 ^ 2*c5 - 46656*a3*a4*c3 + 31104*a3*c1 - 2048*a4 ^ 5*d + 9216*a4 ^ 3*c4 - 20736*a4 ^ 2*c2)/186624
+
+/-- The normalized Faber--Laurent invariant `r3`. -/
+def GCD369CubeFaberR3 {K : Type*} [Field K]
+    (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 : K) : K :=
+  (93312*a0 ^ 2 + 110592*a0*a1*d - 62208*a0*a2*a4 + 48384*a0*a2*c7 - 46656*a0*a3 ^ 2 - 55296*a0*a3*a4*d + 15552*a0*a4 ^ 3 - 12096*a0*a4 ^ 2*c7 + 124416*a0*c3 - 31104*a1 ^ 2*a4 + 24192*a1 ^ 2*c7 - 93312*a1*a2*a3 - 55296*a1*a2*a4*d - 36864*a1*a3 ^ 2*d + 54432*a1*a3*a4 ^ 2 - 32256*a1*a3*a4*c7 - 34560*a1*a3*c5 + 14336*a1*a4 ^ 3*d - 27648*a1*a4*c4 + 82944*a1*c2 - 15552*a2 ^ 3 - 36864*a2 ^ 2*a3*d + 27216*a2 ^ 2*a4 ^ 2 - 16128*a2 ^ 2*a4*c7 - 17280*a2 ^ 2*c5 + 62208*a2*a3 ^ 2*a4 - 20160*a2*a3 ^ 2*c7 + 49152*a2*a3*a4 ^ 2*d - 55296*a2*a3*c4 - 10692*a2*a4 ^ 4 + 8960*a2*a4 ^ 3*c7 + 14400*a2*a4 ^ 2*c5 - 41472*a2*a4*c3 + 41472*a2*c1 + 5832*a3 ^ 4 + 18432*a3 ^ 3*a4*d - 23328*a3 ^ 2*a4 ^ 3 + 15120*a3 ^ 2*a4 ^ 2*c7 + 17280*a3 ^ 2*a4*c5 - 31104*a3 ^ 2*c3 - 10240*a3*a4 ^ 4*d + 27648*a3*a4 ^ 2*c4 - 41472*a3*a4*c2 + 1215*a4 ^ 6 - 1232*a4 ^ 5*c7 - 2520*a4 ^ 4*c5 + 10368*a4 ^ 3*c3 - 10368*a4 ^ 2*c1)/248832
+
+/-- The normalized Faber--Laurent invariant `r4`. -/
+def GCD369CubeFaberR4 {K : Type*} [Field K]
+    (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 : K) : K :=
+  (373248*a0 ^ 2*d - 209952*a0*a1*a4 + 326592*a0*a1*c7 - 419904*a0*a2*a3 - 248832*a0*a2*a4*d - 124416*a0*a3 ^ 2*d + 209952*a0*a3*a4 ^ 2 - 108864*a0*a3*a4*c7 + 55296*a0*a4 ^ 3*d + 559872*a0*c2 - 209952*a1 ^ 2*a3 - 124416*a1 ^ 2*a4*d - 314928*a1*a2 ^ 2 - 373248*a1*a2*a3*d + 262440*a1*a2*a4 ^ 2 - 163296*a1*a2*a4*c7 - 233280*a1*a2*c5 + 262440*a1*a3 ^ 2*a4 - 81648*a1*a3 ^ 2*c7 + 207360*a1*a3*a4 ^ 2*d - 186624*a1*a3*c4 - 45927*a1*a4 ^ 4 + 37800*a1*a4 ^ 3*c7 + 58320*a1*a4 ^ 2*c5 - 139968*a1*a4*c3 + 279936*a1*c1 - 82944*a2 ^ 3*d + 314928*a2 ^ 2*a3*a4 - 108864*a2 ^ 2*a3*c7 + 124416*a2 ^ 2*a4 ^ 2*d - 186624*a2 ^ 2*c4 + 104976*a2*a3 ^ 3 + 248832*a2*a3 ^ 2*a4*d - 209952*a2*a3*a4 ^ 3 + 136080*a2*a3*a4 ^ 2*c7 + 155520*a2*a3*a4*c5 - 279936*a2*a3*c3 - 46080*a2*a4 ^ 4*d + 124416*a2*a4 ^ 2*c4 - 186624*a2*a4*c2 + 20736*a3 ^ 4*d - 104976*a3 ^ 3*a4 ^ 2 + 45360*a3 ^ 3*a4*c7 + 25920*a3 ^ 3*c5 - 92160*a3 ^ 2*a4 ^ 3*d + 124416*a3 ^ 2*a4*c4 - 93312*a3 ^ 2*c2 + 32805*a3*a4 ^ 5 - 27720*a3*a4 ^ 4*c7 - 45360*a3*a4 ^ 3*c5 + 139968*a3*a4 ^ 2*c3 - 93312*a3*a4*c1 + 5120*a4 ^ 6*d - 20736*a4 ^ 4*c4 + 41472*a4 ^ 3*c2)/1679616
+
+/-- The normalized Faber--Laurent invariant `r5`. -/
+def GCD369CubeFaberR5 {K : Type*} [Field K]
+    (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 : K) : K :=
+  (1306368*a0 ^ 2*c7 - 1679616*a0*a1*a3 - 995328*a0*a1*a4*d - 839808*a0*a2 ^ 2 - 995328*a0*a2*a3*d + 699840*a0*a2*a4 ^ 2 - 435456*a0*a2*a4*c7 + 839808*a0*a3 ^ 2*a4 - 217728*a0*a3 ^ 2*c7 + 580608*a0*a3*a4 ^ 2*d - 122472*a0*a4 ^ 4 + 84672*a0*a4 ^ 3*c7 + 2239488*a0*c1 - 1679616*a1 ^ 2*a2 - 995328*a1 ^ 2*a3*d + 559872*a1 ^ 2*a4 ^ 2 - 435456*a1 ^ 2*a4*c7 - 933120*a1 ^ 2*c5 - 995328*a1*a2 ^ 2*d + 2519424*a1*a2*a3*a4 - 870912*a1*a2*a3*c7 + 912384*a1*a2*a4 ^ 2*d - 1492992*a1*a2*c4 + 419904*a1*a3 ^ 3 + 995328*a1*a3 ^ 2*a4*d - 769824*a1*a3*a4 ^ 3 + 508032*a1*a3*a4 ^ 2*c7 + 622080*a1*a3*a4*c5 - 1119744*a1*a3*c3 - 156672*a1*a4 ^ 4*d + 373248*a1*a4 ^ 2*c4 - 746496*a1*a4*c2 + 419904*a2 ^ 3*a4 - 145152*a2 ^ 3*c7 + 629856*a2 ^ 2*a3 ^ 2 + 995328*a2 ^ 2*a3*a4*d - 384912*a2 ^ 2*a4 ^ 3 + 254016*a2 ^ 2*a4 ^ 2*c7 + 311040*a2 ^ 2*a4*c5 - 559872*a2 ^ 2*c3 + 331776*a2*a3 ^ 3*d - 1224720*a2*a3 ^ 2*a4 ^ 2 + 544320*a2*a3 ^ 2*a4*c7 + 311040*a2*a3 ^ 2*c5 - 681984*a2*a3*a4 ^ 3*d + 995328*a2*a3*a4*c4 - 746496*a2*a3*c2 + 113724*a2*a4 ^ 5 - 95760*a2*a4 ^ 4*c7 - 155520*a2*a4 ^ 3*c5 + 466560*a2*a4 ^ 2*c3 - 373248*a2*a4*c1 - 209952*a3 ^ 4*a4 + 45360*a3 ^ 4*c7 - 359424*a3 ^ 3*a4 ^ 2*d + 165888*a3 ^ 3*c4 + 301806*a3 ^ 2*a4 ^ 4 - 206640*a3 ^ 2*a4 ^ 3*c7 - 259200*a3 ^ 2*a4 ^ 2*c5 + 559872*a3 ^ 2*a4*c3 - 186624*a3 ^ 2*c1 + 107520*a3*a4 ^ 5*d - 290304*a3*a4 ^ 3*c4 + 435456*a3*a4 ^ 2*c2 - 10935*a4 ^ 7 + 10780*a4 ^ 6*c7 + 21168*a4 ^ 5*c5 - 81648*a4 ^ 4*c3 + 72576*a4 ^ 3*c1)/13436928
+
+/-- The five explicit invariants have weights `10,11,12,13,14` under
+the source scaling of weights `(6,5,4,3,2;1,2,4,5,6,7,8)`. -/
+theorem GCD369CubeFaberInvariantWeights {K : Type*} [Field K] [CharZero K]
+    (t a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 : K) :
+    GCD369CubeFaberR1 (t ^ 6 * a0) (t ^ 5 * a1) (t ^ 4 * a2)
+        (t ^ 3 * a3) (t ^ 2 * a4) (t * d) (t ^ 2 * c7) (t ^ 4 * c5)
+        (t ^ 5 * c4) (t ^ 6 * c3) (t ^ 7 * c2) (t ^ 8 * c1) =
+      t ^ 10 * GCD369CubeFaberR1 a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 ∧
+    GCD369CubeFaberR2 (t ^ 6 * a0) (t ^ 5 * a1) (t ^ 4 * a2)
+        (t ^ 3 * a3) (t ^ 2 * a4) (t * d) (t ^ 2 * c7) (t ^ 4 * c5)
+        (t ^ 5 * c4) (t ^ 6 * c3) (t ^ 7 * c2) (t ^ 8 * c1) =
+      t ^ 11 * GCD369CubeFaberR2 a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 ∧
+    GCD369CubeFaberR3 (t ^ 6 * a0) (t ^ 5 * a1) (t ^ 4 * a2)
+        (t ^ 3 * a3) (t ^ 2 * a4) (t * d) (t ^ 2 * c7) (t ^ 4 * c5)
+        (t ^ 5 * c4) (t ^ 6 * c3) (t ^ 7 * c2) (t ^ 8 * c1) =
+      t ^ 12 * GCD369CubeFaberR3 a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 ∧
+    GCD369CubeFaberR4 (t ^ 6 * a0) (t ^ 5 * a1) (t ^ 4 * a2)
+        (t ^ 3 * a3) (t ^ 2 * a4) (t * d) (t ^ 2 * c7) (t ^ 4 * c5)
+        (t ^ 5 * c4) (t ^ 6 * c3) (t ^ 7 * c2) (t ^ 8 * c1) =
+      t ^ 13 * GCD369CubeFaberR4 a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 ∧
+    GCD369CubeFaberR5 (t ^ 6 * a0) (t ^ 5 * a1) (t ^ 4 * a2)
+        (t ^ 3 * a3) (t ^ 2 * a4) (t * d) (t ^ 2 * c7) (t ^ 4 * c5)
+        (t ^ 5 * c4) (t ^ 6 * c3) (t ^ 7 * c2) (t ^ 8 * c1) =
+      t ^ 14 * GCD369CubeFaberR5 a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 := by
+  constructor
+  · simp only [GCD369CubeFaberR1]
+    ring
+  constructor
+  · simp only [GCD369CubeFaberR2]
+    ring
+  constructor
+  · simp only [GCD369CubeFaberR3]
+    ring
+  constructor
+  · simp only [GCD369CubeFaberR4]
+    ring
+  · simp only [GCD369CubeFaberR5]
+    ring
+
+/-- The common-cubic component annihilates all five zero-high-constant Faber
+invariants exactly. -/
+theorem GCD369CubeFaberCommonValues {K : Type*} [Field K] [CharZero K]
+    (u v : K) :
+    GCD369CubeFaberR1 (v ^ 2) (2 * u * v) (u ^ 2) (2 * v) (2 * u)
+        0 0 0 0 0 0 0 = 0 ∧
+    GCD369CubeFaberR2 (v ^ 2) (2 * u * v) (u ^ 2) (2 * v) (2 * u)
+        0 0 0 0 0 0 0 = 0 ∧
+    GCD369CubeFaberR3 (v ^ 2) (2 * u * v) (u ^ 2) (2 * v) (2 * u)
+        0 0 0 0 0 0 0 = 0 ∧
+    GCD369CubeFaberR4 (v ^ 2) (2 * u * v) (u ^ 2) (2 * v) (2 * u)
+        0 0 0 0 0 0 0 = 0 ∧
+    GCD369CubeFaberR5 (v ^ 2) (2 * u * v) (u ^ 2) (2 * v) (2 * u)
+        0 0 0 0 0 0 0 = 0 := by
+  norm_num [GCD369CubeFaberR1, GCD369CubeFaberR2, GCD369CubeFaberR3,
+    GCD369CubeFaberR4, GCD369CubeFaberR5] <;> ring
+
+/-- The Davenport--Stothers component annihilates the first four invariants
+and has terminal value `(27/2) * lambda^7`. -/
+theorem GCD369CubeFaberDSValues {K : Type*} [Field K] [CharZero K]
+    (lambda : K) :
+    GCD369CubeFaberR1 (6 * lambda ^ 3) 0 (10 * lambda ^ 2) 0 (4 * lambda)
+        0 0 0 0 0 0 0 = 0 ∧
+    GCD369CubeFaberR2 (6 * lambda ^ 3) 0 (10 * lambda ^ 2) 0 (4 * lambda)
+        0 0 0 0 0 0 0 = 0 ∧
+    GCD369CubeFaberR3 (6 * lambda ^ 3) 0 (10 * lambda ^ 2) 0 (4 * lambda)
+        0 0 0 0 0 0 0 = 0 ∧
+    GCD369CubeFaberR4 (6 * lambda ^ 3) 0 (10 * lambda ^ 2) 0 (4 * lambda)
+        0 0 0 0 0 0 0 = 0 ∧
+    GCD369CubeFaberR5 (6 * lambda ^ 3) 0 (10 * lambda ^ 2) 0 (4 * lambda)
+        0 0 0 0 0 0 0 = (27 / 2) * lambda ^ 7 := by
+  norm_num [GCD369CubeFaberR1, GCD369CubeFaberR2, GCD369CubeFaberR3,
+    GCD369CubeFaberR4, GCD369CubeFaberR5] <;> ring
+
+
 /-- The five polynomial parts multiplying the derivatives of the first five
 negative Laurent coefficients form a triangular basis.  Consequently a
 constant terminal row is equivalent to four first integrals and the displayed
@@ -3238,6 +3343,9 @@ theorem GCD369CubeTrajectoryLandingEmpty {K : Type*}
       exact GCD369CubeDSAllCoreTerminalExclusion
         j hj s LN LB hs hLN hLB hlambdaReduced hODE hboundary
 
+#print axioms GCD369CubeFaberInvariantWeights
+#print axioms GCD369CubeFaberCommonValues
+#print axioms GCD369CubeFaberDSValues
 #print axioms GCD369CubeLowerRowTriangularity
 #print axioms GCD369CubeZeroSheetBracket
 #print axioms GCD369CubeZeroSheetTerminalExclusion
