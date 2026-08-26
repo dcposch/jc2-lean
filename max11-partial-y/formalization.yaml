@@ -7,11 +7,11 @@ project:
     Lean 4 / Mathlib proof of the exact finite degree-routing certificate
     through maximum partial y-degree eleven, both abstractly and instantiated
     for bivariate polynomials with nonzero constant Jacobian.  The concrete
-    strengthened characteristic-zero theorem proves the zero-degree route
-    internally and concludes K[P,Q]=K[x,y] from the gcd-at-most-two,
-    divisibility, equal-degree, and (6,9) route premises.  This project does
-    not itself prove those remaining deep route premises or exclude the
-    cube-core (6,9) branch.
+    strengthened characteristic-zero theorem proves the zero-degree,
+    equal-degree, and divisibility routes internally and concludes
+    K[P,Q]=K[x,y] from only the gcd-at-most-two and (6,9) route premises.
+    This project does not itself prove those remaining deep premises or
+    exclude the cube-core (6,9) branch.
   authors:
     - "Dan Clemens Posch"
   license: "Apache-2.0"
@@ -55,15 +55,22 @@ status:
     uniqueness of the primitive pair (6,9); strict recursive closure for an
     arbitrary symmetric predicate Good; its concrete instantiation for
     MvPolynomial (Fin 2) K using the actual Jacobian, partial y-degree, and
-    coordinate-subalgebra generation predicates; the zero-partial-degree
-    Keller route in characteristic zero; and the frontier checksum
-    showing (8,12) and (9,12) as the first new primitive pairs at maximum
-    twelve.  Not proved here: scalar-extension/descent, the gcd-at-most-two,
-    divisibility, and equal-degree route premises, or the global (6,9) leaf.
+    coordinate-subalgebra generation predicates; the zero-partial-degree,
+    equal-degree, and divisibility Keller routes in characteristic zero; and
+    the frontier checksum showing (8,12) and (9,12) as the first new primitive
+    pairs at maximum twelve.  The degree routes include a kernel-checked
+    weighted-Wronskian leading-coefficient argument and triangular target
+    shear.  Not proved here: scalar-extension/descent, the gcd-at-most-two
+    premise, or the global (6,9) leaf.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
   main_results:
+    - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithElementaryRoutes"
+      file: "DegreeRoutes.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
     - declaration: "Max11ClassicalRoutes.Max11PlaneKellerGenerationWithZeroRoute"
       file: "ClassicalRoutes.lean"
       sorry_count: 0
@@ -115,10 +122,11 @@ fidelity:
     The source's final theorem concerns automorphy of characteristic-zero
     bivariate Keller pairs.  The concrete Lean theorem now uses exactly that
     polynomial/Jacobian/ring-generation predicate.  The strengthened theorem
-    proves the zero-degree route, but assumes the other cited mathematical
-    routes and the (6,9) leaf.  It formalizes the complete finite recursion and
-    its concrete conclusion, not the algebraic proofs of those remaining
-    premises or scalar-extension descent.  No other divergences are known.
+    proves the zero-degree, equal-degree, and divisibility routes, but assumes
+    the gcd-at-most-two theorem and the (6,9) leaf.  It formalizes the complete
+    finite recursion and its concrete conclusion, not the algebraic proofs of
+    those remaining premises or scalar-extension descent.  No other
+    divergences are known.
 
 review:
   status: >-
@@ -130,7 +138,8 @@ review:
   notes: >-
     The copied hostile review predates and does not inspect the Lean code.
     Kernel axiom reports and the project audit script find no sorryAx or
-    non-permitted axioms in Solution.lean or ClassicalRoutes.lean.
+    non-permitted axioms in Solution.lean, ClassicalRoutes.lean, or
+    DegreeRoutes.lean.
 
 alignment:
   namespace: "(root)"
@@ -142,12 +151,13 @@ alignment:
         exact abstract recursion proved; Keller-pair route theorems remain
         hypotheses
     - source: "Maximum actual partial y-degree eleven theorem, Sections 1 and 6"
-      lean: "Max11ClassicalRoutes.Max11PlaneKellerGenerationWithZeroRoute"
+      lean: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithElementaryRoutes"
       module: "Challenge"
       status: >-
         exact bivariate polynomial conclusion and finite composition proved;
-        the zero-degree route is proved, while the remaining classical route
-        theorems and global (6,9) leaf remain explicit hypotheses
+        the zero, equal-degree, and divisibility routes are proved, while the
+        gcd-at-most-two theorem and global (6,9) leaf remain explicit
+        hypotheses
     - source: "Maximum-twelve frontier checksum, Section 9"
       lean: "Max12FirstPrimitives"
       module: "Challenge"

@@ -106,6 +106,23 @@ theorem Max11PlaneKellerGenerationWithZeroRoute {K : Type*}
 
 end Max11ClassicalRoutes
 
+namespace Max11DegreeRoutes
+
+/-- Concrete maximum-eleven composition in characteristic zero with the
+zero, equal-degree, and divisibility routes proved internally. -/
+theorem Max11PlaneKellerGenerationWithElementaryRoutes {K : Type*}
+    [Field K] [CharZero K]
+    (hgcd : ∀ m n, Nat.gcd m n ≤ 2 →
+      PlaneKellerAutomorphicAtDegrees (K := K) m n)
+    (h69 : PlaneKellerAutomorphicAtDegrees (K := K) 6 9) :
+    ∀ P Q : MvPolynomial (Fin 2) K,
+      MvPolynomial.degreeOf 1 P ≤ 11 →
+      MvPolynomial.degreeOf 1 Q ≤ 11 →
+      IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
+  sorry
+
+end Max11DegreeRoutes
+
 /-- At maximum degree twelve, the same routes leave exactly `(8,12)` and
 `(9,12)` as the first new primitive unordered pairs. -/
 theorem Max12FirstPrimitives (m : ℕ) (hm : m ≤ 12) :

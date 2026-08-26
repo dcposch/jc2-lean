@@ -9,14 +9,14 @@ pair `(m,n)` with `m,n ≤ 11`.
 The original abstract routing certificate remains available, and
 `Max11PlaneKellerGeneration` instantiates it with actual bivariate polynomials.
 The strengthened headline
-`Max11ClassicalRoutes.Max11PlaneKellerGenerationWithZeroRoute` additionally
-proves the zero-partial-degree route in characteristic zero.  It defines the
-two-variable Jacobian using `MvPolynomial.pderiv`, uses `degreeOf 1` for the
-actual partial `y`-degree, and concludes the concrete coordinate-ring equality
-`K[P,Q] = K[x,y]` via `Algebra.adjoin`.  The remaining premises are the
-gcd-at-most-two, divisibility, equal-degree, and global `(6,9)` route theorems,
-so this remains a formal composition theorem rather than an unconditional
-standalone proof of maximum eleven.
+`Max11DegreeRoutes.Max11PlaneKellerGenerationWithElementaryRoutes` proves the
+zero-partial-degree, equal-degree, and divisibility routes in characteristic
+zero.  It defines the two-variable Jacobian using `MvPolynomial.pderiv`, uses
+`degreeOf 1` for the actual partial `y`-degree, and concludes the concrete
+coordinate-ring equality `K[P,Q] = K[x,y]` via `Algebra.adjoin`.  Its only
+remaining premises are the gcd-at-most-two theorem and the global `(6,9)`
+leaf, so this remains a formal composition theorem rather than an
+unconditional standalone proof of maximum eleven.
 
 ## Compared declarations
 
@@ -33,6 +33,11 @@ standalone proof of maximum eleven.
 - `Max11ClassicalRoutes.Max11PlaneKellerGenerationWithZeroRoute` proves the
   zero-degree route from the Jacobian equation and removes it from the
   premises of the characteristic-zero composition theorem.
+- `Max11DegreeRoutes.Max11PlaneKellerGenerationWithElementaryRoutes` proves
+  the equal-degree and divisibility routes by deriving the weighted Wronskian
+  equation for the leading `y`-coefficients, identifying the required leading
+  power, and applying a degree-lowering triangular target shear.  Only the
+  gcd-at-most-two theorem and global `(6,9)` leaf remain as premises.
 - `Max12FirstPrimitives` verifies the frontier checksum: at maximum twelve,
   the same direct routes first leave `(8,12)` and `(9,12)`.
 
@@ -45,8 +50,8 @@ with maximum actual partial `y`-degree at most eleven is an automorphism.  This
 Lean extraction checks the complete finite recursion and frontier arithmetic,
 then instantiates the result for actual bivariate polynomials, their Jacobian,
 partial `y`-degree, and coordinate-ring generation.  It does not prove
-scalar-extension descent, the remaining classical degree-route premises, or
-the global `(6,9)` leaf (including the cube-core trajectory closure).
+scalar-extension descent, the gcd-at-most-two theorem, or the global `(6,9)`
+leaf (including the cube-core trajectory closure).
 
 The source files are copied byte-for-byte under `sources/`:
 
@@ -63,6 +68,6 @@ lake build
 ./scripts/check_axioms.sh
 ```
 
-`Solution.lean` and `ClassicalRoutes.lean` contain no `sorry`, custom axioms,
-or trust escapes.  The permitted axioms are `propext`, `Classical.choice`, and
-`Quot.sound`.
+`Solution.lean`, `ClassicalRoutes.lean`, and `DegreeRoutes.lean` contain no
+`sorry`, custom axioms, or trust escapes.  The permitted axioms are `propext`,
+`Classical.choice`, and `Quot.sound`.
