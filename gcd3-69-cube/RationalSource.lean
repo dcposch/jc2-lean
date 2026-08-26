@@ -1289,9 +1289,10 @@ end GCD369CubeLaterInvariantSource
 
 /-- The actual rational-function source remaining after all early Faber
 loads vanish.  The two surviving invariants are required to descend to the
-constant field, and the terminal row and original DS boundary are retained.
-No elliptic, cusp, zero-sheet, or Davenport--Stothers landing is selected by
-the caller. -/
+constant field, and the terminal row is retained.  Original DS boundary data
+are required only on the fully zero `mu = nu = 0` specialization where they
+are used.  No elliptic, cusp, zero-sheet, or Davenport--Stothers landing is
+selected by the caller. -/
 structure GCD369CubeLaterRatFuncTerminalSource
     (k : Type u) [Field k] where
   faber : GCD369CubeLaterInvariantSource (RatFunc k)
@@ -1310,7 +1311,7 @@ structure GCD369CubeLaterRatFuncTerminalSource
             faber.a0 faber.a1 faber.a2 faber.a3 faber.a4
               0 0 0 0 0 0 0) =
       algebraMap k (RatFunc k) j
-  boundary : GCD369CubeDSBoundarySource k
+  boundary : mu = 0 → nu = 0 → GCD369CubeDSBoundarySource k
 
 namespace GCD369CubeLaterRatFuncTerminalSource
 
@@ -1331,7 +1332,8 @@ theorem empty
         rw [hmu, map_zero] at h
         linear_combination (1 / 6 : RatFunc k) * h
       exact S.faber.zeroInvariantRatFuncTerminalExclusion
-        S.j S.hj S.s S.hs hrho3 hrho4 S.hterminal S.boundary.commonRoot
+        S.j S.hj S.s S.hs hrho3 hrho4 S.hterminal
+          (S.boundary hmu hnu).commonRoot
     · exact S.faber.unmixedEllipticRatFuncTerminalExclusion
         S.mu S.j hmu S.hj S.s S.hrho3const hrho4 S.hterminal
   · by_cases hmu : S.mu = 0

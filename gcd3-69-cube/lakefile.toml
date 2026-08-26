@@ -9,4 +9,4 @@ rev = "20bc12820422504f9e52ee6caebf8182a9015336"
 
 [[lean_lib]]
 name = "Solution"
-roots = ["Solution", "ArbitraryLoads", "SourceBridge", "RationalSource", "PolynomialSource", "FaberNormalForm", "FaberLowerRows", "FaberPoleReduction", "FaberFirstIntegrals", "TargetNormalization"]
+roots = ["Solution", "ArbitraryLoads", "SourceBridge", "RationalSource", "PolynomialSource", "FaberNormalForm", "FaberLowerRows", "FaberPoleReduction", "FaberFirstIntegrals", "TargetNormalization", "FaberLaterSource"]
