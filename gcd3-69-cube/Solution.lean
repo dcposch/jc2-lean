@@ -945,6 +945,88 @@ theorem GCD369CubeC2TerminalNonzero {K : Type*} [Field K] [CharZero K]
         (1 / 40 * u ^ 2) * h4 + (9 / 40 * v) * hterminal
     exact (pow_ne_zero 5 hu) hu5
 
+/-- The localized `u!=0` chart certificate for a first-`c2` landing. -/
+theorem GCD369CubeC2NoCommonRootOnUChart
+    {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn r Tin u v : K)
+    (h1 : -16 * v + 9 * u * Xn ^ 2 - 18 * Xn * Zn - 9 * Yn ^ 2 = 0)
+    (h2 :
+      8 * u ^ 2 + 27 * v * Xn ^ 2 + 54 * u * Xn * Yn -
+          54 * Yn * Zn = 0)
+    (h3 :
+      2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+          2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0)
+    (h4 :
+      16 * u ^ 3 - 72 * v ^ 2 - 243 * u * v * Xn ^ 2 -
+          162 * u ^ 2 * Xn * Yn + 324 * v * Xn * Zn +
+          162 * v * Yn ^ 2 + 162 * u * Yn * Zn = 0)
+    (hK : r ^ 3 + u * r + v = 0)
+    (hphi : Xn * r ^ 2 + Yn * r + Zn = 0)
+    (hchart : Tin * u - 1 = 0) :
+    False := by
+  let C1 : K :=
+    -27 / 28 * r ^ 2 * Tin ^ 5 * u * v - 27 / 28 * Tin ^ 5 * u ^ 2 * v +
+      81 / 280 * r * Tin ^ 5 * v ^ 2 + 27 / 28 * r ^ 2 * Tin ^ 4 * v +
+      9 / 14 * Tin ^ 4 * u * v + 9 / 20 * Tin ^ 3 * v
+  let C2 : K :=
+    -27 / 140 * r * Tin ^ 5 * u * v + 27 / 56 * Tin ^ 5 * v ^ 2 +
+      9 / 28 * r * Tin ^ 4 * v + 3 / 40 * Tin ^ 3 * u
+  let C3 : K :=
+    243 / 56 * r ^ 2 * Tin ^ 5 * v + 243 / 56 * Tin ^ 5 * u * v -
+      81 / 28 * Tin ^ 4 * v
+  let C4 : K := -9 / 140 * r * Tin ^ 5 * v + 1 / 40 * Tin ^ 3
+  let C5 : K :=
+    729 / 56 * Xn * Zn * r * Tin ^ 5 * v -
+      729 / 56 * Xn ^ 2 * Tin ^ 5 * v ^ 2 -
+      243 / 28 * Xn ^ 2 * r * Tin ^ 4 * v +
+      729 / 56 * Yn * Zn * Tin ^ 5 * v - 243 / 14 * Xn * Yn * Tin ^ 4 * v
+  let C6 : K :=
+    -729 / 56 * Zn * r ^ 2 * Tin ^ 5 * v +
+      729 / 56 * Xn * r * Tin ^ 5 * v ^ 2 +
+      243 / 28 * Xn * r ^ 2 * Tin ^ 4 * v -
+      729 / 56 * Zn * Tin ^ 5 * u * v +
+      729 / 56 * Yn * Tin ^ 5 * v ^ 2 +
+      243 / 28 * Yn * r * Tin ^ 4 * v + 243 / 28 * Zn * Tin ^ 4 * v
+  let C7 : K :=
+    18 / 7 * r * Tin ^ 4 * u ^ 2 * v - 108 / 7 * r ^ 2 * Tin ^ 4 * v ^ 2 -
+      135 / 7 * Tin ^ 4 * u * v ^ 2 - 9 * Tin ^ 3 * v ^ 2 -
+      Tin ^ 2 * u ^ 2 - Tin * u - 1
+  have hone : (1 : K) = 0 := by
+    linear_combination C1 * h1 + C2 * h2 + C3 * h3 + C4 * h4 +
+      C5 * hK + C6 * hphi + C7 * hchart
+  exact one_ne_zero hone
+
+/-- At every projective first-`c2` landing, the common cubic and its normal
+have no common field-valued root. -/
+theorem GCD369CubeC2NoCommonRoot {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn u v : K) (hprojective : u ≠ 0 ∨ v ≠ 0)
+    (h1 : -16 * v + 9 * u * Xn ^ 2 - 18 * Xn * Zn - 9 * Yn ^ 2 = 0)
+    (h2 :
+      8 * u ^ 2 + 27 * v * Xn ^ 2 + 54 * u * Xn * Yn -
+          54 * Yn * Zn = 0)
+    (h3 :
+      2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+          2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0)
+    (h4 :
+      16 * u ^ 3 - 72 * v ^ 2 - 243 * u * v * Xn ^ 2 -
+          162 * u ^ 2 * Xn * Yn + 324 * v * Xn * Zn +
+          162 * v * Yn ^ 2 + 162 * u * Yn * Zn = 0) :
+    ∀ r : K, r ^ 3 + u * r + v = 0 →
+      Xn * r ^ 2 + Yn * r + Zn = 0 → False := by
+  have hsupport := GCD369CubeC2Support Xn Yn Zn u v h1 h2 h3 h4
+  have hu : u ≠ 0 := by
+    intro hu
+    rw [hu] at hsupport
+    have hv2 : v ^ 2 = 0 := by
+      linear_combination (-1 / 9) * hsupport
+    have hv : v = 0 := by
+      by_contra hv
+      exact (pow_ne_zero 2 hv) hv2
+    exact hprojective.elim (fun h => h hu) (fun h => h hv)
+  intro r hK hphi
+  exact GCD369CubeC2NoCommonRootOnUChart
+    Xn Yn Zn r u⁻¹ u v h1 h2 h3 h4 hK hphi (by simp [hu])
+
 /-- The first retained `c1` load projects to the two coordinate axes
 `u*v = 0`. -/
 theorem GCD369CubeC1Support {K : Type*} [Field K] [CharZero K]
@@ -2359,6 +2441,8 @@ theorem GCD369CubeDSMonomialExponent {K : Type*}
 #print axioms GCD369CubeC4NoCommonRoot
 #print axioms GCD369CubeC2Support
 #print axioms GCD369CubeC2TerminalNonzero
+#print axioms GCD369CubeC2NoCommonRootOnUChart
+#print axioms GCD369CubeC2NoCommonRoot
 #print axioms GCD369CubeC1Support
 #print axioms GCD369CubeC1TerminalNonzero
 #print axioms GCD369CubeC1NoCommonRootOnUZeroChart
