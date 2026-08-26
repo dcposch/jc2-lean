@@ -251,6 +251,17 @@ theorem GCD369CubeFaberN4_map
 
 namespace GCD369CubeHahnRegular
 
+/-- The finite-place expansion of a ground-field constant is the canonical
+constant element of the regular Hahn local ring. -/
+@[simp] theorem ofRatFuncConstant_eq_constant
+    {k : Type*} [Field k] (a c : k) :
+    GCD369CubeHahnRegular.ofRatFuncConstant a c =
+      GCD369CubeHahnRegular.constant c := by
+  apply Subtype.ext
+  simp [GCD369CubeHahnRegular.ofRatFuncConstant,
+    GCD369CubeHahnRegular.constant, RatFunc.algebraMap_eq_C,
+    GCD369CubeRatFuncHahnAt_C]
+
 /-- The explicit rational constants in the regular local ring satisfy the
 expected inverse relation for two. -/
 theorem two_mul_ratCast_half
@@ -410,6 +421,31 @@ theorem coeff_quadratic_sub_cubic
     sub_zero]
 
 end GCD369CubeHahnRegular
+
+namespace GCD369CubeHahnPoleScale
+
+/-- A positive-weight ground-field constant becomes exactly a quadratic
+monomial at half its active weighted exponent.  This is the literal link
+between source constants and the `T * H^2` early-load equations. -/
+theorem weightedRegular_constant_eq_monomial_sq
+    {k : Type*} [Field k] (S : GCD369CubeHahnPoleScale k)
+    (w : ℕ) (hw : 0 < w) (c : k) :
+    S.weightedRegular w (GCD369CubeHahnRegular.constant c) =
+      GCD369CubeHahnRegular.monomial
+          (((w : ℚ) * S.p) / 2) (by
+            exact (div_pos (mul_pos (Nat.cast_pos.mpr hw) S.hp)
+              (by norm_num)).le) ^ 2 *
+        GCD369CubeHahnRegular.constant c := by
+  apply Subtype.ext
+  change S.t ^ w * HahnSeries.C c =
+    (HahnSeries.single (((w : ℚ) * S.p) / 2) 1) ^ 2 * HahnSeries.C c
+  simp only [t, HahnSeries.single_pow]
+  congr 2
+  · simp [nsmul_eq_mul]
+    ring_nf
+  · norm_num
+
+end GCD369CubeHahnPoleScale
 
 /-- A scaled original-value packet together with its certified nonzero
 common-cubic leading component. -/
@@ -1152,6 +1188,7 @@ end GCD369CubePolynomialSource
 #print axioms GCD369CubeFaberNineCommonNormalExpansionQ
 #print axioms GCD369CubeFaberCommonNormalNumeratorsCommRing
 #print axioms GCD369CubeFaberN4_map
+#print axioms GCD369CubeHahnRegular.ofRatFuncConstant_eq_constant
 #print axioms GCD369CubeHahnRegular.two_mul_ratCast_half
 #print axioms GCD369CubeHahnRegular.orderTop_pos_of_constantCoeff_zero
 #print axioms GCD369CubeHahnRegular.monomial_mul_shift
@@ -1163,6 +1200,7 @@ end GCD369CubePolynomialSource
 #print axioms GCD369CubeHahnRegular.coeff_mul_monomial_pow_at
 #print axioms GCD369CubeHahnRegular.coeff_mul_monomial_pow_of_lt
 #print axioms GCD369CubeHahnRegular.coeff_quadratic_sub_cubic
+#print axioms GCD369CubeHahnPoleScale.weightedRegular_constant_eq_monomial_sq
 #print axioms GCD369CubeHahnCommonValueData.constantCoeff_cubicU
 #print axioms GCD369CubeHahnCommonValueData.constantCoeff_cubicV
 #print axioms GCD369CubeHahnCommonValueData.normal_constantCoeff_zero
