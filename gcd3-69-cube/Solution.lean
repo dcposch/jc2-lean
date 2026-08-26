@@ -14,6 +14,80 @@ partial-degree `(6,9)` reduction.
 
 open Polynomial
 
+/-! ## Exact source Taylor interface
+
+The pole analysis is performed after the source change of variable
+`z = s*y + r`.  The following small interface keeps that change reversible
+and identifies every transformed coefficient with the corresponding Hasse
+derivative.  Thus the value row and the depression parameter used by the
+later boundary arguments come from the original polynomial, rather than from
+an independent normal-form assumption. -/
+
+/-- The polynomial obtained from `f(z)` by the source change `z = s*y + r`. -/
+def GCD369CubeSourceTransform {R : Type*} [CommSemiring R]
+    (f : R[X]) (s r : R) : R[X] :=
+  f.comp (C s * X + C r)
+
+/-- Exact Taylor coefficient formula after source scaling.  Hasse derivatives
+avoid factorial denominators and make the statement valid over every
+commutative semiring. -/
+theorem GCD369CubeSourceTransformCoeff {R : Type*} [CommSemiring R]
+    (f : R[X]) (s r : R) (n : ℕ) :
+    (GCD369CubeSourceTransform f s r).coeff n =
+      s ^ n * (hasseDeriv n f).eval r := by
+  have htransform :
+      GCD369CubeSourceTransform f s r = (taylor r f).comp (C s * X) := by
+    simp [GCD369CubeSourceTransform, taylor_apply, comp_assoc]
+  rw [htransform, comp_C_mul_X_coeff, taylor_coeff]
+  exact mul_comm _ _
+
+/-- The constant transformed coefficient is the original value `f(r)`. -/
+theorem GCD369CubeSourceTransformValue {R : Type*} [CommSemiring R]
+    (f : R[X]) (s r : R) :
+    (GCD369CubeSourceTransform f s r).coeff 0 = f.eval r := by
+  simpa using GCD369CubeSourceTransformCoeff f s r 0
+
+/-- A nonzero source scaling is exactly reversible. -/
+theorem GCD369CubeSourceTransformInverse {K : Type*} [Field K]
+    (f : K[X]) (s r : K) (hs : s ≠ 0) :
+    GCD369CubeSourceTransform (GCD369CubeSourceTransform f s r)
+        s⁻¹ (-s⁻¹ * r) = f := by
+  simp [GCD369CubeSourceTransform, comp_assoc, mul_add, hs]
+
+/-- Consequently the scaled Taylor data determine the original polynomial. -/
+theorem GCD369CubeSourceTransform_injective {K : Type*} [Field K]
+    (s r : K) (hs : s ≠ 0) :
+    Function.Injective (fun f : K[X] => GCD369CubeSourceTransform f s r) := by
+  intro f g hfg
+  have hinv := congrArg
+    (fun p : K[X] => GCD369CubeSourceTransform p s⁻¹ (-s⁻¹ * r)) hfg
+  simpa [GCD369CubeSourceTransformInverse, hs] using hinv
+
+/-- The monic depressed sextic used by the cube-core Faber reduction. -/
+def GCD369CubeDepressedSextic {R : Type*} [Semiring R]
+    (a0 a1 a2 a3 a4 : R) : R[X] :=
+  monomial 6 1 + monomial 4 a4 + monomial 3 a3 +
+    monomial 2 a2 + monomial 1 a1 + monomial 0 a0
+
+/-- Its fifth Hasse derivative is `6z`; this is the depression identity
+behind the recovery of the source translation. -/
+theorem GCD369CubeDepressedSexticHasseFive {K : Type*}
+    [Field K] [CharZero K] (a0 a1 a2 a3 a4 r : K) :
+    (hasseDeriv 5 (GCD369CubeDepressedSextic a0 a1 a2 a3 a4)).eval r =
+      6 * r := by
+  norm_num [GCD369CubeDepressedSextic, hasseDeriv_monomial]
+
+/-- For `P(y)=f(sy+r)`, the fifth source coefficient is exactly `6s^5r`.
+In particular, when `s` is nonzero it determines the translation `r`. -/
+theorem GCD369CubeDepressedSourceCoeffFive {K : Type*}
+    [Field K] [CharZero K] (a0 a1 a2 a3 a4 s r : K) :
+    (GCD369CubeSourceTransform
+      (GCD369CubeDepressedSextic a0 a1 a2 a3 a4) s r).coeff 5 =
+        6 * s ^ 5 * r := by
+  rw [GCD369CubeSourceTransformCoeff,
+    GCD369CubeDepressedSexticHasseFive]
+  ring
+
 /-! ## Explicit Faber invariants
 
 These are the five normalized Laurent invariants reconstructed by the exact
@@ -3530,6 +3604,12 @@ theorem GCD369CubeTrajectoryLandingEmpty {K : Type*}
       exact GCD369CubeDSAllCoreTerminalExclusion
         j hj s LN LB hs hLN hLB hlambdaReduced hODE hboundary
 
+#print axioms GCD369CubeSourceTransformCoeff
+#print axioms GCD369CubeSourceTransformValue
+#print axioms GCD369CubeSourceTransformInverse
+#print axioms GCD369CubeSourceTransform_injective
+#print axioms GCD369CubeDepressedSexticHasseFive
+#print axioms GCD369CubeDepressedSourceCoeffFive
 #print axioms GCD369CubeFaberInvariantWeights
 #print axioms GCD369CubeFaberCommonValues
 #print axioms GCD369CubeFaberDSValues
