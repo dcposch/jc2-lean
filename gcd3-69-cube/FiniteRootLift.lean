@@ -183,6 +183,78 @@ theorem dLeadingFaberRowsAt_of_bounds
 
 end GCD369CubeHahnCommonValueData
 
+namespace GCD369CubePolynomialSource
+
+/-- Literal polynomial-source data instantiate the entire weight-one bridge;
+only the three half-scale normal-order bounds remain as hypotheses. -/
+theorem finite_dLeadingFaberRowsAt_of_bounds
+    {k : Type*} [Field k] [CharZero k]
+    (S : GCD369CubePolynomialSource k) (a : k)
+    (hpole :
+      (GCD369CubeRatFuncHahnAt a (S.normalizedP.coeff 0)).order < 0 ∨
+      (GCD369CubeRatFuncHahnAt a (S.normalizedP.coeff 1)).order < 0 ∨
+      (GCD369CubeRatFuncHahnAt a (S.normalizedP.coeff 2)).order < 0 ∨
+      (GCD369CubeRatFuncHahnAt a (S.normalizedP.coeff 3)).order < 0 ∨
+      (GCD369CubeRatFuncHahnAt a (S.normalizedP.coeff 4)).order < 0)
+    (hnormal2 :
+      let C := S.finiteCommonValueData a hpole
+      let F := S.finiteFaberPoleData a hpole
+      (↑(F.scale.p / 2) : WithTop ℚ) ≤ C.normal2.1.orderTop)
+    (hnormal1 :
+      let C := S.finiteCommonValueData a hpole
+      let F := S.finiteFaberPoleData a hpole
+      (↑(F.scale.p / 2) : WithTop ℚ) ≤ C.normal1.1.orderTop)
+    (hnormal0 :
+      let C := S.finiteCommonValueData a hpole
+      let F := S.finiteFaberPoleData a hpole
+      (↑(F.scale.p / 2) : WithTop ℚ) ≤ C.normal0.1.orderTop) :
+    let C := S.finiteCommonValueData a hpole
+    let F := S.finiteFaberPoleData a hpole
+    let P := S.faberConstantParameters
+    let T := C.transverseFactorOfBounds (F.scale.p / 2)
+      (div_pos F.scale.hp (by norm_num)) hnormal2 hnormal1 hnormal0
+    GCD369CubeDLeadingFaberRowsAt
+      (GCD369CubeHahnRegular.constantCoeff T.Xn)
+      (GCD369CubeHahnRegular.constantCoeff T.Yn)
+      (GCD369CubeHahnRegular.constantCoeff T.Zn) C.u C.v P.d := by
+  dsimp only
+  let C := S.finiteCommonValueData a hpole
+  let F := S.finiteFaberPoleData a hpole
+  let P := S.faberConstantParameters
+  let R := S.faberFirstIntegralConstants
+  change (↑(F.scale.p / 2) : WithTop ℚ) ≤ C.normal2.1.orderTop at hnormal2
+  change (↑(F.scale.p / 2) : WithTop ℚ) ≤ C.normal1.1.orderTop at hnormal1
+  change (↑(F.scale.p / 2) : WithTop ℚ) ≤ C.normal0.1.orderTop at hnormal0
+  change GCD369CubeDLeadingFaberRowsAt
+    (GCD369CubeHahnRegular.constantCoeff
+      (C.transverseFactorOfBounds (F.scale.p / 2)
+        (div_pos F.scale.hp (by norm_num))
+        hnormal2 hnormal1 hnormal0).Xn)
+    (GCD369CubeHahnRegular.constantCoeff
+      (C.transverseFactorOfBounds (F.scale.p / 2)
+        (div_pos F.scale.hp (by norm_num))
+        hnormal2 hnormal1 hnormal0).Yn)
+    (GCD369CubeHahnRegular.constantCoeff
+      (C.transverseFactorOfBounds (F.scale.p / 2)
+        (div_pos F.scale.hp (by norm_num))
+        hnormal2 hnormal1 hnormal0).Zn) C.u C.v P.d
+  apply C.dLeadingFaberRowsAt_of_bounds F rfl
+    P.d P.c7 P.c5 P.c4 P.c3 P.c2 P.c1
+    R.rho1 R.rho2 R.rho3 R.rho4
+  · exact GCD369CubeHahnRegular.ofRatFuncConstant_eq_constant a P.d
+  · exact GCD369CubeHahnRegular.ofRatFuncConstant_eq_constant a P.c7
+  · exact GCD369CubeHahnRegular.ofRatFuncConstant_eq_constant a P.c5
+  · exact GCD369CubeHahnRegular.ofRatFuncConstant_eq_constant a P.c4
+  · exact GCD369CubeHahnRegular.ofRatFuncConstant_eq_constant a P.c3
+  · exact GCD369CubeHahnRegular.ofRatFuncConstant_eq_constant a P.c2
+  · exact GCD369CubeHahnRegular.ofRatFuncConstant_eq_constant a P.c1
+  · exact GCD369CubeHahnRegular.ofRatFuncConstant_eq_constant a R.rho1
+  · exact GCD369CubeHahnRegular.ofRatFuncConstant_eq_constant a R.rho2
+  · exact GCD369CubeHahnRegular.ofRatFuncConstant_eq_constant a R.rho3
+  · exact GCD369CubeHahnRegular.ofRatFuncConstant_eq_constant a R.rho4
+
+end GCD369CubePolynomialSource
+
 #print axioms GCD369CubeSingularCubic_taylor_double
 #print axioms GCD369CubeSingularCubic_taylor_simple
 #print axioms GCD369CubeSingularNormal_factor
@@ -191,3 +263,4 @@ end GCD369CubeHahnCommonValueData
 #print axioms GCD369CubeSingularNormal_root_zero
 #print axioms GCD369CubeZeroLoadNormal_root_data
 #print axioms GCD369CubeHahnCommonValueData.dLeadingFaberRowsAt_of_bounds
+#print axioms GCD369CubePolynomialSource.finite_dLeadingFaberRowsAt_of_bounds
