@@ -83,6 +83,33 @@ theorem GCD369NoncubeCubicKummerExtension
         algebraMap F (AdjoinRoot p) c := by
   sorry
 
+/-- A polynomial that is not a cube remains a noncube in its rational
+function field. -/
+theorem GCD369PolynomialNoncubeInRatFunc
+    {K : Type*} [Field K] (H : K[X])
+    (hnoncube : ¬ ∃ u : K[X], H = u ^ 3) :
+    ¬ ∃ r : RatFunc K, algebraMap K[X] (RatFunc K) H = r ^ 3 := by
+  sorry
+
+/-- Polynomial noncubeness therefore supplies the concrete cubic Kummer
+extension over the rational function field. -/
+theorem GCD369PolynomialNoncubeKummerExtension
+    {K : Type*} [Field K] (H : K[X]) (omega : K)
+    (homega3 : omega ^ 3 = 1) (homega : omega ≠ 1)
+    (hnoncube : ¬ ∃ u : K[X], H = u ^ 3) :
+    let h : RatFunc K := algebraMap K[X] (RatFunc K) H
+    let zeta : RatFunc K := algebraMap K (RatFunc K) omega
+    let p : (RatFunc K)[X] := X ^ 3 - C h
+    ∃ (_Hp : Irreducible p) (sigma : AdjoinRoot p ≃+* AdjoinRoot p),
+      AdjoinRoot.root p ≠ 0 ∧
+      AdjoinRoot.root p ^ 3 = algebraMap (RatFunc K) (AdjoinRoot p) h ∧
+      sigma (AdjoinRoot.root p) =
+        algebraMap (RatFunc K) (AdjoinRoot p) zeta * AdjoinRoot.root p ∧
+      sigma (AdjoinRoot.root p) ≠ AdjoinRoot.root p ∧
+      ∀ c : RatFunc K, sigma (algebraMap (RatFunc K) (AdjoinRoot p) c) =
+        algebraMap (RatFunc K) (AdjoinRoot p) c := by
+  sorry
+
 /-- No aligned Keller pair in the nontrivial cubic-Kummer branch can have a
 noncube polynomial core under the displayed function-field presentations. -/
 theorem GCD369AlignedNoncubeExclusion

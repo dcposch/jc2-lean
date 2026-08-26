@@ -155,6 +155,64 @@ theorem GCD369NoncubeCubicKummerExtension
   · intro c
     exact tau.commutes c
 
+/-- A polynomial that is not a cube remains a noncube in its rational
+function field. -/
+theorem GCD369PolynomialNoncubeInRatFunc
+    {K : Type*} [Field K] (H : K[X])
+    (hnoncube : ¬ ∃ u : K[X], H = u ^ 3) :
+    ¬ ∃ r : RatFunc K, algebraMap K[X] (RatFunc K) H = r ^ 3 := by
+  rintro ⟨r, hr⟩
+  rw [← RatFunc.num_div_denom r] at hr
+  field_simp [RatFunc.denom_ne_zero] at hr
+  have hmap : algebraMap K[X] (RatFunc K) (H * r.denom ^ 3) =
+      algebraMap K[X] (RatFunc K) (r.num ^ 3) := by
+    simp only [map_mul, map_pow]
+    exact hr
+  have hpoly : H * r.denom ^ 3 = r.num ^ 3 :=
+    (RatFunc.algebraMap_injective K) hmap
+  have hdvd : r.denom ^ 3 ∣ r.num ^ 3 := by
+    refine ⟨H, ?_⟩
+    rw [← hpoly, mul_comm]
+  have hcoprime : IsCoprime (r.num ^ 3) (r.denom ^ 3) :=
+    (RatFunc.isCoprime_num_denom r).pow
+  have hdpowUnit : IsUnit (r.denom ^ 3) :=
+    hcoprime.symm.isUnit_of_dvd hdvd
+  have hdUnit : IsUnit r.denom :=
+    (isUnit_pow_iff (by norm_num : (3 : ℕ) ≠ 0)).mp hdpowUnit
+  have hd : r.denom = 1 := (RatFunc.monic_denom r).eq_one_of_isUnit hdUnit
+  apply hnoncube
+  refine ⟨r.num, ?_⟩
+  simpa [hd] using hpoly
+
+/-- Polynomial noncubeness therefore supplies the concrete cubic Kummer
+extension over the rational function field. -/
+theorem GCD369PolynomialNoncubeKummerExtension
+    {K : Type*} [Field K] (H : K[X]) (omega : K)
+    (homega3 : omega ^ 3 = 1) (homega : omega ≠ 1)
+    (hnoncube : ¬ ∃ u : K[X], H = u ^ 3) :
+    let h : RatFunc K := algebraMap K[X] (RatFunc K) H
+    let zeta : RatFunc K := algebraMap K (RatFunc K) omega
+    let p : (RatFunc K)[X] := X ^ 3 - C h
+    ∃ (_Hp : Irreducible p) (sigma : AdjoinRoot p ≃+* AdjoinRoot p),
+      AdjoinRoot.root p ≠ 0 ∧
+      AdjoinRoot.root p ^ 3 = algebraMap (RatFunc K) (AdjoinRoot p) h ∧
+      sigma (AdjoinRoot.root p) =
+        algebraMap (RatFunc K) (AdjoinRoot p) zeta * AdjoinRoot.root p ∧
+      sigma (AdjoinRoot.root p) ≠ AdjoinRoot.root p ∧
+      ∀ c : RatFunc K, sigma (algebraMap (RatFunc K) (AdjoinRoot p) c) =
+        algebraMap (RatFunc K) (AdjoinRoot p) c := by
+  dsimp only
+  have hzeta3 : (algebraMap K (RatFunc K) omega) ^ 3 = 1 := by
+    rw [← map_pow, homega3, map_one]
+  have hzeta : algebraMap K (RatFunc K) omega ≠ 1 := by
+    intro hzeta
+    apply homega
+    apply (algebraMap K (RatFunc K)).injective
+    simpa using hzeta
+  exact GCD369NoncubeCubicKummerExtension
+    (algebraMap K[X] (RatFunc K) H) (algebraMap K (RatFunc K) omega)
+    hzeta3 hzeta (GCD369PolynomialNoncubeInRatFunc H hnoncube)
+
 set_option maxHeartbeats 2000000 in
 set_option maxRecDepth 10000 in
 theorem GCD369AlignedKellerRow4 {K : Type*} [Field K] [CharZero K] [Differential K]
@@ -2662,6 +2720,8 @@ theorem GCD369DSOneRootCube {K : Type*} [Field K] [IsAlgClosed K]
 #print axioms GCD369AlignmentDiscriminatorDerivative
 #print axioms GCD369KummerAlignmentFromFirstRow
 #print axioms GCD369NoncubeCubicKummerExtension
+#print axioms GCD369PolynomialNoncubeInRatFunc
+#print axioms GCD369PolynomialNoncubeKummerExtension
 #print axioms GCD369InvariantFibreDichotomy
 #print axioms GCD369AlignedKellerFibreDichotomy
 #print axioms GCD369ZeroBracketSheet

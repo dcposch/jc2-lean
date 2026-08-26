@@ -111,7 +111,10 @@ status:
     the alignment discriminator differential-constant and the nontrivial
     Kummer action forces it to vanish; the irreducible cubic extension and
     nontrivial base-fixing deck action are constructed from field-level
-    noncubeness; extraction of all four lower rows from
+    noncubeness; reduced numerator/denominator coprimality proves that a
+    polynomial noncube remains a noncube in the rational function field, so
+    the Kummer data are constructed directly from the polynomial core;
+    extraction of all four lower rows from
     the actual Keller bracket; first-integral and invariant-fibre landing; zero
     bracket and terminal exclusion on P_A; the P_B elliptic equation and
     actual terminal row; exclusion of constant and nonconstant trajectories
@@ -124,6 +127,11 @@ status:
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
   main_results:
+    - declaration: "GCD369PolynomialNoncubeKummerExtension"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
     - declaration: "GCD369NoncubeCubicKummerExtension"
       file: "Solution.lean"
       sorry_count: 0
@@ -209,6 +217,12 @@ review:
 alignment:
   namespace: "(root)"
   statements:
+    - source: "Charged noncube landing, polynomial core to rational Kummer data"
+      lean: "GCD369PolynomialNoncubeKummerExtension"
+      module: "Challenge"
+      status: >-
+        reduced-fraction descent and the concrete cubic Kummer extension are
+        composed directly from polynomial noncubeness
     - source: "Charged noncube landing, cubic Kummer extension and deck action"
       lean: "GCD369NoncubeCubicKummerExtension"
       module: "Challenge"

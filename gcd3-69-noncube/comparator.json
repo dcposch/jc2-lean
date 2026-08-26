@@ -5,6 +5,8 @@
     "GCD369AlignmentDiscriminatorDerivative",
     "GCD369KummerAlignmentFromFirstRow",
     "GCD369NoncubeCubicKummerExtension",
+    "GCD369PolynomialNoncubeInRatFunc",
+    "GCD369PolynomialNoncubeKummerExtension",
     "GCD369AlignedNoncubeExclusion"
   ],
   "definition_names": [

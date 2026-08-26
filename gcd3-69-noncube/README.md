@@ -24,6 +24,9 @@ action forces this weight-one discriminator to vanish.
 `GCD369NoncubeCubicKummerExtension` constructs the required irreducible
 adjoin-root extension and nontrivial deck action from a noncube field element;
 these are no longer merely assumed abstract objects.
+`GCD369PolynomialNoncubeInRatFunc` proves that polynomial noncubeness survives
+passage to `k(x)`, and `GCD369PolynomialNoncubeKummerExtension` composes both
+steps into the Kummer data used by the normalized noncube route.
 
 The result is aimed at researchers studying polynomial automorphisms, the
 Jacobian conjecture, and exact algebraic decompositions arising in formal or
@@ -38,6 +41,10 @@ included campaign source and its review.
   row and the explicit cubic Kummer action.
 - `GCD369NoncubeCubicKummerExtension` constructs the cubic root, its
   irreducible extension, and the base-fixing deck action from noncubeness.
+- `GCD369PolynomialNoncubeInRatFunc` is the exact reduced-fraction
+  polynomial-to-function-field noncube bridge.
+- `GCD369PolynomialNoncubeKummerExtension` supplies the concrete Kummer data
+  directly from a noncube polynomial core.
 - `GCD369AlignedNoncubeExclusion` proves that the displayed aligned Keller,
   Kummer, constant-field, and reduced function-field hypotheses are
   inconsistent with a noncube polynomial core.
