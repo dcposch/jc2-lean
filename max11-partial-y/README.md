@@ -43,6 +43,11 @@ unconditional standalone proof of maximum eleven.
   factorization produce nonzero `alpha`, `beta`, and `h` with leading
   coefficients `alpha*h^2` and `beta*h^3`.  No cube/noncube landing is
   assumed in this theorem.
+- `Max11DegreeRoutes.planeKellerPair_69_normalize` removes those two nonzero
+  scalar factors by independent target rescalings.  The normalized pair has
+  literal leading coefficients `h^2` and `h^3`, the same partial degrees,
+  remains Keller, and generates the full ring exactly when the original pair
+  does.
 - `Max12FirstPrimitives` verifies the frontier checksum: at maximum twelve,
   the same direct routes first leave `(8,12)` and `(9,12)`.
 

@@ -8,6 +8,7 @@
     "Max11PlaneKellerGeneration",
     "Max11ClassicalRoutes.Max11PlaneKellerGenerationWithZeroRoute",
     "Max11DegreeRoutes.planeKellerPair_69_commonCore",
+    "Max11DegreeRoutes.planeKellerPair_69_normalize",
     "Max11DegreeRoutes.Max11PlaneKellerGenerationWithElementaryRoutes",
     "Max12FirstPrimitives"
   ],
@@ -15,7 +16,8 @@
     "PlaneJacobian",
     "IsPlaneKellerPair",
     "PlanePairGenerates",
-    "PlaneKellerAutomorphicAtDegrees"
+    "PlaneKellerAutomorphicAtDegrees",
+    "Max11DegreeRoutes.targetRescale"
   ],
   "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
   "enable_nanoda": true

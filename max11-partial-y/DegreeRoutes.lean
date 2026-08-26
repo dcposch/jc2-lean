@@ -423,6 +423,137 @@ theorem planeKellerPair_69_commonCore {K : Type*}
     hm hn (by norm_num) (by norm_num) hjac
   exact commonCore_of_weightedWronskian_69 hpcoeff hqcoeff hweighted
 
+/-- Multiply one target coordinate by a constant. -/
+def targetRescale {K : Type*} [CommRing K] (u : K)
+    (P : MvPolynomial (Fin 2) K) : MvPolynomial (Fin 2) K :=
+  MvPolynomial.C u * P
+
+/-- Independently rescaling the two target coordinates preserves their
+generated subalgebra. -/
+theorem adjoin_targetRescale_eq {K : Type*} [Field K]
+    (u v : K) (hu : u ≠ 0) (hv : v ≠ 0)
+    (P Q : MvPolynomial (Fin 2) K) :
+    Algebra.adjoin K ({targetRescale u P, targetRescale v Q} :
+      Set (MvPolynomial (Fin 2) K)) =
+      Algebra.adjoin K ({P, Q} : Set (MvPolynomial (Fin 2) K)) := by
+  apply le_antisymm
+  · rw [Algebra.adjoin_le_iff]
+    intro R hR
+    simp only [Set.mem_insert_iff, Set.mem_singleton_iff] at hR
+    rcases hR with hR | hR
+    · subst R
+      exact Subalgebra.mul_mem _ (Subalgebra.algebraMap_mem _ u)
+        (Algebra.subset_adjoin (Set.mem_insert P {Q}))
+    · subst R
+      exact Subalgebra.mul_mem _ (Subalgebra.algebraMap_mem _ v)
+        (Algebra.subset_adjoin
+          (Set.mem_insert_of_mem P (Set.mem_singleton Q)))
+  · rw [Algebra.adjoin_le_iff]
+    intro R hR
+    simp only [Set.mem_insert_iff, Set.mem_singleton_iff] at hR
+    rcases hR with hR | hR
+    · subst R
+      have hscaled : targetRescale u P ∈ Algebra.adjoin K
+          ({targetRescale u P, targetRescale v Q} :
+            Set (MvPolynomial (Fin 2) K)) :=
+        Algebra.subset_adjoin
+          (Set.mem_insert (targetRescale u P) {targetRescale v Q})
+      have hmem := Subalgebra.mul_mem _
+        (Subalgebra.algebraMap_mem _ u⁻¹) hscaled
+      change MvPolynomial.C u⁻¹ * targetRescale u P ∈
+        Algebra.adjoin K
+          ({targetRescale u P, targetRescale v Q} :
+            Set (MvPolynomial (Fin 2) K)) at hmem
+      change P ∈ Algebra.adjoin K
+        ({targetRescale u P, targetRescale v Q} :
+          Set (MvPolynomial (Fin 2) K))
+      simpa only [targetRescale, ← mul_assoc, ← MvPolynomial.C_mul,
+        inv_mul_cancel₀ hu, MvPolynomial.C_1, one_mul] using hmem
+    · subst R
+      have hscaled : targetRescale v Q ∈ Algebra.adjoin K
+          ({targetRescale u P, targetRescale v Q} :
+            Set (MvPolynomial (Fin 2) K)) :=
+        Algebra.subset_adjoin
+          (Set.mem_insert_of_mem (targetRescale u P)
+            (Set.mem_singleton (targetRescale v Q)))
+      have hmem := Subalgebra.mul_mem _
+        (Subalgebra.algebraMap_mem _ v⁻¹) hscaled
+      change MvPolynomial.C v⁻¹ * targetRescale v Q ∈
+        Algebra.adjoin K
+          ({targetRescale u P, targetRescale v Q} :
+            Set (MvPolynomial (Fin 2) K)) at hmem
+      change Q ∈ Algebra.adjoin K
+        ({targetRescale u P, targetRescale v Q} :
+          Set (MvPolynomial (Fin 2) K))
+      simpa only [targetRescale, ← mul_assoc, ← MvPolynomial.C_mul,
+        inv_mul_cancel₀ hv, MvPolynomial.C_1, one_mul] using hmem
+
+theorem planePairGenerates_targetRescale_iff {K : Type*} [Field K]
+    (u v : K) (hu : u ≠ 0) (hv : v ≠ 0)
+    (P Q : MvPolynomial (Fin 2) K) :
+    PlanePairGenerates (targetRescale u P) (targetRescale v Q) ↔
+      PlanePairGenerates P Q := by
+  unfold PlanePairGenerates
+  rw [adjoin_targetRescale_eq u v hu hv]
+
+/-- Independent nonzero target rescalings preserve the Keller condition. -/
+theorem IsPlaneKellerPair.targetRescale {K : Type*} [Field K]
+    {P Q : MvPolynomial (Fin 2) K} (h : IsPlaneKellerPair P Q)
+    (u v : K) (hu : u ≠ 0) (hv : v ≠ 0) :
+    IsPlaneKellerPair (Max11DegreeRoutes.targetRescale u P)
+      (Max11DegreeRoutes.targetRescale v Q) := by
+  rcases h with ⟨j, hj, hjac⟩
+  refine ⟨u * v * j, mul_ne_zero (mul_ne_zero hu hv) hj, ?_⟩
+  calc
+    PlaneJacobian (Max11DegreeRoutes.targetRescale u P)
+        (Max11DegreeRoutes.targetRescale v Q) =
+        MvPolynomial.C u * MvPolynomial.C v * PlaneJacobian P Q := by
+      unfold Max11DegreeRoutes.targetRescale PlaneJacobian
+      simp only [MvPolynomial.pderiv_C_mul]
+      ring
+    _ = MvPolynomial.C (u * v * j) := by
+      rw [hjac]
+      simp only [← MvPolynomial.C_mul]
+
+/-- A genuine `(6,9)` Keller pair can be rescaled so that its two leading
+coefficients are literally the square and cube of one nonzero polynomial.
+The rescaling preserves both the Keller condition and coordinate generation. -/
+theorem planeKellerPair_69_normalize {K : Type*}
+    [Field K] [CharZero K] {P Q : MvPolynomial (Fin 2) K}
+    (hP : degreeOf 1 P = 6) (hQ : degreeOf 1 Q = 9)
+    (hKeller : IsPlaneKellerPair P Q) :
+    ∃ (alpha beta : K) (h : K[X]),
+      alpha ≠ 0 ∧ beta ≠ 0 ∧ h ≠ 0 ∧
+      degreeOf 1 (targetRescale alpha⁻¹ P) = 6 ∧
+      degreeOf 1 (targetRescale beta⁻¹ Q) = 9 ∧
+      ((Polynomial.Bivariate.equivMvPolynomial K).symm
+          (targetRescale alpha⁻¹ P)).coeff 6 = h ^ 2 ∧
+      ((Polynomial.Bivariate.equivMvPolynomial K).symm
+          (targetRescale beta⁻¹ Q)).coeff 9 = h ^ 3 ∧
+      IsPlaneKellerPair (targetRescale alpha⁻¹ P)
+        (targetRescale beta⁻¹ Q) ∧
+      (PlanePairGenerates (targetRescale alpha⁻¹ P)
+          (targetRescale beta⁻¹ Q) ↔ PlanePairGenerates P Q) := by
+  obtain ⟨alpha, beta, h, halpha, hbeta, hh, hpcoeff, hqcoeff⟩ :=
+    planeKellerPair_69_commonCore hP hQ hKeller
+  refine ⟨alpha, beta, h, halpha, hbeta, hh, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · rw [targetRescale, MvPolynomial.degreeOf_C_mul 1 alpha⁻¹
+      (mem_nonZeroDivisors_iff_ne_zero.mpr (inv_ne_zero halpha)), hP]
+  · rw [targetRescale, MvPolynomial.degreeOf_C_mul 1 beta⁻¹
+      (mem_nonZeroDivisors_iff_ne_zero.mpr (inv_ne_zero hbeta)), hQ]
+  · simp only [targetRescale, map_mul,
+      Polynomial.Bivariate.equivMvPolynomial_symm_C,
+      Polynomial.coeff_C_mul, hpcoeff, ← mul_assoc,
+      ← Polynomial.C_mul, inv_mul_cancel₀ halpha, Polynomial.C_1, one_mul]
+  · simp only [targetRescale, map_mul,
+      Polynomial.Bivariate.equivMvPolynomial_symm_C,
+      Polynomial.coeff_C_mul, hqcoeff, ← mul_assoc,
+      ← Polynomial.C_mul, inv_mul_cancel₀ hbeta, Polynomial.C_1, one_mul]
+  · exact Max11DegreeRoutes.IsPlaneKellerPair.targetRescale hKeller
+      alpha⁻¹ beta⁻¹ (inv_ne_zero halpha) (inv_ne_zero hbeta)
+  · exact planePairGenerates_targetRescale_iff alpha⁻¹ beta⁻¹
+      (inv_ne_zero halpha) (inv_ne_zero hbeta) P Q
+
 /-- Subtract a scalar multiple of a power of the first target coordinate
 from the second target coordinate. -/
 def targetShear {K : Type*} [CommRing K] (c : K) (k : ℕ)

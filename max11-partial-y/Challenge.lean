@@ -108,6 +108,11 @@ end Max11ClassicalRoutes
 
 namespace Max11DegreeRoutes
 
+/-- Multiply one target coordinate by a constant. -/
+noncomputable def targetRescale {K : Type*} [CommRing K] (u : K)
+    (P : MvPolynomial (Fin 2) K) : MvPolynomial (Fin 2) K :=
+  MvPolynomial.C u * P
+
 /-- A genuine `(6,9)` Keller pair has square/cube leading coefficients with
 one nonzero common polynomial core. -/
 theorem planeKellerPair_69_commonCore {K : Type*}
@@ -121,6 +126,28 @@ theorem planeKellerPair_69_commonCore {K : Type*}
       alpha ≠ 0 ∧ beta ≠ 0 ∧ h ≠ 0 ∧
         p.coeff 6 = Polynomial.C alpha * h ^ 2 ∧
         q.coeff 9 = Polynomial.C beta * h ^ 3 := by
+  sorry
+
+/-- A genuine `(6,9)` Keller pair can be normalized so that its leading
+coefficients are a literal square and cube of one nonzero polynomial, without
+changing either the Keller property or coordinate generation. -/
+theorem planeKellerPair_69_normalize {K : Type*}
+    [Field K] [CharZero K] {P Q : MvPolynomial (Fin 2) K}
+    (hP : MvPolynomial.degreeOf 1 P = 6)
+    (hQ : MvPolynomial.degreeOf 1 Q = 9)
+    (hKeller : IsPlaneKellerPair P Q) :
+    ∃ (alpha beta : K) (h : Polynomial K),
+      alpha ≠ 0 ∧ beta ≠ 0 ∧ h ≠ 0 ∧
+      MvPolynomial.degreeOf 1 (targetRescale alpha⁻¹ P) = 6 ∧
+      MvPolynomial.degreeOf 1 (targetRescale beta⁻¹ Q) = 9 ∧
+      ((Polynomial.Bivariate.equivMvPolynomial K).symm
+          (targetRescale alpha⁻¹ P)).coeff 6 = h ^ 2 ∧
+      ((Polynomial.Bivariate.equivMvPolynomial K).symm
+          (targetRescale beta⁻¹ Q)).coeff 9 = h ^ 3 ∧
+      IsPlaneKellerPair (targetRescale alpha⁻¹ P)
+        (targetRescale beta⁻¹ Q) ∧
+      (PlanePairGenerates (targetRescale alpha⁻¹ P)
+          (targetRescale beta⁻¹ Q) ↔ PlanePairGenerates P Q) := by
   sorry
 
 /-- Concrete maximum-eleven composition in characteristic zero with the

@@ -62,12 +62,19 @@ status:
     weighted-Wronskian leading-coefficient argument and triangular target
     shear.  The same argument is specialized to a genuine (6,9) Keller pair,
     deriving its nonzero square/cube common leading core without assuming a
-    later landing case.  Not proved here: scalar-extension/descent, the
+    later landing case; independent nonzero target rescaling then normalizes
+    the leading coefficients to a literal square and cube while preserving
+    degree, Keller, and generation.  Not proved here: scalar-extension/descent, the
     gcd-at-most-two premise, or the rest of the global (6,9) leaf.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
   main_results:
+    - declaration: "Max11DegreeRoutes.planeKellerPair_69_normalize"
+      file: "DegreeRoutes.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
     - declaration: "Max11DegreeRoutes.planeKellerPair_69_commonCore"
       file: "DegreeRoutes.lean"
       sorry_count: 0
