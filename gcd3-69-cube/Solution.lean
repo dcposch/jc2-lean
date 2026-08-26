@@ -1522,6 +1522,66 @@ theorem GCD369CubeCommonCubicBoundaryFirstOrderSeparation
   · exact hf
   · exact hg
 
+/-- The complete leading-order dichotomy for the reconstructed `f` boundary.
+If `K` has leading term `a*h^q` and the transverse normal has nonzero
+constant term `b`, then `K^2+h*phi` has order at most one unless the two
+terms have the same order and their leading coefficients cancel.  Thus the
+only exceptional branch is `q = 1/2` and `a^2+h*b = 0`. -/
+theorem GCD369CubeBoundaryLeadingOrderDichotomy
+    {K : Type*} [Field K] [CharZero K]
+    (q : ℚ) (a b h : K) (ha : a ≠ 0) (hb : b ≠ 0) (hh : h ≠ 0) :
+    let A : HahnSeries ℚ K := HahnSeries.single q a
+    let B : HahnSeries ℚ K := HahnSeries.single 0 b
+    let H : HahnSeries ℚ K := HahnSeries.single 1 h
+    (A ^ 2 + H * B).orderTop ≤ (↑(1 : ℚ) : WithTop ℚ) ∨
+      q = 1 / 2 ∧ a ^ 2 + h * b = 0 := by
+  dsimp only
+  have hhb : h * b ≠ 0 := mul_ne_zero hh hb
+  have hAorder :
+      ((HahnSeries.single q a : HahnSeries ℚ K) ^ 2).orderTop =
+        (↑(2 * q) : WithTop ℚ) := by
+    rw [HahnSeries.single_pow, HahnSeries.orderTop_single (pow_ne_zero 2 ha)]
+    norm_num [nsmul_eq_mul]
+  have hBorder :
+      ((HahnSeries.single 1 h : HahnSeries ℚ K) *
+          HahnSeries.single 0 b).orderTop =
+        (↑(1 : ℚ) : WithTop ℚ) := by
+    rw [HahnSeries.single_mul_single, HahnSeries.orderTop_single hhb]
+    norm_num
+  by_cases hlo : 2 * q < 1
+  · left
+    have horders :
+        ((HahnSeries.single q a : HahnSeries ℚ K) ^ 2).orderTop <
+          ((HahnSeries.single 1 h : HahnSeries ℚ K) *
+            HahnSeries.single 0 b).orderTop := by
+      rw [hAorder, hBorder]
+      exact WithTop.coe_lt_coe.mpr hlo
+    rw [HahnSeries.orderTop_add_eq_left horders, hAorder]
+    exact WithTop.coe_le_coe.mpr (le_of_lt hlo)
+  · by_cases hhi : 1 < 2 * q
+    · left
+      have horders :
+          ((HahnSeries.single 1 h : HahnSeries ℚ K) *
+              HahnSeries.single 0 b).orderTop <
+            ((HahnSeries.single q a : HahnSeries ℚ K) ^ 2).orderTop := by
+        rw [hAorder, hBorder]
+        exact WithTop.coe_lt_coe.mpr hhi
+      rw [HahnSeries.orderTop_add_eq_right horders, hBorder]
+    · have htwoq : 2 * q = 1 :=
+        le_antisymm (le_of_not_gt hhi) (le_of_not_gt hlo)
+      have hq : q = 1 / 2 := by linarith
+      by_cases hcancel : a ^ 2 + h * b = 0
+      · exact Or.inr ⟨hq, hcancel⟩
+      · left
+        subst q
+        have hseries :
+            (HahnSeries.single (1 / 2 : ℚ) a : HahnSeries ℚ K) ^ 2 +
+                HahnSeries.single 1 h * HahnSeries.single 0 b =
+              HahnSeries.single 1 (a ^ 2 + h * b) := by
+          rw [HahnSeries.single_pow, HahnSeries.single_mul_single]
+          norm_num
+        rw [hseries, HahnSeries.orderTop_single hcancel]
+
 /-- In the only possible first-order cancellation regime, where the cubic
 has `h`-order `1/2` and `K^2+h*phi` cancels, the leading term of
 `K^3+(3/2)h*K*phi` has exact `h`-order `3/2`.  Rational-exponent Hahn series
@@ -1635,6 +1695,47 @@ theorem GCD369CubeEarlyBoundaryRegularityContradiction
     WithTop.coe_lt_coe.mpr hstrict
   exact GCD369CubeBoundaryRegularityContradiction
     a b h ha hcancel E hE (↑((18 : ℚ) / k) : WithTop ℚ) hstrictTop hregular
+
+/-- The full early-boundary obstruction, including both noncancellation
+branches.  Higher-order errors cannot alter a leading `f` term of order at
+most one; in the unique cancellation branch, the corresponding `g` term has
+forced order `3/2`.  The strict source bounds for every weight below twelve
+therefore cannot hold simultaneously. -/
+theorem GCD369CubeEarlyBoundaryLeadingOrderContradiction
+    {K : Type*} [Field K] [CharZero K]
+    (k : ℕ) (hk : k ∈ ([1, 2, 4, 5, 7, 8, 10, 11] : List ℕ))
+    (q : ℚ) (a b h : K) (ha : a ≠ 0) (hb : b ≠ 0) (hh : h ≠ 0)
+    (EF EG : HahnSeries ℚ K)
+    (hEF : (↑(1 : ℚ) : WithTop ℚ) < EF.orderTop)
+    (hEG : (↑(3 / 2 : ℚ) : WithTop ℚ) < EG.orderTop)
+    (hfregular : (↑((12 : ℚ) / k) : WithTop ℚ) ≤
+      let A : HahnSeries ℚ K := HahnSeries.single q a
+      let B : HahnSeries ℚ K := HahnSeries.single 0 b
+      let H : HahnSeries ℚ K := HahnSeries.single 1 h
+      (A ^ 2 + H * B + EF).orderTop)
+    (hgregular : (↑((18 : ℚ) / k) : WithTop ℚ) ≤
+      let A : HahnSeries ℚ K := HahnSeries.single q a
+      let B : HahnSeries ℚ K := HahnSeries.single 0 b
+      let H : HahnSeries ℚ K := HahnSeries.single 1 h
+      let C32 : HahnSeries ℚ K := HahnSeries.single 0 (3 / 2)
+      (A ^ 3 + C32 * H * A * B + EG).orderTop) :
+    False := by
+  rcases GCD369CubeBoundaryLeadingOrderDichotomy q a b h ha hb hh with
+    hflow | ⟨hq, hcancel⟩
+  · have horders :
+        ((HahnSeries.single q a : HahnSeries ℚ K) ^ 2 +
+            HahnSeries.single 1 h * HahnSeries.single 0 b).orderTop <
+          EF.orderTop := lt_of_le_of_lt hflow hEF
+    have hsum := HahnSeries.orderTop_add_eq_left horders
+    dsimp only at hfregular
+    rw [hsum] at hfregular
+    have hrequired :
+        (↑(1 : ℚ) : WithTop ℚ) < (↑((12 : ℚ) / k) : WithTop ℚ) :=
+      WithTop.coe_lt_coe.mpr (GCD369CubeBoundaryWeightAudit.1 k hk).1
+    exact (not_le_of_gt hrequired) (hfregular.trans hflow)
+  · subst q
+    exact GCD369CubeEarlyBoundaryRegularityContradiction
+      k hk a b h ha hcancel EG hEG hgregular
 
 /-- Local order of the numerator of a reduced rational derivative at a pole
 of the denominator.  If `N/B` is pointwise reduced and `B` has multiplicity
@@ -2622,10 +2723,12 @@ theorem GCD369CubeDSMonomialExponent {K : Type*}
 #print axioms GCD369CubeBoundaryWeightAudit
 #print axioms GCD369CubeBoundaryFirstOrderSeparation
 #print axioms GCD369CubeCommonCubicBoundaryFirstOrderSeparation
+#print axioms GCD369CubeBoundaryLeadingOrderDichotomy
 #print axioms GCD369CubeBoundaryCancellationOrder
 #print axioms GCD369CubeBoundaryCancellationOrderWithHigherTerms
 #print axioms GCD369CubeBoundaryRegularityContradiction
 #print axioms GCD369CubeEarlyBoundaryRegularityContradiction
+#print axioms GCD369CubeEarlyBoundaryLeadingOrderContradiction
 #print axioms GCD369ReducedQuotientWronskianLocal
 #print axioms GCD369CubeRationalPrimitiveFinitePlace
 #print axioms GCD369CubeRationalPrimitiveRootCount
