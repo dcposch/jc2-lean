@@ -163,6 +163,29 @@ theorem GCD369CubeFaberNineCommonNormalExpansionQ
 
 namespace GCD369CubeHahnRegular
 
+/-- The explicit rational constants in the regular local ring satisfy the
+expected inverse relation for two. -/
+theorem two_mul_ratCast_half
+    {k : Type*} [Field k] [CharZero k] :
+    (2 : GCD369CubeHahnRegular k) *
+      GCD369CubeHahnRegular.ratCast (1 / 2) = 1 := by
+  have htwo : (2 : GCD369CubeHahnRegular k) =
+      GCD369CubeHahnRegular.constant (2 : k) := by
+    apply Subtype.ext
+    exact (map_ofNat (HahnSeries.C : k →+* HahnSeries ℚ k) 2).symm
+  have hrat : GCD369CubeHahnRegular.ratCast (1 / 2) =
+      GCD369CubeHahnRegular.constant (1 / 2 : k) := by
+    change GCD369CubeHahnRegular.constant (algebraMap ℚ k (1 / 2)) =
+      GCD369CubeHahnRegular.constant (1 / 2 : k)
+    congr 1
+    norm_num
+  calc
+    _ = GCD369CubeHahnRegular.constant (2 : k) *
+        GCD369CubeHahnRegular.constant (1 / 2 : k) := by rw [htwo, hrat]
+    _ = GCD369CubeHahnRegular.constant ((2 : k) * (1 / 2 : k)) :=
+      ((GCD369CubeHahnRegular.constant (k := k)).map_mul _ _).symm
+    _ = 1 := by norm_num
+
 /-- A regular Hahn series with zero residue has strictly positive extended
 order (with the zero series represented by `\top`). -/
 theorem orderTop_pos_of_constantCoeff_zero
@@ -269,6 +292,26 @@ def normal1 {k : Type*} [Field k] [CharZero k]
 def normal0 {k : Type*} [Field k] [CharZero k]
     (S : GCD369CubeHahnCommonValueData k) : GCD369CubeHahnRegular k :=
   S.normal.sextic.scale.regular0 - S.cubicV ^ 2
+
+/-- The top two scaled sextic coefficients are exactly twice the moving
+cubic coefficients. -/
+theorem regular4_eq_two_cubicU
+    {k : Type*} [Field k] [CharZero k]
+    (S : GCD369CubeHahnCommonValueData k) :
+    S.normal.sextic.scale.regular4 = 2 * S.cubicU := by
+  dsimp only [cubicU]
+  linear_combination
+    -S.normal.sextic.scale.regular4 *
+      (GCD369CubeHahnRegular.two_mul_ratCast_half (k := k))
+
+theorem regular3_eq_two_cubicV
+    {k : Type*} [Field k] [CharZero k]
+    (S : GCD369CubeHahnCommonValueData k) :
+    S.normal.sextic.scale.regular3 = 2 * S.cubicV := by
+  dsimp only [cubicV]
+  linear_combination
+    -S.normal.sextic.scale.regular3 *
+      (GCD369CubeHahnRegular.two_mul_ratCast_half (k := k))
 
 /-- A first nonzero transverse common-cubic jet, normalized by its exact
 positive Hahn order.  At least one of the three normalized coefficients has
@@ -457,6 +500,72 @@ noncomputable def transverseScale
         (GCD369CubeHahnRegular.constantCoeff_shift_ne_zero
           S.normal0 delta horder)
 
+/-- The ninth Faber value along the canonical transverse scale is the cubic
+value cubed, plus its first common-normal coupling, plus an error divisible
+by the square of the transverse monomial. -/
+theorem TransverseScale.faberNineExpansion
+    {k : Type*} [Field k] [CharZero k]
+    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseScale) :
+    ∃ E : GCD369CubeHahnRegular k,
+      GCD369CubeFaberNineValueQ GCD369CubeHahnRegular.ratCast
+          S.normal.sextic.scale.regular0
+          S.normal.sextic.scale.regular1
+          S.normal.sextic.scale.regular2
+          S.normal.sextic.scale.regular3
+          S.normal.sextic.scale.regular4
+          S.normal.sextic.regularX =
+        S.cubicValue ^ 3 +
+          GCD369CubeHahnRegular.ratCast (3 / 2) *
+            S.cubicValue * S.transverseValue +
+          (GCD369CubeHahnRegular.monomial T.delta T.hdelta.le) ^ 2 * E := by
+  let H : GCD369CubeHahnRegular k :=
+    GCD369CubeHahnRegular.monomial T.delta T.hdelta.le
+  have ha4 : S.normal.sextic.scale.regular4 = 2 * S.cubicU :=
+    S.regular4_eq_two_cubicU
+  have ha3 : S.normal.sextic.scale.regular3 = 2 * S.cubicV :=
+    S.regular3_eq_two_cubicV
+  have ha2 : S.normal.sextic.scale.regular2 =
+      S.cubicU ^ 2 + T.Xn * H := by
+    have hn2 := T.hnormal2
+    dsimp only [normal2] at hn2
+    dsimp only [H]
+    linear_combination hn2
+  have ha1 : S.normal.sextic.scale.regular1 =
+      2 * S.cubicU * S.cubicV + T.Yn * H := by
+    have hn1 := T.hnormal1
+    dsimp only [normal1] at hn1
+    dsimp only [H]
+    linear_combination hn1
+  have ha0 : S.normal.sextic.scale.regular0 =
+      S.cubicV ^ 2 + T.Zn * H := by
+    have hn0 := T.hnormal0
+    dsimp only [normal0] at hn0
+    dsimp only [H]
+    linear_combination hn0
+  have htransverse : S.transverseValue =
+      H * (T.Xn * S.normal.sextic.regularX ^ 2 +
+        T.Yn * S.normal.sextic.regularX + T.Zn) := by
+    dsimp only [transverseValue]
+    rw [T.hnormal2, T.hnormal1, T.hnormal0]
+    dsimp only [H]
+    ring
+  obtain ⟨Ep, hEp⟩ :=
+    GCD369CubeFaberNineCommonNormalExpansionQ
+      GCD369CubeHahnRegular.ratCast T.Xn T.Yn T.Zn
+      S.cubicU S.cubicV S.normal.sextic.regularX
+  let E : GCD369CubeHahnRegular k := Ep.eval H
+  refine ⟨E, ?_⟩
+  have hev := congrArg
+    (fun p : (GCD369CubeHahnRegular k)[X] => p.eval H) hEp
+  simp only [GCD369CubeFaberNineValueQ, RingHom.comp_apply,
+    Polynomial.eval_add, Polynomial.eval_sub, Polynomial.eval_mul,
+    Polynomial.eval_pow, Polynomial.eval_C, Polynomial.eval_X] at hev
+  rw [ha0, ha1, ha2, ha3, ha4]
+  dsimp only [cubicValue, E]
+  rw [htransverse]
+  dsimp only [GCD369CubeFaberNineValueQ]
+  linear_combination hev
+
 /-- The recovered residue is a root of the certified limiting common cubic. -/
 theorem leadingCubicRoot
     {k : Type*} [Field k] [CharZero k]
@@ -600,12 +709,14 @@ end GCD369CubePolynomialSource
 
 #print axioms GCD369CubeZeroLoadNormal_commonRoot
 #print axioms GCD369CubeFaberNineCommonNormalExpansionQ
+#print axioms GCD369CubeHahnRegular.two_mul_ratCast_half
 #print axioms GCD369CubeHahnRegular.orderTop_pos_of_constantCoeff_zero
 #print axioms GCD369CubeHahnRegular.monomial_mul_shift
 #print axioms GCD369CubeHahnRegular.constantCoeff_shift
 #print axioms GCD369CubeHahnRegular.constantCoeff_shift_ne_zero
 #print axioms GCD369CubeHahnCommonValueData.normal_constantCoeff_zero
 #print axioms GCD369CubeHahnCommonValueData.transverseScale
+#print axioms GCD369CubeHahnCommonValueData.TransverseScale.faberNineExpansion
 #print axioms GCD369CubeHahnCommonValueData.leadingCubicRoot
 #print axioms GCD369CubeHahnCommonValueData.commonNormalEquation
 #print axioms GCD369CubePolynomialSource.finiteCommonValueData
