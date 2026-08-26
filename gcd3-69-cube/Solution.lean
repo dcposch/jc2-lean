@@ -1550,6 +1550,64 @@ theorem GCD369CubeBoundaryCancellationOrder
     norm_num
   rw [hseries, HahnSeries.order_single hcoefficient]
 
+/-- Terms of strictly larger Puiseux order cannot cancel the forced
+`3/2`-order boundary term. -/
+theorem GCD369CubeBoundaryCancellationOrderWithHigherTerms
+    {K : Type*} [Field K] [CharZero K]
+    (a b h : K) (ha : a ≠ 0)
+    (hcancel : a ^ 2 + h * b = 0)
+    (E : HahnSeries ℚ K)
+    (hE : (↑(3 / 2 : ℚ) : WithTop ℚ) < E.orderTop) :
+    let A : HahnSeries ℚ K := HahnSeries.single (1 / 2) a
+    let B : HahnSeries ℚ K := HahnSeries.single 0 b
+    let H : HahnSeries ℚ K := HahnSeries.single 1 h
+    let C32 : HahnSeries ℚ K := HahnSeries.single 0 (3 / 2)
+    (A ^ 3 + C32 * H * A * B + E).orderTop =
+      (↑(3 / 2 : ℚ) : WithTop ℚ) := by
+  dsimp only
+  let G : HahnSeries ℚ K :=
+    HahnSeries.single (1 / 2) a ^ 3 +
+      HahnSeries.single 0 (3 / 2) * HahnSeries.single 1 h *
+        HahnSeries.single (1 / 2) a * HahnSeries.single 0 b
+  change (G + E).orderTop = (↑(3 / 2 : ℚ) : WithTop ℚ)
+  have hGorder : G.order = (3 / 2 : ℚ) := by
+    simpa [G] using GCD369CubeBoundaryCancellationOrder a b h ha hcancel
+  have hGne : G ≠ 0 := by
+    intro hzero
+    have : (0 : ℚ) = 3 / 2 := by simpa [hzero] using hGorder
+    norm_num at this
+  have hGtop : G.orderTop = (↑(3 / 2 : ℚ) : WithTop ℚ) := by
+    calc
+      G.orderTop = (G.order : WithTop ℚ) :=
+        (HahnSeries.order_eq_orderTop_of_ne_zero hGne).symm
+      _ = (↑(3 / 2 : ℚ) : WithTop ℚ) :=
+        congrArg (fun q : ℚ => (q : WithTop ℚ)) hGorder
+  apply HahnSeries.orderTop_add_eq_left
+  rw [hGtop]
+  exact hE
+
+/-- A source value required to vanish to order strictly greater than `3/2`
+cannot contain the forced cancellation term plus only higher-order errors. -/
+theorem GCD369CubeBoundaryRegularityContradiction
+    {K : Type*} [Field K] [CharZero K]
+    (a b h : K) (ha : a ≠ 0)
+    (hcancel : a ^ 2 + h * b = 0)
+    (E : HahnSeries ℚ K)
+    (hE : (↑(3 / 2 : ℚ) : WithTop ℚ) < E.orderTop)
+    (required : WithTop ℚ)
+    (hrequired : (↑(3 / 2 : ℚ) : WithTop ℚ) < required)
+    (hregular : required ≤
+      let A : HahnSeries ℚ K := HahnSeries.single (1 / 2) a
+      let B : HahnSeries ℚ K := HahnSeries.single 0 b
+      let H : HahnSeries ℚ K := HahnSeries.single 1 h
+      let C32 : HahnSeries ℚ K := HahnSeries.single 0 (3 / 2)
+      (A ^ 3 + C32 * H * A * B + E).orderTop) :
+    False := by
+  have horder :=
+    GCD369CubeBoundaryCancellationOrderWithHigherTerms a b h ha hcancel E hE
+  rw [horder] at hregular
+  exact (not_le_of_gt hrequired) hregular
+
 /-- Local order of the numerator of a reduced rational derivative at a pole
 of the denominator.  If `N/B` is pointwise reduced and `B` has multiplicity
 `m > 0`, then `N'B-NB'` has multiplicity exactly `m-1`. -/
@@ -2537,6 +2595,8 @@ theorem GCD369CubeDSMonomialExponent {K : Type*}
 #print axioms GCD369CubeBoundaryFirstOrderSeparation
 #print axioms GCD369CubeCommonCubicBoundaryFirstOrderSeparation
 #print axioms GCD369CubeBoundaryCancellationOrder
+#print axioms GCD369CubeBoundaryCancellationOrderWithHigherTerms
+#print axioms GCD369CubeBoundaryRegularityContradiction
 #print axioms GCD369ReducedQuotientWronskianLocal
 #print axioms GCD369CubeRationalPrimitiveFinitePlace
 #print axioms GCD369CubeRationalPrimitiveRootCount
