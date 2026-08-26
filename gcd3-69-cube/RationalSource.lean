@@ -68,6 +68,16 @@ theorem GCD369CubeRatFuncDerivative_div
   intro a
   simp
 
+/-- The quotient-rule derivative annihilates zero. -/
+theorem GCD369CubeRatFuncDerivative_zero
+    {k : Type*} [Field k] :
+    GCD369CubeRatFuncDerivative (0 : RatFunc k) = 0 := by
+  rw [show (0 : RatFunc k) =
+      algebraMap k[X] (RatFunc k) 0 /
+        algebraMap k[X] (RatFunc k) 1 by simp]
+  rw [GCD369CubeRatFuncDerivative_div 0 1 one_ne_zero]
+  simp
+
 /-- Substitution of a reduced rational cusp parameter gives exactly the
 polynomial numerator and denominator used by the terminal theorem. -/
 theorem GCD369CubeMixedCuspRatFuncFormula
@@ -91,6 +101,27 @@ theorem GCD369CubeMixedCuspRatFuncFormula
   field_simp [hLNmap, hLBmap]
   rw [← RatFunc.algebraMap_eq_C]
   simp only [map_ofNat]
+  ring
+
+/-- A reduced rational DS parameter presents its terminal seventh power
+with the expected scalar numerator. -/
+theorem GCD369CubeDSRatFuncFormula
+    {k : Type*} [Field k] [CharZero k]
+    (lambda : RatFunc k) (LN LB : k[X])
+    (hLB : LB ≠ 0)
+    (hlambda : lambda =
+      algebraMap k[X] (RatFunc k) LN /
+        algebraMap k[X] (RatFunc k) LB) :
+    (27 / 2) * lambda ^ 7 =
+      algebraMap k[X] (RatFunc k) (C (27 / 2) * LN ^ 7) /
+        algebraMap k[X] (RatFunc k) (LB ^ 7) := by
+  have hLBmap : algebraMap k[X] (RatFunc k) LB ≠ 0 :=
+    RatFunc.algebraMap_ne_zero hLB
+  rw [hlambda]
+  simp only [map_mul, map_pow, RatFunc.algebraMap_C]
+  field_simp [hLBmap]
+  rw [← RatFunc.algebraMap_eq_C]
+  simp only [map_ofNat, map_div₀]
   ring
 
 namespace GCD369CubeLaterInvariantSource
@@ -180,10 +211,111 @@ theorem mixedCuspRatFuncTerminalExclusion
   rw [← RatFunc.algebraMap_eq_C]
   simpa only [mul_comm] using hterminal
 
+set_option maxHeartbeats 4000000 in
+/-- On the zero invariant fibre, the exact source classification rules out
+the common-cubic component via its zero terminal value and routes the other
+component to the DS seventh-power exclusion.  The reduced DS presentation is
+constructed internally; only the original polynomial-boundary witness is
+retained as an input. -/
+theorem zeroInvariantRatFuncTerminalExclusion
+    {k : Type*} [Field k] [CharZero k] [IsAlgClosed k]
+    (S : GCD369CubeLaterInvariantSource (RatFunc k))
+    (j : k) (hj : j ≠ 0) (s : k[X]) (hs : s ≠ 0)
+    (hrho3 : S.rho3 = 0) (hrho4 : S.rho4 = 0)
+    (hterminal :
+      algebraMap k[X] (RatFunc k) s *
+          GCD369CubeRatFuncDerivative
+            (GCD369CubeFaberR5
+              S.a0 S.a1 S.a2 S.a3 S.a4 0 0 0 0 0 0 0) =
+        algebraMap k (RatFunc k) j)
+    (hboundary : ∃ r : k,
+      eval r (X ^ 6 + C 4 * X ^ 4 + C 10 * X ^ 2 + C 6 : k[X]) = 0 ∧
+      eval r (X ^ 9 + C 6 * X ^ 7 + C 21 * X ^ 5 + C 35 * X ^ 3 +
+        C (63 / 2) * X : k[X]) = 0) : False := by
+  have hjmap : algebraMap k (RatFunc k) j ≠ 0 := by
+    rw [RatFunc.algebraMap_eq_C]
+    simpa using RatFunc.C_injective.ne hj
+  have hr3zero :
+      GCD369CubeFaberR3
+        S.a0 S.a1 S.a2 S.a3 S.a4 0 0 0 0 0 0 0 = 0 :=
+    S.hr3.trans hrho3
+  have hr4zero :
+      GCD369CubeFaberR4
+        S.a0 S.a1 S.a2 S.a3 S.a4 0 0 0 0 0 0 0 = 0 :=
+    S.hr4.trans hrho4
+  rcases GCD369CubeFaberLeadingComponentClassification
+      S.a0 S.a1 S.a2 S.a3 S.a4 S.hr1 S.hr2 hr3zero hr4zero with
+    hcommon | hds
+  · rcases hcommon with ⟨u, v, ha4, ha3, ha2, ha1, ha0⟩
+    have hr5zero :
+        GCD369CubeFaberR5
+          S.a0 S.a1 S.a2 S.a3 S.a4 0 0 0 0 0 0 0 = 0 := by
+      rw [ha0, ha1, ha2, ha3, ha4]
+      exact (GCD369CubeFaberCommonValues u v).2.2.2.2
+    rw [hr5zero, GCD369CubeRatFuncDerivative_zero, mul_zero] at hterminal
+    exact hjmap hterminal.symm
+  · rcases hds with ⟨lambda, ha4, ha3, ha2, ha1, ha0⟩
+    have hr5DS :
+        GCD369CubeFaberR5
+          S.a0 S.a1 S.a2 S.a3 S.a4 0 0 0 0 0 0 0 =
+            (27 / 2) * lambda ^ 7 := by
+      rw [ha0, ha1, ha2, ha3, ha4]
+      exact (GCD369CubeFaberDSValues lambda).2.2.2.2
+    have hlambda0 : lambda ≠ 0 := by
+      intro hlambda0
+      have hr5zero :
+          GCD369CubeFaberR5
+            S.a0 S.a1 S.a2 S.a3 S.a4 0 0 0 0 0 0 0 = 0 := by
+        rw [hr5DS, hlambda0]
+        norm_num
+      rw [hr5zero, GCD369CubeRatFuncDerivative_zero, mul_zero] at hterminal
+      exact hjmap hterminal.symm
+    obtain ⟨LN, LB, hLB, hlambda, hlambdaReduced⟩ :=
+      GCD369CubeRatFuncReducedPresentation lambda
+    have hLN : LN ≠ 0 := by
+      intro hLN
+      apply hlambda0
+      rw [hlambda, hLN]
+      simp
+    let P : k[X] := C (27 / 2) * LN ^ 7
+    let Q : k[X] := LB ^ 7
+    have hr5PQ :
+        GCD369CubeFaberR5
+            S.a0 S.a1 S.a2 S.a3 S.a4 0 0 0 0 0 0 0 =
+          algebraMap k[X] (RatFunc k) P /
+            algebraMap k[X] (RatFunc k) Q := by
+      exact hr5DS.trans (GCD369CubeDSRatFuncFormula lambda LN LB hLB hlambda)
+    have hQ : Q ≠ 0 := by
+      exact pow_ne_zero 7 hLB
+    have hderivative := congrArg GCD369CubeRatFuncDerivative hr5PQ
+    rw [GCD369CubeRatFuncDerivative_div P Q hQ] at hderivative
+    rw [hderivative] at hterminal
+    have hcleared :
+        s * (derivative P * Q - P * derivative Q) = C j * Q ^ 2 := by
+      apply RatFunc.algebraMap_injective k
+      have hQmap : algebraMap k[X] (RatFunc k) Q ≠ 0 :=
+        RatFunc.algebraMap_ne_zero hQ
+      field_simp [hQmap] at hterminal
+      simp only [map_mul, map_sub, map_pow, RatFunc.algebraMap_C]
+      rw [← RatFunc.algebraMap_eq_C]
+      simpa only [mul_comm] using hterminal
+    have hscale : C (27 / 2 : k) ≠ 0 := C_ne_zero.mpr (by norm_num)
+    have hsScaled : C (27 / 2 : k) * s ≠ 0 := mul_ne_zero hscale hs
+    apply GCD369CubeDSAllCoreTerminalExclusion
+      j hj (C (27 / 2 : k) * s) LN LB hsScaled hLN hLB
+        hlambdaReduced ?_ hboundary
+    dsimp only [P, Q] at hcleared
+    simp only [derivative_mul, derivative_C, zero_mul, zero_add] at hcleared
+    convert hcleared using 1 <;> ring
+
 end GCD369CubeLaterInvariantSource
 
 #print axioms GCD369CubeRatFuncReducedPresentation
 #print axioms GCD369CubeRatFuncDerivative_div
+#print axioms GCD369CubeRatFuncDerivative_zero
 #print axioms GCD369CubeMixedCuspRatFuncFormula
+#print axioms GCD369CubeDSRatFuncFormula
 #print axioms
   GCD369CubeLaterInvariantSource.mixedCuspRatFuncTerminalExclusion
+#print axioms
+  GCD369CubeLaterInvariantSource.zeroInvariantRatFuncTerminalExclusion
