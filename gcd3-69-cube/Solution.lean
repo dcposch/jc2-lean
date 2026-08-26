@@ -273,31 +273,31 @@ theorem GCD369CubeFaberCommonNormalNumerators {K : Type*}
     let A2 : K[X] := C (u ^ 2) + C Xn * H
     let A3 : K[X] := C (2 * v)
     let A4 : K[X] := C (2 * u)
-    GCD369CubeFaberN1 A0 A1 A2 A3 A4 =
-        C ((-32 / 729) * GCD369CubeNormalRow1 Xn Yn Zn u) * H ^ 2 ∧
-    GCD369CubeFaberN2 A0 A1 A2 A3 A4 =
-        C ((32 / 2187) * GCD369CubeNormalRow2 Xn Yn Zn u v) * H ^ 2 ∧
+    729 * GCD369CubeFaberN1 A0 A1 A2 A3 A4 =
+        C (-32 * GCD369CubeNormalRow1 Xn Yn Zn u) * H ^ 2 ∧
+    2187 * GCD369CubeFaberN2 A0 A1 A2 A3 A4 =
+        C (32 * GCD369CubeNormalRow2 Xn Yn Zn u v) * H ^ 2 ∧
     GCD369CubeFaberN3 A0 A1 A2 A3 A4 =
         C (128 * GCD369CubeNormalRow3 Xn Yn Zn u v) * H ^ 2 -
           C (64 * Xn ^ 3) * H ^ 3 ∧
-    GCD369CubeFaberN4 A0 A1 A2 A3 A4 =
-        C ((32 / 6561) * GCD369CubeNormalRow4 Xn Yn Zn u v) * H ^ 2 -
-          C (48 * Yn * Xn ^ 2) * H ^ 3 := by
+    6561 * GCD369CubeFaberN4 A0 A1 A2 A3 A4 =
+        C (32 * GCD369CubeNormalRow4 Xn Yn Zn u v) * H ^ 2 -
+          C (314928 * Yn * Xn ^ 2) * H ^ 3 := by
   dsimp
   constructor
   · simp only [GCD369CubeFaberN1, GCD369CubeNormalRow1]
-    push_cast
+    simp only [C_add, C_mul, C_pow, C_neg, C_sub, C_ofNat]
     ring
   constructor
   · simp only [GCD369CubeFaberN2, GCD369CubeNormalRow2]
-    push_cast
+    simp only [C_add, C_mul, C_pow, C_neg, C_sub, C_ofNat]
     ring
   constructor
   · simp only [GCD369CubeFaberN3, GCD369CubeNormalRow3]
-    push_cast
+    simp only [C_add, C_mul, C_pow, C_neg, C_sub, C_ofNat]
     ring
   · simp only [GCD369CubeFaberN4, GCD369CubeNormalRow4]
-    push_cast
+    simp only [C_add, C_mul, C_pow, C_neg, C_sub, C_ofNat]
     ring
 
 /-- Vanishing of the first four zero-high-constant Faber invariants is
