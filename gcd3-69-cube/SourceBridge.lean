@@ -412,6 +412,44 @@ theorem mixedCoordinates {K : Type u} [Field K] [CharZero K]
   exact ⟨hA, hrho4formula, hrho3formula, hr5formula⟩
 
 set_option maxHeartbeats 4000000 in
+/-- The mixed terminal value with `B` eliminated in favour of the actual
+invariant `nu = 6 * rho4`. -/
+theorem mixedTerminalFormula {K : Type u} [Field K] [CharZero K]
+    (S : GCD369CubeLaterInvariantSource K) (hrho4 : S.rho4 ≠ 0) :
+    let A := 4 * S.a2 - S.a4 ^ 2
+    let B := 2 * S.a1 - S.a3 * S.a4
+    let w := 4 * S.a0 - S.a3 ^ 2
+    let V := w + 8 * B ^ 2 / A
+    GCD369CubeFaberR5 S.a0 S.a1 S.a2 S.a3 S.a4 0 0 0 0 0 0 0 =
+      A ^ 2 * V / 1024 -
+        256 * (6 * S.rho4) ^ 2 / (27 * A ^ 3) := by
+  dsimp only
+  let A : K := 4 * S.a2 - S.a4 ^ 2
+  let B : K := 2 * S.a1 - S.a3 * S.a4
+  let w : K := 4 * S.a0 - S.a3 ^ 2
+  let V : K := w + 8 * B ^ 2 / A
+  change GCD369CubeFaberR5
+      S.a0 S.a1 S.a2 S.a3 S.a4 0 0 0 0 0 0 0 =
+    A ^ 2 * V / 1024 - 256 * (6 * S.rho4) ^ 2 / (27 * A ^ 3)
+  have hmixed := S.mixedCoordinates hrho4
+  dsimp only at hmixed
+  change A ≠ 0 ∧
+    S.rho4 = -3 * A ^ 2 * B / 512 ∧
+    S.rho3 = (24 * V ^ 2 - A ^ 3) / 1024 ∧
+    GCD369CubeFaberR5 S.a0 S.a1 S.a2 S.a3 S.a4 0 0 0 0 0 0 0 =
+      A * (A * V - 12 * B ^ 2) / 1024 at hmixed
+  rcases hmixed with ⟨hA, hrho4formula, _hrho3formula, hr5formula⟩
+  have hAB : A ^ 2 * B = -(256 / 9 : K) * (6 * S.rho4) := by
+    rw [hrho4formula]
+    ring
+  have hB : B = -(256 / 9 : K) * (6 * S.rho4) / A ^ 2 := by
+    apply (eq_div_iff (pow_ne_zero 2 hA)).2
+    simpa [mul_comm] using hAB
+  rw [hr5formula, hB]
+  field_simp
+  ring
+
+set_option maxHeartbeats 4000000 in
 /-- On the singular mixed fibre, the cusp parameter is forced by the source:
 `lambda = V / A`.  The usual cusp coordinates and the exact two-sided
 Laurent formula for `r5` are therefore derived rather than supplied as a
@@ -705,6 +743,7 @@ end GCD369CubeLaterInvariantSource
 #print axioms GCD369CubeEarlyFaberJetSource.toArbitraryLoad_or_allZero
 #print axioms GCD369CubeEarlyFaberBoundarySource.empty
 #print axioms GCD369CubeLaterInvariantSource.mixedCoordinates
+#print axioms GCD369CubeLaterInvariantSource.mixedTerminalFormula
 #print axioms GCD369CubeLaterInvariantSource.mixedCuspCoordinates
 #print axioms GCD369CubeLaterInvariantSource.zeroSheetTerminalValue
 #print axioms GCD369CubeLaterInvariantSource.unmixedEllipticCurve

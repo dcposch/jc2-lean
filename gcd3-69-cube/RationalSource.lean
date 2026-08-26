@@ -78,6 +78,72 @@ theorem GCD369CubeRatFuncDerivative_zero
   rw [GCD369CubeRatFuncDerivative_div 0 1 one_ne_zero]
   simp
 
+/-- The quotient-rule derivative annihilates embedded base-field
+constants. -/
+theorem GCD369CubeRatFuncDerivative_C
+    {k : Type*} [Field k] (c : k) :
+    GCD369CubeRatFuncDerivative (algebraMap k (RatFunc k) c) = 0 := by
+  rw [show algebraMap k (RatFunc k) c =
+      algebraMap k[X] (RatFunc k) (C c) /
+        algebraMap k[X] (RatFunc k) 1 by
+    simp [RatFunc.algebraMap_C, RatFunc.algebraMap_eq_C]]
+  rw [GCD369CubeRatFuncDerivative_div (C c) 1 one_ne_zero]
+  simp
+
+/-- A weighted reduced polynomial presentation of a rational point on a
+nondegenerate `(2,3,6)` curve is constant.  This is the exact algebraic
+replacement for the smooth `P¹ → E` genus argument once such a presentation
+has been constructed. -/
+theorem GCD369CubeRatFuncEllipticConstancy
+    {k : Type*} [Field k] [CharZero k]
+    (u v w : k) (hu : u ≠ 0) (hv : v ≠ 0) (hw : w ≠ 0)
+    (Yc Xc : RatFunc k) (M N D : k[X])
+    (hM : M ≠ 0) (hN : N ≠ 0) (hD : D ≠ 0)
+    (hMN : IsCoprime M N)
+    (hY : Yc = algebraMap k[X] (RatFunc k) M /
+      algebraMap k[X] (RatFunc k) (D ^ 3))
+    (hX : Xc = algebraMap k[X] (RatFunc k) N /
+      algebraMap k[X] (RatFunc k) (D ^ 2))
+    (hcurve :
+      algebraMap k (RatFunc k) u * Yc ^ 2 +
+          algebraMap k (RatFunc k) v * Xc ^ 3 +
+          algebraMap k (RatFunc k) w = 0) :
+    ∃ y0 x0 : k,
+      Yc = algebraMap k (RatFunc k) y0 ∧
+      Xc = algebraMap k (RatFunc k) x0 := by
+  have hDmap : algebraMap k[X] (RatFunc k) D ≠ 0 :=
+    RatFunc.algebraMap_ne_zero hD
+  have hpoly : C u * M ^ 2 + C v * N ^ 3 + C w * D ^ 6 = 0 := by
+    apply RatFunc.algebraMap_injective k
+    rw [map_add, map_add, map_mul, map_pow, map_mul, map_pow, map_mul,
+      map_pow, map_zero, RatFunc.algebraMap_C, RatFunc.algebraMap_C,
+      RatFunc.algebraMap_C]
+    rw [← RatFunc.algebraMap_eq_C]
+    rw [hY, hX] at hcurve
+    simp only [map_pow] at hcurve
+    field_simp [hDmap] at hcurve
+    convert hcurve using 1 <;> ring
+  obtain ⟨hMdegree, hNdegree, hDdegree⟩ := Polynomial.flt_catalan
+    (by norm_num : 2 ≠ 0) (by norm_num : 3 ≠ 0) (by norm_num : 6 ≠ 0)
+    (by norm_num : 3 * 6 + 6 * 2 + 2 * 3 ≤ 2 * 3 * 6)
+    (by norm_num : (2 : k) ≠ 0) (by norm_num : (3 : k) ≠ 0)
+    (by norm_num : (6 : k) ≠ 0) hM hN hD hMN hu hv hw hpoly
+  let m : k := M.coeff 0
+  let n : k := N.coeff 0
+  let d : k := D.coeff 0
+  have hMC : M = C m := eq_C_of_natDegree_eq_zero hMdegree
+  have hNC : N = C n := eq_C_of_natDegree_eq_zero hNdegree
+  have hDC : D = C d := eq_C_of_natDegree_eq_zero hDdegree
+  have hd : d ≠ 0 := by
+    intro hd
+    apply hD
+    rw [hDC, hd, map_zero]
+  refine ⟨m / d ^ 3, n / d ^ 2, ?_, ?_⟩
+  · rw [hY, hMC, hDC, map_pow, RatFunc.algebraMap_C,
+      RatFunc.algebraMap_C, ← RatFunc.algebraMap_eq_C, ← map_pow, ← map_div₀]
+  · rw [hX, hNC, hDC, map_pow, RatFunc.algebraMap_C,
+      RatFunc.algebraMap_C, ← RatFunc.algebraMap_eq_C, ← map_pow, ← map_div₀]
+
 /-- Substitution of a reduced rational cusp parameter gives exactly the
 polynomial numerator and denominator used by the terminal theorem. -/
 theorem GCD369CubeMixedCuspRatFuncFormula
@@ -210,6 +276,98 @@ theorem mixedCuspRatFuncTerminalExclusion
   simp only [map_mul, map_sub, map_pow, RatFunc.algebraMap_C]
   rw [← RatFunc.algebraMap_eq_C]
   simpa only [mul_comm] using hterminal
+
+set_option maxHeartbeats 4000000 in
+/-- The smooth mixed source fibre is terminally empty once its rational
+point is supplied in a weighted reduced `(2,3,6)` presentation.  Constancy
+and the contradiction are derived internally. -/
+theorem mixedEllipticRatFuncTerminalExclusionOfPresentation
+    {k : Type*} [Field k] [CharZero k]
+    (S : GCD369CubeLaterInvariantSource (RatFunc k))
+    (mu nu j : k) (hmu : mu ≠ 0) (hnu : nu ≠ 0) (hj : j ≠ 0)
+    (s : k[X])
+    (hrho3const : 6 * S.rho3 = algebraMap k (RatFunc k) mu)
+    (hrho4const : 6 * S.rho4 = algebraMap k (RatFunc k) nu)
+    (hterminal :
+      algebraMap k[X] (RatFunc k) s *
+          GCD369CubeRatFuncDerivative
+            (GCD369CubeFaberR5
+              S.a0 S.a1 S.a2 S.a3 S.a4 0 0 0 0 0 0 0) =
+        algebraMap k (RatFunc k) j)
+    (M N D : k[X]) (hM : M ≠ 0) (hN : N ≠ 0) (hD : D ≠ 0)
+    (hMN : IsCoprime M N)
+    (hVpresentation :
+      let A := 4 * S.a2 - S.a4 ^ 2
+      let B := 2 * S.a1 - S.a3 * S.a4
+      let w := 4 * S.a0 - S.a3 ^ 2
+      let V := w + 8 * B ^ 2 / A
+      V = algebraMap k[X] (RatFunc k) M /
+        algebraMap k[X] (RatFunc k) (D ^ 3))
+    (hApresentation :
+      4 * S.a2 - S.a4 ^ 2 =
+        algebraMap k[X] (RatFunc k) N /
+          algebraMap k[X] (RatFunc k) (D ^ 2)) : False := by
+  have hnumap : algebraMap k (RatFunc k) nu ≠ 0 := by
+    rw [RatFunc.algebraMap_eq_C]
+    simpa using RatFunc.C_injective.ne hnu
+  have hjmap : algebraMap k (RatFunc k) j ≠ 0 := by
+    rw [RatFunc.algebraMap_eq_C]
+    simpa using RatFunc.C_injective.ne hj
+  have hrho4 : S.rho4 ≠ 0 := by
+    intro hz
+    apply hnumap
+    rw [← hrho4const, hz]
+    ring
+  let A : RatFunc k := 4 * S.a2 - S.a4 ^ 2
+  let B : RatFunc k := 2 * S.a1 - S.a3 * S.a4
+  let w : RatFunc k := 4 * S.a0 - S.a3 ^ 2
+  let V : RatFunc k := w + 8 * B ^ 2 / A
+  change V = algebraMap k[X] (RatFunc k) M /
+    algebraMap k[X] (RatFunc k) (D ^ 3) at hVpresentation
+  change A = algebraMap k[X] (RatFunc k) N /
+    algebraMap k[X] (RatFunc k) (D ^ 2) at hApresentation
+  have hmixed := S.mixedCoordinates hrho4
+  dsimp only at hmixed
+  change A ≠ 0 ∧
+    S.rho4 = -3 * A ^ 2 * B / 512 ∧
+    S.rho3 = (24 * V ^ 2 - A ^ 3) / 1024 ∧
+    GCD369CubeFaberR5 S.a0 S.a1 S.a2 S.a3 S.a4 0 0 0 0 0 0 0 =
+      A * (A * V - 12 * B ^ 2) / 1024 at hmixed
+  rcases hmixed with ⟨_hA, _hrho4formula, hrho3formula, _hr5formula⟩
+  have hrho3clear : 1024 * S.rho3 = 24 * V ^ 2 - A ^ 3 := by
+    rw [hrho3formula]
+    ring
+  have hcurveRaw :
+      72 * V ^ 2 - 3 * A ^ 3 - 512 * (6 * S.rho3) = 0 := by
+    linear_combination
+      (norm := ring_nf (config := { zetaDelta := false })) -3 * hrho3clear
+  have hcurve :
+      algebraMap k (RatFunc k) (72 : k) * V ^ 2 +
+          algebraMap k (RatFunc k) (-3 : k) * A ^ 3 +
+          algebraMap k (RatFunc k) (-512 * mu) = 0 := by
+    simp only [map_mul, map_neg, map_ofNat]
+    rw [← hrho3const]
+    simpa only [sub_eq_add_neg, neg_mul] using hcurveRaw
+  obtain ⟨v0, a0, hVC, hAC⟩ := GCD369CubeRatFuncEllipticConstancy
+    (72 : k) (-3 : k) (-512 * mu) (by norm_num) (by norm_num)
+      (mul_ne_zero (by norm_num) hmu) V A M N D hM hN hD hMN
+      hVpresentation hApresentation hcurve
+  have hr5formula := S.mixedTerminalFormula hrho4
+  dsimp only at hr5formula
+  change GCD369CubeFaberR5
+      S.a0 S.a1 S.a2 S.a3 S.a4 0 0 0 0 0 0 0 =
+    A ^ 2 * V / 1024 - 256 * (6 * S.rho4) ^ 2 / (27 * A ^ 3)
+      at hr5formula
+  let r50 : k := a0 ^ 2 * v0 / 1024 - 256 * nu ^ 2 / (27 * a0 ^ 3)
+  have hr5C :
+      GCD369CubeFaberR5
+          S.a0 S.a1 S.a2 S.a3 S.a4 0 0 0 0 0 0 0 =
+        algebraMap k (RatFunc k) r50 := by
+    rw [hr5formula, hAC, hVC, hrho4const]
+    dsimp only [r50]
+    simp only [map_sub, map_mul, map_pow, map_div₀, map_ofNat]
+  rw [hr5C, GCD369CubeRatFuncDerivative_C, mul_zero] at hterminal
+  exact hjmap hterminal.symm
 
 set_option maxHeartbeats 4000000 in
 /-- On the zero invariant fibre, the exact source classification rules out
@@ -367,10 +525,14 @@ end GCD369CubeLaterInvariantSource
 #print axioms GCD369CubeRatFuncReducedPresentation
 #print axioms GCD369CubeRatFuncDerivative_div
 #print axioms GCD369CubeRatFuncDerivative_zero
+#print axioms GCD369CubeRatFuncDerivative_C
+#print axioms GCD369CubeRatFuncEllipticConstancy
 #print axioms GCD369CubeMixedCuspRatFuncFormula
 #print axioms GCD369CubeDSRatFuncFormula
 #print axioms
   GCD369CubeLaterInvariantSource.mixedCuspRatFuncTerminalExclusion
+#print axioms
+  GCD369CubeLaterInvariantSource.mixedEllipticRatFuncTerminalExclusionOfPresentation
 #print axioms
   GCD369CubeLaterInvariantSource.zeroInvariantRatFuncTerminalExclusion
 #print axioms
