@@ -412,6 +412,92 @@ theorem mixedCoordinates {K : Type u} [Field K] [CharZero K]
   exact ⟨hA, hrho4formula, hrho3formula, hr5formula⟩
 
 set_option maxHeartbeats 4000000 in
+/-- On the singular mixed fibre, the cusp parameter is forced by the source:
+`lambda = V / A`.  The usual cusp coordinates and the exact two-sided
+Laurent formula for `r5` are therefore derived rather than supplied as a
+landing certificate. -/
+theorem mixedCuspCoordinates {K : Type u} [Field K] [CharZero K]
+    (S : GCD369CubeLaterInvariantSource K) (hrho4 : S.rho4 ≠ 0)
+    (hrho3 : S.rho3 = 0) :
+    let A := 4 * S.a2 - S.a4 ^ 2
+    let B := 2 * S.a1 - S.a3 * S.a4
+    let w := 4 * S.a0 - S.a3 ^ 2
+    let V := w + 8 * B ^ 2 / A
+    let lambda := V / A
+    A ≠ 0 ∧ V ≠ 0 ∧ lambda ≠ 0 ∧
+      A = 24 * lambda ^ 2 ∧ V = 24 * lambda ^ 3 ∧
+      GCD369CubeFaberR5 S.a0 S.a1 S.a2 S.a3 S.a4 0 0 0 0 0 0 0 =
+        27 * lambda ^ 7 / 2 - (6 * S.rho4) ^ 2 / (1458 * lambda ^ 6) := by
+  dsimp only
+  let A : K := 4 * S.a2 - S.a4 ^ 2
+  let B : K := 2 * S.a1 - S.a3 * S.a4
+  let w : K := 4 * S.a0 - S.a3 ^ 2
+  let V : K := w + 8 * B ^ 2 / A
+  let lambda : K := V / A
+  change A ≠ 0 ∧ V ≠ 0 ∧ lambda ≠ 0 ∧
+    A = 24 * lambda ^ 2 ∧ V = 24 * lambda ^ 3 ∧
+    GCD369CubeFaberR5 S.a0 S.a1 S.a2 S.a3 S.a4 0 0 0 0 0 0 0 =
+      27 * lambda ^ 7 / 2 - (6 * S.rho4) ^ 2 / (1458 * lambda ^ 6)
+  have hmixed := S.mixedCoordinates hrho4
+  dsimp only at hmixed
+  change A ≠ 0 ∧
+    S.rho4 = -3 * A ^ 2 * B / 512 ∧
+    S.rho3 = (24 * V ^ 2 - A ^ 3) / 1024 ∧
+    GCD369CubeFaberR5 S.a0 S.a1 S.a2 S.a3 S.a4 0 0 0 0 0 0 0 =
+      A * (A * V - 12 * B ^ 2) / 1024 at hmixed
+  rcases hmixed with ⟨hA, hrho4formula, hrho3formula, hr5formula⟩
+  have hcurve : 24 * V ^ 2 = A ^ 3 := by
+    rw [hrho3] at hrho3formula
+    field_simp at hrho3formula
+    linear_combination -hrho3formula
+  have hV : V ≠ 0 := by
+    intro hV
+    have hA3 : A ^ 3 = 0 := by
+      rw [hV] at hcurve
+      simpa using hcurve.symm
+    exact (pow_ne_zero 3 hA) hA3
+  have hlambda : lambda ≠ 0 := div_ne_zero hV hA
+  have hlambdaA : lambda * A = V := by
+    dsimp only [lambda]
+    exact div_mul_cancel₀ V hA
+  have hAlambda : A = 24 * lambda ^ 2 := by
+    have hlambdaAsq := congrArg (fun z : K => z ^ 2) hlambdaA
+    have hfactor : A ^ 2 * (24 * lambda ^ 2 - A) = 0 := by
+      linear_combination 24 * hlambdaAsq + hcurve
+    have hlinear :=
+      (mul_eq_zero.mp hfactor).resolve_left (pow_ne_zero 2 hA)
+    linear_combination -hlinear
+  have hVlambda : V = 24 * lambda ^ 3 := by
+    calc
+      V = lambda * A := hlambdaA.symm
+      _ = lambda * (24 * lambda ^ 2) := by rw [hAlambda]
+      _ = 24 * lambda ^ 3 := by ring
+  have hAB : A ^ 2 * B = -(256 / 9 : K) * (6 * S.rho4) := by
+    rw [hrho4formula]
+    ring
+  have hB : B = -(256 / 9 : K) * (6 * S.rho4) / A ^ 2 := by
+    apply (eq_div_iff (pow_ne_zero 2 hA)).2
+    simpa [mul_comm] using hAB
+  have hr5normalized :
+      GCD369CubeFaberR5 S.a0 S.a1 S.a2 S.a3 S.a4 0 0 0 0 0 0 0 =
+        A ^ 2 * V / 1024 - 256 * (6 * S.rho4) ^ 2 / (27 * A ^ 3) := by
+    rw [hr5formula, hB]
+    field_simp
+    ring
+  have hcusp := GCD369CubeMixedCuspIdentity lambda (6 * S.rho4) hlambda
+  dsimp only at hcusp
+  refine ⟨hA, hV, hlambda, hAlambda, hVlambda, ?_⟩
+  calc
+    GCD369CubeFaberR5 S.a0 S.a1 S.a2 S.a3 S.a4 0 0 0 0 0 0 0 =
+        A ^ 2 * V / 1024 - 256 * (6 * S.rho4) ^ 2 / (27 * A ^ 3) :=
+      hr5normalized
+    _ = (24 * lambda ^ 2) ^ 2 * (24 * lambda ^ 3) / 1024 -
+        256 * (6 * S.rho4) ^ 2 / (27 * (24 * lambda ^ 2) ^ 3) := by
+      rw [hAlambda, hVlambda]
+    _ = 27 * lambda ^ 7 / 2 -
+        (6 * S.rho4) ^ 2 / (1458 * lambda ^ 6) := hcusp.2
+
+set_option maxHeartbeats 4000000 in
 /-- When `rho4` vanishes, the same exact Faber source automatically lies on
 one of the two unmixed reduced sheets: the zero-bracket sheet or the elliptic
 sheet.  This is the complementary, non-localized part of the later-fibre
@@ -574,4 +660,5 @@ end GCD369CubeLaterInvariantSource
 #print axioms GCD369CubeEarlyFaberJetSource.toArbitraryLoad_or_allZero
 #print axioms GCD369CubeEarlyFaberBoundarySource.empty
 #print axioms GCD369CubeLaterInvariantSource.mixedCoordinates
+#print axioms GCD369CubeLaterInvariantSource.mixedCuspCoordinates
 #print axioms GCD369CubeLaterInvariantSource.unmixedCoordinates
