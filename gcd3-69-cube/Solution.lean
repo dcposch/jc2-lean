@@ -289,12 +289,21 @@ theorem GCD369CubeFaberDNumerators {K : Type*} [Field K] [CharZero K]
         GCD369CubeFaberD3 a0 a1 a2 a3 a4 d ∧
     1679616 * GCD369CubeFaberR4 a0 a1 a2 a3 a4 d 0 0 0 0 0 0 =
         GCD369CubeFaberD4 a0 a1 a2 a3 a4 d := by
-  norm_num [GCD369CubeFaberR1, GCD369CubeFaberR2,
-    GCD369CubeFaberR3, GCD369CubeFaberR4,
-    GCD369CubeFaberD1, GCD369CubeFaberD2,
-    GCD369CubeFaberD3, GCD369CubeFaberD4,
-    GCD369CubeFaberN1, GCD369CubeFaberN2,
-    GCD369CubeFaberN3, GCD369CubeFaberN4] <;> ring
+  constructor
+  · norm_num [GCD369CubeFaberR1, GCD369CubeFaberD1,
+      GCD369CubeFaberN1]
+    ring
+  constructor
+  · norm_num [GCD369CubeFaberR2, GCD369CubeFaberD2,
+      GCD369CubeFaberN2]
+    ring
+  constructor
+  · norm_num [GCD369CubeFaberR3, GCD369CubeFaberD3,
+      GCD369CubeFaberN3]
+    ring
+  · norm_num [GCD369CubeFaberR4, GCD369CubeFaberD4,
+      GCD369CubeFaberN4]
+    ring
 
 /-! ### Exact common-normal expansion -/
 
@@ -412,6 +421,7 @@ theorem GCD369CubeFaberDNormalExpansion {K : Type*}
     C (-32 * b21) + C (-32 * b22) * X,
     C (-64 * b31) + C (-64 * b32) * X,
     C (16 * b41) + C (16 * b42) * X + C (16 * b43) * X ^ 2, ?_⟩
+  dsimp [b11, b12, b21, b22, b31, b32, b41, b42, b43]
   simp only [GCD369CubeFaberD1, GCD369CubeFaberD2,
     GCD369CubeFaberD3, GCD369CubeFaberD4,
     GCD369CubeFaberN1, GCD369CubeFaberN2,
@@ -419,7 +429,6 @@ theorem GCD369CubeFaberDNormalExpansion {K : Type*}
     GCD369CubeNormalRow1, GCD369CubeNormalRow2,
     GCD369CubeNormalRow3, GCD369CubeNormalRow4,
     C_add, C_mul, C_pow, C_neg, C_sub, C_ofNat]
-  dsimp [b11, b12, b21, b22, b31, b32, b41, b42, b43]
   constructor
   · ring
   constructor
@@ -452,15 +461,15 @@ theorem GCD369CubeFaberDNormalCoefficients {K : Type*}
     GCD369CubeFaberDNormalExpansion Xn Yn Zn u v D
   constructor
   · rw [h1]
-    simp [coeff_mul]
+    norm_num [coeff_C_mul_X_pow, coeff_X_pow_mul']
   constructor
   · rw [h2]
-    simp [coeff_mul]
+    norm_num [coeff_C_mul_X_pow, coeff_X_pow_mul']
   constructor
   · rw [h3]
-    simp [coeff_mul]
+    norm_num [coeff_C_mul_X_pow, coeff_X_pow_mul']
   · rw [h4]
-    simp [coeff_mul]
+    norm_num [coeff_C_mul_X_pow, coeff_X_pow_mul']
 
 /-- Source-facing form of the first normalized `d` load: the four exact
 Faber numerators have zero quadratic coefficient on the common-normal arc. -/
@@ -2536,6 +2545,7 @@ theorem GCD369CubeDExceptionalRows_of_faber
   dsimp [GCD369CubeDLeadingFaberRows] at hfaber
   have hcoeff := GCD369CubeFaberDNormalCoefficients Xn Yn Zn u v 1
   dsimp at hcoeff
+  norm_num at hcoeff
   rcases hfaber with ⟨hf1, hf2, hf3, hf4⟩
   rcases hcoeff with ⟨hc1, hc2, hc3, hc4⟩
   rw [hc1] at hf1
