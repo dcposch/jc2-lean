@@ -3,7 +3,7 @@
 set -eu
 cd "$(dirname "$0")/.."
 
-THEOREMS="$(sed -n 's/^theorem \(Max[^ ]*\).*/\1/p' Solution.lean)"
+THEOREMS="$(sed -n 's/^theorem \([^ ]*\).*/\1/p' Solution.lean)"
 PROBE="import Solution\n"
 for thm in $THEOREMS; do
   PROBE="${PROBE}#print axioms ${thm}\n"

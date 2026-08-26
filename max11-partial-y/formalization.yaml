@@ -5,11 +5,12 @@ project:
   name: "jc2-max11-partial-y-degree-closure"
   description: >-
     Lean 4 / Mathlib proof of the exact finite degree-routing certificate
-    through maximum partial y-degree eleven.  For any symmetric predicate on
-    degree pairs satisfying the zero, gcd-at-most-two, divisibility, and
-    equal-degree routes, the single additional leaf (6,9) closes every ordered
-    pair through eleven.  This project does not itself prove those route
-    hypotheses for Keller pairs or exclude the cube-core (6,9) branch.
+    through maximum partial y-degree eleven, both abstractly and instantiated
+    for bivariate polynomials with nonzero constant Jacobian.  The concrete
+    theorem concludes K[P,Q]=K[x,y] from the zero, gcd-at-most-two,
+    divisibility, equal-degree, and (6,9) route premises.  This project does
+    not itself prove those deep route premises or exclude the cube-core (6,9)
+    branch.
   authors:
     - "Dan Clemens Posch"
   license: "Apache-2.0"
@@ -51,15 +52,21 @@ status:
   scope: >-
     Fully proved: the exact unordered route classification through eleven;
     uniqueness of the primitive pair (6,9); strict recursive closure for an
-    arbitrary symmetric predicate Good; and the frontier checksum showing
-    (8,12) and (9,12) as the first new primitive pairs at maximum twelve.  Not
-    proved here: the interpretation of Good as automorphy of Keller pairs,
-    scalar-extension/descent, any of the classical degree-reduction theorems,
-    or the cube-core (6,9) exclusion.
+    arbitrary symmetric predicate Good; its concrete instantiation for
+    MvPolynomial (Fin 2) K using the actual Jacobian, partial y-degree, and
+    coordinate-subalgebra generation predicates; and the frontier checksum
+    showing (8,12) and (9,12) as the first new primitive pairs at maximum
+    twelve.  Not proved here: scalar-extension/descent, any of the classical
+    degree-route premises, or the global (6,9) leaf supplied as a premise.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
   main_results:
+    - declaration: "Max11PlaneKellerGeneration"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
     - declaration: "MaxPartialDegreeElevenClosure"
       file: "Solution.lean"
       sorry_count: 0
@@ -78,7 +85,7 @@ automation:
       cost:
         wall_time: "under one day of agent time"
         spend_usd: "subscription-based"
-        hardware: "local Apple-silicon macOS machine"
+        hardware: "local Apple-silicon macOS machine and GitHub-hosted Linux CI"
       prompting_notes: >-
         The formalization isolates the exact finite composition from the
         deeper algebraic leaves so its logical dependencies are explicit.
@@ -99,10 +106,12 @@ automation:
 fidelity:
   divergences: >-
     The source's final theorem concerns automorphy of characteristic-zero
-    bivariate Keller pairs.  This project deliberately abstracts that property
-    to Good and assumes each cited mathematical route as a hypothesis.  It
-    formalizes the complete finite recursion and frontier arithmetic, but not
-    the algebraic content of those hypotheses.  No other divergences are known.
+    bivariate Keller pairs.  The concrete Lean theorem now uses exactly that
+    polynomial/Jacobian/ring-generation predicate, but assumes each cited
+    mathematical route and the (6,9) leaf as hypotheses.  It formalizes the
+    complete finite recursion and its concrete conclusion, not the algebraic
+    proofs of those premises or scalar-extension descent.  No other
+    divergences are known.
 
 review:
   status: >-
@@ -124,6 +133,13 @@ alignment:
       module: "Challenge"
       status: >-
         exact abstract recursion proved; Keller-pair route theorems remain
+        hypotheses
+    - source: "Maximum actual partial y-degree eleven theorem, Sections 1 and 6"
+      lean: "Max11PlaneKellerGeneration"
+      module: "Challenge"
+      status: >-
+        exact bivariate polynomial conclusion and finite composition proved;
+        classical route theorems and the global (6,9) leaf remain explicit
         hypotheses
     - source: "Maximum-twelve frontier checksum, Section 9"
       lean: "Max12FirstPrimitives"
