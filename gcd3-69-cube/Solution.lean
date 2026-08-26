@@ -177,6 +177,35 @@ theorem GCD369CubeFaberFullNWeights {K : Type*} [CommRing K]
   · ring
   constructor <;> ring
 
+/-- The first four explicit Faber invariants commute with every field
+homomorphism. -/
+theorem GCD369CubeFaberR_map
+    {K L : Type*} [Field K] [Field L] (f : K →+* L)
+    (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 : K) :
+    f (GCD369CubeFaberR1 a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1) =
+        GCD369CubeFaberR1 (f a0) (f a1) (f a2) (f a3) (f a4)
+          (f d) (f c7) (f c5) (f c4) (f c3) (f c2) (f c1) ∧
+    f (GCD369CubeFaberR2 a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1) =
+        GCD369CubeFaberR2 (f a0) (f a1) (f a2) (f a3) (f a4)
+          (f d) (f c7) (f c5) (f c4) (f c3) (f c2) (f c1) ∧
+    f (GCD369CubeFaberR3 a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1) =
+        GCD369CubeFaberR3 (f a0) (f a1) (f a2) (f a3) (f a4)
+          (f d) (f c7) (f c5) (f c4) (f c3) (f c2) (f c1) ∧
+    f (GCD369CubeFaberR4 a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1) =
+        GCD369CubeFaberR4 (f a0) (f a1) (f a2) (f a3) (f a4)
+          (f d) (f c7) (f c5) (f c4) (f c3) (f c2) (f c1) := by
+  constructor
+  · simp only [GCD369CubeFaberR1, GCD369CubeFaberFullN1,
+      _root_.map_div₀, map_add, map_sub, map_mul, map_pow, map_ofNat]
+  constructor
+  · simp only [GCD369CubeFaberR2, GCD369CubeFaberFullN2,
+      _root_.map_div₀, map_add, map_sub, map_mul, map_pow, map_ofNat]
+  constructor
+  · simp only [GCD369CubeFaberR3, GCD369CubeFaberFullN3,
+      _root_.map_div₀, map_add, map_sub, map_mul, map_pow, map_ofNat]
+  · simp only [GCD369CubeFaberR4, GCD369CubeFaberFullN4,
+      _root_.map_div₀, map_add, map_sub, map_mul, map_pow, map_ofNat]
+
 /-- The normalized Faber--Laurent invariant `r5`. -/
 def GCD369CubeFaberR5 {K : Type*} [Field K]
     (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 : K) : K :=
