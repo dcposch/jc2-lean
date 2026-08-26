@@ -375,6 +375,40 @@ theorem coeff_monomial_pow_mul_of_lt
   have hcast : (m : ℚ) < n := by exact_mod_cast hmn
   nlinarith
 
+/-- Symmetric exact-exponent coefficient rule. -/
+theorem coeff_mul_monomial_pow_at
+    {k : Type*} [Field k] (delta : ℚ) (hdelta : 0 < delta) (n : ℕ)
+    (x : GCD369CubeHahnRegular k) :
+    (x * (monomial delta hdelta.le) ^ n).1.coeff ((n : ℚ) * delta) =
+      GCD369CubeHahnRegular.constantCoeff x := by
+  rw [mul_comm]
+  exact coeff_monomial_pow_mul_at delta hdelta n x
+
+/-- Symmetric higher-power vanishing rule. -/
+theorem coeff_mul_monomial_pow_of_lt
+    {k : Type*} [Field k] (delta : ℚ) (hdelta : 0 < delta)
+    (m n : ℕ) (hmn : m < n) (x : GCD369CubeHahnRegular k) :
+    (x * (monomial delta hdelta.le) ^ n).1.coeff ((m : ℚ) * delta) = 0 := by
+  rw [mul_comm]
+  exact coeff_monomial_pow_mul_of_lt delta hdelta m n hmn x
+
+/-- Cubic and higher regular errors disappear when extracting the quadratic
+coefficient at a positive Hahn scale. -/
+theorem coeff_quadratic_sub_cubic
+    {k : Type*} [Field k] (delta : ℚ) (hdelta : 0 < delta)
+    (a b : GCD369CubeHahnRegular k) :
+    (a * (monomial delta hdelta.le) ^ 2 -
+      b * (monomial delta hdelta.le) ^ 3).1.coeff
+        (((2 : ℕ) : ℚ) * delta) =
+        GCD369CubeHahnRegular.constantCoeff a := by
+  change (a * (monomial delta hdelta.le) ^ 2).1.coeff
+      (((2 : ℕ) : ℚ) * delta) -
+      (b * (monomial delta hdelta.le) ^ 3).1.coeff
+        (((2 : ℕ) : ℚ) * delta) = _
+  rw [coeff_mul_monomial_pow_at delta hdelta 2 a,
+    coeff_mul_monomial_pow_of_lt delta hdelta 2 3 (by norm_num) b,
+    sub_zero]
+
 end GCD369CubeHahnRegular
 
 /-- A scaled original-value packet together with its certified nonzero
@@ -401,6 +435,28 @@ def cubicU {k : Type*} [Field k] [CharZero k]
 def cubicV {k : Type*} [Field k] [CharZero k]
     (S : GCD369CubeHahnCommonValueData k) : GCD369CubeHahnRegular k :=
   GCD369CubeHahnRegular.ratCast (1 / 2) * S.normal.sextic.scale.regular3
+
+@[simp] theorem constantCoeff_cubicU
+    {k : Type*} [Field k] [CharZero k]
+    (S : GCD369CubeHahnCommonValueData k) :
+    GCD369CubeHahnRegular.constantCoeff S.cubicU = S.u := by
+  simp only [cubicU, map_mul,
+    GCD369CubeHahnRegular.constantCoeff_ratCast]
+  change algebraMap ℚ k (1 / 2) * S.normal.sextic.scale.leading4 = S.u
+  rw [S.ha4]
+  norm_num
+  ring
+
+@[simp] theorem constantCoeff_cubicV
+    {k : Type*} [Field k] [CharZero k]
+    (S : GCD369CubeHahnCommonValueData k) :
+    GCD369CubeHahnRegular.constantCoeff S.cubicV = S.v := by
+  simp only [cubicV, map_mul,
+    GCD369CubeHahnRegular.constantCoeff_ratCast]
+  change algebraMap ℚ k (1 / 2) * S.normal.sextic.scale.leading3 = S.v
+  rw [S.ha3]
+  norm_num
+  ring
 
 /-- Exact normal coordinates transverse to the moving common-cubic square. -/
 def normal2 {k : Type*} [Field k] [CharZero k]
@@ -505,29 +561,16 @@ theorem normal_constantCoeff_zero
     GCD369CubeHahnRegular.constantCoeff S.normal2 = 0 ∧
     GCD369CubeHahnRegular.constantCoeff S.normal1 = 0 ∧
     GCD369CubeHahnRegular.constantCoeff S.normal0 = 0 := by
-  have hu : GCD369CubeHahnRegular.constantCoeff S.cubicU = S.u := by
-    simp only [cubicU, map_mul,
-      GCD369CubeHahnRegular.constantCoeff_ratCast]
-    change algebraMap ℚ k (1 / 2) * S.normal.sextic.scale.leading4 = S.u
-    rw [S.ha4]
-    norm_num
-    ring
-  have hv : GCD369CubeHahnRegular.constantCoeff S.cubicV = S.v := by
-    simp only [cubicV, map_mul,
-      GCD369CubeHahnRegular.constantCoeff_ratCast]
-    change algebraMap ℚ k (1 / 2) * S.normal.sextic.scale.leading3 = S.v
-    rw [S.ha3]
-    norm_num
-    ring
   constructor
-  · simp only [normal2, map_sub, map_pow, hu]
+  · simp only [normal2, map_sub, map_pow, S.constantCoeff_cubicU]
     change S.normal.sextic.scale.leading2 - S.u ^ 2 = 0
     rw [S.ha2, sub_self]
   constructor
-  · simp only [normal1, map_sub, map_mul, map_ofNat, hu, hv]
+  · simp only [normal1, map_sub, map_mul, map_ofNat,
+      S.constantCoeff_cubicU, S.constantCoeff_cubicV]
     change S.normal.sextic.scale.leading1 - 2 * S.u * S.v = 0
     rw [S.ha1, sub_self]
-  · simp only [normal0, map_sub, map_pow, hv]
+  · simp only [normal0, map_sub, map_pow, S.constantCoeff_cubicV]
     change S.normal.sextic.scale.leading0 - S.v ^ 2 = 0
     rw [S.ha0, sub_self]
 
@@ -819,6 +862,95 @@ theorem TransverseScale.zeroHighN4Expansion
     S.regular3_eq_two_cubicV, S.regular4_eq_two_cubicU]
   simpa only [H] using h
 
+/-- The quadratic Hahn coefficient of the first zero-high numerator is the
+first universal normal row on the residue jet. -/
+theorem TransverseScale.zeroHighN1Coeff
+    {k : Type*} [Field k] [CharZero k]
+    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseScale) :
+    (729 * GCD369CubeFaberN1
+        S.normal.sextic.scale.regular0 S.normal.sextic.scale.regular1
+        S.normal.sextic.scale.regular2 S.normal.sextic.scale.regular3
+        S.normal.sextic.scale.regular4).1.coeff
+          (((2 : ℕ) : ℚ) * T.delta) =
+      -32 * GCD369CubeNormalRow1
+        (GCD369CubeHahnRegular.constantCoeff T.Xn)
+        (GCD369CubeHahnRegular.constantCoeff T.Yn)
+        (GCD369CubeHahnRegular.constantCoeff T.Zn) S.u := by
+  have h := congrArg
+    (fun x : GCD369CubeHahnRegular k =>
+      x.1.coeff (((2 : ℕ) : ℚ) * T.delta)) T.zeroHighN1Expansion
+  rw [GCD369CubeHahnRegular.coeff_mul_monomial_pow_at
+    T.delta T.hdelta 2] at h
+  simpa only [GCD369CubeNormalRow1, map_add, map_sub, map_mul, map_pow,
+    map_neg, map_ofNat, S.constantCoeff_cubicU] using h
+
+/-- Quadratic coefficient form of the second zero-high numerator. -/
+theorem TransverseScale.zeroHighN2Coeff
+    {k : Type*} [Field k] [CharZero k]
+    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseScale) :
+    (2187 * GCD369CubeFaberN2
+        S.normal.sextic.scale.regular0 S.normal.sextic.scale.regular1
+        S.normal.sextic.scale.regular2 S.normal.sextic.scale.regular3
+        S.normal.sextic.scale.regular4).1.coeff
+          (((2 : ℕ) : ℚ) * T.delta) =
+      32 * GCD369CubeNormalRow2
+        (GCD369CubeHahnRegular.constantCoeff T.Xn)
+        (GCD369CubeHahnRegular.constantCoeff T.Yn)
+        (GCD369CubeHahnRegular.constantCoeff T.Zn) S.u S.v := by
+  have h := congrArg
+    (fun x : GCD369CubeHahnRegular k =>
+      x.1.coeff (((2 : ℕ) : ℚ) * T.delta)) T.zeroHighN2Expansion
+  rw [GCD369CubeHahnRegular.coeff_mul_monomial_pow_at
+    T.delta T.hdelta 2] at h
+  simpa only [GCD369CubeNormalRow2, map_add, map_sub, map_mul, map_pow,
+    map_neg, map_ofNat, S.constantCoeff_cubicU,
+    S.constantCoeff_cubicV] using h
+
+/-- Quadratic coefficient form of the third zero-high numerator; the cubic
+error vanishes at this exponent. -/
+theorem TransverseScale.zeroHighN3Coeff
+    {k : Type*} [Field k] [CharZero k]
+    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseScale) :
+    (GCD369CubeFaberN3
+        S.normal.sextic.scale.regular0 S.normal.sextic.scale.regular1
+        S.normal.sextic.scale.regular2 S.normal.sextic.scale.regular3
+        S.normal.sextic.scale.regular4).1.coeff
+          (((2 : ℕ) : ℚ) * T.delta) =
+      128 * GCD369CubeNormalRow3
+        (GCD369CubeHahnRegular.constantCoeff T.Xn)
+        (GCD369CubeHahnRegular.constantCoeff T.Yn)
+        (GCD369CubeHahnRegular.constantCoeff T.Zn) S.u S.v := by
+  have h := congrArg
+    (fun x : GCD369CubeHahnRegular k =>
+      x.1.coeff (((2 : ℕ) : ℚ) * T.delta)) T.zeroHighN3Expansion
+  rw [GCD369CubeHahnRegular.coeff_quadratic_sub_cubic
+    T.delta T.hdelta] at h
+  simpa only [GCD369CubeNormalRow3, map_add, map_sub, map_mul, map_pow,
+    map_neg, map_ofNat, S.constantCoeff_cubicU,
+    S.constantCoeff_cubicV] using h
+
+/-- Quadratic coefficient form of the fourth zero-high numerator. -/
+theorem TransverseScale.zeroHighN4Coeff
+    {k : Type*} [Field k] [CharZero k]
+    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseScale) :
+    (6561 * GCD369CubeFaberN4
+        S.normal.sextic.scale.regular0 S.normal.sextic.scale.regular1
+        S.normal.sextic.scale.regular2 S.normal.sextic.scale.regular3
+        S.normal.sextic.scale.regular4).1.coeff
+          (((2 : ℕ) : ℚ) * T.delta) =
+      32 * GCD369CubeNormalRow4
+        (GCD369CubeHahnRegular.constantCoeff T.Xn)
+        (GCD369CubeHahnRegular.constantCoeff T.Yn)
+        (GCD369CubeHahnRegular.constantCoeff T.Zn) S.u S.v := by
+  have h := congrArg
+    (fun x : GCD369CubeHahnRegular k =>
+      x.1.coeff (((2 : ℕ) : ℚ) * T.delta)) T.zeroHighN4Expansion
+  rw [GCD369CubeHahnRegular.coeff_quadratic_sub_cubic
+    T.delta T.hdelta] at h
+  simpa only [GCD369CubeNormalRow4, map_add, map_sub, map_mul, map_pow,
+    map_neg, map_ofNat, S.constantCoeff_cubicU,
+    S.constantCoeff_cubicV] using h
+
 /-- The recovered residue is a root of the certified limiting common cubic. -/
 theorem leadingCubicRoot
     {k : Type*} [Field k] [CharZero k]
@@ -974,6 +1106,11 @@ end GCD369CubePolynomialSource
 #print axioms GCD369CubeHahnRegular.coeff_eq_zero_of_neg
 #print axioms GCD369CubeHahnRegular.coeff_monomial_pow_mul_at
 #print axioms GCD369CubeHahnRegular.coeff_monomial_pow_mul_of_lt
+#print axioms GCD369CubeHahnRegular.coeff_mul_monomial_pow_at
+#print axioms GCD369CubeHahnRegular.coeff_mul_monomial_pow_of_lt
+#print axioms GCD369CubeHahnRegular.coeff_quadratic_sub_cubic
+#print axioms GCD369CubeHahnCommonValueData.constantCoeff_cubicU
+#print axioms GCD369CubeHahnCommonValueData.constantCoeff_cubicV
 #print axioms GCD369CubeHahnCommonValueData.normal_constantCoeff_zero
 #print axioms GCD369CubeHahnCommonValueData.transverseScale
 #print axioms GCD369CubeHahnCommonValueData.TransverseScale.faberNineExpansion
@@ -981,6 +1118,10 @@ end GCD369CubePolynomialSource
 #print axioms GCD369CubeHahnCommonValueData.TransverseScale.zeroHighN2Expansion
 #print axioms GCD369CubeHahnCommonValueData.TransverseScale.zeroHighN3Expansion
 #print axioms GCD369CubeHahnCommonValueData.TransverseScale.zeroHighN4Expansion
+#print axioms GCD369CubeHahnCommonValueData.TransverseScale.zeroHighN1Coeff
+#print axioms GCD369CubeHahnCommonValueData.TransverseScale.zeroHighN2Coeff
+#print axioms GCD369CubeHahnCommonValueData.TransverseScale.zeroHighN3Coeff
+#print axioms GCD369CubeHahnCommonValueData.TransverseScale.zeroHighN4Coeff
 #print axioms GCD369CubeHahnCommonValueData.leadingCubicRoot
 #print axioms GCD369CubeHahnCommonValueData.commonNormalEquation
 #print axioms GCD369CubePolynomialSource.finiteCommonValueData
