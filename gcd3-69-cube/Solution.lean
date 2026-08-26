@@ -1,0 +1,1171 @@
+/-
+Copyright (c) 2026 Dan Clemens Posch. All rights reserved.
+Released under the Apache License, Version 2.0; see LICENSE.
+Authors: Dan Clemens Posch (direction), OpenAI Codex agent (formalization)
+-/
+import Mathlib
+
+/-!
+# Polynomial-cube `(6,9)` trajectory certificates
+
+Kernel-checked algebraic certificates from the polynomial-cube branch of the
+partial-degree `(6,9)` reduction.
+-/
+
+open Polynomial
+
+/-- The five polynomial parts multiplying the derivatives of the first five
+negative Laurent coefficients form a triangular basis.  Consequently a
+constant terminal row is equivalent to four first integrals and the displayed
+fifth derivative. -/
+theorem GCD369CubeLowerRowTriangularity {K : Type*} [Field K] [CharZero K]
+    (a2 a3 a4 u1 u2 u3 u4 u5 q : K) :
+    let A1 : K[X] :=
+      monomial 4 6 + monomial 2 (3 * a4) + monomial 1 (2 * a3)
+        + monomial 0 (a2 - a4 ^ 2 / 12)
+    let A2 : K[X] := monomial 3 6 + monomial 1 (2 * a4) + monomial 0 a3
+    let A3 : K[X] := monomial 2 6 + monomial 0 a4
+    let A4 : K[X] := monomial 1 6
+    let A5 : K[X] := monomial 0 6
+    u1 • A1 + u2 • A2 + u3 • A3 + u4 • A4 + u5 • A5 = C q ↔
+      u1 = 0 ∧ u2 = 0 ∧ u3 = 0 ∧ u4 = 0 ∧ 6 * u5 = q := by
+  dsimp
+  constructor
+  · intro h
+    have h4 := congrArg (fun p : K[X] => p.coeff 4) h
+    have h3 := congrArg (fun p : K[X] => p.coeff 3) h
+    have h2 := congrArg (fun p : K[X] => p.coeff 2) h
+    have h1 := congrArg (fun p : K[X] => p.coeff 1) h
+    have h0 := congrArg (fun p : K[X] => p.coeff 0) h
+    norm_num [coeff_add, coeff_smul, coeff_monomial] at h4 h3 h2 h1 h0
+    have hu1 : u1 = 0 := h4
+    have hu2 : u2 = 0 := h3
+    have hu3 : u3 = 0 := by
+      rw [hu1] at h2
+      norm_num at h2
+      exact h2
+    have hu4 : u4 = 0 := by
+      rw [hu1, hu2] at h1
+      norm_num at h1
+      exact h1
+    refine ⟨hu1, hu2, hu3, hu4, ?_⟩
+    simpa [hu1, hu2, hu3, hu4, mul_comm] using h0
+  · rintro ⟨rfl, rfl, rfl, rfl, h5⟩
+    simp only [zero_smul, zero_add]
+    simpa [mul_comm] using congrArg C h5
+
+/-- The common-cubic `P_A` sheet has identically zero source bracket, for an
+arbitrary moving cubic and arbitrary constant deformation. -/
+theorem GCD369CubeZeroSheetBracket {K : Type*} [Field K] [CharZero K]
+    (Kpoly Kdot : K[X]) (eta : K) :
+    let f := Kpoly ^ 2 + C eta
+    let g := Kpoly ^ 3 + C (3 * eta / 2) * Kpoly
+    let fdot := C 2 * Kpoly * Kdot
+    let gdot := (C 3 * Kpoly ^ 2 + C (3 * eta / 2)) * Kdot
+    fdot * derivative g - derivative f * gdot = 0 := by
+  dsimp
+  simp only [derivative_add, derivative_pow, derivative_C, derivative_mul]
+  norm_num [C_div, C_mul, C_ofNat, C_eq_natCast]
+  ring_nf
+
+/-- The normalized Davenport--Stothers trajectory has the exact nonzero
+bracket used by the cube-core terminal analysis. -/
+theorem GCD369CubeDSBracket {K : Type*} [Field K] [CharZero K] (lambda : K) :
+    let f : K[X] :=
+      X ^ 6 + C (4 * lambda) * X ^ 4 + C (10 * lambda ^ 2) * X ^ 2
+        + C (6 * lambda ^ 3)
+    let g : K[X] :=
+      X ^ 9 + C (6 * lambda) * X ^ 7 + C (21 * lambda ^ 2) * X ^ 5
+        + C (35 * lambda ^ 3) * X ^ 3 + C (63 * lambda ^ 4 / 2) * X
+    let fdot : K[X] :=
+      C 4 * X ^ 4 + C (20 * lambda) * X ^ 2 + C (18 * lambda ^ 2)
+    let gdot : K[X] :=
+      C 6 * X ^ 7 + C (42 * lambda) * X ^ 5
+        + C (105 * lambda ^ 2) * X ^ 3 + C (126 * lambda ^ 3) * X
+    fdot * derivative g - derivative f * gdot = C (567 * lambda ^ 6) := by
+  dsimp
+  simp only [derivative_add, derivative_pow, derivative_X, derivative_C,
+    derivative_mul, zero_mul, add_zero]
+  apply Polynomial.funext
+  intro z
+  simp only [eval_sub, eval_add, eval_mul, eval_pow, eval_C, eval_X,
+    eval_zero, eval_one]
+  ring
+
+/-- A short Bezout certificate for the normalized DS boundary polynomials.
+In particular, they have no common root over any characteristic-zero field. -/
+theorem GCD369CubeDSBoundaryBezout {K : Type*} [Field K] [CharZero K] :
+    let f : K[X] := X ^ 6 + C 4 * X ^ 4 + C 10 * X ^ 2 + C 6
+    let g : K[X] :=
+      X ^ 9 + C 6 * X ^ 7 + C 21 * X ^ 5 + C 35 * X ^ 3 + C (63 / 2) * X
+    let U : K[X] := C 6 * X ^ 8 + C 28 * X ^ 6 + C 70 * X ^ 4
+      + C 70 * X ^ 2 + C 21
+    let V : K[X] := -(C 6 * X ^ 5 + C 16 * X ^ 3 + C 20 * X)
+    U * f + V * g = C 126 ∧
+      ∀ z : K, eval z f = 0 → eval z g = 0 → False := by
+  dsimp
+  constructor
+  · apply Polynomial.funext
+    intro z
+    simp only [eval_add, eval_mul, eval_neg, eval_pow, eval_C, eval_X]
+    ring
+  · intro z hf hg
+    have hbez :
+        eval z
+          ((C 6 * X ^ 8 + C 28 * X ^ 6 + C 70 * X ^ 4 + C 70 * X ^ 2 + C 21) *
+              (X ^ 6 + C 4 * X ^ 4 + C 10 * X ^ 2 + C 6) +
+            (-(C 6 * X ^ 5 + C 16 * X ^ 3 + C 20 * X)) *
+              (X ^ 9 + C 6 * X ^ 7 + C 21 * X ^ 5 + C 35 * X ^ 3 +
+                C (63 / 2) * X)) = eval z (C 126 : K[X]) := by
+      congr 1
+      apply Polynomial.funext
+      intro x
+      simp only [eval_add, eval_mul, eval_neg, eval_pow, eval_C, eval_X]
+      ring
+    simp only [eval_add, eval_mul, eval_neg, hf, hg, mul_zero, add_zero,
+      eval_C] at hbez
+    norm_num at hbez
+
+/-- The unique double-root projective normal has an unavoidable third
+invariant coefficient `-1/16`, independently of every next coefficient. -/
+theorem GCD369CubeDoubleRootNormalObstruction {K : Type*} [Field K] [CharZero K]
+    (S : K) :
+    ¬ (3 * S / 4 = 0 ∧ 3 * S / 4 = 0 ∧ (-1 / 16 : K) = 0 ∧
+      -(4 * S + 3) / 16 = 0) := by
+  norm_num
+
+/-- A point on the exceptional `d != 0` orbit polynomial cannot lie on the
+double-root discriminant, except at the excluded affine origin. -/
+theorem GCD369CubeExceptionalOrbitSquarefree {K : Type*} [Field K] [CharZero K]
+    (u v : K) (hprojective : u ≠ 0 ∨ v ≠ 0)
+    (horbit : 2 * u ^ 6 - 90 * u ^ 3 * v ^ 2 + 135 * v ^ 4 = 0) :
+    4 * u ^ 3 + 27 * v ^ 2 ≠ 0 := by
+  intro hdisc
+  have hv4 : (6669 : K) * v ^ 4 = 0 := by
+    linear_combination 8 * horbit - (4 * u ^ 3 - 207 * v ^ 2) * hdisc
+  have hvpow : v ^ 4 = 0 := by
+    have hc : (6669 : K) ≠ 0 := by norm_num
+    exact (mul_eq_zero.mp hv4).resolve_left hc
+  have hv : v = 0 := by
+    by_contra hv
+    exact (pow_ne_zero 4 hv) hvpow
+  have hu3 : u ^ 3 = 0 := by
+    rw [hv] at hdisc
+    norm_num at hdisc ⊢
+    exact hdisc
+  have hu : u = 0 := by
+    by_contra hu
+    exact (pow_ne_zero 3 hu) hu3
+  exact hprojective.elim (fun h => h hu) (fun h => h hv)
+
+private theorem gcd369_outside_nat (q : ℚ) (hq : q < 0 ∨ (0 < q ∧ q < 1))
+    (n : ℕ) : q ≠ n := by
+  intro h
+  rcases hq with hqneg | ⟨hq0, hq1⟩
+  · have hn : (0 : ℚ) ≤ n := by positivity
+    linarith
+  · have hnlt : n < 1 := by
+      exact_mod_cast (show (n : ℚ) < 1 by simpa [← h] using hq1)
+    have hn : n = 0 := by omega
+    subst n
+    exact (ne_of_gt hq0) h
+
+/-- Exact finite arithmetic behind every constant-core pole exclusion before
+the final `(rho3,rho4)` fibre.  Each displayed rational is a required degree
+of a nonzero coefficient (or, in the last row, a required correction degree),
+and cannot be a natural-number polynomial degree. -/
+theorem GCD369CubeConstantPoleDegreeAudit :
+    (∀ n : ℕ, (2 : ℚ) / 14 ≠ n) ∧
+    (∀ n : ℕ, (2 : ℚ) / 13 ≠ n) ∧
+    (∀ n : ℕ, (2 : ℚ) / 12 ≠ n) ∧
+    (∀ n : ℕ, (3 : ℚ) / 12 ≠ n) ∧
+    (∀ n : ℕ, (2 : ℚ) / 10 ≠ n) ∧
+    (∀ n : ℕ, (3 : ℚ) / 9 ≠ n) ∧
+    (∀ n : ℕ, (2 : ℚ) / 7 ≠ n) ∧
+    (∀ n : ℕ, (2 : ℚ) / 6 ≠ n) ∧
+    (∀ n : ℕ, (3 : ℚ) / 6 ≠ n) ∧
+    (∀ n : ℕ, (2 : ℚ) / 4 ≠ n) ∧
+    (∀ n : ℕ, (-1 : ℚ) / 2 ≠ n) ∧
+    (∀ n : ℕ, (-1 : ℚ) / 6 ≠ n) ∧
+    (∀ n : ℕ, (1 : ℚ) / 6 ≠ n) := by
+  repeat' apply And.intro
+  all_goals
+    intro n
+    apply gcd369_outside_nat
+    norm_num
+
+/-- The original-boundary inequalities are strict for every early forced
+load, and become equalities for the first time at weight twelve. -/
+theorem GCD369CubeBoundaryWeightAudit :
+    (∀ k ∈ ([1, 2, 4, 5, 7, 8, 10, 11] : List ℕ),
+      (1 : ℚ) < 12 / k ∧ (3 : ℚ) / 2 < 18 / k) ∧
+    (12 : ℚ) / 12 = 1 ∧ (18 : ℚ) / 12 = 3 / 2 := by
+  constructor
+  · intro k hk
+    simp at hk
+    rcases hk with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl <;> norm_num
+  · norm_num
+
+/-- Local order of the numerator of a reduced rational derivative at a pole
+of the denominator.  If `N/B` is pointwise reduced and `B` has multiplicity
+`m > 0`, then `N'B-NB'` has multiplicity exactly `m-1`. -/
+theorem GCD369ReducedQuotientWronskianLocal {K : Type*} [Field K] [CharZero K]
+    (N B : K[X]) (x : K) (_hN : N ≠ 0) (hB : B ≠ 0)
+    (hreduced : ∀ y : K, eval y N = 0 → eval y B ≠ 0)
+    (hxB : B.IsRoot x) :
+    let W := derivative N * B - N * derivative B
+    W ≠ 0 ∧ W.rootMultiplicity x = B.rootMultiplicity x - 1 := by
+  dsimp only
+  let L : K[X] := X - C x
+  let m := B.rootMultiplicity x
+  let B0 := B /ₘ L ^ m
+  let R : K[X] :=
+    L * derivative N * B0 - N * (C (m : K) * B0 + L * derivative B0)
+  have hm : 0 < m := by
+    simpa [m] using (rootMultiplicity_pos hB).mpr hxB
+  have hBL : L ^ m * B0 = B := by
+    simpa [L, m, B0] using B.pow_mul_divByMonic_rootMultiplicity_eq x
+  have hB0eval : eval x B0 ≠ 0 := by
+    simpa [L, m, B0] using B.eval_divByMonic_pow_rootMultiplicity_ne_zero x hB
+  have hNeval : eval x N ≠ 0 := by
+    intro hxN
+    exact hreduced x hxN (by simpa [IsRoot] using hxB)
+  have hpowDerivative (n : ℕ) :
+      L * derivative (L ^ n) = C (n : K) * L ^ n := by
+    cases n with
+    | zero => simp
+    | succ n =>
+        simp only [derivative_pow, Nat.add_sub_cancel, Nat.cast_add, Nat.cast_one]
+        rw [show derivative L = 1 by simp [L]]
+        simp only [mul_one]
+        rw [pow_succ]
+        ring
+  have hBDerivative :
+      L * derivative B = L ^ m * (C (m : K) * B0 + L * derivative B0) := by
+    rw [← hBL, derivative_mul]
+    rw [mul_add, ← mul_assoc, hpowDerivative]
+    ring
+  have hfactor :
+      L * (derivative N * B - N * derivative B) = L ^ m * R := by
+    calc
+      L * (derivative N * B - N * derivative B) =
+          (L * derivative N) * B - N * (L * derivative B) := by ring
+      _ = (L * derivative N) * (L ^ m * B0) -
+          N * (L ^ m * (C (m : K) * B0 + L * derivative B0)) := by
+            rw [hBL, hBDerivative]
+      _ = L ^ m * R := by
+        dsimp [R]
+        ring
+  have hmK : (m : K) ≠ 0 := by exact_mod_cast (Nat.ne_of_gt hm)
+  have hReval : eval x R ≠ 0 := by
+    dsimp [R, L]
+    simp only [eval_sub, eval_add, eval_mul, eval_C, eval_X, sub_self,
+      zero_mul, add_zero, zero_sub]
+    exact neg_ne_zero.mpr (mul_ne_zero hNeval (mul_ne_zero hmK hB0eval))
+  have hR : R ≠ 0 := by
+    intro hzero
+    rw [hzero, eval_zero] at hReval
+    exact hReval rfl
+  have hL : L ≠ 0 := by simpa [L] using X_sub_C_ne_zero x
+  have hright : L ^ m * R ≠ 0 := mul_ne_zero (pow_ne_zero _ hL) hR
+  have hleft : L * (derivative N * B - N * derivative B) ≠ 0 := hfactor ▸ hright
+  have hW : derivative N * B - N * derivative B ≠ 0 := right_ne_zero_of_mul hleft
+  have hrm := congrArg (rootMultiplicity x) hfactor
+  rw [rootMultiplicity_mul hleft, rootMultiplicity_mul hright,
+    rootMultiplicity_X_sub_C_self, rootMultiplicity_X_sub_C_pow] at hrm
+  have hRroot : ¬ R.IsRoot x := by simpa [IsRoot] using hReval
+  have hRmult : R.rootMultiplicity x = 0 := rootMultiplicity_eq_zero hRroot
+  rw [hRmult, add_zero] at hrm
+  exact ⟨hW, by omega⟩
+
+/-- Finite-place classification for a reduced rational primitive of `j/s`.
+The polynomial core and the rational denominator have exactly the same finite
+support, and their multiplicities differ by one. -/
+theorem GCD369CubeRationalPrimitiveFinitePlace {K : Type*} [Field K] [CharZero K]
+    (s N B : K[X]) (j : K) (_hs : s ≠ 0) (hN : N ≠ 0) (hB : B ≠ 0)
+    (hj : j ≠ 0) (hreduced : ∀ y : K, eval y N = 0 → eval y B ≠ 0)
+    (hODE :
+      s * (derivative N * B - N * derivative B) = C j * B ^ 2)
+    (x : K) (hx : s.IsRoot x ∨ B.IsRoot x) :
+    s.IsRoot x ∧ B.IsRoot x ∧
+      s.rootMultiplicity x = B.rootMultiplicity x + 1 := by
+  have hxB : B.IsRoot x := by
+    rcases hx with hxS | hxB
+    · have heval := congrArg (eval x) hODE
+      simp only [eval_mul, eval_sub, eval_C, eval_pow, IsRoot] at heval hxS ⊢
+      rw [hxS, zero_mul] at heval
+      have hjB : j * eval x B ^ 2 = 0 := heval.symm
+      have hBsq : eval x B ^ 2 = 0 := (mul_eq_zero.mp hjB).resolve_left hj
+      exact (pow_eq_zero_iff (by norm_num : 2 ≠ 0)).mp hBsq
+    · exact hxB
+  have hxS : s.IsRoot x := by
+    by_contra hxS
+    have hsmult : s.rootMultiplicity x = 0 := rootMultiplicity_eq_zero hxS
+    have hlocal :=
+      GCD369ReducedQuotientWronskianLocal N B x hN hB hreduced hxB
+    let W := derivative N * B - N * derivative B
+    have hB2 : B ^ 2 ≠ 0 := pow_ne_zero _ hB
+    have hjC : C j ≠ (0 : K[X]) := C_ne_zero.mpr hj
+    have hright : C j * B ^ 2 ≠ 0 := mul_ne_zero hjC hB2
+    have hleft : s * W ≠ 0 := by
+      change s * (derivative N * B - N * derivative B) ≠ 0
+      rw [hODE]
+      exact hright
+    have hmult := congrArg (rootMultiplicity x) hODE
+    rw [rootMultiplicity_mul hleft, rootMultiplicity_mul hright,
+      rootMultiplicity_C, pow_two, rootMultiplicity_mul (mul_ne_zero hB hB),
+      hsmult] at hmult
+    dsimp [W] at hlocal
+    rw [hlocal.2] at hmult
+    have hm : 0 < B.rootMultiplicity x := (rootMultiplicity_pos hB).mpr hxB
+    omega
+  have hlocal := GCD369ReducedQuotientWronskianLocal N B x hN hB hreduced hxB
+  let W := derivative N * B - N * derivative B
+  have hB2 : B ^ 2 ≠ 0 := pow_ne_zero _ hB
+  have hjC : C j ≠ (0 : K[X]) := C_ne_zero.mpr hj
+  have hright : C j * B ^ 2 ≠ 0 := mul_ne_zero hjC hB2
+  have hleft : s * W ≠ 0 := by
+    change s * (derivative N * B - N * derivative B) ≠ 0
+    rw [hODE]
+    exact hright
+  have hmult := congrArg (rootMultiplicity x) hODE
+  rw [rootMultiplicity_mul hleft, rootMultiplicity_mul hright,
+    rootMultiplicity_C, pow_two, rootMultiplicity_mul (mul_ne_zero hB hB)] at hmult
+  dsimp [W] at hlocal
+  rw [hlocal.2] at hmult
+  have hm : 0 < B.rootMultiplicity x := (rootMultiplicity_pos hB).mpr hxB
+  refine ⟨hxS, hxB, ?_⟩
+  omega
+
+/-- Global finite-support count for a rational primitive of `j/s`: over an
+algebraically closed field, `s` and the reduced denominator have identical
+root support, and `deg(s)` exceeds the denominator degree by exactly the
+number of distinct roots of `s`. -/
+theorem GCD369CubeRationalPrimitiveRootCount {K : Type*} [Field K] [CharZero K]
+    [IsAlgClosed K] (s N B : K[X]) (j : K)
+    (hs : s ≠ 0) (hN : N ≠ 0) (hB : B ≠ 0) (hj : j ≠ 0)
+    (hsdegree : 0 < s.natDegree)
+    (hreduced : ∀ y : K, eval y N = 0 → eval y B ≠ 0)
+    (hODE : s * (derivative N * B - N * derivative B) = C j * B ^ 2) :
+    (∀ x : K, s.IsRoot x ↔ B.IsRoot x) ∧
+      ∃ r : ℕ, 0 < r ∧ s.natDegree = B.natDegree + r ∧
+        (r = 1 → ∃ a : K, ∀ x : K, s.IsRoot x → x = a) := by
+  classical
+  let S := s.roots.toFinset
+  have hsdegree' : s.degree ≠ 0 :=
+    ne_of_gt (natDegree_pos_iff_degree_pos.mp hsdegree)
+  obtain ⟨x0, hx0⟩ := IsAlgClosed.exists_root s hsdegree'
+  have hx0S : x0 ∈ S := by
+    simpa [S] using (mem_roots hs).mpr hx0
+  have hSnonempty : S.Nonempty := ⟨x0, hx0S⟩
+  have hsupport (x : K) : x ∈ S ↔ x ∈ B.roots.toFinset := by
+    constructor
+    · intro hxS
+      have hxsRoot : s.IsRoot x :=
+        (mem_roots hs).mp (by simpa [S] using hxS)
+      have hfinite := GCD369CubeRationalPrimitiveFinitePlace
+        s N B j hs hN hB hj hreduced hODE x (Or.inl hxsRoot)
+      simpa using (mem_roots hB).mpr hfinite.2.1
+    · intro hxB
+      have hxbRoot : B.IsRoot x := (mem_roots hB).mp (by simpa using hxB)
+      have hfinite := GCD369CubeRationalPrimitiveFinitePlace
+        s N B j hs hN hB hj hreduced hODE x (Or.inr hxbRoot)
+      simpa [S] using (mem_roots hs).mpr hfinite.1
+  have hpoint (x : K) (hx : x ∈ S) :
+      s.rootMultiplicity x = B.rootMultiplicity x + 1 := by
+    have hxsRoot : s.IsRoot x := (mem_roots hs).mp (by simpa [S] using hx)
+    exact (GCD369CubeRationalPrimitiveFinitePlace
+      s N B j hs hN hB hj hreduced hODE x (Or.inl hxsRoot)).2.2
+  have hsumS : ∑ x ∈ S, s.rootMultiplicity x = s.natDegree := by
+    calc
+      ∑ x ∈ S, s.rootMultiplicity x = ∑ x ∈ S, s.roots.count x := by
+        apply Finset.sum_congr rfl
+        intro x _
+        exact (count_roots s).symm
+      _ = s.roots.card := by
+        apply Multiset.sum_count_eq_card
+        intro x hx
+        simpa [S] using hx
+      _ = s.natDegree := (IsAlgClosed.splits s).natDegree_eq_card_roots.symm
+  have hsumB : ∑ x ∈ S, B.rootMultiplicity x = B.natDegree := by
+    calc
+      ∑ x ∈ S, B.rootMultiplicity x = ∑ x ∈ S, B.roots.count x := by
+        apply Finset.sum_congr rfl
+        intro x _
+        exact (count_roots B).symm
+      _ = B.roots.card := by
+        apply Multiset.sum_count_eq_card
+        intro x hx
+        exact (hsupport x).mpr (by simpa using hx)
+      _ = B.natDegree := (IsAlgClosed.splits B).natDegree_eq_card_roots.symm
+  have hsum := Finset.sum_congr rfl hpoint
+  rw [Finset.sum_add_distrib] at hsum
+  simp only [Finset.sum_const, nsmul_eq_mul, mul_one] at hsum
+  rw [hsumS, hsumB] at hsum
+  refine ⟨?_, ⟨S.card, hSnonempty.card_pos, hsum, ?_⟩⟩
+  intro x
+  constructor
+  · intro hxs
+    have hxS : x ∈ S := by simpa [S] using (mem_roots hs).mpr hxs
+    exact (mem_roots hB).mp (by simpa using (hsupport x).mp hxS)
+  · intro hxb
+    have hxB : x ∈ B.roots.toFinset := by simpa using (mem_roots hB).mpr hxb
+    exact (mem_roots hs).mp (by simpa [S] using (hsupport x).mpr hxB)
+  · intro hcard
+    obtain ⟨a, hS⟩ := Finset.card_eq_one.mp hcard
+    refine ⟨a, ?_⟩
+    intro x hxroot
+    have hxS : x ∈ S := by simpa [S] using (mem_roots hs).mpr hxroot
+    rw [hS] at hxS
+    simpa using hxS
+
+/-- Degree at infinity of the numerator of a reduced rational derivative once
+the additive constant has been chosen so that the numerator degree is smaller
+than the denominator degree. -/
+theorem GCD369ReducedQuotientWronskianDegree {K : Type*} [Field K] [CharZero K]
+    (N B : K[X]) (hN : N ≠ 0) (hB : B ≠ 0)
+    (hdegree : N.natDegree < B.natDegree) :
+    (derivative N * B - N * derivative B).natDegree =
+      N.natDegree + B.natDegree - 1 := by
+  have hBdegree : 0 < B.natDegree := lt_of_le_of_lt (Nat.zero_le _) hdegree
+  by_cases hNdegree : N.natDegree = 0
+  · have hNderivative : derivative N = 0 := derivative_eq_zero.mpr hNdegree
+    have hBderivative : derivative B ≠ 0 := by
+      intro hzero
+      have := derivative_eq_zero.mp hzero
+      omega
+    rw [hNderivative, zero_mul, zero_sub, natDegree_neg,
+      natDegree_mul hN hBderivative, natDegree_derivative]
+    omega
+  · have hNdegreePos : 0 < N.natDegree := Nat.pos_of_ne_zero hNdegree
+    let n := N.natDegree + B.natDegree - 1
+    let W := derivative N * B - N * derivative B
+    have hNderivativeDegree : (derivative N).natDegree = N.natDegree - 1 :=
+      natDegree_derivative N
+    have hBderivativeDegree : (derivative B).natDegree = B.natDegree - 1 :=
+      natDegree_derivative B
+    have hfirstCoeff :
+        (derivative N * B).coeff n =
+          N.leadingCoeff * (N.natDegree : K) * B.leadingCoeff := by
+      calc
+        (derivative N * B).coeff n =
+            (derivative N * B).coeff ((derivative N).natDegree + B.natDegree) := by
+              congr 1
+              dsimp [n]
+              omega
+        _ = (derivative N).leadingCoeff * B.leadingCoeff :=
+          coeff_mul_degree_add_degree _ _
+        _ = N.leadingCoeff * (N.natDegree : K) * B.leadingCoeff := by
+          rw [leadingCoeff_derivative]
+    have hsecondCoeff :
+        (N * derivative B).coeff n =
+          N.leadingCoeff * B.leadingCoeff * (B.natDegree : K) := by
+      calc
+        (N * derivative B).coeff n =
+            (N * derivative B).coeff (N.natDegree + (derivative B).natDegree) := by
+              congr 1
+              dsimp [n]
+              omega
+        _ = N.leadingCoeff * (derivative B).leadingCoeff :=
+          coeff_mul_degree_add_degree _ _
+        _ = N.leadingCoeff * B.leadingCoeff * (B.natDegree : K) := by
+          rw [leadingCoeff_derivative]
+          ring
+    have hcoefficient : W.coeff n ≠ 0 := by
+      dsimp [W]
+      rw [coeff_sub, hfirstCoeff, hsecondCoeff]
+      have hNleading : N.leadingCoeff ≠ 0 := leadingCoeff_ne_zero.mpr hN
+      have hBleading : B.leadingCoeff ≠ 0 := leadingCoeff_ne_zero.mpr hB
+      have hdegrees : (N.natDegree : K) ≠ (B.natDegree : K) := by
+        exact_mod_cast (ne_of_lt hdegree)
+      have hproduct :
+          N.leadingCoeff * B.leadingCoeff *
+              ((N.natDegree : K) - (B.natDegree : K)) ≠ 0 :=
+        mul_ne_zero (mul_ne_zero hNleading hBleading) (sub_ne_zero.mpr hdegrees)
+      have hrearrange :
+          N.leadingCoeff * (N.natDegree : K) * B.leadingCoeff -
+              N.leadingCoeff * B.leadingCoeff * (B.natDegree : K) =
+            N.leadingCoeff * B.leadingCoeff *
+              ((N.natDegree : K) - (B.natDegree : K)) := by
+        ring
+      rw [hrearrange]
+      exact hproduct
+    have hdegreeUpper : W.natDegree ≤ n := by
+      dsimp [W]
+      refine (natDegree_sub_le _ _).trans ?_
+      rw [max_le_iff]
+      constructor
+      · refine natDegree_mul_le.trans ?_
+        rw [hNderivativeDegree]
+        dsimp [n]
+        omega
+      · refine natDegree_mul_le.trans ?_
+        rw [hBderivativeDegree]
+        dsimp [n]
+        omega
+    exact natDegree_eq_of_le_of_coeff_ne_zero hdegreeUpper hcoefficient
+
+/-- Exact finite-pole reduction for the cube-core terminal row.  After
+subtracting the value at infinity, so the reduced numerator has smaller
+degree than its denominator, rational exactness of `j/s` forces `s` to be a
+single-root power of exponent at least two; the denominator has exponent one
+less. -/
+theorem GCD369CubeRationalPrimitiveOneRoot {K : Type*} [Field K] [CharZero K]
+    [IsAlgClosed K] (s N B : K[X]) (j : K)
+    (hs : s ≠ 0) (hN : N ≠ 0) (hB : B ≠ 0) (hj : j ≠ 0)
+    (hsdegree : 0 < s.natDegree) (hdegree : N.natDegree < B.natDegree)
+    (hreduced : ∀ y : K, eval y N = 0 → eval y B ≠ 0)
+    (hODE : s * (derivative N * B - N * derivative B) = C j * B ^ 2) :
+    ∃ a : K, ∃ m : ℕ, 2 ≤ m ∧
+      s = C s.leadingCoeff * (X - C a) ^ m ∧
+      B = C B.leadingCoeff * (X - C a) ^ (m - 1) := by
+  classical
+  obtain ⟨hsupport, r, hr, hsdegreeEq, hunique⟩ :=
+    GCD369CubeRationalPrimitiveRootCount s N B j hs hN hB hj hsdegree
+      hreduced hODE
+  let W := derivative N * B - N * derivative B
+  have hB2 : B ^ 2 ≠ 0 := pow_ne_zero _ hB
+  have hjC : C j ≠ (0 : K[X]) := C_ne_zero.mpr hj
+  have hright : C j * B ^ 2 ≠ 0 := mul_ne_zero hjC hB2
+  have hleft : s * W ≠ 0 := by
+    change s * (derivative N * B - N * derivative B) ≠ 0
+    rw [hODE]
+    exact hright
+  have hW : W ≠ 0 := right_ne_zero_of_mul hleft
+  have hWdegree : W.natDegree = N.natDegree + B.natDegree - 1 := by
+    simpa [W] using GCD369ReducedQuotientWronskianDegree N B hN hB hdegree
+  have hdegreeODE := congrArg natDegree hODE
+  rw [natDegree_mul hs hW, natDegree_mul hjC hB2, natDegree_C,
+    natDegree_pow, hWdegree] at hdegreeODE
+  simp only [zero_add] at hdegreeODE
+  have hrOne : r = 1 := by omega
+  have hNconstant : N.natDegree = 0 := by omega
+  obtain ⟨a, ha⟩ := hunique hrOne
+  have hrootsS : s.roots = Multiset.replicate s.roots.card a := by
+    apply Multiset.eq_replicate_of_mem
+    intro x hx
+    exact ha x ((mem_roots hs).mp hx)
+  have hrootsB : B.roots = Multiset.replicate B.roots.card a := by
+    apply Multiset.eq_replicate_of_mem
+    intro x hx
+    have hxB : B.IsRoot x := (mem_roots hB).mp hx
+    exact ha x ((hsupport x).mpr hxB)
+  have hsform : s = C s.leadingCoeff * (X - C a) ^ s.natDegree := by
+    calc
+      s = C s.leadingCoeff * (s.roots.map fun x => X - C x).prod :=
+        (IsAlgClosed.splits s).eq_prod_roots
+      _ = C s.leadingCoeff * (X - C a) ^ s.natDegree := by
+        rw [hrootsS]
+        simp only [Multiset.map_replicate, Multiset.prod_replicate]
+        rw [(IsAlgClosed.splits s).natDegree_eq_card_roots]
+  have hBform : B = C B.leadingCoeff * (X - C a) ^ B.natDegree := by
+    calc
+      B = C B.leadingCoeff * (B.roots.map fun x => X - C x).prod :=
+        (IsAlgClosed.splits B).eq_prod_roots
+      _ = C B.leadingCoeff * (X - C a) ^ B.natDegree := by
+        rw [hrootsB]
+        simp only [Multiset.map_replicate, Multiset.prod_replicate]
+        rw [(IsAlgClosed.splits B).natDegree_eq_card_roots]
+  have hm : 2 ≤ s.natDegree := by omega
+  refine ⟨a, s.natDegree, hm, hsform, ?_⟩
+  calc
+    B = C B.leadingCoeff * (X - C a) ^ B.natDegree := hBform
+    _ = C B.leadingCoeff * (X - C a) ^ (s.natDegree - 1) := by
+      congr 2
+      omega
+
+/-- Constant-core half of the same terminal reduction: a reduced rational
+primitive with nonzero constant derivative has constant denominator and
+affine numerator. -/
+theorem GCD369CubeRationalPrimitiveConstantCore {K : Type*} [Field K] [CharZero K]
+    [IsAlgClosed K] (s N B : K[X]) (j : K)
+    (hs : s ≠ 0) (hN : N ≠ 0) (hB : B ≠ 0) (hj : j ≠ 0)
+    (hsdegree : s.natDegree = 0)
+    (hreduced : ∀ y : K, eval y N = 0 → eval y B ≠ 0)
+    (hODE : s * (derivative N * B - N * derivative B) = C j * B ^ 2) :
+    B.natDegree = 0 ∧ N.natDegree = 1 := by
+  have hBdegree : B.natDegree = 0 := by
+    by_contra hBdegree
+    have hBpos : 0 < B.natDegree := Nat.pos_of_ne_zero hBdegree
+    have hBdegree' : B.degree ≠ 0 :=
+      ne_of_gt (natDegree_pos_iff_degree_pos.mp hBpos)
+    obtain ⟨x, hxB⟩ := IsAlgClosed.exists_root B hBdegree'
+    have hxS := (GCD369CubeRationalPrimitiveFinitePlace
+      s N B j hs hN hB hj hreduced hODE x (Or.inr hxB)).1
+    have hspos : 0 < s.natDegree :=
+      natDegree_pos_iff_degree_pos.mpr (degree_pos_of_root hs hxS)
+    omega
+  have hBderivative : derivative B = 0 := derivative_eq_zero.mpr hBdegree
+  let W := derivative N * B - N * derivative B
+  have hB2 : B ^ 2 ≠ 0 := pow_ne_zero _ hB
+  have hjC : C j ≠ (0 : K[X]) := C_ne_zero.mpr hj
+  have hright : C j * B ^ 2 ≠ 0 := mul_ne_zero hjC hB2
+  have hleft : s * W ≠ 0 := by
+    change s * (derivative N * B - N * derivative B) ≠ 0
+    rw [hODE]
+    exact hright
+  have hW : W ≠ 0 := right_ne_zero_of_mul hleft
+  have hWform : W = derivative N * B := by
+    dsimp [W]
+    rw [hBderivative]
+    simp
+  have hNderivative : derivative N ≠ 0 := by
+    intro hzero
+    apply hW
+    rw [hWform, hzero, zero_mul]
+  have hdegreeODE := congrArg natDegree hODE
+  rw [natDegree_mul hs hW, natDegree_mul hjC hB2, natDegree_C,
+    natDegree_pow, hsdegree, hBdegree, hWform,
+    natDegree_mul hNderivative hB] at hdegreeODE
+  simp only [zero_add, add_zero, mul_zero] at hdegreeODE
+  have hNderivativeDegree : (derivative N).natDegree = 0 := by omega
+  rw [natDegree_derivative] at hNderivativeDegree
+  have hNdegreePos : 0 < N.natDegree := by
+    by_contra hzero
+    have : N.natDegree = 0 := Nat.eq_zero_of_not_pos hzero
+    exact hNderivative (derivative_eq_zero.mpr this)
+  refine ⟨hBdegree, ?_⟩
+  omega
+
+/-- A rational primitive of `j/s` with nonconstant polynomial `s` cannot
+grow at infinity: in every reduced presentation its numerator degree is at
+most its denominator degree. -/
+theorem GCD369CubeRationalPrimitiveNumeratorDegreeLe {K : Type*}
+    [Field K] [CharZero K] [IsAlgClosed K] (s N B : K[X]) (j : K)
+    (hs : s ≠ 0) (hN : N ≠ 0) (hB : B ≠ 0) (hj : j ≠ 0)
+    (hsdegree : 0 < s.natDegree)
+    (hreduced : ∀ y : K, eval y N = 0 → eval y B ≠ 0)
+    (hODE : s * (derivative N * B - N * derivative B) = C j * B ^ 2) :
+    N.natDegree ≤ B.natDegree := by
+  have hB2 : B ^ 2 ≠ 0 := pow_ne_zero _ hB
+  have hjC : C j ≠ (0 : K[X]) := C_ne_zero.mpr hj
+  have hright : C j * B ^ 2 ≠ 0 := mul_ne_zero hjC hB2
+  let W := derivative N * B - N * derivative B
+  have hleft : s * W ≠ 0 := by
+    change s * (derivative N * B - N * derivative B) ≠ 0
+    rw [hODE]
+    exact hright
+  have hW : W ≠ 0 := right_ne_zero_of_mul hleft
+  obtain ⟨_, r, hr, hsdegreeEq, _⟩ :=
+    GCD369CubeRationalPrimitiveRootCount s N B j hs hN hB hj hsdegree
+      hreduced hODE
+  by_contra hle
+  have hBN : B.natDegree < N.natDegree := Nat.lt_of_not_ge hle
+  have hswap := GCD369ReducedQuotientWronskianDegree B N hB hN hBN
+  have hWdegree : W.natDegree = B.natDegree + N.natDegree - 1 := by
+    calc
+      W.natDegree = (-(derivative B * N - B * derivative N)).natDegree := by
+        congr 1
+        dsimp [W]
+        ring
+      _ = (derivative B * N - B * derivative N).natDegree := natDegree_neg _
+      _ = B.natDegree + N.natDegree - 1 := hswap
+  have hdegreeODE := congrArg natDegree hODE
+  rw [natDegree_mul hs hW, natDegree_mul hjC hB2, natDegree_C,
+    natDegree_pow, hWdegree] at hdegreeODE
+  simp only [zero_add] at hdegreeODE
+  omega
+
+/-- Source-form finite-pole dichotomy for a nonconstant polynomial cube root.
+For an arbitrary reduced rational presentation, the proof first rules out
+growth at infinity, subtracts the unique leading constant when necessary,
+and then invokes the normalized one-root theorem. -/
+theorem GCD369CubeRationalPrimitiveNonconstantCore {K : Type*}
+    [Field K] [CharZero K] [IsAlgClosed K] (s N B : K[X]) (j : K)
+    (hs : s ≠ 0) (hN : N ≠ 0) (hB : B ≠ 0) (hj : j ≠ 0)
+    (hsdegree : 0 < s.natDegree)
+    (hreduced : ∀ y : K, eval y N = 0 → eval y B ≠ 0)
+    (hODE : s * (derivative N * B - N * derivative B) = C j * B ^ 2) :
+    ∃ a : K, ∃ m : ℕ, 2 ≤ m ∧
+      s = C s.leadingCoeff * (X - C a) ^ m ∧
+      B = C B.leadingCoeff * (X - C a) ^ (m - 1) := by
+  have hB2 : B ^ 2 ≠ 0 := pow_ne_zero _ hB
+  have hjC : C j ≠ (0 : K[X]) := C_ne_zero.mpr hj
+  have hright : C j * B ^ 2 ≠ 0 := mul_ne_zero hjC hB2
+  let W := derivative N * B - N * derivative B
+  have hleft : s * W ≠ 0 := by
+    change s * (derivative N * B - N * derivative B) ≠ 0
+    rw [hODE]
+    exact hright
+  have hW : W ≠ 0 := right_ne_zero_of_mul hleft
+  obtain ⟨_, r, hr, hsdegreeEq, _⟩ :=
+    GCD369CubeRationalPrimitiveRootCount s N B j hs hN hB hj hsdegree
+      hreduced hODE
+  have hNle : N.natDegree ≤ B.natDegree := by
+    by_contra hle
+    have hBN : B.natDegree < N.natDegree := Nat.lt_of_not_ge hle
+    have hswap := GCD369ReducedQuotientWronskianDegree B N hB hN hBN
+    have hWdegree : W.natDegree = B.natDegree + N.natDegree - 1 := by
+      calc
+        W.natDegree =
+            (-(derivative B * N - B * derivative N)).natDegree := by
+              congr 1
+              dsimp [W]
+              ring
+        _ = (derivative B * N - B * derivative N).natDegree := natDegree_neg _
+        _ = B.natDegree + N.natDegree - 1 := hswap
+    have hdegreeODE := congrArg natDegree hODE
+    rw [natDegree_mul hs hW, natDegree_mul hjC hB2, natDegree_C,
+      natDegree_pow, hWdegree] at hdegreeODE
+    simp only [zero_add] at hdegreeODE
+    omega
+  have hBdegree : 0 < B.natDegree := by
+    by_contra hpos
+    have hBzero : B.natDegree = 0 := Nat.eq_zero_of_not_pos hpos
+    have hNzero : N.natDegree = 0 := by omega
+    have hNderivative : derivative N = 0 := derivative_eq_zero.mpr hNzero
+    have hBderivative : derivative B = 0 := derivative_eq_zero.mpr hBzero
+    apply hW
+    dsimp [W]
+    rw [hNderivative, hBderivative]
+    simp
+  by_cases hlt : N.natDegree < B.natDegree
+  · obtain ⟨a, m, hm, hsform, hBform⟩ :=
+      GCD369CubeRationalPrimitiveOneRoot s N B j hs hN hB hj hsdegree hlt
+        hreduced hODE
+    exact ⟨a, m, hm, hsform, hBform⟩
+  · have heq : N.natDegree = B.natDegree := Nat.le_antisymm hNle (Nat.le_of_not_gt hlt)
+    let c : K := N.leadingCoeff / B.leadingCoeff
+    let A : K[X] := N - C c * B
+    have hNleading : N.leadingCoeff ≠ 0 := leadingCoeff_ne_zero.mpr hN
+    have hBleading : B.leadingCoeff ≠ 0 := leadingCoeff_ne_zero.mpr hB
+    have hc : c ≠ 0 := div_ne_zero hNleading hBleading
+    have hCB : C c * B ≠ (0 : K[X]) := mul_ne_zero (C_ne_zero.mpr hc) hB
+    have hdegrees : N.degree = (C c * B).degree := by
+      rw [degree_eq_natDegree hN, degree_C_mul hc, degree_eq_natDegree hB, heq]
+    have hleading : N.leadingCoeff = (C c * B).leadingCoeff := by
+      rw [leadingCoeff_mul, leadingCoeff_C]
+      dsimp [c]
+      field_simp
+    have hA : A ≠ 0 := by
+      intro hAzero
+      have hNform : N = C c * B := sub_eq_zero.mp (by simpa [A] using hAzero)
+      apply hW
+      dsimp [W]
+      rw [hNform]
+      simp only [derivative_mul, derivative_C, zero_mul, zero_add]
+      ring
+    have hAdegree : A.natDegree < B.natDegree := by
+      have hdegA : A.degree < N.degree := by
+        simpa [A] using degree_sub_lt_left hdegrees hN hleading
+      have hdegAB : A.degree < B.degree := hdegA.trans_eq (by
+        rw [degree_eq_natDegree hN, degree_eq_natDegree hB, heq])
+      exact natDegree_lt_natDegree hA hdegAB
+    have hAreduced : ∀ y : K, eval y A = 0 → eval y B ≠ 0 := by
+      intro y hAy hBy
+      apply hreduced y
+      dsimp [A] at hAy
+      simp only [eval_sub, eval_mul, eval_C] at hAy
+      rw [hBy, mul_zero, sub_zero] at hAy
+      exact hAy
+      exact hBy
+    have hWsame :
+        derivative A * B - A * derivative B =
+          derivative N * B - N * derivative B := by
+      dsimp [A]
+      simp only [derivative_sub, derivative_mul, derivative_C, zero_mul, zero_add]
+      ring
+    have hAODE : s * (derivative A * B - A * derivative B) = C j * B ^ 2 := by
+      rw [hWsame]
+      exact hODE
+    obtain ⟨a, m, hm, hsform, hBform⟩ :=
+      GCD369CubeRationalPrimitiveOneRoot s A B j hs hA hB hj hsdegree hAdegree
+        hAreduced hAODE
+    exact ⟨a, m, hm, hsform, hBform⟩
+
+/-- Polynomial Fermat--Catalan `(2,3,6)` closes the homogeneous model of the
+smooth mixed cube-core elliptic fibre.  Thus every reduced homogeneous
+rational parametrization of `72 V² = 3 A³ + 512 μ` is constant when
+`μ ≠ 0`. -/
+theorem GCD369CubeMixedEllipticConstancy {K : Type*} [Field K] [CharZero K]
+    (mu : K) (hmu : mu ≠ 0) (M N D : K[X])
+    (hM : M ≠ 0) (hN : N ≠ 0) (hD : D ≠ 0) (hMN : IsCoprime M N)
+    (hcurve :
+      C (72 : K) * M ^ 2 + C (-3 : K) * N ^ 3 + C (-512 * mu) * D ^ 6 = 0) :
+    M.natDegree = 0 ∧ N.natDegree = 0 ∧ D.natDegree = 0 := by
+  have h72 : (72 : K) ≠ 0 := by norm_num
+  have hneg3 : (-3 : K) ≠ 0 := by norm_num
+  have hnegmu : (-512 * mu : K) ≠ 0 := mul_ne_zero (by norm_num) hmu
+  have heq :
+      C (72 : K) * M ^ 2 + C (-3 : K) * N ^ 3 + C (-512 * mu) * D ^ 6 = 0 := by
+    exact hcurve
+  exact Polynomial.flt_catalan
+    (by norm_num : 2 ≠ 0) (by norm_num : 3 ≠ 0) (by norm_num : 6 ≠ 0)
+    (by norm_num : 3 * 6 + 6 * 2 + 2 * 3 ≤ 2 * 3 * 6)
+    (by norm_num : (2 : K) ≠ 0) (by norm_num : (3 : K) ≠ 0)
+    (by norm_num : (6 : K) ≠ 0) hM hN hD hMN h72 hneg3 hnegmu heq
+
+/-- The unmixed elliptic sheet has the same `(2,3,6)` obstruction in its
+homogeneous model `Y² = 3X³ + 4096 μ`. -/
+theorem GCD369CubeUnmixedEllipticConstancy {K : Type*} [Field K] [CharZero K]
+    (mu : K) (hmu : mu ≠ 0) (M N D : K[X])
+    (hM : M ≠ 0) (hN : N ≠ 0) (hD : D ≠ 0) (hMN : IsCoprime M N)
+    (hcurve :
+      C (1 : K) * M ^ 2 + C (-3 : K) * N ^ 3 + C (-4096 * mu) * D ^ 6 = 0) :
+    M.natDegree = 0 ∧ N.natDegree = 0 ∧ D.natDegree = 0 := by
+  have h1 : (1 : K) ≠ 0 := one_ne_zero
+  have hneg3 : (-3 : K) ≠ 0 := by norm_num
+  have hnegmu : (-4096 * mu : K) ≠ 0 := mul_ne_zero (by norm_num) hmu
+  have heq :
+      C (1 : K) * M ^ 2 + C (-3 : K) * N ^ 3 + C (-4096 * mu) * D ^ 6 = 0 := by
+    exact hcurve
+  exact Polynomial.flt_catalan
+    (by norm_num : 2 ≠ 0) (by norm_num : 3 ≠ 0) (by norm_num : 6 ≠ 0)
+    (by norm_num : 3 * 6 + 6 * 2 + 2 * 3 ≤ 2 * 3 * 6)
+    (by norm_num : (2 : K) ≠ 0) (by norm_num : (3 : K) ≠ 0)
+    (by norm_num : (6 : K) ≠ 0) hM hN hD hMN h1 hneg3 hnegmu heq
+
+/-- The cusp normalization from the mixed `(rho3,rho4)` fibre gives exactly
+the two-sided Laurent expression in the trajectory report. -/
+theorem GCD369CubeMixedCuspIdentity {K : Type*} [Field K] [CharZero K]
+    (lambda nu : K) (hlambda : lambda ≠ 0) :
+    let A := 24 * lambda ^ 2
+    let V := 24 * lambda ^ 3
+    72 * V ^ 2 - 3 * A ^ 3 = 0 ∧
+      A ^ 2 * V / 1024 - 256 * nu ^ 2 / (27 * A ^ 3) =
+        27 * lambda ^ 7 / 2 - nu ^ 2 / (1458 * lambda ^ 6) := by
+  dsimp
+  constructor
+  · ring
+  · field_simp
+    ring
+
+/-- After clearing the cusp denominator, the numerator has a nonzero value
+at zero and degree thirteen.  These certify the distinct zero and infinity
+pole places when `nu != 0`. -/
+theorem GCD369CubeMixedCuspPoleData {K : Type*} [Field K] [CharZero K]
+    (nu : K) (hnu : nu ≠ 0) :
+    let N : K[X] := C 19683 * X ^ 13 - C (nu ^ 2)
+    N.eval 0 ≠ 0 ∧ N.natDegree = 13 := by
+  dsimp
+  constructor
+  · simp [hnu]
+  · rw [natDegree_sub_eq_left_of_natDegree_lt]
+    · simp
+    · simp
+
+/-- The numerator and denominator obtained by substituting a reduced rational
+`lambda = LN/LB` into the mixed cusp function remain pointwise reduced. -/
+theorem GCD369CubeMixedCuspReducedPresentation {K : Type*}
+    [Field K] [CharZero K] (nu : K) (hnu : nu ≠ 0)
+    (LN LB : K[X]) (hLN : LN ≠ 0) (hLB : LB ≠ 0)
+    (hlambdaReduced : ∀ x : K, eval x LN = 0 → eval x LB ≠ 0) :
+    let P := C 19683 * LN ^ 13 - C (nu ^ 2) * LB ^ 13
+    let Q := C 1458 * LN ^ 6 * LB ^ 7
+    Q ≠ 0 ∧ (∀ x : K, eval x P = 0 → eval x Q ≠ 0) ∧
+      Q.natDegree = 6 * LN.natDegree + 7 * LB.natDegree := by
+  dsimp only
+  have hQ : C 1458 * LN ^ 6 * LB ^ 7 ≠ (0 : K[X]) :=
+    mul_ne_zero
+      (mul_ne_zero (C_ne_zero.mpr (by norm_num)) (pow_ne_zero _ hLN))
+      (pow_ne_zero _ hLB)
+  refine ⟨hQ, ?_, ?_⟩
+  · intro x hxP hxQ
+    simp only [eval_mul, eval_C, eval_pow] at hxQ
+    rcases mul_eq_zero.mp hxQ with hfirst | hxLBpow
+    · have hxLNpow : eval x LN ^ 6 = 0 :=
+        (mul_eq_zero.mp hfirst).resolve_left (by norm_num)
+      have hxLN : eval x LN = 0 :=
+        (pow_eq_zero_iff (by norm_num : 6 ≠ 0)).mp hxLNpow
+      have hxLB : eval x LB ≠ 0 := hlambdaReduced x hxLN
+      have hxP' : -(nu ^ 2 * eval x LB ^ 13) = 0 := by
+        simp only [eval_sub, eval_mul, eval_C, eval_pow] at hxP
+        rw [hxLN] at hxP
+        norm_num at hxP ⊢
+        exact hxP
+      exact (neg_ne_zero.mpr
+        (mul_ne_zero (pow_ne_zero _ hnu) (pow_ne_zero _ hxLB))) hxP'
+    · have hxLB : eval x LB = 0 :=
+        (pow_eq_zero_iff (by norm_num : 7 ≠ 0)).mp hxLBpow
+      have hxLN : eval x LN ≠ 0 := by
+        intro hxLNzero
+        exact hlambdaReduced x hxLNzero hxLB
+      have hxP' : (19683 : K) * eval x LN ^ 13 = 0 := by
+        simp only [eval_sub, eval_mul, eval_C, eval_pow] at hxP
+        rw [hxLB] at hxP
+        norm_num at hxP ⊢
+        exact hxP
+      exact (mul_ne_zero (by norm_num : (19683 : K) ≠ 0)
+        (pow_ne_zero _ hxLN)) hxP'
+  · rw [natDegree_mul
+      (mul_ne_zero (C_ne_zero.mpr (by norm_num)) (pow_ne_zero _ hLN))
+        (pow_ne_zero _ hLB),
+      natDegree_mul (C_ne_zero.mpr (by norm_num)) (pow_ne_zero _ hLN),
+      natDegree_C, natDegree_pow, natDegree_pow, zero_add]
+
+/-- The singular mixed fibre has no nonconstant polynomial-core terminal
+trajectory.  For a reduced `lambda = LN/LB`, the exact two-pole cusp function
+has numerator `19683 LN^13 - nu^2 LB^13` and denominator
+`1458 LN^6 LB^7`.  Rational exactness would force that denominator to have
+one finite root and its numerator not to grow at infinity; the two degree
+conditions force `LN` and `LB` to be constant, contradicting the nonzero
+terminal derivative. -/
+theorem GCD369CubeMixedCuspTerminalExclusion {K : Type*}
+    [Field K] [CharZero K] [IsAlgClosed K]
+    (nu j : K) (hnu : nu ≠ 0) (hj : j ≠ 0)
+    (s LN LB : K[X]) (hs : s ≠ 0) (hLN : LN ≠ 0) (hLB : LB ≠ 0)
+    (hsdegree : 0 < s.natDegree)
+    (hlambdaReduced : ∀ x : K, eval x LN = 0 → eval x LB ≠ 0)
+    (hODE :
+      let P := C 19683 * LN ^ 13 - C (nu ^ 2) * LB ^ 13
+      let Q := C 1458 * LN ^ 6 * LB ^ 7
+      s * (derivative P * Q - P * derivative Q) = C j * Q ^ 2) : False := by
+  let P : K[X] := C 19683 * LN ^ 13 - C (nu ^ 2) * LB ^ 13
+  let Q : K[X] := C 1458 * LN ^ 6 * LB ^ 7
+  change s * (derivative P * Q - P * derivative Q) = C j * Q ^ 2 at hODE
+  have hQ : Q ≠ 0 := by
+    dsimp [Q]
+    exact mul_ne_zero
+      (mul_ne_zero (C_ne_zero.mpr (by norm_num)) (pow_ne_zero _ hLN))
+      (pow_ne_zero _ hLB)
+  have hjC : C j ≠ (0 : K[X]) := C_ne_zero.mpr hj
+  have hQ2 : Q ^ 2 ≠ 0 := pow_ne_zero _ hQ
+  have hright : C j * Q ^ 2 ≠ 0 := mul_ne_zero hjC hQ2
+  have hP : P ≠ 0 := by
+    intro hPzero
+    rw [hPzero, derivative_zero, zero_mul, zero_mul, sub_zero, mul_zero] at hODE
+    exact hright hODE.symm
+  have hPred : ∀ x : K, eval x P = 0 → eval x Q ≠ 0 := by
+    intro x hxP hxQ
+    have hxQ' := hxQ
+    dsimp [Q] at hxQ'
+    simp only [eval_mul, eval_C, eval_pow] at hxQ'
+    rcases mul_eq_zero.mp hxQ' with hfirst | hxLBpow
+    · have hxLNpow : eval x LN ^ 6 = 0 :=
+        (mul_eq_zero.mp hfirst).resolve_left (by norm_num)
+      have hxLN : eval x LN = 0 :=
+          (pow_eq_zero_iff (by norm_num : 6 ≠ 0)).mp hxLNpow
+      have hxLB : eval x LB ≠ 0 := hlambdaReduced x hxLN
+      have hxLBpowNe : eval x LB ^ 13 ≠ 0 := pow_ne_zero _ hxLB
+      have hxP' : -(nu ^ 2 * eval x LB ^ 13) = 0 := by
+        dsimp [P] at hxP
+        simp only [eval_sub, eval_mul, eval_C, eval_pow] at hxP
+        rw [hxLN] at hxP
+        norm_num at hxP ⊢
+        exact hxP
+      exact (neg_ne_zero.mpr (mul_ne_zero (pow_ne_zero _ hnu) hxLBpowNe)) hxP'
+    · have hxLB : eval x LB = 0 :=
+        (pow_eq_zero_iff (by norm_num : 7 ≠ 0)).mp hxLBpow
+      have hxLN : eval x LN ≠ 0 := by
+        intro hxLNzero
+        exact hlambdaReduced x hxLNzero hxLB
+      have hxLNpowNe : eval x LN ^ 13 ≠ 0 := pow_ne_zero _ hxLN
+      have hxP' : (19683 : K) * eval x LN ^ 13 = 0 := by
+        dsimp [P] at hxP
+        simp only [eval_sub, eval_mul, eval_C, eval_pow] at hxP
+        rw [hxLB] at hxP
+        norm_num at hxP ⊢
+        exact hxP
+      exact (mul_ne_zero (by norm_num : (19683 : K) ≠ 0) hxLNpowNe) hxP'
+  have hdegreeLe : P.natDegree ≤ Q.natDegree :=
+    GCD369CubeRationalPrimitiveNumeratorDegreeLe s P Q j hs hP hQ hj hsdegree
+      hPred hODE
+  obtain ⟨a, m, hm, _, hQform⟩ :=
+    GCD369CubeRationalPrimitiveNonconstantCore s P Q j hs hP hQ hj hsdegree
+      hPred hODE
+  have h19683 : (19683 : K) ≠ 0 := by norm_num
+  have hnu2 : nu ^ 2 ≠ 0 := pow_ne_zero _ hnu
+  have h1458 : (1458 : K) ≠ 0 := by norm_num
+  have hleftTerm : C 19683 * LN ^ 13 ≠ (0 : K[X]) :=
+    mul_ne_zero (C_ne_zero.mpr h19683) (pow_ne_zero _ hLN)
+  have hrightTerm : C (nu ^ 2) * LB ^ 13 ≠ (0 : K[X]) :=
+    mul_ne_zero (C_ne_zero.mpr hnu2) (pow_ne_zero _ hLB)
+  have hQdegree : Q.natDegree = 6 * LN.natDegree + 7 * LB.natDegree := by
+    dsimp [Q]
+    rw [natDegree_mul
+      (mul_ne_zero (C_ne_zero.mpr h1458) (pow_ne_zero _ hLN)) (pow_ne_zero _ hLB),
+      natDegree_mul (C_ne_zero.mpr h1458) (pow_ne_zero _ hLN),
+      natDegree_C, natDegree_pow, natDegree_pow, zero_add]
+  have hLNle : LN.natDegree ≤ LB.natDegree := by
+    by_contra hle
+    have hlt : LB.natDegree < LN.natDegree := Nat.lt_of_not_ge hle
+    have htermDegrees :
+        (C (nu ^ 2) * LB ^ 13).natDegree < (C 19683 * LN ^ 13).natDegree := by
+      rw [natDegree_C_mul hnu2, natDegree_C_mul h19683,
+        natDegree_pow, natDegree_pow]
+      omega
+    have hPdegree : P.natDegree = 13 * LN.natDegree := by
+      dsimp [P]
+      rw [natDegree_sub_eq_left_of_natDegree_lt htermDegrees,
+        natDegree_C_mul h19683, natDegree_pow]
+    omega
+  have hLBle : LB.natDegree ≤ LN.natDegree := by
+    by_contra hle
+    have hlt : LN.natDegree < LB.natDegree := Nat.lt_of_not_ge hle
+    have htermDegrees :
+        (C 19683 * LN ^ 13).natDegree < (C (nu ^ 2) * LB ^ 13).natDegree := by
+      rw [natDegree_C_mul h19683, natDegree_C_mul hnu2,
+        natDegree_pow, natDegree_pow]
+      omega
+    have hPdegree : P.natDegree = 13 * LB.natDegree := by
+      dsimp [P]
+      rw [natDegree_sub_eq_right_of_natDegree_lt htermDegrees,
+        natDegree_C_mul hnu2, natDegree_pow]
+    omega
+  have hdegrees : LN.natDegree = LB.natDegree := Nat.le_antisymm hLNle hLBle
+  have hQrootUnique (x : K) (hxQ : Q.IsRoot x) : x = a := by
+    have hxQ' : eval x Q = 0 := hxQ
+    rw [hQform] at hxQ'
+    simp only [eval_mul, eval_C, eval_pow, eval_sub, eval_X] at hxQ'
+    have hlc : Q.leadingCoeff ≠ 0 := leadingCoeff_ne_zero.mpr hQ
+    have hxpow : (x - a) ^ (m - 1) = 0 :=
+      (mul_eq_zero.mp hxQ').resolve_left hlc
+    have hexponent : m - 1 ≠ 0 := by omega
+    exact sub_eq_zero.mp ((pow_eq_zero_iff hexponent).mp hxpow)
+  have hLNdegree : LN.natDegree = 0 := by
+    by_contra hpos
+    have hLNpos : 0 < LN.natDegree := Nat.pos_of_ne_zero hpos
+    have hLBpos : 0 < LB.natDegree := by omega
+    obtain ⟨x, hxLN⟩ := IsAlgClosed.exists_root LN
+      (ne_of_gt (natDegree_pos_iff_degree_pos.mp hLNpos))
+    obtain ⟨y, hyLB⟩ := IsAlgClosed.exists_root LB
+      (ne_of_gt (natDegree_pos_iff_degree_pos.mp hLBpos))
+    have hxQ : Q.IsRoot x := by
+      have hxLNeval : eval x LN = 0 := hxLN
+      dsimp [Q, IsRoot]
+      simp [hxLNeval]
+    have hyQ : Q.IsRoot y := by
+      have hyLBeval : eval y LB = 0 := hyLB
+      dsimp [Q, IsRoot]
+      simp [hyLBeval]
+    have hxa : x = a := hQrootUnique x hxQ
+    have hya : y = a := hQrootUnique y hyQ
+    have hxLB : LB.IsRoot x := by simpa [hxa, hya] using hyLB
+    exact hlambdaReduced x (by simpa [IsRoot] using hxLN)
+      (by simpa [IsRoot] using hxLB)
+  have hLBdegree : LB.natDegree = 0 := by omega
+  have hLNderivative : derivative LN = 0 := derivative_eq_zero.mpr hLNdegree
+  have hLBderivative : derivative LB = 0 := derivative_eq_zero.mpr hLBdegree
+  have hPderivative : derivative P = 0 := by
+    dsimp [P]
+    simp [derivative_sub, derivative_mul, derivative_pow, hLNderivative, hLBderivative]
+  have hQderivative : derivative Q = 0 := by
+    dsimp [Q]
+    simp [derivative_mul, derivative_pow, hLNderivative, hLBderivative]
+  rw [hPderivative, hQderivative, zero_mul, mul_zero, sub_zero, mul_zero] at hODE
+  exact hright hODE.symm
+
+/-- Constant polynomial cores cannot support the mixed cusp either: constant
+exactness forces an affine rational primitive, whereas the cusp denominator
+can be constant only when `lambda` itself is constant. -/
+theorem GCD369CubeMixedCuspConstantTerminalExclusion {K : Type*}
+    [Field K] [CharZero K] [IsAlgClosed K]
+    (nu j : K) (hnu : nu ≠ 0) (hj : j ≠ 0)
+    (s LN LB : K[X]) (hs : s ≠ 0) (hLN : LN ≠ 0) (hLB : LB ≠ 0)
+    (hsdegree : s.natDegree = 0)
+    (hlambdaReduced : ∀ x : K, eval x LN = 0 → eval x LB ≠ 0)
+    (hODE :
+      let P := C 19683 * LN ^ 13 - C (nu ^ 2) * LB ^ 13
+      let Q := C 1458 * LN ^ 6 * LB ^ 7
+      s * (derivative P * Q - P * derivative Q) = C j * Q ^ 2) : False := by
+  let P : K[X] := C 19683 * LN ^ 13 - C (nu ^ 2) * LB ^ 13
+  let Q : K[X] := C 1458 * LN ^ 6 * LB ^ 7
+  change s * (derivative P * Q - P * derivative Q) = C j * Q ^ 2 at hODE
+  obtain ⟨hQ, hPred, hQdegree⟩ :=
+    GCD369CubeMixedCuspReducedPresentation nu hnu LN LB hLN hLB hlambdaReduced
+  change Q ≠ 0 at hQ
+  change (∀ x : K, eval x P = 0 → eval x Q ≠ 0) at hPred
+  change Q.natDegree = 6 * LN.natDegree + 7 * LB.natDegree at hQdegree
+  have hjC : C j ≠ (0 : K[X]) := C_ne_zero.mpr hj
+  have hQ2 : Q ^ 2 ≠ 0 := pow_ne_zero _ hQ
+  have hright : C j * Q ^ 2 ≠ 0 := mul_ne_zero hjC hQ2
+  have hP : P ≠ 0 := by
+    intro hPzero
+    rw [hPzero, derivative_zero, zero_mul, zero_mul, sub_zero, mul_zero] at hODE
+    exact hright hODE.symm
+  obtain ⟨hQconstant, hPaffine⟩ :=
+    GCD369CubeRationalPrimitiveConstantCore s P Q j hs hP hQ hj hsdegree
+      hPred hODE
+  have hLNdegree : LN.natDegree = 0 := by omega
+  have hLBdegree : LB.natDegree = 0 := by omega
+  have hLNderivative : derivative LN = 0 := derivative_eq_zero.mpr hLNdegree
+  have hLBderivative : derivative LB = 0 := derivative_eq_zero.mpr hLBdegree
+  have hPderivative : derivative P = 0 := by
+    dsimp [P]
+    simp [derivative_sub, derivative_mul, derivative_pow, hLNderivative, hLBderivative]
+  have hPconstant : P.natDegree = 0 := derivative_eq_zero.mp hPderivative
+  omega
+
+/-- A nonconstant affine rational primitive cannot be a seventh power.  This
+is the constant-core DS terminal obstruction in reduced numerator/denominator
+form. -/
+theorem GCD369CubeDSConstantCoreTerminalExclusion {K : Type*}
+    [Field K] [CharZero K] [IsAlgClosed K]
+    (j : K) (hj : j ≠ 0) (s LN LB : K[X])
+    (hs : s ≠ 0) (hLN : LN ≠ 0) (hLB : LB ≠ 0)
+    (hsdegree : s.natDegree = 0)
+    (hlambdaReduced : ∀ x : K, eval x LN = 0 → eval x LB ≠ 0)
+    (hODE :
+      s * (derivative (LN ^ 7) * LB ^ 7 - LN ^ 7 * derivative (LB ^ 7)) =
+        C j * (LB ^ 7) ^ 2) : False := by
+  have hP : LN ^ 7 ≠ 0 := pow_ne_zero _ hLN
+  have hQ : LB ^ 7 ≠ 0 := pow_ne_zero _ hLB
+  have hReduced : ∀ x : K, eval x (LN ^ 7) = 0 → eval x (LB ^ 7) ≠ 0 := by
+    intro x hx
+    simp only [eval_pow] at hx ⊢
+    have hxLN : eval x LN = 0 :=
+      (pow_eq_zero_iff (by norm_num : 7 ≠ 0)).mp hx
+    exact pow_ne_zero _ (hlambdaReduced x hxLN)
+  obtain ⟨hQdegree, hPdegree⟩ :=
+    GCD369CubeRationalPrimitiveConstantCore s (LN ^ 7) (LB ^ 7) j
+      hs hP hQ hj hsdegree hReduced hODE
+  rw [natDegree_pow] at hQdegree hPdegree
+  omega
+
+/-- In the monomial-core DS branch, rational exactness forces the core
+exponent to be `1 mod 7`, exactly the arithmetic precursor to the original
+boundary-resultant exclusion. -/
+theorem GCD369CubeDSMonomialExponent {K : Type*}
+    [Field K] [CharZero K] [IsAlgClosed K]
+    (j : K) (hj : j ≠ 0) (s LN LB : K[X])
+    (hs : s ≠ 0) (hLN : LN ≠ 0) (hLB : LB ≠ 0)
+    (hsdegree : 0 < s.natDegree)
+    (hlambdaReduced : ∀ x : K, eval x LN = 0 → eval x LB ≠ 0)
+    (hODE :
+      s * (derivative (LN ^ 7) * LB ^ 7 - LN ^ 7 * derivative (LB ^ 7)) =
+        C j * (LB ^ 7) ^ 2) :
+    ∃ a : K, ∃ m : ℕ, 2 ≤ m ∧
+      s = C s.leadingCoeff * (X - C a) ^ m ∧ 7 ∣ m - 1 := by
+  have hP : LN ^ 7 ≠ 0 := pow_ne_zero _ hLN
+  have hQ : LB ^ 7 ≠ 0 := pow_ne_zero _ hLB
+  have hReduced : ∀ x : K, eval x (LN ^ 7) = 0 → eval x (LB ^ 7) ≠ 0 := by
+    intro x hx
+    simp only [eval_pow] at hx ⊢
+    have hxLN : eval x LN = 0 :=
+      (pow_eq_zero_iff (by norm_num : 7 ≠ 0)).mp hx
+    exact pow_ne_zero _ (hlambdaReduced x hxLN)
+  obtain ⟨a, m, hm, hsform, hQform⟩ :=
+    GCD369CubeRationalPrimitiveNonconstantCore s (LN ^ 7) (LB ^ 7) j
+      hs hP hQ hj hsdegree hReduced hODE
+  have hQdegree := congrArg natDegree hQform
+  rw [natDegree_pow, natDegree_C_mul (leadingCoeff_ne_zero.mpr hQ),
+    natDegree_pow, natDegree_X_sub_C] at hQdegree
+  simp only [mul_one] at hQdegree
+  refine ⟨a, m, hm, hsform, ?_⟩
+  exact ⟨LB.natDegree, hQdegree.symm⟩
+
+#print axioms GCD369CubeLowerRowTriangularity
+#print axioms GCD369CubeZeroSheetBracket
+#print axioms GCD369CubeDSBracket
+#print axioms GCD369CubeDSBoundaryBezout
+#print axioms GCD369CubeDoubleRootNormalObstruction
+#print axioms GCD369CubeExceptionalOrbitSquarefree
+#print axioms GCD369CubeConstantPoleDegreeAudit
+#print axioms GCD369CubeBoundaryWeightAudit
+#print axioms GCD369ReducedQuotientWronskianLocal
+#print axioms GCD369CubeRationalPrimitiveFinitePlace
+#print axioms GCD369CubeRationalPrimitiveRootCount
+#print axioms GCD369ReducedQuotientWronskianDegree
+#print axioms GCD369CubeRationalPrimitiveOneRoot
+#print axioms GCD369CubeRationalPrimitiveConstantCore
+#print axioms GCD369CubeRationalPrimitiveNumeratorDegreeLe
+#print axioms GCD369CubeRationalPrimitiveNonconstantCore
+#print axioms GCD369CubeMixedEllipticConstancy
+#print axioms GCD369CubeUnmixedEllipticConstancy
+#print axioms GCD369CubeMixedCuspIdentity
+#print axioms GCD369CubeMixedCuspPoleData
+#print axioms GCD369CubeMixedCuspReducedPresentation
+#print axioms GCD369CubeMixedCuspTerminalExclusion
+#print axioms GCD369CubeMixedCuspConstantTerminalExclusion
+#print axioms GCD369CubeDSConstantCoreTerminalExclusion
+#print axioms GCD369CubeDSMonomialExponent
