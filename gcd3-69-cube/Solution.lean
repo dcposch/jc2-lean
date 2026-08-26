@@ -2797,7 +2797,11 @@ theorem GCD369CubeC7Rows_of_faber
           1458 * u ^ 2 * Xn * Yn + 2916 * v * Xn * Zn +
           1458 * v * Yn ^ 2 + 1458 * u * Yn * Zn = 0 := by
     exact (mul_eq_zero.mp hf4).resolve_left (by norm_num)
-  exact ⟨hprojective, hr1, hr2, hr3, hr4⟩
+  refine ⟨hprojective, ?_, hr2, ?_, hr4⟩
+  · rw [GCD369CubeNormalRow1] at hr1
+    linear_combination hr1
+  · rw [GCD369CubeNormalRow3] at hr3
+    linear_combination hr3
 
 /-- The normalized first-`c5` Kuranishi rows. -/
 def GCD369CubeC5Rows {K : Type*} [Field K]
