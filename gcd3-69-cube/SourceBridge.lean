@@ -312,6 +312,14 @@ theorem commonRoot
   · exact constant_eq_zero_of_regular _ S.EF S.hEF S.hfregular
   · exact constant_eq_zero_of_regular _ S.EG S.hEG S.hgregular
 
+/-- A DS-leading original boundary source is impossible by the exact
+Bézout certificate for the normalized sextic and nonic. -/
+theorem empty
+    {K : Type u} [Field K] [CharZero K]
+    (S : GCD369CubeDSBoundarySource K) : False := by
+  obtain ⟨r, hf, hg⟩ := S.commonRoot
+  exact GCD369CubeDSBoundaryExclusion r hf hg
+
 end GCD369CubeDSBoundarySource
 
 /-! ## Exact handoff to the mixed later-invariant fibre -/
@@ -803,6 +811,7 @@ end GCD369CubeLaterInvariantSource
 #print axioms GCD369CubeEarlyFaberJetSource.toArbitraryLoad_or_allZero
 #print axioms GCD369CubeEarlyFaberBoundarySource.empty
 #print axioms GCD369CubeDSBoundarySource.commonRoot
+#print axioms GCD369CubeDSBoundarySource.empty
 #print axioms GCD369CubeLaterInvariantSource.mixedCoordinates
 #print axioms GCD369CubeLaterInvariantSource.mixedTerminalFormula
 #print axioms GCD369CubeLaterInvariantSource.mixedCuspCoordinates

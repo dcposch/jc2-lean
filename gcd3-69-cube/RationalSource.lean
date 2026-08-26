@@ -997,6 +997,70 @@ theorem empty
 
 end GCD369CubeLaterRatFuncTerminalSource
 
+/-! ## Exhaustive normalized pole source -/
+
+/-- Continuations of an actual common-cubic leading pole.  The ordered jet
+is fixed once; the caller must provide the early boundary continuation under
+the computed nonzero-weight hypothesis and the later invariant continuation
+under its complementary zero-weight hypothesis.  In particular the caller
+does not choose a landing branch. -/
+structure GCD369CubeCommonRatFuncTrajectorySource
+    (k : Type u) [Field k] (u v : k) where
+  jet : GCD369CubeEarlyFaberJetSource k
+  hjetu : jet.u = u
+  hjetv : jet.v = v
+  early : jet.firstWeight ≠ 0 → GCD369CubeEarlyFaberBoundarySource k
+  hearlyJet : ∀ hactive, (early hactive).jet = jet
+  later : jet.firstWeight = 0 → GCD369CubeLaterRatFuncTerminalSource k
+
+namespace GCD369CubeCommonRatFuncTrajectorySource
+
+/-- The computed first weight exhaustively routes a common-cubic pole to
+the already-closed early or later source. -/
+theorem empty
+    {k : Type u} [Field k] [CharZero k] [IsAlgClosed k] {u v : k}
+    (S : GCD369CubeCommonRatFuncTrajectorySource k u v) : False := by
+  by_cases hactive : S.jet.firstWeight ≠ 0
+  · exact (S.early hactive).empty
+  · exact (S.later (not_ne_iff.mp hactive)).empty
+
+end GCD369CubeCommonRatFuncTrajectorySource
+
+/-- A complete normalized pole source.  Its leading Faber equations are
+actual equations, so `toComponent` chooses common-cubic versus
+Davenport--Stothers internally.  Each continuation is conditional on the
+coordinates and equalities produced by that classification, rather than a
+caller-selected sum constructor. -/
+structure GCD369CubeRatFuncPoleSource (k : Type u) [Field k] where
+  leading : GCD369CubeLeadingFaberSource k
+  common : ∀ (u v : k) (hprojective : u ≠ 0 ∨ v ≠ 0)
+      (ha4 : leading.a4 = 2 * u) (ha3 : leading.a3 = 2 * v)
+      (ha2 : leading.a2 = u ^ 2) (ha1 : leading.a1 = 2 * u * v)
+      (ha0 : leading.a0 = v ^ 2),
+    GCD369CubeCommonRatFuncTrajectorySource k u v
+  davenportStothers : ∀ (lambda : k) (hlambda : lambda ≠ 0)
+      (ha4 : leading.a4 = 4 * lambda) (ha3 : leading.a3 = 0)
+      (ha2 : leading.a2 = 10 * lambda ^ 2) (ha1 : leading.a1 = 0)
+      (ha0 : leading.a0 = 6 * lambda ^ 3),
+    GCD369CubeDSBoundarySource k
+
+namespace GCD369CubeRatFuncPoleSource
+
+/-- Every complete normalized pole source is empty.  This is the final
+source-level composition of the exact leading classification, the automatic
+early-load router, the full later-invariant theorem, and the original DS
+boundary producer. -/
+theorem empty
+    {k : Type u} [Field k] [CharZero k] [IsAlgClosed k]
+    (S : GCD369CubeRatFuncPoleSource k) : False := by
+  cases S.leading.toComponent with
+  | common u v hprojective ha4 ha3 ha2 ha1 ha0 =>
+      exact (S.common u v hprojective ha4 ha3 ha2 ha1 ha0).empty
+  | davenportStothers lambda hlambda ha4 ha3 ha2 ha1 ha0 =>
+      exact (S.davenportStothers lambda hlambda ha4 ha3 ha2 ha1 ha0).empty
+
+end GCD369CubeRatFuncPoleSource
+
 #print axioms GCD369CubeRatFuncReducedPresentation
 #print axioms GCD369CubeRatFuncDerivative_div
 #print axioms GCD369CubeRatFuncDerivative_zero
@@ -1022,3 +1086,5 @@ end GCD369CubeLaterRatFuncTerminalSource
 #print axioms
   GCD369CubeLaterInvariantSource.unmixedEllipticRatFuncTerminalExclusion
 #print axioms GCD369CubeLaterRatFuncTerminalSource.empty
+#print axioms GCD369CubeCommonRatFuncTrajectorySource.empty
+#print axioms GCD369CubeRatFuncPoleSource.empty
