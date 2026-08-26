@@ -5043,7 +5043,8 @@ theorem GCD369CubeDSAllCoreTerminalExclusion {K : Type*}
 analysis.  Its constructors expose the original degree, boundary, Kuranishi,
 elliptic/cusp, bracket, and Davenport--Stothers data consumed by the branch
 proofs; there is no opaque admissibility predicate. -/
-inductive GCD369CubeTrajectoryLanding (K : Type*) [Field K] : Prop where
+inductive GCD369CubeTrajectoryLanding
+    (K : Type*) [Field K] [CharZero K] : Prop where
   | constantPole (D : GCD369CubeConstantPoleDegreeLanding)
   | earlyBoundary (D : GCD369CubeFaberEarlyBoundaryData K)
   | rhoFour
@@ -5131,7 +5132,7 @@ theorem GCD369CubeTrajectoryLandingEmpty {K : Type*}
   | constantPole D =>
       exact GCD369CubeConstantPoleDegreeLandingEmpty D
   | earlyBoundary D =>
-      exact GCD369CubeFaberEarlyBoundaryDataEmpty D
+      exact GCD369CubeFaberEarlyBoundaryDataEmpty (K := K) D
   | rhoFour Xn Yn Zn u v h1 h2 h3 h4 =>
       exact GCD369CubeRhoFourFirstLoadImpossible Xn Yn Zn u v h1 h2 h3 h4
   | terminalOnly Xn Yn Zn u v h1 h2 h3 h4 h5 =>
