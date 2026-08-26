@@ -207,6 +207,10 @@ theorem GCD369CubeFaberLeadingComponentEquations {K : Type*}
       4 * a0 - a3 ^ 2 = 0) ∨
     (a3 = 0 ∧ a1 = 0 ∧ 8 * a2 - 5 * a4 ^ 2 = 0 ∧
       20 * a0 - 3 * a2 * a4 = 0) := by
+  simp only [GCD369CubeFaberN1] at h1
+  simp only [GCD369CubeFaberN2] at h2
+  simp only [GCD369CubeFaberN3] at h3
+  simp only [GCD369CubeFaberN4] at h4
   have hrelpow : (a3 * a4 - 2 * a1) ^ 4 = 0 := by
     linear_combination
       (1 / 6 * a2 * a3 ^ 2 - 1 / 3 * a1 * a3 * a4 + 1 / 2 * a1 ^ 2) * h1 +
@@ -221,10 +225,12 @@ theorem GCD369CubeFaberLeadingComponentEquations {K : Type*}
   by_cases ha3 : a3 = 0
   · have ha1 : a1 = 0 := by
       linear_combination (-1 / 2) * hrel + (a4 / 2) * ha3
+    have h1zero := h1
+    rw [ha3, ha1] at h1zero
     have hfactor :
         A * (16 * a0 - 4 * a2 * a4 + a4 ^ 3) = 0 := by
       dsimp only [A]
-      linear_combination h1 - 8 * hrel
+      linear_combination h1zero
     by_cases hA : A = 0
     · have h3zero := h3
       rw [ha3, ha1] at h3zero
