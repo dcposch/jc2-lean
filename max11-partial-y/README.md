@@ -37,9 +37,11 @@ The frozen source and independent hostile review prove a larger mathematical
 composition: after the full `(6,9), 3 | H` leaf is excluded and the cited
 classical degree reductions are applied, every characteristic-zero Keller pair
 with maximum actual partial `y`-degree at most eleven is an automorphism.  This
-Lean extraction checks the complete finite recursion and frontier arithmetic.
-It does not encode bivariate Keller pairs, scalar-extension descent, the
-prime/2-prime total-degree theorems, or the cube-core trajectory closure.
+Lean extraction checks the complete finite recursion and frontier arithmetic,
+then instantiates the result for actual bivariate polynomials, their Jacobian,
+partial `y`-degree, and coordinate-ring generation.  It does not prove
+scalar-extension descent, the classical degree-route premises, or the global
+`(6,9)` leaf (including the cube-core trajectory closure).
 
 The source files are copied byte-for-byte under `sources/`:
 
