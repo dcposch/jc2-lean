@@ -2,6 +2,8 @@ import ArbitraryLoads
 
 noncomputable section
 
+open Polynomial
+
 universe u
 
 /-! # First source-to-trajectory bridge
@@ -253,6 +255,64 @@ theorem GCD369CubeEarlyFaberBoundarySource.empty
     apply S.hactive
     simp [GCD369CubeEarlyFaberJetSource.firstWeight, hd, hc7, hc5, hc4,
       hc2, hc1, hrho1, hrho2]
+
+/-! ## Original boundary on the Davenport--Stothers component -/
+
+/-- Leading source-boundary data at a Davenport--Stothers pole.  The two
+displayed constants are the leading normalized values of the original
+polynomials; `EF` and `EG` contain only strictly higher pole-order terms.
+Regularity of the original polynomial values therefore forces both leading
+constants to vanish. -/
+structure GCD369CubeDSBoundarySource (K : Type u) [Field K] where
+  r : K
+  EF : HahnSeries ℚ K
+  EG : HahnSeries ℚ K
+  hEF : (↑(0 : ℚ) : WithTop ℚ) < EF.orderTop
+  hEG : (↑(0 : ℚ) : WithTop ℚ) < EG.orderTop
+  hfregular : (↑(0 : ℚ) : WithTop ℚ) <
+    (HahnSeries.single 0
+        (eval r (X ^ 6 + C 4 * X ^ 4 + C 10 * X ^ 2 + C 6 : K[X])) +
+      EF).orderTop
+  hgregular : (↑(0 : ℚ) : WithTop ℚ) <
+    (HahnSeries.single 0
+        (eval r (X ^ 9 + C 6 * X ^ 7 + C 21 * X ^ 5 + C 35 * X ^ 3 +
+          C (63 / 2) * X : K[X])) + EG).orderTop
+
+namespace GCD369CubeDSBoundarySource
+
+/-- A constant Hahn leading term followed by strictly higher terms cannot
+have positive order unless that constant vanishes. -/
+private theorem constant_eq_zero_of_regular
+    {K : Type u} [Field K] (c : K) (E : HahnSeries ℚ K)
+    (hE : (↑(0 : ℚ) : WithTop ℚ) < E.orderTop)
+    (hregular : (↑(0 : ℚ) : WithTop ℚ) <
+      (HahnSeries.single 0 c + E).orderTop) : c = 0 := by
+  by_contra hc
+  have hsingle :
+      (HahnSeries.single 0 c : HahnSeries ℚ K).orderTop =
+        (↑(0 : ℚ) : WithTop ℚ) := by
+    exact HahnSeries.orderTop_single hc
+  have hlt :
+      (HahnSeries.single 0 c : HahnSeries ℚ K).orderTop < E.orderTop := by
+    rw [hsingle]
+    exact hE
+  have hsum := HahnSeries.orderTop_add_eq_left hlt
+  rw [hsum, hsingle] at hregular
+  exact (lt_irrefl _ hregular)
+
+/-- Original polynomial boundary regularity produces the common-root witness
+consumed by the exact DS terminal exclusion. -/
+theorem commonRoot
+    {K : Type u} [Field K] (S : GCD369CubeDSBoundarySource K) :
+    ∃ r : K,
+      eval r (X ^ 6 + C 4 * X ^ 4 + C 10 * X ^ 2 + C 6 : K[X]) = 0 ∧
+      eval r (X ^ 9 + C 6 * X ^ 7 + C 21 * X ^ 5 + C 35 * X ^ 3 +
+        C (63 / 2) * X : K[X]) = 0 := by
+  refine ⟨S.r, ?_, ?_⟩
+  · exact constant_eq_zero_of_regular _ S.EF S.hEF S.hfregular
+  · exact constant_eq_zero_of_regular _ S.EG S.hEG S.hgregular
+
+end GCD369CubeDSBoundarySource
 
 /-! ## Exact handoff to the mixed later-invariant fibre -/
 
@@ -742,6 +802,7 @@ end GCD369CubeLaterInvariantSource
 #print axioms GCD369CubeLeadingFaberSource.toComponent
 #print axioms GCD369CubeEarlyFaberJetSource.toArbitraryLoad_or_allZero
 #print axioms GCD369CubeEarlyFaberBoundarySource.empty
+#print axioms GCD369CubeDSBoundarySource.commonRoot
 #print axioms GCD369CubeLaterInvariantSource.mixedCoordinates
 #print axioms GCD369CubeLaterInvariantSource.mixedTerminalFormula
 #print axioms GCD369CubeLaterInvariantSource.mixedCuspCoordinates

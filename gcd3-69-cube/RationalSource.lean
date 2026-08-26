@@ -960,10 +960,7 @@ structure GCD369CubeLaterRatFuncTerminalSource
             faber.a0 faber.a1 faber.a2 faber.a3 faber.a4
               0 0 0 0 0 0 0) =
       algebraMap k (RatFunc k) j
-  hboundary : ∃ r : k,
-    eval r (X ^ 6 + C 4 * X ^ 4 + C 10 * X ^ 2 + C 6 : k[X]) = 0 ∧
-    eval r (X ^ 9 + C 6 * X ^ 7 + C 21 * X ^ 5 + C 35 * X ^ 3 +
-      C (63 / 2) * X : k[X]) = 0
+  boundary : GCD369CubeDSBoundarySource k
 
 namespace GCD369CubeLaterRatFuncTerminalSource
 
@@ -984,7 +981,7 @@ theorem empty
         rw [hmu, map_zero] at h
         linear_combination (1 / 6 : RatFunc k) * h
       exact S.faber.zeroInvariantRatFuncTerminalExclusion
-        S.j S.hj S.s S.hs hrho3 hrho4 S.hterminal S.hboundary
+        S.j S.hj S.s S.hs hrho3 hrho4 S.hterminal S.boundary.commonRoot
     · exact S.faber.unmixedEllipticRatFuncTerminalExclusion
         S.mu S.j hmu S.hj S.s S.hrho3const hrho4 S.hterminal
   · by_cases hmu : S.mu = 0
