@@ -90,6 +90,23 @@ theorem GCD369CubeRatFuncDerivative_C
   rw [GCD369CubeRatFuncDerivative_div (C c) 1 one_ne_zero]
   simp
 
+/-- The terminal Faber invariant commutes with embedding the base field into
+its rational-function field. -/
+theorem GCD369CubeFaberR5_C
+    {k : Type*} [Field k]
+    (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 : k) :
+    GCD369CubeFaberR5
+        (algebraMap k (RatFunc k) a0) (algebraMap k (RatFunc k) a1)
+        (algebraMap k (RatFunc k) a2) (algebraMap k (RatFunc k) a3)
+        (algebraMap k (RatFunc k) a4) (algebraMap k (RatFunc k) d)
+        (algebraMap k (RatFunc k) c7) (algebraMap k (RatFunc k) c5)
+        (algebraMap k (RatFunc k) c4) (algebraMap k (RatFunc k) c3)
+        (algebraMap k (RatFunc k) c2) (algebraMap k (RatFunc k) c1) =
+      algebraMap k (RatFunc k)
+        (GCD369CubeFaberR5 a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1) := by
+  dsimp only [GCD369CubeFaberR5]
+  simp only [map_add, map_sub, map_mul, map_pow, map_div₀, map_ofNat]
+
 set_option maxHeartbeats 4000000 in
 /-- A nonzero rational point on a nondegenerate `(2,3,6)` curve has a
 canonical weighted polynomial presentation.  The curve equation forces the
@@ -787,12 +804,142 @@ theorem unmixedEllipticCurveOfTerminal
     S.unmixedEllipticCoordinatesOfTerminal j hj s hrho4 hterminal
   exact ⟨ha3, ha1, hlinear, S.unmixedEllipticCurve hsheet⟩
 
+set_option maxHeartbeats 4000000 in
+/-- The surviving unmixed elliptic source sheet is terminally empty over
+`k(x)`.  Its weighted presentation and constancy are derived internally; a
+zero `Y` coordinate collapses directly to zero terminal value. -/
+theorem unmixedEllipticRatFuncTerminalExclusion
+    {k : Type*} [Field k] [CharZero k]
+    (S : GCD369CubeLaterInvariantSource (RatFunc k))
+    (mu j : k) (hmu : mu ≠ 0) (hj : j ≠ 0) (s : k[X])
+    (hrho3const : 6 * S.rho3 = algebraMap k (RatFunc k) mu)
+    (hrho4 : S.rho4 = 0)
+    (hterminal :
+      algebraMap k[X] (RatFunc k) s *
+          GCD369CubeRatFuncDerivative
+            (GCD369CubeFaberR5
+              S.a0 S.a1 S.a2 S.a3 S.a4 0 0 0 0 0 0 0) =
+        algebraMap k (RatFunc k) j) : False := by
+  have hmumap : algebraMap k (RatFunc k) mu ≠ 0 := by
+    rw [RatFunc.algebraMap_eq_C]
+    simpa using RatFunc.C_injective.ne hmu
+  have hjmap : algebraMap k (RatFunc k) j ≠ 0 := by
+    rw [RatFunc.algebraMap_eq_C]
+    simpa using RatFunc.C_injective.ne hj
+  let Xc : RatFunc k := 8 * S.a2 - 2 * S.a4 ^ 2
+  let Yc : RatFunc k := 3 * S.a4 * Xc
+  have helliptic :=
+    S.unmixedEllipticCurveOfTerminal j hj s hrho4 hterminal
+  dsimp only at helliptic
+  change S.a3 = 0 ∧ S.a1 = 0 ∧
+      (48 * S.a0 - 12 * S.a2 * S.a4 + 3 * S.a4 ^ 3 = 0) ∧
+      Yc ^ 2 = 3 * Xc ^ 3 + 4096 * (6 * S.rho3) at helliptic
+  rcases helliptic with ⟨ha3, ha1, hlinear, hcurveSource⟩
+  have hXc : Xc ≠ 0 := by
+    intro hX
+    have hY : Yc = 0 := by
+      dsimp only [Yc]
+      rw [hX]
+      ring
+    have hbad :
+        (4096 : RatFunc k) * algebraMap k (RatFunc k) mu = 0 := by
+      rw [hX, hY, hrho3const] at hcurveSource
+      simpa using hcurveSource.symm
+    exact (mul_ne_zero (by norm_num) hmumap) hbad
+  have hcurve :
+      algebraMap k (RatFunc k) (1 : k) * Yc ^ 2 +
+          algebraMap k (RatFunc k) (-3 : k) * Xc ^ 3 +
+          algebraMap k (RatFunc k) (-4096 * mu) = 0 := by
+    simp only [map_one, one_mul, map_neg, map_ofNat, map_mul]
+    rw [← hrho3const]
+    linear_combination hcurveSource
+  rcases eq_or_ne Yc 0 with hYc | hYc
+  · have ha4prod : S.a4 * Xc = 0 := by
+      dsimp only [Yc] at hYc
+      linear_combination (1 / 3 : RatFunc k) * hYc
+    have ha4 : S.a4 = 0 := (mul_eq_zero.mp ha4prod).resolve_right hXc
+    have ha0 : S.a0 = 0 := by
+      rw [ha4] at hlinear
+      linear_combination (1 / 48 : RatFunc k) * hlinear
+    have hr5zero :
+        GCD369CubeFaberR5
+            S.a0 S.a1 S.a2 S.a3 S.a4 0 0 0 0 0 0 0 = 0 := by
+      rw [ha0, ha1, ha3, ha4]
+      simp [GCD369CubeFaberR5]
+    rw [hr5zero, GCD369CubeRatFuncDerivative_zero, mul_zero] at hterminal
+    exact hjmap hterminal.symm
+  · obtain ⟨y0, x0, hYC, hXC⟩ :=
+      GCD369CubeRatFuncEllipticConstancyOfNonzero
+        (1 : k) (-3 : k) (-4096 * mu) one_ne_zero (by norm_num)
+          (mul_ne_zero (by norm_num) hmu) Yc Xc hYc hXc hcurve
+    have hx0 : x0 ≠ 0 := by
+      intro hx0
+      apply hXc
+      rw [hXC, hx0, map_zero]
+    have hx0map : algebraMap k (RatFunc k) x0 ≠ 0 := by
+      rw [RatFunc.algebraMap_eq_C]
+      simpa using RatFunc.C_injective.ne hx0
+    let a4b : k := y0 / (3 * x0)
+    have hYrel :
+        algebraMap k (RatFunc k) y0 =
+          3 * S.a4 * algebraMap k (RatFunc k) x0 := by
+      calc
+        algebraMap k (RatFunc k) y0 = Yc := hYC.symm
+        _ = 3 * S.a4 * Xc := rfl
+        _ = 3 * S.a4 * algebraMap k (RatFunc k) x0 := by rw [hXC]
+    have ha4C : S.a4 = algebraMap k (RatFunc k) a4b := by
+      dsimp only [a4b]
+      rw [map_div₀, map_mul, map_ofNat]
+      apply (eq_div_iff (mul_ne_zero (by norm_num) hx0map)).2
+      rw [hYrel]
+      ring
+    let a2b : k := (x0 + 2 * a4b ^ 2) / 8
+    have hXrel :
+        algebraMap k (RatFunc k) x0 =
+          8 * S.a2 - 2 * (algebraMap k (RatFunc k) a4b) ^ 2 := by
+      calc
+        algebraMap k (RatFunc k) x0 = Xc := hXC.symm
+        _ = 8 * S.a2 - 2 * S.a4 ^ 2 := rfl
+        _ = 8 * S.a2 - 2 * (algebraMap k (RatFunc k) a4b) ^ 2 := by
+          rw [ha4C]
+    have ha2base : 8 * a2b = x0 + 2 * a4b ^ 2 := by
+      dsimp only [a2b]
+      ring
+    have ha2map := congrArg (algebraMap k (RatFunc k)) ha2base
+    simp only [map_mul, map_add, map_pow, map_ofNat] at ha2map
+    have ha2C : S.a2 = algebraMap k (RatFunc k) a2b := by
+      linear_combination (-1 / 8 : RatFunc k) * hXrel +
+        (-1 / 8 : RatFunc k) * ha2map
+    let a0b : k := (12 * a2b * a4b - 3 * a4b ^ 3) / 48
+    have ha0base : 48 * a0b = 12 * a2b * a4b - 3 * a4b ^ 3 := by
+      dsimp only [a0b]
+      ring
+    have ha0map := congrArg (algebraMap k (RatFunc k)) ha0base
+    simp only [map_sub, map_mul, map_pow, map_ofNat] at ha0map
+    have ha0C : S.a0 = algebraMap k (RatFunc k) a0b := by
+      rw [ha2C, ha4C] at hlinear
+      linear_combination (1 / 48 : RatFunc k) * hlinear +
+        (-1 / 48 : RatFunc k) * ha0map
+    let r50 : k := GCD369CubeFaberR5
+      a0b 0 a2b 0 a4b 0 0 0 0 0 0 0
+    have hr5C :
+        GCD369CubeFaberR5
+            S.a0 S.a1 S.a2 S.a3 S.a4 0 0 0 0 0 0 0 =
+          algebraMap k (RatFunc k) r50 := by
+      rw [ha0C, ha1, ha2C, ha3, ha4C]
+      dsimp only [r50]
+      simpa only [map_zero] using
+        (GCD369CubeFaberR5_C a0b 0 a2b 0 a4b 0 0 0 0 0 0 0)
+    rw [hr5C, GCD369CubeRatFuncDerivative_C, mul_zero] at hterminal
+    exact hjmap hterminal.symm
+
 end GCD369CubeLaterInvariantSource
 
 #print axioms GCD369CubeRatFuncReducedPresentation
 #print axioms GCD369CubeRatFuncDerivative_div
 #print axioms GCD369CubeRatFuncDerivative_zero
 #print axioms GCD369CubeRatFuncDerivative_C
+#print axioms GCD369CubeFaberR5_C
 #print axioms GCD369CubeRatFuncWeightedPresentation
 #print axioms GCD369CubeRatFuncEllipticConstancy
 #print axioms GCD369CubeRatFuncEllipticConstancyOfNonzero
@@ -810,3 +957,5 @@ end GCD369CubeLaterInvariantSource
   GCD369CubeLaterInvariantSource.unmixedEllipticCoordinatesOfTerminal
 #print axioms
   GCD369CubeLaterInvariantSource.unmixedEllipticCurveOfTerminal
+#print axioms
+  GCD369CubeLaterInvariantSource.unmixedEllipticRatFuncTerminalExclusion
