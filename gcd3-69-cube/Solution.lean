@@ -181,6 +181,63 @@ theorem GCD369CubeDExceptionalSupport {K : Type*} [Field K] [CharZero K]
     2 * u ^ 6 - 90 * u ^ 3 * v ^ 2 + 135 * v ^ 4 = 0 := by
   linear_combination (-9 / 88 * v) * h1 + (3 / 176 * u) * h2 + (1 / 176) * h4
 
+/-- Every nonzero projective point on the normalized `d != 0` exceptional
+orbit has both common-cubic coordinates nonzero. -/
+theorem GCD369CubeDExceptionalCoordinatesNonzero
+    {K : Type*} [Field K] [CharZero K]
+    (u v : K) (hprojective : u ≠ 0 ∨ v ≠ 0)
+    (horbit : 2 * u ^ 6 - 90 * u ^ 3 * v ^ 2 + 135 * v ^ 4 = 0) :
+    u ≠ 0 ∧ v ≠ 0 := by
+  constructor
+  · intro hu
+    have hv4 : v ^ 4 = 0 := by
+      rw [hu] at horbit
+      norm_num at horbit ⊢
+      exact horbit
+    have hv : v = 0 := by
+      by_contra hv
+      exact (pow_ne_zero 4 hv) hv4
+    exact hprojective.elim (fun h => h hu) (fun h => h hv)
+  · intro hv
+    have hu6 : u ^ 6 = 0 := by
+      rw [hv] at horbit
+      norm_num at horbit ⊢
+      exact horbit
+    have hu : u = 0 := by
+      by_contra hu
+      exact (pow_ne_zero 6 hu) hu6
+    exact hprojective.elim (fun h => h hu) (fun h => h hv)
+
+/-- On the normalized `d != 0` exceptional landing, the full forced terminal
+coefficient cannot vanish on the `u != 0` chart.  Explicitly, vanishing would
+force `u^11 = 0`. -/
+theorem GCD369CubeDExceptionalTerminalNonzero
+    {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn u v : K) (hu : u ≠ 0)
+    (h1 :
+      729 * u * Xn ^ 2 - 1458 * Xn * Zn - 729 * Yn ^ 2 +
+          320 * u ^ 3 * v - 960 * v ^ 3 = 0)
+    (h2 :
+      -2187 * v * Xn ^ 2 - 4374 * u * Xn * Yn + 4374 * Yn * Zn +
+          64 * u ^ 5 - 1440 * u ^ 2 * v ^ 2 = 0)
+    (h4 :
+      19683 * u * v * Xn ^ 2 + 13122 * u ^ 2 * Xn * Yn -
+          26244 * v * Xn * Zn - 13122 * v * Yn ^ 2 -
+          13122 * u * Yn * Zn + 160 * u ^ 6 - 5760 * u ^ 3 * v ^ 2 +
+          6480 * v ^ 4 = 0) :
+    -729 * u ^ 3 * Xn ^ 2 + 2187 * v ^ 2 * Xn ^ 2 +
+        4374 * u * v * Xn * Yn + 1458 * u ^ 2 * Xn * Zn +
+        729 * u ^ 2 * Yn ^ 2 - 4374 * v * Yn * Zn +
+        320 * u ^ 5 * v - 2880 * u ^ 2 * v ^ 3 ≠ 0 := by
+  intro hterminal
+  have hu11 : u ^ 11 = 0 := by
+    linear_combination
+      (351 / 13376 * u ^ 5 * v + 1215 / 3344 * u ^ 2 * v ^ 3) * h1 +
+      (3 / 352 * u ^ 6 - 45 / 13376 * u ^ 3 * v ^ 2 - 405 / 3344 * v ^ 4) * h2 +
+      (1 / 352 * u ^ 5 - 45 / 1672 * u ^ 2 * v ^ 2) * h4 +
+      (1035 / 13376 * u ^ 3 * v - 405 / 3344 * v ^ 3) * hterminal
+  exact (pow_ne_zero 11 hu) hu11
+
 /-- The first retained `c7` load is supported on exactly the candidate
 projective divisor visible in its four Kuranishi rows. -/
 theorem GCD369CubeC7Support {K : Type*} [Field K] [CharZero K]
@@ -200,6 +257,39 @@ theorem GCD369CubeC7Support {K : Type*} [Field K] [CharZero K]
           1458 * v * Yn ^ 2 + 1458 * u * Yn * Zn = 0) :
     u * v * (u ^ 3 - 6 * v ^ 2) = 0 := by
   linear_combination (1 / 280 * v) * h1 + (1 / 560 * u) * h2 + (1 / 560) * h4
+
+/-- The full forced terminal coefficient on a first `c7` landing is nonzero
+at every nonzero projective common-cubic point. -/
+theorem GCD369CubeC7TerminalNonzero {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn u v : K) (hprojective : u ≠ 0 ∨ v ≠ 0)
+    (h1 :
+      56 * u ^ 4 - 1008 * u * v ^ 2 + 729 * u * Xn ^ 2 -
+          1458 * Xn * Zn - 729 * Yn ^ 2 = 0)
+    (h2 :
+      224 * u ^ 3 * v - 336 * v ^ 3 + 729 * v * Xn ^ 2 +
+          1458 * u * Xn * Yn - 1458 * Yn * Zn = 0)
+    (h4 :
+      224 * u ^ 4 * v - 1008 * u * v ^ 3 - 2187 * u * v * Xn ^ 2 -
+          1458 * u ^ 2 * Xn * Yn + 2916 * v * Xn * Zn +
+          1458 * v * Yn ^ 2 + 1458 * u * Yn * Zn = 0) :
+    112 * u ^ 6 - 5040 * u ^ 3 * v ^ 2 + 4536 * v ^ 4 -
+        2187 * u ^ 3 * Xn ^ 2 + 6561 * v ^ 2 * Xn ^ 2 +
+        13122 * u * v * Xn * Yn + 4374 * u ^ 2 * Xn * Zn +
+        2187 * u ^ 2 * Yn ^ 2 - 13122 * v * Yn * Zn ≠ 0 := by
+  intro hterminal
+  by_cases hu : u = 0
+  · have hv : v ≠ 0 := hprojective.resolve_left (fun h => h hu)
+    subst u
+    have hv4 : v ^ 4 = 0 := by
+      linear_combination (-1 / 840 * v) * h2 + (1 / 7560) * hterminal
+    exact (pow_ne_zero 4 hv) hv4
+  · have hu10 : u ^ 10 = 0 := by
+      linear_combination
+        (3 / 280 * u ^ 6 + 9 / 119 * u ^ 3 * v ^ 2 - 81 / 680 * v ^ 4) * h1 +
+        (27 / 595 * u ^ 4 * v + 243 / 1360 * u * v ^ 3) * h2 +
+        (369 / 4760 * u ^ 3 * v - 81 / 1360 * v ^ 3) * h4 +
+        (1 / 280 * u ^ 4 - 9 / 340 * u * v ^ 2) * hterminal
+    exact (pow_ne_zero 10 hu) hu10
 
 /-- The first retained `c5` load projects to
 `v * (u^3 - 3*v^2) = 0`. -/
@@ -221,6 +311,39 @@ theorem GCD369CubeC5Support {K : Type*} [Field K] [CharZero K]
     v * (u ^ 3 - 3 * v ^ 2) = 0 := by
   linear_combination (1 / 160 * v) * h1 + (3 / 320 * u) * h2 + (3 / 320) * h4
 
+/-- The full forced terminal coefficient on a first `c5` landing is nonzero
+at every nonzero projective common-cubic point. -/
+theorem GCD369CubeC5TerminalNonzero {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn u v : K) (hprojective : u ≠ 0 ∨ v ≠ 0)
+    (h1 :
+      40 * u ^ 3 - 360 * v ^ 2 + 243 * u * Xn ^ 2 -
+          486 * Xn * Zn - 243 * Yn ^ 2 = 0)
+    (h2 :
+      40 * u ^ 2 * v + 81 * v * Xn ^ 2 + 162 * u * Xn * Yn -
+          162 * Yn * Zn = 0)
+    (h4 :
+      40 * u ^ 3 * v - 80 * v ^ 3 - 243 * u * v * Xn ^ 2 -
+          162 * u ^ 2 * Xn * Yn + 324 * v * Xn * Zn +
+          162 * v * Yn ^ 2 + 162 * u * Yn * Zn = 0) :
+    8 * u ^ 5 - 240 * u ^ 2 * v ^ 2 - 81 * u ^ 3 * Xn ^ 2 +
+        243 * v ^ 2 * Xn ^ 2 + 486 * u * v * Xn * Yn +
+        162 * u ^ 2 * Xn * Zn + 81 * u ^ 2 * Yn ^ 2 -
+        486 * v * Yn * Zn ≠ 0 := by
+  intro hterminal
+  by_cases hu : u = 0
+  · have hv : v ≠ 0 := hprojective.resolve_left (fun h => h hu)
+    subst u
+    have hv3 : v ^ 3 = 0 := by
+      linear_combination (-1 / 480 * v) * h1 + (-1 / 320) * h4
+    exact (pow_ne_zero 3 hv) hv3
+  · have hu8 : u ^ 8 = 0 := by
+      linear_combination
+        (1 / 64 * u ^ 5 + 45 / 416 * u ^ 2 * v ^ 2) * h1 +
+        (171 / 1664 * u ^ 3 * v + 405 / 832 * v ^ 3) * h2 +
+        (405 / 1664 * u ^ 2 * v) * h4 +
+        (3 / 64 * u ^ 3 - 135 / 832 * v ^ 2) * hterminal
+    exact (pow_ne_zero 8 hu) hu8
+
 /-- The first retained `c4` load projects to
 `u * (u^3 - 18*v^2) = 0`. -/
 theorem GCD369CubeC4Support {K : Type*} [Field K] [CharZero K]
@@ -240,6 +363,37 @@ theorem GCD369CubeC4Support {K : Type*} [Field K] [CharZero K]
     u * (u ^ 3 - 18 * v ^ 2) = 0 := by
   linear_combination (-9 / 28 * v) * h1 + (1 / 56 * u) * h2 + (3 / 56) * h4
 
+/-- The full forced terminal coefficient on a first `c4` landing is nonzero
+at every nonzero projective common-cubic point. -/
+theorem GCD369CubeC4TerminalNonzero {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn u v : K) (hprojective : u ≠ 0 ∨ v ≠ 0)
+    (h1 : 32 * u * v - 27 * u * Xn ^ 2 + 54 * Xn * Zn + 27 * Yn ^ 2 = 0)
+    (h2 :
+      32 * u ^ 3 - 144 * v ^ 2 + 243 * v * Xn ^ 2 +
+          486 * u * Xn * Yn - 486 * Yn * Zn = 0)
+    (h4 :
+      8 * u ^ 4 - 96 * u * v ^ 2 - 243 * u * v * Xn ^ 2 -
+          162 * u ^ 2 * Xn * Yn + 324 * v * Xn * Zn +
+          162 * v * Yn ^ 2 + 162 * u * Yn * Zn = 0) :
+    32 * u ^ 3 * v - 64 * v ^ 3 + 27 * u ^ 3 * Xn ^ 2 -
+        81 * v ^ 2 * Xn ^ 2 - 162 * u * v * Xn * Yn -
+        54 * u ^ 2 * Xn * Zn - 27 * u ^ 2 * Yn ^ 2 +
+        162 * v * Yn * Zn ≠ 0 := by
+  intro hterminal
+  by_cases hu : u = 0
+  · have hv : v ≠ 0 := hprojective.resolve_left (fun h => h hu)
+    subst u
+    have hv3 : v ^ 3 = 0 := by
+      linear_combination (-1 / 336 * v) * h2 + (-1 / 112) * hterminal
+    exact (pow_ne_zero 3 hv) hv3
+  · have hu7 : u ^ 7 = 0 := by
+      linear_combination
+        (-9 / 154 * u ^ 3 * v + 81 / 154 * v ^ 3) * h1 +
+        (1 / 56 * u ^ 4 + 9 / 154 * u * v ^ 2) * h2 +
+        (3 / 56 * u ^ 3 - 27 / 308 * v ^ 2) * h4 +
+        (81 / 308 * u * v) * hterminal
+    exact (pow_ne_zero 7 hu) hu7
+
 /-- The first retained `c2` load projects to `u^3 - 9*v^2 = 0`. -/
 theorem GCD369CubeC2Support {K : Type*} [Field K] [CharZero K]
     (Xn Yn Zn u v : K)
@@ -258,6 +412,35 @@ theorem GCD369CubeC2Support {K : Type*} [Field K] [CharZero K]
     u ^ 3 - 9 * v ^ 2 = 0 := by
   linear_combination (9 / 20 * v) * h1 + (3 / 40 * u) * h2 + (1 / 40) * h4
 
+/-- The full forced terminal coefficient on a first `c2` landing is nonzero
+at every nonzero projective common-cubic point. -/
+theorem GCD369CubeC2TerminalNonzero {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn u v : K) (hprojective : u ≠ 0 ∨ v ≠ 0)
+    (h1 : -16 * v + 9 * u * Xn ^ 2 - 18 * Xn * Zn - 9 * Yn ^ 2 = 0)
+    (h2 :
+      8 * u ^ 2 + 27 * v * Xn ^ 2 + 54 * u * Xn * Yn -
+          54 * Yn * Zn = 0)
+    (h4 :
+      16 * u ^ 3 - 72 * v ^ 2 - 243 * u * v * Xn ^ 2 -
+          162 * u ^ 2 * Xn * Yn + 324 * v * Xn * Zn +
+          162 * v * Yn ^ 2 + 162 * u * Yn * Zn = 0) :
+    16 * u ^ 2 * v + 9 * u ^ 3 * Xn ^ 2 - 27 * v ^ 2 * Xn ^ 2 -
+        54 * u * v * Xn * Yn - 18 * u ^ 2 * Xn * Zn -
+        9 * u ^ 2 * Yn ^ 2 + 54 * v * Yn * Zn ≠ 0 := by
+  intro hterminal
+  by_cases hu : u = 0
+  · have hv : v ≠ 0 := hprojective.resolve_left (fun h => h hu)
+    subst u
+    have hv2 : v ^ 2 = 0 := by
+      linear_combination (-1 / 20 * v) * h1 + (-1 / 360) * h4
+    exact (pow_ne_zero 2 hv) hv2
+  · have hu5 : u ^ 5 = 0 := by
+      linear_combination
+        (9 / 40 * u ^ 2 * v) * h1 +
+        (3 / 40 * u ^ 3 + 9 / 40 * v ^ 2) * h2 +
+        (1 / 40 * u ^ 2) * h4 + (9 / 40 * v) * hterminal
+    exact (pow_ne_zero 5 hu) hu5
+
 /-- The first retained `c1` load projects to the two coordinate axes
 `u*v = 0`. -/
 theorem GCD369CubeC1Support {K : Type*} [Field K] [CharZero K]
@@ -273,6 +456,34 @@ theorem GCD369CubeC1Support {K : Type*} [Field K] [CharZero K]
           36 * v * Xn * Zn - 18 * v * Yn ^ 2 - 18 * u * Yn * Zn = 0) :
     u * v = 0 := by
   linear_combination (1 / 16 * v) * h1 + (-1 / 32 * u) * h2 + (1 / 32) * h4
+
+/-- The full forced terminal coefficient on a first `c1` landing is nonzero
+at every nonzero projective common-cubic point. -/
+theorem GCD369CubeC1TerminalNonzero {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn u v : K) (hprojective : u ≠ 0 ∨ v ≠ 0)
+    (h1 : 8 * u - 9 * u * Xn ^ 2 + 18 * Xn * Zn + 9 * Yn ^ 2 = 0)
+    (h2 :
+      -8 * v + 9 * v * Xn ^ 2 + 18 * u * Xn * Yn - 18 * Yn * Zn = 0)
+    (h4 :
+      8 * u * v + 27 * u * v * Xn ^ 2 + 18 * u ^ 2 * Xn * Yn -
+          36 * v * Xn * Zn - 18 * v * Yn ^ 2 - 18 * u * Yn * Zn = 0) :
+    8 * u ^ 3 - 72 * v ^ 2 + 27 * u ^ 3 * Xn ^ 2 -
+        81 * v ^ 2 * Xn ^ 2 - 162 * u * v * Xn * Yn -
+        54 * u ^ 2 * Xn * Zn - 27 * u ^ 2 * Yn ^ 2 +
+        162 * v * Yn * Zn ≠ 0 := by
+  intro hterminal
+  by_cases hu : u = 0
+  · have hv : v ≠ 0 := hprojective.resolve_left (fun h => h hu)
+    subst u
+    have hv2 : v ^ 2 = 0 := by
+      linear_combination (-1 / 16 * v) * h2 + (-1 / 144) * hterminal
+    exact (pow_ne_zero 2 hv) hv2
+  · have hu4 : u ^ 4 = 0 := by
+      linear_combination
+        (3 / 32 * u ^ 3 + 9 / 32 * v ^ 2) * h1 +
+        (9 / 64 * u * v) * h2 + (9 / 64 * v) * h4 +
+        (1 / 32 * u) * hterminal
+    exact (pow_ne_zero 4 hu) hu4
 
 /-- With all high constants zero, a first `rho1` load forces `v = 0`. -/
 theorem GCD369CubeRhoOneSupport {K : Type*} [Field K] [CharZero K]
@@ -290,6 +501,31 @@ theorem GCD369CubeRhoOneSupport {K : Type*} [Field K] [CharZero K]
   linear_combination (1 / 1944 * v) * h1 + (-1 / 11664 * u) * h2 +
     (-1 / 34992) * h4
 
+/-- On a projective first-`rho1` landing, the quadratic terminal coefficient
+is nonzero.  The support equation forces `v=0`, after which the first row
+identifies it with `1944*u^2`. -/
+theorem GCD369CubeRhoOneTerminalNonzero {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn u v : K) (hprojective : u ≠ 0 ∨ v ≠ 0)
+    (h1 : 729 * u * Xn ^ 2 - 1458 * Xn * Zn - 729 * Yn ^ 2 + 1944 = 0)
+    (h2 : -2187 * v * Xn ^ 2 - 4374 * u * Xn * Yn + 4374 * Yn * Zn = 0)
+    (h3 :
+      2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+          2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0)
+    (h4 :
+      19683 * u * v * Xn ^ 2 + 13122 * u ^ 2 * Xn * Yn -
+          26244 * v * Xn * Zn - 13122 * v * Yn ^ 2 -
+          13122 * u * Yn * Zn = 0) :
+    -729 * u ^ 3 * Xn ^ 2 + 2187 * v ^ 2 * Xn ^ 2 +
+        4374 * u * v * Xn * Yn + 1458 * u ^ 2 * Xn * Zn +
+        729 * u ^ 2 * Yn ^ 2 - 4374 * v * Yn * Zn ≠ 0 := by
+  intro hterminal
+  have hv : v = 0 := GCD369CubeRhoOneSupport Xn Yn Zn u v h1 h2 h3 h4
+  have hu : u ≠ 0 := hprojective.resolve_right (fun h => h hv)
+  subst v
+  have hu2 : u ^ 2 = 0 := by
+    linear_combination (1 / 1944 * u ^ 2) * h1 + (1 / 1944) * hterminal
+  exact (pow_ne_zero 2 hu) hu2
+
 /-- With all high constants zero, a first `rho2` load forces `u = 0`. -/
 theorem GCD369CubeRhoTwoSupport {K : Type*} [Field K] [CharZero K]
     (Xn Yn Zn u v : K)
@@ -306,6 +542,32 @@ theorem GCD369CubeRhoTwoSupport {K : Type*} [Field K] [CharZero K]
     u = 0 := by
   linear_combination (1 / 972 * v) * h1 + (-1 / 5832 * u) * h2 +
     (-1 / 17496) * h4
+
+/-- On a projective first-`rho2` landing, the quadratic terminal coefficient
+is nonzero.  The support equation forces `u=0`, after which the second row
+identifies it with `-5832*v`. -/
+theorem GCD369CubeRhoTwoTerminalNonzero {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn u v : K) (hprojective : u ≠ 0 ∨ v ≠ 0)
+    (h1 : 729 * u * Xn ^ 2 - 1458 * Xn * Zn - 729 * Yn ^ 2 = 0)
+    (h2 :
+      -2187 * v * Xn ^ 2 - 4374 * u * Xn * Yn + 4374 * Yn * Zn - 5832 = 0)
+    (h3 :
+      2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+          2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0)
+    (h4 :
+      19683 * u * v * Xn ^ 2 + 13122 * u ^ 2 * Xn * Yn -
+          26244 * v * Xn * Zn - 13122 * v * Yn ^ 2 -
+          13122 * u * Yn * Zn = 0) :
+    -729 * u ^ 3 * Xn ^ 2 + 2187 * v ^ 2 * Xn ^ 2 +
+        4374 * u * v * Xn * Yn + 1458 * u ^ 2 * Xn * Zn +
+        729 * u ^ 2 * Yn ^ 2 - 4374 * v * Yn * Zn ≠ 0 := by
+  intro hterminal
+  have hu : u = 0 := GCD369CubeRhoTwoSupport Xn Yn Zn u v h1 h2 h3 h4
+  have hv : v ≠ 0 := hprojective.resolve_left (fun h => h hu)
+  subst u
+  have hv0 : v = 0 := by
+    linear_combination (-1 / 5832 * v) * h2 + (-1 / 5832) * hterminal
+  exact hv hv0
 
 /-- A first `rho4` load has no common quadratic landing.  The displayed
 contradiction is the exact unit-ideal certificate from the Kuranishi replay. -/
@@ -1342,13 +1604,22 @@ theorem GCD369CubeDSMonomialExponent {K : Type*}
 #print axioms GCD369CubeDoubleRootNormalObstruction
 #print axioms GCD369CubeExceptionalOrbitSquarefree
 #print axioms GCD369CubeDExceptionalSupport
+#print axioms GCD369CubeDExceptionalCoordinatesNonzero
+#print axioms GCD369CubeDExceptionalTerminalNonzero
 #print axioms GCD369CubeC7Support
+#print axioms GCD369CubeC7TerminalNonzero
 #print axioms GCD369CubeC5Support
+#print axioms GCD369CubeC5TerminalNonzero
 #print axioms GCD369CubeC4Support
+#print axioms GCD369CubeC4TerminalNonzero
 #print axioms GCD369CubeC2Support
+#print axioms GCD369CubeC2TerminalNonzero
 #print axioms GCD369CubeC1Support
+#print axioms GCD369CubeC1TerminalNonzero
 #print axioms GCD369CubeRhoOneSupport
+#print axioms GCD369CubeRhoOneTerminalNonzero
 #print axioms GCD369CubeRhoTwoSupport
+#print axioms GCD369CubeRhoTwoTerminalNonzero
 #print axioms GCD369CubeRhoFourFirstLoadImpossible
 #print axioms GCD369CubeTerminalOnlyQuadraticImpossible
 #print axioms GCD369CubeConstantPoleDegreeAudit
