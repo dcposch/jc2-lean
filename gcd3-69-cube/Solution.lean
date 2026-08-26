@@ -68,6 +68,19 @@ theorem GCD369CubeZeroSheetBracket {K : Type*} [Field K] [CharZero K]
   norm_num [C_div, C_mul, C_ofNat, C_eq_natCast]
   ring_nf
 
+/-- The common-power terminal sheet cannot carry the required nonzero source
+bracket, for any moving cubic or constant deformation. -/
+theorem GCD369CubeZeroSheetTerminalExclusion
+    {K : Type*} [Field K] [CharZero K]
+    (Kpoly Kdot : K[X]) (eta : K)
+    (hterminal :
+      let f := Kpoly ^ 2 + C eta
+      let g := Kpoly ^ 3 + C (3 * eta / 2) * Kpoly
+      let fdot := C 2 * Kpoly * Kdot
+      let gdot := (C 3 * Kpoly ^ 2 + C (3 * eta / 2)) * Kdot
+      fdot * derivative g - derivative f * gdot ≠ 0) : False := by
+  exact hterminal (GCD369CubeZeroSheetBracket Kpoly Kdot eta)
+
 /-- The normalized Davenport--Stothers trajectory has the exact nonzero
 bracket used by the cube-core terminal analysis. -/
 theorem GCD369CubeDSBracket {K : Type*} [Field K] [CharZero K] (lambda : K) :
@@ -125,6 +138,18 @@ theorem GCD369CubeDSBoundaryBezout {K : Type*} [Field K] [CharZero K] :
     simp only [eval_add, eval_mul, eval_neg, hf, hg, mul_zero, add_zero,
       eval_C] at hbez
     norm_num at hbez
+
+/-- The normalized Davenport--Stothers leading pair has no common boundary
+value.  This is the source-value form of the Bezout certificate. -/
+theorem GCD369CubeDSBoundaryExclusion {K : Type*} [Field K] [CharZero K]
+    (r : K)
+    (hf : eval r
+      (X ^ 6 + C 4 * X ^ 4 + C 10 * X ^ 2 + C 6 : K[X]) = 0)
+    (hg : eval r
+      (X ^ 9 + C 6 * X ^ 7 + C 21 * X ^ 5 + C 35 * X ^ 3 +
+        C (63 / 2) * X : K[X]) = 0) :
+    False := by
+  exact (GCD369CubeDSBoundaryBezout (K := K)).2 r hf hg
 
 /-- The unique double-root projective normal has an unavoidable third
 invariant coefficient `-1/16`, independently of every next coefficient. -/
@@ -2428,6 +2453,36 @@ theorem GCD369CubeUnmixedEllipticConstancy {K : Type*} [Field K] [CharZero K]
     (by norm_num : (2 : K) ≠ 0) (by norm_num : (3 : K) ≠ 0)
     (by norm_num : (6 : K) ≠ 0) hM hN hD hMN h1 hneg3 hnegmu heq
 
+/-- A smooth mixed terminal fibre cannot carry a nonconstant rational
+coefficient path. -/
+theorem GCD369CubeMixedEllipticTerminalExclusion
+    {K : Type*} [Field K] [CharZero K]
+    (mu : K) (hmu : mu ≠ 0) (M N D : K[X])
+    (hM : M ≠ 0) (hN : N ≠ 0) (hD : D ≠ 0) (hMN : IsCoprime M N)
+    (hcurve :
+      C (72 : K) * M ^ 2 + C (-3 : K) * N ^ 3 +
+        C (-512 * mu) * D ^ 6 = 0)
+    (hnonconstant : ¬
+      (M.natDegree = 0 ∧ N.natDegree = 0 ∧ D.natDegree = 0)) :
+    False := by
+  exact hnonconstant
+    (GCD369CubeMixedEllipticConstancy mu hmu M N D hM hN hD hMN hcurve)
+
+/-- A smooth unmixed terminal fibre cannot carry a nonconstant rational
+coefficient path. -/
+theorem GCD369CubeUnmixedEllipticTerminalExclusion
+    {K : Type*} [Field K] [CharZero K]
+    (mu : K) (hmu : mu ≠ 0) (M N D : K[X])
+    (hM : M ≠ 0) (hN : N ≠ 0) (hD : D ≠ 0) (hMN : IsCoprime M N)
+    (hcurve :
+      C (1 : K) * M ^ 2 + C (-3 : K) * N ^ 3 +
+        C (-4096 * mu) * D ^ 6 = 0)
+    (hnonconstant : ¬
+      (M.natDegree = 0 ∧ N.natDegree = 0 ∧ D.natDegree = 0)) :
+    False := by
+  exact hnonconstant
+    (GCD369CubeUnmixedEllipticConstancy mu hmu M N D hM hN hD hMN hcurve)
+
 /-- The cusp normalization from the mixed `(rho3,rho4)` fibre gives exactly
 the two-sided Laurent expression in the trajectory report. -/
 theorem GCD369CubeMixedCuspIdentity {K : Type*} [Field K] [CharZero K]
@@ -2699,6 +2754,24 @@ theorem GCD369CubeMixedCuspConstantTerminalExclusion {K : Type*}
   have hPconstant : P.natDegree = 0 := derivative_eq_zero.mp hPderivative
   omega
 
+/-- The mixed cusp terminal fibre is empty for every nonzero polynomial core,
+without asking the caller to split constant from positive degree. -/
+theorem GCD369CubeMixedCuspAllCoreTerminalExclusion {K : Type*}
+    [Field K] [CharZero K] [IsAlgClosed K]
+    (nu j : K) (hnu : nu ≠ 0) (hj : j ≠ 0)
+    (s LN LB : K[X]) (hs : s ≠ 0) (hLN : LN ≠ 0) (hLB : LB ≠ 0)
+    (hlambdaReduced : ∀ x : K, eval x LN = 0 → eval x LB ≠ 0)
+    (hODE :
+      let P := C 19683 * LN ^ 13 - C (nu ^ 2) * LB ^ 13
+      let Q := C 1458 * LN ^ 6 * LB ^ 7
+      s * (derivative P * Q - P * derivative Q) = C j * Q ^ 2) : False := by
+  by_cases hsdegree : s.natDegree = 0
+  · exact GCD369CubeMixedCuspConstantTerminalExclusion
+      nu j hnu hj s LN LB hs hLN hLB hsdegree hlambdaReduced hODE
+  · exact GCD369CubeMixedCuspTerminalExclusion
+      nu j hnu hj s LN LB hs hLN hLB (Nat.pos_of_ne_zero hsdegree)
+        hlambdaReduced hODE
+
 /-- A nonconstant affine rational primitive cannot be a seventh power.  This
 is the constant-core DS terminal obstruction in reduced numerator/denominator
 form. -/
@@ -2757,10 +2830,37 @@ theorem GCD369CubeDSMonomialExponent {K : Type*}
   refine ⟨a, m, hm, hsform, ?_⟩
   exact ⟨LB.natDegree, hQdegree.symm⟩
 
+/-- The complete normalized Davenport--Stothers terminal alternative is
+empty once the original source boundary is retained.  Constant cores fail
+the seventh-power exactness theorem; positive-degree cores first acquire the
+one-place exponent and then fail the common-boundary Bezout certificate. -/
+theorem GCD369CubeDSAllCoreTerminalExclusion {K : Type*}
+    [Field K] [CharZero K] [IsAlgClosed K]
+    (j : K) (hj : j ≠ 0) (s LN LB : K[X])
+    (hs : s ≠ 0) (hLN : LN ≠ 0) (hLB : LB ≠ 0)
+    (hlambdaReduced : ∀ x : K, eval x LN = 0 → eval x LB ≠ 0)
+    (hODE :
+      s * (derivative (LN ^ 7) * LB ^ 7 - LN ^ 7 * derivative (LB ^ 7)) =
+        C j * (LB ^ 7) ^ 2)
+    (hboundary : ∃ r : K,
+      eval r (X ^ 6 + C 4 * X ^ 4 + C 10 * X ^ 2 + C 6 : K[X]) = 0 ∧
+      eval r (X ^ 9 + C 6 * X ^ 7 + C 21 * X ^ 5 + C 35 * X ^ 3 +
+        C (63 / 2) * X : K[X]) = 0) : False := by
+  by_cases hsdegree : s.natDegree = 0
+  · exact GCD369CubeDSConstantCoreTerminalExclusion
+      j hj s LN LB hs hLN hLB hsdegree hlambdaReduced hODE
+  · obtain ⟨_a, _m, _hm, _hsform, _hexponent⟩ :=
+      GCD369CubeDSMonomialExponent j hj s LN LB hs hLN hLB
+        (Nat.pos_of_ne_zero hsdegree) hlambdaReduced hODE
+    obtain ⟨r, hf, hg⟩ := hboundary
+    exact GCD369CubeDSBoundaryExclusion r hf hg
+
 #print axioms GCD369CubeLowerRowTriangularity
 #print axioms GCD369CubeZeroSheetBracket
+#print axioms GCD369CubeZeroSheetTerminalExclusion
 #print axioms GCD369CubeDSBracket
 #print axioms GCD369CubeDSBoundaryBezout
+#print axioms GCD369CubeDSBoundaryExclusion
 #print axioms GCD369CubeDoubleRootNormalObstruction
 #print axioms GCD369CubeExceptionalOrbitSquarefree
 #print axioms GCD369CubeDExceptionalSupport
@@ -2823,10 +2923,14 @@ theorem GCD369CubeDSMonomialExponent {K : Type*}
 #print axioms GCD369CubeRationalPrimitiveNonconstantCore
 #print axioms GCD369CubeMixedEllipticConstancy
 #print axioms GCD369CubeUnmixedEllipticConstancy
+#print axioms GCD369CubeMixedEllipticTerminalExclusion
+#print axioms GCD369CubeUnmixedEllipticTerminalExclusion
 #print axioms GCD369CubeMixedCuspIdentity
 #print axioms GCD369CubeMixedCuspPoleData
 #print axioms GCD369CubeMixedCuspReducedPresentation
 #print axioms GCD369CubeMixedCuspTerminalExclusion
 #print axioms GCD369CubeMixedCuspConstantTerminalExclusion
+#print axioms GCD369CubeMixedCuspAllCoreTerminalExclusion
 #print axioms GCD369CubeDSConstantCoreTerminalExclusion
 #print axioms GCD369CubeDSMonomialExponent
+#print axioms GCD369CubeDSAllCoreTerminalExclusion
