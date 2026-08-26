@@ -116,8 +116,8 @@ status:
     the Kummer data are constructed directly from the polynomial core; the
     canonical differential extension satisfies the differentiated root
     equation and every deck automorphism commutes with the derivative;
-    standard differentiation on the rational function field has precisely
-    the ground-field constants;
+    the standard quotient-rule differential structure is constructed on the
+    rational function field and has precisely the ground-field constants;
     algebraic differential extensions do not enlarge an algebraically closed
     constant field, so every base-fixing deck automorphism fixes constants;
     extraction of all four lower rows from
@@ -133,6 +133,11 @@ status:
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
   main_results:
+    - declaration: "GCD369RatFuncStandardDifferential"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
     - declaration: "GCD369RatFuncConstantsOfPolynomialDerivative"
       file: "Solution.lean"
       sorry_count: 0
@@ -248,6 +253,12 @@ review:
 alignment:
   namespace: "(root)"
   statements:
+    - source: "Charged noncube landing, standard differential on k(x)"
+      lean: "GCD369RatFuncStandardDifferential"
+      module: "Challenge"
+      status: >-
+        a quotient-rule derivation is constructed, proved to differentiate
+        embedded polynomials ordinarily, and shown to have constants exactly k
     - source: "Charged noncube landing, rational base constant field"
       lean: "GCD369RatFuncConstantsOfPolynomialDerivative"
       module: "Challenge"

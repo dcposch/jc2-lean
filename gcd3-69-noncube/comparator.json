@@ -10,6 +10,7 @@
     "GCD369KummerRootDerivative",
     "GCD369KummerDeckCommutesWithDerivative",
     "GCD369RatFuncConstantsOfPolynomialDerivative",
+    "GCD369RatFuncStandardDifferential",
     "GCD369AlgebraicDifferentialConstantsDescend",
     "GCD369BaseFixingAutomorphismFixesConstants",
     "GCD369KummerAlignmentFromBaseConstants",

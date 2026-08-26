@@ -144,6 +144,19 @@ theorem GCD369RatFuncConstantsOfPolynomialDerivative
     ∃ c : k, r = algebraMap k (RatFunc k) c := by
   sorry
 
+/-- The standard quotient-rule differential structure exists on `k(x)` and
+has constant field exactly `k`. -/
+theorem GCD369RatFuncStandardDifferential
+    {k : Type*} [Field k] [CharZero k] :
+    ∃ d : Differential (RatFunc k),
+      (∀ p : k[X],
+        @Differential.deriv (RatFunc k) _ d
+            (algebraMap k[X] (RatFunc k) p) =
+          algebraMap k[X] (RatFunc k) p.derivative) ∧
+      (∀ r : RatFunc k, @Differential.deriv (RatFunc k) _ d r = 0 →
+        ∃ c : k, r = algebraMap k (RatFunc k) c) := by
+  sorry
+
 /-- Constants do not enlarge in an algebraic differential extension when the
 base constant field is algebraically closed. -/
 theorem GCD369AlgebraicDifferentialConstantsDescend

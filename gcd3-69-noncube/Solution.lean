@@ -307,6 +307,136 @@ theorem GCD369RatFuncConstantsOfPolynomialDerivative
       rw [RatFunc.algebraMap_C, RatFunc.algebraMap_C, map_div₀]
       rfl
 
+private noncomputable def gcd369RatFuncDerivativeRaw
+    {k : Type*} [Field k] (r : RatFunc k) : RatFunc k :=
+  r.liftOn'
+    (fun p q ↦
+      (algebraMap k[X] (RatFunc k) q * algebraMap k[X] (RatFunc k) p.derivative -
+        algebraMap k[X] (RatFunc k) p * algebraMap k[X] (RatFunc k) q.derivative) /
+        algebraMap k[X] (RatFunc k) q ^ 2)
+    (by
+      intro p q a hq ha
+      have hma : algebraMap k[X] (RatFunc k) a ≠ 0 :=
+        RatFunc.algebraMap_ne_zero ha
+      have hmq : algebraMap k[X] (RatFunc k) q ≠ 0 :=
+        RatFunc.algebraMap_ne_zero hq
+      simp only [derivative_mul, map_mul, map_add]
+      field_simp [hma, hmq]
+      ring)
+
+private theorem gcd369RatFuncDerivativeRaw_div
+    {k : Type*} [Field k] (p q : k[X]) (_hq : q ≠ 0) :
+    gcd369RatFuncDerivativeRaw (algebraMap k[X] (RatFunc k) p /
+      algebraMap k[X] (RatFunc k) q) =
+      (algebraMap k[X] (RatFunc k) q * algebraMap k[X] (RatFunc k) p.derivative -
+        algebraMap k[X] (RatFunc k) p * algebraMap k[X] (RatFunc k) q.derivative) /
+        algebraMap k[X] (RatFunc k) q ^ 2 := by
+  unfold gcd369RatFuncDerivativeRaw
+  rw [RatFunc.liftOn'_div]
+  intro p
+  simp
+
+private theorem gcd369RatFuncDerivativeRaw_add
+    {k : Type*} [Field k] (r t : RatFunc k) :
+    gcd369RatFuncDerivativeRaw (r + t) =
+      gcd369RatFuncDerivativeRaw r + gcd369RatFuncDerivativeRaw t := by
+  induction r using RatFunc.induction_on with
+  | f p q hq =>
+    induction t using RatFunc.induction_on with
+    | f u v hv =>
+      have hqmap : algebraMap k[X] (RatFunc k) q ≠ 0 :=
+        RatFunc.algebraMap_ne_zero hq
+      have hvmap : algebraMap k[X] (RatFunc k) v ≠ 0 :=
+        RatFunc.algebraMap_ne_zero hv
+      rw [div_add_div _ _ hqmap hvmap, ← map_mul, ← map_mul, ← map_add, ← map_mul]
+      rw [gcd369RatFuncDerivativeRaw_div _ _ (mul_ne_zero hq hv),
+        gcd369RatFuncDerivativeRaw_div _ _ hq,
+        gcd369RatFuncDerivativeRaw_div _ _ hv]
+      simp only [derivative_mul, map_add, map_mul]
+      field_simp [RatFunc.algebraMap_ne_zero hq, RatFunc.algebraMap_ne_zero hv]
+      ring
+
+private theorem gcd369RatFuncDerivativeRaw_mul
+    {k : Type*} [Field k] (r t : RatFunc k) :
+    gcd369RatFuncDerivativeRaw (r * t) =
+      r * gcd369RatFuncDerivativeRaw t + t * gcd369RatFuncDerivativeRaw r := by
+  induction r using RatFunc.induction_on with
+  | f p q hq =>
+    induction t using RatFunc.induction_on with
+    | f u v hv =>
+      rw [div_mul_div_comm, ← map_mul, ← map_mul]
+      rw [gcd369RatFuncDerivativeRaw_div _ _ (mul_ne_zero hq hv),
+        gcd369RatFuncDerivativeRaw_div _ _ hq,
+        gcd369RatFuncDerivativeRaw_div _ _ hv]
+      simp only [derivative_mul, map_add, map_mul]
+      field_simp [RatFunc.algebraMap_ne_zero hq, RatFunc.algebraMap_ne_zero hv]
+      ring
+
+private theorem gcd369RatFuncDerivativeRaw_C
+    {k : Type*} [Field k] (c : k) :
+    gcd369RatFuncDerivativeRaw (algebraMap k (RatFunc k) c) = 0 := by
+  change gcd369RatFuncDerivativeRaw (RatFunc.C c) = 0
+  rw [← RatFunc.algebraMap_C]
+  conv_lhs =>
+    rw [← div_one (algebraMap k[X] (RatFunc k) (C c)),
+      ← (algebraMap k[X] (RatFunc k)).map_one]
+  rw [gcd369RatFuncDerivativeRaw_div _ _ one_ne_zero]
+  simp
+
+private theorem gcd369RatFuncDerivativeRaw_smul
+    {k : Type*} [Field k] (c : k) (r : RatFunc k) :
+    gcd369RatFuncDerivativeRaw (c • r) = c • gcd369RatFuncDerivativeRaw r := by
+  rw [Algebra.smul_def, gcd369RatFuncDerivativeRaw_mul,
+    gcd369RatFuncDerivativeRaw_C]
+  simp [Algebra.smul_def]
+
+private noncomputable def gcd369RatFuncDerivativeLinear
+    (k : Type*) [Field k] : RatFunc k →ₗ[k] RatFunc k where
+  toFun := gcd369RatFuncDerivativeRaw
+  map_add' := gcd369RatFuncDerivativeRaw_add
+  map_smul' := gcd369RatFuncDerivativeRaw_smul
+
+private noncomputable def gcd369RatFuncDerivation
+    (k : Type*) [Field k] : Derivation k (RatFunc k) (RatFunc k) :=
+  Derivation.mk' (gcd369RatFuncDerivativeLinear k) (by
+    intro r t
+    exact gcd369RatFuncDerivativeRaw_mul r t)
+
+private noncomputable def gcd369RatFuncDifferential
+    (k : Type*) [Field k] : Differential (RatFunc k) := by
+  letI : Algebra ℤ (RatFunc k) := Ring.toIntAlgebra (RatFunc k)
+  exact ⟨(gcd369RatFuncDerivation k).restrictScalars ℤ⟩
+
+private theorem gcd369RatFuncDifferential_poly
+    {k : Type*} [Field k] (p : k[X]) :
+    letI : Differential (RatFunc k) := gcd369RatFuncDifferential k
+    Differential.deriv (algebraMap k[X] (RatFunc k) p) =
+      algebraMap k[X] (RatFunc k) p.derivative := by
+  letI : Differential (RatFunc k) := gcd369RatFuncDifferential k
+  change gcd369RatFuncDerivativeRaw (algebraMap k[X] (RatFunc k) p) = _
+  conv_lhs =>
+    rw [← div_one (algebraMap k[X] (RatFunc k) p),
+      ← (algebraMap k[X] (RatFunc k)).map_one]
+  rw [gcd369RatFuncDerivativeRaw_div _ _ one_ne_zero]
+  simp
+
+/-- The standard quotient-rule differential structure exists on `k(x)` and
+has constant field exactly `k`. -/
+theorem GCD369RatFuncStandardDifferential
+    {k : Type*} [Field k] [CharZero k] :
+    ∃ d : Differential (RatFunc k),
+      (∀ p : k[X],
+        @Differential.deriv (RatFunc k) _ d
+            (algebraMap k[X] (RatFunc k) p) =
+          algebraMap k[X] (RatFunc k) p.derivative) ∧
+      (∀ r : RatFunc k, @Differential.deriv (RatFunc k) _ d r = 0 →
+        ∃ c : k, r = algebraMap k (RatFunc k) c) := by
+  refine ⟨gcd369RatFuncDifferential k, ?_, ?_⟩
+  · exact gcd369RatFuncDifferential_poly
+  · letI : Differential (RatFunc k) := gcd369RatFuncDifferential k
+    exact GCD369RatFuncConstantsOfPolynomialDerivative
+      gcd369RatFuncDifferential_poly
+
 /-- Constants do not enlarge in an algebraic differential extension when the
 base constant field is algebraically closed. -/
 theorem GCD369AlgebraicDifferentialConstantsDescend
@@ -2931,6 +3061,7 @@ theorem GCD369DSOneRootCube {K : Type*} [Field K] [IsAlgClosed K]
 #print axioms GCD369KummerRootDerivative
 #print axioms GCD369KummerDeckCommutesWithDerivative
 #print axioms GCD369RatFuncConstantsOfPolynomialDerivative
+#print axioms GCD369RatFuncStandardDifferential
 #print axioms GCD369AlgebraicDifferentialConstantsDescend
 #print axioms GCD369BaseFixingAutomorphismFixesConstants
 #print axioms GCD369KummerAlignmentFromBaseConstants
