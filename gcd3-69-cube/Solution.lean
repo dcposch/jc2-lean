@@ -1737,6 +1737,80 @@ theorem GCD369CubeEarlyBoundaryLeadingOrderContradiction
     exact GCD369CubeEarlyBoundaryRegularityContradiction
       k hk a b h ha hcancel EG hEG hgregular
 
+/-- Source-coordinate form of the complete early-boundary obstruction.  A
+limiting root of the common cubic cannot also annihilate the certified normal,
+so the normal value is a unit and the Hahn-series dichotomy applies with its
+actual value `X*r^2+Y*r+Z`. -/
+theorem GCD369CubeEarlyCommonCubicBoundaryExclusion
+    {K : Type*} [Field K] [CharZero K]
+    (k : ℕ) (hk : k ∈ ([1, 2, 4, 5, 7, 8, 10, 11] : List ℕ))
+    (q : ℚ) (a h Xn Yn Zn u v r : K) (ha : a ≠ 0) (hh : h ≠ 0)
+    (hnocommon : ∀ z : K, z ^ 3 + u * z + v = 0 →
+      Xn * z ^ 2 + Yn * z + Zn = 0 → False)
+    (hKroot : r ^ 3 + u * r + v = 0)
+    (EF EG : HahnSeries ℚ K)
+    (hEF : (↑(1 : ℚ) : WithTop ℚ) < EF.orderTop)
+    (hEG : (↑(3 / 2 : ℚ) : WithTop ℚ) < EG.orderTop)
+    (hfregular : (↑((12 : ℚ) / k) : WithTop ℚ) ≤
+      let A : HahnSeries ℚ K := HahnSeries.single q a
+      let B : HahnSeries ℚ K := HahnSeries.single 0
+        (Xn * r ^ 2 + Yn * r + Zn)
+      let H : HahnSeries ℚ K := HahnSeries.single 1 h
+      (A ^ 2 + H * B + EF).orderTop)
+    (hgregular : (↑((18 : ℚ) / k) : WithTop ℚ) ≤
+      let A : HahnSeries ℚ K := HahnSeries.single q a
+      let B : HahnSeries ℚ K := HahnSeries.single 0
+        (Xn * r ^ 2 + Yn * r + Zn)
+      let H : HahnSeries ℚ K := HahnSeries.single 1 h
+      let C32 : HahnSeries ℚ K := HahnSeries.single 0 (3 / 2)
+      (A ^ 3 + C32 * H * A * B + EG).orderTop) :
+    False := by
+  have hb : Xn * r ^ 2 + Yn * r + Zn ≠ 0 := by
+    intro hphi
+    exact hnocommon r hKroot hphi
+  exact GCD369CubeEarlyBoundaryLeadingOrderContradiction
+    k hk q a (Xn * r ^ 2 + Yn * r + Zn) h ha hb hh EF EG hEF hEG
+      hfregular hgregular
+
+/-- Concrete source data for an early common-cubic pole landing.  Unlike an
+abstract routing predicate, every field records one of the quantities and
+inequalities appearing in the original-value reconstruction. -/
+structure GCD369CubeEarlyBoundaryData (K : Type*) [Field K] where
+  k : ℕ
+  q : ℚ
+  a h Xn Yn Zn u v r : K
+  EF EG : HahnSeries ℚ K
+  hk : k ∈ ([1, 2, 4, 5, 7, 8, 10, 11] : List ℕ)
+  ha : a ≠ 0
+  hh : h ≠ 0
+  hnocommon : ∀ z : K, z ^ 3 + u * z + v = 0 →
+    Xn * z ^ 2 + Yn * z + Zn = 0 → False
+  hKroot : r ^ 3 + u * r + v = 0
+  hEF : (↑(1 : ℚ) : WithTop ℚ) < EF.orderTop
+  hEG : (↑(3 / 2 : ℚ) : WithTop ℚ) < EG.orderTop
+  hfregular : (↑((12 : ℚ) / k) : WithTop ℚ) ≤
+    let A : HahnSeries ℚ K := HahnSeries.single q a
+    let B : HahnSeries ℚ K := HahnSeries.single 0
+      (Xn * r ^ 2 + Yn * r + Zn)
+    let H : HahnSeries ℚ K := HahnSeries.single 1 h
+    (A ^ 2 + H * B + EF).orderTop
+  hgregular : (↑((18 : ℚ) / k) : WithTop ℚ) ≤
+    let A : HahnSeries ℚ K := HahnSeries.single q a
+    let B : HahnSeries ℚ K := HahnSeries.single 0
+      (Xn * r ^ 2 + Yn * r + Zn)
+    let H : HahnSeries ℚ K := HahnSeries.single 1 h
+    let C32 : HahnSeries ℚ K := HahnSeries.single 0 (3 / 2)
+    (A ^ 3 + C32 * H * A * B + EG).orderTop
+
+/-- No concrete early common-cubic pole landing can satisfy both original
+source boundary inequalities. -/
+theorem GCD369CubeEarlyBoundaryDataEmpty
+    {K : Type*} [Field K] [CharZero K]
+    (D : GCD369CubeEarlyBoundaryData K) : False := by
+  exact GCD369CubeEarlyCommonCubicBoundaryExclusion
+    D.k D.hk D.q D.a D.h D.Xn D.Yn D.Zn D.u D.v D.r D.ha D.hh
+      D.hnocommon D.hKroot D.EF D.EG D.hEF D.hEG D.hfregular D.hgregular
+
 /-- Local order of the numerator of a reduced rational derivative at a pole
 of the denominator.  If `N/B` is pointwise reduced and `B` has multiplicity
 `m > 0`, then `N'B-NB'` has multiplicity exactly `m-1`. -/
@@ -2729,6 +2803,8 @@ theorem GCD369CubeDSMonomialExponent {K : Type*}
 #print axioms GCD369CubeBoundaryRegularityContradiction
 #print axioms GCD369CubeEarlyBoundaryRegularityContradiction
 #print axioms GCD369CubeEarlyBoundaryLeadingOrderContradiction
+#print axioms GCD369CubeEarlyCommonCubicBoundaryExclusion
+#print axioms GCD369CubeEarlyBoundaryDataEmpty
 #print axioms GCD369ReducedQuotientWronskianLocal
 #print axioms GCD369CubeRationalPrimitiveFinitePlace
 #print axioms GCD369CubeRationalPrimitiveRootCount
