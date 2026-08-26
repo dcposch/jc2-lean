@@ -1611,6 +1611,31 @@ theorem GCD369CubeBoundaryRegularityContradiction
   rw [horder] at hregular
   exact (not_le_of_gt hrequired) hregular
 
+/-- The cancellation branch contradicts the original `g`-boundary order for
+every early forced load.  Weight twelve is deliberately absent: it is the
+first equality case and is handled by the reconstructed terminal fibres. -/
+theorem GCD369CubeEarlyBoundaryRegularityContradiction
+    {K : Type*} [Field K] [CharZero K]
+    (k : ℕ) (hk : k ∈ ([1, 2, 4, 5, 7, 8, 10, 11] : List ℕ))
+    (a b h : K) (ha : a ≠ 0)
+    (hcancel : a ^ 2 + h * b = 0)
+    (E : HahnSeries ℚ K)
+    (hE : (↑(3 / 2 : ℚ) : WithTop ℚ) < E.orderTop)
+    (hregular : (↑((18 : ℚ) / k) : WithTop ℚ) ≤
+      let A : HahnSeries ℚ K := HahnSeries.single (1 / 2) a
+      let B : HahnSeries ℚ K := HahnSeries.single 0 b
+      let H : HahnSeries ℚ K := HahnSeries.single 1 h
+      let C32 : HahnSeries ℚ K := HahnSeries.single 0 (3 / 2)
+      (A ^ 3 + C32 * H * A * B + E).orderTop) :
+    False := by
+  have hstrict : (3 / 2 : ℚ) < 18 / k :=
+    (GCD369CubeBoundaryWeightAudit.1 k hk).2
+  have hstrictTop :
+      (↑(3 / 2 : ℚ) : WithTop ℚ) < (↑((18 : ℚ) / k) : WithTop ℚ) :=
+    WithTop.coe_lt_coe.mpr hstrict
+  exact GCD369CubeBoundaryRegularityContradiction
+    a b h ha hcancel E hE (↑((18 : ℚ) / k) : WithTop ℚ) hstrictTop hregular
+
 /-- Local order of the numerator of a reduced rational derivative at a pole
 of the denominator.  If `N/B` is pointwise reduced and `B` has multiplicity
 `m > 0`, then `N'B-NB'` has multiplicity exactly `m-1`. -/
@@ -2600,6 +2625,7 @@ theorem GCD369CubeDSMonomialExponent {K : Type*}
 #print axioms GCD369CubeBoundaryCancellationOrder
 #print axioms GCD369CubeBoundaryCancellationOrderWithHigherTerms
 #print axioms GCD369CubeBoundaryRegularityContradiction
+#print axioms GCD369CubeEarlyBoundaryRegularityContradiction
 #print axioms GCD369ReducedQuotientWronskianLocal
 #print axioms GCD369CubeRationalPrimitiveFinitePlace
 #print axioms GCD369CubeRationalPrimitiveRootCount
