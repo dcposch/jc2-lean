@@ -90,6 +90,156 @@ theorem GCD369CubeRatFuncDerivative_C
   rw [GCD369CubeRatFuncDerivative_div (C c) 1 one_ne_zero]
   simp
 
+set_option maxHeartbeats 4000000 in
+/-- A nonzero rational point on a nondegenerate `(2,3,6)` curve has a
+canonical weighted polynomial presentation.  The curve equation forces the
+two monic canonical denominators `Q,S` to satisfy `Q² = S³`; cancellation
+then produces the common denominator `D` with weights three and two. -/
+theorem GCD369CubeRatFuncWeightedPresentation
+    {k : Type*} [Field k]
+    (u v w : k) (hu : u ≠ 0) (hv : v ≠ 0) (hw : w ≠ 0)
+    (Yc Xc : RatFunc k) (hYc : Yc ≠ 0) (hXc : Xc ≠ 0)
+    (hcurve :
+      algebraMap k (RatFunc k) u * Yc ^ 2 +
+          algebraMap k (RatFunc k) v * Xc ^ 3 +
+          algebraMap k (RatFunc k) w = 0) :
+    ∃ M N D : k[X], M ≠ 0 ∧ N ≠ 0 ∧ D ≠ 0 ∧
+      IsCoprime M N ∧
+      Yc = algebraMap k[X] (RatFunc k) M /
+        algebraMap k[X] (RatFunc k) (D ^ 3) ∧
+      Xc = algebraMap k[X] (RatFunc k) N /
+        algebraMap k[X] (RatFunc k) (D ^ 2) := by
+  let P : k[X] := Yc.num
+  let Q : k[X] := Yc.denom
+  let R : k[X] := Xc.num
+  let S : k[X] := Xc.denom
+  have hP : P ≠ 0 := by
+    exact RatFunc.num_ne_zero hYc
+  have hQ : Q ≠ 0 := by
+    exact RatFunc.denom_ne_zero Yc
+  have hR : R ≠ 0 := by
+    exact RatFunc.num_ne_zero hXc
+  have hS : S ≠ 0 := by
+    exact RatFunc.denom_ne_zero Xc
+  have hPQ : IsCoprime P Q := Yc.isCoprime_num_denom
+  have hRS : IsCoprime R S := Xc.isCoprime_num_denom
+  have hQmap : algebraMap k[X] (RatFunc k) Q ≠ 0 :=
+    RatFunc.algebraMap_ne_zero hQ
+  have hSmap : algebraMap k[X] (RatFunc k) S ≠ 0 :=
+    RatFunc.algebraMap_ne_zero hS
+  have hclear :
+      C u * P ^ 2 * S ^ 3 + C v * R ^ 3 * Q ^ 2 +
+          C w * Q ^ 2 * S ^ 3 = 0 := by
+    apply RatFunc.algebraMap_injective k
+    rw [map_add, map_add, map_mul, map_mul, map_pow, map_mul, map_mul,
+      map_pow, map_pow, map_mul, map_mul, map_pow, map_pow, map_zero,
+      RatFunc.algebraMap_C, RatFunc.algebraMap_C, RatFunc.algebraMap_C]
+    rw [← RatFunc.algebraMap_eq_C]
+    rw [← RatFunc.num_div_denom Yc, ← RatFunc.num_div_denom Xc]
+      at hcurve
+    change algebraMap k (RatFunc k) u *
+          (algebraMap k[X] (RatFunc k) P /
+            algebraMap k[X] (RatFunc k) Q) ^ 2 +
+        algebraMap k (RatFunc k) v *
+          (algebraMap k[X] (RatFunc k) R /
+            algebraMap k[X] (RatFunc k) S) ^ 3 +
+        algebraMap k (RatFunc k) w = 0 at hcurve
+    field_simp [hQmap, hSmap] at hcurve
+    convert hcurve using 1 <;> ring
+  have hS3dvdQ2 : S ^ 3 ∣ Q ^ 2 := by
+    have hdvd : S ^ 3 ∣ C v * R ^ 3 * Q ^ 2 := by
+      have heq : C v * R ^ 3 * Q ^ 2 =
+          -(C u * P ^ 2 * S ^ 3 + C w * Q ^ 2 * S ^ 3) := by
+        linear_combination hclear
+      rw [heq]
+      apply dvd_neg.mpr
+      apply dvd_add
+      · exact ⟨C u * P ^ 2, by ring⟩
+      · exact ⟨C w * Q ^ 2, by ring⟩
+    have hcop : IsCoprime (S ^ 3) (C v * R ^ 3) := by
+      rw [isCoprime_mul_unit_left_right
+        (Polynomial.isUnit_C.mpr hv.isUnit)]
+      exact hRS.symm.pow
+    exact hcop.dvd_of_dvd_mul_left hdvd
+  have hQ2dvdS3 : Q ^ 2 ∣ S ^ 3 := by
+    have hdvd : Q ^ 2 ∣ C u * P ^ 2 * S ^ 3 := by
+      have heq : C u * P ^ 2 * S ^ 3 =
+          -(C v * R ^ 3 * Q ^ 2 + C w * Q ^ 2 * S ^ 3) := by
+        linear_combination hclear
+      rw [heq]
+      apply dvd_neg.mpr
+      apply dvd_add
+      · exact ⟨C v * R ^ 3, by ring⟩
+      · exact ⟨C w * S ^ 3, by ring⟩
+    have hcop : IsCoprime (Q ^ 2) (C u * P ^ 2) := by
+      rw [isCoprime_mul_unit_left_right
+        (Polynomial.isUnit_C.mpr hu.isUnit)]
+      exact hPQ.symm.pow
+    exact hcop.dvd_of_dvd_mul_left hdvd
+  have hSmonic : (S ^ 3).Monic := by
+    exact (RatFunc.monic_denom Xc).pow 3
+  have hQmonic : (Q ^ 2).Monic := by
+    exact (RatFunc.monic_denom Yc).pow 2
+  have hdenom : S ^ 3 = Q ^ 2 :=
+    eq_of_monic_of_associated hSmonic hQmonic
+      (associated_of_dvd_dvd hS3dvdQ2 hQ2dvdS3)
+  have hS2dvdQ2 : S ^ 2 ∣ Q ^ 2 := by
+    rw [← hdenom]
+    exact ⟨S, by ring⟩
+  obtain ⟨D, hQD⟩ :=
+    (IsIntegrallyClosed.pow_dvd_pow_iff (R := k[X])
+      (by norm_num : 2 ≠ 0)).mp hS2dvdQ2
+  have hSD : S = D ^ 2 := by
+    apply mul_left_cancel₀ (pow_ne_zero 2 hS)
+    calc
+      S ^ 2 * S = S ^ 3 := by ring
+      _ = Q ^ 2 := hdenom
+      _ = (S * D) ^ 2 := by rw [hQD]
+      _ = S ^ 2 * D ^ 2 := by ring
+  have hQD3 : Q = D ^ 3 := by
+    rw [hQD, hSD]
+    ring
+  have hD : D ≠ 0 := by
+    intro hD
+    apply hQ
+    rw [hQD3, hD, zero_pow (by norm_num : 3 ≠ 0)]
+  have hweighted :
+      C u * P ^ 2 + C v * R ^ 3 + C w * D ^ 6 = 0 := by
+    have hmul :
+        (C u * P ^ 2 + C v * R ^ 3 + C w * D ^ 6) * D ^ 6 = 0 := by
+      rw [hQD3, hSD] at hclear
+      convert hclear using 1 <;> ring
+    exact mul_right_cancel₀ (pow_ne_zero 6 hD) (hmul.trans (zero_mul _).symm)
+  have hPD : IsCoprime P D := by
+    apply (IsCoprime.pow_right_iff (m := 3) (by norm_num)).mp
+    rwa [← hQD3]
+  have hDPterms : IsCoprime (C w * D ^ 6) (C u * P ^ 2) := by
+    rw [isCoprime_mul_units_left (Polynomial.isUnit_C.mpr hw.isUnit)
+      (Polynomial.isUnit_C.mpr hu.isUnit)]
+    exact hPD.symm.pow
+  have hPRterms : IsCoprime (C u * P ^ 2) (C v * R ^ 3) := by
+    have hsum : IsCoprime (C u * P ^ 2)
+        (C w * D ^ 6 + C u * P ^ 2) := by
+      simpa [mul_one] using (hDPterms.add_mul_left_left 1).symm
+    have heq : C v * R ^ 3 = -(C w * D ^ 6 + C u * P ^ 2) := by
+      linear_combination hweighted
+    rw [heq]
+    exact hsum.neg_right
+  have hPR : IsCoprime P R := by
+    apply (IsCoprime.pow_iff (m := 2) (n := 3)
+      (by norm_num) (by norm_num)).mp
+    exact (isCoprime_mul_units_left (Polynomial.isUnit_C.mpr hu.isUnit)
+      (Polynomial.isUnit_C.mpr hv.isUnit) _ _).mp hPRterms
+  refine ⟨P, R, D, hP, hR, hD, hPR, ?_, ?_⟩
+  · rw [← RatFunc.num_div_denom Yc]
+    change algebraMap k[X] (RatFunc k) P /
+        algebraMap k[X] (RatFunc k) Q = _
+    rw [hQD3]
+  · rw [← RatFunc.num_div_denom Xc]
+    change algebraMap k[X] (RatFunc k) R /
+        algebraMap k[X] (RatFunc k) S = _
+    rw [hSD]
+
 /-- A weighted reduced polynomial presentation of a rational point on a
 nondegenerate `(2,3,6)` curve is constant.  This is the exact algebraic
 replacement for the smooth `P¹ → E` genus argument once such a presentation
@@ -143,6 +293,26 @@ theorem GCD369CubeRatFuncEllipticConstancy
       RatFunc.algebraMap_C, ← RatFunc.algebraMap_eq_C, ← map_pow, ← map_div₀]
   · rw [hX, hNC, hDC, map_pow, RatFunc.algebraMap_C,
       RatFunc.algebraMap_C, ← RatFunc.algebraMap_eq_C, ← map_pow, ← map_div₀]
+
+/-- Every rational-function point with both affine coordinates nonzero on a
+nondegenerate `(2,3,6)` curve is constant.  The weighted presentation is
+constructed canonically from its reduced numerator and denominator. -/
+theorem GCD369CubeRatFuncEllipticConstancyOfNonzero
+    {k : Type*} [Field k] [CharZero k]
+    (u v w : k) (hu : u ≠ 0) (hv : v ≠ 0) (hw : w ≠ 0)
+    (Yc Xc : RatFunc k) (hYc : Yc ≠ 0) (hXc : Xc ≠ 0)
+    (hcurve :
+      algebraMap k (RatFunc k) u * Yc ^ 2 +
+          algebraMap k (RatFunc k) v * Xc ^ 3 +
+          algebraMap k (RatFunc k) w = 0) :
+    ∃ y0 x0 : k,
+      Yc = algebraMap k (RatFunc k) y0 ∧
+      Xc = algebraMap k (RatFunc k) x0 := by
+  obtain ⟨M, N, D, hM, hN, hD, hMN, hY, hX⟩ :=
+    GCD369CubeRatFuncWeightedPresentation u v w hu hv hw Yc Xc
+      hYc hXc hcurve
+  exact GCD369CubeRatFuncEllipticConstancy u v w hu hv hw
+    Yc Xc M N D hM hN hD hMN hY hX hcurve
 
 /-- Substitution of a reduced rational cusp parameter gives exactly the
 polynomial numerator and denominator used by the terminal theorem. -/
@@ -370,6 +540,103 @@ theorem mixedEllipticRatFuncTerminalExclusionOfPresentation
   exact hjmap hterminal.symm
 
 set_option maxHeartbeats 4000000 in
+/-- The smooth mixed source fibre is terminally empty over `k(x)`, with its
+weighted reduced presentation constructed internally from the actual source
+coordinates. -/
+theorem mixedEllipticRatFuncTerminalExclusion
+    {k : Type*} [Field k] [CharZero k]
+    (S : GCD369CubeLaterInvariantSource (RatFunc k))
+    (mu nu j : k) (hmu : mu ≠ 0) (hnu : nu ≠ 0) (hj : j ≠ 0)
+    (s : k[X])
+    (hrho3const : 6 * S.rho3 = algebraMap k (RatFunc k) mu)
+    (hrho4const : 6 * S.rho4 = algebraMap k (RatFunc k) nu)
+    (hterminal :
+      algebraMap k[X] (RatFunc k) s *
+          GCD369CubeRatFuncDerivative
+            (GCD369CubeFaberR5
+              S.a0 S.a1 S.a2 S.a3 S.a4 0 0 0 0 0 0 0) =
+        algebraMap k (RatFunc k) j) : False := by
+  have hnumap : algebraMap k (RatFunc k) nu ≠ 0 := by
+    rw [RatFunc.algebraMap_eq_C]
+    simpa using RatFunc.C_injective.ne hnu
+  have hjmap : algebraMap k (RatFunc k) j ≠ 0 := by
+    rw [RatFunc.algebraMap_eq_C]
+    simpa using RatFunc.C_injective.ne hj
+  have hrho4 : S.rho4 ≠ 0 := by
+    intro hz
+    apply hnumap
+    rw [← hrho4const, hz]
+    ring
+  let A : RatFunc k := 4 * S.a2 - S.a4 ^ 2
+  let B : RatFunc k := 2 * S.a1 - S.a3 * S.a4
+  let w : RatFunc k := 4 * S.a0 - S.a3 ^ 2
+  let V : RatFunc k := w + 8 * B ^ 2 / A
+  have hmixed := S.mixedCoordinates hrho4
+  dsimp only at hmixed
+  change A ≠ 0 ∧
+    S.rho4 = -3 * A ^ 2 * B / 512 ∧
+    S.rho3 = (24 * V ^ 2 - A ^ 3) / 1024 ∧
+    GCD369CubeFaberR5 S.a0 S.a1 S.a2 S.a3 S.a4 0 0 0 0 0 0 0 =
+      A * (A * V - 12 * B ^ 2) / 1024 at hmixed
+  rcases hmixed with ⟨hA, _hrho4formula, hrho3formula, _hr5formula⟩
+  have hrho3clear : 1024 * S.rho3 = 24 * V ^ 2 - A ^ 3 := by
+    rw [hrho3formula]
+    ring
+  have hcurveRaw :
+      72 * V ^ 2 - 3 * A ^ 3 - 512 * (6 * S.rho3) = 0 := by
+    linear_combination
+      (norm := ring_nf (config := { zetaDelta := false })) -3 * hrho3clear
+  have hcurve :
+      algebraMap k (RatFunc k) (72 : k) * V ^ 2 +
+          algebraMap k (RatFunc k) (-3 : k) * A ^ 3 +
+          algebraMap k (RatFunc k) (-512 * mu) = 0 := by
+    simp only [map_mul, map_neg, map_ofNat]
+    rw [← hrho3const]
+    simpa only [sub_eq_add_neg, neg_mul] using hcurveRaw
+  have hr5formula := S.mixedTerminalFormula hrho4
+  dsimp only at hr5formula
+  change GCD369CubeFaberR5
+      S.a0 S.a1 S.a2 S.a3 S.a4 0 0 0 0 0 0 0 =
+    A ^ 2 * V / 1024 - 256 * (6 * S.rho4) ^ 2 / (27 * A ^ 3)
+      at hr5formula
+  rcases eq_or_ne V 0 with hV | hV
+  · let a3 : k := -(512 / 3) * mu
+    have hA3raw : A ^ 3 = -(512 / 3) * (6 * S.rho3) := by
+      rw [hV] at hrho3clear
+      linear_combination
+        (norm := ring_nf (config := { zetaDelta := false })) hrho3clear
+    have hA3 : A ^ 3 = algebraMap k (RatFunc k) a3 := by
+      rw [hA3raw, hrho3const]
+      dsimp only [a3]
+      simp only [map_neg, map_mul, map_div₀, map_ofNat]
+    let r50 : k := -256 * nu ^ 2 / (27 * a3)
+    have hr5C :
+        GCD369CubeFaberR5
+            S.a0 S.a1 S.a2 S.a3 S.a4 0 0 0 0 0 0 0 =
+          algebraMap k (RatFunc k) r50 := by
+      rw [hr5formula, hV, hA3, hrho4const]
+      dsimp only [r50]
+      simp only [mul_zero, zero_div, zero_sub, map_neg, map_mul, map_pow,
+        map_div₀, map_ofNat]
+      ring
+    rw [hr5C, GCD369CubeRatFuncDerivative_C, mul_zero] at hterminal
+    exact hjmap hterminal.symm
+  · obtain ⟨v0, a0, hVC, hAC⟩ :=
+      GCD369CubeRatFuncEllipticConstancyOfNonzero
+        (72 : k) (-3 : k) (-512 * mu) (by norm_num) (by norm_num)
+          (mul_ne_zero (by norm_num) hmu) V A hV hA hcurve
+    let r50 : k := a0 ^ 2 * v0 / 1024 - 256 * nu ^ 2 / (27 * a0 ^ 3)
+    have hr5C :
+        GCD369CubeFaberR5
+            S.a0 S.a1 S.a2 S.a3 S.a4 0 0 0 0 0 0 0 =
+          algebraMap k (RatFunc k) r50 := by
+      rw [hr5formula, hAC, hVC, hrho4const]
+      dsimp only [r50]
+      simp only [map_sub, map_mul, map_pow, map_div₀, map_ofNat]
+    rw [hr5C, GCD369CubeRatFuncDerivative_C, mul_zero] at hterminal
+    exact hjmap hterminal.symm
+
+set_option maxHeartbeats 4000000 in
 /-- On the zero invariant fibre, the exact source classification rules out
 the common-cubic component via its zero terminal value and routes the other
 component to the DS seventh-power exclusion.  The reduced DS presentation is
@@ -526,13 +793,17 @@ end GCD369CubeLaterInvariantSource
 #print axioms GCD369CubeRatFuncDerivative_div
 #print axioms GCD369CubeRatFuncDerivative_zero
 #print axioms GCD369CubeRatFuncDerivative_C
+#print axioms GCD369CubeRatFuncWeightedPresentation
 #print axioms GCD369CubeRatFuncEllipticConstancy
+#print axioms GCD369CubeRatFuncEllipticConstancyOfNonzero
 #print axioms GCD369CubeMixedCuspRatFuncFormula
 #print axioms GCD369CubeDSRatFuncFormula
 #print axioms
   GCD369CubeLaterInvariantSource.mixedCuspRatFuncTerminalExclusion
 #print axioms
   GCD369CubeLaterInvariantSource.mixedEllipticRatFuncTerminalExclusionOfPresentation
+#print axioms
+  GCD369CubeLaterInvariantSource.mixedEllipticRatFuncTerminalExclusion
 #print axioms
   GCD369CubeLaterInvariantSource.zeroInvariantRatFuncTerminalExclusion
 #print axioms
