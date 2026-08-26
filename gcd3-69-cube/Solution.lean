@@ -773,6 +773,131 @@ theorem GCD369CubeC4TerminalNonzero {K : Type*} [Field K] [CharZero K]
         (81 / 308 * u * v) * hterminal
     exact (pow_ne_zero 7 hu) hu7
 
+/-- The `u=0`, `v!=0` chart certificate for a first-`c4` landing. -/
+theorem GCD369CubeC4NoCommonRootOnUZeroChart
+    {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn r Tin u v : K)
+    (h1 : 32 * u * v - 27 * u * Xn ^ 2 + 54 * Xn * Zn + 27 * Yn ^ 2 = 0)
+    (h2 :
+      32 * u ^ 3 - 144 * v ^ 2 + 243 * v * Xn ^ 2 +
+          486 * u * Xn * Yn - 486 * Yn * Zn = 0)
+    (h3 :
+      2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+          2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0)
+    (_h4 :
+      8 * u ^ 4 - 96 * u * v ^ 2 - 243 * u * v * Xn ^ 2 -
+          162 * u ^ 2 * Xn * Yn + 324 * v * Xn * Zn +
+          162 * v * Yn ^ 2 + 162 * u * Yn * Zn = 0)
+    (hK : r ^ 3 + u * r + v = 0)
+    (hphi : Xn * r ^ 2 + Yn * r + Zn = 0)
+    (hu : u = 0) (hchart : Tin * v - 1 = 0) :
+    False := by
+  let C1 : K := 1 / 16 * r * Tin ^ 3 * v
+  let C2 : K := 1 / 72 * r ^ 3 * Tin ^ 3 + 1 / 144 * Tin ^ 3 * v
+  let C3 : K := -9 / 16 * r ^ 2 * Tin ^ 3
+  let C5 : K :=
+    -27 / 16 * Xn * Zn * r * Tin ^ 3 - 27 / 16 * Xn ^ 2 * Tin ^ 3 * v +
+      81 / 16 * Yn * Zn * Tin ^ 3 + 2 * Tin ^ 3 * v ^ 2
+  let C6 : K :=
+    27 / 16 * Zn * r ^ 2 * Tin ^ 3 - 27 / 16 * Xn * r * Tin ^ 3 * v -
+      27 / 16 * Yn * Tin ^ 3 * v
+  let C7 : K :=
+    -27 / 4 * Xn * Yn * r ^ 3 * Tin ^ 3 +
+      9 / 8 * Xn ^ 2 * r ^ 2 * Tin ^ 3 * u -
+      4 / 9 * r ^ 3 * Tin ^ 3 * u ^ 2 -
+      9 / 8 * Yn ^ 2 * r ^ 2 * Tin ^ 3 -
+      9 / 16 * Xn * Zn * r ^ 2 * Tin ^ 3 +
+      27 / 8 * Xn ^ 2 * r * Tin ^ 3 * v -
+      81 / 16 * Yn * Zn * r * Tin ^ 3 - 27 / 8 * Xn * Yn * Tin ^ 3 * v -
+      2 / 9 * Tin ^ 3 * u ^ 2 * v - 4 * r * Tin ^ 3 * v ^ 2
+  let C8 : K := -Tin ^ 2 * v ^ 2 - Tin * v - 1
+  have hone : (1 : K) = 0 := by
+    linear_combination C1 * h1 + C2 * h2 + C3 * h3 + C5 * hK +
+      C6 * hphi + C7 * hu + C8 * hchart
+  exact one_ne_zero hone
+
+/-- The localized `u!=0` chart certificate for a first-`c4` landing. -/
+theorem GCD369CubeC4NoCommonRootOnUChart
+    {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn r Tin u v : K)
+    (h1 : 32 * u * v - 27 * u * Xn ^ 2 + 54 * Xn * Zn + 27 * Yn ^ 2 = 0)
+    (h2 :
+      32 * u ^ 3 - 144 * v ^ 2 + 243 * v * Xn ^ 2 +
+          486 * u * Xn * Yn - 486 * Yn * Zn = 0)
+    (h3 :
+      2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+          2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0)
+    (h4 :
+      8 * u ^ 4 - 96 * u * v ^ 2 - 243 * u * v * Xn ^ 2 -
+          162 * u ^ 2 * Xn * Yn + 324 * v * Xn * Zn +
+          162 * v * Yn ^ 2 + 162 * u * Yn * Zn = 0)
+    (hK : r ^ 3 + u * r + v = 0)
+    (hphi : Xn * r ^ 2 + Yn * r + Zn = 0)
+    (hchart : Tin * u - 1 = 0) :
+    False := by
+  let C1 : K :=
+    108 / 77 * r * Tin ^ 7 * u * v ^ 2 + 81 / 154 * Tin ^ 7 * v ^ 3 +
+      9 / 22 * Tin ^ 6 * u ^ 2 * v - 81 / 44 * r * Tin ^ 6 * v ^ 2 -
+      9 / 28 * Tin ^ 4 * v
+  let C2 : K :=
+    -6 / 77 * r * Tin ^ 7 * u ^ 2 * v - 9 / 308 * Tin ^ 7 * u * v ^ 2 +
+      3 / 22 * r * Tin ^ 6 * u * v + 9 / 44 * Tin ^ 6 * v ^ 2 +
+      1 / 56 * Tin ^ 4 * u
+  let C3 : K :=
+    729 / 44 * r ^ 2 * Tin ^ 6 * v + 243 / 44 * Tin ^ 6 * u * v
+  let C4 : K :=
+    -18 / 77 * r * Tin ^ 7 * u * v - 27 / 308 * Tin ^ 7 * v ^ 2 +
+      3 / 56 * Tin ^ 4
+  let C5 : K :=
+    -729 / 22 * Xn ^ 2 * r * Tin ^ 6 * u * v +
+      2187 / 44 * Xn * Zn * r * Tin ^ 6 * v -
+      729 / 11 * Xn * Yn * Tin ^ 6 * u * v -
+      2187 / 44 * Xn ^ 2 * Tin ^ 6 * v ^ 2 +
+      2187 / 44 * Yn * Zn * Tin ^ 6 * v
+  let C6 : K :=
+    729 / 22 * Xn * r ^ 2 * Tin ^ 6 * u * v -
+      2187 / 44 * Zn * r ^ 2 * Tin ^ 6 * v +
+      729 / 22 * Yn * r * Tin ^ 6 * u * v +
+      2187 / 44 * Xn * r * Tin ^ 6 * v ^ 2 -
+      729 / 44 * Zn * Tin ^ 6 * u * v +
+      2187 / 44 * Yn * Tin ^ 6 * v ^ 2
+  let C7 : K :=
+    48 / 11 * r * Tin ^ 6 * u ^ 4 * v +
+      18 / 11 * Tin ^ 6 * u ^ 3 * v ^ 2 -
+      864 / 11 * r * Tin ^ 6 * u * v ^ 3 -
+      324 / 11 * Tin ^ 6 * v ^ 4 - 18 * Tin ^ 5 * u ^ 2 * v ^ 2 -
+      18 * Tin ^ 4 * u * v ^ 2 - Tin ^ 3 * u ^ 3 - Tin ^ 2 * u ^ 2 -
+      Tin * u - 1
+  have hone : (1 : K) = 0 := by
+    linear_combination C1 * h1 + C2 * h2 + C3 * h3 + C4 * h4 +
+      C5 * hK + C6 * hphi + C7 * hchart
+  exact one_ne_zero hone
+
+/-- At every projective first-`c4` landing, the common cubic and its normal
+have no common field-valued root. -/
+theorem GCD369CubeC4NoCommonRoot {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn u v : K) (hprojective : u ≠ 0 ∨ v ≠ 0)
+    (h1 : 32 * u * v - 27 * u * Xn ^ 2 + 54 * Xn * Zn + 27 * Yn ^ 2 = 0)
+    (h2 :
+      32 * u ^ 3 - 144 * v ^ 2 + 243 * v * Xn ^ 2 +
+          486 * u * Xn * Yn - 486 * Yn * Zn = 0)
+    (h3 :
+      2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+          2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0)
+    (h4 :
+      8 * u ^ 4 - 96 * u * v ^ 2 - 243 * u * v * Xn ^ 2 -
+          162 * u ^ 2 * Xn * Yn + 324 * v * Xn * Zn +
+          162 * v * Yn ^ 2 + 162 * u * Yn * Zn = 0) :
+    ∀ r : K, r ^ 3 + u * r + v = 0 →
+      Xn * r ^ 2 + Yn * r + Zn = 0 → False := by
+  intro r hK hphi
+  by_cases hu : u = 0
+  · have hv : v ≠ 0 := hprojective.resolve_left (fun h => h hu)
+    exact GCD369CubeC4NoCommonRootOnUZeroChart
+      Xn Yn Zn r v⁻¹ u v h1 h2 h3 h4 hK hphi hu (by simp [hv])
+  · exact GCD369CubeC4NoCommonRootOnUChart
+      Xn Yn Zn r u⁻¹ u v h1 h2 h3 h4 hK hphi (by simp [hu])
+
 /-- The first retained `c2` load projects to `u^3 - 9*v^2 = 0`. -/
 theorem GCD369CubeC2Support {K : Type*} [Field K] [CharZero K]
     (Xn Yn Zn u v : K)
@@ -2229,6 +2354,9 @@ theorem GCD369CubeDSMonomialExponent {K : Type*}
 #print axioms GCD369CubeC5NoCommonRoot
 #print axioms GCD369CubeC4Support
 #print axioms GCD369CubeC4TerminalNonzero
+#print axioms GCD369CubeC4NoCommonRootOnUZeroChart
+#print axioms GCD369CubeC4NoCommonRootOnUChart
+#print axioms GCD369CubeC4NoCommonRoot
 #print axioms GCD369CubeC2Support
 #print axioms GCD369CubeC2TerminalNonzero
 #print axioms GCD369CubeC1Support
