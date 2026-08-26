@@ -702,6 +702,113 @@ theorem GCD369CubeC1TerminalNonzero {K : Type*} [Field K] [CharZero K]
         (1 / 32 * u) * hterminal
     exact (pow_ne_zero 4 hu) hu4
 
+/-- The `u=0`, `v!=0` chart certificate for a first-`c1` landing. -/
+theorem GCD369CubeC1NoCommonRootOnUZeroChart
+    {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn r Tin u v : K)
+    (h1 : 8 * u - 9 * u * Xn ^ 2 + 18 * Xn * Zn + 9 * Yn ^ 2 = 0)
+    (h2 :
+      -8 * v + 9 * v * Xn ^ 2 + 18 * u * Xn * Yn - 18 * Yn * Zn = 0)
+    (h3 :
+      2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+          2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0)
+    (_h4 :
+      8 * u * v + 27 * u * v * Xn ^ 2 + 18 * u ^ 2 * Xn * Yn -
+          36 * v * Xn * Zn - 18 * v * Yn ^ 2 - 18 * u * Yn * Zn = 0)
+    (hK : r ^ 3 + u * r + v = 0)
+    (hphi : Xn * r ^ 2 + Yn * r + Zn = 0)
+    (hu : u = 0) (hchart : Tin * v - 1 = 0) :
+    False := by
+  let C1 : K := 1 / 8 * r * Tin ^ 2 * v
+  let C2 : K := 1 / 4 * r ^ 3 * Tin ^ 2 + 1 / 8 * Tin ^ 2 * v
+  let C3 : K := -3 / 8 * r ^ 2 * Tin ^ 2
+  let C5 : K :=
+    -9 / 8 * Xn * Zn * r * Tin ^ 2 - 9 / 8 * Xn ^ 2 * Tin ^ 2 * v +
+      27 / 8 * Yn * Zn * Tin ^ 2 + 2 * Tin ^ 2 * v
+  let C6 : K :=
+    9 / 8 * Zn * r ^ 2 * Tin ^ 2 - 9 / 8 * Xn * r * Tin ^ 2 * v -
+      9 / 8 * Yn * Tin ^ 2 * v
+  let C7 : K :=
+    -9 / 2 * Xn * Yn * r ^ 3 * Tin ^ 2 +
+      3 / 4 * Xn ^ 2 * r ^ 2 * Tin ^ 2 * u -
+      3 / 4 * Yn ^ 2 * r ^ 2 * Tin ^ 2 -
+      3 / 8 * Xn * Zn * r ^ 2 * Tin ^ 2 +
+      9 / 4 * Xn ^ 2 * r * Tin ^ 2 * v -
+      27 / 8 * Yn * Zn * r * Tin ^ 2 - 9 / 4 * Xn * Yn * Tin ^ 2 * v -
+      3 * r * Tin ^ 2 * v
+  let C8 : K := -Tin * v - 1
+  have hone : (1 : K) = 0 := by
+    linear_combination C1 * h1 + C2 * h2 + C3 * h3 + C5 * hK +
+      C6 * hphi + C7 * hu + C8 * hchart
+  exact one_ne_zero hone
+
+/-- The `v=0`, `u!=0` chart certificate for a first-`c1` landing. -/
+theorem GCD369CubeC1NoCommonRootOnVZeroChart
+    {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn r Tin u v : K)
+    (h1 : 8 * u - 9 * u * Xn ^ 2 + 18 * Xn * Zn + 9 * Yn ^ 2 = 0)
+    (h2 :
+      -8 * v + 9 * v * Xn ^ 2 + 18 * u * Xn * Yn - 18 * Yn * Zn = 0)
+    (h3 :
+      2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+          2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0)
+    (_h4 :
+      8 * u * v + 27 * u * v * Xn ^ 2 + 18 * u ^ 2 * Xn * Yn -
+          36 * v * Xn * Zn - 18 * v * Yn ^ 2 - 18 * u * Yn * Zn = 0)
+    (hK : r ^ 3 + u * r + v = 0)
+    (hphi : Xn * r ^ 2 + Yn * r + Zn = 0)
+    (hv : v = 0) (hchart : Tin * u - 1 = 0) :
+    False := by
+  let C1 : K := 1 / 8 * Tin ^ 3 * u ^ 2
+  let C2 : K := -3 / 8 * r ^ 3 * Tin ^ 3
+  let C3 : K := 27 / 16 * r ^ 2 * Tin ^ 3 + 9 / 16 * Tin ^ 3 * u
+  let C5 : K :=
+    27 / 8 * Xn * Yn * r ^ 2 * Tin ^ 3 -
+      27 / 8 * Xn ^ 2 * r * Tin ^ 3 * u +
+      27 / 8 * Yn ^ 2 * r * Tin ^ 3 + 81 / 16 * Xn * Zn * r * Tin ^ 3 +
+      27 / 16 * Yn * Zn * Tin ^ 3
+  let C6 : K :=
+    -27 / 8 * Yn * r ^ 3 * Tin ^ 3 +
+      27 / 8 * Xn * r ^ 2 * Tin ^ 3 * u -
+      81 / 16 * Zn * r ^ 2 * Tin ^ 3 - 27 / 16 * Zn * Tin ^ 3 * u
+  let C7 : K :=
+    27 / 8 * Xn ^ 2 * r ^ 3 * Tin ^ 3 +
+      27 / 4 * Xn * Yn * r ^ 2 * Tin ^ 3 +
+      27 / 8 * Xn ^ 2 * r * Tin ^ 3 * u -
+      27 / 8 * Yn ^ 2 * r * Tin ^ 3 - 81 / 16 * Xn * Zn * r * Tin ^ 3 -
+      3 * r ^ 3 * Tin ^ 3 + 27 / 8 * Xn * Yn * Tin ^ 3 * u -
+      27 / 16 * Yn * Zn * Tin ^ 3
+  let C8 : K := -Tin ^ 2 * u ^ 2 - Tin * u - 1
+  have hone : (1 : K) = 0 := by
+    linear_combination C1 * h1 + C2 * h2 + C3 * h3 + C5 * hK +
+      C6 * hphi + C7 * hv + C8 * hchart
+  exact one_ne_zero hone
+
+/-- At every nonzero projective first-`c1` landing, the common cubic and its
+normal have no common field-valued root. -/
+theorem GCD369CubeC1NoCommonRoot {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn u v : K) (hprojective : u ≠ 0 ∨ v ≠ 0)
+    (h1 : 8 * u - 9 * u * Xn ^ 2 + 18 * Xn * Zn + 9 * Yn ^ 2 = 0)
+    (h2 :
+      -8 * v + 9 * v * Xn ^ 2 + 18 * u * Xn * Yn - 18 * Yn * Zn = 0)
+    (h3 :
+      2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
+          2 * u * Yn ^ 2 + 3 * Zn ^ 2 = 0)
+    (h4 :
+      8 * u * v + 27 * u * v * Xn ^ 2 + 18 * u ^ 2 * Xn * Yn -
+          36 * v * Xn * Zn - 18 * v * Yn ^ 2 - 18 * u * Yn * Zn = 0) :
+    ∀ r : K, r ^ 3 + u * r + v = 0 →
+      Xn * r ^ 2 + Yn * r + Zn = 0 → False := by
+  have hsupport := GCD369CubeC1Support Xn Yn Zn u v h1 h2 h3 h4
+  intro r hK hphi
+  by_cases hu : u = 0
+  · have hv : v ≠ 0 := hprojective.resolve_left (fun h => h hu)
+    exact GCD369CubeC1NoCommonRootOnUZeroChart
+      Xn Yn Zn r v⁻¹ u v h1 h2 h3 h4 hK hphi hu (by simp [hv])
+  · have hv : v = 0 := (mul_eq_zero.mp hsupport).resolve_left hu
+    exact GCD369CubeC1NoCommonRootOnVZeroChart
+      Xn Yn Zn r u⁻¹ u v h1 h2 h3 h4 hK hphi hv (by simp [hu])
+
 /-- With all high constants zero, a first `rho1` load forces `v = 0`. -/
 theorem GCD369CubeRhoOneSupport {K : Type*} [Field K] [CharZero K]
     (Xn Yn Zn u v : K)
@@ -1837,6 +1944,9 @@ theorem GCD369CubeDSMonomialExponent {K : Type*}
 #print axioms GCD369CubeC2TerminalNonzero
 #print axioms GCD369CubeC1Support
 #print axioms GCD369CubeC1TerminalNonzero
+#print axioms GCD369CubeC1NoCommonRootOnUZeroChart
+#print axioms GCD369CubeC1NoCommonRootOnVZeroChart
+#print axioms GCD369CubeC1NoCommonRoot
 #print axioms GCD369CubeRhoOneSupport
 #print axioms GCD369CubeRhoOneTerminalNonzero
 #print axioms GCD369CubeRhoTwoSupport
