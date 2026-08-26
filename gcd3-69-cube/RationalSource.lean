@@ -319,6 +319,16 @@ noncomputable def GCD369CubeRatFuncPolynomialDerivation
       GCD369CubeRatFuncPolynomialDerivation q
   exact map_add _ _ _
 
+@[simp] theorem GCD369CubeRatFuncCoefficientDerivative_sub
+    {k : Type*} [Field k] (p q : (RatFunc k)[X]) :
+    GCD369CubeRatFuncCoefficientDerivative (p - q) =
+      GCD369CubeRatFuncCoefficientDerivative p -
+        GCD369CubeRatFuncCoefficientDerivative q := by
+  change GCD369CubeRatFuncPolynomialDerivation (p - q) =
+    GCD369CubeRatFuncPolynomialDerivation p -
+      GCD369CubeRatFuncPolynomialDerivation q
+  exact map_sub _ _ _
+
 @[simp] theorem GCD369CubeRatFuncCoefficientDerivative_mul
     {k : Type*} [Field k] (p q : (RatFunc k)[X]) :
     GCD369CubeRatFuncCoefficientDerivative (p * q) =
