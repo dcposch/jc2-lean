@@ -5124,7 +5124,8 @@ inductive GCD369CubeTrajectoryLanding
           C (63 / 2) * X : K[X]) = 0)
 
 /-- Every landing in the exact finite cube-core list is impossible.  This is
-the source-completeness gluing theorem for the already certified branches. -/
+finite branch glue only: source completeness additionally requires a theorem
+mapping the original cube-core Keller/Faber data into this landing type. -/
 theorem GCD369CubeTrajectoryLandingEmpty {K : Type*}
     [Field K] [CharZero K] [IsAlgClosed K]
     (L : GCD369CubeTrajectoryLanding K) : False := by
