@@ -331,6 +331,31 @@ theorem GCD369BaseFixingAutomorphismFixesConstants
     GCD369AlgebraicDifferentialConstantsDescend hFconstants c hc
   rw [hc0, IsScalarTower.algebraMap_apply k F L, hsigmaF]
 
+/-- The first source row aligns an algebraic Kummer extension directly from
+the base constant-field theorem and the base-fixing deck action. -/
+theorem GCD369KummerAlignmentFromBaseConstants
+    {k F L : Type*} [Field k] [IsAlgClosed k]
+    [Field F] [CharZero F] [Differential F]
+    [Field L] [CharZero L] [Algebra k F] [Algebra F L] [Algebra k L]
+    [IsScalarTower k F L] [Differential L] [DifferentialAlgebra F L]
+    [Algebra.IsAlgebraic F L]
+    (sigma : L ≃+* L) (omega s a b : L)
+    (hsigmaF : ∀ u : F, sigma (algebraMap F L u) = algebraMap F L u)
+    (hFconstants : ∀ u : F, Differential.deriv u = 0 →
+      ∃ u0 : k, u = algebraMap k F u0)
+    (homega3 : omega ^ 3 = 1) (homega : omega ≠ 1) (hs : s ≠ 0)
+    (hsigmaS : sigma s = omega * s)
+    (hsigmaA : sigma a = a) (hsigmaB : sigma b = b)
+    (hrow :
+      3 * s ^ 4 * Differential.deriv a
+          - 15 * s ^ 3 * a * Differential.deriv s
+        - 2 * s * Differential.deriv b
+          + 16 * b * Differential.deriv s = 0) :
+    3 * a / s ^ 5 - 2 * b / s ^ 8 = 0 := by
+  exact GCD369KummerAlignmentFromFirstRow sigma omega s a b
+    homega3 homega hs hsigmaS hsigmaA hsigmaB
+    (GCD369BaseFixingAutomorphismFixesConstants sigma hsigmaF hFconstants) hrow
+
 set_option maxHeartbeats 2000000 in
 set_option maxRecDepth 10000 in
 theorem GCD369AlignedKellerRow4 {K : Type*} [Field K] [CharZero K] [Differential K]
@@ -2844,6 +2869,7 @@ theorem GCD369DSOneRootCube {K : Type*} [Field K] [IsAlgClosed K]
 #print axioms GCD369KummerDeckCommutesWithDerivative
 #print axioms GCD369AlgebraicDifferentialConstantsDescend
 #print axioms GCD369BaseFixingAutomorphismFixesConstants
+#print axioms GCD369KummerAlignmentFromBaseConstants
 #print axioms GCD369InvariantFibreDichotomy
 #print axioms GCD369AlignedKellerFibreDichotomy
 #print axioms GCD369ZeroBracketSheet

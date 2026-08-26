@@ -162,6 +162,29 @@ theorem GCD369BaseFixingAutomorphismFixesConstants
     ∀ c : L, Differential.deriv c = 0 → sigma c = c := by
   sorry
 
+/-- The first source row aligns an algebraic Kummer extension directly from
+the base constant-field theorem and the base-fixing deck action. -/
+theorem GCD369KummerAlignmentFromBaseConstants
+    {k F L : Type*} [Field k] [IsAlgClosed k]
+    [Field F] [CharZero F] [Differential F]
+    [Field L] [CharZero L] [Algebra k F] [Algebra F L] [Algebra k L]
+    [IsScalarTower k F L] [Differential L] [DifferentialAlgebra F L]
+    [Algebra.IsAlgebraic F L]
+    (sigma : L ≃+* L) (omega s a b : L)
+    (hsigmaF : ∀ u : F, sigma (algebraMap F L u) = algebraMap F L u)
+    (hFconstants : ∀ u : F, Differential.deriv u = 0 →
+      ∃ u0 : k, u = algebraMap k F u0)
+    (homega3 : omega ^ 3 = 1) (homega : omega ≠ 1) (hs : s ≠ 0)
+    (hsigmaS : sigma s = omega * s)
+    (hsigmaA : sigma a = a) (hsigmaB : sigma b = b)
+    (hrow :
+      3 * s ^ 4 * Differential.deriv a
+          - 15 * s ^ 3 * a * Differential.deriv s
+        - 2 * s * Differential.deriv b
+          + 16 * b * Differential.deriv s = 0) :
+    3 * a / s ^ 5 - 2 * b / s ^ 8 = 0 := by
+  sorry
+
 /-- No aligned Keller pair in the nontrivial cubic-Kummer branch can have a
 noncube polynomial core under the displayed function-field presentations. -/
 theorem GCD369AlignedNoncubeExclusion

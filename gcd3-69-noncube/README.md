@@ -34,6 +34,8 @@ that its deck action respects this differential structure.
 differential extension does not enlarge an algebraically closed constant
 field, and `GCD369BaseFixingAutomorphismFixesConstants` consequently removes
 the need to assume separately that a base-fixing deck action fixes constants.
+`GCD369KummerAlignmentFromBaseConstants` then feeds that result directly into
+the first-row alignment argument.
 
 The result is aimed at researchers studying polynomial automorphisms, the
 Jacobian conjecture, and exact algebraic decompositions arising in formal or
@@ -59,6 +61,9 @@ included campaign source and its review.
   `GCD369BaseFixingAutomorphismFixesConstants` supply constant-field descent
   through the algebraic Kummer extension and show that its base-fixing deck
   action fixes every differential constant.
+- `GCD369KummerAlignmentFromBaseConstants` composes this descent with the
+  first denominator-cleared source row to prove alignment without a separate
+  constant-fixing hypothesis.
 - `GCD369AlignedNoncubeExclusion` proves that the displayed aligned Keller,
   Kummer, constant-field, and reduced function-field hypotheses are
   inconsistent with a noncube polynomial core.

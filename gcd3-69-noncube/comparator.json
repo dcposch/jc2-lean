@@ -11,6 +11,7 @@
     "GCD369KummerDeckCommutesWithDerivative",
     "GCD369AlgebraicDifferentialConstantsDescend",
     "GCD369BaseFixingAutomorphismFixesConstants",
+    "GCD369KummerAlignmentFromBaseConstants",
     "GCD369AlignedNoncubeExclusion"
   ],
   "definition_names": [

@@ -136,6 +136,11 @@ status:
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator.json"
+    - declaration: "GCD369KummerAlignmentFromBaseConstants"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
     - declaration: "GCD369AlgebraicDifferentialConstantsDescend"
       file: "Solution.lean"
       sorry_count: 0
@@ -236,6 +241,13 @@ review:
 alignment:
   namespace: "(root)"
   statements:
+    - source: "Noncube alignment from the rational base constant field"
+      lean: "GCD369KummerAlignmentFromBaseConstants"
+      module: "Challenge"
+      status: >-
+        the first source row gives alignment from base constant descent and a
+        base-fixing algebraic Kummer deck action, with no separate hypothesis
+        that the deck action fixes extension constants
     - source: "Charged noncube landing, constant-field descent"
       lean: "GCD369BaseFixingAutomorphismFixesConstants"
       module: "Challenge"
