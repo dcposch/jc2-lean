@@ -5,10 +5,12 @@ project:
   name: "jc2-gcd3-69-aligned-noncube-exclusion"
   description: >-
     Lean 4 / Mathlib proof of the aligned noncube exclusion at actual partial
-    degrees (6,9).  From the actual aligned Keller bracket and explicit
-    cubic-Kummer/function-field hypotheses, the formalization extracts the
-    four lower rows, derives the invariant two-sheet split, and excludes the
-    zero sheet, all nonzero elliptic trajectories, and the special shifted
+    degrees (6,9).  From a general simultaneously depressed Keller bracket
+    and explicit cubic-Kummer weights, the formalization integrates the eight
+    high rows to the five-coefficient-plus-kappa normal form modulo constant
+    target shear and translation.  It then extracts the four lower rows,
+    derives the invariant two-sheet split, and excludes the zero sheet, all
+    nonzero elliptic trajectories, and the special shifted
     Davenport--Stothers fibre.  It does not claim the cube branch, all (6,9),
     maximum eleven, or the plane Jacobian conjecture.
   authors:
@@ -22,6 +24,30 @@ classification:
   msc2020: ["14R15", "13P10"]
 
 sources:
+  - title: "GCD3 (6,9) first common-cubic gate"
+    authors:
+      - "Dan Clemens Posch"
+    type: "other"
+    location: "sources/gcd3-69-common-cubic-first-gate-20260824.md"
+    relationship: "formalizes"
+    note: >-
+      Exact frozen campaign report for Kummer alignment and the triangular
+      integration of the eight high source rows.  The source is included
+      byte-for-byte; its original SHA-256 is recorded in README.md.
+    license: "CC-BY-4.0"
+    author_endorsement: "participated"
+  - title: "Hostile different-model review: GCD3 (6,9) first common-cubic gate"
+    authors:
+      - "Grok 4.6 review agent under the JC2 campaign"
+    type: "other"
+    location: "sources/gcd3-69-common-cubic-first-gate-review-grok-20260824.md"
+    relationship: "background"
+    note: >-
+      Campaign-internal independent reconstruction and scope audit of the
+      informal high-row source, copied byte-for-byte.  It is not an external
+      human peer review and does not review this Lean extraction.
+    license: "CC-BY-4.0"
+    author_endorsement: "n/a"
   - title: "GCD3 (6,9) lower-Pfaffian successor gate"
     authors:
       - "Dan Clemens Posch"
@@ -120,8 +146,12 @@ status:
     rational function field and has precisely the ground-field constants;
     algebraic differential extensions do not enlarge an algebraically closed
     constant field, so every base-fixing deck automorphism fixes constants;
-    extraction of all four lower rows from
-    the actual Keller bracket; first-integral and invariant-fibre landing; zero
+    triangular integration of the eight high bracket rows for a general
+    simultaneously depressed degree-nine member; Kummer-weight elimination
+    of the five nonzero-weight integration constants; exact identification of
+    the surviving target shear, kappa, and target translation; extraction of
+    all four lower rows from the actual Keller bracket; first-integral and
+    invariant-fibre landing; zero
     bracket and terminal exclusion on P_A; the P_B elliptic equation and
     actual terminal row; exclusion of constant and nonconstant trajectories
     on C != 0; the C=0 factorization; shifted Davenport--Stothers terminal
@@ -133,6 +163,11 @@ status:
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
   main_results:
+    - declaration: "GCD369KummerHighRowsNormalize"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
     - declaration: "GCD369RatFuncConstants"
       file: "Solution.lean"
       sorry_count: 0
@@ -235,10 +270,12 @@ automation:
 
 fidelity:
   divergences: >-
-    (1) The theorem begins with the aligned normal form and explicit
-    cubic-Kummer/function-field data; it does not construct these from every
-    arbitrary Keller pair.  (2) Rational functions are presented by reduced
-    numerator/denominator pairs over an algebraically closed constant field.
+    (1) The high-row theorem begins with a simultaneously depressed aligned
+    coefficient path and explicit cubic-Kummer weights; it does not derive
+    that change of variable and its weights from every arbitrary Keller pair.
+    The lower exclusion begins with the resulting aligned normal form and
+    explicit function-field data.  (2) Rational functions are presented by
+    reduced numerator/denominator pairs over an algebraically closed constant field.
     The nonzero elliptic exclusion uses direct evaluation at a forbidden value
     rather than the source's equivalent local-valuation phrasing; constant
     trajectories are handled separately from the uncleared Keller row.
@@ -268,6 +305,13 @@ review:
 alignment:
   namespace: "(root)"
   statements:
+    - source: "First common-cubic gate, equations (1.7)--(1.11)"
+      lean: "GCD369KummerHighRowsNormalize"
+      module: "Challenge"
+      status: >-
+        all eight triangular high bracket rows are integrated; Kummer weights
+        kill the five nonzero-weight constants; the surviving constants are
+        identified as target shear, kappa, and target translation
     - source: "Charged noncube landing, complete differential Kummer package"
       lean: "GCD369PolynomialNoncubeDifferentialKummerPackage"
       module: "Challenge"
@@ -335,4 +379,4 @@ alignment:
 
 acknowledgements: >-
   The Mathlib community, the Palomar registry conventions, and the campaign
-  review agents that audited the informal lower-Pfaffian source.
+  review agents that audited the informal high-row and lower-Pfaffian sources.

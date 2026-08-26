@@ -37,6 +37,45 @@ noncomputable def GCD369AlignedG {K : Type*} [Field K]
         - 12 * a2 * a3 * a4 - 2 * a3 ^ 3 + 3 * a3 * a4 ^ 3) / 32)
     + C kappa * (X ^ 3 + C (a4 / 2) * X + C (a3 / 2))
 
+/-- A general monic, simultaneously depressed degree-nine member before the
+eight high source rows have been integrated. -/
+noncomputable def GCD369DepressedG {K : Type*} [Field K]
+    (b0 b1 b2 b3 b4 b5 b6 b7 : K) : K[X] :=
+  X ^ 9 + C b7 * X ^ 7 + C b6 * X ^ 6 + C b5 * X ^ 5
+    + C b4 * X ^ 4 + C b3 * X ^ 3 + C b2 * X ^ 2 + C b1 * X + C b0
+
+/-- The eight high rows of an aligned noncube source integrate to the
+five-coefficient normal form, up to the constant target shear and target
+translation.  The Kummer weights kill the five nonzero-weight integration
+constants; `c3` is the essential `kappa`. -/
+theorem GCD369KummerHighRowsNormalize
+    {K : Type*} [Field K] [CharZero K] [Differential K]
+    (sigma : K ≃+* K) (omega : K)
+    (a0 a1 a2 a3 a4 b0 b1 b2 b3 b4 b5 b6 b7 terminal : K)
+    (homega3 : omega ^ 3 = 1) (homega : omega ≠ 1)
+    (hfix : ∀ c : K, Differential.deriv c = 0 → sigma c = c)
+    (ha0 : sigma a0 = a0) (ha1 : sigma a1 = omega ^ 2 * a1)
+    (ha2 : sigma a2 = omega * a2) (ha3 : sigma a3 = a3)
+    (ha4 : sigma a4 = omega ^ 2 * a4)
+    (hb1 : sigma b1 = omega ^ 2 * b1)
+    (hb2 : sigma b2 = omega * b2)
+    (hb4 : sigma b4 = omega ^ 2 * b4)
+    (hb5 : sigma b5 = omega * b5)
+    (hb7 : sigma b7 = omega ^ 2 * b7)
+    (hD :
+      Differential.mapCoeffs (GCD369AlignedF a0 a1 a2 a3 a4)
+          * derivative (GCD369DepressedG b0 b1 b2 b3 b4 b5 b6 b7)
+        - derivative (GCD369AlignedF a0 a1 a2 a3 a4)
+          * Differential.mapCoeffs (GCD369DepressedG b0 b1 b2 b3 b4 b5 b6 b7)
+        = C terminal) :
+    ∃ c6 c3 c0 : K,
+      Differential.deriv c6 = 0 ∧ Differential.deriv c3 = 0
+        ∧ Differential.deriv c0 = 0 ∧
+      GCD369DepressedG b0 b1 b2 b3 b4 b5 b6 b7 =
+        GCD369AlignedG a0 a1 a2 a3 a4 c3
+          + C c6 * GCD369AlignedF a0 a1 a2 a3 a4 + C c0 := by
+  sorry
+
 /-- The first denominator-cleared `(6,9)` source row makes the normalized
 alignment discriminator differential-constant. -/
 theorem GCD369AlignmentDiscriminatorDerivative

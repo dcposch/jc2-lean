@@ -42,6 +42,255 @@ noncomputable def GCD369AlignedG {K : Type*} [Field K]
         - 12 * a2 * a3 * a4 - 2 * a3 ^ 3 + 3 * a3 * a4 ^ 3) / 32)
     + C kappa * (X ^ 3 + C (a4 / 2) * X + C (a3 / 2))
 
+/-- A general monic, simultaneously depressed degree-nine member before the
+eight high source rows have been integrated. -/
+noncomputable def GCD369DepressedG {K : Type*} [Field K]
+    (b0 b1 b2 b3 b4 b5 b6 b7 : K) : K[X] :=
+  X ^ 9 + C b7 * X ^ 7 + C b6 * X ^ 6 + C b5 * X ^ 5
+    + C b4 * X ^ 4 + C b3 * X ^ 3 + C b2 * X ^ 2 + C b1 * X + C b0
+
+set_option maxHeartbeats 4000000 in
+set_option maxRecDepth 10000 in
+/-- The eight high rows of an aligned noncube source integrate to the
+five-coefficient normal form, up to the constant target shear and target
+translation.  The Kummer weights kill the five nonzero-weight integration
+constants; `c3` is the essential `kappa`. -/
+theorem GCD369KummerHighRowsNormalize
+    {K : Type*} [Field K] [CharZero K] [Differential K]
+    (sigma : K ≃+* K) (omega : K)
+    (a0 a1 a2 a3 a4 b0 b1 b2 b3 b4 b5 b6 b7 terminal : K)
+    (homega3 : omega ^ 3 = 1) (homega : omega ≠ 1)
+    (hfix : ∀ c : K, Differential.deriv c = 0 → sigma c = c)
+    (ha0 : sigma a0 = a0) (ha1 : sigma a1 = omega ^ 2 * a1)
+    (ha2 : sigma a2 = omega * a2) (ha3 : sigma a3 = a3)
+    (ha4 : sigma a4 = omega ^ 2 * a4)
+    (hb1 : sigma b1 = omega ^ 2 * b1)
+    (hb2 : sigma b2 = omega * b2)
+    (hb4 : sigma b4 = omega ^ 2 * b4)
+    (hb5 : sigma b5 = omega * b5)
+    (hb7 : sigma b7 = omega ^ 2 * b7)
+    (hD :
+      Differential.mapCoeffs (GCD369AlignedF a0 a1 a2 a3 a4)
+          * derivative (GCD369DepressedG b0 b1 b2 b3 b4 b5 b6 b7)
+        - derivative (GCD369AlignedF a0 a1 a2 a3 a4)
+          * Differential.mapCoeffs (GCD369DepressedG b0 b1 b2 b3 b4 b5 b6 b7)
+        = C terminal) :
+    ∃ c6 c3 c0 : K,
+      Differential.deriv c6 = 0 ∧ Differential.deriv c3 = 0
+        ∧ Differential.deriv c0 = 0 ∧
+      GCD369DepressedG b0 b1 b2 b3 b4 b5 b6 b7 =
+        GCD369AlignedG a0 a1 a2 a3 a4 c3
+          + C c6 * GCD369AlignedF a0 a1 a2 a3 a4 + C c0 := by
+  have hnat (n : ℕ) : Differential.deriv (n : K) = 0 :=
+    Differential.deriv.map_natCast n
+  have hOfNat (n : ℕ) [n.AtLeastTwo] :
+      Differential.deriv (ofNat(n) : K) = 0 := hnat n
+  have hcoeff (n : ℕ) (hn : n ≠ 0) :
+      (Differential.mapCoeffs (GCD369AlignedF a0 a1 a2 a3 a4)
+            * derivative (GCD369DepressedG b0 b1 b2 b3 b4 b5 b6 b7)
+          - derivative (GCD369AlignedF a0 a1 a2 a3 a4)
+            * Differential.mapCoeffs (GCD369DepressedG b0 b1 b2 b3 b4 b5 b6 b7)).coeff n = 0 := by
+    have h := congrArg (fun p : K[X] ↦ p.coeff n) hD
+    rw [coeff_C, if_neg hn] at h
+    exact h
+  have h12 := hcoeff 12 (by norm_num)
+  have h11 := hcoeff 11 (by norm_num)
+  have h10 := hcoeff 10 (by norm_num)
+  have h9 := hcoeff 9 (by norm_num)
+  have h8 := hcoeff 8 (by norm_num)
+  have h7 := hcoeff 7 (by norm_num)
+  have h6 := hcoeff 6 (by norm_num)
+  have h5 := hcoeff 5 (by norm_num)
+  rw [GCD369AlignedF, GCD369DepressedG] at h12 h11 h10 h9 h8 h7 h6 h5
+  simp only [coeff_sub, coeff_mul, Differential.coeff_mapCoeffs, coeff_derivative]
+    at h12 h11 h10 h9 h8 h7 h6 h5
+  simp only [Finset.Nat.sum_antidiagonal_eq_sum_range_succ_mk]
+    at h12 h11 h10 h9 h8 h7 h6 h5
+  simp only [mul_assoc] at h12 h11 h10 h9 h8 h7 h6 h5
+  simp [Finset.sum_range_succ, coeff_C, coeff_C_mul,
+    coeff_mul_X_pow', coeff_X, coeff_X_pow]
+    at h12 h11 h10 h9 h8 h7 h6 h5
+  norm_num at h12 h11 h10 h9 h8 h7 h6 h5
+  field_simp at h12 h11 h10 h9 h8 h7 h6 h5
+  ring_nf at h12 h11 h10 h9 h8 h7 h6 h5
+  have homega2 : omega ^ 2 ≠ 1 := by
+    intro h2
+    apply homega
+    calc
+      omega = omega ^ 2 * omega := by rw [h2, one_mul]
+      _ = omega ^ 3 := by ring
+      _ = 1 := homega3
+  have homega4 : omega ^ 4 = omega := by
+    calc
+      omega ^ 4 = omega ^ 3 * omega := by ring
+      _ = omega := by rw [homega3, one_mul]
+  have homega5 : omega ^ 5 = omega ^ 2 := by
+    calc
+      omega ^ 5 = omega ^ 3 * omega ^ 2 := by ring
+      _ = omega ^ 2 := by rw [homega3, one_mul]
+  have homega8 : omega ^ 8 = omega ^ 2 := by
+    calc
+      omega ^ 8 = (omega ^ 3) ^ 2 * omega ^ 2 := by ring
+      _ = omega ^ 2 := by rw [homega3, one_pow, one_mul]
+  have killWeightOne (c : K) (hc : Differential.deriv c = 0)
+      (hsigma : sigma c = omega * c) : c = 0 := by
+    have hfixed := hfix c hc
+    have hprod : (omega - 1) * c = 0 := by
+      rw [sub_mul, one_mul, ← hsigma, hfixed, sub_self]
+    exact (mul_eq_zero.mp hprod).resolve_left (sub_ne_zero.mpr homega)
+  have killWeightTwo (c : K) (hc : Differential.deriv c = 0)
+      (hsigma : sigma c = omega ^ 2 * c) : c = 0 := by
+    have hfixed := hfix c hc
+    have hprod : (omega ^ 2 - 1) * c = 0 := by
+      rw [sub_mul, one_mul, ← hsigma, hfixed, sub_self]
+    exact (mul_eq_zero.mp hprod).resolve_left (sub_ne_zero.mpr homega2)
+  let c7 := b7 - 3 * a4 / 2
+  have hc7 : Differential.deriv c7 = 0 := by
+    dsimp [c7]
+    simp [div_eq_mul_inv, Derivation.leibniz, Derivation.leibniz_inv, hOfNat]
+    linear_combination (-1 / 6) * h12
+  have hsigmaC7 : sigma c7 = omega ^ 2 * c7 := by
+    dsimp [c7]
+    simp only [map_sub, map_div₀, map_mul, map_ofNat, hb7, ha4]
+    ring
+  have hc7zero : c7 = 0 := killWeightTwo c7 hc7 hsigmaC7
+  have hb7form : b7 = 3 * a4 / 2 := by
+    dsimp [c7] at hc7zero
+    linear_combination hc7zero
+  let c6 := b6 - 3 * a3 / 2
+  have hc6 : Differential.deriv c6 = 0 := by
+    dsimp [c6]
+    simp [div_eq_mul_inv, Derivation.leibniz, Derivation.leibniz_inv, hOfNat]
+    linear_combination (-1 / 6) * h11
+  have hb6form : b6 = 3 * a3 / 2 + c6 := by
+    dsimp [c6]
+    ring
+  let c5 := b5 - 3 * (4 * a2 + a4 ^ 2) / 8
+  have hc5 : Differential.deriv c5 = 0 := by
+    dsimp [c5]
+    simp [div_eq_mul_inv, Derivation.leibniz, Derivation.leibniz_inv,
+      Derivation.leibniz_pow, hOfNat]
+    rw [hb7form] at h10
+    simp [div_eq_mul_inv, Derivation.leibniz, Derivation.leibniz_inv, hOfNat] at h10
+    linear_combination (-1 / 6) * h10
+  have hsigmaC5 : sigma c5 = omega * c5 := by
+    dsimp [c5]
+    simp only [map_sub, map_add, map_div₀, map_mul, map_pow, map_ofNat,
+      hb5, ha2, ha4]
+    field_simp
+    ring_nf
+    rw [homega4]
+  have hc5zero : c5 = 0 := killWeightOne c5 hc5 hsigmaC5
+  have hb5form : b5 = 3 * (4 * a2 + a4 ^ 2) / 8 := by
+    dsimp [c5] at hc5zero
+    linear_combination hc5zero
+  let c4 := b4 - 3 * (2 * a1 + a3 * a4) / 4 - a4 * c6
+  have hc4 : Differential.deriv c4 = 0 := by
+    dsimp [c4]
+    simp [div_eq_mul_inv, Derivation.leibniz, Derivation.leibniz_inv, hOfNat, hc6]
+    rw [hb7form, hb6form] at h9
+    simp [div_eq_mul_inv, Derivation.leibniz, Derivation.leibniz_inv,
+      hOfNat, hc6] at h9 ⊢
+    linear_combination (-1 / 6) * h9
+  have hsigmaC6 : sigma c6 = c6 := by
+    exact hfix c6 hc6
+  have hsigmaC4 : sigma c4 = omega ^ 2 * c4 := by
+    dsimp [c4]
+    simp only [map_sub, map_add, map_div₀, map_mul, map_ofNat,
+      hb4, ha1, ha3, ha4, hsigmaC6]
+    ring
+  have hc4zero : c4 = 0 := killWeightTwo c4 hc4 hsigmaC4
+  have hb4form : b4 = 3 * (2 * a1 + a3 * a4) / 4 + a4 * c6 := by
+    dsimp [c4] at hc4zero
+    linear_combination hc4zero
+  let c3 := b3
+      - (24 * a0 + 12 * a2 * a4 + 6 * a3 ^ 2 - a4 ^ 3) / 16
+      - a3 * c6
+  have hc3 : Differential.deriv c3 = 0 := by
+    dsimp [c3]
+    simp [div_eq_mul_inv, Derivation.leibniz, Derivation.leibniz_inv,
+      Derivation.leibniz_pow, hOfNat, hc6]
+    rw [hb7form, hb6form, hb5form] at h8
+    simp [div_eq_mul_inv, Derivation.leibniz, Derivation.leibniz_inv,
+      Derivation.leibniz_pow, hOfNat, hc6] at h8 ⊢
+    linear_combination (-1 / 6) * h8
+  have hb3form : b3 =
+      (24 * a0 + 12 * a2 * a4 + 6 * a3 ^ 2 - a4 ^ 3) / 16
+        + a3 * c6 + c3 := by
+    dsimp [c3]
+    ring
+  let c2 := b2
+      - 3 * (4 * a1 * a4 + 4 * a2 * a3 - a3 * a4 ^ 2) / 16
+      - a2 * c6
+  have hc2 : Differential.deriv c2 = 0 := by
+    dsimp [c2]
+    simp [div_eq_mul_inv, Derivation.leibniz, Derivation.leibniz_inv,
+      Derivation.leibniz_pow, hOfNat, hc6]
+    rw [hb7form, hb6form, hb5form, hb4form] at h7
+    simp [div_eq_mul_inv, Derivation.leibniz, Derivation.leibniz_inv,
+      Derivation.leibniz_pow, hOfNat, hc6] at h7 ⊢
+    linear_combination (-1 / 6) * h7
+  have hsigmaC2 : sigma c2 = omega * c2 := by
+    dsimp [c2]
+    simp only [map_sub, map_add, map_div₀, map_mul, map_pow, map_ofNat,
+      hb2, ha1, ha2, ha3, ha4, hsigmaC6]
+    field_simp
+    ring_nf
+    rw [homega4]
+    ring
+  have hc2zero : c2 = 0 := killWeightOne c2 hc2 hsigmaC2
+  have hb2form : b2 =
+      3 * (4 * a1 * a4 + 4 * a2 * a3 - a3 * a4 ^ 2) / 16
+        + a2 * c6 := by
+    dsimp [c2] at hc2zero
+    linear_combination hc2zero
+  let c1 := b1
+      - 3 * (32 * a0 * a4 + 32 * a1 * a3 + 16 * a2 ^ 2
+          - 8 * a2 * a4 ^ 2 - 8 * a3 ^ 2 * a4 + a4 ^ 4) / 128
+      - a1 * c6 - a4 / 2 * c3
+  have hc1 : Differential.deriv c1 = 0 := by
+    dsimp [c1]
+    simp [div_eq_mul_inv, Derivation.leibniz, Derivation.leibniz_inv,
+      Derivation.leibniz_pow, hOfNat, hc6, hc3]
+    rw [hb7form, hb6form, hb5form, hb4form, hb3form] at h6
+    simp [div_eq_mul_inv, Derivation.leibniz, Derivation.leibniz_inv,
+      Derivation.leibniz_pow, hOfNat, hc6, hc3] at h6 ⊢
+    linear_combination (-1 / 6) * h6
+  have hsigmaC3 : sigma c3 = c3 := hfix c3 hc3
+  have hsigmaC1 : sigma c1 = omega ^ 2 * c1 := by
+    dsimp [c1]
+    simp only [map_sub, map_add, map_div₀, map_mul, map_pow, map_ofNat,
+      hb1, ha0, ha1, ha2, ha3, ha4, hsigmaC6, hsigmaC3]
+    field_simp
+    ring_nf
+    rw [homega5, homega8]
+    ring
+  have hc1zero : c1 = 0 := killWeightTwo c1 hc1 hsigmaC1
+  have hb1form : b1 =
+      3 * (32 * a0 * a4 + 32 * a1 * a3 + 16 * a2 ^ 2
+          - 8 * a2 * a4 ^ 2 - 8 * a3 ^ 2 * a4 + a4 ^ 4) / 128
+        + a1 * c6 + a4 / 2 * c3 := by
+    dsimp [c1] at hc1zero
+    linear_combination hc1zero
+  let c0 := b0
+      - (24 * a0 * a3 + 24 * a1 * a2 - 6 * a1 * a4 ^ 2
+          - 12 * a2 * a3 * a4 - 2 * a3 ^ 3 + 3 * a3 * a4 ^ 3) / 32
+      - a0 * c6 - a3 / 2 * c3
+  have hc0 : Differential.deriv c0 = 0 := by
+    dsimp [c0]
+    simp [div_eq_mul_inv, Derivation.leibniz, Derivation.leibniz_inv,
+      Derivation.leibniz_pow, hOfNat, hc6, hc3]
+    rw [hb6form, hb5form, hb4form, hb3form, hb2form] at h5
+    simp [div_eq_mul_inv, Derivation.leibniz, Derivation.leibniz_inv,
+      Derivation.leibniz_pow, hOfNat, hc6, hc3] at h5 ⊢
+    linear_combination (-1 / 6) * h5
+  refine ⟨c6, c3, c0, hc6, hc3, hc0, ?_⟩
+  rw [GCD369DepressedG, GCD369AlignedG, GCD369AlignedF,
+    hb7form, hb6form, hb5form, hb4form, hb3form, hb2form, hb1form]
+  dsimp [c0]
+  simp only [C_mul, C_add, C_sub]
+  ring
+
 /-- The first denominator-cleared `(6,9)` source row makes the normalized
 alignment discriminator differential-constant. -/
 theorem GCD369AlignmentDiscriminatorDerivative
@@ -3229,6 +3478,7 @@ theorem GCD369DSOneRootCube {K : Type*} [Field K] [IsAlgClosed K]
   congr 1
   omega
 
+#print axioms GCD369KummerHighRowsNormalize
 #print axioms GCD369AlignmentDiscriminatorDerivative
 #print axioms GCD369KummerAlignmentFromFirstRow
 #print axioms GCD369NoncubeCubicKummerExtension

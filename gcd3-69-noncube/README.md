@@ -2,9 +2,12 @@
 
 This Lean 4 project proves the full noncube gate for the aligned
 nontrivial cubic-Kummer branch at actual partial degrees `(6,9)`.  Starting
-from the actual aligned Keller bracket, it extracts the four lower coefficient
-rows, derives the Kummer first integrals and two-sheet invariant-fibre split,
-and rules out every resulting sheet.  The common-power sheet has zero bracket;
+from a general simultaneously depressed Keller bracket, it first integrates
+the eight high rows to the reviewed five-coefficient-plus-`kappa` normal form,
+modulo constant target shear and translation.  It then extracts the four lower
+coefficient rows, derives the Kummer first integrals and two-sheet
+invariant-fibre split, and rules out every resulting sheet.  The common-power
+sheet has zero bracket;
 the nonzero elliptic fibres are excluded for both constant and nonconstant
 rational trajectories; and the special elliptic fibre reduces to the shifted
 Davenport–Stothers valuation contradiction.
@@ -47,6 +50,11 @@ the first-row alignment argument.
 `GCD369PolynomialNoncubeDifferentialKummerPackage` composes the entire bridge:
 from a noncube polynomial it constructs the differential cubic Kummer field,
 deck action, extension constants, and the resulting first-row alignment.
+`GCD369KummerHighRowsNormalize` then proves the formerly assumed triangular
+integration step: for a general depressed degree-nine member, the eight high
+bracket rows produce eight differential constants; the Kummer action kills the
+five nonzero-weight constants, leaving exactly target shear, `kappa`, and
+target translation.
 
 The result is aimed at researchers studying polynomial automorphisms, the
 Jacobian conjecture, and exact algebraic decompositions arising in formal or
@@ -55,6 +63,9 @@ included campaign source and its review.
 
 ## Compared declaration
 
+- `GCD369KummerHighRowsNormalize` integrates all eight high rows of the
+  general depressed bracket and derives `GCD369AlignedG` modulo the two
+  inessential constant target gauges.
 - `GCD369AlignmentDiscriminatorDerivative` proves the exact quotient-rule
   form of the first denominator-cleared source row.
 - `GCD369KummerAlignmentFromFirstRow` derives the aligned condition from that
@@ -91,24 +102,29 @@ included campaign source and its review.
   inconsistent with a noncube polynomial core.
 - `GCD369AlignedF` and `GCD369AlignedG` are compared definitions for the
   degree-six and degree-nine aligned normal forms used in the theorem.
+- `GCD369DepressedG` is the compared general degree-nine input before the
+  eight-row integration.
 
 ## Proof architecture
 
 The proof is assembled entirely inside Lean:
 
-1. `GCD369AlignedKellerRow4` through `GCD369AlignedKellerRow1` extract the
+1. `GCD369KummerHighRowsNormalize` extracts the `z¹²,…,z⁵` bracket
+   coefficients, integrates their triangular differential system, and uses
+   the deck weights to descend to the aligned normal form.
+2. `GCD369AlignedKellerRow4` through `GCD369AlignedKellerRow1` extract the
    four nonconstant lower coefficients from the single polynomial Keller
    identity.
-2. `GCD369LowerFirstIntegrals` and
+3. `GCD369LowerFirstIntegrals` and
    `GCD369AlignedKellerFibreDichotomy` turn those rows into the four Kummer
    invariants and the two-sheet split.
-3. `GCD369ZeroSheetTerminalExclusion` proves that the first sheet has zero
+4. `GCD369ZeroSheetTerminalExclusion` proves that the first sheet has zero
    source bracket and cannot support the nonzero Keller constant.
-4. On the second sheet, `GCD369EllipticTerminalRow` connects the actual
+5. On the second sheet, `GCD369EllipticTerminalRow` connects the actual
    bracket to the elliptic terminal form.  Constant elliptic coordinates are
    excluded directly; nonconstant reduced rational coordinates are excluded
    at the two forbidden finite values after exact denominator clearing.
-5. On the special fibre, the zero-`X` branch returns to the first sheet.  The
+6. On the special fibre, the zero-`X` branch returns to the first sheet.  The
    nonzero-`X` branch is the shifted Davenport–Stothers family; terminal
    descent gives its reduced rational ODE, whose finite-place classification,
    one-point support, and cube conclusion contradict the noncube hypothesis.
@@ -126,10 +142,12 @@ The two rational presentations are pointwise reduced over `k`.  The theorem
 assumes the standard Kummer relation `s³=h`, the shifted descent relation
 `a₄/4=s²q`, and divisibility `3 | deg(H)`.
 
-Those are the exact inputs needed for the noncube branch.  The formalization
-does not prove that every arbitrary Keller pair admits this aligned/Kummer
-presentation, does not address the cube-core branch, and makes no claim about
-larger degree gates.
+Those are the exact inputs needed for the noncube branch.  The high-row theorem
+starts one step earlier than the headline exclusion, with a general
+simultaneously depressed coefficient path, but the formalization still does
+not derive that Kummer-weighted depression from every arbitrary Keller pair.
+It does not address the cube-core branch and makes no claim about larger
+degree gates.
 
 ## Relationship to earlier literature
 
@@ -150,11 +168,13 @@ Shioda's order-three family is the literature input adapted here; Zannier's
 work supplies broader equality-case context.  The explicit family is not
 claimed as new.
 
-The source report and campaign-internal hostile review are copied under
+The two source reports and campaign-internal hostile reviews are copied under
 `sources/`; their SHA-256 digests agree with the frozen originals:
 
-- producer: `7671785519bf4e55b602f117740bd8d8571c6982a8916235407a2bb0a2263043`
-- review: `a000619d8b5597add21716d525856c459ff57d5a2b2ab75b85de5d9d08970b27`
+- high-row producer: `f63bf74fd1013c74645f9f7fe9292db69199572b390b5b19d160c5ed13b373e8`
+- high-row review: `5416440bc12bb50ecebfdfa520082aa9e88a26069b43deb13bdaabfcd1690503`
+- lower-Pfaffian producer: `7671785519bf4e55b602f117740bd8d8571c6982a8916235407a2bb0a2263043`
+- lower-Pfaffian review: `a000619d8b5597add21716d525856c459ff57d5a2b2ab75b85de5d9d08970b27`
 
 The hostile review concerns the informal mathematics, not the Lean code and
 not external human peer review.  AI assistance and human responsibility are
