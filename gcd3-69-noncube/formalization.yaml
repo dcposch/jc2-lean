@@ -1,18 +1,18 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-version: "v0.4"
+version: "v0.5"
 
 project:
-  name: "jc2-gcd3-69-aligned-noncube-exclusion"
+  name: "jc2-gcd3-69-source-noncube-exclusion"
   description: >-
-    Lean 4 / Mathlib proof of the aligned noncube exclusion at actual partial
-    degrees (6,9).  From a general simultaneously depressed Keller bracket
-    and explicit cubic-Kummer weights, the formalization integrates the eight
-    high rows to the five-coefficient-plus-kappa normal form modulo constant
-    target shear and translation.  It then extracts the four lower rows,
-    derives the invariant two-sheet split, and excludes the zero sheet, all
-    nonzero elliptic trajectories, and the special shifted
-    Davenport--Stothers fibre.  It does not claim the cube branch, all (6,9),
-    maximum eleven, or the plane Jacobian conjecture.
+    Lean 4 / Mathlib proof of the source-facing noncube exclusion at actual
+    partial degrees (6,9).  From literal bivariate polynomials of outer
+    degrees six and nine, leading coefficients H^2 and H^3, and nonzero
+    constant Keller bracket, the formalization constructs the differential
+    cubic-Kummer extension, affine alignment, coefficient weights, high-row
+    normal form, and reduced rational presentations.  It derives the
+    invariant two-sheet split and excludes the zero, elliptic, and shifted
+    Davenport--Stothers sheets.  It does not claim the cube branch, all
+    (6,9), maximum eleven, or the plane Jacobian conjecture.
   authors:
     - "Dan Clemens Posch"
   license: "Apache-2.0"
@@ -132,37 +132,29 @@ sources:
 
 status:
   scope: >-
-    Fully proved under the displayed aligned/Kummer and reduced rational
-    presentation hypotheses: the first denominator-cleared source row makes
-    the alignment discriminator differential-constant and the nontrivial
-    Kummer action forces it to vanish; the irreducible cubic extension and
-    nontrivial base-fixing deck action are constructed from field-level
-    noncubeness; reduced numerator/denominator coprimality proves that a
-    polynomial noncube remains a noncube in the rational function field, so
-    the Kummer data are constructed directly from the polynomial core; the
-    canonical differential extension satisfies the differentiated root
-    equation and every deck automorphism commutes with the derivative;
-    the standard quotient-rule differential structure is constructed on the
-    rational function field and has precisely the ground-field constants;
-    algebraic differential extensions do not enlarge an algebraically closed
-    constant field, so every base-fixing deck automorphism fixes constants;
-    triangular integration of the eight high bracket rows for a general
-    simultaneously depressed degree-nine member; Kummer-weight elimination
-    of the five nonzero-weight integration constants; exact identification of
-    the surviving target shear, kappa, and target translation; extraction of
-    all four lower rows from the actual Keller bracket; first-integral and
-    invariant-fibre landing; zero
-    bracket and terminal exclusion on P_A; the P_B elliptic equation and
-    actual terminal row; exclusion of constant and nonconstant trajectories
-    on C != 0; the C=0 factorization; shifted Davenport--Stothers terminal
-    descent and complete rational valuation closure; and contradiction of the
-    noncube core.  Not proved: construction of the aligned/Kummer presentation
-    from every arbitrary Keller pair, the cube-core branch, all (6,9), maximum
-    eleven, or any larger Jacobian-conjecture claim.
+    Fully proved for a literal normalized source p,q in k[x][y] over an
+    algebraically closed characteristic-zero field: outer degrees 6 and 9,
+    leading coefficients H^2 and H^3, nonzero constant coefficientwise-inner
+    Keller bracket, noncube H, and 3 dividing deg H are contradictory.  The
+    proof internally constructs a primitive cubic root, the irreducible
+    differential Kummer extension and deck action, constant-field descent,
+    simultaneous affine depression, deck coefficient weights, triangular
+    integration of all eight high rows, the lower invariant-fibre split, and
+    canonical reduced rational presentations for both descended quantities.
+    It excludes the zero sheet, constant and nonconstant elliptic fibres, and
+    the shifted Davenport--Stothers special fibre.  Not proved: reduction of
+    every arbitrary Keller pair to these normalized common-cubic hypotheses,
+    the cube-core branch, all (6,9), maximum eleven, or any larger
+    Jacobian-conjecture claim.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
   main_results:
+    - declaration: "GCD369PolynomialNoncubeSourceExclusion"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
     - declaration: "GCD369KummerHighRowsNormalize"
       file: "Solution.lean"
       sorry_count: 0
@@ -250,7 +242,8 @@ automation:
       prompting_notes: >-
         The task first required a source-faithful two-sheet entry and a v2
         cancellation-sensitive valuation closure, then the complete aligned
-        noncube dispatcher and Palomar-ready Challenge/Solution packaging.
+        noncube dispatcher, literal source-to-Kummer normalization bridge,
+        automatic rational descent, and Palomar-ready packaging.
     - method: "manual"
       models: []
       framework: "n/a"
@@ -270,12 +263,13 @@ automation:
 
 fidelity:
   divergences: >-
-    (1) The high-row theorem begins with a simultaneously depressed aligned
-    coefficient path and explicit cubic-Kummer weights; it does not derive
-    that change of variable and its weights from every arbitrary Keller pair.
-    The lower exclusion begins with the resulting aligned normal form and
-    explicit function-field data.  (2) Rational functions are presented by
-    reduced numerator/denominator pairs over an algebraically closed constant field.
+    (1) The headline begins with a normalized common-cubic source whose
+    leading coefficients are explicitly H^2 and H^3; it does not derive this
+    global reduction from every arbitrary plane Keller pair.  The affine
+    change of variable, Kummer weights, function-field descent, and rational
+    presentations are derived rather than assumed.  (2) Rational functions
+    are represented internally by reduced numerator/denominator pairs over
+    an algebraically closed constant field.
     The nonzero elliptic exclusion uses direct evaluation at a forbidden value
     rather than the source's equivalent local-valuation phrasing; constant
     trajectories are handled separately from the uncleared Keller row.
@@ -305,6 +299,13 @@ review:
 alignment:
   namespace: "(root)"
   statements:
+    - source: "Normalized common-cubic noncube gate at partial degrees (6,9)"
+      lean: "GCD369PolynomialNoncubeSourceExclusion"
+      module: "Challenge"
+      status: >-
+        literal bivariate source data construct their own cubic-Kummer field,
+        affine alignment, weights, high-row normal form, rational descents,
+        and complete lower-sheet contradiction
     - source: "First common-cubic gate, equations (1.7)--(1.11)"
       lean: "GCD369KummerHighRowsNormalize"
       module: "Challenge"

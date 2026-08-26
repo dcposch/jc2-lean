@@ -1,23 +1,25 @@
-# Aligned noncube exclusion at partial degrees `(6,9)`
+# Source-facing noncube exclusion at partial degrees `(6,9)`
 
-This Lean 4 project proves the full noncube gate for the aligned
-nontrivial cubic-Kummer branch at actual partial degrees `(6,9)`.  Starting
-from a general simultaneously depressed Keller bracket, it first integrates
-the eight high rows to the reviewed five-coefficient-plus-`kappa` normal form,
-modulo constant target shear and translation.  It then extracts the four lower
-coefficient rows, derives the Kummer first integrals and two-sheet
-invariant-fibre split, and rules out every resulting sheet.  The common-power
-sheet has zero bracket;
-the nonzero elliptic fibres are excluded for both constant and nonconstant
-rational trajectories; and the special elliptic fibre reduces to the shifted
-Davenport–Stothers valuation contradiction.
+This Lean 4 project proves the full noncube gate for a literal normalized
+bivariate source at actual partial degrees `(6,9)`.  The headline theorem
+`GCD369PolynomialNoncubeSourceExclusion` starts with `p,q ∈ k[x][y]` of
+outer degrees six and nine, leading coefficients `H²,H³`, and nonzero
+constant Keller bracket.  If `3 ∣ deg H`, it proves that `H` cannot be a
+noncube.  Its public statement contains no preselected cubic extension,
+affine normalization, coefficient weights, constant-field hypothesis, or
+rational numerator/denominator presentations.
 
-The headline theorem is `GCD369AlignedNoncubeExclusion`.  Its hypotheses make
-explicit the cubic-Kummer weights, the constant-field descent, the polynomial
-core `h=H(x)`, reduced rational presentations for the elliptic coordinate and
-the shifted parameter, and the noncube condition on `H`.  It does not assert
-the cube-core branch, a general `(6,9)` theorem, maximum partial degree eleven,
-or the plane Jacobian conjecture.
+The proof constructs the irreducible cubic Kummer extension of `k(x)`, a
+primitive cube root and deck action, the compatible differential structure,
+and simultaneous affine depression.  It integrates the eight high bracket
+rows to the five-coefficient-plus-`kappa` normal form, extracts the four lower
+rows and invariant two-sheet split, and rules out the zero, elliptic, and
+shifted Davenport–Stothers sheets.  The older
+`GCD369AlignedNoncubeExclusion` remains as the reusable internal endpoint with
+all intermediate function-field data exposed.
+
+This is the noncube-core branch only.  It does not prove the cube-core branch,
+all `(6,9)`, maximum partial degree eleven, or the plane Jacobian conjecture.
 
 The source-facing prelude now also formalizes the first alignment step:
 `GCD369AlignmentDiscriminatorDerivative` turns the denominator-cleared first
@@ -50,6 +52,13 @@ the first-row alignment argument.
 `GCD369PolynomialNoncubeDifferentialKummerPackage` composes the entire bridge:
 from a noncube polynomial it constructs the differential cubic Kummer field,
 deck action, extension constants, and the resulting first-row alignment.
+`GCD369PolynomialNoncubeSourceAlignedPresentation` adds the literal source
+bridge: coefficientwise inner differentiation, affine chain rule,
+simultaneous monic depression, deck covariance, coefficient weights, and
+high-row normalization.  Deck-fixed elliptic and shift coordinates then
+descend to `k(x)`, where `GCD369RatFuncReducedPresentation` constructs their
+canonical reduced polynomial fractions.  These ingredients compose in
+`GCD369PolynomialNoncubeSourceExclusion`; none remains a public hypothesis.
 `GCD369KummerHighRowsNormalize` then proves the formerly assumed triangular
 integration step: for a general depressed degree-nine member, the eight high
 bracket rows produce eight differential constants; the Kummer action kills the
@@ -63,6 +72,11 @@ included campaign source and its review.
 
 ## Compared declaration
 
+- `GCD369PolynomialNoncubeSourceExclusion` is the source-facing headline:
+  the literal normalized `(6,9)` source assumptions contradict a noncube
+  leading core when its degree is divisible by three.
+- `GCD369SourceXDeriv` is the compared coefficientwise inner derivative used
+  to state the literal bivariate Keller bracket.
 - `GCD369KummerHighRowsNormalize` integrates all eight high rows of the
   general depressed bracket and derives `GCD369AlignedG` modulo the two
   inessential constant target gauges.
@@ -109,25 +123,31 @@ included campaign source and its review.
 
 The proof is assembled entirely inside Lean:
 
-1. `GCD369KummerHighRowsNormalize` extracts the `z¹²,…,z⁵` bracket
+1. The source bridge maps `p,q ∈ k[x][y]` into the differential Kummer
+   extension, proves the affine bracket chain rule, simultaneously depresses
+   degrees six and nine, and derives all deck weights.
+2. `GCD369KummerHighRowsNormalize` extracts the `z¹²,…,z⁵` bracket
    coefficients, integrates their triangular differential system, and uses
    the deck weights to descend to the aligned normal form.
-2. `GCD369AlignedKellerRow4` through `GCD369AlignedKellerRow1` extract the
+3. `GCD369AlignedKellerRow4` through `GCD369AlignedKellerRow1` extract the
    four nonconstant lower coefficients from the single polynomial Keller
    identity.
-3. `GCD369LowerFirstIntegrals` and
+4. `GCD369LowerFirstIntegrals` and
    `GCD369AlignedKellerFibreDichotomy` turn those rows into the four Kummer
    invariants and the two-sheet split.
-4. `GCD369ZeroSheetTerminalExclusion` proves that the first sheet has zero
+5. `GCD369ZeroSheetTerminalExclusion` proves that the first sheet has zero
    source bracket and cannot support the nonzero Keller constant.
-5. On the second sheet, `GCD369EllipticTerminalRow` connects the actual
+6. On the second sheet, `GCD369EllipticTerminalRow` connects the actual
    bracket to the elliptic terminal form.  Constant elliptic coordinates are
    excluded directly; nonconstant reduced rational coordinates are excluded
    at the two forbidden finite values after exact denominator clearing.
-6. On the special fibre, the zero-`X` branch returns to the first sheet.  The
+7. On the special fibre, the zero-`X` branch returns to the first sheet.  The
    nonzero-`X` branch is the shifted Davenport–Stothers family; terminal
    descent gives its reduced rational ODE, whose finite-place classification,
    one-point support, and cube conclusion contradict the noncube hypothesis.
+8. Deck-fixed elliptic and shift quantities automatically descend to `k(x)`
+   and acquire reduced numerator/denominator presentations, closing the
+   literal source theorem without hidden presentation assumptions.
 
 The source report used symbolic computation to discover and review several
 identities.  The submitted proofs invoke no external computer algebra system:
@@ -135,19 +155,16 @@ all identities and case splits are checked by Lean's kernel.
 
 ## Exact scope
 
-The theorem works over an algebraically closed characteristic-zero constant
-field `k` and a differential field extension `L` with injective evaluation
-at a differential indeterminate.  Constant-field descent is stated explicitly.
-The two rational presentations are pointwise reduced over `k`.  The theorem
-assumes the standard Kummer relation `s³=h`, the shifted descent relation
-`a₄/4=s²q`, and divisibility `3 | deg(H)`.
+The headline theorem works over an algebraically closed characteristic-zero
+field `k`.  It assumes literal `p,q ∈ k[x][y]` with outer degrees six and
+nine, leading coefficients `H²,H³`, coefficientwise inner bracket equal to
+the nonzero constant `j`, noncubeness of `H`, and `3 | deg(H)`.  It derives
+the Kummer field, primitive root, affine normalization, constants, weights,
+and reduced rational presentations internally.
 
-Those are the exact inputs needed for the noncube branch.  The high-row theorem
-starts one step earlier than the headline exclusion, with a general
-simultaneously depressed coefficient path, but the formalization still does
-not derive that Kummer-weighted depression from every arbitrary Keller pair.
-It does not address the cube-core branch and makes no claim about larger
-degree gates.
+These hypotheses describe the normalized common-cubic noncube gate; the
+project does not derive that global reduction from an arbitrary plane Keller
+pair.  It does not address the cube-core branch or larger degree gates.
 
 ## Relationship to earlier literature
 

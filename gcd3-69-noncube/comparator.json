@@ -18,12 +18,14 @@
     "GCD369BaseFixingAutomorphismFixesConstants",
     "GCD369KummerAlignmentFromBaseConstants",
     "GCD369PolynomialNoncubeDifferentialKummerPackage",
-    "GCD369AlignedNoncubeExclusion"
+    "GCD369AlignedNoncubeExclusion",
+    "GCD369PolynomialNoncubeSourceExclusion"
   ],
   "definition_names": [
     "GCD369AlignedF",
     "GCD369AlignedG",
-    "GCD369DepressedG"
+    "GCD369DepressedG",
+    "GCD369SourceXDeriv"
   ],
   "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
   "enable_nanoda": true

@@ -7,10 +7,11 @@ import Mathlib
 import Mathlib.FieldTheory.Differential.Basic
 
 /-!
-# Challenge: aligned noncube exclusion at partial degrees `(6,9)`
+# Challenge: source-facing noncube exclusion at partial degrees `(6,9)`
 
-The theorem excludes the noncube core of an aligned Keller pair after its
-standard cubic-Kummer and rational function-field data have been exposed.
+The headline theorem excludes the noncube core directly from a literal
+normalized bivariate Keller source; the cubic-Kummer and rational
+function-field data are constructed inside the solution.
 -/
 
 open Polynomial
@@ -43,6 +44,12 @@ noncomputable def GCD369DepressedG {K : Type*} [Field K]
     (b0 b1 b2 b3 b4 b5 b6 b7 : K) : K[X] :=
   X ^ 9 + C b7 * X ^ 7 + C b6 * X ^ 6 + C b5 * X ^ 5
     + C b4 * X ^ 4 + C b3 * X ^ 3 + C b2 * X ^ 2 + C b1 * X + C b0
+
+/-- Differentiate a bivariate source polynomial coefficientwise in its inner
+`x` variable while retaining its outer `y` variable. -/
+noncomputable def GCD369SourceXDeriv {k : Type*} [CommRing k]
+    (p : k[X][X]) : k[X][X] :=
+  PolynomialModule.equivPolynomialSelf (Polynomial.derivative'.mapCoeffs p)
 
 /-- The eight high rows of an aligned noncube source integrate to the
 five-coefficient normal form, up to the constant target shear and target
@@ -390,6 +397,36 @@ theorem GCD369AlignedNoncubeExclusion
     (hYreduced : ∀ z : k, eval z NY = 0 → eval z DY ≠ 0)
     (hlambda : a4 / 4 = s ^ 2 * q)
     (hq : q = aeval x Nq / aeval x Bq)
-    (hNq : Nq ≠ 0) (hBq : Bq ≠ 0)
+    (hBq : Bq ≠ 0)
     (hqreduced : ∀ z : k, eval z Nq = 0 → eval z Bq ≠ 0) : False := by
+  sorry
+
+/-- A literal normalized `(6,9)` polynomial source with noncube leading core
+and nonzero constant Keller bracket cannot exist when the core degree is
+divisible by three.  The Kummer extension, affine alignment, deck weights,
+and both reduced rational presentations are constructed internally. -/
+theorem GCD369PolynomialNoncubeSourceExclusionWithRoot
+    {k : Type*} [Field k] [CharZero k] [IsAlgClosed k]
+    (H : k[X]) (omega : k) (p q : k[X][X]) (j : k)
+    (homega3 : omega ^ 3 = 1) (homega : omega ≠ 1)
+    (hnoncube : ¬ ∃ u : k[X], H = u ^ 3)
+    (hdegreeDiv : 3 ∣ H.natDegree) (hj : j ≠ 0)
+    (hp : p.natDegree = 6) (hq : q.natDegree = 9)
+    (hp6 : p.coeff 6 = H ^ 2) (hq9 : q.coeff 9 = H ^ 3)
+    (hD : GCD369SourceXDeriv p * derivative q -
+      derivative p * GCD369SourceXDeriv q = C (C j)) : False := by
+  sorry
+
+/-- Headline source-facing noncube gate at partial degrees `(6,9)`.  A
+literal normalized source with leading coefficients `H²,H³`, constant
+nonzero Keller bracket, and `3 ∣ deg H` cannot have noncube core `H`. -/
+theorem GCD369PolynomialNoncubeSourceExclusion
+    {k : Type*} [Field k] [CharZero k] [IsAlgClosed k]
+    (H : k[X]) (p q : k[X][X]) (j : k)
+    (hnoncube : ¬ ∃ u : k[X], H = u ^ 3)
+    (hdegreeDiv : 3 ∣ H.natDegree) (hj : j ≠ 0)
+    (hp : p.natDegree = 6) (hq : q.natDegree = 9)
+    (hp6 : p.coeff 6 = H ^ 2) (hq9 : q.coeff 9 = H ^ 3)
+    (hD : GCD369SourceXDeriv p * derivative q -
+      derivative p * GCD369SourceXDeriv q = C (C j)) : False := by
   sorry

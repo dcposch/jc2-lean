@@ -7,14 +7,14 @@ import Mathlib
 import Mathlib.FieldTheory.Differential.Basic
 
 /-!
-# The lower-Pfaffian noncube gate at partial degrees `(6,9)`
+# The source-facing noncube gate at partial degrees `(6,9)`
 
-This module proves the aligned noncube exclusion in the nontrivial
-cubic-Kummer branch.  It extracts the lower rows from the actual Keller
-bracket, derives the invariant two-sheet split, and excludes the zero sheet,
-the constant and nonconstant elliptic cases, and the special shifted
-Davenport--Stothers fibre under the displayed reduced function-field
-presentations.
+This module starts from a literal normalized bivariate Keller source,
+constructs and aligns its nontrivial cubic-Kummer branch, extracts the lower
+rows, derives the invariant two-sheet split, and excludes the zero sheet, the
+constant and nonconstant elliptic cases, and the special shifted
+Davenport--Stothers fibre.  The reduced function-field presentations used in
+the terminal exclusions are constructed internally.
 -/
 
 open Polynomial
@@ -48,6 +48,483 @@ noncomputable def GCD369DepressedG {K : Type*} [Field K]
     (b0 b1 b2 b3 b4 b5 b6 b7 : K) : K[X] :=
   X ^ 9 + C b7 * X ^ 7 + C b6 * X ^ 6 + C b5 * X ^ 5
     + C b4 * X ^ 4 + C b3 * X ^ 3 + C b2 * X ^ 2 + C b1 * X + C b0
+
+/-- Differentiate a bivariate source polynomial coefficientwise in its inner
+`x` variable while retaining its outer `y` variable. -/
+noncomputable def GCD369SourceXDeriv {k : Type*} [CommRing k]
+    (p : k[X][X]) : k[X][X] :=
+  PolynomialModule.equivPolynomialSelf (Polynomial.derivative'.mapCoeffs p)
+
+@[simp] theorem GCD369SourceXDeriv_coeff {k : Type*} [CommRing k]
+    (p : k[X][X]) (n : ℕ) :
+    (GCD369SourceXDeriv p).coeff n = (p.coeff n).derivative := by
+  rfl
+
+/-- The complete aligned presentation produced from a Kummer source,
+including coefficient weights, invariant `kappa`, terminal bracket, and the
+two inessential constant target gauges. -/
+def GCD369KummerAlignedPresentation
+    {K : Type*} [Field K] [Differential K]
+    (sigma : K ≃+* K) (omega s terminal : K) (P Q : K[X]) : Prop :=
+  ∃ r a0 a1 a2 a3 a4 c6 kappa c0 : K,
+    sigma r = omega * r ∧
+    P.comp (C s⁻¹ * (X - C r)) = GCD369AlignedF a0 a1 a2 a3 a4 ∧
+    sigma a0 = a0 ∧ sigma a1 = omega ^ 2 * a1 ∧
+    sigma a2 = omega * a2 ∧ sigma a3 = a3 ∧
+    sigma a4 = omega ^ 2 * a4 ∧ sigma kappa = kappa ∧
+    Differential.deriv c6 = 0 ∧ Differential.deriv kappa = 0 ∧
+    Differential.deriv c0 = 0 ∧
+    (Differential.mapCoeffs (GCD369AlignedF a0 a1 a2 a3 a4) *
+        derivative (GCD369AlignedG a0 a1 a2 a3 a4 kappa) -
+      derivative (GCD369AlignedF a0 a1 a2 a3 a4) *
+        Differential.mapCoeffs (GCD369AlignedG a0 a1 a2 a3 a4 kappa) =
+      C (terminal / s)) ∧
+    Q.comp (C s⁻¹ * (X - C r)) =
+      GCD369AlignedG a0 a1 a2 a3 a4 kappa +
+        C c6 * (P.comp (C s⁻¹ * (X - C r))) + C c0
+
+/-- Ambient Kummer data together with the complete aligned presentation,
+packaged for the literal polynomial-source theorem. -/
+def GCD369KummerAlignedSourcePackage
+    {k F K : Type*} [Field k] [Field F] [Field K]
+    [Algebra k K] [Algebra F K] [Differential K]
+    (sigma : K ≃+* K) (omega s h terminal : K) (P Q : K[X]) : Prop :=
+  s ≠ 0 ∧ sigma s = omega * s ∧ s ^ 3 = h ∧
+  (∀ u : F, sigma (algebraMap F K u) = algebraMap F K u) ∧
+  (∀ c : K, Differential.deriv c = 0 →
+    ∃ c0 : k, c = algebraMap k K c0) ∧
+  (∀ c : K, Differential.deriv c = 0 → sigma c = c) ∧
+  GCD369KummerAlignedPresentation sigma omega s terminal P Q
+
+/-- Coefficient differentiation obeys the full chain rule for polynomial
+composition.  The second summand records motion of the substituted
+polynomial. -/
+theorem GCD369MapCoeffsComp
+    {K : Type*} [CommRing K] [Differential K] (p t : K[X]) :
+    Differential.mapCoeffs (p.comp t) =
+      (Differential.mapCoeffs p).comp t
+        + (derivative p).comp t * Differential.mapCoeffs t := by
+  induction p using Polynomial.induction_on' with
+  | add p q hp hq =>
+      simp only [add_comp, map_add, derivative_add, hp, hq]
+      ring
+  | monomial n a =>
+      simp only [monomial_comp, Derivation.leibniz, Derivation.leibniz_pow,
+        Differential.mapCoeffs_C, Differential.mapCoeffs_monomial,
+        derivative_monomial, C_eq_natCast, mul_comp, C_comp, X_comp,
+        pow_comp, map_mul]
+      ring
+
+/-- Simultaneous substitution in two differential polynomials cancels the
+motion of the substituted variable in their coefficient bracket. -/
+theorem GCD369BracketComp
+    {K : Type*} [CommRing K] [Differential K] (p q t : K[X]) :
+    Differential.mapCoeffs (p.comp t) * derivative (q.comp t)
+        - derivative (p.comp t) * Differential.mapCoeffs (q.comp t) =
+      derivative t *
+        ((Differential.mapCoeffs p * derivative q
+            - derivative p * Differential.mapCoeffs q).comp t) := by
+  rw [GCD369MapCoeffsComp, GCD369MapCoeffsComp,
+    derivative_comp, derivative_comp]
+  simp only [sub_comp, mul_comp]
+  ring
+
+/-- For the source change of variable `y = s⁻¹ (z-r)`, the transformed
+coefficient bracket is exactly `s⁻¹` times the transformed source
+bracket.  In particular a constant Keller bracket `j` becomes `j/s`. -/
+theorem GCD369AffineBracket
+    {K : Type*} [Field K] [Differential K]
+    (p q : K[X]) (s r j : K) (hs : s ≠ 0)
+    (hD : Differential.mapCoeffs p * derivative q
+        - derivative p * Differential.mapCoeffs q = C j) :
+    let t : K[X] := C s⁻¹ * (X - C r)
+    Differential.mapCoeffs (p.comp t) * derivative (q.comp t)
+        - derivative (p.comp t) * Differential.mapCoeffs (q.comp t) =
+      C (j / s) := by
+  dsimp only
+  rw [GCD369BracketComp, hD]
+  simp only [derivative_mul, derivative_C, derivative_sub, derivative_X,
+    zero_mul, zero_add, sub_zero, mul_one, C_comp]
+  rw [← C_mul]
+  congr 1
+  field_simp
+
+/-- Constant target shear and target translation do not change the
+differential polynomial bracket. -/
+theorem GCD369ConstantTargetShearBracket
+    {K : Type*} [CommRing K] [Differential K]
+    (f g : K[X]) (c6 c0 : K)
+    (hc6 : Differential.deriv c6 = 0) (hc0 : Differential.deriv c0 = 0) :
+    Differential.mapCoeffs f * derivative (g + C c6 * f + C c0)
+        - derivative f * Differential.mapCoeffs (g + C c6 * f + C c0) =
+      Differential.mapCoeffs f * derivative g
+        - derivative f * Differential.mapCoeffs g := by
+  simp [Derivation.leibniz, hc6, hc0]
+  ring
+
+/-- A degree-six source polynomial with leading rows `s⁶` and `6rs⁵`
+becomes exactly the aligned monic degree-six form after the affine change
+`y = s⁻¹(z-r)`. -/
+theorem GCD369AffineDegreeSixNormalForm
+    {K : Type*} [Field K] (p : K[X]) (s r : K) (hs : s ≠ 0)
+    (hp : p.natDegree = 6) (hp6 : p.coeff 6 = s ^ 6)
+    (hp5 : p.coeff 5 = s ^ 5 * (6 * r)) :
+    let t : K[X] := C s⁻¹ * (X - C r)
+    ∃ a0 a1 a2 a3 a4 : K,
+      p.comp t = GCD369AlignedF a0 a1 a2 a3 a4 := by
+  dsimp only
+  let t : K[X] := C s⁻¹ * (X - C r)
+  let f := p.comp t
+  have ht : t.natDegree = 1 := by
+    dsimp [t]
+    rw [Polynomial.natDegree_C_mul (inv_ne_zero hs),
+      Polynomial.natDegree_X_sub_C]
+  have hfdeg : f.natDegree ≤ 6 := by
+    calc
+      f.natDegree ≤ p.natDegree * t.natDegree := Polynomial.natDegree_comp_le
+      _ = 6 := by rw [hp, ht]
+  have hpExpand :
+      p = ∑ i ∈ Finset.range 7, C (p.coeff i) * X ^ i :=
+    p.as_sum_range_C_mul_X_pow' (by omega)
+  have hcomp := congrArg (fun u : K[X] ↦ u.comp t) hpExpand
+  norm_num [Finset.sum_range_succ] at hcomp
+  rw [hp5, hp6] at hcomp
+  let low : K[X] := C (p.coeff 0) + C (p.coeff 1) * t
+    + C (p.coeff 2) * t ^ 2 + C (p.coeff 3) * t ^ 3
+    + C (p.coeff 4) * t ^ 4
+  let top : K[X] := C (s ^ 5 * (6 * r)) * t ^ 5 + C (s ^ 6) * t ^ 6
+  have hdecomp : f = low + top := by
+    dsimp [f, low, top]
+    rw [hcomp]
+    ring
+  have htermZero (a : K) (i n : ℕ) (hi : i ≤ 4) (hn : 4 < n) :
+      (C a * t ^ i).coeff n = 0 := by
+    apply Polynomial.coeff_eq_zero_of_natDegree_lt
+    calc
+      (C a * t ^ i).natDegree ≤ (C a).natDegree + (t ^ i).natDegree :=
+        Polynomial.natDegree_mul_le
+      _ ≤ 0 + i * t.natDegree := by
+        gcongr
+        · rw [Polynomial.natDegree_C]
+        · exact Polynomial.natDegree_pow_le
+      _ = i := by rw [ht]; simp
+      _ ≤ 4 := hi
+      _ < n := hn
+  have hlowCoeff (n : ℕ) (hn : 4 < n) : low.coeff n = 0 := by
+    dsimp [low]
+    simp only [coeff_add]
+    have h0 : (C (p.coeff 0)).coeff n = 0 := by
+      rw [coeff_C, if_neg (by omega)]
+    have h1 : (C (p.coeff 1) * t).coeff n = 0 := by
+      simpa using htermZero (p.coeff 1) 1 n (by norm_num) hn
+    rw [h0, h1, htermZero (p.coeff 2) 2 n (by norm_num) hn,
+      htermZero (p.coeff 3) 3 n (by norm_num) hn,
+      htermZero (p.coeff 4) 4 n (by norm_num) hn]
+    norm_num
+  have hscale5 : C (s ^ 5 * (6 * r)) * C s⁻¹ ^ 5 = C (6 * r) := by
+    rw [← C_pow, ← C_mul]
+    congr 1
+    field_simp [hs]
+  have hscale6 : C (s ^ 6) * C s⁻¹ ^ 6 = 1 := by
+    rw [← C_pow, ← C_mul]
+    have hs6 : s ^ 6 * s⁻¹ ^ 6 = 1 := by field_simp [hs]
+    rw [hs6, C_1]
+  have htop : top = C (6 * r) * (X - C r) ^ 5 + (X - C r) ^ 6 := by
+    dsimp [top, t]
+    calc
+      C (s ^ 5 * (6 * r)) * (C s⁻¹ * (X - C r)) ^ 5
+            + C (s ^ 6) * (C s⁻¹ * (X - C r)) ^ 6 =
+          (C (s ^ 5 * (6 * r)) * C s⁻¹ ^ 5) * (X - C r) ^ 5
+            + (C (s ^ 6) * C s⁻¹ ^ 6) * (X - C r) ^ 6 := by ring
+      _ = C (6 * r) * (X - C r) ^ 5 + (X - C r) ^ 6 := by
+        rw [hscale5, hscale6, one_mul]
+  have htopFactor : top = (X - C r) ^ 5 * (X + C (5 * r)) := by
+    rw [htop]
+    simp only [C_mul, C_ofNat, C_eq_natCast]
+    ring
+  have hmSub : (X - C r : K[X]).Monic := Polynomial.monic_X_sub_C r
+  have hmAdd : (X + C (5 * r) : K[X]).Monic :=
+    Polynomial.monic_X_add_C (5 * r)
+  have hmPow : ((X - C r : K[X]) ^ 5).Monic := hmSub.pow 5
+  have htopMonic : top.Monic := by
+    rw [htopFactor]
+    exact hmPow.mul hmAdd
+  have htopDegree : top.natDegree = 6 := by
+    rw [htopFactor, Polynomial.natDegree_mul hmPow.ne_zero hmAdd.ne_zero,
+      Polynomial.natDegree_pow, Polynomial.natDegree_X_sub_C,
+      Polynomial.natDegree_X_add_C]
+  have htop6 : top.coeff 6 = 1 := by
+    rw [← htopDegree, coeff_natDegree, htopMonic.leadingCoeff]
+  have htop5 : top.coeff 5 = 0 := by
+    have hnxt : top.nextCoeff = 0 := by
+      rw [htopFactor, hmPow.nextCoeff_mul hmAdd, hmSub.nextCoeff_pow,
+        Polynomial.nextCoeff_X_sub_C, Polynomial.nextCoeff_X_add_C]
+      simp [nsmul_eq_mul]
+    simpa [Polynomial.nextCoeff, htopDegree] using hnxt
+  have hf6 : f.coeff 6 = 1 := by
+    rw [hdecomp, coeff_add, hlowCoeff 6 (by norm_num), htop6, zero_add]
+  have hf5 : f.coeff 5 = 0 := by
+    rw [hdecomp, coeff_add, hlowCoeff 5 (by norm_num), htop5, add_zero]
+  refine ⟨f.coeff 0, f.coeff 1, f.coeff 2, f.coeff 3, f.coeff 4, ?_⟩
+  change f = GCD369AlignedF (f.coeff 0) (f.coeff 1) (f.coeff 2)
+    (f.coeff 3) (f.coeff 4)
+  apply Polynomial.ext
+  intro n
+  by_cases hn : n ≤ 6
+  · interval_cases n <;>
+      simp [GCD369AlignedF, hf5, hf6, coeff_add, coeff_C,
+        coeff_mul_X_pow', coeff_X, coeff_X_pow]
+  · have hfn : f.coeff n = 0 := Polynomial.coeff_eq_zero_of_natDegree_lt
+        (hfdeg.trans_lt (not_le.mp hn))
+    rw [hfn]
+    have hn0 : n ≠ 0 := by omega
+    have hn1 : n ≠ 1 := by omega
+    have hn2 : n ≠ 2 := by omega
+    have hn3 : n ≠ 3 := by omega
+    have hn4 : n ≠ 4 := by omega
+    have hn6 : n ≠ 6 := by omega
+    simp [GCD369AlignedF, coeff_add, coeff_C, coeff_C_mul,
+      coeff_mul_X_pow', coeff_X, coeff_X_pow, hn0, hn1, hn2, hn3, hn4, hn6,
+      show n - 4 ≠ 0 by omega, show n - 3 ≠ 0 by omega,
+      show n - 2 ≠ 0 by omega, show 1 ≠ n by omega]
+
+/-- A degree-nine source polynomial with leading rows `s⁹` and `9rs⁸`
+becomes exactly the general monic depressed degree-nine form after the same
+affine change `y = s⁻¹(z-r)`. -/
+theorem GCD369AffineDegreeNineNormalForm
+    {K : Type*} [Field K] (q : K[X]) (s r : K) (hs : s ≠ 0)
+    (hq : q.natDegree = 9) (hq9 : q.coeff 9 = s ^ 9)
+    (hq8 : q.coeff 8 = s ^ 8 * (9 * r)) :
+    let t : K[X] := C s⁻¹ * (X - C r)
+    ∃ b0 b1 b2 b3 b4 b5 b6 b7 : K,
+      q.comp t = GCD369DepressedG b0 b1 b2 b3 b4 b5 b6 b7 := by
+  dsimp only
+  let t : K[X] := C s⁻¹ * (X - C r)
+  let g := q.comp t
+  have ht : t.natDegree = 1 := by
+    dsimp [t]
+    rw [Polynomial.natDegree_C_mul (inv_ne_zero hs),
+      Polynomial.natDegree_X_sub_C]
+  have hgdeg : g.natDegree ≤ 9 := by
+    calc
+      g.natDegree ≤ q.natDegree * t.natDegree := Polynomial.natDegree_comp_le
+      _ = 9 := by rw [hq, ht]
+  have hqExpand :
+      q = ∑ i ∈ Finset.range 10, C (q.coeff i) * X ^ i :=
+    q.as_sum_range_C_mul_X_pow' (by omega)
+  have hcomp := congrArg (fun u : K[X] ↦ u.comp t) hqExpand
+  norm_num [Finset.sum_range_succ] at hcomp
+  rw [hq8, hq9] at hcomp
+  let low : K[X] := C (q.coeff 0) + C (q.coeff 1) * t
+    + C (q.coeff 2) * t ^ 2 + C (q.coeff 3) * t ^ 3
+    + C (q.coeff 4) * t ^ 4 + C (q.coeff 5) * t ^ 5
+    + C (q.coeff 6) * t ^ 6 + C (q.coeff 7) * t ^ 7
+  let top : K[X] := C (s ^ 8 * (9 * r)) * t ^ 8 + C (s ^ 9) * t ^ 9
+  have hdecomp : g = low + top := by
+    dsimp [g, low, top]
+    rw [hcomp]
+    ring
+  have htermZero (a : K) (i n : ℕ) (hi : i ≤ 7) (hn : 7 < n) :
+      (C a * t ^ i).coeff n = 0 := by
+    apply Polynomial.coeff_eq_zero_of_natDegree_lt
+    calc
+      (C a * t ^ i).natDegree ≤ (C a).natDegree + (t ^ i).natDegree :=
+        Polynomial.natDegree_mul_le
+      _ ≤ 0 + i * t.natDegree := by
+        gcongr
+        · rw [Polynomial.natDegree_C]
+        · exact Polynomial.natDegree_pow_le
+      _ = i := by rw [ht]; simp
+      _ ≤ 7 := hi
+      _ < n := hn
+  have hlowCoeff (n : ℕ) (hn : 7 < n) : low.coeff n = 0 := by
+    dsimp [low]
+    simp only [coeff_add]
+    have h0 : (C (q.coeff 0)).coeff n = 0 := by
+      rw [coeff_C, if_neg (by omega)]
+    have h1 : (C (q.coeff 1) * t).coeff n = 0 := by
+      simpa using htermZero (q.coeff 1) 1 n (by norm_num) hn
+    rw [h0, h1, htermZero (q.coeff 2) 2 n (by norm_num) hn,
+      htermZero (q.coeff 3) 3 n (by norm_num) hn,
+      htermZero (q.coeff 4) 4 n (by norm_num) hn,
+      htermZero (q.coeff 5) 5 n (by norm_num) hn,
+      htermZero (q.coeff 6) 6 n (by norm_num) hn,
+      htermZero (q.coeff 7) 7 n (by norm_num) hn]
+    norm_num
+  have hscale8 : C (s ^ 8 * (9 * r)) * C s⁻¹ ^ 8 = C (9 * r) := by
+    rw [← C_pow, ← C_mul]
+    congr 1
+    field_simp [hs]
+  have hscale9 : C (s ^ 9) * C s⁻¹ ^ 9 = 1 := by
+    rw [← C_pow, ← C_mul]
+    have hs9 : s ^ 9 * s⁻¹ ^ 9 = 1 := by field_simp [hs]
+    rw [hs9, C_1]
+  have htop : top = C (9 * r) * (X - C r) ^ 8 + (X - C r) ^ 9 := by
+    dsimp [top, t]
+    calc
+      C (s ^ 8 * (9 * r)) * (C s⁻¹ * (X - C r)) ^ 8
+            + C (s ^ 9) * (C s⁻¹ * (X - C r)) ^ 9 =
+          (C (s ^ 8 * (9 * r)) * C s⁻¹ ^ 8) * (X - C r) ^ 8
+            + (C (s ^ 9) * C s⁻¹ ^ 9) * (X - C r) ^ 9 := by ring
+      _ = C (9 * r) * (X - C r) ^ 8 + (X - C r) ^ 9 := by
+        rw [hscale8, hscale9, one_mul]
+  have htopFactor : top = (X - C r) ^ 8 * (X + C (8 * r)) := by
+    rw [htop]
+    simp only [C_mul, C_ofNat]
+    ring
+  have hmSub : (X - C r : K[X]).Monic := Polynomial.monic_X_sub_C r
+  have hmAdd : (X + C (8 * r) : K[X]).Monic :=
+    Polynomial.monic_X_add_C (8 * r)
+  have hmPow : ((X - C r : K[X]) ^ 8).Monic := hmSub.pow 8
+  have htopMonic : top.Monic := by
+    rw [htopFactor]
+    exact hmPow.mul hmAdd
+  have htopDegree : top.natDegree = 9 := by
+    rw [htopFactor, Polynomial.natDegree_mul hmPow.ne_zero hmAdd.ne_zero,
+      Polynomial.natDegree_pow, Polynomial.natDegree_X_sub_C,
+      Polynomial.natDegree_X_add_C]
+  have htop9 : top.coeff 9 = 1 := by
+    rw [← htopDegree, coeff_natDegree, htopMonic.leadingCoeff]
+  have htop8 : top.coeff 8 = 0 := by
+    have hnxt : top.nextCoeff = 0 := by
+      rw [htopFactor, hmPow.nextCoeff_mul hmAdd, hmSub.nextCoeff_pow,
+        Polynomial.nextCoeff_X_sub_C, Polynomial.nextCoeff_X_add_C]
+      simp [nsmul_eq_mul]
+    simpa [Polynomial.nextCoeff, htopDegree] using hnxt
+  have hg9 : g.coeff 9 = 1 := by
+    rw [hdecomp, coeff_add, hlowCoeff 9 (by norm_num), htop9, zero_add]
+  have hg8 : g.coeff 8 = 0 := by
+    rw [hdecomp, coeff_add, hlowCoeff 8 (by norm_num), htop8, add_zero]
+  refine ⟨g.coeff 0, g.coeff 1, g.coeff 2, g.coeff 3, g.coeff 4,
+    g.coeff 5, g.coeff 6, g.coeff 7, ?_⟩
+  change g = GCD369DepressedG (g.coeff 0) (g.coeff 1) (g.coeff 2)
+    (g.coeff 3) (g.coeff 4) (g.coeff 5) (g.coeff 6) (g.coeff 7)
+  apply Polynomial.ext
+  intro n
+  by_cases hn : n ≤ 9
+  · interval_cases n <;>
+      simp [GCD369DepressedG, hg8, hg9, coeff_add, coeff_C,
+        coeff_mul_X_pow', coeff_X, coeff_X_pow]
+  · have hgn : g.coeff n = 0 := Polynomial.coeff_eq_zero_of_natDegree_lt
+        (hgdeg.trans_lt (not_le.mp hn))
+    rw [hgn]
+    have hn0 : n ≠ 0 := by omega
+    have hn1 : n ≠ 1 := by omega
+    have hn2 : n ≠ 2 := by omega
+    have hn3 : n ≠ 3 := by omega
+    have hn4 : n ≠ 4 := by omega
+    have hn5 : n ≠ 5 := by omega
+    have hn6 : n ≠ 6 := by omega
+    have hn7 : n ≠ 7 := by omega
+    have hn9 : n ≠ 9 := by omega
+    simp [GCD369DepressedG, coeff_add, coeff_C, coeff_C_mul,
+      coeff_mul_X_pow', coeff_X, coeff_X_pow, hn0, hn1, hn2, hn3, hn4,
+      hn5, hn6, hn7, hn9, show n - 7 ≠ 0 by omega,
+      show n - 6 ≠ 0 by omega, show n - 5 ≠ 0 by omega,
+      show n - 4 ≠ 0 by omega, show n - 3 ≠ 0 by omega,
+      show n - 2 ≠ 0 by omega, show 1 ≠ n by omega]
+
+/-- The affine Kummer coordinate is equivariant: applying the deck action to
+the coefficients is the same as scaling the new variable by `omega²`. -/
+theorem GCD369AffineDeckCovariance
+    {K : Type*} [Field K] (sigma : K ≃+* K) (omega s r : K)
+    (p : K[X]) (homega3 : omega ^ 3 = 1) (homega : omega ≠ 1)
+    (hsigmaS : sigma s = omega * s) (hsigmaR : sigma r = omega * r)
+    (hpfix : p.map sigma.toRingHom = p) :
+    let t : K[X] := C s⁻¹ * (X - C r)
+    (p.comp t).map sigma.toRingHom =
+      (p.comp t).comp (C (omega ^ 2) * X) := by
+  dsimp only
+  let t : K[X] := C s⁻¹ * (X - C r)
+  have homega0 : omega ≠ 0 := by
+    intro h0
+    simp [h0] at homega3
+  have homegaInv : omega⁻¹ = omega ^ 2 := by
+    apply mul_left_cancel₀ homega0
+    rw [mul_inv_cancel₀ homega0]
+    symm
+    calc
+      omega * omega ^ 2 = omega ^ 3 := by ring
+      _ = 1 := homega3
+  have htmap : t.map sigma.toRingHom = t.comp (C (omega ^ 2) * X) := by
+    dsimp [t]
+    simp only [Polynomial.map_mul, Polynomial.map_sub, Polynomial.map_C, Polynomial.map_X,
+      map_inv₀, mul_comp, sub_comp, C_comp, X_comp]
+    change C (sigma s)⁻¹ * (X - C (sigma r)) =
+      C s⁻¹ * (C (omega ^ 2) * X - C r)
+    rw [hsigmaS, hsigmaR, mul_inv, homegaInv]
+    have hconstant :
+        omega ^ 2 * s⁻¹ * (omega * r) = s⁻¹ * r := by
+      calc
+        omega ^ 2 * s⁻¹ * (omega * r) = omega ^ 3 * (s⁻¹ * r) := by ring
+        _ = s⁻¹ * r := by rw [homega3, one_mul]
+    rw [mul_sub, mul_sub]
+    simp only [← C_mul]
+    rw [hconstant]
+    have hCscale : C (omega ^ 2 * s⁻¹) = C s⁻¹ * C (omega ^ 2) := by
+      rw [← C_mul]
+      congr 1
+      ring
+    rw [hCscale]
+    ring
+  rw [Polynomial.map_comp, hpfix, htmap, Polynomial.comp_assoc]
+
+/-- Consequently the coefficient of `z^n` in a Kummer-affine transform has
+deck weight `omega^(2n)`, equivalently weight `-n mod 3`. -/
+theorem GCD369AffineDeckCoefficientWeight
+    {K : Type*} [Field K] (sigma : K ≃+* K) (omega s r : K)
+    (p : K[X]) (n : ℕ) (homega3 : omega ^ 3 = 1) (homega : omega ≠ 1)
+    (hsigmaS : sigma s = omega * s) (hsigmaR : sigma r = omega * r)
+    (hpfix : p.map sigma.toRingHom = p) :
+    let t : K[X] := C s⁻¹ * (X - C r)
+    sigma ((p.comp t).coeff n) =
+      (omega ^ 2) ^ n * (p.comp t).coeff n := by
+  dsimp only
+  have hcov := GCD369AffineDeckCovariance sigma omega s r p
+    homega3 homega hsigmaS hsigmaR hpfix
+  have hc := congrArg (fun u : K[X] ↦ u.coeff n) hcov
+  rw [Polynomial.coeff_map, Polynomial.comp_C_mul_X_coeff] at hc
+  simpa [mul_comm] using hc
+
+/-- Reading the coefficients of an aligned degree-six affine transform
+recovers the five cubic-Kummer weights used by the lower-row argument. -/
+theorem GCD369AlignedFCoefficientWeights
+    {K : Type*} [Field K]
+    (sigma : K ≃+* K) (omega s r : K) (p : K[X])
+    (a0 a1 a2 a3 a4 : K)
+    (homega3 : omega ^ 3 = 1) (homega : omega ≠ 1)
+    (hsigmaS : sigma s = omega * s) (hsigmaR : sigma r = omega * r)
+    (hpfix : p.map sigma.toRingHom = p)
+    (hf : p.comp (C s⁻¹ * (X - C r)) =
+      GCD369AlignedF a0 a1 a2 a3 a4) :
+    sigma a0 = a0 ∧ sigma a1 = omega ^ 2 * a1 ∧
+      sigma a2 = omega * a2 ∧ sigma a3 = a3 ∧
+      sigma a4 = omega ^ 2 * a4 := by
+  have hw2 : (omega ^ 2) ^ 2 = omega := by
+    calc
+      (omega ^ 2) ^ 2 = omega ^ 3 * omega := by ring
+      _ = omega := by rw [homega3, one_mul]
+  have hw3 : (omega ^ 2) ^ 3 = 1 := by
+    calc
+      (omega ^ 2) ^ 3 = (omega ^ 3) ^ 2 := by ring
+      _ = 1 := by rw [homega3, one_pow]
+  have hw4 : (omega ^ 2) ^ 4 = omega ^ 2 := by
+    calc
+      (omega ^ 2) ^ 4 = (omega ^ 3) ^ 2 * omega ^ 2 := by ring
+      _ = omega ^ 2 := by rw [homega3, one_pow, one_mul]
+  have weight (n : ℕ) := GCD369AffineDeckCoefficientWeight
+    sigma omega s r p n homega3 homega hsigmaS hsigmaR hpfix
+  dsimp only at weight
+  rw [hf] at weight
+  constructor
+  · simpa [GCD369AlignedF] using weight 0
+  constructor
+  · simpa [GCD369AlignedF] using weight 1
+  constructor
+  · simpa [GCD369AlignedF, hw2] using weight 2
+  constructor
+  · simpa [GCD369AlignedF, hw3] using weight 3
+  · simpa [GCD369AlignedF, hw4] using weight 4
 
 set_option maxHeartbeats 4000000 in
 set_option maxRecDepth 10000 in
@@ -291,6 +768,173 @@ theorem GCD369KummerHighRowsNormalize
   simp only [C_mul, C_add, C_sub]
   ring
 
+/-- Once the common affine translation parameter is known, an arbitrary
+Kummer-equivariant degree-`(6,9)` source lands in the exact aligned normal
+form.  The coefficient weights and the transformed Keller bracket are
+derived here rather than assumed. -/
+theorem GCD369AffineKummerHighRowsNormalize
+    {K : Type*} [Field K] [CharZero K] [Differential K]
+    (sigma : K ≃+* K) (omega : K) (p q : K[X]) (s r j : K)
+    (homega3 : omega ^ 3 = 1) (homega : omega ≠ 1) (hs : s ≠ 0)
+    (hsigmaS : sigma s = omega * s) (hsigmaR : sigma r = omega * r)
+    (hpfix : p.map sigma.toRingHom = p) (hqfix : q.map sigma.toRingHom = q)
+    (hfix : ∀ c : K, Differential.deriv c = 0 → sigma c = c)
+    (hp : p.natDegree = 6) (hp6 : p.coeff 6 = s ^ 6)
+    (hp5 : p.coeff 5 = s ^ 5 * (6 * r))
+    (hq : q.natDegree = 9) (hq9 : q.coeff 9 = s ^ 9)
+    (hq8 : q.coeff 8 = s ^ 8 * (9 * r))
+    (hD : Differential.mapCoeffs p * derivative q
+      - derivative p * Differential.mapCoeffs q = C j) :
+    let t : K[X] := C s⁻¹ * (X - C r)
+    ∃ a0 a1 a2 a3 a4 c6 c3 c0 : K,
+      p.comp t = GCD369AlignedF a0 a1 a2 a3 a4 ∧
+      Differential.deriv c6 = 0 ∧ Differential.deriv c3 = 0 ∧
+      Differential.deriv c0 = 0 ∧
+      q.comp t = GCD369AlignedG a0 a1 a2 a3 a4 c3
+        + C c6 * (p.comp t) + C c0 := by
+  dsimp only
+  obtain ⟨a0, a1, a2, a3, a4, hf⟩ :=
+    GCD369AffineDegreeSixNormalForm p s r hs hp hp6 hp5
+  obtain ⟨b0, b1, b2, b3, b4, b5, b6, b7, hg⟩ :=
+    GCD369AffineDegreeNineNormalForm q s r hs hq hq9 hq8
+  have hw2 : (omega ^ 2) ^ 2 = omega := by
+    calc
+      (omega ^ 2) ^ 2 = omega ^ 3 * omega := by ring
+      _ = omega := by rw [homega3, one_mul]
+  have hw3 : (omega ^ 2) ^ 3 = 1 := by
+    calc
+      (omega ^ 2) ^ 3 = (omega ^ 3) ^ 2 := by ring
+      _ = 1 := by rw [homega3, one_pow]
+  have hw4 : (omega ^ 2) ^ 4 = omega ^ 2 := by
+    calc
+      (omega ^ 2) ^ 4 = (omega ^ 3) ^ 2 * omega ^ 2 := by ring
+      _ = omega ^ 2 := by rw [homega3, one_pow, one_mul]
+  have hw5 : (omega ^ 2) ^ 5 = omega := by
+    calc
+      (omega ^ 2) ^ 5 = (omega ^ 3) ^ 3 * omega := by ring
+      _ = omega := by rw [homega3, one_pow, one_mul]
+  have hw7 : (omega ^ 2) ^ 7 = omega ^ 2 := by
+    calc
+      (omega ^ 2) ^ 7 = (omega ^ 3) ^ 4 * omega ^ 2 := by ring
+      _ = omega ^ 2 := by rw [homega3, one_pow, one_mul]
+  have ha0 : sigma a0 = a0 := by
+    have h := GCD369AffineDeckCoefficientWeight sigma omega s r p 0
+      homega3 homega hsigmaS hsigmaR hpfix
+    dsimp only at h
+    rw [hf] at h
+    simpa [GCD369AlignedF] using h
+  have ha1 : sigma a1 = omega ^ 2 * a1 := by
+    have h := GCD369AffineDeckCoefficientWeight sigma omega s r p 1
+      homega3 homega hsigmaS hsigmaR hpfix
+    dsimp only at h
+    rw [hf] at h
+    simpa [GCD369AlignedF] using h
+  have ha2 : sigma a2 = omega * a2 := by
+    have h := GCD369AffineDeckCoefficientWeight sigma omega s r p 2
+      homega3 homega hsigmaS hsigmaR hpfix
+    dsimp only at h
+    rw [hf] at h
+    simpa [GCD369AlignedF, hw2] using h
+  have ha3 : sigma a3 = a3 := by
+    have h := GCD369AffineDeckCoefficientWeight sigma omega s r p 3
+      homega3 homega hsigmaS hsigmaR hpfix
+    dsimp only at h
+    rw [hf] at h
+    simpa [GCD369AlignedF, hw3] using h
+  have ha4 : sigma a4 = omega ^ 2 * a4 := by
+    have h := GCD369AffineDeckCoefficientWeight sigma omega s r p 4
+      homega3 homega hsigmaS hsigmaR hpfix
+    dsimp only at h
+    rw [hf] at h
+    simpa [GCD369AlignedF, hw4] using h
+  have hb1 : sigma b1 = omega ^ 2 * b1 := by
+    have h := GCD369AffineDeckCoefficientWeight sigma omega s r q 1
+      homega3 homega hsigmaS hsigmaR hqfix
+    dsimp only at h
+    rw [hg] at h
+    simpa [GCD369DepressedG] using h
+  have hb2 : sigma b2 = omega * b2 := by
+    have h := GCD369AffineDeckCoefficientWeight sigma omega s r q 2
+      homega3 homega hsigmaS hsigmaR hqfix
+    dsimp only at h
+    rw [hg] at h
+    simpa [GCD369DepressedG, hw2] using h
+  have hb4 : sigma b4 = omega ^ 2 * b4 := by
+    have h := GCD369AffineDeckCoefficientWeight sigma omega s r q 4
+      homega3 homega hsigmaS hsigmaR hqfix
+    dsimp only at h
+    rw [hg] at h
+    simpa [GCD369DepressedG, hw4] using h
+  have hb5 : sigma b5 = omega * b5 := by
+    have h := GCD369AffineDeckCoefficientWeight sigma omega s r q 5
+      homega3 homega hsigmaS hsigmaR hqfix
+    dsimp only at h
+    rw [hg] at h
+    simpa [GCD369DepressedG, hw5] using h
+  have hb7 : sigma b7 = omega ^ 2 * b7 := by
+    have h := GCD369AffineDeckCoefficientWeight sigma omega s r q 7
+      homega3 homega hsigmaS hsigmaR hqfix
+    dsimp only at h
+    rw [hg] at h
+    simpa [GCD369DepressedG, hw7] using h
+  have hD' := GCD369AffineBracket p q s r j hs hD
+  dsimp only at hD'
+  rw [hf, hg] at hD'
+  obtain ⟨c6, c3, c0, hc6, hc3, hc0, hgfinal⟩ :=
+    GCD369KummerHighRowsNormalize sigma omega
+      a0 a1 a2 a3 a4 b0 b1 b2 b3 b4 b5 b6 b7 (j / s)
+      homega3 homega hfix ha0 ha1 ha2 ha3 ha4 hb1 hb2 hb4 hb5 hb7 hD'
+  refine ⟨a0, a1, a2, a3, a4, c6, c3, c0, hf, hc6, hc3, hc0, ?_⟩
+  rw [hf, hg]
+  exact hgfinal
+
+/-- The coefficient of degree thirteen in the source bracket is precisely
+the denominator-cleared first `(6,9)` alignment row. -/
+theorem GCD369FirstSourceRow
+    {K : Type*} [Field K] [CharZero K] [Differential K]
+    (p q : K[X]) (s a b j : K) (hs : s ≠ 0)
+    (hp : p.natDegree = 6) (hq : q.natDegree = 9)
+    (hp6 : p.coeff 6 = s ^ 6) (hp5 : p.coeff 5 = a)
+    (hq9 : q.coeff 9 = s ^ 9) (hq8 : q.coeff 8 = b)
+    (hD : Differential.mapCoeffs p * derivative q
+      - derivative p * Differential.mapCoeffs q = C j) :
+    3 * s ^ 4 * Differential.deriv a
+        - 15 * s ^ 3 * a * Differential.deriv s
+      - 2 * s * Differential.deriv b
+        + 16 * b * Differential.deriv s = 0 := by
+  have hpAbove (n : ℕ) (hn : 6 < n) : p.coeff n = 0 :=
+    Polynomial.coeff_eq_zero_of_natDegree_lt (by simpa [hp] using hn)
+  have hqAbove (n : ℕ) (hn : 9 < n) : q.coeff n = 0 :=
+    Polynomial.coeff_eq_zero_of_natDegree_lt (by simpa [hq] using hn)
+  have h13 := congrArg (fun u : K[X] ↦ u.coeff 13) hD
+  rw [coeff_C, if_neg (by norm_num)] at h13
+  simp only [coeff_sub, coeff_mul, Differential.coeff_mapCoeffs,
+    coeff_derivative, Finset.Nat.sum_antidiagonal_eq_sum_range_succ_mk]
+    at h13
+  simp [Finset.sum_range_succ, hpAbove, hqAbove, hp6, hp5, hq9, hq8,
+    Derivation.leibniz_pow] at h13
+  norm_num at h13
+  have hfactor :
+      9 * s ^ 9 * Differential.deriv a
+          + 48 * b * s ^ 5 * Differential.deriv s
+          - 45 * a * s ^ 8 * Differential.deriv s
+          - 6 * s ^ 6 * Differential.deriv b =
+        3 * s ^ 5 *
+          (3 * s ^ 4 * Differential.deriv a
+              - 15 * s ^ 3 * a * Differential.deriv s
+            - 2 * s * Differential.deriv b
+              + 16 * b * Differential.deriv s) := by ring
+  have hprod :
+      3 * s ^ 5 *
+        (3 * s ^ 4 * Differential.deriv a
+            - 15 * s ^ 3 * a * Differential.deriv s
+          - 2 * s * Differential.deriv b
+            + 16 * b * Differential.deriv s) = 0 := by
+    rw [← hfactor]
+    linear_combination h13
+  exact (mul_eq_zero.mp hprod).resolve_left
+    (mul_ne_zero (by norm_num) (pow_ne_zero 5 hs))
+
 /-- The first denominator-cleared `(6,9)` source row makes the normalized
 alignment discriminator differential-constant. -/
 theorem GCD369AlignmentDiscriminatorDerivative
@@ -359,6 +1003,140 @@ theorem GCD369KummerAlignmentFromFirstRow
     exact sub_self delta
   exact (mul_eq_zero.mp hprod).resolve_left (sub_ne_zero.mpr homega)
 
+/-- The first source row does more than give a scalar alignment equation:
+it constructs the common translation parameter for degrees six and nine,
+and that parameter has Kummer weight one. -/
+theorem GCD369KummerCommonTranslation
+    {K : Type*} [Field K] [CharZero K] [Differential K]
+    (sigma : K ≃+* K) (omega s a b : K)
+    (homega3 : omega ^ 3 = 1) (homega : omega ≠ 1) (hs : s ≠ 0)
+    (hsigmaS : sigma s = omega * s)
+    (hsigmaA : sigma a = a) (hsigmaB : sigma b = b)
+    (hfix : ∀ c : K, Differential.deriv c = 0 → sigma c = c)
+    (hrow :
+      3 * s ^ 4 * Differential.deriv a
+          - 15 * s ^ 3 * a * Differential.deriv s
+        - 2 * s * Differential.deriv b
+          + 16 * b * Differential.deriv s = 0) :
+    ∃ r : K, sigma r = omega * r ∧
+      a = s ^ 5 * (6 * r) ∧ b = s ^ 8 * (9 * r) := by
+  have halign := GCD369KummerAlignmentFromFirstRow sigma omega s a b
+    homega3 homega hs hsigmaS hsigmaA hsigmaB hfix hrow
+  let r : K := a / (6 * s ^ 5)
+  have homega0 : omega ≠ 0 := by
+    intro h0
+    simp [h0] at homega3
+  have hsigmaR : sigma r = omega * r := by
+    have h6 : omega ^ 6 = 1 := by
+      calc
+        omega ^ 6 = (omega ^ 3) ^ 2 := by ring
+        _ = 1 := by rw [homega3, one_pow]
+    dsimp [r]
+    simp only [map_div₀, map_mul, map_ofNat, map_pow, hsigmaA, hsigmaS]
+    field_simp [hs, homega0]
+    ring_nf
+    rw [h6]
+    simp
+  have ha : a = s ^ 5 * (6 * r) := by
+    dsimp [r]
+    field_simp [hs]
+  have hb : b = s ^ 8 * (9 * r) := by
+    dsimp [r]
+    field_simp [hs] at halign ⊢
+    linear_combination (-3) * halign
+  exact ⟨r, hsigmaR, ha, hb⟩
+
+/-- A general Kummer-equivariant `(6,9)` Keller source with common leading
+core lands in the exact aligned normal form.  This composes the first source
+row, common translation, affine chain rule, deck weights, and all eight high
+rows into one source-facing theorem. -/
+theorem GCD369KummerSourceNormalize
+    {K : Type*} [Field K] [CharZero K] [Differential K]
+    (sigma : K ≃+* K) (omega : K) (p q : K[X]) (s j : K)
+    (homega3 : omega ^ 3 = 1) (homega : omega ≠ 1) (hs : s ≠ 0)
+    (hsigmaS : sigma s = omega * s)
+    (hpfix : p.map sigma.toRingHom = p) (hqfix : q.map sigma.toRingHom = q)
+    (hfix : ∀ c : K, Differential.deriv c = 0 → sigma c = c)
+    (hp : p.natDegree = 6) (hp6 : p.coeff 6 = s ^ 6)
+    (hq : q.natDegree = 9) (hq9 : q.coeff 9 = s ^ 9)
+    (hD : Differential.mapCoeffs p * derivative q
+      - derivative p * Differential.mapCoeffs q = C j) :
+    ∃ r a0 a1 a2 a3 a4 c6 c3 c0 : K,
+      sigma r = omega * r ∧
+      p.coeff 5 = s ^ 5 * (6 * r) ∧
+      q.coeff 8 = s ^ 8 * (9 * r) ∧
+      p.comp (C s⁻¹ * (X - C r)) = GCD369AlignedF a0 a1 a2 a3 a4 ∧
+      Differential.deriv c6 = 0 ∧ Differential.deriv c3 = 0 ∧
+      Differential.deriv c0 = 0 ∧
+      q.comp (C s⁻¹ * (X - C r)) =
+        GCD369AlignedG a0 a1 a2 a3 a4 c3
+          + C c6 * (p.comp (C s⁻¹ * (X - C r))) + C c0 := by
+  have hp5fix : sigma (p.coeff 5) = p.coeff 5 := by
+    have h := congrArg (fun u : K[X] ↦ u.coeff 5) hpfix
+    simpa using h
+  have hq8fix : sigma (q.coeff 8) = q.coeff 8 := by
+    have h := congrArg (fun u : K[X] ↦ u.coeff 8) hqfix
+    simpa using h
+  have hrow := GCD369FirstSourceRow p q s (p.coeff 5) (q.coeff 8) j
+    hs hp hq hp6 rfl hq9 rfl hD
+  obtain ⟨r, hsigmaR, hp5, hq8⟩ :=
+    GCD369KummerCommonTranslation sigma omega s (p.coeff 5) (q.coeff 8)
+      homega3 homega hs hsigmaS hp5fix hq8fix hfix hrow
+  have hnormal := GCD369AffineKummerHighRowsNormalize sigma omega p q s r j
+    homega3 homega hs hsigmaS hsigmaR hpfix hqfix hfix
+    hp hp6 hp5 hq hq9 hq8 hD
+  dsimp only at hnormal
+  obtain ⟨a0, a1, a2, a3, a4, c6, c3, c0,
+    hf, hc6, hc3, hc0, hg⟩ := hnormal
+  exact ⟨r, a0, a1, a2, a3, a4, c6, c3, c0,
+    hsigmaR, hp5, hq8, hf, hc6, hc3, hc0, hg⟩
+
+/-- The same source-facing normalization exposes every datum consumed by the
+aligned noncube theorem: the five coefficient weights, invariant `kappa`,
+and the unchanged terminal bracket after removing constant target gauges. -/
+theorem GCD369KummerSourceAlignedPresentation
+    {K : Type*} [Field K] [CharZero K] [Differential K]
+    (sigma : K ≃+* K) (omega : K) (p q : K[X]) (s j : K)
+    (homega3 : omega ^ 3 = 1) (homega : omega ≠ 1) (hs : s ≠ 0)
+    (hsigmaS : sigma s = omega * s)
+    (hpfix : p.map sigma.toRingHom = p) (hqfix : q.map sigma.toRingHom = q)
+    (hfix : ∀ c : K, Differential.deriv c = 0 → sigma c = c)
+    (hp : p.natDegree = 6) (hp6 : p.coeff 6 = s ^ 6)
+    (hq : q.natDegree = 9) (hq9 : q.coeff 9 = s ^ 9)
+    (hD : Differential.mapCoeffs p * derivative q
+      - derivative p * Differential.mapCoeffs q = C j) :
+    ∃ r a0 a1 a2 a3 a4 c6 kappa c0 : K,
+      sigma r = omega * r ∧
+      p.comp (C s⁻¹ * (X - C r)) = GCD369AlignedF a0 a1 a2 a3 a4 ∧
+      sigma a0 = a0 ∧ sigma a1 = omega ^ 2 * a1 ∧
+      sigma a2 = omega * a2 ∧ sigma a3 = a3 ∧
+      sigma a4 = omega ^ 2 * a4 ∧ sigma kappa = kappa ∧
+      Differential.deriv c6 = 0 ∧ Differential.deriv kappa = 0 ∧
+      Differential.deriv c0 = 0 ∧
+      (Differential.mapCoeffs (GCD369AlignedF a0 a1 a2 a3 a4) *
+          derivative (GCD369AlignedG a0 a1 a2 a3 a4 kappa)
+        - derivative (GCD369AlignedF a0 a1 a2 a3 a4) *
+          Differential.mapCoeffs (GCD369AlignedG a0 a1 a2 a3 a4 kappa) =
+        C (j / s)) ∧
+      q.comp (C s⁻¹ * (X - C r)) =
+        GCD369AlignedG a0 a1 a2 a3 a4 kappa +
+          C c6 * (p.comp (C s⁻¹ * (X - C r))) + C c0 := by
+  obtain ⟨r, a0, a1, a2, a3, a4, c6, kappa, c0,
+      hsigmaR, _hp5, _hq8, hf, hc6, hkappa, hc0, hg⟩ :=
+    GCD369KummerSourceNormalize sigma omega p q s j homega3 homega hs
+      hsigmaS hpfix hqfix hfix hp hp6 hq hq9 hD
+  obtain ⟨ha0, ha1, ha2, ha3, ha4⟩ :=
+    GCD369AlignedFCoefficientWeights sigma omega s r p a0 a1 a2 a3 a4
+      homega3 homega hsigmaS hsigmaR hpfix hf
+  have hkappaSigma : sigma kappa = kappa := hfix kappa hkappa
+  have hterminal := GCD369AffineBracket p q s r j hs hD
+  dsimp only at hterminal
+  rw [hf, hg, hf, GCD369ConstantTargetShearBracket _ _ c6 c0 hc6 hc0]
+    at hterminal
+  exact ⟨r, a0, a1, a2, a3, a4, c6, kappa, c0,
+    hsigmaR, hf, ha0, ha1, ha2, ha3, ha4, hkappaSigma,
+    hc6, hkappa, hc0, hterminal, hg⟩
+
 /-- A noncube field element canonically produces the irreducible cubic
 adjoin-root extension and its nontrivial Kummer deck action. -/
 theorem GCD369NoncubeCubicKummerExtension
@@ -404,6 +1182,124 @@ theorem GCD369NoncubeCubicKummerExtension
     rw [map_one, one_mul, ← haction, heq]
   · intro c
     exact tau.commutes c
+
+/-- The fixed field of the nontrivial cubic Kummer deck action is the base
+field.  Expanding in the power basis `1,s,s²`, invariance kills the two
+nonzero-weight coordinates. -/
+theorem GCD369KummerFixedElementDescends
+    {F : Type*} [Field F] (h omega : F)
+    [Fact (Irreducible (X ^ 3 - C h : F[X]))]
+    (sigma : AdjoinRoot (X ^ 3 - C h : F[X]) ≃+*
+      AdjoinRoot (X ^ 3 - C h : F[X]))
+    (homega3 : omega ^ 3 = 1) (homega : omega ≠ 1)
+    (hsigmaF : ∀ c : F, sigma (algebraMap F
+      (AdjoinRoot (X ^ 3 - C h : F[X])) c) = algebraMap F _ c)
+    (hsigmaS : sigma (AdjoinRoot.root (X ^ 3 - C h : F[X])) =
+      algebraMap F _ omega * AdjoinRoot.root (X ^ 3 - C h : F[X]))
+    (z : AdjoinRoot (X ^ 3 - C h : F[X])) (hz : sigma z = z) :
+    ∃ c : F, z = algebraMap F _ c := by
+  let pb := AdjoinRoot.powerBasis'
+    (monic_X_pow_sub_C h (by norm_num : (3 : ℕ) ≠ 0))
+  have hdim : pb.dim = 3 := by simp [pb]
+  let B : Module.Basis (Fin 3) F (AdjoinRoot (X ^ 3 - C h : F[X])) :=
+    pb.basis.reindex (finCongr hdim)
+  let c0 : F := B.repr z 0
+  let c1 : F := B.repr z 1
+  let c2 : F := B.repr z 2
+  have hB0 : B (0 : Fin 3) = 1 := by
+    simp [B, pb]
+  have hB1 : B (1 : Fin 3) = AdjoinRoot.root (X ^ 3 - C h : F[X]) := by
+    simp [B, pb]
+  have hB2 : B (2 : Fin 3) = AdjoinRoot.root (X ^ 3 - C h : F[X]) ^ 2 := by
+    simp [B, pb]
+  have hzexp : algebraMap F _ c0 + algebraMap F _ c1 *
+        AdjoinRoot.root (X ^ 3 - C h : F[X]) +
+      algebraMap F _ c2 * AdjoinRoot.root (X ^ 3 - C h : F[X]) ^ 2 = z := by
+    have hsum := B.sum_repr z
+    rw [Fin.sum_univ_three, hB0, hB1, hB2] at hsum
+    simpa [c0, c1, c2, Algebra.smul_def, add_assoc] using hsum
+  have hsigexp := congrArg sigma hzexp
+  simp only [map_add, map_mul, map_pow, hsigmaF, hsigmaS] at hsigexp
+  rw [hz, ← hzexp] at hsigexp
+  have hexpB :
+      c0 • B (0 : Fin 3) + (c1 * omega) • B (1 : Fin 3) +
+          (c2 * omega ^ 2) • B (2 : Fin 3) =
+        c0 • B (0 : Fin 3) + c1 • B (1 : Fin 3) + c2 • B (2 : Fin 3) := by
+    rw [hB0, hB1, hB2]
+    simp only [Algebra.smul_def, map_mul, map_pow]
+    convert hsigexp using 1 <;> ring
+  have hcoords := congrArg B.repr hexpB
+  have h1 := congrArg (fun v => v (1 : Fin 3)) hcoords
+  have h2 := congrArg (fun v => v (2 : Fin 3)) hcoords
+  simp at h1 h2
+  have homega2 : omega ^ 2 ≠ 1 := by
+    intro h2
+    apply homega
+    calc
+      omega = omega ^ 2 * omega := by rw [h2, one_mul]
+      _ = omega ^ 3 := by ring
+      _ = 1 := homega3
+  have hc1 : c1 = 0 := by
+    have hprod : c1 * (omega - 1) = 0 := by
+      rw [mul_sub, mul_one, h1, sub_self]
+    exact (mul_eq_zero.mp hprod).resolve_right (sub_ne_zero.mpr homega)
+  have hc2 : c2 = 0 := by
+    have hprod : c2 * (omega ^ 2 - 1) = 0 := by
+      rw [mul_sub, mul_one, h2, sub_self]
+    exact (mul_eq_zero.mp hprod).resolve_right (sub_ne_zero.mpr homega2)
+  refine ⟨c0, ?_⟩
+  rw [← hzexp, hc1, hc2]
+  simp
+
+/-- The weight-zero combination used as the elliptic fibre coordinate is
+fixed by the cubic deck action. -/
+theorem GCD369EllipticCoordinateFixed
+    {K : Type*} [Field K] (sigma : K ≃+* K) (omega a2 a4 : K)
+    (homega3 : omega ^ 3 = 1)
+    (ha2 : sigma a2 = omega * a2)
+    (ha4 : sigma a4 = omega ^ 2 * a4) :
+    sigma (3 * a4 * (8 * a2 - 2 * a4 ^ 2)) =
+      3 * a4 * (8 * a2 - 2 * a4 ^ 2) := by
+  simp only [map_mul, map_sub, map_pow, map_ofNat, ha2, ha4]
+  calc
+    3 * (omega ^ 2 * a4) *
+        (8 * (omega * a2) - 2 * (omega ^ 2 * a4) ^ 2) =
+      omega ^ 3 * (3 * a4 * (8 * a2 - 2 * a4 ^ 2)) := by
+        ring_nf
+        rw [show omega ^ 6 = (omega ^ 3) ^ 2 by ring, homega3]
+        ring
+    _ = 3 * a4 * (8 * a2 - 2 * a4 ^ 2) := by rw [homega3, one_mul]
+
+/-- Dividing a weight-two coefficient by the weight-two Kummer square
+produces a deck-invariant rational quantity. -/
+theorem GCD369ShiftParameterFixed
+    {K : Type*} [Field K] (sigma : K ≃+* K) (omega s a4 : K)
+    (homega3 : omega ^ 3 = 1) (hs0 : s ≠ 0)
+    (hsigmaS : sigma s = omega * s)
+    (ha4 : sigma a4 = omega ^ 2 * a4) :
+    sigma (a4 / (4 * s ^ 2)) = a4 / (4 * s ^ 2) := by
+  have homega0 : omega ≠ 0 := by
+    intro hz
+    rw [hz, zero_pow (by norm_num : (3 : ℕ) ≠ 0)] at homega3
+    exact zero_ne_one homega3
+  simp only [map_div₀, map_mul, map_ofNat, map_pow, hsigmaS, ha4]
+  field_simp [hs0, homega0]
+
+/-- Every rational function has its canonical reduced polynomial
+numerator/denominator presentation, with no common finite zero. -/
+theorem GCD369RatFuncReducedPresentation
+    {k : Type*} [Field k] (r : RatFunc k) :
+    ∃ N B : k[X], B ≠ 0 ∧
+      r = algebraMap k[X] (RatFunc k) N / algebraMap k[X] (RatFunc k) B ∧
+      ∀ z : k, eval z N = 0 → eval z B ≠ 0 := by
+  refine ⟨r.num, r.denom, r.denom_ne_zero,
+    (RatFunc.num_div_denom r).symm, ?_⟩
+  intro z hnum hden
+  obtain ⟨A, B, hbezout⟩ := r.isCoprime_num_denom
+  have heval := congrArg (fun u : k[X] => eval z u) hbezout
+  simp only [eval_add, eval_mul, eval_one, hnum, hden, mul_zero, add_zero]
+    at heval
+  exact zero_ne_one heval
 
 /-- A polynomial that is not a cube remains a noncube in its rational
 function field. -/
@@ -707,6 +1603,221 @@ theorem GCD369RatFuncConstants
     ∃ c : k, r = algebraMap k (RatFunc k) c :=
   (GCD369RatFuncStandardDifferential (k := k)).choose_spec.2 r hr
 
+/-- Evaluation at the canonical function-field coordinate is exactly the
+two-stage embedding `k[x] → k(x) → L`. -/
+theorem GCD369CanonicalEval
+    {k L : Type*} [Field k] [CharZero k]
+    [Field L] [Algebra k L] [Algebra (RatFunc k) L]
+    [IsScalarTower k (RatFunc k) L]
+    (P : k[X]) :
+    let phi : k[X] →+* L :=
+      (algebraMap (RatFunc k) L).comp (algebraMap k[X] (RatFunc k))
+    aeval (phi X) P = phi P := by
+  dsimp only
+  let phi : k[X] →+* L :=
+    (algebraMap (RatFunc k) L).comp (algebraMap k[X] (RatFunc k))
+  change aeval (phi X) P = phi P
+  have hhom : (aeval (phi X)).toRingHom = phi := by
+    apply Polynomial.ringHom_ext
+    · intro c
+      dsimp [phi]
+      simp [IsScalarTower.algebraMap_apply k (RatFunc k) L]
+    · simp
+  exact DFunLike.congr_fun hhom P
+
+/-- The canonical function-field coordinate differentiates to one in every
+differential extension of the standard quotient-rule structure. -/
+theorem GCD369CanonicalXDerivative
+    {k L : Type*} [Field k] [CharZero k]
+    [Field L] [Algebra k L] [Algebra (RatFunc k) L]
+    [IsScalarTower k (RatFunc k) L]
+    [Differential L] [DifferentialAlgebra (RatFunc k) L] :
+    let phi : k[X] →+* L :=
+      (algebraMap (RatFunc k) L).comp (algebraMap k[X] (RatFunc k))
+    Differential.deriv (phi X) = 1 := by
+  dsimp only
+  change Differential.deriv
+    (algebraMap (RatFunc k) L (algebraMap k[X] (RatFunc k) X)) = 1
+  rw [deriv_algebraMap, GCD369RatFuncDerivative, derivative_X, map_one, map_one]
+
+/-- The ground field remains differential-constant after passing through
+`k(x)` to a differential extension. -/
+theorem GCD369BaseConstants
+    {k L : Type*} [Field k] [CharZero k]
+    [Field L] [Algebra k L] [Algebra (RatFunc k) L]
+    [IsScalarTower k (RatFunc k) L]
+    [Differential L] [DifferentialAlgebra (RatFunc k) L]
+    (c : k) :
+    Differential.deriv (algebraMap k L c) = 0 := by
+  rw [IsScalarTower.algebraMap_apply k (RatFunc k) L, deriv_algebraMap]
+  have hc := GCD369RatFuncDerivative (C c : k[X])
+  simpa using hc
+
+/-- After embedding `k[x]` through `k(x)` into a differential extension,
+ordinary inner polynomial differentiation becomes coefficientwise
+differentiation in that extension. -/
+theorem GCD369MapSourceXDeriv
+    {k L : Type*} [Field k] [CharZero k]
+    [Field L] [Algebra (RatFunc k) L] [Differential L]
+    [DifferentialAlgebra (RatFunc k) L]
+    (p : k[X][X]) :
+    let phi : k[X] →+* L :=
+      (algebraMap (RatFunc k) L).comp (algebraMap k[X] (RatFunc k))
+    Differential.mapCoeffs (p.map phi) = (GCD369SourceXDeriv p).map phi := by
+  dsimp only
+  let phi : k[X] →+* L :=
+    (algebraMap (RatFunc k) L).comp (algebraMap k[X] (RatFunc k))
+  change Differential.mapCoeffs (p.map phi) = (GCD369SourceXDeriv p).map phi
+  apply Polynomial.ext
+  intro n
+  rw [Differential.coeff_mapCoeffs, coeff_map, coeff_map,
+    GCD369SourceXDeriv_coeff]
+  dsimp [phi]
+  rw [deriv_algebraMap, GCD369RatFuncDerivative]
+
+/-- Consequently a literal bivariate source bracket maps to the differential
+polynomial bracket used throughout the Kummer normalization. -/
+theorem GCD369MapSourceBracket
+    {k L : Type*} [Field k] [CharZero k]
+    [Field L] [Algebra (RatFunc k) L] [Differential L]
+    [DifferentialAlgebra (RatFunc k) L]
+    (p q : k[X][X]) (J : k[X])
+    (hD : GCD369SourceXDeriv p * derivative q
+      - derivative p * GCD369SourceXDeriv q = C J) :
+    let phi : k[X] →+* L :=
+      (algebraMap (RatFunc k) L).comp (algebraMap k[X] (RatFunc k))
+    Differential.mapCoeffs (p.map phi) * derivative (q.map phi)
+        - derivative (p.map phi) * Differential.mapCoeffs (q.map phi) =
+      C (phi J) := by
+  dsimp only
+  let phi : k[X] →+* L :=
+    (algebraMap (RatFunc k) L).comp (algebraMap k[X] (RatFunc k))
+  change Differential.mapCoeffs (p.map phi) * derivative (q.map phi)
+      - derivative (p.map phi) * Differential.mapCoeffs (q.map phi) = C (phi J)
+  rw [show Differential.mapCoeffs (p.map phi) =
+      (GCD369SourceXDeriv p).map phi by exact GCD369MapSourceXDeriv p]
+  rw [show Differential.mapCoeffs (q.map phi) =
+      (GCD369SourceXDeriv q).map phi by exact GCD369MapSourceXDeriv q]
+  rw [Polynomial.derivative_map, Polynomial.derivative_map]
+  simpa only [Polynomial.map_sub, Polynomial.map_mul, Polynomial.map_C] using
+    congrArg (Polynomial.map phi) hD
+
+/-- A normalized literal bivariate source lifts to degree six and nine over
+the Kummer differential field, with leading coefficients `s⁶,s⁹` and the
+same mapped Keller bracket. -/
+theorem GCD369LiftSourceData
+    {k L : Type*} [Field k] [CharZero k]
+    [Field L] [Algebra (RatFunc k) L] [Differential L]
+    [DifferentialAlgebra (RatFunc k) L]
+    (p q : k[X][X]) (H J : k[X]) (s : L)
+    (hp : p.natDegree = 6) (hq : q.natDegree = 9)
+    (hp6 : p.coeff 6 = H ^ 2) (hq9 : q.coeff 9 = H ^ 3)
+    (hs : s ^ 3 = ((algebraMap (RatFunc k) L).comp
+      (algebraMap k[X] (RatFunc k))) H)
+    (hD : GCD369SourceXDeriv p * derivative q
+      - derivative p * GCD369SourceXDeriv q = C J) :
+    let phi : k[X] →+* L :=
+      (algebraMap (RatFunc k) L).comp (algebraMap k[X] (RatFunc k))
+    let P := p.map phi
+    let Q := q.map phi
+    P.natDegree = 6 ∧ Q.natDegree = 9 ∧
+      P.coeff 6 = s ^ 6 ∧ Q.coeff 9 = s ^ 9 ∧
+      (Differential.mapCoeffs P * derivative Q -
+        derivative P * Differential.mapCoeffs Q = C (phi J)) := by
+  dsimp only
+  let phi : k[X] →+* L :=
+    (algebraMap (RatFunc k) L).comp (algebraMap k[X] (RatFunc k))
+  have hphi : Function.Injective phi :=
+    (algebraMap (RatFunc k) L).injective.comp (RatFunc.algebraMap_injective k)
+  have hPdeg : (p.map phi).natDegree = 6 := by
+    rw [Polynomial.natDegree_map_eq_of_injective hphi, hp]
+  have hQdeg : (q.map phi).natDegree = 9 := by
+    rw [Polynomial.natDegree_map_eq_of_injective hphi, hq]
+  have hP6 : (p.map phi).coeff 6 = s ^ 6 := by
+    rw [coeff_map, hp6, map_pow, ← hs]
+    ring
+  have hQ9 : (q.map phi).coeff 9 = s ^ 9 := by
+    rw [coeff_map, hq9, map_pow, ← hs]
+    ring
+  have hbr := GCD369MapSourceBracket (L := L) p q J hD
+  dsimp only at hbr
+  change Differential.mapCoeffs (p.map phi) * derivative (q.map phi) -
+      derivative (p.map phi) * Differential.mapCoeffs (q.map phi) = C (phi J)
+    at hbr
+  change (p.map phi).natDegree = 6 ∧ (q.map phi).natDegree = 9 ∧
+    (p.map phi).coeff 6 = s ^ 6 ∧ (q.map phi).coeff 9 = s ^ 9 ∧
+    (Differential.mapCoeffs (p.map phi) * derivative (q.map phi) -
+      derivative (p.map phi) * Differential.mapCoeffs (q.map phi) = C (phi J))
+  exact ⟨hPdeg, hQdeg, hP6, hQ9, hbr⟩
+
+/-- A literal normalized bivariate source over `k[x]`, once placed in any
+cubic-Kummer differential extension with its deck action, lands in the full
+aligned presentation consumed by the noncube exclusion. -/
+theorem GCD369LiftedSourceAlignedPresentation
+    {k L : Type*} [Field k] [CharZero k]
+    [Field L] [CharZero L] [Algebra (RatFunc k) L] [Differential L]
+    [DifferentialAlgebra (RatFunc k) L]
+    (sigma : L ≃+* L) (omega s : L)
+    (p q : k[X][X]) (H J : k[X])
+    (homega3 : omega ^ 3 = 1) (homega : omega ≠ 1) (hs0 : s ≠ 0)
+    (hsigmaS : sigma s = omega * s)
+    (hsigmaPhi : ∀ a : k[X], sigma (((algebraMap (RatFunc k) L).comp
+      (algebraMap k[X] (RatFunc k))) a) =
+        ((algebraMap (RatFunc k) L).comp (algebraMap k[X] (RatFunc k))) a)
+    (hfix : ∀ c : L, Differential.deriv c = 0 → sigma c = c)
+    (hp : p.natDegree = 6) (hq : q.natDegree = 9)
+    (hp6 : p.coeff 6 = H ^ 2) (hq9 : q.coeff 9 = H ^ 3)
+    (hs : s ^ 3 = ((algebraMap (RatFunc k) L).comp
+      (algebraMap k[X] (RatFunc k))) H)
+    (hD : GCD369SourceXDeriv p * derivative q -
+      derivative p * GCD369SourceXDeriv q = C J) :
+    let phi : k[X] →+* L :=
+      (algebraMap (RatFunc k) L).comp (algebraMap k[X] (RatFunc k))
+    let P := p.map phi
+    let Q := q.map phi
+    ∃ r a0 a1 a2 a3 a4 c6 kappa c0 : L,
+      sigma r = omega * r ∧
+      P.comp (C s⁻¹ * (X - C r)) = GCD369AlignedF a0 a1 a2 a3 a4 ∧
+      sigma a0 = a0 ∧ sigma a1 = omega ^ 2 * a1 ∧
+      sigma a2 = omega * a2 ∧ sigma a3 = a3 ∧
+      sigma a4 = omega ^ 2 * a4 ∧ sigma kappa = kappa ∧
+      Differential.deriv c6 = 0 ∧ Differential.deriv kappa = 0 ∧
+      Differential.deriv c0 = 0 ∧
+      (Differential.mapCoeffs (GCD369AlignedF a0 a1 a2 a3 a4) *
+          derivative (GCD369AlignedG a0 a1 a2 a3 a4 kappa) -
+        derivative (GCD369AlignedF a0 a1 a2 a3 a4) *
+          Differential.mapCoeffs (GCD369AlignedG a0 a1 a2 a3 a4 kappa) =
+        C ((((algebraMap (RatFunc k) L).comp
+          (algebraMap k[X] (RatFunc k))) J) / s)) ∧
+      Q.comp (C s⁻¹ * (X - C r)) =
+        GCD369AlignedG a0 a1 a2 a3 a4 kappa +
+          C c6 * (P.comp (C s⁻¹ * (X - C r))) + C c0 := by
+  dsimp only
+  let phi : k[X] →+* L :=
+    (algebraMap (RatFunc k) L).comp (algebraMap k[X] (RatFunc k))
+  let P := p.map phi
+  let Q := q.map phi
+  have hpfix : P.map sigma.toRingHom = P := by
+    apply Polynomial.ext
+    intro n
+    simp only [P, coeff_map]
+    exact hsigmaPhi (p.coeff n)
+  have hqfix : Q.map sigma.toRingHom = Q := by
+    apply Polynomial.ext
+    intro n
+    simp only [Q, coeff_map]
+    exact hsigmaPhi (q.coeff n)
+  have hlift := GCD369LiftSourceData (L := L) p q H J s
+    hp hq hp6 hq9 hs hD
+  dsimp only at hlift
+  change P.natDegree = 6 ∧ Q.natDegree = 9 ∧
+    P.coeff 6 = s ^ 6 ∧ Q.coeff 9 = s ^ 9 ∧
+    (Differential.mapCoeffs P * derivative Q -
+      derivative P * Differential.mapCoeffs Q = C (phi J)) at hlift
+  obtain ⟨hP, hQ, hP6, hQ9, hbr⟩ := hlift
+  exact GCD369KummerSourceAlignedPresentation sigma omega P Q s (phi J)
+    homega3 homega hs0 hsigmaS hpfix hqfix hfix hP hP6 hQ hQ9 hbr
+
 /-- Constants do not enlarge in an algebraic differential extension when the
 base constant field is algebraically closed. -/
 theorem GCD369AlgebraicDifferentialConstantsDescend
@@ -973,6 +2084,106 @@ theorem GCD369PolynomialNoncubeDifferentialKummerPackage
       (AdjoinRoot.root
         (X ^ 3 - C (algebraMap k[X] (RatFunc k) H) : (RatFunc k)[X]))
       a b hsigmaF hFconstants homegaL3 homegaL hs0 hsigmaS ha hb hrow
+
+/-- A literal normalized `(6,9)` source with noncube polynomial core now
+constructs its own differential Kummer extension and lands in the complete
+aligned presentation.  No aligned coefficients, affine translation, deck
+weights, or high-row integration constants are assumed. -/
+theorem GCD369PolynomialNoncubeSourceAlignedPresentation
+    {k : Type*} [Field k] [CharZero k] [IsAlgClosed k]
+    (H : k[X]) (omega : k) (p q : k[X][X]) (J : k[X])
+    (homega3 : omega ^ 3 = 1) (homega : omega ≠ 1)
+    (hnoncube : ¬ ∃ u : k[X], H = u ^ 3)
+    (hp : p.natDegree = 6) (hq : q.natDegree = 9)
+    (hp6 : p.coeff 6 = H ^ 2) (hq9 : q.coeff 9 = H ^ 3)
+    (hD : GCD369SourceXDeriv p * derivative q -
+      derivative p * GCD369SourceXDeriv q = C J) :
+    let hF : RatFunc k := algebraMap k[X] (RatFunc k) H
+    let f : (RatFunc k)[X] := X ^ 3 - C hF
+    ∃ Hp : Irreducible f,
+      letI : Fact (Irreducible f) := ⟨Hp⟩
+      letI : Fact f.Monic := ⟨monic_X_pow_sub_C _ (by norm_num)⟩
+      ∃ sigma : AdjoinRoot f ≃+* AdjoinRoot f,
+        let s := AdjoinRoot.root f
+        let zeta := algebraMap (RatFunc k) (AdjoinRoot f)
+          (algebraMap k (RatFunc k) omega)
+        let phi : k[X] →+* AdjoinRoot f :=
+          (algebraMap (RatFunc k) (AdjoinRoot f)).comp
+            (algebraMap k[X] (RatFunc k))
+        GCD369KummerAlignedSourcePackage (k := k) (F := RatFunc k)
+          sigma zeta s (phi H) (phi J) (p.map phi) (q.map phi) := by
+  dsimp only
+  obtain ⟨Hp, hpackage⟩ :=
+    GCD369PolynomialNoncubeDifferentialKummerPackage H omega
+      homega3 homega hnoncube
+  refine ⟨Hp, ?_⟩
+  let f : (RatFunc k)[X] :=
+    X ^ 3 - C (algebraMap k[X] (RatFunc k) H)
+  letI : Fact (Irreducible f) := ⟨Hp⟩
+  letI : Fact f.Monic := ⟨monic_X_pow_sub_C _ (by norm_num)⟩
+  letI : Algebra.IsIntegral (RatFunc k) (AdjoinRoot f) :=
+    AdjoinRoot.isIntegral_of_monic Fact.out
+  letI : CharZero (AdjoinRoot f) :=
+    charZero_of_injective_algebraMap
+      (algebraMap (RatFunc k) (AdjoinRoot f)).injective
+  change (∃ sigma : AdjoinRoot f ≃+* AdjoinRoot f,
+    GCD369KummerAlignedSourcePackage (k := k) (F := RatFunc k) sigma
+      (algebraMap (RatFunc k) (AdjoinRoot f)
+        (algebraMap k (RatFunc k) omega))
+      (AdjoinRoot.root f)
+      (((algebraMap (RatFunc k) (AdjoinRoot f)).comp
+        (algebraMap k[X] (RatFunc k))) H)
+      (((algebraMap (RatFunc k) (AdjoinRoot f)).comp
+        (algebraMap k[X] (RatFunc k))) J)
+      (p.map ((algebraMap (RatFunc k) (AdjoinRoot f)).comp
+        (algebraMap k[X] (RatFunc k))))
+      (q.map ((algebraMap (RatFunc k) (AdjoinRoot f)).comp
+        (algebraMap k[X] (RatFunc k)))))
+  change (∃ sigma : AdjoinRoot f ≃+* AdjoinRoot f,
+    AdjoinRoot.root f ≠ 0 ∧ _) at hpackage
+  obtain ⟨sigma, hs0, hs3, hsigmaS, _hsigmaNe, hsigmaF,
+    _hrootD, _hcomm, hconstants, hfix, _halign⟩ := hpackage
+  refine ⟨sigma, ?_⟩
+  let s := AdjoinRoot.root f
+  let zeta := algebraMap (RatFunc k) (AdjoinRoot f)
+    (algebraMap k (RatFunc k) omega)
+  let phi : k[X] →+* AdjoinRoot f :=
+    (algebraMap (RatFunc k) (AdjoinRoot f)).comp
+      (algebraMap k[X] (RatFunc k))
+  have hzeta3 : (algebraMap k (RatFunc k) omega) ^ 3 = 1 := by
+    rw [← map_pow, homega3, map_one]
+  have hzeta : algebraMap k (RatFunc k) omega ≠ 1 := by
+    intro h
+    apply homega
+    apply (algebraMap k (RatFunc k)).injective
+    simpa using h
+  have homegaL3 : zeta ^ 3 = 1 := by
+    calc
+      zeta ^ 3 = algebraMap (RatFunc k) (AdjoinRoot f)
+          ((algebraMap k (RatFunc k) omega) ^ 3) := by
+        rw [map_pow]
+      _ = algebraMap (RatFunc k) (AdjoinRoot f) 1 := by rw [hzeta3]
+      _ = 1 := map_one _
+  have homegaL : zeta ≠ 1 := by
+    dsimp [zeta]
+    intro h
+    apply hzeta
+    apply (algebraMap (RatFunc k) (AdjoinRoot f)).injective
+    simpa using h
+  have hsigmaPhi : ∀ a : k[X], sigma (phi a) = phi a := by
+    intro a
+    exact hsigmaF (algebraMap k[X] (RatFunc k) a)
+  have haligned := GCD369LiftedSourceAlignedPresentation
+    sigma zeta s p q H J homegaL3 homegaL hs0 hsigmaS hsigmaPhi hfix
+      hp hq hp6 hq9 hs3 hD
+  dsimp only at haligned
+  change GCD369KummerAlignedSourcePackage (k := k) (F := RatFunc k)
+    sigma zeta s (phi H) (phi J) (p.map phi) (q.map phi)
+  unfold GCD369KummerAlignedSourcePackage
+  refine ⟨hs0, hsigmaS, hs3, hsigmaF, hconstants, hfix, ?_⟩
+  change GCD369KummerAlignedPresentation sigma zeta s (phi J)
+    (p.map phi) (q.map phi)
+  simpa only [GCD369KummerAlignedPresentation] using haligned
 
 set_option maxHeartbeats 2000000 in
 set_option maxRecDepth 10000 in
@@ -3351,7 +4562,7 @@ theorem GCD369AlignedNoncubeExclusion
     (hYreduced : ∀ z : k, eval z NY = 0 → eval z DY ≠ 0)
     (hlambda : a4 / 4 = s ^ 2 * q)
     (hq : q = aeval x Nq / aeval x Bq)
-    (hNq : Nq ≠ 0) (hBq : Bq ≠ 0)
+    (hBq : Bq ≠ 0)
     (hqreduced : ∀ z : k, eval z Nq = 0 → eval z Bq ≠ 0) : False := by
   have hjL : algebraMap k L j ≠ 0 :=
     by simpa only [map_zero] using (FaithfulSMul.algebraMap_injective k L).ne hj
@@ -3400,6 +4611,20 @@ theorem GCD369AlignedNoncubeExclusion
           rw [ha4lambda]
           ring
         have hlambdaSq : lambda = s ^ 2 * q := hlambdaA4.trans hlambda
+        have hlambda0 : lambda ≠ 0 := by
+          intro hlambda0
+          apply hX
+          rw [ha4lambda, ha2lambda, hlambda0]
+          norm_num
+        have hq0 : q ≠ 0 := by
+          intro hq0
+          apply hlambda0
+          rw [hlambdaSq, hq0, mul_zero]
+        have hNq : Nq ≠ 0 := by
+          intro hNq
+          apply hq0
+          rw [hq, hNq]
+          simp
         have hshiftedRow := GCD369ShiftedDSTerminalRow
           a0 a1 a2 a3 a4 kappa lambda terminal hkappaDot
           ha4lambda ha3zero ha2lambda ha1zero ha0lambda hterminal
@@ -3448,6 +4673,182 @@ theorem GCD369AlignedNoncubeExclusion
         exact GCD369EllipticRationalPresentationExclusion
           x h (3 * a4 * (8 * a2 - 2 * a4 ^ 2)) C0 j hC0 hj
           NY DY H hDY hnonconstant hYreduced hconst hx hinj hh hY hcubed
+
+/-- A literal normalized `(6,9)` polynomial source with noncube leading core
+and nonzero constant Keller bracket cannot exist when the core degree is
+divisible by three.  The Kummer extension, affine alignment, deck weights,
+and both reduced rational presentations are constructed internally. -/
+theorem GCD369PolynomialNoncubeSourceExclusionWithRoot
+    {k : Type*} [Field k] [CharZero k] [IsAlgClosed k]
+    (H : k[X]) (omega : k) (p q : k[X][X]) (j : k)
+    (homega3 : omega ^ 3 = 1) (homega : omega ≠ 1)
+    (hnoncube : ¬ ∃ u : k[X], H = u ^ 3)
+    (hdegreeDiv : 3 ∣ H.natDegree) (hj : j ≠ 0)
+    (hp : p.natDegree = 6) (hq : q.natDegree = 9)
+    (hp6 : p.coeff 6 = H ^ 2) (hq9 : q.coeff 9 = H ^ 3)
+    (hD : GCD369SourceXDeriv p * derivative q -
+      derivative p * GCD369SourceXDeriv q = C (C j)) : False := by
+  obtain ⟨Hp, hsource⟩ :=
+    GCD369PolynomialNoncubeSourceAlignedPresentation H omega p q (C j)
+      homega3 homega hnoncube hp hq hp6 hq9 hD
+  let hF : RatFunc k := algebraMap k[X] (RatFunc k) H
+  let f : (RatFunc k)[X] := X ^ 3 - C hF
+  letI : Fact (Irreducible f) := ⟨Hp⟩
+  letI : Fact f.Monic := ⟨monic_X_pow_sub_C _ (by norm_num)⟩
+  letI : Algebra.IsIntegral (RatFunc k) (AdjoinRoot f) :=
+    AdjoinRoot.isIntegral_of_monic Fact.out
+  letI : CharZero (AdjoinRoot f) :=
+    charZero_of_injective_algebraMap
+      (algebraMap (RatFunc k) (AdjoinRoot f)).injective
+  let s := AdjoinRoot.root f
+  let zeta := algebraMap (RatFunc k) (AdjoinRoot f)
+    (algebraMap k (RatFunc k) omega)
+  let phi : k[X] →+* AdjoinRoot f :=
+    (algebraMap (RatFunc k) (AdjoinRoot f)).comp
+      (algebraMap k[X] (RatFunc k))
+  change ∃ sigma : AdjoinRoot f ≃+* AdjoinRoot f,
+    GCD369KummerAlignedSourcePackage (k := k) (F := RatFunc k)
+      sigma zeta s (phi H) (phi (C j)) (p.map phi) (q.map phi) at hsource
+  obtain ⟨sigma, hs0, hsigmaS, hs3, hsigmaF, hconstants, hfix,
+    hpresentation⟩ := hsource
+  unfold GCD369KummerAlignedPresentation at hpresentation
+  obtain ⟨r, a0, a1, a2, a3, a4, c6, kappa, c0,
+    hsigmaR, hP, ha0, ha1, ha2, ha3, ha4, hkappaSigma,
+    hc6, hkappaDot, hc0, hterminal, hQ⟩ := hpresentation
+  have homegaF3 : (algebraMap k (RatFunc k) omega) ^ 3 = 1 := by
+    rw [← map_pow, homega3, map_one]
+  have homegaF : algebraMap k (RatFunc k) omega ≠ 1 := by
+    intro hz
+    apply homega
+    apply (algebraMap k (RatFunc k)).injective
+    simpa using hz
+  have hzeta3 : zeta ^ 3 = 1 := by
+    calc
+      zeta ^ 3 = algebraMap (RatFunc k) (AdjoinRoot f)
+          ((algebraMap k (RatFunc k) omega) ^ 3) := by
+        rw [map_pow]
+      _ = algebraMap (RatFunc k) (AdjoinRoot f) 1 := by rw [homegaF3]
+      _ = 1 := map_one _
+  have hzeta : zeta ≠ 1 := by
+    intro hz
+    apply homegaF
+    apply (algebraMap (RatFunc k) (AdjoinRoot f)).injective
+    simpa [zeta] using hz
+  have hzeta2 : zeta ^ 2 ≠ 1 := by
+    intro hz
+    apply hzeta
+    calc
+      zeta = zeta ^ 2 * zeta := by rw [hz, one_mul]
+      _ = zeta ^ 3 := by ring
+      _ = 1 := hzeta3
+  let x : AdjoinRoot f := phi X
+  have hx : Differential.deriv x = 1 := by
+    exact GCD369CanonicalXDerivative (k := k) (L := AdjoinRoot f)
+  have hconst : ∀ c : k,
+      Differential.deriv (algebraMap k (AdjoinRoot f) c) = 0 := by
+    intro c
+    exact GCD369BaseConstants c
+  have hinj : Function.Injective (aeval x : k[X] → AdjoinRoot f) := by
+    intro A B hAB
+    have hphi : phi A = phi B := by
+      rw [← GCD369CanonicalEval A, ← GCD369CanonicalEval B]
+      exact hAB
+    exact RatFunc.algebraMap_injective k
+      ((algebraMap (RatFunc k) (AdjoinRoot f)).injective hphi)
+  have hh : phi H = aeval x H := (GCD369CanonicalEval H).symm
+  have hH : H ≠ 0 := by
+    intro hzero
+    apply hnoncube
+    refine ⟨0, ?_⟩
+    simp [hzero]
+  let Y : AdjoinRoot f := 3 * a4 * (8 * a2 - 2 * a4 ^ 2)
+  have hYfix : sigma Y = Y := by
+    exact GCD369EllipticCoordinateFixed sigma zeta a2 a4 hzeta3 ha2 ha4
+  obtain ⟨rY, hYbase⟩ := GCD369KummerFixedElementDescends
+    hF (algebraMap k (RatFunc k) omega) sigma homegaF3 homegaF
+      hsigmaF (by simpa [f, s, zeta] using hsigmaS) Y hYfix
+  obtain ⟨NY, DY, hDY, hrY, hYreduced⟩ :=
+    GCD369RatFuncReducedPresentation rY
+  have hY : Y = aeval x NY / aeval x DY := by
+    calc
+      Y = algebraMap (RatFunc k) (AdjoinRoot f) rY := hYbase
+      _ = algebraMap (RatFunc k) (AdjoinRoot f)
+          (algebraMap k[X] (RatFunc k) NY /
+            algebraMap k[X] (RatFunc k) DY) := by rw [← hrY]
+      _ = phi NY / phi DY := by
+        rw [map_div₀]
+        rfl
+      _ = aeval x NY / aeval x DY := by
+        rw [GCD369CanonicalEval, GCD369CanonicalEval]
+  let qInv : AdjoinRoot f := a4 / (4 * s ^ 2)
+  have hqfix : sigma qInv = qInv := by
+    exact GCD369ShiftParameterFixed sigma zeta s a4 hzeta3 hs0 hsigmaS ha4
+  obtain ⟨rq, hqbase⟩ := GCD369KummerFixedElementDescends
+    hF (algebraMap k (RatFunc k) omega) sigma homegaF3 homegaF
+      hsigmaF (by simpa [f, s, zeta] using hsigmaS) qInv hqfix
+  obtain ⟨Nq, Bq, hBq, hrq, hqreduced⟩ :=
+    GCD369RatFuncReducedPresentation rq
+  have hqpresent : qInv = aeval x Nq / aeval x Bq := by
+    calc
+      qInv = algebraMap (RatFunc k) (AdjoinRoot f) rq := hqbase
+      _ = algebraMap (RatFunc k) (AdjoinRoot f)
+          (algebraMap k[X] (RatFunc k) Nq /
+            algebraMap k[X] (RatFunc k) Bq) := by rw [← hrq]
+      _ = phi Nq / phi Bq := by
+        rw [map_div₀]
+        rfl
+      _ = aeval x Nq / aeval x Bq := by
+        rw [GCD369CanonicalEval, GCD369CanonicalEval]
+  have hlambda : a4 / 4 = s ^ 2 * qInv := by
+    dsimp [qInv]
+    field_simp [hs0]
+  have hKeller : s * (phi (C j) / s) =
+      algebraMap k (AdjoinRoot f) j := by
+    rw [mul_div_cancel₀ _ hs0]
+    dsimp [phi]
+    simp [IsScalarTower.algebraMap_apply k (RatFunc k) (AdjoinRoot f)]
+  exact GCD369AlignedNoncubeExclusion sigma zeta x s (phi H) qInv
+    a0 a1 a2 a3 a4 kappa (phi (C j) / s) j H NY DY Nq Bq
+    hzeta3 hzeta hzeta2 hfix ha0 ha1 ha2 ha3 ha4 hkappaSigma
+    hkappaDot hconstants hconst hx hinj hterminal hs3 hKeller hj hh hH
+    hdegreeDiv hnoncube hY hDY hYreduced hlambda hqpresent hBq hqreduced
+
+/-- Every algebraically closed characteristic-zero field contains a
+nontrivial cubic root of unity. -/
+theorem GCD369PrimitiveCubeRoot
+    {k : Type*} [Field k] [CharZero k] [IsAlgClosed k] :
+    ∃ omega : k, omega ^ 3 = 1 ∧ omega ≠ 1 := by
+  obtain ⟨omega, homegaRoot⟩ := IsAlgClosed.exists_root
+    (X ^ 2 + X + 1 : k[X]) (by
+      have hdegree : (X ^ 2 + X + 1 : k[X]).degree = 2 := by
+        compute_degree <;> norm_num
+      rw [hdegree]
+      norm_num)
+  have hquad : omega ^ 2 + omega + 1 = 0 := by
+    simpa [Polynomial.IsRoot] using homegaRoot
+  refine ⟨omega, ?_, ?_⟩
+  · calc
+      omega ^ 3 = 1 + (omega - 1) * (omega ^ 2 + omega + 1) := by ring
+      _ = 1 := by rw [hquad, mul_zero, add_zero]
+  · intro h
+    rw [h] at hquad
+    norm_num at hquad
+
+/-- Headline source-facing noncube gate at partial degrees `(6,9)`.  A
+literal normalized source with leading coefficients `H²,H³`, constant
+nonzero Keller bracket, and `3 ∣ deg H` cannot have noncube core `H`. -/
+theorem GCD369PolynomialNoncubeSourceExclusion
+    {k : Type*} [Field k] [CharZero k] [IsAlgClosed k]
+    (H : k[X]) (p q : k[X][X]) (j : k)
+    (hnoncube : ¬ ∃ u : k[X], H = u ^ 3)
+    (hdegreeDiv : 3 ∣ H.natDegree) (hj : j ≠ 0)
+    (hp : p.natDegree = 6) (hq : q.natDegree = 9)
+    (hp6 : p.coeff 6 = H ^ 2) (hq9 : q.coeff 9 = H ^ 3)
+    (hD : GCD369SourceXDeriv p * derivative q -
+      derivative p * GCD369SourceXDeriv q = C (C j)) : False := by
+  obtain ⟨omega, homega3, homega⟩ := GCD369PrimitiveCubeRoot (k := k)
+  exact GCD369PolynomialNoncubeSourceExclusionWithRoot
+    H omega p q j homega3 homega hnoncube hdegreeDiv hj hp hq hp6 hq9 hD
 
 
 /-- The infinity-degree arithmetic in the shifted Davenport--Stothers
@@ -3512,5 +4913,7 @@ theorem GCD369DSOneRootCube {K : Type*} [Field K] [IsAlgClosed K]
 #print axioms GCD369ShiftedDSRationalCube
 #print axioms GCD369ShiftedDSNoncubeExclusion
 #print axioms GCD369AlignedNoncubeExclusion
+#print axioms GCD369PolynomialNoncubeSourceAlignedPresentation
+#print axioms GCD369PolynomialNoncubeSourceExclusion
 #print axioms GCD369DSInfinitySupport
 #print axioms GCD369DSOneRootCube
