@@ -109,7 +109,9 @@ status:
     Fully proved under the displayed aligned/Kummer and reduced rational
     presentation hypotheses: the first denominator-cleared source row makes
     the alignment discriminator differential-constant and the nontrivial
-    Kummer action forces it to vanish; extraction of all four lower rows from
+    Kummer action forces it to vanish; the irreducible cubic extension and
+    nontrivial base-fixing deck action are constructed from field-level
+    noncubeness; extraction of all four lower rows from
     the actual Keller bracket; first-integral and invariant-fibre landing; zero
     bracket and terminal exclusion on P_A; the P_B elliptic equation and
     actual terminal row; exclusion of constant and nonconstant trajectories
@@ -122,6 +124,11 @@ status:
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
   main_results:
+    - declaration: "GCD369NoncubeCubicKummerExtension"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
     - declaration: "GCD369KummerAlignmentFromFirstRow"
       file: "Solution.lean"
       sorry_count: 0
@@ -202,6 +209,12 @@ review:
 alignment:
   namespace: "(root)"
   statements:
+    - source: "Charged noncube landing, cubic Kummer extension and deck action"
+      lean: "GCD369NoncubeCubicKummerExtension"
+      module: "Challenge"
+      status: >-
+        irreducibility, nonzero cubic root, and nontrivial base-fixing deck
+        action constructed from field-level noncubeness
     - source: "Noncube alignment, equations (3.1) and the first denominator-cleared row"
       lean: "GCD369KummerAlignmentFromFirstRow"
       module: "Challenge"

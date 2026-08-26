@@ -66,6 +66,23 @@ theorem GCD369KummerAlignmentFromFirstRow
     3 * a / s ^ 5 - 2 * b / s ^ 8 = 0 := by
   sorry
 
+/-- A noncube field element canonically produces the irreducible cubic
+adjoin-root extension and its nontrivial Kummer deck action. -/
+theorem GCD369NoncubeCubicKummerExtension
+    {F : Type*} [Field F] (h omega : F)
+    (homega3 : omega ^ 3 = 1) (homega : omega ≠ 1)
+    (hnoncube : ¬ ∃ u : F, h = u ^ 3) :
+    let p : F[X] := X ^ 3 - C h
+    ∃ (_H : Irreducible p) (sigma : AdjoinRoot p ≃+* AdjoinRoot p),
+      AdjoinRoot.root p ≠ 0 ∧
+      AdjoinRoot.root p ^ 3 = algebraMap F (AdjoinRoot p) h ∧
+      sigma (AdjoinRoot.root p) =
+        algebraMap F (AdjoinRoot p) omega * AdjoinRoot.root p ∧
+      sigma (AdjoinRoot.root p) ≠ AdjoinRoot.root p ∧
+      ∀ c : F, sigma (algebraMap F (AdjoinRoot p) c) =
+        algebraMap F (AdjoinRoot p) c := by
+  sorry
+
 /-- No aligned Keller pair in the nontrivial cubic-Kummer branch can have a
 noncube polynomial core under the displayed function-field presentations. -/
 theorem GCD369AlignedNoncubeExclusion

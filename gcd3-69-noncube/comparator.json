@@ -4,6 +4,7 @@
   "theorem_names": [
     "GCD369AlignmentDiscriminatorDerivative",
     "GCD369KummerAlignmentFromFirstRow",
+    "GCD369NoncubeCubicKummerExtension",
     "GCD369AlignedNoncubeExclusion"
   ],
   "definition_names": [

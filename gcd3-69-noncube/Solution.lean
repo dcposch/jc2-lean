@@ -109,6 +109,52 @@ theorem GCD369KummerAlignmentFromFirstRow
     exact sub_self delta
   exact (mul_eq_zero.mp hprod).resolve_left (sub_ne_zero.mpr homega)
 
+/-- A noncube field element canonically produces the irreducible cubic
+adjoin-root extension and its nontrivial Kummer deck action. -/
+theorem GCD369NoncubeCubicKummerExtension
+    {F : Type*} [Field F] (h omega : F)
+    (homega3 : omega ^ 3 = 1) (homega : omega ≠ 1)
+    (hnoncube : ¬ ∃ u : F, h = u ^ 3) :
+    let p : F[X] := X ^ 3 - C h
+    ∃ (_H : Irreducible p) (sigma : AdjoinRoot p ≃+* AdjoinRoot p),
+      AdjoinRoot.root p ≠ 0 ∧
+      AdjoinRoot.root p ^ 3 = algebraMap F (AdjoinRoot p) h ∧
+      sigma (AdjoinRoot.root p) =
+        algebraMap F (AdjoinRoot p) omega * AdjoinRoot.root p ∧
+      sigma (AdjoinRoot.root p) ≠ AdjoinRoot.root p ∧
+      ∀ c : F, sigma (algebraMap F (AdjoinRoot p) c) =
+        algebraMap F (AdjoinRoot p) c := by
+  dsimp only
+  have hirr : Irreducible (X ^ 3 - C h : F[X]) := by
+    apply X_pow_sub_C_irreducible_of_prime (by decide : Nat.Prime 3)
+    intro u hu
+    exact hnoncube ⟨u, hu.symm⟩
+  letI : Fact (Irreducible (X ^ 3 - C h : F[X])) := ⟨hirr⟩
+  let eta : rootsOfUnity 3 F := rootsOfUnity.mkOfPowEq omega homega3
+  let tau := autAdjoinRootXPowSubC 3 h eta
+  have hroot0 : AdjoinRoot.root (X ^ 3 - C h : F[X]) ≠ 0 :=
+    root_X_pow_sub_C_ne_zero' (by norm_num) (by
+      intro hh
+      apply hnoncube
+      refine ⟨0, ?_⟩
+      simp [hh])
+  have haction : tau.toRingEquiv (AdjoinRoot.root (X ^ 3 - C h)) =
+      algebraMap F (AdjoinRoot (X ^ 3 - C h)) omega *
+        AdjoinRoot.root (X ^ 3 - C h) := by
+    change tau (AdjoinRoot.root (X ^ 3 - C h)) = _
+    dsimp [tau]
+    rw [autAdjoinRootXPowSubC_root]
+    simp [Algebra.smul_def, eta, rootsOfUnity.mkOfPowEq]
+  refine ⟨hirr, tau.toRingEquiv, hroot0, root_X_pow_sub_C_pow 3 h,
+    haction, ?_, ?_⟩
+  · intro heq
+    apply homega
+    apply (algebraMap F (AdjoinRoot (X ^ 3 - C h))).injective
+    apply mul_right_cancel₀ hroot0
+    rw [map_one, one_mul, ← haction, heq]
+  · intro c
+    exact tau.commutes c
+
 set_option maxHeartbeats 2000000 in
 set_option maxRecDepth 10000 in
 theorem GCD369AlignedKellerRow4 {K : Type*} [Field K] [CharZero K] [Differential K]
@@ -2615,6 +2661,7 @@ theorem GCD369DSOneRootCube {K : Type*} [Field K] [IsAlgClosed K]
 
 #print axioms GCD369AlignmentDiscriminatorDerivative
 #print axioms GCD369KummerAlignmentFromFirstRow
+#print axioms GCD369NoncubeCubicKummerExtension
 #print axioms GCD369InvariantFibreDichotomy
 #print axioms GCD369AlignedKellerFibreDichotomy
 #print axioms GCD369ZeroBracketSheet

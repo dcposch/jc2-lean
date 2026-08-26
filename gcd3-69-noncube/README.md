@@ -21,6 +21,9 @@ The source-facing prelude now also formalizes the first alignment step:
 Keller row into differential constancy of `3a/s⁵-2b/s⁸`, and
 `GCD369KummerAlignmentFromFirstRow` proves that a nontrivial cubic Kummer
 action forces this weight-one discriminator to vanish.
+`GCD369NoncubeCubicKummerExtension` constructs the required irreducible
+adjoin-root extension and nontrivial deck action from a noncube field element;
+these are no longer merely assumed abstract objects.
 
 The result is aimed at researchers studying polynomial automorphisms, the
 Jacobian conjecture, and exact algebraic decompositions arising in formal or
@@ -33,6 +36,8 @@ included campaign source and its review.
   form of the first denominator-cleared source row.
 - `GCD369KummerAlignmentFromFirstRow` derives the aligned condition from that
   row and the explicit cubic Kummer action.
+- `GCD369NoncubeCubicKummerExtension` constructs the cubic root, its
+  irreducible extension, and the base-fixing deck action from noncubeness.
 - `GCD369AlignedNoncubeExclusion` proves that the displayed aligned Keller,
   Kummer, constant-field, and reduced function-field hypotheses are
   inconsistent with a noncube polynomial core.
