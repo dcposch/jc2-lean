@@ -99,7 +99,7 @@ theorem GCD369CubeFaberCommonValues {K : Type*} [Field K] [CharZero K]
     GCD369CubeFaberR5 (v ^ 2) (2 * u * v) (u ^ 2) (2 * v) (2 * u)
         0 0 0 0 0 0 0 = 0 := by
   norm_num [GCD369CubeFaberR1, GCD369CubeFaberR2, GCD369CubeFaberR3,
-    GCD369CubeFaberR4, GCD369CubeFaberR5] <;> ring
+    GCD369CubeFaberR4, GCD369CubeFaberR5] <;> ring_nf <;> simp
 
 /-- The Davenport--Stothers component annihilates the first four invariants
 and has terminal value `(27/2) * lambda^7`. -/
@@ -116,7 +116,7 @@ theorem GCD369CubeFaberDSValues {K : Type*} [Field K] [CharZero K]
     GCD369CubeFaberR5 (6 * lambda ^ 3) 0 (10 * lambda ^ 2) 0 (4 * lambda)
         0 0 0 0 0 0 0 = (27 / 2) * lambda ^ 7 := by
   norm_num [GCD369CubeFaberR1, GCD369CubeFaberR2, GCD369CubeFaberR3,
-    GCD369CubeFaberR4, GCD369CubeFaberR5] <;> ring
+    GCD369CubeFaberR4, GCD369CubeFaberR5] <;> ring_nf <;> simp
 
 
 /-- The five polynomial parts multiplying the derivatives of the first five
