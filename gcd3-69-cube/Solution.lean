@@ -1476,6 +1476,52 @@ theorem GCD369CubeBoundaryWeightAudit :
     rcases hk with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl <;> norm_num
   · norm_num
 
+/-- The universal first-order boundary cancellation behind every early
+common-cubic landing.  If the cubic value and normal value do not vanish
+together and the transverse parameter is nonzero, then the reconstructed
+first-order source values
+`K^2 + h*phi` and `K^3 + (3/2)*h*K*phi` cannot both vanish. -/
+theorem GCD369CubeBoundaryFirstOrderSeparation
+    {K : Type*} [Field K] [CharZero K]
+    (Kval phival h : K) (hh : h ≠ 0)
+    (hnocommon : Kval = 0 → phival = 0 → False)
+    (hf : Kval ^ 2 + h * phival = 0)
+    (hg : Kval ^ 3 + (3 / 2) * h * Kval * phival = 0) :
+    False := by
+  by_cases hKval : Kval = 0
+  · have hphi : phival = 0 := by
+      have hhphi : h * phival = 0 := by simpa [hKval] using hf
+      exact (mul_eq_zero.mp hhphi).resolve_left hh
+    exact hnocommon hKval hphi
+  · have hproduct : h * Kval * phival = 0 := by
+      linear_combination 2 * hg - 2 * Kval * hf
+    have hphi : phival = 0 := by
+      rcases mul_eq_zero.mp hproduct with hhk | hphi
+      · exact False.elim ((mul_eq_zero.mp hhk).elim hh hKval)
+      · exact hphi
+    rw [hphi] at hf
+    exact (pow_ne_zero 2 hKval) (by simpa using hf)
+
+/-- Source-shaped form of `GCD369CubeBoundaryFirstOrderSeparation` for the
+common cubic `z^3+u*z+v` and transverse normal `X*z^2+Y*z+Z`. -/
+theorem GCD369CubeCommonCubicBoundaryFirstOrderSeparation
+    {K : Type*} [Field K] [CharZero K]
+    (Xn Yn Zn u v h : K) (hh : h ≠ 0)
+    (hnocommon : ∀ r : K, r ^ 3 + u * r + v = 0 →
+      Xn * r ^ 2 + Yn * r + Zn = 0 → False) :
+    ∀ r : K,
+      (r ^ 3 + u * r + v) ^ 2 + h * (Xn * r ^ 2 + Yn * r + Zn) = 0 →
+      (r ^ 3 + u * r + v) ^ 3 +
+          (3 / 2) * h * (r ^ 3 + u * r + v) *
+            (Xn * r ^ 2 + Yn * r + Zn) = 0 →
+      False := by
+  intro r hf hg
+  apply GCD369CubeBoundaryFirstOrderSeparation
+    (r ^ 3 + u * r + v) (Xn * r ^ 2 + Yn * r + Zn) h hh
+  · exact hnocommon r
+  · exact hf
+  · exact hg
+
 /-- Local order of the numerator of a reduced rational derivative at a pole
 of the denominator.  If `N/B` is pointwise reduced and `B` has multiplicity
 `m > 0`, then `N'B-NB'` has multiplicity exactly `m-1`. -/
@@ -2460,6 +2506,8 @@ theorem GCD369CubeDSMonomialExponent {K : Type*}
 #print axioms GCD369CubeTerminalOnlyQuadraticImpossible
 #print axioms GCD369CubeConstantPoleDegreeAudit
 #print axioms GCD369CubeBoundaryWeightAudit
+#print axioms GCD369CubeBoundaryFirstOrderSeparation
+#print axioms GCD369CubeCommonCubicBoundaryFirstOrderSeparation
 #print axioms GCD369ReducedQuotientWronskianLocal
 #print axioms GCD369CubeRationalPrimitiveFinitePlace
 #print axioms GCD369CubeRationalPrimitiveRootCount
