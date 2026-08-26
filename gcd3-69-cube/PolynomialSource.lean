@@ -127,6 +127,108 @@ theorem GCD369CubeRatFuncJacobian_comp
     sub_comp, mul_comp]
   ring
 
+/-- Coefficient convolution for the rational-function Jacobian bracket. -/
+theorem GCD369CubeRatFuncJacobian_coeff
+    {k : Type*} [Field k] (p q : (RatFunc k)[X]) (n : ℕ) :
+    (GCD369CubeRatFuncJacobian p q).coeff n =
+      (∑ ij ∈ Finset.HasAntidiagonal.antidiagonal n,
+        GCD369CubeRatFuncDerivative (p.coeff ij.1) *
+          (q.coeff (ij.2 + 1) * ((ij.2 : RatFunc k) + 1))) -
+      (∑ ij ∈ Finset.HasAntidiagonal.antidiagonal n,
+        (p.coeff (ij.1 + 1) * ((ij.1 : RatFunc k) + 1)) *
+          GCD369CubeRatFuncDerivative (q.coeff ij.2)) := by
+  unfold GCD369CubeRatFuncJacobian
+  simp only [coeff_sub, coeff_mul,
+    GCD369CubeRatFuncCoefficientDerivative_coeff, coeff_derivative]
+
+/-- The ninth Faber polynomial, i.e. the polynomial part of the formal
+power `f^(3/2)` for the depressed sextic `f`. -/
+noncomputable def GCD369CubeFaberNine {K : Type*} [Field K]
+    (a0 a1 a2 a3 a4 : K) : K[X] :=
+  monomial 9 1 + monomial 7 (3 * a4 / 2) +
+    monomial 6 (3 * a3 / 2) +
+    monomial 5 (3 * a2 / 2 + 3 * a4 ^ 2 / 8) +
+    monomial 4 (3 * a1 / 2 + 3 * a3 * a4 / 4) +
+    monomial 3 (3 * a0 / 2 + 3 * a2 * a4 / 4 +
+      3 * a3 ^ 2 / 8 - a4 ^ 3 / 16) +
+    monomial 2 (3 * a1 * a4 / 4 + 3 * a2 * a3 / 4 -
+      3 * a3 * a4 ^ 2 / 16) +
+    monomial 1 (3 * a0 * a4 / 4 + 3 * a1 * a3 / 4 +
+      3 * a2 ^ 2 / 8 - 3 * a2 * a4 ^ 2 / 16 -
+      3 * a3 ^ 2 * a4 / 16 + 3 * a4 ^ 4 / 128) +
+    monomial 0 (3 * a0 * a3 / 4 + 3 * a1 * a2 / 4 -
+      3 * a1 * a4 ^ 2 / 16 - 3 * a2 * a3 * a4 / 8 -
+      a3 ^ 3 / 16 + 3 * a3 * a4 ^ 3 / 32)
+
+set_option maxRecDepth 100000 in
+set_option maxHeartbeats 4000000 in
+/-- All outer rows above degree four cancel in the bracket of a depressed
+sextic with its ninth Faber polynomial. -/
+theorem GCD369CubeFaberNine_highRows
+    {k : Type*} [Field k] [CharZero k]
+    (a0 a1 a2 a3 a4 : RatFunc k) :
+    (GCD369CubeRatFuncJacobian
+      (GCD369CubeDepressedSextic a0 a1 a2 a3 a4)
+      (GCD369CubeFaberNine a0 a1 a2 a3 a4)).natDegree ≤ 4 := by
+  have hD0 : GCD369CubeRatFuncDerivative (0 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_zero
+  have hD1 : GCD369CubeRatFuncDerivative (1 : RatFunc k) = 0 := by
+    simpa using GCD369CubeRatFuncDerivative_C (1 : k)
+  have hD2 : GCD369CubeRatFuncDerivative (2 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_ofNat 2
+  have hD3 : GCD369CubeRatFuncDerivative (3 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_ofNat 3
+  have hD4 : GCD369CubeRatFuncDerivative (4 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_ofNat 4
+  have hD8 : GCD369CubeRatFuncDerivative (8 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_ofNat 8
+  have hD16 : GCD369CubeRatFuncDerivative (16 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_ofNat 16
+  have hD32 : GCD369CubeRatFuncDerivative (32 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_ofNat 32
+  have hD128 : GCD369CubeRatFuncDerivative (128 : RatFunc k) = 0 :=
+    GCD369CubeRatFuncDerivative_ofNat 128
+  let f := GCD369CubeDepressedSextic a0 a1 a2 a3 a4
+  let g := GCD369CubeFaberNine a0 a1 a2 a3 a4
+  let B := GCD369CubeRatFuncJacobian f g
+  have hf : f.natDegree = 6 := by
+    dsimp [f, GCD369CubeDepressedSextic]
+    compute_degree <;> norm_num
+  have hg : g.natDegree = 9 := by
+    dsimp [g, GCD369CubeFaberNine]
+    compute_degree <;> norm_num
+  have hB : B.natDegree ≤ 14 := by
+    dsimp only [B, GCD369CubeRatFuncJacobian]
+    apply le_trans (natDegree_sub_le _ _)
+    apply max_le
+    · apply le_trans natDegree_mul_le
+      apply le_trans (Nat.add_le_add
+        (GCD369CubeRatFuncCoefficientDerivative_natDegree_le f)
+        (natDegree_derivative_le g))
+      omega
+    · apply le_trans natDegree_mul_le
+      apply le_trans (Nat.add_le_add
+        (natDegree_derivative_le f)
+        (GCD369CubeRatFuncCoefficientDerivative_natDegree_le g))
+      omega
+  change B.natDegree ≤ 4
+  apply natDegree_le_iff_coeff_eq_zero.mpr
+  intro n hn
+  by_cases hn14 : n ≤ 14
+  · interval_cases n <;>
+      rw [GCD369CubeRatFuncJacobian_coeff] <;>
+      simp only [Finset.Nat.sum_antidiagonal_eq_sum_range_succ_mk] <;>
+      norm_num [Finset.sum_range_succ, f, g,
+        GCD369CubeDepressedSextic, GCD369CubeFaberNine,
+        coeff_add, coeff_monomial,
+        GCD369CubeRatFuncDerivative_add, GCD369CubeRatFuncDerivative_mul,
+        GCD369CubeRatFuncDerivative_neg, GCD369CubeRatFuncDerivative_sub,
+        GCD369CubeRatFuncDerivative_pow,
+        GCD369CubeRatFuncDerivative_div_general,
+        hD0, hD1, hD2, hD3, hD4, hD8, hD16, hD32, hD128] at hn ⊢ <;>
+      ring
+  · exact natDegree_le_iff_coeff_eq_zero.mp hB n (by omega)
+
 /-- A literal normalized polynomial cube source at partial degrees `(6,9)`.
 The two leading coefficients are the actual sixth and ninth powers of the
 same nonzero polynomial, and the original Jacobian is a nonzero scalar. -/
@@ -529,6 +631,8 @@ end GCD369CubePolynomialSource
 
 #print axioms GCD369CubeNextJacobianRow
 #print axioms GCD369CubeRatFuncJacobian_comp
+#print axioms GCD369CubeRatFuncJacobian_coeff
+#print axioms GCD369CubeFaberNine_highRows
 #print axioms GCD369CubePolynomialSource.pRat_qRat_jacobian
 #print axioms GCD369CubePolynomialSource.normalizedP_eq_depressed
 #print axioms GCD369CubePolynomialSource.normalized_jacobian

@@ -187,6 +187,57 @@ noncomputable def GCD369CubeRatFuncDerivation
           b * GCD369CubeRatFuncDerivative a
       exact GCD369CubeRatFuncDerivative_mul a b)
 
+@[simp] theorem GCD369CubeRatFuncDerivative_neg
+    {k : Type*} [Field k] (r : RatFunc k) :
+    GCD369CubeRatFuncDerivative (-r) =
+      -GCD369CubeRatFuncDerivative r := by
+  change GCD369CubeRatFuncDerivation (-r) =
+    -GCD369CubeRatFuncDerivation r
+  exact map_neg _ _
+
+@[simp] theorem GCD369CubeRatFuncDerivative_sub
+    {k : Type*} [Field k] (r t : RatFunc k) :
+    GCD369CubeRatFuncDerivative (r - t) =
+      GCD369CubeRatFuncDerivative r - GCD369CubeRatFuncDerivative t := by
+  change GCD369CubeRatFuncDerivation (r - t) =
+    GCD369CubeRatFuncDerivation r - GCD369CubeRatFuncDerivation t
+  exact map_sub _ _ _
+
+@[simp] theorem GCD369CubeRatFuncDerivative_pow
+    {k : Type*} [Field k] (r : RatFunc k) (n : ℕ) :
+    GCD369CubeRatFuncDerivative (r ^ n) =
+      n • (r ^ (n - 1) * GCD369CubeRatFuncDerivative r) := by
+  change GCD369CubeRatFuncDerivation (r ^ n) =
+    n • (r ^ (n - 1) * GCD369CubeRatFuncDerivation r)
+  simpa only [smul_eq_mul] using
+    Derivation.leibniz_pow GCD369CubeRatFuncDerivation r n
+
+@[simp] theorem GCD369CubeRatFuncDerivative_natCast
+    {k : Type*} [Field k] (n : ℕ) :
+    GCD369CubeRatFuncDerivative (n : RatFunc k) = 0 := by
+  rw [show (n : RatFunc k) =
+      algebraMap k (RatFunc k) (n : k) by simp]
+  exact GCD369CubeRatFuncDerivative_C (n : k)
+
+@[simp] theorem GCD369CubeRatFuncDerivative_ofNat
+    {k : Type*} [Field k] (n : ℕ) [n.AtLeastTwo] :
+    GCD369CubeRatFuncDerivative (OfNat.ofNat n : RatFunc k) = 0 := by
+  rw [← map_ofNat (algebraMap k (RatFunc k)) n]
+  exact GCD369CubeRatFuncDerivative_C (OfNat.ofNat n : k)
+
+@[simp] theorem GCD369CubeRatFuncDerivative_div_general
+    {k : Type*} [Field k] (r t : RatFunc k) :
+    GCD369CubeRatFuncDerivative (r / t) =
+      t⁻¹ ^ 2 *
+        (t * GCD369CubeRatFuncDerivative r -
+          r * GCD369CubeRatFuncDerivative t) := by
+  change GCD369CubeRatFuncDerivation (r / t) =
+    t⁻¹ ^ 2 *
+      (t * GCD369CubeRatFuncDerivation r -
+        r * GCD369CubeRatFuncDerivation t)
+  simpa only [smul_eq_mul] using
+    Derivation.leibniz_div GCD369CubeRatFuncDerivation r t
+
 /-- Coefficientwise `x`-derivative of a polynomial over `k(x)`. -/
 noncomputable def GCD369CubeRatFuncCoefficientDerivative
     {k : Type*} [Field k] (p : (RatFunc k)[X]) : (RatFunc k)[X] :=
@@ -212,6 +263,85 @@ noncomputable def GCD369CubeRatFuncPolynomialDerivation
     GCD369CubeRatFuncPolynomialDerivation p =
       GCD369CubeRatFuncCoefficientDerivative p := by
   rfl
+
+@[simp] theorem GCD369CubeRatFuncCoefficientDerivative_zero
+    {k : Type*} [Field k] :
+    GCD369CubeRatFuncCoefficientDerivative (0 : (RatFunc k)[X]) = 0 := by
+  change GCD369CubeRatFuncPolynomialDerivation (0 : (RatFunc k)[X]) = 0
+  exact map_zero _
+
+@[simp] theorem GCD369CubeRatFuncCoefficientDerivative_C
+    {k : Type*} [Field k] (r : RatFunc k) :
+    GCD369CubeRatFuncCoefficientDerivative (C r) =
+      C (GCD369CubeRatFuncDerivative r) := by
+  ext n
+  by_cases hn : n = 0
+  · subst n
+    simp
+  · simp [coeff_C, hn, GCD369CubeRatFuncDerivative_zero]
+
+@[simp] theorem GCD369CubeRatFuncCoefficientDerivative_X
+    {k : Type*} [Field k] :
+    GCD369CubeRatFuncCoefficientDerivative (X : (RatFunc k)[X]) = 0 := by
+  ext n
+  have hD1 : GCD369CubeRatFuncDerivative (1 : RatFunc k) = 0 := by
+    simpa using GCD369CubeRatFuncDerivative_C (1 : k)
+  by_cases hn : n = 1
+  · subst n
+    simpa using hD1
+  · have hn' : 1 ≠ n := by exact fun h ↦ hn h.symm
+    simp [coeff_X, hn', GCD369CubeRatFuncDerivative_zero]
+
+@[simp] theorem GCD369CubeRatFuncCoefficientDerivative_monomial
+    {k : Type*} [Field k] (n : ℕ) (r : RatFunc k) :
+    GCD369CubeRatFuncCoefficientDerivative (monomial n r) =
+      monomial n (GCD369CubeRatFuncDerivative r) := by
+  ext m
+  rw [GCD369CubeRatFuncCoefficientDerivative_coeff]
+  simp only [coeff_monomial]
+  by_cases hnm : n = m
+  · simp [hnm]
+  · simp [hnm, GCD369CubeRatFuncDerivative_zero]
+
+@[simp] theorem GCD369CubeRatFuncCoefficientDerivative_add
+    {k : Type*} [Field k] (p q : (RatFunc k)[X]) :
+    GCD369CubeRatFuncCoefficientDerivative (p + q) =
+      GCD369CubeRatFuncCoefficientDerivative p +
+        GCD369CubeRatFuncCoefficientDerivative q := by
+  change GCD369CubeRatFuncPolynomialDerivation (p + q) =
+    GCD369CubeRatFuncPolynomialDerivation p +
+      GCD369CubeRatFuncPolynomialDerivation q
+  exact map_add _ _ _
+
+@[simp] theorem GCD369CubeRatFuncCoefficientDerivative_mul
+    {k : Type*} [Field k] (p q : (RatFunc k)[X]) :
+    GCD369CubeRatFuncCoefficientDerivative (p * q) =
+      p * GCD369CubeRatFuncCoefficientDerivative q +
+        q * GCD369CubeRatFuncCoefficientDerivative p := by
+  change GCD369CubeRatFuncPolynomialDerivation (p * q) =
+    p * GCD369CubeRatFuncPolynomialDerivation q +
+      q * GCD369CubeRatFuncPolynomialDerivation p
+  exact Derivation.leibniz _ _ _
+
+@[simp] theorem GCD369CubeRatFuncCoefficientDerivative_pow
+    {k : Type*} [Field k] (p : (RatFunc k)[X]) (n : ℕ) :
+    GCD369CubeRatFuncCoefficientDerivative (p ^ n) =
+      n • (p ^ (n - 1) * GCD369CubeRatFuncCoefficientDerivative p) := by
+  change GCD369CubeRatFuncPolynomialDerivation (p ^ n) =
+    n • (p ^ (n - 1) * GCD369CubeRatFuncPolynomialDerivation p)
+  simpa only [smul_eq_mul] using
+    Derivation.leibniz_pow GCD369CubeRatFuncPolynomialDerivation p n
+
+/-- Coefficientwise differentiation cannot increase outer degree. -/
+theorem GCD369CubeRatFuncCoefficientDerivative_natDegree_le
+    {k : Type*} [Field k] (p : (RatFunc k)[X]) :
+    (GCD369CubeRatFuncCoefficientDerivative p).natDegree ≤ p.natDegree := by
+  apply natDegree_le_iff_coeff_eq_zero.mpr
+  intro n hn
+  rw [GCD369CubeRatFuncCoefficientDerivative_coeff]
+  have hp : p.coeff n = 0 :=
+    natDegree_le_iff_coeff_eq_zero.mp le_rfl n hn
+  rw [hp, GCD369CubeRatFuncDerivative_zero]
 
 /-- Coefficientwise differentiation obeys the full chain rule for
 polynomial composition. -/
