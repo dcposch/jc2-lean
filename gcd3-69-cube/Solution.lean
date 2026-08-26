@@ -57,8 +57,8 @@ theorem GCD369CubeSourceTransformInverse {K : Type*} [Field K]
   have hcoordinate :
       (C s * X + C r).comp (C s⁻¹ * X + C (-(s⁻¹ * r))) = X := by
     simp only [add_comp, mul_comp, C_comp, X_comp]
-    rw [mul_add, ← mul_assoc (C s) (C s⁻¹) X, C_mul,
-      mul_inv_cancel₀ hs, C_1, one_mul, C_mul, hconstant]
+    rw [mul_add, ← C_mul, mul_inv_cancel₀ hs, C_1, one_mul,
+      ← C_mul, hconstant]
     simp
   rw [GCD369CubeSourceTransform, GCD369CubeSourceTransform, comp_assoc,
     hcoordinate, comp_X]
