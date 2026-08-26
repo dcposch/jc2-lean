@@ -211,6 +211,33 @@ def GCD369CubeFaberR5 {K : Type*} [Field K]
     (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 : K) : K :=
   (1306368*a0 ^ 2*c7 - 1679616*a0*a1*a3 - 995328*a0*a1*a4*d - 839808*a0*a2 ^ 2 - 995328*a0*a2*a3*d + 699840*a0*a2*a4 ^ 2 - 435456*a0*a2*a4*c7 + 839808*a0*a3 ^ 2*a4 - 217728*a0*a3 ^ 2*c7 + 580608*a0*a3*a4 ^ 2*d - 122472*a0*a4 ^ 4 + 84672*a0*a4 ^ 3*c7 + 2239488*a0*c1 - 1679616*a1 ^ 2*a2 - 995328*a1 ^ 2*a3*d + 559872*a1 ^ 2*a4 ^ 2 - 435456*a1 ^ 2*a4*c7 - 933120*a1 ^ 2*c5 - 995328*a1*a2 ^ 2*d + 2519424*a1*a2*a3*a4 - 870912*a1*a2*a3*c7 + 912384*a1*a2*a4 ^ 2*d - 1492992*a1*a2*c4 + 419904*a1*a3 ^ 3 + 995328*a1*a3 ^ 2*a4*d - 769824*a1*a3*a4 ^ 3 + 508032*a1*a3*a4 ^ 2*c7 + 622080*a1*a3*a4*c5 - 1119744*a1*a3*c3 - 156672*a1*a4 ^ 4*d + 373248*a1*a4 ^ 2*c4 - 746496*a1*a4*c2 + 419904*a2 ^ 3*a4 - 145152*a2 ^ 3*c7 + 629856*a2 ^ 2*a3 ^ 2 + 995328*a2 ^ 2*a3*a4*d - 384912*a2 ^ 2*a4 ^ 3 + 254016*a2 ^ 2*a4 ^ 2*c7 + 311040*a2 ^ 2*a4*c5 - 559872*a2 ^ 2*c3 + 331776*a2*a3 ^ 3*d - 1224720*a2*a3 ^ 2*a4 ^ 2 + 544320*a2*a3 ^ 2*a4*c7 + 311040*a2*a3 ^ 2*c5 - 681984*a2*a3*a4 ^ 3*d + 995328*a2*a3*a4*c4 - 746496*a2*a3*c2 + 113724*a2*a4 ^ 5 - 95760*a2*a4 ^ 4*c7 - 155520*a2*a4 ^ 3*c5 + 466560*a2*a4 ^ 2*c3 - 373248*a2*a4*c1 - 209952*a3 ^ 4*a4 + 45360*a3 ^ 4*c7 - 359424*a3 ^ 3*a4 ^ 2*d + 165888*a3 ^ 3*c4 + 301806*a3 ^ 2*a4 ^ 4 - 206640*a3 ^ 2*a4 ^ 3*c7 - 259200*a3 ^ 2*a4 ^ 2*c5 + 559872*a3 ^ 2*a4*c3 - 186624*a3 ^ 2*c1 + 107520*a3*a4 ^ 5*d - 290304*a3*a4 ^ 3*c4 + 435456*a3*a4 ^ 2*c2 - 10935*a4 ^ 7 + 10780*a4 ^ 6*c7 + 21168*a4 ^ 5*c5 - 81648*a4 ^ 4*c3 + 72576*a4 ^ 3*c1)/13436928
 
+/-- The denominator-cleared numerator of the terminal Faber invariant,
+available over every commutative ring. -/
+abbrev GCD369CubeFaberFullN5 {K : Type*} [CommRing K]
+    (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 : K) : K :=
+  1306368*a0 ^ 2*c7 - 1679616*a0*a1*a3 - 995328*a0*a1*a4*d - 839808*a0*a2 ^ 2 - 995328*a0*a2*a3*d + 699840*a0*a2*a4 ^ 2 - 435456*a0*a2*a4*c7 + 839808*a0*a3 ^ 2*a4 - 217728*a0*a3 ^ 2*c7 + 580608*a0*a3*a4 ^ 2*d - 122472*a0*a4 ^ 4 + 84672*a0*a4 ^ 3*c7 + 2239488*a0*c1 - 1679616*a1 ^ 2*a2 - 995328*a1 ^ 2*a3*d + 559872*a1 ^ 2*a4 ^ 2 - 435456*a1 ^ 2*a4*c7 - 933120*a1 ^ 2*c5 - 995328*a1*a2 ^ 2*d + 2519424*a1*a2*a3*a4 - 870912*a1*a2*a3*c7 + 912384*a1*a2*a4 ^ 2*d - 1492992*a1*a2*c4 + 419904*a1*a3 ^ 3 + 995328*a1*a3 ^ 2*a4*d - 769824*a1*a3*a4 ^ 3 + 508032*a1*a3*a4 ^ 2*c7 + 622080*a1*a3*a4*c5 - 1119744*a1*a3*c3 - 156672*a1*a4 ^ 4*d + 373248*a1*a4 ^ 2*c4 - 746496*a1*a4*c2 + 419904*a2 ^ 3*a4 - 145152*a2 ^ 3*c7 + 629856*a2 ^ 2*a3 ^ 2 + 995328*a2 ^ 2*a3*a4*d - 384912*a2 ^ 2*a4 ^ 3 + 254016*a2 ^ 2*a4 ^ 2*c7 + 311040*a2 ^ 2*a4*c5 - 559872*a2 ^ 2*c3 + 331776*a2*a3 ^ 3*d - 1224720*a2*a3 ^ 2*a4 ^ 2 + 544320*a2*a3 ^ 2*a4*c7 + 311040*a2*a3 ^ 2*c5 - 681984*a2*a3*a4 ^ 3*d + 995328*a2*a3*a4*c4 - 746496*a2*a3*c2 + 113724*a2*a4 ^ 5 - 95760*a2*a4 ^ 4*c7 - 155520*a2*a4 ^ 3*c5 + 466560*a2*a4 ^ 2*c3 - 373248*a2*a4*c1 - 209952*a3 ^ 4*a4 + 45360*a3 ^ 4*c7 - 359424*a3 ^ 3*a4 ^ 2*d + 165888*a3 ^ 3*c4 + 301806*a3 ^ 2*a4 ^ 4 - 206640*a3 ^ 2*a4 ^ 3*c7 - 259200*a3 ^ 2*a4 ^ 2*c5 + 559872*a3 ^ 2*a4*c3 - 186624*a3 ^ 2*c1 + 107520*a3*a4 ^ 5*d - 290304*a3*a4 ^ 3*c4 + 435456*a3*a4 ^ 2*c2 - 10935*a4 ^ 7 + 10780*a4 ^ 6*c7 + 21168*a4 ^ 5*c5 - 81648*a4 ^ 4*c3 + 72576*a4 ^ 3*c1
+
+/-- The terminal invariant is its denominator-cleared numerator divided by
+the fixed scalar denominator. -/
+theorem GCD369CubeFaberR5_eq_fullN5_div
+    {K : Type*} [Field K]
+    (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 : K) :
+    GCD369CubeFaberR5 a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 =
+      GCD369CubeFaberFullN5 a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 /
+        13436928 := by
+  rfl
+
+/-- The terminal explicit Faber invariant commutes with every field
+homomorphism. -/
+theorem GCD369CubeFaberR5_map
+    {K L : Type*} [Field K] [Field L] (f : K →+* L)
+    (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 : K) :
+    f (GCD369CubeFaberR5 a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1) =
+      GCD369CubeFaberR5 (f a0) (f a1) (f a2) (f a3) (f a4)
+        (f d) (f c7) (f c5) (f c4) (f c3) (f c2) (f c1) := by
+  simp only [GCD369CubeFaberR5, _root_.map_div₀, map_add, map_sub,
+    map_mul, map_pow, map_ofNat]
+
 /-- The five explicit invariants have weights `10,11,12,13,14` under
 the source scaling of weights `(6,5,4,3,2;1,2,4,5,6,7,8)`. -/
 theorem GCD369CubeFaberInvariantWeights {K : Type*} [Field K] [CharZero K]
