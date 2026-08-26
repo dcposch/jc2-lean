@@ -1,0 +1,21 @@
+name: Cube arbitrary Faber loads
+
+on:
+  push:
+    branches: ["codex/cube-arbitrary-faber-loads"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        env:
+          LEAN_NUM_THREADS: "1"
+        with:
+          lake-package-directory: gcd3-69-cube
+          auto-config: false
+          build: true
+          test: false
+          lint: false
+          use-mathlib-cache: true
