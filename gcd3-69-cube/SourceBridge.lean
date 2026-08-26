@@ -498,6 +498,37 @@ theorem mixedCuspCoordinates {K : Type u} [Field K] [CharZero K]
         (6 * S.rho4) ^ 2 / (1458 * lambda ^ 6) := hcusp.2
 
 set_option maxHeartbeats 4000000 in
+/-- The unmixed `A = B = 0` sheet has identically zero terminal Faber
+value.  This includes its nonzero constant-deformation fibres, not only the
+homogeneous common-cubic point. -/
+theorem zeroSheetTerminalValue {K : Type u} [Field K] [CharZero K]
+    (S : GCD369CubeLaterInvariantSource K)
+    (hA : 4 * S.a2 - S.a4 ^ 2 = 0)
+    (hB : 2 * S.a1 - S.a3 * S.a4 = 0) :
+    GCD369CubeFaberR5 S.a0 S.a1 S.a2 S.a3 S.a4 0 0 0 0 0 0 0 = 0 := by
+  let u : K := S.a4 / 2
+  let v : K := S.a3 / 2
+  let eta : K := S.a0 - v ^ 2
+  have ha4 : S.a4 = 2 * u := by
+    dsimp only [u]
+    ring
+  have ha3 : S.a3 = 2 * v := by
+    dsimp only [v]
+    ring
+  have ha2 : S.a2 = u ^ 2 := by
+    dsimp only [u]
+    linear_combination (1 / 4 : K) * hA
+  have ha1 : S.a1 = 2 * u * v := by
+    dsimp only [u, v]
+    linear_combination (1 / 2 : K) * hB
+  have ha0 : S.a0 = v ^ 2 + eta := by
+    dsimp only [eta]
+    ring
+  rw [ha0, ha1, ha2, ha3, ha4]
+  dsimp only [GCD369CubeFaberR5]
+  ring
+
+set_option maxHeartbeats 4000000 in
 /-- When `rho4` vanishes, the same exact Faber source automatically lies on
 one of the two unmixed reduced sheets: the zero-bracket sheet or the elliptic
 sheet.  This is the complementary, non-localized part of the later-fibre
@@ -661,4 +692,5 @@ end GCD369CubeLaterInvariantSource
 #print axioms GCD369CubeEarlyFaberBoundarySource.empty
 #print axioms GCD369CubeLaterInvariantSource.mixedCoordinates
 #print axioms GCD369CubeLaterInvariantSource.mixedCuspCoordinates
+#print axioms GCD369CubeLaterInvariantSource.zeroSheetTerminalValue
 #print axioms GCD369CubeLaterInvariantSource.unmixedCoordinates

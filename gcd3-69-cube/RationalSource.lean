@@ -308,6 +308,38 @@ theorem zeroInvariantRatFuncTerminalExclusion
     simp only [derivative_mul, derivative_C, zero_mul, zero_add] at hcleared
     convert hcleared using 1 <;> ring
 
+/-- A nonzero terminal derivative eliminates the zero-bracket alternative
+from the exact unmixed source split.  Hence every surviving unmixed source
+lies on the explicit elliptic sheet, with no sheet choice supplied by the
+caller. -/
+theorem unmixedEllipticCoordinatesOfTerminal
+    {k : Type*} [Field k] [CharZero k]
+    (S : GCD369CubeLaterInvariantSource (RatFunc k))
+    (j : k) (hj : j ≠ 0) (s : k[X])
+    (hrho4 : S.rho4 = 0)
+    (hterminal :
+      algebraMap k[X] (RatFunc k) s *
+          GCD369CubeRatFuncDerivative
+            (GCD369CubeFaberR5
+              S.a0 S.a1 S.a2 S.a3 S.a4 0 0 0 0 0 0 0) =
+        algebraMap k (RatFunc k) j) :
+    S.a3 = 0 ∧ S.a1 = 0 ∧
+      384 * S.a2 ^ 3 - 432 * S.a2 ^ 2 * S.a4 ^ 2 +
+          144 * S.a2 * S.a4 ^ 4 - 15 * S.a4 ^ 6 +
+          6144 * S.rho3 = 0 ∧
+      48 * S.a0 - 12 * S.a2 * S.a4 + 3 * S.a4 ^ 3 = 0 := by
+  have hjmap : algebraMap k (RatFunc k) j ≠ 0 := by
+    rw [RatFunc.algebraMap_eq_C]
+    simpa using RatFunc.C_injective.ne hj
+  have hsheets := S.unmixedCoordinates hrho4
+  dsimp only at hsheets
+  rcases hsheets with hzero | helliptic
+  · rcases hzero with ⟨hA, hB, _hquadratic⟩
+    have hr5zero := S.zeroSheetTerminalValue hA hB
+    rw [hr5zero, GCD369CubeRatFuncDerivative_zero, mul_zero] at hterminal
+    exact False.elim (hjmap hterminal.symm)
+  · exact helliptic
+
 end GCD369CubeLaterInvariantSource
 
 #print axioms GCD369CubeRatFuncReducedPresentation
@@ -319,3 +351,5 @@ end GCD369CubeLaterInvariantSource
   GCD369CubeLaterInvariantSource.mixedCuspRatFuncTerminalExclusion
 #print axioms
   GCD369CubeLaterInvariantSource.zeroInvariantRatFuncTerminalExclusion
+#print axioms
+  GCD369CubeLaterInvariantSource.unmixedEllipticCoordinatesOfTerminal
