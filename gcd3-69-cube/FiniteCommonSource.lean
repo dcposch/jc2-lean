@@ -74,6 +74,93 @@ theorem GCD369CubeZeroLoadNormal_commonRoot
     field_simp [hX]
     ring
 
+set_option maxRecDepth 10000 in
+set_option maxHeartbeats 4000000 in
+/-- The ninth Faber value along an arbitrary common-normal arc agrees to
+first order with `K^3 + (3/2) H K Φ`; the remaining polynomial is divisible
+by `H^2`.  The statement works over any commutative ring carrying explicit
+rational constants, so it can later be instantiated in the regular Hahn
+local ring. -/
+theorem GCD369CubeFaberNineCommonNormalExpansionQ
+    {R : Type*} [CommRing R] (q : ℚ →+* R)
+    (Xn Yn Zn u v x : R) :
+    let H : R[X] := X
+    let A0 : R[X] := C (v ^ 2) + C Zn * H
+    let A1 : R[X] := C (2 * u * v) + C Yn * H
+    let A2 : R[X] := C (u ^ 2) + C Xn * H
+    let A3 : R[X] := C (2 * v)
+    let A4 : R[X] := C (2 * u)
+    let Kval := x ^ 3 + u * x + v
+    let phival := Xn * x ^ 2 + Yn * x + Zn
+    ∃ E : R[X],
+      GCD369CubeFaberNineValueQ
+          ((Polynomial.C : R →+* R[X]).comp q)
+          A0 A1 A2 A3 A4 (C x) =
+        C (Kval ^ 3) + C (q (3 / 2) * Kval * phival) * H + H ^ 2 * E := by
+  dsimp only
+  have qscale (r : ℚ) : q r = q (128 * r) * q (1 / 128) := by
+    rw [← q.map_mul]
+    congr 1
+    ring
+  have hunit : (128 : R) * q (1 / 128) = 1 := by
+    rw [show (128 : R) = q 128 by exact (map_ofNat q 128).symm,
+      ← q.map_mul]
+    norm_num
+  let P : R[X] :=
+    GCD369CubeFaberNineValueQ
+        ((Polynomial.C : R →+* R[X]).comp q)
+        (C (v ^ 2) + C Zn * X)
+        (C (2 * u * v) + C Yn * X)
+        (C (u ^ 2) + C Xn * X) (C (2 * v)) (C (2 * u)) (C x) -
+      (C ((x ^ 3 + u * x + v) ^ 3) +
+        C (q (3 / 2) * (x ^ 3 + u * x + v) *
+          (Xn * x ^ 2 + Yn * x + Zn)) * X)
+  have h0 : P.coeff 0 = 0 := by
+    rw [Polynomial.coeff_zero_eq_eval_zero]
+    simp only [P, GCD369CubeFaberNineValueQ, RingHom.comp_apply,
+      Polynomial.eval_sub, Polynomial.eval_add, Polynomial.eval_mul,
+      Polynomial.eval_pow, Polynomial.eval_C, Polynomial.eval_X,
+      mul_zero, add_zero]
+    rw [qscale (3 / 4), qscale (3 / 16), qscale (3 / 8),
+      qscale (3 / 128), qscale (3 / 2), qscale (1 / 16),
+      qscale (3 / 32)]
+    norm_num
+    rw [map_ofNat q 96, map_ofNat q 24, map_ofNat q 48,
+      map_ofNat q 3, map_ofNat q 192, map_ofNat q 8, map_ofNat q 12]
+    ring_nf
+    linear_combination
+      (3 * x * u * v ^ 2 + 3 * x ^ 2 * u ^ 2 * v + x ^ 3 * u ^ 3 +
+        3 * x ^ 3 * v ^ 2 + 6 * x ^ 4 * u * v + 3 * x ^ 5 * u ^ 2 +
+        3 * x ^ 6 * v + 3 * x ^ 7 * u + v ^ 3) * hunit
+  have h1 : P.coeff 1 = 0 := by
+    calc
+      P.coeff 1 = P.derivative.eval 0 := by
+        rw [← Polynomial.coeff_zero_eq_eval_zero]
+        norm_num [Polynomial.coeff_derivative]
+      _ = 0 := by
+        simp only [P, GCD369CubeFaberNineValueQ, RingHom.comp_apply,
+          Polynomial.derivative_sub, Polynomial.derivative_add,
+          Polynomial.derivative_mul, Polynomial.derivative_pow,
+          Polynomial.derivative_C, Polynomial.derivative_X,
+          Polynomial.eval_sub, Polynomial.eval_add, Polynomial.eval_mul,
+          Polynomial.eval_pow, Polynomial.eval_C, Polynomial.eval_X,
+          Polynomial.eval_zero, zero_mul, mul_zero, zero_add, add_zero,
+          mul_one]
+        rw [qscale (3 / 2), qscale (3 / 8), qscale (3 / 16),
+          qscale (3 / 4)]
+        norm_num
+        rw [map_ofNat q 192, map_ofNat q 48, map_ofNat q 24,
+          map_ofNat q 96]
+        ring_nf
+  have hdiv : (X : R[X]) ^ 2 ∣ P := by
+    rw [Polynomial.X_pow_dvd_iff]
+    intro d hd
+    interval_cases d <;> assumption
+  obtain ⟨E, hE⟩ := hdiv
+  refine ⟨E, ?_⟩
+  dsimp only [P] at hE
+  linear_combination hE
+
 /-- A scaled original-value packet together with its certified nonzero
 common-cubic leading component. -/
 structure GCD369CubeHahnCommonValueData
@@ -299,6 +386,7 @@ theorem finiteLeadingCommonCubicRoot
 end GCD369CubePolynomialSource
 
 #print axioms GCD369CubeZeroLoadNormal_commonRoot
+#print axioms GCD369CubeFaberNineCommonNormalExpansionQ
 #print axioms GCD369CubeHahnCommonValueData.normal_constantCoeff_zero
 #print axioms GCD369CubeHahnCommonValueData.leadingCubicRoot
 #print axioms GCD369CubeHahnCommonValueData.commonNormalEquation
