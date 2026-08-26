@@ -51,6 +51,58 @@ sources:
       review and does not review this Lean extraction.
     license: "CC-BY-4.0"
     author_endorsement: "n/a"
+  - title: "On the Jacobian conjecture and the configurations of roots"
+    authors:
+      - "Tzuong-Tsieng Moh"
+    type: "paper"
+    id: "doi:10.1515/crll.1983.340.140"
+    location: "https://doi.org/10.1515/crll.1983.340.140"
+    relationship: "background"
+    note: >-
+      Broad root-configuration antecedent for plane-Jacobian degree
+      reductions.  This package does not formalize a theorem from the paper.
+    license: "unknown"
+    author_endorsement: "not-contacted"
+  - title: "On the shape of possible counterexamples to the Jacobian Conjecture"
+    authors:
+      - "Christian Valqui"
+      - "Jorge A. Guccione"
+      - "Juan J. Guccione"
+    type: "paper"
+    id: "doi:10.1016/j.jalgebra.2016.08.039"
+    location: "https://doi.org/10.1016/j.jalgebra.2016.08.039"
+    relationship: "background"
+    note: >-
+      Broad Newton-polygon and degree-reduction context for possible plane
+      Jacobian counterexamples.  This package checks a different, specific
+      partial-degree lower-Pfaffian implication.
+    license: "unknown"
+    author_endorsement: "not-contacted"
+  - title: "Elliptic Surfaces and Davenport-Stothers Triples"
+    authors:
+      - "Tetsuji Shioda"
+    type: "paper"
+    id: "doi:10.14992/00008689"
+    location: "https://doi.org/10.14992/00008689"
+    relationship: "adapts"
+    note: >-
+      Literature source for the classical order-three Davenport--Stothers
+      family adapted into the shifted trajectory used here.  The shifted
+      identities and rational valuation closure are proved directly in Lean.
+    license: "unknown"
+    author_endorsement: "not-contacted"
+  - title: "On Davenport's bound for the degree of f^3 - g^2 and Riemann's Existence Theorem"
+    authors:
+      - "Umberto Zannier"
+    type: "paper"
+    id: "doi:10.4064/AA-71-2-107-137"
+    location: "https://doi.org/10.4064/AA-71-2-107-137"
+    relationship: "background"
+    note: >-
+      General equality-case context for Davenport's polynomial degree bound;
+      no theorem from the paper is imported into the Lean proof.
+    license: "CC-BY-4.0"
+    author_endorsement: "not-contacted"
 
 status:
   scope: >-

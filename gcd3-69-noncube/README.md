@@ -74,7 +74,7 @@ Common-power leading forms and degree reductions are standard themes in the
 plane Jacobian literature; broad antecedents include Moh's root-configuration
 analysis (*J. Reine Angew. Math.* 340 (1983), 140–212) and
 Guccione–Guccione–Valqui's Newton-polygon treatment
-([*J. Algebra* 471 (2017), 13–74](https://doi.org/10.1016/j.jalgebra.2016.09.020)).
+([*J. Algebra* 471 (2017), 13–74](https://doi.org/10.1016/j.jalgebra.2016.08.039)).
 Those works concern global or total-degree reductions.  This package checks a
 specific lower-Pfaffian implication at actual partial degrees `(6,9)`.
 
@@ -83,7 +83,9 @@ theory.  Shioda records the order-three Birch example and `St(3)=1`
 ([*Comment. Math. Univ. St. Pauli* 54 (2005), 49–68](https://doi.org/10.14992/00008689)),
 while Zannier studies equality cases of Davenport's bound
 ([*Acta Arith.* 71 (1995), 107–137](https://doi.org/10.4064/AA-71-2-107-137)).
-The explicit family is not claimed as new.
+Shioda's order-three family is the literature input adapted here; Zannier's
+work supplies broader equality-case context.  The explicit family is not
+claimed as new.
 
 The source report and campaign-internal hostile review are copied under
 `sources/`; their SHA-256 digests agree with the frozen originals:
