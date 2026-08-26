@@ -163,6 +163,130 @@ structure GCD369CubeHahnPoleScale (k : Type*) [Field k] where
     (a3 ≠ 0 ∧ 3 * p + a3.order = 0) ∨
     (a4 ≠ 0 ∧ 2 * p + a4.order = 0)
 
+/-- The maximum of the five weighted pole slopes. -/
+def GCD369CubeHahnMaxPoleSlope {k : Type*} [Field k]
+    (a0 a1 a2 a3 a4 : HahnSeries ℚ k) : ℚ :=
+  max (-a0.order / 6)
+    (max (-a1.order / 5)
+      (max (-a2.order / 4) (max (-a3.order / 3) (-a4.order / 2))))
+
+/-- If at least one depressed-sextic coefficient has a pole, the maximum
+weighted slope canonically supplies a positive pole scale. -/
+noncomputable def GCD369CubeHahnPoleScale.ofSomePole
+    {k : Type*} [Field k] (a0 a1 a2 a3 a4 : HahnSeries ℚ k)
+    (hpole : a0.order < 0 ∨ a1.order < 0 ∨ a2.order < 0 ∨
+      a3.order < 0 ∨ a4.order < 0) :
+    GCD369CubeHahnPoleScale k := by
+  let s0 : ℚ := -a0.order / 6
+  let s1 : ℚ := -a1.order / 5
+  let s2 : ℚ := -a2.order / 4
+  let s3 : ℚ := -a3.order / 3
+  let s4 : ℚ := -a4.order / 2
+  let r3 : ℚ := max s3 s4
+  let r2 : ℚ := max s2 r3
+  let r1 : ℚ := max s1 r2
+  let p : ℚ := max s0 r1
+  have hs0 : s0 ≤ p := le_max_left _ _
+  have hs1r : s1 ≤ r1 := le_max_left _ _
+  have hr1p : r1 ≤ p := le_max_right _ _
+  have hs1 : s1 ≤ p := hs1r.trans hr1p
+  have hs2r : s2 ≤ r2 := le_max_left _ _
+  have hr2r : r2 ≤ r1 := le_max_right _ _
+  have hs2 : s2 ≤ p := (hs2r.trans hr2r).trans hr1p
+  have hs3r : s3 ≤ r3 := le_max_left _ _
+  have hr3r : r3 ≤ r2 := le_max_right _ _
+  have hs3 : s3 ≤ p := ((hs3r.trans hr3r).trans hr2r).trans hr1p
+  have hs4r : s4 ≤ r3 := le_max_right _ _
+  have hs4 : s4 ≤ p := ((hs4r.trans hr3r).trans hr2r).trans hr1p
+  have hp : 0 < p := by
+    rcases hpole with h0 | h1 | h2 | h3 | h4
+    · have : 0 < s0 := by dsimp [s0]; linarith
+      exact this.trans_le hs0
+    · have : 0 < s1 := by dsimp [s1]; linarith
+      exact this.trans_le hs1
+    · have : 0 < s2 := by dsimp [s2]; linarith
+      exact this.trans_le hs2
+    · have : 0 < s3 := by dsimp [s3]; linarith
+      exact this.trans_le hs3
+    · have : 0 < s4 := by dsimp [s4]; linarith
+      exact this.trans_le hs4
+  refine {
+    p := p
+    hp := hp
+    a0 := a0
+    a1 := a1
+    a2 := a2
+    a3 := a3
+    a4 := a4
+    ha0 := by dsimp [s0] at hs0; linarith
+    ha1 := by dsimp [s1] at hs1; linarith
+    ha2 := by dsimp [s2] at hs2; linarith
+    ha3 := by dsimp [s3] at hs3; linarith
+    ha4 := by dsimp [s4] at hs4; linarith
+    hattained := ?_
+  }
+  by_cases h0 : r1 ≤ s0
+  · have hp0 : p = s0 := max_eq_left h0
+    left
+    refine ⟨?_, ?_⟩
+    · intro ha
+      have : p = 0 := by simp [hp0, s0, ha, HahnSeries.order_zero]
+      linarith
+    · rw [hp0]
+      dsimp [s0]
+      ring
+  · have h0r : s0 ≤ r1 := le_of_not_ge h0
+    have hp1 : p = r1 := max_eq_right h0r
+    by_cases h1 : r2 ≤ s1
+    · have hr1s1 : r1 = s1 := max_eq_left h1
+      right; left
+      refine ⟨?_, ?_⟩
+      · intro ha
+        have : p = 0 := by simp [hp1, hr1s1, s1, ha, HahnSeries.order_zero]
+        linarith
+      · rw [hp1, hr1s1]
+        dsimp [s1]
+        ring
+    · have h1r : s1 ≤ r2 := le_of_not_ge h1
+      have hr1r2 : r1 = r2 := max_eq_right h1r
+      by_cases h2 : r3 ≤ s2
+      · have hr2s2 : r2 = s2 := max_eq_left h2
+        right; right; left
+        refine ⟨?_, ?_⟩
+        · intro ha
+          have : p = 0 := by
+            simp [hp1, hr1r2, hr2s2, s2, ha, HahnSeries.order_zero]
+          linarith
+        · rw [hp1, hr1r2, hr2s2]
+          dsimp [s2]
+          ring
+      · have h2r : s2 ≤ r3 := le_of_not_ge h2
+        have hr2r3 : r2 = r3 := max_eq_right h2r
+        by_cases h3 : s4 ≤ s3
+        · have hr3s3 : r3 = s3 := max_eq_left h3
+          right; right; right; left
+          refine ⟨?_, ?_⟩
+          · intro ha
+            have : p = 0 := by
+              simp [hp1, hr1r2, hr2r3, hr3s3, s3, ha,
+                HahnSeries.order_zero]
+            linarith
+          · rw [hp1, hr1r2, hr2r3, hr3s3]
+            dsimp [s3]
+            ring
+        · have h3r : s3 ≤ s4 := le_of_not_ge h3
+          have hr3s4 : r3 = s4 := max_eq_right h3r
+          right; right; right; right
+          refine ⟨?_, ?_⟩
+          · intro ha
+            have : p = 0 := by
+              simp [hp1, hr1r2, hr2r3, hr3s4, s4, ha,
+                HahnSeries.order_zero]
+            linarith
+          · rw [hp1, hr1r2, hr2r3, hr3s4]
+            dsimp [s4]
+            ring
+
 namespace GCD369CubeHahnPoleScale
 
 def t {k : Type*} [Field k] (S : GCD369CubeHahnPoleScale k) :
@@ -410,5 +534,6 @@ end GCD369CubeHahnPoleScale
 
 #print axioms GCD369CubeHahn_coeff_zero_mul_of_nonneg
 #print axioms GCD369CubeHahnRegular.constantCoeff
+#print axioms GCD369CubeHahnPoleScale.ofSomePole
 #print axioms GCD369CubeHahnPoleScale.leading_nonzero
 #print axioms GCD369CubeHahnPoleScale.leadingFaberSourceOfNumerators
