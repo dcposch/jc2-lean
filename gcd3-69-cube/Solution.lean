@@ -3161,7 +3161,11 @@ theorem GCD369CubeC5Rows_of_faber
           162 * v * Yn ^ 2 + 162 * u * Yn * Zn = 0 := by
     exact (mul_eq_zero.mp hf4).resolve_left (by norm_num)
   rw [GCD369CubeNormalRow3] at hr3
-  refine ⟨hprojective, ?_, ?_, ?_, ?_⟩ <;> linear_combination
+  refine ⟨hprojective, ?_, ?_, ?_, ?_⟩
+  · linear_combination hr1
+  · linear_combination hr2
+  · linear_combination hr3
+  · linear_combination hr4
 
 /-- The normalized first-`c4` Kuranishi rows. -/
 def GCD369CubeC4Rows {K : Type*} [Field K]
@@ -3207,7 +3211,11 @@ theorem GCD369CubeC4Rows_of_faber
           162 * v * Yn ^ 2 + 162 * u * Yn * Zn = 0 := by
     exact (mul_eq_zero.mp hf4).resolve_left (by norm_num)
   rw [GCD369CubeNormalRow3] at hr3
-  refine ⟨hprojective, ?_, ?_, ?_, ?_⟩ <;> linear_combination
+  refine ⟨hprojective, ?_, ?_, ?_, ?_⟩
+  · linear_combination hr1
+  · linear_combination hr2
+  · linear_combination hr3
+  · linear_combination hr4
 
 /-- The normalized first-`c2` Kuranishi rows. -/
 def GCD369CubeC2Rows {K : Type*} [Field K]
