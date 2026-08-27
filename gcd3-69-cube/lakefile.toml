@@ -84,6 +84,7 @@ roots = [
   "FiniteSimpleSourceLateOrderC7",
   "FiniteSimpleSourceLift",
   "FiniteSimpleSourceLiftC7",
+  "FiniteSimpleSourceEndpointCoordinatesC7",
   "FiniteSimpleSourceStrictFromSourceC7",
   "FiniteSimpleSourceFullScale",
   "FiniteSimpleSourceLoad",
