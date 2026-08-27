@@ -740,6 +740,94 @@ theorem TransverseFactor.doubleRoot_firstCommonScale_not_below_half
     (by simpa only [Row1] using hz1) (by simpa only [Row2] using hz2)
     (by simpa only [Row3] using hz3)
 
+/-- The preceding scale exclusion gives simultaneous half-scale order bounds
+for all three canonical moving-root deviations. -/
+theorem TransverseFactor.doubleRoot_deviations_order_half_lower
+    {k : Type*} [Field k] [CharZero k]
+    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseFactor)
+    (F : GCD369CubeHahnFaberPoleData k)
+    (hscale : S.normal.sextic.scale = F.scale)
+    (D0 C7 C5 C4 C3 C2 C1 Rho1 Rho2 Rho3 Rho4 : k)
+    (hd : F.d = GCD369CubeHahnRegular.constant D0)
+    (hc7 : F.c7 = GCD369CubeHahnRegular.constant C7)
+    (hc5 : F.c5 = GCD369CubeHahnRegular.constant C5)
+    (hc4 : F.c4 = GCD369CubeHahnRegular.constant C4)
+    (hc3 : F.c3 = GCD369CubeHahnRegular.constant C3)
+    (hc2 : F.c2 = GCD369CubeHahnRegular.constant C2)
+    (hc1 : F.c1 = GCD369CubeHahnRegular.constant C1)
+    (hrho1 : F.rho1 = GCD369CubeHahnRegular.constant Rho1)
+    (hrho2 : F.rho2 = GCD369CubeHahnRegular.constant Rho2)
+    (hrho3 : F.rho3 = GCD369CubeHahnRegular.constant Rho3)
+    (hrho4 : F.rho4 = GCD369CubeHahnRegular.constant Rho4)
+    (hp : F.scale.p = 3 * T.delta)
+    (r : GCD369CubeHahnRegular k) (r0 A0 : k)
+    (hr0 : r0 ≠ 0) (hA0 : A0 ≠ 0)
+    (hr : GCD369CubeHahnRegular.constantCoeff r = r0)
+    (hu : GCD369CubeHahnRegular.constantCoeff S.cubicU = -3 * r0 ^ 2)
+    (hX : GCD369CubeHahnRegular.constantCoeff T.Xn = A0)
+    (hY : GCD369CubeHahnRegular.constantCoeff T.Yn = r0 * A0)
+    (hZ : GCD369CubeHahnRegular.constantCoeff T.Zn = -2 * r0 ^ 2 * A0)
+    (hroot : 2 * S.cubicU * r + 3 * S.cubicV = 0) :
+    (↑(T.delta / 2) : WithTop ℚ) ≤
+        (S.cubicU + 3 * r ^ 2).1.orderTop ∧
+      (↑(T.delta / 2) : WithTop ℚ) ≤
+        (T.Yn - r * T.Xn).1.orderTop ∧
+      (↑(T.delta / 2) : WithTop ℚ) ≤
+        (T.Zn + 2 * r ^ 2 * T.Xn).1.orderTop := by
+  let D : GCD369CubeHahnRegular k := S.cubicU + 3 * r ^ 2
+  let B : GCD369CubeHahnRegular k := T.Yn - r * T.Xn
+  let C : GCD369CubeHahnRegular k := T.Zn + 2 * r ^ 2 * T.Xn
+  have hD0 : GCD369CubeHahnRegular.constantCoeff D = 0 := by
+    dsimp only [D]
+    simp only [map_add, map_mul, map_pow, map_ofNat, hu, hr]
+    ring
+  have hB0 : GCD369CubeHahnRegular.constantCoeff B = 0 := by
+    dsimp only [B]
+    simp only [map_sub, map_mul, hY, hr, hX]
+    ring
+  have hC0 : GCD369CubeHahnRegular.constantCoeff C = 0 := by
+    dsimp only [C]
+    simp only [map_add, map_mul, map_pow, map_ofNat, hZ, hr, hX]
+    ring
+  by_cases hnonzero : D ≠ 0 ∨ B ≠ 0 ∨ C ≠ 0
+  · let J : GCD369CubeHahnRegular.TripleScale D B C :=
+      GCD369CubeHahnRegular.tripleScale D B C hD0 hB0 hC0 hnonzero
+    have hnot := T.doubleRoot_firstCommonScale_not_below_half F hscale
+      D0 C7 C5 C4 C3 C2 C1 Rho1 Rho2 Rho3 Rho4
+      hd hc7 hc5 hc4 hc3 hc2 hc1 hrho1 hrho2 hrho3 hrho4 hp r
+      (by rw [hX]; exact hA0) (by rw [hr]; exact hr0) hroot J
+    have hmu : T.delta / 2 ≤ J.mu := le_of_not_gt hnot
+    have hDmu : (↑J.mu : WithTop ℚ) ≤ D.1.orderTop := by
+      have hm := GCD369CubeHahnRegular.monomial_mul_orderTop_lower
+        J.mu J.hmu.le J.Dn
+      exact hm.trans_eq (congrArg (fun z : GCD369CubeHahnRegular k =>
+        z.1.orderTop) J.hD).symm
+    have hBmu : (↑J.mu : WithTop ℚ) ≤ B.1.orderTop := by
+      have hm := GCD369CubeHahnRegular.monomial_mul_orderTop_lower
+        J.mu J.hmu.le J.Bn
+      exact hm.trans_eq (congrArg (fun z : GCD369CubeHahnRegular k =>
+        z.1.orderTop) J.hB).symm
+    have hCmu : (↑J.mu : WithTop ℚ) ≤ C.1.orderTop := by
+      have hm := GCD369CubeHahnRegular.monomial_mul_orderTop_lower
+        J.mu J.hmu.le J.Cn
+      exact hm.trans_eq (congrArg (fun z : GCD369CubeHahnRegular k =>
+        z.1.orderTop) J.hC).symm
+    have hcoe : (↑(T.delta / 2) : WithTop ℚ) ≤ (↑J.mu : WithTop ℚ) :=
+      WithTop.coe_le_coe.mpr hmu
+    exact ⟨by simpa only [D] using hcoe.trans hDmu,
+      by simpa only [B] using hcoe.trans hBmu,
+      by simpa only [C] using hcoe.trans hCmu⟩
+  · simp only [not_or, not_ne_iff] at hnonzero
+    rcases hnonzero with ⟨hDz, hBz, hCz⟩
+    constructor
+    · rw [show S.cubicU + 3 * r ^ 2 = D by rfl, hDz]
+      simp
+    constructor
+    · rw [show T.Yn - r * T.Xn = B by rfl, hBz]
+      simp
+    · rw [show T.Zn + 2 * r ^ 2 * T.Xn = C by rfl, hCz]
+      simp
+
 end GCD369CubeHahnCommonValueData
 
 #print axioms GCD369CubeHahnRegular.coeff_int_mul
@@ -751,3 +839,4 @@ end GCD369CubeHahnCommonValueData
 #print axioms GCD369CubeHahnRegular.doubleBlowup_quadratic_inconsistent
 #print axioms GCD369CubeHahnCommonValueData.TransverseFactor.doubleRoot_rowCoeffs_zero_before_d
 #print axioms GCD369CubeHahnCommonValueData.TransverseFactor.doubleRoot_firstCommonScale_not_below_half
+#print axioms GCD369CubeHahnCommonValueData.TransverseFactor.doubleRoot_deviations_order_half_lower
