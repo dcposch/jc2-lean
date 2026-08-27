@@ -27,7 +27,7 @@ theorem TransverseFactor.doubleRoot_deviations_order_delta_from_source_before_rh
     (hc3 : F.c3 = 0)
     (hc2 : F.c2 = 0)
     (hc1 : F.c1 = 0)
-    (hp : 3 * T.delta < 10 * F.scale.p)
+    (hp : 3 * T.delta ≤ 10 * F.scale.p)
     (r : GCD369CubeHahnRegular k) (r0 A0 : k)
     (hr0 : r0 ≠ 0) (hA0 : A0 ≠ 0)
     (hr : GCD369CubeHahnRegular.constantCoeff r = r0)
@@ -54,7 +54,7 @@ theorem TransverseFactor.doubleRoot_deviations_order_delta_from_source_before_rh
       (T.Zn + 2 * r ^ 2 * T.Xn).1.orderTop := by
     by_cases hlt : 3 * T.delta < 10 * F.scale.p
     · exact T.doubleRoot_deviations_order_half_lower_before_rho1
-        F hscale hd hc7 hc5 hc4 hc3 hc2 hc1 hlt r r0 A0 hr0 hA0 hr hu hX hY hZ
+        F hscale hd hc7 hc5 hc4 hc3 hc2 hc1 (le_of_lt hlt) r r0 A0 hr0 hA0 hr hu hX hY hZ
         hroot
     · let D : GCD369CubeHahnRegular k := S.cubicU + 3 * r ^ 2
       let B : GCD369CubeHahnRegular k := T.Yn - r * T.Xn
