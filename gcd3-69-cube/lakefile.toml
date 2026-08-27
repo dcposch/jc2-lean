@@ -255,6 +255,8 @@ roots = [
   "FiniteSimpleSourceEndpointCoordinatesC1",
   "FiniteC1SourceRootSplit",
   "FiniteC1LoadSourceRootEndpoint",
+  "FiniteC1SourceAssembly",
+  "FiniteC1SingularAssembly",
   "FiniteDoubleC1LoadSourceCoeff",
   "FiniteDoubleC1LoadEndpointCoeff",
   "FiniteDoubleC1LoadLift",
