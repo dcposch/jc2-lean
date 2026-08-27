@@ -1,13 +1,15 @@
-import DegreeRoutes
+import HistoryDegree
+import TotalDegreeRoutes
 import GCD369DivisibleSourceExclusion
 
 /-! # Max-eleven handoff from the complete divisible `(6,9)` exclusion
 
 This module adapts the literal polynomial source theorem to the normalized
 `MvPolynomial` interface used by the max-eleven degree router.  It closes both
-cube and noncube branches of the divisible common-core residue.  The final
-composition remains conditional only on the classical gcd-at-most-two route
-and the historical nondivisible-core route.
+cube and noncube branches of the divisible common-core residue.  The local
+large-source-shear proof also reduces the nondivisible residue to the
+classical prime-total-degree-gcd theorem.  The final composition remains
+conditional only on that theorem and the classical gcd-at-most-two route.
 -/
 
 open scoped Polynomial.Bivariate
@@ -73,9 +75,36 @@ theorem Max11PlaneKellerGenerationWithImportedDivisible69Exclusion
     hgcd hhistory imported_planeKeller69DivisibleCubeExclusion
       imported_planeKeller69DivisibleNoncubeExclusion
 
+/-- The checked large-source-shear calculation and Dirichlet argument reduce
+the entire nondivisible `(6,9)` residue to the canonical classical theorem for
+Keller pairs whose total-degree gcd is prime. -/
+theorem imported_planeKeller69NondivisibleCoreRoute_of_primeTotalDegreeGCD
+    {K : Type*} [Field K]
+    (hprime : PlaneKellerPrimeTotalDegreeGCDRoute (K := K)) :
+    PlaneKeller69NondivisibleCoreRoute (K := K) :=
+  planeKeller69NondivisibleCoreRoute_of_exactTotalDegree_and_primeGCD
+    planeKeller69SourceShearExactTotalDegree hprime
+
+/-- Max-eleven generation after importing the complete divisible `(6,9)`
+exclusion and proving every local step of the nondivisible source-shear route.
+The only remaining inputs are the prime-total-degree-gcd theorem and the
+classical gcd-at-most-two partial-degree route. -/
+theorem Max11PlaneKellerGenerationWithPrimeTotalDegreeGCDRoute
+    {K : Type*} [Field K] [CharZero K] [IsAlgClosed K]
+    (hgcd : ∀ m n, Nat.gcd m n ≤ 2 →
+      PlaneKellerAutomorphicAtDegrees (K := K) m n)
+    (hprime : PlaneKellerPrimeTotalDegreeGCDRoute (K := K)) :
+    ∀ P Q : MvPolynomial (Fin 2) K,
+      degreeOf 1 P ≤ 11 → degreeOf 1 Q ≤ 11 →
+      IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
+  exact Max11PlaneKellerGenerationWithImportedDivisible69Exclusion hgcd
+    (imported_planeKeller69NondivisibleCoreRoute_of_primeTotalDegreeGCD hprime)
+
 #print axioms normalized69Source_impossible_of_degree_dvd_three
 #print axioms imported_planeKeller69DivisibleCubeExclusion
 #print axioms imported_planeKeller69DivisibleNoncubeExclusion
 #print axioms Max11PlaneKellerGenerationWithImportedDivisible69Exclusion
+#print axioms imported_planeKeller69NondivisibleCoreRoute_of_primeTotalDegreeGCD
+#print axioms Max11PlaneKellerGenerationWithPrimeTotalDegreeGCDRoute
 
 end Max11DegreeRoutes

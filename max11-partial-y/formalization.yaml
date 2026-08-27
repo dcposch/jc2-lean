@@ -12,8 +12,10 @@ project:
     K[P,Q]=K[x,y] from only the gcd-at-most-two and (6,9) route premises.
     A further source-facing theorem replaces the (6,9) premise by exhaustive
     normalized cube-core and noncube-core closure premises.  The imported
-    divisible-core assembly now discharges both deep exclusions, leaving only
-    the gcd-at-most-two theorem and nondivisible-core history route.
+    divisible-core assembly discharges both deep exclusions.  The local
+    source-shear, exact total-degree, and Dirichlet argument now reduce the
+    nondivisible history route to the canonical prime-total-degree-gcd theorem,
+    leaving that theorem and the gcd-at-most-two route as the final inputs.
   authors:
     - "Dan Clemens Posch"
   license: "Apache-2.0"
@@ -81,8 +83,13 @@ status:
     The final assembly imports the exhaustive literal divisible-core theorem,
     adapts its coefficient-polynomial Jacobian to the genuine normalized
     MvPolynomial source, and supplies both divisible exclusion interfaces.
-    Not proved here: scalar-extension/descent, the gcd-at-most-two premise,
-    or the large-source-shear history premise.
+    For the nondivisible core it constructs the triangular source
+    automorphism, proves both chain rules and Jacobian/generation invariance,
+    proves the exact total degrees 2(H+3L),3(H+3L) from unique maximal
+    shear-weight monomials, and uses Mathlib's Dirichlet theorem to choose
+    H+3L prime.  Not proved here: scalar-extension/descent, the
+    prime-total-degree-gcd theorem, or the gcd-at-most-two premise (whose
+    classical source route additionally uses the twice-prime result).
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
@@ -193,9 +200,10 @@ fidelity:
     (6,9) leaf into explicit normalized cube and noncube closure premises; the
     refined version instead exposes the source's exact core-degree split and
     charges the deep exclusions only on `3 ∣ deg h`; `Max11Assembly` now
-    imports and adapts the complete divisible-core source exclusion.  It
-    formalizes the complete finite recursion and divisible leaf, not the
-    algebraic proof of the large-source-shear premise, the gcd-at-most-two
+    imports and adapts the complete divisible-core source exclusion.  The
+    nondivisible source-shear, exact-degree, and Dirichlet stack is also proved,
+    reducing that branch to the canonical prime-total-degree-gcd theorem.  It
+    does not formalize that published prime theorem, the gcd-at-most-two
     theorem, or scalar-extension descent.  No other divergences are known.
 
 review:
@@ -209,7 +217,8 @@ review:
     The copied hostile review predates and does not inspect the Lean code.
     Kernel axiom reports and the project audit script find no sorryAx or
     non-permitted axioms in Max11Core.lean, ClassicalRoutes.lean,
-    DegreeRoutes.lean, or Max11Assembly.lean.
+    DegreeRoutes.lean, HistoryRoute.lean, HistoryDegree.lean,
+    TotalDegreeRoutes.lean, or Max11Assembly.lean.
 
 alignment:
   namespace: "(root)"

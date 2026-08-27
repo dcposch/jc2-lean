@@ -42,6 +42,16 @@ theorem and discharges both of those deep exclusion premises.  Its theorem
 leaves exactly the gcd-at-most-two theorem and the nondivisible-core history
 route as inputs.
 
+`HistoryRoute.lean` and `HistoryDegree.lean` now prove every local step of that
+history route: the triangular source automorphism, generation and Keller
+invariance, both chain rules, exact large-shear total degrees
+`2(H+3L),3(H+3L)`, and the Dirichlet choice making `H+3L` prime.  The stronger
+headline
+`Max11DegreeRoutes.Max11PlaneKellerGenerationWithPrimeTotalDegreeGCDRoute`
+therefore replaces the opaque history premise by the canonical published
+theorem for Keller pairs whose total-degree gcd is prime.  Its other remaining
+input is the classical gcd-at-most-two partial-degree route.
+
 ## Compared declarations
 
 - `Max11RouteClassification` proves that every unordered pair through eleven
@@ -103,6 +113,17 @@ route as inputs.
 - `Max11DegreeRoutes.Max11PlaneKellerGenerationWithImportedDivisible69Exclusion`
   imports the kernel-checked exhaustive divisible-core source theorem and
   removes both divisible exclusions from the max-eleven interface.
+- `Max11DegreeRoutes.planeKeller69SourceShearExactTotalDegree` proves that a
+  sufficiently large source shear of a normalized `(6,9)` pair has total
+  degrees exactly `2(H+3L)` and `3(H+3L)` by isolating the unique maximal
+  shear-weight monomials.
+- `Max11DegreeRoutes.imported_planeKeller69NondivisibleCoreRoute_of_primeTotalDegreeGCD`
+  combines that degree calculation, source-shear invariance, and Mathlib's
+  Dirichlet theorem to reduce `3 ∤ H` to the classical prime-total-degree-gcd
+  result.
+- `Max11DegreeRoutes.Max11PlaneKellerGenerationWithPrimeTotalDegreeGCDRoute`
+  is the current top of the checked tower: only the prime-total-degree-gcd
+  theorem and the gcd-at-most-two partial-degree route remain as inputs.
 - `Max12FirstPrimitives` verifies the frontier checksum: at maximum twelve,
   the same direct routes first leave `(8,12)` and `(9,12)`.
 
@@ -116,8 +137,10 @@ Lean extraction checks the complete finite recursion and frontier arithmetic,
 then instantiates the result for actual bivariate polynomials, their Jacobian,
 partial `y`-degree, and coordinate-ring generation.  The divisible `(6,9)`
 leaf is now discharged by imported kernel-checked source theorems.  This
-project still does not prove scalar-extension descent, the gcd-at-most-two
-theorem, or the nondivisible-core source-shear route.
+project also proves the complete local nondivisible-core source-shear and
+Dirichlet reduction.  It still does not prove scalar-extension descent, the
+classical prime-total-degree-gcd theorem, or the gcd-at-most-two theorem (whose
+standard route additionally needs the twice-prime total-degree result).
 
 The source files are copied byte-for-byte under `sources/`:
 
@@ -134,7 +157,8 @@ lake build
 ./scripts/check_axioms.sh
 ```
 
-`Max11Core.lean`, `ClassicalRoutes.lean`, `DegreeRoutes.lean`, and
+`Max11Core.lean`, `ClassicalRoutes.lean`, `DegreeRoutes.lean`,
+`HistoryRoute.lean`, `HistoryDegree.lean`, `TotalDegreeRoutes.lean`, and
 `Max11Assembly.lean` contain no
 `sorry`, custom axioms, or trust escapes.  The permitted axioms are `propext`,
 `Classical.choice`, and `Quot.sound`.
