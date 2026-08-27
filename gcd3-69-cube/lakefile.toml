@@ -222,6 +222,7 @@ roots = [
   "FiniteSimpleSourceChartAllC2",
   "FiniteDoubleSourceChartsC2",
   "FiniteDoubleC2LoadSourceCoeff",
+  "FiniteDoubleC2LoadEndpointCoeff",
   "FiniteDoubleC1LoadPolys",
   "FiniteC7Source",
   "FiniteC7Extraction",
