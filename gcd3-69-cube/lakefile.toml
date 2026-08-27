@@ -25,6 +25,7 @@ roots = [
   "LocalExpansion",
   "WeightedPole",
   "FinitePoleSource",
+  "FiniteTargetNormalizedPole",
   "FiniteBoundarySource",
   "FiniteCommonSource",
   "FiniteActiveSource",
