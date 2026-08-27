@@ -202,6 +202,8 @@ roots = [
   "FiniteC4LoadSourceRoot",
   "FiniteSimpleSourceLiftC4",
   "FiniteSimpleSourceStrictFromSourceC4",
+  "FiniteSimpleSourceEndpointCoordinatesC4",
+  "FiniteC4SourceRootSplit",
   "FiniteC7Source",
   "FiniteC7Extraction",
   "FiniteC7RootLift",
