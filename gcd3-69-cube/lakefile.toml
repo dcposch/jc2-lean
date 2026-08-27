@@ -73,6 +73,8 @@ roots = [
   "InfinityC1Late",
   "InfinityC1Middle",
   "InfinityC1Tie",
+  "InfinityRho1Before",
+  "InfinityRho1Balanced",
   "InfinityExactSquare",
   "InfinityDLoad",
   "InfinityDBalanced",
