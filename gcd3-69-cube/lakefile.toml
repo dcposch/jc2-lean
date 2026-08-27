@@ -225,6 +225,7 @@ roots = [
   "FiniteDoubleC2LoadEndpointCoeff",
   "FiniteDoubleLiftSourceC2",
   "FiniteDoubleC2LoadLift",
+  "FiniteDoubleC2LoadEndpointLift",
   "FiniteDoubleC1LoadPolys",
   "FiniteC7Source",
   "FiniteC7Extraction",
