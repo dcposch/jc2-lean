@@ -1,4 +1,5 @@
 import FiniteSimpleSourceStrictPolynomial
+import FiniteSimpleSourceTiedPolynomial
 
 /-! # Late singular finite-pole branch assembly
 
@@ -131,6 +132,27 @@ theorem finite_pole_late_simpleRoot_or_strictFalse
     exact S.finite_simpleRoot_strictLate_inconsistent_from_source
       a hpole T hp
 
+/-- Once the canonical weight-one parameter vanishes, the singular late
+branch is empty both strictly after the cubic scale and at the exact tie. -/
+theorem finite_pole_singular_late_inconsistent
+    {k : Type*} [Field k] [CharZero k]
+    (S : GCD369CubePolynomialSource k) (a : k)
+    (hpole :
+      (GCD369CubeRatFuncHahnAt a (S.normalizedP.coeff 0)).order < 0 ∨
+      (GCD369CubeRatFuncHahnAt a (S.normalizedP.coeff 1)).order < 0 ∨
+      (GCD369CubeRatFuncHahnAt a (S.normalizedP.coeff 2)).order < 0 ∨
+      (GCD369CubeRatFuncHahnAt a (S.normalizedP.coeff 3)).order < 0 ∨
+      (GCD369CubeRatFuncHahnAt a (S.normalizedP.coeff 4)).order < 0)
+    (T : (S.finiteCommonValueData a hpole).TransverseScale)
+    (hd : S.faberConstantParameters.d = 0)
+    (hlate : 3 * T.delta ≤ (S.finiteFaberPoleData a hpole).scale.p) :
+    False := by
+  rcases eq_or_lt_of_le hlate with htie | hstrict
+  · exact S.finite_simpleRoot_tied_inconsistent_from_source
+      a hpole T hd htie.symm
+  · exact S.finite_simpleRoot_strictLate_inconsistent_from_source
+      a hpole T hstrict
+
 end GCD369CubePolynomialSource
 
 #print axioms
@@ -139,3 +161,5 @@ end GCD369CubePolynomialSource
   GCD369CubeHahnCommonValueData.TransverseScale.late_simpleRoot_or_strictFalse
 #print axioms
   GCD369CubePolynomialSource.finite_pole_late_simpleRoot_or_strictFalse
+#print axioms
+  GCD369CubePolynomialSource.finite_pole_singular_late_inconsistent
