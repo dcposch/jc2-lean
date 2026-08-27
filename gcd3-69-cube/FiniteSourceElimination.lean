@@ -199,6 +199,39 @@ theorem TransverseFactor.reducedFaberNine_inconsistent_of_exact_cubic_order
   rw [hKcubeCoeff] at hz
   exact (pow_ne_zero 3 ha) (neg_eq_zero.mp hz)
 
+/-- If the square of the moving cubic is the unique lowest term in the
+literal sextic equation, its finite order cannot lie below the source
+boundary. -/
+theorem TransverseFactor.sourceSextic_inconsistent_of_cubic_dominant
+    {k : Type*} [Field k] [CharZero k]
+    {S : GCD369CubeHahnCommonValueData k} (_T : S.TransverseFactor)
+    (alpha beta : ℚ)
+    (hK : S.cubicValue.1.orderTop = (↑alpha : WithTop ℚ))
+    (hphi : (↑beta : WithTop ℚ) ≤
+      S.transverseValue.1.orderTop)
+    (hdominant : 2 * alpha < beta)
+    (hbelow : 2 * alpha < 6 * S.normal.sextic.scale.p) : False := by
+  have hK2 := GCD369CubeHahnRegular.mul_orderTop_and_leadingCoeff
+    S.cubicValue S.cubicValue alpha alpha hK hK
+  have hKsq : (S.cubicValue ^ 2).1.orderTop =
+      (↑(2 * alpha) : WithTop ℚ) := by
+    rw [pow_two]
+    simpa only [show alpha + alpha = 2 * alpha by ring] using hK2.1
+  have hord : (S.cubicValue ^ 2).1.orderTop <
+      S.transverseValue.1.orderTop := by
+    rw [hKsq]
+    exact (WithTop.coe_lt_coe.mpr hdominant).trans_le hphi
+  have hsum : (S.cubicValue ^ 2 + S.transverseValue).1.orderTop =
+      (↑(2 * alpha) : WithTop ℚ) := by
+    change (S.cubicValue.1 ^ 2 + S.transverseValue.1).orderTop = _
+    have hord' : (S.cubicValue.1 ^ 2).orderTop <
+        S.transverseValue.1.orderTop := by simpa using hord
+    rw [HahnSeries.orderTop_add_eq_left hord']
+    simpa using hKsq
+  have hs := S.commonNormalEquation_orderTop_lower
+  rw [hsum, WithTop.coe_le_coe] at hs
+  linarith
+
 end GCD369CubeHahnCommonValueData
 
 #print axioms
@@ -207,3 +240,5 @@ end GCD369CubeHahnCommonValueData
   GCD369CubeHahnCommonValueData.TransverseFactor.reducedFaberNineCoeff_zero_before_d
 #print axioms
   GCD369CubeHahnCommonValueData.TransverseFactor.reducedFaberNine_inconsistent_of_exact_cubic_order
+#print axioms
+  GCD369CubeHahnCommonValueData.TransverseFactor.sourceSextic_inconsistent_of_cubic_dominant
