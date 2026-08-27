@@ -120,9 +120,90 @@ theorem TransverseFactor.reducedFaberNineCoeff_zero_before_d
   rw [HahnSeries.coeff_add, hthreeKP, add_zero] at hc
   exact hc.symm
 
+/-- A finite exact cubic order is impossible whenever the explicit
+second-order ninth-Faber term starts strictly later than the cubic cube.
+This is the abstract coefficient contradiction used by the simple-root
+chart before its final resonance. -/
+theorem TransverseFactor.reducedFaberNine_inconsistent_of_exact_cubic_order
+    {k : Type*} [Field k] [CharZero k]
+    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseFactor)
+    (alpha beta : ℚ) (a : k)
+    (halpha : 0 < alpha) (ha : a ≠ 0)
+    (hK : S.cubicValue.1.orderTop = (↑alpha : WithTop ℚ))
+    (hlcK : S.cubicValue.1.leadingCoeff = a)
+    (hE :
+      let E := GCD369CubeHahnRegular.ratCast (3 / 8) * T.Xn *
+        (T.Xn * S.normal.sextic.regularX + 2 * T.Yn)
+      (↑beta : WithTop ℚ) ≤ E.1.orderTop)
+    (hlater : 3 * alpha < 2 * T.delta + beta)
+    (hearly : 3 * alpha < S.normal.sextic.scale.p) : False := by
+  let H : GCD369CubeHahnRegular k :=
+    GCD369CubeHahnRegular.monomial T.delta T.hdelta.le
+  let E : GCD369CubeHahnRegular k :=
+    GCD369CubeHahnRegular.ratCast (3 / 8) * T.Xn *
+      (T.Xn * S.normal.sextic.regularX + 2 * T.Yn)
+  change (↑beta : WithTop ℚ) ≤ E.1.orderTop at hE
+  have hK2 := GCD369CubeHahnRegular.mul_orderTop_and_leadingCoeff
+    S.cubicValue S.cubicValue alpha alpha hK hK
+  have hK2order : (S.cubicValue * S.cubicValue).1.orderTop =
+      (↑(2 * alpha) : WithTop ℚ) := by
+    simpa only [show alpha + alpha = 2 * alpha by ring] using hK2.1
+  have hK3 := GCD369CubeHahnRegular.mul_orderTop_and_leadingCoeff
+    (S.cubicValue * S.cubicValue) S.cubicValue
+    (2 * alpha) alpha hK2order hK
+  have hKcubeEq : S.cubicValue ^ 3 =
+      (S.cubicValue * S.cubicValue) * S.cubicValue := by ring
+  have hKcubeOrder : (S.cubicValue ^ 3).1.orderTop =
+      (↑(3 * alpha) : WithTop ℚ) := by
+    rw [hKcubeEq]
+    simpa only [show 2 * alpha + alpha = 3 * alpha by ring] using hK3.1
+  have hKcubeCoeff : (S.cubicValue ^ 3).1.coeff (3 * alpha) = a ^ 3 := by
+    rw [GCD369CubeHahnRegular.coeff_eq_leadingCoeff_of_orderTop_eq
+      (S.cubicValue ^ 3) (3 * alpha) hKcubeOrder]
+    rw [hKcubeEq, hK3.2, hK2.2, hlcK]
+    ring
+  have hH := GCD369CubeHahnRegular.monomial_orderTop_and_leadingCoeff
+    (k := k) T.delta T.hdelta.le
+  have hH2 := GCD369CubeHahnRegular.mul_orderTop_lower
+    H H T.delta T.delta
+    (by simpa only [H] using hH.1.ge)
+    (by simpa only [H] using hH.1.ge)
+  have hH2' : (↑(2 * T.delta) : WithTop ℚ) ≤ (H ^ 2).1.orderTop := by
+    rw [pow_two]
+    simpa only [show T.delta + T.delta = 2 * T.delta by ring] using hH2
+  have hEH2 : (↑(beta + 2 * T.delta) : WithTop ℚ) ≤
+      (E * H ^ 2).1.orderTop :=
+    GCD369CubeHahnRegular.mul_orderTop_lower
+      E (H ^ 2) beta (2 * T.delta) hE hH2'
+  have hEH2late : (↑(3 * alpha) : WithTop ℚ) <
+      (E * H ^ 2).1.orderTop := by
+    exact (WithTop.coe_lt_coe.mpr (by linarith [hlater])).trans_le hEH2
+  have hEH2coeff : (E * H ^ 2).1.coeff (3 * alpha) = 0 :=
+    HahnSeries.coeff_eq_zero_of_lt_orderTop hEH2late
+  have htwoEH2coeff : (2 * E * H ^ 2).1.coeff (3 * alpha) = 0 := by
+    have hassoc : (2 : GCD369CubeHahnRegular k) * E * H ^ 2 =
+        2 * (E * H ^ 2) := by ring
+    rw [hassoc]
+    calc
+      _ = (2 : k) * (E * H ^ 2).1.coeff (3 * alpha) :=
+        GCD369CubeHahnRegular.coeff_nat_mul 2 (E * H ^ 2) (3 * alpha)
+      _ = 0 := by rw [hEH2coeff, mul_zero]
+  have hz := T.reducedFaberNineCoeff_zero_before_d
+    (3 * alpha) (by nlinarith [halpha]) hearly
+  change (-(S.cubicValue ^ 3) + 2 * E * H ^ 2).1.coeff
+    (3 * alpha) = 0 at hz
+  change ((-(S.cubicValue ^ 3)).1 + (2 * E * H ^ 2).1).coeff
+    (3 * alpha) = 0 at hz
+  rw [HahnSeries.coeff_add, htwoEH2coeff, add_zero] at hz
+  change -(S.cubicValue ^ 3).1.coeff (3 * alpha) = 0 at hz
+  rw [hKcubeCoeff] at hz
+  exact (pow_ne_zero 3 ha) (neg_eq_zero.mp hz)
+
 end GCD369CubeHahnCommonValueData
 
 #print axioms
   GCD369CubeHahnCommonValueData.TransverseFactor.twice_faberNine_reducedBySextic
 #print axioms
   GCD369CubeHahnCommonValueData.TransverseFactor.reducedFaberNineCoeff_zero_before_d
+#print axioms
+  GCD369CubeHahnCommonValueData.TransverseFactor.reducedFaberNine_inconsistent_of_exact_cubic_order
