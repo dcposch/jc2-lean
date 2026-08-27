@@ -62,6 +62,7 @@ roots = [
   "FiniteSimpleSourceStrictPolynomial",
   "FiniteSimpleSourceTiedCoeff",
   "FiniteEarlyLoadRouting",
+  "FiniteArbitraryLoadStrict",
   "FiniteEarlyLoadTied",
   "FiniteLoadAnnihilation",
   "FiniteDoubleLoad",
