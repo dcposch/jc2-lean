@@ -1,4 +1,4 @@
-import Solution
+import CubeCore
 
 open Polynomial
 

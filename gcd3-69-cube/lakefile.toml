@@ -11,6 +11,8 @@ rev = "20bc12820422504f9e52ee6caebf8182a9015336"
 name = "Solution"
 roots = [
   "Solution",
+  "Challenge",
+  "CubeCore",
   "ArbitraryLoads",
   "PhysicalEarlyBoundary",
   "SourceBridge",

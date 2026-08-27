@@ -12,6 +12,8 @@ transverse scale.  The singular timing fan kills all Faber loads through
 
 noncomputable section
 
+open Polynomial
+
 namespace GCD369CubePolynomialSource
 
 /-- A finite normalized-coefficient pole always has a genuine first
@@ -147,8 +149,44 @@ theorem nonconstant_cube_root_impossible
 
 end GCD369CubePolynomialSource
 
+/-- Structured source-facing polynomial-cube exclusion at actual partial
+degrees `(6,9)`. -/
+theorem GCD369PolynomialCubeSourceExclusion_structured
+    {k : Type*} [Field k] [CharZero k] [IsAlgClosed k]
+    (S : GCD369CubePolynomialSource k) (hsdegree : 0 < S.s.natDegree) :
+    False :=
+  S.nonconstant_cube_root_impossible hsdegree
+
+/-- Source-facing polynomial-cube exclusion at actual partial degrees
+`(6,9)`: literal bivariate polynomials with a common nonconstant cube root in
+their leading coefficients cannot have nonzero constant Jacobian. -/
+theorem GCD369PolynomialCubeSourceExclusion
+    {k : Type*} [Field k] [CharZero k] [IsAlgClosed k]
+    (s : k[X]) (p q : k[X][X]) (j : k)
+    (hs : s ≠ 0) (hj : j ≠ 0)
+    (hp : p.natDegree = 6) (hq : q.natDegree = 9)
+    (hp6 : p.coeff 6 = s ^ 6) (hq9 : q.coeff 9 = s ^ 9)
+    (hjac : GCD369CubeBivariateJacobian p q = C (C j))
+    (hsdegree : 0 < s.natDegree) :
+    False := by
+  let S : GCD369CubePolynomialSource k :=
+    { s := s
+      p := p
+      q := q
+      j := j
+      hs := hs
+      hj := hj
+      hp := hp
+      hq := hq
+      hp6 := hp6
+      hq9 := hq9
+      hjac := hjac }
+  exact S.nonconstant_cube_root_impossible hsdegree
+
 #print axioms GCD369CubePolynomialSource.finite_transverseScale_nonempty
 #print axioms GCD369CubePolynomialSource.finite_source_forces_d_eq_zero
 #print axioms
   GCD369CubePolynomialSource.finite_targetNormalized_singular_earlyLoads_zero_through_rho2
 #print axioms GCD369CubePolynomialSource.nonconstant_cube_root_impossible
+#print axioms GCD369PolynomialCubeSourceExclusion_structured
+#print axioms GCD369PolynomialCubeSourceExclusion
