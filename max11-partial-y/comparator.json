@@ -15,9 +15,12 @@
     "Max11DegreeRoutes.planeKellerAutomorphicAtDegrees_69_of_normalized_routes",
     "Max11DegreeRoutes.planeKeller69CubeRoute_of_exclusion",
     "Max11DegreeRoutes.planeKeller69NoncubeRoute_of_exclusion",
+    "Max11DegreeRoutes.planeKeller69CubeRoute_of_history_and_divisible_exclusion",
+    "Max11DegreeRoutes.planeKeller69NoncubeRoute_of_history_and_divisible_exclusion",
     "Max11DegreeRoutes.Max11PlaneKellerGenerationWithElementaryRoutes",
     "Max11DegreeRoutes.Max11PlaneKellerGenerationWithNormalized69Routes",
     "Max11DegreeRoutes.Max11PlaneKellerGenerationWithNormalized69Exclusions",
+    "Max11DegreeRoutes.Max11PlaneKellerGenerationWithHistoryAndDivisible69Exclusions",
     "Max12FirstPrimitives"
   ],
   "definition_names": [
@@ -31,7 +34,10 @@
     "Max11DegreeRoutes.PlaneKeller69CubeRoute",
     "Max11DegreeRoutes.PlaneKeller69NoncubeRoute",
     "Max11DegreeRoutes.PlaneKeller69CubeExclusion",
-    "Max11DegreeRoutes.PlaneKeller69NoncubeExclusion"
+    "Max11DegreeRoutes.PlaneKeller69NoncubeExclusion",
+    "Max11DegreeRoutes.PlaneKeller69NondivisibleCoreRoute",
+    "Max11DegreeRoutes.PlaneKeller69DivisibleCubeExclusion",
+    "Max11DegreeRoutes.PlaneKeller69DivisibleNoncubeExclusion"
   ],
   "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
   "enable_nanoda": true

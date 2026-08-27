@@ -645,6 +645,27 @@ def PlaneKeller69NoncubeExclusion {K : Type*} [Field K] : Prop :=
   ∀ (P Q : MvPolynomial (Fin 2) K) (h : K[X]),
     Normalized69Source P Q h → (¬ ∃ u : K[X], h = u ^ 3) → False
 
+/-- The reviewed history route for the part of the `(6,9)` leaf whose
+common-core degree is not divisible by three.  Its eventual proof is the
+large triangular source shear followed by the prime-total-gcd theorem. -/
+def PlaneKeller69NondivisibleCoreRoute {K : Type*} [Field K] : Prop :=
+  ∀ (P Q : MvPolynomial (Fin 2) K) (h : K[X]),
+    Normalized69Source P Q h → ¬ 3 ∣ h.natDegree → PlanePairGenerates P Q
+
+/-- Impossibility of the cube-core part of the historical
+`(6,9), 3 ∣ deg h` residue.  Constant cores belong here because `3 ∣ 0`. -/
+def PlaneKeller69DivisibleCubeExclusion {K : Type*} [Field K] : Prop :=
+  ∀ (P Q : MvPolynomial (Fin 2) K) (h : K[X]),
+    Normalized69Source P Q h → 3 ∣ h.natDegree →
+      (∃ u : K[X], h = u ^ 3) → False
+
+/-- Impossibility of the noncube-core part of the historical
+`(6,9), 3 ∣ deg h` residue. -/
+def PlaneKeller69DivisibleNoncubeExclusion {K : Type*} [Field K] : Prop :=
+  ∀ (P Q : MvPolynomial (Fin 2) K) (h : K[X]),
+    Normalized69Source P Q h → 3 ∣ h.natDegree →
+      (¬ ∃ u : K[X], h = u ^ 3) → False
+
 /-- Independently rescaling the two target coordinates preserves their
 generated subalgebra. -/
 theorem adjoin_targetRescale_eq {K : Type*} [Field K]
@@ -851,6 +872,30 @@ theorem planeKeller69NoncubeRoute_of_exclusion {K : Type*} [Field K]
     PlaneKeller69NoncubeRoute (K := K) := by
   intro P Q core hsource hnoncube
   exact (h P Q core hsource hnoncube).elim
+
+/-- The history route and the divisible cube exclusion together close the
+whole normalized cube branch. -/
+theorem planeKeller69CubeRoute_of_history_and_divisible_exclusion
+    {K : Type*} [Field K]
+    (hhistory : PlaneKeller69NondivisibleCoreRoute (K := K))
+    (hdivisible : PlaneKeller69DivisibleCubeExclusion (K := K)) :
+    PlaneKeller69CubeRoute (K := K) := by
+  intro P Q core hsource hcube
+  by_cases hdegree : 3 ∣ core.natDegree
+  · exact (hdivisible P Q core hsource hdegree hcube).elim
+  · exact hhistory P Q core hsource hdegree
+
+/-- The history route and the divisible noncube exclusion together close the
+whole normalized noncube branch. -/
+theorem planeKeller69NoncubeRoute_of_history_and_divisible_exclusion
+    {K : Type*} [Field K]
+    (hhistory : PlaneKeller69NondivisibleCoreRoute (K := K))
+    (hdivisible : PlaneKeller69DivisibleNoncubeExclusion (K := K)) :
+    PlaneKeller69NoncubeRoute (K := K) := by
+  intro P Q core hsource hnoncube
+  by_cases hdegree : 3 ∣ core.natDegree
+  · exact (hdivisible P Q core hsource hdegree hnoncube).elim
+  · exact hhistory P Q core hsource hdegree
 
 /-- Subtract a scalar multiple of a power of the first target coordinate
 from the second target coordinate. -/
@@ -1065,5 +1110,24 @@ theorem Max11PlaneKellerGenerationWithNormalized69Exclusions {K : Type*}
   exact Max11PlaneKellerGenerationWithNormalized69Routes hgcd
     (planeKeller69CubeRoute_of_exclusion hcube)
     (planeKeller69NoncubeRoute_of_exclusion hnoncube)
+
+/-- Source-honest maximum-eleven composition using exactly the historical
+split at `(6,9)`: the nondivisible common-core route and the cube/noncube
+exclusions on the divisible residue. -/
+theorem Max11PlaneKellerGenerationWithHistoryAndDivisible69Exclusions
+    {K : Type*} [Field K] [CharZero K]
+    (hgcd : ∀ m n, Nat.gcd m n ≤ 2 →
+      PlaneKellerAutomorphicAtDegrees (K := K) m n)
+    (hhistory : PlaneKeller69NondivisibleCoreRoute (K := K))
+    (hcube : PlaneKeller69DivisibleCubeExclusion (K := K))
+    (hnoncube : PlaneKeller69DivisibleNoncubeExclusion (K := K)) :
+    ∀ P Q : MvPolynomial (Fin 2) K,
+      degreeOf 1 P ≤ 11 → degreeOf 1 Q ≤ 11 →
+      IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
+  exact Max11PlaneKellerGenerationWithNormalized69Routes hgcd
+    (planeKeller69CubeRoute_of_history_and_divisible_exclusion
+      hhistory hcube)
+    (planeKeller69NoncubeRoute_of_history_and_divisible_exclusion
+      hhistory hnoncube)
 
 end Max11DegreeRoutes

@@ -162,6 +162,26 @@ def PlaneKeller69NoncubeExclusion {K : Type*} [Field K] : Prop :=
   ∀ (P Q : MvPolynomial (Fin 2) K) (h : Polynomial K),
     Normalized69Source P Q h → (¬ ∃ u : Polynomial K, h = u ^ 3) → False
 
+/-- The reviewed history route for the part of the `(6,9)` leaf whose
+common-core degree is not divisible by three. -/
+def PlaneKeller69NondivisibleCoreRoute {K : Type*} [Field K] : Prop :=
+  ∀ (P Q : MvPolynomial (Fin 2) K) (h : Polynomial K),
+    Normalized69Source P Q h → ¬ 3 ∣ h.natDegree → PlanePairGenerates P Q
+
+/-- Impossibility of the cube-core part of the historical
+`(6,9), 3 ∣ deg h` residue. -/
+def PlaneKeller69DivisibleCubeExclusion {K : Type*} [Field K] : Prop :=
+  ∀ (P Q : MvPolynomial (Fin 2) K) (h : Polynomial K),
+    Normalized69Source P Q h → 3 ∣ h.natDegree →
+      (∃ u : Polynomial K, h = u ^ 3) → False
+
+/-- Impossibility of the noncube-core part of the historical
+`(6,9), 3 ∣ deg h` residue. -/
+def PlaneKeller69DivisibleNoncubeExclusion {K : Type*} [Field K] : Prop :=
+  ∀ (P Q : MvPolynomial (Fin 2) K) (h : Polynomial K),
+    Normalized69Source P Q h → 3 ∣ h.natDegree →
+      (¬ ∃ u : Polynomial K, h = u ^ 3) → False
+
 /-- A genuine `(6,9)` Keller pair has square/cube leading coefficients with
 one nonzero common polynomial core. -/
 theorem planeKellerPair_69_commonCore {K : Type*}
@@ -271,6 +291,24 @@ theorem planeKeller69NoncubeRoute_of_exclusion {K : Type*} [Field K]
     PlaneKeller69NoncubeRoute (K := K) := by
   sorry
 
+/-- The history route and the divisible cube exclusion together close the
+whole normalized cube branch. -/
+theorem planeKeller69CubeRoute_of_history_and_divisible_exclusion
+    {K : Type*} [Field K]
+    (hhistory : PlaneKeller69NondivisibleCoreRoute (K := K))
+    (hdivisible : PlaneKeller69DivisibleCubeExclusion (K := K)) :
+    PlaneKeller69CubeRoute (K := K) := by
+  sorry
+
+/-- The history route and the divisible noncube exclusion together close the
+whole normalized noncube branch. -/
+theorem planeKeller69NoncubeRoute_of_history_and_divisible_exclusion
+    {K : Type*} [Field K]
+    (hhistory : PlaneKeller69NondivisibleCoreRoute (K := K))
+    (hdivisible : PlaneKeller69DivisibleNoncubeExclusion (K := K)) :
+    PlaneKeller69NoncubeRoute (K := K) := by
+  sorry
+
 /-- Concrete maximum-eleven composition in characteristic zero with the
 zero, equal-degree, and divisibility routes proved internally. -/
 theorem Max11PlaneKellerGenerationWithElementaryRoutes {K : Type*}
@@ -306,6 +344,22 @@ theorem Max11PlaneKellerGenerationWithNormalized69Exclusions {K : Type*}
       PlaneKellerAutomorphicAtDegrees (K := K) m n)
     (hcube : PlaneKeller69CubeExclusion (K := K))
     (hnoncube : PlaneKeller69NoncubeExclusion (K := K)) :
+    ∀ P Q : MvPolynomial (Fin 2) K,
+      MvPolynomial.degreeOf 1 P ≤ 11 →
+      MvPolynomial.degreeOf 1 Q ≤ 11 →
+      IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
+  sorry
+
+/-- Source-honest maximum-eleven composition using exactly the historical
+split at `(6,9)`: the nondivisible common-core route and the cube/noncube
+exclusions on the divisible residue. -/
+theorem Max11PlaneKellerGenerationWithHistoryAndDivisible69Exclusions
+    {K : Type*} [Field K] [CharZero K]
+    (hgcd : ∀ m n, Nat.gcd m n ≤ 2 →
+      PlaneKellerAutomorphicAtDegrees (K := K) m n)
+    (hhistory : PlaneKeller69NondivisibleCoreRoute (K := K))
+    (hcube : PlaneKeller69DivisibleCubeExclusion (K := K))
+    (hnoncube : PlaneKeller69DivisibleNoncubeExclusion (K := K)) :
     ∀ P Q : MvPolynomial (Fin 2) K,
       MvPolynomial.degreeOf 1 P ≤ 11 →
       MvPolynomial.degreeOf 1 Q ≤ 11 →

@@ -72,11 +72,15 @@ status:
     leading rows s^6,s^9 without assuming divisibility of the next
     coefficients.  Normalization and that row are packaged into an exhaustive
     genuine-source dichotomy: a normalized noncube core or a nonzero literal
-    cube root satisfying the first cube row.  The literal cube/noncube split is then
-    composed into a genuine (6,9) theorem
-    conditional exactly on closure of those two normalized branches.  Not
-    proved here: scalar-extension/descent, the gcd-at-most-two premise, or
-    closure of either normalized (6,9) branch.
+    cube root satisfying the first cube row.  The literal cube/noncube split
+    is then composed into a genuine (6,9) theorem conditional on closure of
+    those two normalized branches.  A further source-honest composition
+    matches the reviewed history split exactly: `3 ∤ deg h` is charged to a
+    nondivisible-core route, while only `3 ∣ deg h` is charged to the cube and
+    noncube exclusions; degree-zero cores remain in the divisible residue.
+    Not proved here: scalar-extension/descent, the gcd-at-most-two premise,
+    the large-source-shear history premise, or either divisible-core
+    exclusion.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
@@ -87,6 +91,11 @@ status:
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator.json"
     - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithNormalized69Exclusions"
+      file: "DegreeRoutes.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithHistoryAndDivisible69Exclusions"
       file: "DegreeRoutes.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
@@ -178,11 +187,13 @@ fidelity:
     bivariate Keller pairs.  The concrete Lean theorem now uses exactly that
     polynomial/Jacobian/ring-generation predicate.  The strengthened theorem
     proves the zero-degree, equal-degree, and divisibility routes, but assumes
-    the gcd-at-most-two theorem.  The source-facing version splits the (6,9)
-    leaf into explicit normalized cube and noncube closure premises.  It
-    formalizes the complete finite recursion and its concrete conclusion, not
-    the algebraic proofs of those remaining premises or scalar-extension
-    descent.  No other divergences are known.
+    the gcd-at-most-two theorem.  The broad source-facing version splits the
+    (6,9) leaf into explicit normalized cube and noncube closure premises; the
+    refined version instead exposes the source's exact core-degree split and
+    charges the deep exclusions only on `3 ∣ deg h`.  It formalizes the
+    complete finite recursion and its concrete conclusion, not the algebraic
+    proof of the large-source-shear premise, the two divisible-core
+    exclusions, or scalar-extension descent.  No other divergences are known.
 
 review:
   status: >-
