@@ -1,0 +1,15 @@
+name = "jc2_gcd3_69_noncube_v2"
+version = "0.1.0"
+defaultTargets = ["GCD369DivisibleChallenge", "GCD369DivisibleSourceExclusion"]
+
+[[require]]
+name = "jc2_gcd3_69_noncube"
+path = "../gcd3-69-noncube"
+
+[[require]]
+name = "jc2_gcd3_69_cube"
+path = "../gcd3-69-cube"
+
+[[lean_lib]]
+name = "GCD369DivisibleSourceExclusion"
+roots = ["GCD369DivisibleChallenge", "GCD369DivisibleSourceExclusion"]

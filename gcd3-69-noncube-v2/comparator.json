@@ -1,0 +1,12 @@
+{
+  "challenge_module": "GCD369DivisibleChallenge",
+  "solution_module": "GCD369DivisibleSourceExclusion",
+  "theorem_names": [
+    "GCD369PolynomialCommonCubicSourceExclusionV2"
+  ],
+  "definition_names": [
+    "GCD369SourceXDeriv"
+  ],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
+  "enable_nanoda": true
+}

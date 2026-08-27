@@ -1,0 +1,135 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "jc2-gcd3-69-common-cubic-divisible-source-exclusion"
+  description: >-
+    Lean 4 / Mathlib proof of the exhaustive divisible-core normalized
+    common-cubic exclusion at actual partial degrees (6,9).  For literal
+    bivariate source polynomials with leading coefficients H^2 and H^3,
+    nonzero constant coefficientwise-inner Jacobian, and 3 dividing deg H,
+    the formalization splits H into its polynomial-cube and noncube cases and
+    derives a contradiction in both.  It does not derive the normalization
+    from an arbitrary Keller pair or establish maximum partial degree eleven.
+  authors:
+    - "Dan Clemens Posch"
+  license: "Apache-2.0"
+  responsible_maintainers:
+    - "Dan Clemens Posch"
+
+classification:
+  arxiv: ["math.AG", "math.AC"]
+  msc2020: ["14R15", "13P10"]
+
+sources:
+  - title: "Exhaustive divisible-core common-cubic source composition at (6,9)"
+    authors:
+      - "Dan Clemens Posch"
+    type: "original-proof"
+    relationship: "other"
+    note: >-
+      The theorem is first presented by this formalization.  Its new step is
+      the exhaustive cube/noncube dispatch and the exact source-Jacobian
+      compatibility between the two imported branch theorems.
+    license: "CC-BY-4.0"
+    author_endorsement: "participated"
+
+related_formalizations:
+  - id: "PALOMAR-2026-08-25-000002"
+    relationship: "other"
+    note: >-
+      Version 2 is the registered source-facing noncube exclusion used on the
+      branch where H is not a polynomial cube.
+  - id: "local:gcd3-69-cube"
+    relationship: "other"
+    note: >-
+      The sibling project supplies the locally strengthened complete
+      polynomial-cube exclusion, including constant cube roots.  That
+      strengthened result is not yet registered with Palomar.
+
+status:
+  scope: >-
+    Fully proved over an algebraically closed characteristic-zero field: a
+    literal normalized source p,q in k[x][y] of outer degrees 6 and 9, with
+    leading coefficients H^2 and H^3, nonzero constant coefficientwise-inner
+    Jacobian, and 3 dividing the polynomial degree of H, cannot exist.  The
+    proof performs the exhaustive split according to whether H is a
+    polynomial cube.  The cube branch uses the complete local cube exclusion;
+    the noncube branch uses PALOMAR-2026-08-25-000002 v2.  Not proved here:
+    normalization of arbitrary Keller pairs, the nondivisible-core history
+    route, scalar-extension descent, the gcd-at-most-two route, maximum
+    partial degree eleven, or the plane Jacobian conjecture.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+  main_results:
+    - declaration: "GCD369PolynomialCommonCubicSourceExclusionV2"
+      file: "GCD369DivisibleSourceExclusion.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+
+automation:
+  methods:
+    - method: "agent"
+      models: ["OpenAI Codex (GPT-5 family)"]
+      framework: "Codex"
+      tool_setup: >-
+        Agent-assisted dependency audit, theorem composition, Lean
+        build/debug cycles, axiom audit, and Palomar packaging against pinned
+        Mathlib and the two local dependency projects.
+      cost:
+        wall_time: "under one day of agent time for the composition"
+        spend_usd: "subscription-based"
+        hardware: "local Apple-silicon macOS machine"
+      prompting_notes: >-
+        The task was to expose a single caller-facing divisible-core theorem,
+        perform the cube/noncube split internally, and preserve the exact
+        literal source signature of the registered noncube theorem.
+    - method: "manual"
+      models: []
+      framework: "n/a"
+      tool_setup: "Human mathematical direction and publication responsibility."
+      cost:
+        wall_time: "not separately recorded"
+        spend_usd: "not tracked"
+        hardware: "local machine"
+      prompting_notes: "n/a"
+  spend_usd: "subscription-based"
+  notes: >-
+    The submitted composition invokes no external computer algebra system or
+    trusted certificate.  Its two substantive branches are imported from the
+    pinned sibling projects and the final case split is checked by Lean's
+    kernel.
+
+fidelity:
+  divergences: >-
+    The headline begins with the literal normalized common-cubic source and
+    the historical divisibility condition 3 | deg H.  It does not claim the
+    preceding global normalization, the nondivisible-core route, or the later
+    maximum-eleven composition.  No other divergence is known.
+
+review:
+  status: >-
+    self-assessed; imported branch formalizations have their own recorded
+    audits; this composition awaits external human review
+  reviewers:
+    - "Dan Clemens Posch"
+  notes: >-
+    The project build and axiom script check the exact headline declaration.
+    No external peer review of this composition has yet occurred.
+
+alignment:
+  namespace: "(root)"
+  statements:
+    - source: "Exhaustive divisible-core common-cubic source composition"
+      lean: "GCD369PolynomialCommonCubicSourceExclusionV2"
+      module: "GCD369DivisibleChallenge"
+      status: >-
+        the cube/noncube split is internal; each branch is discharged by its
+        source-facing exclusion with the coefficient powers and Jacobian
+        conventions reconciled in Lean
+
+acknowledgements: >-
+  The Mathlib community, the Palomar registry conventions, and the agents who
+  developed and audited the two imported branch formalizations.
