@@ -64,6 +64,7 @@ roots = [
   "FiniteSimpleSourceTiedCoeff",
   "FiniteEarlyLoadRouting",
   "FiniteArbitraryLoadStrict",
+  "FiniteArbitraryLoadTied",
   "FiniteEarlyLoadTied",
   "FiniteLoadAnnihilation",
   "FiniteDoubleLoad",
