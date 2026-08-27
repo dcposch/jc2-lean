@@ -56,6 +56,8 @@ roots = [
   "InfinityC5Middle",
   "InfinityC5Tie",
   "InfinityC4Before",
+  "InfinityC4Balanced",
+  "InfinityC4Assembly",
   "InfinityC4Late",
   "InfinityC4Middle",
   "InfinityC4Tie",
