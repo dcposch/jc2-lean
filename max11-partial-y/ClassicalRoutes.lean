@@ -1,4 +1,4 @@
-import Solution
+import Max11Core
 
 open scoped BigOperators
 

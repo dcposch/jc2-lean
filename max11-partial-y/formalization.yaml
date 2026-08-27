@@ -11,9 +11,9 @@ project:
     equal-degree, and divisibility routes internally and concludes
     K[P,Q]=K[x,y] from only the gcd-at-most-two and (6,9) route premises.
     A further source-facing theorem replaces the (6,9) premise by exhaustive
-    normalized cube-core and noncube-core closure premises.  This project does
-    not itself prove those remaining deep branches; an equivalent headline
-    accepts their exclusion (impossibility) forms directly.
+    normalized cube-core and noncube-core closure premises.  The imported
+    divisible-core assembly now discharges both deep exclusions, leaving only
+    the gcd-at-most-two theorem and nondivisible-core history route.
   authors:
     - "Dan Clemens Posch"
   license: "Apache-2.0"
@@ -78,9 +78,11 @@ status:
     matches the reviewed history split exactly: `3 ∤ deg h` is charged to a
     nondivisible-core route, while only `3 ∣ deg h` is charged to the cube and
     noncube exclusions; degree-zero cores remain in the divisible residue.
+    The final assembly imports the exhaustive literal divisible-core theorem,
+    adapts its coefficient-polynomial Jacobian to the genuine normalized
+    MvPolynomial source, and supplies both divisible exclusion interfaces.
     Not proved here: scalar-extension/descent, the gcd-at-most-two premise,
-    the large-source-shear history premise, or either divisible-core
-    exclusion.
+    or the large-source-shear history premise.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
@@ -141,12 +143,12 @@ status:
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator.json"
     - declaration: "Max11PlaneKellerGeneration"
-      file: "Solution.lean"
+      file: "Max11Core.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator.json"
     - declaration: "MaxPartialDegreeElevenClosure"
-      file: "Solution.lean"
+      file: "Max11Core.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator.json"
@@ -190,10 +192,11 @@ fidelity:
     the gcd-at-most-two theorem.  The broad source-facing version splits the
     (6,9) leaf into explicit normalized cube and noncube closure premises; the
     refined version instead exposes the source's exact core-degree split and
-    charges the deep exclusions only on `3 ∣ deg h`.  It formalizes the
-    complete finite recursion and its concrete conclusion, not the algebraic
-    proof of the large-source-shear premise, the two divisible-core
-    exclusions, or scalar-extension descent.  No other divergences are known.
+    charges the deep exclusions only on `3 ∣ deg h`; `Max11Assembly` now
+    imports and adapts the complete divisible-core source exclusion.  It
+    formalizes the complete finite recursion and divisible leaf, not the
+    algebraic proof of the large-source-shear premise, the gcd-at-most-two
+    theorem, or scalar-extension descent.  No other divergences are known.
 
 review:
   status: >-
@@ -205,8 +208,8 @@ review:
   notes: >-
     The copied hostile review predates and does not inspect the Lean code.
     Kernel axiom reports and the project audit script find no sorryAx or
-    non-permitted axioms in Solution.lean, ClassicalRoutes.lean, or
-    DegreeRoutes.lean.
+    non-permitted axioms in Max11Core.lean, ClassicalRoutes.lean,
+    DegreeRoutes.lean, or Max11Assembly.lean.
 
 alignment:
   namespace: "(root)"

@@ -1,5 +1,5 @@
 import ClassicalRoutes
-import Solution
+import Max11Core
 
 open scoped Polynomial.Bivariate
 

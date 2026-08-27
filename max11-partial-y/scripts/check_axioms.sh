@@ -3,11 +3,12 @@
 set -eu
 cd "$(dirname "$0")/.."
 
-BASE_THEOREMS="$(sed -n 's/^theorem \([^ ]*\).*/\1/p' Solution.lean)"
+BASE_THEOREMS="$(sed -n 's/^theorem \([^ ]*\).*/\1/p' Max11Core.lean)"
 ROUTE_THEOREMS="$(sed -n 's/^theorem \([^ ]*\).*/Max11ClassicalRoutes.\1/p' ClassicalRoutes.lean)"
 DEGREE_THEOREMS="$(sed -n 's/^theorem \([^ ]*\).*/Max11DegreeRoutes.\1/p' DegreeRoutes.lean)"
-THEOREMS="$BASE_THEOREMS $ROUTE_THEOREMS $DEGREE_THEOREMS"
-PROBE="import DegreeRoutes\n"
+ASSEMBLY_THEOREMS="$(sed -n 's/^theorem \([^ ]*\).*/Max11DegreeRoutes.\1/p' Max11Assembly.lean)"
+THEOREMS="$BASE_THEOREMS $ROUTE_THEOREMS $DEGREE_THEOREMS $ASSEMBLY_THEOREMS"
+PROBE="import Max11Assembly\n"
 for thm in $THEOREMS; do
   PROBE="${PROBE}#print axioms ${thm}\n"
 done
