@@ -4,7 +4,7 @@ import FiniteDoubleRow123C7
 
 After the weight-one parameter vanishes, the same quadratic row argument
 used before `d` remains valid below the `c7` load.  In the range
-`2 * delta < p`, this is enough to promote all three moving-root deviations
+`3 * delta < 2 * p`, this is enough to promote all three moving-root deviations
 to order at least `delta / 2`.
 -/
 
@@ -12,7 +12,7 @@ noncomputable section
 
 namespace GCD369CubeHahnCommonValueData
 
-/-- On the `d = 0` stratum with `2 * delta < p`, the first nonzero common
+/-- On the `d = 0` stratum with `3 * delta < 2 * p`, the first nonzero common
 moving-root deviation cannot occur below the half scale. -/
 theorem TransverseFactor.doubleRoot_firstCommonScale_not_below_half_before_c7
     {k : Type*} [Field k] [CharZero k]
@@ -20,7 +20,7 @@ theorem TransverseFactor.doubleRoot_firstCommonScale_not_below_half_before_c7
     (F : GCD369CubeHahnFaberPoleData k)
     (hscale : S.normal.sextic.scale = F.scale)
     (hd : F.d = 0)
-    (hp : 2 * T.delta < F.scale.p)
+    (hp : 3 * T.delta < 2 * F.scale.p)
     (r : GCD369CubeHahnRegular k)
     (hA : GCD369CubeHahnRegular.constantCoeff T.Xn ≠ 0)
     (hr : GCD369CubeHahnRegular.constantCoeff r ≠ 0)
@@ -88,7 +88,7 @@ theorem TransverseFactor.doubleRoot_deviations_order_half_lower_before_c7
     (F : GCD369CubeHahnFaberPoleData k)
     (hscale : S.normal.sextic.scale = F.scale)
     (hd : F.d = 0)
-    (hp : 2 * T.delta < F.scale.p)
+    (hp : 3 * T.delta < 2 * F.scale.p)
     (r : GCD369CubeHahnRegular k) (r0 A0 : k)
     (hr0 : r0 ≠ 0) (hA0 : A0 ≠ 0)
     (hr : GCD369CubeHahnRegular.constantCoeff r = r0)

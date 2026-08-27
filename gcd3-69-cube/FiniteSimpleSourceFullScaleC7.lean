@@ -1,8 +1,9 @@
 import FiniteDoubleRow12C7
+import FiniteC7CubicN3
 
 /-! # The full-scale simple-root obstruction before the weight-two load
 
-When `F.d = 0` and `2 * delta < p`, the first two primitive moving-root
+When `F.d = 0` and `3 * delta < 2 * p`, the first two primitive moving-root
 rows still vanish at residual exponent `delta`.  In full-scale coordinates
 their linear parts force the residue of the moving cubic correction to
 vanish.  The primitive third row at `3 * delta` then contains only the
@@ -21,7 +22,7 @@ theorem TransverseFactor.simpleRoot_strictLate_inconsistent_of_fullScale_before_
     (F : GCD369CubeHahnFaberPoleData k)
     (hscale : S.normal.sextic.scale = F.scale)
     (hd : F.d = 0)
-    (hp : 2 * T.delta < F.scale.p)
+    (hp : 3 * T.delta < 2 * F.scale.p)
     (r d b C2 : GCD369CubeHahnRegular k) (r0 A0 : k)
     (hr : GCD369CubeHahnRegular.constantCoeff r = r0)
     (hr0 : r0 ≠ 0)
@@ -167,23 +168,9 @@ theorem TransverseFactor.simpleRoot_strictLate_inconsistent_of_fullScale_before_
     rw [hrem', h128R3zero, hcubic] at hc
     simp only [zero_sub, map_mul, map_pow, map_ofNat, A, hA] at hc
     convert hc using 1 <;> ring
-  have hXA : GCD369CubeHahnRegular.constantCoeff T.Xn ≠ 0 := hA ▸ hA0
-  let TS : S.TransverseScale :=
-    { delta := T.delta
-      hdelta := T.hdelta
-      Xn := T.Xn
-      Yn := T.Yn
-      Zn := T.Zn
-      hnormal2 := T.hnormal2
-      hnormal1 := T.hnormal1
-      hnormal0 := T.hnormal0
-      hleading := Or.inl hXA }
-  have hearly : 2 * TS.delta < F.scale.p := by
-    dsimp only [TS]
-    exact hp
-  have hz := TS.zeroHighN3Coeff_zero_at_cubic_before_d F hscale hearly
+  have hz := T.zeroHighN3Coeff_zero_at_cubic_before_c7 F hscale hd hp
   have hz' : N3.1.coeff (3 * T.delta) = 0 := by
-    simpa only [TS, N3] using hz
+    simpa only [N3] using hz
   have hbad : (-64 : k) * A0 ^ 3 = 0 := by
     calc
       (-64 : k) * A0 ^ 3 = N3.1.coeff (3 * T.delta) := hn3.symm
