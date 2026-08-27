@@ -1,5 +1,5 @@
 import FiniteDoubleLiftCoefficients
-import FiniteDoubleSourceOrderLower
+import FiniteDoubleSourceOrderBridge
 
 /-! # The quadratic stage of the moving double-root lift
 
@@ -81,6 +81,115 @@ theorem monomial_sq_mul_orderTop_lower
   have h := mul_orderTop_lower M (M * x) mu mu hM hMx
   rw [show M * (M * x) = M ^ 2 * x by ring] at h
   simpa only [show mu + mu = 2 * mu by ring, M] using h
+
+/-- Fixed-scale form of the linear lifting argument.  It does not require
+that the chosen factor scale be the exact first scale; this is what permits
+lifting the canonical half-scale factor all the way to order `delta`. -/
+theorem doubleBlowup_kernelRemainders_order_lower_of_factoredRows
+    {k : Type*} [Field k] [CharZero k]
+    (mu : ℚ) (hmu : 0 < mu)
+    (A r Dn Bn Cn : GCD369CubeHahnRegular k)
+    (hA : constantCoeff A ≠ 0) (hr : constantCoeff r ≠ 0)
+    (hR1 : let M := monomial mu hmu.le
+      let Qn := Cn + r * Bn
+      (↑(2 * mu) : WithTop ℚ) ≤
+        (M * (A ^ 2 * Dn - 2 * A * Qn) - M ^ 2 * Bn ^ 2).1.orderTop)
+    (hR2 : let M := monomial mu hmu.le
+      let Qn := Cn + r * Bn
+      (↑(2 * mu) : WithTop ℚ) ≤
+        (M * (2 * A ^ 2 * r * Dn - 3 * A * r * Qn) +
+          M ^ 2 * (3 * A * Bn * Dn - 3 * Bn * Cn)).1.orderTop) :
+    (↑mu : WithTop ℚ) ≤ Dn.1.orderTop ∧
+      (↑mu : WithTop ℚ) ≤ (Cn + r * Bn).1.orderTop := by
+  let M : GCD369CubeHahnRegular k := monomial mu hmu.le
+  let Qn : GCD369CubeHahnRegular k := Cn + r * Bn
+  let L1 : GCD369CubeHahnRegular k := A ^ 2 * Dn - 2 * A * Qn
+  let L2 : GCD369CubeHahnRegular k :=
+    2 * A ^ 2 * r * Dn - 3 * A * r * Qn
+  let P2 : GCD369CubeHahnRegular k :=
+    3 * A * Bn * Dn - 3 * Bn * Cn
+  let R1 : GCD369CubeHahnRegular k := M * L1 - M ^ 2 * Bn ^ 2
+  let R2 : GCD369CubeHahnRegular k := M * L2 + M ^ 2 * P2
+  have hR1' : (↑(2 * mu) : WithTop ℚ) ≤ R1.1.orderTop := by
+    simpa only [R1, M, L1, Qn] using hR1
+  have hR2' : (↑(2 * mu) : WithTop ℚ) ≤ R2.1.orderTop := by
+    simpa only [R2, M, L2, Qn, P2] using hR2
+  have htail1 : (↑(2 * mu) : WithTop ℚ) ≤
+      (M ^ 2 * Bn ^ 2).1.orderTop := by
+    simpa only [M] using monomial_sq_mul_orderTop_lower mu hmu (Bn ^ 2)
+  have htail2 : (↑(2 * mu) : WithTop ℚ) ≤
+      (M ^ 2 * P2).1.orderTop := by
+    simpa only [M] using monomial_sq_mul_orderTop_lower mu hmu P2
+  have hML1 : (↑(2 * mu) : WithTop ℚ) ≤ (M * L1).1.orderTop := by
+    have hsum := add_orderTop_lower R1 (M ^ 2 * Bn ^ 2) (2 * mu)
+      hR1' htail1
+    rw [show M * L1 = R1 + M ^ 2 * Bn ^ 2 by
+      dsimp only [R1]
+      ring]
+    exact hsum
+  have hML2 : (↑(2 * mu) : WithTop ℚ) ≤ (M * L2).1.orderTop := by
+    have hneg : (↑(2 * mu) : WithTop ℚ) ≤
+        (- (M ^ 2 * P2)).1.orderTop := by
+      change (↑(2 * mu) : WithTop ℚ) ≤ (- (M ^ 2 * P2).1).orderTop
+      rw [HahnSeries.orderTop_neg]
+      exact htail2
+    have hsum := add_orderTop_lower R2 (- (M ^ 2 * P2)) (2 * mu)
+      hR2' hneg
+    rw [show M * L2 = R2 + -(M ^ 2 * P2) by
+      dsimp only [R2]
+      ring]
+    exact hsum
+  have hL1 : (↑mu : WithTop ℚ) ≤ L1.1.orderTop :=
+    orderTop_lower_of_monomial_mul_orderTop_lower mu hmu L1 hML1
+  have hL2 : (↑mu : WithTop ℚ) ≤ L2.1.orderTop :=
+    orderTop_lower_of_monomial_mul_orderTop_lower mu hmu L2 hML2
+  have htwoL2 : (↑mu : WithTop ℚ) ≤ (2 * L2).1.orderTop := by
+    simpa only [zero_add] using
+      (mul_orderTop_lower (2 : GCD369CubeHahnRegular k) L2 0 mu
+        (2 : GCD369CubeHahnRegular k).2 hL2)
+  have hrL1 : (↑mu : WithTop ℚ) ≤ (r * L1).1.orderTop := by
+    simpa only [zero_add] using mul_orderTop_lower r L1 0 mu r.2 hL1
+  have hthree_rL1 : (↑mu : WithTop ℚ) ≤
+      (3 * (r * L1)).1.orderTop := by
+    simpa only [zero_add] using
+      (mul_orderTop_lower (3 : GCD369CubeHahnRegular k) (r * L1) 0 mu
+        (3 : GCD369CubeHahnRegular k).2 hrL1)
+  have hnegthree : (↑mu : WithTop ℚ) ≤
+      (- (3 * (r * L1))).1.orderTop := by
+    change (↑mu : WithTop ℚ) ≤ (- (3 * (r * L1)).1).orderTop
+    rw [HahnSeries.orderTop_neg]
+    exact hthree_rL1
+  have hcomb := add_orderTop_lower (2 * L2) (- (3 * (r * L1))) mu
+    htwoL2 hnegthree
+  have hprod : (↑mu : WithTop ℚ) ≤ (A ^ 2 * r * Dn).1.orderTop := by
+    rw [show A ^ 2 * r * Dn = 2 * L2 + -(3 * (r * L1)) by
+      dsimp only [L1, L2, Qn]
+      ring]
+    exact hcomb
+  have huAr : constantCoeff (A ^ 2 * r) ≠ 0 := by
+    simp only [map_mul, map_pow]
+    exact mul_ne_zero (pow_ne_zero 2 hA) hr
+  have hDn : (↑mu : WithTop ℚ) ≤ Dn.1.orderTop :=
+    orderTop_lower_of_unit_mul (A ^ 2 * r) Dn mu huAr hprod
+  have hA2Dn : (↑mu : WithTop ℚ) ≤ (A ^ 2 * Dn).1.orderTop := by
+    simpa only [zero_add] using
+      (mul_orderTop_lower (A ^ 2) Dn 0 mu (A ^ 2).2 hDn)
+  have hnegL1 : (↑mu : WithTop ℚ) ≤ (-L1).1.orderTop := by
+    change (↑mu : WithTop ℚ) ≤ (-L1.1).orderTop
+    rw [HahnSeries.orderTop_neg]
+    exact hL1
+  have hQprod0 := add_orderTop_lower (A ^ 2 * Dn) (-L1) mu hA2Dn hnegL1
+  have hQprod : (↑mu : WithTop ℚ) ≤ (2 * A * Qn).1.orderTop := by
+    rw [show 2 * A * Qn = A ^ 2 * Dn + -L1 by
+      dsimp only [L1]
+      ring]
+    exact hQprod0
+  have hu2A : constantCoeff (2 * A) ≠ 0 := by
+    simp only [map_mul, map_ofNat]
+    exact mul_ne_zero (by norm_num) hA
+  have hQn : (↑mu : WithTop ℚ) ≤ Qn.1.orderTop :=
+    orderTop_lower_of_unit_mul (2 * A) Qn mu hu2A hQprod
+  exact ⟨hDn, by simpa only [Qn] using hQn⟩
 
 /-- Order at least `2*mu` in the first two exact rows forces both normalized
 linear-kernel remainders to be divisible by the common monomial. -/
@@ -828,15 +937,166 @@ theorem TransverseFactor.doubleRoot_deviations_order_half_lower
     · rw [show T.Zn + 2 * r ^ 2 * T.Xn = C by rfl, hCz]
       simp
 
+/-- The literal source equations themselves supply all three canonical order
+bounds consumed by the previously verified balanced-chart exclusion. -/
+theorem TransverseFactor.doubleRoot_source_inconsistent_from_source
+    {k : Type*} [Field k] [CharZero k]
+    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseFactor)
+    (F : GCD369CubeHahnFaberPoleData k)
+    (hscale : S.normal.sextic.scale = F.scale)
+    (D0 C7 C5 C4 C3 C2 C1 Rho1 Rho2 Rho3 Rho4 : k)
+    (hd : F.d = GCD369CubeHahnRegular.constant D0)
+    (hc7 : F.c7 = GCD369CubeHahnRegular.constant C7)
+    (hc5 : F.c5 = GCD369CubeHahnRegular.constant C5)
+    (hc4 : F.c4 = GCD369CubeHahnRegular.constant C4)
+    (hc3 : F.c3 = GCD369CubeHahnRegular.constant C3)
+    (hc2 : F.c2 = GCD369CubeHahnRegular.constant C2)
+    (hc1 : F.c1 = GCD369CubeHahnRegular.constant C1)
+    (hrho1 : F.rho1 = GCD369CubeHahnRegular.constant Rho1)
+    (hrho2 : F.rho2 = GCD369CubeHahnRegular.constant Rho2)
+    (hrho3 : F.rho3 = GCD369CubeHahnRegular.constant Rho3)
+    (hrho4 : F.rho4 = GCD369CubeHahnRegular.constant Rho4)
+    (hp : F.scale.p = 3 * T.delta)
+    (r : GCD369CubeHahnRegular k) (r0 A0 : k)
+    (hr0 : r0 ≠ 0) (hA0 : A0 ≠ 0)
+    (hr : GCD369CubeHahnRegular.constantCoeff r = r0)
+    (hu : GCD369CubeHahnRegular.constantCoeff S.cubicU = -3 * r0 ^ 2)
+    (hx : GCD369CubeHahnRegular.constantCoeff
+      S.normal.sextic.regularX = r0)
+    (hX : GCD369CubeHahnRegular.constantCoeff T.Xn = A0)
+    (hY : GCD369CubeHahnRegular.constantCoeff T.Yn = r0 * A0)
+    (hZ : GCD369CubeHahnRegular.constantCoeff T.Zn = -2 * r0 ^ 2 * A0)
+    (hroot : 2 * S.cubicU * r + 3 * S.cubicV = 0) : False := by
+  have hhalf := T.doubleRoot_deviations_order_half_lower F hscale
+    D0 C7 C5 C4 C3 C2 C1 Rho1 Rho2 Rho3 Rho4
+    hd hc7 hc5 hc4 hc3 hc2 hc1 hrho1 hrho2 hrho3 hrho4 hp
+    r r0 A0 hr0 hA0 hr hu hX hY hZ hroot
+  let mu : ℚ := T.delta / 2
+  have hmu : 0 < mu := by dsimp only [mu]; linarith [T.hdelta]
+  let M : GCD369CubeHahnRegular k :=
+    GCD369CubeHahnRegular.monomial mu hmu.le
+  let D : GCD369CubeHahnRegular k := S.cubicU + 3 * r ^ 2
+  let B : GCD369CubeHahnRegular k := T.Yn - r * T.Xn
+  let C : GCD369CubeHahnRegular k := T.Zn + 2 * r ^ 2 * T.Xn
+  have hDhalf : (↑mu : WithTop ℚ) ≤ D.1.orderTop := by
+    simpa only [mu, D] using hhalf.1
+  have hBhalf : (↑mu : WithTop ℚ) ≤ B.1.orderTop := by
+    simpa only [mu, B] using hhalf.2.1
+  have hChalf : (↑mu : WithTop ℚ) ≤ C.1.orderTop := by
+    simpa only [mu, C] using hhalf.2.2
+  let Dn : GCD369CubeHahnRegular k := GCD369CubeHahnRegular.shift D mu hDhalf
+  let Bn : GCD369CubeHahnRegular k := GCD369CubeHahnRegular.shift B mu hBhalf
+  let Cn : GCD369CubeHahnRegular k := GCD369CubeHahnRegular.shift C mu hChalf
+  have hDfact : M * Dn = D := by
+    simpa only [M, Dn] using GCD369CubeHahnRegular.monomial_mul_shift
+      D mu hmu.le hDhalf
+  have hBfact : M * Bn = B := by
+    simpa only [M, Bn] using GCD369CubeHahnRegular.monomial_mul_shift
+      B mu hmu.le hBhalf
+  have hCfact : M * Cn = C := by
+    simpa only [M, Cn] using GCD369CubeHahnRegular.monomial_mul_shift
+      C mu hmu.le hChalf
+  let Qn : GCD369CubeHahnRegular k := Cn + r * Bn
+  let Row1 : GCD369CubeHahnRegular k :=
+    T.Xn ^ 2 * D - 2 * T.Xn * B * r - B ^ 2 - 2 * T.Xn * C
+  let Row2 : GCD369CubeHahnRegular k :=
+    2 * T.Xn ^ 2 * r * D - 3 * T.Xn * B * r ^ 2 - 3 * T.Xn * C * r +
+      3 * T.Xn * B * D - 3 * B * C
+  have hRow1 : (↑T.delta : WithTop ℚ) ≤ Row1.1.orderTop := by
+    rw [HahnSeries.le_orderTop_iff_forall]
+    intro q hq
+    have hq' : q < T.delta := WithTop.coe_lt_coe.mp hq
+    by_cases hq0 : 0 ≤ q
+    · have hrows := T.doubleRoot_rowCoeffs_zero_before_d F hscale
+        D0 C7 C5 C4 C3 C2 C1 Rho1 Rho2 Rho3 Rho4
+        hd hc7 hc5 hc4 hc3 hc2 hc1 hrho1 hrho2 hrho3 hrho4
+        r hroot q hq0 hq' (by rw [hp]; linarith)
+      simpa only [Row1, D, B, C] using hrows.1
+    · exact GCD369CubeHahnRegular.coeff_eq_zero_of_neg Row1
+        (lt_of_not_ge hq0)
+  have hRow2 : (↑T.delta : WithTop ℚ) ≤ Row2.1.orderTop := by
+    rw [HahnSeries.le_orderTop_iff_forall]
+    intro q hq
+    have hq' : q < T.delta := WithTop.coe_lt_coe.mp hq
+    by_cases hq0 : 0 ≤ q
+    · have hrows := T.doubleRoot_rowCoeffs_zero_before_d F hscale
+        D0 C7 C5 C4 C3 C2 C1 Rho1 Rho2 Rho3 Rho4
+        hd hc7 hc5 hc4 hc3 hc2 hc1 hrho1 hrho2 hrho3 hrho4
+        r hroot q hq0 hq' (by rw [hp]; linarith)
+      simpa only [Row2, D, B, C] using hrows.2.1
+    · exact GCD369CubeHahnRegular.coeff_eq_zero_of_neg Row2
+        (lt_of_not_ge hq0)
+  let FRow1 : GCD369CubeHahnRegular k :=
+    M * (T.Xn ^ 2 * Dn - 2 * T.Xn * Qn) - M ^ 2 * Bn ^ 2
+  let FRow2 : GCD369CubeHahnRegular k :=
+    M * (2 * T.Xn ^ 2 * r * Dn - 3 * T.Xn * r * Qn) +
+      M ^ 2 * (3 * T.Xn * Bn * Dn - 3 * Bn * Cn)
+  have hfac1 : Row1 = FRow1 := by
+    dsimp only [Row1, FRow1, Qn]
+    rw [← hDfact, ← hBfact, ← hCfact]
+    ring
+  have hfac2 : Row2 = FRow2 := by
+    dsimp only [Row2, FRow2, Qn]
+    rw [← hDfact, ← hBfact, ← hCfact]
+    ring
+  have hFRow1 : (↑(2 * mu) : WithTop ℚ) ≤ FRow1.1.orderTop := by
+    have ht : (2 * mu : ℚ) = T.delta := by dsimp only [mu]; ring
+    rw [ht]
+    exact hRow1.trans_eq (congrArg (fun z : GCD369CubeHahnRegular k =>
+      z.1.orderTop) hfac1)
+  have hFRow2 : (↑(2 * mu) : WithTop ℚ) ≤ FRow2.1.orderTop := by
+    have ht : (2 * mu : ℚ) = T.delta := by dsimp only [mu]; ring
+    rw [ht]
+    exact hRow2.trans_eq (congrArg (fun z : GCD369CubeHahnRegular k =>
+      z.1.orderTop) hfac2)
+  have hlift :=
+    GCD369CubeHahnRegular.doubleBlowup_kernelRemainders_order_lower_of_factoredRows
+      mu hmu T.Xn r Dn Bn Cn (by rw [hX]; exact hA0)
+      (by rw [hr]; exact hr0)
+      (by simpa only [FRow1, M, Qn] using hFRow1)
+      (by simpa only [FRow2, M, Qn] using hFRow2)
+  have hMorder : (↑mu : WithTop ℚ) ≤ M.1.orderTop := by
+    exact (GCD369CubeHahnRegular.monomial_orderTop_and_leadingCoeff
+      mu hmu.le).1.ge
+  have hDfull0 := GCD369CubeHahnRegular.mul_orderTop_lower
+    M Dn mu mu hMorder hlift.1
+  have hDfull : (↑T.delta : WithTop ℚ) ≤ D.1.orderTop := by
+    have ht : mu + mu = T.delta := by dsimp only [mu]; ring
+    rw [ht] at hDfull0
+    exact hDfull0.trans_eq (congrArg (fun z : GCD369CubeHahnRegular k =>
+      z.1.orderTop) hDfact)
+  have hQfull0 := GCD369CubeHahnRegular.mul_orderTop_lower
+    M Qn mu mu hMorder hlift.2
+  have hcorrected : C + M * r * Bn = M * Qn := by
+    dsimp only [Qn]
+    rw [← hCfact]
+    ring
+  have hQfull : (↑T.delta : WithTop ℚ) ≤
+      (C + M * r * Bn).1.orderTop := by
+    have ht : mu + mu = T.delta := by dsimp only [mu]; ring
+    rw [ht] at hQfull0
+    exact hQfull0.trans_eq (congrArg (fun z : GCD369CubeHahnRegular k =>
+      z.1.orderTop) hcorrected.symm)
+  have hpS : S.normal.sextic.scale.p = 3 * T.delta := by
+    rw [hscale]
+    exact hp
+  exact T.doubleRoot_source_inconsistent_of_deviationBounds
+    r0 A0 r hr0 hA0 hpS hr hx hX hroot
+    (by simpa only [D] using hDfull)
+    (by simpa only [mu, B] using hBhalf)
+    (by simpa only [Bn, B, C, M, mu] using hQfull)
+
 end GCD369CubeHahnCommonValueData
 
 #print axioms GCD369CubeHahnRegular.coeff_int_mul
 #print axioms GCD369CubeHahnRegular.orderTop_lower_of_unit_mul
 #print axioms GCD369CubeHahnRegular.orderTop_lower_of_monomial_mul_orderTop_lower
 #print axioms GCD369CubeHahnRegular.monomial_sq_mul_orderTop_lower
+#print axioms GCD369CubeHahnRegular.doubleBlowup_kernelRemainders_order_lower_of_factoredRows
 #print axioms GCD369CubeHahnRegular.doubleBlowup_kernelRemainders_order_lower
 #print axioms GCD369CubeHahnRegular.doubleBlowup_quadratic_coefficients
 #print axioms GCD369CubeHahnRegular.doubleBlowup_quadratic_inconsistent
 #print axioms GCD369CubeHahnCommonValueData.TransverseFactor.doubleRoot_rowCoeffs_zero_before_d
 #print axioms GCD369CubeHahnCommonValueData.TransverseFactor.doubleRoot_firstCommonScale_not_below_half
 #print axioms GCD369CubeHahnCommonValueData.TransverseFactor.doubleRoot_deviations_order_half_lower
+#print axioms GCD369CubeHahnCommonValueData.TransverseFactor.doubleRoot_source_inconsistent_from_source
