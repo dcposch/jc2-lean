@@ -762,8 +762,8 @@ theorem TransverseFactor.doubleRoot_rowCoeffs_zero_before_d
     by simpa only [R2, A, D, B, C] using hR2zero,
     by simpa only [R3, A, D, B, C] using hR3zero⟩
 
-/-- In the balanced branch `p = 3*delta`, the first nonzero common moving-
-root deviation cannot occur before the half scale. -/
+/-- In the late branch `p ≥ 3*delta`, the first nonzero common moving-root
+deviation cannot occur before the half scale. -/
 theorem TransverseFactor.doubleRoot_firstCommonScale_not_below_half
     {k : Type*} [Field k] [CharZero k]
     {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseFactor)
@@ -781,7 +781,7 @@ theorem TransverseFactor.doubleRoot_firstCommonScale_not_below_half
     (hrho2 : F.rho2 = GCD369CubeHahnRegular.constant Rho2)
     (hrho3 : F.rho3 = GCD369CubeHahnRegular.constant Rho3)
     (hrho4 : F.rho4 = GCD369CubeHahnRegular.constant Rho4)
-    (hp : F.scale.p = 3 * T.delta)
+    (hp : 3 * T.delta ≤ F.scale.p)
     (r : GCD369CubeHahnRegular k)
     (hA : GCD369CubeHahnRegular.constantCoeff T.Xn ≠ 0)
     (hr : GCD369CubeHahnRegular.constantCoeff r ≠ 0)
@@ -815,7 +815,7 @@ theorem TransverseFactor.doubleRoot_firstCommonScale_not_below_half
         D0 C7 C5 C4 C3 C2 C1 Rho1 Rho2 Rho3 Rho4
         hd hc7 hc5 hc4 hc3 hc2 hc1 hrho1 hrho2 hrho3 hrho4
         r hroot q hq0 (by linarith)
-        (by rw [hp]; linarith)
+        (by linarith [hp])
       simpa only [Row1, A, D, B, C] using hrows.1
     · exact GCD369CubeHahnRegular.coeff_eq_zero_of_neg Row1
         (lt_of_not_ge hq0)
@@ -828,7 +828,7 @@ theorem TransverseFactor.doubleRoot_firstCommonScale_not_below_half
         D0 C7 C5 C4 C3 C2 C1 Rho1 Rho2 Rho3 Rho4
         hd hc7 hc5 hc4 hc3 hc2 hc1 hrho1 hrho2 hrho3 hrho4
         r hroot q hq0 (by linarith)
-        (by rw [hp]; linarith)
+        (by linarith [hp])
       simpa only [Row2, A, D, B, C] using hrows.2.1
     · exact GCD369CubeHahnRegular.coeff_eq_zero_of_neg Row2
         (lt_of_not_ge hq0)
@@ -836,7 +836,7 @@ theorem TransverseFactor.doubleRoot_firstCommonScale_not_below_half
     D0 C7 C5 C4 C3 C2 C1 Rho1 Rho2 Rho3 Rho4
     hd hc7 hc5 hc4 hc3 hc2 hc1 hrho1 hrho2 hrho3 hrho4
     r hroot (2 * J.mu) (by linarith [J.hmu]) htwoMuDelta
-    (by rw [hp]; linarith)
+    (by linarith [hp])
   have hz1 : Row1.1.coeff (2 * J.mu) = 0 := by
     simpa only [Row1, A, D, B, C] using hrows2.1
   have hz2 : Row2.1.coeff (2 * J.mu) = 0 := by
@@ -868,7 +868,7 @@ theorem TransverseFactor.doubleRoot_deviations_order_half_lower
     (hrho2 : F.rho2 = GCD369CubeHahnRegular.constant Rho2)
     (hrho3 : F.rho3 = GCD369CubeHahnRegular.constant Rho3)
     (hrho4 : F.rho4 = GCD369CubeHahnRegular.constant Rho4)
-    (hp : F.scale.p = 3 * T.delta)
+    (hp : 3 * T.delta ≤ F.scale.p)
     (r : GCD369CubeHahnRegular k) (r0 A0 : k)
     (hr0 : r0 ≠ 0) (hA0 : A0 ≠ 0)
     (hr : GCD369CubeHahnRegular.constantCoeff r = r0)
@@ -938,7 +938,7 @@ theorem TransverseFactor.doubleRoot_deviations_order_half_lower
       simp
 
 /-- The literal source equations themselves supply all three canonical order
-bounds consumed by the previously verified balanced-chart exclusion. -/
+bounds consumed by the previously verified `p ≥ 3*delta` chart exclusion. -/
 theorem TransverseFactor.doubleRoot_source_inconsistent_from_source
     {k : Type*} [Field k] [CharZero k]
     {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseFactor)
@@ -956,7 +956,7 @@ theorem TransverseFactor.doubleRoot_source_inconsistent_from_source
     (hrho2 : F.rho2 = GCD369CubeHahnRegular.constant Rho2)
     (hrho3 : F.rho3 = GCD369CubeHahnRegular.constant Rho3)
     (hrho4 : F.rho4 = GCD369CubeHahnRegular.constant Rho4)
-    (hp : F.scale.p = 3 * T.delta)
+    (hp : 3 * T.delta ≤ F.scale.p)
     (r : GCD369CubeHahnRegular k) (r0 A0 : k)
     (hr0 : r0 ≠ 0) (hA0 : A0 ≠ 0)
     (hr : GCD369CubeHahnRegular.constantCoeff r = r0)
@@ -1010,7 +1010,7 @@ theorem TransverseFactor.doubleRoot_source_inconsistent_from_source
     · have hrows := T.doubleRoot_rowCoeffs_zero_before_d F hscale
         D0 C7 C5 C4 C3 C2 C1 Rho1 Rho2 Rho3 Rho4
         hd hc7 hc5 hc4 hc3 hc2 hc1 hrho1 hrho2 hrho3 hrho4
-        r hroot q hq0 hq' (by rw [hp]; linarith)
+        r hroot q hq0 hq' (by linarith [hp])
       simpa only [Row1, D, B, C] using hrows.1
     · exact GCD369CubeHahnRegular.coeff_eq_zero_of_neg Row1
         (lt_of_not_ge hq0)
@@ -1022,7 +1022,7 @@ theorem TransverseFactor.doubleRoot_source_inconsistent_from_source
     · have hrows := T.doubleRoot_rowCoeffs_zero_before_d F hscale
         D0 C7 C5 C4 C3 C2 C1 Rho1 Rho2 Rho3 Rho4
         hd hc7 hc5 hc4 hc3 hc2 hc1 hrho1 hrho2 hrho3 hrho4
-        r hroot q hq0 hq' (by rw [hp]; linarith)
+        r hroot q hq0 hq' (by linarith [hp])
       simpa only [Row2, D, B, C] using hrows.2.1
     · exact GCD369CubeHahnRegular.coeff_eq_zero_of_neg Row2
         (lt_of_not_ge hq0)
@@ -1077,7 +1077,7 @@ theorem TransverseFactor.doubleRoot_source_inconsistent_from_source
     rw [ht] at hQfull0
     exact hQfull0.trans_eq (congrArg (fun z : GCD369CubeHahnRegular k =>
       z.1.orderTop) hcorrected.symm)
-  have hpS : S.normal.sextic.scale.p = 3 * T.delta := by
+  have hpS : 3 * T.delta ≤ S.normal.sextic.scale.p := by
     rw [hscale]
     exact hp
   exact T.doubleRoot_source_inconsistent_of_deviationBounds

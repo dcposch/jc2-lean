@@ -34,7 +34,7 @@ def GCD369CubeDoubleSourceTransverseChart
 
 namespace GCD369CubeHahnCommonValueData
 
-/-- In the exact balanced chart, an early nonzero root deviation has the
+/-- When `p ≥ 3 * delta`, an early nonzero root deviation has the
 orders and leading coefficients consumed by the abstract early-source
 contradiction. -/
 theorem TransverseFactor.doubleRoot_sourceEarly_inconsistent_of_chart
@@ -43,7 +43,7 @@ theorem TransverseFactor.doubleRoot_sourceEarly_inconsistent_of_chart
     (nu : ℚ) (r0 A0 c : k)
     (r w d B B2 C2 : GCD369CubeHahnRegular k)
     (hr0 : r0 ≠ 0) (hA0 : A0 ≠ 0) (hc : c ≠ 0)
-    (hp : S.normal.sextic.scale.p = 3 * T.delta)
+    (hp : 3 * T.delta ≤ S.normal.sextic.scale.p)
     (hnu : 0 < nu) (hearly : 2 * nu < T.delta)
     (hr : GCD369CubeHahnRegular.constantCoeff r = r0)
     (hx : GCD369CubeHahnRegular.constantCoeff

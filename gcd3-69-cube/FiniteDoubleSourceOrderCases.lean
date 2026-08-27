@@ -15,12 +15,12 @@ namespace GCD369CubeHahnCommonValueData
 
 /-- If `K` has order at least `delta` but the transverse value has exact order
 strictly below `2 * delta`, their sum cannot have the source-required order
-`6 * p` when `p = 3 * delta`. -/
+`6 * p` when `p ≥ 3 * delta`. -/
 theorem TransverseFactor.sourceSextic_inconsistent_of_transverse_below_twiceDelta
     {k : Type*} [Field k] [CharZero k]
     {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseFactor)
     (beta : ℚ)
-    (hp : S.normal.sextic.scale.p = 3 * T.delta)
+    (hp : 3 * T.delta ≤ S.normal.sextic.scale.p)
     (hK : (↑T.delta : WithTop ℚ) ≤ S.cubicValue.1.orderTop)
     (hphi : S.transverseValue.1.orderTop =
       (↑beta : WithTop ℚ))
@@ -42,18 +42,18 @@ theorem TransverseFactor.sourceSextic_inconsistent_of_transverse_below_twiceDelt
     (S.cubicValue.1 ^ 2 + S.transverseValue.1).orderTop at hsource
   rw [HahnSeries.orderTop_add_eq_right horders, hphi,
     WithTop.coe_le_coe] at hsource
-  rw [hp] at hsource
-  nlinarith [T.hdelta]
+  nlinarith [T.hdelta, hp]
 
-/-- In the early moving-root range, the sextic source equation forces the
-Newton resonance `delta = 3 * nu` and its leading cancellation.  The exact
-ninth-Faber source value then supplies the incompatible second equation. -/
+/-- In the early moving-root range with `p ≥ 3 * delta`, the sextic source
+equation forces the Newton resonance `delta = 3 * nu` and its leading
+cancellation.  The exact ninth-Faber source value then supplies the
+incompatible second equation. -/
 theorem TransverseFactor.doubleRoot_sourceEarly_inconsistent_of_exactOrders
     {k : Type*} [Field k] [CharZero k]
     {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseFactor)
     (nu : ℚ) (r A c : k)
     (hr : r ≠ 0) (hA : A ≠ 0) (hc : c ≠ 0)
-    (hp : S.normal.sextic.scale.p = 3 * T.delta)
+    (hp : 3 * T.delta ≤ S.normal.sextic.scale.p)
     (hnu : 0 < nu) (hearly : 2 * nu < T.delta)
     (hx : GCD369CubeHahnRegular.constantCoeff
       S.normal.sextic.regularX = r)
@@ -72,8 +72,7 @@ theorem TransverseFactor.doubleRoot_sourceEarly_inconsistent_of_exactOrders
       exact (min_le_left _ _).trans_eq (by ring)
     have hbound : 6 * S.normal.sextic.scale.p ≤ 4 * nu :=
       hfar.trans hle
-    rw [hp] at hbound
-    nlinarith [T.hdelta]
+    nlinarith [T.hdelta, hp]
   · have hdelta : T.delta = 3 * nu := by
       linarith [hcancel.1]
     have hf : 3 * r * c * (3 * r * c ^ 3 + A) = 0 := by
@@ -174,7 +173,7 @@ theorem TransverseFactor.doubleRoot_sourceEarly_inconsistent_of_exactOrders
         (E * (GCD369CubeHahnRegular.monomial
           T.delta T.hdelta.le) ^ 2).1.coeff (6 * nu) at hcoeff
     have hz := S.normal.faberNineCoeff_zero_before_d
-      (6 * nu) (by nlinarith) (by rw [hp, hdelta]; nlinarith)
+      (6 * nu) (by nlinarith) (by nlinarith [hp, hdelta])
     have hg : 27 * r ^ 3 * c ^ 6 +
         (27 / 2) * r ^ 2 * A * c ^ 3 +
         (9 / 8) * r * A ^ 2 = 0 := by

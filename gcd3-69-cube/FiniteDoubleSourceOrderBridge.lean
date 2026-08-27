@@ -1,6 +1,6 @@
 import FiniteDoubleSourceChartAll
 
-/-! # Order-bound realization of the balanced double-root chart
+/-! # Order-bound realization of the late double-root chart
 
 The complete chart exclusion is most useful upstream when expressed through
 divisibility/order bounds.  This file constructs the required corrections by
@@ -12,14 +12,14 @@ noncomputable section
 namespace GCD369CubeHahnCommonValueData
 
 /-- A moving cubic relation, a half-scale transverse kernel correction, and
-two `delta`-order remainder bounds realize the exact balanced chart and are
+two `delta`-order remainder bounds realize the chart for `p ≥ 3 * delta` and are
 therefore inconsistent with the literal sextic/nonic source equations. -/
 theorem TransverseFactor.doubleRoot_source_inconsistent_of_orderBounds
     {k : Type*} [Field k] [CharZero k]
     {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseFactor)
     (r0 A0 : k) (r B : GCD369CubeHahnRegular k)
     (hr0 : r0 ≠ 0) (hA0 : A0 ≠ 0)
-    (hp : S.normal.sextic.scale.p = 3 * T.delta)
+    (hp : 3 * T.delta ≤ S.normal.sextic.scale.p)
     (hr : GCD369CubeHahnRegular.constantCoeff r = r0)
     (hx : GCD369CubeHahnRegular.constantCoeff
       S.normal.sextic.regularX = r0)
@@ -107,7 +107,7 @@ theorem TransverseFactor.doubleRoot_source_inconsistent_of_deviationBounds
     {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseFactor)
     (r0 A0 : k) (r : GCD369CubeHahnRegular k)
     (hr0 : r0 ≠ 0) (hA0 : A0 ≠ 0)
-    (hp : S.normal.sextic.scale.p = 3 * T.delta)
+    (hp : 3 * T.delta ≤ S.normal.sextic.scale.p)
     (hr : GCD369CubeHahnRegular.constantCoeff r = r0)
     (hx : GCD369CubeHahnRegular.constantCoeff
       S.normal.sextic.regularX = r0)
@@ -148,7 +148,7 @@ theorem TransverseFactor.doubleRoot_source_inconsistent_of_canonicalBounds
     {k : Type*} [Field k] [CharZero k]
     {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseFactor)
     (r0 A0 : k) (hr0 : r0 ≠ 0) (hA0 : A0 ≠ 0)
-    (hp : S.normal.sextic.scale.p = 3 * T.delta)
+    (hp : 3 * T.delta ≤ S.normal.sextic.scale.p)
     (hu : GCD369CubeHahnRegular.constantCoeff S.cubicU = -3 * r0 ^ 2)
     (hv : GCD369CubeHahnRegular.constantCoeff S.cubicV = 2 * r0 ^ 3)
     (hx : GCD369CubeHahnRegular.constantCoeff

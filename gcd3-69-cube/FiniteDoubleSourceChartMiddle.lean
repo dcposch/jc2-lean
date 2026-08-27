@@ -13,7 +13,7 @@ noncomputable section
 
 namespace GCD369CubeHahnCommonValueData
 
-/-- In the exact balanced chart, a middle-range nonzero root deviation
+/-- When `p ≥ 3 * delta`, a middle-range nonzero root deviation
 makes the cubic value have order at least `delta` and the transverse value
 have exact order `delta + nu`, which the source sextic excludes. -/
 theorem TransverseFactor.doubleRoot_sourceMiddle_inconsistent_of_chart
@@ -22,7 +22,7 @@ theorem TransverseFactor.doubleRoot_sourceMiddle_inconsistent_of_chart
     (nu : ℚ) (r0 A0 : k)
     (r w d B B2 C2 : GCD369CubeHahnRegular k)
     (hr0 : r0 ≠ 0) (hA0 : A0 ≠ 0)
-    (hp : S.normal.sextic.scale.p = 3 * T.delta)
+    (hp : 3 * T.delta ≤ S.normal.sextic.scale.p)
     (hnu : 0 < nu) (hmiddle : T.delta ≤ 2 * nu)
     (hbelow : nu < T.delta)
     (hr : GCD369CubeHahnRegular.constantCoeff r = r0)

@@ -2,7 +2,7 @@ import FiniteDoubleSourceChartOrders
 
 /-! # Zero-deviation chart exclusion at the source double root
 
-Specializing the balanced cubic and transverse chart identities to a
+Specializing the cubic and transverse chart identities to a
 vanishing root deviation yields the two order bounds consumed by the
 source nonic contradiction.
 -/
@@ -11,9 +11,9 @@ noncomputable section
 
 namespace GCD369CubeHahnCommonValueData
 
-/-- In the exact balanced chart, a vanishing root deviation forces the
+/-- When `p ≥ 3 * delta`, a vanishing root deviation forces the
 moving cubic to have order at least `delta` and the transverse value to
-have order at least `2 * delta`.  Combined with `p = 3 * delta`, the
+have order at least `2 * delta`.  Combined with `p ≥ 3 * delta`, the
 source nonic excludes the branch. -/
 theorem TransverseFactor.doubleRoot_sourceZero_inconsistent_of_chart
     {k : Type*} [Field k] [CharZero k]
@@ -21,7 +21,7 @@ theorem TransverseFactor.doubleRoot_sourceZero_inconsistent_of_chart
     (r0 A0 : k)
     (r d B B2 C2 : GCD369CubeHahnRegular k)
     (hr0 : r0 ≠ 0) (hA0 : A0 ≠ 0)
-    (hp : S.normal.sextic.scale.p = 3 * T.delta)
+    (hp : 3 * T.delta ≤ S.normal.sextic.scale.p)
     (hx : GCD369CubeHahnRegular.constantCoeff
       S.normal.sextic.regularX = r0)
     (hX : GCD369CubeHahnRegular.constantCoeff T.Xn = A0)
@@ -39,8 +39,7 @@ theorem TransverseFactor.doubleRoot_sourceZero_inconsistent_of_chart
   have hH := GCD369CubeHahnRegular.monomial_orderTop_and_leadingCoeff
     (k := k) T.delta T.hdelta.le
   have hearly : 2 * T.delta < S.normal.sextic.scale.p := by
-    rw [hp]
-    nlinarith [T.hdelta]
+    nlinarith [T.hdelta, hp]
   have hKzero : (↑T.delta : WithTop ℚ) ≤
       ((0 : GCD369CubeHahnRegular k) ^ 2 * (3 * r + 0)).1.orderTop := by
     simp

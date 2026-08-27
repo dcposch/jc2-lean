@@ -13,7 +13,7 @@ noncomputable section
 
 namespace GCD369CubeHahnCommonValueData
 
-/-- In the exact balanced chart, a late nonzero root deviation of order at
+/-- When `p ≥ 3 * delta`, a late nonzero root deviation of order at
 least `delta` forces the cubic and transverse values into the abstract
 nonic order-bounds contradiction. -/
 theorem TransverseFactor.doubleRoot_sourceLate_inconsistent_of_chart
@@ -22,7 +22,7 @@ theorem TransverseFactor.doubleRoot_sourceLate_inconsistent_of_chart
     (nu : ℚ) (r0 A0 c : k)
     (r w d B B2 C2 : GCD369CubeHahnRegular k)
     (hr0 : r0 ≠ 0) (hA0 : A0 ≠ 0) (_hc : c ≠ 0)
-    (hp : S.normal.sextic.scale.p = 3 * T.delta)
+    (hp : 3 * T.delta ≤ S.normal.sextic.scale.p)
     (hnu : 0 < nu) (hlate : T.delta ≤ nu)
     (hr : GCD369CubeHahnRegular.constantCoeff r = r0)
     (hx : GCD369CubeHahnRegular.constantCoeff
@@ -137,8 +137,7 @@ theorem TransverseFactor.doubleRoot_sourceLate_inconsistent_of_chart
       add_assoc, show T.delta + T.delta = 2 * T.delta by ring]
       using hphiData
   have hp_lt : 2 * T.delta < S.normal.sextic.scale.p := by
-    rw [hp]
-    nlinarith [T.hdelta]
+    nlinarith [T.hdelta, hp]
   exact T.doubleRoot_sourceNonic_inconsistent_of_orderBounds
     r0 A0 hr0 hA0 hx hX hY hp_lt hK hphi
 
