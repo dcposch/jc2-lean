@@ -23,7 +23,7 @@ theorem TransverseFactor.sourceSextic_inconsistent_of_transverse_below_twiceDelt
     {k : Type*} [Field k] [CharZero k]
     {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseFactor)
     (beta : ℚ)
-    (hp : 3 * T.delta < 2 * S.normal.sextic.scale.p)
+    (hp : 3 * T.delta ≤ 2 * S.normal.sextic.scale.p)
     (hK : (↑T.delta : WithTop ℚ) ≤ S.cubicValue.1.orderTop)
     (hphi : S.transverseValue.1.orderTop =
       (↑beta : WithTop ℚ))
@@ -57,7 +57,7 @@ theorem TransverseFactor.simpleRoot_sourceBelow_inconsistent_of_normal_lower_bef
     (alpha : ℚ) (r0 A0 : k)
     (r w d B B2 C2 : GCD369CubeHahnRegular k)
     (hr0 : r0 ≠ 0) (hA0 : A0 ≠ 0)
-    (hp : 3 * T.delta < 2 * S.normal.sextic.scale.p)
+    (hp : 3 * T.delta ≤ 2 * S.normal.sextic.scale.p)
     (halpha : 0 < alpha) (hbelow : alpha < T.delta)
     (hr : GCD369CubeHahnRegular.constantCoeff r = r0)
     (hX : GCD369CubeHahnRegular.constantCoeff T.Xn = A0)
@@ -164,7 +164,7 @@ theorem TransverseFactor.simpleRoot_sourceBelow_inconsistent_of_normal_exact_bef
     (alpha gamma : ℚ) (r0 A0 c : k)
     (r w d B B2 C2 : GCD369CubeHahnRegular k)
     (hr0 : r0 ≠ 0) (hA0 : A0 ≠ 0) (hc : c ≠ 0)
-    (hp : 3 * T.delta < 2 * S.normal.sextic.scale.p)
+    (hp : 3 * T.delta ≤ 2 * S.normal.sextic.scale.p)
     (halpha : 0 < alpha) (hbelow : alpha < T.delta)
     (hgammaAlpha : gamma < alpha)
     (hr : GCD369CubeHahnRegular.constantCoeff r = r0)

@@ -15,7 +15,7 @@ theorem TransverseFactor.simpleRoot_source_zero_or_order_delta_of_orderBounds_be
     (hd : S.normal.d = 0)
     (r0 A0 : k) (r B : GCD369CubeHahnRegular k)
     (hr0 : r0 ≠ 0) (hA0 : A0 ≠ 0)
-    (hp : 3 * T.delta < 2 * S.normal.sextic.scale.p)
+    (hp : 3 * T.delta ≤ 2 * S.normal.sextic.scale.p)
     (hr : GCD369CubeHahnRegular.constantCoeff r = r0)
     (hx : GCD369CubeHahnRegular.constantCoeff
       S.normal.sextic.regularX = -2 * r0)
@@ -140,12 +140,12 @@ theorem TransverseFactor.simpleRoot_source_zero_or_order_delta_from_source_befor
       S.cubicU S.cubicV hUne
   obtain ⟨hDfull, B, hYcoord, hQfull⟩ :=
     T.doubleRoot_deviations_order_delta_from_source_before_c7
-      F hscale hd hp r r0 A0 hr0 hA0 hr hu hX hY hZ hroot
+      F hscale hd (le_of_lt hp) r r0 A0 hr0 hA0 hr hu hX hY hZ hroot
   have hpS : 3 * T.delta < 2 * S.normal.sextic.scale.p := by
     rw [hscale]
     exact hp
   exact T.simpleRoot_source_zero_or_order_delta_of_orderBounds_before_c7
-    hdNormal r0 A0 r B hr0 hA0 hpS hr hx hX hroot
+    hdNormal r0 A0 r B hr0 hA0 (le_of_lt hpS) hr hx hX hroot
     hDfull hYcoord hQfull
 
 end GCD369CubeHahnCommonValueData

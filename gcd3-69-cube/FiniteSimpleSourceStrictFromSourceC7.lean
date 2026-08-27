@@ -51,7 +51,7 @@ theorem TransverseFactor.simpleRoot_strictLate_inconsistent_from_source_before_c
       S.cubicU S.cubicV hUne
   obtain ⟨hDfull, B, hYcoord, hQfull⟩ :=
     T.doubleRoot_deviations_order_delta_from_source_before_c7
-      F hscale hd hp r r0 A0 hr0 hA0 hr hu hX hY hZ hroot
+      F hscale hd (le_of_lt hp) r r0 A0 hr0 hA0 hr hu hX hY hZ hroot
   let H : GCD369CubeHahnRegular k :=
     GCD369CubeHahnRegular.monomial T.delta T.hdelta.le
   let M : GCD369CubeHahnRegular k :=
@@ -116,7 +116,7 @@ theorem TransverseFactor.simpleRoot_strictLate_inconsistent_from_source_before_c
   have hYchart : T.Yn = r * T.Xn + M * B + H * 0 := by
     simpa only [M, H, mul_zero, add_zero] using hYcoord
   have hsplit := T.simpleRoot_source_zero_or_order_delta_of_orderBounds_before_c7
-    hdNormal r0 A0 r B hr0 hA0 hpS hr hx hX hroot
+    hdNormal r0 A0 r B hr0 hA0 (le_of_lt hpS) hr hx hX hroot
       hDfull hYcoord hQfull
   have hw : (↑T.delta : WithTop ℚ) ≤ w.1.orderTop := by
     rcases hsplit with hz | hord
@@ -133,7 +133,7 @@ theorem TransverseFactor.simpleRoot_strictLate_inconsistent_from_source_before_c
     (by simpa only [M, H] using hYchart)
     (by simpa only [M, H] using hZchart)
   have hBhalf := T.simpleRoot_sourceLate_normal_order_half_lower_before_c7
-    r0 A0 r w d B 0 C2n hr0 hA0 hpS hr hX hw0 hw
+    r0 A0 r w d B 0 C2n hr0 hA0 (le_of_lt hpS) hr hX hw0 hw
       hcharts.1 hcharts.2
   obtain ⟨_s, b, _hwfact, hYfull, hZfull⟩ :=
     T.simpleRoot_sourceLate_fullScale_coordinates

@@ -119,7 +119,7 @@ theorem TransverseFactor.doubleRoot_source_inconsistent_from_source_before_c7
     (hroot : 2 * S.cubicU * r + 3 * S.cubicV = 0) : False := by
   obtain ⟨hDfull, B, hYcoord, hQfull⟩ :=
     T.doubleRoot_deviations_order_delta_from_source_before_c7
-      F hscale hd hp r r0 A0 hr0 hA0 hr hu hX hY hZ hroot
+      F hscale hd (le_of_lt hp) r r0 A0 hr0 hA0 hr hu hX hY hZ hroot
   have hpS : 3 * T.delta < 2 * S.normal.sextic.scale.p := by
     rw [hscale]
     exact hp

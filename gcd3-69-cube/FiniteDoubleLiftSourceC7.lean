@@ -20,7 +20,7 @@ theorem TransverseFactor.doubleRoot_deviations_order_delta_from_source_before_c7
     (F : GCD369CubeHahnFaberPoleData k)
     (hscale : S.normal.sextic.scale = F.scale)
     (hd : F.d = 0)
-    (hp : 3 * T.delta < 2 * F.scale.p)
+    (hp : 3 * T.delta ≤ 2 * F.scale.p)
     (r : GCD369CubeHahnRegular k) (r0 A0 : k)
     (hr0 : r0 ≠ 0) (hA0 : A0 ≠ 0)
     (hr : GCD369CubeHahnRegular.constantCoeff r = r0)

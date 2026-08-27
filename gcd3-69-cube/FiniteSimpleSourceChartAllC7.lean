@@ -15,7 +15,7 @@ theorem TransverseFactor.simpleRoot_source_zero_or_order_delta_of_coordinates_be
     (r0 A0 : k)
     (r w d e B B2 C2 : GCD369CubeHahnRegular k)
     (hr0 : r0 ≠ 0) (hA0 : A0 ≠ 0)
-    (hp : 3 * T.delta < 2 * S.normal.sextic.scale.p)
+    (hp : 3 * T.delta ≤ 2 * S.normal.sextic.scale.p)
     (hr : GCD369CubeHahnRegular.constantCoeff r = r0)
     (hX : GCD369CubeHahnRegular.constantCoeff T.Xn = A0)
     (hw0 : GCD369CubeHahnRegular.constantCoeff w = 0)

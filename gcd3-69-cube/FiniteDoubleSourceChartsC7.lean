@@ -275,7 +275,7 @@ theorem TransverseFactor.doubleRoot_sourceMiddle_inconsistent_of_chart_before_c7
     simpa only [GCD369CubeDoubleSourceTransverseChart, H, M,
       Rw, add_assoc] using hphiData.1
   exact T.sourceSextic_inconsistent_of_transverse_below_twiceDelta_before_c7
-    (T.delta + nu) hp hKorder hphiOrder (by nlinarith [hbelow])
+    (T.delta + nu) (le_of_lt hp) hKorder hphiOrder (by nlinarith [hbelow])
 
 /-- When `3 * delta < 2 * p` and `d = 0`, a late nonzero root deviation of
 order at least `delta` forces the cubic and transverse values into the
