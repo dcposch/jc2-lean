@@ -252,6 +252,7 @@ roots = [
   "FiniteSimpleSourceChartAllC1",
   "FiniteSimpleSourceLiftC1",
   "FiniteSimpleSourceStrictFromSourceC1",
+  "FiniteSimpleSourceEndpointCoordinatesC1",
   "FiniteDoubleC1LoadSourceCoeff",
   "FiniteDoubleC1LoadEndpointCoeff",
   "FiniteDoubleC1LoadLift",
