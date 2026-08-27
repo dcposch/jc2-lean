@@ -33,6 +33,7 @@ roots = [
   "FiniteValueOrders",
   "FiniteEarlyNormal",
   "FiniteC7EarlyNormal",
+  "FiniteC5EarlyNormal",
   "FiniteDoubleNormal",
   "FiniteDoubleHahn",
   "FiniteDoubleBlowup",
