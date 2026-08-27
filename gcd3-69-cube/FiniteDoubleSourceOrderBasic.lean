@@ -75,9 +75,28 @@ theorem coeff_eq_leadingCoeff_of_orderTop_eq
     rw [HahnSeries.order_eq_orderTop_of_ne_zero hxne, hx]
   rw [HahnSeries.leadingCoeff_eq, hord]
 
+/-- A nonzero regular series with zero residue has a finite, strictly positive
+exact order. -/
+theorem exists_pos_orderTop_eq_of_constantCoeff_zero
+    {k : Type*} [Field k]
+    (x : GCD369CubeHahnRegular k)
+    (hx0 : constantCoeff x = 0) (hxne : x ≠ 0) :
+    ∃ alpha : ℚ, 0 < alpha ∧
+      x.1.orderTop = (↑alpha : WithTop ℚ) := by
+  have hxne' : x.1 ≠ 0 := by
+    intro h
+    apply hxne
+    exact Subtype.ext h
+  refine ⟨x.1.order, ?_, ?_⟩
+  · have hpos := orderTop_pos_of_constantCoeff_zero x hx0
+    rw [← HahnSeries.order_eq_orderTop_of_ne_zero hxne'] at hpos
+    exact WithTop.coe_lt_coe.mp hpos
+  · exact (HahnSeries.order_eq_orderTop_of_ne_zero hxne').symm
+
 end GCD369CubeHahnRegular
 
 #print axioms GCD369CubeHahnRegular.orderTop_eq_zero_of_constantCoeff_ne_zero
 #print axioms GCD369CubeHahnRegular.mul_orderTop_and_leadingCoeff
 #print axioms GCD369CubeHahnRegular.add_orderTop_eq_left_of_lt
 #print axioms GCD369CubeHahnRegular.coeff_eq_leadingCoeff_of_orderTop_eq
+#print axioms GCD369CubeHahnRegular.exists_pos_orderTop_eq_of_constantCoeff_zero
