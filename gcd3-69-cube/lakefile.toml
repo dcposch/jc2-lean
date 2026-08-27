@@ -45,6 +45,7 @@ roots = [
   "FiniteLateDoublePolynomial",
   "FiniteSourceElimination",
   "FiniteC7SourceElimination",
+  "FiniteC5SourceElimination",
   "FiniteC7EarlyRouting",
   "FiniteSimpleSourceChart",
   "FiniteSimpleSourceOrders",
