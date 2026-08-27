@@ -50,6 +50,7 @@ roots = [
   "InfinityC7Middle",
   "InfinityC7MiddleRows",
   "InfinityC5Before",
+  "InfinityC5Middle",
   "InfinityC5Tie",
   "InfinityExactSquare",
   "InfinityDLoad",
