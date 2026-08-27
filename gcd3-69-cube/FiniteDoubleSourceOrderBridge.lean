@@ -100,6 +100,104 @@ theorem TransverseFactor.doubleRoot_source_inconsistent_of_orderBounds
     (by simpa only [M, H, mul_zero, add_zero] using hY)
     (by simpa only [M, H] using hZcoord)
 
+/-- The half-scale coefficient `B` need not be supplied in advance: an order
+bound on `Yn - r*Xn` constructs it canonically by a Hahn shift. -/
+theorem TransverseFactor.doubleRoot_source_inconsistent_of_deviationBounds
+    {k : Type*} [Field k] [CharZero k]
+    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseFactor)
+    (r0 A0 : k) (r : GCD369CubeHahnRegular k)
+    (hr0 : r0 ≠ 0) (hA0 : A0 ≠ 0)
+    (hp : S.normal.sextic.scale.p = 3 * T.delta)
+    (hr : GCD369CubeHahnRegular.constantCoeff r = r0)
+    (hx : GCD369CubeHahnRegular.constantCoeff
+      S.normal.sextic.regularX = r0)
+    (hX : GCD369CubeHahnRegular.constantCoeff T.Xn = A0)
+    (hroot : 2 * S.cubicU * r + 3 * S.cubicV = 0)
+    (hD : (↑T.delta : WithTop ℚ) ≤
+      (S.cubicU + 3 * r ^ 2).1.orderTop)
+    (hB : (↑(T.delta / 2) : WithTop ℚ) ≤
+      (T.Yn - r * T.Xn).1.orderTop)
+    (hZ :
+      let B := GCD369CubeHahnRegular.shift
+        (T.Yn - r * T.Xn) (T.delta / 2) hB
+      (↑T.delta : WithTop ℚ) ≤
+        (T.Zn + 2 * r ^ 2 * T.Xn +
+          GCD369CubeHahnRegular.monomial (T.delta / 2)
+            (div_nonneg T.hdelta.le (by norm_num)) * r * B).1.orderTop) : False := by
+  let M : GCD369CubeHahnRegular k :=
+    GCD369CubeHahnRegular.monomial (T.delta / 2)
+      (div_nonneg T.hdelta.le (by norm_num))
+  let Ydev : GCD369CubeHahnRegular k := T.Yn - r * T.Xn
+  let B : GCD369CubeHahnRegular k :=
+    GCD369CubeHahnRegular.shift Ydev (T.delta / 2) hB
+  have hBfact : M * B = Ydev := by
+    exact GCD369CubeHahnRegular.monomial_mul_shift
+      Ydev (T.delta / 2)
+        (div_nonneg T.hdelta.le (by norm_num)) hB
+  have hY : T.Yn = r * T.Xn + M * B := by
+    dsimp only [Ydev] at hBfact
+    linear_combination -hBfact
+  exact T.doubleRoot_source_inconsistent_of_orderBounds
+    r0 A0 r B hr0 hA0 hp hr hx hX hroot hD
+    (by simpa only [M] using hY) (by simpa only [B, M] using hZ)
+
+/-- Canonical moving-root form of the preceding theorem.  A double-root
+residue makes `cubicU` a unit, so the exact moving root and its relation are
+constructed internally. -/
+theorem TransverseFactor.doubleRoot_source_inconsistent_of_canonicalBounds
+    {k : Type*} [Field k] [CharZero k]
+    {S : GCD369CubeHahnCommonValueData k} (T : S.TransverseFactor)
+    (r0 A0 : k) (hr0 : r0 ≠ 0) (hA0 : A0 ≠ 0)
+    (hp : S.normal.sextic.scale.p = 3 * T.delta)
+    (hu : GCD369CubeHahnRegular.constantCoeff S.cubicU = -3 * r0 ^ 2)
+    (hv : GCD369CubeHahnRegular.constantCoeff S.cubicV = 2 * r0 ^ 3)
+    (hx : GCD369CubeHahnRegular.constantCoeff
+      S.normal.sextic.regularX = r0)
+    (hX : GCD369CubeHahnRegular.constantCoeff T.Xn = A0)
+    (hD :
+      let hUne : GCD369CubeHahnRegular.constantCoeff S.cubicU ≠ 0 := by
+        rw [hu]
+        exact mul_ne_zero (by norm_num) (pow_ne_zero 2 hr0)
+      let r := GCD369CubeHahnRegular.movingDoubleRoot
+        S.cubicU S.cubicV hUne
+      (↑T.delta : WithTop ℚ) ≤
+        (S.cubicU + 3 * r ^ 2).1.orderTop)
+    (hB :
+      let hUne : GCD369CubeHahnRegular.constantCoeff S.cubicU ≠ 0 := by
+        rw [hu]
+        exact mul_ne_zero (by norm_num) (pow_ne_zero 2 hr0)
+      let r := GCD369CubeHahnRegular.movingDoubleRoot
+        S.cubicU S.cubicV hUne
+      (↑(T.delta / 2) : WithTop ℚ) ≤
+        (T.Yn - r * T.Xn).1.orderTop)
+    (hZ :
+      let hUne : GCD369CubeHahnRegular.constantCoeff S.cubicU ≠ 0 := by
+        rw [hu]
+        exact mul_ne_zero (by norm_num) (pow_ne_zero 2 hr0)
+      let r := GCD369CubeHahnRegular.movingDoubleRoot
+        S.cubicU S.cubicV hUne
+      let B := GCD369CubeHahnRegular.shift
+        (T.Yn - r * T.Xn) (T.delta / 2) hB
+      (↑T.delta : WithTop ℚ) ≤
+        (T.Zn + 2 * r ^ 2 * T.Xn +
+          GCD369CubeHahnRegular.monomial (T.delta / 2)
+            (div_nonneg T.hdelta.le (by norm_num)) * r * B).1.orderTop) : False := by
+  let hUne : GCD369CubeHahnRegular.constantCoeff S.cubicU ≠ 0 := by
+    rw [hu]
+    exact mul_ne_zero (by norm_num) (pow_ne_zero 2 hr0)
+  let r : GCD369CubeHahnRegular k :=
+    GCD369CubeHahnRegular.movingDoubleRoot S.cubicU S.cubicV hUne
+  have hr : GCD369CubeHahnRegular.constantCoeff r = r0 := by
+    exact GCD369CubeHahnRegular.constantCoeff_movingDoubleRoot
+      S.cubicU S.cubicV hUne r0 hu hv hr0
+  have hroot : 2 * S.cubicU * r + 3 * S.cubicV = 0 := by
+    exact GCD369CubeHahnRegular.movingDoubleRoot_relation
+      S.cubicU S.cubicV hUne
+  exact T.doubleRoot_source_inconsistent_of_deviationBounds
+    r0 A0 r hr0 hA0 hp hr hx hX hroot hD hB hZ
+
 end GCD369CubeHahnCommonValueData
 
 #print axioms GCD369CubeHahnCommonValueData.TransverseFactor.doubleRoot_source_inconsistent_of_orderBounds
+#print axioms GCD369CubeHahnCommonValueData.TransverseFactor.doubleRoot_source_inconsistent_of_deviationBounds
+#print axioms GCD369CubeHahnCommonValueData.TransverseFactor.doubleRoot_source_inconsistent_of_canonicalBounds
