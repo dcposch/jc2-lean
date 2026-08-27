@@ -15,7 +15,7 @@ theorem TransverseFactor.doubleRoot_source_inconsistent_of_orderBounds_before_c7
     (hd : S.normal.d = 0)
     (r0 A0 : k) (r B : GCD369CubeHahnRegular k)
     (hr0 : r0 ≠ 0) (hA0 : A0 ≠ 0)
-    (hp : 3 * T.delta < 2 * S.normal.sextic.scale.p)
+    (hp : 3 * T.delta ≤ 2 * S.normal.sextic.scale.p)
     (hr : GCD369CubeHahnRegular.constantCoeff r = r0)
     (hx : GCD369CubeHahnRegular.constantCoeff
       S.normal.sextic.regularX = r0)
@@ -106,7 +106,7 @@ theorem TransverseFactor.doubleRoot_source_inconsistent_from_source_before_c7
     (hscale : S.normal.sextic.scale = F.scale)
     (hdNormal : S.normal.d = 0)
     (hd : F.d = 0)
-    (hp : 3 * T.delta < 2 * F.scale.p)
+    (hp : 3 * T.delta ≤ 2 * F.scale.p)
     (r : GCD369CubeHahnRegular k) (r0 A0 : k)
     (hr0 : r0 ≠ 0) (hA0 : A0 ≠ 0)
     (hr : GCD369CubeHahnRegular.constantCoeff r = r0)
@@ -119,8 +119,8 @@ theorem TransverseFactor.doubleRoot_source_inconsistent_from_source_before_c7
     (hroot : 2 * S.cubicU * r + 3 * S.cubicV = 0) : False := by
   obtain ⟨hDfull, B, hYcoord, hQfull⟩ :=
     T.doubleRoot_deviations_order_delta_from_source_before_c7
-      F hscale hd (le_of_lt hp) r r0 A0 hr0 hA0 hr hu hX hY hZ hroot
-  have hpS : 3 * T.delta < 2 * S.normal.sextic.scale.p := by
+      F hscale hd hp r r0 A0 hr0 hA0 hr hu hX hY hZ hroot
+  have hpS : 3 * T.delta ≤ 2 * S.normal.sextic.scale.p := by
     rw [hscale]
     exact hp
   exact T.doubleRoot_source_inconsistent_of_orderBounds_before_c7

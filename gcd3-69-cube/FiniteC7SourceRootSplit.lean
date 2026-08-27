@@ -17,7 +17,7 @@ theorem TransverseScale.source_coordinate_is_simpleRoot_before_c7
     (hscale : S.normal.sextic.scale = F.scale)
     (hdNormal : S.normal.d = 0)
     (hd : F.d = 0)
-    (hp : 3 * T.delta < 2 * F.scale.p) :
+    (hp : 3 * T.delta ≤ 2 * F.scale.p) :
     let x := GCD369CubeHahnRegular.constantCoeff
       S.normal.sextic.regularX
     ∃ r : k, r ≠ 0 ∧
@@ -81,7 +81,7 @@ theorem TransverseScale.singular_source_inconsistent_before_c7
     (hp : 3 * T.delta < 2 * F.scale.p) : False := by
   obtain ⟨r0, hr0, hXne, hu, hv, hY, hZ, hx⟩ :=
     T.source_coordinate_is_simpleRoot_before_c7
-      F hscale hdNormal hd hp
+      F hscale hdNormal hd (le_of_lt hp)
   have huc : GCD369CubeHahnRegular.constantCoeff S.cubicU =
       -3 * r0 ^ 2 := by
     rw [S.constantCoeff_cubicU, hu]

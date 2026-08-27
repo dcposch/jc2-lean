@@ -16,7 +16,7 @@ theorem TransverseFactor.doubleRoot_sourceEarly_inconsistent_of_exactOrders_befo
     (hd : S.normal.d = 0)
     (nu : ℚ) (r A c : k)
     (hr : r ≠ 0) (hA : A ≠ 0) (hc : c ≠ 0)
-    (hp : 3 * T.delta < 2 * S.normal.sextic.scale.p)
+    (hp : 3 * T.delta ≤ 2 * S.normal.sextic.scale.p)
     (hnu : 0 < nu) (hearly : 2 * nu < T.delta)
     (hx : GCD369CubeHahnRegular.constantCoeff
       S.normal.sextic.regularX = r)

@@ -10,7 +10,7 @@ import FiniteDoubleSourceChartAll
 /-! # Double-root source chart split before `c7`
 
 After the weight-one load vanishes, the same early/middle/late/zero chart
-valuations apply once `3 * delta < 2 * p`.  The proofs are the existing
+valuations apply once `3 * delta ≤ 2 * p`.  The proofs are the existing
 chart calculations; only the terminal sextic and nonic lemmas change.
 -/
 
@@ -18,7 +18,7 @@ noncomputable section
 
 namespace GCD369CubeHahnCommonValueData
 
-/-- When `3 * delta < 2 * p` and `d = 0`, an early nonzero root deviation
+/-- When `3 * delta ≤ 2 * p` and `d = 0`, an early nonzero root deviation
 has the orders and leading coefficients consumed by the abstract
 early-source contradiction below the weight-two load. -/
 theorem TransverseFactor.doubleRoot_sourceEarly_inconsistent_of_chart_before_c7
@@ -28,7 +28,7 @@ theorem TransverseFactor.doubleRoot_sourceEarly_inconsistent_of_chart_before_c7
     (nu : ℚ) (r0 A0 c : k)
     (r w d B B2 C2 : GCD369CubeHahnRegular k)
     (hr0 : r0 ≠ 0) (hA0 : A0 ≠ 0) (hc : c ≠ 0)
-    (hp : 3 * T.delta < 2 * S.normal.sextic.scale.p)
+    (hp : 3 * T.delta ≤ 2 * S.normal.sextic.scale.p)
     (hnu : 0 < nu) (hearly : 2 * nu < T.delta)
     (hr : GCD369CubeHahnRegular.constantCoeff r = r0)
     (hx : GCD369CubeHahnRegular.constantCoeff
@@ -156,7 +156,7 @@ theorem TransverseFactor.doubleRoot_sourceEarly_inconsistent_of_chart_before_c7
     hd nu r0 A0 c hr0 hA0 hc hp hnu hearly hx hX hY
     hKorder hKlc hphiOrder hphilc
 
-/-- When `3 * delta < 2 * p` and `d = 0`, a middle-range nonzero root
+/-- When `3 * delta ≤ 2 * p` and `d = 0`, a middle-range nonzero root
 deviation makes the cubic value have order at least `delta` and the
 transverse value have exact order `delta + nu`, which the source sextic
 excludes. -/
@@ -167,7 +167,7 @@ theorem TransverseFactor.doubleRoot_sourceMiddle_inconsistent_of_chart_before_c7
     (nu : ℚ) (r0 A0 : k)
     (r w d B B2 C2 : GCD369CubeHahnRegular k)
     (hr0 : r0 ≠ 0) (hA0 : A0 ≠ 0)
-    (hp : 3 * T.delta < 2 * S.normal.sextic.scale.p)
+    (hp : 3 * T.delta ≤ 2 * S.normal.sextic.scale.p)
     (hnu : 0 < nu) (hmiddle : T.delta ≤ 2 * nu)
     (hbelow : nu < T.delta)
     (hr : GCD369CubeHahnRegular.constantCoeff r = r0)
@@ -275,9 +275,9 @@ theorem TransverseFactor.doubleRoot_sourceMiddle_inconsistent_of_chart_before_c7
     simpa only [GCD369CubeDoubleSourceTransverseChart, H, M,
       Rw, add_assoc] using hphiData.1
   exact T.sourceSextic_inconsistent_of_transverse_below_twiceDelta_before_c7
-    (T.delta + nu) (le_of_lt hp) hKorder hphiOrder (by nlinarith [hbelow])
+    (T.delta + nu) hp hKorder hphiOrder (by nlinarith [hbelow])
 
-/-- When `3 * delta < 2 * p` and `d = 0`, a late nonzero root deviation of
+/-- When `3 * delta ≤ 2 * p` and `d = 0`, a late nonzero root deviation of
 order at least `delta` forces the cubic and transverse values into the
 abstract nonic order-bounds contradiction below the weight-two load. -/
 theorem TransverseFactor.doubleRoot_sourceLate_inconsistent_of_chart_before_c7
@@ -287,7 +287,7 @@ theorem TransverseFactor.doubleRoot_sourceLate_inconsistent_of_chart_before_c7
     (nu : ℚ) (r0 A0 c : k)
     (r w d B B2 C2 : GCD369CubeHahnRegular k)
     (hr0 : r0 ≠ 0) (hA0 : A0 ≠ 0) (_hc : c ≠ 0)
-    (hp : 3 * T.delta < 2 * S.normal.sextic.scale.p)
+    (hp : 3 * T.delta ≤ 2 * S.normal.sextic.scale.p)
     (hnu : 0 < nu) (hlate : T.delta ≤ nu)
     (hr : GCD369CubeHahnRegular.constantCoeff r = r0)
     (hx : GCD369CubeHahnRegular.constantCoeff
@@ -404,7 +404,7 @@ theorem TransverseFactor.doubleRoot_sourceLate_inconsistent_of_chart_before_c7
   exact T.doubleRoot_sourceNonic_inconsistent_of_orderBounds_before_c7
     r0 A0 hr0 hA0 hx hX hY hd hp hK hphi
 
-/-- When `3 * delta < 2 * p` and `d = 0`, a vanishing root deviation forces
+/-- When `3 * delta ≤ 2 * p` and `d = 0`, a vanishing root deviation forces
 the moving cubic to have order at least `delta` and the transverse value to
 have order at least `2 * delta`.  The source nonic excludes the branch. -/
 theorem TransverseFactor.doubleRoot_sourceZero_inconsistent_of_chart_before_c7
@@ -414,7 +414,7 @@ theorem TransverseFactor.doubleRoot_sourceZero_inconsistent_of_chart_before_c7
     (r0 A0 : k)
     (r d B B2 C2 : GCD369CubeHahnRegular k)
     (hr0 : r0 ≠ 0) (hA0 : A0 ≠ 0)
-    (hp : 3 * T.delta < 2 * S.normal.sextic.scale.p)
+    (hp : 3 * T.delta ≤ 2 * S.normal.sextic.scale.p)
     (hx : GCD369CubeHahnRegular.constantCoeff
       S.normal.sextic.regularX = r0)
     (hX : GCD369CubeHahnRegular.constantCoeff T.Xn = A0)
@@ -483,7 +483,7 @@ theorem TransverseFactor.doubleRoot_sourceZero_inconsistent_of_chart_before_c7
     r0 A0 hr0 hA0 hx hX hY hd hp hK hphi
 
 /-- Every root deviation in the double-root chart with `d = 0` and
-`3 * delta < 2 * p` is excluded.  The sole input about the deviation not
+`3 * delta ≤ 2 * p` is excluded.  The sole input about the deviation not
 already present in the chart equations is that its residue vanishes. -/
 theorem TransverseFactor.doubleRoot_source_inconsistent_of_chart_before_c7
     {k : Type*} [Field k] [CharZero k]
@@ -492,7 +492,7 @@ theorem TransverseFactor.doubleRoot_source_inconsistent_of_chart_before_c7
     (r0 A0 : k)
     (r w d B B2 C2 : GCD369CubeHahnRegular k)
     (hr0 : r0 ≠ 0) (hA0 : A0 ≠ 0)
-    (hp : 3 * T.delta < 2 * S.normal.sextic.scale.p)
+    (hp : 3 * T.delta ≤ 2 * S.normal.sextic.scale.p)
     (hr : GCD369CubeHahnRegular.constantCoeff r = r0)
     (hx : GCD369CubeHahnRegular.constantCoeff
       S.normal.sextic.regularX = r0)
@@ -536,7 +536,7 @@ theorem TransverseFactor.doubleRoot_source_inconsistent_of_coordinates_before_c7
     (r0 A0 : k)
     (r w d e B B2 C2 : GCD369CubeHahnRegular k)
     (hr0 : r0 ≠ 0) (hA0 : A0 ≠ 0)
-    (hp : 3 * T.delta < 2 * S.normal.sextic.scale.p)
+    (hp : 3 * T.delta ≤ 2 * S.normal.sextic.scale.p)
     (hr : GCD369CubeHahnRegular.constantCoeff r = r0)
     (hX : GCD369CubeHahnRegular.constantCoeff T.Xn = A0)
     (hw0 : GCD369CubeHahnRegular.constantCoeff w = 0)
