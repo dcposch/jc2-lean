@@ -1,6 +1,6 @@
 {
   "challenge_module": "Challenge",
-  "solution_module": "Solution",
+  "solution_module": "GCD369Cube",
   "theorem_names": ["GCD369PolynomialCubeSourceExclusion"],
   "definition_names": [
     "GCD369CubeSourceXDeriv",

@@ -3,7 +3,7 @@ set -eu
 cd "$(dirname "$0")/.."
 
 THEOREM="GCD369PolynomialCubeSourceExclusion"
-OUT="$(printf 'import Solution\n#print axioms %s\n' "$THEOREM" |
+OUT="$(printf 'import GCD369Cube\n#print axioms %s\n' "$THEOREM" |
   lake env lean --stdin 2>&1)" || {
   echo "$OUT"
   echo "FAIL: could not elaborate the axiom probe (build first: lake build)"

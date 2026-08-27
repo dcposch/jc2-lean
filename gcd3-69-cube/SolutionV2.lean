@@ -26,10 +26,9 @@ theorem empty
 
 end GCD369CubePolynomialSource
 
-/-- Version-two source-facing polynomial-cube exclusion.  Unlike the
-positive-degree headline in `Solution`, this theorem also includes the
-constant-core case. -/
-theorem GCD369PolynomialCubeSourceExclusionV2
+/-- Source-facing polynomial-cube exclusion, including both positive-degree
+and constant common cube roots. -/
+theorem GCD369PolynomialCubeSourceExclusion
     {k : Type*} [Field k] [CharZero k] [IsAlgClosed k]
     (s : k[X]) (p q : k[X][X]) (j : k)
     (hs : s ≠ 0) (hj : j ≠ 0)
@@ -51,5 +50,17 @@ theorem GCD369PolynomialCubeSourceExclusionV2
       hjac := hjac }
   exact S.empty
 
+/-- Backwards-compatible versioned name for the complete cube exclusion. -/
+theorem GCD369PolynomialCubeSourceExclusionV2
+    {k : Type*} [Field k] [CharZero k] [IsAlgClosed k]
+    (s : k[X]) (p q : k[X][X]) (j : k)
+    (hs : s ≠ 0) (hj : j ≠ 0)
+    (hp : p.natDegree = 6) (hq : q.natDegree = 9)
+    (hp6 : p.coeff 6 = s ^ 6) (hq9 : q.coeff 9 = s ^ 9)
+    (hjac : GCD369CubeBivariateJacobian p q = C (C j)) :
+    False :=
+  GCD369PolynomialCubeSourceExclusion s p q j hs hj hp hq hp6 hq9 hjac
+
 #print axioms GCD369CubePolynomialSource.empty
+#print axioms GCD369PolynomialCubeSourceExclusion
 #print axioms GCD369PolynomialCubeSourceExclusionV2

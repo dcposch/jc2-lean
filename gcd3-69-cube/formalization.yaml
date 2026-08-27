@@ -8,10 +8,11 @@ project:
     actual partial degrees (6,9).  From literal bivariate polynomials of outer
     degrees six and nine, leading coefficients s^6 and s^9 for a common
     polynomial s, and nonzero constant Keller bracket, the formalization proves
-    that s cannot be nonconstant.  It constructs finite Hahn poles and
-    transverse scales, exhausts every timing of the eight Faber loads through
-    rho2, and excludes the remaining elliptic, cusp, and zero-invariant later
-    fibres.  It does not claim the reduction from an arbitrary Keller pair,
+    that no such source exists, including when s is constant.  It constructs
+    the finite-pole or infinity expansion, exhausts every timing of the eight
+    Faber loads through rho2, and excludes the remaining elliptic, cusp,
+    zero-invariant, and constant-core terminal fibres.  It does not claim the
+    reduction from an arbitrary Keller pair,
     all (6,9), maximum eleven, or the plane Jacobian conjecture.
   authors:
     - "Dan Clemens Posch"
@@ -116,11 +117,12 @@ status:
     Fully proved over an algebraically closed characteristic-zero field: a
     literal polynomial source p,q in k[x][y] with outer degrees 6 and 9,
     leading coefficients s^6 and s^9, nonzero s, and nonzero constant
-    coefficientwise-inner Jacobian cannot have positive degree s.  The proof
-    constructs a finite normalized-coefficient pole, rules out the exact
-    cubic-square normal fallback, builds the first transverse Hahn scale,
-    exhausts all timing branches for d,c7,c5,c4,c2,c1,rho1,rho2, performs the
-    legal target translation, and excludes the remaining later fibres.  Not
+    coefficientwise-inner Jacobian cannot exist.  For positive-degree s, the
+    proof constructs a finite normalized-coefficient pole, rules out the exact
+    cubic-square normal fallback, builds the first transverse Hahn scale, and
+    excludes the later fibres.  For constant s, it expands at infinity,
+    exhausts all timing branches for d,c7,c5,c4,c2,c1,rho1,rho2, and excludes
+    the terminal constant-core normal form.  Not
     proved here: normalization of every arbitrary Keller pair, the exhaustive
     cube/noncube handoff, the gcd-at-most-two reduction, maximum partial
     degree eleven, or JC2.
@@ -129,7 +131,7 @@ status:
   axioms: ["propext", "Classical.choice", "Quot.sound"]
   main_results:
     - declaration: "GCD369PolynomialCubeSourceExclusion"
-      file: "Solution.lean"
+      file: "GCD369Cube.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator.json"

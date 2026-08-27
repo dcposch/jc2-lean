@@ -6,8 +6,8 @@ noncube exclusion.  Its headline theorem,
 `p,q ∈ k[x][y]` and `s ∈ k[x]` over an algebraically closed
 characteristic-zero field, with
 outer degrees six and nine, leading coefficients `s^6,s^9`, and nonzero
-constant coefficientwise-inner Jacobian.  It proves that the common
-polynomial cube root `s` cannot be nonconstant.
+constant coefficientwise-inner Jacobian.  It proves that no such source
+exists, for either a positive-degree or constant common cube root `s`.
 
 The Mathlib-only statement contains no project-specific structure, chosen
 pole, Hahn-series scale, Faber
@@ -16,8 +16,9 @@ objects internally.
 
 ## Proof architecture
 
-1. Nonconstant `s` supplies a finite pole among the five normalized sextic
-   coefficients.
+1. If `s` is nonconstant, a finite pole among the five normalized sextic
+   coefficients supplies the finite-place analysis.  If `s` is constant,
+   the same normalized source is instead expanded at infinity.
 2. The three exact transverse normals have a first positive Hahn scale.  If
    they all vanished, the sextic would be a literal cubic square, contradicting
    the nonzero Jacobian.
@@ -29,6 +30,9 @@ objects internally.
    fibres are exhausted: elliptic and cusp trajectories are impossible, and
    the zero-invariant Davenport–Stothers sheet is excluded by a second finite
    pole of the original polynomial source.
+5. In the constant-core branch, the infinity expansion exhausts the same
+   eight load timings and the terminal constant-core normal form contradicts
+   the nonzero Keller constant.
 
 The many intermediate files make each valuation, coefficient extraction,
 root split, and endpoint residue independently kernel-checkable.  The public
@@ -50,8 +54,8 @@ external trusted certificate.  The headline theorem depends only on
 
 ## Exact scope
 
-This proves the normalized polynomial-cube branch at actual partial degrees
-`(6,9)`.  It does not by itself derive that normalization from an arbitrary
+This proves the complete normalized polynomial-cube branch at actual partial
+degrees `(6,9)`, including constant cores.  It does not by itself derive that normalization from an arbitrary
 Keller pair, combine the cube and noncube branches, prove the gcd-at-most-two
 degree reduction, establish maximum partial degree eleven, or settle the
 plane Jacobian conjecture.

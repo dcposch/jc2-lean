@@ -10,7 +10,7 @@ import Mathlib
 
 The literal source has actual outer degrees six and nine, leading
 coefficients `s^6` and `s^9`, and nonzero constant bivariate Jacobian.  Prove
-that its common polynomial cube root `s` cannot be nonconstant.
+that no such source exists, including when the common cube root is constant.
 -/
 
 open Polynomial
@@ -27,15 +27,13 @@ noncomputable def GCD369CubeBivariateJacobian
   GCD369CubeSourceXDeriv p * derivative q -
     derivative p * GCD369CubeSourceXDeriv q
 
-/-- A literal normalized `(6,9)` polynomial-cube Keller source cannot have a
-nonconstant common cube root. -/
+/-- A literal normalized `(6,9)` polynomial-cube Keller source cannot exist. -/
 theorem GCD369PolynomialCubeSourceExclusion
     {k : Type*} [Field k] [CharZero k] [IsAlgClosed k]
     (s : k[X]) (p q : k[X][X]) (j : k)
     (hs : s ≠ 0) (hj : j ≠ 0)
     (hp : p.natDegree = 6) (hq : q.natDegree = 9)
     (hp6 : p.coeff 6 = s ^ 6) (hq9 : q.coeff 9 = s ^ 9)
-    (hjac : GCD369CubeBivariateJacobian p q = C (C j))
-    (hsdegree : 0 < s.natDegree) :
+    (hjac : GCD369CubeBivariateJacobian p q = C (C j)) :
     False := by
   sorry

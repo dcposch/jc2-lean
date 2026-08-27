@@ -160,7 +160,7 @@ theorem GCD369PolynomialCubeSourceExclusion_structured
 /-- Source-facing polynomial-cube exclusion at actual partial degrees
 `(6,9)`: literal bivariate polynomials with a common nonconstant cube root in
 their leading coefficients cannot have nonzero constant Jacobian. -/
-theorem GCD369PolynomialCubeSourceExclusion
+theorem GCD369PolynomialCubeSourceExclusionPositiveDegree
     {k : Type*} [Field k] [CharZero k] [IsAlgClosed k]
     (s : k[X]) (p q : k[X][X]) (j : k)
     (hs : s ≠ 0) (hj : j ≠ 0)
@@ -189,4 +189,4 @@ theorem GCD369PolynomialCubeSourceExclusion
   GCD369CubePolynomialSource.finite_targetNormalized_singular_earlyLoads_zero_through_rho2
 #print axioms GCD369CubePolynomialSource.nonconstant_cube_root_impossible
 #print axioms GCD369PolynomialCubeSourceExclusion_structured
-#print axioms GCD369PolynomialCubeSourceExclusion
+#print axioms GCD369PolynomialCubeSourceExclusionPositiveDegree
