@@ -216,6 +216,7 @@ roots = [
   "FiniteSimpleSourceOrdersC2",
   "FiniteSimpleSourceLateOrderC2",
   "FiniteDoubleRow12C2",
+  "FiniteDoubleRow123C2",
   "FiniteC7Source",
   "FiniteC7Extraction",
   "FiniteC7RootLift",
