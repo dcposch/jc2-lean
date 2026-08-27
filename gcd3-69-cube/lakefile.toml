@@ -39,6 +39,8 @@ roots = [
   "FiniteC4EarlyNormal",
   "FiniteC2EarlyNormal",
   "FiniteC1EarlyNormal",
+  "FiniteRho1EarlyNormal",
+  "FiniteRho2EarlyNormal",
   "FiniteDoubleNormal",
   "FiniteDoubleHahn",
   "FiniteDoubleBlowup",
