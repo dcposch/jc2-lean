@@ -192,6 +192,8 @@ roots = [
   "FiniteSimpleSourceChartAllC4",
   "FiniteDoubleC4LoadSourceCoeff",
   "FiniteDoubleRow123C4",
+  "FiniteDoubleC4LoadEndpointCoeff",
+  "FiniteDoubleSourceChartsC4",
   "FiniteC7Source",
   "FiniteC7Extraction",
   "FiniteC7RootLift",
