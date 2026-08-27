@@ -86,6 +86,7 @@ roots = [
   "InfinityRho2Middle",
   "InfinityRho2Tie",
   "InfinityConstantCoreAssembly",
+  "SolutionV2",
   "InfinityExactSquare",
   "InfinityDLoad",
   "InfinityDBalanced",
