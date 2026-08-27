@@ -47,6 +47,7 @@ roots = [
   "FiniteC7SourceElimination",
   "FiniteC5SourceElimination",
   "FiniteC7EarlyRouting",
+  "FiniteC5EarlyRouting",
   "FiniteSimpleSourceChart",
   "FiniteSimpleSourceOrders",
   "FiniteSimpleSourceChartAll",
