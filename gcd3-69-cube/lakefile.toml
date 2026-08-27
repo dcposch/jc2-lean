@@ -233,6 +233,7 @@ roots = [
   "FiniteC2SourceRootSplit",
   "FiniteC2LoadSourceRootEndpoint",
   "FiniteC2SourceAssembly",
+  "FiniteC2SingularAssembly",
   "FiniteC2LoadSourceRoot",
   "FiniteDoubleC1LoadPolys",
   "FiniteDoubleC1Load",
