@@ -298,6 +298,7 @@ roots = [
   "FiniteDoubleZeroLoadCubicRho2",
   "FiniteDoubleRho2LoadLift",
   "FiniteDoubleZeroLoadCubicLiftRho2",
+  "FiniteDoubleRho2LoadEndpointCoeff",
   "FiniteDoubleC1LoadSourceCoeff",
   "FiniteDoubleC1LoadEndpointCoeff",
   "FiniteDoubleC1LoadLift",
