@@ -58,6 +58,7 @@ roots = [
   "FiniteC4EarlyRouting",
   "FiniteC2EarlyRouting",
   "FiniteFanThroughC4",
+  "FiniteFanThroughC2",
   "FiniteSimpleSourceChart",
   "FiniteSimpleSourceOrders",
   "FiniteSimpleSourceChartAll",
