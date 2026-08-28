@@ -2,6 +2,7 @@ import HistoryDegree
 import TotalDegreeRoutes
 import CoprimeDegreeRoute
 import EndpointGCDRoute
+import LowScaleCore
 import GCD369DivisibleSourceExclusion
 
 /-! # Max-eleven handoff from the complete divisible `(6,9)` exclusion
@@ -242,6 +243,90 @@ theorem Max11PlaneKellerGenerationWithStandardEndpointAndFiveLowScaleLeaves
       8 10 (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by norm_num)
       hendpoint h810)
 
+/-- The same narrow Max-11 handoff with the classical endpoint input stated
+in its literal published form: every standard normalized right endpoint has
+coordinate gcd strictly greater than two. -/
+theorem Max11PlaneKellerGenerationWithStandardEndpointObstructionAndFiveLowScaleLeaves
+    {K : Type*} [Field K] [CharZero K] [IsAlgClosed K]
+    (hprime : PlaneKellerPrimeTotalDegreeGCDRoute (K := K))
+    (hendpoint : PlaneKellerStandardEndpointGCDObstruction (K := K))
+    (h46 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 4 6)
+    (h410 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 4 10)
+    (h68 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 6 8)
+    (h610 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 6 10)
+    (h810 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 8 10) :
+    ∀ P Q : MvPolynomial (Fin 2) K,
+      degreeOf 1 P ≤ 11 → degreeOf 1 Q ≤ 11 →
+      IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
+  exact Max11PlaneKellerGenerationWithStandardEndpointAndFiveLowScaleLeaves
+    hprime (planeKellerStandardEndpointGCDRoute_of_obstruction hendpoint)
+    h46 h410 h68 h610 h810
+
+/-- The `(4,6)` low-scale leaf is normalized internally to a literal
+square/cube common core of degree zero or two.  Four low-scale leaves remain
+in their coefficient-degree form. -/
+theorem Max11PlaneKellerGenerationWithNormalized46AndFourLowScaleLeaves
+    {K : Type*} [Field K] [CharZero K] [IsAlgClosed K]
+    (hprime : PlaneKellerPrimeTotalDegreeGCDRoute (K := K))
+    (hendpoint : PlaneKellerStandardEndpointGCDObstruction (K := K))
+    (h46 : PlaneKellerNormalized46LowScaleRoute (K := K))
+    (h410 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 4 10)
+    (h68 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 6 8)
+    (h610 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 6 10)
+    (h810 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 8 10) :
+    ∀ P Q : MvPolynomial (Fin 2) K,
+      degreeOf 1 P ≤ 11 → degreeOf 1 Q ≤ 11 →
+      IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
+  exact Max11PlaneKellerGenerationWithStandardEndpointObstructionAndFiveLowScaleLeaves
+    hprime hendpoint
+    (planeKellerLowEvenLeadingScalesAtDegrees_46_of_normalized h46)
+    h410 h68 h610 h810
+
+/-- The three leaves with consecutive reduced weights are normalized
+internally to exact common powers.  Only `(4,10)` and `(6,10)`, whose reduced
+weights are nonconsecutive, remain in coefficient-degree form. -/
+theorem Max11PlaneKellerGenerationWithThreeNormalizedAndTwoLowScaleLeaves
+    {K : Type*} [Field K] [CharZero K] [IsAlgClosed K]
+    (hprime : PlaneKellerPrimeTotalDegreeGCDRoute (K := K))
+    (hendpoint : PlaneKellerStandardEndpointGCDObstruction (K := K))
+    (h46 : PlaneKellerNormalized46LowScaleRoute (K := K))
+    (h410 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 4 10)
+    (h68 : PlaneKellerNormalized68LowScaleRoute (K := K))
+    (h610 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 6 10)
+    (h810 : PlaneKellerNormalized810LowScaleRoute (K := K)) :
+    ∀ P Q : MvPolynomial (Fin 2) K,
+      degreeOf 1 P ≤ 11 → degreeOf 1 Q ≤ 11 →
+      IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
+  exact Max11PlaneKellerGenerationWithStandardEndpointObstructionAndFiveLowScaleLeaves
+    hprime hendpoint
+    (planeKellerLowEvenLeadingScalesAtDegrees_46_of_normalized h46)
+    h410
+    (planeKellerLowEvenLeadingScalesAtDegrees_68_of_normalized h68)
+    h610
+    (planeKellerLowEvenLeadingScalesAtDegrees_810_of_normalized h810)
+
+/-- The narrow normalized Max-11 handoff: every primitive gcd-two leaf has
+been reduced internally to exact common-core powers at scale zero or two. -/
+theorem Max11PlaneKellerGenerationWithFiveNormalizedLowScaleRoutes
+    {K : Type*} [Field K] [CharZero K] [IsAlgClosed K]
+    (hprime : PlaneKellerPrimeTotalDegreeGCDRoute (K := K))
+    (hendpoint : PlaneKellerStandardEndpointGCDObstruction (K := K))
+    (h46 : PlaneKellerNormalized46LowScaleRoute (K := K))
+    (h410 : PlaneKellerNormalized410LowScaleRoute (K := K))
+    (h68 : PlaneKellerNormalized68LowScaleRoute (K := K))
+    (h610 : PlaneKellerNormalized610LowScaleRoute (K := K))
+    (h810 : PlaneKellerNormalized810LowScaleRoute (K := K)) :
+    ∀ P Q : MvPolynomial (Fin 2) K,
+      degreeOf 1 P ≤ 11 → degreeOf 1 Q ≤ 11 →
+      IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
+  exact Max11PlaneKellerGenerationWithStandardEndpointObstructionAndFiveLowScaleLeaves
+    hprime hendpoint
+    (planeKellerLowEvenLeadingScalesAtDegrees_46_of_normalized h46)
+    (planeKellerLowEvenLeadingScalesAtDegrees_410_of_normalized h410)
+    (planeKellerLowEvenLeadingScalesAtDegrees_68_of_normalized h68)
+    (planeKellerLowEvenLeadingScalesAtDegrees_610_of_normalized h610)
+    (planeKellerLowEvenLeadingScalesAtDegrees_810_of_normalized h810)
+
 /-- Fully assembled Max-11 conditional on the classical prime-total-degree
 result and the strong arbitrary-pair twice-prime interface.  The latter is
 kept explicit because the published arbitrary-pair proof has a documented
@@ -269,6 +354,10 @@ theorem Max11PlaneKellerGenerationWithPrimeAndTwicePrimeTotalDegreeGCDRoutes
 #print axioms Max11PlaneKellerGenerationWithEvenLeadingScaleGCDTwoRoute
 #print axioms Max11PlaneKellerGenerationWithFiveEvenScaleGCDTwoLeaves
 #print axioms Max11PlaneKellerGenerationWithStandardEndpointAndFiveLowScaleLeaves
+#print axioms Max11PlaneKellerGenerationWithStandardEndpointObstructionAndFiveLowScaleLeaves
+#print axioms Max11PlaneKellerGenerationWithNormalized46AndFourLowScaleLeaves
+#print axioms Max11PlaneKellerGenerationWithThreeNormalizedAndTwoLowScaleLeaves
+#print axioms Max11PlaneKellerGenerationWithFiveNormalizedLowScaleRoutes
 #print axioms Max11PlaneKellerGenerationWithPrimeAndTwicePrimeTotalDegreeGCDRoutes
 
 end Max11DegreeRoutes

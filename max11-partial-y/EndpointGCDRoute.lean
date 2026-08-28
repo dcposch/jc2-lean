@@ -93,18 +93,34 @@ theorem bivariate_topCoeff_planeSourceShear {K : Type*} [Field K]
           Polynomial.leadingCoeff_X_add_C (Polynomial.X ^ L), one_pow, mul_one]
     _ = p.coeff m := by rw [Polynomial.leadingCoeff, hpdegree]
 
-/-- A source-facing formulation of the standard-pair endpoint obstruction.
+/-- The numerical conclusion of the standard-pair endpoint obstruction.
 
 The hypotheses say that total degree and partial `y` degree have the same
 reduced ratio `a:b`, while the leading-coefficient `x`-degrees give normalized
 endpoint `(u,v)`.  Swapping the source variables turns this into the right
 endpoint used by the standard-pair theorem.  The
 conditions `1 < a`, `1 < b`, `a.Coprime b`, and `u < v` are exactly the
-standard-pair range; the published endpoint obstruction closes the pair when
-`gcd(u,v) ≤ 2`.
+standard-pair range.  The published theorem says that the two coordinates of
+that normalized endpoint have gcd strictly greater than two.
 
 This definition is an interface to that classical geometric theorem, not a
 new assertion that its Newton-polygon proof has already been formalized. -/
+def PlaneKellerStandardEndpointGCDObstruction
+    {K : Type*} [Field K] : Prop :=
+  ∀ (P Q : MvPolynomial (Fin 2) K) (a b S u v : ℕ),
+    1 < a → 1 < b → a.Coprime b →
+    IsPlaneKellerPair P Q →
+    degreeOf 1 P = a * u → degreeOf 1 Q = b * u →
+    (((Polynomial.Bivariate.equivMvPolynomial K).symm P).coeff (a * u)).natDegree =
+      a * v →
+    (((Polynomial.Bivariate.equivMvPolynomial K).symm Q).coeff (b * u)).natDegree =
+      b * v →
+    P.totalDegree = a * S → Q.totalDegree = b * S →
+    u < v → 2 < Nat.gcd u v
+
+/-- Generation-form compatibility interface for the same endpoint theorem.
+If the normalized endpoint has coordinate gcd at most two, the numerical
+obstruction makes the source data inconsistent. -/
 def PlaneKellerStandardEndpointGCDRoute
     {K : Type*} [Field K] : Prop :=
   ∀ (P Q : MvPolynomial (Fin 2) K) (a b S u v : ℕ),
@@ -118,6 +134,18 @@ def PlaneKellerStandardEndpointGCDRoute
     P.totalDegree = a * S → Q.totalDegree = b * S →
     u < v → Nat.gcd u v ≤ 2 →
     PlanePairGenerates P Q
+
+/-- The exact numerical GGV endpoint obstruction supplies the older
+generation-form compatibility interface. -/
+theorem planeKellerStandardEndpointGCDRoute_of_obstruction
+    {K : Type*} [Field K]
+    (hendpoint : PlaneKellerStandardEndpointGCDObstruction (K := K)) :
+    PlaneKellerStandardEndpointGCDRoute (K := K) := by
+  intro P Q a b S u v ha hb hab hKeller hPdegree hQdegree
+    hAdegree hBdegree hPtotal hQtotal huv hgcd
+  have hgcdLarge := hendpoint P Q a b S u v ha hb hab hKeller
+    hPdegree hQdegree hAdegree hBdegree hPtotal hQtotal huv
+  omega
 
 /-- One literal value of the common leading-degree scale at a fixed partial-
 degree pair. -/
@@ -279,8 +307,24 @@ theorem planeKellerEvenLeadingScaleAtDegrees_of_standardEndpoint_and_lowScales
   planeKellerEvenLeadingScaleAtDegrees_of_standardEndpoint_and_zero_two
     m n hmpos hnpos hgcd hma hnb hendpoint hlow.1 hlow.2
 
+/-- Source-facing bundled version whose classical premise is exactly the
+numerical endpoint conclusion stated in the literature. -/
+theorem planeKellerEvenLeadingScaleAtDegrees_of_standardEndpointObstruction_and_lowScales
+    {K : Type*} [Field K] [CharZero K]
+    (m n : ℕ) (hmpos : 0 < m) (hnpos : 0 < n)
+    (hgcd : Nat.gcd m n = 2)
+    (hma : 1 < m / 2) (hnb : 1 < n / 2)
+    (hendpoint : PlaneKellerStandardEndpointGCDObstruction (K := K))
+    (hlow : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) m n) :
+    PlaneKellerEvenLeadingScaleAtDegrees (K := K) m n :=
+  planeKellerEvenLeadingScaleAtDegrees_of_standardEndpoint_and_lowScales
+    m n hmpos hnpos hgcd hma hnb
+    (planeKellerStandardEndpointGCDRoute_of_obstruction hendpoint) hlow
+
+#print axioms planeKellerStandardEndpointGCDRoute_of_obstruction
 #print axioms planeKellerLeadingScaleAtDegrees_of_gcd_two_of_two_lt_scale
 #print axioms planeKellerEvenLeadingScaleAtDegrees_of_standardEndpoint_and_zero_two
 #print axioms planeKellerEvenLeadingScaleAtDegrees_of_standardEndpoint_and_lowScales
+#print axioms planeKellerEvenLeadingScaleAtDegrees_of_standardEndpointObstruction_and_lowScales
 
 end Max11DegreeRoutes

@@ -11,8 +11,9 @@ HISTORY_DEGREE_THEOREMS="$(sed -n 's/^theorem \([^ ]*\).*/Max11DegreeRoutes.\1/p
 TOTAL_DEGREE_THEOREMS="$(sed -n 's/^theorem \([^ ]*\).*/Max11DegreeRoutes.\1/p' TotalDegreeRoutes.lean)"
 COPRIME_DEGREE_THEOREMS="$(sed -n 's/^theorem \([^ ]*\).*/Max11DegreeRoutes.\1/p' CoprimeDegreeRoute.lean)"
 ENDPOINT_GCD_THEOREMS="$(sed -n 's/^theorem \([^ ]*\).*/Max11DegreeRoutes.\1/p' EndpointGCDRoute.lean)"
+LOW_SCALE_THEOREMS="$(sed -n 's/^theorem \([^ ]*\).*/Max11DegreeRoutes.\1/p' LowScaleCore.lean)"
 ASSEMBLY_THEOREMS="$(sed -n 's/^theorem \([^ ]*\).*/Max11DegreeRoutes.\1/p' Max11Assembly.lean)"
-THEOREMS="$BASE_THEOREMS $ROUTE_THEOREMS $DEGREE_THEOREMS $HISTORY_THEOREMS $HISTORY_DEGREE_THEOREMS $TOTAL_DEGREE_THEOREMS $COPRIME_DEGREE_THEOREMS $ENDPOINT_GCD_THEOREMS $ASSEMBLY_THEOREMS"
+THEOREMS="$BASE_THEOREMS $ROUTE_THEOREMS $DEGREE_THEOREMS $HISTORY_THEOREMS $HISTORY_DEGREE_THEOREMS $TOTAL_DEGREE_THEOREMS $COPRIME_DEGREE_THEOREMS $ENDPOINT_GCD_THEOREMS $LOW_SCALE_THEOREMS $ASSEMBLY_THEOREMS"
 PROBE="import Max11Assembly\n"
 for thm in $THEOREMS; do
   PROBE="${PROBE}#print axioms ${thm}\n"

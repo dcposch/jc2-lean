@@ -258,6 +258,22 @@ def PlaneKellerStandardEndpointGCDRoute
     u < v → Nat.gcd u v ≤ 2 →
     PlanePairGenerates P Q
 
+/-- The literal numerical conclusion of the classical standard-pair endpoint
+theorem. -/
+def PlaneKellerStandardEndpointGCDObstruction
+    {K : Type*} [Field K] : Prop :=
+  ∀ (P Q : MvPolynomial (Fin 2) K) (a b S u v : ℕ),
+    1 < a → 1 < b → a.Coprime b →
+    IsPlaneKellerPair P Q →
+    MvPolynomial.degreeOf 1 P = a * u →
+    MvPolynomial.degreeOf 1 Q = b * u →
+    (((Polynomial.Bivariate.equivMvPolynomial K).symm P).coeff (a * u)).natDegree =
+      a * v →
+    (((Polynomial.Bivariate.equivMvPolynomial K).symm Q).coeff (b * u)).natDegree =
+      b * v →
+    P.totalDegree = a * S → Q.totalDegree = b * S →
+    u < v → 2 < Nat.gcd u v
+
 /-- One literal common leading-degree scale at a fixed partial-degree pair. -/
 def PlaneKellerLeadingScaleAtDegrees
     {K : Type*} [Field K] (m n H : ℕ) : Prop :=
@@ -275,6 +291,95 @@ def PlaneKellerLowEvenLeadingScalesAtDegrees
     {K : Type*} [Field K] (m n : ℕ) : Prop :=
   PlaneKellerLeadingScaleAtDegrees (K := K) m n 0 ∧
     PlaneKellerLeadingScaleAtDegrees (K := K) m n 2
+
+/-- Exact normalized source data for the `(4,6)` low-scale leaf. -/
+def Normalized46LeadingCoreSource {K : Type*} [Field K]
+    (P Q : MvPolynomial (Fin 2) K) (h : Polynomial K) (H : ℕ) : Prop :=
+  h ≠ 0 ∧ h.natDegree = H ∧
+  MvPolynomial.degreeOf 1 P = 4 ∧ MvPolynomial.degreeOf 1 Q = 6 ∧
+  ((Polynomial.Bivariate.equivMvPolynomial K).symm P).coeff 4 = h ^ 2 ∧
+  ((Polynomial.Bivariate.equivMvPolynomial K).symm Q).coeff 6 = h ^ 3 ∧
+  IsPlaneKellerPair P Q
+
+/-- The normalized `(4,6)` route at common-core degree zero or two. -/
+def PlaneKellerNormalized46LowScaleRoute
+    {K : Type*} [Field K] : Prop :=
+  ∀ (P Q : MvPolynomial (Fin 2) K) (h : Polynomial K) (H : ℕ),
+    (H = 0 ∨ H = 2) → Normalized46LeadingCoreSource P Q h H →
+    PlanePairGenerates P Q
+
+/-- Exact normalized source data for consecutive reduced leading weights. -/
+def NormalizedConsecutiveLeadingCoreSource {K : Type*} [Field K]
+    (r : ℕ) (P Q : MvPolynomial (Fin 2) K) (h : Polynomial K) (H : ℕ) : Prop :=
+  h ≠ 0 ∧ h.natDegree = H ∧
+  MvPolynomial.degreeOf 1 P = 2 * r ∧
+  MvPolynomial.degreeOf 1 Q = 2 * (r + 1) ∧
+  ((Polynomial.Bivariate.equivMvPolynomial K).symm P).coeff (2 * r) = h ^ r ∧
+  ((Polynomial.Bivariate.equivMvPolynomial K).symm Q).coeff (2 * (r + 1)) =
+    h ^ (r + 1) ∧
+  IsPlaneKellerPair P Q
+
+/-- The normalized low-scale route for consecutive reduced weights. -/
+def PlaneKellerNormalizedConsecutiveLowScaleRoute
+    {K : Type*} [Field K] (r : ℕ) : Prop :=
+  ∀ (P Q : MvPolynomial (Fin 2) K) (h : Polynomial K) (H : ℕ),
+    (H = 0 ∨ H = 2) → NormalizedConsecutiveLeadingCoreSource r P Q h H →
+    PlanePairGenerates P Q
+
+/-- Normalized `(6,8)` source data. -/
+abbrev Normalized68LeadingCoreSource {K : Type*} [Field K]
+    (P Q : MvPolynomial (Fin 2) K) (h : Polynomial K) (H : ℕ) : Prop :=
+  NormalizedConsecutiveLeadingCoreSource 3 P Q h H
+
+/-- The normalized `(6,8)` low-scale route. -/
+abbrev PlaneKellerNormalized68LowScaleRoute
+    {K : Type*} [Field K] : Prop :=
+  PlaneKellerNormalizedConsecutiveLowScaleRoute (K := K) 3
+
+/-- Normalized `(8,10)` source data. -/
+abbrev Normalized810LeadingCoreSource {K : Type*} [Field K]
+    (P Q : MvPolynomial (Fin 2) K) (h : Polynomial K) (H : ℕ) : Prop :=
+  NormalizedConsecutiveLeadingCoreSource 4 P Q h H
+
+/-- The normalized `(8,10)` low-scale route. -/
+abbrev PlaneKellerNormalized810LowScaleRoute
+    {K : Type*} [Field K] : Prop :=
+  PlaneKellerNormalizedConsecutiveLowScaleRoute (K := K) 4
+
+/-- Exact normalized source data for arbitrary reduced leading weights. -/
+def NormalizedCoprimeLeadingCoreSource {K : Type*} [Field K]
+    (r s : ℕ) (P Q : MvPolynomial (Fin 2) K) (h : Polynomial K) (H : ℕ) : Prop :=
+  h ≠ 0 ∧ h.natDegree = H ∧
+  MvPolynomial.degreeOf 1 P = 2 * r ∧
+  MvPolynomial.degreeOf 1 Q = 2 * s ∧
+  ((Polynomial.Bivariate.equivMvPolynomial K).symm P).coeff (2 * r) = h ^ r ∧
+  ((Polynomial.Bivariate.equivMvPolynomial K).symm Q).coeff (2 * s) = h ^ s ∧
+  IsPlaneKellerPair P Q
+
+/-- The normalized low-scale route for reduced weights `(r,s)`. -/
+def PlaneKellerNormalizedCoprimeLowScaleRoute
+    {K : Type*} [Field K] (r s : ℕ) : Prop :=
+  ∀ (P Q : MvPolynomial (Fin 2) K) (h : Polynomial K) (H : ℕ),
+    (H = 0 ∨ H = 2) → NormalizedCoprimeLeadingCoreSource r s P Q h H →
+    PlanePairGenerates P Q
+
+/-- Normalized `(4,10)` source data and low-scale route. -/
+abbrev Normalized410LeadingCoreSource {K : Type*} [Field K]
+    (P Q : MvPolynomial (Fin 2) K) (h : Polynomial K) (H : ℕ) : Prop :=
+  NormalizedCoprimeLeadingCoreSource 2 5 P Q h H
+
+abbrev PlaneKellerNormalized410LowScaleRoute
+    {K : Type*} [Field K] : Prop :=
+  PlaneKellerNormalizedCoprimeLowScaleRoute (K := K) 2 5
+
+/-- Normalized `(6,10)` source data and low-scale route. -/
+abbrev Normalized610LeadingCoreSource {K : Type*} [Field K]
+    (P Q : MvPolynomial (Fin 2) K) (h : Polynomial K) (H : ℕ) : Prop :=
+  NormalizedCoprimeLeadingCoreSource 3 5 P Q h H
+
+abbrev PlaneKellerNormalized610LowScaleRoute
+    {K : Type*} [Field K] : Prop :=
+  PlaneKellerNormalizedCoprimeLowScaleRoute (K := K) 3 5
 
 /-- Impossibility of the cube-core part of the historical
 `(6,9), 3 ∣ deg h` residue. -/
@@ -533,6 +638,74 @@ theorem Max11PlaneKellerGenerationWithStandardEndpointAndFiveLowScaleLeaves
     (h68 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 6 8)
     (h610 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 6 10)
     (h810 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 8 10) :
+    ∀ P Q : MvPolynomial (Fin 2) K,
+      MvPolynomial.degreeOf 1 P ≤ 11 →
+      MvPolynomial.degreeOf 1 Q ≤ 11 →
+      IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
+  sorry
+
+/-- Max-11 from the literal numerical standard-endpoint obstruction and the
+ten remaining low-scale leaves. -/
+theorem Max11PlaneKellerGenerationWithStandardEndpointObstructionAndFiveLowScaleLeaves
+    {K : Type*} [Field K] [CharZero K] [IsAlgClosed K]
+    (hprime : PlaneKellerPrimeTotalDegreeGCDRoute (K := K))
+    (hendpoint : PlaneKellerStandardEndpointGCDObstruction (K := K))
+    (h46 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 4 6)
+    (h410 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 4 10)
+    (h68 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 6 8)
+    (h610 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 6 10)
+    (h810 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 8 10) :
+    ∀ P Q : MvPolynomial (Fin 2) K,
+      MvPolynomial.degreeOf 1 P ≤ 11 →
+      MvPolynomial.degreeOf 1 Q ≤ 11 →
+      IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
+  sorry
+
+/-- Max-11 after normalizing the `(4,6)` low-scale leaf to its literal
+square/cube common-core source. -/
+theorem Max11PlaneKellerGenerationWithNormalized46AndFourLowScaleLeaves
+    {K : Type*} [Field K] [CharZero K] [IsAlgClosed K]
+    (hprime : PlaneKellerPrimeTotalDegreeGCDRoute (K := K))
+    (hendpoint : PlaneKellerStandardEndpointGCDObstruction (K := K))
+    (h46 : PlaneKellerNormalized46LowScaleRoute (K := K))
+    (h410 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 4 10)
+    (h68 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 6 8)
+    (h610 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 6 10)
+    (h810 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 8 10) :
+    ∀ P Q : MvPolynomial (Fin 2) K,
+      MvPolynomial.degreeOf 1 P ≤ 11 →
+      MvPolynomial.degreeOf 1 Q ≤ 11 →
+      IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
+  sorry
+
+/-- Max-11 after normalizing the three leaves with consecutive reduced
+weights; only `(4,10)` and `(6,10)` remain in coefficient-degree form. -/
+theorem Max11PlaneKellerGenerationWithThreeNormalizedAndTwoLowScaleLeaves
+    {K : Type*} [Field K] [CharZero K] [IsAlgClosed K]
+    (hprime : PlaneKellerPrimeTotalDegreeGCDRoute (K := K))
+    (hendpoint : PlaneKellerStandardEndpointGCDObstruction (K := K))
+    (h46 : PlaneKellerNormalized46LowScaleRoute (K := K))
+    (h410 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 4 10)
+    (h68 : PlaneKellerNormalized68LowScaleRoute (K := K))
+    (h610 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 6 10)
+    (h810 : PlaneKellerNormalized810LowScaleRoute (K := K)) :
+    ∀ P Q : MvPolynomial (Fin 2) K,
+      MvPolynomial.degreeOf 1 P ≤ 11 →
+      MvPolynomial.degreeOf 1 Q ≤ 11 →
+      IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
+  sorry
+
+/-- Max-11 after normalizing all five primitive gcd-two leaves to exact
+common-core sources at scale zero or two. -/
+theorem Max11PlaneKellerGenerationWithFiveNormalizedLowScaleRoutes
+    {K : Type*} [Field K] [CharZero K] [IsAlgClosed K]
+    (hprime : PlaneKellerPrimeTotalDegreeGCDRoute (K := K))
+    (hendpoint : PlaneKellerStandardEndpointGCDObstruction (K := K))
+    (h46 : PlaneKellerNormalized46LowScaleRoute (K := K))
+    (h410 : PlaneKellerNormalized410LowScaleRoute (K := K))
+    (h68 : PlaneKellerNormalized68LowScaleRoute (K := K))
+    (h610 : PlaneKellerNormalized610LowScaleRoute (K := K))
+    (h810 : PlaneKellerNormalized810LowScaleRoute (K := K)) :
     ∀ P Q : MvPolynomial (Fin 2) K,
       MvPolynomial.degreeOf 1 P ≤ 11 →
       MvPolynomial.degreeOf 1 Q ≤ 11 →

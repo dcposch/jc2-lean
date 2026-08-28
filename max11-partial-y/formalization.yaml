@@ -20,10 +20,11 @@ project:
     prime theorem.  A finite classifier further reduces gcd two to five
     primitive unordered degree pairs through eleven.  An exact source-shear
     adapter to the published standard-pair endpoint obstruction eliminates
-    every even common-leading scale above two.  The narrowest final inputs are
-    therefore the prime theorem, the standard-endpoint theorem, and the
-    literal common scales zero and two at `(4,6)`, `(4,10)`, `(6,8)`,
-    `(6,10)`, and `(8,10)`.
+    every even common-leading scale above two.  UFD extraction and invertible
+    target rescaling then normalize all five residual pairs to literal common
+    powers.  The narrowest final inputs are therefore the prime theorem, the
+    standard-endpoint theorem, and the normalized common-core scales zero and
+    two at `(4,6)`, `(4,10)`, `(6,8)`, `(6,10)`, and `(8,10)`.
   authors:
     - "Dan Clemens Posch"
   license: "Apache-2.0"
@@ -123,10 +124,15 @@ status:
     second checked adapter applies the reliable standard-pair endpoint
     obstruction after a large source shear: it preserves the partial degrees
     and leading coefficients, produces normalized endpoint (2,H), and closes
-    every even scale H > 2.  Thus only H = 0 and H = 2 remain at each of the
-    five pairs.  Not proved here: scalar-extension/descent, the
+    every even scale H > 2.  For each of the five remaining pairs, the top
+    Jacobian row is further factored in the polynomial UFD into exact common
+    powers with reduced weights (2,3), (2,5), (3,4), (3,5), or (4,5).
+    Independent target rescalings remove both scalar factors, preserve Keller
+    and generation, and prove that the common core has degree exactly H.
+    Thus only the normalized H = 0 and H = 2 sources remain at each pair.
+    Not proved here: scalar-extension/descent, the
     prime-total-degree-gcd theorem itself, the standard-endpoint theorem
-    itself, or those ten literal low-scale subcases.  The
+    itself, or those ten normalized low-scale subcases.  The
     strong twice-prime statement is not treated as established:
     GGV 2017 proves the restriction for the globally minimal counterexample
     gcd B and records a gap in the earlier arbitrary-pair proof.
@@ -134,6 +140,16 @@ status:
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
   main_results:
+    - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithFiveNormalizedLowScaleRoutes"
+      file: "Max11Assembly.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithStandardEndpointObstructionAndFiveLowScaleLeaves"
+      file: "Max11Assembly.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
     - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithStandardEndpointAndFiveLowScaleLeaves"
       file: "Max11Assembly.lean"
       sorry_count: 0
@@ -282,9 +298,11 @@ fidelity:
     gcd-two cases from the same input.  A second finite classifier reduces the
     former gcd-at-most-two premise to the even-scale subcase of five explicit
     pairs.  The standard-pair endpoint obstruction then reduces those five
-    unbounded residues to the literal scales zero and two.  It does not
+    unbounded residues to the literal scales zero and two, and polynomial-UFD
+    extraction plus target rescaling puts all ten cases into exact normalized
+    common-core form.  It does not
     formalize the published prime theorem, the standard-endpoint theorem,
-    those ten low-scale theorems, an arbitrary-pair twice-prime theorem, or
+    those ten normalized low-scale theorems, an arbitrary-pair twice-prime theorem, or
     scalar-extension descent.  In particular, GGV
     2017's theorem about the globally minimal
     counterexample gcd B is not silently strengthened to a theorem about every
@@ -302,8 +320,8 @@ review:
     Kernel axiom reports and the project audit script find no sorryAx or
     non-permitted axioms in Max11Core.lean, ClassicalRoutes.lean,
     DegreeRoutes.lean, HistoryRoute.lean, HistoryDegree.lean,
-    TotalDegreeRoutes.lean, CoprimeDegreeRoute.lean, EndpointGCDRoute.lean, or
-    Max11Assembly.lean.
+    TotalDegreeRoutes.lean, CoprimeDegreeRoute.lean, EndpointGCDRoute.lean,
+    LowScaleCore.lean, or Max11Assembly.lean.
 
 alignment:
   namespace: "(root)"
@@ -315,15 +333,15 @@ alignment:
         exact abstract recursion proved; Keller-pair route theorems remain
         hypotheses
     - source: "Maximum actual partial y-degree eleven theorem, Sections 1 and 6"
-      lean: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithStandardEndpointAndFiveLowScaleLeaves"
+      lean: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithFiveNormalizedLowScaleRoutes"
       module: "Challenge"
       status: >-
         exact bivariate polynomial conclusion and finite composition proved;
         the zero, equal-degree, divisibility, exhaustive (6,9), coprime-degree,
         odd-scale gcd-two, and large-even-scale adapter routes are proved; the
         prime-total-degree-gcd theorem, standard-pair endpoint obstruction,
-        and literal common scales zero and two at five explicit gcd-two degree
-        pairs remain as hypotheses
+        and normalized common-core scales zero and two at five explicit
+        gcd-two degree pairs remain as hypotheses
     - source: "Maximum-twelve frontier checksum, Section 9"
       lean: "Max12FirstPrimitives"
       module: "Challenge"

@@ -64,12 +64,17 @@ reliable standard-pair endpoint obstruction of
 Guccione--Guccione--Valqui: its normalized endpoint has coordinate gcd
 strictly greater than two.  This eliminates every even common-leading scale
 `H > 2`.  Consequently
-`Max11DegreeRoutes.Max11PlaneKellerGenerationWithStandardEndpointAndFiveLowScaleLeaves`
-is the current narrowest honest headline: besides the published prime-gcd and
-standard-endpoint theorems, only the literal scales `H = 0` and `H = 2` at
-those five pairs remain.  A separate checked adapter shows that the strong
-arbitrary-pair twice-prime total-degree interface would close all five, but
-that interface is not treated as an established theorem.
+`Max11DegreeRoutes.Max11PlaneKellerGenerationWithStandardEndpointObstructionAndFiveLowScaleLeaves`
+leaves only the scales `H = 0` and `H = 2` at those five pairs.  Finally,
+`LowScaleCore.lean` derives the exact common-power leading rows and removes
+their scalar units for every one of the five pairs.  The current narrowest
+honest headline,
+`Max11DegreeRoutes.Max11PlaneKellerGenerationWithFiveNormalizedLowScaleRoutes`,
+therefore asks only for the published prime-gcd theorem, the literal numerical
+standard-endpoint obstruction, and the five uniform normalized `H = 0/2`
+routes.  A separate checked adapter shows that the strong arbitrary-pair
+twice-prime total-degree interface would close all five, but that interface is
+not treated as an established theorem.
 
 ## Compared declarations
 
@@ -163,10 +168,24 @@ that interface is not treated as an established theorem.
   one of those leaves at an even common scale `H > 2`.  The proof checks the
   exact source-shear degree, leading-coefficient preservation, normalized
   endpoint `(2,H)`, and transport of Keller and generation predicates.
-- `Max11DegreeRoutes.Max11PlaneKellerGenerationWithStandardEndpointAndFiveLowScaleLeaves`
-  is the current narrowest source-honest top of the tower: its inputs are the
-  prime-total-degree-gcd theorem, the standard-pair endpoint obstruction, and
-  only the literal scales `H = 0` and `H = 2` at the five enumerated pairs.
+- `Max11DegreeRoutes.planeKellerStandardEndpointGCDRoute_of_obstruction`
+  derives the older generation-form compatibility interface from the
+  literature's exact numerical conclusion `2 < gcd(u,v)` by contradiction.
+- `Max11DegreeRoutes.Max11PlaneKellerGenerationWithStandardEndpointObstructionAndFiveLowScaleLeaves`
+  reduces the top of the tower to the
+  prime-total-degree-gcd theorem, the literal standard-pair endpoint gcd
+  obstruction, and only the scales `H = 0` and `H = 2` at the five enumerated
+  pairs.
+- `Max11DegreeRoutes.planeKellerPair_46_normalizeAtScale`, together with its
+  `(4,10)`, `(6,8)`, `(6,10)`, and `(8,10)` analogues, proves from the top
+  Jacobian row that every residual pair has exact leading coefficients
+  `alpha*h^r,beta*h^s`, removes both scalar units by target rescaling, and
+  identifies `deg h = H`.  The nonconsecutive `(2,5)` and `(3,5)` UFD cases
+  are reduced internally to the square/cube lemma.
+- `Max11DegreeRoutes.Max11PlaneKellerGenerationWithFiveNormalizedLowScaleRoutes`
+  is the current narrowest source-honest headline: the ten remaining literal
+  cases now share one exact normalized form, with reduced weights `(2,3)`,
+  `(2,5)`, `(3,4)`, `(3,5)`, and `(4,5)` and common-core degree zero or two.
 - `Max11DegreeRoutes.Max11PlaneKellerGenerationWithPrimeAndTwicePrimeTotalDegreeGCDRoutes`
   records the fully assembled implication from prime and strong arbitrary-pair
   twice-prime total-degree routes.  The implication is checked; availability
@@ -189,8 +208,10 @@ Dirichlet reduction.  It now proves the coprime partial-degree route and the
 odd-common-scale half of partial-degree gcd two from the classical
 prime-total-degree-gcd theorem.  It still does not prove scalar-extension
 descent, the prime theorem itself, the standard-pair endpoint theorem itself,
-or the literal common-scale `H = 0` and `H = 2` subcases of those five gcd-two
-pairs.  The endpoint theorem is the first assertion of Guccione--Guccione--
+or the literal normalized common-core `H = 0` and `H = 2` subcases of those
+five gcd-two pairs.  It does prove the common-power UFD factorization, exact
+core degree, scalar normalization, and generation transport for all five.
+The endpoint theorem is the first assertion of Guccione--Guccione--
 Valqui's Corollary 7.9 and applies to every standard pair.  By contrast, the
 same corollary's `B \ne 2p` assertion concerns only the globally minimal
 counterexample gcd `B`; a primary-source re-audit confirmed that it does not
@@ -217,6 +238,6 @@ lake build
 
 `Max11Core.lean`, `ClassicalRoutes.lean`, `DegreeRoutes.lean`,
 `HistoryRoute.lean`, `HistoryDegree.lean`, `TotalDegreeRoutes.lean`,
-`CoprimeDegreeRoute.lean`, `EndpointGCDRoute.lean`, and `Max11Assembly.lean` contain no
-`sorry`, custom axioms, or trust escapes.  The permitted axioms are `propext`,
-`Classical.choice`, and `Quot.sound`.
+`CoprimeDegreeRoute.lean`, `EndpointGCDRoute.lean`, `LowScaleCore.lean`, and
+`Max11Assembly.lean` contain no `sorry`, custom axioms, or trust escapes.  The
+permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.
