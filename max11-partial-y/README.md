@@ -244,7 +244,11 @@ not treated as an established theorem.
   `LowScale46AlignedZeroFinitePoles.lean` begins the remaining final-stratum
   finite-pole calculation.  It verifies the exact cleared equations for
   `W=s^4(U-8gamma/3)` and proves directly from the literal local `J2,J1`
-  rows that `k2!=0` forces `v(Y)=v(W)=7/2`.
+  rows that `k2!=0` forces `v(Y)=v(W)=7/2`.  It then exhausts the three
+  possibilities for `2v(Q)` against `7/2`: the lower case violates the first
+  boundary, the higher case gives incompatible leading coefficients, and the
+  tie makes `Q^3` uniquely lowest in the exact second boundary.  Hence every
+  final aligned finite-pole branch reaches `k2=0`.
   `LowScale46Depression.lean` performs the exact source substitution
   `y=(z-r)/h` on the quartic and sextic and proves that the normalized quintic
   coefficient is zero in the aligned branch and `-lambda/2` in the mismatch

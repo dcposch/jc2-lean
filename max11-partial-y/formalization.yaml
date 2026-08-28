@@ -270,7 +270,7 @@ status:
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator.json"
-    - declaration: "Max11DegreeRoutes.alignedZeroLocalCurveOrders46"
+    - declaration: "Max11DegreeRoutes.alignedZeroFinitePole46_exhaustive"
       file: "LowScale46AlignedZeroFinitePoles.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
