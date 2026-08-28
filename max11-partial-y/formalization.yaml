@@ -76,7 +76,8 @@ sources:
       low scales.  The `(6,8)` modules extend that original development through
       the canonical nontrivial expanded weighted-boundary cubic-core theorem,
       strict transverse degree drop, exact-cubic contradiction, and attained
-      positive secondary defect radius.
+      positive secondary defect radius.  The first abstract secondary chamber
+      is classified exactly.
       These statements
       refine the frozen finite composition and use the two published results
       listed below only at their explicitly typed interfaces.
@@ -243,7 +244,9 @@ status:
     one-form then contradicts the nonzero Keller constant.  The minimum of
     the four actual transverse degree deficits is consequently positive and
     attained by a nonzero defect, with all four sharpened degree bounds; no
-    equal-drop assumption is made.
+    equal-drop assumption is made.  In the abstract chamber `2g<n`, the exact
+    five-equation face solver forces the leading defects to satisfy `e=0` and
+    `a*b=3*d`.
     Not proved here: scalar-extension/descent, the
     prime-total-degree-gcd theorem itself, the standard-endpoint theorem
     itself, the secondary Newton-face `(6,8)` scale-zero descent, or the other
@@ -324,6 +327,10 @@ status:
       axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_secondaryRadius68"
       file: "LowScale68SecondaryRadius.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.firstSecondaryFace68_classify_of_two_mul_gap_lt_radius"
+      file: "LowScale68SecondaryFace.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.mismatchDegreeCone46"
@@ -626,7 +633,8 @@ fidelity:
     scale-zero route is proved through extraction and expansion to its
     canonical nontrivial cubic-core polynomial boundary, strict transverse
     degree drop, contradiction on the exact cubic locus, and attained positive
-    secondary defect radius.  It does not
+    secondary defect radius.  Its abstract small-gap face is classified, but
+    not yet extracted from the polynomial rows.  It does not
     formalize the published prime theorem, the standard-endpoint theorem,
     the secondary Newton-face `(6,8)` scale-zero descent, the other seven
     normalized low-scale theorems, an arbitrary-pair twice-prime theorem, or
@@ -653,7 +661,8 @@ review:
     LowScale68SourceBridge.lean, LowScale68ScaleZero.lean,
     LowScale68Infinity.lean, LowScale68PolynomialBoundary.lean,
     LowScale68WeightedRadius.lean, LowScale68Expansion.lean,
-    LowScale68CubicDescent.lean, LowScale68SecondaryRadius.lean, or
+    LowScale68CubicDescent.lean, LowScale68SecondaryRadius.lean,
+    LowScale68SecondaryFace.lean, or
     Max11Assembly.lean.
 
 alignment:
@@ -678,7 +687,8 @@ alignment:
         hypotheses; the `(6,8)` scale-zero proof is internally advanced through
         its canonical nontrivial expanded polynomial cubic-core boundary,
         strict transverse degree drop, exact-cubic contradiction, and attained
-        positive secondary defect radius
+        positive secondary defect radius; its abstract `2g<n` face is
+        classified, while polynomial face extraction remains open
     - source: "Maximum-twelve frontier checksum, Section 9"
       lean: "Max12FirstPrimitives"
       module: "Max11Challenge"

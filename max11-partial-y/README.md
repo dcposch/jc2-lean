@@ -377,8 +377,12 @@ not treated as an established theorem.
   degree deficits, without assuming that they are equal.  A sentinel removes
   zero defects; the exact-cubic contradiction proves that the positive gap is
   attained by a genuine nonzero defect and supplies all four sharpened degree
-  bounds.  Extracting and eliminating its secondary Newton faces remains open,
-  as does the scale-two pole/degree analysis.
+  bounds.  `LowScale68SecondaryFace.lean` gives the exact algebraic solver for
+  the first chamber `2g<n`: the two invariant and three one-form face equations
+  force `e=0` and `a*b=3*d`, so only `(b,c,d,e)=(3d,c,d,0)` survives.
+  Extracting those equations from the polynomial system and eliminating this
+  residual face and the other gap chambers remain open, as does the scale-two
+  pole/degree analysis.
   `LowScale46NewtonFaces.lean` proves the underlying three- and four-term
   Hahn-series tied-minimum principle and the complete rational Newton-face
   tables for the aligned `beta ≠ 0` and `delta ≠ 0` strata.
@@ -428,8 +432,9 @@ itself, or the standard-pair endpoint theorem itself.  Among the eight cases
 left after `(4,6)`, the `(6,8)` scale-zero case is now proved through its
 canonical nontrivial expanded cubic-core top boundary, strict transverse
 degree drop, exact-cubic contradiction, and an attained positive secondary
-defect radius; its Newton-face descent and the other seven literal normalized
-low-scale subcases remain open.  It does
+defect radius; the abstract small-gap face is also classified.  Polynomial
+face extraction, the residual small-gap face, the other gap chambers, and the
+other seven literal normalized low-scale subcases remain open.  It does
 prove the common-power UFD factorization, exact
 core degree, scalar normalization, and generation transport for all five.
 The endpoint theorem is the first assertion of Guccione--Guccione--
@@ -480,7 +485,8 @@ lake build
 `LowScale68SourceBridge.lean`, `LowScale68ScaleZero.lean`,
 `LowScale68Infinity.lean`, `LowScale68PolynomialBoundary.lean`,
 `LowScale68WeightedRadius.lean`, `LowScale68Expansion.lean`,
-`LowScale68CubicDescent.lean`, `LowScale68SecondaryRadius.lean`, and
+`LowScale68CubicDescent.lean`, `LowScale68SecondaryRadius.lean`,
+`LowScale68SecondaryFace.lean`, and
 `Max11Assembly.lean`
 contain no `sorry`, custom axioms, or trust escapes.  The
 permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.
