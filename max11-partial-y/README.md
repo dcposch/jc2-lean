@@ -211,7 +211,10 @@ not treated as an established theorem.
   `(4,5,7)`, `(4,3,5)`, and `(4,1,3)` and their one-form degree gaps.  It also
   proves the generic polynomial leading-term principle that four nonzero
   displayed terms summing with a strictly lower-degree remainder must have a
-  tied maximum degree.
+  tied maximum degree.  `LowScale46PolynomialEndgame.lean` instantiates that
+  principle on the exact two coefficient-curve equations and closes the
+  complete mismatch polynomial endgame: all eight constant/nonconstant
+  patterns of `(A,B,U)` are incompatible with a nonzero constant last row.
   `LowScale46Depression.lean` performs the exact source substitution
   `y=(z-r)/h` on the quartic and sextic and proves that the normalized quintic
   coefficient is zero in the aligned branch and `-lambda/2` in the mismatch
@@ -278,7 +281,7 @@ lake build
 `LowScale46Rows.lean`, `LowScale46NormalForm.lean`, `LowScale46Curve.lean`,
 `LowScale46LocalChart.lean`, `LowScale46AlignedChart.lean`,
 `LowScale46DegreeCones.lean`, `LowScale46Depression.lean`,
-`LowScale46Integrality.lean`, `LowScale46NewtonFaces.lean`, and
-`Max11Assembly.lean`
+`LowScale46Integrality.lean`, `LowScale46NewtonFaces.lean`,
+`LowScale46PolynomialEndgame.lean`, and `Max11Assembly.lean`
 contain no `sorry`, custom axioms, or trust escapes.  The
 permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.
