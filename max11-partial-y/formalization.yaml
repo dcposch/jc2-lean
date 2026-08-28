@@ -170,7 +170,10 @@ status:
     coefficient invariants, followed by three literal one-form constraints.
     The exact raw sextic/octic affine depression is also verified, including
     the surviving septic alignment discriminator, and the literal source
-    bracket/raw coefficient bridge into `k(x)` is proved.
+    bracket/raw coefficient bridge into `k(x)` is proved.  The omitted top row
+    forces the septic coefficient to be constant; it and all seven Faber
+    residuals descend to the ground field and reconstruct the integrated
+    octic coefficients.
     Not proved here: scalar-extension/descent, the
     prime-total-degree-gcd theorem itself, the standard-endpoint theorem
     itself, or the eight remaining normalized low-scale subcases at the other
@@ -226,6 +229,10 @@ status:
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.differentialJacobian_affineDepress_sourceToRatFunc68"
+      file: "LowScale68SourceBridge.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.depressedCoefficients_integrate_over_ground68"
       file: "LowScale68SourceBridge.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]

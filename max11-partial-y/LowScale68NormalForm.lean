@@ -49,6 +49,43 @@ theorem coefficientDeriv_depressedOctic68 (d : Derivation k F F)
   simp [depressedOctic68, hL, Polynomial.coeff_X, Polynomial.coeff_C]
   split_ifs <;> simp_all
 
+/-- The full coefficientwise derivative before the septic coefficient has
+been shown constant. -/
+theorem coefficientDeriv_depressedOctic68_full (d : Derivation k F F)
+    (L P Q R S T U V : F) :
+    coefficientDeriv d (depressedOctic68 L P Q R S T U V) =
+      C (d L) * X ^ 7 + C (d P) * X ^ 6 + C (d Q) * X ^ 5 +
+        C (d R) * X ^ 4 + C (d S) * X ^ 3 + C (d T) * X ^ 2 +
+        C (d U) * X + C (d V) := by
+  ext n
+  simp [depressedOctic68, Polynomial.coeff_X, Polynomial.coeff_C]
+  split_ifs <;> simp_all
+
+/-- Constancy of the whole depressed bracket forces its septic coefficient
+to be a differential constant.  This is the omitted top row (`z^12`) of the
+twelve-row system below. -/
+theorem depressedL_deriv_zero68 [CharZero F] (d : Derivation k F F)
+    (L P Q R S T U V A B C0 D E terminal : F)
+    (hbracket : differentialJacobian d (depressedSextic68 A B C0 D E)
+        (depressedOctic68 L P Q R S T U V) = C terminal) :
+    d L = 0 := by
+  have h12 := congrArg (fun f : F[X] => f.coeff 12) hbracket
+  rw [differentialJacobian, coefficientDeriv_depressedSextic68,
+    coefficientDeriv_depressedOctic68_full] at h12
+  simp only [Polynomial.coeff_sub, Polynomial.coeff_mul, coeff_C,
+    show (12 : ℕ) ≠ 0 by norm_num, if_false] at h12
+  have hanti : (Finset.HasAntidiagonal.antidiagonal 12 : Finset (ℕ × ℕ)) =
+      ({(0, 12), (1, 11), (2, 10), (3, 9), (4, 8), (5, 7), (6, 6),
+        (7, 5), (8, 4), (9, 3), (10, 2), (11, 1), (12, 0)} :
+        Finset (ℕ × ℕ)) := by decide
+  rw [hanti] at h12
+  norm_num [depressedSextic68, depressedOctic68,
+    Polynomial.derivative_add, Polynomial.derivative_mul,
+    Polynomial.derivative_pow, Polynomial.derivative_X,
+    Polynomial.derivative_C, coeff_add, coeff_C, coeff_C_mul,
+    coeff_mul_X_pow', coeff_X, coeff_X_pow] at h12
+  exact h12
+
 /-- The twelve exact coefficient rows of the depressed `(6,8)` differential
 Jacobian, from `z^11` down to its constant coefficient. -/
 theorem differentialJacobian_depressed68_eq (d : Derivation k F F)
@@ -380,6 +417,8 @@ end DifferentialNormalForm68
 
 #print axioms coefficientDeriv_depressedSextic68
 #print axioms coefficientDeriv_depressedOctic68
+#print axioms coefficientDeriv_depressedOctic68_full
+#print axioms depressedL_deriv_zero68
 #print axioms differentialJacobian_depressed68_eq
 #print axioms derivation_ratCast_zero68
 #print axioms derivation_natDiv_zero68

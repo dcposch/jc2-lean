@@ -206,6 +206,127 @@ theorem affineDepress_sourceOctic68
   rw [sourceToRatFunc68_eq_rawOctic q h hq htop]
   exact affineDepress_rawOctic68 _ _ _ _ _ _ _ _ _ _ hh
 
+/-- For a literal degree-six/eight Keller bracket, the surviving depressed
+septic coefficient is automatically a differential constant. -/
+theorem sourceDepressedL_deriv_zero68
+    (p q : k[X][X]) (j : k) (h r : RatFunc k)
+    (hp : p.natDegree = 6) (hq : q.natDegree = 8) (hh : h ≠ 0)
+    (hpTop : algebraMap k[X] (RatFunc k) (p.coeff 6) = h ^ 6)
+    (hqTop : algebraMap k[X] (RatFunc k) (q.coeff 8) = h ^ 8)
+    (hr : r = sexticDepressionR68 h
+      (algebraMap k[X] (RatFunc k) (p.coeff 5)))
+    (hD : GCD369SourceXDeriv p * derivative q -
+      derivative p * GCD369SourceXDeriv q = C (C j)) :
+    ratFuncDerivation68
+      (depressedL68 h r (algebraMap k[X] (RatFunc k) (q.coeff 7))) = 0 := by
+  have hpDep := affineDepress_sourceSextic68 p h r hp hh hpTop hr
+  have hqDep := affineDepress_sourceOctic68 q h r hq hh hqTop
+  have hbracket := differentialJacobian_affineDepress_sourceToRatFunc68
+    p q j h r hh hD
+  rw [hpDep, hqDep] at hbracket
+  apply depressedL_deriv_zero68 ratFuncDerivation68
+  exact hbracket
+
+/-- The same septic coefficient therefore descends uniquely to the ground
+constant field `k`. -/
+theorem sourceDepressedL_exists_ground68
+    (p q : k[X][X]) (j : k) (h r : RatFunc k)
+    (hp : p.natDegree = 6) (hq : q.natDegree = 8) (hh : h ≠ 0)
+    (hpTop : algebraMap k[X] (RatFunc k) (p.coeff 6) = h ^ 6)
+    (hqTop : algebraMap k[X] (RatFunc k) (q.coeff 8) = h ^ 8)
+    (hr : r = sexticDepressionR68 h
+      (algebraMap k[X] (RatFunc k) (p.coeff 5)))
+    (hD : GCD369SourceXDeriv p * derivative q -
+      derivative p * GCD369SourceXDeriv q = C (C j)) :
+    ∃ l : k,
+      depressedL68 h r (algebraMap k[X] (RatFunc k) (q.coeff 7)) =
+        algebraMap k (RatFunc k) l := by
+  apply GCD369RatFuncConstantsOfPolynomialDerivative
+    ratFuncDerivation46_polynomial
+  simpa [ratFuncDerivation68, ratFuncDerivation46_apply] using
+    sourceDepressedL_deriv_zero68 p q j h r hp hq hh hpTop hqTop hr hD
+
+/-- Every differential constant in the seven-row Faber integration, as well
+as `L` itself, descends to the literal ground field of `k(x)`. -/
+theorem depressedResiduals_exist_ground68
+    (L P Q R S T U V A B C0 D E terminal : RatFunc k)
+    (hbracket : differentialJacobian ratFuncDerivation68
+        (depressedSextic68 A B C0 D E)
+        (depressedOctic68 L P Q R S T U V) = C terminal) :
+    ∃ l alpha beta gamma delta epsilon zeta eta : k,
+      L = algebraMap k (RatFunc k) l ∧
+      alphaResidual68 A P = algebraMap k (RatFunc k) alpha ∧
+      betaResidual68 L A B Q = algebraMap k (RatFunc k) beta ∧
+      gammaResidual68 L A B C0 P R = algebraMap k (RatFunc k) gamma ∧
+      deltaResidual68 L A B C0 D P Q S = algebraMap k (RatFunc k) delta ∧
+      epsilonResidual68 L A B C0 D E P Q R T =
+        algebraMap k (RatFunc k) epsilon ∧
+      zetaResidual68 L A B C0 D E P Q R S U =
+        algebraMap k (RatFunc k) zeta ∧
+      etaResidual68 L A B C0 D E P Q R S T V =
+        algebraMap k (RatFunc k) eta := by
+  have hL := depressedL_deriv_zero68 ratFuncDerivation68
+    L P Q R S T U V A B C0 D E terminal hbracket
+  rcases depressedUpperResiduals_deriv_zero68 ratFuncDerivation68
+      L P Q R S T U V A B C0 D E terminal hL hbracket with
+    ⟨halpha, hbeta, hgamma, hdelta, hepsilon, hzeta, heta⟩
+  have descend (c : RatFunc k) (hc : ratFuncDerivation68 c = 0) :
+      ∃ a : k, c = algebraMap k (RatFunc k) a := by
+    apply GCD369RatFuncConstantsOfPolynomialDerivative
+      ratFuncDerivation46_polynomial
+    simpa [ratFuncDerivation68, ratFuncDerivation46_apply] using hc
+  obtain ⟨l, hl⟩ := descend L hL
+  obtain ⟨alpha, halpha'⟩ := descend (alphaResidual68 A P) halpha
+  obtain ⟨beta, hbeta'⟩ := descend (betaResidual68 L A B Q) hbeta
+  obtain ⟨gamma, hgamma'⟩ :=
+    descend (gammaResidual68 L A B C0 P R) hgamma
+  obtain ⟨delta, hdelta'⟩ :=
+    descend (deltaResidual68 L A B C0 D P Q S) hdelta
+  obtain ⟨epsilon, hepsilon'⟩ :=
+    descend (epsilonResidual68 L A B C0 D E P Q R T) hepsilon
+  obtain ⟨zeta, hzeta'⟩ :=
+    descend (zetaResidual68 L A B C0 D E P Q R S U) hzeta
+  obtain ⟨eta, heta'⟩ :=
+    descend (etaResidual68 L A B C0 D E P Q R S T V) heta
+  exact ⟨l, alpha, beta, gamma, delta, epsilon, zeta, eta,
+    hl, halpha', hbeta', hgamma', hdelta', hepsilon', hzeta', heta'⟩
+
+/-- Consequently every octic coefficient has the integrated Faber form with
+all eight integration parameters in the ground field. -/
+theorem depressedCoefficients_integrate_over_ground68
+    (L P Q R S T U V A B C0 D E terminal : RatFunc k)
+    (hbracket : differentialJacobian ratFuncDerivation68
+        (depressedSextic68 A B C0 D E)
+        (depressedOctic68 L P Q R S T U V) = C terminal) :
+    ∃ l alpha beta gamma delta epsilon zeta eta : k,
+      L = algebraMap k (RatFunc k) l ∧
+      P = integratedP68 A (algebraMap k (RatFunc k) alpha) ∧
+      Q = integratedQ68 L A B (algebraMap k (RatFunc k) beta) ∧
+      R = integratedR68 L A B C0 (algebraMap k (RatFunc k) alpha)
+        (algebraMap k (RatFunc k) gamma) ∧
+      S = integratedS68 L A B C0 D (algebraMap k (RatFunc k) alpha)
+        (algebraMap k (RatFunc k) beta) (algebraMap k (RatFunc k) delta) ∧
+      T = integratedT68 L A B C0 D E (algebraMap k (RatFunc k) alpha)
+        (algebraMap k (RatFunc k) beta) (algebraMap k (RatFunc k) gamma)
+        (algebraMap k (RatFunc k) epsilon) ∧
+      U = integratedU68 L A B C0 D E (algebraMap k (RatFunc k) alpha)
+        (algebraMap k (RatFunc k) beta) (algebraMap k (RatFunc k) gamma)
+        (algebraMap k (RatFunc k) delta) (algebraMap k (RatFunc k) zeta) ∧
+      V = integratedV68 L A B C0 D E (algebraMap k (RatFunc k) alpha)
+        (algebraMap k (RatFunc k) beta) (algebraMap k (RatFunc k) gamma)
+        (algebraMap k (RatFunc k) delta) (algebraMap k (RatFunc k) epsilon)
+        (algebraMap k (RatFunc k) eta) := by
+  rcases depressedResiduals_exist_ground68 L P Q R S T U V A B C0 D E
+      terminal hbracket with
+    ⟨l, alpha, beta, gamma, delta, epsilon, zeta, eta, hl, halpha,
+      hbeta, hgamma, hdelta, hepsilon, hzeta, heta⟩
+  have hrec := reconstructOcticCoefficients68 L P Q R S T U V A B C0 D E
+  dsimp only at hrec
+  rw [halpha, hbeta, hgamma, hdelta, hepsilon, hzeta, heta] at hrec
+  exact ⟨l, alpha, beta, gamma, delta, epsilon, zeta, eta, hl,
+    hrec.1, hrec.2.1, hrec.2.2.1, hrec.2.2.2.1, hrec.2.2.2.2.1,
+    hrec.2.2.2.2.2.1, hrec.2.2.2.2.2.2⟩
+
 end SourceBridge68
 
 #print axioms differentialJacobian_sourceToRatFunc68
@@ -214,5 +335,9 @@ end SourceBridge68
 #print axioms sourceToRatFunc68_eq_rawOctic
 #print axioms affineDepress_sourceSextic68
 #print axioms affineDepress_sourceOctic68
+#print axioms sourceDepressedL_deriv_zero68
+#print axioms sourceDepressedL_exists_ground68
+#print axioms depressedResiduals_exist_ground68
+#print axioms depressedCoefficients_integrate_over_ground68
 
 end Max11DegreeRoutes

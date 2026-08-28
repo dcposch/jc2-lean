@@ -334,8 +334,11 @@ not treated as an established theorem.
   septic coefficient with the first sextic/octic alignment discriminator;
   `LowScale68SourceBridge.lean` now transports the literal polynomial Keller
   bracket to `k(x)`, reconstructs both raw sources, and proves the common
-  depressed bracket.  The remaining source package and exclusion of that
-  coefficient system remain open.
+  depressed bracket.  Its omitted top row forces the septic coefficient to be
+  constant; that coefficient and all seven Faber residuals are then descended
+  to the ground field, and the octic is reconstructed in integrated form.
+  Scale-specific pole/degree control and exclusion of the final three one-form
+  rows remain open.
   `LowScale46NewtonFaces.lean` proves the underlying three- and four-term
   Hahn-series tied-minimum principle and the complete rational Newton-face
   tables for the aligned `beta ≠ 0` and `delta ≠ 0` strata.
