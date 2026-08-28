@@ -223,6 +223,18 @@ def PlaneKellerEvenLeadingScaleGCDTwoRoute
       (n / 2) * H →
     2 ∣ H → PlanePairGenerates P Q
 
+/-- The same even-scale residue localized to one fixed partial-degree pair. -/
+def PlaneKellerEvenLeadingScaleAtDegrees
+    {K : Type*} [Field K] (m n : ℕ) : Prop :=
+  ∀ (P Q : MvPolynomial (Fin 2) K) (H : ℕ),
+    degreeOf 1 P = m → degreeOf 1 Q = n →
+    IsPlaneKellerPair P Q →
+    (((Polynomial.Bivariate.equivMvPolynomial K).symm P).coeff m).natDegree =
+      (m / 2) * H →
+    (((Polynomial.Bivariate.equivMvPolynomial K).symm Q).coeff n).natDegree =
+      (n / 2) * H →
+    2 ∣ H → PlanePairGenerates P Q
+
 /-- Dirichlet supplies an arbitrarily large shear exponent making `H+2L`
 prime whenever the common leading-degree scale `H` is odd. -/
 theorem exists_large_prime_eq_add_two_mul (H B : ℕ)
@@ -240,23 +252,16 @@ theorem exists_large_prime_eq_add_two_mul (H B : ℕ)
   · omega
   · rwa [← hpEq]
 
-/-- At partial-degree gcd two, the prime theorem discharges every pair with
-odd common leading-degree scale.  Only the even-scale interface remains. -/
-theorem planeKellerAutomorphicAtDegrees_of_gcd_two_and_evenLeadingScale
+/-- At one positive partial-degree gcd-two pair, the prime theorem discharges
+every odd common-scale source.  Only its localized even-scale interface
+remains. -/
+theorem planeKellerAutomorphicAtDegrees_of_gcd_two_and_evenLeadingScaleAtDegrees
     {K : Type*} [Field K] [CharZero K]
+    (m n : ℕ) (hmpos : 0 < m) (hnpos : 0 < n)
+    (hgcd : Nat.gcd m n = 2)
     (hprime : PlaneKellerPrimeTotalDegreeGCDRoute (K := K))
-    (heven : PlaneKellerEvenLeadingScaleGCDTwoRoute (K := K)) :
-    ∀ m n, Nat.gcd m n = 2 →
-      PlaneKellerAutomorphicAtDegrees (K := K) m n := by
-  intro m n hgcd
-  by_cases hmzero : m = 0
-  · subst m
-    exact Max11ClassicalRoutes.planeKellerAutomorphicAtDegrees_zero n
-  by_cases hnzero : n = 0
-  · subst n
-    exact (Max11ClassicalRoutes.planeKellerAutomorphicAtDegrees_zero m).swap
-  have hmpos : 0 < m := Nat.pos_of_ne_zero hmzero
-  have hnpos : 0 < n := Nat.pos_of_ne_zero hnzero
+    (heven : PlaneKellerEvenLeadingScaleAtDegrees (K := K) m n) :
+    PlaneKellerAutomorphicAtDegrees (K := K) m n := by
   intro P Q hP hQ hKeller
   let p := (Polynomial.Bivariate.equivMvPolynomial K).symm P
   let q := (Polynomial.Bivariate.equivMvPolynomial K).symm Q
@@ -293,7 +298,7 @@ theorem planeKellerAutomorphicAtDegrees_of_gcd_two_and_evenLeadingScale
   have hAdegree : A.natDegree = a * H := by simpa only [a] using hAdegree'
   have hBdegree : B.natDegree = b * H := by simpa only [b] using hBdegree'
   by_cases hHeven : 2 ∣ H
-  · exact heven P Q m n H hP hQ hmpos hnpos hgcd hKeller
+  · exact heven P Q H hP hQ hKeller
       (by simpa only [a] using hAdegree)
       (by simpa only [b] using hBdegree) hHeven
   · obtain ⟨L, hlarge, hscalePrime⟩ :=
@@ -334,6 +339,28 @@ theorem planeKellerAutomorphicAtDegrees_of_gcd_two_and_evenLeadingScale
       (planeSourceShear K L Q) (IsPlaneKellerPair.sourceShear hKeller L)
       (by rwa [hgcdTotal])
     exact (planePairGenerates_sourceShear_iff L P Q).mp hgenerates
+
+/-- Uniform form of the preceding localized gcd-two reduction. -/
+theorem planeKellerAutomorphicAtDegrees_of_gcd_two_and_evenLeadingScale
+    {K : Type*} [Field K] [CharZero K]
+    (hprime : PlaneKellerPrimeTotalDegreeGCDRoute (K := K))
+    (heven : PlaneKellerEvenLeadingScaleGCDTwoRoute (K := K)) :
+    ∀ m n, Nat.gcd m n = 2 →
+      PlaneKellerAutomorphicAtDegrees (K := K) m n := by
+  intro m n hgcd
+  by_cases hmzero : m = 0
+  · subst m
+    exact Max11ClassicalRoutes.planeKellerAutomorphicAtDegrees_zero n
+  by_cases hnzero : n = 0
+  · subst n
+    exact (Max11ClassicalRoutes.planeKellerAutomorphicAtDegrees_zero m).swap
+  have hmpos : 0 < m := Nat.pos_of_ne_zero hmzero
+  have hnpos : 0 < n := Nat.pos_of_ne_zero hnzero
+  apply planeKellerAutomorphicAtDegrees_of_gcd_two_and_evenLeadingScaleAtDegrees
+    m n hmpos hnpos hgcd hprime
+  intro P Q H hP hQ hKeller hAdegree hBdegree hHeven
+  exact heven P Q m n H hP hQ hmpos hnpos hgcd hKeller
+    hAdegree hBdegree hHeven
 
 /-- The strong arbitrary-pair twice-prime total-degree interface closes the
 remaining even-scale gcd-two case by factoring `H = 2H'` and choosing

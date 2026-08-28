@@ -56,13 +56,16 @@ top weighted-Wronskian row gives
 `n * natDegree(A) = m * natDegree(B)` for the two leading coefficients.  For
 coprime positive partial degrees this yields an integral common scale, and a
 large source shear makes the total-degree gcd prime.  At partial-degree gcd
-two, the same proof closes the odd common-scale case.  Consequently
-`Max11DegreeRoutes.Max11PlaneKellerGenerationWithEvenLeadingScaleGCDTwoRoute`
+two, the same proof closes the odd common-scale case.  A sharper finite
+classifier shows that equal and divisibility recursion leave only five such
+unordered pairs through eleven: `(4,6)`, `(4,10)`, `(6,8)`, `(6,10)`, and
+`(8,10)`.  Consequently
+`Max11DegreeRoutes.Max11PlaneKellerGenerationWithFiveEvenScaleGCDTwoLeaves`
 is the current narrowest honest headline: besides the published prime-gcd
-theorem, only the even common-leading-scale residue at partial-degree gcd two
+theorem, only the even common-leading-scale subcase of those five pairs
 remains.  A checked adapter shows that the strong arbitrary-pair twice-prime
-total-degree interface would close exactly that residue, but that interface is
-not treated as an established theorem.
+total-degree interface would close all five, but that interface is not treated
+as an established theorem.
 
 ## Compared declarations
 
@@ -70,6 +73,10 @@ not treated as an established theorem.
   takes one of the four standard routes or is `(6,9)`.
 - `Max11UniquePrimitive` states the same fact in fail-closed form: if none of
   the standard routes applies, the pair is exactly `(6,9)`.
+- `Max11PrimeRouteClassification` replaces the broad gcd-at-most-two branch
+  by coprimality and enumerates exactly five remaining gcd-two primitives.
+- `MaxPartialDegreeElevenClosureWithFiveGCDTwoLeaves` proves the corresponding
+  recursive closure theorem with those five concrete leaves.
 - `MaxPartialDegreeElevenClosure` proves the recursive closure theorem for an
   arbitrary symmetric predicate `Good`.  Its induction follows the strict
   sum decrease of every equal-degree or divisibility child.
@@ -143,8 +150,11 @@ not treated as an established theorem.
   additionally proves every partial-degree gcd-two pair whose reduced common
   leading-degree scale is odd; only the even-scale interface remains.
 - `Max11DegreeRoutes.Max11PlaneKellerGenerationWithEvenLeadingScaleGCDTwoRoute`
-  is the current narrowest source-honest top of the tower: its two inputs are
-  the published prime-total-degree-gcd theorem and that even-scale residue.
+  packages the uniform even-scale residue.
+- `Max11DegreeRoutes.Max11PlaneKellerGenerationWithFiveEvenScaleGCDTwoLeaves`
+  is the current narrowest source-honest top of the tower: its inputs are the
+  published prime-total-degree-gcd theorem and the even-scale subcase at only
+  the five enumerated gcd-two degree pairs.
 - `Max11DegreeRoutes.Max11PlaneKellerGenerationWithPrimeAndTwicePrimeTotalDegreeGCDRoutes`
   records the fully assembled implication from prime and strong arbitrary-pair
   twice-prime total-degree routes.  The implication is checked; availability
@@ -166,9 +176,10 @@ project also proves the complete local nondivisible-core source-shear and
 Dirichlet reduction.  It now proves the coprime partial-degree route and the
 odd-common-scale half of partial-degree gcd two from the classical
 prime-total-degree-gcd theorem.  It still does not prove scalar-extension
-descent, the prime theorem itself, or the even-common-scale gcd-two residue.
-That last residue follows from an arbitrary-pair twice-prime total-degree
-result.  A primary-source re-audit found that GGV 2017 proves only the
+descent, the prime theorem itself, or the even-common-scale subcases of those
+five gcd-two pairs.  Those last residues follow from an arbitrary-pair
+twice-prime total-degree result.  A primary-source re-audit found that GGV
+2017 proves only the
 corresponding restriction on the globally minimal counterexample gcd `B`; it
 explicitly records a gap in the earlier arbitrary-pair proof.
 Thus the strong twice-prime interface in `TotalDegreeRoutes.lean` is retained

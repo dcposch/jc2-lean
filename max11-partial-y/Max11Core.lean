@@ -31,6 +31,78 @@ theorem Max11UniquePrimitive (m n : ℕ) (hmn : m ≤ n) (hn : n ≤ 11)
   · exact False.elim (hdiv h)
   · exact h
 
+/-- The five unordered gcd-two pairs through eleven which are neither equal
+nor related by divisibility. -/
+def Max11GCDTwoPrimitive (m n : ℕ) : Prop :=
+  (m = 4 ∧ n = 6) ∨ (m = 4 ∧ n = 10) ∨
+  (m = 6 ∧ n = 8) ∨ (m = 6 ∧ n = 10) ∨ (m = 8 ∧ n = 10)
+
+/-- Replacing the broad gcd-at-most-two route by the coprime route leaves
+exactly five gcd-two primitive pairs, in addition to `(6,9)`. -/
+theorem Max11PrimeRouteClassification (m n : ℕ)
+    (hmn : m ≤ n) (hn : n ≤ 11) :
+    m = 0 ∨ m.Coprime n ∨ m = n ∨ (m < n ∧ m ∣ n) ∨
+      Max11GCDTwoPrimitive m n ∨ (m = 6 ∧ n = 9) := by
+  have hm : m ≤ 11 := hmn.trans hn
+  interval_cases m <;> interval_cases n <;> norm_num [Max11GCDTwoPrimitive] at *
+
+/-- Recursive closure through eleven using the coprime route and only the
+five genuinely primitive gcd-two leaves. -/
+theorem MaxPartialDegreeElevenClosureWithFiveGCDTwoLeaves
+    (Good : ℕ → ℕ → Prop)
+    (hsymm : ∀ m n, Good m n → Good n m)
+    (hzero : ∀ n, Good 0 n)
+    (hcop : ∀ m n, m.Coprime n → Good m n)
+    (hdiv : ∀ m n, m < n → m ∣ n → (∀ r, r < n → Good m r) → Good m n)
+    (hequal : ∀ n, (∀ r, r < n → Good r n) → Good n n)
+    (h46 : Good 4 6) (h410 : Good 4 10) (h68 : Good 6 8)
+    (h610 : Good 6 10) (h810 : Good 8 10) (h69 : Good 6 9) :
+    ∀ m n, m ≤ 11 → n ≤ 11 → Good m n := by
+  intro m n hm hn
+  generalize ht : m + n = t
+  induction t using Nat.strong_induction_on generalizing m n with
+  | h t ih =>
+      by_cases hmn : m ≤ n
+      · rcases Max11PrimeRouteClassification m n hmn hn with
+          hzero' | hcop' | heq' | hdiv' | htwo | hspecial
+        · subst m
+          exact hzero n
+        · exact hcop m n hcop'
+        · subst n
+          apply hequal m
+          intro r hr
+          exact ih (r + m) (by omega) r m (by omega) hm rfl
+        · apply hdiv m n hdiv'.1 hdiv'.2
+          intro r hr
+          exact ih (m + r) (by omega) m r hm (by omega) rfl
+        · rcases htwo with htwo | htwo | htwo | htwo | htwo
+          · rcases htwo with ⟨rfl, rfl⟩; exact h46
+          · rcases htwo with ⟨rfl, rfl⟩; exact h410
+          · rcases htwo with ⟨rfl, rfl⟩; exact h68
+          · rcases htwo with ⟨rfl, rfl⟩; exact h610
+          · rcases htwo with ⟨rfl, rfl⟩; exact h810
+        · rcases hspecial with ⟨rfl, rfl⟩
+          exact h69
+      · have hnm : n ≤ m := Nat.le_of_lt (Nat.lt_of_not_ge hmn)
+        apply hsymm n m
+        rcases Max11PrimeRouteClassification n m hnm hm with
+          hzero' | hcop' | heq' | hdiv' | htwo | hspecial
+        · subst n
+          exact hzero m
+        · exact hcop n m hcop'
+        · exact False.elim (hmn (heq' ▸ le_rfl))
+        · apply hdiv n m hdiv'.1 hdiv'.2
+          intro r hr
+          exact ih (n + r) (by omega) n r hn (by omega) rfl
+        · rcases htwo with htwo | htwo | htwo | htwo | htwo
+          · rcases htwo with ⟨rfl, rfl⟩; exact h46
+          · rcases htwo with ⟨rfl, rfl⟩; exact h410
+          · rcases htwo with ⟨rfl, rfl⟩; exact h68
+          · rcases htwo with ⟨rfl, rfl⟩; exact h610
+          · rcases htwo with ⟨rfl, rfl⟩; exact h810
+        · rcases hspecial with ⟨rfl, rfl⟩
+          exact h69
+
 /-- At maximum degree twelve, the same routes leave exactly `(8,12)` and
 `(9,12)` as the first new primitive unordered pairs. -/
 theorem Max12FirstPrimitives (m : ℕ) (hm : m ≤ 12) :
@@ -164,6 +236,8 @@ theorem Max11PlaneKellerGeneration {K : Type*} [Field K]
 
 #print axioms Max11RouteClassification
 #print axioms Max11UniquePrimitive
+#print axioms Max11PrimeRouteClassification
+#print axioms MaxPartialDegreeElevenClosureWithFiveGCDTwoLeaves
 #print axioms MaxPartialDegreeElevenClosure
 #print axioms Max12FirstPrimitives
 #print axioms IsPlaneKellerPair.swap

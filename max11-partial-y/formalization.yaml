@@ -17,8 +17,10 @@ project:
     nondivisible history route to the canonical prime-total-degree-gcd theorem,
     while a generic leading-degree/source-shear argument proves every coprime
     partial-degree pair and the odd-common-scale half of gcd two from the same
-    prime theorem.  The narrowest final inputs are that theorem and the even
-    common-leading-scale residue at partial-degree gcd two.
+    prime theorem.  A finite classifier further reduces gcd two to five
+    primitive unordered degree pairs through eleven.  The narrowest final
+    inputs are the prime theorem and the even common-leading-scale subcase at
+    `(4,6)`, `(4,10)`, `(6,8)`, `(6,10)`, and `(8,10)`.
   authors:
     - "Dan Clemens Posch"
   license: "Apache-2.0"
@@ -94,10 +96,12 @@ status:
     numerical proportionality of the two top coefficient degrees.  Exact
     source shears then prove every positive coprime partial-degree pair from
     the prime-total-degree-gcd theorem.  At partial-degree gcd two, Dirichlet
-    closes the odd common-scale case and isolates the even-scale residue; a
-    checked adapter shows that a strong arbitrary-pair twice-prime result
-    would close it.  Not proved here: scalar-extension/descent, the
-    prime-total-degree-gcd theorem itself, or that even-scale residue.  The
+    closes the odd common-scale case and isolates the even-scale residue.  A
+    finite recursive classifier restricts that residue to the five unordered
+    pairs (4,6), (4,10), (6,8), (6,10), and (8,10); a checked adapter shows
+    that a strong arbitrary-pair twice-prime result would close all five.  Not
+    proved here: scalar-extension/descent, the prime-total-degree-gcd theorem
+    itself, or those five even-scale subcases.  The
     strong twice-prime statement is not treated as established:
     GGV 2017 proves the restriction for the globally minimal counterexample
     gcd B and records a gap in the earlier arbitrary-pair proof.
@@ -105,6 +109,16 @@ status:
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
   main_results:
+    - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithFiveEvenScaleGCDTwoLeaves"
+      file: "Max11Assembly.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "MaxPartialDegreeElevenClosureWithFiveGCDTwoLeaves"
+      file: "Max11Core.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
     - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithEvenLeadingScaleGCDTwoRoute"
       file: "Max11Assembly.lean"
       sorry_count: 0
@@ -230,10 +244,11 @@ fidelity:
     nondivisible source-shear, exact-degree, and Dirichlet stack is also proved,
     reducing that branch to the canonical prime-total-degree-gcd theorem.  A
     generic version proves all coprime partial-degree pairs and the odd-scale
-    gcd-two cases from the same input, reducing the former gcd-at-most-two
-    premise to its even-common-scale gcd-two residue.  It does not formalize
-    the published prime theorem, that residual theorem, an arbitrary-pair
-    twice-prime theorem, or scalar-extension descent.  In particular, GGV
+    gcd-two cases from the same input.  A second finite classifier reduces the
+    former gcd-at-most-two premise to the even-scale subcase of five explicit
+    pairs.  It does not formalize the published prime theorem, those residual
+    theorems, an arbitrary-pair twice-prime theorem, or scalar-extension
+    descent.  In particular, GGV
     2017's theorem about the globally minimal
     counterexample gcd B is not silently strengthened to a theorem about every
     Keller pair.  No other divergences are known.
@@ -262,13 +277,14 @@ alignment:
         exact abstract recursion proved; Keller-pair route theorems remain
         hypotheses
     - source: "Maximum actual partial y-degree eleven theorem, Sections 1 and 6"
-      lean: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithEvenLeadingScaleGCDTwoRoute"
+      lean: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithFiveEvenScaleGCDTwoLeaves"
       module: "Challenge"
       status: >-
         exact bivariate polynomial conclusion and finite composition proved;
         the zero, equal-degree, divisibility, exhaustive (6,9), coprime-degree,
         and odd-scale gcd-two routes are proved; the prime-total-degree-gcd
-        theorem and even-common-scale gcd-two route remain explicit hypotheses
+        theorem and even-common-scale routes for exactly five explicit
+        gcd-two degree pairs remain as hypotheses
     - source: "Maximum-twelve frontier checksum, Section 9"
       lean: "Max12FirstPrimitives"
       module: "Challenge"

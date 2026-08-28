@@ -25,6 +25,34 @@ theorem Max11UniquePrimitive (m n : ℕ) (hmn : m ≤ n) (hn : n ≤ 11)
     (hdiv : ¬ (m < n ∧ m ∣ n)) : m = 6 ∧ n = 9 := by
   sorry
 
+/-- The five unordered gcd-two pairs through eleven which are neither equal
+nor related by divisibility. -/
+def Max11GCDTwoPrimitive (m n : ℕ) : Prop :=
+  (m = 4 ∧ n = 6) ∨ (m = 4 ∧ n = 10) ∨
+  (m = 6 ∧ n = 8) ∨ (m = 6 ∧ n = 10) ∨ (m = 8 ∧ n = 10)
+
+/-- Replacing the broad gcd-at-most-two route by the coprime route leaves
+exactly five gcd-two primitive pairs, in addition to `(6,9)`. -/
+theorem Max11PrimeRouteClassification (m n : ℕ)
+    (hmn : m ≤ n) (hn : n ≤ 11) :
+    m = 0 ∨ m.Coprime n ∨ m = n ∨ (m < n ∧ m ∣ n) ∨
+      Max11GCDTwoPrimitive m n ∨ (m = 6 ∧ n = 9) := by
+  sorry
+
+/-- Recursive closure through eleven using the coprime route and only the
+five genuinely primitive gcd-two leaves. -/
+theorem MaxPartialDegreeElevenClosureWithFiveGCDTwoLeaves
+    (Good : ℕ → ℕ → Prop)
+    (hsymm : ∀ m n, Good m n → Good n m)
+    (hzero : ∀ n, Good 0 n)
+    (hcop : ∀ m n, m.Coprime n → Good m n)
+    (hdiv : ∀ m n, m < n → m ∣ n → (∀ r, r < n → Good m r) → Good m n)
+    (hequal : ∀ n, (∀ r, r < n → Good r n) → Good n n)
+    (h46 : Good 4 6) (h410 : Good 4 10) (h68 : Good 6 8)
+    (h610 : Good 6 10) (h810 : Good 8 10) (h69 : Good 6 9) :
+    ∀ m n, m ≤ 11 → n ≤ 11 → Good m n := by
+  sorry
+
 /-- Any symmetric degree property satisfying the four standard recursive
 routes and the exceptional `(6,9)` leaf holds for every ordered pair through
 maximum degree eleven. -/
@@ -193,6 +221,19 @@ def PlaneKellerEvenLeadingScaleGCDTwoRoute
   ∀ (P Q : MvPolynomial (Fin 2) K) (m n H : ℕ),
     MvPolynomial.degreeOf 1 P = m → MvPolynomial.degreeOf 1 Q = n →
     0 < m → 0 < n → Nat.gcd m n = 2 →
+    IsPlaneKellerPair P Q →
+    (((Polynomial.Bivariate.equivMvPolynomial K).symm P).coeff m).natDegree =
+      (m / 2) * H →
+    (((Polynomial.Bivariate.equivMvPolynomial K).symm Q).coeff n).natDegree =
+      (n / 2) * H →
+    2 ∣ H → PlanePairGenerates P Q
+
+/-- The even common-leading-scale residue localized to one fixed
+partial-degree pair. -/
+def PlaneKellerEvenLeadingScaleAtDegrees
+    {K : Type*} [Field K] (m n : ℕ) : Prop :=
+  ∀ (P Q : MvPolynomial (Fin 2) K) (H : ℕ),
+    MvPolynomial.degreeOf 1 P = m → MvPolynomial.degreeOf 1 Q = n →
     IsPlaneKellerPair P Q →
     (((Polynomial.Bivariate.equivMvPolynomial K).symm P).coeff m).natDegree =
       (m / 2) * H →
@@ -424,6 +465,22 @@ theorem Max11PlaneKellerGenerationWithEvenLeadingScaleGCDTwoRoute
     {K : Type*} [Field K] [CharZero K] [IsAlgClosed K]
     (heven : PlaneKellerEvenLeadingScaleGCDTwoRoute (K := K))
     (hprime : PlaneKellerPrimeTotalDegreeGCDRoute (K := K)) :
+    ∀ P Q : MvPolynomial (Fin 2) K,
+      MvPolynomial.degreeOf 1 P ≤ 11 →
+      MvPolynomial.degreeOf 1 Q ≤ 11 →
+      IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
+  sorry
+
+/-- Maximum eleven with the remaining gcd-two work localized to the five
+primitive degree pairs. -/
+theorem Max11PlaneKellerGenerationWithFiveEvenScaleGCDTwoLeaves
+    {K : Type*} [Field K] [CharZero K] [IsAlgClosed K]
+    (hprime : PlaneKellerPrimeTotalDegreeGCDRoute (K := K))
+    (h46 : PlaneKellerEvenLeadingScaleAtDegrees (K := K) 4 6)
+    (h410 : PlaneKellerEvenLeadingScaleAtDegrees (K := K) 4 10)
+    (h68 : PlaneKellerEvenLeadingScaleAtDegrees (K := K) 6 8)
+    (h610 : PlaneKellerEvenLeadingScaleAtDegrees (K := K) 6 10)
+    (h810 : PlaneKellerEvenLeadingScaleAtDegrees (K := K) 8 10) :
     ∀ P Q : MvPolynomial (Fin 2) K,
       MvPolynomial.degreeOf 1 P ≤ 11 →
       MvPolynomial.degreeOf 1 Q ≤ 11 →

@@ -4,6 +4,8 @@
   "theorem_names": [
     "Max11RouteClassification",
     "Max11UniquePrimitive",
+    "Max11PrimeRouteClassification",
+    "MaxPartialDegreeElevenClosureWithFiveGCDTwoLeaves",
     "MaxPartialDegreeElevenClosure",
     "Max11PlaneKellerGeneration",
     "Max11ClassicalRoutes.Max11PlaneKellerGenerationWithZeroRoute",
@@ -24,6 +26,7 @@
     "Max11DegreeRoutes.planeKellerAutomorphicAtDegrees_of_coprime_and_primeTotalDegreeGCD",
     "Max11DegreeRoutes.planeKellerAutomorphicAtDegrees_of_gcd_two_and_evenLeadingScale",
     "Max11DegreeRoutes.Max11PlaneKellerGenerationWithEvenLeadingScaleGCDTwoRoute",
+    "Max11DegreeRoutes.Max11PlaneKellerGenerationWithFiveEvenScaleGCDTwoLeaves",
     "Max11DegreeRoutes.Max11PlaneKellerGenerationWithPrimeAndTwicePrimeTotalDegreeGCDRoutes",
     "Max12FirstPrimitives"
   ],
@@ -32,6 +35,7 @@
     "IsPlaneKellerPair",
     "PlanePairGenerates",
     "PlaneKellerAutomorphicAtDegrees",
+    "Max11GCDTwoPrimitive",
     "Max11DegreeRoutes.targetRescale",
     "Max11DegreeRoutes.Normalized69Source",
     "Max11DegreeRoutes.Cube69FirstRowSource",
@@ -44,7 +48,8 @@
     "Max11DegreeRoutes.PlaneKeller69DivisibleNoncubeExclusion",
     "Max11DegreeRoutes.PlaneKellerPrimeTotalDegreeGCDRoute",
     "Max11DegreeRoutes.PlaneKellerTwicePrimeTotalDegreeGCDRoute",
-    "Max11DegreeRoutes.PlaneKellerEvenLeadingScaleGCDTwoRoute"
+    "Max11DegreeRoutes.PlaneKellerEvenLeadingScaleGCDTwoRoute",
+    "Max11DegreeRoutes.PlaneKellerEvenLeadingScaleAtDegrees"
   ],
   "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
   "enable_nanoda": true

@@ -102,6 +102,57 @@ theorem Max11PlaneKellerGenerationWithPrimeTotalDegreeGCDRoute
   exact Max11PlaneKellerGenerationWithImportedDivisible69Exclusion hgcd
     (imported_planeKeller69NondivisibleCoreRoute_of_primeTotalDegreeGCD hprime)
 
+/-- The complete imported `(6,9)` route, reduced only to the classical
+prime-total-degree-gcd theorem. -/
+theorem imported_planeKellerAutomorphicAtDegrees_69_of_primeTotalDegreeGCD
+    {K : Type*} [Field K] [CharZero K] [IsAlgClosed K]
+    (hprime : PlaneKellerPrimeTotalDegreeGCDRoute (K := K)) :
+    PlaneKellerAutomorphicAtDegrees (K := K) 6 9 := by
+  have hhistory : PlaneKeller69NondivisibleCoreRoute (K := K) :=
+    imported_planeKeller69NondivisibleCoreRoute_of_primeTotalDegreeGCD hprime
+  exact planeKellerAutomorphicAtDegrees_69_of_normalized_routes
+    (planeKeller69CubeRoute_of_history_and_divisible_exclusion hhistory
+      imported_planeKeller69DivisibleCubeExclusion)
+    (planeKeller69NoncubeRoute_of_history_and_divisible_exclusion hhistory
+      imported_planeKeller69DivisibleNoncubeExclusion)
+
+/-- Max-11 with the former global gcd-two premise reduced to the five
+unordered primitive leaves `(4,6)`, `(4,10)`, `(6,8)`, `(6,10)`, and
+`(8,10)`. -/
+theorem Max11PlaneKellerGenerationWithFiveGCDTwoLeaves
+    {K : Type*} [Field K] [CharZero K] [IsAlgClosed K]
+    (hprime : PlaneKellerPrimeTotalDegreeGCDRoute (K := K))
+    (h46 : PlaneKellerAutomorphicAtDegrees (K := K) 4 6)
+    (h410 : PlaneKellerAutomorphicAtDegrees (K := K) 4 10)
+    (h68 : PlaneKellerAutomorphicAtDegrees (K := K) 6 8)
+    (h610 : PlaneKellerAutomorphicAtDegrees (K := K) 6 10)
+    (h810 : PlaneKellerAutomorphicAtDegrees (K := K) 8 10) :
+    ∀ P Q : MvPolynomial (Fin 2) K,
+      degreeOf 1 P ≤ 11 → degreeOf 1 Q ≤ 11 →
+      IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
+  have hcop : ∀ m n, m.Coprime n →
+      PlaneKellerAutomorphicAtDegrees (K := K) m n := by
+    intro m n hmn
+    by_cases hmzero : m = 0
+    · subst m
+      exact Max11ClassicalRoutes.planeKellerAutomorphicAtDegrees_zero n
+    by_cases hnzero : n = 0
+    · subst n
+      exact (Max11ClassicalRoutes.planeKellerAutomorphicAtDegrees_zero m).swap
+    exact planeKellerAutomorphicAtDegrees_of_coprime_and_primeTotalDegreeGCD
+      m n (Nat.pos_of_ne_zero hmzero) (Nat.pos_of_ne_zero hnzero) hmn hprime
+  have hall := MaxPartialDegreeElevenClosureWithFiveGCDTwoLeaves
+    (PlaneKellerAutomorphicAtDegrees (K := K))
+    (fun _ _ h => h.swap)
+    Max11ClassicalRoutes.planeKellerAutomorphicAtDegrees_zero hcop
+    planeKellerAutomorphicAtDegrees_of_dvd
+    planeKellerAutomorphicAtDegrees_equal
+    h46 h410 h68 h610 h810
+    (imported_planeKellerAutomorphicAtDegrees_69_of_primeTotalDegreeGCD hprime)
+  intro P Q hPdegree hQdegree hKeller
+  exact hall (degreeOf 1 P) (degreeOf 1 Q) hPdegree hQdegree
+    P Q rfl rfl hKeller
+
 /-- Source-honest Max-11 composition with the gcd-at-most-two premise reduced
 to its exact gcd-two residue.  The prime theorem now proves every positive
 coprime partial-degree pair internally. -/
@@ -131,6 +182,32 @@ theorem Max11PlaneKellerGenerationWithEvenLeadingScaleGCDTwoRoute
     (planeKellerAutomorphicAtDegrees_of_gcd_two_and_evenLeadingScale
       hprime heven) hprime
 
+/-- The narrowest finite Max-11 handoff: only the even common-scale subcases
+of the five primitive gcd-two degree pairs remain, together with the prime
+total-degree theorem. -/
+theorem Max11PlaneKellerGenerationWithFiveEvenScaleGCDTwoLeaves
+    {K : Type*} [Field K] [CharZero K] [IsAlgClosed K]
+    (hprime : PlaneKellerPrimeTotalDegreeGCDRoute (K := K))
+    (h46 : PlaneKellerEvenLeadingScaleAtDegrees (K := K) 4 6)
+    (h410 : PlaneKellerEvenLeadingScaleAtDegrees (K := K) 4 10)
+    (h68 : PlaneKellerEvenLeadingScaleAtDegrees (K := K) 6 8)
+    (h610 : PlaneKellerEvenLeadingScaleAtDegrees (K := K) 6 10)
+    (h810 : PlaneKellerEvenLeadingScaleAtDegrees (K := K) 8 10) :
+    ∀ P Q : MvPolynomial (Fin 2) K,
+      degreeOf 1 P ≤ 11 → degreeOf 1 Q ≤ 11 →
+      IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
+  exact Max11PlaneKellerGenerationWithFiveGCDTwoLeaves hprime
+    (planeKellerAutomorphicAtDegrees_of_gcd_two_and_evenLeadingScaleAtDegrees
+      4 6 (by norm_num) (by norm_num) (by norm_num) hprime h46)
+    (planeKellerAutomorphicAtDegrees_of_gcd_two_and_evenLeadingScaleAtDegrees
+      4 10 (by norm_num) (by norm_num) (by norm_num) hprime h410)
+    (planeKellerAutomorphicAtDegrees_of_gcd_two_and_evenLeadingScaleAtDegrees
+      6 8 (by norm_num) (by norm_num) (by norm_num) hprime h68)
+    (planeKellerAutomorphicAtDegrees_of_gcd_two_and_evenLeadingScaleAtDegrees
+      6 10 (by norm_num) (by norm_num) (by norm_num) hprime h610)
+    (planeKellerAutomorphicAtDegrees_of_gcd_two_and_evenLeadingScaleAtDegrees
+      8 10 (by norm_num) (by norm_num) (by norm_num) hprime h810)
+
 /-- Fully assembled Max-11 conditional on the classical prime-total-degree
 result and the strong arbitrary-pair twice-prime interface.  The latter is
 kept explicit because the published arbitrary-pair proof has a documented
@@ -152,8 +229,11 @@ theorem Max11PlaneKellerGenerationWithPrimeAndTwicePrimeTotalDegreeGCDRoutes
 #print axioms Max11PlaneKellerGenerationWithImportedDivisible69Exclusion
 #print axioms imported_planeKeller69NondivisibleCoreRoute_of_primeTotalDegreeGCD
 #print axioms Max11PlaneKellerGenerationWithPrimeTotalDegreeGCDRoute
+#print axioms imported_planeKellerAutomorphicAtDegrees_69_of_primeTotalDegreeGCD
+#print axioms Max11PlaneKellerGenerationWithFiveGCDTwoLeaves
 #print axioms Max11PlaneKellerGenerationWithGCDTwoResidual
 #print axioms Max11PlaneKellerGenerationWithEvenLeadingScaleGCDTwoRoute
+#print axioms Max11PlaneKellerGenerationWithFiveEvenScaleGCDTwoLeaves
 #print axioms Max11PlaneKellerGenerationWithPrimeAndTwicePrimeTotalDegreeGCDRoutes
 
 end Max11DegreeRoutes
