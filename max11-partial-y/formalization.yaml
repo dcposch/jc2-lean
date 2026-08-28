@@ -275,6 +275,16 @@ status:
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.alignedZeroSquareComponent_impossible46"
+      file: "LowScale46AlignedComponentEndgame.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.nonsquare_aligned_descent_lastRow_impossible46"
+      file: "LowScale46AlignedComponentEndgame.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
     - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithStandardEndpointAndFiveLowScaleLeaves"
       file: "Max11Assembly.lean"
       sorry_count: 0

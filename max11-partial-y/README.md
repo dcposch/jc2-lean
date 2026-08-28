@@ -249,6 +249,13 @@ not treated as an established theorem.
   boundary, the higher case gives incompatible leading coefficients, and the
   tie makes `Q^3` uniquely lowest in the exact second boundary.  Hence every
   final aligned finite-pole branch reaches `k2=0`.
+  `LowScale46AlignedComponentEndgame.lean` closes the resulting component
+  algebra.  Over the square working field it starts from the literal curve,
+  boundary, and last-row equations, splits `BV=0`, uses the monic octic on
+  `A=0` and the monic quartic when `theta!=0`, recovers polynomial
+  representatives, and reaches the square unit-product contradiction.  Its
+  quadratic-descent endpoint differentiates `K=B²`, transports the last row
+  to `(-3/8) M K'`, and applies `M²=HK` to obtain the nonsquare contradiction.
   `LowScale46Depression.lean` performs the exact source substitution
   `y=(z-r)/h` on the quartic and sextic and proves that the normalized quintic
   coefficient is zero in the aligned branch and `-lambda/2` in the mismatch
@@ -319,6 +326,7 @@ lake build
 `LowScale46PolynomialEndgame.lean`, `LowScale46FinitePoles.lean`,
 `LowScale46AlignedFinitePoles.lean`,
 `LowScale46AlignedPolynomialEndgame.lean`,
-`LowScale46AlignedZeroFinitePoles.lean`, and `Max11Assembly.lean`
+`LowScale46AlignedZeroFinitePoles.lean`,
+`LowScale46AlignedComponentEndgame.lean`, and `Max11Assembly.lean`
 contain no `sorry`, custom axioms, or trust escapes.  The
 permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.
