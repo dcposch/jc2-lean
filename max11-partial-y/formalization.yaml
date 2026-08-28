@@ -22,9 +22,10 @@ project:
     adapter to the published standard-pair endpoint obstruction eliminates
     every even common-leading scale above two.  UFD extraction and invertible
     target rescaling then normalize all five residual pairs to literal common
-    powers.  The narrowest final inputs are therefore the prime theorem, the
-    standard-endpoint theorem, and the normalized common-core scales zero and
-    two at `(4,6)`, `(4,10)`, `(6,8)`, `(6,10)`, and `(8,10)`.
+    powers.  The normalized `(4,6)` scale-zero source is now excluded.  The
+    narrowest final inputs are therefore the prime theorem, the
+    standard-endpoint theorem, normalized scale two at `(4,6)`, and scales
+    zero and two at `(4,10)`, `(6,8)`, `(6,10)`, and `(8,10)`.
   authors:
     - "Dan Clemens Posch"
   license: "Apache-2.0"
@@ -163,11 +164,12 @@ status:
     The resulting theorem exhausts all eight constant/nonconstant patterns of
     `(A,B,U)` and rules out every mismatch polynomial trajectory with a
     nonzero constant last row.
-    The normalized H = 0 and H = 2
-    sources also remain open at the other four pairs.
+    The normalized `(4,6)` source at H = 0 is now excluded completely.  Its
+    H = 2 source and both H = 0 and H = 2 sources at the other four pairs
+    remain open.
     Not proved here: scalar-extension/descent, the
     prime-total-degree-gcd theorem itself, the standard-endpoint theorem
-    itself, or those ten normalized low-scale subcases.  The
+    itself, or those nine remaining normalized low-scale subcases.  The
     strong twice-prime statement is not treated as established:
     GGV 2017 proves the restriction for the globally minimal counterexample
     gcd B and records a gap in the earlier arbitrary-pair proof.
@@ -175,6 +177,11 @@ status:
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
   main_results:
+    - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithNormalized46ScaleTwoAndFourLowScaleLeaves"
+      file: "Max11Assembly.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
     - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithFiveNormalizedLowScaleRoutes"
       file: "Max11Assembly.lean"
       sorry_count: 0
@@ -316,6 +323,16 @@ status:
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator.json"
     - declaration: "Max11DegreeRoutes.normalized46ScaleZero_aligned_impossible"
+      file: "LowScale46ScaleZero.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.depressedCoefficientCurveData46"
+      file: "LowScale46GeneralSourceBridge.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.normalized46ScaleZero_impossible"
       file: "LowScale46ScaleZero.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
@@ -470,9 +487,10 @@ fidelity:
     pairs.  The standard-pair endpoint obstruction then reduces those five
     unbounded residues to the literal scales zero and two, and polynomial-UFD
     extraction plus target rescaling puts all ten cases into exact normalized
-    common-core form.  It does not
+    common-core form.  The scale-zero `(4,6)` case is now excluded from the
+    genuine source dichotomy and polynomial coefficient-curve endgames.  It does not
     formalize the published prime theorem, the standard-endpoint theorem,
-    those ten normalized low-scale theorems, an arbitrary-pair twice-prime theorem, or
+    the nine remaining normalized low-scale theorems, an arbitrary-pair twice-prime theorem, or
     scalar-extension descent.  In particular, GGV
     2017's theorem about the globally minimal
     counterexample gcd B is not silently strengthened to a theorem about every
@@ -510,8 +528,8 @@ alignment:
         the zero, equal-degree, divisibility, exhaustive (6,9), coprime-degree,
         odd-scale gcd-two, and large-even-scale adapter routes are proved; the
         prime-total-degree-gcd theorem, standard-pair endpoint obstruction,
-        and normalized common-core scales zero and two at five explicit
-        gcd-two degree pairs remain as hypotheses
+        normalized scale two at `(4,6)`, and normalized scales zero and two at
+        the other four explicit gcd-two degree pairs remain as hypotheses
     - source: "Maximum-twelve frontier checksum, Section 9"
       lean: "Max12FirstPrimitives"
       module: "Challenge"

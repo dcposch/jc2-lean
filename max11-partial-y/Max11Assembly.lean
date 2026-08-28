@@ -282,6 +282,25 @@ theorem Max11PlaneKellerGenerationWithNormalized46AndFourLowScaleLeaves
     (planeKellerLowEvenLeadingScalesAtDegrees_46_of_normalized h46)
     h410 h68 h610 h810
 
+/-- The scale-zero `(4,6)` source is now excluded internally, so the first
+primitive gcd-two leaf contributes only its normalized scale-two case. -/
+theorem Max11PlaneKellerGenerationWithNormalized46ScaleTwoAndFourLowScaleLeaves
+    {K : Type*} [Field K] [CharZero K] [IsAlgClosed K]
+    (hprime : PlaneKellerPrimeTotalDegreeGCDRoute (K := K))
+    (hendpoint : PlaneKellerStandardEndpointGCDObstruction (K := K))
+    (h46two : PlaneKellerNormalized46ScaleTwoRoute (k := K))
+    (h410 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 4 10)
+    (h68 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 6 8)
+    (h610 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 6 10)
+    (h810 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 8 10) :
+    ∀ P Q : MvPolynomial (Fin 2) K,
+      degreeOf 1 P ≤ 11 → degreeOf 1 Q ≤ 11 →
+      IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
+  exact Max11PlaneKellerGenerationWithNormalized46AndFourLowScaleLeaves
+    hprime hendpoint
+    (planeKellerNormalized46LowScaleRoute_of_scaleTwo h46two)
+    h410 h68 h610 h810
+
 /-- The three leaves with consecutive reduced weights are normalized
 internally to exact common powers.  Only `(4,10)` and `(6,10)`, whose reduced
 weights are nonconsecutive, remain in coefficient-degree form. -/
@@ -356,6 +375,7 @@ theorem Max11PlaneKellerGenerationWithPrimeAndTwicePrimeTotalDegreeGCDRoutes
 #print axioms Max11PlaneKellerGenerationWithStandardEndpointAndFiveLowScaleLeaves
 #print axioms Max11PlaneKellerGenerationWithStandardEndpointObstructionAndFiveLowScaleLeaves
 #print axioms Max11PlaneKellerGenerationWithNormalized46AndFourLowScaleLeaves
+#print axioms Max11PlaneKellerGenerationWithNormalized46ScaleTwoAndFourLowScaleLeaves
 #print axioms Max11PlaneKellerGenerationWithThreeNormalizedAndTwoLowScaleLeaves
 #print axioms Max11PlaneKellerGenerationWithFiveNormalizedLowScaleRoutes
 #print axioms Max11PlaneKellerGenerationWithPrimeAndTwicePrimeTotalDegreeGCDRoutes

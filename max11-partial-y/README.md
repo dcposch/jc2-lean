@@ -67,12 +67,14 @@ strictly greater than two.  This eliminates every even common-leading scale
 `Max11DegreeRoutes.Max11PlaneKellerGenerationWithStandardEndpointObstructionAndFiveLowScaleLeaves`
 leaves only the scales `H = 0` and `H = 2` at those five pairs.  Finally,
 `LowScaleCore.lean` derives the exact common-power leading rows and removes
-their scalar units for every one of the five pairs.  The current narrowest
-honest headline,
-`Max11DegreeRoutes.Max11PlaneKellerGenerationWithFiveNormalizedLowScaleRoutes`,
-therefore asks only for the published prime-gcd theorem, the literal numerical
-standard-endpoint obstruction, and the five uniform normalized `H = 0/2`
-routes.  A separate checked adapter shows that the strong arbitrary-pair
+their scalar units for every one of the five pairs.  The `(4,6)` scale-zero
+source is now excluded outright; the other nine normalized cases remain.
+The current narrowest honest headline,
+`Max11DegreeRoutes.Max11PlaneKellerGenerationWithNormalized46ScaleTwoAndFourLowScaleLeaves`,
+therefore asks for the published prime-gcd theorem, the literal numerical
+standard-endpoint obstruction, only scale two at `(4,6)`, and the two
+low-scale cases at each of the other four leaves.  A separate checked adapter
+shows that the strong arbitrary-pair
 twice-prime total-degree interface would close all five, but that interface is
 not treated as an established theorem.
 
@@ -272,11 +274,15 @@ not treated as an established theorem.
   `beta=delta=k2=0`.  Thus an actual aligned square-core source can remain
   only in the `beta != 0`, `beta=0, delta != 0`, or
   `beta=delta=0, k2 != 0` strata, whose local closures are already checked.
-  `LowScale46ScaleZero.lean` closes the aligned literal source completely when
-  the common-core degree is zero.  In that case the square root of the core is
-  a nonzero scalar, the depressed rational coefficients have exact polynomial
-  representatives, and the exhaustive mismatch/aligned polynomial endgames
-  contradict the nonzero constant Jacobian row.
+  `LowScale46GeneralSourceBridge.lean` proves the corresponding integration
+  and coefficient-curve package for every ground-field quintic coefficient
+  `L`, including the mismatch value `L=-lambda/2`.
+  `LowScale46ScaleZero.lean` then closes the complete literal source when the
+  common-core degree is zero.  The genuine discriminator dichotomy covers
+  both aligned and mismatch branches; in either case the square root is a
+  nonzero scalar, the depressed rational coefficients have exact polynomial
+  representatives, and an exhaustive polynomial endgame contradicts the
+  nonzero constant Jacobian row.
   `LowScale46Depression.lean` performs the exact source substitution
   `y=(z-r)/h` on the quartic and sextic and proves that the normalized quintic
   coefficient is zero in the aligned branch and `-lambda/2` in the mismatch
@@ -309,8 +315,9 @@ Dirichlet reduction.  It now proves the coprime partial-degree route and the
 odd-common-scale half of partial-degree gcd two from the classical
 prime-total-degree-gcd theorem.  It still does not prove scalar-extension
 descent, the prime theorem itself, the standard-pair endpoint theorem itself,
-or the literal normalized common-core `H = 0` and `H = 2` subcases of those
-five gcd-two pairs.  It does prove the common-power UFD factorization, exact
+or the remaining nine literal normalized low-scale subcases: scale two at
+`(4,6)`, and scales zero and two at the other four gcd-two pairs.  It does
+prove the common-power UFD factorization, exact
 core degree, scalar normalization, and generation transport for all five.
 The endpoint theorem is the first assertion of Guccione--Guccione--
 Valqui's Corollary 7.9 and applies to every standard pair.  By contrast, the
@@ -349,7 +356,7 @@ lake build
 `LowScale46AlignedPolynomialEndgame.lean`,
 `LowScale46AlignedZeroFinitePoles.lean`,
 `LowScale46AlignedComponentEndgame.lean`, `LowScale46SourceBridge.lean`,
-`LowScale46ScaleZero.lean`, and
+`LowScale46GeneralSourceBridge.lean`, `LowScale46ScaleZero.lean`, and
 `Max11Assembly.lean`
 contain no `sorry`, custom axioms, or trust escapes.  The
 permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.
