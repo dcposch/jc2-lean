@@ -386,6 +386,14 @@ status:
       file: "LowScale68SecondaryResidualMiddle.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_secondaryResidualDouble68"
+      file: "LowScale68SecondaryResidualDouble.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.secondaryResidualDoubleFace68_impossible"
+      file: "LowScale68SecondaryResidualDouble.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.mismatchDegreeCone46"
       file: "LowScale46DegreeCones.lean"
       sorry_count: 0
@@ -725,7 +733,8 @@ review:
     LowScale68SecondaryOneForms.lean, LowScale68SecondarySmallGap.lean,
     LowScale68SecondaryResidualFace.lean,
     LowScale68SecondaryResidualExtraction.lean,
-    LowScale68SecondaryResidualMiddle.lean, or
+    LowScale68SecondaryResidualMiddle.lean,
+    LowScale68SecondaryResidualDouble.lean, or
     Max11Assembly.lean.
 
 alignment:

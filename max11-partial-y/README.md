@@ -401,7 +401,12 @@ not treated as an established theorem.
   the invariant load cutoffs, and both middle-face coefficients.
   `LowScale68SecondaryResidualMiddle.lean` applies those results back to the
   canonical expanded lower system and proves the full middle classifier from
-  explicit degree-gap data `g<h<2g`.  Proving the tropical face selection and
+  explicit degree-gap data `g<h<2g`.
+  `LowScale68SecondaryResidualDouble.lean` extracts the two double-gap
+  invariant coefficients and the terminal two one-form coefficients, proves
+  the sharper load cutoffs, transports all four equations to the canonical
+  expanded system, and eliminates the strict-`D`, strict-`E`, and tied
+  endpoints uniformly in `3g<n`.  Proving the tropical face selection and
   eliminating the classified middle face remain open, as do the other gap
   chambers and the scale-two pole/degree analysis.
   `LowScale46NewtonFaces.lean` proves the underlying three- and four-term
@@ -516,7 +521,8 @@ lake build
 `LowScale68SecondaryOneForms.lean`, `LowScale68SecondarySmallGap.lean`,
 `LowScale68SecondaryResidualFace.lean`,
 `LowScale68SecondaryResidualExtraction.lean`,
-`LowScale68SecondaryResidualMiddle.lean`, and
+`LowScale68SecondaryResidualMiddle.lean`,
+`LowScale68SecondaryResidualDouble.lean`, and
 `Max11Assembly.lean`
 contain no `sorry`, custom axioms, or trust escapes.  The
 permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.
