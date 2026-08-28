@@ -342,8 +342,13 @@ not treated as an established theorem.
   depressed bracket.  Its omitted top row forces the septic coefficient to be
   constant; that coefficient and all seven Faber residuals are then descended
   to the ground field, and the octic is reconstructed in integrated form.
-  Scale-specific pole/degree control and exclusion of the final three one-form
-  rows remain open.
+  `LowScale68ScaleZero.lean` proves that scalar common scale makes the affine
+  depression literal over `k[x]`, supplies polynomial representatives for all
+  thirteen depressed coefficients, and descends both exact lower-row
+  invariants to the ground field.  Thus the scale-zero branch is reduced to
+  the bounded polynomial-degree contradiction for the final three one-form
+  rows.  That contradiction and the scale-two pole/degree analysis remain
+  open.
   `LowScale46NewtonFaces.lean` proves the underlying three- and four-term
   Hahn-series tied-minimum principle and the complete rational Newton-face
   tables for the aligned `beta ≠ 0` and `delta ≠ 0` strata.
@@ -417,7 +422,7 @@ lake build
 `LowScale46AlignedRegularLoads.lean`, `LowScale46WeightedInfinity.lean`,
 `LowScale46ScaleTwo.lean`, `LowScale68NormalForm.lean`,
 `LowScale68Integrated.lean`, `LowScale68Depression.lean`,
-`LowScale68SourceBridge.lean`, and
+`LowScale68SourceBridge.lean`, `LowScale68ScaleZero.lean`, and
 `Max11Assembly.lean`
 contain no `sorry`, custom axioms, or trust escapes.  The
 permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.
