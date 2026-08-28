@@ -283,6 +283,12 @@ not treated as an established theorem.
   nonzero scalar, the depressed rational coefficients have exact polynomial
   representatives, and an exhaustive polynomial endgame contradicts the
   nonzero constant Jacobian row.
+  `LowScale46PoleBridge.lean` starts the scale-two globalization with an
+  injective translated finite-place embedding
+  `K(x) -> K((t)) -> K((t^Q))`.  It preserves ground-field constants and
+  polynomial equations, proves that literal polynomial boundary loads have
+  nonnegative local order, and supplies an injective positive rescaling of
+  rational exponents that normalizes any selected finite pole order to one.
   `LowScale46Depression.lean` performs the exact source substitution
   `y=(z-r)/h` on the quartic and sextic and proves that the normalized quintic
   coefficient is zero in the aligned branch and `-lambda/2` in the mismatch
@@ -356,7 +362,8 @@ lake build
 `LowScale46AlignedPolynomialEndgame.lean`,
 `LowScale46AlignedZeroFinitePoles.lean`,
 `LowScale46AlignedComponentEndgame.lean`, `LowScale46SourceBridge.lean`,
-`LowScale46GeneralSourceBridge.lean`, `LowScale46ScaleZero.lean`, and
+`LowScale46GeneralSourceBridge.lean`, `LowScale46ScaleZero.lean`,
+`LowScale46PoleBridge.lean`, and
 `Max11Assembly.lean`
 contain no `sorry`, custom axioms, or trust escapes.  The
 permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.
