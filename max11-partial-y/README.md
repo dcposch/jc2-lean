@@ -228,6 +228,12 @@ not treated as an established theorem.
   `beta ≠ 0` and `beta=0, delta ≠ 0`, including the identically-zero `Q` and
   `Y` loci.  Thus every aligned finite-pole branch reaches
   `beta=delta=0`.
+  `LowScale46AlignedPolynomialEndgame.lean` handles the complementary
+  no-finite-pole branch over `F[x]`.  It proves the exact shifted curve and
+  one-form identities, derives the actual beta and delta degree cones and
+  leading relations, and excludes a constant last row whenever all three
+  shifted variables are nonconstant.  The certified terminal degrees are
+  `12n-1` in the beta stratum and `8n-1` in the delta stratum.
   `LowScale46Depression.lean` performs the exact source substitution
   `y=(z-r)/h` on the quartic and sextic and proves that the normalized quintic
   coefficient is zero in the aligned branch and `-lambda/2` in the mismatch
@@ -296,6 +302,7 @@ lake build
 `LowScale46DegreeCones.lean`, `LowScale46Depression.lean`,
 `LowScale46Integrality.lean`, `LowScale46NewtonFaces.lean`,
 `LowScale46PolynomialEndgame.lean`, `LowScale46FinitePoles.lean`,
-`LowScale46AlignedFinitePoles.lean`, and `Max11Assembly.lean`
+`LowScale46AlignedFinitePoles.lean`,
+`LowScale46AlignedPolynomialEndgame.lean`, and `Max11Assembly.lean`
 contain no `sorry`, custom axioms, or trust escapes.  The
 permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.
