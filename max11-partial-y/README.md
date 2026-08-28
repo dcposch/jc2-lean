@@ -266,7 +266,12 @@ not treated as an established theorem.
   five upper rows, successively integrates them, proves that all five
   integration parameters descend to `K`, and extracts ground-field values
   `k2,k1` for the two coefficient-curve equations together with the exact
-  terminal `eta` row.
+  terminal `eta` row.  Evaluation at the depression center identifies both
+  reviewed boundaries with explicit polynomials in `K[x]`; the resulting
+  source package feeds the final component theorem directly and rules out
+  `beta=delta=k2=0`.  Thus an actual aligned square-core source can remain
+  only in the `beta != 0`, `beta=0, delta != 0`, or
+  `beta=delta=0, k2 != 0` strata, whose local closures are already checked.
   `LowScale46Depression.lean` performs the exact source substitution
   `y=(z-r)/h` on the quartic and sextic and proves that the normalized quintic
   coefficient is zero in the aligned branch and `-lambda/2` in the mismatch
