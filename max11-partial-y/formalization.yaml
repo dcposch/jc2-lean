@@ -22,10 +22,10 @@ project:
     adapter to the published standard-pair endpoint obstruction eliminates
     every even common-leading scale above two.  UFD extraction and invertible
     target rescaling then normalize all five residual pairs to literal common
-    powers.  The normalized `(4,6)` scale-zero source is now excluded.  The
+    powers.  Both normalized `(4,6)` low scales are now excluded.  The
     narrowest final inputs are therefore the prime theorem, the
-    standard-endpoint theorem, normalized scale two at `(4,6)`, and scales
-    zero and two at `(4,10)`, `(6,8)`, `(6,10)`, and `(8,10)`.
+    standard-endpoint theorem, and scales zero and two at `(4,10)`, `(6,8)`,
+    `(6,10)`, and `(8,10)`.
   authors:
     - "Dan Clemens Posch"
   license: "Apache-2.0"
@@ -151,25 +151,22 @@ status:
     are converted into exact rational-function integrality results; the
     polynomial representatives and both square/nonsquare last-row
     unit-product contradictions are also proved.  Generic three- and
-    four-term Hahn-series tied-minimum lemmas and the exhaustive rational
-    Newton-face tables for both aligned strata are proved.  Their
-    aligned instantiation on every term of the full cleared equations is not
-    yet formalized.  In the mismatch chart, all four full cleared equations
-    are instantiated on rational-exponent Hahn series for positive finite
-    coordinate orders: they force orders `(1/4,1/2,1/2)` and the terminal
-    boundary contradiction.  The identically-zero coordinate subloci remain
-    to be packaged.  The generic polynomial
-    leading-term bridge, including a strictly lower-degree remainder, is
-    proved and instantiated on both exact mismatch coefficient-curve rows.
-    The resulting theorem exhausts all eight constant/nonconstant patterns of
-    `(A,B,U)` and rules out every mismatch polynomial trajectory with a
-    nonzero constant last row.
-    The normalized `(4,6)` source at H = 0 is now excluded completely.  Its
-    H = 2 source and both H = 0 and H = 2 sources at the other four pairs
-    remain open.
+    four-term Hahn-series tied-minimum lemmas and exhaustive rational
+    Newton-face tables are instantiated on every term of the full cleared
+    mismatch and aligned equations, including identically-zero coordinate
+    subloci and arbitrary regular boundary loads.  The finite-place embedding
+    and weighted-infinity theorem globalize these local contradictions at a
+    root of a square common core.  For a nonsquare aligned core, the
+    irreducible quadratic extension `K(x)(√H)`, its deck involution, fixed
+    field, differential, and constant-field descent are constructed
+    explicitly.  Deck parity kills the odd integration constants and descends
+    `q`, `B²`, `rB`, and `√H B`; the boundary quartic makes the required
+    representatives polynomial, and `M²=HK` closes the final row.  Thus both
+    H = 0 and H = 2 normalized `(4,6)` sources are excluded completely.
     Not proved here: scalar-extension/descent, the
     prime-total-degree-gcd theorem itself, the standard-endpoint theorem
-    itself, or those nine remaining normalized low-scale subcases.  The
+    itself, or the eight remaining normalized low-scale subcases at the other
+    four pairs.  The
     strong twice-prime statement is not treated as established:
     GGV 2017 proves the restriction for the globally minimal counterexample
     gcd B and records a gap in the earlier arbitrary-pair proof.
@@ -177,6 +174,16 @@ status:
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
   main_results:
+    - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithFourLowScaleLeaves"
+      file: "Max11Assembly.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.proved_planeKellerNormalized46LowScaleRoute"
+      file: "LowScale46ScaleTwo.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
     - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithNormalized46ScaleTwoAndFourLowScaleLeaves"
       file: "Max11Assembly.lean"
       sorry_count: 0

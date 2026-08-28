@@ -308,6 +308,24 @@ def PlaneKellerNormalized46LowScaleRoute
     (H = 0 ∨ H = 2) → Normalized46LeadingCoreSource P Q h H →
     PlanePairGenerates P Q
 
+/-- The sole scale-two interface left after the scale-zero exclusion. -/
+def PlaneKellerNormalized46ScaleTwoRoute
+    {K : Type*} [Field K] : Prop :=
+  ∀ (P Q : MvPolynomial (Fin 2) K) (h : Polynomial K),
+    Normalized46LeadingCoreSource P Q h 2 → PlanePairGenerates P Q
+
+/-- The normalized `(4,6)` scale-two route is proved internally. -/
+theorem proved_planeKellerNormalized46ScaleTwoRoute
+    {K : Type*} [Field K] [CharZero K] [IsAlgClosed K] :
+    PlaneKellerNormalized46ScaleTwoRoute (K := K) := by
+  sorry
+
+/-- Both normalized low scales for `(4,6)` are proved internally. -/
+theorem proved_planeKellerNormalized46LowScaleRoute
+    {K : Type*} [Field K] [CharZero K] [IsAlgClosed K] :
+    PlaneKellerNormalized46LowScaleRoute (K := K) := by
+  sorry
+
 /-- Exact normalized source data for consecutive reduced leading weights. -/
 def NormalizedConsecutiveLeadingCoreSource {K : Type*} [Field K]
     (r : ℕ) (P Q : MvPolynomial (Fin 2) K) (h : Polynomial K) (H : ℕ) : Prop :=
@@ -668,6 +686,21 @@ theorem Max11PlaneKellerGenerationWithNormalized46AndFourLowScaleLeaves
     (hprime : PlaneKellerPrimeTotalDegreeGCDRoute (K := K))
     (hendpoint : PlaneKellerStandardEndpointGCDObstruction (K := K))
     (h46 : PlaneKellerNormalized46LowScaleRoute (K := K))
+    (h410 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 4 10)
+    (h68 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 6 8)
+    (h610 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 6 10)
+    (h810 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 8 10) :
+    ∀ P Q : MvPolynomial (Fin 2) K,
+      MvPolynomial.degreeOf 1 P ≤ 11 →
+      MvPolynomial.degreeOf 1 Q ≤ 11 →
+      IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
+  sorry
+
+/-- Max-11 after the complete normalized `(4,6)` low-scale exclusion. -/
+theorem Max11PlaneKellerGenerationWithFourLowScaleLeaves
+    {K : Type*} [Field K] [CharZero K] [IsAlgClosed K]
+    (hprime : PlaneKellerPrimeTotalDegreeGCDRoute (K := K))
+    (hendpoint : PlaneKellerStandardEndpointGCDObstruction (K := K))
     (h410 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 4 10)
     (h68 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 6 8)
     (h610 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 6 10)
