@@ -379,6 +379,79 @@ theorem depressedCoefficientCurveData46
   · simpa only [U, RatFunc.algebraMap_eq_C,
       ratFuncDerivation46_apply] using h0
 
+section GeneralSourceBoundaries
+
+/-- For arbitrary constant depressed quintic coefficient `L`, the two
+reviewed boundary functions are still the images of literal coefficient
+polynomials. -/
+theorem constantLDepressedLiteralBoundaries46
+    (p q : k[X][X]) (h r A B C0 : RatFunc k) (l : k)
+    (alpha beta gamma delta epsilon : k)
+    (hpDep : affineDepress46 h r (sourceToRatFunc46 p) =
+      depressedQuartic46 A B C0)
+    (hqDep : affineDepress46 h r (sourceToRatFunc46 q) =
+      depressedSextic46 (algebraMap k (RatFunc k) l)
+        (integratedP46 A (algebraMap k (RatFunc k) alpha))
+        (integratedQ46 (algebraMap k (RatFunc k) l) A B
+          (algebraMap k (RatFunc k) beta))
+        (integratedR46 (algebraMap k (RatFunc k) l) A B C0
+          (algebraMap k (RatFunc k) alpha)
+          (algebraMap k (RatFunc k) gamma))
+        (integratedS46 (algebraMap k (RatFunc k) l) A B C0
+          (algebraMap k (RatFunc k) alpha)
+          (algebraMap k (RatFunc k) beta)
+          (algebraMap k (RatFunc k) delta))
+        (integratedT46 (algebraMap k (RatFunc k) l) A B C0
+          (algebraMap k (RatFunc k) alpha)
+          (algebraMap k (RatFunc k) beta)
+          (algebraMap k (RatFunc k) gamma)
+          (algebraMap k (RatFunc k) epsilon))) :
+    boundaryD46 r (translatedQ46 r A) B (A ^ 2 - 4 * C0) =
+        algebraMap k[X] (RatFunc k) (p.coeff 0) ∧
+    boundaryE46 (algebraMap k (RatFunc k) l) r
+        (translatedQ46 r A) B (A ^ 2 - 4 * C0)
+        (algebraMap k (RatFunc k) beta)
+        (algebraMap k (RatFunc k) gamma)
+        (algebraMap k (RatFunc k) delta) =
+      algebraMap k[X] (RatFunc k)
+        (q.coeff 0 - C alpha * p.coeff 0 - C epsilon) := by
+  let U : RatFunc k := A ^ 2 - 4 * C0
+  have hC : discriminantC46 A U = C0 := by
+    simp only [discriminantC46, U]
+    ring
+  have hpCenter := congrArg (fun f : (RatFunc k)[X] => f.eval r) hpDep
+  have hqCenter := congrArg (fun f : (RatFunc k)[X] => f.eval r) hqDep
+  rw [eval_affineDepress46_center] at hpCenter hqCenter
+  simp only [sourceToRatFunc46, coeff_map] at hpCenter hqCenter
+  have hDcurve :=
+    eval_depressedQuartic46_discriminant_eq_boundaryD46 r A B U
+  have hEcurve := eval_integratedSextic46_discriminant_eq_boundaryE46
+    (algebraMap k (RatFunc k) l) r A B U
+      (algebraMap k (RatFunc k) alpha)
+      (algebraMap k (RatFunc k) beta)
+      (algebraMap k (RatFunc k) gamma)
+      (algebraMap k (RatFunc k) delta)
+      (algebraMap k (RatFunc k) epsilon)
+  dsimp only at hEcurve
+  rw [hC] at hDcurve hEcurve
+  constructor
+  · simpa only [U] using hDcurve.symm.trans hpCenter.symm
+  · have hboundary : boundaryE46 (algebraMap k (RatFunc k) l) r
+        (translatedQ46 r A) B U
+        (algebraMap k (RatFunc k) beta)
+        (algebraMap k (RatFunc k) gamma)
+        (algebraMap k (RatFunc k) delta) =
+        algebraMap k[X] (RatFunc k) (q.coeff 0) -
+          algebraMap k (RatFunc k) alpha *
+            algebraMap k[X] (RatFunc k) (p.coeff 0) -
+          algebraMap k (RatFunc k) epsilon := by
+      rw [← hEcurve, ← hqCenter, ← hpCenter]
+    rw [hboundary]
+    simp only [map_sub, map_mul, RatFunc.algebraMap_C,
+      RatFunc.algebraMap_eq_C]
+
+end GeneralSourceBoundaries
+
 section SourcePackage
 
 /-- The source-level coefficient-curve data common to aligned and mismatch
@@ -389,9 +462,11 @@ structure SquareConstantLSourceCurveData46
   A : RatFunc k
   B : RatFunc k
   C0 : RatFunc k
+  alpha : k
   beta : k
   gamma : k
   delta : k
+  epsilon : k
   k2 : k
   k1 : k
   center_eq : r = quarticDepressionR46
@@ -400,6 +475,25 @@ structure SquareConstantLSourceCurveData46
   quartic_eq :
     affineDepress46 (algebraMap k[X] (RatFunc k) h0) r
         (sourceToRatFunc46 p) = depressedQuartic46 A B C0
+  sextic_eq :
+    affineDepress46 (algebraMap k[X] (RatFunc k) h0) r
+        (sourceToRatFunc46 q) =
+      depressedSextic46 (algebraMap k (RatFunc k) l)
+        (integratedP46 A (algebraMap k (RatFunc k) alpha))
+        (integratedQ46 (algebraMap k (RatFunc k) l) A B
+          (algebraMap k (RatFunc k) beta))
+        (integratedR46 (algebraMap k (RatFunc k) l) A B C0
+          (algebraMap k (RatFunc k) alpha)
+          (algebraMap k (RatFunc k) gamma))
+        (integratedS46 (algebraMap k (RatFunc k) l) A B C0
+          (algebraMap k (RatFunc k) alpha)
+          (algebraMap k (RatFunc k) beta)
+          (algebraMap k (RatFunc k) delta))
+        (integratedT46 (algebraMap k (RatFunc k) l) A B C0
+          (algebraMap k (RatFunc k) alpha)
+          (algebraMap k (RatFunc k) beta)
+          (algebraMap k (RatFunc k) gamma)
+          (algebraMap k (RatFunc k) epsilon))
   curveTwo : coefficientCurveTwo46 (algebraMap k (RatFunc k) l)
       A B (A ^ 2 - 4 * C0)
       (algebraMap k (RatFunc k) beta)
@@ -412,6 +506,15 @@ structure SquareConstantLSourceCurveData46
       (algebraMap k (RatFunc k) gamma)
       (algebraMap k (RatFunc k) delta) =
     algebraMap k (RatFunc k) k1
+  boundaryD : boundaryD46 r (translatedQ46 r A) B (A ^ 2 - 4 * C0) =
+    algebraMap k[X] (RatFunc k) (p.coeff 0)
+  boundaryE : boundaryE46 (algebraMap k (RatFunc k) l) r
+      (translatedQ46 r A) B (A ^ 2 - 4 * C0)
+      (algebraMap k (RatFunc k) beta)
+      (algebraMap k (RatFunc k) gamma)
+      (algebraMap k (RatFunc k) delta) =
+    algebraMap k[X] (RatFunc k)
+      (q.coeff 0 - C alpha * p.coeff 0 - C epsilon)
   lastRow : algebraMap k[X] (RatFunc k) h0 *
       eta46 (algebraMap k (RatFunc k) l) A B (A ^ 2 - 4 * C0)
         (algebraMap k (RatFunc k) beta)
@@ -479,6 +582,29 @@ theorem squareConstantLSourceCurveData46
       hP, hQ, hR, hS, hT, hcurve2, hcurve1, heta⟩ :=
     depressedCoefficientCurveData46 l A B C0 P0 Q0 R0 S0 T0
       (RatFunc.C j / h) hbracket
+  have hqIntegrated :
+      affineDepress46 (algebraMap k[X] (RatFunc k) h0) r
+          (sourceToRatFunc46 q) =
+        depressedSextic46 (algebraMap k (RatFunc k) l)
+          (integratedP46 A (algebraMap k (RatFunc k) alpha))
+          (integratedQ46 (algebraMap k (RatFunc k) l) A B
+            (algebraMap k (RatFunc k) beta))
+          (integratedR46 (algebraMap k (RatFunc k) l) A B C0
+            (algebraMap k (RatFunc k) alpha)
+            (algebraMap k (RatFunc k) gamma))
+          (integratedS46 (algebraMap k (RatFunc k) l) A B C0
+            (algebraMap k (RatFunc k) alpha)
+            (algebraMap k (RatFunc k) beta)
+            (algebraMap k (RatFunc k) delta))
+          (integratedT46 (algebraMap k (RatFunc k) l) A B C0
+            (algebraMap k (RatFunc k) alpha)
+            (algebraMap k (RatFunc k) beta)
+            (algebraMap k (RatFunc k) gamma)
+            (algebraMap k (RatFunc k) epsilon)) := by
+    rw [hqDep, hL', hP, hQ, hR, hS, hT]
+  have hboundaries := constantLDepressedLiteralBoundaries46
+    p q (algebraMap k[X] (RatFunc k) h0) r A B C0 l
+      alpha beta gamma delta epsilon hpDep hqIntegrated
   have hlast : h *
       eta46 (algebraMap k (RatFunc k) l) A B (A ^ 2 - 4 * C0)
         (algebraMap k (RatFunc k) beta)
@@ -493,15 +619,20 @@ theorem squareConstantLSourceCurveData46
     A := A
     B := B
     C0 := C0
+    alpha := alpha
     beta := beta
     gamma := gamma
     delta := delta
+    epsilon := epsilon
     k2 := k2
     k1 := k1
     center_eq := rfl
     quartic_eq := hpDep
+    sextic_eq := hqIntegrated
     curveTwo := hcurve2
     curveOne := hcurve1
+    boundaryD := hboundaries.1
+    boundaryE := hboundaries.2
     lastRow := hlast
   }⟩
 

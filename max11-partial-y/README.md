@@ -289,6 +289,10 @@ not treated as an established theorem.
   polynomial equations, proves that literal polynomial boundary loads have
   nonnegative local order, and supplies an injective positive rescaling of
   rational exponents that normalizes any selected finite pole order to one.
+  `LowScale46RegularLoads.lean` proves that the complete mismatch finite-pole
+  exclusion is unchanged when the two scalar boundary terms are replaced by
+  arbitrary Hahn-series loads of nonnegative order.  These are exactly the
+  translated polynomial loads produced by the finite-place bridge.
   `LowScale46Depression.lean` performs the exact source substitution
   `y=(z-r)/h` on the quartic and sextic and proves that the normalized quintic
   coefficient is zero in the aligned branch and `-lambda/2` in the mismatch
@@ -363,7 +367,7 @@ lake build
 `LowScale46AlignedZeroFinitePoles.lean`,
 `LowScale46AlignedComponentEndgame.lean`, `LowScale46SourceBridge.lean`,
 `LowScale46GeneralSourceBridge.lean`, `LowScale46ScaleZero.lean`,
-`LowScale46PoleBridge.lean`, and
+`LowScale46PoleBridge.lean`, `LowScale46RegularLoads.lean`, and
 `Max11Assembly.lean`
 contain no `sorry`, custom axioms, or trust escapes.  The
 permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.
