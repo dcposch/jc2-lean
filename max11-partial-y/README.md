@@ -331,8 +331,11 @@ not treated as an established theorem.
   three literal one-form constraints, the last equal to the Keller constant;
   `LowScale68Depression.lean` additionally verifies the exact common affine
   depression of raw leading forms `h⁶y⁶,h⁸y⁸` and identifies the surviving
-  septic coefficient with the first sextic/octic alignment discriminator.
-  The full source bridge and exclusion of that coefficient system remain open.
+  septic coefficient with the first sextic/octic alignment discriminator;
+  `LowScale68SourceBridge.lean` now transports the literal polynomial Keller
+  bracket to `k(x)`, reconstructs both raw sources, and proves the common
+  depressed bracket.  The remaining source package and exclusion of that
+  coefficient system remain open.
   `LowScale46NewtonFaces.lean` proves the underlying three- and four-term
   Hahn-series tied-minimum principle and the complete rational Newton-face
   tables for the aligned `beta ≠ 0` and `delta ≠ 0` strata.
@@ -405,7 +408,8 @@ lake build
 `LowScale46PoleBridge.lean`, `LowScale46RegularLoads.lean`,
 `LowScale46AlignedRegularLoads.lean`, `LowScale46WeightedInfinity.lean`,
 `LowScale46ScaleTwo.lean`, `LowScale68NormalForm.lean`,
-`LowScale68Integrated.lean`, `LowScale68Depression.lean`, and
+`LowScale68Integrated.lean`, `LowScale68Depression.lean`,
+`LowScale68SourceBridge.lean`, and
 `Max11Assembly.lean`
 contain no `sorry`, custom axioms, or trust escapes.  The
 permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.
