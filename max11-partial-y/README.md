@@ -382,10 +382,32 @@ leaf is now discharged by imported kernel-checked source theorems.  This
 project also proves the complete local nondivisible-core source-shear and
 Dirichlet reduction.  It now proves the coprime partial-degree route and the
 odd-common-scale half of partial-degree gcd two from the classical
-prime-total-degree-gcd theorem.  It still does not prove scalar-extension
-descent, the prime theorem itself, the standard-pair endpoint theorem itself,
-or the remaining eight literal normalized low-scale subcases: scales zero
-and two at the other four gcd-two pairs.  It does
+prime-total-degree-gcd theorem.  The exact external source for that premise is
+Masayoshi Nagata, *Two-dimensional Jacobian Conjecture*, 1989 symposium
+record, pp. 153--172, Theorem 7.3 on pp. 169--170.  It proves that a complex
+Keller pair whose total-degree gcd is prime generates the full polynomial
+ring; the corresponding Lean premise is
+`PlaneKellerPrimeTotalDegreeGCDRoute`.  This project proves the exact
+source-shear and Dirichlet reduction to that premise, not Nagata's
+Newton-polygon proof.
+
+The source-shear, UFD common-core normalization, target-rescaling transport,
+complete normalized `(4,6)` low-scale closure, and the current `(6,8)`
+development are first presented in this formalization; they are not claimed
+as translations of Nagata or Guccione--Guccione--Valqui.  They refine the
+included finite-composition report: the source-shear connects partial degree
+to the two published total-degree interfaces, the normalization produces the
+five literal low-scale leaves, and the low-scale modules begin discharging
+those leaves internally.  The related proof trees are the registered
+[source-facing `(6,9)` noncube exclusion](https://palomar-registry.org/entry.html?id=PALOMAR-2026-08-25-000002&version=2),
+the sibling `gcd3-69-cube` project, and the sibling
+`gcd3-69-noncube-v2` cube/noncube composition.
+
+The project still does not prove scalar-extension descent, the prime theorem
+itself, or the standard-pair endpoint theorem itself.  Among the eight cases
+left after `(4,6)`, the `(6,8)` scale-zero case is now proved through its
+forced polynomial cubic-core top boundary; its next-order descent and the
+other seven literal normalized low-scale subcases remain open.  It does
 prove the common-power UFD factorization, exact
 core degree, scalar normalization, and generation transport for all five.
 The endpoint theorem is the first assertion of Guccione--Guccione--
@@ -403,8 +425,9 @@ The source files are copied byte-for-byte under `sources/`:
 - composition: `7eda0a469585247479d46c8f5f2ce95d2643ae8541f0d7f9c80e1c8537fffb0c`
 - review: `d9522acbb35c5097cb3d3c947be12c10868f109af4d30c9713870f5ec6e9a33f`
 
-No claim of novelty or priority is made beyond the included source.  The
-hostile review is campaign-internal, not external human peer review.
+The first-presentation statement above records provenance, not an external
+priority determination.  The hostile review is campaign-internal, not
+external human peer review.
 
 ## Verification
 

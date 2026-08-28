@@ -62,6 +62,38 @@ sources:
       this Lean extraction.
     license: "CC-BY-4.0"
     author_endorsement: "n/a"
+  - title: "Source-shear, common-core normalization, and low-scale Max-11 development"
+    authors:
+      - "Dan Clemens Posch"
+    type: "original-proof"
+    relationship: "other"
+    note: >-
+      These results are first presented by this Lean formalization rather than
+      imported from a prior paper or sibling proof.  The source-shear modules
+      give the exact bridge from partial y-degree to the published total-degree
+      theorems; the UFD and target-rescaling modules normalize the five
+      gcd-two leaves; and the `(4,6)` modules give a new complete proof of both
+      low scales.  The `(6,8)` modules extend that original development through
+      the polynomial weighted-boundary cubic-core theorem.  These statements
+      refine the frozen finite composition and use the two published results
+      listed below only at their explicitly typed interfaces.
+    license: "Apache-2.0"
+    author_endorsement: "participated"
+  - title: "Two-dimensional Jacobian Conjecture"
+    authors:
+      - "Masayoshi Nagata"
+    type: "paper"
+    location: "https://repository.kulib.kyoto-u.ac.jp/server/api/core/bitstreams/9ef8e868-5526-4830-b19f-543c0af09e7c/content"
+    relationship: "background"
+    note: >-
+      Theorem 7.3 on pp. 169--170 repairs the Appelgate--Onishi argument and
+      proves the exact external premise used here: a complex Keller pair whose
+      total-degree gcd is prime generates the full polynomial ring.  This is
+      exposed in Lean as `PlaneKellerPrimeTotalDegreeGCDRoute`; the present
+      project proves the source-shear and Dirichlet reductions to that premise,
+      but does not formalize Nagata's Newton-polygon proof.
+    license: "unknown"
+    author_endorsement: "not-contacted"
   - title: "On the shape of possible counterexamples to the Jacobian Conjecture"
     authors:
       - "Jorge A. Guccione"
@@ -79,6 +111,23 @@ sources:
       not used as an arbitrary-pair twice-prime theorem.
     license: "unknown"
     author_endorsement: "not-contacted"
+
+related_formalizations:
+  - id: "PALOMAR-2026-08-25-000002"
+    relationship: "other"
+    note: >-
+      Version 2 is the registered source-facing `(6,9)` noncube exclusion used
+      by the imported divisible-core assembly in this project.
+  - id: "local:gcd3-69-cube"
+    relationship: "other"
+    note: >-
+      The sibling project proves the complete source-facing polynomial-cube
+      exclusion, including the constant-core branch, imported by this project.
+  - id: "local:gcd3-69-noncube-v2"
+    relationship: "other"
+    note: >-
+      The sibling composition performs the exhaustive cube/noncube dispatch at
+      `(6,9)` and supplies the divisible common-cubic exclusion imported here.
 
 status:
   scope: >-
@@ -173,11 +222,16 @@ status:
     bracket/raw coefficient bridge into `k(x)` is proved.  The omitted top row
     forces the septic coefficient to be constant; it and all seven Faber
     residuals descend to the ground field and reconstruct the integrated
-    octic coefficients.
+    octic coefficients.  At scale zero, all thirteen depressed coefficients
+    are represented by literal ground polynomials and both first integrals
+    descend.  Exact weighted coefficient formulas then extract the five top
+    lower rows from arbitrary bounded polynomial loads and force the unique
+    cubic-core boundary `B=D=0`, `C=A^2/3`, `E=A^3/27` at every positive
+    integral weighted radius.
     Not proved here: scalar-extension/descent, the
     prime-total-degree-gcd theorem itself, the standard-endpoint theorem
-    itself, or the eight remaining normalized low-scale subcases at the other
-    four pairs.  The
+    itself, the next-order `(6,8)` scale-zero descent, or the other seven
+    normalized low-scale subcases.  The
     strong twice-prime statement is not treated as established:
     GGV 2017 proves the restriction for the globally minimal counterexample
     gcd B and records a gap in the earlier arbitrary-pair proof.
@@ -234,6 +288,10 @@ status:
       axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.depressedCoefficients_integrate_over_ground68"
       file: "LowScale68SourceBridge.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.integratedRationalLowerSystem_polynomialBoundary_cubicCore68"
+      file: "LowScale68PolynomialBoundary.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.mismatchDegreeCone46"
@@ -531,10 +589,13 @@ fidelity:
     pairs.  The standard-pair endpoint obstruction then reduces those five
     unbounded residues to the literal scales zero and two, and polynomial-UFD
     extraction plus target rescaling puts all ten cases into exact normalized
-    common-core form.  The scale-zero `(4,6)` case is now excluded from the
-    genuine source dichotomy and polynomial coefficient-curve endgames.  It does not
+    common-core form.  Both `(4,6)` scales are excluded from the genuine source
+    dichotomy and polynomial coefficient-curve endgames.  The `(6,8)`
+    scale-zero route is proved through extraction of its unique cubic-core
+    polynomial boundary.  It does not
     formalize the published prime theorem, the standard-endpoint theorem,
-    the nine remaining normalized low-scale theorems, an arbitrary-pair twice-prime theorem, or
+    the next-order `(6,8)` scale-zero descent, the other seven normalized
+    low-scale theorems, an arbitrary-pair twice-prime theorem, or
     scalar-extension descent.  In particular, GGV
     2017's theorem about the globally minimal
     counterexample gcd B is not silently strengthened to a theorem about every
@@ -555,7 +616,9 @@ review:
     TotalDegreeRoutes.lean, CoprimeDegreeRoute.lean, EndpointGCDRoute.lean,
     LowScaleCore.lean, LowScale68NormalForm.lean,
     LowScale68Integrated.lean, LowScale68Depression.lean,
-    LowScale68SourceBridge.lean, or Max11Assembly.lean.
+    LowScale68SourceBridge.lean, LowScale68ScaleZero.lean,
+    LowScale68Infinity.lean, LowScale68PolynomialBoundary.lean, or
+    Max11Assembly.lean.
 
 alignment:
   namespace: "(root)"
@@ -573,9 +636,11 @@ alignment:
         exact bivariate polynomial conclusion and finite composition proved;
         the zero, equal-degree, divisibility, exhaustive (6,9), coprime-degree,
         odd-scale gcd-two, and large-even-scale adapter routes are proved; the
-        prime-total-degree-gcd theorem, standard-pair endpoint obstruction,
-        normalized scale two at `(4,6)`, and normalized scales zero and two at
-        the other four explicit gcd-two degree pairs remain as hypotheses
+        prime-total-degree-gcd theorem, standard-pair endpoint obstruction, and
+        normalized scales zero and two at the four explicit gcd-two degree
+        pairs other than the completely proved `(4,6)` pair remain as
+        hypotheses; the `(6,8)` scale-zero proof is internally advanced through
+        its forced polynomial cubic-core boundary
     - source: "Maximum-twelve frontier checksum, Section 9"
       lean: "Max12FirstPrimitives"
       module: "Max11Challenge"
