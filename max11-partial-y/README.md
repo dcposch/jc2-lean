@@ -406,9 +406,12 @@ not treated as an established theorem.
   invariant coefficients and the terminal two one-form coefficients, proves
   the sharper load cutoffs, transports all four equations to the canonical
   expanded system, and eliminates the strict-`D`, strict-`E`, and tied
-  endpoints uniformly in `3g<n`.  Proving the tropical face selection and
-  eliminating the classified middle face remain open, as do the other gap
-  chambers and the scale-two pole/degree analysis.
+  endpoints uniformly in `3g<n`.  `LowScale68SecondaryResidualSelector.lean`
+  selects the minimum actual residual gap, proves it lies strictly between
+  `g` and `2g`, eliminates its double-face alternative, and upgrades the
+  surviving middle face to nonzero `A,B,c,d,e` satisfying
+  `A*B²+3*c²=0`.  Eliminating that classified discriminant face remains open,
+  as do the other gap chambers and the scale-two pole/degree analysis.
   `LowScale46NewtonFaces.lean` proves the underlying three- and four-term
   Hahn-series tied-minimum principle and the complete rational Newton-face
   tables for the aligned `beta ≠ 0` and `delta ≠ 0` strata.
@@ -522,7 +525,8 @@ lake build
 `LowScale68SecondaryResidualFace.lean`,
 `LowScale68SecondaryResidualExtraction.lean`,
 `LowScale68SecondaryResidualMiddle.lean`,
-`LowScale68SecondaryResidualDouble.lean`, and
+`LowScale68SecondaryResidualDouble.lean`,
+`LowScale68SecondaryResidualSelector.lean`, and
 `Max11Assembly.lean`
 contain no `sorry`, custom axioms, or trust escapes.  The
 permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.

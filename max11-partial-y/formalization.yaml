@@ -366,6 +366,10 @@ status:
       file: "LowScale68SecondaryResidualFace.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.secondaryResidualBetweenFace68_classify_of_support"
+      file: "LowScale68SecondaryResidualFace.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.secondaryResidualDAtDoubleFace68_impossible"
       file: "LowScale68SecondaryResidualFace.lean"
       sorry_count: 0
@@ -386,12 +390,20 @@ status:
       file: "LowScale68SecondaryResidualMiddle.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_secondaryResidualMiddleFace68"
+      file: "LowScale68SecondaryResidualMiddle.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_secondaryResidualDouble68"
       file: "LowScale68SecondaryResidualDouble.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.secondaryResidualDoubleFace68_impossible"
       file: "LowScale68SecondaryResidualDouble.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_secondaryResidualSelect68"
+      file: "LowScale68SecondaryResidualSelector.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.mismatchDegreeCone46"
@@ -699,8 +711,9 @@ fidelity:
     canonical expanded system, reducing the attained residual boundary to the
     `B` or translated-`C` direction.  The next `3g<n` residual coordinates,
     exact identities, degree drops, invariant load cutoffs, abstract face
-    solvers, and selected-middle canonical-system classifier are proved, but
-    tropical selection and the classified middle-face endgame are not.  It
+    solvers, canonical tropical selection, endpoint elimination, and the
+    selected-middle discriminant classifier are proved, but the classified
+    middle-face endgame is not.  It
     does not
     formalize the published prime theorem, the standard-endpoint theorem,
     the secondary Newton-face `(6,8)` scale-zero descent, the other seven
@@ -734,7 +747,8 @@ review:
     LowScale68SecondaryResidualFace.lean,
     LowScale68SecondaryResidualExtraction.lean,
     LowScale68SecondaryResidualMiddle.lean,
-    LowScale68SecondaryResidualDouble.lean, or
+    LowScale68SecondaryResidualDouble.lean,
+    LowScale68SecondaryResidualSelector.lean, or
     Max11Assembly.lean.
 
 alignment:

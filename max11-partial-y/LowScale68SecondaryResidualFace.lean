@@ -63,6 +63,48 @@ theorem secondaryResidualBetweenFace68_classify
     simpa using neg_eq_zero.mp hneg
   exact ⟨hd, he, hdisc⟩
 
+/-- The attained residual middle face upgrades the first-boundary support
+disjunction `b ≠ 0 ∨ c ≠ 0` to nonvanishing of all four residual directions,
+then satisfies the same discriminant relation. -/
+theorem secondaryResidualBetweenFace68_classify_of_support
+    (a b c d e : k) (ha : a ≠ 0) (hsupport : b ≠ 0 ∨ c ≠ 0)
+    (hattained : d ≠ 0 ∨ e ≠ 0)
+    (hface : SecondaryResidualBetweenFace68 a b c d e) :
+    b ≠ 0 ∧ c ≠ 0 ∧ d ≠ 0 ∧ e ≠ 0 ∧
+      a * b ^ 2 + 3 * c ^ 2 = 0 := by
+  have hb : b ≠ 0 := by
+    rcases hsupport with hb | hc
+    · exact hb
+    · intro hb0
+      have hd0 : d = 0 := by
+        have h := hface.four
+        rw [hb0, zero_mul, zero_add] at h
+        exact (mul_eq_zero.mp h).resolve_left hc
+      have he0 : e = 0 := by
+        have h := hface.three
+        rw [hb0] at h
+        have hce : c * e = 0 := by linear_combination (1 / 3 : k) * h
+        exact (mul_eq_zero.mp hce).resolve_left hc
+      exact hattained.elim (fun hd => hd hd0) (fun he => he he0)
+  have hc : c ≠ 0 := by
+    rcases hsupport with hb' | hc
+    · intro hc0
+      have he0 : e = 0 := by
+        have h := hface.four
+        rw [hc0, zero_mul, add_zero] at h
+        exact (mul_eq_zero.mp h).resolve_left hb'
+      have hd0 : d = 0 := by
+        have h := hface.three
+        rw [hc0] at h
+        have hab : a * b ≠ 0 := mul_ne_zero ha hb'
+        have habd : a * b * d = 0 := by linear_combination -h
+        exact (mul_eq_zero.mp habd).resolve_left hab
+      exact hattained.elim (fun hd => hd hd0) (fun he => he he0)
+    · exact hc
+  have hclass := secondaryResidualBetweenFace68_classify
+    a b c d e hb hc hattained hface
+  exact ⟨hb, hc, hclass.1, hclass.2.1, hclass.2.2⟩
+
 /-- Leading endpoint with the translated `D` defect at gap `2g` while the
 translated constant defect is later. -/
 structure SecondaryResidualDAtDoubleFace68 (a b c d : k) : Prop where
@@ -189,6 +231,7 @@ end SecondaryResidualFace68
 
 #print axioms secondaryDDefectPolynomial68_reconstruct
 #print axioms secondaryResidualBetweenFace68_classify
+#print axioms secondaryResidualBetweenFace68_classify_of_support
 #print axioms secondaryResidualDAtDoubleFace68_impossible
 #print axioms secondaryResidualEAtDoubleFace68_impossible
 #print axioms secondaryResidualTiedDoubleFace68_forces_gap_eq_four_radius

@@ -326,9 +326,57 @@ endpoint coefficient gives a strict endpoint, while two nonzero coefficients
 give the tied endpoint. -/
 theorem secondaryResidualDoubleFace68_impossible
     (n g : ℕ) (a b c d e : k)
-    (ha : a ≠ 0) (hb : b ≠ 0) (hc : c ≠ 0) (hsmall : 3 * g < n)
+    (ha : a ≠ 0) (hsupport : b ≠ 0 ∨ c ≠ 0) (hsmall : 3 * g < n)
     (hface : SecondaryResidualTiedDoubleFace68
       (n : k) (g : k) a b c d e) : False := by
+  have hb : b ≠ 0 := by
+    rcases hsupport with hb | hc
+    · exact hb
+    · intro hb0
+      have hd0 : d = 0 := by
+        have h := hface.four
+        rw [hb0] at h
+        have hcd : c * d = 0 := by linear_combination (1 / 9 : k) * h
+        exact (mul_eq_zero.mp hcd).resolve_left hc
+      have he0 : e = 0 := by
+        have h := hface.three
+        rw [hb0] at h
+        have hce : c * e = 0 := by linear_combination (1 / 3 : k) * h
+        exact (mul_eq_zero.mp hce).resolve_left hc
+      have hone := hface.one
+      rw [hb0, hd0, he0] at hone
+      have hcoeff : (3 * (g : k) - 12 * (n : k)) ≠ 0 := by
+        intro hz
+        have hcast : (3 * g : k) = (12 * n : ℕ) := by
+          push_cast
+          linear_combination hz
+        have hnat : 3 * g = 12 * n := by exact_mod_cast hcast
+        omega
+      have hc3 : c ^ 3 = 0 := by
+        have hprod : (3 * (g : k) - 12 * (n : k)) * c ^ 3 = 0 := by
+          linear_combination hone
+        exact (mul_eq_zero.mp hprod).resolve_left hcoeff
+      exact (pow_ne_zero 3 hc) hc3
+  have hc : c ≠ 0 := by
+    rcases hsupport with hb' | hc
+    · intro hc0
+      have hd0 : d = 0 := by
+        have h := hface.three
+        rw [hc0] at h
+        have hab : a * b ≠ 0 := mul_ne_zero ha hb'
+        have habd : a * b * d = 0 := by linear_combination -h
+        exact (mul_eq_zero.mp habd).resolve_left hab
+      have he0 : e = 0 := by
+        have h := hface.zero
+        rw [hc0] at h
+        have hab : a * b ≠ 0 := mul_ne_zero ha hb'
+        have habe : a * b * e = 0 := by linear_combination -h
+        exact (mul_eq_zero.mp habe).resolve_left hab
+      have h := hface.four
+      rw [hc0, hd0, he0] at h
+      have hb3 : b ^ 3 = 0 := by linear_combination -h
+      exact (pow_ne_zero 3 hb') hb3
+    · exact hc
   by_cases hd : d = 0
   · exact secondaryResidualEAtDoubleFace68_impossible b c e hb hc
       (secondaryResidualEAtDoubleFace68_of_tied
