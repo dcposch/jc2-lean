@@ -152,8 +152,12 @@ status:
     unit-product contradictions are also proved.  Generic three- and
     four-term Hahn-series tied-minimum lemmas and the exhaustive rational
     Newton-face tables for both aligned strata are proved.  Their
-    instantiation on every term of the full cleared equations and the mismatch
-    finite-pole step are not yet formalized.  The generic polynomial
+    aligned instantiation on every term of the full cleared equations is not
+    yet formalized.  In the mismatch chart, all four full cleared equations
+    are instantiated on rational-exponent Hahn series for positive finite
+    coordinate orders: they force orders `(1/4,1/2,1/2)` and the terminal
+    boundary contradiction.  The identically-zero coordinate subloci remain
+    to be packaged.  The generic polynomial
     leading-term bridge, including a strictly lower-degree remainder, is
     proved and instantiated on both exact mismatch coefficient-curve rows.
     The resulting theorem exhausts all eight constant/nonconstant patterns of
@@ -233,6 +237,11 @@ status:
       comparator_config: "comparator.json"
     - declaration: "Max11DegreeRoutes.mismatchPolynomialTrajectory_impossible46"
       file: "LowScale46PolynomialEndgame.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.mismatchFinitePole46_impossible"
+      file: "LowScale46FinitePoles.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator.json"

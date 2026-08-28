@@ -215,6 +215,11 @@ not treated as an established theorem.
   principle on the exact two coefficient-curve equations and closes the
   complete mismatch polynomial endgame: all eight constant/nonconstant
   patterns of `(A,B,U)` are incompatible with a nonzero constant last row.
+  `LowScale46FinitePoles.lean` instantiates all four full local-chart rows on
+  rational-exponent Hahn series and closes every mismatch branch with finite
+  positive orders: it forces `(v(Q),v(Y),v(Z))=(1/4,1/2,1/2)` and then the
+  terminal boundary contradiction.  Packaging the identically-zero chart
+  coordinates remains.
   `LowScale46Depression.lean` performs the exact source substitution
   `y=(z-r)/h` on the quartic and sextic and proves that the normalized quintic
   coefficient is zero in the aligned branch and `-lambda/2` in the mismatch
@@ -282,6 +287,7 @@ lake build
 `LowScale46LocalChart.lean`, `LowScale46AlignedChart.lean`,
 `LowScale46DegreeCones.lean`, `LowScale46Depression.lean`,
 `LowScale46Integrality.lean`, `LowScale46NewtonFaces.lean`,
-`LowScale46PolynomialEndgame.lean`, and `Max11Assembly.lean`
+`LowScale46PolynomialEndgame.lean`, `LowScale46FinitePoles.lean`, and
+`Max11Assembly.lean`
 contain no `sorry`, custom axioms, or trust escapes.  The
 permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.
