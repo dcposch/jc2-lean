@@ -201,6 +201,14 @@ not treated as an established theorem.
   The same module derives both translated-origin boundary equations by exact
   polynomial evaluation and proves that the four weighted-leading forms have
   unique weighted-projective common zero `[1:0:0:0]`.
+- `LowScale46LocalChart.lean` verifies all four full cleared equations in the
+  weighted chart at that point, with no truncation, and proves the terminal
+  mismatch leading system inconsistent.  `LowScale46AlignedChart.lean`
+  verifies the aligned Newton polynomials, the shifted plane curve
+  `Φ(A)²=X²R(A,X)`, the component equations and restricted one-form, and both
+  monic boundary eliminants.  `LowScale46DegreeCones.lean` replaces the
+  report's finite integer scans by exact proofs of the unique positive cones
+  `(4,5,7)`, `(4,3,5)`, and `(4,1,3)` and their one-form degree gaps.
 - `Max11DegreeRoutes.Max11PlaneKellerGenerationWithPrimeAndTwicePrimeTotalDegreeGCDRoutes`
   records the fully assembled implication from prime and strong arbitrary-pair
   twice-prime total-degree routes.  The implication is checked; availability
@@ -255,6 +263,7 @@ lake build
 `HistoryRoute.lean`, `HistoryDegree.lean`, `TotalDegreeRoutes.lean`,
 `CoprimeDegreeRoute.lean`, `EndpointGCDRoute.lean`, `LowScaleCore.lean`, and
 `LowScale46Rows.lean`, `LowScale46NormalForm.lean`, `LowScale46Curve.lean`,
-and `Max11Assembly.lean`
+`LowScale46LocalChart.lean`, `LowScale46AlignedChart.lean`,
+`LowScale46DegreeCones.lean`, and `Max11Assembly.lean`
 contain no `sorry`, custom axioms, or trust escapes.  The
 permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.
