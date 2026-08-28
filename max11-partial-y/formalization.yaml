@@ -74,7 +74,8 @@ sources:
       theorems; the UFD and target-rescaling modules normalize the five
       gcd-two leaves; and the `(4,6)` modules give a new complete proof of both
       low scales.  The `(6,8)` modules extend that original development through
-      the canonical nontrivial expanded weighted-boundary cubic-core theorem.
+      the canonical nontrivial expanded weighted-boundary cubic-core theorem,
+      strict transverse degree drop, and exact-cubic contradiction.
       These statements
       refine the frozen finite composition and use the two published results
       listed below only at their explicitly typed interfaces.
@@ -235,11 +236,14 @@ status:
     pulled back to a packaged polynomial system; both invariants commute with
     expansion, all three one-form rows acquire the common chain-rule factor,
     and the canonical expanded maximal face is proved nontrivial with nonzero
-    top A coefficient.
+    top A coefficient.  In cubic transverse coordinates the four defects are
+    proved to have strict degree drop.  They cannot all vanish: the exact
+    quartic first integral makes the relevant loads zero, and the final
+    one-form then contradicts the nonzero Keller constant.
     Not proved here: scalar-extension/descent, the
     prime-total-degree-gcd theorem itself, the standard-endpoint theorem
-    itself, the next-order `(6,8)` scale-zero descent, or the other seven
-    normalized low-scale subcases.  The
+    itself, the secondary Newton-face `(6,8)` scale-zero descent, or the other
+    seven normalized low-scale subcases.  The
     strong twice-prime statement is not treated as established:
     GGV 2017 proves the restriction for the globally minimal counterexample
     gcd B and records a gap in the earlier arbitrary-pair proof.
@@ -304,6 +308,14 @@ status:
       axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.exists_positive_integral_weightedRadius68"
       file: "LowScale68WeightedRadius.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.exactCubicIntegratedPolynomialLowerSystem_impossible68"
+      file: "LowScale68CubicDescent.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_degreeDrop68"
+      file: "LowScale68CubicDescent.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.mismatchDegreeCone46"
@@ -604,10 +616,11 @@ fidelity:
     common-core form.  Both `(4,6)` scales are excluded from the genuine source
     dichotomy and polynomial coefficient-curve endgames.  The `(6,8)`
     scale-zero route is proved through extraction and expansion to its
-    canonical nontrivial cubic-core polynomial boundary.  It does not
+    canonical nontrivial cubic-core polynomial boundary, strict transverse
+    degree drop, and contradiction on the exact cubic locus.  It does not
     formalize the published prime theorem, the standard-endpoint theorem,
-    the next-order `(6,8)` scale-zero descent, the other seven normalized
-    low-scale theorems, an arbitrary-pair twice-prime theorem, or
+    the secondary Newton-face `(6,8)` scale-zero descent, the other seven
+    normalized low-scale theorems, an arbitrary-pair twice-prime theorem, or
     scalar-extension descent.  In particular, GGV
     2017's theorem about the globally minimal
     counterexample gcd B is not silently strengthened to a theorem about every
@@ -630,7 +643,8 @@ review:
     LowScale68Integrated.lean, LowScale68Depression.lean,
     LowScale68SourceBridge.lean, LowScale68ScaleZero.lean,
     LowScale68Infinity.lean, LowScale68PolynomialBoundary.lean,
-    LowScale68WeightedRadius.lean, LowScale68Expansion.lean, or
+    LowScale68WeightedRadius.lean, LowScale68Expansion.lean,
+    LowScale68CubicDescent.lean, or
     Max11Assembly.lean.
 
 alignment:
@@ -653,7 +667,8 @@ alignment:
         normalized scales zero and two at the four explicit gcd-two degree
         pairs other than the completely proved `(4,6)` pair remain as
         hypotheses; the `(6,8)` scale-zero proof is internally advanced through
-        its canonical nontrivial expanded polynomial cubic-core boundary
+        its canonical nontrivial expanded polynomial cubic-core boundary,
+        strict transverse degree drop, and exact-cubic contradiction
     - source: "Maximum-twelve frontier checksum, Section 9"
       lean: "Max12FirstPrimitives"
       module: "Max11Challenge"

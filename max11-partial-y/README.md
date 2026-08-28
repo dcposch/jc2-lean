@@ -368,8 +368,13 @@ not treated as an established theorem.
   the common chain-rule factor, and applies the maximal-radius theorem.  Thus
   the canonical expanded boundary is nontrivial and has
   `B=D=0`, `C=A²/3`, `E=A³/27`, with the top `A` coefficient nonzero.
-  Completing the next-order descent from this cubic-core face remains open, as
-  does the scale-two pole/degree analysis.
+  `LowScale68CubicDescent.lean` translates the two exact invariants into the
+  four transverse cubic coordinates, proves their strict degree drop, and
+  rules out remaining identically on the exact cubic locus: the quartic first
+  integral forces the relevant loads to vanish, after which the terminal
+  one-form contradicts its nonzero Keller constant.  Constructing and
+  eliminating the resulting secondary Newton faces remains open, as does the
+  scale-two pole/degree analysis.
   `LowScale46NewtonFaces.lean` proves the underlying three- and four-term
   Hahn-series tied-minimum principle and the complete rational Newton-face
   tables for the aligned `beta ≠ 0` and `delta ≠ 0` strata.
@@ -417,7 +422,8 @@ the sibling `gcd3-69-cube` project, and the sibling
 The project still does not prove scalar-extension descent, the prime theorem
 itself, or the standard-pair endpoint theorem itself.  Among the eight cases
 left after `(4,6)`, the `(6,8)` scale-zero case is now proved through its
-canonical nontrivial expanded cubic-core top boundary; its next-order descent
+canonical nontrivial expanded cubic-core top boundary, strict transverse
+degree drop, and exact-cubic contradiction; its secondary Newton-face descent
 and the other seven literal normalized low-scale subcases remain open.  It does
 prove the common-power UFD factorization, exact
 core degree, scalar normalization, and generation transport for all five.
@@ -468,7 +474,8 @@ lake build
 `LowScale68Integrated.lean`, `LowScale68Depression.lean`,
 `LowScale68SourceBridge.lean`, `LowScale68ScaleZero.lean`,
 `LowScale68Infinity.lean`, `LowScale68PolynomialBoundary.lean`,
-`LowScale68WeightedRadius.lean`, `LowScale68Expansion.lean`, and
+`LowScale68WeightedRadius.lean`, `LowScale68Expansion.lean`,
+`LowScale68CubicDescent.lean`, and
 `Max11Assembly.lean`
 contain no `sorry`, custom axioms, or trust escapes.  The
 permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.
