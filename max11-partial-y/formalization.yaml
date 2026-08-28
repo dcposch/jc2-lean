@@ -77,7 +77,8 @@ sources:
       the canonical nontrivial expanded weighted-boundary cubic-core theorem,
       strict transverse degree drop, exact-cubic contradiction, and attained
       positive secondary defect radius.  The first abstract secondary chamber
-      is classified exactly.
+      is classified exactly, and its two invariant equations plus first
+      one-form equation are extracted from the literal polynomial system.
       These statements
       refine the frozen finite composition and use the two published results
       listed below only at their explicitly typed interfaces.
@@ -331,6 +332,10 @@ status:
       axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.firstSecondaryFace68_classify_of_two_mul_gap_lt_radius"
       file: "LowScale68SecondaryFace.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.integratedLowerRowTwoPolynomial68_secondaryCoeff"
+      file: "LowScale68SecondaryExtraction.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.mismatchDegreeCone46"
@@ -662,7 +667,7 @@ review:
     LowScale68Infinity.lean, LowScale68PolynomialBoundary.lean,
     LowScale68WeightedRadius.lean, LowScale68Expansion.lean,
     LowScale68CubicDescent.lean, LowScale68SecondaryRadius.lean,
-    LowScale68SecondaryFace.lean, or
+    LowScale68SecondaryFace.lean, LowScale68SecondaryExtraction.lean, or
     Max11Assembly.lean.
 
 alignment:
