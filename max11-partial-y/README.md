@@ -6,6 +6,11 @@ zero-degree, gcd-at-most-two, equal-degree, and divisibility reduction rules
 are supplied, closing the single primitive pair `(6,9)` closes every ordered
 pair `(m,n)` with `m,n ≤ 11`.
 
+For Palomar verification, the already-verified `(6,9)` proof trees in the
+three sibling directories are exposed as source libraries of this Lake
+package.  This keeps all generated objects under this project's `.lake`
+directory while preserving the exact in-repository theorem dependencies.
+
 The original abstract routing certificate remains available, and
 `Max11PlaneKellerGeneration` instantiates it with actual bivariate polynomials.
 The strengthened headline
