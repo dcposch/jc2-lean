@@ -195,6 +195,12 @@ not treated as an established theorem.
   all eight depressed quartic/sextic Jacobian rows, the five integrated upper
   coefficients, and the two first integrals `I₂,I₁`; only the constant last
   row remains in that normal form.
+- `Max11DegreeRoutes.differentialJacobian_integratedDiscriminant46_eq`
+  changes to `U=A²-4C` and identifies the entire remaining Jacobian with the
+  two exact coefficient-curve rows `dJ₂,dJ₁` and the reviewed one-form `η`.
+  The same module derives both translated-origin boundary equations by exact
+  polynomial evaluation and proves that the four weighted-leading forms have
+  unique weighted-projective common zero `[1:0:0:0]`.
 - `Max11DegreeRoutes.Max11PlaneKellerGenerationWithPrimeAndTwicePrimeTotalDegreeGCDRoutes`
   records the fully assembled implication from prime and strong arbitrary-pair
   twice-prime total-degree routes.  The implication is checked; availability
@@ -248,6 +254,7 @@ lake build
 `Max11Core.lean`, `ClassicalRoutes.lean`, `DegreeRoutes.lean`,
 `HistoryRoute.lean`, `HistoryDegree.lean`, `TotalDegreeRoutes.lean`,
 `CoprimeDegreeRoute.lean`, `EndpointGCDRoute.lean`, `LowScaleCore.lean`, and
-`LowScale46Rows.lean`, `LowScale46NormalForm.lean`, and `Max11Assembly.lean`
+`LowScale46Rows.lean`, `LowScale46NormalForm.lean`, `LowScale46Curve.lean`,
+and `Max11Assembly.lean`
 contain no `sorry`, custom axioms, or trust escapes.  The
 permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.

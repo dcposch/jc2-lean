@@ -135,10 +135,14 @@ status:
     Over an arbitrary characteristic-zero differential field, the common
     depressed quartic/sextic Jacobian is expanded through all eight rows; the
     five upper rows integrate to the reviewed formulas and the next two are
-    exactly the derivatives of the first integrals I_2 and I_1.  Thus only
-    the last row remains after those integrations.  The local-normalization,
-    boundary, and infinity exclusions needed to close (4,6) are not yet
-    formalized.  The normalized H = 0 and H = 2 sources also remain open at
+    exactly the derivatives of the first integrals I_2 and I_1.  After the
+    substitution U=A^2-4C, the full remaining Jacobian is proved to equal the
+    two exact coefficient-curve rows dJ_2,dJ_1 followed by the reviewed
+    one-form eta.  Both translated-origin boundary equations are derived by
+    exact evaluation, and the four weighted-leading forms are proved to have
+    the unique weighted-projective common zero [1:0:0:0].  The formal-branch
+    local-normalization and infinity exclusions needed to close (4,6) are not
+    yet formalized.  The normalized H = 0 and H = 2 sources also remain open at
     the other four pairs.
     Not proved here: scalar-extension/descent, the
     prime-total-degree-gcd theorem itself, the standard-endpoint theorem
@@ -162,6 +166,11 @@ status:
       comparator_config: "comparator.json"
     - declaration: "Max11DegreeRoutes.differentialJacobian_integrated46_eq"
       file: "LowScale46NormalForm.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.differentialJacobian_integratedDiscriminant46_eq"
+      file: "LowScale46Curve.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator.json"
