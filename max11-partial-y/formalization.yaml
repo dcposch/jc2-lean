@@ -85,7 +85,12 @@ sources:
       prospective residual faces in `3g<n` is also checked: both one-sided
       endpoints and the tied endpoint are impossible, while the middle face
       forces `a*b^2+3*c^2=0` and two nonzero residual directions.  Coefficient
-      extraction and tropical selection of those faces remain separate.
+      extraction is now connected to the literal polynomial invariants: the
+      translated defects have strict degree drop, all five exact residual
+      coordinate identities are checked, the invariant loads are below the
+      middle face, and the canonical expanded system satisfies the abstract
+      middle classifier whenever its explicit gaps obey `g<h<2g`.  Tropical
+      selection of the middle or endpoint faces remains separate.
       These statements
       refine the frozen finite composition and use the two published results
       listed below only at their explicitly typed interfaces.
@@ -367,6 +372,18 @@ status:
       axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.secondaryResidualTiedDoubleFace68_impossible_of_three_mul_gap_lt_radius"
       file: "LowScale68SecondaryResidualFace.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_secondaryResidualDegreeDrops68"
+      file: "LowScale68SecondaryResidualExtraction.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.polynomialSecondaryResidualBetweenFace68_classify"
+      file: "LowScale68SecondaryResidualExtraction.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_secondaryResidualMiddle68"
+      file: "LowScale68SecondaryResidualMiddle.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.mismatchDegreeCone46"
@@ -672,9 +689,11 @@ fidelity:
     secondary defect radius.  All five equations of its abstract small-gap
     face are extracted from the literal polynomial rows and applied to the
     canonical expanded system, reducing the attained residual boundary to the
-    `B` or translated-`C` direction.  The abstract solvers for the next
-    prospective `3g<n` residual faces are proved, but the actual coefficient
-    extraction and tropical selection bridge is not.  It does not
+    `B` or translated-`C` direction.  The next `3g<n` residual coordinates,
+    exact identities, degree drops, invariant load cutoffs, abstract face
+    solvers, and selected-middle canonical-system classifier are proved, but
+    tropical selection and the classified middle-face endgame are not.  It
+    does not
     formalize the published prime theorem, the standard-endpoint theorem,
     the secondary Newton-face `(6,8)` scale-zero descent, the other seven
     normalized low-scale theorems, an arbitrary-pair twice-prime theorem, or
@@ -704,7 +723,9 @@ review:
     LowScale68CubicDescent.lean, LowScale68SecondaryRadius.lean,
     LowScale68SecondaryFace.lean, LowScale68SecondaryExtraction.lean,
     LowScale68SecondaryOneForms.lean, LowScale68SecondarySmallGap.lean,
-    LowScale68SecondaryResidualFace.lean, or
+    LowScale68SecondaryResidualFace.lean,
+    LowScale68SecondaryResidualExtraction.lean,
+    LowScale68SecondaryResidualMiddle.lean, or
     Max11Assembly.lean.
 
 alignment:
