@@ -906,11 +906,11 @@ theorem integratedPolynomial68_degreeBounds
   constructor <;> compute_degree <;> omega
 
 set_option maxHeartbeats 2000000 in
-/-- Exact polynomial extraction of the complete scalar infinity system.
-Consequently the five boundary coefficients have the unique depressed
-cubic-core shape. -/
-theorem polynomialLowerSystem_cubicCore68
-    (l beta gamma delta epsilon zeta i4 i3 terminal : k)
+/-- Exact polynomial extraction of the complete scalar infinity system when
+the terminal row has zero coefficient at the tested boundary.  Consequently
+the five boundary coefficients have the unique depressed cubic-core shape. -/
+theorem polynomialLowerSystem_cubicCore68_of_terminalCoeff_zero
+    (l beta gamma delta epsilon zeta i4 i3 : k)
     (A B C0 D E S T U V : k[X]) (n : ℕ) (hn : 0 < n)
     (hA : A.natDegree ≤ 2 * n) (hB : B.natDegree ≤ 3 * n)
     (hC : C0.natDegree ≤ 4 * n) (hD : D.natDegree ≤ 5 * n)
@@ -924,7 +924,7 @@ theorem polynomialLowerSystem_cubicCore68
       A B C0 D E = C i3)
     (h2 : lowerRowTwoPolynomial68 S T U V B C0 D E = 0)
     (h1 : lowerRowOnePolynomial68 T U V C0 D E = 0)
-    (h0 : lowerRowZeroPolynomial68 U V D E = C terminal) :
+    (h0top : (lowerRowZeroPolynomial68 U V D E).coeff (13 * n - 1) = 0) :
     B.coeff (3 * n) = 0 ∧ D.coeff (5 * n) = 0 ∧
       C0.coeff (4 * n) = A.coeff (2 * n) ^ 2 / 3 ∧
       E.coeff (6 * n) = A.coeff (2 * n) ^ 3 / 27 := by
@@ -932,7 +932,6 @@ theorem polynomialLowerSystem_cubicCore68
   have hnk : (n : k) ≠ 0 := Nat.cast_ne_zero.mpr hn0
   have h9 : 9 * n ≠ 0 := by omega
   have h10 : 10 * n ≠ 0 := by omega
-  have h13m1 : 13 * n - 1 ≠ 0 := by omega
   have hfour := congrArg (fun p : k[X] => p.coeff (9 * n)) hI4
   rw [firstIntegralFourPolynomial68_topCoeff l beta gamma delta epsilon zeta
     A B C0 D E n hn hA hB hC hD hE] at hfour
@@ -966,16 +965,46 @@ theorem polynomialLowerSystem_cubicCore68
   have hrow1 : topRowOne68 (A.coeff (2 * n)) (B.coeff (3 * n))
       (C0.coeff (4 * n)) (D.coeff (5 * n)) (E.coeff (6 * n)) = 0 :=
     (mul_eq_zero.mp hone).resolve_left hfactor1
-  have hzero := congrArg (fun p : k[X] => p.coeff (13 * n - 1)) h0
+  have hzero := h0top
   rw [lowerRowZeroPolynomial68_topCoeff A B C0 D E U V n hn hD hE
     hUdeg hVdeg htop.u_eq htop.v_eq] at hzero
-  simp [coeff_C, h13m1] at hzero
+  have hfactor0 : (-8 / 243 : k) * (n : k) ≠ 0 :=
+    mul_ne_zero (by norm_num) hnk
   have hrow0 : topRowZero68 (A.coeff (2 * n)) (B.coeff (3 * n))
       (C0.coeff (4 * n)) (D.coeff (5 * n)) (E.coeff (6 * n)) = 0 :=
-    hzero.resolve_left hn0
+    (mul_eq_zero.mp hzero).resolve_left hfactor0
   exact topRows_cubicCore68 (A.coeff (2 * n)) (B.coeff (3 * n))
     (C0.coeff (4 * n)) (D.coeff (5 * n)) (E.coeff (6 * n))
     hrow4 hrow3 hrow2 hrow1 hrow0
+
+set_option maxHeartbeats 2000000 in
+/-- Exact polynomial extraction for a constant terminal row. -/
+theorem polynomialLowerSystem_cubicCore68
+    (l beta gamma delta epsilon zeta i4 i3 terminal : k)
+    (A B C0 D E S T U V : k[X]) (n : ℕ) (hn : 0 < n)
+    (hA : A.natDegree ≤ 2 * n) (hB : B.natDegree ≤ 3 * n)
+    (hC : C0.natDegree ≤ 4 * n) (hD : D.natDegree ≤ 5 * n)
+    (hE : E.natDegree ≤ 6 * n)
+    (hSdeg : S.natDegree ≤ 5 * n) (hTdeg : T.natDegree ≤ 6 * n)
+    (hUdeg : U.natDegree ≤ 7 * n) (hVdeg : V.natDegree ≤ 8 * n)
+    (htop : IntegratedBoundaryCoefficients68 A B C0 D E S T U V n)
+    (hI4 : firstIntegralFourPolynomial68 l beta gamma delta epsilon zeta
+      A B C0 D E = C i4)
+    (hI3 : firstIntegralThreePolynomial68 l beta gamma delta epsilon zeta
+      A B C0 D E = C i3)
+    (h2 : lowerRowTwoPolynomial68 S T U V B C0 D E = 0)
+    (h1 : lowerRowOnePolynomial68 T U V C0 D E = 0)
+    (h0 : lowerRowZeroPolynomial68 U V D E = C terminal) :
+    B.coeff (3 * n) = 0 ∧ D.coeff (5 * n) = 0 ∧
+      C0.coeff (4 * n) = A.coeff (2 * n) ^ 2 / 3 ∧
+      E.coeff (6 * n) = A.coeff (2 * n) ^ 3 / 27 := by
+  have h13m1 : 13 * n - 1 ≠ 0 := by omega
+  have hcoeff := congrArg (fun p : k[X] => p.coeff (13 * n - 1)) h0
+  have h0top : (lowerRowZeroPolynomial68 U V D E).coeff (13 * n - 1) = 0 := by
+    simpa [coeff_C, h13m1] using hcoeff
+  exact polynomialLowerSystem_cubicCore68_of_terminalCoeff_zero
+    l beta gamma delta epsilon zeta i4 i3 A B C0 D E S T U V n hn
+    hA hB hC hD hE hSdeg hTdeg hUdeg hVdeg htop hI4 hI3 h2 h1 h0top
 
 set_option maxHeartbeats 2000000 in
 /-- Source-facing bridge for the scale-zero polynomial boundary.  Once the
@@ -1126,6 +1155,7 @@ end PolynomialBoundary68
 #print axioms firstIntegralThreePolynomial68_topCoeff
 #print axioms integratedPolynomial68_boundaryCoefficients
 #print axioms integratedPolynomial68_degreeBounds
+#print axioms polynomialLowerSystem_cubicCore68_of_terminalCoeff_zero
 #print axioms polynomialLowerSystem_cubicCore68
 #print axioms integratedRationalLowerSystem_polynomialBoundary_cubicCore68
 

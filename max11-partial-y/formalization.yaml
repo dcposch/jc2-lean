@@ -74,7 +74,8 @@ sources:
       theorems; the UFD and target-rescaling modules normalize the five
       gcd-two leaves; and the `(4,6)` modules give a new complete proof of both
       low scales.  The `(6,8)` modules extend that original development through
-      the polynomial weighted-boundary cubic-core theorem.  These statements
+      the canonical nontrivial expanded weighted-boundary cubic-core theorem.
+      These statements
       refine the frozen finite composition and use the two published results
       listed below only at their explicitly typed interfaces.
     license: "Apache-2.0"
@@ -230,7 +231,11 @@ status:
     integral weighted radius.  A common expansion by `x -> x^60` now clears
     the five weight denominators and constructs a positive attained maximal
     radius whenever one load is nonconstant; the nonzero terminal row is
-    proved to force that nonconstancy.
+    proved to force that nonconstancy.  The exact rational lower system is
+    pulled back to a packaged polynomial system; both invariants commute with
+    expansion, all three one-form rows acquire the common chain-rule factor,
+    and the canonical expanded maximal face is proved nontrivial with nonzero
+    top A coefficient.
     Not proved here: scalar-extension/descent, the
     prime-total-degree-gcd theorem itself, the standard-endpoint theorem
     itself, the next-order `(6,8)` scale-zero descent, or the other seven
@@ -598,8 +603,8 @@ fidelity:
     extraction plus target rescaling puts all ten cases into exact normalized
     common-core form.  Both `(4,6)` scales are excluded from the genuine source
     dichotomy and polynomial coefficient-curve endgames.  The `(6,8)`
-    scale-zero route is proved through extraction of its unique cubic-core
-    polynomial boundary.  It does not
+    scale-zero route is proved through extraction and expansion to its
+    canonical nontrivial cubic-core polynomial boundary.  It does not
     formalize the published prime theorem, the standard-endpoint theorem,
     the next-order `(6,8)` scale-zero descent, the other seven normalized
     low-scale theorems, an arbitrary-pair twice-prime theorem, or
@@ -625,7 +630,8 @@ review:
     LowScale68Integrated.lean, LowScale68Depression.lean,
     LowScale68SourceBridge.lean, LowScale68ScaleZero.lean,
     LowScale68Infinity.lean, LowScale68PolynomialBoundary.lean,
-    LowScale68WeightedRadius.lean, or Max11Assembly.lean.
+    LowScale68WeightedRadius.lean, LowScale68Expansion.lean, or
+    Max11Assembly.lean.
 
 alignment:
   namespace: "(root)"
@@ -647,7 +653,7 @@ alignment:
         normalized scales zero and two at the four explicit gcd-two degree
         pairs other than the completely proved `(4,6)` pair remain as
         hypotheses; the `(6,8)` scale-zero proof is internally advanced through
-        its forced polynomial cubic-core boundary
+        its canonical nontrivial expanded polynomial cubic-core boundary
     - source: "Maximum-twelve frontier checksum, Section 9"
       lean: "Max12FirstPrimitives"
       module: "Max11Challenge"

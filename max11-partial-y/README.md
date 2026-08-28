@@ -361,9 +361,15 @@ not treated as an established theorem.
   `x -> x^60` clears all five weight denominators, and the maximum of the five
   scaled degrees supplies the bounds together with a proof that at least one
   boundary coefficient is nonzero.  It also proves that a nonzero terminal row
-  forces at least one original load to be nonconstant.  Transporting the five
-  equations through this expansion and completing the next-order descent from
-  the cubic-core face remain open, as does the scale-two pole/degree analysis.
+  forces at least one original load to be nonconstant.
+  `LowScale68Expansion.lean` now packages the exact five-row polynomial lower
+  system, pulls it directly from the rational source bracket, proves that both
+  invariants commute with expansion and that all three one-form rows acquire
+  the common chain-rule factor, and applies the maximal-radius theorem.  Thus
+  the canonical expanded boundary is nontrivial and has
+  `B=D=0`, `C=A²/3`, `E=A³/27`, with the top `A` coefficient nonzero.
+  Completing the next-order descent from this cubic-core face remains open, as
+  does the scale-two pole/degree analysis.
   `LowScale46NewtonFaces.lean` proves the underlying three- and four-term
   Hahn-series tied-minimum principle and the complete rational Newton-face
   tables for the aligned `beta ≠ 0` and `delta ≠ 0` strata.
@@ -411,8 +417,8 @@ the sibling `gcd3-69-cube` project, and the sibling
 The project still does not prove scalar-extension descent, the prime theorem
 itself, or the standard-pair endpoint theorem itself.  Among the eight cases
 left after `(4,6)`, the `(6,8)` scale-zero case is now proved through its
-forced polynomial cubic-core top boundary; its next-order descent and the
-other seven literal normalized low-scale subcases remain open.  It does
+canonical nontrivial expanded cubic-core top boundary; its next-order descent
+and the other seven literal normalized low-scale subcases remain open.  It does
 prove the common-power UFD factorization, exact
 core degree, scalar normalization, and generation transport for all five.
 The endpoint theorem is the first assertion of Guccione--Guccione--
@@ -462,6 +468,7 @@ lake build
 `LowScale68Integrated.lean`, `LowScale68Depression.lean`,
 `LowScale68SourceBridge.lean`, `LowScale68ScaleZero.lean`,
 `LowScale68Infinity.lean`, `LowScale68PolynomialBoundary.lean`,
-`LowScale68WeightedRadius.lean`, and `Max11Assembly.lean`
+`LowScale68WeightedRadius.lean`, `LowScale68Expansion.lean`, and
+`Max11Assembly.lean`
 contain no `sorry`, custom axioms, or trust escapes.  The
 permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.
