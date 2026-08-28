@@ -77,8 +77,11 @@ sources:
       the canonical nontrivial expanded weighted-boundary cubic-core theorem,
       strict transverse degree drop, exact-cubic contradiction, and attained
       positive secondary defect radius.  The first abstract secondary chamber
-      is classified exactly, and its two invariant equations plus first
-      one-form equation are extracted from the literal polynomial system.
+      is classified exactly; both invariant equations and all three one-form
+      equations are extracted from the literal polynomial system and applied
+      to the canonical expanded lower system.  In the chamber `2g<n`, the
+      resulting boundary has `e=0`, `a*b=3*d`, and attained support only in
+      the `B` or translated-`C` direction.
       These statements
       refine the frozen finite composition and use the two published results
       listed below only at their explicitly typed interfaces.
@@ -336,6 +339,18 @@ status:
       axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.integratedLowerRowTwoPolynomial68_secondaryCoeff"
       file: "LowScale68SecondaryExtraction.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.integratedLowerRowOnePolynomial68_secondaryCoeff"
+      file: "LowScale68SecondaryOneForms.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.integratedLowerRowZeroPolynomial68_secondaryCoeff"
+      file: "LowScale68SecondaryOneForms.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_secondarySmallGapBoundary68"
+      file: "LowScale68SecondarySmallGap.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.mismatchDegreeCone46"
@@ -638,8 +653,10 @@ fidelity:
     scale-zero route is proved through extraction and expansion to its
     canonical nontrivial cubic-core polynomial boundary, strict transverse
     degree drop, contradiction on the exact cubic locus, and attained positive
-    secondary defect radius.  Its abstract small-gap face is classified, but
-    not yet extracted from the polynomial rows.  It does not
+    secondary defect radius.  All five equations of its abstract small-gap
+    face are extracted from the literal polynomial rows and applied to the
+    canonical expanded system, reducing the attained residual boundary to the
+    `B` or translated-`C` direction.  It does not
     formalize the published prime theorem, the standard-endpoint theorem,
     the secondary Newton-face `(6,8)` scale-zero descent, the other seven
     normalized low-scale theorems, an arbitrary-pair twice-prime theorem, or
@@ -667,7 +684,8 @@ review:
     LowScale68Infinity.lean, LowScale68PolynomialBoundary.lean,
     LowScale68WeightedRadius.lean, LowScale68Expansion.lean,
     LowScale68CubicDescent.lean, LowScale68SecondaryRadius.lean,
-    LowScale68SecondaryFace.lean, LowScale68SecondaryExtraction.lean, or
+    LowScale68SecondaryFace.lean, LowScale68SecondaryExtraction.lean,
+    LowScale68SecondaryOneForms.lean, LowScale68SecondarySmallGap.lean, or
     Max11Assembly.lean.
 
 alignment:
@@ -692,8 +710,9 @@ alignment:
         hypotheses; the `(6,8)` scale-zero proof is internally advanced through
         its canonical nontrivial expanded polynomial cubic-core boundary,
         strict transverse degree drop, exact-cubic contradiction, and attained
-        positive secondary defect radius; its abstract `2g<n` face is
-        classified, while polynomial face extraction remains open
+        positive secondary defect radius; all five equations of its abstract
+        `2g<n` face are extracted and applied to the canonical expanded system,
+        reducing the attained residual boundary to `B` or translated `C`
     - source: "Maximum-twelve frontier checksum, Section 9"
       lean: "Max12FirstPrimitives"
       module: "Max11Challenge"
