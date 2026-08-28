@@ -236,7 +236,11 @@ not treated as an established theorem.
   includes the exceptional line `A=V=delta=0`, where the last row has degree
   `3 deg(X)-1`.  The certified all-nonconstant terminal degrees are `12n-1`
   in the beta stratum and `8n-1` in the delta stratum; the final theorems are
-  transported back to the literal original coefficient rows.
+  transported back to the literal original coefficient rows.  The terminal
+  `beta=delta=0` stratum is also exhaustive: `k2!=0` freezes all coefficient
+  functions, while `k2=0` splits into `B=0` and `V=0`, the latter closing by
+  the square unit-product theorem.  Thus every aligned polynomial trajectory
+  has now been excluded.
   `LowScale46Depression.lean` performs the exact source substitution
   `y=(z-r)/h` on the quartic and sextic and proves that the normalized quintic
   coefficient is zero in the aligned branch and `-lambda/2` in the mismatch

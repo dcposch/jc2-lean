@@ -1222,6 +1222,109 @@ theorem alignedDeltaOriginalPolynomialTrajectory_impossible46
   exact alignedDeltaPolynomialTrajectory_impossible46
     gamma delta k2 k1 j A Xs Vs hdelta hj hcurves.1 hcurves.2 hlastShift
 
+/-- Complete final-stratum polynomial endgame with `beta=delta=0`.  If
+`k2 != 0`, the unit product `B*V` freezes `B,V`, and the second curve row
+freezes `A`.  If `k2=0`, the exact components are `B=0` and `V=0`; the
+former has zero last row and the latter is the square unit-product
+contradiction. -/
+theorem alignedZeroPolynomialTrajectory_impossible46
+    (gamma k2 k1 j : F) (A B V : F[X]) (hj : j ≠ 0)
+    (hBV : B * V = alignedPhiPolynomial46 0 gamma 0 k2 A)
+    (hV2 : V ^ 2 = alignedRPolynomial46 0 gamma 0 k1 A B)
+    (hlast : alignedEtaPolynomial46 0 0 A B V = C j) : False := by
+  by_cases hk2 : k2 = 0
+  · subst k2
+    have hproduct : B * V = 0 := by
+      simpa [alignedPhiPolynomial46] using hBV
+    rcases eq_zero_or_eq_zero_of_mul_eq_zero hproduct with hB | hV
+    · rw [hB] at hlast
+      simp [alignedEtaPolynomial46] at hlast
+      have hj0 : C j = C (0 : F) := by simpa using hlast.symm
+      exact hj (C_injective hj0)
+    · rw [hV] at hlast
+      have hn34 : C (-3 / 4 : F) = -C (3 / 4 : F) := by
+        rw [show (-3 / 4 : F) = -(3 / 4 : F) by ring, map_neg]
+      have hrestricted :
+          C (-3 / 4 : F) * (1 : F[X]) * B ^ 2 * derivative B = C j := by
+        rw [hn34]
+        simpa [alignedEtaPolynomial46, pow_two, mul_assoc] using hlast
+      exact square_aligned_unitProduct_impossible46 1 B j hj hrestricted
+  · have hc : (-4 / 3 : F) * k2 ≠ 0 := mul_ne_zero (by norm_num) hk2
+    have hproduct : B * V = C ((-4 / 3 : F) * k2) := by
+      calc
+        B * V = alignedPhiPolynomial46 0 gamma 0 k2 A := hBV
+        _ = C ((-4 / 3 : F) * k2) := by
+          simp only [alignedPhiPolynomial46, map_zero, mul_zero, zero_mul,
+            add_zero, zero_sub]
+          rw [show (-4 / 3 : F) * k2 = -((4 / 3 : F) * k2) by ring,
+            map_neg]
+    have hproductUnit : IsUnit (B * V) := by
+      rw [hproduct]
+      exact Polynomial.isUnit_C.mpr (isUnit_iff_ne_zero.mpr hc)
+    have hBUnit : IsUnit B := (IsUnit.mul_iff.mp hproductUnit).1
+    have hVUnit : IsUnit V := (IsUnit.mul_iff.mp hproductUnit).2
+    obtain ⟨b, hb, hBc⟩ := Polynomial.isUnit_iff.mp hBUnit
+    obtain ⟨v, _hv, hVc⟩ := Polynomial.isUnit_iff.mp hVUnit
+    rw [← hBc, ← hVc] at hV2 hlast
+    have hA0 : A.natDegree = 0 := by
+      by_contra hA0
+      have hApos := Nat.pos_of_ne_zero hA0
+      have hA : A ≠ 0 := by
+        intro h
+        rw [h] at hApos
+        simp at hApos
+      let p : F[X] := C (8 : F) * (A * (C b) ^ 2)
+      let t : F[X] :=
+        C ((32 / 3 : F) * (k1 + (2 / 3 : F) * gamma ^ 2)) - (C v) ^ 2
+      have hp : p ≠ 0 := by
+        dsimp [p]
+        exact mul_ne_zero (C_ne_zero.mpr (by norm_num))
+          (mul_ne_zero hA (pow_ne_zero 2 (C_ne_zero.mpr hb.ne_zero)))
+      have hpdeg : p.natDegree = A.natDegree := by
+        dsimp [p]
+        rw [natDegree_C_mul (by norm_num),
+          natDegree_mul hA (pow_ne_zero 2 (C_ne_zero.mpr hb.ne_zero)),
+          natDegree_pow, natDegree_C, mul_zero, add_zero]
+      have htlt : t.natDegree < p.natDegree := by
+        dsimp [t]
+        compute_degree
+        rw [hpdeg]
+        exact hApos
+      have hsum : p + t = 0 := by
+        calc
+          p + t = alignedRPolynomial46 0 gamma 0 k1 A (C b) - (C v) ^ 2 := by
+            dsimp [p, t, alignedRPolynomial46]
+            simp only [map_zero, mul_zero, zero_mul, sub_zero]
+            ring
+          _ = 0 := sub_eq_zero.mpr hV2.symm
+      have hsumdeg : (p + t).natDegree = p.natDegree :=
+        natDegree_add_eq_left_of_natDegree_lt htlt
+      rw [hsum, natDegree_zero, hpdeg] at hsumdeg
+      omega
+    obtain ⟨a, ha⟩ := natDegree_eq_zero.mp hA0
+    rw [← ha] at hlast
+    simp [alignedEtaPolynomial46] at hlast
+    have hj0 : C j = C (0 : F) := by simpa using hlast.symm
+    exact hj (C_injective hj0)
+
+/-- Literal-row final-stratum polynomial exclusion in the original variables
+`A,B,U`, with `V=U-8gamma/3` introduced internally. -/
+theorem alignedZeroOriginalPolynomialTrajectory_impossible46
+    (gamma k2 k1 j : F) (A B U : F[X]) (hj : j ≠ 0)
+    (hJ2 : coefficientCurveTwoPolynomial46 0 0 gamma 0 A B U = C k2)
+    (hJ1 : coefficientCurveOnePolynomial46 0 0 gamma 0 A B U = C k1)
+    (hlast : etaPolynomial46 0 0 gamma 0 A B U = C j) : False := by
+  let Xs : F[X] := B + C 0
+  let Vs : F[X] := U - C ((8 / 3 : F) * gamma)
+  have hcurves := alignedPolynomial_shifted_curve_equations
+    A B U 0 gamma 0 k2 k1 hJ2 hJ1
+  have hlastShift : alignedEtaPolynomial46 0 0 A Xs Vs = C j := by
+    dsimp [Xs, Vs]
+    rw [alignedPolynomial_eta_identity]
+    exact hlast
+  exact alignedZeroPolynomialTrajectory_impossible46
+    gamma k2 k1 j A Xs Vs hj hcurves.1 hcurves.2 hlastShift
+
 end ShiftedPolynomialDegenerateEndgame
 
 end Max11DegreeRoutes
