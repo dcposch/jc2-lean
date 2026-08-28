@@ -216,6 +216,9 @@ not treated as an established theorem.
   into exact rational-function-to-polynomial results, reconstructs `K=B²`
   and `B`, and proves both square and nonsquare last-row unit-product
   contradictions (including the linear-`K` edge case).
+  `LowScale46NewtonFaces.lean` proves the underlying three- and four-term
+  Hahn-series tied-minimum principle and the complete rational Newton-face
+  tables for the aligned `beta ≠ 0` and `delta ≠ 0` strata.
 - `Max11DegreeRoutes.Max11PlaneKellerGenerationWithPrimeAndTwicePrimeTotalDegreeGCDRoutes`
   records the fully assembled implication from prime and strong arbitrary-pair
   twice-prime total-degree routes.  The implication is checked; availability
@@ -272,6 +275,7 @@ lake build
 `LowScale46Rows.lean`, `LowScale46NormalForm.lean`, `LowScale46Curve.lean`,
 `LowScale46LocalChart.lean`, `LowScale46AlignedChart.lean`,
 `LowScale46DegreeCones.lean`, `LowScale46Depression.lean`,
-`LowScale46Integrality.lean`, and `Max11Assembly.lean`
+`LowScale46Integrality.lean`, `LowScale46NewtonFaces.lean`, and
+`Max11Assembly.lean`
 contain no `sorry`, custom axioms, or trust escapes.  The
 permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.
