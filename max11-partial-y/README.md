@@ -186,6 +186,15 @@ not treated as an established theorem.
   is the current narrowest source-honest headline: the ten remaining literal
   cases now share one exact normalized form, with reduced weights `(2,3)`,
   `(2,5)`, `(3,4)`, `(3,5)`, and `(4,5)` and common-core degree zero or two.
+- `Max11DegreeRoutes.planeKellerPair_46_imprimitiveDiscriminatorDichotomy`
+  begins the genuine `(4,6)` closure from an actual normalized Keller pair.
+  Its next Jacobian row gives `N² = κH⁵`; over an algebraically closed field
+  this splits exactly into `N = 0` or `H = h², N = λh⁵` with `λ ≠ 0`.
+- `Max11DegreeRoutes.differentialJacobian_integrated46_eq` works over an
+  arbitrary characteristic-zero differential field extension.  It verifies
+  all eight depressed quartic/sextic Jacobian rows, the five integrated upper
+  coefficients, and the two first integrals `I₂,I₁`; only the constant last
+  row remains in that normal form.
 - `Max11DegreeRoutes.Max11PlaneKellerGenerationWithPrimeAndTwicePrimeTotalDegreeGCDRoutes`
   records the fully assembled implication from prime and strong arbitrary-pair
   twice-prime total-degree routes.  The implication is checked; availability
@@ -239,5 +248,6 @@ lake build
 `Max11Core.lean`, `ClassicalRoutes.lean`, `DegreeRoutes.lean`,
 `HistoryRoute.lean`, `HistoryDegree.lean`, `TotalDegreeRoutes.lean`,
 `CoprimeDegreeRoute.lean`, `EndpointGCDRoute.lean`, `LowScaleCore.lean`, and
-`Max11Assembly.lean` contain no `sorry`, custom axioms, or trust escapes.  The
+`LowScale46Rows.lean`, `LowScale46NormalForm.lean`, and `Max11Assembly.lean`
+contain no `sorry`, custom axioms, or trust escapes.  The
 permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.

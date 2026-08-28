@@ -129,7 +129,17 @@ status:
     powers with reduced weights (2,3), (2,5), (3,4), (3,5), or (4,5).
     Independent target rescalings remove both scalar factors, preserve Keller
     and generation, and prove that the common core has degree exactly H.
-    Thus only the normalized H = 0 and H = 2 sources remain at each pair.
+    For the first normalized pair (4,6), the next genuine Jacobian row is now
+    also proved: with N=3*a_3*H-2*b_5 it gives N^2=kappa*H^5, and over an
+    algebraically closed field the nonzero branch has H=h^2 and N=lambda*h^5.
+    Over an arbitrary characteristic-zero differential field, the common
+    depressed quartic/sextic Jacobian is expanded through all eight rows; the
+    five upper rows integrate to the reviewed formulas and the next two are
+    exactly the derivatives of the first integrals I_2 and I_1.  Thus only
+    the last row remains after those integrations.  The local-normalization,
+    boundary, and infinity exclusions needed to close (4,6) are not yet
+    formalized.  The normalized H = 0 and H = 2 sources also remain open at
+    the other four pairs.
     Not proved here: scalar-extension/descent, the
     prime-total-degree-gcd theorem itself, the standard-endpoint theorem
     itself, or those ten normalized low-scale subcases.  The
@@ -147,6 +157,11 @@ status:
       comparator_config: "comparator.json"
     - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithStandardEndpointObstructionAndFiveLowScaleLeaves"
       file: "Max11Assembly.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.differentialJacobian_integrated46_eq"
+      file: "LowScale46NormalForm.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator.json"

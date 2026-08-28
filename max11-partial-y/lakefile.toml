@@ -1,6 +1,6 @@
 name = "jc2_max11_partial_y"
 version = "0.1.0"
-defaultTargets = ["Challenge", "Max11Core", "ClassicalRoutes", "DegreeRoutes", "HistoryRoute", "HistoryDegree", "TotalDegreeRoutes", "CoprimeDegreeRoute", "EndpointGCDRoute", "LowScaleCore", "Max11Assembly"]
+defaultTargets = ["Challenge", "Max11Core", "ClassicalRoutes", "DegreeRoutes", "HistoryRoute", "HistoryDegree", "TotalDegreeRoutes", "CoprimeDegreeRoute", "EndpointGCDRoute", "LowScaleCore", "LowScale46Rows", "LowScale46NormalForm", "Max11Assembly"]
 
 [[require]]
 name = "mathlib"
@@ -25,4 +25,4 @@ roots = ["ClassicalRoutes"]
 
 [[lean_lib]]
 name = "DegreeRoutes"
-roots = ["DegreeRoutes", "HistoryRoute", "HistoryDegree", "TotalDegreeRoutes", "CoprimeDegreeRoute", "EndpointGCDRoute", "LowScaleCore", "Max11Assembly"]
+roots = ["DegreeRoutes", "HistoryRoute", "HistoryDegree", "TotalDegreeRoutes", "CoprimeDegreeRoute", "EndpointGCDRoute", "LowScaleCore", "LowScale46Rows", "LowScale46NormalForm", "Max11Assembly"]
