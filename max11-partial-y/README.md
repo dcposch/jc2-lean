@@ -389,8 +389,15 @@ not treated as an established theorem.
   `LowScale68SecondarySmallGap.lean` applies those equations to the canonical
   expanded lower system: in the chamber `2g<n`, it proves `e=0`, `a*b=3*d`,
   and reduces the attained residual boundary to the `B` or translated-`C`
-  direction.  Eliminating that residual face and the other gap chambers
-  remains open, as does the scale-two pole/degree analysis.
+  direction.  `LowScale68SecondaryResidualFace.lean` introduces the translated
+  defect `d=D-A*B/3` and kernel-checks the exact field-algebra solvers for the
+  next prospective faces in the stricter chamber `3g<n`: the two one-sided
+  endpoints are impossible, the tied endpoint forces the contradictory
+  relation `g=4n`, and the middle face forces
+  `a*b²+3*c²=0` with both residual directions nonzero.  Extracting those
+  equations from the actual polynomial rows, proving the tropical face
+  selection, and eliminating the classified middle face remain open, as do
+  the other gap chambers and the scale-two pole/degree analysis.
   `LowScale46NewtonFaces.lean` proves the underlying three- and four-term
   Hahn-series tied-minimum principle and the complete rational Newton-face
   tables for the aligned `beta ≠ 0` and `delta ≠ 0` strata.
@@ -443,8 +450,10 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   defect radius.  All five small-gap face equations are extracted from the
   literal polynomial rows and applied to the canonical expanded system,
   forcing `e=0`, `a*b=3*d`, with attained support reduced to `B` or translated
-  `C`.  The residual small-gap face, the other gap chambers, and the other
-  seven literal normalized low-scale subcases remain open.  It does
+  `C`.  The abstract algebra of the next `3g<n` residual faces is also checked,
+  but its coefficient/tropical bridge, the classified middle-face endgame,
+  the other gap chambers, and the other seven literal normalized low-scale
+  subcases remain open.  It does
 prove the common-power UFD factorization, exact
 core degree, scalar normalization, and generation transport for all five.
 The endpoint theorem is the first assertion of Guccione--Guccione--
@@ -496,7 +505,9 @@ lake build
 `LowScale68Infinity.lean`, `LowScale68PolynomialBoundary.lean`,
 `LowScale68WeightedRadius.lean`, `LowScale68Expansion.lean`,
 `LowScale68CubicDescent.lean`, `LowScale68SecondaryRadius.lean`,
-`LowScale68SecondaryFace.lean`, `LowScale68SecondaryExtraction.lean`, and
+`LowScale68SecondaryFace.lean`, `LowScale68SecondaryExtraction.lean`,
+`LowScale68SecondaryOneForms.lean`, `LowScale68SecondarySmallGap.lean`,
+`LowScale68SecondaryResidualFace.lean`, and
 `Max11Assembly.lean`
 contain no `sorry`, custom axioms, or trust escapes.  The
 permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.

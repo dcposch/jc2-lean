@@ -81,7 +81,11 @@ sources:
       equations are extracted from the literal polynomial system and applied
       to the canonical expanded lower system.  In the chamber `2g<n`, the
       resulting boundary has `e=0`, `a*b=3*d`, and attained support only in
-      the `B` or translated-`C` direction.
+      the `B` or translated-`C` direction.  The abstract algebra of the next
+      prospective residual faces in `3g<n` is also checked: both one-sided
+      endpoints and the tied endpoint are impossible, while the middle face
+      forces `a*b^2+3*c^2=0` and two nonzero residual directions.  Coefficient
+      extraction and tropical selection of those faces remain separate.
       These statements
       refine the frozen finite composition and use the two published results
       listed below only at their explicitly typed interfaces.
@@ -351,6 +355,18 @@ status:
       axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_secondarySmallGapBoundary68"
       file: "LowScale68SecondarySmallGap.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.secondaryResidualBetweenFace68_classify"
+      file: "LowScale68SecondaryResidualFace.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.secondaryResidualDAtDoubleFace68_impossible"
+      file: "LowScale68SecondaryResidualFace.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.secondaryResidualTiedDoubleFace68_impossible_of_three_mul_gap_lt_radius"
+      file: "LowScale68SecondaryResidualFace.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.mismatchDegreeCone46"
@@ -656,7 +672,9 @@ fidelity:
     secondary defect radius.  All five equations of its abstract small-gap
     face are extracted from the literal polynomial rows and applied to the
     canonical expanded system, reducing the attained residual boundary to the
-    `B` or translated-`C` direction.  It does not
+    `B` or translated-`C` direction.  The abstract solvers for the next
+    prospective `3g<n` residual faces are proved, but the actual coefficient
+    extraction and tropical selection bridge is not.  It does not
     formalize the published prime theorem, the standard-endpoint theorem,
     the secondary Newton-face `(6,8)` scale-zero descent, the other seven
     normalized low-scale theorems, an arbitrary-pair twice-prime theorem, or
@@ -685,7 +703,8 @@ review:
     LowScale68WeightedRadius.lean, LowScale68Expansion.lean,
     LowScale68CubicDescent.lean, LowScale68SecondaryRadius.lean,
     LowScale68SecondaryFace.lean, LowScale68SecondaryExtraction.lean,
-    LowScale68SecondaryOneForms.lean, LowScale68SecondarySmallGap.lean, or
+    LowScale68SecondaryOneForms.lean, LowScale68SecondarySmallGap.lean,
+    LowScale68SecondaryResidualFace.lean, or
     Max11Assembly.lean.
 
 alignment:
