@@ -410,8 +410,13 @@ not treated as an established theorem.
   selects the minimum actual residual gap, proves it lies strictly between
   `g` and `2g`, eliminates its double-face alternative, and upgrades the
   surviving middle face to nonzero `A,B,c,d,e` satisfying
-  `A*B²+3*c²=0`.  Eliminating that classified discriminant face remains open,
-  as do the other gap chambers and the scale-two pole/degree analysis.
+  `A*B²+3*c²=0`.  `LowScale68SecondaryResidualDescent.lean` packages the
+  exact polynomial discriminant, incidence, and cubic defects, proves their
+  invariant syzygies and strict degree cutoffs, and classifies the next
+  comparison completely.  If `2h<3g`, the discriminant gap is exactly `g+h`;
+  if `3g<2h`, it is exactly `4g-h`; on `2h=3g`, its boundary coefficient obeys
+  the exact three-term cubic-face equation.  Eliminating these three new
+  faces remains open, as do the other gap chambers and scale-two analysis.
   `LowScale46NewtonFaces.lean` proves the underlying three- and four-term
   Hahn-series tied-minimum principle and the complete rational Newton-face
   tables for the aligned `beta ≠ 0` and `delta ≠ 0` strata.
@@ -526,7 +531,8 @@ lake build
 `LowScale68SecondaryResidualExtraction.lean`,
 `LowScale68SecondaryResidualMiddle.lean`,
 `LowScale68SecondaryResidualDouble.lean`,
-`LowScale68SecondaryResidualSelector.lean`, and
+`LowScale68SecondaryResidualSelector.lean`,
+`LowScale68SecondaryResidualDescent.lean`, and
 `Max11Assembly.lean`
 contain no `sorry`, custom axioms, or trust escapes.  The
 permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.

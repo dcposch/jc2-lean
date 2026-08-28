@@ -89,8 +89,12 @@ sources:
       translated defects have strict degree drop, all five exact residual
       coordinate identities are checked, the invariant loads are below the
       middle face, and the canonical expanded system satisfies the abstract
-      middle classifier whenever its explicit gaps obey `g<h<2g`.  Tropical
-      selection of the middle or endpoint faces remains separate.
+      middle classifier whenever its explicit gaps obey `g<h<2g`.  The
+      residual selector now eliminates both endpoints and canonically lands
+      on that middle face.  Exact discriminant, incidence, and cubic defects
+      then expose the next Newton comparison: the two strict chambers force
+      discriminant gaps `g+h` and `4g-h`, while the balanced chamber supplies
+      its exact three-term boundary equation.
       These statements
       refine the frozen finite composition and use the two published results
       listed below only at their explicitly typed interfaces.
@@ -259,7 +263,12 @@ status:
     attained by a nonzero defect, with all four sharpened degree bounds; no
     equal-drop assumption is made.  In the abstract chamber `2g<n`, the exact
     five-equation face solver forces the leading defects to satisfy `e=0` and
-    `a*b=3*d`.
+    `a*b=3*d`.  In `3g<n`, canonical residual-gap selection eliminates both
+    endpoint faces and lands on nonzero `A,B,c,d,e` with
+    `A*B^2+3*c^2=0`.  Exact invariant syzygies then lower the incidence and
+    cubic defects.  The next comparison is complete: on the two strict sides
+    the discriminant gaps are respectively `g+h` and `4g-h`, while the
+    balanced side satisfies the exact three-term boundary equation.
     Not proved here: scalar-extension/descent, the
     prime-total-degree-gcd theorem itself, the standard-endpoint theorem
     itself, the secondary Newton-face `(6,8)` scale-zero descent, or the other
@@ -404,6 +413,18 @@ status:
       axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_secondaryResidualSelect68"
       file: "LowScale68SecondaryResidualSelector.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.secondaryResidualCubicDefect_leftChamber68"
+      file: "LowScale68SecondaryResidualDescent.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.secondaryResidualCubicDefect_rightChamber68"
+      file: "LowScale68SecondaryResidualDescent.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.secondaryResidualCubicDefect_balancedChamber68"
+      file: "LowScale68SecondaryResidualDescent.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.mismatchDegreeCone46"
@@ -711,9 +732,10 @@ fidelity:
     canonical expanded system, reducing the attained residual boundary to the
     `B` or translated-`C` direction.  The next `3g<n` residual coordinates,
     exact identities, degree drops, invariant load cutoffs, abstract face
-    solvers, canonical tropical selection, endpoint elimination, and the
-    selected-middle discriminant classifier are proved, but the classified
-    middle-face endgame is not.  It
+    solvers, canonical tropical selection, endpoint elimination, selected
+    middle discriminant classifier, exact defect syzygies, degree cutoffs, and
+    next three-way cubic-face classification are proved, but those new faces
+    are not yet eliminated.  It
     does not
     formalize the published prime theorem, the standard-endpoint theorem,
     the secondary Newton-face `(6,8)` scale-zero descent, the other seven
@@ -748,7 +770,8 @@ review:
     LowScale68SecondaryResidualExtraction.lean,
     LowScale68SecondaryResidualMiddle.lean,
     LowScale68SecondaryResidualDouble.lean,
-    LowScale68SecondaryResidualSelector.lean, or
+    LowScale68SecondaryResidualSelector.lean,
+    LowScale68SecondaryResidualDescent.lean, or
     Max11Assembly.lean.
 
 alignment:
