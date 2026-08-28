@@ -209,6 +209,10 @@ not treated as an established theorem.
   monic boundary eliminants.  `LowScale46DegreeCones.lean` replaces the
   report's finite integer scans by exact proofs of the unique positive cones
   `(4,5,7)`, `(4,3,5)`, and `(4,1,3)` and their one-form degree gaps.
+  `LowScale46Depression.lean` performs the exact source substitution
+  `y=(z-r)/h` on the quartic and sextic and proves that the normalized quintic
+  coefficient is zero in the aligned branch and `-lambda/2` in the mismatch
+  branch.
 - `Max11DegreeRoutes.Max11PlaneKellerGenerationWithPrimeAndTwicePrimeTotalDegreeGCDRoutes`
   records the fully assembled implication from prime and strong arbitrary-pair
   twice-prime total-degree routes.  The implication is checked; availability
@@ -264,6 +268,7 @@ lake build
 `CoprimeDegreeRoute.lean`, `EndpointGCDRoute.lean`, `LowScaleCore.lean`, and
 `LowScale46Rows.lean`, `LowScale46NormalForm.lean`, `LowScale46Curve.lean`,
 `LowScale46LocalChart.lean`, `LowScale46AlignedChart.lean`,
-`LowScale46DegreeCones.lean`, and `Max11Assembly.lean`
+`LowScale46DegreeCones.lean`, `LowScale46Depression.lean`, and
+`Max11Assembly.lean`
 contain no `sorry`, custom axioms, or trust escapes.  The
 permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.

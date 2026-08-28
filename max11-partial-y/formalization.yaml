@@ -186,6 +186,16 @@ status:
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.affineDepress_rawSextic46"
+      file: "LowScale46Depression.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.depressedL46_eq_discriminator"
+      file: "LowScale46Depression.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
     - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithStandardEndpointAndFiveLowScaleLeaves"
       file: "Max11Assembly.lean"
       sorry_count: 0
