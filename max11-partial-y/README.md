@@ -212,7 +212,10 @@ not treated as an established theorem.
   `LowScale46Depression.lean` performs the exact source substitution
   `y=(z-r)/h` on the quartic and sextic and proves that the normalized quintic
   coefficient is zero in the aligned branch and `-lambda/2` in the mismatch
-  branch.
+  branch.  `LowScale46Integrality.lean` turns both monic boundary eliminants
+  into exact rational-function-to-polynomial results, reconstructs `K=B²`
+  and `B`, and proves both square and nonsquare last-row unit-product
+  contradictions (including the linear-`K` edge case).
 - `Max11DegreeRoutes.Max11PlaneKellerGenerationWithPrimeAndTwicePrimeTotalDegreeGCDRoutes`
   records the fully assembled implication from prime and strong arbitrary-pair
   twice-prime total-degree routes.  The implication is checked; availability
@@ -268,7 +271,7 @@ lake build
 `CoprimeDegreeRoute.lean`, `EndpointGCDRoute.lean`, `LowScaleCore.lean`, and
 `LowScale46Rows.lean`, `LowScale46NormalForm.lean`, `LowScale46Curve.lean`,
 `LowScale46LocalChart.lean`, `LowScale46AlignedChart.lean`,
-`LowScale46DegreeCones.lean`, `LowScale46Depression.lean`, and
-`Max11Assembly.lean`
+`LowScale46DegreeCones.lean`, `LowScale46Depression.lean`,
+`LowScale46Integrality.lean`, and `Max11Assembly.lean`
 contain no `sorry`, custom axioms, or trust escapes.  The
 permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.

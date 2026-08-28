@@ -146,11 +146,14 @@ status:
     Newton polynomials, the shifted plane curve, its component equations and
     restricted one-form, and both monic boundary eliminants.  Presburger
     proofs replace the finite scans for all three polynomial degree cones and
-    verify their one-form degree gaps.  The deductions from arbitrary formal
-    branches to those leading systems, finite-pole integrality, and the full
-    polynomial leading-term bridge needed to close (4,6) are not yet
-    formalized.  The normalized H = 0 and H = 2 sources also remain open at
-    the other four pairs.
+    verify their one-form degree gaps.  The aligned monic quartic and octic
+    are converted into exact rational-function integrality results; the
+    polynomial representatives and both square/nonsquare last-row
+    unit-product contradictions are also proved.  The deductions from
+    arbitrary formal branches to the local leading systems, the mismatch
+    finite-pole step, and the full polynomial leading-term bridge needed to
+    close (4,6) are not yet formalized.  The normalized H = 0 and H = 2
+    sources also remain open at the other four pairs.
     Not proved here: scalar-extension/descent, the
     prime-total-degree-gcd theorem itself, the standard-endpoint theorem
     itself, or those ten normalized low-scale subcases.  The
@@ -193,6 +196,16 @@ status:
       comparator_config: "comparator.json"
     - declaration: "Max11DegreeRoutes.depressedL46_eq_discriminator"
       file: "LowScale46Depression.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.alignedBoundaryNonlinear_from_exactBoundaries_forces_polynomial46"
+      file: "LowScale46Integrality.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.nonsquare_aligned_unitProduct_impossible46"
+      file: "LowScale46Integrality.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator.json"
