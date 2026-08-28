@@ -49,8 +49,20 @@ invariance, both chain rules, exact large-shear total degrees
 headline
 `Max11DegreeRoutes.Max11PlaneKellerGenerationWithPrimeTotalDegreeGCDRoute`
 therefore replaces the opaque history premise by the canonical published
-theorem for Keller pairs whose total-degree gcd is prime.  Its other remaining
-input is the classical gcd-at-most-two partial-degree route.
+theorem for Keller pairs whose total-degree gcd is prime.
+
+`CoprimeDegreeRoute.lean` now substantially narrows its other premise.  The
+top weighted-Wronskian row gives
+`n * natDegree(A) = m * natDegree(B)` for the two leading coefficients.  For
+coprime positive partial degrees this yields an integral common scale, and a
+large source shear makes the total-degree gcd prime.  At partial-degree gcd
+two, the same proof closes the odd common-scale case.  Consequently
+`Max11DegreeRoutes.Max11PlaneKellerGenerationWithEvenLeadingScaleGCDTwoRoute`
+is the current narrowest honest headline: besides the published prime-gcd
+theorem, only the even common-leading-scale residue at partial-degree gcd two
+remains.  A checked adapter shows that the strong arbitrary-pair twice-prime
+total-degree interface would close exactly that residue, but that interface is
+not treated as an established theorem.
 
 ## Compared declarations
 
@@ -122,8 +134,21 @@ input is the classical gcd-at-most-two partial-degree route.
   Dirichlet theorem to reduce `3 ∤ H` to the classical prime-total-degree-gcd
   result.
 - `Max11DegreeRoutes.Max11PlaneKellerGenerationWithPrimeTotalDegreeGCDRoute`
-  is the current top of the checked tower: only the prime-total-degree-gcd
-  theorem and the gcd-at-most-two partial-degree route remain as inputs.
+  reduces the historical `(6,9)` branch to the prime-total-degree-gcd theorem.
+- `Max11DegreeRoutes.planeKellerAutomorphicAtDegrees_of_coprime_and_primeTotalDegreeGCD`
+  proves every positive coprime partial-degree pair from that prime theorem,
+  using only numerical leading-degree proportionality and an exact source
+  shear.
+- `Max11DegreeRoutes.planeKellerAutomorphicAtDegrees_of_gcd_two_and_evenLeadingScale`
+  additionally proves every partial-degree gcd-two pair whose reduced common
+  leading-degree scale is odd; only the even-scale interface remains.
+- `Max11DegreeRoutes.Max11PlaneKellerGenerationWithEvenLeadingScaleGCDTwoRoute`
+  is the current narrowest source-honest top of the tower: its two inputs are
+  the published prime-total-degree-gcd theorem and that even-scale residue.
+- `Max11DegreeRoutes.Max11PlaneKellerGenerationWithPrimeAndTwicePrimeTotalDegreeGCDRoutes`
+  records the fully assembled implication from prime and strong arbitrary-pair
+  twice-prime total-degree routes.  The implication is checked; availability
+  of the twice-prime premise is deliberately not asserted.
 - `Max12FirstPrimitives` verifies the frontier checksum: at maximum twelve,
   the same direct routes first leave `(8,12)` and `(9,12)`.
 
@@ -138,9 +163,17 @@ then instantiates the result for actual bivariate polynomials, their Jacobian,
 partial `y`-degree, and coordinate-ring generation.  The divisible `(6,9)`
 leaf is now discharged by imported kernel-checked source theorems.  This
 project also proves the complete local nondivisible-core source-shear and
-Dirichlet reduction.  It still does not prove scalar-extension descent, the
-classical prime-total-degree-gcd theorem, or the gcd-at-most-two theorem (whose
-standard route additionally needs the twice-prime total-degree result).
+Dirichlet reduction.  It now proves the coprime partial-degree route and the
+odd-common-scale half of partial-degree gcd two from the classical
+prime-total-degree-gcd theorem.  It still does not prove scalar-extension
+descent, the prime theorem itself, or the even-common-scale gcd-two residue.
+That last residue follows from an arbitrary-pair twice-prime total-degree
+result.  A primary-source re-audit found that GGV 2017 proves only the
+corresponding restriction on the globally minimal counterexample gcd `B`; it
+explicitly records a gap in the earlier arbitrary-pair proof.
+Thus the strong twice-prime interface in `TotalDegreeRoutes.lean` is retained
+only as a precisely typed open premise, not described here as a proved
+classical input.
 
 The source files are copied byte-for-byte under `sources/`:
 
@@ -158,7 +191,7 @@ lake build
 ```
 
 `Max11Core.lean`, `ClassicalRoutes.lean`, `DegreeRoutes.lean`,
-`HistoryRoute.lean`, `HistoryDegree.lean`, `TotalDegreeRoutes.lean`, and
-`Max11Assembly.lean` contain no
+`HistoryRoute.lean`, `HistoryDegree.lean`, `TotalDegreeRoutes.lean`,
+`CoprimeDegreeRoute.lean`, and `Max11Assembly.lean` contain no
 `sorry`, custom axioms, or trust escapes.  The permitted axioms are `propext`,
 `Classical.choice`, and `Quot.sound`.

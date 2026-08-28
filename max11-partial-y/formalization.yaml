@@ -15,7 +15,10 @@ project:
     divisible-core assembly discharges both deep exclusions.  The local
     source-shear, exact total-degree, and Dirichlet argument now reduce the
     nondivisible history route to the canonical prime-total-degree-gcd theorem,
-    leaving that theorem and the gcd-at-most-two route as the final inputs.
+    while a generic leading-degree/source-shear argument proves every coprime
+    partial-degree pair and the odd-common-scale half of gcd two from the same
+    prime theorem.  The narrowest final inputs are that theorem and the even
+    common-leading-scale residue at partial-degree gcd two.
   authors:
     - "Dan Clemens Posch"
   license: "Apache-2.0"
@@ -87,13 +90,36 @@ status:
     automorphism, proves both chain rules and Jacobian/generation invariance,
     proves the exact total degrees 2(H+3L),3(H+3L) from unique maximal
     shear-weight monomials, and uses Mathlib's Dirichlet theorem to choose
-    H+3L prime.  Not proved here: scalar-extension/descent, the
-    prime-total-degree-gcd theorem, or the gcd-at-most-two premise (whose
-    classical source route additionally uses the twice-prime result).
+    H+3L prime.  More generally, the leading weighted-Wronskian row proves
+    numerical proportionality of the two top coefficient degrees.  Exact
+    source shears then prove every positive coprime partial-degree pair from
+    the prime-total-degree-gcd theorem.  At partial-degree gcd two, Dirichlet
+    closes the odd common-scale case and isolates the even-scale residue; a
+    checked adapter shows that a strong arbitrary-pair twice-prime result
+    would close it.  Not proved here: scalar-extension/descent, the
+    prime-total-degree-gcd theorem itself, or that even-scale residue.  The
+    strong twice-prime statement is not treated as established:
+    GGV 2017 proves the restriction for the globally minimal counterexample
+    gcd B and records a gap in the earlier arbitrary-pair proof.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
   main_results:
+    - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithEvenLeadingScaleGCDTwoRoute"
+      file: "Max11Assembly.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.planeKellerAutomorphicAtDegrees_of_coprime_and_primeTotalDegreeGCD"
+      file: "CoprimeDegreeRoute.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.planeKellerAutomorphicAtDegrees_of_gcd_two_and_evenLeadingScale"
+      file: "CoprimeDegreeRoute.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
     - declaration: "Max11DegreeRoutes.planeKellerPair_69_sourceDichotomy"
       file: "DegreeRoutes.lean"
       sorry_count: 0
@@ -202,9 +228,15 @@ fidelity:
     charges the deep exclusions only on `3 ∣ deg h`; `Max11Assembly` now
     imports and adapts the complete divisible-core source exclusion.  The
     nondivisible source-shear, exact-degree, and Dirichlet stack is also proved,
-    reducing that branch to the canonical prime-total-degree-gcd theorem.  It
-    does not formalize that published prime theorem, the gcd-at-most-two
-    theorem, or scalar-extension descent.  No other divergences are known.
+    reducing that branch to the canonical prime-total-degree-gcd theorem.  A
+    generic version proves all coprime partial-degree pairs and the odd-scale
+    gcd-two cases from the same input, reducing the former gcd-at-most-two
+    premise to its even-common-scale gcd-two residue.  It does not formalize
+    the published prime theorem, that residual theorem, an arbitrary-pair
+    twice-prime theorem, or scalar-extension descent.  In particular, GGV
+    2017's theorem about the globally minimal
+    counterexample gcd B is not silently strengthened to a theorem about every
+    Keller pair.  No other divergences are known.
 
 review:
   status: >-
@@ -218,25 +250,25 @@ review:
     Kernel axiom reports and the project audit script find no sorryAx or
     non-permitted axioms in Max11Core.lean, ClassicalRoutes.lean,
     DegreeRoutes.lean, HistoryRoute.lean, HistoryDegree.lean,
-    TotalDegreeRoutes.lean, or Max11Assembly.lean.
+    TotalDegreeRoutes.lean, CoprimeDegreeRoute.lean, or Max11Assembly.lean.
 
 alignment:
   namespace: "(root)"
   statements:
     - source: "Finite routing table and recursive closure, Sections 6--8"
       lean: "MaxPartialDegreeElevenClosure"
-      module: "Challenge"
+      module: "Max11Assembly"
       status: >-
         exact abstract recursion proved; Keller-pair route theorems remain
         hypotheses
     - source: "Maximum actual partial y-degree eleven theorem, Sections 1 and 6"
-      lean: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithNormalized69Routes"
+      lean: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithEvenLeadingScaleGCDTwoRoute"
       module: "Challenge"
       status: >-
         exact bivariate polynomial conclusion and finite composition proved;
-        the zero, equal-degree, and divisibility routes are proved, while the
-        gcd-at-most-two theorem and the normalized cube/noncube (6,9) branch
-        closures remain explicit hypotheses
+        the zero, equal-degree, divisibility, exhaustive (6,9), coprime-degree,
+        and odd-scale gcd-two routes are proved; the prime-total-degree-gcd
+        theorem and even-common-scale gcd-two route remain explicit hypotheses
     - source: "Maximum-twelve frontier checksum, Section 9"
       lean: "Max12FirstPrimitives"
       module: "Challenge"

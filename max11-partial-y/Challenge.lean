@@ -168,6 +168,38 @@ def PlaneKeller69NondivisibleCoreRoute {K : Type*} [Field K] : Prop :=
   ∀ (P Q : MvPolynomial (Fin 2) K) (h : Polynomial K),
     Normalized69Source P Q h → ¬ 3 ∣ h.natDegree → PlanePairGenerates P Q
 
+/-- Closure of every Keller pair whose two total degrees have prime gcd. -/
+def PlaneKellerPrimeTotalDegreeGCDRoute
+    {K : Type*} [Field K] : Prop :=
+  ∀ P Q : MvPolynomial (Fin 2) K,
+    IsPlaneKellerPair P Q →
+    (Nat.gcd P.totalDegree Q.totalDegree).Prime →
+    PlanePairGenerates P Q
+
+/-- Strong arbitrary-pair closure when the total-degree gcd is twice a
+prime.  This is an explicit premise, not asserted here as a classical fact. -/
+def PlaneKellerTwicePrimeTotalDegreeGCDRoute
+    {K : Type*} [Field K] : Prop :=
+  ∀ (P Q : MvPolynomial (Fin 2) K) (p : ℕ),
+    IsPlaneKellerPair P Q →
+    p.Prime →
+    Nat.gcd P.totalDegree Q.totalDegree = 2 * p →
+    PlanePairGenerates P Q
+
+/-- The residual partial-degree gcd-two route when the common numerical
+scale of the two top coefficient degrees is even. -/
+def PlaneKellerEvenLeadingScaleGCDTwoRoute
+    {K : Type*} [Field K] : Prop :=
+  ∀ (P Q : MvPolynomial (Fin 2) K) (m n H : ℕ),
+    MvPolynomial.degreeOf 1 P = m → MvPolynomial.degreeOf 1 Q = n →
+    0 < m → 0 < n → Nat.gcd m n = 2 →
+    IsPlaneKellerPair P Q →
+    (((Polynomial.Bivariate.equivMvPolynomial K).symm P).coeff m).natDegree =
+      (m / 2) * H →
+    (((Polynomial.Bivariate.equivMvPolynomial K).symm Q).coeff n).natDegree =
+      (n / 2) * H →
+    2 ∣ H → PlanePairGenerates P Q
+
 /-- Impossibility of the cube-core part of the historical
 `(6,9), 3 ∣ deg h` residue. -/
 def PlaneKeller69DivisibleCubeExclusion {K : Type*} [Field K] : Prop :=
@@ -360,6 +392,50 @@ theorem Max11PlaneKellerGenerationWithHistoryAndDivisible69Exclusions
     (hhistory : PlaneKeller69NondivisibleCoreRoute (K := K))
     (hcube : PlaneKeller69DivisibleCubeExclusion (K := K))
     (hnoncube : PlaneKeller69DivisibleNoncubeExclusion (K := K)) :
+    ∀ P Q : MvPolynomial (Fin 2) K,
+      MvPolynomial.degreeOf 1 P ≤ 11 →
+      MvPolynomial.degreeOf 1 Q ≤ 11 →
+      IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
+  sorry
+
+/-- Every positive coprime partial-degree pair follows from the prime
+total-degree-gcd route via a large source shear. -/
+theorem planeKellerAutomorphicAtDegrees_of_coprime_and_primeTotalDegreeGCD
+    {K : Type*} [Field K] [CharZero K]
+    (m n : ℕ) (hmpos : 0 < m) (hnpos : 0 < n)
+    (hcop : m.Coprime n)
+    (hprime : PlaneKellerPrimeTotalDegreeGCDRoute (K := K)) :
+    PlaneKellerAutomorphicAtDegrees (K := K) m n := by
+  sorry
+
+/-- At partial-degree gcd two, the prime route closes every odd common-scale
+case, leaving only the even-scale interface. -/
+theorem planeKellerAutomorphicAtDegrees_of_gcd_two_and_evenLeadingScale
+    {K : Type*} [Field K] [CharZero K]
+    (hprime : PlaneKellerPrimeTotalDegreeGCDRoute (K := K))
+    (heven : PlaneKellerEvenLeadingScaleGCDTwoRoute (K := K)) :
+    ∀ m n, Nat.gcd m n = 2 →
+      PlaneKellerAutomorphicAtDegrees (K := K) m n := by
+  sorry
+
+/-- Maximum eleven from the prime total-degree route and only the even-scale
+partial-degree gcd-two residue. -/
+theorem Max11PlaneKellerGenerationWithEvenLeadingScaleGCDTwoRoute
+    {K : Type*} [Field K] [CharZero K] [IsAlgClosed K]
+    (heven : PlaneKellerEvenLeadingScaleGCDTwoRoute (K := K))
+    (hprime : PlaneKellerPrimeTotalDegreeGCDRoute (K := K)) :
+    ∀ P Q : MvPolynomial (Fin 2) K,
+      MvPolynomial.degreeOf 1 P ≤ 11 →
+      MvPolynomial.degreeOf 1 Q ≤ 11 →
+      IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
+  sorry
+
+/-- Maximum eleven conditional on the prime and strong arbitrary-pair
+twice-prime total-degree routes. -/
+theorem Max11PlaneKellerGenerationWithPrimeAndTwicePrimeTotalDegreeGCDRoutes
+    {K : Type*} [Field K] [CharZero K] [IsAlgClosed K]
+    (hprime : PlaneKellerPrimeTotalDegreeGCDRoute (K := K))
+    (htwice : PlaneKellerTwicePrimeTotalDegreeGCDRoute (K := K)) :
     ∀ P Q : MvPolynomial (Fin 2) K,
       MvPolynomial.degreeOf 1 P ≤ 11 →
       MvPolynomial.degreeOf 1 Q ≤ 11 →

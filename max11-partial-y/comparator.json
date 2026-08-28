@@ -1,6 +1,6 @@
 {
   "challenge_module": "Challenge",
-  "solution_module": "DegreeRoutes",
+  "solution_module": "Max11Assembly",
   "theorem_names": [
     "Max11RouteClassification",
     "Max11UniquePrimitive",
@@ -21,6 +21,10 @@
     "Max11DegreeRoutes.Max11PlaneKellerGenerationWithNormalized69Routes",
     "Max11DegreeRoutes.Max11PlaneKellerGenerationWithNormalized69Exclusions",
     "Max11DegreeRoutes.Max11PlaneKellerGenerationWithHistoryAndDivisible69Exclusions",
+    "Max11DegreeRoutes.planeKellerAutomorphicAtDegrees_of_coprime_and_primeTotalDegreeGCD",
+    "Max11DegreeRoutes.planeKellerAutomorphicAtDegrees_of_gcd_two_and_evenLeadingScale",
+    "Max11DegreeRoutes.Max11PlaneKellerGenerationWithEvenLeadingScaleGCDTwoRoute",
+    "Max11DegreeRoutes.Max11PlaneKellerGenerationWithPrimeAndTwicePrimeTotalDegreeGCDRoutes",
     "Max12FirstPrimitives"
   ],
   "definition_names": [
@@ -37,7 +41,10 @@
     "Max11DegreeRoutes.PlaneKeller69NoncubeExclusion",
     "Max11DegreeRoutes.PlaneKeller69NondivisibleCoreRoute",
     "Max11DegreeRoutes.PlaneKeller69DivisibleCubeExclusion",
-    "Max11DegreeRoutes.PlaneKeller69DivisibleNoncubeExclusion"
+    "Max11DegreeRoutes.PlaneKeller69DivisibleNoncubeExclusion",
+    "Max11DegreeRoutes.PlaneKellerPrimeTotalDegreeGCDRoute",
+    "Max11DegreeRoutes.PlaneKellerTwicePrimeTotalDegreeGCDRoute",
+    "Max11DegreeRoutes.PlaneKellerEvenLeadingScaleGCDTwoRoute"
   ],
   "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
   "enable_nanoda": true

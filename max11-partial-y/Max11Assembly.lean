@@ -1,5 +1,6 @@
 import HistoryDegree
 import TotalDegreeRoutes
+import CoprimeDegreeRoute
 import GCD369DivisibleSourceExclusion
 
 /-! # Max-eleven handoff from the complete divisible `(6,9)` exclusion
@@ -8,8 +9,9 @@ This module adapts the literal polynomial source theorem to the normalized
 `MvPolynomial` interface used by the max-eleven degree router.  It closes both
 cube and noncube branches of the divisible common-core residue.  The local
 large-source-shear proof also reduces the nondivisible residue to the
-classical prime-total-degree-gcd theorem.  The final composition remains
-conditional only on that theorem and the classical gcd-at-most-two route.
+classical prime-total-degree-gcd theorem.  The final composition now reduces
+the former gcd-at-most-two premise to the even common-leading-scale residue
+at partial-degree gcd two.
 -/
 
 open scoped Polynomial.Bivariate
@@ -100,11 +102,58 @@ theorem Max11PlaneKellerGenerationWithPrimeTotalDegreeGCDRoute
   exact Max11PlaneKellerGenerationWithImportedDivisible69Exclusion hgcd
     (imported_planeKeller69NondivisibleCoreRoute_of_primeTotalDegreeGCD hprime)
 
+/-- Source-honest Max-11 composition with the gcd-at-most-two premise reduced
+to its exact gcd-two residue.  The prime theorem now proves every positive
+coprime partial-degree pair internally. -/
+theorem Max11PlaneKellerGenerationWithGCDTwoResidual
+    {K : Type*} [Field K] [CharZero K] [IsAlgClosed K]
+    (hgcdTwo : ∀ m n, Nat.gcd m n = 2 →
+      PlaneKellerAutomorphicAtDegrees (K := K) m n)
+    (hprime : PlaneKellerPrimeTotalDegreeGCDRoute (K := K)) :
+    ∀ P Q : MvPolynomial (Fin 2) K,
+      degreeOf 1 P ≤ 11 → degreeOf 1 Q ≤ 11 →
+      IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
+  exact Max11PlaneKellerGenerationWithPrimeTotalDegreeGCDRoute
+    (planeKellerAutomorphicAtDegrees_of_gcd_le_two hgcdTwo hprime) hprime
+
+/-- The narrowest checked Max-11 handoff: the classical prime-total-degree
+route proves every coprime partial-degree pair and every gcd-two pair with
+odd common leading-degree scale.  Only the even-scale gcd-two interface
+remains as a nonclassical mathematical premise. -/
+theorem Max11PlaneKellerGenerationWithEvenLeadingScaleGCDTwoRoute
+    {K : Type*} [Field K] [CharZero K] [IsAlgClosed K]
+    (heven : PlaneKellerEvenLeadingScaleGCDTwoRoute (K := K))
+    (hprime : PlaneKellerPrimeTotalDegreeGCDRoute (K := K)) :
+    ∀ P Q : MvPolynomial (Fin 2) K,
+      degreeOf 1 P ≤ 11 → degreeOf 1 Q ≤ 11 →
+      IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
+  exact Max11PlaneKellerGenerationWithGCDTwoResidual
+    (planeKellerAutomorphicAtDegrees_of_gcd_two_and_evenLeadingScale
+      hprime heven) hprime
+
+/-- Fully assembled Max-11 conditional on the classical prime-total-degree
+result and the strong arbitrary-pair twice-prime interface.  The latter is
+kept explicit because the published arbitrary-pair proof has a documented
+gap; the 2017 theorem concerns only the globally minimal counterexample gcd. -/
+theorem Max11PlaneKellerGenerationWithPrimeAndTwicePrimeTotalDegreeGCDRoutes
+    {K : Type*} [Field K] [CharZero K] [IsAlgClosed K]
+    (hprime : PlaneKellerPrimeTotalDegreeGCDRoute (K := K))
+    (htwice : PlaneKellerTwicePrimeTotalDegreeGCDRoute (K := K)) :
+    ∀ P Q : MvPolynomial (Fin 2) K,
+      degreeOf 1 P ≤ 11 → degreeOf 1 Q ≤ 11 →
+      IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
+  exact Max11PlaneKellerGenerationWithEvenLeadingScaleGCDTwoRoute
+    (planeKellerEvenLeadingScaleGCDTwoRoute_of_twicePrimeTotalDegreeGCD htwice)
+    hprime
+
 #print axioms normalized69Source_impossible_of_degree_dvd_three
 #print axioms imported_planeKeller69DivisibleCubeExclusion
 #print axioms imported_planeKeller69DivisibleNoncubeExclusion
 #print axioms Max11PlaneKellerGenerationWithImportedDivisible69Exclusion
 #print axioms imported_planeKeller69NondivisibleCoreRoute_of_primeTotalDegreeGCD
 #print axioms Max11PlaneKellerGenerationWithPrimeTotalDegreeGCDRoute
+#print axioms Max11PlaneKellerGenerationWithGCDTwoResidual
+#print axioms Max11PlaneKellerGenerationWithEvenLeadingScaleGCDTwoRoute
+#print axioms Max11PlaneKellerGenerationWithPrimeAndTwicePrimeTotalDegreeGCDRoutes
 
 end Max11DegreeRoutes

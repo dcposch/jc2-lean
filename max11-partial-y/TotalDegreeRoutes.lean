@@ -22,9 +22,13 @@ def PlaneKellerPrimeTotalDegreeGCDRoute
     (Nat.gcd P.totalDegree Q.totalDegree).Prime →
     PlanePairGenerates P Q
 
-/-- The analogous classical interface for pairs whose total-degree gcd is
-twice a prime.  The prime is retained explicitly so downstream reductions
-do not have to extract it from a divisibility statement. -/
+/-- The strong per-pair interface for Keller pairs whose total-degree gcd is
+twice a prime.  The prime is retained explicitly so downstream reductions do
+not have to extract it from a divisibility statement.  This definition is an
+interface only: the 2017 GGV theorem proves the corresponding restriction for
+the globally minimal counterexample gcd `B`, while its cited arbitrary-pair
+predecessor has a documented proof gap, so neither is imported here as a proof
+of this stronger statement. -/
 def PlaneKellerTwicePrimeTotalDegreeGCDRoute
     {K : Type*} [Field K] : Prop :=
   ∀ (P Q : MvPolynomial (Fin 2) K) (p : ℕ),
