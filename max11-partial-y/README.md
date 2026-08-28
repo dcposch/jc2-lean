@@ -256,6 +256,13 @@ not treated as an established theorem.
   representatives, and reaches the square unit-product contradiction.  Its
   quadratic-descent endpoint differentiates `K=B²`, transports the last row
   to `(-3/8) M K'`, and applies `M²=HK` to obtain the nonsquare contradiction.
+  `LowScale46SourceBridge.lean` now begins the remaining genuine-source
+  handoff.  It exposes the standard quotient-rule differential on `K(x)` as
+  a `K`-derivation, maps the literal coefficient-polynomial Jacobian into the
+  differential bracket, proves that `y=(z-r)/h` divides that bracket exactly
+  by `h`, identifies mapped degree-four and degree-six sources with the raw
+  coefficient forms, and constructs the full depressed `L=0` package from
+  any literal square-core aligned source.
   `LowScale46Depression.lean` performs the exact source substitution
   `y=(z-r)/h` on the quartic and sextic and proves that the normalized quintic
   coefficient is zero in the aligned branch and `-lambda/2` in the mismatch
@@ -327,6 +334,7 @@ lake build
 `LowScale46AlignedFinitePoles.lean`,
 `LowScale46AlignedPolynomialEndgame.lean`,
 `LowScale46AlignedZeroFinitePoles.lean`,
-`LowScale46AlignedComponentEndgame.lean`, and `Max11Assembly.lean`
+`LowScale46AlignedComponentEndgame.lean`, `LowScale46SourceBridge.lean`, and
+`Max11Assembly.lean`
 contain no `sorry`, custom axioms, or trust escapes.  The
 permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.
