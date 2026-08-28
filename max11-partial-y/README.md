@@ -231,9 +231,12 @@ not treated as an established theorem.
   `LowScale46AlignedPolynomialEndgame.lean` handles the complementary
   no-finite-pole branch over `F[x]`.  It proves the exact shifted curve and
   one-form identities, derives the actual beta and delta degree cones and
-  leading relations, and excludes a constant last row whenever all three
-  shifted variables are nonconstant.  The certified terminal degrees are
-  `12n-1` in the beta stratum and `8n-1` in the delta stratum.
+  leading relations, and excludes a nonzero constant last row in both strata
+  for all eight constant/nonconstant patterns of the shifted variables.  This
+  includes the exceptional line `A=V=delta=0`, where the last row has degree
+  `3 deg(X)-1`.  The certified all-nonconstant terminal degrees are `12n-1`
+  in the beta stratum and `8n-1` in the delta stratum; the final theorems are
+  transported back to the literal original coefficient rows.
   `LowScale46Depression.lean` performs the exact source substitution
   `y=(z-r)/h` on the quartic and sextic and proves that the normalized quintic
   coefficient is zero in the aligned branch and `-lambda/2` in the mismatch

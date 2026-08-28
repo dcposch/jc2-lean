@@ -642,4 +642,586 @@ theorem alignedDeltaPolynomial_allNonconstant_impossible46
 
 end ShiftedPolynomialEtaEndgame
 
+section ShiftedPolynomialDegenerateEndgame
+
+variable {F : Type*} [Field F] [CharZero F]
+
+/-- The beta-aligned curve function has its expected quadratic degree on a
+nonconstant polynomial `A`. -/
+theorem alignedBetaPhiPolynomialNatDegree46
+    (beta gamma delta k2 : F) (A : F[X])
+    (hbeta : beta ≠ 0) (hA : A ≠ 0) (hAdeg : 0 < A.natDegree) :
+    (alignedPhiPolynomial46 beta gamma delta k2 A).natDegree =
+      2 * A.natDegree := by
+  let p : F[X] := C ((1 / 2 : F) * beta) * A ^ 2
+  let t : F[X] := C ((4 / 3 : F) * delta) * A -
+    C ((4 / 3 : F) * (k2 + 2 * beta * gamma))
+  have hp : p ≠ 0 := by
+    dsimp [p]
+    exact mul_ne_zero (C_ne_zero.mpr (mul_ne_zero (by norm_num) hbeta))
+      (pow_ne_zero 2 hA)
+  have hpdeg : p.natDegree = 2 * A.natDegree := by
+    dsimp [p]
+    rw [natDegree_C_mul (mul_ne_zero (by norm_num) hbeta), natDegree_pow]
+  have ht : t.natDegree ≤ A.natDegree := by
+    dsimp [t]
+    compute_degree
+  have htlt : t.natDegree < p.natDegree := by
+    rw [hpdeg]
+    omega
+  have hsplit : alignedPhiPolynomial46 beta gamma delta k2 A = p + t := by
+    dsimp [alignedPhiPolynomial46, p, t]
+    ring
+  rw [hsplit, natDegree_add_eq_left_of_natDegree_lt htlt, hpdeg]
+
+/-- The delta-aligned curve function has its expected linear degree on a
+nonconstant polynomial `A`. -/
+theorem alignedDeltaPhiPolynomialNatDegree46
+    (gamma delta k2 : F) (A : F[X])
+    (hdelta : delta ≠ 0) (hA : A ≠ 0) (hAdeg : 0 < A.natDegree) :
+    (alignedPhiPolynomial46 0 gamma delta k2 A).natDegree = A.natDegree := by
+  let p : F[X] := C ((4 / 3 : F) * delta) * A
+  let t : F[X] := -C ((4 / 3 : F) * k2)
+  have hp : p ≠ 0 := by
+    dsimp [p]
+    exact mul_ne_zero (C_ne_zero.mpr (mul_ne_zero (by norm_num) hdelta)) hA
+  have hpdeg : p.natDegree = A.natDegree := by
+    dsimp [p]
+    rw [natDegree_C_mul (mul_ne_zero (by norm_num) hdelta)]
+  have htlt : t.natDegree < p.natDegree := by
+    dsimp [t]
+    rw [natDegree_neg, natDegree_C, hpdeg]
+    exact hAdeg
+  have hsplit : alignedPhiPolynomial46 0 gamma delta k2 A = p + t := by
+    simp [alignedPhiPolynomial46, p, t, sub_eq_add_neg]
+  rw [hsplit, natDegree_add_eq_left_of_natDegree_lt htlt, hpdeg]
+
+/-- Whenever both `A` and `X` are nonconstant, the cubic monomial `A*X²`
+is uniquely top in the aligned second curve function. -/
+theorem alignedRPolynomialNatDegree46
+    (beta gamma delta k1 : F) (A X : F[X])
+    (hA : A ≠ 0) (hX : X ≠ 0)
+    (hAdeg : 0 < A.natDegree) (hXdeg : 0 < X.natDegree) :
+    (alignedRPolynomial46 beta gamma delta k1 A X).natDegree =
+      A.natDegree + 2 * X.natDegree := by
+  let p : F[X] := C (8 : F) * (A * X ^ 2)
+  let t : F[X] := -(C (8 : F) * (A * X * C beta)) -
+      C ((32 / 3 : F) * delta) * X +
+      C ((32 / 3 : F) * delta) * C beta +
+      C ((32 / 3 : F) * (k1 + (2 / 3 : F) * gamma ^ 2))
+  have hp : p ≠ 0 := by
+    dsimp [p]
+    exact mul_ne_zero (C_ne_zero.mpr (by norm_num))
+      (mul_ne_zero hA (pow_ne_zero 2 hX))
+  have hpdeg : p.natDegree = A.natDegree + 2 * X.natDegree := by
+    dsimp [p]
+    rw [natDegree_C_mul (by norm_num), natDegree_mul hA (pow_ne_zero 2 hX),
+      natDegree_pow]
+  have ht : t.natDegree ≤ max (A.natDegree + X.natDegree) X.natDegree := by
+    dsimp [t]
+    compute_degree
+    omega
+  have htlt : t.natDegree < p.natDegree := by
+    rw [hpdeg]
+    omega
+  have hsplit : alignedRPolynomial46 beta gamma delta k1 A X = p + t := by
+    dsimp [alignedRPolynomial46, p, t]
+    ring
+  rw [hsplit, natDegree_add_eq_left_of_natDegree_lt htlt, hpdeg]
+
+omit [CharZero F] in
+/-- If `A` is nonconstant and `X` is constant, any aligned first-row degree
+`d` with `deg A < 2d` is incompatible with the second curve row. -/
+theorem alignedPolynomial_A_nonconstant_X_constant_impossible46
+    (beta gamma delta k2 k1 x : F) (A V : F[X]) (d : ℕ)
+    (_hAdeg : 0 < A.natDegree) (hd : 0 < d)
+    (hPhiDeg : (alignedPhiPolynomial46 beta gamma delta k2 A).natDegree = d)
+    (hgap : A.natDegree < 2 * d)
+    (hXV : C x * V = alignedPhiPolynomial46 beta gamma delta k2 A)
+    (hV2 : V ^ 2 = alignedRPolynomial46 beta gamma delta k1 A (C x)) : False := by
+  have hPhi : alignedPhiPolynomial46 beta gamma delta k2 A ≠ 0 := by
+    intro h
+    rw [h, natDegree_zero] at hPhiDeg
+    omega
+  have hprod : C x * V ≠ 0 := by
+    rw [hXV]
+    exact hPhi
+  have hCx : C x ≠ 0 := by
+    intro hx
+    rw [hx, zero_mul] at hprod
+    exact hprod rfl
+  have hV : V ≠ 0 := by
+    intro hv
+    rw [hv, mul_zero] at hprod
+    exact hprod rfl
+  have hVdeg : V.natDegree = d := by
+    calc
+      V.natDegree = (C x * V).natDegree := by
+        rw [natDegree_mul hCx hV, natDegree_C, zero_add]
+      _ = d := by rw [hXV, hPhiDeg]
+  have hRbound :
+      (alignedRPolynomial46 beta gamma delta k1 A (C x)).natDegree ≤
+        A.natDegree := by
+    dsimp [alignedRPolynomial46]
+    compute_degree
+  have hV2deg : (V ^ 2).natDegree = 2 * V.natDegree := by
+    rw [natDegree_pow]
+  rw [hV2] at hV2deg
+  omega
+
+/-- If `A` is nonconstant and `V` is constant, a positive-degree aligned
+first curve function forces `X` nonconstant, after which `A*X²` contradicts
+the constant second row. -/
+theorem alignedPolynomial_A_nonconstant_V_constant_impossible46
+    (beta gamma delta k2 k1 v : F) (A X : F[X]) (d : ℕ)
+    (hAdeg : 0 < A.natDegree) (hd : 0 < d)
+    (hPhiDeg : (alignedPhiPolynomial46 beta gamma delta k2 A).natDegree = d)
+    (hXV : X * C v = alignedPhiPolynomial46 beta gamma delta k2 A)
+    (hV2 : (C v) ^ 2 = alignedRPolynomial46 beta gamma delta k1 A X) : False := by
+  have hA : A ≠ 0 := by
+    intro h
+    rw [h] at hAdeg
+    simp at hAdeg
+  have hPhi : alignedPhiPolynomial46 beta gamma delta k2 A ≠ 0 := by
+    intro h
+    rw [h, natDegree_zero] at hPhiDeg
+    omega
+  have hprod : X * C v ≠ 0 := by
+    rw [hXV]
+    exact hPhi
+  have hX : X ≠ 0 := by
+    intro hx
+    rw [hx, zero_mul] at hprod
+    exact hprod rfl
+  have hCv : C v ≠ 0 := by
+    intro hv
+    rw [hv, mul_zero] at hprod
+    exact hprod rfl
+  have hXdeg : X.natDegree = d := by
+    calc
+      X.natDegree = (X * C v).natDegree := by
+        rw [natDegree_mul hX hCv, natDegree_C, add_zero]
+      _ = d := by rw [hXV, hPhiDeg]
+  have hXpos : 0 < X.natDegree := by omega
+  have hRdeg := alignedRPolynomialNatDegree46 beta gamma delta k1 A X
+    hA hX hAdeg hXpos
+  have hconstant : ((C v) ^ 2).natDegree = 0 := by simp
+  rw [hV2, hRdeg] at hconstant
+  omega
+
+/-- No beta-aligned polynomial trajectory can have nonconstant `A` and
+constant `X`. -/
+theorem alignedBetaPolynomial_A_nonconstant_X_constant_impossible46
+    (beta gamma delta k2 k1 x : F) (A V : F[X])
+    (hbeta : beta ≠ 0) (hAdeg : 0 < A.natDegree)
+    (hXV : C x * V = alignedPhiPolynomial46 beta gamma delta k2 A)
+    (hV2 : V ^ 2 = alignedRPolynomial46 beta gamma delta k1 A (C x)) : False := by
+  have hA : A ≠ 0 := by
+    intro h
+    rw [h] at hAdeg
+    simp at hAdeg
+  have hPhiDeg := alignedBetaPhiPolynomialNatDegree46 beta gamma delta k2 A
+    hbeta hA hAdeg
+  exact alignedPolynomial_A_nonconstant_X_constant_impossible46
+    beta gamma delta k2 k1 x A V (2 * A.natDegree) hAdeg (by omega)
+      hPhiDeg (by omega) hXV hV2
+
+/-- No delta-aligned polynomial trajectory can have nonconstant `A` and
+constant `X`. -/
+theorem alignedDeltaPolynomial_A_nonconstant_X_constant_impossible46
+    (gamma delta k2 k1 x : F) (A V : F[X])
+    (hdelta : delta ≠ 0) (hAdeg : 0 < A.natDegree)
+    (hXV : C x * V = alignedPhiPolynomial46 0 gamma delta k2 A)
+    (hV2 : V ^ 2 = alignedRPolynomial46 0 gamma delta k1 A (C x)) : False := by
+  have hA : A ≠ 0 := by
+    intro h
+    rw [h] at hAdeg
+    simp at hAdeg
+  have hPhiDeg := alignedDeltaPhiPolynomialNatDegree46 gamma delta k2 A
+    hdelta hA hAdeg
+  exact alignedPolynomial_A_nonconstant_X_constant_impossible46
+    0 gamma delta k2 k1 x A V A.natDegree hAdeg hAdeg hPhiDeg
+      (by omega) hXV hV2
+
+/-- No beta-aligned polynomial trajectory can have nonconstant `A` and
+constant `V`. -/
+theorem alignedBetaPolynomial_A_nonconstant_V_constant_impossible46
+    (beta gamma delta k2 k1 v : F) (A X : F[X])
+    (hbeta : beta ≠ 0) (hAdeg : 0 < A.natDegree)
+    (hXV : X * C v = alignedPhiPolynomial46 beta gamma delta k2 A)
+    (hV2 : (C v) ^ 2 = alignedRPolynomial46 beta gamma delta k1 A X) : False := by
+  have hA : A ≠ 0 := by
+    intro h
+    rw [h] at hAdeg
+    simp at hAdeg
+  have hPhiDeg := alignedBetaPhiPolynomialNatDegree46 beta gamma delta k2 A
+    hbeta hA hAdeg
+  exact alignedPolynomial_A_nonconstant_V_constant_impossible46
+    beta gamma delta k2 k1 v A X (2 * A.natDegree) hAdeg (by omega)
+      hPhiDeg hXV hV2
+
+/-- No delta-aligned polynomial trajectory can have nonconstant `A` and
+constant `V`. -/
+theorem alignedDeltaPolynomial_A_nonconstant_V_constant_impossible46
+    (gamma delta k2 k1 v : F) (A X : F[X])
+    (hdelta : delta ≠ 0) (hAdeg : 0 < A.natDegree)
+    (hXV : X * C v = alignedPhiPolynomial46 0 gamma delta k2 A)
+    (hV2 : (C v) ^ 2 = alignedRPolynomial46 0 gamma delta k1 A X) : False := by
+  have hA : A ≠ 0 := by
+    intro h
+    rw [h] at hAdeg
+    simp at hAdeg
+  have hPhiDeg := alignedDeltaPhiPolynomialNatDegree46 gamma delta k2 A
+    hdelta hA hAdeg
+  exact alignedPolynomial_A_nonconstant_V_constant_impossible46
+    0 gamma delta k2 k1 v A X A.natDegree hAdeg hAdeg hPhiDeg hXV hV2
+
+omit [CharZero F] in
+/-- If `A` is constant, the first shifted curve row cannot have both `X`
+and `V` nonconstant. -/
+theorem alignedPolynomial_A_constant_XV_nonconstant_impossible46
+    (beta gamma delta k2 a : F) (X V : F[X])
+    (hXdeg : 0 < X.natDegree) (hVdeg : 0 < V.natDegree)
+    (hXV : X * V = alignedPhiPolynomial46 beta gamma delta k2 (C a)) : False := by
+  have hX : X ≠ 0 := by
+    intro h
+    rw [h] at hXdeg
+    simp at hXdeg
+  have hV : V ≠ 0 := by
+    intro h
+    rw [h] at hVdeg
+    simp at hVdeg
+  have hproddeg := natDegree_mul hX hV
+  have hPhiBound :
+      (alignedPhiPolynomial46 beta gamma delta k2 (C a)).natDegree ≤ 0 := by
+    dsimp [alignedPhiPolynomial46]
+    compute_degree
+  rw [hXV] at hproddeg
+  omega
+
+omit [CharZero F] in
+/-- If `A` and `X` are constant, the second shifted curve row cannot have
+nonconstant `V`. -/
+theorem alignedPolynomial_A_X_constant_V_nonconstant_impossible46
+    (beta gamma delta k1 a x : F) (V : F[X])
+    (hVdeg : 0 < V.natDegree)
+    (hV2 : V ^ 2 = alignedRPolynomial46 beta gamma delta k1 (C a) (C x)) :
+    False := by
+  have hRBound :
+      (alignedRPolynomial46 beta gamma delta k1 (C a) (C x)).natDegree ≤ 0 := by
+    dsimp [alignedRPolynomial46]
+    compute_degree
+  have hV2deg : (V ^ 2).natDegree = 2 * V.natDegree := by
+    rw [natDegree_pow]
+  rw [hV2] at hV2deg
+  omega
+
+/-- With constant nonzero `A` and nonconstant `X`, the quadratic term in
+`R(A,X)` is uniquely top. -/
+theorem alignedRPolynomial_constantA_nonzero_natDegree46
+    (beta gamma delta k1 a : F) (X : F[X])
+    (ha : a ≠ 0) (hX : X ≠ 0) (hXdeg : 0 < X.natDegree) :
+    (alignedRPolynomial46 beta gamma delta k1 (C a) X).natDegree =
+      2 * X.natDegree := by
+  let p : F[X] := C (8 : F) * (C a * X ^ 2)
+  let t : F[X] := -(C (8 : F) * (C a * X * C beta)) -
+      C ((32 / 3 : F) * delta) * X +
+      C ((32 / 3 : F) * delta) * C beta +
+      C ((32 / 3 : F) * (k1 + (2 / 3 : F) * gamma ^ 2))
+  have hp : p ≠ 0 := by
+    dsimp [p]
+    exact mul_ne_zero (C_ne_zero.mpr (by norm_num))
+      (mul_ne_zero (C_ne_zero.mpr ha) (pow_ne_zero 2 hX))
+  have hpdeg : p.natDegree = 2 * X.natDegree := by
+    dsimp [p]
+    rw [natDegree_C_mul (by norm_num),
+      natDegree_mul (C_ne_zero.mpr ha) (pow_ne_zero 2 hX), natDegree_C,
+      zero_add, natDegree_pow]
+  have ht : t.natDegree ≤ X.natDegree := by
+    dsimp [t]
+    compute_degree
+  have htlt : t.natDegree < p.natDegree := by
+    rw [hpdeg]
+    omega
+  have hsplit : alignedRPolynomial46 beta gamma delta k1 (C a) X = p + t := by
+    dsimp [alignedRPolynomial46, p, t]
+    ring
+  rw [hsplit, natDegree_add_eq_left_of_natDegree_lt htlt, hpdeg]
+
+/-- With `A=0`, `delta != 0`, and nonconstant `X`, the linear term in
+`R(0,X)` is uniquely top. -/
+theorem alignedRPolynomial_zeroA_delta_natDegree46
+    (beta gamma delta k1 : F) (X : F[X])
+    (hdelta : delta ≠ 0) (hX : X ≠ 0) (hXdeg : 0 < X.natDegree) :
+    (alignedRPolynomial46 beta gamma delta k1 0 X).natDegree = X.natDegree := by
+  let p : F[X] := -C ((32 / 3 : F) * delta) * X
+  let t : F[X] := C ((32 / 3 : F) * delta) * C beta +
+    C ((32 / 3 : F) * (k1 + (2 / 3 : F) * gamma ^ 2))
+  have hp : p ≠ 0 := by
+    dsimp [p]
+    exact mul_ne_zero (neg_ne_zero.mpr
+      (C_ne_zero.mpr (mul_ne_zero (by norm_num) hdelta))) hX
+  have hpdeg : p.natDegree = X.natDegree := by
+    dsimp [p]
+    rw [natDegree_mul (neg_ne_zero.mpr
+      (C_ne_zero.mpr (mul_ne_zero (by norm_num) hdelta))) hX,
+      natDegree_neg, natDegree_C, zero_add]
+  have htlt : t.natDegree < p.natDegree := by
+    dsimp [t]
+    compute_degree
+    rw [hpdeg]
+    exact hXdeg
+  have hsplit : alignedRPolynomial46 beta gamma delta k1 0 X = p + t := by
+    dsimp [alignedRPolynomial46, p, t]
+    simp only [zero_mul, mul_zero]
+    ring
+  rw [hsplit, natDegree_add_eq_left_of_natDegree_lt htlt, hpdeg]
+
+/-- With `A,V` constant and `X` nonconstant, the second shifted curve row is
+impossible unless simultaneously `A=0` and `delta=0`. -/
+theorem alignedPolynomial_A_V_constant_X_nonconstant_impossible_of_ne46
+    (beta gamma delta k1 a v : F) (X : F[X])
+    (hne : a ≠ 0 ∨ delta ≠ 0) (hXdeg : 0 < X.natDegree)
+    (hV2 : (C v) ^ 2 = alignedRPolynomial46 beta gamma delta k1 (C a) X) :
+    False := by
+  have hX : X ≠ 0 := by
+    intro h
+    rw [h] at hXdeg
+    simp at hXdeg
+  have hconstant : ((C v) ^ 2).natDegree = 0 := by simp
+  rcases hne with ha | hdelta
+  · have hRdeg := alignedRPolynomial_constantA_nonzero_natDegree46
+      beta gamma delta k1 a X ha hX hXdeg
+    rw [hV2, hRdeg] at hconstant
+    omega
+  · by_cases ha : a = 0
+    · subst a
+      have hRdeg := alignedRPolynomial_zeroA_delta_natDegree46
+        beta gamma delta k1 X hdelta hX hXdeg
+      simp only [map_zero] at hV2 hconstant
+      rw [hV2, hRdeg] at hconstant
+      omega
+    · have hRdeg := alignedRPolynomial_constantA_nonzero_natDegree46
+        beta gamma delta k1 a X ha hX hXdeg
+      rw [hV2, hRdeg] at hconstant
+      omega
+
+omit [CharZero F] in
+/-- If `A,V` are constant while `X` is nonconstant, the first shifted curve
+row forces the scalar value of `V` to vanish. -/
+theorem alignedPolynomial_A_V_constant_X_nonconstant_forces_v_zero46
+    (beta gamma delta k2 a v : F) (X : F[X])
+    (hXdeg : 0 < X.natDegree)
+    (hXV : X * C v = alignedPhiPolynomial46 beta gamma delta k2 (C a)) :
+    v = 0 := by
+  by_contra hv
+  have hX : X ≠ 0 := by
+    intro h
+    rw [h] at hXdeg
+    simp at hXdeg
+  have hCv : C v ≠ 0 := C_ne_zero.mpr hv
+  have hproddeg : (X * C v).natDegree = X.natDegree := by
+    rw [natDegree_mul hX hCv, natDegree_C, add_zero]
+  have hPhiBound :
+      (alignedPhiPolynomial46 beta gamma delta k2 (C a)).natDegree ≤ 0 := by
+    dsimp [alignedPhiPolynomial46]
+    compute_degree
+  rw [hXV] at hproddeg
+  omega
+
+/-- On the only degenerate beta-aligned line left by the two curve rows,
+`A=V=delta=0`, a nonconstant `X` makes the last row have degree
+`3 deg(X)-1`. -/
+theorem alignedBetaPolynomial_specialLine_X_nonconstant_impossible46
+    (beta j : F) (X : F[X]) (hXdeg : 0 < X.natDegree)
+    (hlast : alignedEtaPolynomial46 beta 0 0 X 0 = C j) : False := by
+  have hX : X ≠ 0 := by
+    intro h
+    rw [h] at hXdeg
+    simp at hXdeg
+  have hsubdeg : (X - C beta).natDegree = X.natDegree := natDegree_sub_C
+  have hsub : X - C beta ≠ 0 := by
+    intro h
+    rw [h, natDegree_zero] at hsubdeg
+    omega
+  have hderX : derivative X ≠ 0 := derivative_ne_zero.mpr hXdeg.ne'
+  let top : F[X] :=
+    -(C (3 / 4 : F) * (X * (X - C beta)) * derivative X)
+  have hXX : X * (X - C beta) ≠ 0 := mul_ne_zero hX hsub
+  have hcoefficient : C (3 / 4 : F) * (X * (X - C beta)) ≠ 0 :=
+    mul_ne_zero (C_ne_zero.mpr (by norm_num)) hXX
+  have hcoefficientDegree :
+      (C (3 / 4 : F) * (X * (X - C beta))).natDegree =
+        2 * X.natDegree := by
+    rw [natDegree_mul (C_ne_zero.mpr (by norm_num)) hXX, natDegree_C,
+      natDegree_mul hX hsub, hsubdeg]
+    omega
+  have htopDegree : top.natDegree = 3 * X.natDegree - 1 := by
+    dsimp [top]
+    rw [natDegree_neg, natDegree_mul hcoefficient hderX,
+      hcoefficientDegree, natDegree_derivative]
+    omega
+  have hsplit : alignedEtaPolynomial46 beta 0 0 X 0 = top := by
+    dsimp [alignedEtaPolynomial46, top]
+    simp only [map_zero, mul_zero, pow_two, add_zero, zero_sub]
+  have hetaDegree : (alignedEtaPolynomial46 beta 0 0 X 0).natDegree =
+      3 * X.natDegree - 1 := by rw [hsplit, htopDegree]
+  have hpositive : 0 < (alignedEtaPolynomial46 beta 0 0 X 0).natDegree := by
+    rw [hetaDegree]
+    omega
+  rw [hlast, natDegree_C] at hpositive
+  omega
+
+set_option maxHeartbeats 800000 in
+/-- Complete beta-aligned polynomial endgame.  The two exact shifted curve
+rows and a nonzero constant last row are inconsistent for every
+constant/nonconstant pattern of `A,X,V`. -/
+theorem alignedBetaPolynomialTrajectory_impossible46
+    (beta gamma delta k2 k1 j : F) (A X V : F[X])
+    (hbeta : beta ≠ 0) (hj : j ≠ 0)
+    (hXV : X * V = alignedPhiPolynomial46 beta gamma delta k2 A)
+    (hV2 : V ^ 2 = alignedRPolynomial46 beta gamma delta k1 A X)
+    (hlast : alignedEtaPolynomial46 beta delta A X V = C j) : False := by
+  by_cases hA0 : A.natDegree = 0
+  · obtain ⟨a, ha⟩ := natDegree_eq_zero.mp hA0
+    rw [← ha] at hXV hV2 hlast
+    by_cases hX0 : X.natDegree = 0
+    · obtain ⟨x, hx⟩ := natDegree_eq_zero.mp hX0
+      rw [← hx] at hXV hV2 hlast
+      by_cases hV0 : V.natDegree = 0
+      · obtain ⟨v, hv⟩ := natDegree_eq_zero.mp hV0
+        rw [← hv] at hXV hV2 hlast
+        have heta : alignedEtaPolynomial46 beta delta (C a) (C x) (C v) = 0 := by
+          simp [alignedEtaPolynomial46]
+        rw [heta] at hlast
+        have hj0 : C j = C (0 : F) := by simpa using hlast.symm
+        exact hj (C_injective hj0)
+      · exact alignedPolynomial_A_X_constant_V_nonconstant_impossible46
+          beta gamma delta k1 a x V (Nat.pos_of_ne_zero hV0) hV2
+    · have hXpos := Nat.pos_of_ne_zero hX0
+      by_cases hV0 : V.natDegree = 0
+      · obtain ⟨v, hv⟩ := natDegree_eq_zero.mp hV0
+        rw [← hv] at hXV hV2 hlast
+        by_cases ha0 : a = 0
+        · subst a
+          by_cases hdelta0 : delta = 0
+          · subst delta
+            have hv0 := alignedPolynomial_A_V_constant_X_nonconstant_forces_v_zero46
+              beta gamma 0 k2 0 v X hXpos hXV
+            subst v
+            simp only [map_zero] at hlast
+            exact alignedBetaPolynomial_specialLine_X_nonconstant_impossible46
+              beta j X hXpos hlast
+          · exact alignedPolynomial_A_V_constant_X_nonconstant_impossible_of_ne46
+              beta gamma delta k1 0 v X (Or.inr hdelta0) hXpos hV2
+        · exact alignedPolynomial_A_V_constant_X_nonconstant_impossible_of_ne46
+            beta gamma delta k1 a v X (Or.inl ha0) hXpos hV2
+      · exact alignedPolynomial_A_constant_XV_nonconstant_impossible46
+          beta gamma delta k2 a X V hXpos (Nat.pos_of_ne_zero hV0) hXV
+  · have hApos := Nat.pos_of_ne_zero hA0
+    by_cases hX0 : X.natDegree = 0
+    · obtain ⟨x, hx⟩ := natDegree_eq_zero.mp hX0
+      rw [← hx] at hXV hV2 hlast
+      exact alignedBetaPolynomial_A_nonconstant_X_constant_impossible46
+        beta gamma delta k2 k1 x A V hbeta hApos hXV hV2
+    · have hXpos := Nat.pos_of_ne_zero hX0
+      by_cases hV0 : V.natDegree = 0
+      · obtain ⟨v, hv⟩ := natDegree_eq_zero.mp hV0
+        rw [← hv] at hXV hV2 hlast
+        exact alignedBetaPolynomial_A_nonconstant_V_constant_impossible46
+          beta gamma delta k2 k1 v A X hbeta hApos hXV hV2
+      · exact alignedBetaPolynomial_allNonconstant_impossible46
+          beta gamma delta k2 k1 j A X V hbeta hApos hXpos
+            (Nat.pos_of_ne_zero hV0) hXV hV2 hlast
+
+set_option maxHeartbeats 800000 in
+/-- Complete delta-aligned polynomial endgame.  The two exact shifted curve
+rows and a nonzero constant last row are inconsistent for every
+constant/nonconstant pattern of `A,X,V`. -/
+theorem alignedDeltaPolynomialTrajectory_impossible46
+    (gamma delta k2 k1 j : F) (A X V : F[X])
+    (hdelta : delta ≠ 0) (hj : j ≠ 0)
+    (hXV : X * V = alignedPhiPolynomial46 0 gamma delta k2 A)
+    (hV2 : V ^ 2 = alignedRPolynomial46 0 gamma delta k1 A X)
+    (hlast : alignedEtaPolynomial46 0 delta A X V = C j) : False := by
+  by_cases hA0 : A.natDegree = 0
+  · obtain ⟨a, ha⟩ := natDegree_eq_zero.mp hA0
+    rw [← ha] at hXV hV2 hlast
+    by_cases hX0 : X.natDegree = 0
+    · obtain ⟨x, hx⟩ := natDegree_eq_zero.mp hX0
+      rw [← hx] at hXV hV2 hlast
+      by_cases hV0 : V.natDegree = 0
+      · obtain ⟨v, hv⟩ := natDegree_eq_zero.mp hV0
+        rw [← hv] at hXV hV2 hlast
+        have heta : alignedEtaPolynomial46 0 delta (C a) (C x) (C v) = 0 := by
+          simp [alignedEtaPolynomial46]
+        rw [heta] at hlast
+        have hj0 : C j = C (0 : F) := by simpa using hlast.symm
+        exact hj (C_injective hj0)
+      · exact alignedPolynomial_A_X_constant_V_nonconstant_impossible46
+          0 gamma delta k1 a x V (Nat.pos_of_ne_zero hV0) hV2
+    · have hXpos := Nat.pos_of_ne_zero hX0
+      by_cases hV0 : V.natDegree = 0
+      · obtain ⟨v, hv⟩ := natDegree_eq_zero.mp hV0
+        rw [← hv] at hXV hV2 hlast
+        exact alignedPolynomial_A_V_constant_X_nonconstant_impossible_of_ne46
+          0 gamma delta k1 a v X (Or.inr hdelta) hXpos hV2
+      · exact alignedPolynomial_A_constant_XV_nonconstant_impossible46
+          0 gamma delta k2 a X V hXpos (Nat.pos_of_ne_zero hV0) hXV
+  · have hApos := Nat.pos_of_ne_zero hA0
+    by_cases hX0 : X.natDegree = 0
+    · obtain ⟨x, hx⟩ := natDegree_eq_zero.mp hX0
+      rw [← hx] at hXV hV2 hlast
+      exact alignedDeltaPolynomial_A_nonconstant_X_constant_impossible46
+        gamma delta k2 k1 x A V hdelta hApos hXV hV2
+    · have hXpos := Nat.pos_of_ne_zero hX0
+      by_cases hV0 : V.natDegree = 0
+      · obtain ⟨v, hv⟩ := natDegree_eq_zero.mp hV0
+        rw [← hv] at hXV hV2 hlast
+        exact alignedDeltaPolynomial_A_nonconstant_V_constant_impossible46
+          gamma delta k2 k1 v A X hdelta hApos hXV hV2
+      · exact alignedDeltaPolynomial_allNonconstant_impossible46
+          gamma delta k2 k1 j A X V hdelta hApos hXpos
+            (Nat.pos_of_ne_zero hV0) hXV hV2 hlast
+
+/-- Literal-row beta-aligned polynomial exclusion in the original variables
+`A,B,U`.  The shift to `X=B+beta`, `V=U-8gamma/3` is performed internally. -/
+theorem alignedBetaOriginalPolynomialTrajectory_impossible46
+    (beta gamma delta k2 k1 j : F) (A B U : F[X])
+    (hbeta : beta ≠ 0) (hj : j ≠ 0)
+    (hJ2 : coefficientCurveTwoPolynomial46 0 beta gamma delta A B U = C k2)
+    (hJ1 : coefficientCurveOnePolynomial46 0 beta gamma delta A B U = C k1)
+    (hlast : etaPolynomial46 0 beta gamma delta A B U = C j) : False := by
+  let Xs : F[X] := B + C beta
+  let Vs : F[X] := U - C ((8 / 3 : F) * gamma)
+  have hcurves := alignedPolynomial_shifted_curve_equations
+    A B U beta gamma delta k2 k1 hJ2 hJ1
+  have hlastShift : alignedEtaPolynomial46 beta delta A Xs Vs = C j := by
+    dsimp [Xs, Vs]
+    rw [alignedPolynomial_eta_identity]
+    exact hlast
+  exact alignedBetaPolynomialTrajectory_impossible46
+    beta gamma delta k2 k1 j A Xs Vs hbeta hj hcurves.1 hcurves.2 hlastShift
+
+/-- Literal-row delta-aligned polynomial exclusion in the original variables
+`A,B,U`.  The shift to `X=B`, `V=U-8gamma/3` is performed internally. -/
+theorem alignedDeltaOriginalPolynomialTrajectory_impossible46
+    (gamma delta k2 k1 j : F) (A B U : F[X])
+    (hdelta : delta ≠ 0) (hj : j ≠ 0)
+    (hJ2 : coefficientCurveTwoPolynomial46 0 0 gamma delta A B U = C k2)
+    (hJ1 : coefficientCurveOnePolynomial46 0 0 gamma delta A B U = C k1)
+    (hlast : etaPolynomial46 0 0 gamma delta A B U = C j) : False := by
+  let Xs : F[X] := B + C 0
+  let Vs : F[X] := U - C ((8 / 3 : F) * gamma)
+  have hcurves := alignedPolynomial_shifted_curve_equations
+    A B U 0 gamma delta k2 k1 hJ2 hJ1
+  have hlastShift : alignedEtaPolynomial46 0 delta A Xs Vs = C j := by
+    dsimp [Xs, Vs]
+    rw [alignedPolynomial_eta_identity]
+    exact hlast
+  exact alignedDeltaPolynomialTrajectory_impossible46
+    gamma delta k2 k1 j A Xs Vs hdelta hj hcurves.1 hcurves.2 hlastShift
+
+end ShiftedPolynomialDegenerateEndgame
+
 end Max11DegreeRoutes
