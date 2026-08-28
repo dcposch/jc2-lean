@@ -163,6 +163,11 @@ status:
     `q`, `B²`, `rB`, and `√H B`; the boundary quartic makes the required
     representatives polynomial, and `M²=HK` closes the final row.  Thus both
     H = 0 and H = 2 normalized `(4,6)` sources are excluded completely.
+    For the next `(6,8)` leaf, the complete twelve-row depressed
+    sextic/octic differential Jacobian and all seven triangular Faber
+    residuals are proved.  Their explicit reconstruction leaves five lower
+    rows; the first two are proved to be exact derivatives of displayed
+    coefficient invariants, followed by three literal one-form constraints.
     Not proved here: scalar-extension/descent, the
     prime-total-degree-gcd theorem itself, the standard-endpoint theorem
     itself, or the eight remaining normalized low-scale subcases at the other
@@ -209,6 +214,10 @@ status:
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.constantBracket_integrated68_lowerSystem"
+      file: "LowScale68Integrated.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.mismatchDegreeCone46"
       file: "LowScale46DegreeCones.lean"
       sorry_count: 0
@@ -526,7 +535,8 @@ review:
     non-permitted axioms in Max11Core.lean, ClassicalRoutes.lean,
     DegreeRoutes.lean, HistoryRoute.lean, HistoryDegree.lean,
     TotalDegreeRoutes.lean, CoprimeDegreeRoute.lean, EndpointGCDRoute.lean,
-    LowScaleCore.lean, or Max11Assembly.lean.
+    LowScaleCore.lean, LowScale68NormalForm.lean,
+    LowScale68Integrated.lean, or Max11Assembly.lean.
 
 alignment:
   namespace: "(root)"
@@ -539,7 +549,7 @@ alignment:
         hypotheses
     - source: "Maximum actual partial y-degree eleven theorem, Sections 1 and 6"
       lean: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithFiveNormalizedLowScaleRoutes"
-      module: "Challenge"
+      module: "Max11Challenge"
       status: >-
         exact bivariate polynomial conclusion and finite composition proved;
         the zero, equal-degree, divisibility, exhaustive (6,9), coprime-degree,
@@ -549,7 +559,7 @@ alignment:
         the other four explicit gcd-two degree pairs remain as hypotheses
     - source: "Maximum-twelve frontier checksum, Section 9"
       lean: "Max12FirstPrimitives"
-      module: "Challenge"
+      module: "Max11Challenge"
       status: "exact finite arithmetic statement proved"
 
 acknowledgements: >-

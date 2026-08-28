@@ -322,6 +322,14 @@ not treated as an established theorem.
   `normalized46ScaleTwo_impossible` is exhaustive, and
   `proved_planeKellerNormalized46LowScaleRoute` closes the entire `(4,6)`
   low-scale interface used by Max-11.
+  `LowScale68NormalForm.lean` and `LowScale68Integrated.lean` begin the next
+  `(6,8)` leaf.  They verify the complete twelve-row depressed sextic/octic
+  differential Jacobian, integrate the seven triangular upper rows into the
+  exact Faber coefficient reconstruction, extract the five remaining rows,
+  and prove that the first two of those rows are the derivatives of explicit
+  coefficient invariants.  The resulting lower-system theorem leaves exactly
+  three literal one-form constraints, the last equal to the Keller constant;
+  the source bridge and exclusion of that coefficient system remain open.
   `LowScale46NewtonFaces.lean` proves the underlying three- and four-term
   Hahn-series tied-minimum principle and the complete rational Newton-face
   tables for the aligned `beta ≠ 0` and `delta ≠ 0` strata.
@@ -393,7 +401,8 @@ lake build
 `LowScale46GeneralSourceBridge.lean`, `LowScale46ScaleZero.lean`,
 `LowScale46PoleBridge.lean`, `LowScale46RegularLoads.lean`,
 `LowScale46AlignedRegularLoads.lean`, `LowScale46WeightedInfinity.lean`,
-`LowScale46ScaleTwo.lean`, and
+`LowScale46ScaleTwo.lean`, `LowScale68NormalForm.lean`,
+`LowScale68Integrated.lean`, and
 `Max11Assembly.lean`
 contain no `sorry`, custom axioms, or trust escapes.  The
 permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.

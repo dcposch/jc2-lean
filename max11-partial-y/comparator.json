@@ -1,5 +1,5 @@
 {
-  "challenge_module": "Challenge",
+  "challenge_module": "Max11Challenge",
   "solution_module": "Max11Assembly",
   "theorem_names": [
     "Max11RouteClassification",

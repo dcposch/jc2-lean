@@ -6,7 +6,7 @@ Authors: Dan Clemens Posch (direction), OpenAI Codex agent (formalization)
 import Mathlib
 
 /-!
-# Challenge: exact partial-degree closure through eleven
+# Max-11 challenge: exact partial-degree closure through eleven
 
 These declarations state the finite reduction certificate: the usual zero,
 gcd-at-most-two, equal-degree, and divisibility routes leave only `(6,9)`
