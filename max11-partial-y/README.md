@@ -256,13 +256,17 @@ not treated as an established theorem.
   representatives, and reaches the square unit-product contradiction.  Its
   quadratic-descent endpoint differentiates `K=B²`, transports the last row
   to `(-3/8) M K'`, and applies `M²=HK` to obtain the nonsquare contradiction.
-  `LowScale46SourceBridge.lean` now begins the remaining genuine-source
-  handoff.  It exposes the standard quotient-rule differential on `K(x)` as
-  a `K`-derivation, maps the literal coefficient-polynomial Jacobian into the
-  differential bracket, proves that `y=(z-r)/h` divides that bracket exactly
-  by `h`, identifies mapped degree-four and degree-six sources with the raw
-  coefficient forms, and constructs the full depressed `L=0` package from
-  any literal square-core aligned source.
+  `LowScale46SourceBridge.lean` now carries the genuine-source handoff through
+  the coefficient curve.  It exposes the standard quotient-rule differential
+  on `K(x)` as a `K`-derivation, maps the literal coefficient-polynomial
+  Jacobian into the differential bracket, proves that `y=(z-r)/h` divides that
+  bracket exactly by `h`, identifies mapped degree-four and degree-six sources
+  with the raw coefficient forms, and constructs the full depressed `L=0`
+  package from any literal square-core aligned source.  It then extracts the
+  five upper rows, successively integrates them, proves that all five
+  integration parameters descend to `K`, and extracts ground-field values
+  `k2,k1` for the two coefficient-curve equations together with the exact
+  terminal `eta` row.
   `LowScale46Depression.lean` performs the exact source substitution
   `y=(z-r)/h` on the quartic and sextic and proves that the normalized quintic
   coefficient is zero in the aligned branch and `-lambda/2` in the mismatch

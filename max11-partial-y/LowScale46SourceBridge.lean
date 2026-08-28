@@ -311,6 +311,336 @@ theorem squareAlignedDepressedSourceData46
 
 end SquareAlignedPackage
 
+section AlignedIntegration
+
+/-- The five upper coefficient equations extracted from an aligned depressed
+bracket with constant right-hand side. -/
+theorem alignedDepressedUpperRows46
+    (A B C0 P0 Q0 R0 S0 T0 terminal : RatFunc k)
+    (hbracket : differentialJacobian ratFuncDerivation46
+        (depressedQuartic46 A B C0)
+        (depressedSextic46 0 P0 Q0 R0 S0 T0) = C terminal) :
+    (6 * ratFuncDerivation46 A - 4 * ratFuncDerivation46 P0 = 0) ∧
+    (6 * ratFuncDerivation46 B - 4 * ratFuncDerivation46 Q0 = 0) ∧
+    (-2 * A * ratFuncDerivation46 P0 + 4 * P0 * ratFuncDerivation46 A +
+        6 * ratFuncDerivation46 C0 - 4 * ratFuncDerivation46 R0 = 0) ∧
+    (-2 * A * ratFuncDerivation46 Q0 - B * ratFuncDerivation46 P0 +
+        4 * P0 * ratFuncDerivation46 B + 3 * Q0 * ratFuncDerivation46 A -
+        4 * ratFuncDerivation46 S0 = 0) ∧
+    (-2 * A * ratFuncDerivation46 R0 - B * ratFuncDerivation46 Q0 +
+        4 * P0 * ratFuncDerivation46 C0 + 3 * Q0 * ratFuncDerivation46 B +
+        2 * R0 * ratFuncDerivation46 A - 4 * ratFuncDerivation46 T0 = 0) := by
+  have hfull := hbracket
+  rw [differentialJacobian_depressed46_eq ratFuncDerivation46
+    0 P0 Q0 R0 S0 T0 A B C0 (by simp)] at hfull
+  have h7 := congrArg (fun f : (RatFunc k)[X] => f.coeff 7) hfull
+  have h6 := congrArg (fun f : (RatFunc k)[X] => f.coeff 6) hfull
+  have h5 := congrArg (fun f : (RatFunc k)[X] => f.coeff 5) hfull
+  have h4 := congrArg (fun f : (RatFunc k)[X] => f.coeff 4) hfull
+  have h3 := congrArg (fun f : (RatFunc k)[X] => f.coeff 3) hfull
+  norm_num [coeff_add, coeff_C, coeff_C_mul, coeff_mul_X_pow',
+    coeff_X, coeff_X_pow] at h7 h6 h5 h4 h3
+  refine ⟨h7, h6, ?_, ?_, ?_⟩
+  · simp only [ratFuncDerivation46_apply]
+    linear_combination h5
+  · simp only [ratFuncDerivation46_apply]
+    linear_combination h4
+  · simp only [ratFuncDerivation46_apply]
+    linear_combination h3
+
+/-- The first residual left by the aligned upper rows. -/
+def alignedAlphaResidual46 (A P0 : RatFunc k) : RatFunc k :=
+  P0 - (3 / 2 : RatFunc k) * A
+
+/-- The second residual left by the aligned upper rows. -/
+def alignedBetaResidual46 (B Q0 : RatFunc k) : RatFunc k :=
+  Q0 - (3 / 2 : RatFunc k) * B
+
+/-- The third residual, after the first one has been isolated. -/
+def alignedGammaResidual46
+    (A C0 P0 R0 : RatFunc k) : RatFunc k :=
+  R0 - (3 / 8 : RatFunc k) * A ^ 2 -
+    alignedAlphaResidual46 A P0 * A - (3 / 2 : RatFunc k) * C0
+
+/-- The fourth residual, after the first two have been isolated. -/
+def alignedDeltaResidual46
+    (A B P0 Q0 S0 : RatFunc k) : RatFunc k :=
+  S0 - (3 / 4 : RatFunc k) * A * B -
+    (3 / 4 : RatFunc k) * alignedBetaResidual46 B Q0 * A -
+    alignedAlphaResidual46 A P0 * B
+
+/-- The fifth residual, after the first three have been isolated. -/
+def alignedEpsilonResidual46
+    (A B C0 P0 Q0 R0 T0 : RatFunc k) : RatFunc k :=
+  T0 - ((-1 / 16 : RatFunc k) * A ^ 3 +
+    (3 / 4 : RatFunc k) * A * C0 +
+    (1 / 2 : RatFunc k) * alignedGammaResidual46 A C0 P0 R0 * A +
+    (3 / 8 : RatFunc k) * B ^ 2 +
+    (3 / 4 : RatFunc k) * alignedBetaResidual46 B Q0 * B +
+    alignedAlphaResidual46 A P0 * C0)
+
+/-- The aligned upper rows successively force all five residuals to have
+zero standard derivative. -/
+theorem alignedDepressedResiduals_deriv_zero46
+    (A B C0 P0 Q0 R0 S0 T0 terminal : RatFunc k)
+    (hbracket : differentialJacobian ratFuncDerivation46
+        (depressedQuartic46 A B C0)
+        (depressedSextic46 0 P0 Q0 R0 S0 T0) = C terminal) :
+    ratFuncDerivation46 (alignedAlphaResidual46 A P0) = 0 ∧
+    ratFuncDerivation46 (alignedBetaResidual46 B Q0) = 0 ∧
+    ratFuncDerivation46 (alignedGammaResidual46 A C0 P0 R0) = 0 ∧
+    ratFuncDerivation46 (alignedDeltaResidual46 A B P0 Q0 S0) = 0 ∧
+    ratFuncDerivation46 (alignedEpsilonResidual46 A B C0 P0 Q0 R0 T0) = 0 := by
+  rcases alignedDepressedUpperRows46 A B C0 P0 Q0 R0 S0 T0 terminal
+      hbracket with ⟨h7, h6, h5, h4, h3⟩
+  have h2 : ratFuncDerivation46 (2 : RatFunc k) = 0 :=
+    ratFuncDerivation46.map_natCast 2
+  have h3c : ratFuncDerivation46 (3 : RatFunc k) = 0 :=
+    ratFuncDerivation46.map_natCast 3
+  have h4c : ratFuncDerivation46 (4 : RatFunc k) = 0 :=
+    ratFuncDerivation46.map_natCast 4
+  have h8 : ratFuncDerivation46 (8 : RatFunc k) = 0 :=
+    ratFuncDerivation46.map_natCast 8
+  have h16 : ratFuncDerivation46 (16 : RatFunc k) = 0 :=
+    ratFuncDerivation46.map_natCast 16
+  have h12 : ratFuncDerivation46 (1 / 2 : RatFunc k) = 0 := by
+    simp [Derivation.leibniz_div, Derivation.leibniz_inv, h2]
+  have h32 : ratFuncDerivation46 (3 / 2 : RatFunc k) = 0 := by
+    simp [Derivation.leibniz_div, h2, h3c]
+  have h34 : ratFuncDerivation46 (3 / 4 : RatFunc k) = 0 := by
+    simp [Derivation.leibniz_div, h3c, h4c]
+  have h38 : ratFuncDerivation46 (3 / 8 : RatFunc k) = 0 := by
+    simp [Derivation.leibniz_div, h3c, h8]
+  have h116 : ratFuncDerivation46 (1 / 16 : RatFunc k) = 0 := by
+    simp [Derivation.leibniz_div, Derivation.leibniz_inv, h16]
+  have hn116 : ratFuncDerivation46 (-1 / 16 : RatFunc k) = 0 := by
+    rw [show (-1 / 16 : RatFunc k) = -(1 / 16) by ring, map_neg, h116,
+      neg_zero]
+  have halpha : ratFuncDerivation46 (alignedAlphaResidual46 A P0) = 0 := by
+    simp only [alignedAlphaResidual46, map_sub, Derivation.leibniz, h32,
+      zero_mul, add_zero]
+    linear_combination (-1 / 4 : RatFunc k) * h7
+  have hbeta : ratFuncDerivation46 (alignedBetaResidual46 B Q0) = 0 := by
+    simp only [alignedBetaResidual46, map_sub, Derivation.leibniz, h32,
+      zero_mul, add_zero]
+    linear_combination (-1 / 4 : RatFunc k) * h6
+  have hPderiv : ratFuncDerivation46 P0 =
+      (3 / 2 : RatFunc k) * ratFuncDerivation46 A := by
+    linear_combination (-1 / 4 : RatFunc k) * h7
+  have hQderiv : ratFuncDerivation46 Q0 =
+      (3 / 2 : RatFunc k) * ratFuncDerivation46 B := by
+    linear_combination (-1 / 4 : RatFunc k) * h6
+  have hRderiv : ratFuncDerivation46 R0 =
+      (-3 / 4 : RatFunc k) * A * ratFuncDerivation46 A +
+        P0 * ratFuncDerivation46 A +
+        (3 / 2 : RatFunc k) * ratFuncDerivation46 C0 := by
+    linear_combination (-1 / 4 : RatFunc k) * h5 -
+      (A / 2 : RatFunc k) * hPderiv
+  have hSderiv : ratFuncDerivation46 S0 =
+      (-3 / 4 : RatFunc k) * A * ratFuncDerivation46 B -
+        (3 / 8 : RatFunc k) * B * ratFuncDerivation46 A +
+        P0 * ratFuncDerivation46 B +
+        (3 / 4 : RatFunc k) * Q0 * ratFuncDerivation46 A := by
+    linear_combination (-1 / 4 : RatFunc k) * h4 -
+      (A / 2 : RatFunc k) * hQderiv -
+      (B / 4 : RatFunc k) * hPderiv
+  have hTderiv : ratFuncDerivation46 T0 =
+      (-1 / 2 : RatFunc k) * A * ratFuncDerivation46 R0 -
+        (1 / 4 : RatFunc k) * B * ratFuncDerivation46 Q0 +
+        P0 * ratFuncDerivation46 C0 +
+        (3 / 4 : RatFunc k) * Q0 * ratFuncDerivation46 B +
+        (1 / 2 : RatFunc k) * R0 * ratFuncDerivation46 A := by
+    linear_combination (-1 / 4 : RatFunc k) * h3
+  have hgamma :
+      ratFuncDerivation46 (alignedGammaResidual46 A C0 P0 R0) = 0 := by
+    simp only [alignedGammaResidual46, map_sub, Derivation.leibniz,
+      Derivation.leibniz_pow, nsmul_eq_mul, smul_eq_mul, h38, h32,
+      halpha, zero_mul, zero_add, add_zero]
+    rw [hRderiv]
+    simp only [alignedAlphaResidual46]
+    ring
+  have hdelta :
+      ratFuncDerivation46 (alignedDeltaResidual46 A B P0 Q0 S0) = 0 := by
+    simp only [alignedDeltaResidual46, map_sub, Derivation.leibniz, h34,
+      halpha, hbeta, zero_mul, zero_add, add_zero]
+    rw [hSderiv]
+    simp only [alignedAlphaResidual46, alignedBetaResidual46]
+    ring
+  have hepsilon :
+      ratFuncDerivation46
+        (alignedEpsilonResidual46 A B C0 P0 Q0 R0 T0) = 0 := by
+    simp only [alignedEpsilonResidual46, map_sub, map_add, map_neg,
+      Derivation.leibniz, Derivation.leibniz_pow, nsmul_eq_mul,
+      smul_eq_mul, hn116, h34, h12, h38, hgamma, hbeta, halpha,
+      zero_mul, zero_add, add_zero]
+    rw [hTderiv, hRderiv, hQderiv]
+    simp only [alignedGammaResidual46, alignedBetaResidual46,
+      alignedAlphaResidual46]
+    ring
+  exact ⟨halpha, hbeta, hgamma, hdelta, hepsilon⟩
+
+/-- The five upper rows of a literal aligned bracket integrate to the
+reviewed normal form, with every integration parameter represented by an
+element of the ground field `k`. -/
+theorem alignedDepressedIntegratesOverGround46
+    (A B C0 P0 Q0 R0 S0 T0 terminal : RatFunc k)
+    (hbracket : differentialJacobian ratFuncDerivation46
+        (depressedQuartic46 A B C0)
+        (depressedSextic46 0 P0 Q0 R0 S0 T0) = C terminal) :
+    ∃ alpha beta gamma delta epsilon : k,
+      P0 = integratedP46 A (algebraMap k (RatFunc k) alpha) ∧
+      Q0 = integratedQ46 0 A B (algebraMap k (RatFunc k) beta) ∧
+      R0 = integratedR46 0 A B C0 (algebraMap k (RatFunc k) alpha)
+        (algebraMap k (RatFunc k) gamma) ∧
+      S0 = integratedS46 0 A B C0 (algebraMap k (RatFunc k) alpha)
+        (algebraMap k (RatFunc k) beta) (algebraMap k (RatFunc k) delta) ∧
+      T0 = integratedT46 0 A B C0 (algebraMap k (RatFunc k) alpha)
+        (algebraMap k (RatFunc k) beta) (algebraMap k (RatFunc k) gamma)
+        (algebraMap k (RatFunc k) epsilon) := by
+  rcases alignedDepressedResiduals_deriv_zero46
+      A B C0 P0 Q0 R0 S0 T0 terminal hbracket with
+    ⟨halpha0, hbeta0, hgamma0, hdelta0, hepsilon0⟩
+  have halphaD : Differential.deriv (alignedAlphaResidual46 A P0) = 0 := by
+    simpa only [ratFuncDerivation46_apply] using halpha0
+  have hbetaD : Differential.deriv (alignedBetaResidual46 B Q0) = 0 := by
+    simpa only [ratFuncDerivation46_apply] using hbeta0
+  have hgammaD :
+      Differential.deriv (alignedGammaResidual46 A C0 P0 R0) = 0 := by
+    simpa only [ratFuncDerivation46_apply] using hgamma0
+  have hdeltaD :
+      Differential.deriv (alignedDeltaResidual46 A B P0 Q0 S0) = 0 := by
+    simpa only [ratFuncDerivation46_apply] using hdelta0
+  have hepsilonD : Differential.deriv
+      (alignedEpsilonResidual46 A B C0 P0 Q0 R0 T0) = 0 := by
+    simpa only [ratFuncDerivation46_apply] using hepsilon0
+  obtain ⟨alpha, halpha⟩ := GCD369RatFuncConstants
+    (alignedAlphaResidual46 A P0) halphaD
+  obtain ⟨beta, hbeta⟩ := GCD369RatFuncConstants
+    (alignedBetaResidual46 B Q0) hbetaD
+  obtain ⟨gamma, hgamma⟩ := GCD369RatFuncConstants
+    (alignedGammaResidual46 A C0 P0 R0) hgammaD
+  obtain ⟨delta, hdelta⟩ := GCD369RatFuncConstants
+    (alignedDeltaResidual46 A B P0 Q0 S0) hdeltaD
+  obtain ⟨epsilon, hepsilon⟩ := GCD369RatFuncConstants
+    (alignedEpsilonResidual46 A B C0 P0 Q0 R0 T0) hepsilonD
+  refine ⟨alpha, beta, gamma, delta, epsilon, ?_, ?_, ?_, ?_, ?_⟩
+  · rw [← halpha]
+    simp only [integratedP46, alignedAlphaResidual46]
+    ring
+  · rw [← hbeta]
+    simp only [integratedQ46, alignedBetaResidual46]
+    ring
+  · rw [← halpha, ← hgamma]
+    simp only [integratedR46, alignedAlphaResidual46,
+      alignedGammaResidual46]
+    ring
+  · rw [← halpha, ← hbeta, ← hdelta]
+    simp only [integratedS46, alignedAlphaResidual46,
+      alignedBetaResidual46, alignedDeltaResidual46]
+    ring
+  · rw [← halpha, ← hbeta, ← hgamma, ← hepsilon]
+    simp only [integratedT46, alignedAlphaResidual46,
+      alignedBetaResidual46, alignedGammaResidual46,
+      alignedEpsilonResidual46]
+    ring
+
+/-- The entire aligned constant bracket therefore lands on the reviewed
+coefficient curve over ground-field parameters; its last row is the exact
+terminal one-form, not merely a proportionality statement. -/
+theorem alignedDepressedCoefficientCurveData46
+    (A B C0 P0 Q0 R0 S0 T0 terminal : RatFunc k)
+    (hbracket : differentialJacobian ratFuncDerivation46
+        (depressedQuartic46 A B C0)
+        (depressedSextic46 0 P0 Q0 R0 S0 T0) = C terminal) :
+    ∃ alpha beta gamma delta epsilon k2 k1 : k,
+      P0 = integratedP46 A (algebraMap k (RatFunc k) alpha) ∧
+      Q0 = integratedQ46 0 A B (algebraMap k (RatFunc k) beta) ∧
+      R0 = integratedR46 0 A B C0 (algebraMap k (RatFunc k) alpha)
+        (algebraMap k (RatFunc k) gamma) ∧
+      S0 = integratedS46 0 A B C0 (algebraMap k (RatFunc k) alpha)
+        (algebraMap k (RatFunc k) beta) (algebraMap k (RatFunc k) delta) ∧
+      T0 = integratedT46 0 A B C0 (algebraMap k (RatFunc k) alpha)
+        (algebraMap k (RatFunc k) beta) (algebraMap k (RatFunc k) gamma)
+        (algebraMap k (RatFunc k) epsilon) ∧
+      coefficientCurveTwo46 0 A B (A ^ 2 - 4 * C0)
+          (algebraMap k (RatFunc k) beta)
+          (algebraMap k (RatFunc k) gamma)
+          (algebraMap k (RatFunc k) delta) =
+        algebraMap k (RatFunc k) k2 ∧
+      coefficientCurveOne46 0 A B (A ^ 2 - 4 * C0)
+          (algebraMap k (RatFunc k) beta)
+          (algebraMap k (RatFunc k) gamma)
+          (algebraMap k (RatFunc k) delta) =
+        algebraMap k (RatFunc k) k1 ∧
+      eta46 0 A B (A ^ 2 - 4 * C0)
+          (algebraMap k (RatFunc k) beta)
+          (algebraMap k (RatFunc k) gamma)
+          (algebraMap k (RatFunc k) delta)
+          (ratFuncDerivation46 A) (ratFuncDerivation46 B)
+          (ratFuncDerivation46 (A ^ 2 - 4 * C0)) = terminal := by
+  obtain ⟨alpha, beta, gamma, delta, epsilon,
+      hP, hQ, hR, hS, hT⟩ :=
+    alignedDepressedIntegratesOverGround46
+      A B C0 P0 Q0 R0 S0 T0 terminal hbracket
+  let U : RatFunc k := A ^ 2 - 4 * C0
+  have hC : discriminantC46 A U = C0 := by
+    simp only [discriminantC46, U]
+    ring
+  have hconst (c : k) : ratFuncDerivation46 (RatFunc.C c) = 0 := by
+    have hp := ratFuncDerivation46_polynomial (C c : k[X])
+    simpa [RatFunc.algebraMap_C] using hp
+  have hshape := differentialJacobian_integratedDiscriminant46_eq
+    ratFuncDerivation46 0 A B U
+      (algebraMap k (RatFunc k) alpha)
+      (algebraMap k (RatFunc k) beta)
+      (algebraMap k (RatFunc k) gamma)
+      (algebraMap k (RatFunc k) delta)
+      (algebraMap k (RatFunc k) epsilon)
+      (by simp) (by simpa [RatFunc.algebraMap_eq_C] using hconst alpha)
+      (by simpa [RatFunc.algebraMap_eq_C] using hconst beta)
+      (by simpa [RatFunc.algebraMap_eq_C] using hconst gamma)
+      (by simpa [RatFunc.algebraMap_eq_C] using hconst delta)
+      (by simpa [RatFunc.algebraMap_eq_C] using hconst epsilon)
+  dsimp only at hshape
+  rw [hC] at hshape
+  have hbracket' := hbracket
+  rw [hP, hQ, hR, hS, hT, hshape] at hbracket'
+  have h2 := congrArg (fun f : (RatFunc k)[X] => f.coeff 2) hbracket'
+  have h1 := congrArg (fun f : (RatFunc k)[X] => f.coeff 1) hbracket'
+  have h0 := congrArg (fun f : (RatFunc k)[X] => f.coeff 0) hbracket'
+  norm_num [coeff_add, coeff_C, coeff_C_mul, coeff_mul_X_pow',
+    coeff_X, coeff_X_pow] at h2 h1 h0
+  have h2D : Differential.deriv
+      (coefficientCurveTwo46 0 A B U
+        (algebraMap k (RatFunc k) beta)
+        (algebraMap k (RatFunc k) gamma)
+        (algebraMap k (RatFunc k) delta)) = 0 := by
+    simpa only [ratFuncDerivation46_apply, RatFunc.algebraMap_eq_C] using h2
+  have h1D : Differential.deriv
+      (coefficientCurveOne46 0 A B U
+        (algebraMap k (RatFunc k) beta)
+        (algebraMap k (RatFunc k) gamma)
+        (algebraMap k (RatFunc k) delta)) = 0 := by
+    simpa only [ratFuncDerivation46_apply, RatFunc.algebraMap_eq_C] using h1
+  obtain ⟨k2, hk2⟩ := GCD369RatFuncConstants
+    (coefficientCurveTwo46 0 A B U
+      (algebraMap k (RatFunc k) beta)
+      (algebraMap k (RatFunc k) gamma)
+      (algebraMap k (RatFunc k) delta)) h2D
+  obtain ⟨k1, hk1⟩ := GCD369RatFuncConstants
+    (coefficientCurveOne46 0 A B U
+      (algebraMap k (RatFunc k) beta)
+      (algebraMap k (RatFunc k) gamma)
+      (algebraMap k (RatFunc k) delta)) h1D
+  refine ⟨alpha, beta, gamma, delta, epsilon, k2, k1,
+    hP, hQ, hR, hS, hT, ?_, ?_, ?_⟩
+  · simpa only [U]
+  · simpa only [U]
+  · simpa only [U, RatFunc.algebraMap_eq_C,
+      ratFuncDerivation46_apply] using h0
+
+end AlignedIntegration
+
 end SourceBracket
 
 end Max11DegreeRoutes
