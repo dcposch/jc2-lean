@@ -272,6 +272,11 @@ not treated as an established theorem.
   `beta=delta=k2=0`.  Thus an actual aligned square-core source can remain
   only in the `beta != 0`, `beta=0, delta != 0`, or
   `beta=delta=0, k2 != 0` strata, whose local closures are already checked.
+  `LowScale46ScaleZero.lean` closes the aligned literal source completely when
+  the common-core degree is zero.  In that case the square root of the core is
+  a nonzero scalar, the depressed rational coefficients have exact polynomial
+  representatives, and the exhaustive mismatch/aligned polynomial endgames
+  contradict the nonzero constant Jacobian row.
   `LowScale46Depression.lean` performs the exact source substitution
   `y=(z-r)/h` on the quartic and sextic and proves that the normalized quintic
   coefficient is zero in the aligned branch and `-lambda/2` in the mismatch
@@ -343,7 +348,8 @@ lake build
 `LowScale46AlignedFinitePoles.lean`,
 `LowScale46AlignedPolynomialEndgame.lean`,
 `LowScale46AlignedZeroFinitePoles.lean`,
-`LowScale46AlignedComponentEndgame.lean`, `LowScale46SourceBridge.lean`, and
+`LowScale46AlignedComponentEndgame.lean`, `LowScale46SourceBridge.lean`,
+`LowScale46ScaleZero.lean`, and
 `Max11Assembly.lean`
 contain no `sorry`, custom axioms, or trust escapes.  The
 permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.

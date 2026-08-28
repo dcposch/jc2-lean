@@ -239,6 +239,8 @@ value `j/h`. -/
 def SquareAlignedDepressedSourceData46
     (p q : k[X][X]) (j : k) (h : RatFunc k) : Prop :=
   ∃ r A B C0 L P0 Q0 R0 S0 T0 : RatFunc k,
+    r = quarticDepressionR46 h
+      (algebraMap k[X] (RatFunc k) (p.coeff 3)) ∧
     affineDepress46 h r (sourceToRatFunc46 p) =
         depressedQuartic46 A B C0 ∧
     affineDepress46 h r (sourceToRatFunc46 q) =
@@ -307,7 +309,7 @@ theorem squareAlignedDepressedSourceData46
     p q j h r hh hD
   rw [hpDep, hqDep] at hbracket
   exact ⟨r, A, B, C0, L, P0, Q0, R0, S0, T0,
-    hpDep, hqDep, hL, hbracket⟩
+    rfl, hpDep, hqDep, hL, hbracket⟩
 
 end SquareAlignedPackage
 
@@ -648,6 +650,20 @@ theorem eval_affineDepress46_center
     (affineDepress46 h r f).eval r = f.coeff 0 := by
   simpa [affineDepress46] using (coeff_zero_eq_eval_zero f).symm
 
+/-- At a nonzero scalar scale and polynomial center, affine depression
+commutes exactly with the embedding `k[x] → k(x)`. -/
+theorem affineDepress_source_constantScale_map46
+    (f : k[X][X]) (t : k) (r0 : k[X]) (ht : t ≠ 0) :
+    affineDepress46 (RatFunc.C t)
+        (algebraMap k[X] (RatFunc k) r0) (sourceToRatFunc46 f) =
+      (f.comp ((X - C r0) * C (C t⁻¹))).map
+        (algebraMap k[X] (RatFunc k)) := by
+  rw [Polynomial.map_comp]
+  simp only [affineDepress46, sourceToRatFunc46, map_mul, map_sub,
+    map_X, map_C, RatFunc.algebraMap_C]
+  congr 2
+  simp [ht]
+
 /-- The two reviewed boundary functions of an integrated depressed literal
 source are exactly images of explicit polynomials in `k[x]`. -/
 theorem alignedDepressedLiteralBoundaries46
@@ -730,6 +746,9 @@ structure SquareAlignedSourceCurveData46
   epsilon : k
   k2 : k
   k1 : k
+  center_eq : r = quarticDepressionR46
+    (algebraMap k[X] (RatFunc k) h0)
+    (algebraMap k[X] (RatFunc k) (p.coeff 3))
   quartic_eq :
     affineDepress46 (algebraMap k[X] (RatFunc k) h0) r
         (sourceToRatFunc46 p) = depressedQuartic46 A B C0
@@ -787,7 +806,7 @@ theorem squareAlignedSourceCurveData46
       derivative p * GCD369SourceXDeriv q = C (C j)) :
     Nonempty (SquareAlignedSourceCurveData46 p q j h0) := by
   obtain ⟨r, A, B, C0, L, P0, Q0, R0, S0, T0,
-      hpDep, hqDep, hL, hbracket⟩ :=
+      hr, hpDep, hqDep, hL, hbracket⟩ :=
     squareAlignedDepressedSourceData46 p q H h0 j hp hq hh0 hH hp4 hq6
       haligned hD
   subst L
@@ -838,6 +857,7 @@ theorem squareAlignedSourceCurveData46
     epsilon := epsilon
     k2 := k2
     k1 := k1
+    center_eq := hr
     quartic_eq := hpDep
     sextic_eq := hqIntegrated
     curveTwo := hcurve2

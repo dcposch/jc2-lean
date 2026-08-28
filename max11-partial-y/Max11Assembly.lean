@@ -2,7 +2,7 @@ import HistoryDegree
 import TotalDegreeRoutes
 import CoprimeDegreeRoute
 import EndpointGCDRoute
-import LowScale46SourceBridge
+import LowScale46ScaleZero
 import GCD369DivisibleSourceExclusion
 
 /-! # Max-eleven handoff from the complete divisible `(6,9)` exclusion
