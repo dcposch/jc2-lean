@@ -1,4 +1,5 @@
 import LowScale46AlignedZeroFinitePoles
+import GCD369DivisibleSourceExclusion
 
 /-! # Component closure in the last aligned `(4,6)` stratum
 
@@ -22,7 +23,7 @@ variable {k : Type*} [Field k] [CharZero k]
 /-- Once `h` and `B` have polynomial representatives, the restricted aligned
 last row over `k(x)` is exactly the already-closed polynomial unit product. -/
 theorem square_aligned_ratFunc_lastRow_impossible46
-    (d : Derivation k (RatFunc k) (RatFunc k))
+    (d : RatFunc k → RatFunc k)
     (hd : ∀ P : k[X],
       d (algebraMap k[X] (RatFunc k) P) =
         algebraMap k[X] (RatFunc k) P.derivative)
@@ -61,7 +62,7 @@ variable {k : Type*} [Field k] [CharZero k]
 component.  The hypotheses are the literal two coefficient-curve rows, the
 two polynomial boundary rows, and the nonzero constant last row. -/
 theorem alignedZeroSquareComponent_impossible46
-    (d : Derivation k (RatFunc k) (RatFunc k))
+    (d : RatFunc k → RatFunc k)
     (hd : ∀ P : k[X],
       d (algebraMap k[X] (RatFunc k) P) =
         algebraMap k[X] (RatFunc k) P.derivative)
@@ -195,6 +196,30 @@ theorem alignedZeroSquareComponent_impossible46
           q B K w P0 E0 theta hw hEexact hw2 rfl
       exact square_aligned_ratFunc_lastRow_impossible46
         d hd h0 B0 B j hj hB0 hlast'
+
+/-- Source-ready specialization to the standard quotient-rule differential
+already constructed on `k(x)`. -/
+theorem alignedZeroSquareComponent_standardDifferential_impossible46
+    (h0 D0 E0 : k[X]) (r A B U : RatFunc k)
+    (gamma k1 j : k) (hj : j ≠ 0)
+    (hcurve2 : coefficientCurveTwo46 0 A B U 0
+        (algebraMap k (RatFunc k) gamma) 0 = 0)
+    (hcurve1 : coefficientCurveOne46 0 A B U 0
+        (algebraMap k (RatFunc k) gamma) 0 =
+          algebraMap k (RatFunc k) k1)
+    (hD : boundaryD46 r (translatedQ46 r A) B U =
+      algebraMap k[X] (RatFunc k) D0)
+    (hE : boundaryE46 0 r (translatedQ46 r A) B U 0
+        (algebraMap k (RatFunc k) gamma) 0 =
+      algebraMap k[X] (RatFunc k) E0)
+    (hlast : algebraMap k[X] (RatFunc k) h0 *
+        eta46 0 A B U 0 (algebraMap k (RatFunc k) gamma) 0
+          (Differential.deriv A) (Differential.deriv B)
+          (Differential.deriv U) = RatFunc.C j) : False := by
+  exact alignedZeroSquareComponent_impossible46
+    (fun z : RatFunc k => Differential.deriv z)
+    GCD369RatFuncDerivative h0 D0 E0 r A B U gamma k1 j hj
+    hcurve2 hcurve1 hD hE hlast
 
 end SquareComponent
 
