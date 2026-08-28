@@ -168,6 +168,8 @@ status:
     residuals are proved.  Their explicit reconstruction leaves five lower
     rows; the first two are proved to be exact derivatives of displayed
     coefficient invariants, followed by three literal one-form constraints.
+    The exact raw sextic/octic affine depression is also verified, including
+    the surviving septic alignment discriminator.
     Not proved here: scalar-extension/descent, the
     prime-total-degree-gcd theorem itself, the standard-endpoint theorem
     itself, or the eight remaining normalized low-scale subcases at the other
@@ -216,6 +218,10 @@ status:
       comparator_config: "comparator.json"
     - declaration: "Max11DegreeRoutes.constantBracket_integrated68_lowerSystem"
       file: "LowScale68Integrated.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.depressedL68_eq_discriminator"
+      file: "LowScale68Depression.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.mismatchDegreeCone46"
@@ -536,7 +542,8 @@ review:
     DegreeRoutes.lean, HistoryRoute.lean, HistoryDegree.lean,
     TotalDegreeRoutes.lean, CoprimeDegreeRoute.lean, EndpointGCDRoute.lean,
     LowScaleCore.lean, LowScale68NormalForm.lean,
-    LowScale68Integrated.lean, or Max11Assembly.lean.
+    LowScale68Integrated.lean, LowScale68Depression.lean, or
+    Max11Assembly.lean.
 
 alignment:
   namespace: "(root)"
