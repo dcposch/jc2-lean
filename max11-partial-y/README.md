@@ -216,10 +216,12 @@ not treated as an established theorem.
   complete mismatch polynomial endgame: all eight constant/nonconstant
   patterns of `(A,B,U)` are incompatible with a nonzero constant last row.
   `LowScale46FinitePoles.lean` instantiates all four full local-chart rows on
-  rational-exponent Hahn series and closes every mismatch branch with finite
-  positive orders: it forces `(v(Q),v(Y),v(Z))=(1/4,1/2,1/2)` and then the
-  terminal boundary contradiction.  Packaging the identically-zero chart
-  coordinates remains.
+  rational-exponent Hahn series and closes the mismatch finite-pole chart
+  exhaustively, allowing each of `Q,Y,Z` either to vanish identically or to
+  have finite positive order.  The nonzero case forces
+  `(v(Q),v(Y),v(Z))=(1/4,1/2,1/2)` and the terminal boundary contradiction;
+  `Y=0` or `Z=0` is killed by the isolated order-one `J₂` term, while `Q=0`
+  is killed by the exact `J₂,F,J₁` leading system.
   `LowScale46Depression.lean` performs the exact source substitution
   `y=(z-r)/h` on the quartic and sextic and proves that the normalized quintic
   coefficient is zero in the aligned branch and `-lambda/2` in the mismatch

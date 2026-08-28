@@ -78,6 +78,76 @@ theorem hahnOrderTop_C_mul_eq46
     HahnSeries.orderTop_single hc, hx]
   norm_num
 
+/-- Products of two strictly positive-order Hahn series again have strictly
+positive order; this includes the case where either order is `⊤`. -/
+theorem hahnOrderTop_mul_pos46
+    (x y : HahnSeries ℚ k)
+    (hx : (↑(0 : ℚ) : WithTop ℚ) < x.orderTop)
+    (hy : (↑(0 : ℚ) : WithTop ℚ) < y.orderTop) :
+    (↑(0 : ℚ) : WithTop ℚ) < (x * y).orderTop := by
+  by_cases hx0 : x = 0
+  · simp [hx0]
+  by_cases hy0 : y = 0
+  · simp [hy0]
+  have hxord : x.orderTop = (↑x.order : WithTop ℚ) :=
+    (HahnSeries.order_eq_orderTop_of_ne_zero hx0).symm
+  have hyord : y.orderTop = (↑y.order : WithTop ℚ) :=
+    (HahnSeries.order_eq_orderTop_of_ne_zero hy0).symm
+  have hxp : 0 < x.order := by
+    rw [hxord, WithTop.coe_lt_coe] at hx
+    exact hx
+  have hyp : 0 < y.order := by
+    rw [hyord, WithTop.coe_lt_coe] at hy
+    exact hy
+  rw [HahnSeries.orderTop_mul, hxord, hyord, ← WithTop.coe_add,
+    WithTop.coe_lt_coe]
+  linarith
+
+/-- Multiplying a positive-order series by one of exact order `e` puts the
+product strictly above `e`. -/
+theorem hahnOrderTop_pos_mul_exact_gt46
+    (x y : HahnSeries ℚ k) (e : ℚ)
+    (hx : (↑(0 : ℚ) : WithTop ℚ) < x.orderTop)
+    (hy : y.orderTop = (↑e : WithTop ℚ)) :
+    (↑e : WithTop ℚ) < (x * y).orderTop := by
+  by_cases hx0 : x = 0
+  · simp [hx0]
+  have hxord : x.orderTop = (↑x.order : WithTop ℚ) :=
+    (HahnSeries.order_eq_orderTop_of_ne_zero hx0).symm
+  have hxp : 0 < x.order := by
+    rw [hxord, WithTop.coe_lt_coe] at hx
+    exact hx
+  rw [HahnSeries.orderTop_mul, hxord, hy, ← WithTop.coe_add,
+    WithTop.coe_lt_coe]
+  linarith
+
+/-- An arbitrary scalar constant preserves any strict order lower bound. -/
+theorem hahnOrderTop_C_mul_gt_of_gt46
+    (c : k) (x : HahnSeries ℚ k) (e : ℚ)
+    (hx : (↑e : WithTop ℚ) < x.orderTop) :
+    (↑e : WithTop ℚ) < (HahnSeries.C c * x).orderTop := by
+  by_cases hc : c = 0
+  · simp [hc]
+  · rw [HahnSeries.orderTop_mul, HahnSeries.C_apply,
+      HahnSeries.orderTop_single hc]
+    norm_num
+    exact hx
+
+/-- A local chart coordinate is either identically zero or has a finite,
+strictly positive rational Hahn order. -/
+def PositiveFiniteOrZero46 (x : HahnSeries ℚ k) : Prop :=
+  x = 0 ∨ ∃ a : ℚ, 0 < a ∧ x.orderTop = (↑a : WithTop ℚ)
+
+/-- Either alternative in `PositiveFiniteOrZero46` gives order strictly
+above zero; the identically-zero alternative has order `⊤`. -/
+theorem orderTop_pos_of_positiveFiniteOrZero46
+    (x : HahnSeries ℚ k) (hx : PositiveFiniteOrZero46 x) :
+    (↑(0 : ℚ) : WithTop ℚ) < x.orderTop := by
+  rcases hx with hx0 | ⟨a, ha, hx⟩
+  · simp [hx0]
+  · rw [hx, WithTop.coe_lt_coe]
+    exact ha
+
 /-- At an exact finite order, the coefficient at that order is the Hahn
 leading coefficient. -/
 theorem hahnCoeff_eq_leadingCoeff_of_orderTop_eq46
@@ -249,6 +319,92 @@ theorem mismatchJTwoHigher46_order_gt_one
   have h13sum := hahnOrderTop_add_gt46 1 _ _ h12sum' h13
   exact hahnOrderTop_add_gt46 1 _ _ h13sum h14
 
+/-- The `J₂` remainder bound only needs `Q,Y,Z` to have strictly positive
+order.  In particular, it remains valid when any of them is the zero Hahn
+series, whose order is `⊤`. -/
+theorem mismatchJTwoHigher46_order_gt_one_of_positive
+    (L beta gamma delta k2 : k) (s Q Y Z : HahnSeries ℚ k)
+    (hs : s.orderTop = (↑(1 : ℚ) : WithTop ℚ))
+    (hQ : (↑(0 : ℚ) : WithTop ℚ) < Q.orderTop)
+    (hY : (↑(0 : ℚ) : WithTop ℚ) < Y.orderTop)
+    (hZ : (↑(0 : ℚ) : WithTop ℚ) < Z.orderTop) :
+    (↑(1 : ℚ) : WithTop ℚ) <
+      (mismatchJTwoHigher46 L beta gamma delta k2 s Q Y Z).orderTop := by
+  have hs3 := hahnOrderTop_pow_eq46 s 1 3 hs
+  have hs4 := hahnOrderTop_pow_eq46 s 1 4 hs
+  have hs5 := hahnOrderTop_pow_eq46 s 1 5 hs
+  have hs7 := hahnOrderTop_pow_eq46 s 1 7 hs
+  have hQ2 : (↑(0 : ℚ) : WithTop ℚ) < (Q ^ 2).orderTop := by
+    simpa [pow_two] using hahnOrderTop_mul_pos46 Q Q hQ hQ
+  have hQ3 : (↑(0 : ℚ) : WithTop ℚ) < (Q ^ 3).orderTop := by
+    simpa [pow_succ] using hahnOrderTop_mul_pos46 (Q ^ 2) Q hQ2 hQ
+  have hY2 : (↑(0 : ℚ) : WithTop ℚ) < (Y ^ 2).orderTop := by
+    simpa [pow_two] using hahnOrderTop_mul_pos46 Y Y hY hY
+  have hQZ := hahnOrderTop_mul_pos46 Q Z hQ hZ
+  have hQs := hahnOrderTop_pos_mul_exact_gt46 Q s 1 hQ hs
+  have hQ2s := hahnOrderTop_pos_mul_exact_gt46 (Q ^ 2) s 1 hQ2 hs
+  have hQs3raw := hahnOrderTop_pos_mul_exact_gt46 Q (s ^ 3) 3 hQ
+    (by simpa using hs3)
+  have hQs3 : (↑(1 : ℚ) : WithTop ℚ) < (Q * s ^ 3).orderTop :=
+    (WithTop.coe_lt_coe.mpr (by norm_num)).trans hQs3raw
+  have hZs := hahnOrderTop_pos_mul_exact_gt46 Z s 1 hZ hs
+  have hQ3s := hahnOrderTop_pos_mul_exact_gt46 (Q ^ 3) s 1 hQ3 hs
+  have hQ2s3raw := hahnOrderTop_pos_mul_exact_gt46 (Q ^ 2) (s ^ 3) 3 hQ2
+    (by simpa using hs3)
+  have hQ2s3 : (↑(1 : ℚ) : WithTop ℚ) < (Q ^ 2 * s ^ 3).orderTop :=
+    (WithTop.coe_lt_coe.mpr (by norm_num)).trans hQ2s3raw
+  have hQZs := hahnOrderTop_pos_mul_exact_gt46 (Q * Z) s 1 hQZ hs
+  have hQs5raw := hahnOrderTop_pos_mul_exact_gt46 Q (s ^ 5) 5 hQ
+    (by simpa using hs5)
+  have hQs5 : (↑(1 : ℚ) : WithTop ℚ) < (Q * s ^ 5).orderTop :=
+    (WithTop.coe_lt_coe.mpr (by norm_num)).trans hQs5raw
+  have hY2s := hahnOrderTop_pos_mul_exact_gt46 (Y ^ 2) s 1 hY2 hs
+  have hYs4raw := hahnOrderTop_pos_mul_exact_gt46 Y (s ^ 4) 4 hY
+    (by simpa using hs4)
+  have hYs4 : (↑(1 : ℚ) : WithTop ℚ) < (Y * s ^ 4).orderTop :=
+    (WithTop.coe_lt_coe.mpr (by norm_num)).trans hYs4raw
+  have hZs3raw := hahnOrderTop_pos_mul_exact_gt46 Z (s ^ 3) 3 hZ
+    (by simpa using hs3)
+  have hZs3 : (↑(1 : ℚ) : WithTop ℚ) < (Z * s ^ 3).orderTop :=
+    (WithTop.coe_lt_coe.mpr (by norm_num)).trans hZs3raw
+  have h1 := hahnOrderTop_C_mul_gt_of_gt46 ((15 / 4 : k) * L) (Q * s) 1 hQs
+  have h2 := hahnOrderTop_C_mul_gt46 ((3 / 2 : k) * beta) (s ^ 3)
+    1 3 (by simpa using hs3) (by norm_num)
+  have h3 := hahnOrderTop_C_mul_gt_of_gt46 ((-15 / 4 : k) * L)
+    (Q ^ 2 * s) 1 hQ2s
+  have h4 := hahnOrderTop_C_mul_gt_of_gt46 (-3 * beta) (Q * s ^ 3) 1 hQs3
+  have h5 := hahnOrderTop_C_mul_gt_of_gt46 ((5 / 8 : k) * L) (Z * s) 1 hZs
+  have h6 := hahnOrderTop_C_mul_gt46 (-2 * delta) (s ^ 5)
+    1 5 (by simpa using hs5) (by norm_num)
+  have h7 := hahnOrderTop_C_mul_gt_of_gt46 ((5 / 4 : k) * L)
+    (Q ^ 3 * s) 1 hQ3s
+  have h8 := hahnOrderTop_C_mul_gt_of_gt46 ((3 / 2 : k) * beta)
+    (Q ^ 2 * s ^ 3) 1 hQ2s3
+  have h9 := hahnOrderTop_C_mul_gt_of_gt46 ((-5 / 8 : k) * L)
+    (Q * Z * s) 1 (by simpa [mul_assoc] using hQZs)
+  have h10 := hahnOrderTop_C_mul_gt_of_gt46 (2 * delta) (Q * s ^ 5) 1 hQs5
+  have h11 := hahnOrderTop_C_mul_gt_of_gt46 ((5 / 8 : k) * L)
+    (Y ^ 2 * s) 1 hY2s
+  have h12 := hahnOrderTop_C_mul_gt_of_gt46 (2 * gamma) (Y * s ^ 4) 1 hYs4
+  have h13 := hahnOrderTop_C_mul_gt_of_gt46 ((-3 / 4 : k) * beta)
+    (Z * s ^ 3) 1 hZs3
+  have h14 := hahnOrderTop_C_mul_gt46 (-k2) (s ^ 7)
+    1 7 (by simpa using hs7) (by norm_num)
+  dsimp only [mismatchJTwoHigher46]
+  have h12sum := hahnOrderTop_add_gt46 1 _ _ h1 h2
+  have h123sum := hahnOrderTop_add_gt46 1 _ _ h12sum h3
+  have h1234sum := hahnOrderTop_add_gt46 1 _ _ h123sum h4
+  have h12345sum := hahnOrderTop_add_gt46 1 _ _ h1234sum h5
+  have h123456sum := hahnOrderTop_add_gt46 1 _ _ h12345sum h6
+  have h1234567sum := hahnOrderTop_add_gt46 1 _ _ h123456sum h7
+  have h12345678sum := hahnOrderTop_add_gt46 1 _ _ h1234567sum h8
+  have h123456789sum := hahnOrderTop_add_gt46 1 _ _ h12345678sum h9
+  have h10sum := hahnOrderTop_add_gt46 1 _ _ h123456789sum h10
+  have h11sum := hahnOrderTop_add_gt46 1 _ _ h10sum h11
+  have h12sum' := hahnOrderTop_add_gt46 1 _ _ h11sum h12
+  have h13sum := hahnOrderTop_add_gt46 1 _ _ h12sum' h13
+  exact hahnOrderTop_add_gt46 1 _ _ h13sum h14
+
 /-- The full mismatch `J₂` chart forces `v(Y)+v(Z)=1`; at that face its two
 leading coefficients satisfy the exact reviewed cancellation relation. -/
 theorem mismatchJTwo46_forces_order_sum_and_coefficient
@@ -298,6 +454,78 @@ theorem mismatchJTwo46_forces_order_sum_and_coefficient
   constructor
   · exact hbc
   · linear_combination -4 * hcoeff
+
+/-- If either `Y` or `Z` vanishes while all chart coordinates have positive
+order (allowing order `⊤`), the order-one `-5Ls/4` term in the full `J₂`
+row is isolated and cannot cancel. -/
+theorem mismatchJTwo46_impossible_of_YZ_eq_zero
+    [CharZero k]
+    (L beta gamma delta k2 : k) (s Q Y Z : HahnSeries ℚ k)
+    (hL : L ≠ 0)
+    (hs : s.orderTop = (↑(1 : ℚ) : WithTop ℚ))
+    (hQ : (↑(0 : ℚ) : WithTop ℚ) < Q.orderTop)
+    (hY : (↑(0 : ℚ) : WithTop ℚ) < Y.orderTop)
+    (hZ : (↑(0 : ℚ) : WithTop ℚ) < Z.orderTop)
+    (hYZ : Y * Z = 0)
+    (hrow : localChartJTwo46 (HahnSeries.C L) s Q Y Z
+      (HahnSeries.C beta) (HahnSeries.C gamma)
+      (HahnSeries.C delta) (HahnSeries.C k2) = 0) : False := by
+  let p : HahnSeries ℚ k := HahnSeries.C ((-5 / 4 : k) * L) * s
+  let r := mismatchJTwoHigher46 L beta gamma delta k2 s Q Y Z
+  have hp : p.orderTop = (↑(1 : ℚ) : WithTop ℚ) := by
+    dsimp [p]
+    exact hahnOrderTop_C_mul_eq46 _ _ 1 (mul_ne_zero (by norm_num) hL) hs
+  have hr : (↑(1 : ℚ) : WithTop ℚ) < r.orderTop :=
+    mismatchJTwoHigher46_order_gt_one_of_positive
+      L beta gamma delta k2 s Q Y Z hs hQ hY hZ
+  have hsum : p + HahnSeries.C (-3 / 4 : k) * (Y * Z) + r = 0 := by
+    rw [← localChartJTwo46_eq_mismatch_faces L beta gamma delta k2 s Q Y Z]
+    exact hrow
+  rw [hYZ, mul_zero, add_zero] at hsum
+  have hr0 : r.coeff 1 = 0 := HahnSeries.coeff_eq_zero_of_lt_orderTop hr
+  have hcoeff := congrArg (fun z : HahnSeries ℚ k => z.coeff 1) hsum
+  simp only [HahnSeries.coeff_add, HahnSeries.coeff_zero, hr0, add_zero] at hcoeff
+  exact HahnSeries.coeff_orderTop_ne hp hcoeff
+
+/-- The first mismatch face remains valid when `Q` is merely of strictly
+positive order, including `Q=0`; only `Y` and `Z` need finite exact orders
+to identify the competing `YZ` face. -/
+theorem mismatchJTwo46_forces_order_sum_of_positiveQ
+    [CharZero k]
+    (L beta gamma delta k2 : k) (s Q Y Z : HahnSeries ℚ k)
+    (b c : ℚ) (hb : 0 < b) (hc : 0 < c) (hL : L ≠ 0)
+    (hs : s.orderTop = (↑(1 : ℚ) : WithTop ℚ))
+    (hQ : (↑(0 : ℚ) : WithTop ℚ) < Q.orderTop)
+    (hY : Y.orderTop = (↑b : WithTop ℚ))
+    (hZ : Z.orderTop = (↑c : WithTop ℚ))
+    (hrow : localChartJTwo46 (HahnSeries.C L) s Q Y Z
+      (HahnSeries.C beta) (HahnSeries.C gamma)
+      (HahnSeries.C delta) (HahnSeries.C k2) = 0) :
+    b + c = 1 := by
+  let p : HahnSeries ℚ k := HahnSeries.C ((-5 / 4 : k) * L) * s
+  let q : HahnSeries ℚ k := HahnSeries.C (-3 / 4 : k) * (Y * Z)
+  let r := mismatchJTwoHigher46 L beta gamma delta k2 s Q Y Z
+  have hp : p.orderTop = (↑(1 : ℚ) : WithTop ℚ) := by
+    dsimp [p]
+    exact hahnOrderTop_C_mul_eq46 _ _ 1 (mul_ne_zero (by norm_num) hL) hs
+  have hYZ := hahnOrderTop_mul_eq46 Y Z b c hY hZ
+  have hq : q.orderTop = (↑(b + c) : WithTop ℚ) := by
+    dsimp [q]
+    exact hahnOrderTop_C_mul_eq46 _ _ (b + c) (by norm_num) hYZ
+  have hYpos : (↑(0 : ℚ) : WithTop ℚ) < Y.orderTop := by
+    rw [hY, WithTop.coe_lt_coe]
+    exact hb
+  have hZpos : (↑(0 : ℚ) : WithTop ℚ) < Z.orderTop := by
+    rw [hZ, WithTop.coe_lt_coe]
+    exact hc
+  have hr : (↑(1 : ℚ) : WithTop ℚ) < r.orderTop :=
+    mismatchJTwoHigher46_order_gt_one_of_positive
+      L beta gamma delta k2 s Q Y Z hs hQ hYpos hZpos
+  have hsum : p + q + r = 0 := by
+    rw [← localChartJTwo46_eq_mismatch_faces L beta gamma delta k2 s Q Y Z]
+    exact hrow
+  exact (hahnOrder_eq_one_of_two_terms_add_higher_eq_zero46
+    p q r (b + c) hp hq hr hsum).1
 
 /-- Every term of the full mismatch `J₁` chart except its two possible
 lowest squares. -/
@@ -410,6 +638,50 @@ theorem mismatchJOneHigher46_order_gt_min
   have h123456789 := hahnOrderTop_add_gt46 e _ _ h12345678 h9
   exact hahnOrderTop_add_gt46 e _ _ h123456789 h10
 
+/-- With `Q=0` and `v(Y)=v(Z)=1/2`, every literal term outside the two
+square faces of the full `J₁` row lies strictly above order one. -/
+theorem mismatchJOneHigher46_order_gt_one_of_Q_eq_zero
+    (L beta gamma delta k1 : k) (s Q Y Z : HahnSeries ℚ k)
+    (hs : s.orderTop = (↑(1 : ℚ) : WithTop ℚ))
+    (hY : Y.orderTop = (↑(1 / 2 : ℚ) : WithTop ℚ))
+    (hZ : Z.orderTop = (↑(1 / 2 : ℚ) : WithTop ℚ))
+    (hQzero : Q = 0) :
+    (↑(1 : ℚ) : WithTop ℚ) <
+      (mismatchJOneHigher46 L beta gamma delta k1 s Q Y Z).orderTop := by
+  have hs3 := hahnOrderTop_pow_eq46 s 1 3 hs
+  have hs4 := hahnOrderTop_pow_eq46 s 1 4 hs
+  have hs5 := hahnOrderTop_pow_eq46 s 1 5 hs
+  have hs8 := hahnOrderTop_pow_eq46 s 1 8 hs
+  have hYs := hahnOrderTop_mul_eq46 Y s (1 / 2) 1 hY hs
+  have hYs3 := hahnOrderTop_mul_eq46 Y (s ^ 3) (1 / 2) 3 hY
+    (by simpa using hs3)
+  have hYZ := hahnOrderTop_mul_eq46 Y Z (1 / 2) (1 / 2) hY hZ
+  have hYZs := hahnOrderTop_mul_eq46 (Y * Z) s
+    ((1 / 2 : ℚ) + 1 / 2) 1 hYZ hs
+  have hYs5 := hahnOrderTop_mul_eq46 Y (s ^ 5) (1 / 2) 5 hY
+    (by simpa using hs5)
+  have hZs4 := hahnOrderTop_mul_eq46 Z (s ^ 4) (1 / 2) 4 hZ
+    (by simpa using hs4)
+  have h1 := hahnOrderTop_C_mul_gt46 ((-5 / 8 : k) * L) (Y * s)
+    1 ((1 / 2 : ℚ) + 1) hYs (by norm_num)
+  have h3 := hahnOrderTop_C_mul_gt46 ((3 / 2 : k) * beta) (Y * s ^ 3)
+    1 ((1 / 2 : ℚ) + 3) hYs3 (by norm_num)
+  have h7 := hahnOrderTop_C_mul_gt46 ((-5 / 16 : k) * L) (Y * Z * s)
+    1 (((1 / 2 : ℚ) + 1 / 2) + 1) (by simpa [mul_assoc] using hYZs)
+      (by norm_num)
+  have h8 := hahnOrderTop_C_mul_gt46 delta (Y * s ^ 5)
+    1 ((1 / 2 : ℚ) + 5) hYs5 (by norm_num)
+  have h9 := hahnOrderTop_C_mul_gt46 (-1 / 2 * gamma) (Z * s ^ 4)
+    1 ((1 / 2 : ℚ) + 4) hZs4 (by norm_num)
+  have h10 := hahnOrderTop_C_mul_gt46 (-k1) (s ^ 8)
+    1 8 (by simpa using hs8) (by norm_num)
+  have h13 := hahnOrderTop_add_gt46 1 _ _ h1 h3
+  have h137 := hahnOrderTop_add_gt46 1 _ _ h13 h7
+  have h1378 := hahnOrderTop_add_gt46 1 _ _ h137 h8
+  have h13789 := hahnOrderTop_add_gt46 1 _ _ h1378 h9
+  have hsum := hahnOrderTop_add_gt46 1 _ _ h13789 h10
+  simpa [mismatchJOneHigher46, hQzero] using hsum
+
 /-- The full second mismatch row forces `b=c`; together with `b+c=1` this
 gives the half-order face. -/
 theorem mismatchJOne46_forces_equal_orders
@@ -474,6 +746,59 @@ theorem localChartF46_eq_mismatch_faces
   simp only [localChartF46]
   simp only [map_div₀, map_neg, map_ofNat, map_one]
   ring
+
+/-- On the sublocus `Q=0`, the exact first boundary row forces the finite
+positive orders of `Y` and `Z` to agree once `b+c=1`. -/
+theorem mismatchF46_forces_equal_orders_of_Q_eq_zero
+    [CharZero k]
+    (d0 : k) (s Q Y Z : HahnSeries ℚ k) (b c : ℚ)
+    (hb : 0 < b) (hc : 0 < c) (hbc : b + c = 1)
+    (hs : s.orderTop = (↑(1 : ℚ) : WithTop ℚ))
+    (hY : Y.orderTop = (↑b : WithTop ℚ))
+    (hZ : Z.orderTop = (↑c : WithTop ℚ))
+    (hQzero : Q = 0)
+    (hF : localChartF46 s Q Y Z (HahnSeries.C d0) = 0) :
+    b = c := by
+  let zterm : HahnSeries ℚ k := HahnSeries.C (-1 / 4 : k) * Z
+  let dterm : HahnSeries ℚ k := HahnSeries.C (-d0) * s ^ 4
+  have hzterm : zterm.orderTop = (↑c : WithTop ℚ) := by
+    dsimp [zterm]
+    exact hahnOrderTop_C_mul_eq46 _ _ c (by norm_num) hZ
+  have hs4 := hahnOrderTop_pow_eq46 s 1 4 hs
+  have hsum : Y + zterm + dterm = 0 := by
+    have hfull : Y + Q ^ 2 + HahnSeries.C (-1 / 4 : k) * Z +
+        HahnSeries.C (-d0) * s ^ 4 = 0 := by
+      rw [← localChartF46_eq_mismatch_faces d0 s Q Y Z]
+      exact hF
+    simpa [hQzero, zterm, dterm] using hfull
+  by_contra hne
+  rcases lt_or_gt_of_ne hne with hblt | hclt
+  · have hz0 : zterm.coeff b = 0 :=
+      HahnSeries.coeff_eq_zero_of_lt_orderTop (by
+        rw [hzterm]
+        exact WithTop.coe_lt_coe.mpr hblt)
+    have hdHigh := hahnOrderTop_C_mul_gt46 (-d0) (s ^ 4)
+      b 4 (by simpa using hs4) (by linarith)
+    have hd0 : dterm.coeff b = 0 := by
+      apply HahnSeries.coeff_eq_zero_of_lt_orderTop
+      simpa [dterm] using hdHigh
+    have hcoeff := congrArg (fun z : HahnSeries ℚ k => z.coeff b) hsum
+    simp only [HahnSeries.coeff_add, HahnSeries.coeff_zero, hz0, hd0,
+      add_zero] at hcoeff
+    exact HahnSeries.coeff_orderTop_ne hY hcoeff
+  · have hY0 : Y.coeff c = 0 :=
+      HahnSeries.coeff_eq_zero_of_lt_orderTop (by
+        rw [hY]
+        exact WithTop.coe_lt_coe.mpr hclt)
+    have hdHigh := hahnOrderTop_C_mul_gt46 (-d0) (s ^ 4)
+      c 4 (by simpa using hs4) (by linarith)
+    have hd0 : dterm.coeff c = 0 := by
+      apply HahnSeries.coeff_eq_zero_of_lt_orderTop
+      simpa [dterm] using hdHigh
+    have hcoeff := congrArg (fun z : HahnSeries ℚ k => z.coeff c) hsum
+    simp only [HahnSeries.coeff_add, HahnSeries.coeff_zero, hY0, hd0,
+      zero_add, add_zero] at hcoeff
+    exact HahnSeries.coeff_orderTop_ne hzterm hcoeff
 
 /-- After the `J₂,J₁` rows force `v(Y)=v(Z)=1/2`, the exact first boundary
 and second curve row force `v(Q)=1/4`. -/
@@ -817,6 +1142,91 @@ theorem mismatchF46_leading_equation
     hZterm, hd0, add_zero] at hcoeff
   linear_combination hcoeff
 
+/-- The remaining degenerate mismatch sublocus `Q=0`, with `Y,Z` of
+finite positive order, is impossible already from the full `J₂,F,J₁`
+rows. -/
+theorem mismatchQZeroFinitePole46_impossible
+    [CharZero k]
+    (L beta gamma delta d0 k2 k1 : k)
+    (s Q Y Z : HahnSeries ℚ k) (b c : ℚ)
+    (hb : 0 < b) (hc : 0 < c) (hL : L ≠ 0)
+    (hs : s.orderTop = (↑(1 : ℚ) : WithTop ℚ))
+    (hY : Y.orderTop = (↑b : WithTop ℚ))
+    (hZ : Z.orderTop = (↑c : WithTop ℚ))
+    (hQzero : Q = 0)
+    (hF : localChartF46 s Q Y Z (HahnSeries.C d0) = 0)
+    (hJ2 : localChartJTwo46 (HahnSeries.C L) s Q Y Z
+      (HahnSeries.C beta) (HahnSeries.C gamma)
+      (HahnSeries.C delta) (HahnSeries.C k2) = 0)
+    (hJ1 : localChartJOne46 (HahnSeries.C L) s Q Y Z
+      (HahnSeries.C beta) (HahnSeries.C gamma)
+      (HahnSeries.C delta) (HahnSeries.C k1) = 0) : False := by
+  have hQpos : (↑(0 : ℚ) : WithTop ℚ) < Q.orderTop := by
+    simp [hQzero]
+  have hbc := mismatchJTwo46_forces_order_sum_of_positiveQ
+    L beta gamma delta k2 s Q Y Z b c hb hc hL hs hQpos hY hZ hJ2
+  have hbeq := mismatchF46_forces_equal_orders_of_Q_eq_zero
+    d0 s Q Y Z b c hb hc hbc hs hY hZ hQzero hF
+  obtain ⟨hbhalf, hchalf⟩ := mismatchOrders46 b c hbc hbeq
+  have hYhalf : Y.orderTop = (↑(1 / 2 : ℚ) : WithTop ℚ) := by
+    rw [hY, hbhalf]
+  have hZhalf : Z.orderTop = (↑(1 / 2 : ℚ) : WithTop ℚ) := by
+    rw [hZ, hchalf]
+  have hs4 := hahnOrderTop_pow_eq46 s 1 4 hs
+  have hFsum : Y + HahnSeries.C (-1 / 4 : k) * Z +
+      HahnSeries.C (-d0) * s ^ 4 = 0 := by
+    have hfull : Y + Q ^ 2 + HahnSeries.C (-1 / 4 : k) * Z +
+        HahnSeries.C (-d0) * s ^ 4 = 0 := by
+      rw [← localChartF46_eq_mismatch_faces d0 s Q Y Z]
+      exact hF
+    simpa [hQzero] using hfull
+  have hdHigh := hahnOrderTop_C_mul_gt46 (-d0) (s ^ 4)
+    (1 / 2) 4 (by simpa using hs4) (by norm_num)
+  have hd0 : (HahnSeries.C (-d0) * s ^ 4).coeff (1 / 2) = 0 :=
+    HahnSeries.coeff_eq_zero_of_lt_orderTop hdHigh
+  have hYcoeff := hahnCoeff_eq_leadingCoeff_of_orderTop_eq46 Y (1 / 2) hYhalf
+  have hZcoeff := hahnCoeff_eq_leadingCoeff_of_orderTop_eq46 Z (1 / 2) hZhalf
+  have hZterm : (HahnSeries.C (-1 / 4 : k) * Z).coeff (1 / 2) =
+      (-1 / 4 : k) * Z.leadingCoeff := by
+    rw [HahnSeries.C_apply, HahnSeries.coeff_single_zero_mul, hZcoeff]
+  have hFcoeff := congrArg (fun z : HahnSeries ℚ k => z.coeff (1 / 2)) hFsum
+  simp only [HahnSeries.coeff_add, HahnSeries.coeff_zero, hYcoeff, hZterm,
+    hd0, add_zero] at hFcoeff
+  have hFlead : Y.leadingCoeff - (1 / 4 : k) * Z.leadingCoeff = 0 := by
+    linear_combination hFcoeff
+  let p : HahnSeries ℚ k := HahnSeries.C (3 / 2 : k) * Y ^ 2
+  let q : HahnSeries ℚ k := HahnSeries.C (3 / 32 : k) * Z ^ 2
+  let r := mismatchJOneHigher46 L beta gamma delta k1 s Q Y Z
+  have hJ1sum : p + q + r = 0 := by
+    rw [← localChartJOne46_eq_mismatch_faces L beta gamma delta k1 s Q Y Z]
+    exact hJ1
+  have hr := mismatchJOneHigher46_order_gt_one_of_Q_eq_zero
+    L beta gamma delta k1 s Q Y Z hs hYhalf hZhalf hQzero
+  have hr0 : r.coeff 1 = 0 := HahnSeries.coeff_eq_zero_of_lt_orderTop hr
+  have hY2 := hahnOrderTop_pow_eq46 Y (1 / 2) 2 hYhalf
+  have hZ2 := hahnOrderTop_pow_eq46 Z (1 / 2) 2 hZhalf
+  have hY2one : (Y ^ 2).orderTop = (↑(1 : ℚ) : WithTop ℚ) := by
+    simpa using hY2
+  have hZ2one : (Z ^ 2).orderTop = (↑(1 : ℚ) : WithTop ℚ) := by
+    simpa using hZ2
+  have hY2coeff : (Y ^ 2).coeff 1 = Y.leadingCoeff ^ 2 := by
+    rw [hahnCoeff_eq_leadingCoeff_of_orderTop_eq46 (Y ^ 2) 1 hY2one]
+    simp [pow_two, HahnSeries.leadingCoeff_mul]
+  have hZ2coeff : (Z ^ 2).coeff 1 = Z.leadingCoeff ^ 2 := by
+    rw [hahnCoeff_eq_leadingCoeff_of_orderTop_eq46 (Z ^ 2) 1 hZ2one]
+    simp [pow_two, HahnSeries.leadingCoeff_mul]
+  have hJ1coeff := congrArg (fun z : HahnSeries ℚ k => z.coeff 1) hJ1sum
+  dsimp [p, q] at hJ1coeff
+  simp only [HahnSeries.C_apply, HahnSeries.coeff_single_zero_mul,
+    hY2coeff, hZ2coeff, hr0, add_zero] at hJ1coeff
+  have hJ1lead : (3 / 2 : k) * Y.leadingCoeff ^ 2 +
+      (3 / 32 : k) * Z.leadingCoeff ^ 2 = 0 := hJ1coeff
+  have hYlead : Y.leadingCoeff ≠ 0 := by
+    rw [← hYcoeff]
+    exact HahnSeries.coeff_orderTop_ne hYhalf
+  exact mismatchQAboveFace_inconsistent46 Y.leadingCoeff Z.leadingCoeff
+    hYlead hFlead hJ1lead
+
 /-- Complete finite-pole exclusion for the mismatch chart.  The theorem
 consumes all four full local equations, derives the unique orders
 `(1/4,1/2,1/2)`, and reaches the terminal leading-system contradiction. -/
@@ -862,6 +1272,46 @@ theorem mismatchFinitePole46_impossible
     exact HahnSeries.coeff_orderTop_ne hQquarter
   exact mismatchLeadingSystem46_inconsistent Q.leadingCoeff Y.leadingCoeff
     Z.leadingCoeff hQlead hFlead hGlead
+
+/-- Exhaustive finite-pole exclusion for the mismatch chart.  Each chart
+coordinate may either vanish identically or have a finite positive rational
+order; the full four local rows are inconsistent in every case. -/
+theorem mismatchFinitePole46_exhaustive
+    [CharZero k]
+    (L beta gamma delta d0 e0 k2 k1 : k)
+    (s Q Y Z : HahnSeries ℚ k) (hL : L ≠ 0)
+    (hs : s.orderTop = (↑(1 : ℚ) : WithTop ℚ))
+    (hQcase : PositiveFiniteOrZero46 Q)
+    (hYcase : PositiveFiniteOrZero46 Y)
+    (hZcase : PositiveFiniteOrZero46 Z)
+    (hF : localChartF46 s Q Y Z (HahnSeries.C d0) = 0)
+    (hG : localChartG46 (HahnSeries.C L) s Q Y Z
+      (HahnSeries.C beta) (HahnSeries.C gamma)
+      (HahnSeries.C delta) (HahnSeries.C e0) = 0)
+    (hJ2 : localChartJTwo46 (HahnSeries.C L) s Q Y Z
+      (HahnSeries.C beta) (HahnSeries.C gamma)
+      (HahnSeries.C delta) (HahnSeries.C k2) = 0)
+    (hJ1 : localChartJOne46 (HahnSeries.C L) s Q Y Z
+      (HahnSeries.C beta) (HahnSeries.C gamma)
+      (HahnSeries.C delta) (HahnSeries.C k1) = 0) : False := by
+  have hQpos := orderTop_pos_of_positiveFiniteOrZero46 Q hQcase
+  have hYpos := orderTop_pos_of_positiveFiniteOrZero46 Y hYcase
+  have hZpos := orderTop_pos_of_positiveFiniteOrZero46 Z hZcase
+  rcases hYcase with hYzero | ⟨b, hb, hY⟩
+  · exact mismatchJTwo46_impossible_of_YZ_eq_zero
+      L beta gamma delta k2 s Q Y Z hL hs hQpos hYpos hZpos
+      (by simp [hYzero]) hJ2
+  rcases hZcase with hZzero | ⟨c, hc, hZ⟩
+  · exact mismatchJTwo46_impossible_of_YZ_eq_zero
+      L beta gamma delta k2 s Q Y Z hL hs hQpos hYpos hZpos
+      (by simp [hZzero]) hJ2
+  rcases hQcase with hQzero | ⟨a, ha, hQ⟩
+  · exact mismatchQZeroFinitePole46_impossible
+      L beta gamma delta d0 k2 k1 s Q Y Z b c hb hc hL hs hY hZ
+      hQzero hF hJ2 hJ1
+  · exact mismatchFinitePole46_impossible
+      L beta gamma delta d0 e0 k2 k1 s Q Y Z a b c ha hb hc hL
+      hs hQ hY hZ hF hG hJ2 hJ1
 
 end MismatchJTwoFace
 
