@@ -165,6 +165,404 @@ theorem ratFuncAtHahn46_polynomial_orderTop_nonneg (a : k) (p : k[X]) :
   rw [ratFuncAtHahn46_algebraMap]
   exact polynomialHahn46_orderTop_nonneg _
 
+/-- The constant coefficient of a translated polynomial expansion is its
+value at the selected finite place. -/
+theorem ratFuncAtHahn46_algebraMap_coeff_zero (a : k) (p : k[X]) :
+    (ratFuncAtHahn46 a (algebraMap k[X] (RatFunc k) p)).coeff 0 =
+      p.eval a := by
+  rw [ratFuncAtHahn46_algebraMap]
+  rw [Polynomial.algebraMap_hahnSeries_apply]
+  change (HahnSeries.ofPowerSeries ℚ k
+      (↑(p.comp (X + C a)) : PowerSeries k)).coeff
+        (↑(0 : ℕ) : ℚ) = _
+  rw [HahnSeries.ofPowerSeries_apply_coeff, Polynomial.coeff_coe]
+  rw [Polynomial.coeff_zero_eq_eval_zero, Polynomial.eval_comp]
+  simp
+
+/-- A polynomial nonvanishing at the selected point expands with order
+exactly zero. -/
+theorem ratFuncAtHahn46_polynomial_orderTop_eq_zero_of_eval_ne
+    (a : k) (p : k[X]) (hp : p.eval a ≠ 0) :
+    (ratFuncAtHahn46 a (algebraMap k[X] (RatFunc k) p)).orderTop = 0 := by
+  apply le_antisymm
+  · apply HahnSeries.orderTop_le_of_coeff_ne_zero
+    rw [ratFuncAtHahn46_algebraMap_coeff_zero]
+    exact hp
+  · exact ratFuncAtHahn46_polynomial_orderTop_nonneg a p
+
+/-- A nonzero polynomial vanishing at the selected point expands with
+strictly positive order. -/
+theorem ratFuncAtHahn46_polynomial_orderTop_pos_of_eval_eq_zero
+    (a : k) (p : k[X]) (hp0 : p.eval a = 0) (hp : p ≠ 0) :
+    (0 : WithTop ℚ) <
+      (ratFuncAtHahn46 a (algebraMap k[X] (RatFunc k) p)).orderTop := by
+  let P : HahnSeries ℚ k :=
+    ratFuncAtHahn46 a (algebraMap k[X] (RatFunc k) p)
+  have hPne : P ≠ 0 := by
+    simpa only [map_zero] using
+      (ratFuncAtHahn46_injective a).ne (RatFunc.algebraMap_ne_zero hp)
+  have hP0 : P.coeff 0 = 0 := by
+    dsimp only [P]
+    rw [ratFuncAtHahn46_algebraMap_coeff_zero, hp0]
+  have hnonneg : (0 : WithTop ℚ) ≤ P.orderTop :=
+    ratFuncAtHahn46_polynomial_orderTop_nonneg a p
+  apply lt_of_le_of_ne hnonneg
+  intro hEq
+  have hlead := HahnSeries.coeff_orderTop_ne hEq.symm
+  exact hlead hP0
+
+/-- Nonnegative order is preserved by addition. -/
+theorem hahnOrderTop_add_nonneg46 (x y : HahnSeries ℚ k)
+    (hx : (0 : WithTop ℚ) ≤ x.orderTop)
+    (hy : (0 : WithTop ℚ) ≤ y.orderTop) :
+    (0 : WithTop ℚ) ≤ (x + y).orderTop := by
+  exact (le_min hx hy).trans HahnSeries.min_orderTop_le_orderTop_add
+
+/-- Nonnegative order is preserved by multiplication. -/
+theorem hahnOrderTop_mul_nonneg46 (x y : HahnSeries ℚ k)
+    (hx : (0 : WithTop ℚ) ≤ x.orderTop)
+    (hy : (0 : WithTop ℚ) ≤ y.orderTop) :
+    (0 : WithTop ℚ) ≤ (x * y).orderTop := by
+  rw [HahnSeries.orderTop_mul]
+  exact add_nonneg hx hy
+
+/-- Ground-field constants are regular. -/
+theorem hahnOrderTop_C_nonneg46 (c : k) :
+    (0 : WithTop ℚ) ≤ (HahnSeries.C c : HahnSeries ℚ k).orderTop := by
+  rw [HahnSeries.C_apply]
+  by_cases hc : c = 0 <;> simp [hc, HahnSeries.orderTop_single]
+
+/-- Rational scalar coefficients are regular in characteristic zero. -/
+theorem hahnOrderTop_ratCast_nonneg46 [CharZero k] (c : ℚ) :
+    (0 : WithTop ℚ) ≤ (c : HahnSeries ℚ k).orderTop := by
+  rw [← map_ratCast (HahnSeries.C : k →+* HahnSeries ℚ k) c]
+  exact hahnOrderTop_C_nonneg46 _
+
+/-- Quotients of natural scalar numerals are regular. -/
+theorem hahnOrderTop_natDiv_nonneg46 [CharZero k] (m n : ℕ) :
+    (0 : WithTop ℚ) ≤
+      ((m : HahnSeries ℚ k) / (n : HahnSeries ℚ k)).orderTop := by
+  rw [← map_natCast (HahnSeries.C : k →+* HahnSeries ℚ k) m,
+    ← map_natCast (HahnSeries.C : k →+* HahnSeries ℚ k) n,
+    ← map_div₀]
+  exact hahnOrderTop_C_nonneg46 _
+
+/-- Nonnegative order is preserved by subtraction. -/
+theorem hahnOrderTop_sub_nonneg46 (x y : HahnSeries ℚ k)
+    (hx : (0 : WithTop ℚ) ≤ x.orderTop)
+    (hy : (0 : WithTop ℚ) ≤ y.orderTop) :
+    (0 : WithTop ℚ) ≤ (x - y).orderTop := by
+  rw [sub_eq_add_neg]
+  exact hahnOrderTop_add_nonneg46 x (-y) hx (by simpa using hy)
+
+/-- Nonnegative order is preserved by negation. -/
+theorem hahnOrderTop_neg_nonneg46 (x : HahnSeries ℚ k)
+    (hx : (0 : WithTop ℚ) ≤ x.orderTop) :
+    (0 : WithTop ℚ) ≤ (-x).orderTop := by
+  simpa using hx
+
+/-- Nonnegative order is preserved by natural powers. -/
+theorem hahnOrderTop_pow_nonneg46 (x : HahnSeries ℚ k) (n : ℕ)
+    (hx : (0 : WithTop ℚ) ≤ x.orderTop) :
+    (0 : WithTop ℚ) ≤ (x ^ n).orderTop := by
+  induction n with
+  | zero => simp
+  | succ n ih =>
+      rw [pow_succ]
+      exact hahnOrderTop_mul_nonneg46 _ _ ih hx
+
+/-- The reviewed final-row one-form is regular whenever its coordinates and
+their derivatives are regular. -/
+theorem hahnEta46_orderTop_nonneg
+    [CharZero k] (l beta gamma delta : k)
+    (A B U dA dB dU : HahnSeries ℚ k)
+    (hA : (0 : WithTop ℚ) ≤ A.orderTop)
+    (hB : (0 : WithTop ℚ) ≤ B.orderTop)
+    (hU : (0 : WithTop ℚ) ≤ U.orderTop)
+    (hdA : (0 : WithTop ℚ) ≤ dA.orderTop)
+    (hdB : (0 : WithTop ℚ) ≤ dB.orderTop)
+    (hdU : (0 : WithTop ℚ) ≤ dU.orderTop) :
+    (0 : WithTop ℚ) ≤
+      (eta46 (HahnSeries.C l) A B U (HahnSeries.C beta)
+        (HahnSeries.C gamma) (HahnSeries.C delta) dA dB dU).orderTop := by
+  have hc (c : k) := hahnOrderTop_C_nonneg46 (k := k) c
+  have hfrac (m n : ℕ) := hahnOrderTop_natDiv_nonneg46 (k := k) m n
+  have hA2 := hahnOrderTop_pow_nonneg46 A 2 hA
+  have hA3 := hahnOrderTop_pow_nonneg46 A 3 hA
+  have hB2 := hahnOrderTop_pow_nonneg46 B 2 hB
+  have hLA3 := hahnOrderTop_mul_nonneg46
+    ((15 / 64 : HahnSeries ℚ k) * HahnSeries.C l) (A ^ 3)
+      (hahnOrderTop_mul_nonneg46 _ _ (hfrac 15 64) (hc l)) hA3
+  have hLB2 := hahnOrderTop_mul_nonneg46
+    ((5 / 16 : HahnSeries ℚ k) * HahnSeries.C l) (B ^ 2)
+      (hahnOrderTop_mul_nonneg46 _ _ (hfrac 5 16) (hc l)) hB2
+  have hLAU := hahnOrderTop_mul_nonneg46
+    ((5 / 32 : HahnSeries ℚ k) * HahnSeries.C l * A) U
+      (hahnOrderTop_mul_nonneg46 _ _
+        (hahnOrderTop_mul_nonneg46 _ _ (hfrac 5 32) (hc l)) hA) hU
+  have hbetaA2 := hahnOrderTop_mul_nonneg46
+    ((3 / 8 : HahnSeries ℚ k) * HahnSeries.C beta) (A ^ 2)
+      (hahnOrderTop_mul_nonneg46 _ _ (hfrac 3 8) (hc beta)) hA2
+  have hBU := hahnOrderTop_mul_nonneg46
+    ((3 / 16 : HahnSeries ℚ k) * B) U
+      (hahnOrderTop_mul_nonneg46 _ _ (hfrac 3 16) hB) hU
+  have hgammaB := hahnOrderTop_mul_nonneg46
+    ((1 / 2 : HahnSeries ℚ k) * HahnSeries.C gamma) B
+      (hahnOrderTop_mul_nonneg46 _ _ (by simpa using hfrac 1 2) (hc gamma)) hB
+  have hdeltaA := hahnOrderTop_mul_nonneg46
+    ((1 / 2 : HahnSeries ℚ k) * HahnSeries.C delta) A
+      (hahnOrderTop_mul_nonneg46 _ _ (by simpa using hfrac 1 2) (hc delta)) hA
+  have hetaA : (0 : WithTop ℚ) ≤
+      (etaA46 (HahnSeries.C l) A B U (HahnSeries.C beta)
+        (HahnSeries.C gamma) (HahnSeries.C delta)).orderTop := by
+    simp only [etaA46]
+    exact hahnOrderTop_add_nonneg46 _ _
+      (hahnOrderTop_sub_nonneg46 _ _
+        (hahnOrderTop_add_nonneg46 _ _
+          (hahnOrderTop_add_nonneg46 _ _
+            (hahnOrderTop_sub_nonneg46 _ _
+              (hahnOrderTop_sub_nonneg46 _ _ hLA3 hLB2) hLAU)
+        hbetaA2) hBU) hgammaB) hdeltaA
+  have hneg516 : (0 : WithTop ℚ) ≤
+      (-5 / 16 : HahnSeries ℚ k).orderTop := by
+    rw [show (-5 / 16 : HahnSeries ℚ k) =
+      -((5 : HahnSeries ℚ k) / 16) by ring, HahnSeries.orderTop_neg]
+    exact hfrac 5 16
+  have hLAB := hahnOrderTop_mul_nonneg46
+    ((-5 / 16 : HahnSeries ℚ k) * HahnSeries.C l * A) B
+      (hahnOrderTop_mul_nonneg46 _ _
+        (hahnOrderTop_mul_nonneg46 _ _ hneg516 (hc l)) hA) hB
+  have hB2term := hahnOrderTop_mul_nonneg46
+    (3 / 4 : HahnSeries ℚ k) (B ^ 2) (hfrac 3 4) hB2
+  have hbetaB := hahnOrderTop_mul_nonneg46
+    ((3 / 4 : HahnSeries ℚ k) * HahnSeries.C beta) B
+      (hahnOrderTop_mul_nonneg46 _ _ (hfrac 3 4) (hc beta)) hB
+  have hetaB : (0 : WithTop ℚ) ≤
+      (etaB46 (HahnSeries.C l) A B (HahnSeries.C beta)).orderTop := by
+    simp only [etaB46]
+    exact hahnOrderTop_sub_nonneg46 _ _
+      (hahnOrderTop_sub_nonneg46 _ _
+        hLAB hB2term) hbetaB
+  have hneg15128 : (0 : WithTop ℚ) ≤
+      (-15 / 128 : HahnSeries ℚ k).orderTop := by
+    rw [show (-15 / 128 : HahnSeries ℚ k) =
+      -((15 : HahnSeries ℚ k) / 128) by ring, HahnSeries.orderTop_neg]
+    exact hfrac 15 128
+  have hLA2 := hahnOrderTop_mul_nonneg46
+    ((-15 / 128 : HahnSeries ℚ k) * HahnSeries.C l) (A ^ 2)
+      (hahnOrderTop_mul_nonneg46 _ _ hneg15128 (hc l)) hA2
+  have hLU := hahnOrderTop_mul_nonneg46
+    ((5 / 64 : HahnSeries ℚ k) * HahnSeries.C l) U
+      (hahnOrderTop_mul_nonneg46 _ _ (hfrac 5 64) (hc l)) hU
+  have hbetaA := hahnOrderTop_mul_nonneg46
+    ((3 / 16 : HahnSeries ℚ k) * HahnSeries.C beta) A
+      (hahnOrderTop_mul_nonneg46 _ _ (hfrac 3 16) (hc beta)) hA
+  have hdeltaterm := hahnOrderTop_mul_nonneg46
+    (1 / 4 : HahnSeries ℚ k) (HahnSeries.C delta)
+      (by simpa using hfrac 1 4) (hc delta)
+  have hetaU : (0 : WithTop ℚ) ≤
+      (etaU46 (HahnSeries.C l) A U (HahnSeries.C beta)
+        (HahnSeries.C delta)).orderTop := by
+    simp only [etaU46]
+    exact hahnOrderTop_sub_nonneg46 _ _
+      (hahnOrderTop_sub_nonneg46 _ _
+        (hahnOrderTop_add_nonneg46 _ _ hLA2 hLU)
+        hbetaA) hdeltaterm
+  simp only [eta46]
+  exact hahnOrderTop_add_nonneg46 _ _
+    (hahnOrderTop_add_nonneg46 _ _
+      (hahnOrderTop_mul_nonneg46 _ _ hetaA hdA)
+      (hahnOrderTop_mul_nonneg46 _ _ hetaB hdB))
+    (hahnOrderTop_mul_nonneg46 _ _ hetaU hdU)
+
+/-- A unit of order zero has inverse of order zero. -/
+theorem hahnOrderTop_inv_eq_zero46 (x : HahnSeries ℚ k)
+    (hx : x ≠ 0) (horder : x.orderTop = 0) :
+    x⁻¹.orderTop = 0 := by
+  have h := HahnSeries.orderTop_mul x x⁻¹
+  rw [mul_inv_cancel₀ hx, HahnSeries.orderTop_one, horder] at h
+  simpa using h.symm
+
+/-- If a rational function is regular at a finite place, then its reduced
+denominator does not vanish there. -/
+theorem ratFunc_denom_eval_ne_zero_of_orderTop_nonneg
+    (a : k) (f : RatFunc k)
+    (hf : (0 : WithTop ℚ) ≤ (ratFuncAtHahn46 a f).orderTop) :
+    f.denom.eval a ≠ 0 := by
+  intro hden0
+  have hcoprime := aeval_ne_zero_of_isCoprime f.isCoprime_num_denom a
+  have hnum : f.num.eval a ≠ 0 := by
+    rcases hcoprime with hnum | hden
+    · simpa [aeval_def, Polynomial.eval₂_at_apply] using hnum
+    · exact (hden (by
+        simpa [aeval_def, Polynomial.eval₂_at_apply] using hden0)).elim
+  let F : HahnSeries ℚ k := ratFuncAtHahn46 a f
+  let N : HahnSeries ℚ k :=
+    ratFuncAtHahn46 a (algebraMap k[X] (RatFunc k) f.num)
+  let D : HahnSeries ℚ k :=
+    ratFuncAtHahn46 a (algebraMap k[X] (RatFunc k) f.denom)
+  have hN : N.orderTop = 0 := by
+    dsimp only [N]
+    exact ratFuncAtHahn46_polynomial_orderTop_eq_zero_of_eval_ne a f.num hnum
+  have hD : (0 : WithTop ℚ) < D.orderTop := by
+    dsimp only [D]
+    exact ratFuncAtHahn46_polynomial_orderTop_pos_of_eval_eq_zero
+      a f.denom hden0 f.denom_ne_zero
+  have hrat : f * algebraMap k[X] (RatFunc k) f.denom =
+      algebraMap k[X] (RatFunc k) f.num := by
+    calc
+      f * algebraMap k[X] (RatFunc k) f.denom =
+          (algebraMap k[X] (RatFunc k) f.num /
+              algebraMap k[X] (RatFunc k) f.denom) *
+            algebraMap k[X] (RatFunc k) f.denom := by
+              rw [f.num_div_denom]
+      _ = algebraMap k[X] (RatFunc k) f.num :=
+        div_mul_cancel₀ _ (RatFunc.algebraMap_ne_zero f.denom_ne_zero)
+  have hmapped := congrArg (ratFuncAtHahn46 a) hrat
+  have hFD : F * D = N := by
+    simpa only [F, N, D, map_mul] using hmapped
+  have hprod : (0 : WithTop ℚ) < (F * D).orderTop := by
+    rw [HahnSeries.orderTop_mul]
+    exact hD.trans_le (by simpa [add_comm] using add_le_add_right hf D.orderTop)
+  rw [hFD, hN] at hprod
+  exact (lt_irrefl 0 hprod).elim
+
+/-- The standard rational derivative of a function regular at a finite
+place is regular there as well. -/
+theorem ratFuncAtHahn46_deriv_orderTop_nonneg_of_nonneg
+    [CharZero k] (a : k) (f : RatFunc k)
+    (hf : (0 : WithTop ℚ) ≤ (ratFuncAtHahn46 a f).orderTop) :
+    (0 : WithTop ℚ) ≤
+      (ratFuncAtHahn46 a (Differential.deriv f)).orderTop := by
+  letI : Algebra ℤ (RatFunc k) := Ring.toIntAlgebra (RatFunc k)
+  let N : HahnSeries ℚ k :=
+    ratFuncAtHahn46 a (algebraMap k[X] (RatFunc k) f.num)
+  let D : HahnSeries ℚ k :=
+    ratFuncAtHahn46 a (algebraMap k[X] (RatFunc k) f.denom)
+  let N' : HahnSeries ℚ k :=
+    ratFuncAtHahn46 a (algebraMap k[X] (RatFunc k) f.num.derivative)
+  let D' : HahnSeries ℚ k :=
+    ratFuncAtHahn46 a (algebraMap k[X] (RatFunc k) f.denom.derivative)
+  have hden := ratFunc_denom_eval_ne_zero_of_orderTop_nonneg a f hf
+  have hD0 : D.orderTop = 0 := by
+    dsimp only [D]
+    exact ratFuncAtHahn46_polynomial_orderTop_eq_zero_of_eval_ne
+      a f.denom hden
+  have hDne : D ≠ 0 := by
+    dsimp only [D]
+    simpa only [map_zero] using (ratFuncAtHahn46_injective a).ne
+      (RatFunc.algebraMap_ne_zero f.denom_ne_zero)
+  have hDinv : D⁻¹.orderTop = 0 :=
+    hahnOrderTop_inv_eq_zero46 D hDne hD0
+  have hN : (0 : WithTop ℚ) ≤ N.orderTop := by
+    dsimp only [N]
+    exact ratFuncAtHahn46_polynomial_orderTop_nonneg a f.num
+  have hD : (0 : WithTop ℚ) ≤ D.orderTop := hD0.ge
+  have hN' : (0 : WithTop ℚ) ≤ N'.orderTop := by
+    dsimp only [N']
+    exact ratFuncAtHahn46_polynomial_orderTop_nonneg a f.num.derivative
+  have hD' : (0 : WithTop ℚ) ≤ D'.orderTop := by
+    dsimp only [D']
+    exact ratFuncAtHahn46_polynomial_orderTop_nonneg a f.denom.derivative
+  have hinside : (0 : WithTop ℚ) ≤ (D * N' - N * D').orderTop := by
+    rw [sub_eq_add_neg]
+    apply hahnOrderTop_add_nonneg46
+    · exact hahnOrderTop_mul_nonneg46 D N' hD hN'
+    · simpa using hahnOrderTop_mul_nonneg46 N D' hN hD'
+  have hderiv : Differential.deriv f =
+      (algebraMap k[X] (RatFunc k) f.denom)⁻¹ ^ 2 *
+        (algebraMap k[X] (RatFunc k) f.denom *
+            algebraMap k[X] (RatFunc k) f.num.derivative -
+            algebraMap k[X] (RatFunc k) f.num *
+            algebraMap k[X] (RatFunc k) f.denom.derivative) := by
+    calc
+      Differential.deriv f = Differential.deriv
+          (algebraMap k[X] (RatFunc k) f.num /
+            algebraMap k[X] (RatFunc k) f.denom) :=
+        congrArg Differential.deriv f.num_div_denom.symm
+      _ = _ := by
+        rw [Derivation.leibniz_div, GCD369RatFuncDerivative,
+          GCD369RatFuncDerivative]
+        simp only [smul_eq_mul]
+  rw [hderiv]
+  simp only [map_mul, map_sub, map_pow, map_inv₀]
+  change (0 : WithTop ℚ) ≤ (D⁻¹ ^ 2 * (D * N' - N * D')).orderTop
+  apply hahnOrderTop_mul_nonneg46
+  · rw [pow_two, HahnSeries.orderTop_mul, hDinv]
+    simp
+  · exact hinside
+
+/-- At a zero of the nonzero common core, the nonzero last Jacobian row
+forces at least one of the three coefficient-curve coordinates to have a
+pole. -/
+theorem sourceLastRow_forces_coordinate_pole46
+    [CharZero k] (a : k) (h0 : k[X]) (j l beta gamma delta : k)
+    (A B U : RatFunc k) (hh0 : h0 ≠ 0) (hroot : h0.eval a = 0)
+    (hj : j ≠ 0)
+    (hlast : algebraMap k[X] (RatFunc k) h0 *
+      eta46 (algebraMap k (RatFunc k) l) A B U
+        (algebraMap k (RatFunc k) beta)
+        (algebraMap k (RatFunc k) gamma)
+        (algebraMap k (RatFunc k) delta)
+        (Differential.deriv A) (Differential.deriv B)
+        (Differential.deriv U) = RatFunc.C j) :
+    ¬ ((0 : WithTop ℚ) ≤ (ratFuncAtHahn46 a A).orderTop ∧
+      (0 : WithTop ℚ) ≤ (ratFuncAtHahn46 a B).orderTop ∧
+      (0 : WithTop ℚ) ≤ (ratFuncAtHahn46 a U).orderTop) := by
+  rintro ⟨hA, hB, hU⟩
+  let H : HahnSeries ℚ k :=
+    ratFuncAtHahn46 a (algebraMap k[X] (RatFunc k) h0)
+  let AH : HahnSeries ℚ k := ratFuncAtHahn46 a A
+  let BH : HahnSeries ℚ k := ratFuncAtHahn46 a B
+  let UH : HahnSeries ℚ k := ratFuncAtHahn46 a U
+  let dAH : HahnSeries ℚ k := ratFuncAtHahn46 a (Differential.deriv A)
+  let dBH : HahnSeries ℚ k := ratFuncAtHahn46 a (Differential.deriv B)
+  let dUH : HahnSeries ℚ k := ratFuncAtHahn46 a (Differential.deriv U)
+  have hHpos : (0 : WithTop ℚ) < H.orderTop := by
+    dsimp only [H]
+    exact ratFuncAtHahn46_polynomial_orderTop_pos_of_eval_eq_zero
+      a h0 hroot hh0
+  have hdA : (0 : WithTop ℚ) ≤ dAH.orderTop := by
+    dsimp only [dAH]
+    exact ratFuncAtHahn46_deriv_orderTop_nonneg_of_nonneg a A hA
+  have hdB : (0 : WithTop ℚ) ≤ dBH.orderTop := by
+    dsimp only [dBH]
+    exact ratFuncAtHahn46_deriv_orderTop_nonneg_of_nonneg a B hB
+  have hdU : (0 : WithTop ℚ) ≤ dUH.orderTop := by
+    dsimp only [dUH]
+    exact ratFuncAtHahn46_deriv_orderTop_nonneg_of_nonneg a U hU
+  have hetaMap : ratFuncAtHahn46 a
+        (eta46 (algebraMap k (RatFunc k) l) A B U
+          (algebraMap k (RatFunc k) beta)
+          (algebraMap k (RatFunc k) gamma)
+          (algebraMap k (RatFunc k) delta)
+          (Differential.deriv A) (Differential.deriv B)
+          (Differential.deriv U)) =
+      eta46 (HahnSeries.C l) AH BH UH (HahnSeries.C beta)
+        (HahnSeries.C gamma) (HahnSeries.C delta) dAH dBH dUH := by
+    simp only [eta46, etaA46, etaB46, etaU46, AH, BH, UH, dAH, dBH,
+      dUH, map_add, map_sub, map_mul, map_pow, map_neg, map_div₀,
+      map_ofNat, map_one, RatFunc.algebraMap_eq_C, ratFuncAtHahn46_C]
+  have heta : (0 : WithTop ℚ) ≤
+      (eta46 (HahnSeries.C l) AH BH UH (HahnSeries.C beta)
+        (HahnSeries.C gamma) (HahnSeries.C delta) dAH dBH dUH).orderTop :=
+    hahnEta46_orderTop_nonneg l beta gamma delta AH BH UH dAH dBH dUH
+      hA hB hU hdA hdB hdU
+  have hmapped := congrArg (ratFuncAtHahn46 a) hlast
+  have hproduct : H *
+      eta46 (HahnSeries.C l) AH BH UH (HahnSeries.C beta)
+        (HahnSeries.C gamma) (HahnSeries.C delta) dAH dBH dUH =
+      HahnSeries.C j := by
+    simpa only [H, map_mul, hetaMap, ratFuncAtHahn46_C] using hmapped
+  have hprodpos : (0 : WithTop ℚ) <
+      (H * eta46 (HahnSeries.C l) AH BH UH (HahnSeries.C beta)
+        (HahnSeries.C gamma) (HahnSeries.C delta) dAH dBH dUH).orderTop := by
+    rw [HahnSeries.orderTop_mul]
+    exact hHpos.trans_le (by
+      simpa [add_comm] using add_le_add_left heta H.orderTop)
+  rw [hproduct, HahnSeries.C_apply, HahnSeries.orderTop_single hj] at hprodpos
+  exact (lt_irrefl 0 (by simpa using hprodpos)).elim
+
 section OrderNormalization
 
 /-- Divide every rational Hahn exponent by a selected positive order. -/
