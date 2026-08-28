@@ -857,6 +857,52 @@ local instance sourceHahnCharZero46 : CharZero (HahnSeries ℚ k) :=
   charZero_of_injective_ringHom
     (HahnSeries.C_injective (R := k) (Γ := ℚ))
 
+/-- The inverse of a nonzero Hahn series negates its finite order. -/
+theorem hahnOrderTop_inv_eq_neg46
+    (x : HahnSeries ℚ k) (a : ℚ) (hx : x ≠ 0)
+    (horder : x.orderTop = (↑a : WithTop ℚ)) :
+    x⁻¹.orderTop = (↑(-a) : WithTop ℚ) := by
+  have hinv : x⁻¹ ≠ 0 := inv_ne_zero hx
+  have hxord : x.order = a := by
+    apply WithTop.coe_injective
+    rw [HahnSeries.order_eq_orderTop_of_ne_zero hx, horder]
+  have hmul : (x * x⁻¹).order = x.order + x⁻¹.order := by
+    apply HahnSeries.order_mul_of_ne_zero
+    simp [hx]
+  rw [mul_inv_cancel₀ hx, HahnSeries.order_one, hxord] at hmul
+  have hinvord : x⁻¹.order = -a := by linarith
+  rw [← HahnSeries.order_eq_orderTop_of_ne_zero hinv, hinvord]
+
+/-- A strictly positive Hahn series is either zero or has a finite positive
+order, in the format expected by the finite-pole exclusions. -/
+theorem positiveFiniteOrZero46_of_orderTop_pos
+    (x : HahnSeries ℚ k) (hx : (0 : WithTop ℚ) < x.orderTop) :
+    PositiveFiniteOrZero46 x := by
+  by_cases hx0 : x = 0
+  · exact Or.inl hx0
+  · right
+    refine ⟨x.order, ?_, ?_⟩
+    · have hx' : (↑(0 : ℚ) : WithTop ℚ) <
+          (↑x.order : WithTop ℚ) := by
+        rw [HahnSeries.order_eq_orderTop_of_ne_zero hx0]
+        exact hx
+      exact WithTop.coe_lt_coe.mp hx'
+    · exact (HahnSeries.order_eq_orderTop_of_ne_zero hx0).symm
+
+/-- Positive finite-or-zero order survives division of all exponents by a
+positive rational. -/
+theorem normalizeHahnOrder46_positiveFiniteOrZero
+    (rho : ℚ) (hrho : 0 < rho) (x : HahnSeries ℚ k)
+    (hx : (0 : WithTop ℚ) < x.orderTop) :
+    PositiveFiniteOrZero46 (normalizeHahnOrder46 rho hrho x) := by
+  rcases positiveFiniteOrZero46_of_orderTop_pos x hx with hx0 | ⟨a, ha, horder⟩
+  · left
+    simp [hx0]
+  · right
+    refine ⟨a / rho, div_pos ha hrho, ?_⟩
+    rw [normalizeHahnOrder46_orderTop, horder, WithTop.map_coe]
+    rfl
+
 /-- At any zero of the common core, the literal source package reaches the
 unique weighted infinity point.  This is the source-level bridge consumed
 by the scale-two closure. -/
@@ -958,6 +1004,275 @@ theorem SquareConstantLSourceCurveData46.weightedInfinity_dominant_at_root
   simpa only [rH, qH, BH, UH] using
     (weightedInfinity_dominant_r46 l S.beta S.gamma S.delta S.k2 S.k1
       rH qH BH UH D E hpole hDreg hEreg hD hE hJ2 hJ1)
+
+/-- In the mismatch stratum `l ≠ 0`, a zero of the common core produces a
+normalized positive local trajectory, contradicting the exhaustive
+regular-load finite-pole theorem. -/
+theorem SquareConstantLSourceCurveData46.mismatch_impossible_at_root
+    {p q : k[X][X]} {j : k} {h0 : k[X]} {l : k}
+    (S : SquareConstantLSourceCurveData46 p q j h0 l)
+    (a : k) (hh0 : h0 ≠ 0) (hroot : h0.eval a = 0)
+    (hj : j ≠ 0) (hl : l ≠ 0) : False := by
+  let rH : HahnSeries ℚ k := ratFuncAtHahn46 a S.r
+  let qH : HahnSeries ℚ k :=
+    ratFuncAtHahn46 a (translatedQ46 S.r S.A)
+  let AH : HahnSeries ℚ k := ratFuncAtHahn46 a S.A
+  let BH : HahnSeries ℚ k := ratFuncAtHahn46 a S.B
+  let UH : HahnSeries ℚ k :=
+    ratFuncAtHahn46 a (S.A ^ 2 - 4 * S.C0)
+  let D : HahnSeries ℚ k :=
+    ratFuncAtHahn46 a (algebraMap k[X] (RatFunc k) (p.coeff 0))
+  let E : HahnSeries ℚ k :=
+    ratFuncAtHahn46 a (algebraMap k[X] (RatFunc k)
+      (q.coeff 0 - C S.alpha * p.coeff 0 - C S.epsilon))
+  have hA : AH = 2 * qH - 2 * rH ^ 2 := by
+    dsimp only [AH, qH, rH]
+    simp only [translatedQ46, map_add, map_mul, map_pow,
+      map_div₀, map_ofNat, map_one]
+    ring
+  have hDreg : (0 : WithTop ℚ) ≤ D.orderTop := by
+    dsimp only [D]
+    exact ratFuncAtHahn46_polynomial_orderTop_nonneg a (p.coeff 0)
+  have hEreg : (0 : WithTop ℚ) ≤ E.orderTop := by
+    dsimp only [E]
+    exact ratFuncAtHahn46_polynomial_orderTop_nonneg a
+      (q.coeff 0 - C S.alpha * p.coeff 0 - C S.epsilon)
+  have hD : boundaryD46 rH qH BH UH = D := by
+    have hmapped := congrArg (ratFuncAtHahn46 a) S.boundaryD
+    simpa only [rH, qH, BH, UH, D, boundaryD46, map_add, map_sub,
+      map_mul, map_pow, map_div₀, map_ofNat, map_one] using hmapped
+  have hE : boundaryE46 (HahnSeries.C l) rH qH BH UH
+      (HahnSeries.C S.beta) (HahnSeries.C S.gamma)
+      (HahnSeries.C S.delta) = E := by
+    have hmapped := congrArg (ratFuncAtHahn46 a) S.boundaryE
+    simpa only [rH, qH, BH, UH, E, boundaryE46, map_add, map_sub,
+      map_mul, map_pow, map_div₀, map_neg, map_ofNat, map_one,
+      RatFunc.algebraMap_eq_C, ratFuncAtHahn46_C] using hmapped
+  have hJ2A : coefficientCurveTwo46 (HahnSeries.C l) AH BH UH
+      (HahnSeries.C S.beta) (HahnSeries.C S.gamma)
+      (HahnSeries.C S.delta) = HahnSeries.C S.k2 := by
+    have hmapped := congrArg (ratFuncAtHahn46 a) S.curveTwo
+    simpa only [AH, BH, UH, coefficientCurveTwo46, map_add, map_sub,
+      map_mul, map_pow, map_div₀, map_neg, map_ofNat, map_one,
+      RatFunc.algebraMap_eq_C, ratFuncAtHahn46_C] using hmapped
+  have hJ1A : coefficientCurveOne46 (HahnSeries.C l) AH BH UH
+      (HahnSeries.C S.beta) (HahnSeries.C S.gamma)
+      (HahnSeries.C S.delta) = HahnSeries.C S.k1 := by
+    have hmapped := congrArg (ratFuncAtHahn46 a) S.curveOne
+    simpa only [AH, BH, UH, coefficientCurveOne46, map_add, map_sub,
+      map_mul, map_pow, map_div₀, map_neg, map_ofNat, map_one,
+      RatFunc.algebraMap_eq_C, ratFuncAtHahn46_C] using hmapped
+  rcases S.weightedInfinity_dominant_at_root a hh0 hroot hj with
+    ⟨rho, hrho, hrPole, hqPole, hBPole, hUPole⟩
+  change rH.orderTop = (↑(-rho) : WithTop ℚ) at hrPole
+  change (↑(-2 * rho) : WithTop ℚ) < qH.orderTop at hqPole
+  change (↑(-3 * rho) : WithTop ℚ) < BH.orderTop at hBPole
+  change (↑(-4 * rho) : WithTop ℚ) < UH.orderTop at hUPole
+  have hrHne : rH ≠ 0 := by
+    intro hr0
+    rw [hr0, HahnSeries.orderTop_zero] at hrPole
+    exact WithTop.coe_ne_top hrPole.symm
+  let s0 : HahnSeries ℚ k := rH⁻¹
+  let Q0 : HahnSeries ℚ k := qH * s0 ^ 2
+  let Y0 : HahnSeries ℚ k := BH * s0 ^ 3
+  let Z0 : HahnSeries ℚ k := UH * s0 ^ 4
+  have hs0ne : s0 ≠ 0 := inv_ne_zero hrHne
+  have hs0Order : s0.orderTop = (↑rho : WithTop ℚ) := by
+    dsimp only [s0]
+    simpa only [neg_neg] using
+      hahnOrderTop_inv_eq_neg46 rH (-rho) hrHne hrPole
+  have hs02 : (s0 ^ 2).orderTop = (↑(2 * rho) : WithTop ℚ) := by
+    simpa using hahnOrderTop_pow_eq46 s0 rho 2 hs0Order
+  have hs03 : (s0 ^ 3).orderTop = (↑(3 * rho) : WithTop ℚ) := by
+    simpa using hahnOrderTop_pow_eq46 s0 rho 3 hs0Order
+  have hs04 : (s0 ^ 4).orderTop = (↑(4 * rho) : WithTop ℚ) := by
+    simpa using hahnOrderTop_pow_eq46 s0 rho 4 hs0Order
+  have hQ0pos : (0 : WithTop ℚ) < Q0.orderTop := by
+    dsimp only [Q0]
+    rw [HahnSeries.orderTop_mul, hs02]
+    have h : (↑(-2 * rho) : WithTop ℚ) + ↑(2 * rho) <
+        qH.orderTop + ↑(2 * rho) :=
+      (add_lt_add_iff_left_of_ne_top WithTop.coe_ne_top).mpr hqPole
+    rw [← WithTop.coe_add, show -2 * rho + 2 * rho = 0 by ring] at h
+    exact h
+  have hY0pos : (0 : WithTop ℚ) < Y0.orderTop := by
+    dsimp only [Y0]
+    rw [HahnSeries.orderTop_mul, hs03]
+    have h : (↑(-3 * rho) : WithTop ℚ) + ↑(3 * rho) <
+        BH.orderTop + ↑(3 * rho) :=
+      (add_lt_add_iff_left_of_ne_top WithTop.coe_ne_top).mpr hBPole
+    rw [← WithTop.coe_add, show -3 * rho + 3 * rho = 0 by ring] at h
+    exact h
+  have hZ0pos : (0 : WithTop ℚ) < Z0.orderTop := by
+    dsimp only [Z0]
+    rw [HahnSeries.orderTop_mul, hs04]
+    have h : (↑(-4 * rho) : WithTop ℚ) + ↑(4 * rho) <
+        UH.orderTop + ↑(4 * rho) :=
+      (add_lt_add_iff_left_of_ne_top WithTop.coe_ne_top).mpr hUPole
+    rw [← WithTop.coe_add, show -4 * rho + 4 * rho = 0 by ring] at h
+    exact h
+  have hrRecover : localChartR46 s0 = rH := by
+    simp [localChartR46, s0]
+  have hqRecover : localChartQ46 s0 Q0 = qH := by
+    dsimp only [localChartQ46, Q0, s0]
+    field_simp [hrHne]
+  have hBRecover : localChartB46 s0 Y0 = BH := by
+    dsimp only [localChartB46, Y0, s0]
+    field_simp [hrHne]
+  have hURecover : localChartU46 s0 Z0 = UH := by
+    dsimp only [localChartU46, Z0, s0]
+    field_simp [hrHne]
+  have hARecover : localChartA46 s0 Q0 = AH := by
+    simp only [localChartA46, hqRecover, hrRecover]
+    exact hA.symm
+  have hF0 : localChartF46 s0 Q0 Y0 Z0 D = 0 := by
+    rw [← clear_boundaryD46_localChart s0 Q0 Y0 Z0 D hs0ne,
+      hrRecover, hqRecover, hBRecover, hURecover, hD, sub_self, mul_zero]
+  have hG0 : localChartG46 (HahnSeries.C l) s0 Q0 Y0 Z0
+      (HahnSeries.C S.beta) (HahnSeries.C S.gamma)
+      (HahnSeries.C S.delta) E = 0 := by
+    rw [← clear_boundaryE46_localChart (HahnSeries.C l) s0 Q0 Y0 Z0
+      (HahnSeries.C S.beta) (HahnSeries.C S.gamma)
+      (HahnSeries.C S.delta) E hs0ne,
+      hrRecover, hqRecover, hBRecover, hURecover, hE, sub_self, mul_zero]
+  have hJ20 : localChartJTwo46 (HahnSeries.C l) s0 Q0 Y0 Z0
+      (HahnSeries.C S.beta) (HahnSeries.C S.gamma)
+      (HahnSeries.C S.delta) (HahnSeries.C S.k2) = 0 := by
+    rw [← clear_coefficientCurveTwo46_localChart (HahnSeries.C l)
+      s0 Q0 Y0 Z0 (HahnSeries.C S.beta) (HahnSeries.C S.gamma)
+      (HahnSeries.C S.delta) (HahnSeries.C S.k2) hs0ne,
+      hARecover, hBRecover, hURecover, hJ2A, sub_self, mul_zero]
+  have hJ10 : localChartJOne46 (HahnSeries.C l) s0 Q0 Y0 Z0
+      (HahnSeries.C S.beta) (HahnSeries.C S.gamma)
+      (HahnSeries.C S.delta) (HahnSeries.C S.k1) = 0 := by
+    rw [← clear_coefficientCurveOne46_localChart (HahnSeries.C l)
+      s0 Q0 Y0 Z0 (HahnSeries.C S.beta) (HahnSeries.C S.gamma)
+      (HahnSeries.C S.delta) (HahnSeries.C S.k1) hs0ne,
+      hARecover, hBRecover, hURecover, hJ1A, sub_self, mul_zero]
+  let N := normalizeHahnOrder46 (k := k) rho hrho
+  let s := N s0
+  let Q := N Q0
+  let Y := N Y0
+  let Z := N Z0
+  let DN := N D
+  let EN := N E
+  have hs : s.orderTop = (↑(1 : ℚ) : WithTop ℚ) := by
+    dsimp only [s, N]
+    exact normalizeHahnOrder46_orderTop_eq_one rho hrho s0 hs0Order
+  have hQcase : PositiveFiniteOrZero46 Q := by
+    dsimp only [Q, N]
+    exact normalizeHahnOrder46_positiveFiniteOrZero rho hrho Q0 hQ0pos
+  have hYcase : PositiveFiniteOrZero46 Y := by
+    dsimp only [Y, N]
+    exact normalizeHahnOrder46_positiveFiniteOrZero rho hrho Y0 hY0pos
+  have hZcase : PositiveFiniteOrZero46 Z := by
+    dsimp only [Z, N]
+    exact normalizeHahnOrder46_positiveFiniteOrZero rho hrho Z0 hZ0pos
+  have hDN : (0 : WithTop ℚ) ≤ DN.orderTop := by
+    dsimp only [DN, N]
+    exact normalizeHahnOrder46_orderTop_nonneg rho hrho D hDreg
+  have hEN : (0 : WithTop ℚ) ≤ EN.orderTop := by
+    dsimp only [EN, N]
+    exact normalizeHahnOrder46_orderTop_nonneg rho hrho E hEreg
+  have hF : localChartF46 s Q Y Z DN = 0 := by
+    have hmapped := congrArg N hF0
+    simpa only [s, Q, Y, Z, DN, N, localChartF46, map_add, map_sub,
+      map_mul, map_pow, map_div₀, map_ofNat, map_one, map_zero] using hmapped
+  have hG : localChartG46 (HahnSeries.C l) s Q Y Z
+      (HahnSeries.C S.beta) (HahnSeries.C S.gamma)
+      (HahnSeries.C S.delta) EN = 0 := by
+    have hmapped := congrArg N hG0
+    simpa only [s, Q, Y, Z, EN, N, localChartG46, map_add, map_sub,
+      map_mul, map_pow, map_div₀, map_neg, map_ofNat, map_one, map_zero,
+      normalizeHahnOrder46_C] using hmapped
+  have hJ2 : localChartJTwo46 (HahnSeries.C l) s Q Y Z
+      (HahnSeries.C S.beta) (HahnSeries.C S.gamma)
+      (HahnSeries.C S.delta) (HahnSeries.C S.k2) = 0 := by
+    have hmapped := congrArg N hJ20
+    simpa only [s, Q, Y, Z, N, localChartJTwo46, map_add, map_sub,
+      map_mul, map_pow, map_div₀, map_neg, map_ofNat, map_one, map_zero,
+      normalizeHahnOrder46_C] using hmapped
+  have hJ1 : localChartJOne46 (HahnSeries.C l) s Q Y Z
+      (HahnSeries.C S.beta) (HahnSeries.C S.gamma)
+      (HahnSeries.C S.delta) (HahnSeries.C S.k1) = 0 := by
+    have hmapped := congrArg N hJ10
+    simpa only [s, Q, Y, Z, N, localChartJOne46, map_add, map_sub,
+      map_mul, map_pow, map_div₀, map_neg, map_ofNat, map_one, map_zero,
+      normalizeHahnOrder46_C] using hmapped
+  exact mismatchFinitePole46_exhaustive_regular
+    l S.beta S.gamma S.delta DN EN S.k2 S.k1 s Q Y Z hl hDN hEN hs
+      hQcase hYcase hZcase hF hG hJ2 hJ1
+
+open scoped Polynomial.Bivariate
+
+/-- The nonaligned square branch of a normalized scale-two `(4,6)` source
+is impossible.  Its square root has degree one, so its unique finite root
+feeds the weighted-infinity contradiction above. -/
+theorem normalized46ScaleTwo_squareBranch_impossible
+    {P Q : MvPolynomial (Fin 2) k} {H h0 : k[X]} {lambda : k}
+    (hsource : Normalized46LeadingCoreSource P Q H 2)
+    (hh0 : h0 ≠ 0) (hlambda : lambda ≠ 0) (hH : H = h0 ^ 2)
+    (hmismatch :
+      let p := (Polynomial.Bivariate.equivMvPolynomial k).symm P
+      let q := (Polynomial.Bivariate.equivMvPolynomial k).symm Q
+      (3 : k[X]) * p.coeff 3 * H - (2 : k[X]) * q.coeff 5 =
+        C lambda * h0 ^ 5) : False := by
+  rcases hsource with
+    ⟨_hHne, hHdegree, hPdegree, hQdegree, hp4, hq6, hKeller⟩
+  let p := (Polynomial.Bivariate.equivMvPolynomial k).symm P
+  let q := (Polynomial.Bivariate.equivMvPolynomial k).symm Q
+  have hp : p.natDegree = 4 := by
+    simpa only [p, natDegree_bivariate_eq_degreeOf_y] using hPdegree
+  have hq : q.natDegree = 6 := by
+    simpa only [q, natDegree_bivariate_eq_degreeOf_y] using hQdegree
+  have hp4' : p.coeff 4 = H ^ 2 := by simpa only [p] using hp4
+  have hq6' : q.coeff 6 = H ^ 3 := by simpa only [q] using hq6
+  have hmismatch' : (3 : k[X]) * p.coeff 3 * H -
+      (2 : k[X]) * q.coeff 5 = C lambda * h0 ^ 5 := by
+    simpa only [p, q] using hmismatch
+  have hh0degree : h0.natDegree = 1 := by
+    have hdeg := congrArg Polynomial.natDegree hH
+    rw [hHdegree, natDegree_pow] at hdeg
+    omega
+  obtain ⟨c, hc, d, hlinear⟩ := Polynomial.natDegree_eq_one.mp hh0degree
+  let a : k := -d / c
+  have hroot : h0.eval a = 0 := by
+    rw [← hlinear]
+    simp only [eval_add, eval_mul, eval_C, eval_X]
+    dsimp only [a]
+    field_simp [hc]
+    ring
+  obtain ⟨j, hj, hjac⟩ := bivariateJacobian_eq_C_of_keller hKeller
+  have hD : GCD369SourceXDeriv p * derivative q -
+      derivative p * GCD369SourceXDeriv q = C (C j) := by
+    simpa only [bivariateJacobian, xderiv, GCD369SourceXDeriv] using hjac
+  have hmapped := congrArg (algebraMap k[X] (RatFunc k)) hmismatch'
+  have hmapped' :
+      3 * algebraMap k[X] (RatFunc k) (p.coeff 3) *
+          (algebraMap k[X] (RatFunc k) h0) ^ 2 -
+        2 * algebraMap k[X] (RatFunc k) (q.coeff 5) =
+      RatFunc.C lambda * (algebraMap k[X] (RatFunc k) h0) ^ 5 := by
+    simpa only [hH, map_sub, map_mul, map_pow, map_ofNat,
+      RatFunc.algebraMap_C] using hmapped
+  have hhRat : algebraMap k[X] (RatFunc k) h0 ≠ 0 :=
+    RatFunc.algebraMap_ne_zero hh0
+  have hLraw := depressedL46_eq_of_mismatch
+    (algebraMap k[X] (RatFunc k) h0)
+    (algebraMap k[X] (RatFunc k) (p.coeff 3))
+    (algebraMap k[X] (RatFunc k) (q.coeff 5))
+    (RatFunc.C lambda) hhRat hmapped'
+  have hL : depressedL46
+      (algebraMap k[X] (RatFunc k) h0)
+      (quarticDepressionR46 (algebraMap k[X] (RatFunc k) h0)
+        (algebraMap k[X] (RatFunc k) (p.coeff 3)))
+      (algebraMap k[X] (RatFunc k) (q.coeff 5)) =
+      algebraMap k (RatFunc k) (-lambda / 2) := by
+    rw [hLraw]
+    simp only [RatFunc.algebraMap_eq_C, map_neg, map_div₀, map_ofNat]
+  obtain ⟨S⟩ := squareConstantLSourceCurveData46
+    p q H h0 j (-lambda / 2) hp hq hh0 hH hp4' hq6' hL hD
+  have hl : -lambda / 2 ≠ 0 := div_ne_zero (neg_ne_zero.mpr hlambda) (by norm_num)
+  exact S.mismatch_impossible_at_root a hh0 hroot hj hl
 
 end SourcePoleSpecialization
 
