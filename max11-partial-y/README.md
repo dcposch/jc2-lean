@@ -241,6 +241,10 @@ not treated as an established theorem.
   functions, while `k2=0` splits into `B=0` and `V=0`, the latter closing by
   the square unit-product theorem.  Thus every aligned polynomial trajectory
   has now been excluded.
+  `LowScale46AlignedZeroFinitePoles.lean` begins the remaining final-stratum
+  finite-pole calculation.  It verifies the exact cleared equations for
+  `W=s^4(U-8gamma/3)` and proves directly from the literal local `J2,J1`
+  rows that `k2!=0` forces `v(Y)=v(W)=7/2`.
   `LowScale46Depression.lean` performs the exact source substitution
   `y=(z-r)/h` on the quartic and sextic and proves that the normalized quintic
   coefficient is zero in the aligned branch and `-lambda/2` in the mismatch
@@ -310,6 +314,7 @@ lake build
 `LowScale46Integrality.lean`, `LowScale46NewtonFaces.lean`,
 `LowScale46PolynomialEndgame.lean`, `LowScale46FinitePoles.lean`,
 `LowScale46AlignedFinitePoles.lean`,
-`LowScale46AlignedPolynomialEndgame.lean`, and `Max11Assembly.lean`
+`LowScale46AlignedPolynomialEndgame.lean`,
+`LowScale46AlignedZeroFinitePoles.lean`, and `Max11Assembly.lean`
 contain no `sorry`, custom axioms, or trust escapes.  The
 permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.
