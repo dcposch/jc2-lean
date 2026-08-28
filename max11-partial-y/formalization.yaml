@@ -152,9 +152,11 @@ status:
     unit-product contradictions are also proved.  Generic three- and
     four-term Hahn-series tied-minimum lemmas and the exhaustive rational
     Newton-face tables for both aligned strata are proved.  Their
-    instantiation on every term of the full cleared equations, the mismatch
-    finite-pole step, and the full polynomial leading-term bridge needed to
-    close (4,6) are not yet formalized.  The normalized H = 0 and H = 2
+    instantiation on every term of the full cleared equations and the mismatch
+    finite-pole step are not yet formalized.  The generic polynomial
+    leading-term bridge, including a strictly lower-degree remainder, is
+    proved; its instantiation on the coefficient-curve equations remains.
+    The normalized H = 0 and H = 2
     sources also remain open at the other four pairs.
     Not proved here: scalar-extension/descent, the
     prime-total-degree-gcd theorem itself, the standard-endpoint theorem
@@ -187,6 +189,11 @@ status:
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator.json"
     - declaration: "Max11DegreeRoutes.mismatchDegreeCone46"
+      file: "LowScale46DegreeCones.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.maxTie4_of_polynomial_sum_add_lower_eq_zero46"
       file: "LowScale46DegreeCones.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]

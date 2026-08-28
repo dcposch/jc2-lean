@@ -11,6 +11,8 @@ are solved exactly as well.
 
 namespace Max11DegreeRoutes
 
+open Polynomial
+
 /-- Among four natural numbers, the maximum is attained at least twice. -/
 def MaxTie4 (a b c d : ℕ) : Prop :=
   (a = b ∧ c ≤ a ∧ d ≤ a) ∨
@@ -19,6 +21,146 @@ def MaxTie4 (a b c d : ℕ) : Prop :=
   (b = c ∧ a ≤ b ∧ d ≤ b) ∨
   (b = d ∧ a ≤ b ∧ c ≤ b) ∨
   (c = d ∧ a ≤ c ∧ b ≤ c)
+
+section PolynomialMaximum
+
+variable {F : Type*} [Field F]
+
+/-- Four nonzero polynomial terms summing to zero cannot have a unique
+largest degree. -/
+theorem maxTie4_of_polynomial_sum_eq_zero46
+    (p q r s : Polynomial F) (hp : p ≠ 0) (hq : q ≠ 0)
+    (hr : r ≠ 0) (hs : s ≠ 0) (hsum : p + q + r + s = 0) :
+    MaxTie4 p.natDegree q.natDegree r.natDegree s.natDegree := by
+  by_contra hnot
+  have hunique :
+      (q.natDegree < p.natDegree ∧ r.natDegree < p.natDegree ∧
+        s.natDegree < p.natDegree) ∨
+      (p.natDegree < q.natDegree ∧ r.natDegree < q.natDegree ∧
+        s.natDegree < q.natDegree) ∨
+      (p.natDegree < r.natDegree ∧ q.natDegree < r.natDegree ∧
+        s.natDegree < r.natDegree) ∨
+      (p.natDegree < s.natDegree ∧ q.natDegree < s.natDegree ∧
+        r.natDegree < s.natDegree) := by
+    simp only [MaxTie4, not_or, not_and_or, not_le] at hnot
+    omega
+  rcases hunique with hP | hQ | hR | hS
+  · have hq0 := coeff_eq_zero_of_natDegree_lt hP.1
+    have hr0 := coeff_eq_zero_of_natDegree_lt hP.2.1
+    have hs0 := coeff_eq_zero_of_natDegree_lt hP.2.2
+    have hcoeff := congrArg (fun t : Polynomial F => t.coeff p.natDegree) hsum
+    simp only [coeff_add, coeff_zero, hq0, hr0, hs0, add_zero] at hcoeff
+    have hp0 : p.coeff p.natDegree ≠ 0 := by
+      rw [coeff_natDegree]
+      exact leadingCoeff_ne_zero.mpr hp
+    exact hp0 hcoeff
+  · have hp0 := coeff_eq_zero_of_natDegree_lt hQ.1
+    have hr0 := coeff_eq_zero_of_natDegree_lt hQ.2.1
+    have hs0 := coeff_eq_zero_of_natDegree_lt hQ.2.2
+    have hcoeff := congrArg (fun t : Polynomial F => t.coeff q.natDegree) hsum
+    simp only [coeff_add, coeff_zero, hp0, hr0, hs0, zero_add, add_zero] at hcoeff
+    have hq0 : q.coeff q.natDegree ≠ 0 := by
+      rw [coeff_natDegree]
+      exact leadingCoeff_ne_zero.mpr hq
+    exact hq0 hcoeff
+  · have hp0 := coeff_eq_zero_of_natDegree_lt hR.1
+    have hq0 := coeff_eq_zero_of_natDegree_lt hR.2.1
+    have hs0 := coeff_eq_zero_of_natDegree_lt hR.2.2
+    have hcoeff := congrArg (fun t : Polynomial F => t.coeff r.natDegree) hsum
+    simp only [coeff_add, coeff_zero, hp0, hq0, hs0, zero_add, add_zero] at hcoeff
+    have hr0 : r.coeff r.natDegree ≠ 0 := by
+      rw [coeff_natDegree]
+      exact leadingCoeff_ne_zero.mpr hr
+    exact hr0 hcoeff
+  · have hp0 := coeff_eq_zero_of_natDegree_lt hS.1
+    have hq0 := coeff_eq_zero_of_natDegree_lt hS.2.1
+    have hr0 := coeff_eq_zero_of_natDegree_lt hS.2.2
+    have hcoeff := congrArg (fun t : Polynomial F => t.coeff s.natDegree) hsum
+    simp only [coeff_add, coeff_zero, hp0, hq0, hr0, zero_add] at hcoeff
+    have hs0 : s.coeff s.natDegree ≠ 0 := by
+      rw [coeff_natDegree]
+      exact leadingCoeff_ne_zero.mpr hs
+    exact hs0 hcoeff
+
+/-- The same maximum-tie conclusion remains valid in the presence of a
+remainder whose degree is below the maximum of the four displayed terms. -/
+theorem maxTie4_of_polynomial_sum_add_lower_eq_zero46
+    (p q r s t : Polynomial F) (hp : p ≠ 0) (hq : q ≠ 0)
+    (hr : r ≠ 0) (hs : s ≠ 0)
+    (ht : t.natDegree < max (max p.natDegree q.natDegree)
+      (max r.natDegree s.natDegree))
+    (hsum : p + q + r + s + t = 0) :
+    MaxTie4 p.natDegree q.natDegree r.natDegree s.natDegree := by
+  by_contra hnot
+  have hunique :
+      (q.natDegree < p.natDegree ∧ r.natDegree < p.natDegree ∧
+        s.natDegree < p.natDegree) ∨
+      (p.natDegree < q.natDegree ∧ r.natDegree < q.natDegree ∧
+        s.natDegree < q.natDegree) ∨
+      (p.natDegree < r.natDegree ∧ q.natDegree < r.natDegree ∧
+        s.natDegree < r.natDegree) ∨
+      (p.natDegree < s.natDegree ∧ q.natDegree < s.natDegree ∧
+        r.natDegree < s.natDegree) := by
+    simp only [MaxTie4, not_or, not_and_or, not_le] at hnot
+    omega
+  rcases hunique with hP | hQ | hR | hS
+  · have hmax : max (max p.natDegree q.natDegree)
+        (max r.natDegree s.natDegree) = p.natDegree := by omega
+    rw [hmax] at ht
+    have hq0 := coeff_eq_zero_of_natDegree_lt hP.1
+    have hr0 := coeff_eq_zero_of_natDegree_lt hP.2.1
+    have hs0 := coeff_eq_zero_of_natDegree_lt hP.2.2
+    have ht0 := coeff_eq_zero_of_natDegree_lt ht
+    have hcoeff := congrArg (fun u : Polynomial F => u.coeff p.natDegree) hsum
+    simp only [coeff_add, coeff_zero, hq0, hr0, hs0, ht0, add_zero] at hcoeff
+    have hpLead : p.coeff p.natDegree ≠ 0 := by
+      rw [coeff_natDegree]
+      exact leadingCoeff_ne_zero.mpr hp
+    exact hpLead hcoeff
+  · have hmax : max (max p.natDegree q.natDegree)
+        (max r.natDegree s.natDegree) = q.natDegree := by omega
+    rw [hmax] at ht
+    have hp0 := coeff_eq_zero_of_natDegree_lt hQ.1
+    have hr0 := coeff_eq_zero_of_natDegree_lt hQ.2.1
+    have hs0 := coeff_eq_zero_of_natDegree_lt hQ.2.2
+    have ht0 := coeff_eq_zero_of_natDegree_lt ht
+    have hcoeff := congrArg (fun u : Polynomial F => u.coeff q.natDegree) hsum
+    simp only [coeff_add, coeff_zero, hp0, hr0, hs0, ht0, zero_add,
+      add_zero] at hcoeff
+    have hqLead : q.coeff q.natDegree ≠ 0 := by
+      rw [coeff_natDegree]
+      exact leadingCoeff_ne_zero.mpr hq
+    exact hqLead hcoeff
+  · have hmax : max (max p.natDegree q.natDegree)
+        (max r.natDegree s.natDegree) = r.natDegree := by omega
+    rw [hmax] at ht
+    have hp0 := coeff_eq_zero_of_natDegree_lt hR.1
+    have hq0 := coeff_eq_zero_of_natDegree_lt hR.2.1
+    have hs0 := coeff_eq_zero_of_natDegree_lt hR.2.2
+    have ht0 := coeff_eq_zero_of_natDegree_lt ht
+    have hcoeff := congrArg (fun u : Polynomial F => u.coeff r.natDegree) hsum
+    simp only [coeff_add, coeff_zero, hp0, hq0, hs0, ht0, zero_add,
+      add_zero] at hcoeff
+    have hrLead : r.coeff r.natDegree ≠ 0 := by
+      rw [coeff_natDegree]
+      exact leadingCoeff_ne_zero.mpr hr
+    exact hrLead hcoeff
+  · have hmax : max (max p.natDegree q.natDegree)
+        (max r.natDegree s.natDegree) = s.natDegree := by omega
+    rw [hmax] at ht
+    have hp0 := coeff_eq_zero_of_natDegree_lt hS.1
+    have hq0 := coeff_eq_zero_of_natDegree_lt hS.2.1
+    have hr0 := coeff_eq_zero_of_natDegree_lt hS.2.2
+    have ht0 := coeff_eq_zero_of_natDegree_lt ht
+    have hcoeff := congrArg (fun u : Polynomial F => u.coeff s.natDegree) hsum
+    simp only [coeff_add, coeff_zero, hp0, hq0, hr0, ht0, zero_add,
+      add_zero] at hcoeff
+    have hsLead : s.coeff s.natDegree ≠ 0 := by
+      rw [coeff_natDegree]
+      exact leadingCoeff_ne_zero.mpr hs
+    exact hsLead hcoeff
+
+end PolynomialMaximum
 
 /-- The two mismatch leading supports have the unique positive primitive
 degree cone `(deg A,deg B,deg U)=(4n,5n,7n)`. -/
@@ -43,7 +185,7 @@ theorem mismatchDegreeCone46
 /-- In the aligned `beta != 0` cone, the two leading equations force the
 primitive degree ratio `(4,3,5)`. -/
 theorem alignedBetaDegreeCone46
-    (a x v : ℕ) (ha : 0 < a) (hx : 0 < x) (hv : 0 < v)
+    (a x v : ℕ) (ha : 0 < a) (_hx : 0 < x) (_hv : 0 < v)
     (hPhi : x + v = 2 * a) (hR : 2 * v = a + 2 * x) :
     ∃ n : ℕ, 0 < n ∧ a = 4 * n ∧ x = 3 * n ∧ v = 5 * n := by
   have hratio : 3 * a = 4 * x := by omega
@@ -58,7 +200,7 @@ theorem alignedBetaDegreeCone46
 /-- In the aligned `beta=0, delta != 0` cone, the two leading equations
 force the primitive degree ratio `(4,1,3)`. -/
 theorem alignedDeltaDegreeCone46
-    (a x v : ℕ) (ha : 0 < a) (hx : 0 < x) (hv : 0 < v)
+    (a x v : ℕ) (_ha : 0 < a) (hx : 0 < x) (_hv : 0 < v)
     (hPhi : x + v = a) (hR : 2 * v = a + 2 * x) :
     ∃ n : ℕ, 0 < n ∧ a = 4 * n ∧ x = n ∧ v = 3 * n := by
   refine ⟨x, hx, ?_, rfl, ?_⟩ <;> omega

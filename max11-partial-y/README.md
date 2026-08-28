@@ -208,7 +208,10 @@ not treated as an established theorem.
   `Φ(A)²=X²R(A,X)`, the component equations and restricted one-form, and both
   monic boundary eliminants.  `LowScale46DegreeCones.lean` replaces the
   report's finite integer scans by exact proofs of the unique positive cones
-  `(4,5,7)`, `(4,3,5)`, and `(4,1,3)` and their one-form degree gaps.
+  `(4,5,7)`, `(4,3,5)`, and `(4,1,3)` and their one-form degree gaps.  It also
+  proves the generic polynomial leading-term principle that four nonzero
+  displayed terms summing with a strictly lower-degree remainder must have a
+  tied maximum degree.
   `LowScale46Depression.lean` performs the exact source substitution
   `y=(z-r)/h` on the quartic and sextic and proves that the normalized quintic
   coefficient is zero in the aligned branch and `-lambda/2` in the mismatch
