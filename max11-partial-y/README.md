@@ -222,6 +222,12 @@ not treated as an established theorem.
   `(v(Q),v(Y),v(Z))=(1/4,1/2,1/2)` and the terminal boundary contradiction;
   `Y=0` or `Z=0` is killed by the isolated order-one `J₂` term, while `Q=0`
   is killed by the exact `J₂,F,J₁` leading system.
+  `LowScale46AlignedFinitePoles.lean` performs the corresponding full-row
+  Hahn-series instantiation in the aligned chart.  It applies the exhaustive
+  Newton tables to the literal higher remainders and excludes both
+  `beta ≠ 0` and `beta=0, delta ≠ 0`, including the identically-zero `Q` and
+  `Y` loci.  Thus every aligned finite-pole branch reaches
+  `beta=delta=0`.
   `LowScale46Depression.lean` performs the exact source substitution
   `y=(z-r)/h` on the quartic and sextic and proves that the normalized quintic
   coefficient is zero in the aligned branch and `-lambda/2` in the mismatch
@@ -289,7 +295,7 @@ lake build
 `LowScale46LocalChart.lean`, `LowScale46AlignedChart.lean`,
 `LowScale46DegreeCones.lean`, `LowScale46Depression.lean`,
 `LowScale46Integrality.lean`, `LowScale46NewtonFaces.lean`,
-`LowScale46PolynomialEndgame.lean`, `LowScale46FinitePoles.lean`, and
-`Max11Assembly.lean`
+`LowScale46PolynomialEndgame.lean`, `LowScale46FinitePoles.lean`,
+`LowScale46AlignedFinitePoles.lean`, and `Max11Assembly.lean`
 contain no `sorry`, custom axioms, or trust escapes.  The
 permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.
