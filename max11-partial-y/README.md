@@ -346,9 +346,12 @@ not treated as an established theorem.
   depression literal over `k[x]`, supplies polynomial representatives for all
   thirteen depressed coefficients, and descends both exact lower-row
   invariants to the ground field.  Thus the scale-zero branch is reduced to
-  the bounded polynomial-degree contradiction for the final three one-form
-  rows.  That contradiction and the scale-two pole/degree analysis remain
-  open.
+  the polynomial-degree contradiction for the final three one-form rows.
+  `LowScale68Infinity.lean` proves the first weighted-infinity elimination:
+  the five top lower rows have only the depressed cubic-core solution
+  `B=D=0`, `C=A²/3`, `E=A³/27`.  Extracting that scalar system from arbitrary
+  polynomial loads and completing the next-order descent remain open, as does
+  the scale-two pole/degree analysis.
   `LowScale46NewtonFaces.lean` proves the underlying three- and four-term
   Hahn-series tied-minimum principle and the complete rational Newton-face
   tables for the aligned `beta ≠ 0` and `delta ≠ 0` strata.
@@ -422,7 +425,8 @@ lake build
 `LowScale46AlignedRegularLoads.lean`, `LowScale46WeightedInfinity.lean`,
 `LowScale46ScaleTwo.lean`, `LowScale68NormalForm.lean`,
 `LowScale68Integrated.lean`, `LowScale68Depression.lean`,
-`LowScale68SourceBridge.lean`, `LowScale68ScaleZero.lean`, and
+`LowScale68SourceBridge.lean`, `LowScale68ScaleZero.lean`,
+`LowScale68Infinity.lean`, and
 `Max11Assembly.lean`
 contain no `sorry`, custom axioms, or trust escapes.  The
 permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.
