@@ -1,5 +1,6 @@
 import LowScale46WeightedInfinity
 import LowScale46AlignedRegularLoads
+import LowScale46QuadraticEndgame
 
 /-! # Complete scale-two exclusion for the normalized `(4,6)` leaf
 
@@ -16,7 +17,7 @@ namespace Max11DegreeRoutes
 
 section AlignedSourcePoleSpecialization
 
-variable {k : Type*} [Field k] [CharZero k]
+variable {k : Type*} [Field k] [CharZero k] [IsAlgClosed k]
 
 local instance scaleTwoHahnCharZero46 : CharZero (HahnSeries ℚ k) :=
   charZero_of_injective_ringHom
@@ -317,6 +318,93 @@ theorem normalized46ScaleTwo_alignedSquareBranch_impossible
   obtain ⟨S⟩ := squareAlignedSourceCurveData46
     p q H h0 j hp hq hh0 hH hp4' hq6' haligned' hD
   exact S.impossible_at_root a hh0 hroot hj
+
+/-- The aligned nonsquare-core branch maps into `k(x)(√H)`, where the deck
+descent and boundary-integrality endgame exclude its final component. -/
+theorem normalized46ScaleTwo_alignedNonsquareBranch_impossible
+    {P Q : MvPolynomial (Fin 2) k} {H : k[X]}
+    (hsource : Normalized46LeadingCoreSource P Q H 2)
+    (hnsq : ∀ h0 : k[X], H ≠ h0 ^ 2)
+    (haligned :
+      let p := (Polynomial.Bivariate.equivMvPolynomial k).symm P
+      let q := (Polynomial.Bivariate.equivMvPolynomial k).symm Q
+      (3 : k[X]) * p.coeff 3 * H - (2 : k[X]) * q.coeff 5 = 0) : False := by
+  rcases hsource with
+    ⟨_hHne, _hHdegree, hPdegree, hQdegree, hp4, hq6, hKeller⟩
+  let p := (Polynomial.Bivariate.equivMvPolynomial k).symm P
+  let q := (Polynomial.Bivariate.equivMvPolynomial k).symm Q
+  have hp : p.natDegree = 4 := by
+    simpa only [p, natDegree_bivariate_eq_degreeOf_y] using hPdegree
+  have hq : q.natDegree = 6 := by
+    simpa only [q, natDegree_bivariate_eq_degreeOf_y] using hQdegree
+  have hp4' : p.coeff 4 = H ^ 2 := by simpa only [p] using hp4
+  have hq6' : q.coeff 6 = H ^ 3 := by simpa only [q] using hq6
+  have haligned' : (3 : k[X]) * p.coeff 3 * H -
+      (2 : k[X]) * q.coeff 5 = 0 := by
+    simpa only [p, q] using haligned
+  obtain ⟨j, hj, hjac⟩ := bivariateJacobian_eq_C_of_keller hKeller
+  have hD : GCD369SourceXDeriv p * derivative q -
+      derivative p * GCD369SourceXDeriv q = C (C j) := by
+    simpa only [bivariateJacobian, xderiv, GCD369SourceXDeriv] using hjac
+  letI : NonsquarePolynomial46 H := ⟨hnsq⟩
+  obtain ⟨S⟩ := nonsquareAlignedSourceCurveData46 H
+    p q j hp hq hp4' hq6' haligned' hD
+  exact S.impossible H hj
+
+/-- The aligned scale-two branch is exhaustive in the square/nonsquare
+dichotomy for its quadratic common core. -/
+theorem normalized46ScaleTwo_alignedBranch_impossible
+    {P Q : MvPolynomial (Fin 2) k} {H : k[X]}
+    (hsource : Normalized46LeadingCoreSource P Q H 2)
+    (haligned :
+      let p := (Polynomial.Bivariate.equivMvPolynomial k).symm P
+      let q := (Polynomial.Bivariate.equivMvPolynomial k).symm Q
+      (3 : k[X]) * p.coeff 3 * H - (2 : k[X]) * q.coeff 5 = 0) : False := by
+  by_cases hsquare : ∃ h0 : k[X], H = h0 ^ 2
+  · obtain ⟨h0, hH⟩ := hsquare
+    have hh0 : h0 ≠ 0 := by
+      intro hzero
+      have hHzero : H = 0 := by simp [hH, hzero]
+      exact hsource.1 hHzero
+    exact normalized46ScaleTwo_alignedSquareBranch_impossible
+      hsource hh0 hH haligned
+  · have hnsq : ∀ h0 : k[X], H ≠ h0 ^ 2 := by
+      intro h0 hH
+      exact hsquare ⟨h0, hH⟩
+    exact normalized46ScaleTwo_alignedNonsquareBranch_impossible
+      hsource hnsq haligned
+
+/-- Every normalized `(4,6)` source at common scale two is impossible.  The
+imprimitive discriminator sends the nonaligned branch to the square-core
+weighted-infinity theorem and the aligned branch to the exhaustive
+square/nonsquare closure above. -/
+theorem normalized46ScaleTwo_impossible
+    {P Q : MvPolynomial (Fin 2) k} {H : k[X]}
+    (hsource : Normalized46LeadingCoreSource P Q H 2) : False := by
+  have hs := hsource
+  rcases hs with
+    ⟨hHne, _hHdegree, hPdegree, hQdegree, hp4, hq6, hKeller⟩
+  have hdich := planeKellerPair_46_imprimitiveDiscriminatorDichotomy
+    hPdegree hQdegree hKeller hHne hp4 hq6
+  dsimp only at hdich
+  rcases hdich with haligned |
+      ⟨h0, lambda, hh0, hlambda, hH, hmismatch⟩
+  · exact normalized46ScaleTwo_alignedBranch_impossible hsource haligned
+  · exact normalized46ScaleTwo_squareBranch_impossible
+      hsource hh0 hlambda hH hmismatch
+
+/-- The proved scale-two exclusion supplies the route interface used by the
+Max-11 assembly. -/
+theorem proved_planeKellerNormalized46ScaleTwoRoute :
+    PlaneKellerNormalized46ScaleTwoRoute (k := k) := by
+  intro P Q H hsource
+  exact (normalized46ScaleTwo_impossible hsource).elim
+
+/-- Both normalized low scales for `(4,6)` are now closed internally. -/
+theorem proved_planeKellerNormalized46LowScaleRoute :
+    PlaneKellerNormalized46LowScaleRoute (K := k) :=
+  planeKellerNormalized46LowScaleRoute_of_scaleTwo
+    proved_planeKellerNormalized46ScaleTwoRoute
 
 end AlignedSourcePoleSpecialization
 

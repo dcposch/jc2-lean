@@ -67,13 +67,13 @@ strictly greater than two.  This eliminates every even common-leading scale
 `Max11DegreeRoutes.Max11PlaneKellerGenerationWithStandardEndpointObstructionAndFiveLowScaleLeaves`
 leaves only the scales `H = 0` and `H = 2` at those five pairs.  Finally,
 `LowScaleCore.lean` derives the exact common-power leading rows and removes
-their scalar units for every one of the five pairs.  The `(4,6)` scale-zero
-source is now excluded outright; the other nine normalized cases remain.
-The current narrowest honest headline,
-`Max11DegreeRoutes.Max11PlaneKellerGenerationWithNormalized46ScaleTwoAndFourLowScaleLeaves`,
+their scalar units for every one of the five pairs.  Both normalized `(4,6)`
+sources, at scales zero and two, are now excluded outright; the other eight
+normalized cases remain.  The current narrowest honest headline,
+`Max11DegreeRoutes.Max11PlaneKellerGenerationWithFourLowScaleLeaves`,
 therefore asks for the published prime-gcd theorem, the literal numerical
-standard-endpoint obstruction, only scale two at `(4,6)`, and the two
-low-scale cases at each of the other four leaves.  A separate checked adapter
+standard-endpoint obstruction, and the two low-scale cases at each of the
+other four leaves.  A separate checked adapter
 shows that the strong arbitrary-pair
 twice-prime total-degree interface would close all five, but that interface is
 not treated as an established theorem.
@@ -185,8 +185,8 @@ not treated as an established theorem.
   identifies `deg h = H`.  The nonconsecutive `(2,5)` and `(3,5)` UFD cases
   are reduced internally to the square/cube lemma.
 - `Max11DegreeRoutes.Max11PlaneKellerGenerationWithFiveNormalizedLowScaleRoutes`
-  is the current narrowest source-honest headline: the ten remaining literal
-  cases now share one exact normalized form, with reduced weights `(2,3)`,
+  is the common normalized handoff from which the low-scale campaign began:
+  its ten literal cases share one exact normalized form, with reduced weights `(2,3)`,
   `(2,5)`, `(3,4)`, `(3,5)`, and `(4,5)` and common-core degree zero or two.
 - `Max11DegreeRoutes.planeKellerPair_46_imprimitiveDiscriminatorDichotomy`
   begins the genuine `(4,6)` closure from an actual normalized Keller pair.
@@ -305,6 +305,23 @@ not treated as an established theorem.
   into exact rational-function-to-polynomial results, reconstructs `K=B²`
   and `B`, and proves both square and nonsquare last-row unit-product
   contradictions (including the linear-`K` edge case).
+  `LowScale46QuadraticField.lean` constructs the irreducible quadratic
+  extension `K(x)(√H)` for a nonsquare core, its deck involution and fixed
+  field, and the uniquely extended differential.  It also proves that the
+  extension introduces no new differential constants.
+  `LowScale46QuadraticSourceBridge.lean` maps a literal nonsquare aligned
+  source into that field, proves the affine depression is deck-equivariant,
+  forces the expected even/odd coefficient parities, and packages the exact
+  curve, boundary, and last-row equations with `beta=delta=k2=0`.
+  `LowScale46QuadraticEndgame.lean` descends the invariant quantities
+  `q`, `B²`, `rB`, and `√H B` to `K(x)`, uses the monic boundary quartic to
+  recover polynomial representatives, and applies `M²=HK` to close the
+  nonsquare final row.
+  Finally, `LowScale46ScaleTwo.lean` combines this nonsquare closure with the
+  square aligned and mismatch weighted-infinity theorems.  Its theorem
+  `normalized46ScaleTwo_impossible` is exhaustive, and
+  `proved_planeKellerNormalized46LowScaleRoute` closes the entire `(4,6)`
+  low-scale interface used by Max-11.
   `LowScale46NewtonFaces.lean` proves the underlying three- and four-term
   Hahn-series tied-minimum principle and the complete rational Newton-face
   tables for the aligned `beta ≠ 0` and `delta ≠ 0` strata.
@@ -330,8 +347,8 @@ Dirichlet reduction.  It now proves the coprime partial-degree route and the
 odd-common-scale half of partial-degree gcd two from the classical
 prime-total-degree-gcd theorem.  It still does not prove scalar-extension
 descent, the prime theorem itself, the standard-pair endpoint theorem itself,
-or the remaining nine literal normalized low-scale subcases: scale two at
-`(4,6)`, and scales zero and two at the other four gcd-two pairs.  It does
+or the remaining eight literal normalized low-scale subcases: scales zero
+and two at the other four gcd-two pairs.  It does
 prove the common-power UFD factorization, exact
 core degree, scalar normalization, and generation transport for all five.
 The endpoint theorem is the first assertion of Guccione--Guccione--
@@ -365,7 +382,9 @@ lake build
 `LowScale46Rows.lean`, `LowScale46NormalForm.lean`, `LowScale46Curve.lean`,
 `LowScale46LocalChart.lean`, `LowScale46AlignedChart.lean`,
 `LowScale46DegreeCones.lean`, `LowScale46Depression.lean`,
-`LowScale46Integrality.lean`, `LowScale46NewtonFaces.lean`,
+`LowScale46Integrality.lean`, `LowScale46QuadraticField.lean`,
+`LowScale46QuadraticSourceBridge.lean`, `LowScale46QuadraticEndgame.lean`,
+`LowScale46NewtonFaces.lean`,
 `LowScale46PolynomialEndgame.lean`, `LowScale46FinitePoles.lean`,
 `LowScale46AlignedFinitePoles.lean`,
 `LowScale46AlignedPolynomialEndgame.lean`,
@@ -373,7 +392,8 @@ lake build
 `LowScale46AlignedComponentEndgame.lean`, `LowScale46SourceBridge.lean`,
 `LowScale46GeneralSourceBridge.lean`, `LowScale46ScaleZero.lean`,
 `LowScale46PoleBridge.lean`, `LowScale46RegularLoads.lean`,
-`LowScale46WeightedInfinity.lean`, and
+`LowScale46AlignedRegularLoads.lean`, `LowScale46WeightedInfinity.lean`,
+`LowScale46ScaleTwo.lean`, and
 `Max11Assembly.lean`
 contain no `sorry`, custom axioms, or trust escapes.  The
 permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.

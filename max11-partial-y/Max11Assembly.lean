@@ -3,6 +3,7 @@ import TotalDegreeRoutes
 import CoprimeDegreeRoute
 import EndpointGCDRoute
 import LowScale46WeightedInfinity
+import LowScale46ScaleTwo
 import GCD369DivisibleSourceExclusion
 
 /-! # Max-eleven handoff from the complete divisible `(6,9)` exclusion
@@ -299,6 +300,24 @@ theorem Max11PlaneKellerGenerationWithNormalized46ScaleTwoAndFourLowScaleLeaves
   exact Max11PlaneKellerGenerationWithNormalized46AndFourLowScaleLeaves
     hprime hendpoint
     (planeKellerNormalized46LowScaleRoute_of_scaleTwo h46two)
+    h410 h68 h610 h810
+
+/-- The complete `(4,6)` low-scale exclusion removes the first gcd-two leaf
+from the Max-11 interface.  Only the two low scales at each of the other four
+primitive leaves remain, alongside the two published classical routes. -/
+theorem Max11PlaneKellerGenerationWithFourLowScaleLeaves
+    {K : Type*} [Field K] [CharZero K] [IsAlgClosed K]
+    (hprime : PlaneKellerPrimeTotalDegreeGCDRoute (K := K))
+    (hendpoint : PlaneKellerStandardEndpointGCDObstruction (K := K))
+    (h410 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 4 10)
+    (h68 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 6 8)
+    (h610 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 6 10)
+    (h810 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 8 10) :
+    ∀ P Q : MvPolynomial (Fin 2) K,
+      degreeOf 1 P ≤ 11 → degreeOf 1 Q ≤ 11 →
+      IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
+  exact Max11PlaneKellerGenerationWithNormalized46ScaleTwoAndFourLowScaleLeaves
+    hprime hendpoint proved_planeKellerNormalized46ScaleTwoRoute
     h410 h68 h610 h810
 
 /-- The three leaves with consecutive reduced weights are normalized
