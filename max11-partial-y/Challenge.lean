@@ -241,6 +241,41 @@ def PlaneKellerEvenLeadingScaleAtDegrees
       (n / 2) * H →
     2 ∣ H → PlanePairGenerates P Q
 
+/-- The classical standard-pair endpoint obstruction, in a source-facing
+form: normalized endpoint gcd at most two closes the pair. -/
+def PlaneKellerStandardEndpointGCDRoute
+    {K : Type*} [Field K] : Prop :=
+  ∀ (P Q : MvPolynomial (Fin 2) K) (a b S u v : ℕ),
+    1 < a → 1 < b → a.Coprime b →
+    IsPlaneKellerPair P Q →
+    MvPolynomial.degreeOf 1 P = a * u →
+    MvPolynomial.degreeOf 1 Q = b * u →
+    (((Polynomial.Bivariate.equivMvPolynomial K).symm P).coeff (a * u)).natDegree =
+      a * v →
+    (((Polynomial.Bivariate.equivMvPolynomial K).symm Q).coeff (b * u)).natDegree =
+      b * v →
+    P.totalDegree = a * S → Q.totalDegree = b * S →
+    u < v → Nat.gcd u v ≤ 2 →
+    PlanePairGenerates P Q
+
+/-- One literal common leading-degree scale at a fixed partial-degree pair. -/
+def PlaneKellerLeadingScaleAtDegrees
+    {K : Type*} [Field K] (m n H : ℕ) : Prop :=
+  ∀ (P Q : MvPolynomial (Fin 2) K),
+    MvPolynomial.degreeOf 1 P = m → MvPolynomial.degreeOf 1 Q = n →
+    IsPlaneKellerPair P Q →
+    (((Polynomial.Bivariate.equivMvPolynomial K).symm P).coeff m).natDegree =
+      (m / 2) * H →
+    (((Polynomial.Bivariate.equivMvPolynomial K).symm Q).coeff n).natDegree =
+      (n / 2) * H →
+    PlanePairGenerates P Q
+
+/-- The two low even scales not covered by the strict endpoint inequality. -/
+def PlaneKellerLowEvenLeadingScalesAtDegrees
+    {K : Type*} [Field K] (m n : ℕ) : Prop :=
+  PlaneKellerLeadingScaleAtDegrees (K := K) m n 0 ∧
+    PlaneKellerLeadingScaleAtDegrees (K := K) m n 2
+
 /-- Impossibility of the cube-core part of the historical
 `(6,9), 3 ∣ deg h` residue. -/
 def PlaneKeller69DivisibleCubeExclusion {K : Type*} [Field K] : Prop :=
@@ -481,6 +516,23 @@ theorem Max11PlaneKellerGenerationWithFiveEvenScaleGCDTwoLeaves
     (h68 : PlaneKellerEvenLeadingScaleAtDegrees (K := K) 6 8)
     (h610 : PlaneKellerEvenLeadingScaleAtDegrees (K := K) 6 10)
     (h810 : PlaneKellerEvenLeadingScaleAtDegrees (K := K) 8 10) :
+    ∀ P Q : MvPolynomial (Fin 2) K,
+      MvPolynomial.degreeOf 1 P ≤ 11 →
+      MvPolynomial.degreeOf 1 Q ≤ 11 →
+      IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
+  sorry
+
+/-- Maximum eleven after the standard-endpoint theorem reduces each of the
+five gcd-two leaves to the literal common scales zero and two. -/
+theorem Max11PlaneKellerGenerationWithStandardEndpointAndFiveLowScaleLeaves
+    {K : Type*} [Field K] [CharZero K] [IsAlgClosed K]
+    (hprime : PlaneKellerPrimeTotalDegreeGCDRoute (K := K))
+    (hendpoint : PlaneKellerStandardEndpointGCDRoute (K := K))
+    (h46 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 4 6)
+    (h410 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 4 10)
+    (h68 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 6 8)
+    (h610 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 6 10)
+    (h810 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 8 10) :
     ∀ P Q : MvPolynomial (Fin 2) K,
       MvPolynomial.degreeOf 1 P ≤ 11 →
       MvPolynomial.degreeOf 1 Q ≤ 11 →

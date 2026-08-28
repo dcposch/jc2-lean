@@ -18,9 +18,12 @@ project:
     while a generic leading-degree/source-shear argument proves every coprime
     partial-degree pair and the odd-common-scale half of gcd two from the same
     prime theorem.  A finite classifier further reduces gcd two to five
-    primitive unordered degree pairs through eleven.  The narrowest final
-    inputs are the prime theorem and the even common-leading-scale subcase at
-    `(4,6)`, `(4,10)`, `(6,8)`, `(6,10)`, and `(8,10)`.
+    primitive unordered degree pairs through eleven.  An exact source-shear
+    adapter to the published standard-pair endpoint obstruction eliminates
+    every even common-leading scale above two.  The narrowest final inputs are
+    therefore the prime theorem, the standard-endpoint theorem, and the
+    literal common scales zero and two at `(4,6)`, `(4,10)`, `(6,8)`,
+    `(6,10)`, and `(8,10)`.
   authors:
     - "Dan Clemens Posch"
   license: "Apache-2.0"
@@ -57,6 +60,23 @@ sources:
       this Lean extraction.
     license: "CC-BY-4.0"
     author_endorsement: "n/a"
+  - title: "On the shape of possible counterexamples to the Jacobian Conjecture"
+    authors:
+      - "Jorge A. Guccione"
+      - "Juan J. Guccione"
+      - "Christian Valqui"
+    type: "paper"
+    id: "doi:10.1016/j.jalgebra.2016.08.039"
+    location: "https://doi.org/10.1016/j.jalgebra.2016.08.039"
+    relationship: "background"
+    note: >-
+      Corollary 7.9 supplies the standard-pair endpoint obstruction exposed as
+      an explicit premise here.  The Lean development proves the source-shear
+      adapter to that premise, not the paper's Newton-polygon proof.  Its later
+      statement about B concerns the globally minimal counterexample and is
+      not used as an arbitrary-pair twice-prime theorem.
+    license: "unknown"
+    author_endorsement: "not-contacted"
 
 status:
   scope: >-
@@ -99,9 +119,14 @@ status:
     closes the odd common-scale case and isolates the even-scale residue.  A
     finite recursive classifier restricts that residue to the five unordered
     pairs (4,6), (4,10), (6,8), (6,10), and (8,10); a checked adapter shows
-    that a strong arbitrary-pair twice-prime result would close all five.  Not
-    proved here: scalar-extension/descent, the prime-total-degree-gcd theorem
-    itself, or those five even-scale subcases.  The
+    that a strong arbitrary-pair twice-prime result would close all five.  A
+    second checked adapter applies the reliable standard-pair endpoint
+    obstruction after a large source shear: it preserves the partial degrees
+    and leading coefficients, produces normalized endpoint (2,H), and closes
+    every even scale H > 2.  Thus only H = 0 and H = 2 remain at each of the
+    five pairs.  Not proved here: scalar-extension/descent, the
+    prime-total-degree-gcd theorem itself, the standard-endpoint theorem
+    itself, or those ten literal low-scale subcases.  The
     strong twice-prime statement is not treated as established:
     GGV 2017 proves the restriction for the globally minimal counterexample
     gcd B and records a gap in the earlier arbitrary-pair proof.
@@ -109,6 +134,16 @@ status:
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
   main_results:
+    - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithStandardEndpointAndFiveLowScaleLeaves"
+      file: "Max11Assembly.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.planeKellerLeadingScaleAtDegrees_of_gcd_two_of_two_lt_scale"
+      file: "EndpointGCDRoute.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
     - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithFiveEvenScaleGCDTwoLeaves"
       file: "Max11Assembly.lean"
       sorry_count: 0
@@ -246,9 +281,11 @@ fidelity:
     generic version proves all coprime partial-degree pairs and the odd-scale
     gcd-two cases from the same input.  A second finite classifier reduces the
     former gcd-at-most-two premise to the even-scale subcase of five explicit
-    pairs.  It does not formalize the published prime theorem, those residual
-    theorems, an arbitrary-pair twice-prime theorem, or scalar-extension
-    descent.  In particular, GGV
+    pairs.  The standard-pair endpoint obstruction then reduces those five
+    unbounded residues to the literal scales zero and two.  It does not
+    formalize the published prime theorem, the standard-endpoint theorem,
+    those ten low-scale theorems, an arbitrary-pair twice-prime theorem, or
+    scalar-extension descent.  In particular, GGV
     2017's theorem about the globally minimal
     counterexample gcd B is not silently strengthened to a theorem about every
     Keller pair.  No other divergences are known.
@@ -265,7 +302,8 @@ review:
     Kernel axiom reports and the project audit script find no sorryAx or
     non-permitted axioms in Max11Core.lean, ClassicalRoutes.lean,
     DegreeRoutes.lean, HistoryRoute.lean, HistoryDegree.lean,
-    TotalDegreeRoutes.lean, CoprimeDegreeRoute.lean, or Max11Assembly.lean.
+    TotalDegreeRoutes.lean, CoprimeDegreeRoute.lean, EndpointGCDRoute.lean, or
+    Max11Assembly.lean.
 
 alignment:
   namespace: "(root)"
@@ -277,14 +315,15 @@ alignment:
         exact abstract recursion proved; Keller-pair route theorems remain
         hypotheses
     - source: "Maximum actual partial y-degree eleven theorem, Sections 1 and 6"
-      lean: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithFiveEvenScaleGCDTwoLeaves"
+      lean: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithStandardEndpointAndFiveLowScaleLeaves"
       module: "Challenge"
       status: >-
         exact bivariate polynomial conclusion and finite composition proved;
         the zero, equal-degree, divisibility, exhaustive (6,9), coprime-degree,
-        and odd-scale gcd-two routes are proved; the prime-total-degree-gcd
-        theorem and even-common-scale routes for exactly five explicit
-        gcd-two degree pairs remain as hypotheses
+        odd-scale gcd-two, and large-even-scale adapter routes are proved; the
+        prime-total-degree-gcd theorem, standard-pair endpoint obstruction,
+        and literal common scales zero and two at five explicit gcd-two degree
+        pairs remain as hypotheses
     - source: "Maximum-twelve frontier checksum, Section 9"
       lean: "Max12FirstPrimitives"
       module: "Challenge"

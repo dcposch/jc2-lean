@@ -59,13 +59,17 @@ large source shear makes the total-degree gcd prime.  At partial-degree gcd
 two, the same proof closes the odd common-scale case.  A sharper finite
 classifier shows that equal and divisibility recursion leave only five such
 unordered pairs through eleven: `(4,6)`, `(4,10)`, `(6,8)`, `(6,10)`, and
-`(8,10)`.  Consequently
-`Max11DegreeRoutes.Max11PlaneKellerGenerationWithFiveEvenScaleGCDTwoLeaves`
-is the current narrowest honest headline: besides the published prime-gcd
-theorem, only the even common-leading-scale subcase of those five pairs
-remains.  A checked adapter shows that the strong arbitrary-pair twice-prime
-total-degree interface would close all five, but that interface is not treated
-as an established theorem.
+`(8,10)`.  `EndpointGCDRoute.lean` then gives a source-shear adapter to the
+reliable standard-pair endpoint obstruction of
+Guccione--Guccione--Valqui: its normalized endpoint has coordinate gcd
+strictly greater than two.  This eliminates every even common-leading scale
+`H > 2`.  Consequently
+`Max11DegreeRoutes.Max11PlaneKellerGenerationWithStandardEndpointAndFiveLowScaleLeaves`
+is the current narrowest honest headline: besides the published prime-gcd and
+standard-endpoint theorems, only the literal scales `H = 0` and `H = 2` at
+those five pairs remain.  A separate checked adapter shows that the strong
+arbitrary-pair twice-prime total-degree interface would close all five, but
+that interface is not treated as an established theorem.
 
 ## Compared declarations
 
@@ -152,9 +156,17 @@ as an established theorem.
 - `Max11DegreeRoutes.Max11PlaneKellerGenerationWithEvenLeadingScaleGCDTwoRoute`
   packages the uniform even-scale residue.
 - `Max11DegreeRoutes.Max11PlaneKellerGenerationWithFiveEvenScaleGCDTwoLeaves`
+  reduces the inputs to the published prime-total-degree-gcd theorem and the
+  even-scale subcase at only the five enumerated gcd-two degree pairs.
+- `Max11DegreeRoutes.planeKellerLeadingScaleAtDegrees_of_gcd_two_of_two_lt_scale`
+  proves that the classical standard-pair endpoint obstruction closes every
+  one of those leaves at an even common scale `H > 2`.  The proof checks the
+  exact source-shear degree, leading-coefficient preservation, normalized
+  endpoint `(2,H)`, and transport of Keller and generation predicates.
+- `Max11DegreeRoutes.Max11PlaneKellerGenerationWithStandardEndpointAndFiveLowScaleLeaves`
   is the current narrowest source-honest top of the tower: its inputs are the
-  published prime-total-degree-gcd theorem and the even-scale subcase at only
-  the five enumerated gcd-two degree pairs.
+  prime-total-degree-gcd theorem, the standard-pair endpoint obstruction, and
+  only the literal scales `H = 0` and `H = 2` at the five enumerated pairs.
 - `Max11DegreeRoutes.Max11PlaneKellerGenerationWithPrimeAndTwicePrimeTotalDegreeGCDRoutes`
   records the fully assembled implication from prime and strong arbitrary-pair
   twice-prime total-degree routes.  The implication is checked; availability
@@ -176,12 +188,14 @@ project also proves the complete local nondivisible-core source-shear and
 Dirichlet reduction.  It now proves the coprime partial-degree route and the
 odd-common-scale half of partial-degree gcd two from the classical
 prime-total-degree-gcd theorem.  It still does not prove scalar-extension
-descent, the prime theorem itself, or the even-common-scale subcases of those
-five gcd-two pairs.  Those last residues follow from an arbitrary-pair
-twice-prime total-degree result.  A primary-source re-audit found that GGV
-2017 proves only the
-corresponding restriction on the globally minimal counterexample gcd `B`; it
-explicitly records a gap in the earlier arbitrary-pair proof.
+descent, the prime theorem itself, the standard-pair endpoint theorem itself,
+or the literal common-scale `H = 0` and `H = 2` subcases of those five gcd-two
+pairs.  The endpoint theorem is the first assertion of Guccione--Guccione--
+Valqui's Corollary 7.9 and applies to every standard pair.  By contrast, the
+same corollary's `B \ne 2p` assertion concerns only the globally minimal
+counterexample gcd `B`; a primary-source re-audit confirmed that it does not
+supply an arbitrary-pair twice-prime theorem and records a gap in the earlier
+proof.
 Thus the strong twice-prime interface in `TotalDegreeRoutes.lean` is retained
 only as a precisely typed open premise, not described here as a proved
 classical input.
@@ -203,6 +217,6 @@ lake build
 
 `Max11Core.lean`, `ClassicalRoutes.lean`, `DegreeRoutes.lean`,
 `HistoryRoute.lean`, `HistoryDegree.lean`, `TotalDegreeRoutes.lean`,
-`CoprimeDegreeRoute.lean`, and `Max11Assembly.lean` contain no
+`CoprimeDegreeRoute.lean`, `EndpointGCDRoute.lean`, and `Max11Assembly.lean` contain no
 `sorry`, custom axioms, or trust escapes.  The permitted axioms are `propext`,
 `Classical.choice`, and `Quot.sound`.

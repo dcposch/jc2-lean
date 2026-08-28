@@ -1,6 +1,7 @@
 import HistoryDegree
 import TotalDegreeRoutes
 import CoprimeDegreeRoute
+import EndpointGCDRoute
 import GCD369DivisibleSourceExclusion
 
 /-! # Max-eleven handoff from the complete divisible `(6,9)` exclusion
@@ -208,6 +209,39 @@ theorem Max11PlaneKellerGenerationWithFiveEvenScaleGCDTwoLeaves
     (planeKellerAutomorphicAtDegrees_of_gcd_two_and_evenLeadingScaleAtDegrees
       8 10 (by norm_num) (by norm_num) (by norm_num) hprime h810)
 
+/-- The standard-pair endpoint obstruction eliminates every even common
+leading scale above two.  Consequently Max-11 needs only the literal scales
+`0` and `2` at each of the five gcd-two leaves, together with the classical
+prime-total-degree route. -/
+theorem Max11PlaneKellerGenerationWithStandardEndpointAndFiveLowScaleLeaves
+    {K : Type*} [Field K] [CharZero K] [IsAlgClosed K]
+    (hprime : PlaneKellerPrimeTotalDegreeGCDRoute (K := K))
+    (hendpoint : PlaneKellerStandardEndpointGCDRoute (K := K))
+    (h46 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 4 6)
+    (h410 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 4 10)
+    (h68 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 6 8)
+    (h610 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 6 10)
+    (h810 : PlaneKellerLowEvenLeadingScalesAtDegrees (K := K) 8 10) :
+    ∀ P Q : MvPolynomial (Fin 2) K,
+      degreeOf 1 P ≤ 11 → degreeOf 1 Q ≤ 11 →
+      IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
+  exact Max11PlaneKellerGenerationWithFiveEvenScaleGCDTwoLeaves hprime
+    (planeKellerEvenLeadingScaleAtDegrees_of_standardEndpoint_and_lowScales
+      4 6 (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by norm_num)
+      hendpoint h46)
+    (planeKellerEvenLeadingScaleAtDegrees_of_standardEndpoint_and_lowScales
+      4 10 (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by norm_num)
+      hendpoint h410)
+    (planeKellerEvenLeadingScaleAtDegrees_of_standardEndpoint_and_lowScales
+      6 8 (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by norm_num)
+      hendpoint h68)
+    (planeKellerEvenLeadingScaleAtDegrees_of_standardEndpoint_and_lowScales
+      6 10 (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by norm_num)
+      hendpoint h610)
+    (planeKellerEvenLeadingScaleAtDegrees_of_standardEndpoint_and_lowScales
+      8 10 (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by norm_num)
+      hendpoint h810)
+
 /-- Fully assembled Max-11 conditional on the classical prime-total-degree
 result and the strong arbitrary-pair twice-prime interface.  The latter is
 kept explicit because the published arbitrary-pair proof has a documented
@@ -234,6 +268,7 @@ theorem Max11PlaneKellerGenerationWithPrimeAndTwicePrimeTotalDegreeGCDRoutes
 #print axioms Max11PlaneKellerGenerationWithGCDTwoResidual
 #print axioms Max11PlaneKellerGenerationWithEvenLeadingScaleGCDTwoRoute
 #print axioms Max11PlaneKellerGenerationWithFiveEvenScaleGCDTwoLeaves
+#print axioms Max11PlaneKellerGenerationWithStandardEndpointAndFiveLowScaleLeaves
 #print axioms Max11PlaneKellerGenerationWithPrimeAndTwicePrimeTotalDegreeGCDRoutes
 
 end Max11DegreeRoutes

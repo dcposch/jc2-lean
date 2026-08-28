@@ -27,6 +27,7 @@
     "Max11DegreeRoutes.planeKellerAutomorphicAtDegrees_of_gcd_two_and_evenLeadingScale",
     "Max11DegreeRoutes.Max11PlaneKellerGenerationWithEvenLeadingScaleGCDTwoRoute",
     "Max11DegreeRoutes.Max11PlaneKellerGenerationWithFiveEvenScaleGCDTwoLeaves",
+    "Max11DegreeRoutes.Max11PlaneKellerGenerationWithStandardEndpointAndFiveLowScaleLeaves",
     "Max11DegreeRoutes.Max11PlaneKellerGenerationWithPrimeAndTwicePrimeTotalDegreeGCDRoutes",
     "Max12FirstPrimitives"
   ],
@@ -49,7 +50,10 @@
     "Max11DegreeRoutes.PlaneKellerPrimeTotalDegreeGCDRoute",
     "Max11DegreeRoutes.PlaneKellerTwicePrimeTotalDegreeGCDRoute",
     "Max11DegreeRoutes.PlaneKellerEvenLeadingScaleGCDTwoRoute",
-    "Max11DegreeRoutes.PlaneKellerEvenLeadingScaleAtDegrees"
+    "Max11DegreeRoutes.PlaneKellerEvenLeadingScaleAtDegrees",
+    "Max11DegreeRoutes.PlaneKellerStandardEndpointGCDRoute",
+    "Max11DegreeRoutes.PlaneKellerLeadingScaleAtDegrees",
+    "Max11DegreeRoutes.PlaneKellerLowEvenLeadingScalesAtDegrees"
   ],
   "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
   "enable_nanoda": true
