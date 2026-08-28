@@ -356,9 +356,14 @@ not treated as an established theorem.
   final three one-form rows; proves their weighted boundary coefficients;
   pulls the rational-function system back through the injective
   `k[x] -> k(x)` map; and obtains the same cubic-core boundary for every
-  positive integral weighted radius.  Completing the next-order descent from
-  that cubic-core face remains open, as does the scale-two pole/degree
-  analysis.
+  positive integral weighted radius.  `LowScale68WeightedRadius.lean` now
+  constructs the required attained radius canonically: the common expansion
+  `x -> x^60` clears all five weight denominators, and the maximum of the five
+  scaled degrees supplies the bounds together with a proof that at least one
+  boundary coefficient is nonzero.  It also proves that a nonzero terminal row
+  forces at least one original load to be nonconstant.  Transporting the five
+  equations through this expansion and completing the next-order descent from
+  the cubic-core face remain open, as does the scale-two pole/degree analysis.
   `LowScale46NewtonFaces.lean` proves the underlying three- and four-term
   Hahn-series tied-minimum principle and the complete rational Newton-face
   tables for the aligned `beta ≠ 0` and `delta ≠ 0` strata.
@@ -456,7 +461,7 @@ lake build
 `LowScale46ScaleTwo.lean`, `LowScale68NormalForm.lean`,
 `LowScale68Integrated.lean`, `LowScale68Depression.lean`,
 `LowScale68SourceBridge.lean`, `LowScale68ScaleZero.lean`,
-`LowScale68Infinity.lean`, `LowScale68PolynomialBoundary.lean`, and
-`Max11Assembly.lean`
+`LowScale68Infinity.lean`, `LowScale68PolynomialBoundary.lean`,
+`LowScale68WeightedRadius.lean`, and `Max11Assembly.lean`
 contain no `sorry`, custom axioms, or trust escapes.  The
 permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.

@@ -227,7 +227,10 @@ status:
     descend.  Exact weighted coefficient formulas then extract the five top
     lower rows from arbitrary bounded polynomial loads and force the unique
     cubic-core boundary `B=D=0`, `C=A^2/3`, `E=A^3/27` at every positive
-    integral weighted radius.
+    integral weighted radius.  A common expansion by `x -> x^60` now clears
+    the five weight denominators and constructs a positive attained maximal
+    radius whenever one load is nonconstant; the nonzero terminal row is
+    proved to force that nonconstancy.
     Not proved here: scalar-extension/descent, the
     prime-total-degree-gcd theorem itself, the standard-endpoint theorem
     itself, the next-order `(6,8)` scale-zero descent, or the other seven
@@ -292,6 +295,10 @@ status:
       axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.integratedRationalLowerSystem_polynomialBoundary_cubicCore68"
       file: "LowScale68PolynomialBoundary.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.exists_positive_integral_weightedRadius68"
+      file: "LowScale68WeightedRadius.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.mismatchDegreeCone46"
@@ -617,8 +624,8 @@ review:
     LowScaleCore.lean, LowScale68NormalForm.lean,
     LowScale68Integrated.lean, LowScale68Depression.lean,
     LowScale68SourceBridge.lean, LowScale68ScaleZero.lean,
-    LowScale68Infinity.lean, LowScale68PolynomialBoundary.lean, or
-    Max11Assembly.lean.
+    LowScale68Infinity.lean, LowScale68PolynomialBoundary.lean,
+    LowScale68WeightedRadius.lean, or Max11Assembly.lean.
 
 alignment:
   namespace: "(root)"
