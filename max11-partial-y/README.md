@@ -815,6 +815,7 @@ lake build
 `LowScale68ScaleTwoAlignedNonsquarePolynomialEndgame.lean`,
 `LowScale68ScaleTwoAlignedNonsquareMonicEliminant.lean`,
 `LowScale68ScaleTwoAlignedNonsquareDivisibility.lean`,
+`LowScale68ScaleTwoAlignedNonsquareDegreeTen.lean`,
 `LowScale68ScaleTwoAlignedSquareDescent.lean`,
 `LowScale68ScaleTwoAlignedSquareRowTwo.lean`,
 `LowScale68ScaleTwoAlignedSquareLowerRows.lean`,
