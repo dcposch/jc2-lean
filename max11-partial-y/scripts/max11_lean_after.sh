@@ -23,7 +23,7 @@ fi
 state_root="$project_dir/.max11-lanes/waits"
 
 usage() {
-  echo "usage: $0 --after FILE.lean --engine claude|grok --target FILE.lean -- INSTRUCTION..." >&2
+  echo "usage: $0 --after FILE.lean --engine claude|grok --target FILE.lean [--dry-run] -- INSTRUCTION..." >&2
   exit 2
 }
 
@@ -91,6 +91,7 @@ fi
 predecessor=""
 engine=""
 target=""
+dry_run=0
 while (($#)); do
   case "$1" in
     --after)
@@ -107,6 +108,9 @@ while (($#)); do
       shift
       (($#)) || usage
       target="$1"
+      ;;
+    --dry-run)
+      dry_run=1
       ;;
     --)
       shift
@@ -128,6 +132,15 @@ else
   [[ "$target" =~ ^Grok[A-Za-z0-9_.-]*Scratch\.lean$ ]] || usage
 fi
 [[ "$target" == "${target##*/}" && "$target" != "$predecessor" ]] || usage
+# Match the chain helper's prompt ergonomics for one-off successors.  This
+# avoids silently handing literal placeholders to a delegated prover.
+instruction="${instruction//@PREDECESSOR@/$predecessor}"
+instruction="${instruction//@TARGET@/$target}"
+if ((dry_run)); then
+  printf 'AFTER=%s ENGINE=%s TARGET=%s INSTRUCTION=%q\n' \
+    "$predecessor" "$engine" "$target" "$instruction"
+  exit 0
+fi
 command -v screen >/dev/null || {
   echo "screen is not available" >&2
   exit 69
