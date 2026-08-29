@@ -719,6 +719,7 @@ lake build
 `LowScale410LWallFanConnector.lean`,
 `LowScale410LWallUnconditional.lean`, `LowScale410GammaWall.lean`,
 `LowScale410DeltaWall.lean`, `LowScale410DeltaWallElimination.lean`,
+`LowScale410ThetaWallElimination.lean`,
 `LowScale410BetaWall.lean`,
 `LowScale410ScaleTwoSourceFace.lean`, `LowScale610ScaleTwoSourceFace.lean`,
 `LowScale610ScaleTwoSecondFace.lean`, `LowScale810ScaleTwoSourceFace.lean`,
