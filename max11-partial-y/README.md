@@ -530,8 +530,11 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   middle invariant faces, and the exact mixed double I4 face where
   `beta*A^3` survives.  The four apparent alpha terms on its residual
   row-one face also cancel exactly, leaving the ordinary residual row-one
-  coefficient; its mixed row-two coefficient is now the sole wall
-  obstruction.  In the first-deep residual descent, the double chamber and
+  coefficient.  Its six row-two load terms are now also computed exactly:
+  every alpha core cancels and the unique survivor is
+  `(5n/18) beta*a^4`.  The resulting mixed right/balanced scalar system is now
+  eliminated by the I4-controlled incidence degree and the exact row-one
+  faces, closing the entire `g=n` wall.  In the first-deep residual descent, the double chamber and
   the middle load-above chamber are now impossible using exact row-two,
   row-one, row-zero, I4, and I3 faces.  What remains there is precisely the
   middle branch `g<h<2g`, `g+h≤3n`, centered on the mixed
@@ -541,8 +544,8 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   ordinary secondary face through `2g≤6n`, and then extracts the clamped-`B`
   face through `2g<8n`.  At `8n≤2g`, the exact cubic degree-`4n` and quartic
   degree-`2n` faces now force the clamped coefficient `B=0` and load
-  `zeta=0`; the remaining branch is reduced to a constant-`c` scalar split
-  and its lower rows.  The remaining literal normalized low-scale subcases
+  `zeta=0`; the resulting constant-`c` scalar split and exact lower rows close
+  that entire clamped chamber.  The remaining literal normalized low-scale subcases
   remain open.  Source-level scale-zero assembly is now
   complete: every literal normalized source produces a nonzero-terminal
   `IntegratedPolynomialLowerSystem68`, so only the intrinsic global
@@ -637,6 +640,8 @@ lake build
 `LowScale68SecondaryAlphaWallCanonical.lean`,
 `LowScale68SecondaryAlphaWallEndgame.lean`,
 `LowScale68SecondaryAlphaWallRowOneLoad.lean`,
+`LowScale68SecondaryAlphaWallRowTwoLoad.lean`,
+`LowScale68SecondaryAlphaWallMixedEndgame.lean`,
 `LowScale68SecondaryFirstLoadWallFace.lean`,
 `LowScale68SecondaryFirstLoadWallCore.lean`,
 `LowScale68SecondaryFirstLoadWallRemainder.lean`,
@@ -651,6 +656,7 @@ lake build
 `LowScale68SecondaryDeepGapResidualEndgame.lean`,
 `LowScale68SecondaryLaterDeepLoadCascade.lean`,
 `LowScale68SecondaryLaterDeepMixedTwoNFace.lean`,
+`LowScale68SecondaryLaterDeepClampedEndgame.lean`,
 `LowScale68SecondaryResidualMiddle.lean`,
 `LowScale68SecondaryResidualDouble.lean`,
 `LowScale68SecondaryResidualDoubleLoadWall.lean`,
