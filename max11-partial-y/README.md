@@ -560,10 +560,12 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   family, but the first lower residual coefficient is now exact: after the
   translated defects drop, its two incidence equations force either a second
   simultaneous degree drop, or the nonzero branch
-  `b*c*d1*e1≠0` with `a*b^2+3*c^2=0`.  The zero branch is now iterated exactly
-  to the `g+2` edge, where the same incidence/discriminant split recurs.  The
-  row-one coefficient on a nonzero edge is proved redundant with I3, so the
-  next independent coefficient must include subleading `A,B,c` data.  The lower
+  `b*c*d1*e1≠0` with `a*b^2+3*c^2=0`.  Expansion-lattice support now rules out
+  the nonzero branches at both the `g+1` and `g+2` edges: any active translated
+  discriminant edge must have displacement divisible by `60`.  Thus both
+  translated defects vanish at the first two edges; the remaining zero-edge
+  descent continues toward the first possible displacement `60` or an earlier
+  load threshold.  The lower
   `3n≤2g≤5n` window is reduced to three
   exact packets: the two endpoint load walls and an open branch with
   `beta=0`, vanishing `e_top`, and `a*b=3*d`.  On the open branch both
@@ -597,7 +599,9 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   packet `P10(V)=F4(T,V)=F3(T,V)=F2(T,V)=0`.  A staged quadratic-resultant
   and univariate Bezout certificate eliminates this packet: the three rows
   force `V=1/3`, while `P10(1/3)=-90`.  Thus every rho-one component gives
-  the simultaneous descent `h0^5∣p5`, `h0^3∣p4`, and `h0∣p3`.
+  the simultaneous descent `h0^5∣p5`, `h0^3∣p4`, and `h0∣p3`.  In the next
+  sharp local box, the unique pole-six face is `-(8/27)B^3`, which strengthens
+  the last divisibility to `h0^2∣p3`.
   For all six
   `(4,10)`, `(6,10)`, and `(8,10)` leaves, an exact large source-shear
   calculation gives total-degree gcd `H+2L`; prime selection reduces them
@@ -634,10 +638,11 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   cone gives incompatible constant-invariant faces, and the aligned
   `(deg A,deg B,deg U)=(2n,3n,4n)` endpoint contradicts the terminal row.
   The arithmetic fan split leaves no cone inside that sector.  Exact exposed-
-  vertex exclusions now supply the source-level Newton-support connector, so
-  every positive-degree trajectory on the `l≠0` wall is impossible.  Only its
-  zero-degree boundary cases lie outside that theorem; the other six effective
-  load walls also remain.
+  vertex exclusions now supply the source-level Newton-support connector, and
+  the zero-degree boundary classification closes every remaining mixed case.
+  Hence every source trajectory on the `l≠0` wall is impossible, with no
+  degree or coordinate-nonzero assumptions.  The other six effective load
+  walls remain.
 The low-scale core proves the common-power UFD factorization, exact
 core degree, scalar normalization, and generation transport for all five.
 The endpoint theorem is the first assertion of Guccione--Guccione--
@@ -695,6 +700,7 @@ lake build
 `LowScale410LWallBoundary.lean`, `LowScale410LWallResidual.lean`,
 `LowScale410LWallOtherCones.lean`,
 `LowScale410LWallFanConnector.lean`,
+`LowScale410LWallUnconditional.lean`,
 `LowScale410ScaleTwoSourceFace.lean`, `LowScale610ScaleTwoSourceFace.lean`,
 `LowScale810ScaleTwoSourceFace.lean`,
 `LowScale68NormalForm.lean`,
@@ -708,6 +714,7 @@ lake build
 `LowScale68ScaleTwoLocalDerivativeRowTwo.lean`,
 `LowScale68ScaleTwoIntegratedBoundary.lean`,
 `LowScale68ScaleTwoLocalRowOneZero.lean`,
+`LowScale68ScaleTwoAfterRhoOne.lean`,
 `LowScale68ScaleTwoLocalRhoFour.lean`,
 `LowScale68ScaleTwoLocalRhoThree.lean`,
 `LowScale68ScaleTwoLocalRhoTwo.lean`,
@@ -763,6 +770,7 @@ lake build
 `LowScale68SecondaryLaterDeepFiveToSixRowOne.lean`,
 `LowScale68SecondaryLaterDeepFiveToSixLowerCoefficient.lean`,
 `LowScale68SecondaryLaterDeepFiveToSixResidualNext.lean`,
+`LowScale68SecondaryLaterDeepFiveToSixNonzeroEdge.lean`,
 `LowScale68SecondaryResidualMiddle.lean`,
 `LowScale68SecondaryResidualDouble.lean`,
 `LowScale68SecondaryResidualDoubleLoadWall.lean`,
