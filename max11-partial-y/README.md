@@ -703,6 +703,9 @@ lake build
 # A dependent successor can wait durably for the predecessor's exact receipt
 # and for a free model slot, then launch without manual polling:
 ./scripts/max11_lean_after.sh --after FableLaneScratch.lean --engine claude --target FableNextScratch.lean -- 'Continue with the next unused row.'
+# A mechanical tower can be queued once; each edge still waits for the exact
+# recursive-source/environment receipt of the preceding leaf:
+./scripts/max11_lean_chain.sh --engine claude --after FableLaneScratch.lean --target FableNextScratch.lean --target FableLastScratch.lean -- 'Import @PREDECESSOR@ and continue its exact residual in @TARGET@.'
 # An exact completed gate can be checked without recompilation:
 ./scripts/box_lean_verify.sh --file FableLaneScratch.lean --receipt-only
 # One dashboard shows live workers, durable handoffs, recent files, and AWS jobs:
