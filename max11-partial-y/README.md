@@ -853,6 +853,7 @@ lake build
 `LowScale68ScaleTwoAlignedSquareRhoOneCubicExceptionalDoubleZero.lean`,
 `LowScale68ScaleTwoAlignedSquareRhoOneCubicExceptionalDoubleZeroFZero.lean`,
 `LowScale68ScaleTwoAlignedSquareRhoOneCubicExceptionalDoubleZeroBNext.lean`,
+`LowScale68ScaleTwoAlignedSquareRhoOneCubicExceptionalDoubleZeroCNext.lean`,
 `LowScale68ScaleTwoLocalRhoFour.lean`,
 `LowScale68ScaleTwoLocalRhoThree.lean`,
 `LowScale68ScaleTwoLocalRhoTwo.lean`,
