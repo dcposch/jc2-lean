@@ -532,10 +532,13 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   row-one face also cancel exactly, leaving the ordinary residual row-one
   coefficient; its mixed row-two coefficient is now the sole wall
   obstruction.  The residual row-two/row-one endgame in the deeper window,
-  the later `g≥3n/2` load cascade, source-level
-  scale-zero assembly, and the remaining literal normalized low-scale
-  subcases remain open.  For the `(6,8)` scale-two source, the next literal
-  Jacobian row now classifies the complete first face: its discriminator is
+  the later `g≥3n/2` load cascade, and the remaining literal normalized
+  low-scale subcases remain open.  Source-level scale-zero assembly is now
+  complete: every literal normalized source produces a nonzero-terminal
+  `IntegratedPolynomialLowerSystem68`, so only the intrinsic global
+  exclusion of that system remains.  For the `(6,8)` scale-two source, the
+  next literal Jacobian row now classifies the complete first face: its
+  discriminator is
   either zero or the seventh power of a degree-one polynomial times a nonzero
   scalar, while the common quadratic core is its square.  The latter branch
   therefore has an
@@ -543,7 +546,9 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   `(4,10)`, `(6,10)`, and `(8,10)` leaves, an exact large source-shear
   calculation gives total-degree gcd `H+2L`; prime selection reduces them
   uniformly to the deliberately open arbitrary-pair twice-prime interface,
-  but does not assert that interface.  It does
+  but does not assert that interface.  Independently, the direct `(4,10)`
+  route now has an exact decic differential normal form: nine upper rows are
+  integrated explicitly, leaving precisely three terminal lower rows.  It does
 prove the common-power UFD factorization, exact
 core degree, scalar normalization, and generation transport for all five.
 The endpoint theorem is the first assertion of Guccione--Guccione--
@@ -589,9 +594,11 @@ lake build
 `LowScale46GeneralSourceBridge.lean`, `LowScale46ScaleZero.lean`,
 `LowScale46PoleBridge.lean`, `LowScale46RegularLoads.lean`,
 `LowScale46AlignedRegularLoads.lean`, `LowScale46WeightedInfinity.lean`,
-`LowScale46ScaleTwo.lean`, `LowScale68NormalForm.lean`,
+`LowScale46ScaleTwo.lean`, `LowScale410NormalForm.lean`,
+`LowScale68NormalForm.lean`,
 `LowScale68Integrated.lean`, `LowScale68Depression.lean`,
 `LowScale68SourceBridge.lean`, `LowScale68ScaleZero.lean`,
+`LowScale68ScaleZeroAssembly.lean`,
 `LowScale68ScaleTwoSourceFace.lean`, `LowScaleRemainingShear.lean`,
 `LowScale68Infinity.lean`, `LowScale68PolynomialBoundary.lean`,
 `LowScale68WeightedRadius.lean`, `LowScale68Expansion.lean`,
