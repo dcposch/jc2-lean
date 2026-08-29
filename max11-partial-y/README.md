@@ -750,6 +750,7 @@ lake build
 `LowScale410ScaleZeroNonzeroGammaCone.lean`,
 `LowScale410ScaleZeroGammaDiscriminantFan.lean`,
 `LowScale410ScaleZeroGammaCoordinateFan.lean`,
+`LowScale410ScaleZeroGammaConstantEndpoint.lean`,
 `LowScale410BetaWall.lean`,
 `LowScale410ScaleTwoSourceFace.lean`, `LowScale410ScaleTwoSecondFace.lean`,
 `LowScale410ScaleTwoThirdFace.lean`,
