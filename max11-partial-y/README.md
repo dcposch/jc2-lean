@@ -755,6 +755,7 @@ lake build
 `LowScale68ScaleTwoAlignedSquareRhoFour.lean`,
 `LowScale68ScaleTwoAlignedSquareRhoThree.lean`,
 `LowScale68ScaleTwoAlignedSquareRhoTwo.lean`,
+`LowScale68ScaleTwoAlignedSquareP4First.lean`,
 `LowScale68ScaleTwoLocalRhoFour.lean`,
 `LowScale68ScaleTwoLocalRhoThree.lean`,
 `LowScale68ScaleTwoLocalRhoTwo.lean`,
