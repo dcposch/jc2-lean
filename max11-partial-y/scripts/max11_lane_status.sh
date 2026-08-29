@@ -58,8 +58,41 @@ else
   done <<<"$worker_rows"
 fi
 
-printf '\nRECENT SCRATCH ACTIVITY (3h, newest first)\n'
 now="$(date +%s)"
+printf '\nDURABLE LANE LEDGER (newest 12)\n'
+state_root="$project_dir/.max11-lanes"
+ledger_dirs=""
+if [[ -d "$state_root" ]]; then
+  ledger_dirs="$(find "$state_root" -mindepth 1 -maxdepth 1 -type d | sort -r | head -n 12)"
+fi
+if [[ -z "$ledger_dirs" ]]; then
+  printf 'none (legacy workers predate ledger)\n'
+else
+  while IFS= read -r job_dir; do
+    job="${job_dir##*/}"
+    engine="$(sed -n '1p' "$job_dir/engine" 2>/dev/null || printf '?')"
+    target="$(sed -n '1p' "$job_dir/target" 2>/dev/null || printf '?')"
+    state="$(sed -n '1p' "$job_dir/state" 2>/dev/null || printf '?')"
+    pid="$(sed -n '1p' "$job_dir/pid" 2>/dev/null || printf '?')"
+    if [[ "$state" == running && "$pid" =~ ^[0-9]+$ ]] &&
+        ! kill -0 "$pid" 2>/dev/null; then
+      state="stale"
+    fi
+    started="$(sed -n '1p' "$job_dir/started_epoch" 2>/dev/null || printf '%s' "$now")"
+    ended="$(sed -n '1p' "$job_dir/ended_epoch" 2>/dev/null || printf '%s' "$now")"
+    [[ "$started" =~ ^[0-9]+$ ]] || started="$now"
+    [[ "$ended" =~ ^[0-9]+$ ]] || ended="$now"
+    if [[ "$state" == running || "$state" == queued ]]; then
+      age=$((now - started))
+    else
+      age=$((ended - started))
+    fi
+    printf 'job=%s state=%s elapsed=%s pid=%s engine=%s target=%s\n' \
+      "$job" "$state" "$(human_age "$age")" "$pid" "$engine" "$target"
+  done <<<"$ledger_dirs"
+fi
+
+printf '\nRECENT SCRATCH ACTIVITY (3h, newest first)\n'
 recent_rows="$(find "$project_dir" -maxdepth 1 -type f \
   \( -name 'Grok*Scratch.lean' -o -name 'Sol*Scratch.lean' -o \
      -name 'Fable*Scratch.lean' \) \
