@@ -105,7 +105,19 @@ fi
 
 scratch_compile_files=()
 source_hashes=()
+scratch_cache_keys=()
+tracked_environment_hash=""
 if ((${#lean_files[@]})); then
+  hash_tracked_environment() {
+    (
+      cd "$project_dir"
+      while IFS= read -r -d '' tracked_file; do
+        printf '%s\0' "$tracked_file"
+        LC_ALL=C shasum -a 256 "$tracked_file"
+      done < <(git ls-files -z -- '*.lean' lean-toolchain lakefile.toml lake-manifest.json)
+    ) | LC_ALL=C shasum -a 256 | awk '{print $1}'
+  }
+
   collect_local_imports() {
     local source="$1"
     local known module dependency
@@ -137,6 +149,14 @@ if ((${#lean_files[@]})); then
   for source in "${scratch_compile_files[@]}"; do
     source_hashes+=("$(LC_ALL=C shasum -a 256 "$project_dir/$source" | awk '{print $1}')")
   done
+  tracked_environment_hash="$(hash_tracked_environment)"
+  cache_state="$tracked_environment_hash"
+  for ((i = 0; i < ${#scratch_compile_files[@]}; i++)); do
+    cache_state="$(printf '%s\n%s\n%s\n' \
+      "$cache_state" "${scratch_compile_files[$i]}" "${source_hashes[$i]}" \
+      | LC_ALL=C shasum -a 256 | awk '{print $1}')"
+    scratch_cache_keys+=("$cache_state")
+  done
 
   remote_parent="${box_dir%/*}"
   remote_work_dir="$(ssh "${ssh_args[@]}" "$box_host" \
@@ -149,11 +169,12 @@ if ((${#lean_files[@]})); then
   }
   cleanup_remote=1
   ssh "${ssh_args[@]}" "$box_host" \
-    "ln -s '$box_dir/.lake' '$remote_work_dir/.lake'"
+    "mkdir -p '$box_dir/.scratch-olean-cache' && \
+     ln -s '$box_dir/.lake' '$remote_work_dir/.lake'"
 fi
 
 if ((${#lean_files[@]})); then
-  echo "FILES ${lean_files[*]} COMPILE_COUNT=${#scratch_compile_files[@]}"
+  echo "FILES ${lean_files[*]} COMPILE_COUNT=${#scratch_compile_files[@]} TRACKED_ENV_SHA256=$tracked_environment_hash"
 fi
 echo "SYNC $project_dir -> $box_host:$remote_work_dir"
 rsync -az \
@@ -165,13 +186,30 @@ rsync -az \
 
 if ((${#lean_files[@]})); then
   build_command=""
-  for source in "${scratch_compile_files[@]}"; do
+  for ((i = 0; i < ${#scratch_compile_files[@]}; i++)); do
+    source="${scratch_compile_files[$i]}"
     output="${source%.lean}.olean"
+    cache_file="$box_dir/.scratch-olean-cache/${scratch_cache_keys[$i]}.olean"
+    requested=0
+    for lean_file in "${lean_files[@]}"; do
+      [[ "$source" == "$lean_file" ]] && requested=1
+    done
     [[ -z "$build_command" ]] || build_command+=" && "
     # Lake's generated LEAN_PATH omits the current directory.  Preserve it so
     # a later scratch target can import an earlier untracked `.olean` compiled
-    # in this isolated workspace.
-    build_command+="env LEAN_PATH=. lake env lean -R . -o $output $source"
+    # in this isolated workspace.  Exact-source dependency artifacts are
+    # content-addressed by the tracked Lean environment and ordered scratch
+    # ancestry.  The requested leaf is always rebuilt, never accepted from
+    # cache, so every successful gate still elaborates the claimed theorem.
+    compile_and_cache="env LEAN_PATH=. lake env lean -R . -o $output $source && \
+      cp '$output' '$cache_file.tmp.\$\$' && mv -f '$cache_file.tmp.\$\$' '$cache_file'"
+    if ((requested)); then
+      build_command+="$compile_and_cache && echo SCRATCH_CACHE_LEAF FILE=$source"
+    else
+      build_command+="if [[ -s '$cache_file' ]]; then \
+        cp '$cache_file' '$output' && echo SCRATCH_CACHE_HIT FILE=$source; \
+        else $compile_and_cache && echo SCRATCH_CACHE_MISS FILE=$source; fi"
+    fi
   done
 elif ((full_build)); then
   build_command="lake build"
@@ -227,6 +265,12 @@ if ((run_axioms)); then
 fi
 
 if ((${#lean_files[@]})); then
+  current_tracked_environment_hash="$(hash_tracked_environment)"
+  if [[ "$current_tracked_environment_hash" != "$tracked_environment_hash" ]]; then
+    echo "TRACKED_ENVIRONMENT_CHANGED_DURING_VERIFY" >&2
+    echo "EXPECTED_SHA256=$tracked_environment_hash CURRENT_SHA256=$current_tracked_environment_hash" >&2
+    exit 1
+  fi
   for ((i = 0; i < ${#scratch_compile_files[@]}; i++)); do
     current_hash="$(LC_ALL=C shasum -a 256 "$project_dir/${scratch_compile_files[$i]}" | awk '{print $1}')"
     if [[ "$current_hash" != "${source_hashes[$i]}" ]]; then
