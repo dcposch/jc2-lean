@@ -875,6 +875,7 @@ lake build
 `LowScale68SecondaryLaterDeepThreeRadiusZeroResidualLoadAssembly.lean`,
 `LowScale68SecondaryLaterDeepThreeRadiusZeroResidualSource.lean`,
 `LowScale68SecondaryLaterDeepLowerParentAfterThreeRadius.lean`,
+`LowScale68SecondaryLaterDeepThreeRadiusMiddleRowTwo.lean`,
 `LowScale68SecondaryLaterDeepMixedTwoNFace.lean`,
 `LowScale68SecondaryLaterDeepClampedEndgame.lean`,
 `LowScale68SecondaryLaterDeepPreclampedEndgame.lean`,
