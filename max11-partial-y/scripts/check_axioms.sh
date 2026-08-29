@@ -72,6 +72,7 @@ LOW_SCALE_68_SECONDARY_RESIDUAL_DOUBLE_LOAD_WALL_CANONICAL_THEOREMS="$(sed -n 's
 LOW_SCALE_68_SECONDARY_RESIDUAL_SUM_LOAD_WALL_THEOREMS="$(sed -n 's/^theorem \([^ ]*\).*/Max11DegreeRoutes.\1/p' LowScale68SecondaryResidualSumLoadWall.lean)"
 LOW_SCALE_68_SECONDARY_RESIDUAL_HALF_RADIUS_LOAD_WALL_THEOREMS="$(sed -n 's/^theorem \([^ ]*\).*/Max11DegreeRoutes.\1/p' LowScale68SecondaryResidualHalfRadiusLoadWall.lean)"
 LOW_SCALE_68_SECONDARY_RESIDUAL_LEFT_LOAD_WINDOW_THEOREMS="$(sed -n 's/^theorem \([^ ]*\).*/Max11DegreeRoutes.\1/p' LowScale68SecondaryResidualLeftLoadWindow.lean)"
+LOW_SCALE_68_SECONDARY_RESIDUAL_LEFT_BOUNDARY_THEOREMS="$(sed -n 's/^theorem \([^ ]*\).*/Max11DegreeRoutes.\1/p' LowScale68SecondaryResidualLeftBoundary.lean)"
 LOW_SCALE_68_SECONDARY_RESIDUAL_ROW_TWO_LOAD_DOMINANCE_THEOREMS="$(sed -n 's/^theorem \([^ ]*\).*/Max11DegreeRoutes.\1/p' LowScale68SecondaryResidualRowTwoLoadDominance.lean)"
 LOW_SCALE_68_SECONDARY_RESIDUAL_OVERSHOOT_CANONICAL_THEOREMS="$(sed -n 's/^theorem \([^ ]*\).*/Max11DegreeRoutes.\1/p' LowScale68SecondaryResidualOvershootCanonical.lean)"
 LOW_SCALE_68_SECONDARY_RESIDUAL_SELECTOR_THEOREMS="$(sed -n 's/^theorem \([^ ]*\).*/Max11DegreeRoutes.\1/p' LowScale68SecondaryResidualSelector.lean)"
@@ -82,6 +83,7 @@ THEOREMS="$THEOREMS $LOW_SCALE_68_SECONDARY_ALPHA_WALL_THEOREMS"
 THEOREMS="$THEOREMS $LOW_SCALE_68_SECONDARY_ALPHA_WALL_CANONICAL_THEOREMS"
 THEOREMS="$THEOREMS $LOW_SCALE_68_SECONDARY_FIRST_LOAD_WALL_REMAINDER_THEOREMS"
 THEOREMS="$THEOREMS $LOW_SCALE_68_SECONDARY_RESIDUAL_HALF_RADIUS_LOAD_WALL_THEOREMS"
+THEOREMS="$THEOREMS $LOW_SCALE_68_SECONDARY_RESIDUAL_LEFT_BOUNDARY_THEOREMS"
 THEOREMS="$THEOREMS $LOW_SCALE_68_SECONDARY_FIRST_LOAD_WALL_CANONICAL_THEOREMS"
 THEOREMS="$THEOREMS $LOW_SCALE_68_SECONDARY_RESIDUAL_DOUBLE_LOAD_WALL_THEOREMS"
 THEOREMS="$THEOREMS $LOW_SCALE_68_SECONDARY_RESIDUAL_DOUBLE_LOAD_WALL_CANONICAL_THEOREMS"
@@ -109,6 +111,7 @@ PROBE="${PROBE}import LowScale68SecondaryResidualDoubleLoadWallCanonical\n"
 PROBE="${PROBE}import LowScale68SecondaryResidualSumLoadWall\n"
 PROBE="${PROBE}import LowScale68SecondaryResidualHalfRadiusLoadWall\n"
 PROBE="${PROBE}import LowScale68SecondaryResidualLeftLoadWindow\n"
+PROBE="${PROBE}import LowScale68SecondaryResidualLeftBoundary\n"
 PROBE="${PROBE}import LowScale68SecondaryResidualRowTwoLoadDominance\n"
 PROBE="${PROBE}import LowScale68SecondaryResidualOvershootCanonical\n"
 PROBE="${PROBE}import LowScale68SecondaryResidualSelector\n"
@@ -146,6 +149,9 @@ OUT="$(printf '%b' "$PROBE" | lake env lean --stdin 2>&1)" || {
 echo "$OUT"
 
 for thm in $THEOREMS; do
+  if echo "$OUT" | grep -Fq "'$thm' does not depend on any axioms"; then
+    continue
+  fi
   BLOCK="$(echo "$OUT" | sed -n "/'$thm' depends on axioms/,/]/p" | head -20)"
   if [ -z "$BLOCK" ]; then
     echo "FAIL: no axiom report for $thm"

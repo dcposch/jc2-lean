@@ -588,6 +588,7 @@ lake build
 `LowScale68SecondaryResidualSumLoadWall.lean`,
 `LowScale68SecondaryResidualHalfRadiusLoadWall.lean`,
 `LowScale68SecondaryResidualLeftLoadWindow.lean`,
+`LowScale68SecondaryResidualLeftBoundary.lean`,
 `LowScale68SecondaryResidualRowTwoLoadDominance.lean`,
 `LowScale68SecondaryResidualOvershootCanonical.lean`,
 `LowScale68SecondaryResidualSelector.lean`,
