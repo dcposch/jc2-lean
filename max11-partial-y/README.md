@@ -519,9 +519,21 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   alpha-rest term has degree at most `10n-g-1`, strictly below the residual
   cubic face `12n-3g-1` whenever `g<n`.  Feeding that sharp cutoff into the
   complete one-form endgame closes the entire chamber `n<2g`, `g<n`, including
-  the formerly separate `2n≤3g` region.  The equality wall `g=n`, the deeper
-  `g>n` cascade, source-level scale-zero assembly, and the other seven literal
-  normalized low-scale subcases remain open.  It does
+  the formerly separate `2n≤3g` region.  In the first deeper window
+  `n<g<3n/2`, the same alpha-core cancellation now recovers the ordinary
+  five-equation first face and its two strict residual degree drops without
+  assuming `alpha=0`.  The equality wall `g=n`, the residual endgame in that
+  deeper window, the later `g≥3n/2` load cascade, source-level scale-zero
+  assembly, and the remaining literal normalized low-scale subcases remain
+  open.  For the `(6,8)` scale-two source, the next literal Jacobian row now
+  classifies the complete first face: its discriminator is either zero or the
+  seventh power of a degree-one polynomial times a nonzero scalar, while the
+  common quadratic core is its square.  The latter branch therefore has an
+  explicit finite root ready for weighted-infinity analysis.  For all six
+  `(4,10)`, `(6,10)`, and `(8,10)` leaves, an exact large source-shear
+  calculation gives total-degree gcd `H+2L`; prime selection reduces them
+  uniformly to the deliberately open arbitrary-pair twice-prime interface,
+  but does not assert that interface.  It does
 prove the common-power UFD factorization, exact
 core degree, scalar normalization, and generation transport for all five.
 The endpoint theorem is the first assertion of Guccione--Guccione--
@@ -570,6 +582,7 @@ lake build
 `LowScale46ScaleTwo.lean`, `LowScale68NormalForm.lean`,
 `LowScale68Integrated.lean`, `LowScale68Depression.lean`,
 `LowScale68SourceBridge.lean`, `LowScale68ScaleZero.lean`,
+`LowScale68ScaleTwoSourceFace.lean`, `LowScaleRemainingShear.lean`,
 `LowScale68Infinity.lean`, `LowScale68PolynomialBoundary.lean`,
 `LowScale68WeightedRadius.lean`, `LowScale68Expansion.lean`,
 `LowScale68CubicDescent.lean`, `LowScale68SecondaryRadius.lean`,
@@ -592,6 +605,7 @@ lake build
 `LowScale68SecondaryLargeGapResidual.lean`,
 `LowScale68SecondaryLargeGapLoadZeroFace.lean`,
 `LowScale68SecondaryLargeGapSubcritical.lean`,
+`LowScale68SecondaryDeepGapCascade.lean`,
 `LowScale68SecondaryResidualMiddle.lean`,
 `LowScale68SecondaryResidualDouble.lean`,
 `LowScale68SecondaryResidualDoubleLoadWall.lean`,
