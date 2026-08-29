@@ -415,8 +415,14 @@ not treated as an established theorem.
   invariant syzygies and strict degree cutoffs, and classifies the next
   comparison completely.  If `2h<3g`, the discriminant gap is exactly `g+h`;
   if `3g<2h`, it is exactly `4g-h`; on `2h=3g`, its boundary coefficient obeys
-  the exact three-term cubic-face equation.  Eliminating these three new
-  faces remains open, as do the other gap chambers and scale-two analysis.
+  the exact three-term cubic-face equation.  The row-two residual modules
+  then split the literal lower system into residual and load terms, prove the
+  load cutoff, eliminate both strict chambers, and force `2h=3g`.  On that
+  balanced face they extract the exact relation
+  `4*b*c^2-9*d*e=0`.  The canonical balanced wrapper derives both required
+  cutoffs directly from the lower system, so its only extra chamber premise
+  is `3g<n`.  The next row-one obstruction, the remaining gap chambers, and
+  scale-two analysis remain open.
   `LowScale46NewtonFaces.lean` proves the underlying three- and four-term
   Hahn-series tied-minimum principle and the complete rational Newton-face
   tables for the aligned `beta ≠ 0` and `delta ≠ 0` strata.
@@ -532,7 +538,12 @@ lake build
 `LowScale68SecondaryResidualMiddle.lean`,
 `LowScale68SecondaryResidualDouble.lean`,
 `LowScale68SecondaryResidualSelector.lean`,
-`LowScale68SecondaryResidualDescent.lean`, and
+`LowScale68SecondaryResidualDescent.lean`,
+`LowScale68SecondaryResidualRowTwoSystem.lean`,
+`LowScale68SecondaryResidualRowTwoFaces.lean`,
+`LowScale68SecondaryResidualRowTwoBalanced.lean`,
+`LowScale68SecondaryResidualBalancedSelector.lean`,
+`LowScale68SecondaryResidualCanonicalBalanced.lean`, and
 `Max11Assembly.lean`
 contain no `sorry`, custom axioms, or trust escapes.  The
 permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.

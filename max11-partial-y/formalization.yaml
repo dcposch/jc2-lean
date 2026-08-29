@@ -94,7 +94,10 @@ sources:
       on that middle face.  Exact discriminant, incidence, and cubic defects
       then expose the next Newton comparison: the two strict chambers force
       discriminant gaps `g+h` and `4g-h`, while the balanced chamber supplies
-      its exact three-term boundary equation.
+      its exact three-term boundary equation.  The literal row-two system is
+      split into this residual and a strictly lower load; its two strict
+      chambers are eliminated, forcing `2h=3g`, and the balanced coefficient
+      yields `4*b*c^2-9*d*e=0`.
       These statements
       refine the frozen finite composition and use the two published results
       listed below only at their explicitly typed interfaces.
@@ -268,7 +271,9 @@ status:
     `A*B^2+3*c^2=0`.  Exact invariant syzygies then lower the incidence and
     cubic defects.  The next comparison is complete: on the two strict sides
     the discriminant gaps are respectively `g+h` and `4g-h`, while the
-    balanced side satisfies the exact three-term boundary equation.
+    balanced side satisfies the exact three-term boundary equation.  The
+    literal row-two equation and its load cutoff eliminate both strict sides,
+    force `2h=3g`, and extract `4*b*c^2-9*d*e=0` on the balanced face.
     Not proved here: scalar-extension/descent, the
     prime-total-degree-gcd theorem itself, the standard-endpoint theorem
     itself, the secondary Newton-face `(6,8)` scale-zero descent, or the other
@@ -425,6 +430,30 @@ status:
       axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.secondaryResidualCubicDefect_balancedChamber68"
       file: "LowScale68SecondaryResidualDescent.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.integratedPolynomialLowerSystem68_residualRowTwo"
+      file: "LowScale68SecondaryResidualRowTwoSystem.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.residualRowTwo_leftChamber_ne_zero68"
+      file: "LowScale68SecondaryResidualRowTwoFaces.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.residualRowTwo_rightChamber_ne_zero68"
+      file: "LowScale68SecondaryResidualRowTwoFaces.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.residualRowTwo_add_load_eq_zero_imp_balancedRelation68"
+      file: "LowScale68SecondaryResidualRowTwoBalanced.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.residualCanonicalSelectedGap_eq_balanced68"
+      file: "LowScale68SecondaryResidualBalancedSelector.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.residualCanonicalSelectedGap_eq_balanced68_of_system"
+      file: "LowScale68SecondaryResidualCanonicalBalanced.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.mismatchDegreeCone46"
@@ -734,8 +763,9 @@ fidelity:
     exact identities, degree drops, invariant load cutoffs, abstract face
     solvers, canonical tropical selection, endpoint elimination, selected
     middle discriminant classifier, exact defect syzygies, degree cutoffs, and
-    next three-way cubic-face classification are proved, but those new faces
-    are not yet eliminated.  It
+    next three-way cubic-face classification, row-two system split,
+    strict-chamber eliminations, and balanced row-two equation are proved.
+    The balanced row-one obstruction is not yet formalized.  It
     does not
     formalize the published prime theorem, the standard-endpoint theorem,
     the secondary Newton-face `(6,8)` scale-zero descent, the other seven
@@ -771,7 +801,12 @@ review:
     LowScale68SecondaryResidualMiddle.lean,
     LowScale68SecondaryResidualDouble.lean,
     LowScale68SecondaryResidualSelector.lean,
-    LowScale68SecondaryResidualDescent.lean, or
+    LowScale68SecondaryResidualDescent.lean,
+    LowScale68SecondaryResidualRowTwoSystem.lean,
+    LowScale68SecondaryResidualRowTwoFaces.lean,
+    LowScale68SecondaryResidualRowTwoBalanced.lean,
+    LowScale68SecondaryResidualBalancedSelector.lean,
+    LowScale68SecondaryResidualCanonicalBalanced.lean, or
     Max11Assembly.lean.
 
 alignment:
