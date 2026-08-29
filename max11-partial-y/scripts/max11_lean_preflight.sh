@@ -36,6 +36,25 @@ for source in "$@"; do
     exit 1
   fi
 
+  # A doc comment attaches to the following declaration.  Placing a scoped
+  # option between them is a parse error; the option must precede the comment.
+  misplaced_option_lines="$(awk '
+    /\/--/ { in_doc = 1 }
+    in_doc && /-\// { in_doc = 0; doc_pending = 1; next }
+    doc_pending && /^[[:space:]]*$/ { next }
+    doc_pending {
+      if ($0 ~ /^[[:space:]]*set_option[[:space:]]+maxHeartbeats[[:space:]]+[0-9]+[[:space:]]+in[[:space:]]*$/)
+        print NR
+      doc_pending = 0
+    }
+  ' "$source")"
+  if [[ -n "$misplaced_option_lines" ]]; then
+    while IFS= read -r misplaced_line; do
+      echo "PREFLIGHT_ERROR file=$source kind=option_after_doc_comment line=$misplaced_line" >&2
+    done <<<"$misplaced_option_lines"
+    exit 1
+  fi
+
   bytes="$(stat -f '%z' "$source")"
   if ((bytes > 65536)); then
     echo "PREFLIGHT_WARN file=$source kind=large_file bytes=$bytes" >&2
