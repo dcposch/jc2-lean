@@ -778,6 +778,7 @@ lake build
 `LowScale68SecondaryLaterDeepLowerResidual.lean`,
 `LowScale68SecondaryLaterDeepThreeRadiusWallNext.lean`,
 `LowScale68SecondaryLaterDeepThreeRadiusWallElimination.lean`,
+`LowScale68SecondaryLaterDeepThreeRadiusResidualEntry.lean`,
 `LowScale68SecondaryLaterDeepMixedTwoNFace.lean`,
 `LowScale68SecondaryLaterDeepClampedEndgame.lean`,
 `LowScale68SecondaryLaterDeepPreclampedEndgame.lean`,
