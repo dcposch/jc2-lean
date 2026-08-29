@@ -490,8 +490,10 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   transported to the canonical expanded source system with the terminal
   `60*X^59` row handled explicitly.  On the equality wall `g=n`, the apparent
   `alpha` row-one cores cancel identically, so the ordinary fifth equation
-  survives and again forces `e=0`, `a*b=3*d`, while leaving `alpha` free.  In the medium
-  complement, the selected residual gap
+  survives and again forces `e=0`, `a*b=3*d`, while leaving `alpha` free.
+  This equality-wall classification is transported to the canonical expanded
+  source system with the terminal row coefficient handled explicitly.  In the
+  medium complement, the selected residual gap
   still satisfies `g<h`: on `g+h<n` the two ordinary residual middle-face
   equations survive, while the strict overshoot `n<g+h`, `n<3g` again forces
   `l=0`.  Once `l=0` is known anywhere in `2g<n`, the residual selector,
@@ -567,6 +569,7 @@ lake build
 `LowScale68SecondaryRelaxedFirstFace.lean`,
 `LowScale68SecondaryRelaxedCanonical.lean`,
 `LowScale68SecondaryAlphaWall.lean`,
+`LowScale68SecondaryAlphaWallCanonical.lean`,
 `LowScale68SecondaryFirstLoadWallFace.lean`,
 `LowScale68SecondaryFirstLoadWallCore.lean`,
 `LowScale68SecondaryFirstLoadWallRemainder.lean`,
