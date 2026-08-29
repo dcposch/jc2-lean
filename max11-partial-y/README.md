@@ -589,9 +589,10 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   splits the full two-row residual into that cubic point and one disjoint
   degree-ten component `P10(v/z^2)=0`.  The next literal differential/Hahn
   row is now extracted too, refining the non-cubic branch to the finite affine
-  packet `P10(V)=F4(T,V)=F3(T,V)=F2(T,V)=0`.  A computer-algebra audit reduces
-  the last three equations to `V=1/3`, while `P10(1/3)=-90`; formalizing that
-  elimination certificate is the remaining local step.
+  packet `P10(V)=F4(T,V)=F3(T,V)=F2(T,V)=0`.  A staged quadratic-resultant
+  and univariate Bezout certificate eliminates this packet: the three rows
+  force `V=1/3`, while `P10(1/3)=-90`.  Thus every rho-one component gives
+  the simultaneous descent `h0^5∣p5`, `h0^3∣p4`, and `h0∣p3`.
   For all six
   `(4,10)`, `(6,10)`, and `(8,10)` leaves, an exact large source-shear
   calculation gives total-degree gcd `H+2L`; prime selection reduces them
@@ -627,10 +628,11 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   closed Newton sector is now eliminated as well: its strict intermediate
   cone gives incompatible constant-invariant faces, and the aligned
   `(deg A,deg B,deg U)=(2n,3n,4n)` endpoint contradicts the terminal row.
-  The arithmetic fan split leaves no cone inside that sector.  What remains
-  on the `l≠0` wall is the source-level Newton-support connector proving that
-  every positive-degree solution lies in this fan; the other six load walls
-  also remain.
+  The arithmetic fan split leaves no cone inside that sector.  Exact exposed-
+  vertex exclusions now supply the source-level Newton-support connector, so
+  every positive-degree trajectory on the `l≠0` wall is impossible.  Only its
+  zero-degree boundary cases lie outside that theorem; the other six effective
+  load walls also remain.
 The low-scale core proves the common-power UFD factorization, exact
 core degree, scalar normalization, and generation transport for all five.
 The endpoint theorem is the first assertion of Guccione--Guccione--
@@ -687,6 +689,7 @@ lake build
 `LowScale410LoadCascade.lean`, `LowScale410LWall.lean`,
 `LowScale410LWallBoundary.lean`, `LowScale410LWallResidual.lean`,
 `LowScale410LWallOtherCones.lean`,
+`LowScale410LWallFanConnector.lean`,
 `LowScale410ScaleTwoSourceFace.lean`, `LowScale610ScaleTwoSourceFace.lean`,
 `LowScale810ScaleTwoSourceFace.lean`,
 `LowScale68NormalForm.lean`,
@@ -707,7 +710,8 @@ lake build
 `LowScale68ScaleTwoLocalRhoOne.lean`,
 `LowScale68ScaleTwoRhoOneTransverse.lean`,
 `LowScale68ScaleTwoRhoOneComponentSplit.lean`,
-`LowScale68ScaleTwoRhoOneNoncubicNext.lean`, `LowScaleRemainingShear.lean`,
+`LowScale68ScaleTwoRhoOneNoncubicNext.lean`,
+`LowScale68ScaleTwoRhoOneNoncubicElimination.lean`, `LowScaleRemainingShear.lean`,
 `LowScale68Infinity.lean`, `LowScale68PolynomialBoundary.lean`,
 `LowScale68WeightedRadius.lean`, `LowScale68Expansion.lean`,
 `LowScale68CubicDescent.lean`, `LowScale68SecondaryRadius.lean`,
