@@ -72,6 +72,7 @@ cleanup() {
 trap cleanup EXIT
 
 scratch_compile_files=()
+source_hashes=()
 if ((${#lean_files[@]})); then
   collect_local_imports() {
     local source="$1"
@@ -100,6 +101,7 @@ if ((${#lean_files[@]})); then
       exit 2
     }
     collect_local_imports "$lean_file"
+    source_hashes+=("$(LC_ALL=C shasum -a 256 "$project_dir/$lean_file" | awk '{print $1}')")
   done
 
   remote_parent="${box_dir%/*}"
@@ -188,4 +190,16 @@ if ((run_axioms)); then
   else
     tail -n 2 "$axiom_log"
   fi
+fi
+
+if ((${#lean_files[@]})); then
+  for ((i = 0; i < ${#lean_files[@]}; i++)); do
+    current_hash="$(LC_ALL=C shasum -a 256 "$project_dir/${lean_files[$i]}" | awk '{print $1}')"
+    if [[ "$current_hash" != "${source_hashes[$i]}" ]]; then
+      echo "SOURCE_CHANGED_DURING_VERIFY FILE=${lean_files[$i]}" >&2
+      echo "EXPECTED_SHA256=${source_hashes[$i]} CURRENT_SHA256=$current_hash" >&2
+      exit 1
+    fi
+    echo "VERIFIED_SHA256=$current_hash FILE=${lean_files[$i]}"
+  done
 fi
