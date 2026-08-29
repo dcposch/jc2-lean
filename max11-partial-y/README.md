@@ -753,6 +753,7 @@ lake build
 `LowScale410ScaleZeroGammaConstantEndpoint.lean`,
 `LowScale410ScaleZeroGammaZeroAFace.lean`,
 `LowScale410ScaleZeroGammaZeroBFace.lean`,
+`LowScale410ScaleZeroGammaUZeroCompetition.lean`,
 `LowScale410BetaWall.lean`,
 `LowScale410ScaleTwoSourceFace.lean`, `LowScale410ScaleTwoSecondFace.lean`,
 `LowScale410ScaleTwoThirdFace.lean`,
