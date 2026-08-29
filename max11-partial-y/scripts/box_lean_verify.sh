@@ -2,6 +2,22 @@
 # Sync this project to the dedicated Lean box and run a fail-closed build.
 set -euo pipefail
 
+# Bash may read a script lazily while it runs.  A helper edit during a long
+# Lean build can therefore splice old and new bytes into the live interpreter.
+# Re-exec an unlinked immutable snapshot so maintenance cannot corrupt a gate.
+# This also makes proof verification independent of concurrent helper commits.
+if [[ -z "${BOX_LEAN_SELF_SNAPSHOT:-}" ]]; then
+  original_project_dir="$(cd "$(dirname "$0")/.." && pwd)"
+  script_snapshot="$(mktemp -t box-lean-verify-script.XXXXXX)"
+  cp -p -- "$0" "$script_snapshot"
+  export BOX_LEAN_SELF_SNAPSHOT="$script_snapshot"
+  export BOX_LEAN_PROJECT_DIR="$original_project_dir"
+  exec /bin/bash "$script_snapshot" "$@"
+fi
+script_snapshot="$BOX_LEAN_SELF_SNAPSHOT"
+rm -f -- "$script_snapshot"
+project_dir="${BOX_LEAN_PROJECT_DIR:?missing immutable verifier project directory}"
+
 box_host="${BOX_LEAN_HOST:-ubuntu@54.81.66.156}"
 box_key="${BOX_LEAN_KEY:-/Users/dc/.ssh/claude-cli.pem}"
 box_dir="${BOX_LEAN_DIR:-/home/ubuntu/jc2-lean/max11-partial-y}"
@@ -71,7 +87,6 @@ fi
   exit 2
 }
 
-project_dir="$(cd "$(dirname "$0")/.." && pwd)"
 ssh_args=(-i "$box_key" -o BatchMode=yes -o StrictHostKeyChecking=no)
 rsync_shell="ssh -i $box_key -o BatchMode=yes -o StrictHostKeyChecking=no"
 remote_work_dir="$box_dir"
