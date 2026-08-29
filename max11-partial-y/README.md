@@ -730,6 +730,7 @@ lake build
 `LowScale410ScaleZeroGroundIntegration.lean`,
 `LowScale410ScaleZeroNonzeroBetaCone.lean`,
 `LowScale410ScaleZeroBetaCubicWall.lean`,
+`LowScale410ScaleZeroBetaCubicTie.lean`,
 `LowScale410BetaWall.lean`,
 `LowScale410ScaleTwoSourceFace.lean`, `LowScale410ScaleTwoSecondFace.lean`,
 `LowScale410ScaleTwoThirdFace.lean`,
