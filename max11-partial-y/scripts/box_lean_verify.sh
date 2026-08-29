@@ -61,15 +61,47 @@ remote_work_dir="$box_dir"
 cleanup_remote=0
 local_log=""
 axiom_log=""
+canonical_lock_dir=""
+canonical_lock_acquired=0
 
 cleanup() {
   [[ -z "$local_log" ]] || rm -f "$local_log"
   [[ -z "$axiom_log" ]] || rm -f "$axiom_log"
   if ((cleanup_remote)); then
-    ssh "${ssh_args[@]}" "$box_host" "rm -rf -- '$remote_work_dir'" >/dev/null 2>&1 || true
+    # An interrupted SSH client can leave Lean alive in a deleted workspace.
+    # Stop only processes whose exact cwd is this validated temporary tree.
+    ssh "${ssh_args[@]}" "$box_host" "
+      for signal in TERM KILL; do
+        for proc in /proc/[0-9]*; do
+          cwd=\$(readlink \"\$proc/cwd\" 2>/dev/null || true)
+          case \"\$cwd\" in
+            '$remote_work_dir'|'$remote_work_dir'/*)
+              kill -\"\$signal\" \"\${proc##*/}\" 2>/dev/null || true ;;
+          esac
+        done
+        [[ \"\$signal\" == TERM ]] && sleep 1
+      done
+      rm -rf -- '$remote_work_dir'
+    " >/dev/null 2>&1 || true
+  fi
+  if ((canonical_lock_acquired)); then
+    rmdir "$canonical_lock_dir" >/dev/null 2>&1 || true
   fi
 }
 trap cleanup EXIT
+
+# Canonical builds reuse one cached remote checkout.  Syncing or building two
+# of them concurrently races both the source tree and Lake artifacts.  Scratch
+# gates use isolated workspaces and intentionally do not take this lock.
+if ((${#lean_files[@]} == 0)); then
+  lock_key="$(printf '%s\n' "$box_host|$box_dir" | LC_ALL=C shasum -a 256 | awk '{print $1}')"
+  canonical_lock_dir="${TMPDIR:-/tmp}/box-lean-canonical-${lock_key}.lock"
+  if ! mkdir "$canonical_lock_dir"; then
+    echo "canonical verifier already running (lock: $canonical_lock_dir)" >&2
+    exit 75
+  fi
+  canonical_lock_acquired=1
+fi
 
 scratch_compile_files=()
 source_hashes=()
@@ -101,7 +133,9 @@ if ((${#lean_files[@]})); then
       exit 2
     }
     collect_local_imports "$lean_file"
-    source_hashes+=("$(LC_ALL=C shasum -a 256 "$project_dir/$lean_file" | awk '{print $1}')")
+  done
+  for source in "${scratch_compile_files[@]}"; do
+    source_hashes+=("$(LC_ALL=C shasum -a 256 "$project_dir/$source" | awk '{print $1}')")
   done
 
   remote_parent="${box_dir%/*}"
@@ -193,13 +227,13 @@ if ((run_axioms)); then
 fi
 
 if ((${#lean_files[@]})); then
-  for ((i = 0; i < ${#lean_files[@]}; i++)); do
-    current_hash="$(LC_ALL=C shasum -a 256 "$project_dir/${lean_files[$i]}" | awk '{print $1}')"
+  for ((i = 0; i < ${#scratch_compile_files[@]}; i++)); do
+    current_hash="$(LC_ALL=C shasum -a 256 "$project_dir/${scratch_compile_files[$i]}" | awk '{print $1}')"
     if [[ "$current_hash" != "${source_hashes[$i]}" ]]; then
-      echo "SOURCE_CHANGED_DURING_VERIFY FILE=${lean_files[$i]}" >&2
+      echo "SOURCE_CHANGED_DURING_VERIFY FILE=${scratch_compile_files[$i]}" >&2
       echo "EXPECTED_SHA256=${source_hashes[$i]} CURRENT_SHA256=$current_hash" >&2
       exit 1
     fi
-    echo "VERIFIED_SHA256=$current_hash FILE=${lean_files[$i]}"
+    echo "VERIFIED_SHA256=$current_hash FILE=${scratch_compile_files[$i]}"
   done
 fi
