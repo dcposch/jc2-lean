@@ -8,11 +8,11 @@ box_dir="${BOX_LEAN_DIR:-/home/ubuntu/jc2-lean/max11-partial-y}"
 run_axioms=0
 full_build=0
 verbose="${BOX_LEAN_VERBOSE:-0}"
-lean_file=""
+lean_files=()
 modules=()
 
 usage() {
-  echo "usage: $0 [--full | --file File.lean | LeanModule ...] [--axioms]" >&2
+  echo "usage: $0 [--full | --file File.lean [--file File.lean ...] | LeanModule ...] [--axioms]" >&2
   exit 2
 }
 
@@ -27,7 +27,7 @@ while (($#)); do
         echo "invalid Lean file name: $1" >&2
         exit 2
       }
-      lean_file="$1"
+      lean_files+=("$1")
       ;;
     --help|-h) usage ;;
     -*) usage ;;
@@ -42,7 +42,7 @@ while (($#)); do
   shift
 done
 
-mode_count=$((full_build + (${#modules[@]} > 0) + (${#lean_file} > 0)))
+mode_count=$((full_build + (${#modules[@]} > 0) + (${#lean_files[@]} > 0)))
 if ((mode_count != 1)); then
   echo "choose exactly one of --full, --file, or explicit modules" >&2
   exit 2
@@ -70,12 +70,7 @@ cleanup() {
 trap cleanup EXIT
 
 scratch_compile_files=()
-if [[ -n "$lean_file" ]]; then
-  [[ -f "$project_dir/$lean_file" ]] || {
-    echo "missing Lean file: $project_dir/$lean_file" >&2
-    exit 2
-  }
-
+if ((${#lean_files[@]})); then
   collect_local_imports() {
     local source="$1"
     local known module dependency
@@ -97,7 +92,13 @@ if [[ -n "$lean_file" ]]; then
     scratch_compile_files+=("$source")
   }
 
-  collect_local_imports "$lean_file"
+  for lean_file in "${lean_files[@]}"; do
+    [[ -f "$project_dir/$lean_file" ]] || {
+      echo "missing Lean file: $project_dir/$lean_file" >&2
+      exit 2
+    }
+    collect_local_imports "$lean_file"
+  done
 
   remote_parent="${box_dir%/*}"
   remote_work_dir="$(ssh "${ssh_args[@]}" "$box_host" \
@@ -113,6 +114,9 @@ if [[ -n "$lean_file" ]]; then
     "ln -s '$box_dir/.lake' '$remote_work_dir/.lake'"
 fi
 
+if ((${#lean_files[@]})); then
+  echo "FILES ${lean_files[*]} COMPILE_COUNT=${#scratch_compile_files[@]}"
+fi
 echo "SYNC $project_dir -> $box_host:$remote_work_dir"
 rsync -az \
   --exclude .git \
@@ -121,7 +125,7 @@ rsync -az \
   -e "$rsync_shell" \
   "$project_dir/" "$box_host:$remote_work_dir/"
 
-if [[ -n "$lean_file" ]]; then
+if ((${#lean_files[@]})); then
   build_command=""
   for source in "${scratch_compile_files[@]}"; do
     output="${source%.lean}.olean"

@@ -673,6 +673,8 @@ lake build
 ./scripts/box_lean_verify.sh LowScale410LoadCascade
 # Scratch and untracked canonical imports are rebuilt transitively:
 ./scripts/box_lean_verify.sh --file Sol410ScaleZeroLWallBoundaryScratch.lean
+# Returned lanes can share one isolated sync and dependency walk:
+./scripts/box_lean_verify.sh --file LaneOneScratch.lean --file LaneTwoScratch.lean
 ```
 
 `Max11Core.lean`, `ClassicalRoutes.lean`, `DegreeRoutes.lean`,
