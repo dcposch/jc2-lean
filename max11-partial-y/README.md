@@ -837,6 +837,7 @@ lake build
 `LowScale68ScaleTwoAlignedNonsquareCubicOrder.lean`,
 `LowScale68ScaleTwoAlignedNonsquareTerminalValuation.lean`,
 `LowScale68ScaleTwoAlignedNonsquareTerminalQuotient.lean`,
+`LowScale68ScaleTwoAlignedNonsquareTerminalLastRow.lean`,
 `LowScale68ScaleTwoAlignedSquareDescent.lean`,
 `LowScale68ScaleTwoAlignedSquareRowTwo.lean`,
 `LowScale68ScaleTwoAlignedSquareLowerRows.lean`,
