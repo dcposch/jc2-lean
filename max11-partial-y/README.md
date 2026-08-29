@@ -559,8 +559,12 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   The remaining `5n<2g≤6n` window is reduced by its I4, I3, terminal, and
   row-one faces to the single top family `e=0, a*b=3*d`; the other two
   apparent families are impossible.  Gap attainment further splits it into
-  `b≠0,d≠0` or `b=d=0,c≠0`.  All five current top-face equations vanish on
-  this family, so a strictly lower coefficient is the next separator.  The lower
+  `b≠0,d≠0` or `b=d=0,c≠0`.  All five top-face equations vanish on this
+  family, but the first lower residual coefficient is now exact: after the
+  translated defects drop, its two incidence equations force either a second
+  simultaneous degree drop, or the nonzero branch
+  `b*c*d1*e1≠0` with `a*b^2+3*c^2=0`.  The next lower coefficient separates
+  those two packets.  The lower
   `3n≤2g≤5n` window is reduced to three
   exact packets: the two endpoint load walls and an open branch with
   `beta=0`, vanishing `e_top`, and `a*b=3*d`.  Lower coefficients remain to
@@ -586,8 +590,11 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   transverse coefficient forces `z=0`, hence simultaneously
   `h0^5∣p5`, `h0^3∣p4`, and `h0∣p3`.  An exact elimination certificate now
   splits the full two-row residual into that cubic point and one disjoint
-  degree-ten component `P10(v/z^2)=0`; the next differential row is being
-  reduced on this unique finite non-cubic packet.
+  degree-ten component `P10(v/z^2)=0`.  The next literal differential/Hahn
+  row is now extracted too, refining the non-cubic branch to the finite affine
+  packet `P10(V)=F4(T,V)=F3(T,V)=F2(T,V)=0`.  A computer-algebra audit reduces
+  the last three equations to `V=1/3`, while `P10(1/3)=-90`; formalizing that
+  elimination certificate is the remaining local step.
   For all six
   `(4,10)`, `(6,10)`, and `(8,10)` leaves, an exact large source-shear
   calculation gives total-degree gcd `H+2L`; prime selection reduces them
@@ -702,7 +709,8 @@ lake build
 `LowScale68ScaleTwoAfterRhoTwo.lean`,
 `LowScale68ScaleTwoLocalRhoOne.lean`,
 `LowScale68ScaleTwoRhoOneTransverse.lean`,
-`LowScale68ScaleTwoRhoOneComponentSplit.lean`, `LowScaleRemainingShear.lean`,
+`LowScale68ScaleTwoRhoOneComponentSplit.lean`,
+`LowScale68ScaleTwoRhoOneNoncubicNext.lean`, `LowScaleRemainingShear.lean`,
 `LowScale68Infinity.lean`, `LowScale68PolynomialBoundary.lean`,
 `LowScale68WeightedRadius.lean`, `LowScale68Expansion.lean`,
 `LowScale68CubicDescent.lean`, `LowScale68SecondaryRadius.lean`,
@@ -745,6 +753,7 @@ lake build
 `LowScale68SecondaryLaterDeepSevenBoundaryEndgame.lean`,
 `LowScale68SecondaryLaterDeepFiveToSixEndgame.lean`,
 `LowScale68SecondaryLaterDeepFiveToSixRowOne.lean`,
+`LowScale68SecondaryLaterDeepFiveToSixLowerCoefficient.lean`,
 `LowScale68SecondaryResidualMiddle.lean`,
 `LowScale68SecondaryResidualDouble.lean`,
 `LowScale68SecondaryResidualDoubleLoadWall.lean`,
