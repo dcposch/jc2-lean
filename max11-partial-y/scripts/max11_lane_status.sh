@@ -63,7 +63,8 @@ printf '\nDURABLE LANE LEDGER (newest 12)\n'
 state_root="$project_dir/.max11-lanes"
 ledger_dirs=""
 if [[ -d "$state_root" ]]; then
-  ledger_dirs="$(find "$state_root" -mindepth 1 -maxdepth 1 -type d | sort -r | head -n 12)"
+  ledger_dirs="$(find "$state_root" -mindepth 1 -maxdepth 1 -type d \
+    ! -name gates | sort -r | head -n 12)"
 fi
 if [[ -z "$ledger_dirs" ]]; then
   printf 'none (legacy workers predate ledger)\n'
@@ -74,7 +75,8 @@ else
     target="$(sed -n '1p' "$job_dir/target" 2>/dev/null || printf '?')"
     state="$(sed -n '1p' "$job_dir/state" 2>/dev/null || printf '?')"
     pid="$(sed -n '1p' "$job_dir/pid" 2>/dev/null || printf '?')"
-    if [[ "$state" == running && "$pid" =~ ^[0-9]+$ ]] &&
+    if [[ "$state" == running || "$state" == verifying ]] &&
+        [[ "$pid" =~ ^[0-9]+$ ]] &&
         ! kill -0 "$pid" 2>/dev/null; then
       state="stale"
     fi
@@ -87,8 +89,14 @@ else
     else
       age=$((ended - started))
     fi
-    printf 'job=%s state=%s elapsed=%s pid=%s engine=%s target=%s\n' \
-      "$job" "$state" "$(human_age "$age")" "$pid" "$engine" "$target"
+    verified_sha="$(sed -n '1p' "$job_dir/verified_sha256" 2>/dev/null || true)"
+    if [[ "$state" == succeeded && -z "$verified_sha" ]]; then
+      state="worker_succeeded_unverified"
+    fi
+    gate=""
+    [[ -z "$verified_sha" ]] || gate=" sha256=$verified_sha"
+    printf 'job=%s state=%s elapsed=%s pid=%s engine=%s target=%s%s\n' \
+      "$job" "$state" "$(human_age "$age")" "$pid" "$engine" "$target" "$gate"
   done <<<"$ledger_dirs"
 fi
 

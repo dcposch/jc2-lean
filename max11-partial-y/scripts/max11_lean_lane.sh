@@ -33,10 +33,14 @@ if [[ "${1:-}" == "--run" ]]; then
     exit_code=$?
     printf '%s\n' "$exit_code" >"$job_dir/exit_code"
     printf '%s\n' "$(date +%s)" >"$job_dir/ended_epoch"
-    if ((exit_code == 0)); then
-      printf '%s\n' succeeded >"$job_dir/state"
-    else
-      printf '%s\n' failed >"$job_dir/state"
+    current_state="$(sed -n '1p' "$job_dir/state" 2>/dev/null || true)"
+    if [[ "$current_state" == running || "$current_state" == queued || \
+          "$current_state" == verifying ]]; then
+      if ((exit_code == 0)); then
+        printf '%s\n' succeeded >"$job_dir/state"
+      else
+        printf '%s\n' failed >"$job_dir/state"
+      fi
     fi
   }
   trap finish_lane EXIT
@@ -57,7 +61,43 @@ if [[ "${1:-}" == "--run" ]]; then
     exit_code=${PIPESTATUS[0]}
   fi
   set -e
-  exit "$exit_code"
+  if ((exit_code != 0)); then
+    exit "$exit_code"
+  fi
+
+  if [[ ! -f "$project_dir/$target" ]]; then
+    echo "worker exited successfully without creating $target" | tee "$job_dir/verify.log" >&2
+    printf '%s\n' verification_failed >"$job_dir/state"
+    exit 66
+  fi
+
+  # Convert a model-process success into a proof success.  If the worker's own
+  # AWS check already produced an exact content/environment receipt, this is
+  # instant.  Otherwise perform the independent gate here.  Waiting on the
+  # per-target lock also handles CLIs that return before an async tool call.
+  printf '%s\n' verifying >"$job_dir/state"
+  : >"$job_dir/verify.log"
+  if "$project_dir/scripts/box_lean_verify.sh" --file "$target" --receipt-only \
+      >>"$job_dir/verify.log" 2>&1; then
+    verify_exit=0
+  else
+    set +e
+    "$project_dir/scripts/box_lean_verify.sh" --file "$target" --wait-lock 900 \
+      >>"$job_dir/verify.log" 2>&1
+    verify_exit=$?
+    set -e
+  fi
+  if ((verify_exit != 0)); then
+    printf '%s\n' verification_failed >"$job_dir/state"
+    tail -n 30 "$job_dir/verify.log"
+    exit "$verify_exit"
+  fi
+  LC_ALL=C shasum -a 256 "$project_dir/$target" | awk '{print $1}' \
+    >"$job_dir/verified_sha256"
+  printf '%s\n' "$(date +%s)" >"$job_dir/verified_epoch"
+  printf '%s\n' verified >"$job_dir/state"
+  tail -n 10 "$job_dir/verify.log"
+  exit 0
 fi
 
 if [[ "${1:-}" == "--check" && $# == 1 ]]; then

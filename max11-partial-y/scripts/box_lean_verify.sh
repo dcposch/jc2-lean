@@ -7,12 +7,14 @@ box_key="${BOX_LEAN_KEY:-/Users/dc/.ssh/claude-cli.pem}"
 box_dir="${BOX_LEAN_DIR:-/home/ubuntu/jc2-lean/max11-partial-y}"
 run_axioms=0
 full_build=0
+receipt_only=0
+wait_lock_seconds=0
 verbose="${BOX_LEAN_VERBOSE:-0}"
 lean_files=()
 modules=()
 
 usage() {
-  echo "usage: $0 [--full | --file File.lean [--file File.lean ...] | LeanModule ...] [--axioms]" >&2
+  echo "usage: $0 [--full | --file File.lean [--file File.lean ...] | LeanModule ...] [--axioms] [--receipt-only] [--wait-lock SECONDS]" >&2
   echo "  --file: isolated scratch/one-file verification" >&2
   echo "  LeanModule ... --axioms: persistent canonical build and full axiom audit" >&2
   exit 2
@@ -21,6 +23,13 @@ usage() {
 while (($#)); do
   case "$1" in
     --full) full_build=1 ;;
+    --receipt-only) receipt_only=1 ;;
+    --wait-lock)
+      shift
+      (($#)) || usage
+      [[ "$1" =~ ^[0-9]+$ ]] || usage
+      wait_lock_seconds="$1"
+      ;;
     --axioms) run_axioms=1 ;;
     --file)
       shift
@@ -49,6 +58,14 @@ if ((mode_count != 1)); then
   echo "choose exactly one of --full, --file, or explicit modules" >&2
   exit 2
 fi
+if ((receipt_only && (${#lean_files[@]} == 0 || run_axioms))); then
+  echo "--receipt-only requires --file and cannot be combined with --axioms" >&2
+  exit 2
+fi
+if ((wait_lock_seconds && ${#lean_files[@]} == 0)); then
+  echo "--wait-lock is only valid with --file" >&2
+  exit 2
+fi
 [[ -r "$box_key" ]] || {
   echo "missing SSH key: $box_key" >&2
   exit 2
@@ -63,6 +80,7 @@ local_log=""
 axiom_log=""
 canonical_lock_dir=""
 canonical_lock_acquired=0
+scratch_lock_dirs=()
 
 cleanup() {
   [[ -z "$local_log" ]] || rm -f "$local_log"
@@ -87,6 +105,10 @@ cleanup() {
   if ((canonical_lock_acquired)); then
     rmdir "$canonical_lock_dir" >/dev/null 2>&1 || true
   fi
+  for scratch_lock_dir in ${scratch_lock_dirs[@]+"${scratch_lock_dirs[@]}"}; do
+    rm -f -- "$scratch_lock_dir/owner" >/dev/null 2>&1 || true
+    rmdir "$scratch_lock_dir" >/dev/null 2>&1 || true
+  done
 }
 trap cleanup EXIT
 
@@ -101,6 +123,47 @@ if ((${#lean_files[@]} == 0)); then
     exit 75
   fi
   canonical_lock_acquired=1
+elif ((!receipt_only)); then
+  # A scratch target has one authoritative compile at a time.  This prevents
+  # agents and the root process from spending separate AWS cores and 8+ GiB
+  # each elaborating the same leaf.  Different targets remain fully parallel.
+  scratch_lock_files=()
+  while IFS= read -r scratch_lock_file; do
+    scratch_lock_files+=("$scratch_lock_file")
+  done < <(printf '%s\n' "${lean_files[@]}" | LC_ALL=C sort -u)
+  for scratch_lock_file in "${scratch_lock_files[@]}"; do
+    scratch_lock_key="$(printf '%s\n' \
+      "$project_dir|$box_host|$box_dir|$scratch_lock_file" | \
+      LC_ALL=C shasum -a 256 | awk '{print $1}')"
+    scratch_lock_dir="${TMPDIR:-/tmp}/box-lean-scratch-${scratch_lock_key}.lock"
+    lock_started="$(date +%s)"
+    while ! mkdir "$scratch_lock_dir" 2>/dev/null; do
+      lock_owner="$(sed -nE 's/^pid=([0-9]+).*/\1/p' \
+        "$scratch_lock_dir/owner" 2>/dev/null || true)"
+      if [[ "$lock_owner" =~ ^[0-9]+$ ]] && ! kill -0 "$lock_owner" 2>/dev/null; then
+        rm -f -- "$scratch_lock_dir/owner" >/dev/null 2>&1 || true
+        rmdir "$scratch_lock_dir" >/dev/null 2>&1 || true
+        continue
+      elif [[ -z "$lock_owner" ]]; then
+        # Recover the tiny mkdir-before-owner crash window without stealing a
+        # lock from a live process that is just about to write its owner file.
+        sleep 0.1
+        if [[ ! -s "$scratch_lock_dir/owner" ]]; then
+          rmdir "$scratch_lock_dir" >/dev/null 2>&1 || true
+          continue
+        fi
+      fi
+      lock_elapsed=$(($(date +%s) - lock_started))
+      if ((lock_elapsed >= wait_lock_seconds)); then
+        echo "scratch verifier already running for $scratch_lock_file (lock: $scratch_lock_dir)" >&2
+        exit 75
+      fi
+      sleep 2
+    done
+    printf '%s\n' "pid=$$ file=$scratch_lock_file started=$(date -u +%FT%TZ)" \
+      >"$scratch_lock_dir/owner"
+    scratch_lock_dirs+=("$scratch_lock_dir")
+  done
 fi
 
 scratch_compile_files=()
@@ -109,6 +172,8 @@ scratch_cache_keys=()
 environment_walk_seen=()
 tracked_dependency_files=()
 tracked_environment_hash=""
+gate_fingerprint=""
+gate_receipt=""
 if ((${#lean_files[@]})); then
   hash_tracked_environment() {
     (
@@ -178,6 +243,24 @@ if ((${#lean_files[@]})); then
     source_hashes+=("$(LC_ALL=C shasum -a 256 "$project_dir/$source" | awk '{print $1}')")
   done
   tracked_environment_hash="$(hash_tracked_environment)"
+  gate_fingerprint="$({
+    printf 'tracked_environment=%s\naxioms=%s\n' "$tracked_environment_hash" "$run_axioms"
+    for ((i = 0; i < ${#scratch_compile_files[@]}; i++)); do
+      printf 'file=%s sha256=%s\n' \
+        "${scratch_compile_files[$i]}" "${source_hashes[$i]}"
+    done
+  } | LC_ALL=C shasum -a 256 | awk '{print $1}')"
+  gate_receipt="$project_dir/.max11-lanes/gates/$gate_fingerprint.receipt"
+  if ((receipt_only)); then
+    if [[ -s "$gate_receipt" ]] &&
+        grep -Fxq "GATE_RECEIPT_SHA256=$gate_fingerprint" "$gate_receipt" &&
+        grep -Fxq "BUILD_EXIT=0 ERROR_COUNT=0 SORRYAX_COUNT=0" "$gate_receipt"; then
+      cat "$gate_receipt"
+      exit 0
+    fi
+    echo "GATE_RECEIPT_MISSING SHA256=$gate_fingerprint" >&2
+    exit 66
+  fi
   cache_state="$tracked_environment_hash"
   for ((i = 0; i < ${#scratch_compile_files[@]}; i++)); do
     cache_state="$(printf '%s\n%s\n%s\n' \
@@ -308,4 +391,17 @@ if ((${#lean_files[@]})); then
     fi
     echo "VERIFIED_SHA256=$current_hash FILE=${scratch_compile_files[$i]}"
   done
+  mkdir -p "${gate_receipt%/*}"
+  receipt_tmp="$gate_receipt.tmp.$$"
+  {
+    echo "GATE_RECEIPT_SHA256=$gate_fingerprint"
+    echo "TRACKED_ENV_SHA256=$tracked_environment_hash"
+    echo "BUILD_EXIT=0 ERROR_COUNT=0 SORRYAX_COUNT=0"
+    for ((i = 0; i < ${#scratch_compile_files[@]}; i++)); do
+      echo "VERIFIED_SHA256=${source_hashes[$i]} FILE=${scratch_compile_files[$i]}"
+    done
+    echo "VERIFIED_AT=$(date -u +%FT%TZ)"
+  } >"$receipt_tmp"
+  mv -f "$receipt_tmp" "$gate_receipt"
+  echo "GATE_RECEIPT=$gate_receipt"
 fi

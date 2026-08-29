@@ -697,8 +697,11 @@ lake build
 # Returned lanes can share one isolated sync and dependency walk:
 ./scripts/box_lean_verify.sh --file LaneOneScratch.lean --file LaneTwoScratch.lean
 # New delegated lanes run in detached screen sessions with enforced local-Lean
-# guards and leave a durable target/log/exit ledger under `.max11-lanes/`:
+# guards.  They finish in `verified` only after an exact source/environment AWS
+# gate; durable logs, hashes, and gate receipts live under `.max11-lanes/`:
 ./scripts/max11_lean_lane.sh --engine claude --target FableLaneScratch.lean -- 'Prove the next exact face.'
+# An exact completed gate can be checked without recompilation:
+./scripts/box_lean_verify.sh --file FableLaneScratch.lean --receipt-only
 # One dashboard shows live workers, durable handoffs, recent files, and AWS jobs:
 ./scripts/max11_lane_status.sh
 ```
