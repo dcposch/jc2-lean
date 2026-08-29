@@ -522,13 +522,17 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   the formerly separate `2n≤3g` region.  In the first deeper window
   `n<g<3n/2`, the same alpha-core cancellation now recovers the ordinary
   five-equation first face and its two strict residual degree drops without
-  assuming `alpha=0`.  The equality wall `g=n`, the residual endgame in that
-  deeper window, the later `g≥3n/2` load cascade, source-level scale-zero
-  assembly, and the remaining literal normalized low-scale subcases remain
-  open.  For the `(6,8)` scale-two source, the next literal Jacobian row now
-  classifies the complete first face: its discriminator is either zero or the
-  seventh power of a degree-one polynomial times a nonzero scalar, while the
-  common quadratic core is its square.  The latter branch therefore has an
+  assuming `alpha=0`.  On the equality wall `g=n`, the canonical system now
+  supplies `l=0`, strict residual drops, an attained gap, both ordinary
+  middle invariant faces, and the exact mixed double I4 face where
+  `beta*A^3` survives.  Its final mixed cubic one-form, the residual endgame
+  in the deeper window, the later `g≥3n/2` load cascade, source-level
+  scale-zero assembly, and the remaining literal normalized low-scale
+  subcases remain open.  For the `(6,8)` scale-two source, the next literal
+  Jacobian row now classifies the complete first face: its discriminator is
+  either zero or the seventh power of a degree-one polynomial times a nonzero
+  scalar, while the common quadratic core is its square.  The latter branch
+  therefore has an
   explicit finite root ready for weighted-infinity analysis.  For all six
   `(4,10)`, `(6,10)`, and `(8,10)` leaves, an exact large source-shear
   calculation gives total-degree gcd `H+2L`; prime selection reduces them
@@ -596,6 +600,7 @@ lake build
 `LowScale68SecondaryAlphaWall.lean`,
 `LowScale68SecondaryLargeGapAlphaCancellation.lean`,
 `LowScale68SecondaryAlphaWallCanonical.lean`,
+`LowScale68SecondaryAlphaWallEndgame.lean`,
 `LowScale68SecondaryFirstLoadWallFace.lean`,
 `LowScale68SecondaryFirstLoadWallCore.lean`,
 `LowScale68SecondaryFirstLoadWallRemainder.lean`,
