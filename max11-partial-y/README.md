@@ -595,6 +595,7 @@ lake build
 `LowScale68SecondaryResidualOvershootCanonical.lean`,
 `LowScale68SecondaryResidualOvershootBoundary.lean`,
 `LowScale68SecondaryResidualThreeGapBoundaryMiddle.lean`,
+`LowScale68SecondaryResidualThreeGapBoundarySelector.lean`,
 `LowScale68SecondaryResidualStripSelector.lean`,
 `LowScale68SecondaryResidualSelector.lean`,
 `LowScale68SecondaryResidualDescent.lean`,
