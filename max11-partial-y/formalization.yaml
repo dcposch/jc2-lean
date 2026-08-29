@@ -548,6 +548,10 @@ status:
       file: "LowScale68SecondaryResidualOvershootCanonical.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_residualThreeGapBoundaryMiddle_impossible68"
+      file: "LowScale68SecondaryResidualThreeGapBoundaryMiddle.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_residualStripSelector_impossible68"
       file: "LowScale68SecondaryResidualStripSelector.lean"
       sorry_count: 0
@@ -988,6 +992,7 @@ review:
     LowScale68SecondaryResidualLeftBoundary.lean,
     LowScale68SecondaryResidualRowTwoLoadDominance.lean,
     LowScale68SecondaryResidualOvershootCanonical.lean,
+    LowScale68SecondaryResidualThreeGapBoundaryMiddle.lean,
     LowScale68SecondaryResidualStripSelector.lean,
     LowScale68SecondaryResidualSelector.lean,
     LowScale68SecondaryResidualDescent.lean,
