@@ -767,6 +767,7 @@ lake build
 `LowScale810ScaleZeroSecondDefect.lean`,
 `LowScale810ScaleZeroThirdDefect.lean`,
 `LowScale810ScaleZeroFourthDefect.lean`,
+`LowScale810ScaleZeroFifthDefect.lean`,
 `LowScale810ScaleTwoSourceFace.lean`,
 `LowScale810ScaleTwoSecondFace.lean`, `LowScale810ScaleTwoThirdFace.lean`,
 `LowScale810ScaleTwoFourthFace.lean`, `LowScale810ScaleTwoFifthFace.lean`,
