@@ -97,7 +97,9 @@ sources:
       its exact three-term boundary equation.  The literal row-two system is
       split into this residual and a strictly lower load; its two strict
       chambers are eliminated, forcing `2h=3g`, and the balanced coefficient
-      yields `4*b*c^2-9*d*e=0`.
+      yields `4*b*c^2-9*d*e=0`.  The literal row-one system and load cutoff
+      then expose the nonzero coefficient
+      `(-64/9)*(4n-g)*c_top^3`, excluding the complete `3g<n` chamber.
       These statements
       refine the frozen finite composition and use the two published results
       listed below only at their explicitly typed interfaces.
@@ -273,7 +275,9 @@ status:
     the discriminant gaps are respectively `g+h` and `4g-h`, while the
     balanced side satisfies the exact three-term boundary equation.  The
     literal row-two equation and its load cutoff eliminate both strict sides,
-    force `2h=3g`, and extract `4*b*c^2-9*d*e=0` on the balanced face.
+    force `2h=3g`, and extract `4*b*c^2-9*d*e=0` on the balanced face.  The
+    next row-one coefficient is `(-64/9)*(4n-g)*c_top^3`, and its literal
+    load is strictly lower, so the full canonical `3g<n` chamber is excluded.
     Not proved here: scalar-extension/descent, the
     prime-total-degree-gcd theorem itself, the standard-endpoint theorem
     itself, the secondary Newton-face `(6,8)` scale-zero descent, or the other
@@ -454,6 +458,22 @@ status:
       axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.residualCanonicalSelectedGap_eq_balanced68_of_system"
       file: "LowScale68SecondaryResidualCanonicalBalanced.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.canonicalBalancedResidualData68_of_system"
+      file: "LowScale68SecondaryResidualCanonicalBalancedData.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.residualRowOne_coeff_balancedChamber_eq68"
+      file: "LowScale68SecondaryResidualRowOneFaces.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.cubicLoadRowOnePolynomial68_degree_lt_cubicFace"
+      file: "LowScale68SecondaryResidualRowOneSystem.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_secondaryResidualSmallChamber_impossible68"
+      file: "LowScale68SecondaryResidualBalancedEndgame.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.mismatchDegreeCone46"
@@ -764,8 +784,9 @@ fidelity:
     solvers, canonical tropical selection, endpoint elimination, selected
     middle discriminant classifier, exact defect syzygies, degree cutoffs, and
     next three-way cubic-face classification, row-two system split,
-    strict-chamber eliminations, and balanced row-two equation are proved.
-    The balanced row-one obstruction is not yet formalized.  It
+    strict-chamber eliminations, balanced row-two equation, row-one system
+    split and load cutoff, exact row-one cubic coefficient, and final
+    contradiction are proved, excluding the entire `3g<n` chamber.  It
     does not
     formalize the published prime theorem, the standard-endpoint theorem,
     the secondary Newton-face `(6,8)` scale-zero descent, the other seven
@@ -806,7 +827,11 @@ review:
     LowScale68SecondaryResidualRowTwoFaces.lean,
     LowScale68SecondaryResidualRowTwoBalanced.lean,
     LowScale68SecondaryResidualBalancedSelector.lean,
-    LowScale68SecondaryResidualCanonicalBalanced.lean, or
+    LowScale68SecondaryResidualCanonicalBalanced.lean,
+    LowScale68SecondaryResidualCanonicalBalancedData.lean,
+    LowScale68SecondaryResidualRowOneFaces.lean,
+    LowScale68SecondaryResidualRowOneSystem.lean,
+    LowScale68SecondaryResidualBalancedEndgame.lean, or
     Max11Assembly.lean.
 
 alignment:

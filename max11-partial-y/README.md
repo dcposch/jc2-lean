@@ -421,7 +421,10 @@ not treated as an established theorem.
   balanced face they extract the exact relation
   `4*b*c^2-9*d*e=0`.  The canonical balanced wrapper derives both required
   cutoffs directly from the lower system, so its only extra chamber premise
-  is `3g<n`.  The next row-one obstruction, the remaining gap chambers, and
+  is `3g<n`.  The companion row-one modules split the literal second
+  one-form, prove its load cutoff, and calculate its surviving coefficient as
+  `(-64/9)*(4n-g)*c_top^3`, which is nonzero.  Thus the complete canonical
+  `3g<n` residual chamber is impossible.  The complementary gap chambers and
   scale-two analysis remain open.
   `LowScale46NewtonFaces.lean` proves the underlying three- and four-term
   Hahn-series tied-minimum principle and the complete rational Newton-face
@@ -543,7 +546,11 @@ lake build
 `LowScale68SecondaryResidualRowTwoFaces.lean`,
 `LowScale68SecondaryResidualRowTwoBalanced.lean`,
 `LowScale68SecondaryResidualBalancedSelector.lean`,
-`LowScale68SecondaryResidualCanonicalBalanced.lean`, and
+`LowScale68SecondaryResidualCanonicalBalanced.lean`,
+`LowScale68SecondaryResidualCanonicalBalancedData.lean`,
+`LowScale68SecondaryResidualRowOneFaces.lean`,
+`LowScale68SecondaryResidualRowOneSystem.lean`,
+`LowScale68SecondaryResidualBalancedEndgame.lean`, and
 `Max11Assembly.lean`
 contain no `sorry`, custom axioms, or trust escapes.  The
 permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.
