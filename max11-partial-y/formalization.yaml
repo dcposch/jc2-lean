@@ -104,6 +104,9 @@ sources:
       strict strip `2g<n<3g`, all five chambers on `n=3g`, and the first-gap
       boundary `2g=n`; the latter uses residual degree drops, the residual
       row-two trichotomy, and the balanced row-one contradiction.
+      On `n<2g`, `g<n`, the zero-load classification is propagated through
+      strict residual drops, an attained residual gap, sharp load cutoffs, and
+      the exact residual middle and double invariant faces.
       These statements
       refine the frozen finite composition and use the two published results
       listed below only at their explicitly typed interfaces.
@@ -502,6 +505,10 @@ status:
       axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_residualOvershoot_loadL_eq_zero68"
       file: "LowScale68SecondaryLargeGapResidual.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_largeGapLoadZeroResidualDoubleInvariants68"
+      file: "LowScale68SecondaryLargeGapLoadZeroFace.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_secondaryResidualMiddle68"
@@ -1007,6 +1014,7 @@ review:
     LowScale68SecondaryFirstGapBoundaryFace.lean,
     LowScale68SecondaryFirstGapBoundary.lean,
     LowScale68SecondaryLargeGapResidual.lean,
+    LowScale68SecondaryLargeGapLoadZeroFace.lean,
     LowScale68SecondaryResidualMiddle.lean,
     LowScale68SecondaryResidualDouble.lean,
     LowScale68SecondaryResidualDoubleLoadWall.lean,
