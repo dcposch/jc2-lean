@@ -726,6 +726,7 @@ lake build
 `LowScale410ScaleZeroAssembly.lean`,
 `LowScale410BetaWall.lean`,
 `LowScale410ScaleTwoSourceFace.lean`, `LowScale410ScaleTwoSecondFace.lean`,
+`LowScale410ScaleTwoThirdFace.lean`,
 `LowScale610ScaleTwoSourceFace.lean`,
 `LowScale610ScaleTwoSecondFace.lean`, `LowScale610ScaleTwoThirdFace.lean`,
 `LowScale610ScaleTwoFourthFace.lean`,
