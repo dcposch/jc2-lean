@@ -13,8 +13,19 @@ ssh_args=(-i "$box_key" -o BatchMode=yes -o StrictHostKeyChecking=no)
 }
 
 printf 'LOCAL VERIFIER HELPERS\n'
-ps -axo pid=,etime=,pcpu=,pmem=,comm=,args= |
-  awk '$5 == "bash" && index($0, "bash ./scripts/box_lean_verify.sh") {print}' || true
+# Bash forks subshells for the tracked-environment hash pipeline.  Those
+# children retain the script argv, so report only matching processes whose
+# parent is not itself a verifier helper.
+ps -axo pid=,ppid=,etime=,pcpu=,pmem=,comm=,args= |
+  awk '
+    $6 == "bash" && index($0, "bash ./scripts/box_lean_verify.sh") {
+      row[$1] = $0
+      parent[$1] = $2
+    }
+    END {
+      for (pid in row)
+        if (!(parent[pid] in row)) print row[pid]
+    }' || true
 
 lock_key="$(printf '%s\n' "$box_host|$box_dir" | LC_ALL=C shasum -a 256 | awk '{print $1}')"
 canonical_lock_dir="${TMPDIR:-/tmp}/box-lean-canonical-${lock_key}.lock"
