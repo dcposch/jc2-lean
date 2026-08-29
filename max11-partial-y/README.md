@@ -556,9 +556,11 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   `c_top` branch forces successive degree drops in `D` and `e`, then kills
   `D`, `zeta`, and finally the nonzero terminal row.  The exact wall
   `2g=7n` is also impossible after extracting its tied terminal-row face.
-  The remaining `5n<2g≤6n` window is reduced by its I4, I3, and terminal
-  faces to three top families: `e=0, a*b=3*d`; `e=c=0, a*b=d`; or
-  `b=c=d=0`.  Its row-one face is the next separator.  The lower
+  The remaining `5n<2g≤6n` window is reduced by its I4, I3, terminal, and
+  row-one faces to the single top family `e=0, a*b=3*d`; the other two
+  apparent families are impossible.  Gap attainment further splits it into
+  `b≠0,d≠0` or `b=d=0,c≠0`.  All five current top-face equations vanish on
+  this family, so a strictly lower coefficient is the next separator.  The lower
   `3n≤2g≤5n` window is reduced to three
   exact packets: the two endpoint load walls and an open branch with
   `beta=0`, vanishing `e_top`, and `a*b=3*d`.  Lower coefficients remain to
@@ -617,9 +619,14 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   equations.  At `deg U=5n` only the scalar wall
   `7 lc(A)lc(U)=9 lc(B)^2` is eliminated by the exact terminal face; above
   it every chamber is impossible except `2 deg U=11n`, whose two scalar
-  relations are also incompatible with its terminal face.  Thus the entire
-  `(deg A,deg B)=(3n,4n)` cone on the `l≠0` wall is impossible.  Other degree
-  cones and the other six load walls remain.
+  relations are also incompatible with its terminal face.  The rest of the
+  closed Newton sector is now eliminated as well: its strict intermediate
+  cone gives incompatible constant-invariant faces, and the aligned
+  `(deg A,deg B,deg U)=(2n,3n,4n)` endpoint contradicts the terminal row.
+  The arithmetic fan split leaves no cone inside that sector.  What remains
+  on the `l≠0` wall is the source-level Newton-support connector proving that
+  every positive-degree solution lies in this fan; the other six load walls
+  also remain.
 The low-scale core proves the common-power UFD factorization, exact
 core degree, scalar normalization, and generation transport for all five.
 The endpoint theorem is the first assertion of Guccione--Guccione--
@@ -675,6 +682,7 @@ lake build
 `LowScale410ZeroLoadShiftedFiber.lean`,
 `LowScale410LoadCascade.lean`, `LowScale410LWall.lean`,
 `LowScale410LWallBoundary.lean`, `LowScale410LWallResidual.lean`,
+`LowScale410LWallOtherCones.lean`,
 `LowScale410ScaleTwoSourceFace.lean`, `LowScale610ScaleTwoSourceFace.lean`,
 `LowScale810ScaleTwoSourceFace.lean`,
 `LowScale68NormalForm.lean`,
@@ -736,6 +744,7 @@ lake build
 `LowScale68SecondaryLaterDeepSixToSevenLowerCoefficient.lean`,
 `LowScale68SecondaryLaterDeepSevenBoundaryEndgame.lean`,
 `LowScale68SecondaryLaterDeepFiveToSixEndgame.lean`,
+`LowScale68SecondaryLaterDeepFiveToSixRowOne.lean`,
 `LowScale68SecondaryResidualMiddle.lean`,
 `LowScale68SecondaryResidualDouble.lean`,
 `LowScale68SecondaryResidualDoubleLoadWall.lean`,
