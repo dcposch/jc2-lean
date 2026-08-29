@@ -610,7 +610,10 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   the last divisibility to `h0^2∣p3`.  Substituting that descent gives the
   sharp box `(1,1,2,2,2)`; its pole-five face factors as
   `a(3x-a^2)(9x-2a^2)`.  Hence either `h0^4∣p4`, or one of those two exact
-  algebraic branches remains for the next Hahn row.
+  algebraic branches remains.  The next I4 coefficient further forces
+  `512b+119*l*a=0` on `3x=a^2`, and
+  `4608d-1536ab+77*l*a^2=0` on `9x=2a^2`; the next I3 row must track the
+  improved-order defect on each branch.
   For all six
   `(4,10)`, `(6,10)`, and `(8,10)` leaves, an exact large source-shear
   calculation gives total-degree gcd `H+2L`; prime selection reduces them
@@ -727,6 +730,7 @@ lake build
 `LowScale68ScaleTwoLocalRowOneZero.lean`,
 `LowScale68ScaleTwoAfterRhoOne.lean`,
 `LowScale68ScaleTwoAfterRhoOneNextBox.lean`,
+`LowScale68ScaleTwoAfterRhoOneBranchRows.lean`,
 `LowScale68ScaleTwoLocalRhoFour.lean`,
 `LowScale68ScaleTwoLocalRhoThree.lean`,
 `LowScale68ScaleTwoLocalRhoTwo.lean`,
