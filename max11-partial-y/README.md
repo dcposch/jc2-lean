@@ -743,6 +743,7 @@ lake build
 `LowScale410ScaleZeroA4AB3Tie.lean`,
 `LowScale410ScaleZeroA4AB3EqualUTie.lean`,
 `LowScale410ScaleZeroA4AB3EqualUTerminal.lean`,
+`LowScale410ScaleZeroA4AB3HighUTerminal.lean`,
 `LowScale410BetaWall.lean`,
 `LowScale410ScaleTwoSourceFace.lean`, `LowScale410ScaleTwoSecondFace.lean`,
 `LowScale410ScaleTwoThirdFace.lean`,
