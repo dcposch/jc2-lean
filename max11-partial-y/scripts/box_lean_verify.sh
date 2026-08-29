@@ -106,16 +106,43 @@ fi
 scratch_compile_files=()
 source_hashes=()
 scratch_cache_keys=()
+environment_walk_seen=()
+tracked_dependency_files=()
 tracked_environment_hash=""
 if ((${#lean_files[@]})); then
   hash_tracked_environment() {
     (
       cd "$project_dir"
-      while IFS= read -r -d '' tracked_file; do
+      for tracked_file in lean-toolchain lake-manifest.json; do
+        [[ -f "$tracked_file" ]] || continue
         printf '%s\0' "$tracked_file"
         LC_ALL=C shasum -a 256 "$tracked_file"
-      done < <(git ls-files -z -- '*.lean' lean-toolchain lakefile.toml lake-manifest.json)
+      done
+      for tracked_file in "${tracked_dependency_files[@]}"; do
+        printf '%s\0' "$tracked_file"
+        LC_ALL=C shasum -a 256 "$tracked_file"
+      done
     ) | LC_ALL=C shasum -a 256 | awk '{print $1}'
+  }
+
+  collect_environment_imports() {
+    local source="$1"
+    local known module dependency
+    for known in ${environment_walk_seen[@]+"${environment_walk_seen[@]}"}; do
+      [[ "$known" == "$source" ]] && return
+    done
+    environment_walk_seen+=("$source")
+    if git -C "$project_dir" ls-files --error-unmatch -- \
+        "$source" >/dev/null 2>&1; then
+      tracked_dependency_files+=("$source")
+    fi
+    while IFS= read -r module; do
+      [[ "$module" =~ ^[A-Za-z0-9_.]+$ ]] || continue
+      dependency="${module//./\/}.lean"
+      [[ -f "$project_dir/$dependency" ]] || continue
+      collect_environment_imports "$dependency"
+    done < <(sed -nE 's/^import[[:space:]]+([A-Za-z0-9_.]+)[[:space:]]*$/\1/p' \
+      "$project_dir/$source")
   }
 
   collect_local_imports() {
@@ -145,6 +172,7 @@ if ((${#lean_files[@]})); then
       exit 2
     }
     collect_local_imports "$lean_file"
+    collect_environment_imports "$lean_file"
   done
   for source in "${scratch_compile_files[@]}"; do
     source_hashes+=("$(LC_ALL=C shasum -a 256 "$project_dir/$source" | awk '{print $1}')")
