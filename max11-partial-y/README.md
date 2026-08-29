@@ -717,7 +717,7 @@ lake build
 `LowScale410LWallBoundary.lean`, `LowScale410LWallResidual.lean`,
 `LowScale410LWallOtherCones.lean`,
 `LowScale410LWallFanConnector.lean`,
-`LowScale410LWallUnconditional.lean`,
+`LowScale410LWallUnconditional.lean`, `LowScale410GammaWall.lean`,
 `LowScale410ScaleTwoSourceFace.lean`, `LowScale610ScaleTwoSourceFace.lean`,
 `LowScale810ScaleTwoSourceFace.lean`, `LowScale810ScaleTwoSecondFace.lean`,
 `LowScale68NormalForm.lean`,

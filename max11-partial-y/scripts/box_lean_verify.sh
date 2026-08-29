@@ -13,6 +13,8 @@ modules=()
 
 usage() {
   echo "usage: $0 [--full | --file File.lean [--file File.lean ...] | LeanModule ...] [--axioms]" >&2
+  echo "  --file: isolated scratch/one-file verification" >&2
+  echo "  LeanModule ... --axioms: persistent canonical build and full axiom audit" >&2
   exit 2
 }
 
