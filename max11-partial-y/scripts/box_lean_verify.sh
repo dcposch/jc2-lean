@@ -130,7 +130,10 @@ if ((${#lean_files[@]})); then
   for source in "${scratch_compile_files[@]}"; do
     output="${source%.lean}.olean"
     [[ -z "$build_command" ]] || build_command+=" && "
-    build_command+="lake env lean -R . -o $output $source"
+    # Lake's generated LEAN_PATH omits the current directory.  Preserve it so
+    # a later scratch target can import an earlier untracked `.olean` compiled
+    # in this isolated workspace.
+    build_command+="env LEAN_PATH=. lake env lean -R . -o $output $source"
   done
 elif ((full_build)); then
   build_command="lake build"

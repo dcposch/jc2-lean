@@ -562,10 +562,12 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   simultaneous degree drop, or the nonzero branch
   `b*c*d1*e1≠0` with `a*b^2+3*c^2=0`.  Expansion-lattice support now rules out
   the nonzero branches at both the `g+1` and `g+2` edges: any active translated
-  discriminant edge must have displacement divisible by `60`.  Thus both
-  translated defects vanish at the first two edges; the remaining zero-edge
-  descent continues toward the first possible displacement `60` or an earlier
-  load threshold.  The lower
+  discriminant edge must have displacement divisible by `60`.  The full
+  support descent now forces every translated-defect coefficient at
+  displacement `1≤s<60` to vanish and drops both defects by sixty degrees,
+  except for the unique earliest load wall `n=30, g=90`.  On that wall the
+  offset-30 I4 coefficient ties the `zeta*A` load and remains to be resolved.
+  The lower
   `3n≤2g≤5n` window is reduced to three
   exact packets: the two endpoint load walls and an open branch with
   `beta=0`, vanishing `e_top`, and `a*b=3*d`.  On the open branch both
@@ -601,7 +603,10 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   force `V=1/3`, while `P10(1/3)=-90`.  Thus every rho-one component gives
   the simultaneous descent `h0^5∣p5`, `h0^3∣p4`, and `h0∣p3`.  In the next
   sharp local box, the unique pole-six face is `-(8/27)B^3`, which strengthens
-  the last divisibility to `h0^2∣p3`.
+  the last divisibility to `h0^2∣p3`.  Substituting that descent gives the
+  sharp box `(1,1,2,2,2)`; its pole-five face factors as
+  `a(3x-a^2)(9x-2a^2)`.  Hence either `h0^4∣p4`, or one of those two exact
+  algebraic branches remains for the next Hahn row.
   For all six
   `(4,10)`, `(6,10)`, and `(8,10)` leaves, an exact large source-shear
   calculation gives total-degree gcd `H+2L`; prime selection reduces them
@@ -717,6 +722,7 @@ lake build
 `LowScale68ScaleTwoIntegratedBoundary.lean`,
 `LowScale68ScaleTwoLocalRowOneZero.lean`,
 `LowScale68ScaleTwoAfterRhoOne.lean`,
+`LowScale68ScaleTwoAfterRhoOneNextBox.lean`,
 `LowScale68ScaleTwoLocalRhoFour.lean`,
 `LowScale68ScaleTwoLocalRhoThree.lean`,
 `LowScale68ScaleTwoLocalRhoTwo.lean`,
@@ -773,6 +779,7 @@ lake build
 `LowScale68SecondaryLaterDeepFiveToSixLowerCoefficient.lean`,
 `LowScale68SecondaryLaterDeepFiveToSixResidualNext.lean`,
 `LowScale68SecondaryLaterDeepFiveToSixNonzeroEdge.lean`,
+`LowScale68SecondaryLaterDeepFiveToSixStrideDescent.lean`,
 `LowScale68SecondaryResidualMiddle.lean`,
 `LowScale68SecondaryResidualDouble.lean`,
 `LowScale68SecondaryResidualDoubleLoadWall.lean`,
