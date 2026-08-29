@@ -258,7 +258,7 @@ if ((${#lean_files[@]})); then
   # exhaust Lean's default heartbeat budget before paying for a remote gate.
   (
     cd "$project_dir"
-    ./scripts/max11_lean_preflight.sh "${lean_files[@]}"
+    ./scripts/max11_lean_preflight.sh --strict "${lean_files[@]}"
   )
   for source in "${scratch_compile_files[@]}"; do
     source_hashes+=("$(LC_ALL=C shasum -a 256 "$project_dir/$source" | awk '{print $1}')")

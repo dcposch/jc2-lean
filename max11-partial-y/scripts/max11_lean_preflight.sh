@@ -21,6 +21,7 @@ fi
 }
 
 warning_count=0
+strict_failure_count=0
 for source in "$@"; do
   [[ "$source" =~ ^[A-Za-z0-9_.-]+[.]lean$ && "$source" == "${source##*/}" ]] || usage
   [[ -f "$source" ]] || {
@@ -52,6 +53,7 @@ for source in "$@"; do
       printf 'PREFLIGHT_WARN file=%s kind=unguarded_large_declaration line=%s lines=%s declaration=%s\n' \
         "$source" "$start_line" "$span" "$declaration" >&2
       warning_count=$((warning_count + 1))
+      strict_failure_count=$((strict_failure_count + 1))
     fi
   done < <(awk '
     function emit(end_line) {
@@ -75,7 +77,7 @@ for source in "$@"; do
   ' "$source")
 done
 
-echo "PREFLIGHT_OK files=$# warnings=$warning_count strict=$strict"
-if ((strict && warning_count)); then
+echo "PREFLIGHT_OK files=$# warnings=$warning_count strict_failures=$strict_failure_count strict=$strict"
+if ((strict && strict_failure_count)); then
   exit 1
 fi
