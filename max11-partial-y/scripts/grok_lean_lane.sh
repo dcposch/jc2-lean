@@ -27,7 +27,8 @@ if git -C "$project_dir" ls-files --error-unmatch -- "$target" >/dev/null 2>&1; 
 fi
 
 worker_rows="$(ps -axo command= | awk -v project="$project_dir" '
-  index($0, "grok --yolo") && index($0, project) {print}')"
+  index($0, "grok --yolo") &&
+    (index($0, project) || index($0, "LOCAL_LEAN_GUARD=enabled")) {print}')"
 worker_count=0
 if [[ -n "$worker_rows" ]]; then
   worker_count="$(wc -l <<<"$worker_rows" | tr -d ' ')"
@@ -50,7 +51,7 @@ command -v grok >/dev/null || {
   exit 69
 }
 
-contract="No tracked edits, sorry, new axioms, finite-root shortcuts, or closure overclaims. Do not invoke local Lean or Lake; the guarded PATH intentionally disables them. Use ./scripts/box_lean_verify.sh --file $target for every Lean compilation/check. Finish only after literal BUILD_EXIT=0 ERROR_COUNT=0 SORRYAX_COUNT=0, and report recursive SHA-256 hashes, exact gain, next unused row, and residual. LOCAL_LEAN_GUARD=enabled. Requested output: $target"
+contract="Work autonomously in $project_dir. No tracked edits, sorry, new axioms, finite-root shortcuts, or closure overclaims. Do not invoke local Lean or Lake; the guarded PATH intentionally disables them. Use ./scripts/box_lean_verify.sh --file $target for every Lean compilation/check. Finish only after literal BUILD_EXIT=0 ERROR_COUNT=0 SORRYAX_COUNT=0, and report recursive SHA-256 hashes, exact gain, next unused row, and residual. LOCAL_LEAN_GUARD=enabled. Requested output: $target"
 
 cd "$project_dir"
 exec env PATH="$guard_dir:$PATH" \

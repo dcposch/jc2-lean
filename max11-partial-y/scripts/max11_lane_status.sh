@@ -35,8 +35,9 @@ fi
 
 printf '\nMANAGED HEADLESS WORKERS\n'
 worker_rows="$(ps -axo pid=,etime=,rss=,command= | awk -v project="$project_dir" '
-  (index($0, "grok --yolo") || index($0, "claude -p")) &&
-    index($0, project) {print}')"
+  (index($0, "grok --yolo") ||
+   (index($0, "claude ") && index($0, " -p "))) &&
+    (index($0, project) || index($0, "LOCAL_LEAN_GUARD=enabled")) {print}')"
 if [[ -z "$worker_rows" ]]; then
   printf 'none\n'
 else
@@ -45,7 +46,7 @@ else
     elapsed="$(awk '{print $2}' <<<"$row")"
     rss_kib="$(awk '{print $3}' <<<"$row")"
     engine="grok"
-    [[ "$row" == *"claude -p"* ]] && engine="claude"
+    [[ "$row" == *"claude "*" -p "* ]] && engine="claude"
     # Continuation prompts mention their predecessor before the requested
     # output.  The final scratch filename is therefore the worker target.
     target="$(grep -oE '[A-Za-z0-9_.-]+Scratch[.]lean' <<<"$row" | tail -n 1 || true)"
@@ -60,7 +61,8 @@ fi
 printf '\nRECENT SCRATCH ACTIVITY (3h, newest first)\n'
 now="$(date +%s)"
 recent_rows="$(find "$project_dir" -maxdepth 1 -type f \
-  \( -name 'Grok*Scratch.lean' -o -name 'Sol*Scratch.lean' \) \
+  \( -name 'Grok*Scratch.lean' -o -name 'Sol*Scratch.lean' -o \
+     -name 'Fable*Scratch.lean' \) \
   -mmin -180 -exec stat -f '%m|%z|%N' {} + | sort -t '|' -k1,1nr | head -n 16)"
 if [[ -z "$recent_rows" ]]; then
   printf 'none\n'
