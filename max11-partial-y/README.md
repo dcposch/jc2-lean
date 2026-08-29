@@ -741,6 +741,7 @@ lake build
 `LowScale68ScaleTwoAfterRhoOneImprovedDefectRowOne.lean`,
 `LowScale68ScaleTwoAfterRhoOneAfterP4.lean`,
 `LowScale68ScaleTwoAfterRhoOneAfterP3.lean`,
+`LowScale68ScaleTwoAfterRhoOneAfterP3Residual.lean`,
 `LowScale68ScaleTwoLocalRhoFour.lean`,
 `LowScale68ScaleTwoLocalRhoThree.lean`,
 `LowScale68ScaleTwoLocalRhoTwo.lean`,
