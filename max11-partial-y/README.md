@@ -748,6 +748,7 @@ lake build
 `LowScale68ScaleTwoClosureBridge.lean`,
 `LowScale68ScaleTwoAlignedFace.lean`,
 `LowScale68ScaleTwoAlignedSquareDescent.lean`,
+`LowScale68ScaleTwoAlignedSquareRowTwo.lean`,
 `LowScale68ScaleTwoLocalRhoFour.lean`,
 `LowScale68ScaleTwoLocalRhoThree.lean`,
 `LowScale68ScaleTwoLocalRhoTwo.lean`,
