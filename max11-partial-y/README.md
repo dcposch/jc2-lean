@@ -585,6 +585,7 @@ lake build
 `LowScale68SecondaryResidualDouble.lean`,
 `LowScale68SecondaryResidualDoubleLoadWall.lean`,
 `LowScale68SecondaryResidualDoubleLoadWallCanonical.lean`,
+`LowScale68SecondaryResidualSumLoadWall.lean`,
 `LowScale68SecondaryResidualSelector.lean`,
 `LowScale68SecondaryResidualDescent.lean`,
 `LowScale68SecondaryResidualRowTwoSystem.lean`,
