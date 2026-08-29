@@ -592,7 +592,9 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   quadratic core is a square and the nonzero face is a ninth power of a
   degree-one polynomial with a concrete finite root.  The `(6,10)` scale-two
   source has the parallel exact packet with `N=5*p5*H^2-3*q9`, again giving
-  `N^2=C κ*H^9` and a finite linear root on the nonzero face.  The direct `(4,10)`
+  `N^2=C κ*H^9` and a finite linear root on the nonzero face.  The `(8,10)`
+  source likewise has `N=5*p7*H-4*q9` with the same square/ninth-power
+  dichotomy and finite-root packet.  The direct `(4,10)`
   route now has an exact decic differential normal form: nine upper rows are
   integrated explicitly, leaving precisely three terminal lower rows.  It does
   more: the first two terminal rows are exact derivatives of explicit
@@ -609,9 +611,11 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   coordinates now exclude the low-`U` chamber
   `(deg A,deg B,deg U)=(3n,4n,<5n)` by incompatible leading-coefficient
   equations.  At `deg U=5n` only the scalar wall
-  `7 lc(A)lc(U)=9 lc(B)^2` remains; above it every chamber is impossible
-  except `2 deg U=11n`, where two explicit scalar relations remain.  Other
-  degree cones and the other six load walls remain.
+  `7 lc(A)lc(U)=9 lc(B)^2` is eliminated by the exact terminal face; above
+  it every chamber is impossible except `2 deg U=11n`, whose two scalar
+  relations are also incompatible with its terminal face.  Thus the entire
+  `(deg A,deg B)=(3n,4n)` cone on the `l≠0` wall is impossible.  Other degree
+  cones and the other six load walls remain.
 The low-scale core proves the common-power UFD factorization, exact
 core degree, scalar normalization, and generation transport for all five.
 The endpoint theorem is the first assertion of Guccione--Guccione--
@@ -666,8 +670,9 @@ lake build
 `LowScale410ZeroLoadTrajectory.lean`,
 `LowScale410ZeroLoadShiftedFiber.lean`,
 `LowScale410LoadCascade.lean`, `LowScale410LWall.lean`,
-`LowScale410LWallBoundary.lean`, `LowScale410ScaleTwoSourceFace.lean`,
-`LowScale610ScaleTwoSourceFace.lean`,
+`LowScale410LWallBoundary.lean`, `LowScale410LWallResidual.lean`,
+`LowScale410ScaleTwoSourceFace.lean`, `LowScale610ScaleTwoSourceFace.lean`,
+`LowScale810ScaleTwoSourceFace.lean`,
 `LowScale68NormalForm.lean`,
 `LowScale68Integrated.lean`, `LowScale68Depression.lean`,
 `LowScale68SourceBridge.lean`, `LowScale68ScaleZero.lean`,
