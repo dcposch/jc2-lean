@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+echo "Local Lake is disabled for this delegated lane; use ./scripts/box_lean_verify.sh --file TARGET.lean" >&2
+exit 126

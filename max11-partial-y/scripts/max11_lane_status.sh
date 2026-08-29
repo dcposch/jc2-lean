@@ -47,8 +47,10 @@ else
     # output.  The final scratch filename is therefore the worker target.
     target="$(grep -oE '[A-Za-z0-9_.-]+Scratch[.]lean' <<<"$row" | tail -n 1 || true)"
     [[ -n "$target" ]] || target="(target not parsed)"
-    printf 'pid=%s elapsed=%s rss_mib=%s target=%s\n' \
-      "$pid" "$elapsed" "$((rss_kib / 1024))" "$target"
+    guard="prompt-only"
+    [[ "$row" == *"LOCAL_LEAN_GUARD=enabled"* ]] && guard="enforced"
+    printf 'pid=%s elapsed=%s rss_mib=%s guard=%s target=%s\n' \
+      "$pid" "$elapsed" "$((rss_kib / 1024))" "$guard" "$target"
   done <<<"$worker_rows"
 fi
 
