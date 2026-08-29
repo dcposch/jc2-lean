@@ -17,13 +17,11 @@ fi
 count_occurrences() {
   local needle="$1"
   local file="$2"
-  local matches
-  matches="$(rg -F -o "$needle" "$file" 2>/dev/null || true)"
-  if [[ -z "$matches" ]]; then
-    echo 0
-  else
-    printf '%s\n' "$matches" | wc -l | tr -d ' '
-  fi
+  # Count complete Lean-style identifier tokens.  Fixed-string substring
+  # counting misclassified modules such as `...RefinedGZero` when the same
+  # registry also contained `...RefinedGZeroFNext`.
+  rg -o '[A-Za-z0-9_]+' "$file" 2>/dev/null \
+    | awk -v needle="$needle" '$0 == needle { count++ } END { print count + 0 }'
 }
 
 check_count() {
