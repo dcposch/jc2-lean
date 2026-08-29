@@ -549,7 +549,12 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   but does not assert that interface.  Independently, the direct `(4,10)`
   route now has an exact decic differential normal form: nine upper rows are
   integrated explicitly, leaving precisely three terminal lower rows.  It does
-prove the common-power UFD factorization, exact
+  more: the first two terminal rows are exact derivatives of explicit
+  polynomial first integrals, so the direct endgame is reduced to two constant
+  invariant equations and the single genuinely non-exact row
+  `W*C₀' - B*Z' = terminal`.  The polynomial-trajectory exclusion for that
+  three-equation system remains open.
+The low-scale core proves the common-power UFD factorization, exact
 core degree, scalar normalization, and generation transport for all five.
 The endpoint theorem is the first assertion of Guccione--Guccione--
 Valqui's Corollary 7.9 and applies to every standard pair.  By contrast, the
@@ -595,6 +600,7 @@ lake build
 `LowScale46PoleBridge.lean`, `LowScale46RegularLoads.lean`,
 `LowScale46AlignedRegularLoads.lean`, `LowScale46WeightedInfinity.lean`,
 `LowScale46ScaleTwo.lean`, `LowScale410NormalForm.lean`,
+`LowScale410FirstIntegrals.lean`,
 `LowScale68NormalForm.lean`,
 `LowScale68Integrated.lean`, `LowScale68Depression.lean`,
 `LowScale68SourceBridge.lean`, `LowScale68ScaleZero.lean`,

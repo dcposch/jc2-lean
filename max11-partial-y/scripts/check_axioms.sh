@@ -167,6 +167,12 @@ PROBE="${PROBE}import LowScale68SecondaryResidualRowOneFaces\n"
 PROBE="${PROBE}import LowScale68SecondaryResidualRowOneSystem\n"
 PROBE="${PROBE}import LowScale68SecondaryResidualBalancedEndgame\n"
 PROBE="${PROBE}import LowScale68SecondaryResidualLoadZeroEndgame\n"
+RECENT_MODULES="LowScale410NormalForm LowScale410FirstIntegrals LowScale68ScaleZeroAssembly LowScale68ScaleTwoSourceFace LowScaleRemainingShear LowScale68SecondaryLargeGapAlphaCancellation LowScale68SecondaryAlphaWallEndgame LowScale68SecondaryAlphaWallRowOneLoad LowScale68SecondaryDeepGapCascade LowScale68SecondaryDeepGapResidualOneForms"
+for module in $RECENT_MODULES; do
+  MODULE_THEOREMS="$(sed -n 's/^theorem \([^ ]*\).*/Max11DegreeRoutes.\1/p' "${module}.lean")"
+  THEOREMS="$THEOREMS $MODULE_THEOREMS"
+  PROBE="${PROBE}import ${module}\n"
+done
 for thm in $THEOREMS; do
   PROBE="${PROBE}#print axioms ${thm}\n"
 done
