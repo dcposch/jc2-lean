@@ -34,6 +34,12 @@ if [[ "${1:-}" == --run ]]; then
   engine="$4"
   target="$5"
   instruction="$6"
+  # Nine concurrent Fable workers remain comfortably below local memory
+  # pressure on the 32 GiB coordinator.  Put the tested ceiling in queued
+  # successors without changing the live lane runner underneath old jobs.
+  if [[ "$engine" == claude && -z "${MAX11_CLAUDE_CAP:-}" ]]; then
+    export MAX11_CLAUDE_CAP=9
+  fi
   case "$wait_dir" in
     "$state_root"/*) ;;
     *) echo "unsafe waiter state directory: $wait_dir" >&2; exit 2 ;;
