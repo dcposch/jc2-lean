@@ -488,7 +488,9 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   `2g<3n` after the additional vanishing `alpha=0`; without row one, it also
   classifies the exact three surviving scalar families.  These statements are
   transported to the canonical expanded source system with the terminal
-  `60*X^59` row handled explicitly.  In the medium
+  `60*X^59` row handled explicitly.  On the equality wall `g=n`, the apparent
+  `alpha` row-one cores cancel identically, so the ordinary fifth equation
+  survives and again forces `e=0`, `a*b=3*d`, while leaving `alpha` free.  In the medium
   complement, the selected residual gap
   still satisfies `g<h`: on `g+h<n` the two ordinary residual middle-face
   equations survive, while the strict overshoot `n<g+h`, `n<3g` again forces
@@ -562,6 +564,7 @@ lake build
 `LowScale68SecondaryLargeGapLoads.lean`,
 `LowScale68SecondaryRelaxedFirstFace.lean`,
 `LowScale68SecondaryRelaxedCanonical.lean`,
+`LowScale68SecondaryAlphaWall.lean`,
 `LowScale68SecondaryFirstLoadWallFace.lean`,
 `LowScale68SecondaryFirstLoadWallCore.lean`,
 `LowScale68SecondaryLargeGapResidual.lean`,

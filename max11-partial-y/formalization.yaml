@@ -436,6 +436,14 @@ status:
       file: "LowScale68SecondaryRelaxedCanonical.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.cubicLoadRowOnePolynomial68_eq_alphaRest"
+      file: "LowScale68SecondaryAlphaWall.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.integratedPolynomialLowerSystem_alphaWallClassified68"
+      file: "LowScale68SecondaryAlphaWall.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.firstLoadWallFace68_classify_of_two_mul_gap_eq_radius"
       file: "LowScale68SecondaryFirstLoadWallFace.lean"
       sorry_count: 0
@@ -894,6 +902,7 @@ review:
     LowScale68SecondaryLargeGapLoads.lean,
     LowScale68SecondaryRelaxedFirstFace.lean,
     LowScale68SecondaryRelaxedCanonical.lean,
+    LowScale68SecondaryAlphaWall.lean,
     LowScale68SecondaryFirstLoadWallFace.lean,
     LowScale68SecondaryFirstLoadWallCore.lean,
     LowScale68SecondaryLargeGapResidual.lean,
