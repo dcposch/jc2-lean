@@ -496,10 +496,12 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   medium complement, the selected residual gap
   still satisfies `g<h`: on `g+h<n` the two ordinary residual middle-face
   equations survive, while the strict overshoot `n<g+h`, `n<3g` again forces
-  `l=0`.  Once `l=0` is known anywhere in `2g<n`, the residual selector,
-  balanced wall, and row-one contradiction replay across the entire strip,
-  including the former `3g=n` load wall.  The five abstract mixed equations
-  on the equality wall `2g=n` are
+  `l=0`.  Once `l=0` is known in the strip `2g<n<3g`, the residual selector,
+  balanced wall, and row-one contradiction replay without side conditions.
+  On `n=3g`, five exact boundary modules cover every comparison of `2h`
+  with `n` and of `h` with `2g`; their exhaustive selector closes the wall.
+  Together with the original `3g<n` endgame, every chamber `2g<n` is now
+  impossible.  The five abstract mixed equations on the equality wall `2g=n` are
   also classified exactly: they force `l=0`, `e=0`, and `a*b=3*d`.  Both
   invariant scalars, the homogeneous row-two/row-zero scalars, the load-free
   row-one scalar, and the cancellation-sensitive pure `l*A^5` cores are now
@@ -508,13 +510,10 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   polynomial-system wall face and forcing `l=0`, `e=0`, `a*b=3*d`.
   The same classification is now transported to the canonical expanded
   source system, with the terminal row coefficient handled explicitly.
-  On the mixed residual wall `n=3g`, `h=2g`, the exact tied scalar system
-  forces `l=b=c=0`; residual support therefore makes the wall impossible.
-  Its invariant and row coefficient identities, including the colliding
-  `l*A^4`, `l*A^5`, and `l*A^6` cores, are checked literally; only canonical
-  source-system assembly remains for this wall.
-  The other load walls and the rest of
-  `n≤3g`, source-level scale-zero assembly, and the other seven literal
+  Its strict residual drops select `h>g`; the middle/double invariant faces,
+  row-two trichotomy, and nonzero balanced row-one coefficient then exclude
+  every residual chamber, closing `2g=n` as well.  The remaining strict
+  large-gap region `n<2g`, source-level scale-zero assembly, and the other seven literal
   normalized low-scale subcases remain open.  It does
 prove the common-power UFD factorization, exact
 core degree, scalar normalization, and generation transport for all five.
@@ -580,6 +579,8 @@ lake build
 `LowScale68SecondaryFirstLoadWallCore.lean`,
 `LowScale68SecondaryFirstLoadWallRemainder.lean`,
 `LowScale68SecondaryFirstLoadWallCanonical.lean`,
+`LowScale68SecondaryFirstGapBoundaryFace.lean`,
+`LowScale68SecondaryFirstGapBoundary.lean`,
 `LowScale68SecondaryLargeGapResidual.lean`,
 `LowScale68SecondaryResidualMiddle.lean`,
 `LowScale68SecondaryResidualDouble.lean`,

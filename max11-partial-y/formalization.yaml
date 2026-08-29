@@ -100,6 +100,10 @@ sources:
       yields `4*b*c^2-9*d*e=0`.  The literal row-one system and load cutoff
       then expose the nonzero coefficient
       `(-64/9)*(4n-g)*c_top^3`, excluding the complete `3g<n` chamber.
+      Sharp load-wall coefficient identities extend that endgame through the
+      strict strip `2g<n<3g`, all five chambers on `n=3g`, and the first-gap
+      boundary `2g=n`; the latter uses residual degree drops, the residual
+      row-two trichotomy, and the balanced row-one contradiction.
       These statements
       refine the frozen finite composition and use the two published results
       listed below only at their explicitly typed interfaces.
@@ -478,6 +482,14 @@ status:
       axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_firstLoadWallClassified68"
       file: "LowScale68SecondaryFirstLoadWallCanonical.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_firstLoadWallResidualGap68"
+      file: "LowScale68SecondaryFirstGapBoundaryFace.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_firstGapBoundary_impossible68"
+      file: "LowScale68SecondaryFirstGapBoundary.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.secondaryResidualGap68_gt_of_strictDrops"
@@ -992,6 +1004,8 @@ review:
     LowScale68SecondaryFirstLoadWallCore.lean,
     LowScale68SecondaryFirstLoadWallRemainder.lean,
     LowScale68SecondaryFirstLoadWallCanonical.lean,
+    LowScale68SecondaryFirstGapBoundaryFace.lean,
+    LowScale68SecondaryFirstGapBoundary.lean,
     LowScale68SecondaryLargeGapResidual.lean,
     LowScale68SecondaryResidualMiddle.lean,
     LowScale68SecondaryResidualDouble.lean,
