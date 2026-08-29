@@ -536,9 +536,11 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   the complete `beta`/`delta` load cascade through `2g<8n`: it records both
   mixed walls, forces `beta=delta=0` between them and beyond, recovers the
   ordinary secondary face through `2g≤6n`, and then extracts the clamped-`B`
-  face through `2g<8n`.  The mixed degree-`2n` face at the next wall and the
-  remaining literal normalized low-scale subcases remain open.  Source-level
-  scale-zero assembly is now
+  face through `2g<8n`.  At `8n≤2g`, the exact cubic degree-`4n` and quartic
+  degree-`2n` faces now force the clamped coefficient `B=0` and load
+  `zeta=0`; the remaining branch is reduced to a constant-`c` scalar split
+  and its lower rows.  The remaining literal normalized low-scale subcases
+  remain open.  Source-level scale-zero assembly is now
   complete: every literal normalized source produces a nonzero-terminal
   `IntegratedPolynomialLowerSystem68`, so only the intrinsic global
   exclusion of that system remains.  For the `(6,8)` scale-two source, the
@@ -557,8 +559,10 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   more: the first two terminal rows are exact derivatives of explicit
   polynomial first integrals, so the direct endgame is reduced to two constant
   invariant equations and the single genuinely non-exact row
-  `W*C₀' - B*Z' = terminal`.  The polynomial-trajectory exclusion for that
-  three-equation system remains open.
+  `W*C₀' - B*Z' = terminal`.  In the zero-load, zero-first-invariant fiber,
+  discriminant coordinates reduce this system to `U³-B⁴ = constant` and
+  `8(B³U)' = nonzero constant`; the resulting degree-one product is
+  impossible.  Nonzero invariant fibers and then nonzero loads remain open.
 The low-scale core proves the common-power UFD factorization, exact
 core degree, scalar normalization, and generation transport for all five.
 The endpoint theorem is the first assertion of Guccione--Guccione--
@@ -606,6 +610,7 @@ lake build
 `LowScale46AlignedRegularLoads.lean`, `LowScale46WeightedInfinity.lean`,
 `LowScale46ScaleTwo.lean`, `LowScale410NormalForm.lean`,
 `LowScale410FirstIntegrals.lean`,
+`LowScale410ZeroLoadTrajectory.lean`,
 `LowScale68NormalForm.lean`,
 `LowScale68Integrated.lean`, `LowScale68Depression.lean`,
 `LowScale68SourceBridge.lean`, `LowScale68ScaleZero.lean`,
@@ -638,6 +643,7 @@ lake build
 `LowScale68SecondaryDeepGapCascade.lean`,
 `LowScale68SecondaryDeepGapResidualOneForms.lean`,
 `LowScale68SecondaryLaterDeepLoadCascade.lean`,
+`LowScale68SecondaryLaterDeepMixedTwoNFace.lean`,
 `LowScale68SecondaryResidualMiddle.lean`,
 `LowScale68SecondaryResidualDouble.lean`,
 `LowScale68SecondaryResidualDoubleLoadWall.lean`,
