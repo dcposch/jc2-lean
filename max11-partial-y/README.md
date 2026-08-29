@@ -492,7 +492,10 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   complement, the selected residual gap
   still satisfies `g<h`: on `g+h<n` the two ordinary residual middle-face
   equations survive, while the strict overshoot `n<g+h`, `n<3g` again forces
-  `l=0`.  The five abstract mixed equations on the equality wall `2g=n` are
+  `l=0`.  Once `l=0` is known anywhere in `2g<n`, the residual selector,
+  balanced wall, and row-one contradiction replay across the entire strip,
+  including the former `3g=n` load wall.  The five abstract mixed equations
+  on the equality wall `2g=n` are
   also classified exactly: they force `l=0`, `e=0`, and `a*b=3*d`.  Both
   invariant scalars, the homogeneous row-two/row-zero scalars, the load-free
   row-one scalar, and the cancellation-sensitive pure `l*A^5` cores are now
@@ -574,7 +577,8 @@ lake build
 `LowScale68SecondaryResidualCanonicalBalancedData.lean`,
 `LowScale68SecondaryResidualRowOneFaces.lean`,
 `LowScale68SecondaryResidualRowOneSystem.lean`,
-`LowScale68SecondaryResidualBalancedEndgame.lean`, and
+`LowScale68SecondaryResidualBalancedEndgame.lean`,
+`LowScale68SecondaryResidualLoadZeroEndgame.lean`, and
 `Max11Assembly.lean`
 contain no `sorry`, custom axioms, or trust escapes.  The
 permitted axioms are `propext`, `Classical.choice`, and `Quot.sound`.

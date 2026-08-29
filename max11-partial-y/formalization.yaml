@@ -536,6 +536,18 @@ status:
       file: "LowScale68SecondaryResidualBalancedEndgame.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_secondaryResidualSelect68_of_l_eq_zero"
+      file: "LowScale68SecondaryResidualLoadZeroEndgame.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.residualCanonicalSelectedGap_eq_balanced68_of_l_eq_zero"
+      file: "LowScale68SecondaryResidualLoadZeroEndgame.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_secondaryResidualLoadZero_impossible68"
+      file: "LowScale68SecondaryResidualLoadZeroEndgame.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.mismatchDegreeCone46"
       file: "LowScale46DegreeCones.lean"
       sorry_count: 0
@@ -897,7 +909,8 @@ review:
     LowScale68SecondaryResidualCanonicalBalancedData.lean,
     LowScale68SecondaryResidualRowOneFaces.lean,
     LowScale68SecondaryResidualRowOneSystem.lean,
-    LowScale68SecondaryResidualBalancedEndgame.lean, or
+    LowScale68SecondaryResidualBalancedEndgame.lean,
+    LowScale68SecondaryResidualLoadZeroEndgame.lean, or
     Max11Assembly.lean.
 
 alignment:
