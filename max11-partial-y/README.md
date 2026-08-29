@@ -515,9 +515,12 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   every residual chamber, closing `2g=n` as well.  In `n<2g`, `g<n`, the
   load-zero classification now also supplies strict residual drops, an
   attained gap, sharp load cutoffs, and both residual invariant faces.  Its
-  complete one-form endgame closes the subchamber `3g<2n`; the complementary
-  `2n≤3g` row-one load split remains.  The rest of the strict
-  large-gap region, source-level scale-zero assembly, and the other seven literal
+  exact row-one alpha cores cancel identically after `l=0`; every surviving
+  alpha-rest term has degree at most `10n-g-1`, strictly below the residual
+  cubic face `12n-3g-1` whenever `g<n`.  Feeding that sharp cutoff into the
+  complete one-form endgame closes the entire chamber `n<2g`, `g<n`, including
+  the formerly separate `2n≤3g` region.  The equality wall `g=n`, the deeper
+  `g>n` cascade, source-level scale-zero assembly, and the other seven literal
   normalized low-scale subcases remain open.  It does
 prove the common-power UFD factorization, exact
 core degree, scalar normalization, and generation transport for all five.
@@ -578,6 +581,7 @@ lake build
 `LowScale68SecondaryRelaxedFirstFace.lean`,
 `LowScale68SecondaryRelaxedCanonical.lean`,
 `LowScale68SecondaryAlphaWall.lean`,
+`LowScale68SecondaryLargeGapAlphaCancellation.lean`,
 `LowScale68SecondaryAlphaWallCanonical.lean`,
 `LowScale68SecondaryFirstLoadWallFace.lean`,
 `LowScale68SecondaryFirstLoadWallCore.lean`,

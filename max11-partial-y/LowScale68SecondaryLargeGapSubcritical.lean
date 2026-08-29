@@ -1,10 +1,12 @@
 import LowScale68SecondaryLargeGapLoadZeroFace
 import LowScale68SecondaryResidualLoadZeroEndgame
+import LowScale68SecondaryLargeGapAlphaCancellation
 
-/-! # Closure of the subcritical large-gap chamber
+/-! # Closure of the strict large-gap chamber below the alpha wall
 
-In the chamber `n < 2g`, `g < n`, and `3g < 2n`, the leading load is zero
-and the selected residual gap is attained.  This module extracts its row-two
+In the chamber `n < 2g` and `g < n`, the leading load is zero and the selected
+residual gap is attained.  Exact alpha-core cancellation supplies the row-one
+load cutoff throughout this whole chamber.  This module extracts its row-two
 and row-one residual faces, forces the balanced chamber, excludes that chamber
 by its nonzero row-one coefficient, and closes the residual double face.
 -/
@@ -50,7 +52,7 @@ set_option maxHeartbeats 2000000 in
 theorem cubicLoadRowZeroPolynomial68_degree_lt_residualDouble_of_largeGapLoadZeroSubcritical
     (alpha beta gamma delta epsilon zeta eta : k)
     (A B c D e : k[X]) (n g : ℕ)
-    (hg : 0 < g) (hchamber : n < 2 * g ∧ g < n ∧ 3 * g < 2 * n)
+    (hg : 0 < g) (hchamber : n < 2 * g ∧ g < n)
     (hA : A.natDegree ≤ 2 * n)
     (hB : B.natDegree ≤ 3 * n - g)
     (hc : c.natDegree ≤ 4 * n - g)
@@ -60,12 +62,12 @@ theorem cubicLoadRowZeroPolynomial68_degree_lt_residualDouble_of_largeGapLoadZer
       A B c D e).natDegree < 13 * n - 3 * g - 1 := by
   exact cubicLoadRowZeroPolynomial68_degree_lt_residualDouble_of_largeGapLoadZero
     alpha beta gamma delta epsilon zeta eta A B c D e n g hg
-    hchamber.1 hchamber.2.1 hA hB hc hD he
+    hchamber.1 hchamber.2 hA hB hc hD he
 
 set_option maxHeartbeats 2000000 in
 theorem secondaryLoadInvariantFourPolynomial68_degree_lt_cubicFace_of_largeGapLoadZeroSubcritical
     (beta gamma delta epsilon zeta : k) (A B c D e : k[X])
-    (n g h : ℕ) (hg : 0 < g) (hgh : g < h) (hchamber : n < 2 * g ∧ g < n ∧ 3 * g < 2 * n)
+    (n g h : ℕ) (hg : 0 < g) (hgh : g < h) (hchamber : n < 2 * g ∧ g < n)
     (hA : A.natDegree ≤ 2 * n)
     (hB : B.natDegree ≤ 3 * n - g)
     (hc : c.natDegree ≤ 4 * n - g)
@@ -82,7 +84,7 @@ theorem secondaryLoadInvariantFourPolynomial68_degree_lt_cubicFace_of_largeGapLo
 set_option maxHeartbeats 2000000 in
 theorem secondaryLoadInvariantThreePolynomial68_degree_lt_cubicFace_of_largeGapLoadZeroSubcritical
     (beta gamma delta epsilon zeta : k) (A B c D e : k[X])
-    (n g h : ℕ) (hg : 0 < g) (hgh : g < h) (hchamber : n < 2 * g ∧ g < n ∧ 3 * g < 2 * n)
+    (n g h : ℕ) (hg : 0 < g) (hgh : g < h) (hchamber : n < 2 * g ∧ g < n)
     (hA : A.natDegree ≤ 2 * n)
     (hB : B.natDegree ≤ 3 * n - g)
     (hc : c.natDegree ≤ 4 * n - g)
@@ -99,7 +101,7 @@ theorem secondaryLoadInvariantThreePolynomial68_degree_lt_cubicFace_of_largeGapL
 set_option maxHeartbeats 2000000 in
 theorem residualRowTwoInner_Q_degree_lt68_of_largeGapLoadZeroSubcritical
     (A B c d e : k[X]) (n g : ℕ)
-    (hchamber : n < 2 * g ∧ g < n ∧ 3 * g < 2 * n)
+    (hchamber : n < 2 * g ∧ g < n)
     (hA : A.natDegree ≤ 2 * n)
     (hQ : (residualIncidenceQ68 B c d e).natDegree < 9 * n - 3 * g) :
     (A * derivative (residualIncidenceQ68 B c d e)).natDegree <
@@ -121,7 +123,7 @@ theorem residualRowTwoInner_Q_degree_lt68_of_largeGapLoadZeroSubcritical
 set_option maxHeartbeats 2000000 in
 theorem residualRowTwoInner_Bd_degree_le68_of_largeGapLoadZeroSubcritical
     (B d : k[X]) (n g h : ℕ)
-    (hg : 0 < g) (hgh : g < h) (hh : h < 2 * g) (hchamber : n < 2 * g ∧ g < n ∧ 3 * g < 2 * n)
+    (hg : 0 < g) (hgh : g < h) (hh : h < 2 * g) (hchamber : n < 2 * g ∧ g < n)
     (hB : B.natDegree ≤ 3 * n - g)
     (hd : d.natDegree ≤ 5 * n - h) :
     (derivative (B ^ 2 * d)).natDegree ≤ 11 * n - 2 * g - h - 1 := by
@@ -137,7 +139,7 @@ theorem residualRowTwoInner_Bd_degree_le68_of_largeGapLoadZeroSubcritical
 set_option maxHeartbeats 2000000 in
 theorem residualRowTwoInner_BcCore_degree_le68_of_largeGapLoadZeroSubcritical
     (A B c : k[X]) (n g : ℕ)
-    (hg : 0 < g) (hchamber : n < 2 * g ∧ g < n ∧ 3 * g < 2 * n)
+    (hg : 0 < g) (hchamber : n < 2 * g ∧ g < n)
     (hA : A.natDegree ≤ 2 * n)
     (hB : B.natDegree ≤ 3 * n - g)
     (hc : c.natDegree ≤ 4 * n - g) :
@@ -167,7 +169,7 @@ theorem residualRowTwoInner_BcCore_degree_le68_of_largeGapLoadZeroSubcritical
 set_option maxHeartbeats 2000000 in
 theorem residualRowTwoInner_de_degree_le68_of_largeGapLoadZeroSubcritical
     (d e : k[X]) (n g h : ℕ)
-    (hg : 0 < g) (hgh : g < h) (hh : h < 2 * g) (hchamber : n < 2 * g ∧ g < n ∧ 3 * g < 2 * n)
+    (hg : 0 < g) (hgh : g < h) (hh : h < 2 * g) (hchamber : n < 2 * g ∧ g < n)
     (hd : d.natDegree ≤ 5 * n - h)
     (he : e.natDegree ≤ 6 * n - h) :
     (derivative (d * e)).natDegree ≤ 11 * n - 2 * h - 1 := by
@@ -181,7 +183,7 @@ set_option maxHeartbeats 4000000 in
 theorem residualRowTwo_coeff_leftChamber68_of_largeGapLoadZeroSubcritical
     (A B c d e : k[X]) (n g h : ℕ)
     (hg : 0 < g) (hgh : g < h) (hh : h < 2 * g)
-    (hchamber : n < 2 * g ∧ g < n ∧ 3 * g < 2 * n) (hleft : 2 * h < 3 * g)
+    (hchamber : n < 2 * g ∧ g < n) (hleft : 2 * h < 3 * g)
     (hA : A.natDegree ≤ 2 * n)
     (hB : B.natDegree ≤ 3 * n - g)
     (hc : c.natDegree ≤ 4 * n - g)
@@ -254,7 +256,7 @@ set_option maxHeartbeats 2000000 in
 theorem residualRowTwo_leftChamber_ne_zero68_of_largeGapLoadZeroSubcritical
     (A B c d e : k[X]) (n g h : ℕ)
     (hg : 0 < g) (hgh : g < h) (hh : h < 2 * g)
-    (hchamber : n < 2 * g ∧ g < n ∧ 3 * g < 2 * n) (hleft : 2 * h < 3 * g)
+    (hchamber : n < 2 * g ∧ g < n) (hleft : 2 * h < 3 * g)
     (hA : A.natDegree ≤ 2 * n)
     (hB : B.natDegree ≤ 3 * n - g)
     (hc : c.natDegree ≤ 4 * n - g)
@@ -276,7 +278,7 @@ set_option maxHeartbeats 4000000 in
 theorem residualRowTwo_coeff_rightChamber68_of_largeGapLoadZeroSubcritical
     (A B c d e : k[X]) (n g h : ℕ)
     (hg : 0 < g) (hgh : g < h) (hh : h < 2 * g)
-    (hchamber : n < 2 * g ∧ g < n ∧ 3 * g < 2 * n) (hright : 3 * g < 2 * h)
+    (hchamber : n < 2 * g ∧ g < n) (hright : 3 * g < 2 * h)
     (hA : A.natDegree ≤ 2 * n)
     (hB : B.natDegree ≤ 3 * n - g)
     (hc : c.natDegree ≤ 4 * n - g)
@@ -421,7 +423,7 @@ set_option maxHeartbeats 2000000 in
 theorem residualRowTwo_rightChamber_ne_zero68_of_largeGapLoadZeroSubcritical
     (A B c d e : k[X]) (n g h : ℕ)
     (hg : 0 < g) (hgh : g < h) (hh : h < 2 * g)
-    (hchamber : n < 2 * g ∧ g < n ∧ 3 * g < 2 * n) (hright : 3 * g < 2 * h)
+    (hchamber : n < 2 * g ∧ g < n) (hright : 3 * g < 2 * h)
     (hA : A.natDegree ≤ 2 * n)
     (hB : B.natDegree ≤ 3 * n - g)
     (hc : c.natDegree ≤ 4 * n - g)
@@ -445,7 +447,7 @@ theorem residualRowTwo_rightChamber_ne_zero68_of_largeGapLoadZeroSubcritical
 set_option maxHeartbeats 2000000 in
 theorem residualBalancedRowTwoInner_Q_degree_lt68_of_largeGapLoadZeroSubcritical
     (A B c d e : k[X]) (n g : ℕ)
-    (hchamber : n < 2 * g ∧ g < n ∧ 3 * g < 2 * n)
+    (hchamber : n < 2 * g ∧ g < n)
     (hA : A.natDegree ≤ 2 * n)
     (hQ : (residualBalancedIncidenceQ68 B c d e).natDegree < 9 * n - 3 * g) :
     (A * derivative (residualBalancedIncidenceQ68 B c d e)).natDegree <
@@ -467,7 +469,7 @@ theorem residualBalancedRowTwoInner_Q_degree_lt68_of_largeGapLoadZeroSubcritical
 set_option maxHeartbeats 2000000 in
 theorem residualBalancedRowTwoInner_Bd_degree_le68_of_largeGapLoadZeroSubcritical
     (B d : k[X]) (n g h : ℕ)
-    (hg : 0 < g) (hgh : g < h) (hh : h < 2 * g) (hchamber : n < 2 * g ∧ g < n ∧ 3 * g < 2 * n)
+    (hg : 0 < g) (hgh : g < h) (hh : h < 2 * g) (hchamber : n < 2 * g ∧ g < n)
     (hB : B.natDegree ≤ 3 * n - g)
     (hd : d.natDegree ≤ 5 * n - h) :
     (derivative (B ^ 2 * d)).natDegree ≤ 11 * n - 2 * g - h - 1 := by
@@ -483,7 +485,7 @@ theorem residualBalancedRowTwoInner_Bd_degree_le68_of_largeGapLoadZeroSubcritica
 theorem residualRowTwo_coeff_balancedChamber68_of_largeGapLoadZeroSubcritical
     (A B c d e : k[X]) (n g h : ℕ)
     (hg : 0 < g) (hgh : g < h) (hh : h < 2 * g)
-    (hchamber : n < 2 * g ∧ g < n ∧ 3 * g < 2 * n) (hbalanced : 2 * h = 3 * g)
+    (hchamber : n < 2 * g ∧ g < n) (hbalanced : 2 * h = 3 * g)
     (hA : A.natDegree ≤ 2 * n)
     (hB : B.natDegree ≤ 3 * n - g)
     (hc : c.natDegree ≤ 4 * n - g)
@@ -650,7 +652,7 @@ theorem residualRowTwo_coeff_balancedChamber68_of_largeGapLoadZeroSubcritical
 theorem residualRowTwo_balanced_coeff_eq_zero_iff68_of_largeGapLoadZeroSubcritical
     (A B c d e : k[X]) (n g h : ℕ)
     (hg : 0 < g) (hgh : g < h) (hh : h < 2 * g)
-    (hchamber : n < 2 * g ∧ g < n ∧ 3 * g < 2 * n) (hbalanced : 2 * h = 3 * g)
+    (hchamber : n < 2 * g ∧ g < n) (hbalanced : 2 * h = 3 * g)
     (hA : A.natDegree ≤ 2 * n)
     (hB : B.natDegree ≤ 3 * n - g)
     (hc : c.natDegree ≤ 4 * n - g)
@@ -676,7 +678,7 @@ theorem residualRowTwo_balanced_coeff_eq_zero_iff68_of_largeGapLoadZeroSubcritic
 theorem residualRowTwo_add_load_eq_zero_imp_balancedRelation68_of_largeGapLoadZeroSubcritical
     (A B c d e load : k[X]) (n g h : ℕ)
     (hg : 0 < g) (hgh : g < h) (hh : h < 2 * g)
-    (hchamber : n < 2 * g ∧ g < n ∧ 3 * g < 2 * n) (hbalanced : 2 * h = 3 * g)
+    (hchamber : n < 2 * g ∧ g < n) (hbalanced : 2 * h = 3 * g)
     (hA : A.natDegree ≤ 2 * n)
     (hB : B.natDegree ≤ 3 * n - g)
     (hc : c.natDegree ≤ 4 * n - g)
@@ -702,7 +704,7 @@ theorem residualRowTwo_add_load_eq_zero_imp_balancedRelation68_of_largeGapLoadZe
 theorem residualRowTwo_eq_zero_imp_balancedRelation68_of_largeGapLoadZeroSubcritical
     (A B c d e : k[X]) (n g h : ℕ)
     (hg : 0 < g) (hgh : g < h) (hh : h < 2 * g)
-    (hchamber : n < 2 * g ∧ g < n ∧ 3 * g < 2 * n) (hbalanced : 2 * h = 3 * g)
+    (hchamber : n < 2 * g ∧ g < n) (hbalanced : 2 * h = 3 * g)
     (hA : A.natDegree ≤ 2 * n)
     (hB : B.natDegree ≤ 3 * n - g)
     (hc : c.natDegree ≤ 4 * n - g)
@@ -724,7 +726,7 @@ theorem residualRowTwo_eq_zero_imp_balancedRelation68_of_largeGapLoadZeroSubcrit
 theorem residualRowOne_coeff_balancedChamber68_of_largeGapLoadZeroSubcritical
     (A B c d e : k[X]) (n g h : ℕ)
     (hg : 0 < g) (hgh : g < h) (hh : h < 2 * g)
-    (hchamber : n < 2 * g ∧ g < n ∧ 3 * g < 2 * n) (hbalanced : 2 * h = 3 * g)
+    (hchamber : n < 2 * g ∧ g < n) (hbalanced : 2 * h = 3 * g)
     (hA : A.natDegree ≤ 2 * n)
     (hB : B.natDegree ≤ 3 * n - g)
     (hc : c.natDegree ≤ 4 * n - g)
@@ -885,7 +887,7 @@ set_option maxHeartbeats 2000000 in
 theorem residualRowOne_coeff_balancedChamber_eq68_of_largeGapLoadZeroSubcritical
     (A B c d e : k[X]) (n g h : ℕ)
     (hg : 0 < g) (hgh : g < h) (hh : h < 2 * g)
-    (hchamber : n < 2 * g ∧ g < n ∧ 3 * g < 2 * n) (hbalanced : 2 * h = 3 * g)
+    (hchamber : n < 2 * g ∧ g < n) (hbalanced : 2 * h = 3 * g)
     (hA : A.natDegree ≤ 2 * n)
     (hB : B.natDegree ≤ 3 * n - g)
     (hcdeg : c.natDegree ≤ 4 * n - g)
@@ -932,7 +934,7 @@ theorem residualRowOne_coeff_balancedChamber_eq68_of_largeGapLoadZeroSubcritical
 theorem residualRowOne_balanced_coeff_ne_zero68_of_largeGapLoadZeroSubcritical
     (A B c d e : k[X]) (n g h : ℕ)
     (hg : 0 < g) (hgh : g < h) (hh : h < 2 * g)
-    (hchamber : n < 2 * g ∧ g < n ∧ 3 * g < 2 * n) (hbalanced : 2 * h = 3 * g)
+    (hchamber : n < 2 * g ∧ g < n) (hbalanced : 2 * h = 3 * g)
     (hA : A.natDegree ≤ 2 * n)
     (hB : B.natDegree ≤ 3 * n - g)
     (hcdeg : c.natDegree ≤ 4 * n - g)
@@ -972,7 +974,7 @@ theorem residualRowOne_balanced_coeff_ne_zero68_of_largeGapLoadZeroSubcritical
 theorem residualRowOne_add_load_eq_zero_imp_false68_of_largeGapLoadZeroSubcritical
     (A B c d e load : k[X]) (n g h : ℕ)
     (hg : 0 < g) (hgh : g < h) (hh : h < 2 * g)
-    (hchamber : n < 2 * g ∧ g < n ∧ 3 * g < 2 * n) (hbalanced : 2 * h = 3 * g)
+    (hchamber : n < 2 * g ∧ g < n) (hbalanced : 2 * h = 3 * g)
     (hA : A.natDegree ≤ 2 * n)
     (hB : B.natDegree ≤ 3 * n - g)
     (hcdeg : c.natDegree ≤ 4 * n - g)
@@ -1004,7 +1006,7 @@ set_option maxHeartbeats 2000000 in
 theorem residualRowTwo_not_leftChamber68_of_largeGapLoadZeroSubcritical
     (A B c d e load : k[X]) (n g h : ℕ)
     (hg : 0 < g) (hgh : g < h) (hh : h < 2 * g)
-    (hchamber : n < 2 * g ∧ g < n ∧ 3 * g < 2 * n) (hleft : 2 * h < 3 * g)
+    (hchamber : n < 2 * g ∧ g < n) (hleft : 2 * h < 3 * g)
     (hA : A.natDegree ≤ 2 * n)
     (hB : B.natDegree ≤ 3 * n - g)
     (hc : c.natDegree ≤ 4 * n - g)
@@ -1027,7 +1029,7 @@ set_option maxHeartbeats 2000000 in
 theorem residualRowTwo_not_rightChamber68_of_largeGapLoadZeroSubcritical
     (A B c d e load : k[X]) (n g h : ℕ)
     (hg : 0 < g) (hgh : g < h) (hh : h < 2 * g)
-    (hchamber : n < 2 * g ∧ g < n ∧ 3 * g < 2 * n) (hright : 3 * g < 2 * h)
+    (hchamber : n < 2 * g ∧ g < n) (hright : 3 * g < 2 * h)
     (hA : A.natDegree ≤ 2 * n)
     (hB : B.natDegree ≤ 3 * n - g)
     (hc : c.natDegree ≤ 4 * n - g)
@@ -1053,7 +1055,7 @@ set_option maxHeartbeats 2000000 in
 theorem residualSelectedGap_eq_balanced68_of_largeGapLoadZeroSubcritical
     (A B c d e load : k[X]) (n g h : ℕ)
     (hg : 0 < g) (hgh : g < h) (hh : h < 2 * g)
-    (hchamber : n < 2 * g ∧ g < n ∧ 3 * g < 2 * n)
+    (hchamber : n < 2 * g ∧ g < n)
     (hA : A.natDegree ≤ 2 * n)
     (hB : B.natDegree ≤ 3 * n - g)
     (hc : c.natDegree ≤ 4 * n - g)
@@ -1078,7 +1080,7 @@ theorem residualSelectedGap_eq_balanced68_of_largeGapLoadZeroSubcritical
 
 set_option maxHeartbeats 3000000 in
 theorem secondaryResidualRowOnePolynomial68_coeff_double_of_largeGapLoadZeroSubcritical
-    (A B c d e : k[X]) (n g : ℕ) (hg : 0 < g) (hchamber : n < 2 * g ∧ g < n ∧ 3 * g < 2 * n)
+    (A B c d e : k[X]) (n g : ℕ) (hg : 0 < g) (hchamber : n < 2 * g ∧ g < n)
     (hA : A.natDegree ≤ 2 * n)
     (hB : B.natDegree ≤ 3 * n - g)
     (hc : c.natDegree ≤ 4 * n - g)
@@ -1224,7 +1226,7 @@ theorem secondaryResidualRowOnePolynomial68_coeff_double_of_largeGapLoadZeroSubc
 
 set_option maxHeartbeats 3000000 in
 theorem secondaryResidualRowZeroPolynomial68_coeff_double_of_largeGapLoadZeroSubcritical
-    (A B c d e : k[X]) (n g : ℕ) (hg : 0 < g) (hchamber : n < 2 * g ∧ g < n ∧ 3 * g < 2 * n)
+    (A B c d e : k[X]) (n g : ℕ) (hg : 0 < g) (hchamber : n < 2 * g ∧ g < n)
     (hA : A.natDegree ≤ 2 * n)
     (hB : B.natDegree ≤ 3 * n - g)
     (hc : c.natDegree ≤ 4 * n - g)
@@ -1299,7 +1301,7 @@ theorem secondaryResidualRowZeroPolynomial68_coeff_double_of_largeGapLoadZeroSub
 set_option maxHeartbeats 4000000 in
 theorem secondaryResidualTiedDoubleFace68_impossible_of_largeGapLoadZeroSubcritical
     (n g : ℕ) (a b c d e : k) (ha : a ≠ 0) (hb : b ≠ 0) (hc : c ≠ 0)
-    (hn : 0 < n) (hchamber : n < 2 * g ∧ g < n ∧ 3 * g < 2 * n)
+    (hn : 0 < n) (hchamber : n < 2 * g ∧ g < n)
     (hface : SecondaryResidualTiedDoubleFace68
       (n : k) (g : k) a b c d e) : False := by
   have hcast := secondaryResidualTiedDoubleFace68_forces_gap_eq_four_radius
@@ -1310,7 +1312,7 @@ theorem secondaryResidualTiedDoubleFace68_impossible_of_largeGapLoadZeroSubcriti
 theorem secondaryResidualDoubleFace68_impossible_of_largeGapLoadZeroSubcritical
     (n g : ℕ) (a b c d e : k)
     (ha : a ≠ 0) (hsupport : b ≠ 0 ∨ c ≠ 0) (hn : 0 < n)
-    (hchamber : n < 2 * g ∧ g < n ∧ 3 * g < 2 * n)
+    (hchamber : n < 2 * g ∧ g < n)
     (hface : SecondaryResidualTiedDoubleFace68
       (n : k) (g : k) a b c d e) : False := by
   have hb : b ≠ 0 := by
@@ -1376,7 +1378,7 @@ set_option maxHeartbeats 4000000 in
 theorem polynomialSecondaryResidualDoubleFace68_of_largeGapLoadZeroSubcritical
     (alpha beta gamma delta epsilon zeta eta i4 i3 : k)
     (A B c d e : k[X]) (n g : ℕ)
-    (hg : 0 < g) (hchamber : n < 2 * g ∧ g < n ∧ 3 * g < 2 * n)
+    (hg : 0 < g) (hchamber : n < 2 * g ∧ g < n)
     (hA : A.natDegree ≤ 2 * n)
     (hB : B.natDegree ≤ 3 * n - g)
     (hc : c.natDegree ≤ 4 * n - g)
@@ -1428,18 +1430,16 @@ theorem polynomialSecondaryResidualDoubleFace68_of_largeGapLoadZeroSubcritical
     omega
   have hinv := polynomialSecondaryResidualDoubleInvariants68_of_largeGapLoadZero
     beta gamma delta epsilon zeta i4 i3 A B c d e n g hg
-    hchamber.1 hchamber.2.1
+    hchamber.1 hchamber.2
     hA hB hc hd he hi4 hi3
   have hcoords := integratedPolynomial68_cubicCoordinates
     0 alpha beta gamma delta epsilon zeta eta A B c D0 e
   have hloadOne :
       (cubicLoadRowOnePolynomial68 0 alpha beta gamma delta epsilon zeta eta
         A B c D0 e).natDegree < 12 * n - 3 * g - 1 := by
-    simpa only [D0] using
-      cubicLoadRowOnePolynomial68_degree_lt_cubicFace_of_largeGapLoadZero
-        alpha beta gamma delta epsilon zeta eta A B c d e n g (2 * g)
-        hg (by omega) hchamber.1 hchamber.2.1 hchamber.2.2
-        hA hB hc hd he
+    exact cubicLoadRowOnePolynomial68_degree_lt_largeGap_of_gap_lt_radius
+      0 alpha beta gamma delta epsilon zeta eta A B c D0 e n g
+      (by omega) hg rfl hchamber.2 hA hB hc hD (he.trans (by omega))
   have hone := congrArg
     (fun p : k[X] => p.coeff (12 * n - 3 * g - 1)) hrowOne
   rw [hcoords.t_eq, hcoords.u_eq, hcoords.v_eq,
@@ -1477,7 +1477,7 @@ theorem residualSelectedGap_eq_balanced68_of_rowTwoSystem_of_largeGapLoadZeroSub
     (alpha beta gamma delta epsilon zeta eta : k)
     (A B c d e : k[X]) (n g h : ℕ)
     (hg : 0 < g) (hgh : g < h) (hh : h < 2 * g)
-    (hchamber : n < 2 * g ∧ g < n ∧ 3 * g < 2 * n)
+    (hchamber : n < 2 * g ∧ g < n)
     (hA : A.natDegree ≤ 2 * n)
     (hB : B.natDegree ≤ 3 * n - g)
     (hc : c.natDegree ≤ 4 * n - g)
@@ -1516,7 +1516,7 @@ set_option maxHeartbeats 3000000 in
 theorem secondaryResidualIncidenceDefectPolynomial68_degree_lt_cubicFace_of_largeGapLoadZeroSubcritical
     (beta gamma delta epsilon zeta i4 : k)
     (A B c d e : k[X]) (n g h : ℕ)
-    (hg : 0 < g) (hgh : g < h) (hchamber : n < 2 * g ∧ g < n ∧ 3 * g < 2 * n)
+    (hg : 0 < g) (hgh : g < h) (hchamber : n < 2 * g ∧ g < n)
     (hA : A.natDegree ≤ 2 * n)
     (hB : B.natDegree ≤ 3 * n - g)
     (hc : c.natDegree ≤ 4 * n - g)
@@ -1567,7 +1567,7 @@ set_option maxHeartbeats 2000000 in
 theorem secondaryResidualInvariantThreePolynomial68_degree_lt_cubicFace_of_largeGapLoadZeroSubcritical
     (beta gamma delta epsilon zeta i3 : k)
     (A B c d e : k[X]) (n g h : ℕ)
-    (hg : 0 < g) (hgh : g < h) (hchamber : n < 2 * g ∧ g < n ∧ 3 * g < 2 * n)
+    (hg : 0 < g) (hgh : g < h) (hchamber : n < 2 * g ∧ g < n)
     (hA : A.natDegree ≤ 2 * n)
     (hB : B.natDegree ≤ 3 * n - g)
     (hc : c.natDegree ≤ 4 * n - g)
@@ -1615,7 +1615,7 @@ theorem maximalExpandedIntegratedPolynomialLowerSystem_largeGapLoadZeroSubcritic
       let Ee := expand k 60 E
       let ee := cubicEDefectPolynomial68 Ae Ce Ee
       let g := cubicDefectGap68 n Be ce De ee
-      n < 2 * g ∧ g < n ∧ 3 * g < 2 * n)
+      n < 2 * g ∧ g < n)
     (hdouble :
       let n := weightedRadius68 A B C0 D E
       let Ae := expand k 60 A
@@ -1653,7 +1653,7 @@ theorem maximalExpandedIntegratedPolynomialLowerSystem_largeGapLoadZeroSubcritic
   let ee := cubicEDefectPolynomial68 Ae Ce Ee
   let g := cubicDefectGap68 n Be ce De ee
   let d := secondaryDDefectPolynomial68 Ae Be De
-  change n < 2 * g ∧ g < n ∧ 3 * g < 2 * n at hchamber
+  change n < 2 * g ∧ g < n at hchamber
   change d.natDegree ≤ 5 * n - 2 * g ∧
     ee.natDegree ≤ 6 * n - 2 * g at hdouble
   have hclass :=
@@ -1662,7 +1662,7 @@ theorem maximalExpandedIntegratedPolynomialLowerSystem_largeGapLoadZeroSubcritic
       hterminal hsys (by
         simpa only [n, Ae, Be, Ce, ce, De, Ee, ee, g] using hchamber.1)
       (by
-        simpa only [n, Ae, Be, Ce, ce, De, Ee, ee, g] using hchamber.2.1)
+        simpa only [n, Ae, Be, Ce, ce, De, Ee, ee, g] using hchamber.2)
   change l = 0 ∧ ee.coeff (6 * n - g) = 0 ∧
     Ae.coeff (2 * n) * Be.coeff (3 * n - g) =
       3 * De.coeff (5 * n - g) at hclass
@@ -1754,7 +1754,7 @@ theorem maximalExpandedIntegratedPolynomialLowerSystem_largeGapLoadZeroSubcritic
       alpha beta gamma delta epsilon zeta eta i4 i3 Ae Be ce d ee n g
       hg hchamber hA hB hc hdouble.1 hdouble.2 ha hi4c hi3c h1cubic h0cubic⟩
 
-theorem maximalExpandedIntegratedPolynomialLowerSystem_largeGapLoadZeroSubcritical_impossible68
+theorem maximalExpandedIntegratedPolynomialLowerSystem_largeGapLoadZeroGapLtRadius_impossible68
     (l alpha beta gamma delta epsilon zeta eta terminal : k)
     (A B C0 D E : k[X]) (hterminal : terminal ≠ 0)
     (hsys : IntegratedPolynomialLowerSystem68
@@ -1769,7 +1769,7 @@ theorem maximalExpandedIntegratedPolynomialLowerSystem_largeGapLoadZeroSubcritic
       let Ee := expand k 60 E
       let ee := cubicEDefectPolynomial68 Ae Ce Ee
       let g := cubicDefectGap68 n Be ce De ee
-      n < 2 * g ∧ g < n ∧ 3 * g < 2 * n) :
+      n < 2 * g ∧ g < n) :
     False := by
   let n := weightedRadius68 A B C0 D E
   let Ae := expand k 60 A
@@ -1782,14 +1782,14 @@ theorem maximalExpandedIntegratedPolynomialLowerSystem_largeGapLoadZeroSubcritic
   let g := cubicDefectGap68 n Be ce De ee
   let d := secondaryDDefectPolynomial68 Ae Be De
   let h := secondaryResidualGap68 n d ee
-  change n < 2 * g ∧ g < n ∧ 3 * g < 2 * n at hchamber
+  change n < 2 * g ∧ g < n at hchamber
   have hgap :=
     maximalExpandedIntegratedPolynomialLowerSystem_largeGapLoadZeroResidualGap68
       l alpha beta gamma delta epsilon zeta eta terminal A B C0 D E
       hterminal hsys (by
         simpa only [n, Ae, Be, Ce, ce, De, Ee, ee, g] using hchamber.1)
       (by
-        simpa only [n, Ae, Be, Ce, ce, De, Ee, ee, g] using hchamber.2.1)
+        simpa only [n, Ae, Be, Ce, ce, De, Ee, ee, g] using hchamber.2)
   change l = 0 ∧
     (Be.coeff (3 * n - g) ≠ 0 ∨ ce.coeff (4 * n - g) ≠ 0) ∧
     d.natDegree < 5 * n - g ∧ ee.natDegree < 6 * n - g ∧
@@ -1812,7 +1812,7 @@ theorem maximalExpandedIntegratedPolynomialLowerSystem_largeGapLoadZeroSubcritic
         hterminal hsys (by
           simpa only [n, Ae, Be, Ce, ce, De, Ee, ee, g] using hchamber.1)
         (by
-          simpa only [n, Ae, Be, Ce, ce, De, Ee, ee, g] using hchamber.2.1)
+          simpa only [n, Ae, Be, Ce, ce, De, Ee, ee, g] using hchamber.2)
         (by simpa only [n, Ae, Be, Ce, ce, De, Ee, ee, g] using hgh)
         (by simpa only [n, Ae, Be, Ce, ce, De, Ee, ee, g] using hh)
         (by
@@ -1894,7 +1894,7 @@ theorem maximalExpandedIntegratedPolynomialLowerSystem_largeGapLoadZeroSubcritic
             11 * n - 3 * g - 1 :=
       cubicLoadRowTwoPolynomial68_degree_lt_cubicFace_of_largeGapLoadZero
         alpha beta gamma delta epsilon zeta eta Ae Be ce d ee n g h
-        hg0 hgh hchamber.1 hchamber.2.1 hA hB hcdeg hbounds.1 hbounds.2
+        hg0 hgh hchamber.1 hchamber.2 hA hB hcdeg hbounds.1 hbounds.2
     have h2e : lowerRowTwoPolynomial68
         (integratedSPolynomial68 l alpha beta delta Ae Be Ce De)
         (integratedTPolynomial68 l alpha beta gamma epsilon Ae Be Ce De Ee)
@@ -1965,11 +1965,16 @@ theorem maximalExpandedIntegratedPolynomialLowerSystem_largeGapLoadZeroSubcritic
       exact h1e
     have hsum1 := polynomialSecondaryResidualRowOne68
       0 alpha beta gamma delta epsilon zeta eta Ae Be ce d ee hrowOne
+    have hDload :
+        ((1 / 3 : k) • (Ae * Be) + d).natDegree ≤ 5 * n - g := by
+      compute_degree
+      omega
+    have heLoad : ee.natDegree ≤ 6 * n - g := hbounds.2.trans (by omega)
     have hload1 :=
-      cubicLoadRowOnePolynomial68_degree_lt_cubicFace_of_largeGapLoadZero
-        alpha beta gamma delta epsilon zeta eta Ae Be ce d ee n g h
-        hg0 hgh hchamber.1 hchamber.2.1 hchamber.2.2
-        hA hB hcdeg hbounds.1 hbounds.2
+      cubicLoadRowOnePolynomial68_degree_lt_largeGap_of_gap_lt_radius
+        0 alpha beta gamma delta epsilon zeta eta Ae Be ce
+        ((1 / 3 : k) • (Ae * Be) + d) ee n g
+        (by omega) hg0 rfl hchamber.2 hA hB hcdeg hDload heLoad
     exact residualRowOne_add_load_eq_zero_imp_false68_of_largeGapLoadZeroSubcritical
       Ae Be ce d ee
       (cubicLoadRowOnePolynomial68 0 alpha beta gamma delta epsilon zeta eta
@@ -1996,6 +2001,31 @@ theorem maximalExpandedIntegratedPolynomialLowerSystem_largeGapLoadZeroSubcritic
       (ce.coeff (4 * n - g)) (d.coeff (5 * n - 2 * g))
       (ee.coeff (6 * n - 2 * g)) ha hsupport hn hchamber hface.2
 
+/-- Compatibility wrapper for the formerly separate subcritical chamber. -/
+theorem maximalExpandedIntegratedPolynomialLowerSystem_largeGapLoadZeroSubcritical_impossible68
+    (l alpha beta gamma delta epsilon zeta eta terminal : k)
+    (A B C0 D E : k[X]) (hterminal : terminal ≠ 0)
+    (hsys : IntegratedPolynomialLowerSystem68
+      l alpha beta gamma delta epsilon zeta eta terminal A B C0 D E)
+    (hchamber :
+      let n := weightedRadius68 A B C0 D E
+      let Ae := expand k 60 A
+      let Be := expand k 60 B
+      let Ce := expand k 60 C0
+      let ce := cubicCDefectPolynomial68 Ae Ce
+      let De := expand k 60 D
+      let Ee := expand k 60 E
+      let ee := cubicEDefectPolynomial68 Ae Ce Ee
+      let g := cubicDefectGap68 n Be ce De ee
+      n < 2 * g ∧ g < n ∧ 3 * g < 2 * n) :
+    False := by
+  apply
+    maximalExpandedIntegratedPolynomialLowerSystem_largeGapLoadZeroGapLtRadius_impossible68
+      l alpha beta gamma delta epsilon zeta eta terminal A B C0 D E
+      hterminal hsys
+  dsimp only at hchamber ⊢
+  exact ⟨hchamber.1, hchamber.2.1⟩
+
 end LargeGapLoadZeroSubcritical68
 
 #print axioms largeGapSubcritical_natDegree_mul_derivative_lt68
@@ -2005,6 +2035,7 @@ end LargeGapLoadZeroSubcritical68
 #print axioms residualSelectedGap_eq_balanced68_of_largeGapLoadZeroSubcritical
 #print axioms residualRowOne_add_load_eq_zero_imp_false68_of_largeGapLoadZeroSubcritical
 #print axioms maximalExpandedIntegratedPolynomialLowerSystem_largeGapLoadZeroSubcriticalResidualDoubleFace68
+#print axioms maximalExpandedIntegratedPolynomialLowerSystem_largeGapLoadZeroGapLtRadius_impossible68
 #print axioms maximalExpandedIntegratedPolynomialLowerSystem_largeGapLoadZeroSubcritical_impossible68
 
 end Max11DegreeRoutes
