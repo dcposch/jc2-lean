@@ -506,8 +506,9 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   checked literally.  The full row-two and row-zero loads are now split into
   those cores plus termwise lower remainders, completing the generic
   polynomial-system wall face and forcing `l=0`, `e=0`, `a*b=3*d`.
-  A canonical expanded-source wrapper for that wall remains.  The other load walls and
-  the rest of
+  The same classification is now transported to the canonical expanded
+  source system, with the terminal row coefficient handled explicitly.
+  The other load walls and the rest of
   `n≤3g`, source-level scale-zero assembly, and the other seven literal
   normalized low-scale subcases remain open.  It does
 prove the common-power UFD factorization, exact
@@ -573,6 +574,7 @@ lake build
 `LowScale68SecondaryFirstLoadWallFace.lean`,
 `LowScale68SecondaryFirstLoadWallCore.lean`,
 `LowScale68SecondaryFirstLoadWallRemainder.lean`,
+`LowScale68SecondaryFirstLoadWallCanonical.lean`,
 `LowScale68SecondaryLargeGapResidual.lean`,
 `LowScale68SecondaryResidualMiddle.lean`,
 `LowScale68SecondaryResidualDouble.lean`,

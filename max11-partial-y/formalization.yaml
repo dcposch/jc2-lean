@@ -476,6 +476,10 @@ status:
       file: "LowScale68SecondaryFirstLoadWallRemainder.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_firstLoadWallClassified68"
+      file: "LowScale68SecondaryFirstLoadWallCanonical.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.secondaryResidualGap68_gt_of_strictDrops"
       file: "LowScale68SecondaryLargeGapResidual.lean"
       sorry_count: 0
@@ -923,6 +927,7 @@ review:
     LowScale68SecondaryFirstLoadWallFace.lean,
     LowScale68SecondaryFirstLoadWallCore.lean,
     LowScale68SecondaryFirstLoadWallRemainder.lean,
+    LowScale68SecondaryFirstLoadWallCanonical.lean,
     LowScale68SecondaryLargeGapResidual.lean,
     LowScale68SecondaryResidualMiddle.lean,
     LowScale68SecondaryResidualDouble.lean,
