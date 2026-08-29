@@ -18,7 +18,10 @@ printf 'LOCAL VERIFIER HELPERS\n'
 # parent is not itself a verifier helper.
 ps -axo pid=,ppid=,etime=,pcpu=,pmem=,comm=,args= |
   awk '
-    $6 == "bash" && index($0, "bash ./scripts/box_lean_verify.sh") {
+    ($6 == "bash" || $6 == "/bin/bash") &&
+      (index($0, "bash ./scripts/box_lean_verify.sh") ||
+       index($0, "box_lean_verify.sh.") ||
+       index($0, "box-lean-verify-script.")) {
       row[$1] = $0
       parent[$1] = $2
     }

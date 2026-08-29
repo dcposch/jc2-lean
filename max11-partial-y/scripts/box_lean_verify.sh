@@ -8,7 +8,7 @@ set -euo pipefail
 # This also makes proof verification independent of concurrent helper commits.
 if [[ -z "${BOX_LEAN_SELF_SNAPSHOT:-}" ]]; then
   original_project_dir="$(cd "$(dirname "$0")/.." && pwd)"
-  script_snapshot="$(mktemp -t box-lean-verify-script.XXXXXX)"
+  script_snapshot="$(mktemp -t box_lean_verify.sh.XXXXXX)"
   cp -p -- "$0" "$script_snapshot"
   export BOX_LEAN_SELF_SNAPSHOT="$script_snapshot"
   export BOX_LEAN_PROJECT_DIR="$original_project_dir"
