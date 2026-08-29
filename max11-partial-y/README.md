@@ -827,6 +827,7 @@ lake build
 `LowScale68ScaleTwoAlignedNonsquareIntegratedQ.lean`,
 `LowScale68ScaleTwoAlignedNonsquareIntegratedR.lean`,
 `LowScale68ScaleTwoAlignedNonsquareIntegratedSNext.lean`,
+`LowScale68ScaleTwoAlignedNonsquareIntegratedSAssembly.lean`,
 `LowScale68ScaleTwoAlignedSquareDescent.lean`,
 `LowScale68ScaleTwoAlignedSquareRowTwo.lean`,
 `LowScale68ScaleTwoAlignedSquareLowerRows.lean`,
