@@ -756,6 +756,7 @@ lake build
 `LowScale410ScaleZeroGammaUZeroCompetition.lean`,
 `LowScale410ScaleZeroGammaUZeroRaysElimination.lean`,
 `LowScale410ScaleZeroGammaUZeroBoundaryElimination.lean`,
+`LowScale410ScaleZeroGammaBZeroElimination.lean`,
 `LowScale410BetaWall.lean`,
 `LowScale410ScaleTwoSourceFace.lean`, `LowScale410ScaleTwoSecondFace.lean`,
 `LowScale410ScaleTwoThirdFace.lean`,
