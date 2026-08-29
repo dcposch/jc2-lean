@@ -724,6 +724,7 @@ lake build
 `LowScale410MixedEffectiveWalls.lean`,
 `LowScale410EtaThetaAndDegenerate.lean`,
 `LowScale410ScaleZeroAssembly.lean`,
+`LowScale410ScaleZeroSourceBridge.lean`,
 `LowScale410BetaWall.lean`,
 `LowScale410ScaleTwoSourceFace.lean`, `LowScale410ScaleTwoSecondFace.lean`,
 `LowScale410ScaleTwoThirdFace.lean`,
