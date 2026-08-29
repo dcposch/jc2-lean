@@ -538,10 +538,12 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   the middle load-above chamber are now impossible using exact row-two,
   row-one, row-zero, I4, and I3 faces.  What remains there is precisely the
   middle branch `g<h<2g`, centered on the mixed `(5/72) beta*a³` I4
-  coefficient.  Its low subchamber is now impossible.  The remaining packet
-  has `3n≤2h`: on the wall `2h=3n` row two gives one explicit mixed-beta
-  scalar, while above the wall `beta=0`; the next row-one/inner coefficients
-  are the active obstruction.  In the later `g≥3n/2` chamber, the fourth invariant now gives
+  coefficient.  Its low subchamber is now impossible.  The wall `2h=3n` is
+  also impossible after its exact residual row-one face forces a scalar
+  contradiction, and the open window `3n<2h<3g` is eliminated by the next
+  residual row-two coefficient.  The only remaining first-deep middle packet
+  has `3g≤2h<4g` and `beta=0`; the residual row-two inner at
+  `11n-3g-1` is its next obstruction.  In the later `g≥3n/2` chamber, the fourth invariant now gives
   the complete `beta`/`delta` load cascade through `2g<8n`: it records both
   mixed walls, forces `beta=delta=0` between them and beyond, recovers the
   ordinary secondary face through `2g≤6n`, and then extracts the clamped-`B`
@@ -580,8 +582,10 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   the `p3`, `p4/h0^2`, and `p5/h0^4` quotients.  Its scalar top rows have a
   genuine cubic-core branch `v=z^2/3`, `t=z^3/27`.  On that branch the first
   transverse coefficient forces `z=0`, hence simultaneously
-  `h0^5∣p5`, `h0^3∣p4`, and `h0∣p3`.  The remaining task is to split the
-  full two-row residual into this component and its non-cubic components.
+  `h0^5∣p5`, `h0^3∣p4`, and `h0∣p3`.  An exact elimination certificate now
+  splits the full two-row residual into that cubic point and one disjoint
+  degree-ten component `P10(v/z^2)=0`; the next differential row is being
+  reduced on this unique finite non-cubic packet.
   For all six
   `(4,10)`, `(6,10)`, and `(8,10)` leaves, an exact large source-shear
   calculation gives total-degree gcd `H+2L`; prime selection reduces them
@@ -689,7 +693,8 @@ lake build
 `LowScale68ScaleTwoLocalRhoTwo.lean`,
 `LowScale68ScaleTwoAfterRhoTwo.lean`,
 `LowScale68ScaleTwoLocalRhoOne.lean`,
-`LowScale68ScaleTwoRhoOneTransverse.lean`, `LowScaleRemainingShear.lean`,
+`LowScale68ScaleTwoRhoOneTransverse.lean`,
+`LowScale68ScaleTwoRhoOneComponentSplit.lean`, `LowScaleRemainingShear.lean`,
 `LowScale68Infinity.lean`, `LowScale68PolynomialBoundary.lean`,
 `LowScale68WeightedRadius.lean`, `LowScale68Expansion.lean`,
 `LowScale68CubicDescent.lean`, `LowScale68SecondaryRadius.lean`,
@@ -721,6 +726,7 @@ lake build
 `LowScale68SecondaryDeepGapResidualOneForms.lean`,
 `LowScale68SecondaryDeepGapResidualEndgame.lean`,
 `LowScale68SecondaryDeepGapMiddleBetaEndgame.lean`,
+`LowScale68SecondaryDeepGapMiddleBetaNextOrder.lean`,
 `LowScale68SecondaryLaterDeepLoadCascade.lean`,
 `LowScale68SecondaryLaterDeepLowerEndgame.lean`,
 `LowScale68SecondaryLaterDeepMixedTwoNFace.lean`,
