@@ -566,8 +566,11 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   next independent coefficient must include subleading `A,B,c` data.  The lower
   `3n≤2g≤5n` window is reduced to three
   exact packets: the two endpoint load walls and an open branch with
-  `beta=0`, vanishing `e_top`, and `a*b=3*d`.  Lower coefficients remain to
-  exclude these residual branches.  The remaining literal normalized low-scale subcases
+  `beta=0`, vanishing `e_top`, and `a*b=3*d`.  On the open branch both
+  translated defects now drop strictly and its attained residual gap satisfies
+  `h>g`; I4 is classified across `g+h ? 5n`.  The `2g=3n` wall also carries
+  its exact mixed-beta row-two face, while `2g=5n` retains the mixed-delta
+  face.  Lower coefficients remain to exclude these packets.  The remaining literal normalized low-scale subcases
   remain open.  Source-level scale-zero assembly is now
   complete: every literal normalized source produces a nonzero-terminal
   `IntegratedPolynomialLowerSystem68`, so only the intrinsic global
@@ -749,6 +752,7 @@ lake build
 `LowScale68SecondaryDeepGapMiddleRightEndgame.lean`,
 `LowScale68SecondaryLaterDeepLoadCascade.lean`,
 `LowScale68SecondaryLaterDeepLowerEndgame.lean`,
+`LowScale68SecondaryLaterDeepLowerResidual.lean`,
 `LowScale68SecondaryLaterDeepMixedTwoNFace.lean`,
 `LowScale68SecondaryLaterDeepClampedEndgame.lean`,
 `LowScale68SecondaryLaterDeepPreclampedEndgame.lean`,
