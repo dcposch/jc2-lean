@@ -532,9 +532,10 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   row-one face also cancel exactly, leaving the ordinary residual row-one
   coefficient.  Its six row-two load terms are now also computed exactly:
   every alpha core cancels and the unique survivor is
-  `(5n/18) beta*a^4`.  The resulting mixed right/balanced scalar system is now
-  eliminated by the I4-controlled incidence degree and the exact row-one
-  faces, closing the entire `g=n` wall.  In the first-deep residual descent, the double chamber and
+  `(5n/18) beta*a^4`.  The resulting scalar system eliminates the
+  non-balanced middle chambers.  The balanced face `2h=3g` and the residual
+  double face `h>=2g` remain; their next controlling coefficient is the mixed
+  row-zero face at `10n-1`.  In the first-deep residual descent, the double chamber and
   the middle load-above chamber are now impossible using exact row-two,
   row-one, row-zero, I4, and I3 faces.  What remains there is precisely the
   middle branch `g<h<2g`, `g+h≤3n`, centered on the mixed
@@ -545,7 +546,10 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   face through `2g<8n`.  At `8n≤2g`, the exact cubic degree-`4n` and quartic
   degree-`2n` faces now force the clamped coefficient `B=0` and load
   `zeta=0`; the resulting constant-`c` scalar split and exact lower rows close
-  that entire clamped chamber.  The remaining literal normalized low-scale subcases
+  that entire clamped chamber.  In the upper preclamped window, `7n<2g<8n`
+  is also impossible; below it, the route now forces `B=0` for `6n<2g`,
+  extracts `D_top*c_top=0` for `6n<2g<7n`, and records the exact tie
+  `(8/3)D_top*c_top+zeta*A_top=0` at `2g=7n`.  The remaining literal normalized low-scale subcases
   remain open.  Source-level scale-zero assembly is now
   complete: every literal normalized source produces a nonzero-terminal
   `IntegratedPolynomialLowerSystem68`, so only the intrinsic global
@@ -555,7 +559,10 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   either zero or the seventh power of a degree-one polynomial times a nonzero
   scalar, while the common quadratic core is its square.  The latter branch
   therefore has an
-  explicit finite root ready for weighted-infinity analysis.  For all six
+  explicit finite root.  At that root, exact Hahn extraction now forces the
+  five cubic top rows to vanish and yields the first Newton-box descent
+  `h0 ∣ p.coeff 5`.  The improved `rho=4` box then strengthens this to
+  `h0^2 ∣ p.coeff 5`; the `rho=3` descent is the next step.  For all six
   `(4,10)`, `(6,10)`, and `(8,10)` leaves, an exact large source-shear
   calculation gives total-degree gcd `H+2L`; prime selection reduces them
   uniformly to the deliberately open arbitrary-pair twice-prime interface,
@@ -570,7 +577,10 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   `U³-B⁴ = constant` and `8(B³U)' = nonzero constant`; on a nonzero fiber,
   the shifted primitive `8B³U-c₂A` has degree one, contradicting the even
   degree forced on `A`.  Only the nonzero-load cascade remains open in this
-  direct branch.
+  direct branch.  The load correction is now sharply bounded and the terminal
+  row depends on exactly seven effective loads (`l`, `beta`, `gamma`, `delta`,
+  `zeta`, `eta`, `theta`); eliminating those seven walls is the remaining
+  `(4,10),H=0` task.
 The low-scale core proves the common-power UFD factorization, exact
 core degree, scalar normalization, and generation transport for all five.
 The endpoint theorem is the first assertion of Guccione--Guccione--
@@ -597,6 +607,8 @@ external human peer review.
 ```sh
 lake build
 ./scripts/check_axioms.sh
+# On the dedicated box, sync and verify selected modules in one command:
+./scripts/box_lean_verify.sh LowScale410LoadCascade
 ```
 
 `Max11Core.lean`, `ClassicalRoutes.lean`, `DegreeRoutes.lean`,
@@ -620,11 +632,19 @@ lake build
 `LowScale410FirstIntegrals.lean`,
 `LowScale410ZeroLoadTrajectory.lean`,
 `LowScale410ZeroLoadShiftedFiber.lean`,
+`LowScale410LoadCascade.lean`,
 `LowScale68NormalForm.lean`,
 `LowScale68Integrated.lean`, `LowScale68Depression.lean`,
 `LowScale68SourceBridge.lean`, `LowScale68ScaleZero.lean`,
 `LowScale68ScaleZeroAssembly.lean`,
-`LowScale68ScaleTwoSourceFace.lean`, `LowScaleRemainingShear.lean`,
+`LowScale68ScaleTwoSourceFace.lean`,
+`LowScale68ScaleTwoNonalignedInfinity.lean`,
+`LowScale68ScaleTwoLocalInitialForms.lean`,
+`LowScale68ScaleTwoLocalRowThree.lean`,
+`LowScale68ScaleTwoLocalDerivativeRowTwo.lean`,
+`LowScale68ScaleTwoIntegratedBoundary.lean`,
+`LowScale68ScaleTwoLocalRowOneZero.lean`,
+`LowScale68ScaleTwoLocalRhoFour.lean`, `LowScaleRemainingShear.lean`,
 `LowScale68Infinity.lean`, `LowScale68PolynomialBoundary.lean`,
 `LowScale68WeightedRadius.lean`, `LowScale68Expansion.lean`,
 `LowScale68CubicDescent.lean`, `LowScale68SecondaryRadius.lean`,
@@ -657,6 +677,7 @@ lake build
 `LowScale68SecondaryLaterDeepLoadCascade.lean`,
 `LowScale68SecondaryLaterDeepMixedTwoNFace.lean`,
 `LowScale68SecondaryLaterDeepClampedEndgame.lean`,
+`LowScale68SecondaryLaterDeepPreclampedEndgame.lean`,
 `LowScale68SecondaryResidualMiddle.lean`,
 `LowScale68SecondaryResidualDouble.lean`,
 `LowScale68SecondaryResidualDoubleLoadWall.lean`,
