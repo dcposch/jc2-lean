@@ -412,8 +412,32 @@ status:
       file: "LowScale68SecondaryLargeGapLoads.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.integratedPolynomialLowerSystem_firstSecondaryClassified68_of_loadL"
+      file: "LowScale68SecondaryRelaxedFirstFace.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.integratedPolynomialLowerSystem_firstSecondaryClassified68_of_loadL_alpha"
+      file: "LowScale68SecondaryRelaxedFirstFace.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.polynomialSecondaryFourThreeZeroEquations68_of_loadL"
+      file: "LowScale68SecondaryRelaxedFirstFace.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.firstLoadWallFace68_classify_of_two_mul_gap_eq_radius"
       file: "LowScale68SecondaryFirstLoadWallFace.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.cubicLoadRowTwoLCorePolynomial68_eq"
+      file: "LowScale68SecondaryFirstLoadWallCore.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.cubicFirstIntegralFourPolynomial68_coeff_loadWall"
+      file: "LowScale68SecondaryFirstLoadWallCore.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.integratedLowerRowOnePolynomial68_coeff_loadWall"
+      file: "LowScale68SecondaryFirstLoadWallCore.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.secondaryResidualGap68_gt_of_strictDrops"
@@ -844,7 +868,9 @@ review:
     LowScale68SecondaryResidualFace.lean,
     LowScale68SecondaryResidualExtraction.lean,
     LowScale68SecondaryLargeGapLoads.lean,
+    LowScale68SecondaryRelaxedFirstFace.lean,
     LowScale68SecondaryFirstLoadWallFace.lean,
+    LowScale68SecondaryFirstLoadWallCore.lean,
     LowScale68SecondaryLargeGapResidual.lean,
     LowScale68SecondaryResidualMiddle.lean,
     LowScale68SecondaryResidualDouble.lean,

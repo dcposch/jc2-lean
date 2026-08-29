@@ -483,13 +483,20 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   coefficient is nonzero, closing that whole chamber.  In the complementary
   strict loaded chamber `n<2g`, the degree-`8n` quartic invariant now forces
   the old-weight load `l=0`; deeper in `3n<2g`, its degree-`6n` coefficient
-  then forces `beta=0`.  In the medium complement, the selected residual gap
+  then forces `beta=0`.  After `l=0`, a relaxed extraction now recovers the
+  complete five-equation first secondary face throughout `g<n`, and throughout
+  `2g<3n` after the additional vanishing `alpha=0`; without row one, it also
+  classifies the exact three surviving scalar families.  In the medium
+  complement, the selected residual gap
   still satisfies `g<h`: on `g+h<n` the two ordinary residual middle-face
   equations survive, while the strict overshoot `n<g+h`, `n<3g` again forces
   `l=0`.  The five abstract mixed equations on the equality wall `2g=n` are
-  also classified exactly: they force `l=0`, `e=0`, and `a*b=3*d`; extraction
-  of those five scalars from the literal polynomial system is the remaining
-  wall bridge.  The other load walls and the rest of
+  also classified exactly: they force `l=0`, `e=0`, and `a*b=3*d`.  Both
+  invariant scalars, the homogeneous row-two/row-zero scalars, the load-free
+  row-one scalar, and the cancellation-sensitive pure `l*A^5` cores are now
+  checked literally.  The remaining wall bridge is the full-load
+  core-plus-remainder split for rows two and zero.  The other load walls and
+  the rest of
   `n≤3g`, source-level scale-zero assembly, and the other seven literal
   normalized low-scale subcases remain open.  It does
 prove the common-power UFD factorization, exact
@@ -548,7 +555,9 @@ lake build
 `LowScale68SecondaryResidualFace.lean`,
 `LowScale68SecondaryResidualExtraction.lean`,
 `LowScale68SecondaryLargeGapLoads.lean`,
+`LowScale68SecondaryRelaxedFirstFace.lean`,
 `LowScale68SecondaryFirstLoadWallFace.lean`,
+`LowScale68SecondaryFirstLoadWallCore.lean`,
 `LowScale68SecondaryLargeGapResidual.lean`,
 `LowScale68SecondaryResidualMiddle.lean`,
 `LowScale68SecondaryResidualDouble.lean`,
