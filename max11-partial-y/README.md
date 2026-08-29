@@ -514,8 +514,9 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   row-two trichotomy, and nonzero balanced row-one coefficient then exclude
   every residual chamber, closing `2g=n` as well.  In `n<2g`, `g<n`, the
   load-zero classification now also supplies strict residual drops, an
-  attained gap, sharp load cutoffs, and both residual invariant faces; its
-  row-one load split and one-form endgame remain.  The rest of the strict
+  attained gap, sharp load cutoffs, and both residual invariant faces.  Its
+  complete one-form endgame closes the subchamber `3g<2n`; the complementary
+  `2n≤3g` row-one load split remains.  The rest of the strict
   large-gap region, source-level scale-zero assembly, and the other seven literal
   normalized low-scale subcases remain open.  It does
 prove the common-power UFD factorization, exact
@@ -586,6 +587,7 @@ lake build
 `LowScale68SecondaryFirstGapBoundary.lean`,
 `LowScale68SecondaryLargeGapResidual.lean`,
 `LowScale68SecondaryLargeGapLoadZeroFace.lean`,
+`LowScale68SecondaryLargeGapSubcritical.lean`,
 `LowScale68SecondaryResidualMiddle.lean`,
 `LowScale68SecondaryResidualDouble.lean`,
 `LowScale68SecondaryResidualDoubleLoadWall.lean`,
