@@ -740,6 +740,7 @@ lake build
 `LowScale410ScaleZeroConstantBDropElimination.lean`,
 `LowScale410ScaleZeroPositiveBFan.lean`,
 `LowScale410ScaleZeroPositiveBTriangleFan.lean`,
+`LowScale410ScaleZeroA4AB3Tie.lean`,
 `LowScale410BetaWall.lean`,
 `LowScale410ScaleTwoSourceFace.lean`, `LowScale410ScaleTwoSecondFace.lean`,
 `LowScale410ScaleTwoThirdFace.lean`,
