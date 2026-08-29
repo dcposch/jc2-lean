@@ -531,9 +531,14 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   `beta*A^3` survives.  The four apparent alpha terms on its residual
   row-one face also cancel exactly, leaving the ordinary residual row-one
   coefficient; its mixed row-two coefficient is now the sole wall
-  obstruction.  The residual row-two/row-one endgame in the deeper window,
-  the later `g≥3n/2` load cascade, and the remaining literal normalized
-  low-scale subcases remain open.  Source-level scale-zero assembly is now
+  obstruction.  The residual row-two/row-one endgame in the deeper window
+  remains open.  In the later `g≥3n/2` chamber, the fourth invariant now gives
+  the complete `beta`/`delta` load cascade through `2g<8n`: it records both
+  mixed walls, forces `beta=delta=0` between them and beyond, recovers the
+  ordinary secondary face through `2g≤6n`, and then extracts the clamped-`B`
+  face through `2g<8n`.  The mixed degree-`2n` face at the next wall and the
+  remaining literal normalized low-scale subcases remain open.  Source-level
+  scale-zero assembly is now
   complete: every literal normalized source produces a nonzero-terminal
   `IntegratedPolynomialLowerSystem68`, so only the intrinsic global
   exclusion of that system remains.  For the `(6,8)` scale-two source, the
@@ -632,6 +637,7 @@ lake build
 `LowScale68SecondaryLargeGapSubcritical.lean`,
 `LowScale68SecondaryDeepGapCascade.lean`,
 `LowScale68SecondaryDeepGapResidualOneForms.lean`,
+`LowScale68SecondaryLaterDeepLoadCascade.lean`,
 `LowScale68SecondaryResidualMiddle.lean`,
 `LowScale68SecondaryResidualDouble.lean`,
 `LowScale68SecondaryResidualDoubleLoadWall.lean`,
