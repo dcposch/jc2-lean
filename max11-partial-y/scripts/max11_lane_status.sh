@@ -43,7 +43,9 @@ else
     pid="$(awk '{print $1}' <<<"$row")"
     elapsed="$(awk '{print $2}' <<<"$row")"
     rss_kib="$(awk '{print $3}' <<<"$row")"
-    target="$(grep -oE '[A-Za-z0-9_.-]+Scratch[.]lean' <<<"$row" | head -n 1 || true)"
+    # Continuation prompts mention their predecessor before the requested
+    # output.  The final scratch filename is therefore the worker target.
+    target="$(grep -oE '[A-Za-z0-9_.-]+Scratch[.]lean' <<<"$row" | tail -n 1 || true)"
     [[ -n "$target" ]] || target="(target not parsed)"
     printf 'pid=%s elapsed=%s rss_mib=%s target=%s\n' \
       "$pid" "$elapsed" "$((rss_kib / 1024))" "$target"
