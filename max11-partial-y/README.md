@@ -910,6 +910,7 @@ lake build
 `LowScale68SecondaryLaterDeepLowerOpenMiddleSelector.lean`,
 `LowScale68SecondaryLaterDeepLowerOpenMiddleSevenSum.lean`,
 `LowScale68SecondaryLaterDeepLowerOpenMiddleSevenSumRowTwo.lean`,
+`LowScale68SecondaryLaterDeepLowerOpenMiddleFiveSumRowTwo.lean`,
 `LowScale68SecondaryLaterDeepMixedTwoNFace.lean`,
 `LowScale68SecondaryLaterDeepClampedEndgame.lean`,
 `LowScale68SecondaryLaterDeepPreclampedEndgame.lean`,
