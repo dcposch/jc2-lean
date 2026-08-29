@@ -486,7 +486,10 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   then forces `beta=0`.  In the medium complement, the selected residual gap
   still satisfies `g<h`: on `g+h<n` the two ordinary residual middle-face
   equations survive, while the strict overshoot `n<g+h`, `n<3g` again forces
-  `l=0`.  The equality/load walls and the rest of
+  `l=0`.  The five abstract mixed equations on the equality wall `2g=n` are
+  also classified exactly: they force `l=0`, `e=0`, and `a*b=3*d`; extraction
+  of those five scalars from the literal polynomial system is the remaining
+  wall bridge.  The other load walls and the rest of
   `n≤3g`, source-level scale-zero assembly, and the other seven literal
   normalized low-scale subcases remain open.  It does
 prove the common-power UFD factorization, exact
@@ -545,6 +548,7 @@ lake build
 `LowScale68SecondaryResidualFace.lean`,
 `LowScale68SecondaryResidualExtraction.lean`,
 `LowScale68SecondaryLargeGapLoads.lean`,
+`LowScale68SecondaryFirstLoadWallFace.lean`,
 `LowScale68SecondaryLargeGapResidual.lean`,
 `LowScale68SecondaryResidualMiddle.lean`,
 `LowScale68SecondaryResidualDouble.lean`,
