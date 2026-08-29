@@ -531,8 +531,11 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   `beta*A^3` survives.  The four apparent alpha terms on its residual
   row-one face also cancel exactly, leaving the ordinary residual row-one
   coefficient; its mixed row-two coefficient is now the sole wall
-  obstruction.  The residual row-two/row-one endgame in the deeper window
-  remains open.  In the later `g≥3n/2` chamber, the fourth invariant now gives
+  obstruction.  In the first-deep residual descent, the double chamber and
+  the middle load-above chamber are now impossible using exact row-two,
+  row-one, row-zero, I4, and I3 faces.  What remains there is precisely the
+  middle branch `g<h<2g`, `g+h≤3n`, centered on the mixed
+  `(5/72) beta*a³` I4 coefficient.  In the later `g≥3n/2` chamber, the fourth invariant now gives
   the complete `beta`/`delta` load cascade through `2g<8n`: it records both
   mixed walls, forces `beta=delta=0` between them and beyond, recovers the
   ordinary secondary face through `2g≤6n`, and then extracts the clamped-`B`
@@ -559,10 +562,12 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   more: the first two terminal rows are exact derivatives of explicit
   polynomial first integrals, so the direct endgame is reduced to two constant
   invariant equations and the single genuinely non-exact row
-  `W*C₀' - B*Z' = terminal`.  In the zero-load, zero-first-invariant fiber,
-  discriminant coordinates reduce this system to `U³-B⁴ = constant` and
-  `8(B³U)' = nonzero constant`; the resulting degree-one product is
-  impossible.  Nonzero invariant fibers and then nonzero loads remain open.
+  `W*C₀' - B*Z' = terminal`.  Discriminant coordinates now exclude every
+  zero-load constant fiber.  The zero first-invariant fiber reduces to
+  `U³-B⁴ = constant` and `8(B³U)' = nonzero constant`; on a nonzero fiber,
+  the shifted primitive `8B³U-c₂A` has degree one, contradicting the even
+  degree forced on `A`.  Only the nonzero-load cascade remains open in this
+  direct branch.
 The low-scale core proves the common-power UFD factorization, exact
 core degree, scalar normalization, and generation transport for all five.
 The endpoint theorem is the first assertion of Guccione--Guccione--
@@ -611,6 +616,7 @@ lake build
 `LowScale46ScaleTwo.lean`, `LowScale410NormalForm.lean`,
 `LowScale410FirstIntegrals.lean`,
 `LowScale410ZeroLoadTrajectory.lean`,
+`LowScale410ZeroLoadShiftedFiber.lean`,
 `LowScale68NormalForm.lean`,
 `LowScale68Integrated.lean`, `LowScale68Depression.lean`,
 `LowScale68SourceBridge.lean`, `LowScale68ScaleZero.lean`,
@@ -642,6 +648,7 @@ lake build
 `LowScale68SecondaryLargeGapSubcritical.lean`,
 `LowScale68SecondaryDeepGapCascade.lean`,
 `LowScale68SecondaryDeepGapResidualOneForms.lean`,
+`LowScale68SecondaryDeepGapResidualEndgame.lean`,
 `LowScale68SecondaryLaterDeepLoadCascade.lean`,
 `LowScale68SecondaryLaterDeepMixedTwoNFace.lean`,
 `LowScale68SecondaryResidualMiddle.lean`,
