@@ -719,7 +719,7 @@ lake build
 `LowScale410LWallFanConnector.lean`,
 `LowScale410LWallUnconditional.lean`,
 `LowScale410ScaleTwoSourceFace.lean`, `LowScale610ScaleTwoSourceFace.lean`,
-`LowScale810ScaleTwoSourceFace.lean`,
+`LowScale810ScaleTwoSourceFace.lean`, `LowScale810ScaleTwoSecondFace.lean`,
 `LowScale68NormalForm.lean`,
 `LowScale68Integrated.lean`, `LowScale68Depression.lean`,
 `LowScale68SourceBridge.lean`, `LowScale68ScaleZero.lean`,
