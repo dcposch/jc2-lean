@@ -762,6 +762,7 @@ lake build
 `LowScale68ScaleTwoAlignedSecondDefect.lean`,
 `LowScale68ScaleTwoAlignedNonsquareBridge.lean`,
 `LowScale68ScaleTwoAlignedNonsquareEndgame.lean`,
+`LowScale68ScaleTwoAlignedNonsquareRepresentatives.lean`,
 `LowScale68ScaleTwoAlignedSquareDescent.lean`,
 `LowScale68ScaleTwoAlignedSquareRowTwo.lean`,
 `LowScale68ScaleTwoAlignedSquareLowerRows.lean`,
