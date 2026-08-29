@@ -534,16 +534,13 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   every alpha core cancels and the unique survivor is
   `(5n/18) beta*a^4`.  Exact mixed row-zero faces now eliminate both the
   balanced face `2h=3g` and the residual double face `h≥2g`; consequently
-  the entire alpha wall `g=n` is impossible.  In the first-deep residual descent, the double chamber and
-  the middle load-above chamber are now impossible using exact row-two,
-  row-one, row-zero, I4, and I3 faces.  What remains there is precisely the
-  middle branch `g<h<2g`, centered on the mixed `(5/72) beta*a³` I4
-  coefficient.  Its low subchamber is now impossible.  The wall `2h=3n` is
-  also impossible after its exact residual row-one face forces a scalar
-  contradiction, and the open window `3n<2h<3g` is eliminated by the next
-  residual row-two coefficient.  The only remaining first-deep middle packet
-  has `3g≤2h<4g` and `beta=0`; the residual row-two inner at
-  `11n-3g-1` is its next obstruction.  In the later `g≥3n/2` chamber, the fourth invariant now gives
+  the entire alpha wall `g=n` is impossible.  The entire first-deep chamber
+  `n<g<3n/2` is now impossible as well.  Exact row-two, row-one, row-zero,
+  I4, and I3 faces eliminate its double and load-above branches; the wall
+  `2h=3n` and left middle window fall to the next residual coefficients.
+  Finally, after `beta=0`, the right window `3g<2h<4g` has a nonzero cubic
+  row-two core, while the balanced wall `2h=3g` feeds a nonzero residual
+  row-one scalar.  In the later `g≥3n/2` chamber, the fourth invariant now gives
   the complete `beta`/`delta` load cascade through `2g<8n`: it records both
   mixed walls, forces `beta=delta=0` between them and beyond, recovers the
   ordinary secondary face through `2g≤6n`, and then extracts the clamped-`B`
@@ -743,6 +740,7 @@ lake build
 `LowScale68SecondaryDeepGapResidualEndgame.lean`,
 `LowScale68SecondaryDeepGapMiddleBetaEndgame.lean`,
 `LowScale68SecondaryDeepGapMiddleBetaNextOrder.lean`,
+`LowScale68SecondaryDeepGapMiddleRightEndgame.lean`,
 `LowScale68SecondaryLaterDeepLoadCascade.lean`,
 `LowScale68SecondaryLaterDeepLowerEndgame.lean`,
 `LowScale68SecondaryLaterDeepMixedTwoNFace.lean`,
