@@ -501,8 +501,10 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   also classified exactly: they force `l=0`, `e=0`, and `a*b=3*d`.  Both
   invariant scalars, the homogeneous row-two/row-zero scalars, the load-free
   row-one scalar, and the cancellation-sensitive pure `l*A^5` cores are now
-  checked literally.  The remaining wall bridge is the full-load
-  core-plus-remainder split for rows two and zero.  The other load walls and
+  checked literally.  The full row-two and row-zero loads are now split into
+  those cores plus termwise lower remainders, completing the generic
+  polynomial-system wall face and forcing `l=0`, `e=0`, `a*b=3*d`.
+  A canonical expanded-source wrapper for that wall remains.  The other load walls and
   the rest of
   `n≤3g`, source-level scale-zero assembly, and the other seven literal
   normalized low-scale subcases remain open.  It does
@@ -567,6 +569,7 @@ lake build
 `LowScale68SecondaryAlphaWall.lean`,
 `LowScale68SecondaryFirstLoadWallFace.lean`,
 `LowScale68SecondaryFirstLoadWallCore.lean`,
+`LowScale68SecondaryFirstLoadWallRemainder.lean`,
 `LowScale68SecondaryLargeGapResidual.lean`,
 `LowScale68SecondaryResidualMiddle.lean`,
 `LowScale68SecondaryResidualDouble.lean`,
