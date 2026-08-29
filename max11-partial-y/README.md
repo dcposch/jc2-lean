@@ -700,6 +700,9 @@ lake build
 # guards.  They finish in `verified` only after an exact source/environment AWS
 # gate; durable logs, hashes, and gate receipts live under `.max11-lanes/`:
 ./scripts/max11_lean_lane.sh --engine claude --target FableLaneScratch.lean -- 'Prove the next exact face.'
+# A dependent successor can wait durably for the predecessor's exact receipt
+# and for a free model slot, then launch without manual polling:
+./scripts/max11_lean_after.sh --after FableLaneScratch.lean --engine claude --target FableNextScratch.lean -- 'Continue with the next unused row.'
 # An exact completed gate can be checked without recompilation:
 ./scripts/box_lean_verify.sh --file FableLaneScratch.lean --receipt-only
 # One dashboard shows live workers, durable handoffs, recent files, and AWS jobs:

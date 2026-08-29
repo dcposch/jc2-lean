@@ -58,13 +58,37 @@ else
   done <<<"$worker_rows"
 fi
 
+printf '\nQUEUED FOLLOW-UPS\n'
+wait_root="$project_dir/.max11-lanes/waits"
+wait_dirs=""
+if [[ -d "$wait_root" ]]; then
+  wait_dirs="$(find "$wait_root" -mindepth 1 -maxdepth 1 -type d | sort -r)"
+fi
+if [[ -z "$wait_dirs" ]]; then
+  printf 'none\n'
+else
+  while IFS= read -r wait_dir; do
+    state="$(sed -n '1p' "$wait_dir/state" 2>/dev/null || printf '?')"
+    predecessor="$(sed -n '1p' "$wait_dir/predecessor" 2>/dev/null || printf '?')"
+    engine="$(sed -n '1p' "$wait_dir/engine" 2>/dev/null || printf '?')"
+    target="$(sed -n '1p' "$wait_dir/target" 2>/dev/null || printf '?')"
+    pid="$(sed -n '1p' "$wait_dir/pid" 2>/dev/null || printf '?')"
+    if [[ "$state" == waiting_for_gate || "$state" == waiting_for_capacity ]] &&
+        [[ "$pid" =~ ^[0-9]+$ ]] && ! kill -0 "$pid" 2>/dev/null; then
+      state="stale"
+    fi
+    printf 'state=%s pid=%s engine=%s after=%s target=%s\n' \
+      "$state" "$pid" "$engine" "$predecessor" "$target"
+  done <<<"$wait_dirs"
+fi
+
 now="$(date +%s)"
 printf '\nDURABLE LANE LEDGER (newest 12)\n'
 state_root="$project_dir/.max11-lanes"
 ledger_dirs=""
 if [[ -d "$state_root" ]]; then
   ledger_dirs="$(find "$state_root" -mindepth 1 -maxdepth 1 -type d \
-    ! -name gates | sort -r | head -n 12)"
+    ! -name gates ! -name waits | sort -r | head -n 12)"
 fi
 if [[ -z "$ledger_dirs" ]]; then
   printf 'none (legacy workers predate ledger)\n'
