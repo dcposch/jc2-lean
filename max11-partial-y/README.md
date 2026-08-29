@@ -759,6 +759,8 @@ lake build
 `LowScale68SecondaryRelaxedCanonical.lean`,
 `LowScale68SecondaryAlphaWall.lean`,
 `LowScale68SecondaryLargeGapAlphaCancellation.lean`,
+`LowScale68SecondaryLargeGapTransport.lean`,
+`LowScale68SecondaryLargeGapClosure.lean`,
 `LowScale68SecondaryAlphaWallCanonical.lean`,
 `LowScale68SecondaryAlphaWallEndgame.lean`,
 `LowScale68SecondaryAlphaWallRowOneLoad.lean`,
