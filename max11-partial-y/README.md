@@ -789,6 +789,7 @@ lake build
 `LowScale810ScaleTwoSixthFace.lean`,
 `LowScale810ScaleTwoSeventhFace.lean`,
 `LowScale810ScaleTwoSeventhPacket.lean`,
+`LowScale810ScaleTwoEighthFace.lean`,
 `LowScale68NormalForm.lean`,
 `LowScale68Integrated.lean`, `LowScale68Depression.lean`,
 `LowScale68SourceBridge.lean`, `LowScale68ScaleZero.lean`,
