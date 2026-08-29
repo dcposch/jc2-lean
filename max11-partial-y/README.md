@@ -727,6 +727,7 @@ lake build
 `LowScale410ScaleZeroAssembly.lean`,
 `LowScale410ScaleZeroSourceBridge.lean`,
 `LowScale410ScaleZeroEarlyLoadElimination.lean`,
+`LowScale410ScaleZeroGroundIntegration.lean`,
 `LowScale410BetaWall.lean`,
 `LowScale410ScaleTwoSourceFace.lean`, `LowScale410ScaleTwoSecondFace.lean`,
 `LowScale410ScaleTwoThirdFace.lean`,
