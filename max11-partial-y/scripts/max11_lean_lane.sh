@@ -11,8 +11,54 @@ EOF
 }
 
 project_dir="$(cd "$(dirname "$0")/.." && pwd)"
+script_path="$project_dir/scripts/max11_lean_lane.sh"
 guard_dir="$project_dir/scripts/no-local-lean"
 state_root="$project_dir/.max11-lanes"
+
+if [[ "${1:-}" == "--run" ]]; then
+  (($# == 5)) || usage
+  job_dir="$2"
+  engine="$3"
+  target="$4"
+  instruction="$5"
+  case "$job_dir" in
+    "$state_root"/*) ;;
+    *) echo "unsafe lane state directory: $job_dir" >&2; exit 2 ;;
+  esac
+  printf '%s\n' "$$" >"$job_dir/pid"
+  printf '%s\n' "$(date +%s)" >"$job_dir/started_epoch"
+  printf '%s\n' running >"$job_dir/state"
+
+  finish_lane() {
+    exit_code=$?
+    printf '%s\n' "$exit_code" >"$job_dir/exit_code"
+    printf '%s\n' "$(date +%s)" >"$job_dir/ended_epoch"
+    if ((exit_code == 0)); then
+      printf '%s\n' succeeded >"$job_dir/state"
+    else
+      printf '%s\n' failed >"$job_dir/state"
+    fi
+  }
+  trap finish_lane EXIT
+
+  contract="Work autonomously in $project_dir. Create only the untracked target $target. No tracked/helper edits, sorry, new axioms, finite-root shortcuts, or closure overclaims. Do not invoke local Lean or Lake; the guarded PATH intentionally disables them. Use ./scripts/box_lean_verify.sh --file $target for every Lean compilation/check. Finish only after literal BUILD_EXIT=0 ERROR_COUNT=0 SORRYAX_COUNT=0, and report recursive SHA-256 hashes, exact gain, next unused row, and residual. LOCAL_LEAN_GUARD=enabled."
+  set +e
+  if [[ "$engine" == claude ]]; then
+    # This machine uses the Claude login.  A stale API-key override can mask
+    # that working credential and fail every detached worker with HTTP 401.
+    env -u ANTHROPIC_API_KEY PATH="$guard_dir:$PATH" LOCAL_LEAN_GUARD=enabled \
+      claude --dangerously-skip-permissions -p "$instruction $contract" \
+      2>&1 | tee "$job_dir/output.log"
+    exit_code=${PIPESTATUS[0]}
+  else
+    env PATH="$guard_dir:$PATH" LOCAL_LEAN_GUARD=enabled \
+      grok --yolo --output-format plain -p "$instruction $contract" \
+      2>&1 | tee "$job_dir/output.log"
+    exit_code=${PIPESTATUS[0]}
+  fi
+  set -e
+  exit "$exit_code"
+fi
 
 if [[ "${1:-}" == "--check" && $# == 1 ]]; then
   [[ -x "$guard_dir/lake" && -x "$guard_dir/lean" ]] || {
@@ -27,7 +73,15 @@ if [[ "${1:-}" == "--check" && $# == 1 ]]; then
     echo "grok is not available" >&2
     exit 69
   }
-  echo "LANE_CHECK=ok CLAUDE=$(claude --version | head -n 1) GROK=$(grok --version | head -n 1)"
+  command -v screen >/dev/null || {
+    echo "screen is not available" >&2
+    exit 69
+  }
+  # GNU Screen reports its version but exits 1 on this macOS build.
+  screen_version="$(screen --version 2>&1 || true)"
+  screen_version="${screen_version%%$'\n'*}"
+  screen_version="${screen_version//$'\r'/}"
+  echo "LANE_CHECK=ok SCREEN=$screen_version CLAUDE=$(claude --version | head -n 1) GROK=$(grok --version | head -n 1)"
   exit 0
 fi
 
@@ -88,6 +142,10 @@ command -v "$engine" >/dev/null || {
   echo "$engine is not available" >&2
   exit 69
 }
+command -v screen >/dev/null || {
+  echo "screen is not available" >&2
+  exit 69
+}
 
 worker_rows="$(ps -axo pid=,comm=,args= | awk -v project="$project_dir" -v engine="$engine" '
   $2 == engine &&
@@ -114,36 +172,18 @@ mkdir "$job_dir"
 printf '%s\n' "$engine" >"$job_dir/engine"
 printf '%s\n' "$target" >"$job_dir/target"
 printf '%s\n' "$instruction" >"$job_dir/instruction"
-printf '%s\n' "$$" >"$job_dir/pid"
-printf '%s\n' "$(date +%s)" >"$job_dir/started_epoch"
-printf '%s\n' running >"$job_dir/state"
-printf 'JOB=%s PID=%s ENGINE=%s TARGET=%s LOG=%s\n' \
-  "$job_id" "$$" "$engine" "$target" "$job_dir/output.log"
+printf '%s\n' queued >"$job_dir/state"
+screen_name="max11-${engine}-${RANDOM}-$$"
+printf '%s\n' "$screen_name" >"$job_dir/screen_session"
+screen -dmS "$screen_name" "$script_path" --run \
+  "$job_dir" "$engine" "$target" "$instruction"
 
-finish_lane() {
-  exit_code=$?
-  printf '%s\n' "$exit_code" >"$job_dir/exit_code"
-  printf '%s\n' "$(date +%s)" >"$job_dir/ended_epoch"
-  if ((exit_code == 0)); then
-    printf '%s\n' succeeded >"$job_dir/state"
-  else
-    printf '%s\n' failed >"$job_dir/state"
-  fi
-}
-trap finish_lane EXIT
-
-contract="Work autonomously in $project_dir. Create only the untracked target $target. No tracked/helper edits, sorry, new axioms, finite-root shortcuts, or closure overclaims. Do not invoke local Lean or Lake; the guarded PATH intentionally disables them. Use ./scripts/box_lean_verify.sh --file $target for every Lean compilation/check. Finish only after literal BUILD_EXIT=0 ERROR_COUNT=0 SORRYAX_COUNT=0, and report recursive SHA-256 hashes, exact gain, next unused row, and residual. LOCAL_LEAN_GUARD=enabled."
-set +e
-if [[ "$engine" == claude ]]; then
-  env PATH="$guard_dir:$PATH" LOCAL_LEAN_GUARD=enabled \
-    claude --dangerously-skip-permissions -p "$instruction $contract" \
-    2>&1 | tee "$job_dir/output.log"
-  exit_code=${PIPESTATUS[0]}
-else
-  env PATH="$guard_dir:$PATH" LOCAL_LEAN_GUARD=enabled \
-    grok --yolo --output-format plain -p "$instruction $contract" \
-    2>&1 | tee "$job_dir/output.log"
-  exit_code=${PIPESTATUS[0]}
-fi
-set -e
-exit "$exit_code"
+# The detached runner records its own PID.  Wait briefly so the launch receipt
+# and dashboard do not report an avoidable unknown PID.
+for _ in {1..20}; do
+  [[ -s "$job_dir/pid" ]] && break
+  sleep 0.05
+done
+pid="$(sed -n '1p' "$job_dir/pid" 2>/dev/null || printf '?')"
+printf 'JOB=%s PID=%s SCREEN=%s ENGINE=%s TARGET=%s LOG=%s\n' \
+  "$job_id" "$pid" "$screen_name" "$engine" "$target" "$job_dir/output.log"

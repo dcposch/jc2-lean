@@ -690,9 +690,8 @@ lake build
 ./scripts/box_lean_verify.sh --file Sol410ScaleZeroLWallBoundaryScratch.lean
 # Returned lanes can share one isolated sync and dependency walk:
 ./scripts/box_lean_verify.sh --file LaneOneScratch.lean --file LaneTwoScratch.lean
-# New delegated lanes run with enforced local-Lean guards and leave a durable
-# target/log/exit ledger under the ignored `.max11-lanes/` directory. In an
-# agent terminal, launch with a short yield and retain the returned session:
+# New delegated lanes run in detached screen sessions with enforced local-Lean
+# guards and leave a durable target/log/exit ledger under `.max11-lanes/`:
 ./scripts/max11_lean_lane.sh --engine claude --target FableLaneScratch.lean -- 'Prove the next exact face.'
 # One dashboard shows live workers, durable handoffs, recent files, and AWS jobs:
 ./scripts/max11_lane_status.sh
