@@ -106,6 +106,73 @@ theorem cubicFirstIntegralFourPolynomial68_forces_l_eq_zero_of_radius_lt_twoGap
     (mul_eq_zero.mp hcoeff).resolve_right hpow
   exact (mul_eq_zero.mp hsl).resolve_left hscalar
 
+set_option maxHeartbeats 2000000 in
+/-- After `l=0`, the next pure old-weight term at degree `6n` is
+`(5/72)*beta*A^3`.  In `3n<2g` every transverse term is lower. -/
+theorem cubicFirstIntegralFourPolynomial68_coeff_sixRadius_of_l_eq_zero
+    (beta gamma delta epsilon zeta : k) (A B c D e : k[X])
+    (n g : ℕ) (hn : 0 < n) (hg : 0 < g) (hvery : 3 * n < 2 * g)
+    (hA : A.natDegree ≤ 2 * n)
+    (hB : B.natDegree ≤ 3 * n - g)
+    (hc : c.natDegree ≤ 4 * n - g)
+    (hD : D.natDegree ≤ 5 * n - g)
+    (he : e.natDegree ≤ 6 * n - g) :
+    (cubicFirstIntegralFourPolynomial68 0 beta gamma delta epsilon zeta
+      A B c D e).coeff (6 * n) =
+      (5 / 72 * beta : k) * A.coeff (2 * n) ^ 3 := by
+  let hom := (-8 / 27 : k) • B ^ 3 - (8 / 9 : k) • (A * B * c) +
+    (8 / 3 : k) • (B * e) + (8 / 3 : k) • (D * c)
+  have hhom : hom.natDegree < 6 * n := by
+    simp only [hom]
+    compute_degree
+    omega
+  let loadRest := zeta • A + (2 * epsilon : k) • B +
+    (1 / 4 * delta : k) • A ^ 2 + (3 * delta : k) • c +
+    (4 * gamma : k) • D - (4 / 3 * gamma : k) • (A * B) +
+    (5 * beta : k) • e + (5 / 6 * beta : k) • (A * c) -
+    (5 / 12 * beta : k) • B ^ 2
+  have hloadRest : loadRest.natDegree < 6 * n := by
+    simp only [loadRest]
+    compute_degree
+    omega
+  have hsum : (hom + loadRest).natDegree < 6 * n := by
+    exact (natDegree_add_le hom loadRest).trans_lt
+      (max_lt hhom hloadRest)
+  have hA3 := coeff_pow_at_bound68 A (2 * n) 3 hA
+  have hi : 3 * (2 * n) = 6 * n := by omega
+  rw [hi] at hA3
+  have hsplit :
+      cubicFirstIntegralFourPolynomial68 0 beta gamma delta epsilon zeta
+          A B c D e =
+        hom + loadRest + (5 / 72 * beta : k) • A ^ 3 := by
+    simp only [hom, loadRest, cubicFirstIntegralFourPolynomial68]
+    module
+  rw [hsplit, coeff_add, coeff_eq_zero_of_natDegree_lt hsum, zero_add,
+    coeff_smul, hA3, smul_eq_mul]
+
+theorem cubicFirstIntegralFourPolynomial68_forces_beta_eq_zero_of_l_eq_zero
+    (beta gamma delta epsilon zeta i4 : k) (A B c D e : k[X])
+    (n g : ℕ) (hn : 0 < n) (hg : 0 < g) (hvery : 3 * n < 2 * g)
+    (hA : A.natDegree ≤ 2 * n)
+    (hB : B.natDegree ≤ 3 * n - g)
+    (hc : c.natDegree ≤ 4 * n - g)
+    (hD : D.natDegree ≤ 5 * n - g)
+    (he : e.natDegree ≤ 6 * n - g)
+    (ha : A.coeff (2 * n) ≠ 0)
+    (hI4 : cubicFirstIntegralFourPolynomial68
+      0 beta gamma delta epsilon zeta A B c D e = C i4) :
+    beta = 0 := by
+  have hcoeff := congrArg (fun p : k[X] => p.coeff (6 * n)) hI4
+  rw [cubicFirstIntegralFourPolynomial68_coeff_sixRadius_of_l_eq_zero
+      beta gamma delta epsilon zeta A B c D e n g hn hg hvery
+      hA hB hc hD he] at hcoeff
+  have hi : 6 * n ≠ 0 := by omega
+  simp only [coeff_C, if_neg hi] at hcoeff
+  have hpow : A.coeff (2 * n) ^ 3 ≠ 0 := pow_ne_zero 3 ha
+  have hsb : (5 / 72 * beta : k) = 0 :=
+    (mul_eq_zero.mp hcoeff).resolve_right hpow
+  exact (mul_eq_zero.mp hsb).resolve_left (by norm_num)
+
 set_option maxHeartbeats 4000000 in
 /-- In the strict loaded chamber, the canonical quartic invariant first sees
 the pure `l*A^4` load, so its coefficient `l` must vanish. -/
@@ -190,11 +257,103 @@ theorem maximalExpandedIntegratedPolynomialLowerSystem_l_eq_zero_of_radius_lt_tw
     l beta gamma delta epsilon zeta i4 Ae Be ce De ee n g hn hg hlarge
     hA hB hc hD he ha hi4e
 
+set_option maxHeartbeats 5000000 in
+/-- In the very-large-gap subchamber the first two old-weight loads vanish. -/
+theorem maximalExpandedIntegratedPolynomialLowerSystem_l_beta_eq_zero_of_threeRadius_lt_twoGap68
+    (l alpha beta gamma delta epsilon zeta eta terminal : k)
+    (A B C0 D E : k[X]) (hterminal : terminal ≠ 0)
+    (hsys : IntegratedPolynomialLowerSystem68
+      l alpha beta gamma delta epsilon zeta eta terminal A B C0 D E)
+    (hvery :
+      let n := weightedRadius68 A B C0 D E
+      let Ae := expand k 60 A
+      let Be := expand k 60 B
+      let Ce := expand k 60 C0
+      let ce := cubicCDefectPolynomial68 Ae Ce
+      let De := expand k 60 D
+      let Ee := expand k 60 E
+      let ee := cubicEDefectPolynomial68 Ae Ce Ee
+      let g := cubicDefectGap68 n Be ce De ee
+      3 * n < 2 * g) :
+    l = 0 ∧ beta = 0 := by
+  let n := weightedRadius68 A B C0 D E
+  let Ae := expand k 60 A
+  let Be := expand k 60 B
+  let Ce := expand k 60 C0
+  let ce := cubicCDefectPolynomial68 Ae Ce
+  let De := expand k 60 D
+  let Ee := expand k 60 E
+  let ee := cubicEDefectPolynomial68 Ae Ce Ee
+  let g := cubicDefectGap68 n Be ce De ee
+  change 3 * n < 2 * g at hvery
+  have hl :=
+    maximalExpandedIntegratedPolynomialLowerSystem_l_eq_zero_of_radius_lt_twoGap68
+      l alpha beta gamma delta epsilon zeta eta terminal A B C0 D E
+      hterminal hsys (by
+        simpa only [n, Ae, Be, Ce, ce, De, Ee, ee, g] using
+          (show n < 2 * g by omega))
+  have hcore := maximalExpandedIntegratedPolynomialLowerSystem_cubicCore68
+    l alpha beta gamma delta epsilon zeta eta terminal A B C0 D E
+    hterminal hsys
+  have hdrop := maximalExpandedIntegratedPolynomialLowerSystem_degreeDrop68
+    l alpha beta gamma delta epsilon zeta eta terminal A B C0 D E
+    hterminal hsys
+  have hsecondary :=
+    maximalExpandedIntegratedPolynomialLowerSystem_secondaryRadius68
+      l alpha beta gamma delta epsilon zeta eta terminal A B C0 D E
+      hterminal hsys
+  have hn : 0 < n := by simpa only [n] using hcore.1
+  have hg : 0 < g := by
+    simpa only [n, Ae, Be, Ce, ce, De, Ee, ee, g] using hsecondary.1
+  have hA : Ae.natDegree ≤ 2 * n := by
+    have hAe : Ae.natDegree = 2 * n := by
+      simpa only [n, Ae, Be, Ce, De, Ee] using hdrop.1
+    omega
+  have hB : Be.natDegree ≤ 3 * n - g := by
+    simpa only [n, Ae, Be, Ce, ce, De, Ee, ee, g] using hsecondary.2.1
+  have hc : ce.natDegree ≤ 4 * n - g := by
+    simpa only [n, Ae, Be, Ce, ce, De, Ee, ee, g] using hsecondary.2.2.1
+  have hD : De.natDegree ≤ 5 * n - g := by
+    simpa only [n, Ae, Be, Ce, ce, De, Ee, ee, g] using
+      hsecondary.2.2.2.1
+  have he : ee.natDegree ≤ 6 * n - g := by
+    simpa only [n, Ae, Be, Ce, ce, De, Ee, ee, g] using
+      hsecondary.2.2.2.2.1
+  have ha : Ae.coeff (2 * n) ≠ 0 := by
+    simpa only [n, Ae] using hcore.2.2.2.2.2
+  have hCrec : Ce = (1 / 3 : k) • Ae ^ 2 + ce := by
+    simpa only [ce] using cubicCDefectPolynomial68_reconstruct Ae Ce
+  have hErec :
+      Ee = (1 / 27 : k) • Ae ^ 3 + (1 / 3 : k) • (Ae * ce) + ee := by
+    calc
+      Ee = (1 / 3 : k) • (Ae * Ce) - (2 / 27 : k) • Ae ^ 3 + ee := by
+        simpa only [ee] using cubicEDefectPolynomial68_reconstruct Ae Ce Ee
+      _ = (1 / 27 : k) • Ae ^ 3 + (1 / 3 : k) • (Ae * ce) + ee := by
+        rw [hCrec]
+        apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
+        simp only [Polynomial.smul_eq_C_mul, map_add, map_sub, map_mul,
+          map_pow, RatFunc.algebraMap_C]
+        simp only [map_div₀, map_ofNat, map_one]
+        ring
+  obtain ⟨i4, hi4⟩ := hsys.firstFour
+  have hi4e : firstIntegralFourPolynomial68 l beta gamma delta epsilon zeta
+      Ae Be Ce De Ee = C i4 := by
+    have h := congrArg (expand k 60) hi4
+    simpa [Ae, Be, Ce, De, Ee, expand_firstIntegralFourPolynomial68] using h
+  rw [hCrec, hErec, firstIntegralFourPolynomial68_cubicCoordinates, hl] at hi4e
+  refine ⟨hl, ?_⟩
+  exact cubicFirstIntegralFourPolynomial68_forces_beta_eq_zero_of_l_eq_zero
+    beta gamma delta epsilon zeta i4 Ae Be ce De ee n g hn hg hvery
+    hA hB hc hD he ha hi4e
+
 end SecondaryLargeGapLoads68
 
 #print axioms secondaryLoadInvariantFourPolynomial68_coeff_eightRadius
 #print axioms cubicFirstIntegralFourPolynomial68_coeff_eightRadius_of_radius_lt_twoGap
 #print axioms cubicFirstIntegralFourPolynomial68_forces_l_eq_zero_of_radius_lt_twoGap
+#print axioms cubicFirstIntegralFourPolynomial68_coeff_sixRadius_of_l_eq_zero
+#print axioms cubicFirstIntegralFourPolynomial68_forces_beta_eq_zero_of_l_eq_zero
 #print axioms maximalExpandedIntegratedPolynomialLowerSystem_l_eq_zero_of_radius_lt_twoGap68
+#print axioms maximalExpandedIntegratedPolynomialLowerSystem_l_beta_eq_zero_of_threeRadius_lt_twoGap68
 
 end Max11DegreeRoutes

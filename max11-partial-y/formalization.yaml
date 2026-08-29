@@ -408,6 +408,10 @@ status:
       file: "LowScale68SecondaryLargeGapLoads.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_l_beta_eq_zero_of_threeRadius_lt_twoGap68"
+      file: "LowScale68SecondaryLargeGapLoads.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_secondaryResidualMiddle68"
       file: "LowScale68SecondaryResidualMiddle.lean"
       sorry_count: 0
