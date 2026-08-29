@@ -629,7 +629,13 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   source has the parallel exact packet with `N=5*p5*H^2-3*q9`, again giving
   `N^2=C κ*H^9` and a finite linear root on the nonzero face.  The `(8,10)`
   source likewise has `N=5*p7*H-4*q9` with the same square/ninth-power
-  dichotomy and finite-root packet.  The direct `(4,10)`
+  dichotomy and finite-root packet.  The `(6,10)` nonzero scale-two packet
+  now consumes every remaining Jacobian
+  coefficient through the inhomogeneous degree-zero row
+  `W E' - D X' = j`.  Its two live defect branches acquire exact terminal
+  identities, but the new boundary coordinates are not controlled by the
+  exhausted h-adic towers; the aligned `N=0` face and lower first-integral
+  clearings remain open.  The direct `(4,10)`
   route now has an exact decic differential normal form: nine upper rows are
   integrated explicitly, leaving precisely three terminal lower rows.  It does
   more: the first two terminal rows are exact derivatives of explicit
@@ -814,6 +820,10 @@ lake build
 `LowScale610ScaleTwoNinthFace.lean`,
 `LowScale610ScaleTwoTenthFace.lean`,
 `LowScale610ScaleTwoEleventhFace.lean`,
+`LowScale610ScaleTwoTwelfthFace.lean`,
+`LowScale610ScaleTwoThirteenthFace.lean`,
+`LowScale610ScaleTwoFourteenthFace.lean`,
+`LowScale610ScaleTwoFifteenthFinalRow.lean`,
 `LowScale810ScaleZeroSource.lean`,
 `LowScale810ScaleZeroSecondDefect.lean`,
 `LowScale810ScaleZeroThirdDefect.lean`,
