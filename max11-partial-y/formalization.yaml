@@ -404,6 +404,10 @@ status:
       file: "LowScale68SecondaryResidualExtraction.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_l_eq_zero_of_radius_lt_twoGap68"
+      file: "LowScale68SecondaryLargeGapLoads.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_secondaryResidualMiddle68"
       file: "LowScale68SecondaryResidualMiddle.lean"
       sorry_count: 0
@@ -819,6 +823,7 @@ review:
     LowScale68SecondaryOneForms.lean, LowScale68SecondarySmallGap.lean,
     LowScale68SecondaryResidualFace.lean,
     LowScale68SecondaryResidualExtraction.lean,
+    LowScale68SecondaryLargeGapLoads.lean,
     LowScale68SecondaryResidualMiddle.lean,
     LowScale68SecondaryResidualDouble.lean,
     LowScale68SecondaryResidualSelector.lean,

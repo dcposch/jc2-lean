@@ -478,11 +478,13 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   defect radius.  All five small-gap face equations are extracted from the
   literal polynomial rows and applied to the canonical expanded system,
   forcing `e=0`, `a*b=3*d`, with attained support reduced to `B` or translated
-  `C`.  The exact residual-coordinate identities, strict degree drops, load
-  cutoffs, middle-face coefficient extraction, and canonical-system middle
-  classifier in `3g<n` are also checked.  Tropical face selection, the
-  classified middle-face endgame, the other gap chambers, and the other seven
-  literal normalized low-scale subcases remain open.  It does
+  `C`.  In `3g<n`, the exact residual identities and degree drops select the
+  balanced wall `2h=3g`; row two fixes its scalar relation and the next row-one
+  coefficient is nonzero, closing that whole chamber.  In the complementary
+  strict loaded chamber `n<2g`, the degree-`8n` quartic invariant now forces
+  the old-weight load `l=0`.  The equality/load walls and the rest of
+  `n≤3g`, source-level scale-zero assembly, and the other seven literal
+  normalized low-scale subcases remain open.  It does
 prove the common-power UFD factorization, exact
 core degree, scalar normalization, and generation transport for all five.
 The endpoint theorem is the first assertion of Guccione--Guccione--
@@ -538,6 +540,7 @@ lake build
 `LowScale68SecondaryOneForms.lean`, `LowScale68SecondarySmallGap.lean`,
 `LowScale68SecondaryResidualFace.lean`,
 `LowScale68SecondaryResidualExtraction.lean`,
+`LowScale68SecondaryLargeGapLoads.lean`,
 `LowScale68SecondaryResidualMiddle.lean`,
 `LowScale68SecondaryResidualDouble.lean`,
 `LowScale68SecondaryResidualSelector.lean`,
