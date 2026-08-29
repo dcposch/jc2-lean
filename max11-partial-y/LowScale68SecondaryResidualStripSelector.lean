@@ -1,5 +1,5 @@
 import LowScale68SecondaryResidualLeftLoadWindow
-import LowScale68SecondaryResidualHalfRadiusLoadWall
+import LowScale68SecondaryResidualHalfRadiusI4Wall
 import LowScale68SecondaryResidualRowTwoLoadDominance
 import LowScale68SecondaryResidualSumLoadWall
 import LowScale68SecondaryResidualOvershootCanonical
@@ -11,8 +11,7 @@ The five tracked impossibility theorems already close every comparison of
 packages that partition: Nat trichotomy on `2h` versus `n`, and after
 `n < 2h` a second trichotomy on `g+h` versus `n`.  The common hypotheses
 are exactly the union of the imported wrappers: the canonical source, the
-strip `2g < n < 3g`, `g < h`, the selected residual degree bounds, and the
-`Q` bound required by the half-radius wall.
+strip `2g < n < 3g`, `g < h`, and the selected residual degree bounds.
 -/
 
 noncomputable section
@@ -53,8 +52,7 @@ theorem residualStripSelector_sumWall (n g h : ℕ) (hsum : g + h = n) :
 set_option maxHeartbeats 4000000 in
 /-- The strict residual strip `2g < n < 3g` is empty on a canonical
 expanded source, once the selected residual gap satisfies `g < h` and the
-middle residual degree bounds / `Q` bound required by the imported
-wrappers. -/
+selected residual degree bounds required by the imported wrappers. -/
 theorem maximalExpandedIntegratedPolynomialLowerSystem_residualStripSelector_impossible68
     (l alpha beta gamma delta epsilon zeta eta terminal : k)
     (A B C0 D E : k[X]) (hterminal : terminal ≠ 0)
@@ -97,19 +95,7 @@ theorem maximalExpandedIntegratedPolynomialLowerSystem_residualStripSelector_imp
       let d := secondaryDDefectPolynomial68 Ae Be De
       let h := secondaryResidualGap68 n d ee
       d.natDegree ≤ 5 * n - h ∧ ee.natDegree ≤ 6 * n - h)
-    (hQ :
-      let n := weightedRadius68 A B C0 D E
-      let Ae := expand k 60 A
-      let Be := expand k 60 B
-      let Ce := expand k 60 C0
-      let ce := cubicCDefectPolynomial68 Ae Ce
-      let De := expand k 60 D
-      let Ee := expand k 60 E
-      let ee := cubicEDefectPolynomial68 Ae Ce Ee
-      let g := cubicDefectGap68 n Be ce De ee
-      let d := secondaryDDefectPolynomial68 Ae Be De
-      (residualIncidenceQ68 Be ce d ee).natDegree < 9 * n - 3 * g) :
-    False := by
+    : False := by
   let n := weightedRadius68 A B C0 D E
   let Ae := expand k 60 A
   let Be := expand k 60 B
@@ -128,9 +114,6 @@ theorem maximalExpandedIntegratedPolynomialLowerSystem_residualStripSelector_imp
   have hmiddle' : d.natDegree ≤ 5 * n - h ∧
       ee.natDegree ≤ 6 * n - h := by
     simpa only [n, Ae, Be, Ce, ce, De, Ee, ee, g, d, h] using hmiddle
-  have hQ' : (residualIncidenceQ68 Be ce d ee).natDegree <
-      9 * n - 3 * g := by
-    simpa only [n, Ae, Be, Ce, ce, De, Ee, ee, g, d] using hQ
   rcases residualStripSelector_cases n g h with
     hleft | hhalf | hdom | hsum | hover
   · exact
@@ -140,7 +123,7 @@ theorem maximalExpandedIntegratedPolynomialLowerSystem_residualStripSelector_imp
           simpa only [n, Ae, Be, Ce, ce, De, Ee, ee, g, d, h] using
             And.intro hgh' hleft)
   · exact
-      maximalExpandedIntegratedPolynomialLowerSystem_residualHalfRadiusLoadWall_impossible68
+      maximalExpandedIntegratedPolynomialLowerSystem_residualHalfRadiusI4Wall_impossible68
         l alpha beta gamma delta epsilon zeta eta terminal A B C0 D E
         hterminal hsys
         (by simpa only [n, Ae, Be, Ce, ce, De, Ee, ee, g] using
@@ -151,7 +134,6 @@ theorem maximalExpandedIntegratedPolynomialLowerSystem_residualStripSelector_imp
           hhalf)
         (by simpa only [n, Ae, Be, Ce, ce, De, Ee, ee, g, d, h] using
           hmiddle')
-        (by simpa only [n, Ae, Be, Ce, ce, De, Ee, ee, g, d] using hQ')
   · exact
       maximalExpandedIntegratedPolynomialLowerSystem_residualRowTwoLoadDominance_impossible68
         l alpha beta gamma delta epsilon zeta eta terminal A B C0 D E
@@ -169,8 +151,65 @@ theorem maximalExpandedIntegratedPolynomialLowerSystem_residualStripSelector_imp
         hterminal hsys hchamber (by
           simpa only [n, Ae, Be, Ce, ce, De, Ee, ee, g, d, h] using hover)
 
+set_option maxHeartbeats 4000000 in
+/-- The strict complementary strip is unconditionally empty on a canonical
+expanded source.  The residual gap inequality and its degree bounds are
+derived internally from the first-face strict drops. -/
+theorem maximalExpandedIntegratedPolynomialLowerSystem_residualStrictStrip_impossible68
+    (l alpha beta gamma delta epsilon zeta eta terminal : k)
+    (A B C0 D E : k[X]) (hterminal : terminal ≠ 0)
+    (hsys : IntegratedPolynomialLowerSystem68
+      l alpha beta gamma delta epsilon zeta eta terminal A B C0 D E)
+    (hchamber :
+      let n := weightedRadius68 A B C0 D E
+      let Ae := expand k 60 A
+      let Be := expand k 60 B
+      let Ce := expand k 60 C0
+      let ce := cubicCDefectPolynomial68 Ae Ce
+      let De := expand k 60 D
+      let Ee := expand k 60 E
+      let ee := cubicEDefectPolynomial68 Ae Ce Ee
+      let g := cubicDefectGap68 n Be ce De ee
+      2 * g < n ∧ n < 3 * g) :
+    False := by
+  let n := weightedRadius68 A B C0 D E
+  let Ae := expand k 60 A
+  let Be := expand k 60 B
+  let Ce := expand k 60 C0
+  let ce := cubicCDefectPolynomial68 Ae Ce
+  let De := expand k 60 D
+  let Ee := expand k 60 E
+  let ee := cubicEDefectPolynomial68 Ae Ce Ee
+  let g := cubicDefectGap68 n Be ce De ee
+  let d := secondaryDDefectPolynomial68 Ae Be De
+  let h := secondaryResidualGap68 n d ee
+  change 2 * g < n ∧ n < 3 * g at hchamber
+  have hdrops :=
+    maximalExpandedIntegratedPolynomialLowerSystem_secondaryResidualDegreeDrops68
+      l alpha beta gamma delta epsilon zeta eta terminal A B C0 D E
+      hterminal hsys (by
+        simpa only [n, Ae, Be, Ce, ce, De, Ee, ee, g] using hchamber.1)
+  change d.natDegree < 5 * n - g ∧ ee.natDegree < 6 * n - g at hdrops
+  have hgh : g < h := by
+    simpa only [h] using secondaryResidualGap68_gt_of_strictDrops n g d ee
+      hdrops.1 hdrops.2
+  have hdbase : d.natDegree < 5 * n := by omega
+  have hebase : ee.natDegree < 6 * n := by omega
+  have hbounds : d.natDegree ≤ 5 * n - h ∧
+      ee.natDegree ≤ 6 * n - h := by
+    simpa only [h] using secondaryResidualGap68_degreeBounds n d ee
+      hdbase hebase
+  exact
+    maximalExpandedIntegratedPolynomialLowerSystem_residualStripSelector_impossible68
+      l alpha beta gamma delta epsilon zeta eta terminal A B C0 D E
+      hterminal hsys
+      (by simpa only [n, Ae, Be, Ce, ce, De, Ee, ee, g] using hchamber)
+      (by simpa only [n, Ae, Be, Ce, ce, De, Ee, ee, g, d, h] using hgh)
+      (by simpa only [n, Ae, Be, Ce, ce, De, Ee, ee, g, d, h] using hbounds)
+
 #print axioms residualStripSelector_cases
 #print axioms residualStripSelector_sumWall
 #print axioms maximalExpandedIntegratedPolynomialLowerSystem_residualStripSelector_impossible68
+#print axioms maximalExpandedIntegratedPolynomialLowerSystem_residualStrictStrip_impossible68
 
 end Max11DegreeRoutes
