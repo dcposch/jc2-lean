@@ -524,6 +524,18 @@ status:
       file: "LowScale68SecondaryResidualSumLoadWall.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_residualLeftLoadWindow_impossible68"
+      file: "LowScale68SecondaryResidualLeftLoadWindow.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_residualRowTwoLoadDominance_impossible68"
+      file: "LowScale68SecondaryResidualRowTwoLoadDominance.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_residualOvershoot_impossible68"
+      file: "LowScale68SecondaryResidualOvershootCanonical.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_secondaryResidualSelect68"
       file: "LowScale68SecondaryResidualSelector.lean"
       sorry_count: 0
@@ -950,6 +962,9 @@ review:
     LowScale68SecondaryResidualDoubleLoadWall.lean,
     LowScale68SecondaryResidualDoubleLoadWallCanonical.lean,
     LowScale68SecondaryResidualSumLoadWall.lean,
+    LowScale68SecondaryResidualLeftLoadWindow.lean,
+    LowScale68SecondaryResidualRowTwoLoadDominance.lean,
+    LowScale68SecondaryResidualOvershootCanonical.lean,
     LowScale68SecondaryResidualSelector.lean,
     LowScale68SecondaryResidualDescent.lean,
     LowScale68SecondaryResidualRowTwoSystem.lean,
