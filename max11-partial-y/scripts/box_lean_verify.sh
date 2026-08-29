@@ -254,6 +254,12 @@ if ((${#lean_files[@]})); then
     collect_local_imports "$lean_file"
     collect_environment_imports "$lean_file"
   done
+  # Catch placeholders locally and surface generated declarations likely to
+  # exhaust Lean's default heartbeat budget before paying for a remote gate.
+  (
+    cd "$project_dir"
+    ./scripts/max11_lean_preflight.sh "${lean_files[@]}"
+  )
   for source in "${scratch_compile_files[@]}"; do
     source_hashes+=("$(LC_ALL=C shasum -a 256 "$project_dir/$source" | awk '{print $1}')")
   done
