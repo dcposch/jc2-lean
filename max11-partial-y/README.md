@@ -736,6 +736,7 @@ lake build
 `LowScale410ScaleZeroBetaCubicBalancedWall.lean`,
 `LowScale410ScaleZeroCubicDeletedEarlyLoad.lean`,
 `LowScale410ScaleZeroNoncubicBetaDegreeZero.lean`,
+`LowScale410ScaleZeroPositiveNoncubicBeta.lean`,
 `LowScale410BetaWall.lean`,
 `LowScale410ScaleTwoSourceFace.lean`, `LowScale410ScaleTwoSecondFace.lean`,
 `LowScale410ScaleTwoThirdFace.lean`,
