@@ -931,6 +931,7 @@ lake build
 `LowScale68SecondaryLaterDeepLowerOpenMiddleOrdinaryBalanced.lean`,
 `LowScale68SecondaryLaterDeepLowerOpenMiddleBalancedRowOne.lean`,
 `LowScale68SecondaryLaterDeepLowerOpenMiddleHighDelta.lean`,
+`LowScale68SecondaryLaterDeepLowerOpenMiddleHighZeta.lean`,
 `LowScale68SecondaryLaterDeepMixedTwoNFace.lean`,
 `LowScale68SecondaryLaterDeepClampedEndgame.lean`,
 `LowScale68SecondaryLaterDeepPreclampedEndgame.lean`,
