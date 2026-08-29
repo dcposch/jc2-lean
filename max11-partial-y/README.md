@@ -613,7 +613,10 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   algebraic branches remains.  The next I4 coefficient further forces
   `512b+119*l*a=0` on `3x=a^2`, and
   `4608d-1536ab+77*l*a^2=0` on `9x=2a^2`; the next I3 row must track the
-  improved-order defect on each branch.
+  improved-order defect on each branch.  Those two defect cancellations and
+  their exact I3 rows are now formalized; each remaining branch determines
+  its transverse defect coefficient together with `d` or `e`, so one further
+  Hahn/differential coefficient is required.
   For all six
   `(4,10)`, `(6,10)`, and `(8,10)` leaves, an exact large source-shear
   calculation gives total-degree gcd `H+2L`; prime selection reduces them
@@ -731,6 +734,7 @@ lake build
 `LowScale68ScaleTwoAfterRhoOne.lean`,
 `LowScale68ScaleTwoAfterRhoOneNextBox.lean`,
 `LowScale68ScaleTwoAfterRhoOneBranchRows.lean`,
+`LowScale68ScaleTwoAfterRhoOneImprovedDefect.lean`,
 `LowScale68ScaleTwoLocalRhoFour.lean`,
 `LowScale68ScaleTwoLocalRhoThree.lean`,
 `LowScale68ScaleTwoLocalRhoTwo.lean`,
