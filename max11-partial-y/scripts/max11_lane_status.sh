@@ -35,7 +35,8 @@ fi
 
 printf '\nMANAGED HEADLESS WORKERS\n'
 worker_rows="$(ps -axo pid=,etime=,rss=,command= | awk -v project="$project_dir" '
-  index($0, "grok --yolo") && index($0, project) {print}')"
+  (index($0, "grok --yolo") || index($0, "claude -p")) &&
+    index($0, project) {print}')"
 if [[ -z "$worker_rows" ]]; then
   printf 'none\n'
 else
@@ -43,14 +44,16 @@ else
     pid="$(awk '{print $1}' <<<"$row")"
     elapsed="$(awk '{print $2}' <<<"$row")"
     rss_kib="$(awk '{print $3}' <<<"$row")"
+    engine="grok"
+    [[ "$row" == *"claude -p"* ]] && engine="claude"
     # Continuation prompts mention their predecessor before the requested
     # output.  The final scratch filename is therefore the worker target.
     target="$(grep -oE '[A-Za-z0-9_.-]+Scratch[.]lean' <<<"$row" | tail -n 1 || true)"
     [[ -n "$target" ]] || target="(target not parsed)"
     guard="prompt-only"
     [[ "$row" == *"LOCAL_LEAN_GUARD=enabled"* ]] && guard="enforced"
-    printf 'pid=%s elapsed=%s rss_mib=%s guard=%s target=%s\n' \
-      "$pid" "$elapsed" "$((rss_kib / 1024))" "$guard" "$target"
+    printf 'pid=%s elapsed=%s rss_mib=%s engine=%s guard=%s target=%s\n' \
+      "$pid" "$elapsed" "$((rss_kib / 1024))" "$engine" "$guard" "$target"
   done <<<"$worker_rows"
 fi
 
