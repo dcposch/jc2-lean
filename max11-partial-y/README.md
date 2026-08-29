@@ -731,7 +731,7 @@ lake build
 `LowScale410ScaleTwoThirdFace.lean`,
 `LowScale610ScaleTwoSourceFace.lean`,
 `LowScale610ScaleTwoSecondFace.lean`, `LowScale610ScaleTwoThirdFace.lean`,
-`LowScale610ScaleTwoFourthFace.lean`,
+`LowScale610ScaleTwoFourthFace.lean`, `LowScale610ScaleTwoFifthFace.lean`,
 `LowScale810ScaleTwoSourceFace.lean`,
 `LowScale810ScaleTwoSecondFace.lean`, `LowScale810ScaleTwoThirdFace.lean`,
 `LowScale810ScaleTwoFourthFace.lean`, `LowScale810ScaleTwoFifthFace.lean`,
