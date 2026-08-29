@@ -12,7 +12,7 @@ lean_file=""
 modules=()
 
 usage() {
-  echo "usage: $0 [--full | --file Scratch.lean | LeanModule ...] [--axioms]" >&2
+  echo "usage: $0 [--full | --file File.lean | LeanModule ...] [--axioms]" >&2
   exit 2
 }
 
@@ -85,8 +85,12 @@ if [[ -n "$lean_file" ]]; then
     while IFS= read -r module; do
       [[ "$module" =~ ^[A-Za-z0-9_.]+$ ]] || continue
       dependency="${module//./\/}.lean"
-      if [[ -f "$project_dir/$dependency" && "$dependency" == *Scratch.lean ]]; then
-        collect_local_imports "$dependency"
+      if [[ -f "$project_dir/$dependency" ]]; then
+        if [[ "$dependency" == *Scratch.lean ]] ||
+            ! git -C "$project_dir" ls-files --error-unmatch -- \
+              "$dependency" >/dev/null 2>&1; then
+          collect_local_imports "$dependency"
+        fi
       fi
     done < <(sed -nE 's/^import[[:space:]]+([A-Za-z0-9_.]+)[[:space:]]*$/\1/p' \
       "$project_dir/$source")
