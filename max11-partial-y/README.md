@@ -522,11 +522,17 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   the formerly separate `2n≤3g` region.  In the first deeper window
   `n<g<3n/2`, the same alpha-core cancellation now recovers the ordinary
   five-equation first face and its two strict residual degree drops without
-  assuming `alpha=0`.  On the equality wall `g=n`, the canonical system now
+  assuming `alpha=0`.  Its selected residual gap now carries the exact
+  load-free I3 face and the complete `beta*A^3`-loaded I4 trichotomy,
+  including both mixed walls and the cases where the I4 load first forces
+  `beta=0`.  On the equality wall `g=n`, the canonical system now
   supplies `l=0`, strict residual drops, an attained gap, both ordinary
   middle invariant faces, and the exact mixed double I4 face where
-  `beta*A^3` survives.  Its final mixed cubic one-form, the residual endgame
-  in the deeper window, the later `g≥3n/2` load cascade, source-level
+  `beta*A^3` survives.  The four apparent alpha terms on its residual
+  row-one face also cancel exactly, leaving the ordinary residual row-one
+  coefficient; its mixed row-two coefficient is now the sole wall
+  obstruction.  The residual row-two/row-one endgame in the deeper window,
+  the later `g≥3n/2` load cascade, source-level
   scale-zero assembly, and the remaining literal normalized low-scale
   subcases remain open.  For the `(6,8)` scale-two source, the next literal
   Jacobian row now classifies the complete first face: its discriminator is
@@ -601,6 +607,7 @@ lake build
 `LowScale68SecondaryLargeGapAlphaCancellation.lean`,
 `LowScale68SecondaryAlphaWallCanonical.lean`,
 `LowScale68SecondaryAlphaWallEndgame.lean`,
+`LowScale68SecondaryAlphaWallRowOneLoad.lean`,
 `LowScale68SecondaryFirstLoadWallFace.lean`,
 `LowScale68SecondaryFirstLoadWallCore.lean`,
 `LowScale68SecondaryFirstLoadWallRemainder.lean`,
@@ -611,6 +618,7 @@ lake build
 `LowScale68SecondaryLargeGapLoadZeroFace.lean`,
 `LowScale68SecondaryLargeGapSubcritical.lean`,
 `LowScale68SecondaryDeepGapCascade.lean`,
+`LowScale68SecondaryDeepGapResidualOneForms.lean`,
 `LowScale68SecondaryResidualMiddle.lean`,
 `LowScale68SecondaryResidualDouble.lean`,
 `LowScale68SecondaryResidualDoubleLoadWall.lean`,
