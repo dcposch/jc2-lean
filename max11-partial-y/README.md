@@ -763,6 +763,7 @@ lake build
 `LowScale68ScaleTwoAlignedSquareP4First.lean`,
 `LowScale68ScaleTwoAlignedSquareP4Second.lean`,
 `LowScale68ScaleTwoAlignedSquareRhoOne.lean`,
+`LowScale68ScaleTwoAlignedSquareRhoOneCubicNext.lean`,
 `LowScale68ScaleTwoLocalRhoFour.lean`,
 `LowScale68ScaleTwoLocalRhoThree.lean`,
 `LowScale68ScaleTwoLocalRhoTwo.lean`,
