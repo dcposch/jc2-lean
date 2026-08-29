@@ -508,6 +508,11 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   polynomial-system wall face and forcing `l=0`, `e=0`, `a*b=3*d`.
   The same classification is now transported to the canonical expanded
   source system, with the terminal row coefficient handled explicitly.
+  On the mixed residual wall `n=3g`, `h=2g`, the exact tied scalar system
+  forces `l=b=c=0`; residual support therefore makes the wall impossible.
+  Its invariant and row coefficient identities, including the colliding
+  `l*A^4`, `l*A^5`, and `l*A^6` cores, are checked literally; only canonical
+  source-system assembly remains for this wall.
   The other load walls and the rest of
   `n≤3g`, source-level scale-zero assembly, and the other seven literal
   normalized low-scale subcases remain open.  It does
@@ -578,6 +583,7 @@ lake build
 `LowScale68SecondaryLargeGapResidual.lean`,
 `LowScale68SecondaryResidualMiddle.lean`,
 `LowScale68SecondaryResidualDouble.lean`,
+`LowScale68SecondaryResidualDoubleLoadWall.lean`,
 `LowScale68SecondaryResidualSelector.lean`,
 `LowScale68SecondaryResidualDescent.lean`,
 `LowScale68SecondaryResidualRowTwoSystem.lean`,
