@@ -524,6 +524,10 @@ status:
       file: "LowScale68SecondaryResidualSumLoadWall.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_residualHalfRadiusLoadWall_impossible68"
+      file: "LowScale68SecondaryResidualHalfRadiusLoadWall.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_residualLeftLoadWindow_impossible68"
       file: "LowScale68SecondaryResidualLeftLoadWindow.lean"
       sorry_count: 0
@@ -962,6 +966,7 @@ review:
     LowScale68SecondaryResidualDoubleLoadWall.lean,
     LowScale68SecondaryResidualDoubleLoadWallCanonical.lean,
     LowScale68SecondaryResidualSumLoadWall.lean,
+    LowScale68SecondaryResidualHalfRadiusLoadWall.lean,
     LowScale68SecondaryResidualLeftLoadWindow.lean,
     LowScale68SecondaryResidualRowTwoLoadDominance.lean,
     LowScale68SecondaryResidualOvershootCanonical.lean,
