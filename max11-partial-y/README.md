@@ -560,8 +560,10 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   family, but the first lower residual coefficient is now exact: after the
   translated defects drop, its two incidence equations force either a second
   simultaneous degree drop, or the nonzero branch
-  `b*c*d1*e1≠0` with `a*b^2+3*c^2=0`.  The next lower coefficient separates
-  those two packets.  The lower
+  `b*c*d1*e1≠0` with `a*b^2+3*c^2=0`.  The zero branch is now iterated exactly
+  to the `g+2` edge, where the same incidence/discriminant split recurs.  The
+  row-one coefficient on a nonzero edge is proved redundant with I3, so the
+  next independent coefficient must include subleading `A,B,c` data.  The lower
   `3n≤2g≤5n` window is reduced to three
   exact packets: the two endpoint load walls and an open branch with
   `beta=0`, vanishing `e_top`, and `a*b=3*d`.  Lower coefficients remain to
@@ -756,6 +758,7 @@ lake build
 `LowScale68SecondaryLaterDeepFiveToSixEndgame.lean`,
 `LowScale68SecondaryLaterDeepFiveToSixRowOne.lean`,
 `LowScale68SecondaryLaterDeepFiveToSixLowerCoefficient.lean`,
+`LowScale68SecondaryLaterDeepFiveToSixResidualNext.lean`,
 `LowScale68SecondaryResidualMiddle.lean`,
 `LowScale68SecondaryResidualDouble.lean`,
 `LowScale68SecondaryResidualDoubleLoadWall.lean`,
