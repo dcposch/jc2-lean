@@ -483,7 +483,10 @@ degree drop, exact-cubic contradiction, and an attained positive secondary
   coefficient is nonzero, closing that whole chamber.  In the complementary
   strict loaded chamber `n<2g`, the degree-`8n` quartic invariant now forces
   the old-weight load `l=0`; deeper in `3n<2g`, its degree-`6n` coefficient
-  then forces `beta=0`.  The equality/load walls and the rest of
+  then forces `beta=0`.  In the medium complement, the selected residual gap
+  still satisfies `g<h`: on `g+h<n` the two ordinary residual middle-face
+  equations survive, while the strict overshoot `n<g+h`, `n<3g` again forces
+  `l=0`.  The equality/load walls and the rest of
   `n≤3g`, source-level scale-zero assembly, and the other seven literal
   normalized low-scale subcases remain open.  It does
 prove the common-power UFD factorization, exact
@@ -542,6 +545,7 @@ lake build
 `LowScale68SecondaryResidualFace.lean`,
 `LowScale68SecondaryResidualExtraction.lean`,
 `LowScale68SecondaryLargeGapLoads.lean`,
+`LowScale68SecondaryLargeGapResidual.lean`,
 `LowScale68SecondaryResidualMiddle.lean`,
 `LowScale68SecondaryResidualDouble.lean`,
 `LowScale68SecondaryResidualSelector.lean`,

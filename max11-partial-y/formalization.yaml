@@ -412,6 +412,18 @@ status:
       file: "LowScale68SecondaryLargeGapLoads.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.secondaryResidualGap68_gt_of_strictDrops"
+      file: "LowScale68SecondaryLargeGapResidual.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_largeGapResidualMiddleFace68"
+      file: "LowScale68SecondaryLargeGapResidual.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_residualOvershoot_loadL_eq_zero68"
+      file: "LowScale68SecondaryLargeGapResidual.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
     - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_secondaryResidualMiddle68"
       file: "LowScale68SecondaryResidualMiddle.lean"
       sorry_count: 0
@@ -828,6 +840,7 @@ review:
     LowScale68SecondaryResidualFace.lean,
     LowScale68SecondaryResidualExtraction.lean,
     LowScale68SecondaryLargeGapLoads.lean,
+    LowScale68SecondaryLargeGapResidual.lean,
     LowScale68SecondaryResidualMiddle.lean,
     LowScale68SecondaryResidualDouble.lean,
     LowScale68SecondaryResidualSelector.lean,
