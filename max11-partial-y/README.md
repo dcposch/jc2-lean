@@ -762,6 +762,7 @@ lake build
 `LowScale410ScaleZeroGammaFirstTieCoreDeletion.lean`,
 `LowScale410ScaleZeroGammaFirstTieCoreRays.lean`,
 `LowScale410ScaleZeroGammaFirstTieCoreZeroElimination.lean`,
+`LowScale410ScaleZeroGammaCoreNonzeroTiePacket.lean`,
 `LowScale410BetaWall.lean`,
 `LowScale410ScaleTwoSourceFace.lean`, `LowScale410ScaleTwoSecondFace.lean`,
 `LowScale410ScaleTwoThirdFace.lean`,
