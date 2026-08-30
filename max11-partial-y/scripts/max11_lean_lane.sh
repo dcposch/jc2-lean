@@ -61,22 +61,36 @@ if [[ "${1:-}" == "--run" ]]; then
     exit_code=${PIPESTATUS[0]}
   fi
   set -e
-  if ((exit_code != 0)); then
-    exit "$exit_code"
-  fi
+  printf '%s\n' "$exit_code" >"$job_dir/model_exit_code"
 
   if [[ ! -f "$project_dir/$target" ]]; then
-    echo "worker exited successfully without creating $target" | tee "$job_dir/verify.log" >&2
-    printf '%s\n' verification_failed >"$job_dir/state"
-    exit 66
+    if ((exit_code == 0)); then
+      echo "worker exited successfully without creating $target" |
+        tee "$job_dir/verify.log" >&2
+      missing_exit=66
+    else
+      echo "worker exited $exit_code without creating $target" |
+        tee "$job_dir/verify.log" >&2
+      missing_exit="$exit_code"
+    fi
+    printf '%s\n' generation_failed >"$job_dir/state"
+    exit "$missing_exit"
   fi
 
-  # Convert a model-process success into a proof success.  If the worker's own
-  # AWS check already produced an exact content/environment receipt, this is
-  # instant.  Otherwise perform the independent gate here.  Waiting on the
-  # per-target lock also handles CLIs that return before an async tool call.
+  # The Lean gate, rather than the model CLI's final exit code, is authoritative.
+  # A worker can finish and verify a valid file, then exit nonzero because a
+  # usage limit or transport error arrives while it writes its final prose.
+  # Salvage that completed proof instead of losing the whole lane.  If the
+  # worker's own AWS check already produced an exact content/environment
+  # receipt, this is instant; otherwise perform the independent gate here.
+  # Waiting on the per-target lock also handles CLIs that return before an
+  # asynchronous tool call.
   printf '%s\n' verifying >"$job_dir/state"
   : >"$job_dir/verify.log"
+  if ((exit_code != 0)); then
+    printf 'MODEL_EXIT=%s CONTINUING_WITH_EXACT_GATE=1\n' "$exit_code" |
+      tee -a "$job_dir/verify.log"
+  fi
   if "$project_dir/scripts/box_lean_verify.sh" --file "$target" --receipt-only \
       >>"$job_dir/verify.log" 2>&1; then
     verify_exit=0
@@ -190,6 +204,18 @@ command -v screen >/dev/null || {
   echo "screen is not available" >&2
   exit 69
 }
+
+# A hard account/balance limit is not worker capacity.  Remember the latest
+# observed provider response for a bounded cooldown so queued successors do
+# not launch a thundering herd of agents that can only fail immediately.
+set +e
+engine_health="$($project_dir/scripts/max11_engine_health.sh --engine "$engine" 2>&1)"
+engine_health_exit=$?
+set -e
+if ((engine_health_exit != 0)); then
+  printf '%s\n' "$engine_health" >&2
+  exit "$engine_health_exit"
+fi
 
 worker_rows="$(ps -axo pid=,comm=,args= | awk -v project="$project_dir" -v engine="$engine" '
   $2 == engine &&

@@ -67,9 +67,36 @@ else
 fi
 claude_cap="${MAX11_CLAUDE_CAP:-9}"
 grok_cap="${MAX11_GROK_CAP:-4}"
-printf 'capacity claude=%s/%s free=%s grok=%s/%s free=%s\n' \
-  "$claude_workers" "$claude_cap" "$((claude_cap - claude_workers))" \
-  "$grok_workers" "$grok_cap" "$((grok_cap - grok_workers))"
+claude_launchable=$((claude_cap - claude_workers))
+grok_launchable=$((grok_cap - grok_workers))
+for engine in claude grok; do
+  set +e
+  engine_health="$($project_dir/scripts/max11_engine_health.sh --engine "$engine" 2>&1)"
+  engine_health_exit=$?
+  set -e
+  if ((engine_health_exit == 75)); then
+    if [[ "$engine" == claude ]]; then
+      claude_launchable=0
+      claude_health="$engine_health"
+    else
+      grok_launchable=0
+      grok_health="$engine_health"
+    fi
+  elif ((engine_health_exit != 0)); then
+    if [[ "$engine" == claude ]]; then
+      claude_launchable=0
+      claude_health="ENGINE=claude STATE=health_check_failed EXIT=$engine_health_exit"
+    else
+      grok_launchable=0
+      grok_health="ENGINE=grok STATE=health_check_failed EXIT=$engine_health_exit"
+    fi
+  fi
+done
+printf 'capacity claude=%s/%s launchable=%s grok=%s/%s launchable=%s\n' \
+  "$claude_workers" "$claude_cap" "$claude_launchable" \
+  "$grok_workers" "$grok_cap" "$grok_launchable"
+[[ -z "${claude_health:-}" ]] || printf '%s\n' "$claude_health"
+[[ -z "${grok_health:-}" ]] || printf '%s\n' "$grok_health"
 
 printf '\nACTIVE QUEUED FOLLOW-UPS\n'
 wait_root="$project_dir/.max11-lanes/waits"

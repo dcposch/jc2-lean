@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Reclaim delegated model processes that linger after their exact gate passed.
+# Reclaim delegated lanes whose exact gate passed, including valid proof files
+# stranded by a later nonzero model-CLI exit.
 set -euo pipefail
 
 project_dir="$(cd "$(dirname "$0")/.." && pwd)"
@@ -21,7 +22,11 @@ candidate_count=0
 reaped_count=0
 for lane_dir in "$state_root"/*; do
   [[ -d "$lane_dir" && -f "$lane_dir/state" && -f "$lane_dir/target" ]] || continue
-  [[ "$(sed -n '1p' "$lane_dir/state")" == running ]] || continue
+  lane_state="$(sed -n '1p' "$lane_dir/state")"
+  case "$lane_state" in
+    running|failed|verification_failed) ;;
+    *) continue ;;
+  esac
 
   target="$(sed -n '1p' "$lane_dir/target")"
   [[ "$target" =~ ^[A-Za-z0-9_.-]+Scratch[.]lean$ &&
@@ -95,7 +100,7 @@ for lane_dir in "$state_root"/*; do
   printf '%s\n' "$expected_sha" >"$lane_dir/verified_sha256"
   printf '%s\n' "$epoch" >"$lane_dir/verified_epoch"
   printf '%s\n' "$epoch" >"$lane_dir/ended_epoch"
-  echo "REAPED target=$target pid=${runner_pid:-none} pgid=${process_group:-none} sha256=$expected_sha"
+  echo "REAPED target=$target prior_state=$lane_state pid=${runner_pid:-none} pgid=${process_group:-none} sha256=$expected_sha"
   reaped_count=$((reaped_count + 1))
 done
 
