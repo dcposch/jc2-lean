@@ -4,6 +4,7 @@ set -euo pipefail
 
 strict=0
 line_threshold="${MAX11_DECL_LINE_THRESHOLD:-80}"
+script_dir="$(cd "$(dirname "$0")" && pwd)"
 
 usage() {
   echo "usage: $0 [--strict] FILE.lean [FILE.lean ...]" >&2
@@ -33,6 +34,13 @@ for source in "$@"; do
       '^[[:space:]]*(sorry|admit)([[:space:]]|$)|[[:space:]]by[[:space:]]+(sorry|admit)([[:space:]]|$)|:=[[:space:]]*(sorry|admit)([[:space:]]|$)' \
       "$source"; then
     echo "PREFLIGHT_ERROR file=$source kind=forbidden_placeholder" >&2
+    exit 1
+  fi
+
+  # Lean quite correctly accepts a theorem whose hypotheses are impossible.
+  # Catch the common generated-proof regression `h₁ : A < B`, `h₂ : A = B`
+  # before paying for a remote elaboration that proves only a vacuous branch.
+  if ! LC_ALL=C awk -f "$script_dir/max11_hypothesis_lint.awk" "$source"; then
     exit 1
   fi
 
