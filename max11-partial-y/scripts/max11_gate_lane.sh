@@ -21,7 +21,7 @@ fi
 state_root="$project_dir/.max11-lanes/verifiers"
 
 usage() {
-  echo "usage: $0 --file FILE.lean [--wait-lock SECONDS] [--authoritative] [--retry-known-failure]" >&2
+  echo "usage: $0 --file FILE.lean [--wait-lock SECONDS] [--authoritative] [--retry-known-failure] [--allow-unverified-imports]" >&2
   exit 2
 }
 
@@ -85,6 +85,7 @@ target=""
 wait_lock_seconds=900
 reuse_receipt=1
 retry_known_failure=0
+allow_unverified_imports=0
 while (($#)); do
   case "$1" in
     --file)
@@ -100,6 +101,7 @@ while (($#)); do
       ;;
     --authoritative) reuse_receipt=0 ;;
     --retry-known-failure) retry_known_failure=1 ;;
+    --allow-unverified-imports) allow_unverified_imports=1 ;;
     *) usage ;;
   esac
   shift
@@ -111,6 +113,10 @@ command -v screen >/dev/null || {
   echo "screen is not available" >&2
   exit 69
 }
+
+if ((allow_unverified_imports == 0)); then
+  "$project_dir/scripts/max11_verified_imports.sh" "$target"
+fi
 
 mkdir -p "$state_root"
 for existing in "$state_root"/*; do
