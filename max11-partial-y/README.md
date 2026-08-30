@@ -708,6 +708,10 @@ lake build
 ./scripts/max11_lean_chain.sh --engine claude --after FableLaneScratch.lean --target FableNextScratch.lean --target FableLastScratch.lean -- 'Import @PREDECESSOR@ and continue its exact residual in @TARGET@.'
 # An exact completed gate can be checked without recompilation:
 ./scripts/box_lean_verify.sh --file FableLaneScratch.lean --receipt-only
+# Reclaim a delegated CLI that is still waiting/reporting after its current
+# recursive source and environment already have an exact successful receipt:
+./scripts/max11_reap_verified.sh --dry-run
+./scripts/max11_reap_verified.sh
 # One dashboard shows live workers, durable handoffs, recent files, and AWS jobs:
 ./scripts/max11_lane_status.sh
 ```
