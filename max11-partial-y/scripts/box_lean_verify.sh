@@ -89,6 +89,26 @@ fi
 
 ssh_args=(-i "$box_key" -o BatchMode=yes -o StrictHostKeyChecking=no)
 rsync_shell="ssh -i $box_key -o BatchMode=yes -o StrictHostKeyChecking=no"
+
+# macOS `shasum` starts a Perl interpreter for every file.  Deep scratch gates
+# hash a source once before and once after verification, so use the system C
+# implementation while preserving the exact SHA-256 bytes and record format.
+sha256_stream() {
+  local digest
+  digest="$(openssl dgst -sha256 -r)"
+  printf '%s\n' "${digest%% *}"
+}
+
+sha256_file() {
+  local digest
+  digest="$(openssl dgst -sha256 -r "$1")"
+  printf '%s\n' "${digest%% *}"
+}
+
+sha256_file_record() {
+  printf '%s  %s\n' "$(sha256_file "$1")" "$1"
+}
+
 remote_work_dir="$box_dir"
 cleanup_remote=0
 local_log=""
@@ -131,7 +151,7 @@ trap cleanup EXIT
 # of them concurrently races both the source tree and Lake artifacts.  Scratch
 # gates use isolated workspaces and intentionally do not take this lock.
 if ((${#lean_files[@]} == 0)); then
-  lock_key="$(printf '%s\n' "$box_host|$box_dir" | LC_ALL=C shasum -a 256 | awk '{print $1}')"
+  lock_key="$(printf '%s\n' "$box_host|$box_dir" | sha256_stream)"
   canonical_lock_dir="${TMPDIR:-/tmp}/box-lean-canonical-${lock_key}.lock"
   if ! mkdir "$canonical_lock_dir"; then
     echo "canonical verifier already running (lock: $canonical_lock_dir)" >&2
@@ -149,7 +169,7 @@ elif ((!receipt_only)); then
   for scratch_lock_file in "${scratch_lock_files[@]}"; do
     scratch_lock_key="$(printf '%s\n' \
       "$project_dir|$box_host|$box_dir|$scratch_lock_file" | \
-      LC_ALL=C shasum -a 256 | awk '{print $1}')"
+      sha256_stream)"
     scratch_lock_dir="${TMPDIR:-/tmp}/box-lean-scratch-${scratch_lock_key}.lock"
     lock_started="$(date +%s)"
     while ! mkdir "$scratch_lock_dir" 2>/dev/null; do
@@ -197,13 +217,13 @@ if ((${#lean_files[@]})); then
       for tracked_file in lean-toolchain lake-manifest.json; do
         [[ -f "$tracked_file" ]] || continue
         printf '%s\0' "$tracked_file"
-        LC_ALL=C shasum -a 256 "$tracked_file"
+        sha256_file_record "$tracked_file"
       done
       for tracked_file in "${tracked_dependency_files[@]}"; do
         printf '%s\0' "$tracked_file"
-        LC_ALL=C shasum -a 256 "$tracked_file"
+        sha256_file_record "$tracked_file"
       done
-    ) | LC_ALL=C shasum -a 256 | awk '{print $1}'
+    ) | sha256_stream
   }
 
   collect_environment_imports() {
@@ -262,7 +282,7 @@ if ((${#lean_files[@]})); then
     ./scripts/max11_lean_preflight.sh --strict "${lean_files[@]}"
   )
   for source in "${scratch_compile_files[@]}"; do
-    source_hashes+=("$(LC_ALL=C shasum -a 256 "$project_dir/$source" | awk '{print $1}')")
+    source_hashes+=("$(sha256_file "$project_dir/$source")")
   done
   tracked_environment_hash="$(hash_tracked_environment)"
   gate_fingerprint="$({
@@ -271,7 +291,7 @@ if ((${#lean_files[@]})); then
       printf 'file=%s sha256=%s\n' \
         "${scratch_compile_files[$i]}" "${source_hashes[$i]}"
     done
-  } | LC_ALL=C shasum -a 256 | awk '{print $1}')"
+  } | sha256_stream)"
   gate_receipt="$project_dir/.max11-lanes/gates/$gate_fingerprint.receipt"
   gate_failure_log="$project_dir/.max11-lanes/gates/$gate_fingerprint.failure.log"
   if ((receipt_only)); then
@@ -331,7 +351,7 @@ if ((${#lean_files[@]})); then
         printf 'file=%s sha256=%s\n' \
           "${cache_closure_files[$cache_index]}" "${cache_closure_hashes[$cache_index]}"
       done
-    } | LC_ALL=C shasum -a 256 | awk '{print $1}')"
+    } | sha256_stream)"
     scratch_cache_keys+=("$closure_cache_key")
   done
 
@@ -483,7 +503,7 @@ if ((${#lean_files[@]})); then
     exit 1
   fi
   for ((i = 0; i < ${#scratch_compile_files[@]}; i++)); do
-    current_hash="$(LC_ALL=C shasum -a 256 "$project_dir/${scratch_compile_files[$i]}" | awk '{print $1}')"
+    current_hash="$(sha256_file "$project_dir/${scratch_compile_files[$i]}")"
     if [[ "$current_hash" != "${source_hashes[$i]}" ]]; then
       echo "SOURCE_CHANGED_DURING_VERIFY FILE=${scratch_compile_files[$i]}" >&2
       echo "EXPECTED_SHA256=${source_hashes[$i]} CURRENT_SHA256=$current_hash" >&2
