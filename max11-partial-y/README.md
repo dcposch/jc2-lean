@@ -755,6 +755,10 @@ declarations), use:
 ./scripts/max11_checkpoint.sh SolLaneScratch.lean
 ```
 
+Detached gates also write `.max11-lanes/verifiers/<job>/handoff.txt`
+automatically.  It contains the exact successful SHA/receipt/declarations, or
+the first Lean error on failure; the lane dashboard surfaces the latter.
+
 `Max11Core.lean`, `ClassicalRoutes.lean`, `DegreeRoutes.lean`,
 `HistoryRoute.lean`, `HistoryDegree.lean`, `TotalDegreeRoutes.lean`,
 `CoprimeDegreeRoute.lean`, `EndpointGCDRoute.lean`, `LowScaleCore.lean`, and

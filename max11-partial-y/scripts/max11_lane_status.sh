@@ -207,6 +207,11 @@ if [[ -n "$verifier_dirs" ]]; then
     verified_sha="$(sed -n '1p' "$verifier_dir/verified_sha256" 2>/dev/null || true)"
     gate_detail=""
     [[ -z "$verified_sha" ]] || gate_detail=" sha256=$verified_sha"
+    if [[ "$state" == failed && -s "$verifier_dir/handoff.txt" ]]; then
+      first_error="$(sed -n 's/^FIRST_ERROR=//p' \
+        "$verifier_dir/handoff.txt" | head -n 1 | cut -c 1-180)"
+      [[ -z "$first_error" ]] || gate_detail=" error=$first_error"
+    fi
     printf 'job=%s state=%s elapsed=%s pid=%s target=%s%s\n' \
       "${verifier_dir##*/}" "$state" "$(human_age "$age")" "$pid" \
       "$target" "$gate_detail"

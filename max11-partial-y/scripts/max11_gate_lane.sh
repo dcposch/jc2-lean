@@ -61,6 +61,14 @@ if [[ "${1:-}" == --run ]]; then
   verify_exit=$?
   set -e
   if ((verify_exit != 0)); then
+    first_error="$(grep -m 1 -E \
+      '^[^[:space:]]+[.]lean:[0-9]+:[0-9]+: error:|^[^[:space:]]+[.]lean:[0-9]+:[0-9]+: error\(' \
+      "$job_dir/output.log" 2>/dev/null || true)"
+    {
+      printf 'HANDOFF_VERSION=1\nRESULT=failed\nTARGET=%s\nEXIT_CODE=%s\n' \
+        "$target" "$verify_exit"
+      [[ -z "$first_error" ]] || printf 'FIRST_ERROR=%s\n' "$first_error"
+    } >"$job_dir/handoff.txt"
     exit "$verify_exit"
   fi
 
@@ -76,7 +84,19 @@ if [[ "${1:-}" == --run ]]; then
     echo "exact leaf SHA missing from receipt: $target" >>"$job_dir/output.log"
     exit 1
   }
+  gate_fingerprint="$(sed -nE \
+    's/^GATE_RECEIPT_SHA256=([0-9a-f]{64})$/\1/p' \
+    "$job_dir/receipt.log" | tail -1)"
   printf '%s\n' "$verified_sha" >"$job_dir/verified_sha256"
+  {
+    printf 'HANDOFF_VERSION=1\nRESULT=verified\nTARGET=%s\n' "$target"
+    printf 'VERIFIED_SHA256=%s\nGATE_FINGERPRINT=%s\n' \
+      "$verified_sha" "${gate_fingerprint:-unknown}"
+    printf 'RECENT_DECLARATIONS\n'
+    rg -n --no-heading \
+      '^(private |protected )?(noncomputable )?(theorem|lemma|def|abbrev) ' \
+      "$project_dir/$target" 2>/dev/null | tail -n 8 | cut -c 1-400 || true
+  } >"$job_dir/handoff.txt"
   printf '%s\n' verified >"$job_dir/state"
   exit 0
 fi
