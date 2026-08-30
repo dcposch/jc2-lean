@@ -727,9 +727,16 @@ lake build
 # budget.  The ledger preserves the exact command, input hash, output, and
 # resource samples so an expensive computation is never an anonymous orphan:
 ./scripts/max11_cas_run.sh --name square-minor --timeout 300 --input /tmp/square-minor.sing -- Singular -q
+# The runner rejects a second live job with the same semantic name, hashes the
+# first command source file as well as any stdin, and kills it at the deadline.
+# Audit older Python/CAS work that bypassed the runner; termination remains an
+# explicit, exact-project-cwd action:
+./scripts/max11_compute_guard.sh --max-age 900
+./scripts/max11_compute_guard.sh --max-age 900 --terminate
 # One concise dashboard shows live workers, active durable handoffs, recent
-# managed CAS experiments, files, AWS jobs, and durable elapsed-time/peak-RSS
-# records for new Lean compilations; add `--all` for historical waiter detail:
+# managed and unmanaged CAS experiments, files, AWS jobs, and durable
+# elapsed-time/peak-RSS records for new Lean compilations; add `--all` for
+# historical waiter detail:
 ./scripts/max11_lane_status.sh
 ```
 

@@ -7,9 +7,10 @@ state_root="$project_dir/.max11-lanes/cas"
 name=""
 timeout_seconds="${MAX11_CAS_TIMEOUT_SECONDS:-900}"
 input_file=""
+allow_duplicate=0
 
 usage() {
-  echo "usage: $0 --name LABEL [--timeout SECONDS] [--input FILE] -- COMMAND [ARG ...]" >&2
+  echo "usage: $0 --name LABEL [--timeout SECONDS] [--input FILE] [--allow-duplicate] -- COMMAND [ARG ...]" >&2
   exit 2
 }
 
@@ -30,6 +31,7 @@ while (($#)); do
       (($#)) || usage
       input_file="$1"
       ;;
+    --allow-duplicate) allow_duplicate=1 ;;
     --)
       shift
       break
@@ -50,6 +52,19 @@ if [[ -n "$input_file" ]]; then
 fi
 
 mkdir -p "$state_root"
+if ((!allow_duplicate)); then
+  for prior_dir in "$state_root"/*; do
+    [[ -d "$prior_dir" ]] || continue
+    [[ "$(sed -n '1p' "$prior_dir/name" 2>/dev/null || true)" == "$name" ]] || continue
+    [[ "$(sed -n '1p' "$prior_dir/state" 2>/dev/null || true)" == running ]] || continue
+    prior_pid="$(sed -n '1p' "$prior_dir/pid" 2>/dev/null || true)"
+    if [[ "$prior_pid" =~ ^[0-9]+$ ]] && kill -0 "$prior_pid" 2>/dev/null; then
+      printf 'CAS_DUPLICATE name=%s active_job=%s pid=%s\n' \
+        "$name" "$prior_dir" "$prior_pid" >&2
+      exit 75
+    fi
+  done
+fi
 stamp="$(date -u +%Y%m%dT%H%M%SZ)"
 job_dir="$state_root/$stamp-$name-$$"
 mkdir "$job_dir"
@@ -65,6 +80,13 @@ if [[ -n "$input_file" ]]; then
   printf '%s\n' "$input_file" >"$job_dir/input"
   shasum -a 256 "$input_file" | awk '{print $1}' >"$job_dir/input_sha256"
 fi
+for command_arg in "$@"; do
+  [[ -f "$command_arg" ]] || continue
+  command_source="$(cd "$(dirname "$command_arg")" && pwd)/$(basename "$command_arg")"
+  printf '%s\n' "$command_source" >"$job_dir/command_source"
+  shasum -a 256 "$command_source" | awk '{print $1}' >"$job_dir/command_source_sha256"
+  break
+done
 
 output_log="$job_dir/output.log"
 samples="$job_dir/resources.tsv"

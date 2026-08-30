@@ -139,6 +139,9 @@ if [[ -n "$cas_dirs" ]]; then
 fi
 ((cas_shown)) || printf 'none\n'
 
+printf '\nUNMANAGED LONG CAS COMPUTE\n'
+"$project_dir/scripts/max11_compute_guard.sh"
+
 printf '\nACTIVE QUEUED FOLLOW-UPS\n'
 wait_root="$project_dir/.max11-lanes/waits"
 wait_dirs=""
