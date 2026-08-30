@@ -518,6 +518,10 @@ cache_file="$1"
 output="$2"
 source="$3"
 failure_file="${cache_file}.failure.log"
+metrics_root="${cache_file%/*}/metrics"
+mkdir -p "$metrics_root"
+metrics_file="$metrics_root/${cache_file##*/}.$(date -u +%Y%m%dT%H%M%SZ).$$.metrics"
+metrics_tmp="${metrics_file}.tmp"
 if [[ -s "$cache_file" ]]; then
   cp -- "$cache_file" "$output"
   printf 'SCRATCH_CACHE_WAIT_HIT FILE=%s\n' "$source"
@@ -527,12 +531,15 @@ elif [[ -s "$failure_file" ]]; then
   exit 1
 else
   failure_tmp="${failure_file}.tmp.$$"
-  trap 'rm -f -- "$failure_tmp"' EXIT
+  trap 'rm -f -- "$failure_tmp" "$metrics_tmp"' EXIT
   set +e
-  env LEAN_PATH=. lake env lean -R . -o "$output" "$source" \
+  /usr/bin/time -v -o "$metrics_tmp" \
+    env LEAN_PATH=. lake env lean -R . -o "$output" "$source" \
     >"$failure_tmp" 2>&1
   lean_exit=$?
   set -e
+  printf '\nSOURCE=%s\nRESULT=%s\n' "$source" "$lean_exit" >>"$metrics_tmp"
+  mv -f -- "$metrics_tmp" "$metrics_file"
   cat -- "$failure_tmp"
   if ((lean_exit != 0)); then
     # Only memoize diagnostics produced by Lean itself. Transport failures,
@@ -571,18 +578,25 @@ cache_file="$1"
 output="$2"
 source="$3"
 failure_file="${cache_file}.failure.log"
+metrics_root="${cache_file%/*}/metrics"
+mkdir -p "$metrics_root"
+metrics_file="$metrics_root/${cache_file##*/}.$(date -u +%Y%m%dT%H%M%SZ).$$.metrics"
+metrics_tmp="${metrics_file}.tmp"
 if [[ -s "$failure_file" ]]; then
   printf 'SCRATCH_FAILURE_CACHE_HIT FILE=%s\n' "$source"
   cat -- "$failure_file"
   exit 1
 fi
 failure_tmp="${failure_file}.tmp.$$"
-trap 'rm -f -- "$failure_tmp"' EXIT
+trap 'rm -f -- "$failure_tmp" "$metrics_tmp"' EXIT
 set +e
-env LEAN_PATH=. lake env lean -R . -o "$output" "$source" \
+/usr/bin/time -v -o "$metrics_tmp" \
+  env LEAN_PATH=. lake env lean -R . -o "$output" "$source" \
   >"$failure_tmp" 2>&1
 lean_exit=$?
 set -e
+printf '\nSOURCE=%s\nRESULT=%s\n' "$source" "$lean_exit" >>"$metrics_tmp"
+mv -f -- "$metrics_tmp" "$metrics_file"
 cat -- "$failure_tmp"
 if ((lean_exit != 0)); then
   if grep -Eq 'error:|error\(' "$failure_tmp"; then

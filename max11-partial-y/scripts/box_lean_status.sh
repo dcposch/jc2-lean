@@ -76,6 +76,28 @@ else
   printf 'empty\n'
 fi
 
+printf '\nRECENT LEAN COMPILE METRICS\n'
+metrics_dir="$remote_box_dir/.scratch-olean-cache/metrics"
+recent_metrics="$({
+  find "$metrics_dir" -type f -name '*.metrics' -printf '%T@ %p\n' 2>/dev/null |
+    sort -n | tail -n 12 | cut -d' ' -f2-
+} || true)"
+if [[ -n "$recent_metrics" ]]; then
+  while IFS= read -r metrics_file; do
+    source="$(sed -n 's/^SOURCE=//p' "$metrics_file" | tail -n 1)"
+    result="$(sed -n 's/^RESULT=//p' "$metrics_file" | tail -n 1)"
+    elapsed="$(sed -n 's/^[[:space:]]*Elapsed (wall clock) time (h:mm:ss or m:ss): //p' \
+      "$metrics_file" | tail -n 1)"
+    max_rss="$(sed -n 's/^[[:space:]]*Maximum resident set size (kbytes): //p' \
+      "$metrics_file" | tail -n 1)"
+    printf 'source=%s result=%s elapsed=%s max_rss_kib=%s record=%s\n' \
+      "${source:-?}" "${result:-?}" "${elapsed:-?}" "${max_rss:-?}" \
+      "${metrics_file##*/}"
+  done <<<"$recent_metrics"
+else
+  printf 'none (new gates will populate this ledger)\n'
+fi
+
 printf '\nREMOTE LEAN JOBS\n'
 mapfile -t pids < <(pgrep -x lean || true)
 if ((${#pids[@]} == 0)); then
