@@ -24,6 +24,7 @@ box_dir="${BOX_LEAN_DIR:-/home/ubuntu/jc2-lean/max11-partial-y}"
 run_axioms=0
 full_build=0
 receipt_only=0
+reuse_receipt=0
 retry_known_failure=0
 wait_lock_seconds=0
 verbose="${BOX_LEAN_VERBOSE:-0}"
@@ -31,7 +32,7 @@ lean_files=()
 modules=()
 
 usage() {
-  echo "usage: $0 [--full | --file File.lean [--file File.lean ...] | LeanModule ...] [--axioms] [--receipt-only] [--retry-known-failure] [--wait-lock SECONDS]" >&2
+  echo "usage: $0 [--full | --file File.lean [--file File.lean ...] | LeanModule ...] [--axioms] [--receipt-only] [--reuse-receipt] [--retry-known-failure] [--wait-lock SECONDS]" >&2
   echo "  --file: isolated scratch/one-file verification" >&2
   echo "  LeanModule ... --axioms: persistent canonical build and full axiom audit" >&2
   exit 2
@@ -41,6 +42,7 @@ while (($#)); do
   case "$1" in
     --full) full_build=1 ;;
     --receipt-only) receipt_only=1 ;;
+    --reuse-receipt) reuse_receipt=1 ;;
     --retry-known-failure) retry_known_failure=1 ;;
     --wait-lock)
       shift
@@ -78,6 +80,10 @@ if ((mode_count != 1)); then
 fi
 if ((receipt_only && (${#lean_files[@]} == 0 || run_axioms))); then
   echo "--receipt-only requires --file and cannot be combined with --axioms" >&2
+  exit 2
+fi
+if ((reuse_receipt && (${#lean_files[@]} == 0 || run_axioms || receipt_only))); then
+  echo "--reuse-receipt requires --file and cannot be combined with --axioms or --receipt-only" >&2
   exit 2
 fi
 if ((retry_known_failure && ${#lean_files[@]} == 0)); then
@@ -312,6 +318,17 @@ if ((${#lean_files[@]})); then
     fi
     echo "GATE_RECEIPT_MISSING SHA256=$gate_fingerprint" >&2
     exit 66
+  fi
+  # Automated lane/recovery callers may have waited behind another exact gate.
+  # Recheck the immutable success receipt after taking the per-target lock so a
+  # waiter does not elaborate the leaf a second time. Manual gates omit this
+  # option and continue to rebuild the requested leaf authoritatively.
+  if ((reuse_receipt)) && [[ -s "$gate_receipt" ]] &&
+      grep -Fxq "GATE_RECEIPT_SHA256=$gate_fingerprint" "$gate_receipt" &&
+      grep -Fxq "BUILD_EXIT=0 ERROR_COUNT=0 SORRYAX_COUNT=0" "$gate_receipt"; then
+    echo "SUCCESS_RECEIPT_REUSED_AFTER_WAIT SHA256=$gate_fingerprint"
+    cat "$gate_receipt"
+    exit 0
   fi
   # A gate fingerprint commits to the tracked Lean environment and the exact
   # recursive scratch source closure.  A previous Lean diagnostic for that

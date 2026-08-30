@@ -125,7 +125,8 @@ if [[ "${1:-}" == --run ]]; then
           printf '%s\n' recovering_predecessor_gate >"$wait_dir/state"
           set +e
           "$project_dir/scripts/box_lean_verify.sh" --file "$predecessor" \
-            --wait-lock 900 >"$wait_dir/predecessor_recovery_gate.log" 2>&1
+            --wait-lock 900 --reuse-receipt \
+            >"$wait_dir/predecessor_recovery_gate.log" 2>&1
           recovery_exit=$?
           set -e
           if ((recovery_exit == 0)) &&

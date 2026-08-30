@@ -97,6 +97,7 @@ if [[ "${1:-}" == "--run" ]]; then
   else
     set +e
     "$project_dir/scripts/box_lean_verify.sh" --file "$target" --wait-lock 900 \
+      --reuse-receipt \
       >>"$job_dir/verify.log" 2>&1
     verify_exit=$?
     set -e
