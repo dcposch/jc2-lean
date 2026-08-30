@@ -191,6 +191,7 @@ tracked_dependency_files=()
 tracked_environment_hash=""
 gate_fingerprint=""
 gate_receipt=""
+gate_failure_log=""
 if ((${#lean_files[@]})); then
   hash_tracked_environment() {
     (
@@ -274,6 +275,7 @@ if ((${#lean_files[@]})); then
     done
   } | LC_ALL=C shasum -a 256 | awk '{print $1}')"
   gate_receipt="$project_dir/.max11-lanes/gates/$gate_fingerprint.receipt"
+  gate_failure_log="$project_dir/.max11-lanes/gates/$gate_fingerprint.failure.log"
   if ((receipt_only)); then
     if [[ -s "$gate_receipt" ]] &&
         grep -Fxq "GATE_RECEIPT_SHA256=$gate_fingerprint" "$gate_receipt" &&
@@ -409,20 +411,39 @@ local_log="$(mktemp -t box-lean-build.XXXXXX)"
 axiom_log="$(mktemp -t box-lean-axioms.XXXXXX)"
 
 set +e
-ssh "${ssh_args[@]}" "$box_host" \
-  "cd '$remote_work_dir' && export PATH=/home/ubuntu/.elan/bin:\$PATH && $build_command" \
-  >"$local_log" 2>&1
-build_exit=$?
+# A deep scratch closure can make `build_command` hundreds of KiB.  Passing it
+# as SSH's remote-command argument eventually hits an exec(2) argv limit even
+# though every individual Lean command is small.  Stream a Bash program over
+# stdin instead, leaving SSH's own argv constant-sized for arbitrarily deep
+# proof towers.
+{
+  printf 'set -euo pipefail\n'
+  printf 'cd %q\n' "$remote_work_dir"
+  printf 'export PATH=/home/ubuntu/.elan/bin:$PATH\n'
+  printf '%s\n' "$build_command"
+} | ssh "${ssh_args[@]}" "$box_host" /bin/bash >"$local_log" 2>&1
+build_exit=${PIPESTATUS[1]}
 set -e
-error_count="$(grep -c 'error:' "$local_log" || true)"
+error_count="$(grep -cE 'error:|error\(' "$local_log" || true)"
 sorry_count="$(grep -c 'sorryAx' "$local_log" || true)"
 echo "BUILD_EXIT=$build_exit ERROR_COUNT=$error_count SORRYAX_COUNT=$sorry_count"
 if ((build_exit != 0 || error_count != 0 || sorry_count != 0)); then
-  if ! grep -n -B 2 -A 8 -E 'error:|sorryAx' "$local_log"; then
-    tail -n 80 "$local_log"
+  if [[ -n "$gate_failure_log" ]]; then
+    mkdir -p "${gate_failure_log%/*}"
+    failure_tmp="$gate_failure_log.tmp.$$"
+    cp -p -- "$local_log" "$failure_tmp"
+    mv -f -- "$failure_tmp" "$gate_failure_log"
+    echo "FAILURE_LOG=$gate_failure_log"
+  fi
+  # Generated polynomial goals routinely span more than eight lines.  Keep
+  # enough context in the terminal for diagnosis while retaining the complete
+  # immutable-fingerprint log above for exact follow-up work.
+  if ! grep -n -B 8 -A 30 -E 'error:|error\(|sorryAx' "$local_log"; then
+    tail -n 160 "$local_log"
   fi
   exit 1
 fi
+[[ -z "$gate_failure_log" ]] || rm -f -- "$gate_failure_log"
 if [[ "$verbose" == 1 ]]; then
   cat "$local_log"
 else
@@ -436,11 +457,11 @@ if ((run_axioms)); then
     >"$axiom_log" 2>&1
   axiom_exit=$?
   set -e
-  axiom_error_count="$(grep -c 'error:' "$axiom_log" || true)"
+  axiom_error_count="$(grep -cE 'error:|error\(' "$axiom_log" || true)"
   axiom_sorry_count="$(grep -c 'sorryAx' "$axiom_log" || true)"
   echo "AXIOM_EXIT=$axiom_exit ERROR_COUNT=$axiom_error_count SORRYAX_COUNT=$axiom_sorry_count"
   if ((axiom_exit != 0 || axiom_error_count != 0 || axiom_sorry_count != 0)); then
-    if ! grep -n -B 2 -A 8 -E 'error:|sorryAx' "$axiom_log"; then
+    if ! grep -n -B 8 -A 30 -E 'error:|error\(|sorryAx' "$axiom_log"; then
       tail -n 80 "$axiom_log"
     fi
     exit 1

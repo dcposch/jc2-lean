@@ -708,6 +708,10 @@ lake build
 ./scripts/max11_lean_chain.sh --engine claude --after FableLaneScratch.lean --target FableNextScratch.lean --target FableLastScratch.lean -- 'Import @PREDECESSOR@ and continue its exact residual in @TARGET@.'
 # An exact completed gate can be checked without recompilation:
 ./scripts/box_lean_verify.sh --file FableLaneScratch.lean --receipt-only
+# Deep recursive scratch gates stream their remote build program over stdin, so
+# their closure depth is not limited by SSH/exec argument size.  A failed gate
+# also retains its complete fingerprinted diagnostic under
+# `.max11-lanes/gates/*.failure.log`.
 # Reclaim a delegated CLI that is still waiting/reporting after its current
 # recursive source and environment already have an exact successful receipt:
 ./scripts/max11_reap_verified.sh --dry-run
