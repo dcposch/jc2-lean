@@ -184,6 +184,8 @@ fi
 scratch_compile_files=()
 source_hashes=()
 scratch_cache_keys=()
+scratch_legacy_cache_keys=()
+scratch_closure_legacy_cache_keys=()
 environment_walk_seen=()
 tracked_dependency_files=()
 tracked_environment_hash=""
@@ -282,12 +284,57 @@ if ((${#lean_files[@]})); then
     echo "GATE_RECEIPT_MISSING SHA256=$gate_fingerprint" >&2
     exit 66
   fi
-  cache_state="$tracked_environment_hash"
+  # Cache each module against its own recursive scratch import closure.  The
+  # old cumulative-prefix key made an artifact depend on unrelated imports
+  # visited earlier in another root file, causing expensive false misses.
+  # Retain that legacy key alongside the new key for a gradual cache migration.
+  collect_cache_closure() {
+    local source="$1"
+    local known module dependency
+    for known in ${cache_walk_seen[@]+"${cache_walk_seen[@]}"}; do
+      [[ "$known" == "$source" ]] && return
+    done
+    cache_walk_seen+=("$source")
+    while IFS= read -r module; do
+      [[ "$module" =~ ^[A-Za-z0-9_.]+$ ]] || continue
+      dependency="${module//./\/}.lean"
+      if [[ -f "$project_dir/$dependency" ]] &&
+          { [[ "$dependency" == *Scratch.lean ]] ||
+            ! git -C "$project_dir" ls-files --error-unmatch -- \
+              "$dependency" >/dev/null 2>&1; }; then
+        collect_cache_closure "$dependency"
+      fi
+    done < <(sed -nE 's/^import[[:space:]]+([A-Za-z0-9_.]+)[[:space:]]*$/\1/p' \
+      "$project_dir/$source")
+    cache_closure_files+=("$source")
+  }
+
+  legacy_cache_state="$tracked_environment_hash"
   for ((i = 0; i < ${#scratch_compile_files[@]}; i++)); do
-    cache_state="$(printf '%s\n%s\n%s\n' \
-      "$cache_state" "${scratch_compile_files[$i]}" "${source_hashes[$i]}" \
+    legacy_cache_state="$(printf '%s\n%s\n%s\n' \
+      "$legacy_cache_state" "${scratch_compile_files[$i]}" "${source_hashes[$i]}" \
       | LC_ALL=C shasum -a 256 | awk '{print $1}')"
-    scratch_cache_keys+=("$cache_state")
+    scratch_legacy_cache_keys+=("$legacy_cache_state")
+
+    cache_walk_seen=()
+    cache_closure_files=()
+    collect_cache_closure "${scratch_compile_files[$i]}"
+    closure_legacy_cache_state="$tracked_environment_hash"
+    for cache_source in "${cache_closure_files[@]}"; do
+      closure_legacy_cache_state="$(printf '%s\n%s\n%s\n' \
+        "$closure_legacy_cache_state" "$cache_source" \
+        "$(LC_ALL=C shasum -a 256 "$project_dir/$cache_source" | awk '{print $1}')" \
+        | LC_ALL=C shasum -a 256 | awk '{print $1}')"
+    done
+    scratch_closure_legacy_cache_keys+=("$closure_legacy_cache_state")
+    closure_cache_key="$({
+      printf 'tracked_environment=%s\n' "$tracked_environment_hash"
+      for cache_source in "${cache_closure_files[@]}"; do
+        printf 'file=%s sha256=%s\n' "$cache_source" \
+          "$(LC_ALL=C shasum -a 256 "$project_dir/$cache_source" | awk '{print $1}')"
+      done
+    } | LC_ALL=C shasum -a 256 | awk '{print $1}')"
+    scratch_cache_keys+=("$closure_cache_key")
   done
 
   remote_parent="${box_dir%/*}"
@@ -322,6 +369,8 @@ if ((${#lean_files[@]})); then
     source="${scratch_compile_files[$i]}"
     output="${source%.lean}.olean"
     cache_file="$box_dir/.scratch-olean-cache/${scratch_cache_keys[$i]}.olean"
+    legacy_cache_file="$box_dir/.scratch-olean-cache/${scratch_legacy_cache_keys[$i]}.olean"
+    closure_legacy_cache_file="$box_dir/.scratch-olean-cache/${scratch_closure_legacy_cache_keys[$i]}.olean"
     requested=0
     for lean_file in "${lean_files[@]}"; do
       [[ "$source" == "$lean_file" ]] && requested=1
@@ -340,6 +389,13 @@ if ((${#lean_files[@]})); then
     else
       build_command+="if [[ -s '$cache_file' ]]; then \
         cp '$cache_file' '$output' && echo SCRATCH_CACHE_HIT FILE=$source; \
+        elif [[ -s '$legacy_cache_file' ]]; then \
+        cp '$legacy_cache_file' '$output' && cp '$legacy_cache_file' '$cache_file' && \
+          echo SCRATCH_CACHE_LEGACY_HIT FILE=$source; \
+        elif [[ -s '$closure_legacy_cache_file' ]]; then \
+        cp '$closure_legacy_cache_file' '$output' && \
+          cp '$closure_legacy_cache_file' '$cache_file' && \
+          echo SCRATCH_CACHE_CLOSURE_LEGACY_HIT FILE=$source; \
         else $compile_and_cache && echo SCRATCH_CACHE_MISS FILE=$source; fi"
     fi
   done
