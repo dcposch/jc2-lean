@@ -232,6 +232,56 @@ if [[ -n "$verifier_dirs" ]]; then
 fi
 ((verifier_shown)) || printf 'none\n'
 
+printf '\nDURABLE GATE CHAINS (active plus newest 6)\n'
+chain_root="$project_dir/.max11-lanes/gate-chains"
+chain_dirs=""
+if [[ -d "$chain_root" ]]; then
+  chain_dirs="$({
+    for chain_dir in "$chain_root"/*; do
+      [[ -d "$chain_dir" ]] || continue
+      chain_state="$(sed -n '1p' "$chain_dir/state" 2>/dev/null || true)"
+      if [[ "$chain_state" == queued || "$chain_state" == starting ||
+            "$chain_state" == waiting_for_predecessor ||
+            "$chain_state" == launching_gate ||
+            "$chain_state" == waiting_for_gate ]]; then
+        printf '%s\n' "$chain_dir"
+      fi
+    done
+    find "$chain_root" -mindepth 1 -maxdepth 1 -type d |
+      sort -r | head -n 6
+  } | awk '!seen[$0]++')"
+fi
+chain_shown=0
+if [[ -n "$chain_dirs" ]]; then
+  while IFS= read -r chain_dir; do
+    state="$(sed -n '1p' "$chain_dir/state" 2>/dev/null || printf '?')"
+    pid="$(sed -n '1p' "$chain_dir/pid" 2>/dev/null || printf '?')"
+    current="$(sed -n '1p' "$chain_dir/current_target" 2>/dev/null || true)"
+    predecessor="$(sed -n '1p' "$chain_dir/predecessor" 2>/dev/null || true)"
+    completed_count=0
+    target_count=0
+    [[ ! -f "$chain_dir/results.tsv" ]] ||
+      completed_count="$(wc -l <"$chain_dir/results.tsv" | tr -d '[:space:]')"
+    [[ ! -f "$chain_dir/targets" ]] ||
+      target_count="$(wc -l <"$chain_dir/targets" | tr -d '[:space:]')"
+    case "$state" in
+      queued|starting|waiting_for_predecessor|launching_gate|waiting_for_gate)
+        if [[ "$pid" =~ ^[0-9]+$ ]] && ! kill -0 "$pid" 2>/dev/null; then
+          state="stale"
+        fi
+        ;;
+    esac
+    detail=""
+    [[ -z "$current" ]] || detail=" current=$current"
+    [[ -z "$predecessor" ]] || detail="$detail after=$predecessor"
+    printf 'job=%s state=%s pid=%s progress=%s/%s%s\n' \
+      "${chain_dir##*/}" "$state" "$pid" "$completed_count" \
+      "$target_count" "$detail"
+    chain_shown=$((chain_shown + 1))
+  done <<<"$chain_dirs"
+fi
+((chain_shown)) || printf 'none\n'
+
 if ((!show_all_waiters)) && [[ -n "$wait_dirs" ]]; then
   printf '\nFOLLOW-UP HISTORY SUMMARY\n'
   for summary_state in launched canceled failed launch_failed; do
@@ -251,7 +301,8 @@ state_root="$project_dir/.max11-lanes"
 ledger_dirs=""
 if [[ -d "$state_root" ]]; then
   ledger_dirs="$(find "$state_root" -mindepth 1 -maxdepth 1 -type d \
-    ! -name gates ! -name waits ! -name cas ! -name verifiers |
+    ! -name gates ! -name waits ! -name cas ! -name verifiers \
+    ! -name gate-chains |
     sort -r | head -n 12)"
 fi
 if [[ -z "$ledger_dirs" ]]; then
