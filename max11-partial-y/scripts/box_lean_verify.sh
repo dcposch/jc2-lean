@@ -416,14 +416,14 @@ if ((${#lean_files[@]})); then
     # content-addressed by the tracked Lean environment and ordered scratch
     # ancestry.  The requested leaf is always rebuilt, never accepted from
     # cache, so every successful gate still elaborates the claimed theorem.
-    compile_and_cache="env LEAN_PATH=. lake env lean -R . -o $output $source && \
-      cp '$output' '$cache_file.tmp.\$\$' && mv -f '$cache_file.tmp.\$\$' '$cache_file'"
     if ((requested)); then
-      build_command+="$compile_and_cache && echo SCRATCH_CACHE_LEAF FILE=$source"
+      printf -v cache_step 'compile_scratch_leaf %q %q %q' \
+        "$cache_file" "$output" "$source"
+      build_command+="$cache_step"
     else
-      build_command+="if [[ -s '$cache_file' ]]; then \
-        cp '$cache_file' '$output' && echo SCRATCH_CACHE_HIT FILE=$source; \
-        else $compile_and_cache && echo SCRATCH_CACHE_MISS FILE=$source; fi"
+      printf -v cache_step 'load_or_compile_scratch_dependency %q %q %q' \
+        "$cache_file" "$output" "$source"
+      build_command+="$cache_step"
     fi
   done
 elif ((full_build)); then
@@ -445,6 +445,69 @@ set +e
   printf 'set -euo pipefail\n'
   printf 'cd %q\n' "$remote_work_dir"
   printf 'export PATH=/home/ubuntu/.elan/bin:$PATH\n'
+  if ((${#lean_files[@]})); then
+    # Independent isolated gates can share a deep scratch dependency.  The
+    # content-addressed cache prevents repeat work only after an artifact has
+    # landed; without a per-key lock, simultaneous misses still elaborate the
+    # same module in parallel and each consume 8--17 GiB.  Linux flock is tied
+    # to the process/file descriptor, so interruption releases it without a
+    # stale-directory recovery protocol.  Recheck the cache after waiting.
+    cat <<'REMOTE_CACHE_HELPERS'
+load_or_compile_scratch_dependency() {
+  local cache_file="$1"
+  local output="$2"
+  local source="$3"
+  if [[ -s "$cache_file" ]]; then
+    cp -- "$cache_file" "$output"
+    printf 'SCRATCH_CACHE_HIT FILE=%s\n' "$source"
+    return
+  fi
+  /usr/bin/flock "${cache_file}.lock" /bin/bash -s -- \
+      "$cache_file" "$output" "$source" <<'REMOTE_CACHE_DEPENDENCY'
+set -euo pipefail
+cache_file="$1"
+output="$2"
+source="$3"
+if [[ -s "$cache_file" ]]; then
+  cp -- "$cache_file" "$output"
+  printf 'SCRATCH_CACHE_WAIT_HIT FILE=%s\n' "$source"
+else
+  env LEAN_PATH=. lake env lean -R . -o "$output" "$source"
+  cache_tmp="${cache_file}.tmp.$$"
+  trap 'rm -f -- "$cache_tmp"' EXIT
+  cp -- "$output" "$cache_tmp"
+  mv -f -- "$cache_tmp" "$cache_file"
+  trap - EXIT
+  printf 'SCRATCH_CACHE_MISS FILE=%s\n' "$source"
+fi
+REMOTE_CACHE_DEPENDENCY
+}
+
+compile_scratch_leaf() {
+  local cache_file="$1"
+  local output="$2"
+  local source="$3"
+  # A requested leaf is deliberately elaborated even when an exact artifact
+  # exists: the gate attests to this invocation, not merely cache presence.
+  # Taking the same key lock still prevents a concurrent dependency compiler
+  # from doing identical work at the same time.
+  /usr/bin/flock "${cache_file}.lock" /bin/bash -s -- \
+      "$cache_file" "$output" "$source" <<'REMOTE_CACHE_LEAF'
+set -euo pipefail
+cache_file="$1"
+output="$2"
+source="$3"
+env LEAN_PATH=. lake env lean -R . -o "$output" "$source"
+cache_tmp="${cache_file}.tmp.$$"
+trap 'rm -f -- "$cache_tmp"' EXIT
+cp -- "$output" "$cache_tmp"
+mv -f -- "$cache_tmp" "$cache_file"
+trap - EXIT
+printf 'SCRATCH_CACHE_LEAF FILE=%s\n' "$source"
+REMOTE_CACHE_LEAF
+}
+REMOTE_CACHE_HELPERS
+  fi
   printf '%s\n' "$build_command"
 } | ssh "${ssh_args[@]}" "$box_host" /bin/bash >"$local_log" 2>&1
 build_exit=${PIPESTATUS[1]}

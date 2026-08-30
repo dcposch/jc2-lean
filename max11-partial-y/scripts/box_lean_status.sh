@@ -39,10 +39,20 @@ else
   printf 'free\n'
 fi
 
-ssh "${ssh_args[@]}" "$box_host" 'bash -s' <<'REMOTE'
+ssh "${ssh_args[@]}" "$box_host" /bin/bash -s -- "$box_dir" <<'REMOTE'
 set -euo pipefail
+remote_box_dir="$1"
 printf '\nREMOTE MEMORY\n'
 free -h
+
+printf '\nREMOTE SCRATCH CACHE LOCKS\n'
+cache_locks="$({ ps -C flock -o pid=,etimes=,stat=,args= 2>/dev/null || true; } |
+  awk -v cache="$remote_box_dir/.scratch-olean-cache/" 'index($0, cache)')"
+if [[ -n "$cache_locks" ]]; then
+  printf '%s\n' "$cache_locks"
+else
+  printf 'none\n'
+fi
 
 printf '\nREMOTE LEAN JOBS\n'
 mapfile -t pids < <(pgrep -x lean || true)
