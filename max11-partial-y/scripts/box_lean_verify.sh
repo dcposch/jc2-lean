@@ -29,11 +29,12 @@ retry_known_failure=0
 wait_lock_seconds=0
 verbose="${BOX_LEAN_VERBOSE:-0}"
 compile_timeout_seconds="${BOX_LEAN_COMPILE_TIMEOUT_SECONDS:-1800}"
+profile=0
 lean_files=()
 modules=()
 
 usage() {
-  echo "usage: $0 [--full | --file File.lean [--file File.lean ...] | LeanModule ...] [--axioms] [--receipt-only] [--reuse-receipt] [--retry-known-failure] [--wait-lock SECONDS]" >&2
+  echo "usage: $0 [--full | --file File.lean [--file File.lean ...] | LeanModule ...] [--axioms] [--profile] [--receipt-only] [--reuse-receipt] [--retry-known-failure] [--wait-lock SECONDS]" >&2
   echo "  --file: isolated scratch/one-file verification" >&2
   echo "  LeanModule ... --axioms: persistent canonical build and full axiom audit" >&2
   exit 2
@@ -45,6 +46,7 @@ while (($#)); do
     --receipt-only) receipt_only=1 ;;
     --reuse-receipt) reuse_receipt=1 ;;
     --retry-known-failure) retry_known_failure=1 ;;
+    --profile) profile=1 ;;
     --wait-lock)
       shift
       (($#)) || usage
@@ -93,6 +95,10 @@ if ((retry_known_failure && ${#lean_files[@]} == 0)); then
 fi
 if ((wait_lock_seconds && ${#lean_files[@]} == 0)); then
   echo "--wait-lock is only valid with --file" >&2
+  exit 2
+fi
+if ((profile && ${#lean_files[@]} == 0)); then
+  echo "--profile is currently supported only with --file" >&2
   exit 2
 fi
 [[ -r "$box_key" ]] || {
@@ -484,6 +490,18 @@ fi
 local_log="$(mktemp -t box-lean-build.XXXXXX)"
 axiom_log="$(mktemp -t box-lean-axioms.XXXXXX)"
 
+# Normal authoritative gates retain the historical quiet behavior.  A
+# profiled diagnostic gate tees Lean's declaration timings into the durable
+# lane log as they arrive, so owners can locate a pathological declaration
+# without waiting for the whole compile or timeout.
+capture_build_output() {
+  if ((profile)); then
+    tee "$local_log"
+  else
+    cat >"$local_log"
+  fi
+}
+
 set +e
 # A deep scratch closure can make `build_command` hundreds of KiB.  Passing it
 # as SSH's remote-command argument eventually hits an exec(2) argv limit even
@@ -496,6 +514,7 @@ set +e
   printf 'export PATH=/home/ubuntu/.elan/bin:$PATH\n'
   printf 'export BOX_LEAN_COMPILE_TIMEOUT_SECONDS=%q\n' \
     "$compile_timeout_seconds"
+  printf 'export BOX_LEAN_PROFILE=%q\n' "$profile"
   if ((${#lean_files[@]})); then
     # Independent isolated gates can share a deep scratch dependency.  The
     # content-addressed cache prevents repeat work only after an artifact has
@@ -539,12 +558,23 @@ else
   failure_tmp="${failure_file}.tmp.$$"
   trap 'rm -f -- "$failure_tmp" "$metrics_tmp"' EXIT
   set +e
-  /usr/bin/time -v -o "$metrics_tmp" \
-    timeout --signal=TERM --kill-after=30s \
-      "$BOX_LEAN_COMPILE_TIMEOUT_SECONDS" \
-      env LEAN_PATH=. lake env lean -R . -o "$output" "$source" \
-    >"$failure_tmp" 2>&1
-  lean_exit=$?
+  lean_profile_args=()
+  [[ "${BOX_LEAN_PROFILE:-0}" == 1 ]] && lean_profile_args+=(--profile)
+  if [[ "${BOX_LEAN_PROFILE:-0}" == 1 ]]; then
+    /usr/bin/time -v -o "$metrics_tmp" \
+      timeout --signal=TERM --kill-after=30s \
+        "$BOX_LEAN_COMPILE_TIMEOUT_SECONDS" \
+        env LEAN_PATH=. lake env lean "${lean_profile_args[@]}" -R . -o "$output" "$source" \
+      2>&1 | tee "$failure_tmp"
+    lean_exit=${PIPESTATUS[0]}
+  else
+    /usr/bin/time -v -o "$metrics_tmp" \
+      timeout --signal=TERM --kill-after=30s \
+        "$BOX_LEAN_COMPILE_TIMEOUT_SECONDS" \
+        env LEAN_PATH=. lake env lean "${lean_profile_args[@]}" -R . -o "$output" "$source" \
+      >"$failure_tmp" 2>&1
+    lean_exit=$?
+  fi
   set -e
   if ((lean_exit == 124)); then
     printf 'LEAN_COMPILE_TIMEOUT FILE=%s SECONDS=%s\n' \
@@ -552,7 +582,7 @@ else
   fi
   printf '\nSOURCE=%s\nRESULT=%s\n' "$source" "$lean_exit" >>"$metrics_tmp"
   mv -f -- "$metrics_tmp" "$metrics_file"
-  cat -- "$failure_tmp"
+  [[ "${BOX_LEAN_PROFILE:-0}" == 1 ]] || cat -- "$failure_tmp"
   if ((lean_exit != 0)); then
     # Only memoize diagnostics produced by Lean itself. Transport failures,
     # signals, and host faults remain retryable on the next invocation.
@@ -602,12 +632,23 @@ fi
 failure_tmp="${failure_file}.tmp.$$"
 trap 'rm -f -- "$failure_tmp" "$metrics_tmp"' EXIT
 set +e
-/usr/bin/time -v -o "$metrics_tmp" \
-  timeout --signal=TERM --kill-after=30s \
-    "$BOX_LEAN_COMPILE_TIMEOUT_SECONDS" \
-    env LEAN_PATH=. lake env lean -R . -o "$output" "$source" \
-  >"$failure_tmp" 2>&1
-lean_exit=$?
+lean_profile_args=()
+[[ "${BOX_LEAN_PROFILE:-0}" == 1 ]] && lean_profile_args+=(--profile)
+if [[ "${BOX_LEAN_PROFILE:-0}" == 1 ]]; then
+  /usr/bin/time -v -o "$metrics_tmp" \
+    timeout --signal=TERM --kill-after=30s \
+      "$BOX_LEAN_COMPILE_TIMEOUT_SECONDS" \
+      env LEAN_PATH=. lake env lean "${lean_profile_args[@]}" -R . -o "$output" "$source" \
+    2>&1 | tee "$failure_tmp"
+  lean_exit=${PIPESTATUS[0]}
+else
+  /usr/bin/time -v -o "$metrics_tmp" \
+    timeout --signal=TERM --kill-after=30s \
+      "$BOX_LEAN_COMPILE_TIMEOUT_SECONDS" \
+      env LEAN_PATH=. lake env lean "${lean_profile_args[@]}" -R . -o "$output" "$source" \
+    >"$failure_tmp" 2>&1
+  lean_exit=$?
+fi
 set -e
 if ((lean_exit == 124)); then
   printf 'LEAN_COMPILE_TIMEOUT FILE=%s SECONDS=%s\n' \
@@ -615,7 +656,7 @@ if ((lean_exit == 124)); then
 fi
 printf '\nSOURCE=%s\nRESULT=%s\n' "$source" "$lean_exit" >>"$metrics_tmp"
 mv -f -- "$metrics_tmp" "$metrics_file"
-cat -- "$failure_tmp"
+[[ "${BOX_LEAN_PROFILE:-0}" == 1 ]] || cat -- "$failure_tmp"
 if ((lean_exit != 0)); then
   if grep -Eq 'error:|error\(' "$failure_tmp"; then
     mv -f -- "$failure_tmp" "$failure_file"
@@ -637,7 +678,7 @@ REMOTE_CACHE_LEAF
 REMOTE_CACHE_HELPERS
   fi
   printf '%s\n' "$build_command"
-} | ssh "${ssh_args[@]}" "$box_host" /bin/bash >"$local_log" 2>&1
+} | ssh "${ssh_args[@]}" "$box_host" /bin/bash 2>&1 | capture_build_output
 build_exit=${PIPESTATUS[1]}
 set -e
 error_count="$(grep -cE 'error:|error\(' "$local_log" || true)"
@@ -662,7 +703,7 @@ fi
 [[ -z "$gate_failure_log" ]] || rm -f -- "$gate_failure_log"
 if [[ "$verbose" == 1 ]]; then
   cat "$local_log"
-else
+elif ((!profile)); then
   tail -n 3 "$local_log"
 fi
 

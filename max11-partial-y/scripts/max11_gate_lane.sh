@@ -21,18 +21,19 @@ fi
 state_root="$project_dir/.max11-lanes/verifiers"
 
 usage() {
-  echo "usage: $0 --file FILE.lean [--wait-lock SECONDS] [--compile-timeout SECONDS] [--authoritative] [--retry-known-failure]" >&2
+  echo "usage: $0 --file FILE.lean [--wait-lock SECONDS] [--compile-timeout SECONDS] [--profile] [--authoritative] [--retry-known-failure]" >&2
   exit 2
 }
 
 if [[ "${1:-}" == --run ]]; then
-  (($# == 7)) || usage
+  (($# == 8)) || usage
   job_dir="$2"
   target="$3"
   wait_lock_seconds="$4"
   reuse_receipt="$5"
   retry_known_failure="$6"
   compile_timeout_seconds="$7"
+  profile="$8"
   case "$job_dir" in
     "$state_root"/*) ;;
     *) echo "unsafe verifier state directory: $job_dir" >&2; exit 2 ;;
@@ -56,6 +57,7 @@ if [[ "${1:-}" == --run ]]; then
   verify_args=(--file "$target" --wait-lock "$wait_lock_seconds")
   ((reuse_receipt == 0)) || verify_args+=(--reuse-receipt)
   ((retry_known_failure == 0)) || verify_args+=(--retry-known-failure)
+  ((profile == 0)) || verify_args+=(--profile)
   set +e
   BOX_LEAN_COMPILE_TIMEOUT_SECONDS="$compile_timeout_seconds" \
     "$project_dir/scripts/box_lean_verify.sh" "${verify_args[@]}" \
@@ -66,10 +68,19 @@ if [[ "${1:-}" == --run ]]; then
     first_error="$(grep -m 1 -E \
       '^[^[:space:]]+[.]lean:[0-9]+:[0-9]+: error:|^[^[:space:]]+[.]lean:[0-9]+:[0-9]+: error\(|^LEAN_COMPILE_TIMEOUT ' \
       "$job_dir/output.log" 2>/dev/null || true)"
+    first_error_line="$(printf '%s\n' "$first_error" | sed -nE \
+      "s/^${target//./[.]}:([0-9]+):[0-9]+: error.*/\\1/p")"
     {
       printf 'HANDOFF_VERSION=1\nRESULT=failed\nTARGET=%s\nEXIT_CODE=%s\n' \
         "$target" "$verify_exit"
       [[ -z "$first_error" ]] || printf 'FIRST_ERROR=%s\n' "$first_error"
+      if [[ "$first_error_line" =~ ^[0-9]+$ ]]; then
+        context_start=$((first_error_line > 5 ? first_error_line - 5 : 1))
+        context_end=$((first_error_line + 10))
+        printf 'FIRST_ERROR_LINE=%s\nSOURCE_CONTEXT_BEGIN\n' "$first_error_line"
+        nl -ba "$project_dir/$target" | sed -n "${context_start},${context_end}p"
+        printf 'SOURCE_CONTEXT_END\n'
+      fi
     } >"$job_dir/handoff.txt"
     exit "$verify_exit"
   fi
@@ -142,6 +153,7 @@ wait_lock_seconds=900
 reuse_receipt=1
 retry_known_failure=0
 compile_timeout_seconds="${BOX_LEAN_COMPILE_TIMEOUT_SECONDS:-1800}"
+profile=0
 while (($#)); do
   case "$1" in
     --file)
@@ -157,6 +169,7 @@ while (($#)); do
       ;;
     --authoritative) reuse_receipt=0 ;;
     --retry-known-failure) retry_known_failure=1 ;;
+    --profile) profile=1 ;;
     --compile-timeout)
       shift
       (($#)) || usage
@@ -204,12 +217,13 @@ printf '%s\n' "$wait_lock_seconds" >"$job_dir/wait_lock_seconds"
 printf '%s\n' "$reuse_receipt" >"$job_dir/reuse_receipt"
 printf '%s\n' "$retry_known_failure" >"$job_dir/retry_known_failure"
 printf '%s\n' "$compile_timeout_seconds" >"$job_dir/compile_timeout_seconds"
+printf '%s\n' "$profile" >"$job_dir/profile"
 printf '%s\n' queued >"$job_dir/state"
 screen_name="max11-gate-${RANDOM}-$$"
 printf '%s\n' "$screen_name" >"$job_dir/screen_session"
 screen -dmS "$screen_name" "$project_dir/scripts/max11_gate_lane.sh" --run \
   "$job_dir" "$target" "$wait_lock_seconds" "$reuse_receipt" \
-  "$retry_known_failure" "$compile_timeout_seconds"
+  "$retry_known_failure" "$compile_timeout_seconds" "$profile"
 
 for _ in {1..20}; do
   [[ -s "$job_dir/pid" ]] && break
