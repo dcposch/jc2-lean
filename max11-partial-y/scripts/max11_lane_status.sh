@@ -282,6 +282,45 @@ if [[ -n "$chain_dirs" ]]; then
 fi
 ((chain_shown)) || printf 'none\n'
 
+printf '\nDURABLE GATE BATCHES (active plus newest 6)\n'
+batch_root="$project_dir/.max11-lanes/gate-batches"
+batch_dirs=""
+if [[ -d "$batch_root" ]]; then
+  batch_dirs="$({
+    for batch_dir in "$batch_root"/*; do
+      [[ -d "$batch_dir" ]] || continue
+      batch_state="$(sed -n '1p' "$batch_dir/state" 2>/dev/null || true)"
+      if [[ "$batch_state" == queued || "$batch_state" == running ]]; then
+        printf '%s\n' "$batch_dir"
+      fi
+    done
+    find "$batch_root" -mindepth 1 -maxdepth 1 -type d |
+      sort -r | head -n 6
+  } | awk '!seen[$0]++')"
+fi
+batch_shown=0
+if [[ -n "$batch_dirs" ]]; then
+  while IFS= read -r batch_dir; do
+    state="$(sed -n '1p' "$batch_dir/state" 2>/dev/null || printf '?')"
+    pid="$(sed -n '1p' "$batch_dir/pid" 2>/dev/null || printf '?')"
+    target_count=0
+    [[ ! -f "$batch_dir/targets" ]] ||
+      target_count="$(wc -l <"$batch_dir/targets" | tr -d '[:space:]')"
+    progress="$(sed -n '1p' "$batch_dir/progress" 2>/dev/null || true)"
+    if [[ "$state" == queued || "$state" == running ]]; then
+      if [[ "$pid" =~ ^[0-9]+$ ]] && ! kill -0 "$pid" 2>/dev/null; then
+        state="stale"
+      fi
+    fi
+    detail=""
+    [[ -z "$progress" ]] || detail=" $progress"
+    printf 'job=%s state=%s pid=%s targets=%s%s\n' \
+      "${batch_dir##*/}" "$state" "$pid" "$target_count" "$detail"
+    batch_shown=$((batch_shown + 1))
+  done <<<"$batch_dirs"
+fi
+((batch_shown)) || printf 'none\n'
+
 if ((!show_all_waiters)) && [[ -n "$wait_dirs" ]]; then
   printf '\nFOLLOW-UP HISTORY SUMMARY\n'
   for summary_state in launched canceled failed launch_failed; do
@@ -302,7 +341,7 @@ ledger_dirs=""
 if [[ -d "$state_root" ]]; then
   ledger_dirs="$(find "$state_root" -mindepth 1 -maxdepth 1 -type d \
     ! -name gates ! -name waits ! -name cas ! -name verifiers \
-    ! -name gate-chains |
+    ! -name gate-chains ! -name gate-batches |
     sort -r | head -n 12)"
 fi
 if [[ -z "$ledger_dirs" ]]; then
