@@ -54,6 +54,16 @@ else
   printf 'none\n'
 fi
 
+printf '\nREMOTE DETERMINISTIC FAILURE CACHE\n'
+failure_cache_summary="$(find "$remote_box_dir/.scratch-olean-cache" \
+  -maxdepth 1 -type f -name '*.failure.log' -printf '%f %s bytes\n' \
+  2>/dev/null | sort || true)"
+if [[ -n "$failure_cache_summary" ]]; then
+  printf '%s\n' "$failure_cache_summary"
+else
+  printf 'empty\n'
+fi
+
 printf '\nREMOTE LEAN JOBS\n'
 mapfile -t pids < <(pgrep -x lean || true)
 if ((${#pids[@]} == 0)); then

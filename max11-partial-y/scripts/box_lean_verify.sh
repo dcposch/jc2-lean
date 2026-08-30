@@ -24,13 +24,14 @@ box_dir="${BOX_LEAN_DIR:-/home/ubuntu/jc2-lean/max11-partial-y}"
 run_axioms=0
 full_build=0
 receipt_only=0
+retry_known_failure=0
 wait_lock_seconds=0
 verbose="${BOX_LEAN_VERBOSE:-0}"
 lean_files=()
 modules=()
 
 usage() {
-  echo "usage: $0 [--full | --file File.lean [--file File.lean ...] | LeanModule ...] [--axioms] [--receipt-only] [--wait-lock SECONDS]" >&2
+  echo "usage: $0 [--full | --file File.lean [--file File.lean ...] | LeanModule ...] [--axioms] [--receipt-only] [--retry-known-failure] [--wait-lock SECONDS]" >&2
   echo "  --file: isolated scratch/one-file verification" >&2
   echo "  LeanModule ... --axioms: persistent canonical build and full axiom audit" >&2
   exit 2
@@ -40,6 +41,7 @@ while (($#)); do
   case "$1" in
     --full) full_build=1 ;;
     --receipt-only) receipt_only=1 ;;
+    --retry-known-failure) retry_known_failure=1 ;;
     --wait-lock)
       shift
       (($#)) || usage
@@ -76,6 +78,10 @@ if ((mode_count != 1)); then
 fi
 if ((receipt_only && (${#lean_files[@]} == 0 || run_axioms))); then
   echo "--receipt-only requires --file and cannot be combined with --axioms" >&2
+  exit 2
+fi
+if ((retry_known_failure && ${#lean_files[@]} == 0)); then
+  echo "--retry-known-failure is only valid with --file" >&2
   exit 2
 fi
 if ((wait_lock_seconds && ${#lean_files[@]} == 0)); then
@@ -307,6 +313,23 @@ if ((${#lean_files[@]})); then
     echo "GATE_RECEIPT_MISSING SHA256=$gate_fingerprint" >&2
     exit 66
   fi
+  # A gate fingerprint commits to the tracked Lean environment and the exact
+  # recursive scratch source closure.  A previous Lean diagnostic for that
+  # fingerprint is therefore deterministic and can be returned before paying
+  # the SSH/rsync/elaboration cost again.  Infrastructure failures are never
+  # accepted here because they do not contain a Lean `error:` diagnostic.
+  if ((!retry_known_failure)) && [[ -s "$gate_failure_log" ]] &&
+      grep -Eq 'error:|error\(' "$gate_failure_log"; then
+    error_count="$(grep -cE 'error:|error\(' "$gate_failure_log" || true)"
+    sorry_count="$(grep -c 'sorryAx' "$gate_failure_log" || true)"
+    echo "KNOWN_FAILURE_RECEIPT_HIT SHA256=$gate_fingerprint"
+    echo "BUILD_EXIT=1 ERROR_COUNT=$error_count SORRYAX_COUNT=$sorry_count"
+    echo "FAILURE_LOG=$gate_failure_log"
+    if ! grep -n -B 8 -A 30 -E 'error:|error\(|sorryAx' "$gate_failure_log"; then
+      tail -n 160 "$gate_failure_log"
+    fi
+    exit 1
+  fi
   # Cache each module against its own recursive scratch import closure.  Every
   # source SHA was computed once above; reusing it here avoids the former
   # quadratic storm of Perl `shasum` processes on deep chains.
@@ -468,16 +491,40 @@ set -euo pipefail
 cache_file="$1"
 output="$2"
 source="$3"
+failure_file="${cache_file}.failure.log"
 if [[ -s "$cache_file" ]]; then
   cp -- "$cache_file" "$output"
   printf 'SCRATCH_CACHE_WAIT_HIT FILE=%s\n' "$source"
+elif [[ -s "$failure_file" ]]; then
+  printf 'SCRATCH_FAILURE_CACHE_HIT FILE=%s\n' "$source"
+  cat -- "$failure_file"
+  exit 1
 else
-  env LEAN_PATH=. lake env lean -R . -o "$output" "$source"
+  failure_tmp="${failure_file}.tmp.$$"
+  trap 'rm -f -- "$failure_tmp"' EXIT
+  set +e
+  env LEAN_PATH=. lake env lean -R . -o "$output" "$source" \
+    >"$failure_tmp" 2>&1
+  lean_exit=$?
+  set -e
+  cat -- "$failure_tmp"
+  if ((lean_exit != 0)); then
+    # Only memoize diagnostics produced by Lean itself. Transport failures,
+    # signals, and host faults remain retryable on the next invocation.
+    if grep -Eq 'error:|error\(' "$failure_tmp"; then
+      mv -f -- "$failure_tmp" "$failure_file"
+      trap - EXIT
+      printf 'SCRATCH_FAILURE_CACHE_STORE FILE=%s\n' "$source"
+    fi
+    exit "$lean_exit"
+  fi
   cache_tmp="${cache_file}.tmp.$$"
-  trap 'rm -f -- "$cache_tmp"' EXIT
+  trap 'rm -f -- "$cache_tmp" "$failure_tmp"' EXIT
   cp -- "$output" "$cache_tmp"
   mv -f -- "$cache_tmp" "$cache_file"
+  rm -f -- "$failure_file"
   trap - EXIT
+  rm -f -- "$failure_tmp"
   printf 'SCRATCH_CACHE_MISS FILE=%s\n' "$source"
 fi
 REMOTE_CACHE_DEPENDENCY
@@ -497,12 +544,35 @@ set -euo pipefail
 cache_file="$1"
 output="$2"
 source="$3"
-env LEAN_PATH=. lake env lean -R . -o "$output" "$source"
+failure_file="${cache_file}.failure.log"
+if [[ -s "$failure_file" ]]; then
+  printf 'SCRATCH_FAILURE_CACHE_HIT FILE=%s\n' "$source"
+  cat -- "$failure_file"
+  exit 1
+fi
+failure_tmp="${failure_file}.tmp.$$"
+trap 'rm -f -- "$failure_tmp"' EXIT
+set +e
+env LEAN_PATH=. lake env lean -R . -o "$output" "$source" \
+  >"$failure_tmp" 2>&1
+lean_exit=$?
+set -e
+cat -- "$failure_tmp"
+if ((lean_exit != 0)); then
+  if grep -Eq 'error:|error\(' "$failure_tmp"; then
+    mv -f -- "$failure_tmp" "$failure_file"
+    trap - EXIT
+    printf 'SCRATCH_FAILURE_CACHE_STORE FILE=%s\n' "$source"
+  fi
+  exit "$lean_exit"
+fi
 cache_tmp="${cache_file}.tmp.$$"
-trap 'rm -f -- "$cache_tmp"' EXIT
+trap 'rm -f -- "$cache_tmp" "$failure_tmp"' EXIT
 cp -- "$output" "$cache_tmp"
 mv -f -- "$cache_tmp" "$cache_file"
+rm -f -- "$failure_file"
 trap - EXIT
+rm -f -- "$failure_tmp"
 printf 'SCRATCH_CACHE_LEAF FILE=%s\n' "$source"
 REMOTE_CACHE_LEAF
 }
