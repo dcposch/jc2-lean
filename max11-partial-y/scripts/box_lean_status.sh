@@ -53,7 +53,12 @@ if ((${#pids[@]} == 0)); then
 fi
 for pid in "${pids[@]}"; do
   cwd="$(readlink -f "/proc/$pid/cwd" 2>/dev/null || printf '?')"
-  row="$(ps -p "$pid" -o pid=,etimes=,pcpu=,pmem=,rss=,args=)"
+  # A verifier can finish in the small window between pgrep and ps.  Status is
+  # observational, so skip that vanished process instead of reporting a false
+  # infrastructure failure under `set -e`.
+  if ! row="$(ps -p "$pid" -o pid=,etimes=,pcpu=,pmem=,rss=,args= 2>/dev/null)"; then
+    continue
+  fi
   printf '%s cwd=%s\n' "$row" "$cwd"
 done
 
