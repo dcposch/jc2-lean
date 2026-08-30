@@ -37,7 +37,12 @@ duplicates="$(mktemp -t max11-import-duplicates.XXXXXX)"
 trap 'rm -f -- "$declarations" "$duplicates"' EXIT
 
 for source in ${closure[@]+"${closure[@]}"}; do
-  LC_ALL=C awk -v source="$source" '
+  source_origin="scratch"
+  if git -C "$project_dir" ls-files --error-unmatch -- \
+      "$source" >/dev/null 2>&1; then
+    source_origin="tracked"
+  fi
+  LC_ALL=C awk -v source="$source" -v source_origin="$source_origin" '
     function strip_comments(line, output, i, pair, character) {
       output = ""
       for (i = 1; i <= length(line); i++) {
@@ -104,24 +109,30 @@ for source in ${closure[@]+"${closure[@]}"}; do
         next
       while (text ~ /^(noncomputable|protected)[[:space:]]+/)
         sub(/^(noncomputable|protected)[[:space:]]+/, "", text)
-      if (text !~ /^(theorem|lemma|def|abbrev|axiom|opaque|structure|class|inductive)[[:space:]]+[A-Za-z0-9_.]+/)
+      if (text !~ /^(theorem|lemma|def|abbrev|axiom|opaque|structure|class|inductive)[[:space:]]+[^[:space:]]+/)
         next
       sub(/^(theorem|lemma|def|abbrev|axiom|opaque|structure|class|inductive)[[:space:]]+/, "", text)
       name = text
-      sub(/[^A-Za-z0-9_.].*$/, "", name)
+      sub(/[[:space:]].*$/, "", name)
+      sub(/[({:].*$/, "", name)
       if (name == "")
         next
       full_name = name
       if (namespace_name != "" && name !~ /[.]/)
         full_name = namespace_name "." name
-      printf "%s\t%s\t%d\n", full_name, source, FNR
+      printf "%s\t%s\t%d\t%s\n", full_name, source, FNR, source_origin
     }
   ' "$project_dir/$source" >>"$declarations"
 done
 
 LC_ALL=C sort -t $'\t' -k1,1 "$declarations" | awk -F '\t' '
   function emit() {
-    if (count > 1)
+    # The tracked project contains a few deliberately repeated compatibility
+    # declarations that Lean already accepts when their modules meet.  The
+    # costly failures this guard targets arise when a scratch route redeclares
+    # a tracked/global name, so fail only when the collision includes fresh
+    # scratch source.
+    if (count > 1 && has_scratch)
       printf "%s\t%s\n", previous, locations
   }
   {
@@ -130,9 +141,12 @@ LC_ALL=C sort -t $'\t' -k1,1 "$declarations" | awk -F '\t' '
       previous = $1
       locations = $2 ":" $3
       count = 1
+      has_scratch = ($4 == "scratch")
     } else {
       locations = locations "," $2 ":" $3
       count++
+      if ($4 == "scratch")
+        has_scratch = 1
     }
   }
   END { emit() }
