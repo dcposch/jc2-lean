@@ -68,7 +68,11 @@ ps -axo pid=,ppid=,%cpu=,rss=,etime=,ucomm=,command= |
     grep -qx "$pid" "$managed_pid_file" 2>/dev/null && continue
     age="$(elapsed_seconds "$elapsed" 2>/dev/null || printf '0')"
     ((age >= max_age)) || continue
-    cwd="$(lsof -a -p "$pid" -d cwd -Fn 2>/dev/null | sed -n 's/^n//p' | head -n 1)"
+    # Processes may exit between `ps` and `lsof`, and macOS `lsof` can reject
+    # a candidate whose argv is larger than its internal `xargs` batch.  Both
+    # are observational misses, not guard failures; keep scanning candidates.
+    cwd="$(lsof -a -p "$pid" -d cwd -Fn 2>/dev/null |
+      sed -n 's/^n//p' | head -n 1 || true)"
     [[ "$cwd" == "$project_dir" ]] || continue
     printf '%s\t%s\t%s\t%s\t%s\t%s\n' \
       "$pid" "$ppid" "$cpu" "$rss" "$age" "$command"

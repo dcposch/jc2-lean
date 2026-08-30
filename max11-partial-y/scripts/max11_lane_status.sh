@@ -178,12 +178,24 @@ if [[ -n "$wait_dirs" ]]; then
 fi
 ((waiter_shown)) || printf 'none\n'
 
-printf '\nDURABLE VERIFICATION JOBS (newest 12)\n'
+printf '\nDURABLE VERIFICATION JOBS (active plus newest 12)\n'
 verifier_root="$project_dir/.max11-lanes/verifiers"
 verifier_dirs=""
 if [[ -d "$verifier_root" ]]; then
-  verifier_dirs="$(find "$verifier_root" -mindepth 1 -maxdepth 1 -type d |
-    sort -r | head -n 12)"
+  # A long-running verifier can be older than twelve newer, already-finished
+  # jobs.  Always retain every active job in the dashboard, then append the
+  # recent history without duplicating paths.
+  verifier_dirs="$({
+    for verifier_dir in "$verifier_root"/*; do
+      [[ -d "$verifier_dir" ]] || continue
+      verifier_state="$(sed -n '1p' "$verifier_dir/state" 2>/dev/null || true)"
+      if [[ "$verifier_state" == queued || "$verifier_state" == running ]]; then
+        printf '%s\n' "$verifier_dir"
+      fi
+    done
+    find "$verifier_root" -mindepth 1 -maxdepth 1 -type d |
+      sort -r | head -n 12
+  } | awk '!seen[$0]++')"
 fi
 verifier_shown=0
 if [[ -n "$verifier_dirs" ]]; then
