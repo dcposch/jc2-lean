@@ -725,5 +725,6 @@ if ((${#lean_files[@]})); then
     echo "VERIFIED_AT=$(date -u +%FT%TZ)"
   } >"$receipt_tmp"
   mv -f "$receipt_tmp" "$gate_receipt"
+  echo "GATE_RECEIPT_SHA256=$gate_fingerprint"
   echo "GATE_RECEIPT=$gate_receipt"
 fi

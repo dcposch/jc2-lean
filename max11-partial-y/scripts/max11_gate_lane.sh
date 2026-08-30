@@ -72,21 +72,55 @@ if [[ "${1:-}" == --run ]]; then
     exit "$verify_exit"
   fi
 
-  if ! "$project_dir/scripts/box_lean_verify.sh" --file "$target" \
-      --receipt-only >"$job_dir/receipt.log" 2>&1; then
-    echo "successful gate lost its exact receipt: $target" >>"$job_dir/output.log"
-    exit 1
-  fi
+  # The successful verifier has already checked that the complete source and
+  # tracked environment stayed unchanged, atomically written its exact
+  # receipt, and printed the receipt fingerprint plus every verified source
+  # hash.  Re-running `--receipt-only` here used to rewalk and rehash the whole
+  # recursive tower (about three seconds on a 55-file lane) solely to recover
+  # those values.  Validate the just-produced immutable receipt directly and
+  # compare the current leaf bytes before publishing the durable handoff.
   verified_sha="$(sed -nE \
     "s/^VERIFIED_SHA256=([0-9a-f]{64}) FILE=${target//./[.]}$/\\1/p" \
-    "$job_dir/receipt.log" | tail -1)"
+    "$job_dir/output.log" | tail -1)"
   [[ "$verified_sha" =~ ^[0-9a-f]{64}$ ]] || {
-    echo "exact leaf SHA missing from receipt: $target" >>"$job_dir/output.log"
+    echo "exact leaf SHA missing from successful gate output: $target" \
+      >>"$job_dir/output.log"
     exit 1
   }
   gate_fingerprint="$(sed -nE \
     's/^GATE_RECEIPT_SHA256=([0-9a-f]{64})$/\1/p' \
-    "$job_dir/receipt.log" | tail -1)"
+    "$job_dir/output.log" | tail -1)"
+  [[ "$gate_fingerprint" =~ ^[0-9a-f]{64}$ ]] || {
+    echo "gate receipt fingerprint missing from successful output: $target" \
+      >>"$job_dir/output.log"
+    exit 1
+  }
+  # Fresh authoritative gates print the path as a convenience; the
+  # `--reuse-receipt` fast path emits only the receipt contents.  Derive the
+  # one allowed local path from the validated 64-hex fingerprint so both
+  # success modes share the same fail-closed check.
+  gate_receipt="$project_dir/.max11-lanes/gates/$gate_fingerprint.receipt"
+  [[ -s "$gate_receipt" ]] || {
+    echo "successful gate receipt is missing: $target" \
+      >>"$job_dir/output.log"
+    exit 1
+  }
+  if ! grep -Fxq "GATE_RECEIPT_SHA256=$gate_fingerprint" "$gate_receipt" ||
+      ! grep -Fxq "BUILD_EXIT=0 ERROR_COUNT=0 SORRYAX_COUNT=0" "$gate_receipt" ||
+      ! grep -Fxq "VERIFIED_SHA256=$verified_sha FILE=$target" "$gate_receipt"; then
+    echo "successful gate receipt failed exact-content validation: $target" \
+      >>"$job_dir/output.log"
+    exit 1
+  fi
+  current_sha_record="$(openssl dgst -sha256 -r "$project_dir/$target")"
+  current_sha="${current_sha_record%% *}"
+  if [[ "$current_sha" != "$verified_sha" ]]; then
+    echo "source changed after successful gate: $target" >>"$job_dir/output.log"
+    echo "VERIFIED_SHA256=$verified_sha CURRENT_SHA256=$current_sha" \
+      >>"$job_dir/output.log"
+    exit 1
+  fi
+  cp -p -- "$gate_receipt" "$job_dir/receipt.log"
   printf '%s\n' "$verified_sha" >"$job_dir/verified_sha256"
   {
     printf 'HANDOFF_VERSION=1\nRESULT=verified\nTARGET=%s\n' "$target"
