@@ -15,22 +15,30 @@ target="$1"
     "$target" == "${target##*/}" && -f "$project_dir/$target" ]] || usage
 
 closure=()
-collect_imports() {
-  local source="$1" known module dependency
+pending=("$target")
+# Deep scratch towers can exceed one hundred modules.  A recursive Bash DFS
+# consumes the shell's small native stack and has intermittently aborted before
+# an otherwise valid AWS gate.  Declaration collisions do not depend on walk
+# order, so traverse the same graph with an explicit worklist.
+while ((${#pending[@]})); do
+  pending_index=$((${#pending[@]} - 1))
+  source="${pending[$pending_index]}"
+  unset 'pending[$pending_index]'
+  already_seen=0
   for known in ${closure[@]+"${closure[@]}"}; do
-    [[ "$known" == "$source" ]] && return
+    [[ "$known" == "$source" ]] && already_seen=1
   done
+  ((already_seen == 0)) || continue
   closure+=("$source")
   while IFS= read -r module; do
     [[ "$module" =~ ^[A-Za-z0-9_.]+$ ]] || continue
     dependency="${module//./\/}.lean"
     [[ -f "$project_dir/$dependency" ]] || continue
-    collect_imports "$dependency"
+    pending+=("$dependency")
   done < <(sed -nE \
     's/^import[[:space:]]+([A-Za-z0-9_.]+)[[:space:]]*$/\1/p' \
     "$project_dir/$source")
-}
-collect_imports "$target"
+done
 
 declarations="$(mktemp -t max11-import-declarations.XXXXXX)"
 duplicates="$(mktemp -t max11-import-duplicates.XXXXXX)"
