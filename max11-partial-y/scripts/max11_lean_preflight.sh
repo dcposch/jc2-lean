@@ -21,6 +21,13 @@ fi
   exit 2
 }
 
+# Two individually valid proof routes can still be impossible to import
+# together when they export the same fully qualified declaration.  Detect the
+# collision from the recursive local source DAG before starting an AWS gate.
+for source in "$@"; do
+  "$script_dir/max11_import_collision_lint.sh" "$source"
+done
+
 warning_count=0
 strict_failure_count=0
 for source in "$@"; do

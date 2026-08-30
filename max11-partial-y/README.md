@@ -746,6 +746,9 @@ which removes repeated handshake latency from scratch iterations.  Set
 Scratch dependency artifacts are keyed by each module's own tracked Lean
 import closure, so joining two independently verified branches reuses both
 caches instead of recompiling either branch against their irrelevant union.
+The strict preflight also walks the recursive local import DAG and rejects
+duplicate fully qualified declarations before they become remote Lean import
+failures.
 
 For a compact, source-exact handoff of one proof lane (current SHA, recursive
 receipt status, direct predecessor receipts, latest durable gate, and recent
