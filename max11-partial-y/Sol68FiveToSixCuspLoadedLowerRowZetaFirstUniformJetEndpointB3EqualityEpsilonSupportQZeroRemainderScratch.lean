@@ -329,11 +329,71 @@ theorem fiveToSix_zetaFirst_B3_equality_support_qZero_clean_packet68
     fiveToSix_zetaFirst_B3_equality_support_qZero_clean_split68
       alpha gamma epsilon zeta eta terminal A B c d e N G S hs hq⟩
 
+/-- The arithmetic split expressed on the literal source-row remainders,
+rather than only on their normalized expansions. -/
+theorem fiveToSix_zetaFirst_B3_equality_support_qZero_source_split68
+    (alpha gamma epsilon zeta eta terminal:k)
+    (A B c d e:k[X]) (N G S:ℕ)
+    (hs:FiveToSixCuspZetaFirstB3EqualitySupportRowOnePacket68 alpha gamma
+      epsilon zeta eta terminal A B c d e N G S)
+    (hq:9*N-7*S=0):
+    let D:=3*N-2*S
+    let Cc:=4*N-2*S
+    let i0:=4*N-2
+    let i2:=2*N-2
+    let W0:=FiveToSixCuspZetaFirstB3EqualitySupportNextRowZeroRemainder68
+      alpha gamma epsilon zeta eta A B c d e
+    let W2:=FiveToSixCuspZetaFirstB3EqualitySupportNextRowTwoRemainder68
+      alpha gamma epsilon zeta eta A B c d e
+    (N=7 ∧ S=9 ∧
+      W0.coeff i0=-(21:k)*gamma*A.coeff (2*N)*B.coeff D*c.coeff Cc ∧
+      W2.coeff i2=(117:k)*gamma*B.coeff D*c.coeff Cc) ∨
+    (14≤N ∧ W0.coeff i0=0 ∧ W2.coeff i2=0):=by
+  have ht:=fiveToSix_zetaFirst_B3_equality_support_qZero_remainder_transport68
+    alpha gamma epsilon zeta eta terminal A B c d e N G S hs hq
+  have hspl:=fiveToSix_zetaFirst_B3_equality_support_qZero_clean_split68
+    alpha gamma epsilon zeta eta terminal A B c d e N G S hs hq
+  dsimp only at ht hspl ⊢
+  rcases hspl with hsmall|hlarge
+  · rcases hsmall with ⟨hN,hS,h0,h2⟩
+    exact Or.inl ⟨hN,hS,ht.1.trans h0,ht.2.trans h2⟩
+  · rcases hlarge with ⟨hN,h0,h2⟩
+    exact Or.inr ⟨hN,ht.1.trans h0,ht.2.trans h2⟩
+
+/-- Source-facing companion equation together with the literal one-lower
+remainder split. -/
+theorem fiveToSix_zetaFirst_B3_equality_support_qZero_source_packet68
+    (alpha gamma epsilon zeta eta terminal:k)
+    (A B c d e:k[X]) (N G S:ℕ)
+    (hs:FiveToSixCuspZetaFirstB3EqualitySupportRowOnePacket68 alpha gamma
+      epsilon zeta eta terminal A B c d e N G S)
+    (hq:9*N-7*S=0):
+    FiveToSixCuspZetaFirstB3EqualitySupportQZeroCompanionScalar68
+      alpha gamma epsilon zeta eta A B c d e N S ∧
+    (let D:=3*N-2*S
+     let Cc:=4*N-2*S
+     let i0:=4*N-2
+     let i2:=2*N-2
+     let W0:=FiveToSixCuspZetaFirstB3EqualitySupportNextRowZeroRemainder68
+       alpha gamma epsilon zeta eta A B c d e
+     let W2:=FiveToSixCuspZetaFirstB3EqualitySupportNextRowTwoRemainder68
+       alpha gamma epsilon zeta eta A B c d e
+     (N=7 ∧ S=9 ∧
+       W0.coeff i0=-(21:k)*gamma*A.coeff (2*N)*B.coeff D*c.coeff Cc ∧
+       W2.coeff i2=(117:k)*gamma*B.coeff D*c.coeff Cc) ∨
+     (14≤N ∧ W0.coeff i0=0 ∧ W2.coeff i2=0)):=by
+  exact ⟨fiveToSix_zetaFirst_B3_equality_support_qZero_companion68
+    alpha gamma epsilon zeta eta terminal A B c d e N G S hs hq,
+    fiveToSix_zetaFirst_B3_equality_support_qZero_source_split68
+      alpha gamma epsilon zeta eta terminal A B c d e N G S hs hq⟩
+
 #print axioms fiveToSix_zetaFirst_B3_equality_support_clean_rowZero_expansion68
 #print axioms fiveToSix_zetaFirst_B3_equality_support_clean_rowTwo_expansion68
 #print axioms fiveToSix_zetaFirst_B3_equality_support_qZero_remainder_transport68
 #print axioms fiveToSix_zetaFirst_B3_equality_support_qZero_clean_split68
 #print axioms fiveToSix_zetaFirst_B3_equality_support_qZero_clean_packet68
+#print axioms fiveToSix_zetaFirst_B3_equality_support_qZero_source_split68
+#print axioms fiveToSix_zetaFirst_B3_equality_support_qZero_source_packet68
 
 end FiveToSixCuspLoadedLowerRowZetaFirstUniformJetEndpointB3EqualityEpsilonSupportQZeroRemainder68
 
