@@ -393,6 +393,8 @@ else
 fi
 
 if ((show_remote)); then
+  printf '\nACTIVE REMOTE GATE PHASES\n'
+  "$project_dir/scripts/max11_gate_phases.sh"
   printf '\n'
   "$project_dir/scripts/box_lean_status.sh"
 fi

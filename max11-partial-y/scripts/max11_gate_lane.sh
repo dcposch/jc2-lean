@@ -21,7 +21,7 @@ fi
 state_root="$project_dir/.max11-lanes/verifiers"
 
 usage() {
-  echo "usage: $0 --file FILE.lean [--wait-lock SECONDS] [--authoritative] [--retry-known-failure] [--allow-unverified-imports]" >&2
+  echo "usage: $0 --file FILE.lean [--wait-lock SECONDS] [--authoritative] [--retry-known-failure]" >&2
   exit 2
 }
 
@@ -139,7 +139,6 @@ target=""
 wait_lock_seconds=900
 reuse_receipt=1
 retry_known_failure=0
-allow_unverified_imports=0
 while (($#)); do
   case "$1" in
     --file)
@@ -155,7 +154,6 @@ while (($#)); do
       ;;
     --authoritative) reuse_receipt=0 ;;
     --retry-known-failure) retry_known_failure=1 ;;
-    --allow-unverified-imports) allow_unverified_imports=1 ;;
     *) usage ;;
   esac
   shift
@@ -168,9 +166,14 @@ command -v screen >/dev/null || {
   exit 69
 }
 
-if ((allow_unverified_imports == 0)); then
-  "$project_dir/scripts/max11_verified_imports.sh" "$target"
-fi
+# A speculative successor compiles every missing scratch predecessor as a
+# dependency, but only the requested leaf receives a durable receipt.  The
+# predecessor's later authoritative gate must therefore elaborate the same
+# source again.  This cost 30 minutes on the (8,10) twelfth-defect/Omicron
+# boundary before the dependency itself timed out.  Always require exact
+# direct-import receipts; dependency-aware gate batches/chains provide the
+# intended parallelism without duplicate elaboration.
+"$project_dir/scripts/max11_verified_imports.sh" "$target"
 
 mkdir -p "$state_root"
 for existing in "$state_root"/*; do
