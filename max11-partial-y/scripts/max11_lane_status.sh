@@ -4,15 +4,16 @@ set -euo pipefail
 
 project_dir="$(cd "$(dirname "$0")/.." && pwd)"
 show_remote=1
+show_all_waiters=0
 
-if (($#)); then
-  if [[ "$1" == "--local" && $# == 1 ]]; then
-    show_remote=0
-  else
-    echo "usage: $0 [--local]" >&2
-    exit 2
-  fi
-fi
+while (($#)); do
+  case "$1" in
+    --local) show_remote=0 ;;
+    --all) show_all_waiters=1 ;;
+    *) echo "usage: $0 [--local] [--all]" >&2; exit 2 ;;
+  esac
+  shift
+done
 
 human_age() {
   local seconds="$1"
@@ -58,15 +59,14 @@ else
   done <<<"$worker_rows"
 fi
 
-printf '\nQUEUED FOLLOW-UPS\n'
+printf '\nACTIVE QUEUED FOLLOW-UPS\n'
 wait_root="$project_dir/.max11-lanes/waits"
 wait_dirs=""
 if [[ -d "$wait_root" ]]; then
   wait_dirs="$(find "$wait_root" -mindepth 1 -maxdepth 1 -type d | sort -r)"
 fi
-if [[ -z "$wait_dirs" ]]; then
-  printf 'none\n'
-else
+waiter_shown=0
+if [[ -n "$wait_dirs" ]]; then
   while IFS= read -r wait_dir; do
     state="$(sed -n '1p' "$wait_dir/state" 2>/dev/null || printf '?')"
     predecessor="$(sed -n '1p' "$wait_dir/predecessor" 2>/dev/null || printf '?')"
@@ -77,9 +77,30 @@ else
         [[ "$pid" =~ ^[0-9]+$ ]] && ! kill -0 "$pid" 2>/dev/null; then
       state="stale"
     fi
+    if ((!show_all_waiters)); then
+      case "$state" in
+        queued|waiting_for_gate|waiting_for_capacity|stale) ;;
+        *) continue ;;
+      esac
+    fi
     printf 'state=%s pid=%s engine=%s after=%s target=%s\n' \
       "$state" "$pid" "$engine" "$predecessor" "$target"
+    waiter_shown=$((waiter_shown + 1))
   done <<<"$wait_dirs"
+fi
+((waiter_shown)) || printf 'none\n'
+
+if ((!show_all_waiters)) && [[ -n "$wait_dirs" ]]; then
+  printf '\nFOLLOW-UP HISTORY SUMMARY\n'
+  for summary_state in launched canceled failed launch_failed; do
+    summary_count=0
+    while IFS= read -r wait_dir; do
+      [[ "$(sed -n '1p' "$wait_dir/state" 2>/dev/null || true)" == "$summary_state" ]] &&
+        summary_count=$((summary_count + 1))
+    done <<<"$wait_dirs"
+    printf '%s=%s%s' "$summary_state" "$summary_count" \
+      "$([[ "$summary_state" == launch_failed ]] && printf '\n' || printf ' ')"
+  done
 fi
 
 now="$(date +%s)"

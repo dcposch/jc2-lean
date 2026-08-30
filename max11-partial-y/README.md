@@ -719,7 +719,8 @@ lake build
 # recursive source and environment already have an exact successful receipt:
 ./scripts/max11_reap_verified.sh --dry-run
 ./scripts/max11_reap_verified.sh
-# One dashboard shows live workers, durable handoffs, recent files, and AWS jobs:
+# One concise dashboard shows live workers, active durable handoffs, recent
+# files, and AWS jobs; add `--all` when historical waiter detail is useful:
 ./scripts/max11_lane_status.sh
 ```
 
