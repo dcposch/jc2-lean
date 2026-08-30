@@ -156,7 +156,11 @@ if [[ "$engine" == claude ]]; then
     echo "invalid Claude/Fable scratch target: $target" >&2
     exit 2
   }
-  engine_cap="${MAX11_CLAUDE_CAP:-6}"
+  # Nine lightweight delegated provers fit comfortably on the local host;
+  # their heavyweight Lean gates run independently on box-lean.  Keep the
+  # override for emergencies, but make the proven-safe operating point the
+  # ergonomic default so successful lanes can be replaced immediately.
+  engine_cap="${MAX11_CLAUDE_CAP:-9}"
 else
   [[ "$target" =~ ^Grok[A-Za-z0-9_.-]*Scratch\.lean$ ]] || {
     echo "invalid Grok scratch target: $target" >&2

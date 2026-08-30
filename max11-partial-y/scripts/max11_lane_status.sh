@@ -39,6 +39,8 @@ worker_rows="$(ps -axo pid=,etime=,rss=,command= | awk -v project="$project_dir"
   (index($0, "grok --yolo") ||
    (index($0, "claude ") && index($0, " -p "))) &&
     (index($0, project) || index($0, "LOCAL_LEAN_GUARD=enabled")) {print}')"
+claude_workers=0
+grok_workers=0
 if [[ -z "$worker_rows" ]]; then
   printf 'none\n'
 else
@@ -48,6 +50,11 @@ else
     rss_kib="$(awk '{print $3}' <<<"$row")"
     engine="grok"
     [[ "$row" == *"claude "*" -p "* ]] && engine="claude"
+    if [[ "$engine" == claude ]]; then
+      claude_workers=$((claude_workers + 1))
+    else
+      grok_workers=$((grok_workers + 1))
+    fi
     # Continuation prompts mention their predecessor before the requested
     # output.  The final scratch filename is therefore the worker target.
     target="$(grep -oE '[A-Za-z0-9_.-]+Scratch[.]lean' <<<"$row" | tail -n 1 || true)"
@@ -58,6 +65,11 @@ else
       "$pid" "$elapsed" "$((rss_kib / 1024))" "$engine" "$guard" "$target"
   done <<<"$worker_rows"
 fi
+claude_cap="${MAX11_CLAUDE_CAP:-9}"
+grok_cap="${MAX11_GROK_CAP:-4}"
+printf 'capacity claude=%s/%s free=%s grok=%s/%s free=%s\n' \
+  "$claude_workers" "$claude_cap" "$((claude_cap - claude_workers))" \
+  "$grok_workers" "$grok_cap" "$((grok_cap - grok_workers))"
 
 printf '\nACTIVE QUEUED FOLLOW-UPS\n'
 wait_root="$project_dir/.max11-lanes/waits"
