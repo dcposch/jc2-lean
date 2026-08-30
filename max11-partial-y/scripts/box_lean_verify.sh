@@ -304,10 +304,16 @@ if ((${#lean_files[@]})); then
   done
   # Catch placeholders locally and surface generated declarations likely to
   # exhaust Lean's default heartbeat budget before paying for a remote gate.
-  (
-    cd "$project_dir"
-    ./scripts/max11_lean_preflight.sh --strict "${lean_files[@]}"
-  )
+  # A receipt-only query cannot create or update an attestation: exact source
+  # and environment hashes below either find a prior successful receipt or
+  # fail closed.  Re-running the multi-second collision/preflight walk for
+  # every dependency handoff therefore adds latency without adding assurance.
+  if ((!receipt_only)); then
+    (
+      cd "$project_dir"
+      ./scripts/max11_lean_preflight.sh --strict "${lean_files[@]}"
+    )
+  fi
   for source in "${scratch_compile_files[@]}"; do
     source_hashes+=("$(sha256_file "$project_dir/$source")")
   done
