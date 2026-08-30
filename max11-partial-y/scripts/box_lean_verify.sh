@@ -184,8 +184,6 @@ fi
 scratch_compile_files=()
 source_hashes=()
 scratch_cache_keys=()
-scratch_legacy_cache_keys=()
-scratch_closure_legacy_cache_keys=()
 environment_walk_seen=()
 tracked_dependency_files=()
 tracked_environment_hash=""
@@ -286,13 +284,12 @@ if ((${#lean_files[@]})); then
     echo "GATE_RECEIPT_MISSING SHA256=$gate_fingerprint" >&2
     exit 66
   fi
-  # Cache each module against its own recursive scratch import closure.  The
-  # old cumulative-prefix key made an artifact depend on unrelated imports
-  # visited earlier in another root file, causing expensive false misses.
-  # Retain that legacy key alongside the new key for a gradual cache migration.
+  # Cache each module against its own recursive scratch import closure.  Every
+  # source SHA was computed once above; reusing it here avoids the former
+  # quadratic storm of Perl `shasum` processes on deep chains.
   collect_cache_closure() {
     local source="$1"
-    local known module dependency
+    local known module dependency hash_index source_hash
     for known in ${cache_walk_seen[@]+"${cache_walk_seen[@]}"}; do
       [[ "$known" == "$source" ]] && return
     done
@@ -309,31 +306,30 @@ if ((${#lean_files[@]})); then
     done < <(sed -nE 's/^import[[:space:]]+([A-Za-z0-9_.]+)[[:space:]]*$/\1/p' \
       "$project_dir/$source")
     cache_closure_files+=("$source")
+    source_hash=""
+    for ((hash_index = 0; hash_index < ${#scratch_compile_files[@]}; hash_index++)); do
+      if [[ "${scratch_compile_files[$hash_index]}" == "$source" ]]; then
+        source_hash="${source_hashes[$hash_index]}"
+        break
+      fi
+    done
+    [[ -n "$source_hash" ]] || {
+      echo "missing precomputed source hash: $source" >&2
+      return 1
+    }
+    cache_closure_hashes+=("$source_hash")
   }
 
-  legacy_cache_state="$tracked_environment_hash"
   for ((i = 0; i < ${#scratch_compile_files[@]}; i++)); do
-    legacy_cache_state="$(printf '%s\n%s\n%s\n' \
-      "$legacy_cache_state" "${scratch_compile_files[$i]}" "${source_hashes[$i]}" \
-      | LC_ALL=C shasum -a 256 | awk '{print $1}')"
-    scratch_legacy_cache_keys+=("$legacy_cache_state")
-
     cache_walk_seen=()
     cache_closure_files=()
+    cache_closure_hashes=()
     collect_cache_closure "${scratch_compile_files[$i]}"
-    closure_legacy_cache_state="$tracked_environment_hash"
-    for cache_source in "${cache_closure_files[@]}"; do
-      closure_legacy_cache_state="$(printf '%s\n%s\n%s\n' \
-        "$closure_legacy_cache_state" "$cache_source" \
-        "$(LC_ALL=C shasum -a 256 "$project_dir/$cache_source" | awk '{print $1}')" \
-        | LC_ALL=C shasum -a 256 | awk '{print $1}')"
-    done
-    scratch_closure_legacy_cache_keys+=("$closure_legacy_cache_state")
     closure_cache_key="$({
       printf 'tracked_environment=%s\n' "$tracked_environment_hash"
-      for cache_source in "${cache_closure_files[@]}"; do
-        printf 'file=%s sha256=%s\n' "$cache_source" \
-          "$(LC_ALL=C shasum -a 256 "$project_dir/$cache_source" | awk '{print $1}')"
+      for ((cache_index = 0; cache_index < ${#cache_closure_files[@]}; cache_index++)); do
+        printf 'file=%s sha256=%s\n' \
+          "${cache_closure_files[$cache_index]}" "${cache_closure_hashes[$cache_index]}"
       done
     } | LC_ALL=C shasum -a 256 | awk '{print $1}')"
     scratch_cache_keys+=("$closure_cache_key")
@@ -358,12 +354,27 @@ if ((${#lean_files[@]})); then
   echo "FILES ${lean_files[*]} COMPILE_COUNT=${#scratch_compile_files[@]} TRACKED_ENV_SHA256=$tracked_environment_hash"
 fi
 echo "SYNC $project_dir -> $box_host:$remote_work_dir"
-rsync -az \
-  --exclude .git \
-  --exclude .lake \
-  --exclude '*.olean' \
-  -e "$rsync_shell" \
+rsync_excludes=(
+  --exclude .git
+  --exclude .lake
+  --exclude .max11-lanes
+  --exclude '*.olean'
+)
+if ((${#lean_files[@]})); then
+  # Isolated scratch gates need only their already-computed recursive local
+  # import closure.  Uploading every unrelated scratch lane and the growing
+  # local ledger made each fresh remote workspace needlessly expensive and
+  # allowed unrelated generated files to leak into its filesystem view.
+  rsync_excludes+=(--exclude '*Scratch.lean')
+fi
+rsync -az "${rsync_excludes[@]}" -e "$rsync_shell" \
   "$project_dir/" "$box_host:$remote_work_dir/"
+if ((${#lean_files[@]})); then
+  printf '%s\0' "${scratch_compile_files[@]}" | \
+    rsync -az --from0 --files-from=- -e "$rsync_shell" \
+      "$project_dir/" "$box_host:$remote_work_dir/"
+  echo "SYNC_SCRATCH_CLOSURE COUNT=${#scratch_compile_files[@]}"
+fi
 
 if ((${#lean_files[@]})); then
   build_command=""
@@ -371,8 +382,6 @@ if ((${#lean_files[@]})); then
     source="${scratch_compile_files[$i]}"
     output="${source%.lean}.olean"
     cache_file="$box_dir/.scratch-olean-cache/${scratch_cache_keys[$i]}.olean"
-    legacy_cache_file="$box_dir/.scratch-olean-cache/${scratch_legacy_cache_keys[$i]}.olean"
-    closure_legacy_cache_file="$box_dir/.scratch-olean-cache/${scratch_closure_legacy_cache_keys[$i]}.olean"
     requested=0
     for lean_file in "${lean_files[@]}"; do
       [[ "$source" == "$lean_file" ]] && requested=1
@@ -391,13 +400,6 @@ if ((${#lean_files[@]})); then
     else
       build_command+="if [[ -s '$cache_file' ]]; then \
         cp '$cache_file' '$output' && echo SCRATCH_CACHE_HIT FILE=$source; \
-        elif [[ -s '$legacy_cache_file' ]]; then \
-        cp '$legacy_cache_file' '$output' && cp '$legacy_cache_file' '$cache_file' && \
-          echo SCRATCH_CACHE_LEGACY_HIT FILE=$source; \
-        elif [[ -s '$closure_legacy_cache_file' ]]; then \
-        cp '$closure_legacy_cache_file' '$output' && \
-          cp '$closure_legacy_cache_file' '$cache_file' && \
-          echo SCRATCH_CACHE_CLOSURE_LEGACY_HIT FILE=$source; \
         else $compile_and_cache && echo SCRATCH_CACHE_MISS FILE=$source; fi"
     fi
   done

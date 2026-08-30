@@ -714,7 +714,9 @@ lake build
 # Deep recursive scratch gates stream their remote build program over stdin, so
 # their closure depth is not limited by SSH/exec argument size.  A failed gate
 # also retains its complete fingerprinted diagnostic under
-# `.max11-lanes/gates/*.failure.log`.
+# `.max11-lanes/gates/*.failure.log`.  Scratch gates upload only their computed
+# recursive import closure, not unrelated scratch lanes or local ledger data;
+# recursive cache keys reuse one precomputed SHA per source even on deep towers.
 # Reclaim a delegated CLI that is still waiting/reporting after its current
 # recursive source and environment already have an exact successful receipt:
 ./scripts/max11_reap_verified.sh --dry-run
