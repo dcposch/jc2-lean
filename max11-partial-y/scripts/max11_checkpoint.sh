@@ -75,7 +75,7 @@ if [[ -n "$latest_job" ]]; then
   printf 'LATEST_GATE_JOB=%s STATE=%s PID=%s\n' \
     "${latest_job##*/}" "$job_state" "$job_pid"
   first_error="$(grep -m 1 -E \
-    '^[^[:space:]]+[.]lean:[0-9]+:[0-9]+: error:|^[^[:space:]]+[.]lean:[0-9]+:[0-9]+: error\(' \
+    '^[^[:space:]]+[.]lean:[0-9]+:[0-9]+: error:|^[^[:space:]]+[.]lean:[0-9]+:[0-9]+: error\(|^LEAN_COMPILE_TIMEOUT ' \
     "$latest_job/output.log" 2>/dev/null || true)"
   [[ -z "$first_error" ]] || printf 'LATEST_GATE_ERROR=%.400s\n' "$first_error"
 else

@@ -743,6 +743,12 @@ lake build
 The AWS verifier reuses a short-lived multiplexed SSH connection by default,
 which removes repeated handshake latency from scratch iterations.  Set
 `BOX_LEAN_SSH_CONTROL_PATH` to override its local control-socket path.
+Each individual scratch-module elaboration has a 30-minute wall-clock fuse by
+default, preventing a tactic blowup from occupying one AWS core indefinitely;
+set `BOX_LEAN_COMPILE_TIMEOUT_SECONDS` to a positive number of seconds when a
+deliberately exceptional gate needs a different budget.  A timeout is not
+memoized as a deterministic Lean failure, so the same exact source remains
+retryable.
 Scratch dependency artifacts are keyed by each module's own tracked Lean
 import closure, so joining two independently verified branches reuses both
 caches instead of recompiling either branch against their irrelevant union.
@@ -756,6 +762,15 @@ declarations), use:
 
 ```bash
 ./scripts/max11_checkpoint.sh SolLaneScratch.lean
+```
+
+For a final fail-closed handoff that also binds exactly one semantic next step,
+use the wrapper below.  It exits nonzero unless the current source SHA matches
+an exact successful receipt and every direct scratch import is verified.
+
+```bash
+./scripts/max11_handoff.sh --file SolLaneScratch.lean \
+  --next 'exact residual or next unused row'
 ```
 
 Detached gates also write `.max11-lanes/verifiers/<job>/handoff.txt`

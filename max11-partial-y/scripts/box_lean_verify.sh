@@ -28,6 +28,7 @@ reuse_receipt=0
 retry_known_failure=0
 wait_lock_seconds=0
 verbose="${BOX_LEAN_VERBOSE:-0}"
+compile_timeout_seconds="${BOX_LEAN_COMPILE_TIMEOUT_SECONDS:-1800}"
 lean_files=()
 modules=()
 
@@ -96,6 +97,10 @@ if ((wait_lock_seconds && ${#lean_files[@]} == 0)); then
 fi
 [[ -r "$box_key" ]] || {
   echo "missing SSH key: $box_key" >&2
+  exit 2
+}
+[[ "$compile_timeout_seconds" =~ ^[1-9][0-9]*$ ]] || {
+  echo "BOX_LEAN_COMPILE_TIMEOUT_SECONDS must be a positive integer" >&2
   exit 2
 }
 
@@ -511,6 +516,8 @@ set +e
   printf 'set -euo pipefail\n'
   printf 'cd %q\n' "$remote_work_dir"
   printf 'export PATH=/home/ubuntu/.elan/bin:$PATH\n'
+  printf 'export BOX_LEAN_COMPILE_TIMEOUT_SECONDS=%q\n' \
+    "$compile_timeout_seconds"
   if ((${#lean_files[@]})); then
     # Independent isolated gates can share a deep scratch dependency.  The
     # content-addressed cache prevents repeat work only after an artifact has
@@ -551,10 +558,16 @@ else
   trap 'rm -f -- "$failure_tmp" "$metrics_tmp"' EXIT
   set +e
   /usr/bin/time -v -o "$metrics_tmp" \
-    env LEAN_PATH=. lake env lean -R . -o "$output" "$source" \
+    timeout --signal=TERM --kill-after=30s \
+      "$BOX_LEAN_COMPILE_TIMEOUT_SECONDS" \
+      env LEAN_PATH=. lake env lean -R . -o "$output" "$source" \
     >"$failure_tmp" 2>&1
   lean_exit=$?
   set -e
+  if ((lean_exit == 124)); then
+    printf 'LEAN_COMPILE_TIMEOUT FILE=%s SECONDS=%s\n' \
+      "$source" "$BOX_LEAN_COMPILE_TIMEOUT_SECONDS" >>"$failure_tmp"
+  fi
   printf '\nSOURCE=%s\nRESULT=%s\n' "$source" "$lean_exit" >>"$metrics_tmp"
   mv -f -- "$metrics_tmp" "$metrics_file"
   cat -- "$failure_tmp"
@@ -608,10 +621,16 @@ failure_tmp="${failure_file}.tmp.$$"
 trap 'rm -f -- "$failure_tmp" "$metrics_tmp"' EXIT
 set +e
 /usr/bin/time -v -o "$metrics_tmp" \
-  env LEAN_PATH=. lake env lean -R . -o "$output" "$source" \
+  timeout --signal=TERM --kill-after=30s \
+    "$BOX_LEAN_COMPILE_TIMEOUT_SECONDS" \
+    env LEAN_PATH=. lake env lean -R . -o "$output" "$source" \
   >"$failure_tmp" 2>&1
 lean_exit=$?
 set -e
+if ((lean_exit == 124)); then
+  printf 'LEAN_COMPILE_TIMEOUT FILE=%s SECONDS=%s\n' \
+    "$source" "$BOX_LEAN_COMPILE_TIMEOUT_SECONDS" >>"$failure_tmp"
+fi
 printf '\nSOURCE=%s\nRESULT=%s\n' "$source" "$lean_exit" >>"$metrics_tmp"
 mv -f -- "$metrics_tmp" "$metrics_file"
 cat -- "$failure_tmp"

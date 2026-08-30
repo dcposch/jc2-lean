@@ -62,7 +62,7 @@ if [[ "${1:-}" == --run ]]; then
   set -e
   if ((verify_exit != 0)); then
     first_error="$(grep -m 1 -E \
-      '^[^[:space:]]+[.]lean:[0-9]+:[0-9]+: error:|^[^[:space:]]+[.]lean:[0-9]+:[0-9]+: error\(' \
+      '^[^[:space:]]+[.]lean:[0-9]+:[0-9]+: error:|^[^[:space:]]+[.]lean:[0-9]+:[0-9]+: error\(|^LEAN_COMPILE_TIMEOUT ' \
       "$job_dir/output.log" 2>/dev/null || true)"
     {
       printf 'HANDOFF_VERSION=1\nRESULT=failed\nTARGET=%s\nEXIT_CODE=%s\n' \
