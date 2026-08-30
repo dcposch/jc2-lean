@@ -55,9 +55,21 @@ else
 fi
 
 printf '\nREMOTE DETERMINISTIC FAILURE CACHE\n'
-failure_cache_summary="$(find "$remote_box_dir/.scratch-olean-cache" \
-  -maxdepth 1 -type f -name '*.failure.log' -printf '%f %s bytes\n' \
-  2>/dev/null | sort || true)"
+failure_cache_summary="$({
+  while IFS= read -r failure_log; do
+    failure_name="${failure_log##*/}"
+    failure_bytes="$(stat -c %s "$failure_log")"
+    first_error="$(grep -m 1 -E '^[^[:space:]]+[.]lean:[0-9]+:[0-9]+: error:|^[^[:space:]]+[.]lean:[0-9]+:[0-9]+: error\(' \
+      "$failure_log" 2>/dev/null || true)"
+    if [[ -n "$first_error" ]]; then
+      first_error="${first_error%%: error*}"
+    else
+      first_error="unknown-location"
+    fi
+    printf '%s %s bytes first=%s\n' "$failure_name" "$failure_bytes" "$first_error"
+  done < <(find "$remote_box_dir/.scratch-olean-cache" \
+    -maxdepth 1 -type f -name '*.failure.log' -print 2>/dev/null | sort)
+} || true)"
 if [[ -n "$failure_cache_summary" ]]; then
   printf '%s\n' "$failure_cache_summary"
 else

@@ -317,6 +317,15 @@ if ((${#lean_files[@]})); then
       exit 0
     fi
     echo "GATE_RECEIPT_MISSING SHA256=$gate_fingerprint" >&2
+    if [[ -s "$gate_failure_log" ]] &&
+        grep -Eq 'error:|error\(' "$gate_failure_log"; then
+      error_count="$(grep -cE 'error:|error\(' "$gate_failure_log" || true)"
+      sorry_count="$(grep -c 'sorryAx' "$gate_failure_log" || true)"
+      echo "GATE_FAILURE_KNOWN SHA256=$gate_fingerprint ERROR_COUNT=$error_count SORRYAX_COUNT=$sorry_count" >&2
+      echo "FAILURE_LOG=$gate_failure_log" >&2
+      grep -m 1 -E 'error:|error\(' "$gate_failure_log" >&2 || true
+      exit 1
+    fi
     exit 66
   fi
   # Automated lane/recovery callers may have waited behind another exact gate.

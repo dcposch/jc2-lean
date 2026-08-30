@@ -711,6 +711,8 @@ lake build
 ./scripts/max11_cancel_waiters.sh --target FableNextScratch.lean --cascade --reason 'superseded by compatible import route'
 # An exact completed gate can be checked without recompilation:
 ./scripts/box_lean_verify.sh --file FableLaneScratch.lean --receipt-only
+# The same lookup reports an exact cached Lean failure and its first source
+# location immediately, instead of treating every non-success as an opaque miss.
 # Deep recursive scratch gates stream their remote build program over stdin, so
 # their closure depth is not limited by SSH/exec argument size.  A failed gate
 # also retains its complete fingerprinted diagnostic under
