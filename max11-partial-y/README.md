@@ -743,6 +743,9 @@ lake build
 The AWS verifier reuses a short-lived multiplexed SSH connection by default,
 which removes repeated handshake latency from scratch iterations.  Set
 `BOX_LEAN_SSH_CONTROL_PATH` to override its local control-socket path.
+Scratch dependency artifacts are keyed by each module's own tracked Lean
+import closure, so joining two independently verified branches reuses both
+caches instead of recompiling either branch against their irrelevant union.
 
 For a compact, source-exact handoff of one proof lane (current SHA, recursive
 receipt status, direct predecessor receipts, latest durable gate, and recent

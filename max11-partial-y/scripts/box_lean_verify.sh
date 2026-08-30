@@ -404,8 +404,18 @@ if ((${#lean_files[@]})); then
     cache_closure_files=()
     cache_closure_hashes=()
     collect_cache_closure "${scratch_compile_files[$i]}"
+    # A dependency's `.olean` depends only on the tracked Lean modules in its
+    # own import closure.  Using the union of every requested leaf's tracked
+    # imports here caused a cache miss whenever two previously separate proof
+    # branches were first joined, even though the dependency source and its
+    # environment were byte-identical.  Compute this component per module;
+    # the gate receipt below still commits to the full requested union.
+    environment_walk_seen=()
+    tracked_dependency_files=()
+    collect_environment_imports "${scratch_compile_files[$i]}"
+    scratch_environment_hash="$(hash_tracked_environment)"
     closure_cache_key="$({
-      printf 'tracked_environment=%s\n' "$tracked_environment_hash"
+      printf 'tracked_environment=%s\n' "$scratch_environment_hash"
       for ((cache_index = 0; cache_index < ${#cache_closure_files[@]}; cache_index++)); do
         printf 'file=%s sha256=%s\n' \
           "${cache_closure_files[$cache_index]}" "${cache_closure_hashes[$cache_index]}"
@@ -679,6 +689,14 @@ if ((run_axioms)); then
 fi
 
 if ((${#lean_files[@]})); then
+  # Per-module cache-key calculation above intentionally reuses the import
+  # walk arrays.  Reconstruct the complete requested environment before the
+  # end-of-gate mutation check.
+  environment_walk_seen=()
+  tracked_dependency_files=()
+  for lean_file in "${lean_files[@]}"; do
+    collect_environment_imports "$lean_file"
+  done
   current_tracked_environment_hash="$(hash_tracked_environment)"
   if [[ "$current_tracked_environment_hash" != "$tracked_environment_hash" ]]; then
     echo "TRACKED_ENVIRONMENT_CHANGED_DURING_VERIFY" >&2
