@@ -219,7 +219,10 @@ if ((${#lean_files[@]})); then
         printf '%s\0' "$tracked_file"
         sha256_file_record "$tracked_file"
       done
-      for tracked_file in "${tracked_dependency_files[@]}"; do
+      # macOS still ships Bash 3.2, where expanding a declared-but-empty array
+      # under `set -u` raises an unbound-variable error.
+      for tracked_file in \
+          ${tracked_dependency_files[@]+"${tracked_dependency_files[@]}"}; do
         printf '%s\0' "$tracked_file"
         sha256_file_record "$tracked_file"
       done

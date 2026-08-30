@@ -54,6 +54,7 @@ if [[ "${1:-}" == --run ]]; then
     printf '%s\n' "$(date +%s)" >"$wait_dir/ended_epoch"
     current_state="$(sed -n '1p' "$wait_dir/state" 2>/dev/null || true)"
     if [[ "$current_state" == waiting_for_gate ||
+          "$current_state" == waiting_for_source_repair ||
           "$current_state" == recovering_predecessor_gate ||
           "$current_state" == waiting_for_capacity ]]; then
       printf '%s\n' failed >"$wait_dir/state"
@@ -66,12 +67,14 @@ if [[ "${1:-}" == --run ]]; then
   # release the successor.  A delegated lane can fail its independent gate and
   # then leave behind a repaired source (for example, after an asynchronous
   # edit lands).  Once no producer is active and that source has been stable
-  # for three polls, recover by gating that exact content once.  This avoids a
-  # permanently orphaned successor without racing a live writer or repeatedly
-  # recompiling the same failed hash.
-  last_seen_sha=""
+  # for three polls, recover by gating that exact content once.  Track the full
+  # recursive gate fingerprint rather than only the leaf hash, so a repaired
+  # dependency also releases the waiter.  If that fingerprint already has a
+  # deterministic Lean failure log, wait for a source change instead of paying
+  # to reproduce the same failure.
+  last_seen_key=""
   stable_source_polls=0
-  last_recovery_sha=""
+  last_recovery_key=""
   while true; do
     if [[ -f "$project_dir/$predecessor" ]] &&
         "$project_dir/scripts/box_lean_verify.sh" --file "$predecessor" \
@@ -80,10 +83,18 @@ if [[ "${1:-}" == --run ]]; then
     fi
     if [[ -f "$project_dir/$predecessor" ]]; then
       current_sha="$(LC_ALL=C shasum -a 256 "$project_dir/$predecessor" | awk '{print $1}')"
-      if [[ "$current_sha" == "$last_seen_sha" ]]; then
+      gate_fingerprint="$(sed -nE \
+        's/^GATE_RECEIPT_MISSING SHA256=([0-9a-f]{64})$/\1/p' \
+        "$wait_dir/predecessor_receipt.log" | tail -1)"
+      if [[ "$gate_fingerprint" =~ ^[0-9a-f]{64}$ ]]; then
+        current_source_key="$gate_fingerprint"
+      else
+        current_source_key="$current_sha"
+      fi
+      if [[ "$current_source_key" == "$last_seen_key" ]]; then
         stable_source_polls=$((stable_source_polls + 1))
       else
-        last_seen_sha="$current_sha"
+        last_seen_key="$current_source_key"
         stable_source_polls=1
       fi
 
@@ -100,20 +111,30 @@ if [[ "${1:-}" == --run ]]; then
       done
 
       if ((active_producer == 0 && stable_source_polls >= 3)) &&
-          [[ "$current_sha" != "$last_recovery_sha" ]]; then
-        last_recovery_sha="$current_sha"
-        printf '%s\n' recovering_predecessor_gate >"$wait_dir/state"
-        set +e
-        "$project_dir/scripts/box_lean_verify.sh" --file "$predecessor" \
-          --wait-lock 900 >"$wait_dir/predecessor_recovery_gate.log" 2>&1
-        recovery_exit=$?
-        set -e
-        if ((recovery_exit == 0)) &&
-            "$project_dir/scripts/box_lean_verify.sh" --file "$predecessor" \
-              --receipt-only >"$wait_dir/predecessor_receipt.log" 2>&1; then
-          break
+          [[ "$current_source_key" != "$last_recovery_key" ]]; then
+        last_recovery_key="$current_source_key"
+        known_failure_log="$project_dir/.max11-lanes/gates/$gate_fingerprint.failure.log"
+        if [[ "$gate_fingerprint" =~ ^[0-9a-f]{64}$ &&
+              -s "$known_failure_log" ]] &&
+            grep -Eq 'error:|sorryAx|maximum number of heartbeats' \
+              "$known_failure_log"; then
+          printf '%s\n' "$gate_fingerprint" >"$wait_dir/blocked_gate_fingerprint"
+          printf '%s\n' waiting_for_source_repair >"$wait_dir/state"
+        else
+          rm -f -- "$wait_dir/blocked_gate_fingerprint"
+          printf '%s\n' recovering_predecessor_gate >"$wait_dir/state"
+          set +e
+          "$project_dir/scripts/box_lean_verify.sh" --file "$predecessor" \
+            --wait-lock 900 >"$wait_dir/predecessor_recovery_gate.log" 2>&1
+          recovery_exit=$?
+          set -e
+          if ((recovery_exit == 0)) &&
+              "$project_dir/scripts/box_lean_verify.sh" --file "$predecessor" \
+                --receipt-only >"$wait_dir/predecessor_receipt.log" 2>&1; then
+            break
+          fi
+          printf '%s\n' waiting_for_gate >"$wait_dir/state"
         fi
-        printf '%s\n' waiting_for_gate >"$wait_dir/state"
       fi
     fi
     sleep "${MAX11_AFTER_POLL_SECONDS:-20}"

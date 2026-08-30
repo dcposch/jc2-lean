@@ -85,19 +85,23 @@ if [[ -n "$wait_dirs" ]]; then
     engine="$(sed -n '1p' "$wait_dir/engine" 2>/dev/null || printf '?')"
     target="$(sed -n '1p' "$wait_dir/target" 2>/dev/null || printf '?')"
     pid="$(sed -n '1p' "$wait_dir/pid" 2>/dev/null || printf '?')"
-    if [[ "$state" == waiting_for_gate || "$state" == recovering_predecessor_gate ||
+    blocked_fingerprint="$(sed -n '1p' "$wait_dir/blocked_gate_fingerprint" 2>/dev/null || true)"
+    if [[ "$state" == waiting_for_gate || "$state" == waiting_for_source_repair ||
+          "$state" == recovering_predecessor_gate ||
           "$state" == waiting_for_capacity ]] &&
         [[ "$pid" =~ ^[0-9]+$ ]] && ! kill -0 "$pid" 2>/dev/null; then
       state="stale"
     fi
     if ((!show_all_waiters)); then
       case "$state" in
-        queued|waiting_for_gate|recovering_predecessor_gate|waiting_for_capacity|stale) ;;
+        queued|waiting_for_gate|waiting_for_source_repair|recovering_predecessor_gate|waiting_for_capacity|stale) ;;
         *) continue ;;
       esac
     fi
-    printf 'state=%s pid=%s engine=%s after=%s target=%s\n' \
-      "$state" "$pid" "$engine" "$predecessor" "$target"
+    blocked_detail=""
+    [[ -z "$blocked_fingerprint" ]] || blocked_detail=" blocked_sha256=${blocked_fingerprint:0:12}"
+    printf 'state=%s pid=%s engine=%s after=%s target=%s%s\n' \
+      "$state" "$pid" "$engine" "$predecessor" "$target" "$blocked_detail"
     waiter_shown=$((waiter_shown + 1))
   done <<<"$wait_dirs"
 fi
