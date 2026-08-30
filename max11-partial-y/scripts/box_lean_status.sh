@@ -55,8 +55,11 @@ else
 fi
 
 printf '\nREMOTE DETERMINISTIC FAILURE CACHE\n'
+failure_cache_count="$(find "$remote_box_dir/.scratch-olean-cache" \
+  -maxdepth 1 -type f -name '*.failure.log' -print 2>/dev/null | wc -l)"
 failure_cache_summary="$({
-  while IFS= read -r failure_log; do
+  while IFS=' ' read -r _mtime failure_log; do
+    [[ -n "$failure_log" ]] || continue
     failure_name="${failure_log##*/}"
     failure_bytes="$(stat -c %s "$failure_log")"
     first_error="$(grep -m 1 -E '^[^[:space:]]+[.]lean:[0-9]+:[0-9]+: error:|^[^[:space:]]+[.]lean:[0-9]+:[0-9]+: error\(' \
@@ -68,9 +71,11 @@ failure_cache_summary="$({
     fi
     printf '%s %s bytes first=%s\n' "$failure_name" "$failure_bytes" "$first_error"
   done < <(find "$remote_box_dir/.scratch-olean-cache" \
-    -maxdepth 1 -type f -name '*.failure.log' -print 2>/dev/null | sort)
+    -maxdepth 1 -type f -name '*.failure.log' -printf '%T@ %p\n' 2>/dev/null |
+      sort -nr | sed -n '1,12p')
 } || true)"
 if [[ -n "$failure_cache_summary" ]]; then
+  printf 'count=%s showing_newest=12\n' "$failure_cache_count"
   printf '%s\n' "$failure_cache_summary"
 else
   printf 'empty\n'
