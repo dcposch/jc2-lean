@@ -733,6 +733,18 @@ lake build
 ./scripts/max11_lane_status.sh
 ```
 
+The AWS verifier reuses a short-lived multiplexed SSH connection by default,
+which removes repeated handshake latency from scratch iterations.  Set
+`BOX_LEAN_SSH_CONTROL_PATH` to override its local control-socket path.
+
+For a compact, source-exact handoff of one proof lane (current SHA, recursive
+receipt status, direct predecessor receipts, latest durable gate, and recent
+declarations), use:
+
+```bash
+./scripts/max11_checkpoint.sh SolLaneScratch.lean
+```
+
 `Max11Core.lean`, `ClassicalRoutes.lean`, `DegreeRoutes.lean`,
 `HistoryRoute.lean`, `HistoryDegree.lean`, `TotalDegreeRoutes.lean`,
 `CoprimeDegreeRoute.lean`, `EndpointGCDRoute.lean`, `LowScaleCore.lean`, and

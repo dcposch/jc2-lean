@@ -5,7 +5,9 @@ set -euo pipefail
 box_host="${BOX_LEAN_HOST:-ubuntu@54.81.66.156}"
 box_key="${BOX_LEAN_KEY:-/Users/dc/.ssh/claude-cli.pem}"
 box_dir="${BOX_LEAN_DIR:-/home/ubuntu/jc2-lean/max11-partial-y}"
-ssh_args=(-i "$box_key" -o BatchMode=yes -o StrictHostKeyChecking=no)
+box_control_path="${BOX_LEAN_SSH_CONTROL_PATH:-/tmp/box-lean-ssh-%C}"
+ssh_args=(-i "$box_key" -o BatchMode=yes -o StrictHostKeyChecking=no
+  -o ControlMaster=auto -o ControlPersist=600 -o "ControlPath=$box_control_path")
 
 [[ -r "$box_key" ]] || {
   echo "missing SSH key: $box_key" >&2

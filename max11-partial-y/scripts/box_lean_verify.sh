@@ -99,8 +99,15 @@ fi
   exit 2
 }
 
-ssh_args=(-i "$box_key" -o BatchMode=yes -o StrictHostKeyChecking=no)
-rsync_shell="ssh -i $box_key -o BatchMode=yes -o StrictHostKeyChecking=no"
+# A scratch gate used to establish several fresh SSH connections (workspace
+# setup, rsync, compile, cleanup).  Lean itself often needs only a few seconds,
+# so those handshakes were a material fraction of the iteration loop.  Share a
+# short-lived OpenSSH master across verifier processes; `%C` keeps the socket
+# path deterministic without exposing or lengthening the host/key tuple.
+box_control_path="${BOX_LEAN_SSH_CONTROL_PATH:-/tmp/box-lean-ssh-%C}"
+ssh_args=(-i "$box_key" -o BatchMode=yes -o StrictHostKeyChecking=no
+  -o ControlMaster=auto -o ControlPersist=600 -o "ControlPath=$box_control_path")
+rsync_shell="ssh -i $box_key -o BatchMode=yes -o StrictHostKeyChecking=no -o ControlMaster=auto -o ControlPersist=600 -o ControlPath=$box_control_path"
 
 # macOS `shasum` starts a Perl interpreter for every file.  Deep scratch gates
 # hash a source once before and once after verification, so use the system C
