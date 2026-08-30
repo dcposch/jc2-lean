@@ -21,17 +21,18 @@ fi
 state_root="$project_dir/.max11-lanes/verifiers"
 
 usage() {
-  echo "usage: $0 --file FILE.lean [--wait-lock SECONDS] [--authoritative] [--retry-known-failure]" >&2
+  echo "usage: $0 --file FILE.lean [--wait-lock SECONDS] [--compile-timeout SECONDS] [--authoritative] [--retry-known-failure]" >&2
   exit 2
 }
 
 if [[ "${1:-}" == --run ]]; then
-  (($# == 6)) || usage
+  (($# == 7)) || usage
   job_dir="$2"
   target="$3"
   wait_lock_seconds="$4"
   reuse_receipt="$5"
   retry_known_failure="$6"
+  compile_timeout_seconds="$7"
   case "$job_dir" in
     "$state_root"/*) ;;
     *) echo "unsafe verifier state directory: $job_dir" >&2; exit 2 ;;
@@ -56,7 +57,8 @@ if [[ "${1:-}" == --run ]]; then
   ((reuse_receipt == 0)) || verify_args+=(--reuse-receipt)
   ((retry_known_failure == 0)) || verify_args+=(--retry-known-failure)
   set +e
-  "$project_dir/scripts/box_lean_verify.sh" "${verify_args[@]}" \
+  BOX_LEAN_COMPILE_TIMEOUT_SECONDS="$compile_timeout_seconds" \
+    "$project_dir/scripts/box_lean_verify.sh" "${verify_args[@]}" \
     >"$job_dir/output.log" 2>&1
   verify_exit=$?
   set -e
@@ -139,6 +141,7 @@ target=""
 wait_lock_seconds=900
 reuse_receipt=1
 retry_known_failure=0
+compile_timeout_seconds="${BOX_LEAN_COMPILE_TIMEOUT_SECONDS:-1800}"
 while (($#)); do
   case "$1" in
     --file)
@@ -154,6 +157,11 @@ while (($#)); do
       ;;
     --authoritative) reuse_receipt=0 ;;
     --retry-known-failure) retry_known_failure=1 ;;
+    --compile-timeout)
+      shift
+      (($#)) || usage
+      compile_timeout_seconds="$1"
+      ;;
     *) usage ;;
   esac
   shift
@@ -161,6 +169,7 @@ done
 
 [[ "$target" =~ ^[A-Za-z0-9_.-]+Scratch[.]lean$ &&
     "$target" == "${target##*/}" && -f "$project_dir/$target" ]] || usage
+[[ "$compile_timeout_seconds" =~ ^[1-9][0-9]*$ ]] || usage
 command -v screen >/dev/null || {
   echo "screen is not available" >&2
   exit 69
@@ -194,17 +203,19 @@ printf '%s\n' "$target" >"$job_dir/target"
 printf '%s\n' "$wait_lock_seconds" >"$job_dir/wait_lock_seconds"
 printf '%s\n' "$reuse_receipt" >"$job_dir/reuse_receipt"
 printf '%s\n' "$retry_known_failure" >"$job_dir/retry_known_failure"
+printf '%s\n' "$compile_timeout_seconds" >"$job_dir/compile_timeout_seconds"
 printf '%s\n' queued >"$job_dir/state"
 screen_name="max11-gate-${RANDOM}-$$"
 printf '%s\n' "$screen_name" >"$job_dir/screen_session"
 screen -dmS "$screen_name" "$project_dir/scripts/max11_gate_lane.sh" --run \
   "$job_dir" "$target" "$wait_lock_seconds" "$reuse_receipt" \
-  "$retry_known_failure"
+  "$retry_known_failure" "$compile_timeout_seconds"
 
 for _ in {1..20}; do
   [[ -s "$job_dir/pid" ]] && break
   sleep 0.05
 done
 pid="$(sed -n '1p' "$job_dir/pid" 2>/dev/null || printf '?')"
-printf 'GATE_JOB=%s PID=%s SCREEN=%s TARGET=%s LOG=%s\n' \
-  "$job_id" "$pid" "$screen_name" "$target" "$job_dir/output.log"
+printf 'GATE_JOB=%s PID=%s SCREEN=%s TARGET=%s COMPILE_TIMEOUT=%s LOG=%s\n' \
+  "$job_id" "$pid" "$screen_name" "$target" "$compile_timeout_seconds" \
+  "$job_dir/output.log"

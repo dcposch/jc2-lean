@@ -22,7 +22,7 @@ fi
 state_root="$project_dir/.max11-lanes/gate-batches"
 
 usage() {
-  echo "usage: $0 [--jobs N] [--wait-lock SECONDS] [--poll-seconds SECONDS] [--authoritative] -- FILE.lean [FILE.lean ...]" >&2
+  echo "usage: $0 [--jobs N] [--wait-lock SECONDS] [--compile-timeout SECONDS] [--poll-seconds SECONDS] [--authoritative] -- FILE.lean [FILE.lean ...]" >&2
   exit 2
 }
 
@@ -47,12 +47,13 @@ newest_active_gate() {
 }
 
 if [[ "${1:-}" == --run ]]; then
-  (($# == 6)) || usage
+  (($# == 7)) || usage
   batch_dir="$2"
   max_jobs="$3"
   wait_lock_seconds="$4"
   authoritative="$5"
   poll_seconds="$6"
+  compile_timeout_seconds="$7"
   case "$batch_dir" in
     "$state_root"/*) ;;
     *) echo "unsafe batch directory: $batch_dir" >&2; exit 2 ;;
@@ -142,7 +143,8 @@ if [[ "${1:-}" == --run ]]; then
         continue
       fi
 
-      gate_args=(--file "$target" --wait-lock "$wait_lock_seconds")
+      gate_args=(--file "$target" --wait-lock "$wait_lock_seconds"
+        --compile-timeout "$compile_timeout_seconds")
       ((authoritative == 0)) || gate_args+=(--authoritative)
       set +e
       launch_output="$("$project_dir/scripts/max11_gate_lane.sh" \
@@ -203,6 +205,7 @@ max_jobs=3
 wait_lock_seconds=900
 poll_seconds=2
 authoritative=0
+compile_timeout_seconds="${BOX_LEAN_COMPILE_TIMEOUT_SECONDS:-1800}"
 while (($#)); do
   case "$1" in
     --jobs)
@@ -221,6 +224,11 @@ while (($#)); do
       poll_seconds="$1"
       ;;
     --authoritative) authoritative=1 ;;
+    --compile-timeout)
+      shift
+      (($#)) || usage
+      compile_timeout_seconds="$1"
+      ;;
     --)
       shift
       break
@@ -231,7 +239,8 @@ while (($#)); do
 done
 (($#)) || usage
 [[ "$max_jobs" =~ ^[1-9][0-9]*$ && "$wait_lock_seconds" =~ ^[0-9]+$ &&
-    "$poll_seconds" =~ ^[1-9][0-9]*$ ]] || usage
+    "$poll_seconds" =~ ^[1-9][0-9]*$ &&
+    "$compile_timeout_seconds" =~ ^[1-9][0-9]*$ ]] || usage
 targets=("$@")
 for target in "${targets[@]}"; do
   [[ "$target" =~ ^[A-Za-z0-9_.-]+Scratch[.]lean$ &&
@@ -251,16 +260,18 @@ printf '%s\n' "$max_jobs" >"$batch_dir/max_jobs"
 printf '%s\n' "$wait_lock_seconds" >"$batch_dir/wait_lock_seconds"
 printf '%s\n' "$poll_seconds" >"$batch_dir/poll_seconds"
 printf '%s\n' "$authoritative" >"$batch_dir/authoritative"
+printf '%s\n' "$compile_timeout_seconds" >"$batch_dir/compile_timeout_seconds"
 printf '%s\n' queued >"$batch_dir/state"
 screen_name="max11-gate-batch-${RANDOM}-$$"
 printf '%s\n' "$screen_name" >"$batch_dir/screen_session"
 screen -dmS "$screen_name" "$project_dir/scripts/max11_gate_batch.sh" --run \
   "$batch_dir" "$max_jobs" "$wait_lock_seconds" "$authoritative" \
-  "$poll_seconds"
+  "$poll_seconds" "$compile_timeout_seconds"
 for _ in {1..20}; do
   [[ -s "$batch_dir/pid" ]] && break
   sleep 0.05
 done
 pid="$(sed -n '1p' "$batch_dir/pid" 2>/dev/null || printf '?')"
-printf 'GATE_BATCH=%s PID=%s SCREEN=%s JOBS=%s TARGETS=%s\n' \
-  "$batch_id" "$pid" "$screen_name" "$max_jobs" "${#targets[@]}"
+printf 'GATE_BATCH=%s PID=%s SCREEN=%s JOBS=%s TARGETS=%s COMPILE_TIMEOUT=%s\n' \
+  "$batch_id" "$pid" "$screen_name" "$max_jobs" "${#targets[@]}" \
+  "$compile_timeout_seconds"

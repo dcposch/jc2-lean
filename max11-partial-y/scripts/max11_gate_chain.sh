@@ -22,7 +22,7 @@ fi
 state_root="$project_dir/.max11-lanes/gate-chains"
 
 usage() {
-  echo "usage: $0 [--after FILE.lean] [--wait-lock SECONDS] [--authoritative] -- FILE.lean [FILE.lean ...]" >&2
+  echo "usage: $0 [--after FILE.lean] [--wait-lock SECONDS] [--compile-timeout SECONDS] [--authoritative] -- FILE.lean [FILE.lean ...]" >&2
   exit 2
 }
 
@@ -47,11 +47,12 @@ newest_active_gate() {
 }
 
 if [[ "${1:-}" == --run ]]; then
-  (($# == 5)) || usage
+  (($# == 6)) || usage
   chain_dir="$2"
   predecessor="$3"
   wait_lock_seconds="$4"
   authoritative="$5"
+  compile_timeout_seconds="$6"
   case "$chain_dir" in
     "$state_root"/*) ;;
     *) echo "unsafe chain directory: $chain_dir" >&2; exit 2 ;;
@@ -102,7 +103,8 @@ if [[ "${1:-}" == --run ]]; then
     [[ -n "$target" ]] || continue
     printf '%s\n' "$target" >"$chain_dir/current_target"
     printf '%s\n' launching_gate >"$chain_dir/state"
-    gate_args=(--file "$target" --wait-lock "$wait_lock_seconds")
+    gate_args=(--file "$target" --wait-lock "$wait_lock_seconds"
+      --compile-timeout "$compile_timeout_seconds")
     ((authoritative == 0)) || gate_args+=(--authoritative)
     set +e
     launch_output="$("$project_dir/scripts/max11_gate_lane.sh" \
@@ -158,6 +160,7 @@ fi
 predecessor=""
 wait_lock_seconds=900
 authoritative=0
+compile_timeout_seconds="${BOX_LEAN_COMPILE_TIMEOUT_SECONDS:-1800}"
 while (($#)); do
   case "$1" in
     --after)
@@ -171,6 +174,11 @@ while (($#)); do
       wait_lock_seconds="$1"
       ;;
     --authoritative) authoritative=1 ;;
+    --compile-timeout)
+      shift
+      (($#)) || usage
+      compile_timeout_seconds="$1"
+      ;;
     --)
       shift
       break
@@ -180,7 +188,8 @@ while (($#)); do
   shift
 done
 (($#)) || usage
-[[ "$wait_lock_seconds" =~ ^[0-9]+$ ]] || usage
+[[ "$wait_lock_seconds" =~ ^[0-9]+$ &&
+    "$compile_timeout_seconds" =~ ^[1-9][0-9]*$ ]] || usage
 if [[ -n "$predecessor" ]]; then
   [[ "$predecessor" =~ ^[A-Za-z0-9_.-]+Scratch[.]lean$ &&
       "$predecessor" == "${predecessor##*/}" &&
@@ -203,16 +212,19 @@ mkdir "$chain_dir"
 printf '%s\n' "$predecessor" >"$chain_dir/predecessor"
 printf '%s\n' "$wait_lock_seconds" >"$chain_dir/wait_lock_seconds"
 printf '%s\n' "$authoritative" >"$chain_dir/authoritative"
+printf '%s\n' "$compile_timeout_seconds" >"$chain_dir/compile_timeout_seconds"
 printf '%s\n' "${targets[@]}" >"$chain_dir/targets"
 printf '%s\n' queued >"$chain_dir/state"
 screen_name="max11-gate-chain-${RANDOM}-$$"
 printf '%s\n' "$screen_name" >"$chain_dir/screen_session"
 screen -dmS "$screen_name" "$project_dir/scripts/max11_gate_chain.sh" --run \
-  "$chain_dir" "$predecessor" "$wait_lock_seconds" "$authoritative"
+  "$chain_dir" "$predecessor" "$wait_lock_seconds" "$authoritative" \
+  "$compile_timeout_seconds"
 for _ in {1..20}; do
   [[ -s "$chain_dir/pid" ]] && break
   sleep 0.05
 done
 pid="$(sed -n '1p' "$chain_dir/pid" 2>/dev/null || printf '?')"
-printf 'GATE_CHAIN=%s PID=%s SCREEN=%s AFTER=%s TARGETS=%s\n' \
-  "$chain_id" "$pid" "$screen_name" "${predecessor:-none}" "${#targets[@]}"
+printf 'GATE_CHAIN=%s PID=%s SCREEN=%s AFTER=%s TARGETS=%s COMPILE_TIMEOUT=%s\n' \
+  "$chain_id" "$pid" "$screen_name" "${predecessor:-none}" "${#targets[@]}" \
+  "$compile_timeout_seconds"

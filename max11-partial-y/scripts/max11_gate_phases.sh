@@ -26,10 +26,12 @@ if [[ -d "$verifier_root" ]]; then
     case "$state" in queued|running) ;; *) continue ;; esac
     target="$(sed -n '1p' "$job_dir/target" 2>/dev/null || true)"
     started="$(sed -n '1p' "$job_dir/started_epoch" 2>/dev/null || true)"
+    compile_timeout="$(sed -n '1p' "$job_dir/compile_timeout_seconds" 2>/dev/null || true)"
     workspace="$(sed -nE 's#^SYNC .+ -> [^:]+:(/[^ ]+)$#\1#p' \
       "$job_dir/output.log" 2>/dev/null | tail -n 1)"
     [[ "$target" =~ ^[A-Za-z0-9_.-]+Scratch[.]lean$ ]] || target="?"
     [[ "$started" =~ ^[0-9]+$ ]] || started=0
+    [[ "$compile_timeout" =~ ^[1-9][0-9]*$ ]] || compile_timeout="?"
     if [[ -z "$workspace" ]]; then
       workspace="-"
     else
@@ -40,8 +42,8 @@ if [[ -d "$verifier_root" ]]; then
         workspace="invalid"
       fi
     fi
-    printf '%s\t%s\t%s\t%s\t%s\n' \
-      "${job_dir##*/}" "$target" "$state" "$started" "$workspace" \
+    printf '%s\t%s\t%s\t%s\t%s\t%s\n' \
+      "${job_dir##*/}" "$target" "$state" "$started" "$compile_timeout" "$workspace" \
       >>"$records_file"
   done
 fi
@@ -68,7 +70,7 @@ human_age() {
   fi
 }
 
-while IFS=$'\t' read -r job target state started workspace; do
+while IFS=$'\t' read -r job target state started compile_timeout workspace; do
   age=0
   ((started > 0 && now >= started)) && age=$((now - started))
   detail=""
@@ -126,8 +128,9 @@ while IFS=$'\t' read -r job target state started workspace; do
       fi
       ;;
   esac
-  printf 'job=%s state=%s age=%s target=%s phase=%s%s\n' \
-    "$job" "$state" "$(human_age "$age")" "$target" "$phase" "$detail"
+  printf 'job=%s state=%s age=%s limit=%ss target=%s phase=%s%s\n' \
+    "$job" "$state" "$(human_age "$age")" "$compile_timeout" "$target" \
+    "$phase" "$detail"
 done
 REMOTE_SCRIPT
   cat "$records_file"
