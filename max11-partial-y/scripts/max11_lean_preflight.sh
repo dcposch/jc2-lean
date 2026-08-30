@@ -44,6 +44,19 @@ for source in "$@"; do
     exit 1
   fi
 
+  # `open MvPolynomial Polynomial` makes constructors such as `X`, `C` and
+  # simp lemmas such as `eval_mul` share the same unqualified names.  Lean can
+  # sometimes infer the intended namespace, but failures otherwise cost a
+  # full remote gate.  Keep this advisory because expected types do resolve
+  # some uses; the warning is enough to prompt cheap qualification.
+  namespace_warnings="$(LC_ALL=C awk -f \
+    "$script_dir/max11_namespace_lint.awk" "$source")"
+  if [[ -n "$namespace_warnings" ]]; then
+    printf '%s\n' "$namespace_warnings" >&2
+    namespace_warning_count="$(wc -l <<<"$namespace_warnings" | tr -d ' ')"
+    warning_count=$((warning_count + namespace_warning_count))
+  fi
+
   # A doc comment attaches to the following declaration.  Placing a scoped
   # option between them is a parse error; the option must precede the comment.
   misplaced_option_lines="$(awk '
