@@ -706,6 +706,9 @@ lake build
 # A mechanical tower can be queued once; each edge still waits for the exact
 # recursive-source/environment receipt of the preceding leaf:
 ./scripts/max11_lean_chain.sh --engine claude --after FableLaneScratch.lean --target FableNextScratch.lean --target FableLastScratch.lean -- 'Import @PREDECESSOR@ and continue its exact residual in @TARGET@.'
+# If a failed route is replaced by a compatible route, cancel its still-queued
+# successor and all queued descendants without touching any launched worker:
+./scripts/max11_cancel_waiters.sh --target FableNextScratch.lean --cascade --reason 'superseded by compatible import route'
 # An exact completed gate can be checked without recompilation:
 ./scripts/box_lean_verify.sh --file FableLaneScratch.lean --receipt-only
 # Deep recursive scratch gates stream their remote build program over stdin, so
