@@ -721,8 +721,13 @@ lake build
 # recursive source and environment already have an exact successful receipt:
 ./scripts/max11_reap_verified.sh --dry-run
 ./scripts/max11_reap_verified.sh
+# Symbolic experiments should run from a saved input under a hard wall-clock
+# budget.  The ledger preserves the exact command, input hash, output, and
+# resource samples so an expensive computation is never an anonymous orphan:
+./scripts/max11_cas_run.sh --name square-minor --timeout 300 --input /tmp/square-minor.sing -- Singular -q
 # One concise dashboard shows live workers, active durable handoffs, recent
-# files, and AWS jobs; add `--all` when historical waiter detail is useful:
+# managed CAS experiments, files, and AWS jobs; add `--all` when historical
+# waiter detail is useful:
 ./scripts/max11_lane_status.sh
 ```
 

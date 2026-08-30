@@ -98,6 +98,47 @@ printf 'capacity claude=%s/%s launchable=%s grok=%s/%s launchable=%s\n' \
 [[ -z "${claude_health:-}" ]] || printf '%s\n' "$claude_health"
 [[ -z "${grok_health:-}" ]] || printf '%s\n' "$grok_health"
 
+printf '\nMANAGED CAS JOBS\n'
+cas_root="$project_dir/.max11-lanes/cas"
+cas_dirs=""
+if [[ -d "$cas_root" ]]; then
+  cas_dirs="$(find "$cas_root" -mindepth 1 -maxdepth 1 -type d | sort -r | head -n 8)"
+fi
+cas_shown=0
+if [[ -n "$cas_dirs" ]]; then
+  while IFS= read -r cas_dir; do
+    cas_state="$(sed -n '1p' "$cas_dir/state" 2>/dev/null || printf '?')"
+    cas_pid="$(sed -n '1p' "$cas_dir/pid" 2>/dev/null || printf '?')"
+    cas_name="$(sed -n '1p' "$cas_dir/name" 2>/dev/null || printf '?')"
+    cas_started="$(sed -n '1p' "$cas_dir/started_epoch" 2>/dev/null || printf '%s' "$(date +%s)")"
+    cas_ended="$(sed -n '1p' "$cas_dir/ended_epoch" 2>/dev/null || printf '%s' "$(date +%s)")"
+    cas_timeout="$(sed -n '1p' "$cas_dir/timeout_seconds" 2>/dev/null || printf '?')"
+    if [[ "$cas_state" == running && "$cas_pid" =~ ^[0-9]+$ ]] &&
+        ! kill -0 "$cas_pid" 2>/dev/null; then
+      cas_state="stale"
+    fi
+    [[ "$cas_started" =~ ^[0-9]+$ ]] || cas_started="$(date +%s)"
+    [[ "$cas_ended" =~ ^[0-9]+$ ]] || cas_ended="$(date +%s)"
+    if [[ "$cas_state" == running ]]; then
+      cas_age=$(($(date +%s) - cas_started))
+    else
+      cas_age=$((cas_ended - cas_started))
+    fi
+    cas_resources=""
+    if [[ -f "$cas_dir/resources.tsv" ]]; then
+      cas_last="$(tail -n 1 "$cas_dir/resources.tsv")"
+      cas_cpu="$(awk -F '\t' '{print $3}' <<<"$cas_last")"
+      cas_rss="$(awk -F '\t' '{print $4}' <<<"$cas_last")"
+      [[ "$cas_rss" =~ ^[0-9]+$ ]] &&
+        cas_resources=" cpu=${cas_cpu}% rss_mib=$((cas_rss / 1024))"
+    fi
+    printf 'job=%s state=%s elapsed=%s timeout=%ss pid=%s%s\n' \
+      "$cas_name" "$cas_state" "$(human_age "$cas_age")" "$cas_timeout" "$cas_pid" "$cas_resources"
+    cas_shown=$((cas_shown + 1))
+  done <<<"$cas_dirs"
+fi
+((cas_shown)) || printf 'none\n'
+
 printf '\nACTIVE QUEUED FOLLOW-UPS\n'
 wait_root="$project_dir/.max11-lanes/waits"
 wait_dirs=""
@@ -153,7 +194,7 @@ state_root="$project_dir/.max11-lanes"
 ledger_dirs=""
 if [[ -d "$state_root" ]]; then
   ledger_dirs="$(find "$state_root" -mindepth 1 -maxdepth 1 -type d \
-    ! -name gates ! -name waits | sort -r | head -n 12)"
+    ! -name gates ! -name waits ! -name cas | sort -r | head -n 12)"
 fi
 if [[ -z "$ledger_dirs" ]]; then
   printf 'none (legacy workers predate ledger)\n'
