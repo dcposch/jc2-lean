@@ -175,6 +175,43 @@ if [[ -n "$wait_dirs" ]]; then
 fi
 ((waiter_shown)) || printf 'none\n'
 
+printf '\nDURABLE VERIFICATION JOBS (newest 12)\n'
+verifier_root="$project_dir/.max11-lanes/verifiers"
+verifier_dirs=""
+if [[ -d "$verifier_root" ]]; then
+  verifier_dirs="$(find "$verifier_root" -mindepth 1 -maxdepth 1 -type d |
+    sort -r | head -n 12)"
+fi
+verifier_shown=0
+if [[ -n "$verifier_dirs" ]]; then
+  while IFS= read -r verifier_dir; do
+    state="$(sed -n '1p' "$verifier_dir/state" 2>/dev/null || printf '?')"
+    target="$(sed -n '1p' "$verifier_dir/target" 2>/dev/null || printf '?')"
+    pid="$(sed -n '1p' "$verifier_dir/pid" 2>/dev/null || printf '?')"
+    started="$(sed -n '1p' "$verifier_dir/started_epoch" 2>/dev/null || printf '%s' "$(date +%s)")"
+    ended="$(sed -n '1p' "$verifier_dir/ended_epoch" 2>/dev/null || printf '%s' "$(date +%s)")"
+    if [[ "$state" == running && "$pid" =~ ^[0-9]+$ ]] &&
+        ! kill -0 "$pid" 2>/dev/null; then
+      state="stale"
+    fi
+    [[ "$started" =~ ^[0-9]+$ ]] || started="$(date +%s)"
+    [[ "$ended" =~ ^[0-9]+$ ]] || ended="$(date +%s)"
+    if [[ "$state" == queued || "$state" == running ]]; then
+      age=$(($(date +%s) - started))
+    else
+      age=$((ended - started))
+    fi
+    verified_sha="$(sed -n '1p' "$verifier_dir/verified_sha256" 2>/dev/null || true)"
+    gate_detail=""
+    [[ -z "$verified_sha" ]] || gate_detail=" sha256=$verified_sha"
+    printf 'job=%s state=%s elapsed=%s pid=%s target=%s%s\n' \
+      "${verifier_dir##*/}" "$state" "$(human_age "$age")" "$pid" \
+      "$target" "$gate_detail"
+    verifier_shown=$((verifier_shown + 1))
+  done <<<"$verifier_dirs"
+fi
+((verifier_shown)) || printf 'none\n'
+
 if ((!show_all_waiters)) && [[ -n "$wait_dirs" ]]; then
   printf '\nFOLLOW-UP HISTORY SUMMARY\n'
   for summary_state in launched canceled failed launch_failed; do
@@ -194,7 +231,8 @@ state_root="$project_dir/.max11-lanes"
 ledger_dirs=""
 if [[ -d "$state_root" ]]; then
   ledger_dirs="$(find "$state_root" -mindepth 1 -maxdepth 1 -type d \
-    ! -name gates ! -name waits ! -name cas | sort -r | head -n 12)"
+    ! -name gates ! -name waits ! -name cas ! -name verifiers |
+    sort -r | head -n 12)"
 fi
 if [[ -z "$ledger_dirs" ]]; then
   printf 'none (legacy workers predate ledger)\n'
