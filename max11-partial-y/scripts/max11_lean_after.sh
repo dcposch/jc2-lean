@@ -54,6 +54,7 @@ if [[ "${1:-}" == --run ]]; then
     printf '%s\n' "$(date +%s)" >"$wait_dir/ended_epoch"
     current_state="$(sed -n '1p' "$wait_dir/state" 2>/dev/null || true)"
     if [[ "$current_state" == waiting_for_gate ||
+          "$current_state" == recovering_predecessor_gate ||
           "$current_state" == waiting_for_capacity ]]; then
       printf '%s\n' failed >"$wait_dir/state"
     fi
@@ -62,12 +63,58 @@ if [[ "${1:-}" == --run ]]; then
 
   # Receipt lookup is exact over the predecessor's recursive source hashes and
   # tracked environment, so a changed or merely model-reported file cannot
-  # release the successor.
+  # release the successor.  A delegated lane can fail its independent gate and
+  # then leave behind a repaired source (for example, after an asynchronous
+  # edit lands).  Once no producer is active and that source has been stable
+  # for three polls, recover by gating that exact content once.  This avoids a
+  # permanently orphaned successor without racing a live writer or repeatedly
+  # recompiling the same failed hash.
+  last_seen_sha=""
+  stable_source_polls=0
+  last_recovery_sha=""
   while true; do
     if [[ -f "$project_dir/$predecessor" ]] &&
         "$project_dir/scripts/box_lean_verify.sh" --file "$predecessor" \
           --receipt-only >"$wait_dir/predecessor_receipt.log" 2>&1; then
       break
+    fi
+    if [[ -f "$project_dir/$predecessor" ]]; then
+      current_sha="$(LC_ALL=C shasum -a 256 "$project_dir/$predecessor" | awk '{print $1}')"
+      if [[ "$current_sha" == "$last_seen_sha" ]]; then
+        stable_source_polls=$((stable_source_polls + 1))
+      else
+        last_seen_sha="$current_sha"
+        stable_source_polls=1
+      fi
+
+      active_producer=0
+      for lane_dir in "$project_dir/.max11-lanes"/*; do
+        [[ -d "$lane_dir" && -f "$lane_dir/target" && -f "$lane_dir/state" ]] || continue
+        [[ "$(sed -n '1p' "$lane_dir/target")" == "$predecessor" ]] || continue
+        lane_state="$(sed -n '1p' "$lane_dir/state")"
+        if [[ "$lane_state" == queued || "$lane_state" == running ||
+              "$lane_state" == verifying ]]; then
+          active_producer=1
+          break
+        fi
+      done
+
+      if ((active_producer == 0 && stable_source_polls >= 3)) &&
+          [[ "$current_sha" != "$last_recovery_sha" ]]; then
+        last_recovery_sha="$current_sha"
+        printf '%s\n' recovering_predecessor_gate >"$wait_dir/state"
+        set +e
+        "$project_dir/scripts/box_lean_verify.sh" --file "$predecessor" \
+          --wait-lock 900 >"$wait_dir/predecessor_recovery_gate.log" 2>&1
+        recovery_exit=$?
+        set -e
+        if ((recovery_exit == 0)) &&
+            "$project_dir/scripts/box_lean_verify.sh" --file "$predecessor" \
+              --receipt-only >"$wait_dir/predecessor_receipt.log" 2>&1; then
+          break
+        fi
+        printf '%s\n' waiting_for_gate >"$wait_dir/state"
+      fi
     fi
     sleep "${MAX11_AFTER_POLL_SECONDS:-20}"
   done
