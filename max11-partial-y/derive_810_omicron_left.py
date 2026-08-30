@@ -134,6 +134,7 @@ reduced_head = sp.cancel(
 reduced_poly = sp.Poly(reduced_head, t0, v1, u1, b62, domain=sp.QQ)
 cleared, denominator = sp.fraction(reduced_poly.as_expr())
 cleared_poly = sp.Poly(sp.expand(cleared), t0, v1, u1, b62, domain=sp.QQ)
+compact = os.environ.get("COMPACT", "") == "1"
 
 print(f"DEFECT_SHA256={sha256(DEFECT.read_bytes()).hexdigest()}")
 print(f"MU_SHA256={sha256(MU_SOURCE.read_bytes()).hexdigest()}")
@@ -145,8 +146,9 @@ print(
     f"LEFT_SUBSTITUTED_TERMS={len(cleared_poly.terms())} "
     f"DENOMINATOR={denominator} TOTAL_DEGREE={cleared_poly.total_degree()}"
 )
-print("LEFT_SUBSTITUTED_FACTOR")
-print(sp.factor(cleared_poly.as_expr()))
+if not compact:
+    print("LEFT_SUBSTITUTED_FACTOR")
+    print(sp.factor(cleared_poly.as_expr()))
 
 generators = (t0, v1, u1, b62)
 for label, divisors in (
@@ -164,8 +166,9 @@ for label, divisors in (
         f"REMAINDER_TERMS={len(remainder.terms())} "
         f"REMAINDER_TOTAL_DEGREE={remainder.total_degree()}"
     )
-    print(f"REMAINDER_{label}")
-    print(sp.factor(remainder.as_expr()))
+    if not compact:
+        print(f"REMAINDER_{label}")
+        print(sp.factor(remainder.as_expr()))
 
 if os.environ.get("COMPUTE_GROEBNER") == "1":
     basis = sp.groebner((mu, nu, xi), *generators, order="grevlex", domain=sp.QQ)
@@ -181,10 +184,11 @@ if os.environ.get("COMPUTE_GROEBNER") == "1":
         f"GROEBNER_REMAINDER_TERMS={len(remainder.terms())} "
         f"GROEBNER_REMAINDER_TOTAL_DEGREE={remainder.total_degree()}"
     )
-    print("GROEBNER_REMAINDER")
-    print(sp.factor(remainder.as_expr()))
+    if not compact:
+        print("GROEBNER_REMAINDER")
+        print(sp.factor(remainder.as_expr()))
 
-if os.environ.get("COMPUTE_SINGULAR") == "1":
+if os.environ.get("COMPUTE_SINGULAR") == "1" or os.environ.get("COMPUTE_SINGULAR_FULL") == "1":
     def singular(expression) -> str:
         polynomial = sp.Poly(expression, *generators, domain=sp.QQ)
         terms = []
@@ -201,22 +205,98 @@ if os.environ.get("COMPUTE_SINGULAR") == "1":
             terms.append("*".join((scalar, *factors)) if factors else scalar)
         return "+".join(terms).replace("+-", "-")
 
+    singular_full = os.environ.get("COMPUTE_SINGULAR_FULL") == "1"
+    branch = os.environ.get("SINGULAR_BRANCH", "")
+    normalize = os.environ.get("SINGULAR_NORMALIZE", "")
+    packet = os.environ.get("SINGULAR_PACKET", "") == "1"
+    order = os.environ.get("SINGULAR_ORDER", "dp")
+    if order not in ("dp", "lp"):
+        raise SystemExit(f"unsupported SINGULAR_ORDER={order}")
+    f1 = t0**3 - 4 * t0 * v1 + 8 * u1
+    f2 = (
+        11 * t0**6 - 88 * t0**4 * v1 - 256 * t0**3 * u1
+        + 320 * t0**2 * v1**2 + 1024 * t0 * u1 * v1
+        - 1024 * u1**2 - 512 * v1**3
+    )
+    branch_expression = f1 if branch == "F1" else f2 if branch == "F2" else None
+    wred = sp.expand(
+        -51200 * a_solve * t0**2 + 81920 * a_solve * v1
+        - 81920 * b_solve * t0 + 73728 * b62 * t0**2
+        - 98304 * b62 * v1 - 2800 * t0**6 + 22080 * t0**4 * v1
+        - 41600 * t0**3 * u1 - 46080 * t0**2 * v1**2
+        + 87040 * t0 * u1 * v1 - 20480 * u1**2 + 20480 * v1**3
+    )
+    xred = sp.expand(
+        4177920 * a_solve * t0**3 - 11796480 * a_solve * t0 * v1
+        + 10485760 * a_solve * u1 + 7208960 * b_solve * t0**2
+        - 10485760 * b_solve * v1 - 6848512 * b62 * t0**3
+        + 17301504 * b62 * t0 * v1 - 12582912 * b62 * u1
+        + 300960 * t0**7 - 2675200 * t0**5 * v1
+        + 4561920 * t0**4 * u1 + 7096320 * t0**3 * v1**2
+        - 15769600 * t0**2 * u1 * v1 + 7208960 * t0 * u1**2
+        - 5406720 * t0 * v1**3 + 7208960 * u1 * v1**2
+    )
+    f1_b5 = sp.expand(
+        1024 * b_solve - 256 * b62 * t0 - 11 * t0**5
+        + 40 * t0**3 * v1
+    )
+    f1_product = sp.expand(
+        (3 * t0**2 - 8 * v1) *
+        (1024 * b62 + 25 * t0**4 - 320 * v1**2)
+    )
+    ideal_members = "mu,nu,xi,head" if singular_full else "mu,nu,xi"
+    if branch_expression is not None:
+        ideal_members += ",fbranch"
+    if packet:
+        ideal_members += ",wred,xred"
+        if branch == "F1":
+            ideal_members += ",f1b5,f1product"
+    normalize_variables = {"T": t0, "V": v1, "U": u1, "B": b62}
+    if normalize and normalize not in normalize_variables:
+        raise SystemExit(
+            f"unsupported SINGULAR_NORMALIZE={normalize}; use T, V, U, or B"
+        )
+    normalize_expression = (
+        normalize_variables[normalize] - 1 if normalize else None
+    )
+    if normalize_expression is not None:
+        ideal_members += ",fnormalize"
+    marker = "SINGULAR_FULL" if singular_full else "SINGULAR"
+    if branch:
+        marker += f"_{branch}"
+    if normalize:
+        marker += f"_{normalize}"
+    if packet:
+        marker += "_PACKET"
+    if order != "dp":
+        marker += f"_{order.upper()}"
     basis_dump = "G;" if os.environ.get("EMIT_SINGULAR_BASIS") == "1" else ""
+    remainder_commands = "" if singular_full else f"""
+poly rem=reduce(head,G);
+print(\"{marker}_REMAINDER_TERMS=\"+string(size(rem)));
+print(\"{marker}_REMAINDER_BEGIN\");
+rem;
+print(\"{marker}_REMAINDER_END\");
+"""
     program = f"""
-ring r=0,(t0,v1,u1,b62),dp;
+ring r=0,(t0,v1,u1,b62),{order};
 poly mu={singular(mu)};
 poly nu={singular(nu)};
 poly xi={singular(xi)};
 poly head={singular(cleared_poly.as_expr())};
-ideal I=mu,nu,xi;
+poly fbranch={singular(branch_expression if branch_expression is not None else 0)};
+poly fnormalize={singular(normalize_expression if normalize_expression is not None else 0)};
+poly wred={singular(wred)};
+poly xred={singular(xred)};
+poly f1b5={singular(f1_b5)};
+poly f1product={singular(f1_product)};
+ideal I={ideal_members};
 ideal G=std(I);
-print(\"SINGULAR_GROEBNER_SIZE=\"+string(size(G)));
+print(\"{marker}_GROEBNER_SIZE=\"+string(size(G)));
+print(\"{marker}_DIMENSION=\"+string(dim(G)));
+if (dim(G)==0) {{ print(\"{marker}_VECTOR_DIMENSION=\"+string(vdim(G))); }}
 {basis_dump}
-poly rem=reduce(head,G);
-print(\"SINGULAR_REMAINDER_TERMS=\"+string(size(rem)));
-print(\"SINGULAR_REMAINDER_BEGIN\");
-rem;
-print(\"SINGULAR_REMAINDER_END\");
+{remainder_commands}
 quit;
 """
     if os.environ.get("EMIT_SINGULAR") == "1":
