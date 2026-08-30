@@ -368,66 +368,38 @@ if ((${#lean_files[@]})); then
     fi
     exit 1
   fi
-  # Cache each module against its own recursive scratch import closure.  Every
-  # source SHA was computed once above; reusing it here avoids the former
-  # quadratic storm of Perl `shasum` processes on deep chains.
-  collect_cache_closure() {
-    local source="$1"
-    local known module dependency hash_index source_hash
-    for known in ${cache_walk_seen[@]+"${cache_walk_seen[@]}"}; do
-      [[ "$known" == "$source" ]] && return
-    done
-    cache_walk_seen+=("$source")
-    while IFS= read -r module; do
-      [[ "$module" =~ ^[A-Za-z0-9_.]+$ ]] || continue
-      dependency="${module//./\/}.lean"
-      if [[ -f "$project_dir/$dependency" ]] &&
-          { [[ "$dependency" == *Scratch.lean ]] ||
-            ! git -C "$project_dir" ls-files --error-unmatch -- \
-              "$dependency" >/dev/null 2>&1; }; then
-        collect_cache_closure "$dependency"
-      fi
-    done < <(sed -nE 's/^import[[:space:]]+([A-Za-z0-9_.]+)[[:space:]]*$/\1/p' \
-      "$project_dir/$source")
-    cache_closure_files+=("$source")
-    source_hash=""
-    for ((hash_index = 0; hash_index < ${#scratch_compile_files[@]}; hash_index++)); do
-      if [[ "${scratch_compile_files[$hash_index]}" == "$source" ]]; then
-        source_hash="${source_hashes[$hash_index]}"
-        break
-      fi
-    done
-    [[ -n "$source_hash" ]] || {
-      echo "missing precomputed source hash: $source" >&2
-      return 1
+  # Cache each module against its exact recursive source and tracked import
+  # closure.  Doing this as nested Bash DFS walks was effectively cubic on a
+  # long linear tower: a 109-module lane spent minutes computing keys before
+  # its five-second Lean leaf even started.  One memoized graph pass preserves
+  # the byte-for-byte key format and takes well under a second on that tower.
+  cache_key_records="$(python3 "$project_dir/scripts/max11_scratch_cache_keys.py" \
+    --project-dir "$project_dir" "${scratch_compile_files[@]}")"
+  cache_key_index=0
+  while IFS=$'\t' read -r cache_tag cache_source cache_source_hash cache_key; do
+    [[ "$cache_tag" == MODULE ]] || {
+      echo "invalid scratch cache-key record tag: $cache_tag" >&2
+      exit 1
     }
-    cache_closure_hashes+=("$source_hash")
+    [[ "$cache_source" == "${scratch_compile_files[$cache_key_index]}" ]] || {
+      echo "scratch cache-key source order mismatch: $cache_source" >&2
+      exit 1
+    }
+    [[ "$cache_source_hash" == "${source_hashes[$cache_key_index]}" ]] || {
+      echo "scratch cache-key source hash mismatch: $cache_source" >&2
+      exit 1
+    }
+    [[ "$cache_key" =~ ^[0-9a-f]{64}$ ]] || {
+      echo "invalid scratch cache key: $cache_source" >&2
+      exit 1
+    }
+    scratch_cache_keys+=("$cache_key")
+    cache_key_index=$((cache_key_index + 1))
+  done <<<"$cache_key_records"
+  ((cache_key_index == ${#scratch_compile_files[@]})) || {
+    echo "scratch cache-key record count mismatch" >&2
+    exit 1
   }
-
-  for ((i = 0; i < ${#scratch_compile_files[@]}; i++)); do
-    cache_walk_seen=()
-    cache_closure_files=()
-    cache_closure_hashes=()
-    collect_cache_closure "${scratch_compile_files[$i]}"
-    # A dependency's `.olean` depends only on the tracked Lean modules in its
-    # own import closure.  Using the union of every requested leaf's tracked
-    # imports here caused a cache miss whenever two previously separate proof
-    # branches were first joined, even though the dependency source and its
-    # environment were byte-identical.  Compute this component per module;
-    # the gate receipt below still commits to the full requested union.
-    environment_walk_seen=()
-    tracked_dependency_files=()
-    collect_environment_imports "${scratch_compile_files[$i]}"
-    scratch_environment_hash="$(hash_tracked_environment)"
-    closure_cache_key="$({
-      printf 'tracked_environment=%s\n' "$scratch_environment_hash"
-      for ((cache_index = 0; cache_index < ${#cache_closure_files[@]}; cache_index++)); do
-        printf 'file=%s sha256=%s\n' \
-          "${cache_closure_files[$cache_index]}" "${cache_closure_hashes[$cache_index]}"
-      done
-    } | sha256_stream)"
-    scratch_cache_keys+=("$closure_cache_key")
-  done
 
   remote_parent="${box_dir%/*}"
   remote_work_dir="$(ssh "${ssh_args[@]}" "$box_host" \
@@ -531,7 +503,11 @@ load_or_compile_scratch_dependency() {
   local output="$2"
   local source="$3"
   if [[ -s "$cache_file" ]]; then
-    cp -- "$cache_file" "$output"
+    # The content-addressed cache and isolated workspaces normally share one
+    # filesystem.  A hard link makes deep 100+ module proof towers hydrate in
+    # O(metadata) instead of copying several GiB before every leaf check.  The
+    # artifacts are immutable; retain a copy fallback for alternate mounts.
+    ln -- "$cache_file" "$output" 2>/dev/null || cp -- "$cache_file" "$output"
     printf 'SCRATCH_CACHE_HIT FILE=%s\n' "$source"
     return
   fi
@@ -547,7 +523,7 @@ mkdir -p "$metrics_root"
 metrics_file="$metrics_root/${cache_file##*/}.$(date -u +%Y%m%dT%H%M%SZ).$$.metrics"
 metrics_tmp="${metrics_file}.tmp"
 if [[ -s "$cache_file" ]]; then
-  cp -- "$cache_file" "$output"
+  ln -- "$cache_file" "$output" 2>/dev/null || cp -- "$cache_file" "$output"
   printf 'SCRATCH_CACHE_WAIT_HIT FILE=%s\n' "$source"
 elif [[ -s "$failure_file" ]]; then
   printf 'SCRATCH_FAILURE_CACHE_HIT FILE=%s\n' "$source"
@@ -583,7 +559,7 @@ else
   fi
   cache_tmp="${cache_file}.tmp.$$"
   trap 'rm -f -- "$cache_tmp" "$failure_tmp"' EXIT
-  cp -- "$output" "$cache_tmp"
+  ln -- "$output" "$cache_tmp" 2>/dev/null || cp -- "$output" "$cache_tmp"
   mv -f -- "$cache_tmp" "$cache_file"
   rm -f -- "$failure_file"
   trap - EXIT
@@ -644,7 +620,7 @@ if ((lean_exit != 0)); then
 fi
 cache_tmp="${cache_file}.tmp.$$"
 trap 'rm -f -- "$cache_tmp" "$failure_tmp"' EXIT
-cp -- "$output" "$cache_tmp"
+ln -- "$output" "$cache_tmp" 2>/dev/null || cp -- "$output" "$cache_tmp"
 mv -f -- "$cache_tmp" "$cache_file"
 rm -f -- "$failure_file"
 trap - EXIT
