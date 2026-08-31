@@ -459,3 +459,16 @@ if os.environ.get("COMPUTE_SOURCE") == "1":
     print("DEGREE_ZERO_POST_COLLAPSE_HEAD_BEGIN")
     print(jet_head)
     print("DEGREE_ZERO_POST_COLLAPSE_HEAD_END")
+    jet_quotient = sp.cancel(jet.as_expr() / h**jet_minimum)
+    jet_quotient_numerator, jet_quotient_denominator = sp.fraction(jet_quotient)
+    if jet_quotient_denominator != 1:
+        raise RuntimeError("post-collapse quotient retained a denominator")
+    jet_quotient_expanded = sp.expand(jet_quotient_numerator)
+    print(
+        f"DEGREE_ZERO_POST_COLLAPSE_QUOTIENT_TERMS="
+        f"{len(sp.Add.make_args(jet_quotient_expanded))}"
+    )
+    if os.environ.get("EMIT_POST_COLLAPSE_QUOTIENT") == "1":
+        print("DEGREE_ZERO_POST_COLLAPSE_QUOTIENT_BEGIN")
+        print(jet_quotient_expanded)
+        print("DEGREE_ZERO_POST_COLLAPSE_QUOTIENT_END")
