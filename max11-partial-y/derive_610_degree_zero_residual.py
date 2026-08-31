@@ -382,8 +382,8 @@ if os.environ.get("COMPUTE_SOURCE") == "1":
     if os.environ.get("EMIT_POST_COLLAPSE_BAR") == "1":
         hbar = sp.symbols("hbar")
         bar_orders = dict(zip(
-            (AA, BB, CC, DD, EE, PP, QQ, RR, SS, TT, UU, VV, WW, lam),
-            (10, 14, 19, 24, 29, 10, 14, 19, 23, 27, 32, 37, 42, 0),
+            (AA, BB, CC, DD, EE, PP, QQ, RR, SS, TT, UU, VV, WW, XX, lam),
+            (10, 14, 19, 24, 29, 10, 14, 19, 23, 27, 32, 37, 42, 47, 0),
         ))
         quotient_terms = []
         for monomial, coefficient in compact.terms():
