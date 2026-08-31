@@ -234,6 +234,7 @@ fi
 scratch_compile_files=()
 source_hashes=()
 scratch_cache_keys=()
+scratch_legacy_cache_keys=()
 environment_walk_seen=()
 tracked_dependency_files=()
 tracked_environment_hash=""
@@ -261,13 +262,21 @@ if ((${#lean_files[@]})); then
 
   collect_environment_imports() {
     local source="$1"
-    local known module dependency
+    local known module dependency scratch_source in_scratch_closure=0
     for known in ${environment_walk_seen[@]+"${environment_walk_seen[@]}"}; do
       [[ "$known" == "$source" ]] && return
     done
     environment_walk_seen+=("$source")
-    if git -C "$project_dir" ls-files --error-unmatch -- \
-        "$source" >/dev/null 2>&1; then
+    for scratch_source in \
+        ${scratch_compile_files[@]+"${scratch_compile_files[@]}"}; do
+      if [[ "$scratch_source" == "$source" ]]; then
+        in_scratch_closure=1
+        break
+      fi
+    done
+    if (( ! in_scratch_closure )) && \
+        git -C "$project_dir" ls-files --error-unmatch -- \
+          "$source" >/dev/null 2>&1; then
       tracked_dependency_files+=("$source")
     fi
     while IFS= read -r module; do
@@ -388,7 +397,8 @@ if ((${#lean_files[@]})); then
   cache_key_records="$(python3 "$project_dir/scripts/max11_scratch_cache_keys.py" \
     --project-dir "$project_dir" "${scratch_compile_files[@]}")"
   cache_key_index=0
-  while IFS=$'\t' read -r cache_tag cache_source cache_source_hash cache_key; do
+  while IFS=$'\t' read -r cache_tag cache_source cache_source_hash cache_key \
+      legacy_cache_key; do
     [[ "$cache_tag" == MODULE ]] || {
       echo "invalid scratch cache-key record tag: $cache_tag" >&2
       exit 1
@@ -405,7 +415,12 @@ if ((${#lean_files[@]})); then
       echo "invalid scratch cache key: $cache_source" >&2
       exit 1
     }
+    [[ "$legacy_cache_key" =~ ^[0-9a-f]{64}$ ]] || {
+      echo "invalid legacy scratch cache key: $cache_source" >&2
+      exit 1
+    }
     scratch_cache_keys+=("$cache_key")
+    scratch_legacy_cache_keys+=("$legacy_cache_key")
     cache_key_index=$((cache_key_index + 1))
   done <<<"$cache_key_records"
   ((cache_key_index == ${#scratch_compile_files[@]})) || {
@@ -460,6 +475,7 @@ if ((${#lean_files[@]})); then
     source="${scratch_compile_files[$i]}"
     output="${source%.lean}.olean"
     cache_file="$box_dir/.scratch-olean-cache/${scratch_cache_keys[$i]}.olean"
+    legacy_cache_file="$box_dir/.scratch-olean-cache/${scratch_legacy_cache_keys[$i]}.olean"
     requested=0
     for lean_file in "${lean_files[@]}"; do
       [[ "$source" == "$lean_file" ]] && requested=1
@@ -476,8 +492,8 @@ if ((${#lean_files[@]})); then
         "$cache_file" "$output" "$source"
       build_command+="$cache_step"
     else
-      printf -v cache_step 'load_or_compile_scratch_dependency %q %q %q' \
-        "$cache_file" "$output" "$source"
+      printf -v cache_step 'load_or_compile_scratch_dependency %q %q %q %q' \
+        "$cache_file" "$legacy_cache_file" "$output" "$source"
       build_command+="$cache_step"
     fi
   done
@@ -525,8 +541,23 @@ set +e
     cat <<'REMOTE_CACHE_HELPERS'
 load_or_compile_scratch_dependency() {
   local cache_file="$1"
-  local output="$2"
-  local source="$3"
+  local legacy_cache_file="$2"
+  local output="$3"
+  local source="$4"
+  if [[ ! -s "$cache_file" && "$legacy_cache_file" != "$cache_file" && \
+        -s "$legacy_cache_file" ]]; then
+    # Before the content-stable key fix, committing byte-identical scratch
+    # source changed only the cache namespace.  The legacy key is computed
+    # from the same exact recursive source and import hashes, so promote the
+    # immutable artifact atomically instead of elaborating it again.
+    local promote_tmp="${cache_file}.tmp.promote.$$"
+    trap 'rm -f -- "$promote_tmp"' RETURN
+    ln -- "$legacy_cache_file" "$promote_tmp" 2>/dev/null || \
+      cp -- "$legacy_cache_file" "$promote_tmp"
+    mv -f -- "$promote_tmp" "$cache_file"
+    trap - RETURN
+    printf 'SCRATCH_CACHE_LEGACY_PROMOTED FILE=%s\n' "$source"
+  fi
   if [[ -s "$cache_file" ]]; then
     # The content-addressed cache and isolated workspaces normally share one
     # filesystem.  A hard link makes deep 100+ module proof towers hydrate in
