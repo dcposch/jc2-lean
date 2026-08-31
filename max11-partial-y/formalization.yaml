@@ -158,7 +158,7 @@ related_formalizations:
     note: >-
       The sibling project proves the complete source-facing polynomial-cube
       exclusion, including the constant-core branch, imported by this project.
-  - id: "local:gcd3-69-noncube-v2"
+  - id: "local:gcd3-69-composition"
     relationship: "other"
     note: >-
       The sibling composition performs the exhaustive cube/noncube dispatch at

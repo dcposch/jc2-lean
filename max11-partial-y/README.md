@@ -468,7 +468,7 @@ five literal low-scale leaves, and the low-scale modules begin discharging
 those leaves internally.  The related proof trees are the registered
 [source-facing `(6,9)` noncube exclusion](https://palomar-registry.org/entry.html?id=PALOMAR-2026-08-25-000002&version=2),
 the sibling `gcd3-69-cube` project, and the sibling
-`gcd3-69-noncube-v2` cube/noncube composition.
+`gcd3-69-composition` cube/noncube composition (renamed from `gcd3-69-noncube-v2`).
 
 The project still does not prove scalar-extension descent, the prime theorem
 itself, or the standard-pair endpoint theorem itself.  Among the eight cases

@@ -426,5 +426,5 @@ roots = [
 
 [[lean_lib]]
 name = "GCD369DivisibleDependency"
-srcDir = "../gcd3-69-noncube-v2"
+srcDir = "../gcd3-69-composition"
 roots = ["GCD369DivisibleSourceExclusion"]
