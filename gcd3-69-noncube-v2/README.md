@@ -10,9 +10,14 @@ assumption: it performs that exhaustive split internally.
 
 The noncube branch is supplied by the registered
 [PALOMAR-2026-08-25-000002 v2](https://palomar-registry.org/entry.html?id=PALOMAR-2026-08-25-000002&version=2).
-The cube branch uses the locally strengthened complete cube-source exclusion,
-including its constant-core case, from the sibling `gcd3-69-cube` project.
-That strengthened cube result has not yet been registered with Palomar.
+The cube branch uses the complete cube-source exclusion, including its
+constant-core case, registered as
+[PALOMAR-2026-08-29-000002](https://palomar-registry.org/entry.html?id=PALOMAR-2026-08-29-000002&version=1).
+
+For self-contained sandboxed verification, `deps/` vendors byte-identical
+copies of the two branch projects (`gcd3-69-noncube`, `gcd3-69-cube` from
+this repository) and the lakefile requires them by those local paths; the
+top-level siblings remain the canonical development trees.
 
 ## Compared declaration
 
