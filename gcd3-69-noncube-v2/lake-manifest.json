@@ -3,24 +3,6 @@
   "packagesDir": ".lake/packages",
   "packages": [
     {
-      "type": "path",
-      "scope": "",
-      "name": "jc2_gcd3_69_cube",
-      "manifestFile": "lake-manifest.json",
-      "inherited": false,
-      "dir": "deps/gcd3-69-cube",
-      "configFile": "lakefile.toml"
-    },
-    {
-      "type": "path",
-      "scope": "",
-      "name": "jc2_gcd3_69_noncube",
-      "manifestFile": "lake-manifest.json",
-      "inherited": false,
-      "dir": "deps/gcd3-69-noncube",
-      "configFile": "lakefile.toml"
-    },
-    {
       "url": "https://github.com/leanprover-community/mathlib4",
       "type": "git",
       "subDir": null,
@@ -29,7 +11,7 @@
       "name": "mathlib",
       "manifestFile": "lake-manifest.json",
       "inputRev": "20bc12820422504f9e52ee6caebf8182a9015336",
-      "inherited": true,
+      "inherited": false,
       "configFile": "lakefile.lean"
     },
     {

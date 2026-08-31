@@ -14,10 +14,12 @@ The cube branch uses the complete cube-source exclusion, including its
 constant-core case, registered as
 [PALOMAR-2026-08-29-000002](https://palomar-registry.org/entry.html?id=PALOMAR-2026-08-29-000002&version=1).
 
-For self-contained sandboxed verification, `deps/` vendors byte-identical
-copies of the two branch projects (`gcd3-69-noncube`, `gcd3-69-cube` from
-this repository) and the lakefile requires them by those local paths; the
-top-level siblings remain the canonical development trees.
+For self-contained sandboxed verification, this project vendors
+byte-identical copies of the needed branch modules as its own package
+sources: `Solution.lean` from `gcd3-69-noncube` and the `SolutionV2.lean`
+import closure from `gcd3-69-cube` (both from this repository, module
+names unchanged). The top-level siblings remain the canonical development
+trees.
 
 ## Compared declaration
 
