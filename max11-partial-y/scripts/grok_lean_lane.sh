@@ -37,8 +37,8 @@ if [[ -n "$worker_rows" ]]; then
     exit 75
   fi
 fi
-if ((worker_count >= 4)); then
-  echo "managed Grok worker cap reached: $worker_count/4" >&2
+if ((worker_count >= 8)); then
+  echo "managed Grok worker cap reached: $worker_count/8" >&2
   exit 75
 fi
 
