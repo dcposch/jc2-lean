@@ -8,6 +8,8 @@ weight-11 through weight-14 first integrals kappa, lambda, mu, and nu.
 """
 
 from pathlib import Path
+import math
+import os
 import re
 import time
 
@@ -244,3 +246,131 @@ print(f"DEGREE_ZERO_TERMS={len(sp.Poly(integral, *coefficient_generators).terms(
 print("DEGREE_ZERO_RESIDUAL_BEGIN")
 print(sp.factor(integral))
 print("DEGREE_ZERO_RESIDUAL_END")
+
+if os.environ.get("EMIT_GROUPS") == "1":
+    constant_part = integral
+    for residual_constant in constant_residuals:
+        coefficient = sp.expand(sp.diff(integral, residual_constant))
+        if any(other in coefficient.free_symbols for other in constant_residuals):
+            raise RuntimeError("degree-zero residual is nonlinear in old residuals")
+        if coefficient != 0:
+            print(
+                f"DEGREE_ZERO_GROUP_{residual_constant} "
+                f"TERMS={len(sp.Poly(coefficient, *dynamic, L).terms())}"
+            )
+            print(sp.factor(coefficient))
+            constant_part -= residual_constant * coefficient
+    constant_part = sp.expand(constant_part)
+    print(
+        f"DEGREE_ZERO_GROUP_BASE "
+        f"TERMS={len(sp.Poly(constant_part, *dynamic, L).terms())}"
+    )
+    print(sp.factor(constant_part))
+
+if os.environ.get("COMPUTE_SOURCE") == "1":
+    residual_substitution = {
+        residual_constant: parsed[name]
+        for residual_constant, (name, _path, _arguments) in zip(
+            constant_residuals, residual_specs
+        )
+    }
+    native_integral = sp.expand(integral.subs(residual_substitution))
+    native_polynomial = sp.Poly(native_integral, *base_symbols, domain=sp.QQ)
+    coordinate_weights = dict(zip(base_symbols, (1, 2, 3, 4, 5, 6, 2, 3, 4, 5, 6, 7, 8, 9, 10)))
+    native_weights = {
+        sum(coordinate_weights[coordinate] * exponent
+            for coordinate, exponent in zip(base_symbols, monomial))
+        for monomial, _coefficient in native_polynomial.terms()
+    }
+    if native_weights != {15}:
+        raise RuntimeError(f"native residual has unexpected weights {native_weights}")
+    print(f"DEGREE_ZERO_NATIVE_TERMS={len(native_polynomial.terms())}")
+
+    h, lam = sp.symbols("h lam")
+    a5, a4, a3, a2, a1, a0 = sp.symbols("a5 a4 a3 a2 a1 a0")
+    b8, b7, b6, b5, b4, b3, b2, b1, b0 = sp.symbols(
+        "b8 b7 b6 b5 b4 b3 b2 b1 b0"
+    )
+    AA, BB, CC, DD, EE, PP, QQ, RR, SS, TT, UU, VV, WW, XX = sp.symbols(
+        "AA BB CC DD EE PP QQ RR SS TT UU VV WW XX"
+    )
+    compact_substitution = {
+        L: -lam / 3,
+        A: AA / 12, B: BB / 54, C0: CC / 144,
+        D0: DD / 324, E0: EE / 46656,
+        P: PP / 4, Q: QQ / 9, R: RR / 432, S0: SS / 216,
+        T0: TT / 7776, U0: UU / 11664, V0: VV / 186624,
+        W0: WW / 5038848, X0: XX / 60466176,
+    }
+    compact_rational = sp.Poly(
+        sp.expand(native_integral.subs(compact_substitution)),
+        AA, BB, CC, DD, EE, PP, QQ, RR, SS, TT, UU, VV, WW, XX, lam,
+        domain=sp.QQ,
+    )
+    clearing_coefficient = math.lcm(*(coefficient.q for coefficient in compact_rational.coeffs()))
+    compact = sp.Poly(
+        sp.expand(clearing_coefficient * compact_rational.as_expr()),
+        *compact_rational.gens,
+        domain=sp.ZZ,
+    )
+    print(
+        f"DEGREE_ZERO_COMPACT_TERMS={len(compact.terms())} "
+        f"CLEARING={clearing_coefficient} CONTENT={compact.content()}"
+    )
+
+    Abar = 12 * a4 * h**6 - 5 * a5**2
+    Bbar = 54 * a3 * h**12 - 36 * a4 * a5 * h**6 + 10 * a5**3
+    Cbar = 144 * a2 * h**18 - 72 * a3 * a5 * h**12 + 24 * a4 * a5**2 * h**6 - 5 * a5**4
+    Dbar = 324 * a1 * h**24 - 108 * a2 * a5 * h**18 + 27 * a3 * a5**2 * h**12 - 6 * a4 * a5**3 * h**6 + a5**5
+    Ebar = 46656 * a0 * h**30 - 7776 * a1 * a5 * h**24 + 1296 * a2 * a5**2 * h**18 - 216 * a3 * a5**3 * h**12 + 36 * a4 * a5**4 * h**6 - 5 * a5**6
+    Pbar = -5 * a5**2 + 2 * lam * a5 * h**5 + 4 * b8 * h**2
+    Qbar = 10 * a5**3 - 3 * lam * a5**2 * h**5 - 12 * a5 * b8 * h**2 + 9 * b7 * h**8
+    Rbar = -210 * a5**4 + 56 * lam * a5**3 * h**5 + 336 * a5**2 * b8 * h**2 - 504 * a5 * b7 * h**8 + 432 * b6 * h**14
+    Sbar = 28 * a5**5 - 7 * lam * a5**4 * h**5 - 56 * a5**3 * b8 * h**2 + 126 * a5**2 * b7 * h**8 - 216 * a5 * b6 * h**14 + 216 * b5 * h**20
+    Tbar = -175 * a5**6 + 42 * lam * a5**5 * h**5 + 420 * a5**4 * b8 * h**2 - 1260 * a5**3 * b7 * h**8 + 3240 * a5**2 * b6 * h**14 - 6480 * a5 * b5 * h**20 + 7776 * b4 * h**26
+    Ubar = 30 * a5**7 - 7 * lam * a5**6 * h**5 - 84 * a5**5 * b8 * h**2 + 315 * a5**4 * b7 * h**8 - 1080 * a5**3 * b6 * h**14 + 3240 * a5**2 * b5 * h**20 - 7776 * a5 * b4 * h**26 + 11664 * b3 * h**32
+    Vbar = -35 * a5**8 + 8 * lam * a5**7 * h**5 + 112 * a5**6 * b8 * h**2 - 504 * a5**5 * b7 * h**8 + 2160 * a5**4 * b6 * h**14 - 8640 * a5**3 * b5 * h**20 + 31104 * a5**2 * b4 * h**26 - 93312 * a5 * b3 * h**32 + 186624 * b2 * h**38
+    Wbar = 40 * a5**9 - 9 * lam * a5**8 * h**5 - 144 * a5**7 * b8 * h**2 + 756 * a5**6 * b7 * h**8 - 3888 * a5**5 * b6 * h**14 + 19440 * a5**4 * b5 * h**20 - 93312 * a5**3 * b4 * h**26 + 419904 * a5**2 * b3 * h**32 - 1679616 * a5 * b2 * h**38 + 5038848 * b1 * h**44
+    Xbar = -9 * a5**10 + 2 * lam * a5**9 * h**5 + 36 * a5**8 * b8 * h**2 - 216 * a5**7 * b7 * h**8 + 1296 * a5**6 * b6 * h**14 - 7776 * a5**5 * b5 * h**20 + 46656 * a5**4 * b4 * h**26 - 279936 * a5**3 * b3 * h**32 + 1679616 * a5**2 * b2 * h**38 - 10077696 * a5 * b1 * h**44 + 60466176 * b0 * h**50
+    source_substitution = {
+        L: -lam / 3,
+        A: Abar / (12 * h**10), B: Bbar / (54 * h**15),
+        C0: Cbar / (144 * h**20), D0: Dbar / (324 * h**25),
+        E0: Ebar / (46656 * h**30), P: Pbar / (4 * h**10),
+        Q: Qbar / (9 * h**15), R: Rbar / (432 * h**20),
+        S0: Sbar / (216 * h**25), T0: Tbar / (7776 * h**30),
+        U0: Ubar / (11664 * h**35), V0: Vbar / (186624 * h**40),
+        W0: Wbar / (5038848 * h**45), X0: Xbar / (60466176 * h**50),
+    }
+    cleared_rational = sp.cancel(clearing_coefficient * h**75 * native_integral.subs(source_substitution))
+    cleared_numerator, cleared_denominator = sp.fraction(cleared_rational)
+    if cleared_denominator != 1:
+        raise RuntimeError(f"source clearing retained denominator {cleared_denominator}")
+    cleared = sp.Poly(sp.expand(cleared_numerator), h)
+    print(
+        f"DEGREE_ZERO_CLEARED_H_LEVELS={len(cleared.terms())} "
+        f"H_MIN={min(monomial[0] for monomial, _coefficient in cleared.terms())}"
+    )
+
+    w1, a42, p32, p21, p1, p0 = sp.symbols("w1 a42 p32 p21 p1 p0")
+    s2, u2, b63, q53, q41, q3, q2, q1, q0 = sp.symbols(
+        "s2 u2 b63 q53 q41 q3 q2 q1 q0"
+    )
+    post_collapse_jet = {
+        a5: h**5 * w1, a4: h**4 * a42, a3: h**2 * p32,
+        a2: h * p21, a1: p1, a0: p0,
+        b8: h**8 * s2, b7: h**6 * u2, b6: h**5 * b63,
+        b5: h**3 * q53, b4: h * q41, b3: q3, b2: q2,
+        b1: q1, b0: q0,
+    }
+    jet = sp.Poly(sp.expand(cleared.as_expr().subs(post_collapse_jet)), h)
+    jet_minimum = min(monomial[0] for monomial, _coefficient in jet.terms())
+    jet_head = sp.factor(jet.coeff_monomial(h**jet_minimum))
+    print(
+        f"DEGREE_ZERO_POST_COLLAPSE_H_MIN={jet_minimum} "
+        f"H_LEVELS={len(jet.terms())} "
+        f"HEAD_TERMS={len(sp.Add.make_args(sp.expand(jet_head)))}"
+    )
+    print("DEGREE_ZERO_POST_COLLAPSE_HEAD_BEGIN")
+    print(jet_head)
+    print("DEGREE_ZERO_POST_COLLAPSE_HEAD_END")
