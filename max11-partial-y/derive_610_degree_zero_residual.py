@@ -267,6 +267,64 @@ if os.environ.get("EMIT_GROUPS") == "1":
     )
     print(sp.factor(constant_part))
 
+if os.environ.get("EMIT_CERTIFICATES") == "1":
+    residual_substitution = {
+        residual_constant: parsed[name]
+        for residual_constant, (name, _path, _arguments) in zip(
+            constant_residuals, residual_specs
+        )
+    }
+    native_integral = sp.expand(integral.subs(residual_substitution))
+    derivative_symbols = sp.symbols(
+        "dL dA dB dC0 dD0 dE0 dP dQ dR dS0 dT0 dU0 dV0 dW0 dX0"
+    )
+
+    def total_derivative(expression: sp.Expr) -> sp.Expr:
+        return sp.expand(sum(
+            sp.diff(expression, variable) * derivative
+            for variable, derivative in zip(base_symbols, derivative_symbols)
+        ))
+
+    row_zero = W0 * derivative_symbols[5] - D0 * derivative_symbols[14]
+    correction = (
+        (A**2 - 12 * C0) / 12 * total_derivative(parsed["kappaResidual610"])
+        - B * total_derivative(parsed["lambdaResidual610"])
+        - A * total_derivative(parsed["muResidual610"])
+    )
+    certificate_target = sp.expand(
+        total_derivative(native_integral) - row_zero - correction
+    )
+    certificate_forms = (
+        derivative_symbols[0],
+        *(total_derivative(parsed[name])
+          for name, _path, _arguments in residual_specs[:9]),
+    )
+    certificate_unknowns = sp.symbols("cert_L cert_alpha cert_beta cert_gamma cert_delta cert_epsilon cert_zeta cert_eta cert_theta cert_iota")
+    certificate_equations = [
+        sp.expand(certificate_target.coeff(derivative) - sum(
+            unknown * form.coeff(derivative)
+            for unknown, form in zip(certificate_unknowns, certificate_forms)
+        ))
+        for derivative in derivative_symbols
+    ]
+    certificate_solutions = list(sp.linsolve(certificate_equations, certificate_unknowns))
+    if len(certificate_solutions) != 1:
+        raise RuntimeError("certificate transport did not have a unique solution")
+    certificate_solution = certificate_solutions[0]
+    if any(set(value.free_symbols) & set(certificate_unknowns)
+           for value in certificate_solution):
+        raise RuntimeError("certificate transport retained a free parameter")
+    certificate_reconstruction = sp.expand(certificate_target - sum(
+        value * form for value, form in zip(certificate_solution, certificate_forms)
+    ))
+    if certificate_reconstruction != 0:
+        raise RuntimeError("certificate transport reconstruction is nonzero")
+    for label, value in zip(
+        ("L", "ALPHA", "BETA", "GAMMA", "DELTA", "EPSILON", "ZETA", "ETA", "THETA", "IOTA"),
+        certificate_solution,
+    ):
+        print(f"DEGREE_ZERO_CERTIFICATE_{label}={sp.factor(value)}")
+
 if os.environ.get("COMPUTE_SOURCE") == "1":
     residual_substitution = {
         residual_constant: parsed[name]
