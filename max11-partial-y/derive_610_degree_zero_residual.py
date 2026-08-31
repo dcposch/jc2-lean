@@ -375,6 +375,10 @@ if os.environ.get("COMPUTE_SOURCE") == "1":
         f"DEGREE_ZERO_COMPACT_TERMS={len(compact.terms())} "
         f"CLEARING={clearing_coefficient} CONTENT={compact.content()}"
     )
+    if os.environ.get("EMIT_COMPACT") == "1":
+        print("DEGREE_ZERO_COMPACT_BEGIN")
+        print(compact.as_expr())
+        print("DEGREE_ZERO_COMPACT_END")
 
     Abar = 12 * a4 * h**6 - 5 * a5**2
     Bbar = 54 * a3 * h**12 - 36 * a4 * a5 * h**6 + 10 * a5**3
