@@ -379,6 +379,28 @@ if os.environ.get("COMPUTE_SOURCE") == "1":
         print("DEGREE_ZERO_COMPACT_BEGIN")
         print(compact.as_expr())
         print("DEGREE_ZERO_COMPACT_END")
+    if os.environ.get("EMIT_POST_COLLAPSE_BAR") == "1":
+        hbar = sp.symbols("hbar")
+        bar_orders = dict(zip(
+            (AA, BB, CC, DD, EE, PP, QQ, RR, SS, TT, UU, VV, WW, lam),
+            (10, 14, 19, 24, 29, 10, 14, 19, 23, 27, 32, 37, 42, 0),
+        ))
+        quotient_terms = []
+        for monomial, coefficient in compact.terms():
+            source_order = sum(
+                bar_orders[generator] * exponent
+                for generator, exponent in zip(compact.gens, monomial)
+            )
+            if source_order < 69:
+                raise RuntimeError(f"compact term has source order {source_order} below 69")
+            term = coefficient * hbar ** (source_order - 69)
+            for generator, exponent in zip(compact.gens, monomial):
+                term *= generator**exponent
+            quotient_terms.append(term)
+        bar_quotient = sp.Add(*quotient_terms)
+        print("DEGREE_ZERO_POST_COLLAPSE_BAR_QUOTIENT_BEGIN")
+        print(bar_quotient)
+        print("DEGREE_ZERO_POST_COLLAPSE_BAR_QUOTIENT_END")
 
     Abar = 12 * a4 * h**6 - 5 * a5**2
     Bbar = 54 * a3 * h**12 - 36 * a4 * a5 * h**6 + 10 * a5**3
