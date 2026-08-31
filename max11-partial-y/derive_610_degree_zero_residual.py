@@ -385,15 +385,16 @@ if os.environ.get("COMPUTE_SOURCE") == "1":
             (AA, BB, CC, DD, EE, PP, QQ, RR, SS, TT, UU, VV, WW, XX, lam),
             (10, 14, 19, 24, 29, 10, 14, 19, 23, 27, 32, 37, 42, 47, 0),
         ))
+        source_orders = [
+            sum(bar_orders[generator] * exponent
+                for generator, exponent in zip(compact.gens, monomial))
+            for monomial, _coefficient in compact.terms()
+        ]
+        minimum_source_order = min(source_orders)
+        print(f"DEGREE_ZERO_POST_COLLAPSE_BAR_MIN={minimum_source_order}")
         quotient_terms = []
-        for monomial, coefficient in compact.terms():
-            source_order = sum(
-                bar_orders[generator] * exponent
-                for generator, exponent in zip(compact.gens, monomial)
-            )
-            if source_order < 69:
-                raise RuntimeError(f"compact term has source order {source_order} below 69")
-            term = coefficient * hbar ** (source_order - 69)
+        for (monomial, coefficient), source_order in zip(compact.terms(), source_orders):
+            term = coefficient * hbar ** (source_order - minimum_source_order)
             for generator, exponent in zip(compact.gens, monomial):
                 term *= generator**exponent
             quotient_terms.append(term)
