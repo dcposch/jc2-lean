@@ -296,6 +296,21 @@ def main(argv: Sequence[str]) -> int:
                         return fail_safety(job_dir, text_output, str(error))
                 finish(job_dir, "interrupted", EXIT_INTERRUPTED)
                 return EXIT_INTERRUPTED
+            except Exception as error:
+                # A sampling or ledger failure must not strand an expensive
+                # child. Cleanup still goes through the same fail-closed PGID
+                # validation; no fallback ever walks or signals arbitrary PIDs.
+                try:
+                    stop_owned_group(process, pgid)
+                    cleanup_note = ""
+                except RuntimeError as cleanup_error:
+                    cleanup_note = f"; cleanup refused: {cleanup_error}"
+                with output_path.open("a") as text_output:
+                    return fail_safety(
+                        job_dir,
+                        text_output,
+                        f"supervisor failure: {error}{cleanup_note}",
+                    )
             finally:
                 for watched, previous in previous_handlers.items():
                     signal.signal(watched, previous)
