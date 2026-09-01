@@ -4,3 +4,4 @@ import KeystoneGraph.AlgebraicIndependence
 import KeystoneGraph.IntegralClosureFinite
 import KeystoneGraph.Monogenic
 import KeystoneGraph.TameDifferent
+import KeystoneGraph.EtaleBox
