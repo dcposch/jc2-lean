@@ -28,9 +28,11 @@ sources:
     type: "original-proof"
     relationship: "other"
     note: >-
-      The theorem is first presented by this formalization.  Its new step is
-      the exhaustive cube/noncube dispatch and the exact source-Jacobian
-      compatibility between the two imported branch theorems.
+      This formalization contributes the exhaustive cube/noncube dispatch
+      and the exact source-Jacobian compatibility between the two imported
+      branch theorems.  Novelty and priority of the composed statement
+      against prior literature have not been established by a documented
+      literature search and are unknown.
     license: "CC-BY-4.0"
     author_endorsement: "participated"
 
@@ -40,12 +42,14 @@ related_formalizations:
     note: >-
       Version 2 is the registered source-facing noncube exclusion used on the
       branch where H is not a polynomial cube.
-  - id: "local:gcd3-69-cube"
+  - id: "PALOMAR-2026-08-29-000002"
     relationship: "other"
     note: >-
-      The sibling project supplies the locally strengthened complete
-      polynomial-cube exclusion, including constant cube roots.  That
-      strengthened result is not yet registered with Palomar.
+      The registered cube-branch entry (project gcd3-69-cube in this
+      repository).  This composition consumes the locally strengthened
+      variant of that exclusion, including constant cube roots
+      (GCD369PolynomialCubeSourceExclusionV2), which extends the
+      registered theorem within the same project.
 
 status:
   scope: >-
