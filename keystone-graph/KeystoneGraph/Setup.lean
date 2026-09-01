@@ -43,4 +43,12 @@ structure IsKellerPair (P Q : Plane k) : Prop where
 def coordSubalgebra (P Q : Plane k) : Subalgebra k (Plane k) :=
   Algebra.adjoin k {P, Q}
 
+/-- The coordinate ring `k[P,Q]` as a type. -/
+abbrev coordRing (P Q : Plane k) : Type _ := ↥(coordSubalgebra P Q)
+
+/-- The integral closure of `k[P,Q]` in the plane. Finiteness and
+normality are recorded in `KeystoneGraph.IntegralClosureFinite`. -/
+abbrev integralClosureInPlane (P Q : Plane k) : Type _ :=
+  integralClosure (coordRing P Q) (Plane k)
+
 end KeystoneGraph
