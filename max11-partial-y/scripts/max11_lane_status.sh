@@ -382,7 +382,7 @@ printf '\nRECENT SCRATCH ACTIVITY (3h, newest first)\n'
 recent_rows="$(find "$project_dir" -maxdepth 1 -type f \
   \( -name 'Grok*Scratch.lean' -o -name 'Sol*Scratch.lean' -o \
      -name 'Fable*Scratch.lean' \) \
-  -mmin -180 -exec stat -f '%m|%z|%N' {} + | sort -t '|' -k1,1nr | head -n 16)"
+  -mmin -180 -exec sh -c 'for f in "$@"; do stat -c "%Y|%s|%n" "$f" 2>/dev/null || stat -f "%m|%z|%N" "$f"; done' sh {} + | sort -t '|' -k1,1nr | head -n 16)"
 if [[ -z "$recent_rows" ]]; then
   printf 'none\n'
 else

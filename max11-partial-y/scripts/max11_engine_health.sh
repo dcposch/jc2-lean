@@ -44,7 +44,7 @@ latest_job=""
 for output_log in "$state_root"/*/output.log; do
   [[ -f "$output_log" ]] || continue
   grep -Fq "$limit_pattern" "$output_log" || continue
-  modified_epoch="$(stat -f %m "$output_log")"
+  modified_epoch="$(stat -c %Y "$output_log" 2>/dev/null || stat -f %m "$output_log")"
   if ((modified_epoch > latest_epoch)); then
     latest_epoch="$modified_epoch"
     latest_job="$(basename "$(dirname "$output_log")")"

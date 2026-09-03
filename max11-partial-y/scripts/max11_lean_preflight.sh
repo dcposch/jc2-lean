@@ -83,7 +83,7 @@ for source in "$@"; do
     exit 1
   fi
 
-  bytes="$(stat -f '%z' "$source")"
+  bytes="$(wc -c < "$source" | tr -d ' ')"
   if ((bytes > 65536)); then
     echo "PREFLIGHT_WARN file=$source kind=large_file bytes=$bytes" >&2
     warning_count=$((warning_count + 1))
