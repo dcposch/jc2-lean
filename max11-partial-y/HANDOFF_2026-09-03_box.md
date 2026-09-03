@@ -49,3 +49,16 @@ Mac can be offline. Everything below is in `~/coord` on the box.
   weight-(m+n-1) primitive and run a bounded pole tower.
 - Lanes must verify in the FOREGROUND; if a lane dies mid-verify, the coordinator reruns
   `./scripts/box_lean_verify.sh --file F` itself with `BOX_LEAN_COMPILE_TIMEOUT_SECONDS=21600`.
+
+## Mac side final (2026-09-03 11:30Z)
+- All Mac lanes are stopped. The Mac harvested nothing after commit 0c79552. Nothing is
+  pending on the Mac.
+- The four Mac-owned drafts are in this clone at their final state; none is green at its final
+  SHA. Relaunch each from its draft (or gate it first): `Grok610ScaleZeroConeFinishScratch`
+  (3610 L, last green at SHA 8325db59), `Grok68TerminalZeroMeetingCellScratch` (2047 L, last
+  green 3edc31bb), `Grok810ScaleZeroConeExhaustionScratch` (2889 L, last green df3d8fa8 of its
+  parent only), `Grok810NonzeroFaceClosureScratch` (12508 L, never gated; needs a 6 h gate).
+- All 807 Mac receipts are in `.max11-lanes/gates` here.
+- The stale CAS job `verify_68_degree_zero_h0_row.py` was killed 2026-09-03 11:25Z; obsolete.
+- Palomar browser step (GitHub sign-in, register click) is DC's; hand DC the package path and
+  the 40-char SHA when the package is built and axiom-audited.
