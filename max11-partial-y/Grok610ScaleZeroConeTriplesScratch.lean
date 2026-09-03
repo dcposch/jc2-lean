@@ -9,18 +9,20 @@ The parent residual `normalized610ScaleZero_coneFinishResidual` (green at
 content SHA `014b69b2`, commit `35631da`) hands, for every
 `Normalized610LeadingCoreSource P Q H 0`, the constant core `H = (C t)²`,
 the derivative identity, `natDegree 0` for `λ/κ/μ/ο`, and the negation of
-every pair-ratio and unique-`D₀` monomial cone.  Remaining chambers are
-the triples `ABC0` / `ABE0` / `AC0E0`, the quadruple `ABCE0`, and mixed
-`D₀` weights that are not a unique maximum.
+every pair-ratio and unique-`D₀` monomial cone.
+
+This file lands the triples `ABC0` / `ABE0` by extracting tied leading
+coefficients of `λ`/`κ`/raw-`ο` and applying the field identities
+`abc0_tied_leadings_impossible` / parent `abe0_tied_leadings_impossible`,
+and kills every mixed-`D₀` max-set whose companion `μ` face is a unique
+monomial (`B D₀²` or `C₀² D₀`) the way `WeightedAD02LeadsCone610` was
+killed.  Remaining: `AC0E0` (cusp with `l = 0`), the quadruple `T₂`
+branch, and mixed-`D₀` combination max-sets whose companion `κ`/`μ`
+faces have more than one monomial.
 
 CAS job `derive_610_scale_zero_cone_triples.py` (extending
 `derive_610_scale_zero_cone_ratio_ties.py`).  Groebner certificates:
-`C₀⁶` on `A`–`B`–`C₀` (`λ+κ+ο`), `E₀⁴` on `A`–`B`–`E₀` (parent
-`abe0_tied_leadings_impossible`), and `b¹²` / `v⁵` after the `κ` drop
-on the quadruple.  Mixed `D₀` chambers with a unique `κ` or `μ`
-monomial are killed as `WeightedAD02LeadsCone610` was.  Combination
-mixed-`D₀` max-sets that do not reduce to a unique companion monomial
-are named and recorded if they resist.
+`C₀⁶` on `A`–`B`–`C₀` (`λ+κ+ο`) and `E₀⁴` on `A`–`B`–`E₀`.
 
 No total-degree or twice-prime theorem is used.  No `sorry`, no new
 axioms, no finite-root shortcut, no closure overclaim.
@@ -839,6 +841,34 @@ def kappaD0E0Face610 (D0 E0 : k[X]) : k[X] :=
 def kappaAC0D0Face610 (A C0 D0 : k[X]) : k[X] :=
   (-(10 / 27 : k)) • (A * C0 * D0)
 
+/-- Unique `μ` face `B D₀²`. -/
+def muBD02Face610 (B D0 : k[X]) : k[X] :=
+  (-(5 / 27 : k)) • (B * D0 ^ 2)
+
+/-- Unique `μ` face `C₀² D₀`. -/
+def muC02D0Face610 (C0 D0 : k[X]) : k[X] :=
+  (-(5 / 27 : k)) • (C0 ^ 2 * D0)
+
+/-- Load-free raw-tail face on the `A`–`B`–`C₀` triple. -/
+def rawABC0Combined610 (A B C0 : k[X]) : k[X] :=
+  (-(65 / 19683 : k)) • A ^ 7 +
+    (70 / 2187 : k) • (A ^ 5 * C0) +
+    (175 / 2187 : k) • (A ^ 4 * B ^ 2) -
+    (70 / 729 : k) • (A ^ 3 * C0 ^ 2) -
+    (70 / 243 : k) • (A ^ 2 * B ^ 2 * C0) -
+    (35 / 729 : k) • (A * B ^ 4) +
+    (20 / 243 : k) • (A * C0 ^ 3) +
+    (10 / 81 : k) • (B ^ 2 * C0 ^ 2)
+
+/-- Load-free raw-tail face on the `A`–`B`–`E₀` triple. -/
+def rawABE0Combined610 (A B E0 : k[X]) : k[X] :=
+  (-(65 / 19683 : k)) • A ^ 7 +
+    (175 / 2187 : k) • (A ^ 4 * B ^ 2) -
+    (35 / 729 : k) • (A ^ 4 * E0) -
+    (35 / 729 : k) • (A * B ^ 4) +
+    (20 / 81 : k) • (A * B ^ 2 * E0) -
+    (5 / 27 : k) • (A * E0 ^ 2)
+
 end TripleCombined610
 
 /-! ## Rest polynomials -/
@@ -1470,7 +1500,1755 @@ theorem degreeZeroKappaNoABE0_natDegree_lt
       6 * A.natDegree := Nat.succ_le_of_lt hD3
   omega
 
+/-- `μ` with the unique `B D₀²` face deleted. -/
+def degreeZeroMuNoBD02Polynomial610
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) : k[X] :=
+  (5 / 1024 * l : k) • A ^ 6
+    + (35 / 1458 : k) • (A ^ 5 * B)
+    - (77 / 15552 * beta : k) • A ^ 5
+    - (10 / 243 * alpha : k) • (A ^ 4 * B)
+    - (11 / 256 * l : k) • (A ^ 4 * C0)
+    - (25 / 729 : k) • (A ^ 4 * D0)
+    - (35 / 3456 * delta : k) • A ^ 4
+    - (3 / 32 * l : k) • (A ^ 3 * B ^ 2)
+    - (110 / 729 : k) • (A ^ 3 * B * C0)
+    + (35 / 972 * beta : k) • (A ^ 3 * C0)
+    + (14 / 243 * alpha : k) • (A ^ 3 * D0)
+    + (1 / 16 * l : k) • (A ^ 3 * E0)
+    + (1 / 24 * zeta : k) • A ^ 3
+    - (20 / 243 : k) • (A ^ 2 * B ^ 3)
+    + (35 / 576 * beta : k) • (A ^ 2 * B ^ 2)
+    + (16 / 81 * alpha : k) • (A ^ 2 * B * C0)
+    + (7 / 32 * l : k) • (A ^ 2 * B * D0)
+    + (5 / 27 : k) • (A ^ 2 * B * E0)
+    + (1 / 9 * epsilon : k) • (A ^ 2 * B)
+    + (7 / 64 * l : k) • (A ^ 2 * C0 ^ 2)
+    + (5 / 27 : k) • (A ^ 2 * C0 * D0)
+    + (25 / 432 * delta : k) • (A ^ 2 * C0)
+    - (7 / 144 * beta : k) • (A ^ 2 * E0)
+    - (1 / 24 * theta : k) • A ^ 2
+    + (2 / 27 * alpha : k) • (A * B ^ 3)
+    + (1 / 4 * l : k) • (A * B ^ 2 * C0)
+    + (35 / 162 : k) • (A * B ^ 2 * D0)
+    + (5 / 72 * delta : k) • (A * B ^ 2)
+    + (35 / 162 : k) • (A * B * C0 ^ 2)
+    - (7 / 54 * beta : k) • (A * B * D0)
+    - (2 / 9 * alpha : k) • (A * B * E0)
+    - (1 / 6 * eta : k) • (A * B)
+    - (7 / 108 * beta : k) • (A * C0 ^ 2)
+    - (2 / 9 * alpha : k) • (A * C0 * D0)
+    - (1 / 4 * l : k) • (A * C0 * E0)
+    - (1 / 6 * zeta : k) • (A * C0)
+    - (1 / 8 * l : k) • (A * D0 ^ 2)
+    - (5 / 27 : k) • (A * D0 * E0)
+    - (1 / 9 * epsilon : k) • (A * D0)
+    + (3 / 128 * l : k) • B ^ 4
+    + (20 / 243 : k) • (B ^ 3 * C0)
+    - (35 / 432 * beta : k) • (B ^ 2 * C0)
+    - (4 / 27 * alpha : k) • (B ^ 2 * D0)
+    - (3 / 16 * l : k) • (B ^ 2 * E0)
+    - (1 / 8 * zeta : k) • B ^ 2
+    - (4 / 27 * alpha : k) • (B * C0 ^ 2)
+    - (3 / 8 * l : k) • (B * C0 * D0)
+    - (10 / 27 : k) • (B * C0 * E0)
+    - (2 / 9 * epsilon : k) • (B * C0)
+    - (5 / 36 * delta : k) • (B * D0)
+    - (1 / 16 * l : k) • C0 ^ 3
+    - (5 / 27 : k) • (C0 ^ 2 * D0)
+    - (5 / 72 * delta : k) • C0 ^ 2
+    + (7 / 36 * beta : k) • (C0 * E0)
+    + (1 / 6 * theta : k) • C0
+    + (7 / 72 * beta : k) • D0 ^ 2
+    + (4 / 9 * alpha : k) • (D0 * E0)
+    + (1 / 3 * eta : k) • D0
+    + (3 / 8 * l : k) • E0 ^ 2
+    + (1 / 2 * zeta : k) • E0
+
+/-- `μ` with the unique `C₀² D₀` face deleted. -/
+def degreeZeroMuNoC02D0Polynomial610
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) : k[X] :=
+  (5 / 1024 * l : k) • A ^ 6
+    + (35 / 1458 : k) • (A ^ 5 * B)
+    - (77 / 15552 * beta : k) • A ^ 5
+    - (10 / 243 * alpha : k) • (A ^ 4 * B)
+    - (11 / 256 * l : k) • (A ^ 4 * C0)
+    - (25 / 729 : k) • (A ^ 4 * D0)
+    - (35 / 3456 * delta : k) • A ^ 4
+    - (3 / 32 * l : k) • (A ^ 3 * B ^ 2)
+    - (110 / 729 : k) • (A ^ 3 * B * C0)
+    + (35 / 972 * beta : k) • (A ^ 3 * C0)
+    + (14 / 243 * alpha : k) • (A ^ 3 * D0)
+    + (1 / 16 * l : k) • (A ^ 3 * E0)
+    + (1 / 24 * zeta : k) • A ^ 3
+    - (20 / 243 : k) • (A ^ 2 * B ^ 3)
+    + (35 / 576 * beta : k) • (A ^ 2 * B ^ 2)
+    + (16 / 81 * alpha : k) • (A ^ 2 * B * C0)
+    + (7 / 32 * l : k) • (A ^ 2 * B * D0)
+    + (5 / 27 : k) • (A ^ 2 * B * E0)
+    + (1 / 9 * epsilon : k) • (A ^ 2 * B)
+    + (7 / 64 * l : k) • (A ^ 2 * C0 ^ 2)
+    + (5 / 27 : k) • (A ^ 2 * C0 * D0)
+    + (25 / 432 * delta : k) • (A ^ 2 * C0)
+    - (7 / 144 * beta : k) • (A ^ 2 * E0)
+    - (1 / 24 * theta : k) • A ^ 2
+    + (2 / 27 * alpha : k) • (A * B ^ 3)
+    + (1 / 4 * l : k) • (A * B ^ 2 * C0)
+    + (35 / 162 : k) • (A * B ^ 2 * D0)
+    + (5 / 72 * delta : k) • (A * B ^ 2)
+    + (35 / 162 : k) • (A * B * C0 ^ 2)
+    - (7 / 54 * beta : k) • (A * B * D0)
+    - (2 / 9 * alpha : k) • (A * B * E0)
+    - (1 / 6 * eta : k) • (A * B)
+    - (7 / 108 * beta : k) • (A * C0 ^ 2)
+    - (2 / 9 * alpha : k) • (A * C0 * D0)
+    - (1 / 4 * l : k) • (A * C0 * E0)
+    - (1 / 6 * zeta : k) • (A * C0)
+    - (1 / 8 * l : k) • (A * D0 ^ 2)
+    - (5 / 27 : k) • (A * D0 * E0)
+    - (1 / 9 * epsilon : k) • (A * D0)
+    + (3 / 128 * l : k) • B ^ 4
+    + (20 / 243 : k) • (B ^ 3 * C0)
+    - (35 / 432 * beta : k) • (B ^ 2 * C0)
+    - (4 / 27 * alpha : k) • (B ^ 2 * D0)
+    - (3 / 16 * l : k) • (B ^ 2 * E0)
+    - (1 / 8 * zeta : k) • B ^ 2
+    - (4 / 27 * alpha : k) • (B * C0 ^ 2)
+    - (3 / 8 * l : k) • (B * C0 * D0)
+    - (10 / 27 : k) • (B * C0 * E0)
+    - (2 / 9 * epsilon : k) • (B * C0)
+    - (5 / 27 : k) • (B * D0 ^ 2)
+    - (5 / 36 * delta : k) • (B * D0)
+    - (1 / 16 * l : k) • C0 ^ 3
+    - (5 / 72 * delta : k) • C0 ^ 2
+    + (7 / 36 * beta : k) • (C0 * E0)
+    + (1 / 6 * theta : k) • C0
+    + (7 / 72 * beta : k) • D0 ^ 2
+    + (4 / 9 * alpha : k) • (D0 * E0)
+    + (1 / 3 * eta : k) • D0
+    + (3 / 8 * l : k) • E0 ^ 2
+    + (1 / 2 * zeta : k) • E0
+
+/-- Raw tail with the `A`–`B`–`C₀` combination deleted. -/
+def degreeZeroRawFourthTailNoABC0Polynomial610
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) : k[X] :=
+  - (35 / 729 : k) • (A ^ 4 * E0)
+    - (140 / 729 : k) • (A ^ 3 * B * D0)
+    + (20 / 81 : k) • (A ^ 2 * C0 * E0)
+    + (10 / 81 : k) • (A ^ 2 * D0 ^ 2)
+    + (20 / 81 : k) • (A * B ^ 2 * E0)
+    + (40 / 81 : k) • (A * B * C0 * D0)
+    - (5 / 27 : k) • (A * E0 ^ 2)
+    + (20 / 243 : k) • (B ^ 3 * D0)
+    - (10 / 27 : k) • (B * D0 * E0)
+    - (5 / 27 : k) • (C0 ^ 2 * E0)
+    - (5 / 27 : k) • (C0 * D0 ^ 2)
+    + (21 / 512 * l : k) • (A ^ 5 * B)
+    - (15 / 256 * l : k) • (A ^ 4 * D0)
+    - (15 / 64 * l : k) • (A ^ 3 * B * C0)
+    - (15 / 128 * l : k) • (A ^ 2 * B ^ 3)
+    + (9 / 32 * l : k) • (A ^ 2 * B * E0)
+    + (9 / 32 * l : k) • (A ^ 2 * C0 * D0)
+    + (9 / 32 * l : k) • (A * B ^ 2 * D0)
+    + (9 / 32 * l : k) • (A * B * C0 ^ 2)
+    - (3 / 8 * l : k) • (A * D0 * E0)
+    + (3 / 32 * l : k) • (B ^ 3 * C0)
+    - (3 / 8 * l : k) • (B * C0 * E0)
+    - (3 / 16 * l : k) • (B * D0 ^ 2)
+    - (3 / 16 * l : k) • (C0 ^ 2 * D0)
+    + (44 / 6561 * alpha : k) • A ^ 6
+    - (40 / 729 * alpha : k) • (A ^ 4 * C0)
+    - (80 / 729 * alpha : k) • (A ^ 3 * B ^ 2)
+    + (20 / 243 * alpha : k) • (A ^ 3 * E0)
+    + (20 / 81 * alpha : k) • (A ^ 2 * B * D0)
+    + (10 / 81 * alpha : k) • (A ^ 2 * C0 ^ 2)
+    + (20 / 81 * alpha : k) • (A * B ^ 2 * C0)
+    - (8 / 27 * alpha : k) • (A * C0 * E0)
+    - (4 / 27 * alpha : k) • (A * D0 ^ 2)
+    + (5 / 243 * alpha : k) • B ^ 4
+    - (4 / 27 * alpha : k) • (B ^ 2 * E0)
+    - (8 / 27 * alpha : k) • (B * C0 * D0)
+    - (4 / 81 * alpha : k) • C0 ^ 3
+    + (2 / 9 * alpha : k) • E0 ^ 2
+    - (6545 / 186624 * beta : k) • (A ^ 4 * B)
+    + (385 / 7776 * beta : k) • (A ^ 3 * D0)
+    + (385 / 2592 * beta : k) • (A ^ 2 * B * C0)
+    + (385 / 7776 * beta : k) • (A * B ^ 3)
+    - (35 / 216 * beta : k) • (A * B * E0)
+    - (35 / 216 * beta : k) • (A * C0 * D0)
+    - (35 / 432 * beta : k) • (B ^ 2 * D0)
+    - (35 / 432 * beta : k) • (B * C0 ^ 2)
+    + (7 / 36 * beta : k) • (D0 * E0)
+    - (455 / 7776 * delta : k) • (A ^ 3 * B)
+    + (35 / 432 * delta : k) • (A ^ 2 * D0)
+    + (35 / 216 * delta : k) • (A * B * C0)
+    + (35 / 1296 * delta : k) • B ^ 3
+    - (5 / 36 * delta : k) • (B * E0)
+    - (5 / 36 * delta : k) • (C0 * D0)
+    - (7 / 243 * epsilon : k) • A ^ 4
+    + (4 / 27 * epsilon : k) • (A ^ 2 * C0)
+    + (4 / 27 * epsilon : k) • (A * B ^ 2)
+    - (2 / 9 * epsilon : k) • (A * E0)
+    - (2 / 9 * epsilon : k) • (B * D0)
+    - (1 / 9 * epsilon : k) • C0 ^ 2
+    + (5 / 81 * eta : k) • A ^ 3
+    - (2 / 9 * eta : k) • (A * C0)
+    - (1 / 9 * eta : k) • B ^ 2
+    + (1 / 3 * eta : k) • E0
+    - (5 / 36 * theta : k) • (A * B)
+    + (1 / 6 * theta : k) • D0
+    + (3 / 16 * zeta : k) • (A ^ 2 * B)
+    - (1 / 4 * zeta : k) • (A * D0)
+    - (1 / 4 * zeta : k) • (B * C0)
+
+/-- Raw tail with the `A`–`B`–`E₀` combination deleted. -/
+def degreeZeroRawFourthTailNoABE0Polynomial610
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) : k[X] :=
+  (70 / 2187 : k) • (A ^ 5 * C0)
+    - (140 / 729 : k) • (A ^ 3 * B * D0)
+    - (70 / 729 : k) • (A ^ 3 * C0 ^ 2)
+    - (70 / 243 : k) • (A ^ 2 * B ^ 2 * C0)
+    + (20 / 81 : k) • (A ^ 2 * C0 * E0)
+    + (10 / 81 : k) • (A ^ 2 * D0 ^ 2)
+    + (40 / 81 : k) • (A * B * C0 * D0)
+    + (20 / 243 : k) • (A * C0 ^ 3)
+    + (20 / 243 : k) • (B ^ 3 * D0)
+    + (10 / 81 : k) • (B ^ 2 * C0 ^ 2)
+    - (10 / 27 : k) • (B * D0 * E0)
+    - (5 / 27 : k) • (C0 ^ 2 * E0)
+    - (5 / 27 : k) • (C0 * D0 ^ 2)
+    + (21 / 512 * l : k) • (A ^ 5 * B)
+    - (15 / 256 * l : k) • (A ^ 4 * D0)
+    - (15 / 64 * l : k) • (A ^ 3 * B * C0)
+    - (15 / 128 * l : k) • (A ^ 2 * B ^ 3)
+    + (9 / 32 * l : k) • (A ^ 2 * B * E0)
+    + (9 / 32 * l : k) • (A ^ 2 * C0 * D0)
+    + (9 / 32 * l : k) • (A * B ^ 2 * D0)
+    + (9 / 32 * l : k) • (A * B * C0 ^ 2)
+    - (3 / 8 * l : k) • (A * D0 * E0)
+    + (3 / 32 * l : k) • (B ^ 3 * C0)
+    - (3 / 8 * l : k) • (B * C0 * E0)
+    - (3 / 16 * l : k) • (B * D0 ^ 2)
+    - (3 / 16 * l : k) • (C0 ^ 2 * D0)
+    + (44 / 6561 * alpha : k) • A ^ 6
+    - (40 / 729 * alpha : k) • (A ^ 4 * C0)
+    - (80 / 729 * alpha : k) • (A ^ 3 * B ^ 2)
+    + (20 / 243 * alpha : k) • (A ^ 3 * E0)
+    + (20 / 81 * alpha : k) • (A ^ 2 * B * D0)
+    + (10 / 81 * alpha : k) • (A ^ 2 * C0 ^ 2)
+    + (20 / 81 * alpha : k) • (A * B ^ 2 * C0)
+    - (8 / 27 * alpha : k) • (A * C0 * E0)
+    - (4 / 27 * alpha : k) • (A * D0 ^ 2)
+    + (5 / 243 * alpha : k) • B ^ 4
+    - (4 / 27 * alpha : k) • (B ^ 2 * E0)
+    - (8 / 27 * alpha : k) • (B * C0 * D0)
+    - (4 / 81 * alpha : k) • C0 ^ 3
+    + (2 / 9 * alpha : k) • E0 ^ 2
+    - (6545 / 186624 * beta : k) • (A ^ 4 * B)
+    + (385 / 7776 * beta : k) • (A ^ 3 * D0)
+    + (385 / 2592 * beta : k) • (A ^ 2 * B * C0)
+    + (385 / 7776 * beta : k) • (A * B ^ 3)
+    - (35 / 216 * beta : k) • (A * B * E0)
+    - (35 / 216 * beta : k) • (A * C0 * D0)
+    - (35 / 432 * beta : k) • (B ^ 2 * D0)
+    - (35 / 432 * beta : k) • (B * C0 ^ 2)
+    + (7 / 36 * beta : k) • (D0 * E0)
+    - (455 / 7776 * delta : k) • (A ^ 3 * B)
+    + (35 / 432 * delta : k) • (A ^ 2 * D0)
+    + (35 / 216 * delta : k) • (A * B * C0)
+    + (35 / 1296 * delta : k) • B ^ 3
+    - (5 / 36 * delta : k) • (B * E0)
+    - (5 / 36 * delta : k) • (C0 * D0)
+    - (7 / 243 * epsilon : k) • A ^ 4
+    + (4 / 27 * epsilon : k) • (A ^ 2 * C0)
+    + (4 / 27 * epsilon : k) • (A * B ^ 2)
+    - (2 / 9 * epsilon : k) • (A * E0)
+    - (2 / 9 * epsilon : k) • (B * D0)
+    - (1 / 9 * epsilon : k) • C0 ^ 2
+    + (5 / 81 * eta : k) • A ^ 3
+    - (2 / 9 * eta : k) • (A * C0)
+    - (1 / 9 * eta : k) • B ^ 2
+    + (1 / 3 * eta : k) • E0
+    - (5 / 36 * theta : k) • (A * B)
+    + (1 / 6 * theta : k) • D0
+    + (3 / 16 * zeta : k) • (A ^ 2 * B)
+    - (1 / 4 * zeta : k) • (A * D0)
+    - (1 / 4 * zeta : k) • (B * C0)
+
+set_option maxHeartbeats 16000000 in
+theorem degreeZeroMuPolynomial610_eq_BD02_add_rest
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroMuPolynomial610 l alpha beta delta epsilon zeta eta theta
+        A B C0 D0 E0 =
+      muBD02Face610 B D0 +
+        degreeZeroMuNoBD02Polynomial610 l alpha beta delta epsilon zeta eta theta
+          A B C0 D0 E0 := by
+  simp only [degreeZeroMuPolynomial610, muBD02Face610, degreeZeroMuNoBD02Polynomial610]
+  module
+
+set_option maxHeartbeats 16000000 in
+theorem degreeZeroMuPolynomial610_eq_C02D0_add_rest
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroMuPolynomial610 l alpha beta delta epsilon zeta eta theta
+        A B C0 D0 E0 =
+      muC02D0Face610 C0 D0 +
+        degreeZeroMuNoC02D0Polynomial610 l alpha beta delta epsilon zeta eta theta
+          A B C0 D0 E0 := by
+  simp only [degreeZeroMuPolynomial610, muC02D0Face610, degreeZeroMuNoC02D0Polynomial610]
+  module
+
+set_option maxHeartbeats 16000000 in
+theorem degreeZeroRawFourthTailPolynomial610_eq_ABC0_add_rest
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroRawFourthTailPolynomial610 l alpha beta delta epsilon zeta
+        eta theta A B C0 D0 E0 =
+      rawABC0Combined610 A B C0 +
+        degreeZeroRawFourthTailNoABC0Polynomial610 l alpha beta delta
+          epsilon zeta eta theta A B C0 D0 E0 := by
+  simp only [degreeZeroRawFourthTailPolynomial610, rawABC0Combined610,
+    degreeZeroRawFourthTailNoABC0Polynomial610]
+  module
+
+set_option maxHeartbeats 16000000 in
+theorem degreeZeroRawFourthTailPolynomial610_eq_ABE0_add_rest
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroRawFourthTailPolynomial610 l alpha beta delta epsilon zeta
+        eta theta A B C0 D0 E0 =
+      rawABE0Combined610 A B E0 +
+        degreeZeroRawFourthTailNoABE0Polynomial610 l alpha beta delta
+          epsilon zeta eta theta A B C0 D0 E0 := by
+  simp only [degreeZeroRawFourthTailPolynomial610, rawABE0Combined610,
+    degreeZeroRawFourthTailNoABE0Polynomial610]
+  module
+
+set_option maxHeartbeats 16000000 in
+theorem degreeZeroMuNoBD02_natDegree_lt_of_MixedADB
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X])
+    (hcone : MixedADBRatioTieCone610 A B C0 D0 E0) :
+    (degreeZeroMuNoBD02Polynomial610 l alpha beta delta epsilon zeta eta theta
+        A B C0 D0 E0).natDegree <
+      B.natDegree + 2 * D0.natDegree := by
+  rcases hcone with ⟨hBpos, hDpos, htie, hA, hC, hE, hD2, hD3⟩
+  simp only [degreeZeroMuNoBD02Polynomial610, zero_mul, mul_zero, zero_smul, smul_zero,
+    zero_pow_two_tr, zero_pow_three_tr, zero_pow_four_tr, zero_pow_five_tr,
+    zero_pow_six_tr, zero_pow_seven_tr]
+  compute_degree
+  have hA1 : 6 * A.natDegree + 1 ≤ 4 * B.natDegree := Nat.succ_le_of_lt hA
+  have hC1 : 3 * C0.natDegree + 1 ≤ 4 * B.natDegree := Nat.succ_le_of_lt hC
+  have hE1 : 2 * E0.natDegree + 1 ≤ 4 * B.natDegree := Nat.succ_le_of_lt hE
+  have hD21 : 2 * A.natDegree + B.natDegree + D0.natDegree + 1 ≤
+      4 * B.natDegree := Nat.succ_le_of_lt hD2
+  have hD31 : B.natDegree + C0.natDegree + D0.natDegree + 1 ≤
+      4 * B.natDegree := Nat.succ_le_of_lt hD3
+  omega
+
+set_option maxHeartbeats 16000000 in
+theorem degreeZeroMuNoBD02_natDegree_lt_of_MixedBBD
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X])
+    (hcone : MixedBBDRatioTieCone610 A B C0 D0 E0) :
+    (degreeZeroMuNoBD02Polynomial610 l alpha beta delta epsilon zeta eta theta
+        A B C0 D0 E0).natDegree <
+      B.natDegree + 2 * D0.natDegree := by
+  rcases hcone with ⟨hBpos, hDpos, htie, hA, hC, hE, hAD, hA2⟩
+  simp only [degreeZeroMuNoBD02Polynomial610, zero_mul, mul_zero, zero_smul, smul_zero,
+    zero_pow_two_tr, zero_pow_three_tr, zero_pow_four_tr, zero_pow_five_tr,
+    zero_pow_six_tr, zero_pow_seven_tr]
+  compute_degree
+  have hA1 : 6 * A.natDegree + 1 ≤ 4 * B.natDegree := Nat.succ_le_of_lt hA
+  have hC1 : 3 * C0.natDegree + 1 ≤ 4 * B.natDegree := Nat.succ_le_of_lt hC
+  have hE1 : 2 * E0.natDegree + 1 ≤ 4 * B.natDegree := Nat.succ_le_of_lt hE
+  have hAD1 : A.natDegree + 2 * D0.natDegree + 1 ≤ 4 * B.natDegree :=
+    Nat.succ_le_of_lt hAD
+  have hA21 : 2 * A.natDegree + B.natDegree + D0.natDegree + 1 ≤
+      4 * B.natDegree := Nat.succ_le_of_lt hA2
+  omega
+
+set_option maxHeartbeats 16000000 in
+theorem degreeZeroMuNoBD02_natDegree_lt_of_MixedADBBD
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X])
+    (hcone : MixedADBBDRatioTieCone610 A B C0 D0 E0) :
+    (degreeZeroMuNoBD02Polynomial610 l alpha beta delta epsilon zeta eta theta
+        A B C0 D0 E0).natDegree <
+      B.natDegree + 2 * D0.natDegree := by
+  rcases hcone with ⟨hBpos, hDpos, htieAD, htieBD, hA, hC, hE, hA2⟩
+  simp only [degreeZeroMuNoBD02Polynomial610, zero_mul, mul_zero, zero_smul, smul_zero,
+    zero_pow_two_tr, zero_pow_three_tr, zero_pow_four_tr, zero_pow_five_tr,
+    zero_pow_six_tr, zero_pow_seven_tr]
+  compute_degree
+  have hA1 : 6 * A.natDegree + 1 ≤ 4 * B.natDegree := Nat.succ_le_of_lt hA
+  have hC1 : 3 * C0.natDegree + 1 ≤ 4 * B.natDegree := Nat.succ_le_of_lt hC
+  have hE1 : 2 * E0.natDegree + 1 ≤ 4 * B.natDegree := Nat.succ_le_of_lt hE
+  have hA21 : 2 * A.natDegree + B.natDegree + D0.natDegree + 1 ≤
+      4 * B.natDegree := Nat.succ_le_of_lt hA2
+  omega
+
+set_option maxHeartbeats 16000000 in
+theorem degreeZeroMuNoBD02_natDegree_lt_of_MixedADBE
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X])
+    (hcone : MixedADBERatioTieCone610 A B C0 D0 E0) :
+    (degreeZeroMuNoBD02Polynomial610 l alpha beta delta epsilon zeta eta theta
+        A B C0 D0 E0).natDegree <
+      B.natDegree + 2 * D0.natDegree := by
+  rcases hcone with ⟨hBpos, hDpos, htieE, htieAD, hA, hC, hA2, hBD⟩
+  simp only [degreeZeroMuNoBD02Polynomial610, zero_mul, mul_zero, zero_smul, smul_zero,
+    zero_pow_two_tr, zero_pow_three_tr, zero_pow_four_tr, zero_pow_five_tr,
+    zero_pow_six_tr, zero_pow_seven_tr]
+  compute_degree
+  have hA1 : 6 * A.natDegree + 1 ≤ 4 * B.natDegree := Nat.succ_le_of_lt hA
+  have hC1 : 3 * C0.natDegree + 1 ≤ 4 * B.natDegree := Nat.succ_le_of_lt hC
+  have hA21 : 2 * A.natDegree + B.natDegree + D0.natDegree + 1 ≤
+      4 * B.natDegree := Nat.succ_le_of_lt hA2
+  have hBD1 : B.natDegree + C0.natDegree + D0.natDegree + 1 ≤
+      4 * B.natDegree := Nat.succ_le_of_lt hBD
+  omega
+
+set_option maxHeartbeats 16000000 in
+theorem degreeZeroMuNoBD02_natDegree_lt_of_MixedBBDE
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X])
+    (hcone : MixedBBDERatioTieCone610 A B C0 D0 E0) :
+    (degreeZeroMuNoBD02Polynomial610 l alpha beta delta epsilon zeta eta theta
+        A B C0 D0 E0).natDegree <
+      B.natDegree + 2 * D0.natDegree := by
+  rcases hcone with ⟨hBpos, hDpos, htieE, htieBD, hA, hC, hAD, hA2⟩
+  simp only [degreeZeroMuNoBD02Polynomial610, zero_mul, mul_zero, zero_smul, smul_zero,
+    zero_pow_two_tr, zero_pow_three_tr, zero_pow_four_tr, zero_pow_five_tr,
+    zero_pow_six_tr, zero_pow_seven_tr]
+  compute_degree
+  have hA1 : 6 * A.natDegree + 1 ≤ 4 * B.natDegree := Nat.succ_le_of_lt hA
+  have hC1 : 3 * C0.natDegree + 1 ≤ 4 * B.natDegree := Nat.succ_le_of_lt hC
+  have hAD1 : A.natDegree + 2 * D0.natDegree + 1 ≤ 4 * B.natDegree :=
+    Nat.succ_le_of_lt hAD
+  have hA21 : 2 * A.natDegree + B.natDegree + D0.natDegree + 1 ≤
+      4 * B.natDegree := Nat.succ_le_of_lt hA2
+  omega
+
+set_option maxHeartbeats 16000000 in
+theorem degreeZeroMuNoBD02_natDegree_lt_of_MixedADBBDE
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X])
+    (hcone : MixedADBBDERatioTieCone610 A B C0 D0 E0) :
+    (degreeZeroMuNoBD02Polynomial610 l alpha beta delta epsilon zeta eta theta
+        A B C0 D0 E0).natDegree <
+      B.natDegree + 2 * D0.natDegree := by
+  rcases hcone with ⟨hBpos, hDpos, htieE, htieAD, htieBD, hA, hC, hA2⟩
+  simp only [degreeZeroMuNoBD02Polynomial610, zero_mul, mul_zero, zero_smul, smul_zero,
+    zero_pow_two_tr, zero_pow_three_tr, zero_pow_four_tr, zero_pow_five_tr,
+    zero_pow_six_tr, zero_pow_seven_tr]
+  compute_degree
+  have hA1 : 6 * A.natDegree + 1 ≤ 4 * B.natDegree := Nat.succ_le_of_lt hA
+  have hC1 : 3 * C0.natDegree + 1 ≤ 4 * B.natDegree := Nat.succ_le_of_lt hC
+  have hA21 : 2 * A.natDegree + B.natDegree + D0.natDegree + 1 ≤
+      4 * B.natDegree := Nat.succ_le_of_lt hA2
+  omega
+
+set_option maxHeartbeats 16000000 in
+theorem degreeZeroMuNoC02D0_natDegree_lt_of_MixedADC
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X])
+    (hcone : MixedADCRatioTieCone610 A B C0 D0 E0) :
+    (degreeZeroMuNoC02D0Polynomial610 l alpha beta delta epsilon zeta eta theta
+        A B C0 D0 E0).natDegree <
+      2 * C0.natDegree + D0.natDegree := by
+  rcases hcone with ⟨hCpos, hDpos, htie, hA, hB, hE, hA2, hBD⟩
+  simp only [degreeZeroMuNoC02D0Polynomial610, zero_mul, mul_zero, zero_smul, smul_zero,
+    zero_pow_two_tr, zero_pow_three_tr, zero_pow_four_tr, zero_pow_five_tr,
+    zero_pow_six_tr, zero_pow_seven_tr]
+  compute_degree
+  have hA1 : 6 * A.natDegree + 1 ≤ 3 * C0.natDegree := Nat.succ_le_of_lt hA
+  have hB1 : 4 * B.natDegree + 1 ≤ 3 * C0.natDegree := Nat.succ_le_of_lt hB
+  have hE1 : 2 * E0.natDegree + 1 ≤ 3 * C0.natDegree := Nat.succ_le_of_lt hE
+  have hA21 : 2 * A.natDegree + B.natDegree + D0.natDegree + 1 ≤
+      3 * C0.natDegree := Nat.succ_le_of_lt hA2
+  have hBD1 : B.natDegree + C0.natDegree + D0.natDegree + 1 ≤
+      3 * C0.natDegree := Nat.succ_le_of_lt hBD
+  omega
+
+set_option maxHeartbeats 16000000 in
+theorem degreeZeroMuNoC02D0_natDegree_lt_of_MixedADCE
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X])
+    (hcone : MixedADCERatioTieCone610 A B C0 D0 E0) :
+    (degreeZeroMuNoC02D0Polynomial610 l alpha beta delta epsilon zeta eta theta
+        A B C0 D0 E0).natDegree <
+      2 * C0.natDegree + D0.natDegree := by
+  rcases hcone with ⟨hCpos, hDpos, htieE, htieAD, hA, hB, hA2, hBD⟩
+  simp only [degreeZeroMuNoC02D0Polynomial610, zero_mul, mul_zero, zero_smul, smul_zero,
+    zero_pow_two_tr, zero_pow_three_tr, zero_pow_four_tr, zero_pow_five_tr,
+    zero_pow_six_tr, zero_pow_seven_tr]
+  compute_degree
+  have hA1 : 6 * A.natDegree + 1 ≤ 3 * C0.natDegree := Nat.succ_le_of_lt hA
+  have hB1 : 4 * B.natDegree + 1 ≤ 3 * C0.natDegree := Nat.succ_le_of_lt hB
+  have hA21 : 2 * A.natDegree + B.natDegree + D0.natDegree + 1 ≤
+      3 * C0.natDegree := Nat.succ_le_of_lt hA2
+  have hBD1 : B.natDegree + C0.natDegree + D0.natDegree + 1 ≤
+      3 * C0.natDegree := Nat.succ_le_of_lt hBD
+  omega
+
+set_option maxHeartbeats 16000000 in
+theorem degreeZeroRawFourthTailNoABC0_natDegree_lt
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X])
+    (hcone : ABC0RatioTieCone610 A B C0 D0 E0) :
+    (degreeZeroRawFourthTailNoABC0Polynomial610 l alpha beta delta epsilon
+        zeta eta theta A B C0 D0 E0).natDegree <
+      7 * A.natDegree := by
+  rcases hcone with ⟨hApos, htie, hC, hE, hD1, hD2, hD3⟩
+  have hAB : 2 * B.natDegree = 3 * A.natDegree := htie.symm
+  obtain ⟨m, hAm, hBm⟩ := exists_param_two_three hAB
+  have hCeq : C0.natDegree = 2 * A.natDegree := by
+    have : 3 * C0.natDegree = 3 * (2 * A.natDegree) := by
+      rw [hC]
+      omega
+    exact Nat.eq_of_mul_eq_mul_left (by decide : 0 < 3) this
+  simp only [hAm, hBm, hCeq] at hApos hE hD1 hD2 hD3
+  simp only [degreeZeroRawFourthTailNoABC0Polynomial610, zero_mul, mul_zero,
+    zero_smul, smul_zero, zero_pow_two_tr, zero_pow_three_tr,
+    zero_pow_four_tr, zero_pow_five_tr, zero_pow_six_tr, zero_pow_seven_tr]
+  compute_degree
+  simp only [hAm, hBm, hCeq, max_lt_iff]
+  have hE1 : 2 * E0.natDegree + 1 ≤ 12 * m := Nat.succ_le_of_lt (by omega)
+  have hD11 : 2 * m + 2 * D0.natDegree + 1 ≤ 12 * m :=
+    Nat.succ_le_of_lt (by omega)
+  have hD21 : 4 * m + 3 * m + D0.natDegree + 1 ≤ 12 * m :=
+    Nat.succ_le_of_lt (by omega)
+  have hD31 : 3 * m + 4 * m + D0.natDegree + 1 ≤ 12 * m :=
+    Nat.succ_le_of_lt (by omega)
+  all_goals omega
+
+set_option maxHeartbeats 16000000 in
+theorem degreeZeroRawFourthTailNoABE0_natDegree_lt
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X])
+    (hcone : ABE0RatioTieCone610 A B C0 D0 E0) :
+    (degreeZeroRawFourthTailNoABE0Polynomial610 l alpha beta delta epsilon
+        zeta eta theta A B C0 D0 E0).natDegree <
+      7 * A.natDegree := by
+  rcases hcone with ⟨hApos, htie, hE, hC, hD1, hD2, hD3⟩
+  have hAB : 2 * B.natDegree = 3 * A.natDegree := htie.symm
+  obtain ⟨m, hAm, hBm⟩ := exists_param_two_three hAB
+  have hEeq : E0.natDegree = 3 * A.natDegree := by
+    have : 2 * E0.natDegree = 2 * (3 * A.natDegree) := by
+      rw [hE]
+      omega
+    exact Nat.eq_of_mul_eq_mul_left (by decide : 0 < 2) this
+  simp only [hAm, hBm, hEeq] at hApos hC hD1 hD2 hD3
+  simp only [degreeZeroRawFourthTailNoABE0Polynomial610, zero_mul, mul_zero,
+    zero_smul, smul_zero, zero_pow_two_tr, zero_pow_three_tr,
+    zero_pow_four_tr, zero_pow_five_tr, zero_pow_six_tr, zero_pow_seven_tr]
+  compute_degree
+  simp only [hAm, hBm, hEeq, max_lt_iff]
+  have hC1 : 3 * C0.natDegree + 1 ≤ 12 * m := Nat.succ_le_of_lt (by omega)
+  have hD11 : 2 * m + 2 * D0.natDegree + 1 ≤ 12 * m :=
+    Nat.succ_le_of_lt (by omega)
+  have hD21 : 4 * m + 3 * m + D0.natDegree + 1 ≤ 12 * m :=
+    Nat.succ_le_of_lt (by omega)
+  have hD31 : 3 * m + C0.natDegree + D0.natDegree + 1 ≤ 12 * m :=
+    Nat.succ_le_of_lt (by omega)
+  all_goals omega
+
 end TripleRests610
+
+/-! ## Scale identities for leftover triples -/
+
+section TripleScale610
+
+variable {k : Type*} [Field k] [CharZero k]
+
+
+theorem lambdaABC0_scale (a b c : k) :
+    (35 / 6561 : k) * a ^ 6 - (70 / 729 : k) * (a ^ 3 * b ^ 2) -
+        (35 / 729 : k) * (a ^ 4 * c) + (5 / 243 : k) * b ^ 4 +
+        (20 / 81 : k) * (a * b ^ 2 * c) + (10 / 81 : k) * (a ^ 2 * c ^ 2) -
+        (5 / 81 : k) * c ^ 3 =
+      (5 / 6561 : k) *
+        (7 * a ^ 6 - 63 * a ^ 4 * c - 126 * a ^ 3 * b ^ 2 +
+          162 * a ^ 2 * c ^ 2 + 324 * a * b ^ 2 * c + 27 * b ^ 4 -
+          81 * c ^ 3) := by
+  ring
+
+theorem kappaABC0_scale (a b c : k) :
+    (-(35 / 729 : k)) * (a ^ 4 * b) + (20 / 243 : k) * (a * b ^ 3) +
+        (20 / 81 : k) * (a ^ 2 * b * c) - (5 / 27 : k) * (b * c ^ 2) =
+      (-(5 / 729 : k)) * b *
+        (7 * a ^ 4 - 36 * a ^ 2 * c - 12 * a * b ^ 2 + 27 * c ^ 2) := by
+  ring
+
+theorem raw_abc0_of_lambda_kappa (a b c : k) :
+    (-(65 / 19683 : k)) * a ^ 7 + (70 / 2187 : k) * (a ^ 5 * c) +
+        (175 / 2187 : k) * (a ^ 4 * b ^ 2) - (70 / 729 : k) * (a ^ 3 * c ^ 2) -
+        (70 / 243 : k) * (a ^ 2 * b ^ 2 * c) - (35 / 729 : k) * (a * b ^ 4) +
+        (20 / 243 : k) * (a * c ^ 3) + (10 / 81 : k) * (b ^ 2 * c ^ 2) +
+      (b / 6) *
+          ((-(35 / 729 : k)) * (a ^ 4 * b) + (20 / 243 : k) * (a * b ^ 3) +
+            (20 / 81 : k) * (a ^ 2 * b * c) - (5 / 27 : k) * (b * c ^ 2)) +
+        (a / 3) *
+          ((35 / 6561 : k) * a ^ 6 - (70 / 729 : k) * (a ^ 3 * b ^ 2) -
+            (35 / 729 : k) * (a ^ 4 * c) + (5 / 243 : k) * b ^ 4 +
+            (20 / 81 : k) * (a * b ^ 2 * c) +
+            (10 / 81 : k) * (a ^ 2 * c ^ 2) - (5 / 81 : k) * c ^ 3) =
+      (-(5 / 13122 : k)) *
+        (4 * a ^ 7 - 42 * a ^ 5 * c - 105 * a ^ 4 * b ^ 2 +
+          144 * a ^ 3 * c ^ 2 + 432 * a ^ 2 * b ^ 2 * c + 72 * a * b ^ 4 -
+          162 * a * c ^ 3 - 243 * b ^ 2 * c ^ 2) := by
+  ring
+
+theorem lambdaABE0_scale (a b e : k) :
+    (35 / 6561 : k) * a ^ 6 - (70 / 729 : k) * (a ^ 3 * b ^ 2) +
+        (20 / 243 : k) * (a ^ 3 * e) + (5 / 243 : k) * b ^ 4 -
+        (5 / 27 : k) * (b ^ 2 * e) + (5 / 9 : k) * e ^ 2 =
+      (5 / 6561 : k) *
+        (7 * a ^ 6 - 126 * a ^ 3 * b ^ 2 + 108 * a ^ 3 * e + 27 * b ^ 4 -
+          243 * b ^ 2 * e + 729 * e ^ 2) := by
+  ring
+
+theorem kappaABE0_scale (a b e : k) :
+    (-(35 / 729 : k)) * (a ^ 4 * b) + (20 / 243 : k) * (a * b ^ 3) -
+        (10 / 27 : k) * (a * b * e) =
+      (-(5 / 729 : k)) * (a * b) * (7 * a ^ 3 - 12 * b ^ 2 + 54 * e) := by
+  ring
+
+theorem raw_abe0_of_lambda_kappa (a b e : k) :
+    (-(65 / 19683 : k)) * a ^ 7 + (175 / 2187 : k) * (a ^ 4 * b ^ 2) -
+        (35 / 729 : k) * (a ^ 4 * e) - (35 / 729 : k) * (a * b ^ 4) +
+        (20 / 81 : k) * (a * b ^ 2 * e) - (5 / 27 : k) * (a * e ^ 2) +
+      (b / 6) *
+          ((-(35 / 729 : k)) * (a ^ 4 * b) + (20 / 243 : k) * (a * b ^ 3) -
+            (10 / 27 : k) * (a * b * e)) +
+        (a / 3) *
+          ((35 / 6561 : k) * a ^ 6 - (70 / 729 : k) * (a ^ 3 * b ^ 2) +
+            (20 / 243 : k) * (a ^ 3 * e) + (5 / 243 : k) * b ^ 4 -
+            (5 / 27 : k) * (b ^ 2 * e) + (5 / 9 : k) * e ^ 2) =
+      (-(5 / 13122 : k)) * a *
+        (4 * a ^ 6 - 105 * a ^ 3 * b ^ 2 + 54 * a ^ 3 * e + 72 * b ^ 4 -
+          324 * b ^ 2 * e) := by
+  ring
+
+end TripleScale610
+
+/-! ## Combined-face degrees -/
+
+section TripleCombinedDegrees610
+
+variable {k : Type*} [Field k] [CharZero k]
+
+
+set_option maxHeartbeats 16000000 in
+theorem lambdaABC0Combined610_natDegree_eq_of_coeff_ne
+    {A B C0 : k[X]}
+    (hA : A ≠ 0) (hB : B ≠ 0) (hC : C0 ≠ 0)
+    (htie : 3 * A.natDegree = 2 * B.natDegree)
+    (hCtie : 3 * C0.natDegree = 6 * A.natDegree)
+    (hcoeff :
+      (35 / 6561 : k) * A.leadingCoeff ^ 6 -
+          (70 / 729 : k) * (A.leadingCoeff ^ 3 * B.leadingCoeff ^ 2) -
+            (35 / 729 : k) * (A.leadingCoeff ^ 4 * C0.leadingCoeff) +
+              (5 / 243 : k) * B.leadingCoeff ^ 4 +
+                (20 / 81 : k) *
+                    (A.leadingCoeff * B.leadingCoeff ^ 2 * C0.leadingCoeff) +
+                  (10 / 81 : k) *
+                      (A.leadingCoeff ^ 2 * C0.leadingCoeff ^ 2) -
+                    (5 / 81 : k) * C0.leadingCoeff ^ 3 ≠
+        0) :
+    (lambdaABC0Combined610 A B C0).natDegree = 6 * A.natDegree := by
+  have hA6 : (A ^ 6).natDegree = 6 * A.natDegree := natDegree_pow A 6
+  have hB4 : (B ^ 4).natDegree = 4 * B.natDegree := natDegree_pow B 4
+  have hC3 : (C0 ^ 3).natDegree = 3 * C0.natDegree := natDegree_pow C0 3
+  have hA3B2 :
+      (A ^ 3 * B ^ 2).natDegree = 6 * A.natDegree := by
+    rw [natDegree_mul (pow_ne_zero 3 hA) (pow_ne_zero 2 hB), natDegree_pow,
+      natDegree_pow]
+    omega
+  have hA4C :
+      (A ^ 4 * C0).natDegree = 6 * A.natDegree := by
+    rw [natDegree_mul (pow_ne_zero 4 hA) hC, natDegree_pow]
+    omega
+  have hAB2C :
+      (A * B ^ 2 * C0).natDegree = 6 * A.natDegree := by
+    rw [natDegree_mul (mul_ne_zero hA (pow_ne_zero 2 hB)) hC, natDegree_mul hA
+      (pow_ne_zero 2 hB), natDegree_pow]
+    omega
+  have hA2C2 :
+      (A ^ 2 * C0 ^ 2).natDegree = 6 * A.natDegree := by
+    rw [natDegree_mul (pow_ne_zero 2 hA) (pow_ne_zero 2 hC), natDegree_pow,
+      natDegree_pow]
+    omega
+  have htop :
+      (lambdaABC0Combined610 A B C0).coeff (6 * A.natDegree) ≠ 0 := by
+    simp only [lambdaABC0Combined610, coeff_add, coeff_sub, coeff_smul,
+      smul_eq_mul]
+    have h1 : (A ^ 6).coeff (6 * A.natDegree) = A.leadingCoeff ^ 6 := by
+      rw [← hA6, coeff_natDegree, leadingCoeff_pow]
+    have h2 : (A ^ 3 * B ^ 2).coeff (6 * A.natDegree) =
+        A.leadingCoeff ^ 3 * B.leadingCoeff ^ 2 := by
+      rw [← hA3B2, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow,
+        leadingCoeff_pow]
+    have h3 : (A ^ 4 * C0).coeff (6 * A.natDegree) =
+        A.leadingCoeff ^ 4 * C0.leadingCoeff := by
+      rw [← hA4C, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow]
+    have h4 : (B ^ 4).coeff (6 * A.natDegree) = B.leadingCoeff ^ 4 := by
+      have : 4 * B.natDegree = 6 * A.natDegree := by omega
+      rw [← this, ← hB4, coeff_natDegree, leadingCoeff_pow]
+    have h5 : (A * B ^ 2 * C0).coeff (6 * A.natDegree) =
+        A.leadingCoeff * B.leadingCoeff ^ 2 * C0.leadingCoeff := by
+      rw [← hAB2C, coeff_natDegree, leadingCoeff_mul, leadingCoeff_mul,
+        leadingCoeff_pow]
+    have h6 : (A ^ 2 * C0 ^ 2).coeff (6 * A.natDegree) =
+        A.leadingCoeff ^ 2 * C0.leadingCoeff ^ 2 := by
+      rw [← hA2C2, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow,
+        leadingCoeff_pow]
+    have h7 : (C0 ^ 3).coeff (6 * A.natDegree) = C0.leadingCoeff ^ 3 := by
+      have : 3 * C0.natDegree = 6 * A.natDegree := hCtie
+      rw [← this, ← hC3, coeff_natDegree, leadingCoeff_pow]
+    simpa [h1, h2, h3, h4, h5, h6, h7] using hcoeff
+  have hle :
+      (lambdaABC0Combined610 A B C0).natDegree ≤ 6 * A.natDegree := by
+    simp only [lambdaABC0Combined610]
+    refine (natDegree_sub_le _ _).trans (max_le ?_ ?_)
+    · refine (natDegree_add_le _ _).trans (max_le ?_ ?_)
+      · refine (natDegree_add_le _ _).trans (max_le ?_ ?_)
+        · refine (natDegree_add_le _ _).trans (max_le ?_ ?_)
+          · refine (natDegree_sub_le _ _).trans (max_le ?_ ?_)
+            · refine (natDegree_sub_le _ _).trans (max_le ?_ ?_)
+              · exact (natDegree_smul_le610 _ _).trans hA6.le
+              · exact (natDegree_smul_le610 _ _).trans hA3B2.le
+            · exact (natDegree_smul_le610 _ _).trans hA4C.le
+          · exact (natDegree_smul_le610 _ _).trans (hB4.trans (by omega)).le
+        · exact (natDegree_smul_le610 _ _).trans hAB2C.le
+      · exact (natDegree_smul_le610 _ _).trans hA2C2.le
+    · exact (natDegree_smul_le610 _ _).trans (hC3.trans hCtie).le
+  exact natDegree_eq_of_le_of_coeff_ne_zero hle htop
+
+set_option maxHeartbeats 16000000 in
+theorem kappaABC0Combined610_natDegree_eq_of_coeff_ne
+    {A B C0 : k[X]}
+    (hA : A ≠ 0) (hB : B ≠ 0) (hC : C0 ≠ 0)
+    (htie : 3 * A.natDegree = 2 * B.natDegree)
+    (hCtie : 3 * C0.natDegree = 6 * A.natDegree)
+    (hcoeff :
+      (-(35 / 729 : k)) * (A.leadingCoeff ^ 4 * B.leadingCoeff) +
+          (20 / 243 : k) * (A.leadingCoeff * B.leadingCoeff ^ 3) +
+            (20 / 81 : k) *
+                (A.leadingCoeff ^ 2 * B.leadingCoeff * C0.leadingCoeff) -
+              (5 / 27 : k) * (B.leadingCoeff * C0.leadingCoeff ^ 2) ≠
+        0) :
+    (kappaABC0Combined610 A B C0).natDegree =
+      4 * A.natDegree + B.natDegree := by
+  have hA4B :
+      (A ^ 4 * B).natDegree = 4 * A.natDegree + B.natDegree := by
+    rw [natDegree_mul (pow_ne_zero 4 hA) hB, natDegree_pow]
+  have hAB3 :
+      (A * B ^ 3).natDegree = 4 * A.natDegree + B.natDegree := by
+    rw [natDegree_mul hA (pow_ne_zero 3 hB), natDegree_pow]
+    omega
+  have hA2BC :
+      (A ^ 2 * B * C0).natDegree = 4 * A.natDegree + B.natDegree := by
+    rw [natDegree_mul (mul_ne_zero (pow_ne_zero 2 hA) hB) hC,
+      natDegree_mul (pow_ne_zero 2 hA) hB, natDegree_pow]
+    omega
+  have hBC2 :
+      (B * C0 ^ 2).natDegree = 4 * A.natDegree + B.natDegree := by
+    rw [natDegree_mul hB (pow_ne_zero 2 hC), natDegree_pow]
+    omega
+  have htop :
+      (kappaABC0Combined610 A B C0).coeff
+          (4 * A.natDegree + B.natDegree) ≠
+        0 := by
+    simp only [kappaABC0Combined610, coeff_add, coeff_sub, coeff_smul,
+      smul_eq_mul]
+    have h1 : (A ^ 4 * B).coeff (4 * A.natDegree + B.natDegree) =
+        A.leadingCoeff ^ 4 * B.leadingCoeff := by
+      rw [← hA4B, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow]
+    have h2 : (A * B ^ 3).coeff (4 * A.natDegree + B.natDegree) =
+        A.leadingCoeff * B.leadingCoeff ^ 3 := by
+      rw [← hAB3, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow]
+    have h3 : (A ^ 2 * B * C0).coeff (4 * A.natDegree + B.natDegree) =
+        A.leadingCoeff ^ 2 * B.leadingCoeff * C0.leadingCoeff := by
+      rw [← hA2BC, coeff_natDegree, leadingCoeff_mul, leadingCoeff_mul,
+        leadingCoeff_pow]
+    have h4 : (B * C0 ^ 2).coeff (4 * A.natDegree + B.natDegree) =
+        B.leadingCoeff * C0.leadingCoeff ^ 2 := by
+      rw [← hBC2, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow]
+    simpa [h1, h2, h3, h4] using hcoeff
+  have hle :
+      (kappaABC0Combined610 A B C0).natDegree ≤
+        4 * A.natDegree + B.natDegree := by
+    simp only [kappaABC0Combined610]
+    refine (natDegree_sub_le _ _).trans (max_le ?_ ?_)
+    · refine (natDegree_add_le _ _).trans (max_le ?_ ?_)
+      · refine (natDegree_add_le _ _).trans (max_le ?_ ?_)
+        · exact (natDegree_smul_le610 _ _).trans hA4B.le
+        · exact (natDegree_smul_le610 _ _).trans hAB3.le
+      · exact (natDegree_smul_le610 _ _).trans hA2BC.le
+    · exact (natDegree_smul_le610 _ _).trans hBC2.le
+  exact natDegree_eq_of_le_of_coeff_ne_zero hle htop
+
+set_option maxHeartbeats 16000000 in
+theorem rawABC0Combined610_natDegree_eq_of_coeff_ne
+    {A B C0 : k[X]}
+    (hA : A ≠ 0) (hB : B ≠ 0) (hC : C0 ≠ 0)
+    (htie : 3 * A.natDegree = 2 * B.natDegree)
+    (hCtie : 3 * C0.natDegree = 6 * A.natDegree)
+    (hcoeff :
+      (-(65 / 19683 : k)) * A.leadingCoeff ^ 7 +
+          (70 / 2187 : k) * (A.leadingCoeff ^ 5 * C0.leadingCoeff) +
+            (175 / 2187 : k) *
+                (A.leadingCoeff ^ 4 * B.leadingCoeff ^ 2) -
+              (70 / 729 : k) *
+                  (A.leadingCoeff ^ 3 * C0.leadingCoeff ^ 2) -
+                (70 / 243 : k) *
+                    (A.leadingCoeff ^ 2 * B.leadingCoeff ^ 2 *
+                      C0.leadingCoeff) -
+                  (35 / 729 : k) *
+                      (A.leadingCoeff * B.leadingCoeff ^ 4) +
+                    (20 / 243 : k) *
+                        (A.leadingCoeff * C0.leadingCoeff ^ 3) +
+                      (10 / 81 : k) *
+                          (B.leadingCoeff ^ 2 * C0.leadingCoeff ^ 2) ≠
+        0) :
+    (rawABC0Combined610 A B C0).natDegree = 7 * A.natDegree := by
+  have hA7 : (A ^ 7).natDegree = 7 * A.natDegree := natDegree_pow A 7
+  have hA5C :
+      (A ^ 5 * C0).natDegree = 7 * A.natDegree := by
+    rw [natDegree_mul (pow_ne_zero 5 hA) hC, natDegree_pow]
+    omega
+  have hA4B2 :
+      (A ^ 4 * B ^ 2).natDegree = 7 * A.natDegree := by
+    rw [natDegree_mul (pow_ne_zero 4 hA) (pow_ne_zero 2 hB), natDegree_pow,
+      natDegree_pow]
+    omega
+  have hA3C2 :
+      (A ^ 3 * C0 ^ 2).natDegree = 7 * A.natDegree := by
+    rw [natDegree_mul (pow_ne_zero 3 hA) (pow_ne_zero 2 hC), natDegree_pow,
+      natDegree_pow]
+    omega
+  have hA2B2C :
+      (A ^ 2 * B ^ 2 * C0).natDegree = 7 * A.natDegree := by
+    rw [natDegree_mul (mul_ne_zero (pow_ne_zero 2 hA) (pow_ne_zero 2 hB)) hC,
+      natDegree_mul (pow_ne_zero 2 hA) (pow_ne_zero 2 hB), natDegree_pow,
+      natDegree_pow]
+    omega
+  have hAB4 :
+      (A * B ^ 4).natDegree = 7 * A.natDegree := by
+    rw [natDegree_mul hA (pow_ne_zero 4 hB), natDegree_pow]
+    omega
+  have hAC3 :
+      (A * C0 ^ 3).natDegree = 7 * A.natDegree := by
+    rw [natDegree_mul hA (pow_ne_zero 3 hC), natDegree_pow]
+    omega
+  have hB2C2 :
+      (B ^ 2 * C0 ^ 2).natDegree = 7 * A.natDegree := by
+    rw [natDegree_mul (pow_ne_zero 2 hB) (pow_ne_zero 2 hC), natDegree_pow,
+      natDegree_pow]
+    omega
+  have htop :
+      (rawABC0Combined610 A B C0).coeff (7 * A.natDegree) ≠ 0 := by
+    simp only [rawABC0Combined610, coeff_add, coeff_sub, coeff_smul,
+      smul_eq_mul]
+    have h1 : (A ^ 7).coeff (7 * A.natDegree) = A.leadingCoeff ^ 7 := by
+      rw [← hA7, coeff_natDegree, leadingCoeff_pow]
+    have h2 : (A ^ 5 * C0).coeff (7 * A.natDegree) =
+        A.leadingCoeff ^ 5 * C0.leadingCoeff := by
+      rw [← hA5C, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow]
+    have h3 : (A ^ 4 * B ^ 2).coeff (7 * A.natDegree) =
+        A.leadingCoeff ^ 4 * B.leadingCoeff ^ 2 := by
+      rw [← hA4B2, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow,
+        leadingCoeff_pow]
+    have h4 : (A ^ 3 * C0 ^ 2).coeff (7 * A.natDegree) =
+        A.leadingCoeff ^ 3 * C0.leadingCoeff ^ 2 := by
+      rw [← hA3C2, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow,
+        leadingCoeff_pow]
+    have h5 : (A ^ 2 * B ^ 2 * C0).coeff (7 * A.natDegree) =
+        A.leadingCoeff ^ 2 * B.leadingCoeff ^ 2 * C0.leadingCoeff := by
+      rw [← hA2B2C, coeff_natDegree, leadingCoeff_mul, leadingCoeff_mul,
+        leadingCoeff_pow, leadingCoeff_pow]
+    have h6 : (A * B ^ 4).coeff (7 * A.natDegree) =
+        A.leadingCoeff * B.leadingCoeff ^ 4 := by
+      rw [← hAB4, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow]
+    have h7 : (A * C0 ^ 3).coeff (7 * A.natDegree) =
+        A.leadingCoeff * C0.leadingCoeff ^ 3 := by
+      rw [← hAC3, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow]
+    have h8 : (B ^ 2 * C0 ^ 2).coeff (7 * A.natDegree) =
+        B.leadingCoeff ^ 2 * C0.leadingCoeff ^ 2 := by
+      rw [← hB2C2, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow,
+        leadingCoeff_pow]
+    simpa [h1, h2, h3, h4, h5, h6, h7, h8] using hcoeff
+  have hle :
+      (rawABC0Combined610 A B C0).natDegree ≤ 7 * A.natDegree := by
+    simp only [rawABC0Combined610]
+    refine (natDegree_add_le _ _).trans (max_le ?_ ?_)
+    · refine (natDegree_add_le _ _).trans (max_le ?_ ?_)
+      · refine (natDegree_sub_le _ _).trans (max_le ?_ ?_)
+        · refine (natDegree_sub_le _ _).trans (max_le ?_ ?_)
+          · refine (natDegree_sub_le _ _).trans (max_le ?_ ?_)
+            · refine (natDegree_add_le _ _).trans (max_le ?_ ?_)
+              · refine (natDegree_add_le _ _).trans (max_le ?_ ?_)
+                · exact (natDegree_smul_le610 _ _).trans hA7.le
+                · exact (natDegree_smul_le610 _ _).trans hA5C.le
+              · exact (natDegree_smul_le610 _ _).trans hA4B2.le
+            · exact (natDegree_smul_le610 _ _).trans hA3C2.le
+          · exact (natDegree_smul_le610 _ _).trans hA2B2C.le
+        · exact (natDegree_smul_le610 _ _).trans hAB4.le
+      · exact (natDegree_smul_le610 _ _).trans hAC3.le
+    · exact (natDegree_smul_le610 _ _).trans hB2C2.le
+  exact natDegree_eq_of_le_of_coeff_ne_zero hle htop
+
+set_option maxHeartbeats 16000000 in
+theorem lambdaABE0Combined610_natDegree_eq_of_coeff_ne
+    {A B E0 : k[X]}
+    (hA : A ≠ 0) (hB : B ≠ 0) (hE : E0 ≠ 0)
+    (htie : 3 * A.natDegree = 2 * B.natDegree)
+    (hEtie : 2 * E0.natDegree = 6 * A.natDegree)
+    (hcoeff :
+      (35 / 6561 : k) * A.leadingCoeff ^ 6 -
+          (70 / 729 : k) * (A.leadingCoeff ^ 3 * B.leadingCoeff ^ 2) +
+            (20 / 243 : k) * (A.leadingCoeff ^ 3 * E0.leadingCoeff) +
+              (5 / 243 : k) * B.leadingCoeff ^ 4 -
+                (5 / 27 : k) * (B.leadingCoeff ^ 2 * E0.leadingCoeff) +
+                  (5 / 9 : k) * E0.leadingCoeff ^ 2 ≠
+        0) :
+    (lambdaABE0Combined610 A B E0).natDegree = 6 * A.natDegree := by
+  have hA6 : (A ^ 6).natDegree = 6 * A.natDegree := natDegree_pow A 6
+  have hB4 : (B ^ 4).natDegree = 4 * B.natDegree := natDegree_pow B 4
+  have hE2 : (E0 ^ 2).natDegree = 2 * E0.natDegree := natDegree_pow E0 2
+  have hA3B2 :
+      (A ^ 3 * B ^ 2).natDegree = 6 * A.natDegree := by
+    rw [natDegree_mul (pow_ne_zero 3 hA) (pow_ne_zero 2 hB), natDegree_pow,
+      natDegree_pow]
+    omega
+  have hA3E :
+      (A ^ 3 * E0).natDegree = 6 * A.natDegree := by
+    rw [natDegree_mul (pow_ne_zero 3 hA) hE, natDegree_pow]
+    omega
+  have hB2E :
+      (B ^ 2 * E0).natDegree = 6 * A.natDegree := by
+    rw [natDegree_mul (pow_ne_zero 2 hB) hE, natDegree_pow]
+    omega
+  have htop :
+      (lambdaABE0Combined610 A B E0).coeff (6 * A.natDegree) ≠ 0 := by
+    simp only [lambdaABE0Combined610, coeff_add, coeff_sub, coeff_smul,
+      smul_eq_mul]
+    have h1 : (A ^ 6).coeff (6 * A.natDegree) = A.leadingCoeff ^ 6 := by
+      rw [← hA6, coeff_natDegree, leadingCoeff_pow]
+    have h2 : (A ^ 3 * B ^ 2).coeff (6 * A.natDegree) =
+        A.leadingCoeff ^ 3 * B.leadingCoeff ^ 2 := by
+      rw [← hA3B2, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow,
+        leadingCoeff_pow]
+    have h3 : (A ^ 3 * E0).coeff (6 * A.natDegree) =
+        A.leadingCoeff ^ 3 * E0.leadingCoeff := by
+      rw [← hA3E, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow]
+    have h4 : (B ^ 4).coeff (6 * A.natDegree) = B.leadingCoeff ^ 4 := by
+      have : 4 * B.natDegree = 6 * A.natDegree := by omega
+      rw [← this, ← hB4, coeff_natDegree, leadingCoeff_pow]
+    have h5 : (B ^ 2 * E0).coeff (6 * A.natDegree) =
+        B.leadingCoeff ^ 2 * E0.leadingCoeff := by
+      rw [← hB2E, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow]
+    have h6 : (E0 ^ 2).coeff (6 * A.natDegree) = E0.leadingCoeff ^ 2 := by
+      rw [← hEtie, ← hE2, coeff_natDegree, leadingCoeff_pow]
+    simpa [h1, h2, h3, h4, h5, h6] using hcoeff
+  have hle :
+      (lambdaABE0Combined610 A B E0).natDegree ≤ 6 * A.natDegree := by
+    simp only [lambdaABE0Combined610]
+    refine (natDegree_add_le _ _).trans (max_le ?_ ?_)
+    · refine (natDegree_sub_le _ _).trans (max_le ?_ ?_)
+      · refine (natDegree_add_le _ _).trans (max_le ?_ ?_)
+        · refine (natDegree_add_le _ _).trans (max_le ?_ ?_)
+          · refine (natDegree_sub_le _ _).trans (max_le ?_ ?_)
+            · exact (natDegree_smul_le610 _ _).trans hA6.le
+            · exact (natDegree_smul_le610 _ _).trans hA3B2.le
+          · exact (natDegree_smul_le610 _ _).trans hA3E.le
+        · exact (natDegree_smul_le610 _ _).trans (hB4.trans (by omega)).le
+      · exact (natDegree_smul_le610 _ _).trans hB2E.le
+    · exact (natDegree_smul_le610 _ _).trans (hE2.trans hEtie).le
+  exact natDegree_eq_of_le_of_coeff_ne_zero hle htop
+
+set_option maxHeartbeats 16000000 in
+theorem kappaABE0Combined610_natDegree_eq_of_coeff_ne
+    {A B E0 : k[X]}
+    (hA : A ≠ 0) (hB : B ≠ 0) (hE : E0 ≠ 0)
+    (htie : 3 * A.natDegree = 2 * B.natDegree)
+    (hEtie : 2 * E0.natDegree = 6 * A.natDegree)
+    (hcoeff :
+      (-(35 / 729 : k)) * (A.leadingCoeff ^ 4 * B.leadingCoeff) +
+          (20 / 243 : k) * (A.leadingCoeff * B.leadingCoeff ^ 3) -
+            (10 / 27 : k) *
+                (A.leadingCoeff * B.leadingCoeff * E0.leadingCoeff) ≠
+        0) :
+    (kappaABE0Combined610 A B E0).natDegree =
+      4 * A.natDegree + B.natDegree := by
+  have hA4B :
+      (A ^ 4 * B).natDegree = 4 * A.natDegree + B.natDegree := by
+    rw [natDegree_mul (pow_ne_zero 4 hA) hB, natDegree_pow]
+  have hAB3 :
+      (A * B ^ 3).natDegree = 4 * A.natDegree + B.natDegree := by
+    rw [natDegree_mul hA (pow_ne_zero 3 hB), natDegree_pow]
+    omega
+  have hABE :
+      (A * B * E0).natDegree = 4 * A.natDegree + B.natDegree := by
+    rw [natDegree_mul (mul_ne_zero hA hB) hE, natDegree_mul hA hB]
+    omega
+  have htop :
+      (kappaABE0Combined610 A B E0).coeff
+          (4 * A.natDegree + B.natDegree) ≠
+        0 := by
+    simp only [kappaABE0Combined610, coeff_add, coeff_sub, coeff_smul,
+      smul_eq_mul]
+    have h1 : (A ^ 4 * B).coeff (4 * A.natDegree + B.natDegree) =
+        A.leadingCoeff ^ 4 * B.leadingCoeff := by
+      rw [← hA4B, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow]
+    have h2 : (A * B ^ 3).coeff (4 * A.natDegree + B.natDegree) =
+        A.leadingCoeff * B.leadingCoeff ^ 3 := by
+      rw [← hAB3, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow]
+    have h3 : (A * B * E0).coeff (4 * A.natDegree + B.natDegree) =
+        A.leadingCoeff * B.leadingCoeff * E0.leadingCoeff := by
+      rw [← hABE, coeff_natDegree, leadingCoeff_mul, leadingCoeff_mul]
+    simpa [h1, h2, h3] using hcoeff
+  have hle :
+      (kappaABE0Combined610 A B E0).natDegree ≤
+        4 * A.natDegree + B.natDegree := by
+    simp only [kappaABE0Combined610]
+    refine (natDegree_sub_le _ _).trans (max_le ?_ ?_)
+    · refine (natDegree_add_le _ _).trans (max_le ?_ ?_)
+      · exact (natDegree_smul_le610 _ _).trans hA4B.le
+      · exact (natDegree_smul_le610 _ _).trans hAB3.le
+    · exact (natDegree_smul_le610 _ _).trans hABE.le
+  exact natDegree_eq_of_le_of_coeff_ne_zero hle htop
+
+set_option maxHeartbeats 16000000 in
+theorem rawABE0Combined610_natDegree_eq_of_coeff_ne
+    {A B E0 : k[X]}
+    (hA : A ≠ 0) (hB : B ≠ 0) (hE : E0 ≠ 0)
+    (htie : 3 * A.natDegree = 2 * B.natDegree)
+    (hEtie : 2 * E0.natDegree = 6 * A.natDegree)
+    (hcoeff :
+      (-(65 / 19683 : k)) * A.leadingCoeff ^ 7 +
+          (175 / 2187 : k) * (A.leadingCoeff ^ 4 * B.leadingCoeff ^ 2) -
+            (35 / 729 : k) * (A.leadingCoeff ^ 4 * E0.leadingCoeff) -
+              (35 / 729 : k) * (A.leadingCoeff * B.leadingCoeff ^ 4) +
+                (20 / 81 : k) *
+                    (A.leadingCoeff * B.leadingCoeff ^ 2 * E0.leadingCoeff) -
+                  (5 / 27 : k) * (A.leadingCoeff * E0.leadingCoeff ^ 2) ≠
+        0) :
+    (rawABE0Combined610 A B E0).natDegree = 7 * A.natDegree := by
+  have hA7 : (A ^ 7).natDegree = 7 * A.natDegree := natDegree_pow A 7
+  have hA4B2 :
+      (A ^ 4 * B ^ 2).natDegree = 7 * A.natDegree := by
+    rw [natDegree_mul (pow_ne_zero 4 hA) (pow_ne_zero 2 hB), natDegree_pow,
+      natDegree_pow]
+    omega
+  have hA4E :
+      (A ^ 4 * E0).natDegree = 7 * A.natDegree := by
+    rw [natDegree_mul (pow_ne_zero 4 hA) hE, natDegree_pow]
+    omega
+  have hAB4 :
+      (A * B ^ 4).natDegree = 7 * A.natDegree := by
+    rw [natDegree_mul hA (pow_ne_zero 4 hB), natDegree_pow]
+    omega
+  have hAB2E :
+      (A * B ^ 2 * E0).natDegree = 7 * A.natDegree := by
+    rw [natDegree_mul (mul_ne_zero hA (pow_ne_zero 2 hB)) hE,
+      natDegree_mul hA (pow_ne_zero 2 hB), natDegree_pow]
+    omega
+  have hAE2 :
+      (A * E0 ^ 2).natDegree = 7 * A.natDegree := by
+    rw [natDegree_mul hA (pow_ne_zero 2 hE), natDegree_pow]
+    omega
+  have htop :
+      (rawABE0Combined610 A B E0).coeff (7 * A.natDegree) ≠ 0 := by
+    simp only [rawABE0Combined610, coeff_add, coeff_sub, coeff_smul,
+      smul_eq_mul]
+    have h1 : (A ^ 7).coeff (7 * A.natDegree) = A.leadingCoeff ^ 7 := by
+      rw [← hA7, coeff_natDegree, leadingCoeff_pow]
+    have h2 : (A ^ 4 * B ^ 2).coeff (7 * A.natDegree) =
+        A.leadingCoeff ^ 4 * B.leadingCoeff ^ 2 := by
+      rw [← hA4B2, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow,
+        leadingCoeff_pow]
+    have h3 : (A ^ 4 * E0).coeff (7 * A.natDegree) =
+        A.leadingCoeff ^ 4 * E0.leadingCoeff := by
+      rw [← hA4E, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow]
+    have h4 : (A * B ^ 4).coeff (7 * A.natDegree) =
+        A.leadingCoeff * B.leadingCoeff ^ 4 := by
+      rw [← hAB4, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow]
+    have h5 : (A * B ^ 2 * E0).coeff (7 * A.natDegree) =
+        A.leadingCoeff * B.leadingCoeff ^ 2 * E0.leadingCoeff := by
+      rw [← hAB2E, coeff_natDegree, leadingCoeff_mul, leadingCoeff_mul,
+        leadingCoeff_pow]
+    have h6 : (A * E0 ^ 2).coeff (7 * A.natDegree) =
+        A.leadingCoeff * E0.leadingCoeff ^ 2 := by
+      rw [← hAE2, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow]
+    simpa [h1, h2, h3, h4, h5, h6] using hcoeff
+  have hle :
+      (rawABE0Combined610 A B E0).natDegree ≤ 7 * A.natDegree := by
+    simp only [rawABE0Combined610]
+    refine (natDegree_sub_le _ _).trans (max_le ?_ ?_)
+    · refine (natDegree_add_le _ _).trans (max_le ?_ ?_)
+      · refine (natDegree_sub_le _ _).trans (max_le ?_ ?_)
+        · refine (natDegree_sub_le _ _).trans (max_le ?_ ?_)
+          · refine (natDegree_add_le _ _).trans (max_le ?_ ?_)
+            · exact (natDegree_smul_le610 _ _).trans hA7.le
+            · exact (natDegree_smul_le610 _ _).trans hA4B2.le
+          · exact (natDegree_smul_le610 _ _).trans hA4E.le
+        · exact (natDegree_smul_le610 _ _).trans hAB4.le
+      · exact (natDegree_smul_le610 _ _).trans hAB2E.le
+    · exact (natDegree_smul_le610 _ _).trans hAE2.le
+  exact natDegree_eq_of_le_of_coeff_ne_zero hle htop
+
+end TripleCombinedDegrees610
+
+/-! ## Unique-`μ` mixed-`D₀` kills -/
+
+section UniqueMuKills610
+
+variable {k : Type*} [Field k] [CharZero k]
+
+theorem mu_BD02_impossible_of_MixedADB
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X])
+    (hcone : MixedADBRatioTieCone610 A B C0 D0 E0)
+    (hdeg :
+      (degreeZeroMuPolynomial610 l alpha beta delta epsilon zeta eta theta
+          A B C0 D0 E0).natDegree =
+        0) :
+    False := by
+  have hBne : B ≠ 0 := by
+    intro hB0
+    rcases hcone with ⟨hBpos, _⟩
+    simp [hB0] at hBpos
+  have hDne : D0 ≠ 0 := by
+    intro hD0
+    rcases hcone with ⟨_, hDpos, _⟩
+    simp [hD0] at hDpos
+  have hc : (-(5 / 27 : k)) ≠ 0 :=
+    neg_ne_zero.mpr (div_ne_zero (by norm_num) (by norm_num))
+  have hlead :
+      (muBD02Face610 B D0).natDegree =
+        B.natDegree + 2 * D0.natDegree := by
+    simp only [muBD02Face610]
+    rw [natDegree_smul _ hc, natDegree_mul hBne (pow_ne_zero 2 hDne),
+      natDegree_pow]
+  have hrest :=
+    degreeZeroMuNoBD02_natDegree_lt_of_MixedADB l alpha beta delta epsilon zeta eta theta
+      A B C0 D0 E0 hcone
+  rw [degreeZeroMuPolynomial610_eq_BD02_add_rest,
+    natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead] at hdeg
+  rcases hcone with ⟨hBpos, hDpos, _⟩
+  omega
+
+theorem mu_BD02_impossible_of_MixedBBD
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X])
+    (hcone : MixedBBDRatioTieCone610 A B C0 D0 E0)
+    (hdeg :
+      (degreeZeroMuPolynomial610 l alpha beta delta epsilon zeta eta theta
+          A B C0 D0 E0).natDegree =
+        0) :
+    False := by
+  have hBne : B ≠ 0 := by
+    intro hB0
+    rcases hcone with ⟨hBpos, _⟩
+    simp [hB0] at hBpos
+  have hDne : D0 ≠ 0 := by
+    intro hD0
+    rcases hcone with ⟨_, hDpos, _⟩
+    simp [hD0] at hDpos
+  have hc : (-(5 / 27 : k)) ≠ 0 :=
+    neg_ne_zero.mpr (div_ne_zero (by norm_num) (by norm_num))
+  have hlead :
+      (muBD02Face610 B D0).natDegree =
+        B.natDegree + 2 * D0.natDegree := by
+    simp only [muBD02Face610]
+    rw [natDegree_smul _ hc, natDegree_mul hBne (pow_ne_zero 2 hDne),
+      natDegree_pow]
+  have hrest :=
+    degreeZeroMuNoBD02_natDegree_lt_of_MixedBBD l alpha beta delta epsilon zeta eta theta
+      A B C0 D0 E0 hcone
+  rw [degreeZeroMuPolynomial610_eq_BD02_add_rest,
+    natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead] at hdeg
+  rcases hcone with ⟨hBpos, hDpos, _⟩
+  omega
+
+theorem mu_BD02_impossible_of_MixedADBBD
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X])
+    (hcone : MixedADBBDRatioTieCone610 A B C0 D0 E0)
+    (hdeg :
+      (degreeZeroMuPolynomial610 l alpha beta delta epsilon zeta eta theta
+          A B C0 D0 E0).natDegree =
+        0) :
+    False := by
+  have hBne : B ≠ 0 := by
+    intro hB0
+    rcases hcone with ⟨hBpos, _⟩
+    simp [hB0] at hBpos
+  have hDne : D0 ≠ 0 := by
+    intro hD0
+    rcases hcone with ⟨_, hDpos, _⟩
+    simp [hD0] at hDpos
+  have hc : (-(5 / 27 : k)) ≠ 0 :=
+    neg_ne_zero.mpr (div_ne_zero (by norm_num) (by norm_num))
+  have hlead :
+      (muBD02Face610 B D0).natDegree =
+        B.natDegree + 2 * D0.natDegree := by
+    simp only [muBD02Face610]
+    rw [natDegree_smul _ hc, natDegree_mul hBne (pow_ne_zero 2 hDne),
+      natDegree_pow]
+  have hrest :=
+    degreeZeroMuNoBD02_natDegree_lt_of_MixedADBBD l alpha beta delta epsilon zeta eta theta
+      A B C0 D0 E0 hcone
+  rw [degreeZeroMuPolynomial610_eq_BD02_add_rest,
+    natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead] at hdeg
+  rcases hcone with ⟨hBpos, hDpos, _⟩
+  omega
+
+theorem mu_BD02_impossible_of_MixedADBE
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X])
+    (hcone : MixedADBERatioTieCone610 A B C0 D0 E0)
+    (hdeg :
+      (degreeZeroMuPolynomial610 l alpha beta delta epsilon zeta eta theta
+          A B C0 D0 E0).natDegree =
+        0) :
+    False := by
+  have hBne : B ≠ 0 := by
+    intro hB0
+    rcases hcone with ⟨hBpos, _⟩
+    simp [hB0] at hBpos
+  have hDne : D0 ≠ 0 := by
+    intro hD0
+    rcases hcone with ⟨_, hDpos, _⟩
+    simp [hD0] at hDpos
+  have hc : (-(5 / 27 : k)) ≠ 0 :=
+    neg_ne_zero.mpr (div_ne_zero (by norm_num) (by norm_num))
+  have hlead :
+      (muBD02Face610 B D0).natDegree =
+        B.natDegree + 2 * D0.natDegree := by
+    simp only [muBD02Face610]
+    rw [natDegree_smul _ hc, natDegree_mul hBne (pow_ne_zero 2 hDne),
+      natDegree_pow]
+  have hrest :=
+    degreeZeroMuNoBD02_natDegree_lt_of_MixedADBE l alpha beta delta epsilon zeta eta theta
+      A B C0 D0 E0 hcone
+  rw [degreeZeroMuPolynomial610_eq_BD02_add_rest,
+    natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead] at hdeg
+  rcases hcone with ⟨hBpos, hDpos, _⟩
+  omega
+
+theorem mu_BD02_impossible_of_MixedBBDE
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X])
+    (hcone : MixedBBDERatioTieCone610 A B C0 D0 E0)
+    (hdeg :
+      (degreeZeroMuPolynomial610 l alpha beta delta epsilon zeta eta theta
+          A B C0 D0 E0).natDegree =
+        0) :
+    False := by
+  have hBne : B ≠ 0 := by
+    intro hB0
+    rcases hcone with ⟨hBpos, _⟩
+    simp [hB0] at hBpos
+  have hDne : D0 ≠ 0 := by
+    intro hD0
+    rcases hcone with ⟨_, hDpos, _⟩
+    simp [hD0] at hDpos
+  have hc : (-(5 / 27 : k)) ≠ 0 :=
+    neg_ne_zero.mpr (div_ne_zero (by norm_num) (by norm_num))
+  have hlead :
+      (muBD02Face610 B D0).natDegree =
+        B.natDegree + 2 * D0.natDegree := by
+    simp only [muBD02Face610]
+    rw [natDegree_smul _ hc, natDegree_mul hBne (pow_ne_zero 2 hDne),
+      natDegree_pow]
+  have hrest :=
+    degreeZeroMuNoBD02_natDegree_lt_of_MixedBBDE l alpha beta delta epsilon zeta eta theta
+      A B C0 D0 E0 hcone
+  rw [degreeZeroMuPolynomial610_eq_BD02_add_rest,
+    natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead] at hdeg
+  rcases hcone with ⟨hBpos, hDpos, _⟩
+  omega
+
+theorem mu_BD02_impossible_of_MixedADBBDE
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X])
+    (hcone : MixedADBBDERatioTieCone610 A B C0 D0 E0)
+    (hdeg :
+      (degreeZeroMuPolynomial610 l alpha beta delta epsilon zeta eta theta
+          A B C0 D0 E0).natDegree =
+        0) :
+    False := by
+  have hBne : B ≠ 0 := by
+    intro hB0
+    rcases hcone with ⟨hBpos, _⟩
+    simp [hB0] at hBpos
+  have hDne : D0 ≠ 0 := by
+    intro hD0
+    rcases hcone with ⟨_, hDpos, _⟩
+    simp [hD0] at hDpos
+  have hc : (-(5 / 27 : k)) ≠ 0 :=
+    neg_ne_zero.mpr (div_ne_zero (by norm_num) (by norm_num))
+  have hlead :
+      (muBD02Face610 B D0).natDegree =
+        B.natDegree + 2 * D0.natDegree := by
+    simp only [muBD02Face610]
+    rw [natDegree_smul _ hc, natDegree_mul hBne (pow_ne_zero 2 hDne),
+      natDegree_pow]
+  have hrest :=
+    degreeZeroMuNoBD02_natDegree_lt_of_MixedADBBDE l alpha beta delta epsilon zeta eta theta
+      A B C0 D0 E0 hcone
+  rw [degreeZeroMuPolynomial610_eq_BD02_add_rest,
+    natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead] at hdeg
+  rcases hcone with ⟨hBpos, hDpos, _⟩
+  omega
+
+theorem mu_C02D0_impossible_of_MixedADC
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X])
+    (hcone : MixedADCRatioTieCone610 A B C0 D0 E0)
+    (hdeg :
+      (degreeZeroMuPolynomial610 l alpha beta delta epsilon zeta eta theta
+          A B C0 D0 E0).natDegree =
+        0) :
+    False := by
+  have hCne : C0 ≠ 0 := by
+    intro hC0
+    rcases hcone with ⟨hCpos, _⟩
+    simp [hC0] at hCpos
+  have hDne : D0 ≠ 0 := by
+    intro hD0
+    rcases hcone with ⟨_, hDpos, _⟩
+    simp [hD0] at hDpos
+  have hc : (-(5 / 27 : k)) ≠ 0 :=
+    neg_ne_zero.mpr (div_ne_zero (by norm_num) (by norm_num))
+  have hlead :
+      (muC02D0Face610 C0 D0).natDegree =
+        2 * C0.natDegree + D0.natDegree := by
+    simp only [muC02D0Face610]
+    rw [natDegree_smul _ hc, natDegree_mul (pow_ne_zero 2 hCne) hDne,
+      natDegree_pow]
+  have hrest :=
+    degreeZeroMuNoC02D0_natDegree_lt_of_MixedADC l alpha beta delta epsilon zeta eta theta
+      A B C0 D0 E0 hcone
+  rw [degreeZeroMuPolynomial610_eq_C02D0_add_rest,
+    natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead] at hdeg
+  rcases hcone with ⟨hCpos, hDpos, _⟩
+  omega
+
+theorem mu_C02D0_impossible_of_MixedADCE
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X])
+    (hcone : MixedADCERatioTieCone610 A B C0 D0 E0)
+    (hdeg :
+      (degreeZeroMuPolynomial610 l alpha beta delta epsilon zeta eta theta
+          A B C0 D0 E0).natDegree =
+        0) :
+    False := by
+  have hCne : C0 ≠ 0 := by
+    intro hC0
+    rcases hcone with ⟨hCpos, _⟩
+    simp [hC0] at hCpos
+  have hDne : D0 ≠ 0 := by
+    intro hD0
+    rcases hcone with ⟨_, hDpos, _⟩
+    simp [hD0] at hDpos
+  have hc : (-(5 / 27 : k)) ≠ 0 :=
+    neg_ne_zero.mpr (div_ne_zero (by norm_num) (by norm_num))
+  have hlead :
+      (muC02D0Face610 C0 D0).natDegree =
+        2 * C0.natDegree + D0.natDegree := by
+    simp only [muC02D0Face610]
+    rw [natDegree_smul _ hc, natDegree_mul (pow_ne_zero 2 hCne) hDne,
+      natDegree_pow]
+  have hrest :=
+    degreeZeroMuNoC02D0_natDegree_lt_of_MixedADCE l alpha beta delta epsilon zeta eta theta
+      A B C0 D0 E0 hcone
+  rw [degreeZeroMuPolynomial610_eq_C02D0_add_rest,
+    natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead] at hdeg
+  rcases hcone with ⟨hCpos, hDpos, _⟩
+  omega
+
+end UniqueMuKills610
+
+/-! ## Triple polynomial kills -/
+
+section TriplePolyKills610
+
+variable {k : Type*} [Field k] [CharZero k]
+
+
+theorem lambda_ABC0_impossible
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X])
+    (hcone : ABC0RatioTieCone610 A B C0 D0 E0)
+    (hkapDeg :
+      (degreeZeroKappaPolynomial610 l alpha beta delta epsilon zeta eta
+          theta A B C0 D0 E0).natDegree =
+        0)
+    (hlamDeg :
+      (degreeZeroLambdaPolynomial610 l alpha beta delta epsilon zeta eta
+          theta A B C0 D0 E0).natDegree =
+        0)
+    (homiDeg :
+      (degreeZeroOmicronPolynomial610 l alpha beta delta epsilon zeta eta
+          theta A B C0 D0 E0).natDegree =
+        0) :
+    False := by
+  have hAne : A ≠ 0 := by
+    intro hA0
+    rcases hcone with ⟨hApos, _⟩
+    simp [hA0] at hApos
+  have hBne : B ≠ 0 := by
+    intro hB0
+    have : B.natDegree = 0 := by simp [hB0]
+    rcases hcone with ⟨hApos, htie, _⟩
+    omega
+  have hCne : C0 ≠ 0 := by
+    intro hC0
+    have : C0.natDegree = 0 := by simp [hC0]
+    rcases hcone with ⟨hApos, htie, hC, _⟩
+    omega
+  have htie : 3 * A.natDegree = 2 * B.natDegree := hcone.2.1
+  have hCtie : 3 * C0.natDegree = 6 * A.natDegree := hcone.2.2.1
+  set a := A.leadingCoeff
+  set b := B.leadingCoeff
+  set c := C0.leadingCoeff
+  have hb0 : b ≠ 0 := leadingCoeff_ne_zero.mpr hBne
+  by_cases hlamDrop :
+      (35 / 6561 : k) * a ^ 6 - (70 / 729 : k) * (a ^ 3 * b ^ 2) -
+          (35 / 729 : k) * (a ^ 4 * c) + (5 / 243 : k) * b ^ 4 +
+            (20 / 81 : k) * (a * b ^ 2 * c) +
+              (10 / 81 : k) * (a ^ 2 * c ^ 2) - (5 / 81 : k) * c ^ 3 =
+        0
+  · by_cases hkapDrop :
+        (-(35 / 729 : k)) * (a ^ 4 * b) + (20 / 243 : k) * (a * b ^ 3) +
+            (20 / 81 : k) * (a ^ 2 * b * c) - (5 / 27 : k) * (b * c ^ 2) =
+          0
+    · by_cases hrawDrop :
+          (-(65 / 19683 : k)) * a ^ 7 + (70 / 2187 : k) * (a ^ 5 * c) +
+              (175 / 2187 : k) * (a ^ 4 * b ^ 2) -
+                (70 / 729 : k) * (a ^ 3 * c ^ 2) -
+                  (70 / 243 : k) * (a ^ 2 * b ^ 2 * c) -
+                    (35 / 729 : k) * (a * b ^ 4) +
+                      (20 / 243 : k) * (a * c ^ 3) +
+                        (10 / 81 : k) * (b ^ 2 * c ^ 2) =
+            0
+      · have hlamForm :
+            (7 : k) * a ^ 6 - 63 * a ^ 4 * c - 126 * a ^ 3 * b ^ 2 +
+                162 * a ^ 2 * c ^ 2 + 324 * a * b ^ 2 * c + 27 * b ^ 4 -
+                81 * c ^ 3 =
+              0 := by
+          have hsc := lambdaABC0_scale a b c
+          have h5 : (5 / 6561 : k) ≠ 0 :=
+            div_ne_zero (by norm_num) (by norm_num)
+          have : (5 / 6561 : k) *
+              (7 * a ^ 6 - 63 * a ^ 4 * c - 126 * a ^ 3 * b ^ 2 +
+                162 * a ^ 2 * c ^ 2 + 324 * a * b ^ 2 * c + 27 * b ^ 4 -
+                81 * c ^ 3) =
+              0 := by
+            rw [← hsc]
+            exact hlamDrop
+          exact (mul_eq_zero.mp this).resolve_left h5
+        have hkapInner :
+            (7 : k) * a ^ 4 - 36 * a ^ 2 * c - 12 * a * b ^ 2 + 27 * c ^ 2 =
+              0 := by
+          have hsc := kappaABC0_scale a b c
+          have hfac : (-(5 / 729 : k)) * b ≠ 0 :=
+            mul_ne_zero
+              (neg_ne_zero.mpr (div_ne_zero (by norm_num) (by norm_num))) hb0
+          have : (-(5 / 729 : k)) * b *
+              (7 * a ^ 4 - 36 * a ^ 2 * c - 12 * a * b ^ 2 + 27 * c ^ 2) =
+              0 := by
+            rw [← hsc]
+            exact hkapDrop
+          exact (mul_eq_zero.mp this).resolve_left hfac
+        have homiForm :
+            (4 : k) * a ^ 7 - 42 * a ^ 5 * c - 105 * a ^ 4 * b ^ 2 +
+                144 * a ^ 3 * c ^ 2 + 432 * a ^ 2 * b ^ 2 * c +
+                72 * a * b ^ 4 - 162 * a * c ^ 3 - 243 * b ^ 2 * c ^ 2 =
+              0 := by
+          have hid := raw_abc0_of_lambda_kappa a b c
+          have : (-(5 / 13122 : k)) *
+              (4 * a ^ 7 - 42 * a ^ 5 * c - 105 * a ^ 4 * b ^ 2 +
+                144 * a ^ 3 * c ^ 2 + 432 * a ^ 2 * b ^ 2 * c +
+                72 * a * b ^ 4 - 162 * a * c ^ 3 - 243 * b ^ 2 * c ^ 2) =
+              0 := by
+            rw [← hid, hlamDrop, hkapDrop, hrawDrop]
+            simp
+          have hsc : (-(5 / 13122 : k)) ≠ 0 :=
+            neg_ne_zero.mpr (div_ne_zero (by norm_num) (by norm_num))
+          exact (mul_eq_zero.mp this).resolve_left hsc
+        exact abc0_tied_leadings_impossible a b c hb0 hkapInner hlamForm
+          homiForm
+      · have hcomb :=
+          rawABC0Combined610_natDegree_eq_of_coeff_ne hAne hBne hCne htie
+            hCtie hrawDrop
+        have hrawRest :=
+          degreeZeroRawFourthTailNoABC0_natDegree_lt l alpha beta delta
+            epsilon zeta eta theta A B C0 D0 E0 hcone
+        have hAlam :
+            ((1 / 3 : k) • (A *
+                degreeZeroLambdaPolynomial610 l alpha beta delta epsilon
+                  zeta eta theta A B C0 D0 E0)).natDegree <
+              7 * A.natDegree := by
+          have hmul :=
+            natDegree_mul_of_natDegree_eq_zero A
+              (degreeZeroLambdaPolynomial610 l alpha beta delta epsilon zeta
+                eta theta A B C0 D0 E0) hlamDeg
+          have hsm :=
+            natDegree_smul_le610 (1 / 3 : k)
+              (A * degreeZeroLambdaPolynomial610 l alpha beta delta epsilon
+                zeta eta theta A B C0 D0 E0)
+          rcases hcone with ⟨hApos, _⟩
+          omega
+        have hBkap :
+            ((1 / 6 : k) • (B *
+                degreeZeroKappaPolynomial610 l alpha beta delta epsilon zeta
+                  eta theta A B C0 D0 E0)).natDegree <
+              7 * A.natDegree := by
+          have hmul :=
+            natDegree_mul_of_natDegree_eq_zero B
+              (degreeZeroKappaPolynomial610 l alpha beta delta epsilon zeta
+                eta theta A B C0 D0 E0) hkapDeg
+          have hsm :=
+            natDegree_smul_le610 (1 / 6 : k)
+              (B * degreeZeroKappaPolynomial610 l alpha beta delta epsilon
+                zeta eta theta A B C0 D0 E0)
+          rcases hcone with ⟨hApos, htie', _⟩
+          omega
+        have homiEq :
+            degreeZeroOmicronPolynomial610 l alpha beta delta epsilon zeta
+                eta theta A B C0 D0 E0 =
+              rawABC0Combined610 A B C0 +
+                (degreeZeroRawFourthTailNoABC0Polynomial610 l alpha beta
+                    delta epsilon zeta eta theta A B C0 D0 E0 +
+                  ((1 / 6 : k) • (B *
+                      degreeZeroKappaPolynomial610 l alpha beta delta
+                        epsilon zeta eta theta A B C0 D0 E0) +
+                    (1 / 3 : k) • (A *
+                        degreeZeroLambdaPolynomial610 l alpha beta delta
+                          epsilon zeta eta theta A B C0 D0 E0))) := by
+          simp only [degreeZeroOmicronPolynomial610]
+          rw [degreeZeroRawFourthTailPolynomial610_eq_ABC0_add_rest]
+          abel
+        have hrestSum :=
+          natDegree_add_lt610 hrawRest (natDegree_add_lt610 hBkap hAlam)
+        rw [homiEq, natDegree_add_eq_left_of_natDegree_lt (by rwa [hcomb]),
+          hcomb] at homiDeg
+        rcases hcone with ⟨hApos, _⟩
+        omega
+    · have hcomb :=
+        kappaABC0Combined610_natDegree_eq_of_coeff_ne hAne hBne hCne htie
+          hCtie hkapDrop
+      have hrest :=
+        degreeZeroKappaNoABC0_natDegree_lt l alpha beta delta epsilon zeta
+          eta theta A B C0 D0 E0 hcone
+      rw [degreeZeroKappaPolynomial610_eq_ABC0_add_rest,
+        natDegree_add_eq_left_of_natDegree_lt (by rwa [hcomb]),
+        hcomb] at hkapDeg
+      rcases hcone with ⟨hApos, htie', _⟩
+      omega
+  · have hcomb :=
+      lambdaABC0Combined610_natDegree_eq_of_coeff_ne hAne hBne hCne htie
+        hCtie hlamDrop
+    have hrest :=
+      degreeZeroLambdaNoABC0_natDegree_lt l alpha beta delta epsilon zeta
+        eta theta A B C0 D0 E0 hcone
+    rw [degreeZeroLambdaPolynomial610_eq_ABC0_add_rest,
+      natDegree_add_eq_left_of_natDegree_lt (by rwa [hcomb]),
+      hcomb] at hlamDeg
+    rcases hcone with ⟨hApos, _⟩
+    omega
+
+theorem lambda_ABE0_impossible
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X])
+    (hcone : ABE0RatioTieCone610 A B C0 D0 E0)
+    (hkapDeg :
+      (degreeZeroKappaPolynomial610 l alpha beta delta epsilon zeta eta
+          theta A B C0 D0 E0).natDegree =
+        0)
+    (hlamDeg :
+      (degreeZeroLambdaPolynomial610 l alpha beta delta epsilon zeta eta
+          theta A B C0 D0 E0).natDegree =
+        0)
+    (homiDeg :
+      (degreeZeroOmicronPolynomial610 l alpha beta delta epsilon zeta eta
+          theta A B C0 D0 E0).natDegree =
+        0) :
+    False := by
+  have hAne : A ≠ 0 := by
+    intro hA0
+    rcases hcone with ⟨hApos, _⟩
+    simp [hA0] at hApos
+  have hBne : B ≠ 0 := by
+    intro hB0
+    have : B.natDegree = 0 := by simp [hB0]
+    rcases hcone with ⟨hApos, htie, _⟩
+    omega
+  have hEne : E0 ≠ 0 := by
+    intro hE0
+    have : E0.natDegree = 0 := by simp [hE0]
+    rcases hcone with ⟨hApos, htie, hE, _⟩
+    omega
+  have htie : 3 * A.natDegree = 2 * B.natDegree := hcone.2.1
+  have hEtie : 2 * E0.natDegree = 6 * A.natDegree := hcone.2.2.1
+  set a := A.leadingCoeff
+  set b := B.leadingCoeff
+  set e := E0.leadingCoeff
+  have hb0 : b ≠ 0 := leadingCoeff_ne_zero.mpr hBne
+  by_cases hlamDrop :
+      (35 / 6561 : k) * a ^ 6 - (70 / 729 : k) * (a ^ 3 * b ^ 2) +
+          (20 / 243 : k) * (a ^ 3 * e) + (5 / 243 : k) * b ^ 4 -
+            (5 / 27 : k) * (b ^ 2 * e) + (5 / 9 : k) * e ^ 2 =
+        0
+  · by_cases hkapDrop :
+        (-(35 / 729 : k)) * (a ^ 4 * b) + (20 / 243 : k) * (a * b ^ 3) -
+            (10 / 27 : k) * (a * b * e) =
+          0
+    · by_cases hrawDrop :
+          (-(65 / 19683 : k)) * a ^ 7 +
+              (175 / 2187 : k) * (a ^ 4 * b ^ 2) -
+                (35 / 729 : k) * (a ^ 4 * e) -
+                  (35 / 729 : k) * (a * b ^ 4) +
+                    (20 / 81 : k) * (a * b ^ 2 * e) -
+                      (5 / 27 : k) * (a * e ^ 2) =
+            0
+      · have hlamForm :
+            (7 : k) * a ^ 6 - 126 * a ^ 3 * b ^ 2 + 108 * a ^ 3 * e +
+                27 * b ^ 4 - 243 * b ^ 2 * e + 729 * e ^ 2 =
+              0 := by
+          have hsc := lambdaABE0_scale a b e
+          have h5 : (5 / 6561 : k) ≠ 0 :=
+            div_ne_zero (by norm_num) (by norm_num)
+          have : (5 / 6561 : k) *
+              (7 * a ^ 6 - 126 * a ^ 3 * b ^ 2 + 108 * a ^ 3 * e +
+                27 * b ^ 4 - 243 * b ^ 2 * e + 729 * e ^ 2) =
+              0 := by
+            rw [← hsc]
+            exact hlamDrop
+          exact (mul_eq_zero.mp this).resolve_left h5
+        have hkapInner :
+            (7 : k) * a ^ 3 - 12 * b ^ 2 + 54 * e = 0 := by
+          have hsc := kappaABE0_scale a b e
+          have ha0 : a ≠ 0 := leadingCoeff_ne_zero.mpr hAne
+          have hfac : (-(5 / 729 : k)) * (a * b) ≠ 0 :=
+            mul_ne_zero
+              (neg_ne_zero.mpr (div_ne_zero (by norm_num) (by norm_num)))
+              (mul_ne_zero ha0 hb0)
+          have : (-(5 / 729 : k)) * (a * b) *
+              (7 * a ^ 3 - 12 * b ^ 2 + 54 * e) =
+              0 := by
+            rw [← hsc]
+            exact hkapDrop
+          exact (mul_eq_zero.mp this).resolve_left hfac
+        have homiForm :
+            (4 : k) * a ^ 6 - 105 * a ^ 3 * b ^ 2 + 54 * a ^ 3 * e +
+                72 * b ^ 4 - 324 * b ^ 2 * e =
+              0 := by
+          have hid := raw_abe0_of_lambda_kappa a b e
+          have ha0 : a ≠ 0 := leadingCoeff_ne_zero.mpr hAne
+          have : (-(5 / 13122 : k)) * a *
+              (4 * a ^ 6 - 105 * a ^ 3 * b ^ 2 + 54 * a ^ 3 * e +
+                72 * b ^ 4 - 324 * b ^ 2 * e) =
+              0 := by
+            rw [← hid, hlamDrop, hkapDrop, hrawDrop]
+            simp
+          have hsc : (-(5 / 13122 : k)) * a ≠ 0 :=
+            mul_ne_zero
+              (neg_ne_zero.mpr (div_ne_zero (by norm_num) (by norm_num))) ha0
+          exact (mul_eq_zero.mp this).resolve_left hsc
+        exact abe0_tied_leadings_impossible a b e hb0 hkapInner hlamForm
+          homiForm
+      · have hcomb :=
+          rawABE0Combined610_natDegree_eq_of_coeff_ne hAne hBne hEne htie
+            hEtie hrawDrop
+        have hrawRest :=
+          degreeZeroRawFourthTailNoABE0_natDegree_lt l alpha beta delta
+            epsilon zeta eta theta A B C0 D0 E0 hcone
+        have hAlam :
+            ((1 / 3 : k) • (A *
+                degreeZeroLambdaPolynomial610 l alpha beta delta epsilon
+                  zeta eta theta A B C0 D0 E0)).natDegree <
+              7 * A.natDegree := by
+          have hmul :=
+            natDegree_mul_of_natDegree_eq_zero A
+              (degreeZeroLambdaPolynomial610 l alpha beta delta epsilon zeta
+                eta theta A B C0 D0 E0) hlamDeg
+          have hsm :=
+            natDegree_smul_le610 (1 / 3 : k)
+              (A * degreeZeroLambdaPolynomial610 l alpha beta delta epsilon
+                zeta eta theta A B C0 D0 E0)
+          rcases hcone with ⟨hApos, _⟩
+          omega
+        have hBkap :
+            ((1 / 6 : k) • (B *
+                degreeZeroKappaPolynomial610 l alpha beta delta epsilon zeta
+                  eta theta A B C0 D0 E0)).natDegree <
+              7 * A.natDegree := by
+          have hmul :=
+            natDegree_mul_of_natDegree_eq_zero B
+              (degreeZeroKappaPolynomial610 l alpha beta delta epsilon zeta
+                eta theta A B C0 D0 E0) hkapDeg
+          have hsm :=
+            natDegree_smul_le610 (1 / 6 : k)
+              (B * degreeZeroKappaPolynomial610 l alpha beta delta epsilon
+                zeta eta theta A B C0 D0 E0)
+          rcases hcone with ⟨hApos, htie', _⟩
+          omega
+        have homiEq :
+            degreeZeroOmicronPolynomial610 l alpha beta delta epsilon zeta
+                eta theta A B C0 D0 E0 =
+              rawABE0Combined610 A B E0 +
+                (degreeZeroRawFourthTailNoABE0Polynomial610 l alpha beta
+                    delta epsilon zeta eta theta A B C0 D0 E0 +
+                  ((1 / 6 : k) • (B *
+                      degreeZeroKappaPolynomial610 l alpha beta delta
+                        epsilon zeta eta theta A B C0 D0 E0) +
+                    (1 / 3 : k) • (A *
+                        degreeZeroLambdaPolynomial610 l alpha beta delta
+                          epsilon zeta eta theta A B C0 D0 E0))) := by
+          simp only [degreeZeroOmicronPolynomial610]
+          rw [degreeZeroRawFourthTailPolynomial610_eq_ABE0_add_rest]
+          abel
+        have hrestSum :=
+          natDegree_add_lt610 hrawRest (natDegree_add_lt610 hBkap hAlam)
+        rw [homiEq, natDegree_add_eq_left_of_natDegree_lt (by rwa [hcomb]),
+          hcomb] at homiDeg
+        rcases hcone with ⟨hApos, _⟩
+        omega
+    · have hcomb :=
+        kappaABE0Combined610_natDegree_eq_of_coeff_ne hAne hBne hEne htie
+          hEtie hkapDrop
+      have hrest :=
+        degreeZeroKappaNoABE0_natDegree_lt l alpha beta delta epsilon zeta
+          eta theta A B C0 D0 E0 hcone
+      rw [degreeZeroKappaPolynomial610_eq_ABE0_add_rest,
+        natDegree_add_eq_left_of_natDegree_lt (by rwa [hcomb]),
+        hcomb] at hkapDeg
+      rcases hcone with ⟨hApos, htie', _⟩
+      omega
+  · have hcomb :=
+      lambdaABE0Combined610_natDegree_eq_of_coeff_ne hAne hBne hEne htie
+        hEtie hlamDrop
+    have hrest :=
+      degreeZeroLambdaNoABE0_natDegree_lt l alpha beta delta epsilon zeta
+        eta theta A B C0 D0 E0 hcone
+    rw [degreeZeroLambdaPolynomial610_eq_ABE0_add_rest,
+      natDegree_add_eq_left_of_natDegree_lt (by rwa [hcomb]),
+      hcomb] at hlamDeg
+    rcases hcone with ⟨hApos, _⟩
+    omega
+
+end TriplePolyKills610
 
 /-! ## Source-facing residual -/
 
@@ -1478,13 +3256,13 @@ section Closed610
 
 variable {k : Type*} [Field k] [CharZero k] [IsAlgClosed k]
 
-/-- Field identities for the leftover triples (`C₀⁶` / Euclidean `b¹²`
-on `A`–`B`–`C₀`, parent `E₀⁴` on `A`–`B`–`E₀`, cusp load on
-`A`–`C₀`–`E₀` with `l ≠ 0`) and rest bounds for the corresponding
-`λ`/`κ` faces.  Mixed-`D₀` max-sets are named.  Remaining after this
-file: the drop chambers of the triples (leading forms vanish), the
-quadruple `T₂` branch, `A`–`C₀`–`E₀` with `l = 0`, and mixed-`D₀`
-combination max-sets. -/
+
+/-- Unique-`μ` mixed-`D₀` chambers with a single maximal monomial
+(`B D₀²` or `C₀² D₀`) are empty, as are the triples `A`–`B`–`C₀` and
+`A`–`B`–`E₀` (leading-coefficient identities `C₀⁶` / `E₀⁴` after extracting
+tied `λ`/`κ`/`ο` forms).  Remaining: the triple `A`–`C₀`–`E₀` (cusp with
+`l = 0`), the quadruple `T₂` branch, and mixed-`D₀` combination max-sets
+whose companion `κ`/`μ` faces have more than one monomial. -/
 theorem normalized610ScaleZero_coneTriplesResidual
     {P Q : MvPolynomial (Fin 2) k} {H : k[X]}
     (hsource : Normalized610LeadingCoreSource P Q H 0) :
@@ -1520,13 +3298,66 @@ theorem normalized610ScaleZero_coneTriplesResidual
       ¬ ABRatioTieCone610 A B C0 D0 E0 ∧
       ¬ AE0RatioTieCone610 A B C0 D0 E0 ∧
       ¬ AC0RatioTieCone610 A B C0 D0 E0 ∧
-      ¬ C0E0RatioTieCone610 A B C0 D0 E0 :=
-  normalized610ScaleZero_coneFinishResidual hsource
+      ¬ C0E0RatioTieCone610 A B C0 D0 E0 ∧
+      ¬ ABC0RatioTieCone610 A B C0 D0 E0 ∧
+      ¬ ABE0RatioTieCone610 A B C0 D0 E0 ∧
+      ¬ MixedADBRatioTieCone610 A B C0 D0 E0 ∧
+      ¬ MixedBBDRatioTieCone610 A B C0 D0 E0 ∧
+      ¬ MixedADBBDRatioTieCone610 A B C0 D0 E0 ∧
+      ¬ MixedADBERatioTieCone610 A B C0 D0 E0 ∧
+      ¬ MixedBBDERatioTieCone610 A B C0 D0 E0 ∧
+      ¬ MixedADBBDERatioTieCone610 A B C0 D0 E0 ∧
+      ¬ MixedADCRatioTieCone610 A B C0 D0 E0 ∧
+      ¬ MixedADCERatioTieCone610 A B C0 D0 E0 := by
+  obtain ⟨t, j, lambda, omicron, l, alpha, beta, gamma, delta, epsilon,
+      zeta, eta, theta, iota, cLam, cKap, cMu, cOmi, A, B, C0, D0, E0,
+      ht, hj, hjdiv, hHsq, hder, hlamDeg, hkapDeg, hmuDeg, homiDeg, hAD02,
+      hA2BD, hBCD, hA6AD, hBC0, hBC0E0, hBE0, hAB, hAE0, hAC0, hC0E0⟩ :=
+    normalized610ScaleZero_coneFinishResidual hsource
+  refine ⟨t, j, lambda, omicron, l, alpha, beta, gamma, delta, epsilon,
+    zeta, eta, theta, iota, cLam, cKap, cMu, cOmi, A, B, C0, D0, E0, ht,
+    hj, hjdiv, hHsq, hder, hlamDeg, hkapDeg, hmuDeg, homiDeg, hAD02, hA2BD,
+    hBCD, hA6AD, hBC0, hBC0E0, hBE0, hAB, hAE0, hAC0, hC0E0, ?_, ?_, ?_,
+    ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · intro hABC0
+    exact lambda_ABC0_impossible l alpha beta delta epsilon zeta eta theta
+      A B C0 D0 E0 hABC0 hkapDeg hlamDeg homiDeg
+  · intro hABE0
+    exact lambda_ABE0_impossible l alpha beta delta epsilon zeta eta theta
+      A B C0 D0 E0 hABE0 hkapDeg hlamDeg homiDeg
+  · intro hADB
+    exact mu_BD02_impossible_of_MixedADB l alpha beta delta epsilon zeta
+      eta theta A B C0 D0 E0 hADB hmuDeg
+  · intro hBBD
+    exact mu_BD02_impossible_of_MixedBBD l alpha beta delta epsilon zeta
+      eta theta A B C0 D0 E0 hBBD hmuDeg
+  · intro hADBBD
+    exact mu_BD02_impossible_of_MixedADBBD l alpha beta delta epsilon zeta
+      eta theta A B C0 D0 E0 hADBBD hmuDeg
+  · intro hADBE
+    exact mu_BD02_impossible_of_MixedADBE l alpha beta delta epsilon zeta
+      eta theta A B C0 D0 E0 hADBE hmuDeg
+  · intro hBBDE
+    exact mu_BD02_impossible_of_MixedBBDE l alpha beta delta epsilon zeta
+      eta theta A B C0 D0 E0 hBBDE hmuDeg
+  · intro hADBBDE
+    exact mu_BD02_impossible_of_MixedADBBDE l alpha beta delta epsilon zeta
+      eta theta A B C0 D0 E0 hADBBDE hmuDeg
+  · intro hADC
+    exact mu_C02D0_impossible_of_MixedADC l alpha beta delta epsilon zeta
+      eta theta A B C0 D0 E0 hADC hmuDeg
+  · intro hADCE
+    exact mu_C02D0_impossible_of_MixedADCE l alpha beta delta epsilon zeta
+      eta theta A B C0 D0 E0 hADCE hmuDeg
 
 end Closed610
 
 #print axioms abc0_tied_leadings_impossible
 #print axioms ac0e0_tied_leadings_impossible
+#print axioms lambda_ABC0_impossible
+#print axioms lambda_ABE0_impossible
+#print axioms mu_BD02_impossible_of_MixedADB
+#print axioms mu_C02D0_impossible_of_MixedADC
 #print axioms normalized610ScaleZero_coneTriplesResidual
 
 end Max11DegreeRoutes
