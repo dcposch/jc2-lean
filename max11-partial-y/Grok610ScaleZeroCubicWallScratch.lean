@@ -16,10 +16,7 @@ CAS (`scripts/derive_610_scale_zero_cubic_wall.py` and
 `scripts/derive_610_scale_zero_cubic_wall_mixed.py`): every nonempty
 `(S, letter-face)` and `(S, odd-load mixed)` system saturates to `(1)`
 after `l = 0`.  The Lean leftover after the two walls is A-dominant
-load-compete with `l = 0` that is not a `β/δ/ζ/θ` compete chamber
-(κ letter-topped): finitely many mixed pairs, each a single-monomial
-or certificate in the CAS, transcribed below when the rest bound
-closes.
+load-compete with `l = 0`.
 
 No `sorry`, no new axioms, no finite-root shortcut.  Untracked working
 note.
@@ -1847,13 +1844,15 @@ Closed: the 13 empty σ-cones, the all-zero cell, `{C,D}` on and off
 the wall `6 nA = 2 nC + nD` (det `N₁`/`N₂` = `143/248832` kills `l`,
 then `cubicSigmaCone_CD_impossible` at `l = 0`), the balanced cell on
 and off the wall `14 nB = 19 nA` (same determinant), and `l = 0` on
-the load-compete chamber.
+the load-compete chamber.  The A-dominant exhaust
+`cubicSigmaSupportCone610_of` is constructive.
 
-Survives: A-dominant load-compete after `l = 0` that is not a
-`β/δ/ζ/θ` compete chamber (κ letter-topped).  CAS saturates every
-nonempty `(S, letter-face)` and mixed pair to `(1)`; the next unused
-row is the Lean rest bounds that extract those faces on the
-load-compete side of `6 Θ = ρ`.  No finite-root shortcut is used. -/
+Survives: A-dominant load-compete after `l = 0`.  On a `β/δ/ζ/θ`
+compete chamber the corresponding odd load vanishes by the existing
+`N₁` column theorems; the remaining letter-topped mixed pairs saturate
+to `(1)` in CAS.  Next unused row: Lean rest bounds extracting those
+faces on the load-compete side of `6 Θ = ρ`.  No finite-root shortcut
+is used. -/
 theorem normalized610ScaleZero_cubicResidual4
     {P Q : MvPolynomial (Fin 2) k} {H : k[X]}
     (hsource : Normalized610LeadingCoreSource P Q H 0) :
