@@ -57,20 +57,20 @@ section QuarticAuxTower810
 
 set_option maxHeartbeats 64000000 in
 /-- `N₄` (weight 17, `natDegree ≤ 1·a`, face slack `15·a > c₀`). -/
-def degreeZeroN4Quartic810
+def degreeZeroN4TowerQuartic810
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) : k[X] :=
   degreeZeroPrimitiveQuartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G +
     (-1 : k) • (A * degreeZeroOmicronQuartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G)
 
 set_option maxHeartbeats 64000000 in
-theorem degreeZeroN4Quartic810_natDegree_le
+theorem degreeZeroN4TowerQuartic810_natDegree_le
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X])
     (hApos : 0 < A.natDegree)
     (hprim : (degreeZeroPrimitiveQuartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree = 1)
     (homi : (degreeZeroOmicronQuartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree = 0) :
-    (degreeZeroN4Quartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree ≤
+    (degreeZeroN4TowerQuartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree ≤
       A.natDegree := by
   have hb0 : (degreeZeroPrimitiveQuartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree ≤ A.natDegree := by
     rw [hprim]
@@ -81,7 +81,7 @@ theorem degreeZeroN4Quartic810_natDegree_le
         A.natDegree + (degreeZeroOmicronQuartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree := natDegree_mul_le
     rw [homi, add_zero] at hmul
     omega
-  simp only [degreeZeroN4Quartic810]
+  simp only [degreeZeroN4TowerQuartic810]
   exact natDegree_add_le810 hb0 hb1
 
 set_option maxHeartbeats 64000000 in
@@ -94,28 +94,28 @@ theorem degreeZeroN4Quartic810_star
   omega
 
 /-- The pure-`A` `l` column of `N₄`. -/
-def n4QuarticLFace810 (l : k) (A : k[X]) : k[X] :=
+def n4QuarticLTowerFace810 (l : k) (A : k[X]) : k[X] :=
   (495 / 268435456 * l : k) • A ^ 8
 
 /-- The pure-`A` `beta` column of `N₄`. -/
-def n4QuarticBetaFace810 (beta : k) (A : k[X]) : k[X] :=
+def n4QuarticBetaTowerFace810 (beta : k) (A : k[X]) : k[X] :=
   (15 / 2097152 * beta : k) • A ^ 7
 
 /-- The pure-`A` `delta` column of `N₄`. -/
-def n4QuarticDeltaFace810 (delta : k) (A : k[X]) : k[X] :=
+def n4QuarticDeltaTowerFace810 (delta : k) (A : k[X]) : k[X] :=
   (7 / 262144 * delta : k) • A ^ 6
 
 /-- The pure-`A` `zeta` column of `N₄`. -/
-def n4QuarticZetaFace810 (zeta : k) (A : k[X]) : k[X] :=
+def n4QuarticZetaTowerFace810 (zeta : k) (A : k[X]) : k[X] :=
   (3 / 32768 * zeta : k) • A ^ 5
 
 /-- The pure-`A` `theta` column of `N₄`. -/
-def n4QuarticThetaFace810 (theta : k) (A : k[X]) : k[X] :=
+def n4QuarticThetaTowerFace810 (theta : k) (A : k[X]) : k[X] :=
   (1 / 4096 * theta : k) • A ^ 4
 
 set_option maxHeartbeats 64000000 in
 /-- `N₅` (weight 15, `natDegree ≤ 2·a`, face slack `11·a > c₀`). -/
-def degreeZeroN5Quartic810
+def degreeZeroN5TowerQuartic810
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) : k[X] :=
   degreeZeroOmicronQuartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G +
@@ -123,14 +123,14 @@ def degreeZeroN5Quartic810
     (3 / 128 : k) • (A ^ 2 * degreeZeroKappaQuartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G)
 
 set_option maxHeartbeats 64000000 in
-theorem degreeZeroN5Quartic810_natDegree_le
+theorem degreeZeroN5TowerQuartic810_natDegree_le
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X])
     (hApos : 0 < A.natDegree)
     (homi : (degreeZeroOmicronQuartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree = 0)
     (hnu : (degreeZeroNuQuartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree = 0)
     (hkap : (degreeZeroKappaQuartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree = 0) :
-    (degreeZeroN5Quartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree ≤
+    (degreeZeroN5TowerQuartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree ≤
       2 * A.natDegree := by
   have hb0 : (degreeZeroOmicronQuartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree ≤ 2 * A.natDegree := by
     rw [homi]
@@ -147,7 +147,7 @@ theorem degreeZeroN5Quartic810_natDegree_le
         (A ^ 2).natDegree + (degreeZeroKappaQuartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree := natDegree_mul_le
     rw [hkap, add_zero, natDegree_pow] at hmul
     omega
-  simp only [degreeZeroN5Quartic810]
+  simp only [degreeZeroN5TowerQuartic810]
   exact natDegree_add_le810 (natDegree_add_le810 hb0 hb1) hb2
 
 set_option maxHeartbeats 64000000 in
@@ -160,28 +160,28 @@ theorem degreeZeroN5Quartic810_star
   omega
 
 /-- The pure-`A` `l` column of `N₅`. -/
-def n5QuarticLFace810 (l : k) (A : k[X]) : k[X] :=
+def n5QuarticLTowerFace810 (l : k) (A : k[X]) : k[X] :=
   (429 / 33554432 * l : k) • A ^ 7
 
 /-- The pure-`A` `beta` column of `N₅`. -/
-def n5QuarticBetaFace810 (beta : k) (A : k[X]) : k[X] :=
+def n5QuarticBetaTowerFace810 (beta : k) (A : k[X]) : k[X] :=
   (231 / 4194304 * beta : k) • A ^ 6
 
 /-- The pure-`A` `delta` column of `N₅`. -/
-def n5QuarticDeltaFace810 (delta : k) (A : k[X]) : k[X] :=
+def n5QuarticDeltaTowerFace810 (delta : k) (A : k[X]) : k[X] :=
   (63 / 262144 * delta : k) • A ^ 5
 
 /-- The pure-`A` `zeta` column of `N₅`. -/
-def n5QuarticZetaFace810 (zeta : k) (A : k[X]) : k[X] :=
+def n5QuarticZetaTowerFace810 (zeta : k) (A : k[X]) : k[X] :=
   (35 / 32768 * zeta : k) • A ^ 4
 
 /-- The pure-`A` `theta` column of `N₅`. -/
-def n5QuarticThetaFace810 (theta : k) (A : k[X]) : k[X] :=
+def n5QuarticThetaTowerFace810 (theta : k) (A : k[X]) : k[X] :=
   (5 / 1024 * theta : k) • A ^ 3
 
 set_option maxHeartbeats 64000000 in
 /-- `N₆` (weight 17, `natDegree ≤ 2·a`, face slack `13·a > c₀`). -/
-def degreeZeroN6Quartic810
+def degreeZeroN6TowerQuartic810
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) : k[X] :=
   degreeZeroPrimitiveQuartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G +
@@ -189,14 +189,14 @@ def degreeZeroN6Quartic810
     (-(1 / 48) : k) • (A ^ 2 * degreeZeroNuQuartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G)
 
 set_option maxHeartbeats 64000000 in
-theorem degreeZeroN6Quartic810_natDegree_le
+theorem degreeZeroN6TowerQuartic810_natDegree_le
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X])
     (hApos : 0 < A.natDegree)
     (hprim : (degreeZeroPrimitiveQuartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree = 1)
     (homi : (degreeZeroOmicronQuartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree = 0)
     (hnu : (degreeZeroNuQuartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree = 0) :
-    (degreeZeroN6Quartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree ≤
+    (degreeZeroN6TowerQuartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree ≤
       2 * A.natDegree := by
   have hb0 : (degreeZeroPrimitiveQuartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree ≤ 2 * A.natDegree := by
     rw [hprim]
@@ -213,7 +213,7 @@ theorem degreeZeroN6Quartic810_natDegree_le
         (A ^ 2).natDegree + (degreeZeroNuQuartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree := natDegree_mul_le
     rw [hnu, add_zero, natDegree_pow] at hmul
     omega
-  simp only [degreeZeroN6Quartic810]
+  simp only [degreeZeroN6TowerQuartic810]
   exact natDegree_add_le810 (natDegree_add_le810 hb0 hb1) hb2
 
 set_option maxHeartbeats 64000000 in
@@ -226,28 +226,28 @@ theorem degreeZeroN6Quartic810_star
   omega
 
 /-- The pure-`A` `l` column of `N₆`. -/
-def n6QuarticLFace810 (l : k) (A : k[X]) : k[X] :=
+def n6QuarticLTowerFace810 (l : k) (A : k[X]) : k[X] :=
   (715 / 268435456 * l : k) • A ^ 8
 
 /-- The pure-`A` `beta` column of `N₆`. -/
-def n6QuarticBetaFace810 (beta : k) (A : k[X]) : k[X] :=
+def n6QuarticBetaTowerFace810 (beta : k) (A : k[X]) : k[X] :=
   (11 / 1048576 * beta : k) • A ^ 7
 
 /-- The pure-`A` `delta` column of `N₆`. -/
-def n6QuarticDeltaFace810 (delta : k) (A : k[X]) : k[X] :=
+def n6QuarticDeltaTowerFace810 (delta : k) (A : k[X]) : k[X] :=
   (21 / 524288 * delta : k) • A ^ 6
 
 /-- The pure-`A` `zeta` column of `N₆`. -/
-def n6QuarticZetaFace810 (zeta : k) (A : k[X]) : k[X] :=
+def n6QuarticZetaTowerFace810 (zeta : k) (A : k[X]) : k[X] :=
   (7 / 49152 * zeta : k) • A ^ 5
 
 /-- The pure-`A` `theta` column of `N₆`. -/
-def n6QuarticThetaFace810 (theta : k) (A : k[X]) : k[X] :=
+def n6QuarticThetaTowerFace810 (theta : k) (A : k[X]) : k[X] :=
   (5 / 12288 * theta : k) • A ^ 4
 
 set_option maxHeartbeats 64000000 in
 /-- `N₇` (weight 17, `natDegree ≤ 3·a`, face slack `11·a > c₀`). -/
-def degreeZeroN7Quartic810
+def degreeZeroN7TowerQuartic810
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) : k[X] :=
   degreeZeroPrimitiveQuartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G +
@@ -256,7 +256,7 @@ def degreeZeroN7Quartic810
     (5 / 128 : k) • (A ^ 3 * degreeZeroKappaQuartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G)
 
 set_option maxHeartbeats 64000000 in
-theorem degreeZeroN7Quartic810_natDegree_le
+theorem degreeZeroN7TowerQuartic810_natDegree_le
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X])
     (hApos : 0 < A.natDegree)
@@ -264,7 +264,7 @@ theorem degreeZeroN7Quartic810_natDegree_le
     (homi : (degreeZeroOmicronQuartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree = 0)
     (hnu : (degreeZeroNuQuartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree = 0)
     (hkap : (degreeZeroKappaQuartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree = 0) :
-    (degreeZeroN7Quartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree ≤
+    (degreeZeroN7TowerQuartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree ≤
       3 * A.natDegree := by
   have hb0 : (degreeZeroPrimitiveQuartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree ≤ 3 * A.natDegree := by
     rw [hprim]
@@ -287,7 +287,7 @@ theorem degreeZeroN7Quartic810_natDegree_le
         (A ^ 3).natDegree + (degreeZeroKappaQuartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree := natDegree_mul_le
     rw [hkap, add_zero, natDegree_pow] at hmul
     omega
-  simp only [degreeZeroN7Quartic810]
+  simp only [degreeZeroN7TowerQuartic810]
   exact natDegree_add_le810 (natDegree_add_le810 (natDegree_add_le810 hb0 hb1) hb2) hb3
 
 set_option maxHeartbeats 64000000 in
@@ -300,23 +300,23 @@ theorem degreeZeroN7Quartic810_star
   omega
 
 /-- The pure-`A` `l` column of `N₇`. -/
-def n7QuarticLFace810 (l : k) (A : k[X]) : k[X] :=
+def n7QuarticLTowerFace810 (l : k) (A : k[X]) : k[X] :=
   (6435 / 268435456 * l : k) • A ^ 8
 
 /-- The pure-`A` `beta` column of `N₇`. -/
-def n7QuarticBetaFace810 (beta : k) (A : k[X]) : k[X] :=
+def n7QuarticBetaTowerFace810 (beta : k) (A : k[X]) : k[X] :=
   (429 / 4194304 * beta : k) • A ^ 7
 
 /-- The pure-`A` `delta` column of `N₇`. -/
-def n7QuarticDeltaFace810 (delta : k) (A : k[X]) : k[X] :=
+def n7QuarticDeltaTowerFace810 (delta : k) (A : k[X]) : k[X] :=
   (231 / 524288 * delta : k) • A ^ 6
 
 /-- The pure-`A` `zeta` column of `N₇`. -/
-def n7QuarticZetaFace810 (zeta : k) (A : k[X]) : k[X] :=
+def n7QuarticZetaTowerFace810 (zeta : k) (A : k[X]) : k[X] :=
   (63 / 32768 * zeta : k) • A ^ 5
 
 /-- The pure-`A` `theta` column of `N₇`. -/
-def n7QuarticThetaFace810 (theta : k) (A : k[X]) : k[X] :=
+def n7QuarticThetaTowerFace810 (theta : k) (A : k[X]) : k[X] :=
   (35 / 4096 * theta : k) • A ^ 4
 
 end QuarticAuxTower810
@@ -3247,11 +3247,11 @@ theorem quarticSigma_l_eq_zero_of_N7_column
     (A B C D E F G rest : k[X])
     (hApos : 0 < A.natDegree)
     (hrest : rest.natDegree < 8 * A.natDegree)
-    (hN7 : (degreeZeroN7Quartic810 l beta gamma delta epsilon zeta
+    (hN7 : (degreeZeroN7TowerQuartic810 l beta gamma delta epsilon zeta
           eta theta A B C D E F G).natDegree ≤ 3 * A.natDegree)
-    (heq : degreeZeroN7Quartic810 l beta gamma delta epsilon zeta
+    (heq : degreeZeroN7TowerQuartic810 l beta gamma delta epsilon zeta
           eta theta A B C D E F G =
-        n7QuarticLFace810 l A + rest) :
+        n7QuarticLTowerFace810 l A + rest) :
     l = 0 := by
   by_contra hne
   have hAne : A ≠ 0 := by
@@ -3260,8 +3260,8 @@ theorem quarticSigma_l_eq_zero_of_N7_column
     omega
   have hc : (6435 / 268435456 * l : k) ≠ 0 :=
     mul_ne_zero (div_ne_zero (by norm_num) (by norm_num)) hne
-  have hlead : (n7QuarticLFace810 l A).natDegree = 8 * A.natDegree := by
-    simp only [n7QuarticLFace810]
+  have hlead : (n7QuarticLTowerFace810 l A).natDegree = 8 * A.natDegree := by
+    simp only [n7QuarticLTowerFace810]
     rw [natDegree_smul _ hc, natDegree_pow]
   rw [heq, natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]),
     hlead] at hN7
@@ -3275,11 +3275,11 @@ theorem quarticSigma_beta_eq_zero_of_N7_column
     (hApos : 0 < A.natDegree)
     (hl : l = 0)
     (hrest : rest.natDegree < 7 * A.natDegree)
-    (hN7 : (degreeZeroN7Quartic810 l beta gamma delta epsilon zeta
+    (hN7 : (degreeZeroN7TowerQuartic810 l beta gamma delta epsilon zeta
           eta theta A B C D E F G).natDegree ≤ 3 * A.natDegree)
-    (heq : degreeZeroN7Quartic810 l beta gamma delta epsilon zeta
+    (heq : degreeZeroN7TowerQuartic810 l beta gamma delta epsilon zeta
           eta theta A B C D E F G =
-        n7QuarticBetaFace810 beta A + rest) :
+        n7QuarticBetaTowerFace810 beta A + rest) :
     beta = 0 := by
   by_contra hne
   have hAne : A ≠ 0 := by
@@ -3288,8 +3288,8 @@ theorem quarticSigma_beta_eq_zero_of_N7_column
     omega
   have hc : (429 / 4194304 * beta : k) ≠ 0 :=
     mul_ne_zero (div_ne_zero (by norm_num) (by norm_num)) hne
-  have hlead : (n7QuarticBetaFace810 beta A).natDegree = 7 * A.natDegree := by
-    simp only [n7QuarticBetaFace810]
+  have hlead : (n7QuarticBetaTowerFace810 beta A).natDegree = 7 * A.natDegree := by
+    simp only [n7QuarticBetaTowerFace810]
     rw [natDegree_smul _ hc, natDegree_pow]
   subst hl
   rw [heq, natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]),
@@ -3305,11 +3305,11 @@ theorem quarticSigma_delta_eq_zero_of_N7_column
     (hl : l = 0)
     (hbeta : beta = 0)
     (hrest : rest.natDegree < 6 * A.natDegree)
-    (hN7 : (degreeZeroN7Quartic810 l beta gamma delta epsilon zeta
+    (hN7 : (degreeZeroN7TowerQuartic810 l beta gamma delta epsilon zeta
           eta theta A B C D E F G).natDegree ≤ 3 * A.natDegree)
-    (heq : degreeZeroN7Quartic810 l beta gamma delta epsilon zeta
+    (heq : degreeZeroN7TowerQuartic810 l beta gamma delta epsilon zeta
           eta theta A B C D E F G =
-        n7QuarticDeltaFace810 delta A + rest) :
+        n7QuarticDeltaTowerFace810 delta A + rest) :
     delta = 0 := by
   by_contra hne
   have hAne : A ≠ 0 := by
@@ -3318,8 +3318,8 @@ theorem quarticSigma_delta_eq_zero_of_N7_column
     omega
   have hc : (231 / 524288 * delta : k) ≠ 0 :=
     mul_ne_zero (div_ne_zero (by norm_num) (by norm_num)) hne
-  have hlead : (n7QuarticDeltaFace810 delta A).natDegree = 6 * A.natDegree := by
-    simp only [n7QuarticDeltaFace810]
+  have hlead : (n7QuarticDeltaTowerFace810 delta A).natDegree = 6 * A.natDegree := by
+    simp only [n7QuarticDeltaTowerFace810]
     rw [natDegree_smul _ hc, natDegree_pow]
   subst hl
   subst hbeta
@@ -3337,11 +3337,11 @@ theorem quarticSigma_zeta_eq_zero_of_N7_column
     (hbeta : beta = 0)
     (hdelta : delta = 0)
     (hrest : rest.natDegree < 5 * A.natDegree)
-    (hN7 : (degreeZeroN7Quartic810 l beta gamma delta epsilon zeta
+    (hN7 : (degreeZeroN7TowerQuartic810 l beta gamma delta epsilon zeta
           eta theta A B C D E F G).natDegree ≤ 3 * A.natDegree)
-    (heq : degreeZeroN7Quartic810 l beta gamma delta epsilon zeta
+    (heq : degreeZeroN7TowerQuartic810 l beta gamma delta epsilon zeta
           eta theta A B C D E F G =
-        n7QuarticZetaFace810 zeta A + rest) :
+        n7QuarticZetaTowerFace810 zeta A + rest) :
     zeta = 0 := by
   by_contra hne
   have hAne : A ≠ 0 := by
@@ -3350,8 +3350,8 @@ theorem quarticSigma_zeta_eq_zero_of_N7_column
     omega
   have hc : (63 / 32768 * zeta : k) ≠ 0 :=
     mul_ne_zero (div_ne_zero (by norm_num) (by norm_num)) hne
-  have hlead : (n7QuarticZetaFace810 zeta A).natDegree = 5 * A.natDegree := by
-    simp only [n7QuarticZetaFace810]
+  have hlead : (n7QuarticZetaTowerFace810 zeta A).natDegree = 5 * A.natDegree := by
+    simp only [n7QuarticZetaTowerFace810]
     rw [natDegree_smul _ hc, natDegree_pow]
   subst hl
   subst hbeta
@@ -3371,11 +3371,11 @@ theorem quarticSigma_theta_eq_zero_of_N7_column
     (hdelta : delta = 0)
     (hzeta : zeta = 0)
     (hrest : rest.natDegree < 4 * A.natDegree)
-    (hN7 : (degreeZeroN7Quartic810 l beta gamma delta epsilon zeta
+    (hN7 : (degreeZeroN7TowerQuartic810 l beta gamma delta epsilon zeta
           eta theta A B C D E F G).natDegree ≤ 3 * A.natDegree)
-    (heq : degreeZeroN7Quartic810 l beta gamma delta epsilon zeta
+    (heq : degreeZeroN7TowerQuartic810 l beta gamma delta epsilon zeta
           eta theta A B C D E F G =
-        n7QuarticThetaFace810 theta A + rest) :
+        n7QuarticThetaTowerFace810 theta A + rest) :
     theta = 0 := by
   by_contra hne
   have hAne : A ≠ 0 := by
@@ -3384,8 +3384,8 @@ theorem quarticSigma_theta_eq_zero_of_N7_column
     omega
   have hc : (35 / 4096 * theta : k) ≠ 0 :=
     mul_ne_zero (div_ne_zero (by norm_num) (by norm_num)) hne
-  have hlead : (n7QuarticThetaFace810 theta A).natDegree = 4 * A.natDegree := by
-    simp only [n7QuarticThetaFace810]
+  have hlead : (n7QuarticThetaTowerFace810 theta A).natDegree = 4 * A.natDegree := by
+    simp only [n7QuarticThetaTowerFace810]
     rw [natDegree_smul _ hc, natDegree_pow]
   subst hl
   subst hbeta
@@ -4862,10 +4862,10 @@ end QuarticWallSplit810
 #print axioms quarticOpenChamberI810_impossible
 #print axioms quarticOpenChamberII810_identity
 #print axioms quarticOpenChamberII810_impossible
-#print axioms degreeZeroN4Quartic810_natDegree_le
-#print axioms degreeZeroN5Quartic810_natDegree_le
-#print axioms degreeZeroN6Quartic810_natDegree_le
-#print axioms degreeZeroN7Quartic810_natDegree_le
+#print axioms degreeZeroN4TowerQuartic810_natDegree_le
+#print axioms degreeZeroN5TowerQuartic810_natDegree_le
+#print axioms degreeZeroN6TowerQuartic810_natDegree_le
+#print axioms degreeZeroN7TowerQuartic810_natDegree_le
 #print axioms degreeZeroN4Quartic810_star
 #print axioms degreeZeroN5Quartic810_star
 #print axioms degreeZeroN6Quartic810_star
