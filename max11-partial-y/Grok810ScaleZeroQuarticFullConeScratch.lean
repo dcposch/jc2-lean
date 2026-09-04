@@ -10,10 +10,12 @@ ABCDEFG branch only.
 CAS (Singular, weighted grevlex, Rabinowitsch `T·abcdefg-1`): the saturated
 load-free ideal on this cone is `(1)`.  The Groebner basis contains `g^7`
 and `c d f² g²`.  Explicit lift multipliers have ~300-digit coefficients,
-too large for Lean `ring`.  The Lean transcription is the resultant tower
-of plan §6: each even integral against `κ` (weight 11, linear in `G`)
-yields a small Sylvester identity, so the six `G`-free cores vanish on
-the cone.  The remaining core Groebner certificate is not transcribed.
+too large for Lean `ring`.  Lean has the G-eliminating Sylvester cores
+(plan §6) and the next a-resultant layer: 2×2 identities of the cores
+linear in `a`, the deg-1/deg-2 Sylvester of `ν` against `ο`, and the
+weight-26 combination `R_ο − 10 b⁴ d R_{μν} = 8 b⁶ d T` whose factor `T`
+is linear in `e`.  The remaining Groebner `(1)` certificate among the
+e-free faces is not transcribed.
 
 No `sorry`, no new axioms, no finite-root shortcut.  Untracked working
 note.
@@ -2163,6 +2165,189 @@ theorem quarticConeABCDEFG810_cores_eq_zero
   exact ⟨hmucore, hnucore, hxicore, homicroncore, hpicore, hprimitivecore⟩
 
 
+/-! ## a-resultants of the G-free cores, and the weight-26 factor T -/
+
+def quarticCoreResA_mu_nuABCDEFG810 (b c d e f : k) : k :=
+  (-14 : k) * b ^ 8 * d + 56 * b ^ 7 * c ^ 2 + (-320 : k) * b ^ 6 * c * f +
+    96 * b ^ 6 * d * e + (-192 : k) * b ^ 5 * c ^ 2 * e +
+    (-16 : k) * b ^ 5 * c * d ^ 2 + 384 * b ^ 5 * f ^ 2 +
+    (-64 : k) * b ^ 4 * c ^ 3 * d + 1024 * b ^ 4 * c * e * f +
+    (-64 : k) * b ^ 4 * d ^ 2 * f + (-128 : k) * b ^ 4 * d * e ^ 2 +
+    384 * b ^ 3 * c * d ^ 2 * e + (-1024 : k) * b ^ 3 * e * f ^ 2 +
+    1024 * b ^ 2 * c * d * f ^ 2 + 512 * b ^ 2 * d ^ 2 * e * f +
+    512 * b * c * d ^ 3 * f + 512 * b * d ^ 4 * e
+
+def quarticCoreResA_nu_xiABCDEFG810 (b c d e f : k) : k :=
+  7 * b ^ 9 * c + (-12 : k) * b ^ 8 * f + (-52 : k) * b ^ 7 * c * e +
+    10 * b ^ 7 * d ^ 2 + (-60 : k) * b ^ 6 * c ^ 2 * d + 80 * b ^ 6 * e * f +
+    176 * b ^ 5 * c * d * f + 96 * b ^ 5 * c * e ^ 2 +
+    (-32 : k) * b ^ 5 * d ^ 2 * e + 288 * b ^ 4 * c ^ 2 * d * e +
+    (-48 : k) * b ^ 4 * c * d ^ 3 + (-128 : k) * b ^ 4 * d * f ^ 2 +
+    (-128 : k) * b ^ 4 * e ^ 2 * f + (-768 : k) * b ^ 3 * c * d * e * f +
+    384 * b ^ 2 * c ^ 2 * d ^ 2 * f + 384 * b ^ 2 * c * d ^ 3 * e +
+    512 * b ^ 2 * d * e * f ^ 2 + (-512 : k) * b * c * d ^ 2 * f ^ 2 +
+    (-512 : k) * b * d ^ 3 * e * f
+
+def quarticCoreResA_nu_omicronABCDEFG810 (b c d e f : k) : k :=
+  (-84 : k) * b ^ 12 * d ^ 2 + 280 * b ^ 11 * c ^ 2 * d +
+    (-480 : k) * b ^ 10 * c * d * f + 640 * b ^ 10 * d ^ 2 * e +
+    (-960 : k) * b ^ 9 * c ^ 2 * d * e + 320 * b ^ 9 * c * d ^ 3 +
+    1280 * b ^ 8 * c * d * e * f + 1280 * b ^ 8 * d ^ 3 * f +
+    (-1280 : k) * b ^ 8 * d ^ 2 * e ^ 2 + 1280 * b ^ 7 * c ^ 2 * d ^ 2 * f +
+    1280 * b ^ 7 * c * d ^ 3 * e + (-640 : k) * b ^ 7 * d ^ 5 +
+    (-5120 : k) * b ^ 6 * c * d ^ 2 * f ^ 2 +
+    (-10240 : k) * b ^ 6 * d ^ 3 * e * f + 5120 * b ^ 5 * c * d ^ 4 * f +
+    5120 * b ^ 5 * d ^ 5 * e
+
+def quarticCoreT_ABCDEFG810 (b c d e f : k) : k :=
+  7 * b ^ 6 * d + (-35 : k) * b ^ 5 * c ^ 2 + 340 * b ^ 4 * c * f +
+    (-40 : k) * b ^ 4 * d * e + 120 * b ^ 3 * c ^ 2 * e +
+    60 * b ^ 3 * c * d ^ 2 + (-480 : k) * b ^ 3 * f ^ 2 +
+    80 * b ^ 2 * c ^ 3 * d + (-1120 : k) * b ^ 2 * c * e * f +
+    240 * b ^ 2 * d ^ 2 * f + 160 * b * c ^ 2 * d * f +
+    (-320 : k) * b * c * d ^ 2 * e + (-80 : k) * b * d ^ 4 +
+    1280 * b * e * f ^ 2 + (-1920 : k) * c * d * f ^ 2 +
+    (-1920 : k) * d ^ 2 * e * f
+
+set_option maxHeartbeats 32000000 in
+theorem quarticCore_resA_mu_nu
+    (a b c d e f : k) :
+    (8 * b ^ 3 * c + (-32 : k) * b ^ 2 * f + (-16 : k) * b * d ^ 2) *
+        quarticCoreNuABCDEFG810 a b c d e f -
+      (2 * b ^ 3 * d) * quarticCoreMuABCDEFG810 a b c d e f =
+      quarticCoreResA_mu_nuABCDEFG810 b c d e f := by
+  simp only [quarticCoreMuABCDEFG810, quarticCoreNuABCDEFG810,
+    quarticCoreResA_mu_nuABCDEFG810]
+  ring
+
+set_option maxHeartbeats 32000000 in
+theorem quarticCore_resA_nu_xi
+    (a b c d e f : k) :
+    (2 * b ^ 3 * d) * quarticCoreXiABCDEFG810 a b c d e f -
+      ((-1 : k) * b ^ 5 + 4 * b ^ 3 * e + 12 * b ^ 2 * c * d +
+          (-16 : k) * b * d * f) *
+        quarticCoreNuABCDEFG810 a b c d e f =
+      quarticCoreResA_nu_xiABCDEFG810 b c d e f := by
+  simp only [quarticCoreNuABCDEFG810, quarticCoreXiABCDEFG810,
+    quarticCoreResA_nu_xiABCDEFG810]
+  ring
+
+set_option maxHeartbeats 64000000 in
+theorem quarticCore_resA_nu_omicron
+    (a b c d e f : k) :
+    (4 * b ^ 6 * d ^ 2) * quarticCoreOmicronABCDEFG810 a b c d e f -
+      ((-20 : k) * a * b ^ 6 * d ^ 2 + (-40 : k) * b ^ 7 * c * d +
+          160 * b ^ 5 * d ^ 3) *
+        quarticCoreNuABCDEFG810 a b c d e f =
+      quarticCoreResA_nu_omicronABCDEFG810 b c d e f := by
+  simp only [quarticCoreNuABCDEFG810, quarticCoreOmicronABCDEFG810,
+    quarticCoreResA_nu_omicronABCDEFG810]
+  ring
+
+set_option maxHeartbeats 32000000 in
+theorem quarticCore_T_of_resA
+    (b c d e f : k) :
+    quarticCoreResA_nu_omicronABCDEFG810 b c d e f -
+      (10 * b ^ 4 * d) * quarticCoreResA_mu_nuABCDEFG810 b c d e f =
+      (8 * b ^ 6 * d) * quarticCoreT_ABCDEFG810 b c d e f := by
+  simp only [quarticCoreResA_nu_omicronABCDEFG810,
+    quarticCoreResA_mu_nuABCDEFG810, quarticCoreT_ABCDEFG810]
+  ring
+
+set_option maxHeartbeats 16000000 in
+theorem quarticConeABCDEFG810_afree_eq_zero
+    {j t : k}
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X])
+    (hcone : QuarticRatioConeABCDEFG810 A B C D E F G)
+    (hxi : (degreeZeroXiQuartic810 l beta gamma delta epsilon zeta
+          eta theta A B C D E F G).natDegree =
+        0)
+    (hmu : (degreeZeroMuQuartic810 l beta gamma delta epsilon zeta eta
+          theta A B C D E F G).natDegree =
+        0)
+    (homi : (degreeZeroOmicronQuartic810 l beta gamma delta epsilon zeta
+          eta theta A B C D E F G).natDegree =
+        0)
+    (hkap : (degreeZeroKappaQuartic810 l beta gamma delta epsilon zeta
+          eta theta A B C D E F G).natDegree =
+        0)
+    (hnu : (degreeZeroNuQuartic810 l beta gamma delta epsilon zeta eta
+          theta A B C D E F G).natDegree =
+        0)
+    (hpi : (degreeZeroPiQuartic810 l beta gamma delta epsilon zeta eta
+          theta A B C D E F G).natDegree =
+        0)
+    (hjdiv : j / t ≠ 0)
+    (hder : derivative
+        (degreeZeroPrimitiveQuartic810 l beta gamma delta epsilon zeta
+          eta theta A B C D E F G) =
+        Polynomial.C (j / t)) :
+    quarticCoreResA_mu_nuABCDEFG810 B.leadingCoeff C.leadingCoeff
+        D.leadingCoeff E.leadingCoeff F.leadingCoeff = 0 ∧
+      quarticCoreResA_nu_xiABCDEFG810 B.leadingCoeff C.leadingCoeff
+        D.leadingCoeff E.leadingCoeff F.leadingCoeff = 0 ∧
+      quarticCoreResA_nu_omicronABCDEFG810 B.leadingCoeff C.leadingCoeff
+        D.leadingCoeff E.leadingCoeff F.leadingCoeff = 0 ∧
+      quarticCoreT_ABCDEFG810 B.leadingCoeff C.leadingCoeff
+        D.leadingCoeff E.leadingCoeff F.leadingCoeff = 0 := by
+  have hcores := quarticConeABCDEFG810_cores_eq_zero (j := j) (t := t)
+      l beta gamma delta epsilon zeta eta theta A B C D E F G hcone hxi hmu homi hkap hnu hpi hjdiv hder
+  rcases hcores with ⟨hcmu, hcnu, hcxi, hcom, hcpi, hcpr⟩
+  have hBne : B.leadingCoeff ≠ 0 := by
+    intro h0
+    have : B = 0 := leadingCoeff_eq_zero.mp h0
+    have : B.natDegree = 0 := by simp [this]
+    rcases hcone with ⟨hApos, hBpos, hCpos, hDpos, hEpos, hFpos, hGpos, hAB, hAC, hAD, hAE, hAF, hAG⟩
+    omega
+  have hDne : D.leadingCoeff ≠ 0 := by
+    intro h0
+    have : D = 0 := leadingCoeff_eq_zero.mp h0
+    have : D.natDegree = 0 := by simp [this]
+    rcases hcone with ⟨hApos, hBpos, hCpos, hDpos, hEpos, hFpos, hGpos, hAB, hAC, hAD, hAE, hAF, hAG⟩
+    omega
+  have hmn : quarticCoreResA_mu_nuABCDEFG810 B.leadingCoeff C.leadingCoeff
+      D.leadingCoeff E.leadingCoeff F.leadingCoeff = 0 := by
+    have hid := quarticCore_resA_mu_nu A.leadingCoeff B.leadingCoeff
+        C.leadingCoeff D.leadingCoeff E.leadingCoeff F.leadingCoeff
+    rw [hcmu, hcnu] at hid
+    simp only [mul_zero, sub_zero] at hid
+    exact hid.symm
+  have hnx : quarticCoreResA_nu_xiABCDEFG810 B.leadingCoeff C.leadingCoeff
+      D.leadingCoeff E.leadingCoeff F.leadingCoeff = 0 := by
+    have hid := quarticCore_resA_nu_xi A.leadingCoeff B.leadingCoeff
+        C.leadingCoeff D.leadingCoeff E.leadingCoeff F.leadingCoeff
+    rw [hcnu, hcxi] at hid
+    simp only [mul_zero, sub_zero] at hid
+    exact hid.symm
+  have hno : quarticCoreResA_nu_omicronABCDEFG810 B.leadingCoeff
+      C.leadingCoeff D.leadingCoeff E.leadingCoeff F.leadingCoeff = 0 := by
+    have hid := quarticCore_resA_nu_omicron A.leadingCoeff B.leadingCoeff
+        C.leadingCoeff D.leadingCoeff E.leadingCoeff F.leadingCoeff
+    rw [hcnu, hcom] at hid
+    simp only [mul_zero, sub_zero] at hid
+    exact hid.symm
+  have hT : quarticCoreT_ABCDEFG810 B.leadingCoeff C.leadingCoeff
+      D.leadingCoeff E.leadingCoeff F.leadingCoeff = 0 := by
+    have hid := quarticCore_T_of_resA B.leadingCoeff C.leadingCoeff
+        D.leadingCoeff E.leadingCoeff F.leadingCoeff
+    rw [hmn, hno] at hid
+    simp only [mul_zero, sub_zero] at hid
+    have h8 : (8 : k) ≠ 0 := by norm_num
+    have hpowB : B.leadingCoeff ^ 6 ≠ 0 := pow_ne_zero 6 hBne
+    have hmul := mul_eq_zero.mp hid.symm
+    rcases hmul with h | h
+    · have hmul2 := mul_eq_zero.mp h
+      rcases hmul2 with h' | h'
+      · have hmul3 := mul_eq_zero.mp h'
+        rcases hmul3 with h8' | hB6
+        · exact (h8 h8').elim
+        · exact (hpowB hB6).elim
+      · exact (hDne h').elim
+    · exact h
+  exact ⟨hmn, hnx, hno, hT⟩
+
+
 /-! ## Residual: Groebner `(1)` not transcribed -/
 
 set_option maxHeartbeats 16000000 in
@@ -2206,18 +2391,34 @@ theorem quarticConeABCDEFG810_residual
       quarticCoreXiABCDEFG810 A.leadingCoeff B.leadingCoeff C.leadingCoeff D.leadingCoeff E.leadingCoeff F.leadingCoeff = 0 ∧
       quarticCoreOmicronABCDEFG810 A.leadingCoeff B.leadingCoeff C.leadingCoeff D.leadingCoeff E.leadingCoeff F.leadingCoeff = 0 ∧
       quarticCorePiABCDEFG810 A.leadingCoeff B.leadingCoeff C.leadingCoeff D.leadingCoeff E.leadingCoeff F.leadingCoeff = 0 ∧
-      quarticCorePrimitiveABCDEFG810 A.leadingCoeff B.leadingCoeff C.leadingCoeff D.leadingCoeff E.leadingCoeff F.leadingCoeff = 0 := by
+      quarticCorePrimitiveABCDEFG810 A.leadingCoeff B.leadingCoeff C.leadingCoeff D.leadingCoeff E.leadingCoeff F.leadingCoeff = 0 ∧
+      quarticCoreResA_mu_nuABCDEFG810 B.leadingCoeff C.leadingCoeff
+        D.leadingCoeff E.leadingCoeff F.leadingCoeff = 0 ∧
+      quarticCoreResA_nu_xiABCDEFG810 B.leadingCoeff C.leadingCoeff
+        D.leadingCoeff E.leadingCoeff F.leadingCoeff = 0 ∧
+      quarticCoreResA_nu_omicronABCDEFG810 B.leadingCoeff C.leadingCoeff
+        D.leadingCoeff E.leadingCoeff F.leadingCoeff = 0 ∧
+      quarticCoreT_ABCDEFG810 B.leadingCoeff C.leadingCoeff
+        D.leadingCoeff E.leadingCoeff F.leadingCoeff = 0 := by
   have hinners := quarticConeABCDEFG810_inners_eq_zero (j := j) (t := t)
       l beta gamma delta epsilon zeta eta theta A B C D E F G hcone hxi hmu homi hkap hnu hpi hjdiv hder
   have hcores := quarticConeABCDEFG810_cores_eq_zero (j := j) (t := t)
       l beta gamma delta epsilon zeta eta theta A B C D E F G hcone hxi hmu homi hkap hnu hpi hjdiv hder
+  have hafree := quarticConeABCDEFG810_afree_eq_zero (j := j) (t := t)
+      l beta gamma delta epsilon zeta eta theta A B C D E F G hcone hxi hmu homi hkap hnu hpi hjdiv hder
   rcases hinners with ⟨hk, hmu0, hnu0, hxi0, hom0, hpi0, hpr0⟩
   rcases hcores with ⟨hcmu, hcnu, hcxi, hcom, hcpi, hcpr⟩
-  exact ⟨hk, hmu0, hnu0, hxi0, hom0, hpi0, hpr0, hcmu, hcnu, hcxi, hcom, hcpi, hcpr⟩
+  rcases hafree with ⟨hmn, hnx, hno, hT⟩
+  exact ⟨hk, hmu0, hnu0, hxi0, hom0, hpi0, hpr0, hcmu, hcnu, hcxi, hcom, hcpi, hcpr, hmn, hnx, hno, hT⟩
 
 #print axioms quarticConeABCDEFG810_residual
 #print axioms quarticConeABCDEFG810_inners_eq_zero
 #print axioms quarticConeABCDEFG810_cores_eq_zero
+#print axioms quarticConeABCDEFG810_afree_eq_zero
+#print axioms quarticCore_resA_mu_nu
+#print axioms quarticCore_resA_nu_xi
+#print axioms quarticCore_resA_nu_omicron
+#print axioms quarticCore_T_of_resA
 
 
 end QuarticFullConeABCDEFG810
