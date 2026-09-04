@@ -585,6 +585,86 @@ theorem quarticCore_resE_U22_U25b
   simp only [quarticCoreU22ABCDEFG810, quarticCoreU25bABCDEFG810, quarticCoreResE_U22_U25bABCDEFG810]
   ring
 
+/-! ## First `c`-reductions of `D1` against the e-resultants -/
+
+def quarticCoreS22_D1_ResU22TABCDEFG810 (b c d f : k) : k :=
+  21 * b ^ 8 * c ^ 3 + 28 * b ^ 8 * d * f + (-560 : k) * b ^ 7 * c ^ 2 * f
+  + (-154 : k) * b ^ 7 * d ^ 3 + (-1008 : k) * b ^ 6 * c ^ 2 * d ^ 2 + 3376 * b ^ 6 * c * f ^ 2
+  + 4416 * b ^ 5 * c * d ^ 2 * f + (-4480 : k) * b ^ 5 * f ^ 3
+  + (-17920 : k) * b ^ 4 * c ^ 3 * d * f + (-2680 : k) * b ^ 4 * c * d ^ 4
+  + (-4480 : k) * b ^ 4 * d ^ 2 * f ^ 2 + (-15120 : k) * b ^ 3 * c ^ 3 * d ^ 3
+  + 90240 * b ^ 3 * c ^ 2 * d * f ^ 2 + (-11200 : k) * b ^ 3 * d ^ 4 * f
+  + 17600 * b ^ 2 * c ^ 2 * d ^ 3 * f + (-148480 : k) * b ^ 2 * c * d * f ^ 3
+  + (-2240 : k) * b ^ 2 * d ^ 6 + (-19840 : k) * b * c ^ 2 * d ^ 5
+  + 65280 * b * c * d ^ 3 * f ^ 2 + 71680 * b * d * f ^ 4 + 78080 * c * d ^ 5 * f
+  + (-107520 : k) * d ^ 3 * f ^ 3
+
+def quarticCoreS24_D1_ResTU25aABCDEFG810 (b c d f : k) : k :=
+  49 * b ^ 10 * c * d + (-448 : k) * b ^ 9 * c ^ 3 + (-252 : k) * b ^ 9 * d * f
+  + 5544 * b ^ 8 * c ^ 2 * f + 1092 * b ^ 8 * d ^ 3 + 5236 * b ^ 7 * c ^ 2 * d ^ 2
+  + (-20800 : k) * b ^ 7 * c * f ^ 2 + (-32480 : k) * b ^ 6 * c ^ 4 * d
+  + (-23200 : k) * b ^ 6 * c * d ^ 2 * f + 22400 * b ^ 6 * f ^ 3
+  + 311360 * b ^ 5 * c ^ 3 * d * f + (-21600 : k) * b ^ 5 * c * d ^ 4
+  + 56000 * b ^ 5 * d ^ 2 * f ^ 2 + (-10080 : k) * b ^ 4 * c ^ 3 * d ^ 3
+  + (-1056000 : k) * b ^ 4 * c ^ 2 * d * f ^ 2 + 96320 * b ^ 4 * d ^ 4 * f
+  + (-175360 : k) * b ^ 3 * c ^ 2 * d ^ 3 * f + 1602560 * b ^ 3 * c * d * f ^ 3
+  + 23520 * b ^ 3 * d ^ 6 + (-265920 : k) * b ^ 2 * c ^ 2 * d ^ 5
+  + 596480 * b ^ 2 * c * d ^ 3 * f ^ 2 + (-716800 : k) * b ^ 2 * d * f ^ 4
+  + (-76800 : k) * b * c * d ^ 5 * f + 716800 * b * d ^ 3 * f ^ 3 + 537600 * d ^ 5 * f ^ 2
+
+def quarticCorePremC_D1_ResU22TABCDEFG810 (b c d f : k) : k :=
+  (-11760 : k) * b ^ 21 * c ^ 2 * d + 94080 * b ^ 20 * c * d * f
+  + (-94080 : k) * b ^ 19 * c * d ^ 3 + (-134400 : k) * b ^ 19 * d * f ^ 2
+  + 1792000 * b ^ 18 * d ^ 3 * f + (-9408000 : k) * b ^ 17 * c ^ 2 * d ^ 2 * f
+  + (-7907200 : k) * b ^ 17 * d ^ 5 + (-40454400 : k) * b ^ 16 * c ^ 2 * d ^ 4
+  + 58060800 * b ^ 16 * c * d ^ 2 * f ^ 2 + 216832000 * b ^ 15 * c * d ^ 4 * f
+  + (-73113600 : k) * b ^ 15 * d ^ 2 * f ^ 3 + (-62540800 : k) * b ^ 14 * c * d ^ 6
+  + (-554086400 : k) * b ^ 14 * d ^ 4 * f ^ 2
+  + (-774144000 : k) * b ^ 13 * c ^ 2 * d ^ 3 * f ^ 2 + (-7168000 : k) * b ^ 13 * d ^ 6 * f
+  + (-64512000 : k) * b ^ 12 * c ^ 2 * d ^ 5 * f + 4358144000 * b ^ 12 * c * d ^ 3 * f ^ 3
+  + 625408000 * b ^ 12 * d ^ 8 + 1820672000 * b ^ 11 * c ^ 2 * d ^ 7
+  + 6709248000 * b ^ 11 * c * d ^ 5 * f ^ 2 + (-7798784000 : k) * b ^ 11 * d ^ 3 * f ^ 4
+  + 7569408000 * b ^ 10 * c * d ^ 7 * f + (-21446656000 : k) * b ^ 10 * d ^ 5 * f ^ 3
+  + 7354368000 * b ^ 9 * c * d ^ 9 + (-24543232000 : k) * b ^ 9 * d ^ 7 * f ^ 2
+  + (-15482880000 : k) * b ^ 8 * d ^ 9 * f
+
+set_option maxHeartbeats 32000000 in
+theorem quarticCoreS22_D1_ResU22T_from_eres
+    (b c d f : k) :
+    (7 : k) * quarticCoreResE_U22_TABCDEFG810 b c d f +
+        (4 * c) * quarticCoreD1ABCDEFG810 b c d f =
+      quarticCoreS22_D1_ResU22TABCDEFG810 b c d f := by
+  simp only [quarticCoreResE_U22_TABCDEFG810, quarticCoreD1ABCDEFG810,
+    quarticCoreS22_D1_ResU22TABCDEFG810]
+  ring
+
+set_option maxHeartbeats 32000000 in
+theorem quarticCoreS24_D1_ResTU25a_from_eres
+    (b c d f : k) :
+    (7 : k) * quarticCoreResE_T_U25aABCDEFG810 b c d f +
+        (29 * b * c) * quarticCoreD1ABCDEFG810 b c d f =
+      quarticCoreS24_D1_ResTU25aABCDEFG810 b c d f := by
+  simp only [quarticCoreResE_T_U25aABCDEFG810, quarticCoreD1ABCDEFG810,
+    quarticCoreS24_D1_ResTU25aABCDEFG810]
+  ring
+
+set_option maxHeartbeats 64000000 in
+theorem quarticCorePremC_D1_ResU22T_from_eres
+    (b c d f : k) :
+    (
+      313600 * b ^ 10 * d ^ 2
+      ) *
+        quarticCoreResE_U22_TABCDEFG810 b c d f +
+    (
+      1680 * b ^ 13 * d + 179200 * b ^ 10 * c * d ^ 2 + (-1433600 : k) * b ^ 9 * d ^ 2 * f
+      + (-1209600 : k) * b ^ 8 * d ^ 4
+      ) *
+        quarticCoreD1ABCDEFG810 b c d f =
+      quarticCorePremC_D1_ResU22TABCDEFG810 b c d f := by
+  simp only [quarticCoreResE_U22_TABCDEFG810, quarticCoreD1ABCDEFG810,
+    quarticCorePremC_D1_ResU22TABCDEFG810]
+  ring
+
 /-! ## Residual: five-polynomial kill set plus e-free layer
 
 On the cone the cores and `T` vanish, hence `U22 = U24 = U25a = U25b = 0`,
@@ -638,7 +718,10 @@ theorem quarticConeABCDEFG810_residual3
       quarticCoreResE_U22_U24ABCDEFG810 B.leadingCoeff C.leadingCoeff D.leadingCoeff F.leadingCoeff = 0 ∧
       quarticCoreResE_T_VABCDEFG810 B.leadingCoeff C.leadingCoeff D.leadingCoeff F.leadingCoeff = 0 ∧
       quarticCoreResE_U25a_U24ABCDEFG810 B.leadingCoeff C.leadingCoeff D.leadingCoeff F.leadingCoeff = 0 ∧
-      quarticCoreResE_U22_U25bABCDEFG810 B.leadingCoeff C.leadingCoeff D.leadingCoeff F.leadingCoeff = 0 := by
+      quarticCoreResE_U22_U25bABCDEFG810 B.leadingCoeff C.leadingCoeff D.leadingCoeff F.leadingCoeff = 0 ∧
+      quarticCoreS22_D1_ResU22TABCDEFG810 B.leadingCoeff C.leadingCoeff D.leadingCoeff F.leadingCoeff = 0 ∧
+      quarticCoreS24_D1_ResTU25aABCDEFG810 B.leadingCoeff C.leadingCoeff D.leadingCoeff F.leadingCoeff = 0 ∧
+      quarticCorePremC_D1_ResU22TABCDEFG810 B.leadingCoeff C.leadingCoeff D.leadingCoeff F.leadingCoeff = 0 := by
   have hres2 := quarticConeABCDEFG810_residual2 (j := j) (t := t)
       l beta gamma delta epsilon zeta eta theta A B C D E F G hcone hxi hmu homi hkap hnu hpi hjdiv hder
   rcases hres2 with ⟨hk, hmu0, hnu0, hxi0, hom0, hpi0, hpr0, hcmu, hcnu, hcxi, hcom, hcpi, hcpr, hmn, hnx, hno, hT, hlin, hmnE, hnxE⟩
@@ -818,7 +901,22 @@ theorem quarticConeABCDEFG810_residual3
     have hid' := hid.symm
     have hne : (-160 : k) * B.leadingCoeff ^ 3 ≠ 0 := mul_ne_zero ((by norm_num : (-160 : k) ≠ 0)) (pow_ne_zero 3 hBlc)
     exact (mul_eq_zero.mp hid').resolve_left hne
-  exact ⟨hU22, hU24, hU25a, hU25b, hP19, hP21, hP22, hV, hD1, hResE_U22_T, hResE_T_U25a, hResE_U22_V, hResE_U25a_V, hResE_U22_U24, hResE_T_V, hResE_U25a_U24, hResE_U22_U25b⟩
+  have hS22 : quarticCoreS22_D1_ResU22TABCDEFG810 B.leadingCoeff C.leadingCoeff D.leadingCoeff F.leadingCoeff = 0 := by
+    have hid := quarticCoreS22_D1_ResU22T_from_eres B.leadingCoeff C.leadingCoeff D.leadingCoeff F.leadingCoeff
+    rw [hResE_U22_T, hD1] at hid
+    simp only [mul_zero, add_zero] at hid
+    exact hid.symm
+  have hS24 : quarticCoreS24_D1_ResTU25aABCDEFG810 B.leadingCoeff C.leadingCoeff D.leadingCoeff F.leadingCoeff = 0 := by
+    have hid := quarticCoreS24_D1_ResTU25a_from_eres B.leadingCoeff C.leadingCoeff D.leadingCoeff F.leadingCoeff
+    rw [hResE_T_U25a, hD1] at hid
+    simp only [mul_zero, add_zero] at hid
+    exact hid.symm
+  have hPremC : quarticCorePremC_D1_ResU22TABCDEFG810 B.leadingCoeff C.leadingCoeff D.leadingCoeff F.leadingCoeff = 0 := by
+    have hid := quarticCorePremC_D1_ResU22T_from_eres B.leadingCoeff C.leadingCoeff D.leadingCoeff F.leadingCoeff
+    rw [hResE_U22_T, hD1] at hid
+    simp only [mul_zero, add_zero] at hid
+    exact hid.symm
+  exact ⟨hU22, hU24, hU25a, hU25b, hP19, hP21, hP22, hV, hD1, hResE_U22_T, hResE_T_U25a, hResE_U22_V, hResE_U25a_V, hResE_U22_U24, hResE_T_V, hResE_U25a_U24, hResE_U22_U25b, hS22, hS24, hPremC⟩
 
 #print axioms kappaQuarticInnerABCDEFG810_weightedHomogeneous
 #print axioms muQuarticInnerABCDEFG810_weightedHomogeneous
@@ -836,6 +934,9 @@ theorem quarticConeABCDEFG810_residual3
 #print axioms quarticCoreU25a_eq_b_P22
 #print axioms quarticCoreV_from_U24_U25b
 #print axioms quarticCoreD1_from_P19_P22
+#print axioms quarticCoreS22_D1_ResU22T_from_eres
+#print axioms quarticCoreS24_D1_ResTU25a_from_eres
+#print axioms quarticCorePremC_D1_ResU22T_from_eres
 #print axioms quarticConeABCDEFG810_residual3
 #print axioms quarticCore_resE_U22_U25a
 #print axioms quarticCore_resE_U22_T
