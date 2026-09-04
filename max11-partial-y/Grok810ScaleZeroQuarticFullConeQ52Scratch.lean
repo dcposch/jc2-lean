@@ -39520,6 +39520,1402 @@ theorem quarticConeABCDEFG810_RU22U24_zero
     exact pow_ne_zero 6 hDlc
   exact (mul_eq_zero.mp hcont.symm).resolve_left hne
 
+/-! ## `RU22U24 = G5^2 * Q61` -/
+set_option maxHeartbeats 64000000 in
+def quarticCoreQ61p0ABCDEFG810 (b d f : k) : k :=
+  (-9604 : k) * b ^ 36 * f ^ 2 + (-28812 : k) * b ^ 35 * d ^ 2 * f
+  + (-21609 : k) * b ^ 34 * d ^ 4 + 3995264 * b ^ 32 * d * f ^ 3
+  + 44255232 * b ^ 31 * d ^ 3 * f ^ 2 + (-34036576 : k) * b ^ 30 * d ^ 5 * f
+  + (-137145120 : k) * b ^ 29 * d ^ 7 + (-762675200 : k) * b ^ 29 * f ^ 5
+  + 7661875200 * b ^ 28 * d ^ 2 * f ^ 4 + 7931822080 * b ^ 27 * d ^ 4 * f ^ 3
+  + (-234840990720 : k) * b ^ 26 * d ^ 6 * f ^ 2 + 449508720640 * b ^ 25 * d ^ 8 * f
+  + (-60371763200 : k) * b ^ 25 * d * f ^ 6 + 39602976000 * b ^ 24 * d ^ 10
+  + 456802304000 * b ^ 24 * d ^ 3 * f ^ 5 + (-71439665561600 : k) * b ^ 22 * d ^ 7 * f ^ 3
+  + (-461373440000 : k) * b ^ 22 * f ^ 8 + (-1288486624051200 : k) * b ^ 20 * d ^ 11 * f
+  + 1416582806016000 * b ^ 19 * d ^ 13 + (-654154661888000 : k) * b ^ 19 * d ^ 6 * f ^ 5
+  + (-3443651248128000 : k) * b ^ 18 * d ^ 8 * f ^ 4
+  + (-12079595520000 : k) * b ^ 18 * d * f ^ 9
+  + (-73824389087232000 : k) * b ^ 16 * d ^ 12 * f ^ 2
+  + (-62118044893184000 : k) * b ^ 15 * d ^ 7 * f ^ 6
+  + (-111659162480640000 : k) * b ^ 14 * d ^ 16
+  + (-110700289064960000 : k) * b ^ 12 * d ^ 13 * f ^ 3
+  + (-13794898083840000 : k) * b ^ 12 * d ^ 6 * f ^ 8
+  + (-1807236338810880000 : k) * b ^ 11 * d ^ 8 * f ^ 7
+  + (-1717825307279360000 : k) * b ^ 10 * d ^ 17 * f + 3159620163993600000 * b ^ 9 * d ^ 19
+  + (-19263109516492800000 : k) * b ^ 9 * d ^ 12 * f ^ 5
+  + (-344026880409600000 : k) * b ^ 8 * d ^ 7 * f ^ 9
+  + (-4166118277120000000 : k) * b ^ 7 * d ^ 9 * f ^ 8
+  + (-15560638306713600000 : k) * b ^ 5 * d ^ 20 * f
+  + (-20037104566272000000 : k) * b ^ 4 * d ^ 22
+  + (-139451212759040000000 : k) * b ^ 4 * d ^ 15 * f ^ 5
+  + (-438582128934912000000 : k) * b ^ 3 * d ^ 17 * f ^ 4
+  + (-366069776646144000000 : k) * b ^ 2 * d ^ 19 * f ^ 3
+  + (-130338986655744000000 : k) * b * d ^ 21 * f ^ 2 + 89053798072320000000 * d ^ 23 * f
+set_option maxHeartbeats 64000000 in
+def quarticCoreQ61p1ABCDEFG810 (b d f : k) : k :=
+  2077687808000 * b ^ 23 * d ^ 5 * f ^ 4 + 471811631513600 * b ^ 21 * d ^ 9 * f ^ 2
+  + 5761295974400 * b ^ 21 * d ^ 2 * f ^ 7 + 61100628377600 * b ^ 20 * d ^ 4 * f ^ 6
+  + 31041185251328000 * b ^ 17 * d ^ 10 * f ^ 3 + 685315719168000 * b ^ 17 * d ^ 3 * f ^ 8
+  + 3177185280000000 * b ^ 16 * d ^ 5 * f ^ 7 + 83879772766208000 * b ^ 15 * d ^ 14 * f
+  + 63080235008000000 * b ^ 14 * d ^ 9 * f ^ 5 + 3478923509760000 * b ^ 14 * d ^ 2 * f ^ 10
+  + 218703593472000000 * b ^ 13 * d ^ 11 * f ^ 4 + 49284749721600000 * b ^ 13 * d ^ 4 * f ^ 9
+  + 1724930339635200000 * b ^ 11 * d ^ 15 * f ^ 2
+  + 3841004687851520000 * b ^ 10 * d ^ 10 * f ^ 6 + 185542587187200000 * b ^ 10 * d ^ 3 * f ^ 11
+  + 2133739752652800000 * b ^ 9 * d ^ 5 * f ^ 10 + 9902845276979200000 * b ^ 8 * d ^ 14 * f ^ 4
+  + 2322558091264000000 * b ^ 7 * d ^ 16 * f ^ 3 + 20469184462848000000 * b ^ 6 * d ^ 18 * f ^ 2
+  + 17006889376153600000 * b ^ 6 * d ^ 11 * f ^ 7
+  + 33707118087372800000 * b ^ 5 * d ^ 13 * f ^ 6
+set_option maxHeartbeats 64000000 in
+def quarticCoreQ61ABCDEFG810 (b d f : k) : k :=
+  quarticCoreQ61p0ABCDEFG810 b d f +
+        quarticCoreQ61p1ABCDEFG810 b d f
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreQ61_split
+    (b d f : k) :
+    quarticCoreQ61ABCDEFG810 b d f =
+      quarticCoreQ61p0ABCDEFG810 b d f +
+        quarticCoreQ61p1ABCDEFG810 b d f := by
+  simp only [quarticCoreQ61ABCDEFG810]
+set_option maxHeartbeats 64000000 in
+def quarticCoreQ61p0f0ABCDEFG810 (b d : k) : k :=
+  (-21609 : k) * b ^ 34 * d ^ 4 + (-137145120 : k) * b ^ 29 * d ^ 7
+  + 39602976000 * b ^ 24 * d ^ 10 + 1416582806016000 * b ^ 19 * d ^ 13
+  + (-111659162480640000 : k) * b ^ 14 * d ^ 16 + 3159620163993600000 * b ^ 9 * d ^ 19
+  + (-20037104566272000000 : k) * b ^ 4 * d ^ 22
+set_option maxHeartbeats 64000000 in
+def quarticCoreQ61p0f1ABCDEFG810 (b d : k) : k :=
+  (-28812 : k) * b ^ 35 * d ^ 2 + (-34036576 : k) * b ^ 30 * d ^ 5
+  + 449508720640 * b ^ 25 * d ^ 8 + (-1288486624051200 : k) * b ^ 20 * d ^ 11
+  + (-1717825307279360000 : k) * b ^ 10 * d ^ 17 + (-15560638306713600000 : k) * b ^ 5 * d ^ 20
+  + 89053798072320000000 * d ^ 23
+set_option maxHeartbeats 64000000 in
+def quarticCoreQ61p0f2ABCDEFG810 (b d : k) : k :=
+  (-9604 : k) * b ^ 36 + 44255232 * b ^ 31 * d ^ 3 + (-234840990720 : k) * b ^ 26 * d ^ 6
+  + (-73824389087232000 : k) * b ^ 16 * d ^ 12 + (-130338986655744000000 : k) * b * d ^ 21
+set_option maxHeartbeats 64000000 in
+def quarticCoreQ61p0f3ABCDEFG810 (b d : k) : k :=
+  3995264 * b ^ 32 * d + 7931822080 * b ^ 27 * d ^ 4 + (-71439665561600 : k) * b ^ 22 * d ^ 7
+  + (-110700289064960000 : k) * b ^ 12 * d ^ 13 + (-366069776646144000000 : k) * b ^ 2 * d ^ 19
+set_option maxHeartbeats 64000000 in
+def quarticCoreQ61p0f4ABCDEFG810 (b d : k) : k :=
+  7661875200 * b ^ 28 * d ^ 2 + (-3443651248128000 : k) * b ^ 18 * d ^ 8
+  + (-438582128934912000000 : k) * b ^ 3 * d ^ 17
+set_option maxHeartbeats 64000000 in
+def quarticCoreQ61p0f5ABCDEFG810 (b d : k) : k :=
+  (-762675200 : k) * b ^ 29 + 456802304000 * b ^ 24 * d ^ 3
+  + (-654154661888000 : k) * b ^ 19 * d ^ 6 + (-19263109516492800000 : k) * b ^ 9 * d ^ 12
+  + (-139451212759040000000 : k) * b ^ 4 * d ^ 15
+set_option maxHeartbeats 64000000 in
+def quarticCoreQ61p0f6ABCDEFG810 (b d : k) : k :=
+  (-60371763200 : k) * b ^ 25 * d + (-62118044893184000 : k) * b ^ 15 * d ^ 7
+set_option maxHeartbeats 64000000 in
+def quarticCoreQ61p0f7ABCDEFG810 (b d : k) : k :=
+  (-1807236338810880000 : k) * b ^ 11 * d ^ 8
+set_option maxHeartbeats 64000000 in
+def quarticCoreQ61p0f8ABCDEFG810 (b d : k) : k :=
+  (-461373440000 : k) * b ^ 22 + (-13794898083840000 : k) * b ^ 12 * d ^ 6
+  + (-4166118277120000000 : k) * b ^ 7 * d ^ 9
+set_option maxHeartbeats 64000000 in
+def quarticCoreQ61p0f9ABCDEFG810 (b d : k) : k :=
+  (-12079595520000 : k) * b ^ 18 * d + (-344026880409600000 : k) * b ^ 8 * d ^ 7
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreQ61p0_fsplit
+    (b d f : k) :
+    quarticCoreQ61p0ABCDEFG810 b d f =
+      quarticCoreQ61p0f0ABCDEFG810 b d +
+        quarticCoreQ61p0f1ABCDEFG810 b d * f +
+        quarticCoreQ61p0f2ABCDEFG810 b d * f ^ 2 +
+        quarticCoreQ61p0f3ABCDEFG810 b d * f ^ 3 +
+        quarticCoreQ61p0f4ABCDEFG810 b d * f ^ 4 +
+        quarticCoreQ61p0f5ABCDEFG810 b d * f ^ 5 +
+        quarticCoreQ61p0f6ABCDEFG810 b d * f ^ 6 +
+        quarticCoreQ61p0f7ABCDEFG810 b d * f ^ 7 +
+        quarticCoreQ61p0f8ABCDEFG810 b d * f ^ 8 +
+        quarticCoreQ61p0f9ABCDEFG810 b d * f ^ 9 := by
+  simp only [quarticCoreQ61p0ABCDEFG810, quarticCoreQ61p0f0ABCDEFG810, quarticCoreQ61p0f1ABCDEFG810, quarticCoreQ61p0f2ABCDEFG810, quarticCoreQ61p0f3ABCDEFG810, quarticCoreQ61p0f4ABCDEFG810, quarticCoreQ61p0f5ABCDEFG810, quarticCoreQ61p0f6ABCDEFG810, quarticCoreQ61p0f7ABCDEFG810, quarticCoreQ61p0f8ABCDEFG810, quarticCoreQ61p0f9ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreQ61p1f1ABCDEFG810 (b d : k) : k :=
+  83879772766208000 * b ^ 15 * d ^ 14
+set_option maxHeartbeats 64000000 in
+def quarticCoreQ61p1f2ABCDEFG810 (b d : k) : k :=
+  471811631513600 * b ^ 21 * d ^ 9 + 1724930339635200000 * b ^ 11 * d ^ 15
+  + 20469184462848000000 * b ^ 6 * d ^ 18
+set_option maxHeartbeats 64000000 in
+def quarticCoreQ61p1f3ABCDEFG810 (b d : k) : k :=
+  31041185251328000 * b ^ 17 * d ^ 10 + 2322558091264000000 * b ^ 7 * d ^ 16
+set_option maxHeartbeats 64000000 in
+def quarticCoreQ61p1f4ABCDEFG810 (b d : k) : k :=
+  2077687808000 * b ^ 23 * d ^ 5 + 218703593472000000 * b ^ 13 * d ^ 11
+  + 9902845276979200000 * b ^ 8 * d ^ 14
+set_option maxHeartbeats 64000000 in
+def quarticCoreQ61p1f5ABCDEFG810 (b d : k) : k :=
+  63080235008000000 * b ^ 14 * d ^ 9
+set_option maxHeartbeats 64000000 in
+def quarticCoreQ61p1f6ABCDEFG810 (b d : k) : k :=
+  61100628377600 * b ^ 20 * d ^ 4 + 3841004687851520000 * b ^ 10 * d ^ 10
+  + 33707118087372800000 * b ^ 5 * d ^ 13
+set_option maxHeartbeats 64000000 in
+def quarticCoreQ61p1f7ABCDEFG810 (b d : k) : k :=
+  5761295974400 * b ^ 21 * d ^ 2 + 3177185280000000 * b ^ 16 * d ^ 5
+  + 17006889376153600000 * b ^ 6 * d ^ 11
+set_option maxHeartbeats 64000000 in
+def quarticCoreQ61p1f8ABCDEFG810 (b d : k) : k :=
+  685315719168000 * b ^ 17 * d ^ 3
+set_option maxHeartbeats 64000000 in
+def quarticCoreQ61p1f9ABCDEFG810 (b d : k) : k :=
+  49284749721600000 * b ^ 13 * d ^ 4
+set_option maxHeartbeats 64000000 in
+def quarticCoreQ61p1f10ABCDEFG810 (b d : k) : k :=
+  3478923509760000 * b ^ 14 * d ^ 2 + 2133739752652800000 * b ^ 9 * d ^ 5
+set_option maxHeartbeats 64000000 in
+def quarticCoreQ61p1f11ABCDEFG810 (b d : k) : k :=
+  185542587187200000 * b ^ 10 * d ^ 3
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreQ61p1_fsplit
+    (b d f : k) :
+    quarticCoreQ61p1ABCDEFG810 b d f =
+      quarticCoreQ61p1f1ABCDEFG810 b d * f +
+        quarticCoreQ61p1f2ABCDEFG810 b d * f ^ 2 +
+        quarticCoreQ61p1f3ABCDEFG810 b d * f ^ 3 +
+        quarticCoreQ61p1f4ABCDEFG810 b d * f ^ 4 +
+        quarticCoreQ61p1f5ABCDEFG810 b d * f ^ 5 +
+        quarticCoreQ61p1f6ABCDEFG810 b d * f ^ 6 +
+        quarticCoreQ61p1f7ABCDEFG810 b d * f ^ 7 +
+        quarticCoreQ61p1f8ABCDEFG810 b d * f ^ 8 +
+        quarticCoreQ61p1f9ABCDEFG810 b d * f ^ 9 +
+        quarticCoreQ61p1f10ABCDEFG810 b d * f ^ 10 +
+        quarticCoreQ61p1f11ABCDEFG810 b d * f ^ 11 := by
+  simp only [quarticCoreQ61p1ABCDEFG810, quarticCoreQ61p1f1ABCDEFG810, quarticCoreQ61p1f2ABCDEFG810, quarticCoreQ61p1f3ABCDEFG810, quarticCoreQ61p1f4ABCDEFG810, quarticCoreQ61p1f5ABCDEFG810, quarticCoreQ61p1f6ABCDEFG810, quarticCoreQ61p1f7ABCDEFG810, quarticCoreQ61p1f8ABCDEFG810, quarticCoreQ61p1f9ABCDEFG810, quarticCoreQ61p1f10ABCDEFG810, quarticCoreQ61p1f11ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5Q61p0f0ABCDEFG810 (b d : k) : k :=
+  237699 * b ^ 39 * d ^ 6 + 1584660000 * b ^ 34 * d ^ 9 + 47118086400 * b ^ 29 * d ^ 12
+  + (-15721813341696000 : k) * b ^ 24 * d ^ 15 + (-3758120689889280000 : k) * b ^ 19 * d ^ 18
+  + 358284430127923200000 * b ^ 14 * d ^ 21 + (-10901454827028480000000 : k) * b ^ 9 * d ^ 24
+  + 70530608073277440000000 * b ^ 4 * d ^ 27
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5Q61p0f0_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreQ61p0f0ABCDEFG810 b d =
+      quarticCoreG5Q61p0f0ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreQ61p0f0ABCDEFG810, quarticCoreG5Q61p0f0ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5Q61p0f1ABCDEFG810 (b d : k) : k :=
+  273714 * b ^ 40 * d ^ 4 + 246477056 * b ^ 35 * d ^ 7 + (-4460319377920 : k) * b ^ 30 * d ^ 10
+  + 15341873589862400 * b ^ 25 * d ^ 13 + 1365662355185664000 * b ^ 20 * d ^ 16
+  + 257466376667791360000 * b ^ 15 * d ^ 19 + (-394172047242035200000 : k) * b ^ 10 * d ^ 22
+  + 95471032558682112000000 * b ^ 5 * d ^ 25 + (-313469369214566400000000 : k) * d ^ 28
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5Q61p0f1_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreQ61p0f1ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreQ61p0f0ABCDEFG810 b d =
+      quarticCoreG5Q61p0f1ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreQ61p0f1ABCDEFG810, quarticCoreQ61p0f0ABCDEFG810, quarticCoreG5Q61p0f1ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5Q61p0f2ABCDEFG810 (b d : k) : k :=
+  48020 * b ^ 41 * d ^ 2 + (-454230784 : k) * b ^ 36 * d ^ 5 + 3441172439040 * b ^ 31 * d ^ 8
+  + (-2697984052019200 : k) * b ^ 26 * d ^ 11 + 3038813960060928000 * b ^ 21 * d ^ 14
+  + 292157130966302720000 * b ^ 16 * d ^ 17 + 2530876910049689600000 * b ^ 11 * d ^ 20
+  + 40389837588529152000000 * b ^ 6 * d ^ 23 + 273561333037793280000000 * b * d ^ 26
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5Q61p0f2_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreQ61p0f2ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreQ61p0f1ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreQ61p0f0ABCDEFG810 b d =
+      quarticCoreG5Q61p0f2ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreQ61p0f2ABCDEFG810, quarticCoreQ61p0f1ABCDEFG810, quarticCoreQ61p0f0ABCDEFG810, quarticCoreG5Q61p0f2ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5Q61p0f3ABCDEFG810 (b d : k) : k :=
+  (-19208 : k) * b ^ 42 + 73758720 * b ^ 37 * d ^ 3 + (-652154531840 : k) * b ^ 32 * d ^ 6
+  + 1102542777548800 * b ^ 27 * d ^ 9 + 516134564298752000 * b ^ 22 * d ^ 12
+  + 154772432481157120000 * b ^ 17 * d ^ 15 + 939369115838054400000 * b ^ 12 * d ^ 18
+  + 8745493827944448000000 * b ^ 7 * d ^ 21 + 1531173490655232000000000 * b ^ 2 * d ^ 24
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5Q61p0f3_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreQ61p0f3ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreQ61p0f2ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreQ61p0f1ABCDEFG810 b d =
+      quarticCoreG5Q61p0f3ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreQ61p0f3ABCDEFG810, quarticCoreQ61p0f2ABCDEFG810, quarticCoreQ61p0f1ABCDEFG810, quarticCoreG5Q61p0f3ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5Q61p0f4ABCDEFG810 (b d : k) : k :=
+  11063808 * b ^ 38 * d + (-90888806400 : k) * b ^ 33 * d ^ 4
+  + (-111198204723200 : k) * b ^ 28 * d ^ 7 + 186474668097536000 * b ^ 23 * d ^ 10
+  + 35524056323194880000 * b ^ 18 * d ^ 13 + 230256601255116800000 * b ^ 13 * d ^ 16
+  + 4092263864991744000000 * b ^ 8 * d ^ 19 + 2346942705004707840000000 * b ^ 3 * d ^ 22
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5Q61p0f4_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreQ61p0f4ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreQ61p0f3ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreQ61p0f2ABCDEFG810 b d =
+      quarticCoreG5Q61p0f4ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreQ61p0f4ABCDEFG810, quarticCoreQ61p0f3ABCDEFG810, quarticCoreQ61p0f2ABCDEFG810, quarticCoreG5Q61p0f4ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5Q61p0f5ABCDEFG810 (b d : k) : k :=
+  22434693120 * b ^ 34 * d ^ 2 + (-20815092121600 : k) * b ^ 29 * d ^ 5
+  + 21561147654144000 * b ^ 24 * d ^ 8 + 9465419005952000000 * b ^ 19 * d ^ 11
+  + 247318297182208000000 * b ^ 14 * d ^ 14 + 68462944580534272000000 * b ^ 9 * d ^ 17
+  + 1520261425623203840000000 * b ^ 4 * d ^ 20
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5Q61p0f5_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreQ61p0f5ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreQ61p0f4ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreQ61p0f3ABCDEFG810 b d =
+      quarticCoreG5Q61p0f5ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreQ61p0f5ABCDEFG810, quarticCoreQ61p0f4ABCDEFG810, quarticCoreQ61p0f3ABCDEFG810, quarticCoreG5Q61p0f5ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5Q61p0f6ABCDEFG810 (b d : k) : k :=
+  (-1525350400 : k) * b ^ 35 + 712258355200 * b ^ 30 * d ^ 3
+  + (-2045949509632000 : k) * b ^ 25 * d ^ 6 + 3145908589953024000 * b ^ 20 * d ^ 9
+  + 180129298991022080000 * b ^ 15 * d ^ 12 + 39788365368786944000000 * b ^ 10 * d ^ 15
+  + 430404803797975040000000 * b ^ 5 * d ^ 18
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5Q61p0f6_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreQ61p0f6ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreQ61p0f5ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreQ61p0f4ABCDEFG810 b d =
+      quarticCoreG5Q61p0f6ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreQ61p0f6ABCDEFG810, quarticCoreQ61p0f5ABCDEFG810, quarticCoreQ61p0f4ABCDEFG810, quarticCoreG5Q61p0f6ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5Q61p0f7ABCDEFG810 (b d : k) : k :=
+  123312537600 * b ^ 31 * d + (-20603469824000 : k) * b ^ 26 * d ^ 4
+  + 85093402017792000 * b ^ 21 * d ^ 7 + 149085133104742400000 * b ^ 16 * d ^ 10
+  + 12525666957891993600000 * b ^ 11 * d ^ 13 + 44624388082892800000000 * b ^ 6 * d ^ 16
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5Q61p0f7_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreQ61p0f7ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreQ61p0f6ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreQ61p0f5ABCDEFG810 b d =
+      quarticCoreG5Q61p0f7ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreQ61p0f7ABCDEFG810, quarticCoreQ61p0f6ABCDEFG810, quarticCoreQ61p0f5ABCDEFG810, quarticCoreG5Q61p0f7ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5Q61p0f8ABCDEFG810 (b d : k) : k :=
+  24394072064000 * b ^ 27 * d ^ 2 + 1624034508800000 * b ^ 22 * d ^ 5
+  + 16415045567119360000 * b ^ 17 * d ^ 8 + 3853436927030067200000 * b ^ 12 * d ^ 11
+  + 14664736335462400000000 * b ^ 7 * d ^ 14
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5Q61p0f8_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreQ61p0f8ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreQ61p0f7ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreQ61p0f6ABCDEFG810 b d =
+      quarticCoreG5Q61p0f8ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreQ61p0f8ABCDEFG810, quarticCoreQ61p0f7ABCDEFG810, quarticCoreQ61p0f6ABCDEFG810, quarticCoreG5Q61p0f8ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5Q61p0f9ABCDEFG810 (b d : k) : k :=
+  (-922746880000 : k) * b ^ 28 + 1092532305920000 * b ^ 23 * d ^ 3
+  + 14930380062720000 * b ^ 18 * d ^ 6 + 602461075564134400000 * b ^ 13 * d ^ 9
+  + 9876500635451392000000 * b ^ 8 * d ^ 12
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5Q61p0f9_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreQ61p0f9ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreQ61p0f8ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreQ61p0f7ABCDEFG810 b d =
+      quarticCoreG5Q61p0f9ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreQ61p0f9ABCDEFG810, quarticCoreQ61p0f8ABCDEFG810, quarticCoreQ61p0f7ABCDEFG810, quarticCoreG5Q61p0f9ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5Q61p0f10ABCDEFG810 (b d : k) : k :=
+  123480309760000 * b ^ 24 * d + 25125558681600000 * b ^ 19 * d ^ 4
+  + 3726313626009600000 * b ^ 14 * d ^ 7 + 2048733759930368000000 * b ^ 9 * d ^ 10
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5Q61p0f10_from
+    (b d : k) :
+    quarticCoreG5f1ABCDEFG810 b d * quarticCoreQ61p0f9ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreQ61p0f8ABCDEFG810 b d =
+      quarticCoreG5Q61p0f10ABCDEFG810 b d := by
+  simp only [quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreQ61p0f9ABCDEFG810, quarticCoreQ61p0f8ABCDEFG810, quarticCoreG5Q61p0f10ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5Q61p0f11ABCDEFG810 (b d : k) : k :=
+  3865470566400000 * b ^ 20 * d ^ 2 + 110088601731072000000 * b ^ 10 * d ^ 8
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5Q61p0f11_from
+    (b d : k) :
+    quarticCoreG5f2ABCDEFG810 b d * quarticCoreQ61p0f9ABCDEFG810 b d =
+      quarticCoreG5Q61p0f11ABCDEFG810 b d := by
+  simp only [quarticCoreG5f2ABCDEFG810, quarticCoreQ61p0f9ABCDEFG810, quarticCoreG5Q61p0f11ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5Q61p0viafABCDEFG810 (b d f : k) : k :=
+  quarticCoreG5Q61p0f0ABCDEFG810 b d +
+        quarticCoreG5Q61p0f1ABCDEFG810 b d * f +
+        quarticCoreG5Q61p0f2ABCDEFG810 b d * f ^ 2 +
+        quarticCoreG5Q61p0f3ABCDEFG810 b d * f ^ 3 +
+        quarticCoreG5Q61p0f4ABCDEFG810 b d * f ^ 4 +
+        quarticCoreG5Q61p0f5ABCDEFG810 b d * f ^ 5 +
+        quarticCoreG5Q61p0f6ABCDEFG810 b d * f ^ 6 +
+        quarticCoreG5Q61p0f7ABCDEFG810 b d * f ^ 7 +
+        quarticCoreG5Q61p0f8ABCDEFG810 b d * f ^ 8 +
+        quarticCoreG5Q61p0f9ABCDEFG810 b d * f ^ 9 +
+        quarticCoreG5Q61p0f10ABCDEFG810 b d * f ^ 10 +
+        quarticCoreG5Q61p0f11ABCDEFG810 b d * f ^ 11
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5Q61p0viaf_fsplit
+    (b d f : k) :
+    quarticCoreG5Q61p0viafABCDEFG810 b d f =
+      quarticCoreG5Q61p0f0ABCDEFG810 b d +
+        quarticCoreG5Q61p0f1ABCDEFG810 b d * f +
+        quarticCoreG5Q61p0f2ABCDEFG810 b d * f ^ 2 +
+        quarticCoreG5Q61p0f3ABCDEFG810 b d * f ^ 3 +
+        quarticCoreG5Q61p0f4ABCDEFG810 b d * f ^ 4 +
+        quarticCoreG5Q61p0f5ABCDEFG810 b d * f ^ 5 +
+        quarticCoreG5Q61p0f6ABCDEFG810 b d * f ^ 6 +
+        quarticCoreG5Q61p0f7ABCDEFG810 b d * f ^ 7 +
+        quarticCoreG5Q61p0f8ABCDEFG810 b d * f ^ 8 +
+        quarticCoreG5Q61p0f9ABCDEFG810 b d * f ^ 9 +
+        quarticCoreG5Q61p0f10ABCDEFG810 b d * f ^ 10 +
+        quarticCoreG5Q61p0f11ABCDEFG810 b d * f ^ 11 := by
+  simp only [quarticCoreG5Q61p0viafABCDEFG810]
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5Q61p0_eq_viaf
+    (b d f : k) :
+    quarticCoreG5ABCDEFG810 b d f * quarticCoreQ61p0ABCDEFG810 b d f =
+      quarticCoreG5Q61p0viafABCDEFG810 b d f := by
+  rw [quarticCoreG5_fsplit, quarticCoreQ61p0_fsplit]
+  rw [quarticCoreG5Q61p0viafABCDEFG810]
+  rw [← quarticCoreG5Q61p0f0_from, ← quarticCoreG5Q61p0f1_from, ← quarticCoreG5Q61p0f2_from, ← quarticCoreG5Q61p0f3_from, ← quarticCoreG5Q61p0f4_from, ← quarticCoreG5Q61p0f5_from, ← quarticCoreG5Q61p0f6_from, ← quarticCoreG5Q61p0f7_from, ← quarticCoreG5Q61p0f8_from, ← quarticCoreG5Q61p0f9_from, ← quarticCoreG5Q61p0f10_from, ← quarticCoreG5Q61p0f11_from]
+  generalize hG5f0 : quarticCoreG5f0ABCDEFG810 b d = xG5f0
+  generalize hG5f1 : quarticCoreG5f1ABCDEFG810 b d = xG5f1
+  generalize hG5f2 : quarticCoreG5f2ABCDEFG810 b d = xG5f2
+  generalize hQ61p0f0 : quarticCoreQ61p0f0ABCDEFG810 b d = xQ61p0f0
+  generalize hQ61p0f1 : quarticCoreQ61p0f1ABCDEFG810 b d = xQ61p0f1
+  generalize hQ61p0f2 : quarticCoreQ61p0f2ABCDEFG810 b d = xQ61p0f2
+  generalize hQ61p0f3 : quarticCoreQ61p0f3ABCDEFG810 b d = xQ61p0f3
+  generalize hQ61p0f4 : quarticCoreQ61p0f4ABCDEFG810 b d = xQ61p0f4
+  generalize hQ61p0f5 : quarticCoreQ61p0f5ABCDEFG810 b d = xQ61p0f5
+  generalize hQ61p0f6 : quarticCoreQ61p0f6ABCDEFG810 b d = xQ61p0f6
+  generalize hQ61p0f7 : quarticCoreQ61p0f7ABCDEFG810 b d = xQ61p0f7
+  generalize hQ61p0f8 : quarticCoreQ61p0f8ABCDEFG810 b d = xQ61p0f8
+  generalize hQ61p0f9 : quarticCoreQ61p0f9ABCDEFG810 b d = xQ61p0f9
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5Q61p1f1ABCDEFG810 (b d : k) : k :=
+  (-922677500428288000 : k) * b ^ 20 * d ^ 16 + (-295256800137052160000 : k) * b ^ 15 * d ^ 19
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5Q61p1f1_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreQ61p1f1ABCDEFG810 b d =
+      quarticCoreG5Q61p1f1ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreQ61p1f1ABCDEFG810, quarticCoreG5Q61p1f1ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5Q61p1f2ABCDEFG810 (b d : k) : k :=
+  (-5189927946649600 : k) * b ^ 26 * d ^ 11 + (-1493017397395456000 : k) * b ^ 21 * d ^ 14
+  + (-193444161089699840000 : k) * b ^ 16 * d ^ 17
+  + (-6296915824607232000000 : k) * b ^ 11 * d ^ 20
+  + (-72051529309224960000000 : k) * b ^ 6 * d ^ 23
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5Q61p1f2_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreQ61p1f2ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreQ61p1f1ABCDEFG810 b d =
+      quarticCoreG5Q61p1f2ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreQ61p1f2ABCDEFG810, quarticCoreQ61p1f1ABCDEFG810, quarticCoreG5Q61p1f2ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5Q61p1f3ABCDEFG810 (b d : k) : k :=
+  943623263027200 * b ^ 27 * d ^ 9 + (-1322821231312896000 : k) * b ^ 22 * d ^ 12
+  + (-132656638690590720000 : k) * b ^ 17 * d ^ 15
+  + (-3572464876519424000000 : k) * b ^ 12 * d ^ 18
+  + (-50751308163973120000000 : k) * b ^ 7 * d ^ 21
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5Q61p1f3_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreQ61p1f3ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreQ61p1f2ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreQ61p1f1ABCDEFG810 b d =
+      quarticCoreG5Q61p1f3ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreQ61p1f3ABCDEFG810, quarticCoreQ61p1f2ABCDEFG810, quarticCoreQ61p1f1ABCDEFG810, quarticCoreG5Q61p1f3ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5Q61p1f4ABCDEFG810 (b d : k) : k :=
+  (-22854565888000 : k) * b ^ 28 * d ^ 7 + (-96210812665856000 : k) * b ^ 23 * d ^ 10
+  + (-66971404850954240000 : k) * b ^ 18 * d ^ 13
+  + (-1426100539568947200000 : k) * b ^ 13 * d ^ 16
+  + (-46239075232907264000000 : k) * b ^ 8 * d ^ 19
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5Q61p1f4_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreQ61p1f4ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreQ61p1f3ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreQ61p1f2ABCDEFG810 b d =
+      quarticCoreG5Q61p1f4ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreQ61p1f4ABCDEFG810, quarticCoreQ61p1f3ABCDEFG810, quarticCoreQ61p1f2ABCDEFG810, quarticCoreG5Q61p1f4ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5Q61p1f5ABCDEFG810 (b d : k) : k :=
+  4155375616000 * b ^ 29 * d ^ 5 + (-4321590640640000 : k) * b ^ 24 * d ^ 8
+  + (-10189654678568960000 : k) * b ^ 19 * d ^ 11
+  + (-657140211095961600000 : k) * b ^ 14 * d ^ 14
+  + (-21341136765321216000000 : k) * b ^ 9 * d ^ 17
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5Q61p1f5_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreQ61p1f5ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreQ61p1f4ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreQ61p1f3ABCDEFG810 b d =
+      quarticCoreG5Q61p1f5ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreQ61p1f5ABCDEFG810, quarticCoreQ61p1f4ABCDEFG810, quarticCoreQ61p1f3ABCDEFG810, quarticCoreG5Q61p1f5ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5Q61p1f6ABCDEFG810 (b d : k) : k :=
+  (-1336967010713600 : k) * b ^ 25 * d ^ 6 + (-88913741873152000 : k) * b ^ 20 * d ^ 9
+  + (-243443090294046720000 : k) * b ^ 15 * d ^ 12
+  + (-17060025288831795200000 : k) * b ^ 10 * d ^ 15
+  + (-118649055667552256000000 : k) * b ^ 5 * d ^ 18
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5Q61p1f6_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreQ61p1f6ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreQ61p1f5ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreQ61p1f4ABCDEFG810 b d =
+      quarticCoreG5Q61p1f6ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreQ61p1f6ABCDEFG810, quarticCoreQ61p1f5ABCDEFG810, quarticCoreQ61p1f4ABCDEFG810, quarticCoreG5Q61p1f6ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5Q61p1f7ABCDEFG810 (b d : k) : k :=
+  58827001036800 * b ^ 26 * d ^ 4 + (-182318106935296000 : k) * b ^ 21 * d ^ 7
+  + (-23687358012456960000 : k) * b ^ 16 * d ^ 10
+  + (-8108951297694105600000 : k) * b ^ 11 * d ^ 13
+  + (-129975056225796096000000 : k) * b ^ 6 * d ^ 16
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5Q61p1f7_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreQ61p1f7ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreQ61p1f6ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreQ61p1f5ABCDEFG810 b d =
+      quarticCoreG5Q61p1f7ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreQ61p1f7ABCDEFG810, quarticCoreQ61p1f6ABCDEFG810, quarticCoreQ61p1f5ABCDEFG810, quarticCoreG5Q61p1f7ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5Q61p1f8ABCDEFG810 (b d : k) : k :=
+  11522591948800 * b ^ 27 * d ^ 2 + (-32719799058432000 : k) * b ^ 22 * d ^ 5
+  + (-9020856713871360000 : k) * b ^ 17 * d ^ 8
+  + (-1195107721360179200000 : k) * b ^ 12 * d ^ 11
+  + (-46160607690358784000000 : k) * b ^ 7 * d ^ 14
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5Q61p1f8_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreQ61p1f8ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreQ61p1f7ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreQ61p1f6ABCDEFG810 b d =
+      quarticCoreG5Q61p1f8ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreQ61p1f8ABCDEFG810, quarticCoreQ61p1f7ABCDEFG810, quarticCoreQ61p1f6ABCDEFG810, quarticCoreG5Q61p1f8ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5Q61p1f9ABCDEFG810 (b d : k) : k :=
+  (-472983273472000 : k) * b ^ 23 * d ^ 3 + (-2984288232407040000 : k) * b ^ 18 * d ^ 6
+  + (-173482319020032000000 : k) * b ^ 13 * d ^ 9
+  + (-5442204600369152000000 : k) * b ^ 8 * d ^ 12
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5Q61p1f9_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreQ61p1f9ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreQ61p1f8ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreQ61p1f7ABCDEFG810 b d =
+      quarticCoreG5Q61p1f9ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreQ61p1f9ABCDEFG810, quarticCoreQ61p1f8ABCDEFG810, quarticCoreQ61p1f7ABCDEFG810, quarticCoreG5Q61p1f9ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5Q61p1f10ABCDEFG810 (b d : k) : k :=
+  (-158999689297920000 : k) * b ^ 19 * d ^ 4 + (-138229227454464000000 : k) * b ^ 14 * d ^ 7
+  + (-7510763929337856000000 : k) * b ^ 9 * d ^ 10
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5Q61p1f10_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreQ61p1f10ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreQ61p1f9ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreQ61p1f8ABCDEFG810 b d =
+      quarticCoreG5Q61p1f10ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreQ61p1f10ABCDEFG810, quarticCoreQ61p1f9ABCDEFG810, quarticCoreQ61p1f8ABCDEFG810, quarticCoreG5Q61p1f10ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5Q61p1f11ABCDEFG810 (b d : k) : k :=
+  6957847019520000 * b ^ 20 * d ^ 2 + (-20780769764966400000 : k) * b ^ 15 * d ^ 5
+  + (-5091288592416768000000 : k) * b ^ 10 * d ^ 8
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5Q61p1f11_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreQ61p1f11ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreQ61p1f10ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreQ61p1f9ABCDEFG810 b d =
+      quarticCoreG5Q61p1f11ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreQ61p1f11ABCDEFG810, quarticCoreQ61p1f10ABCDEFG810, quarticCoreQ61p1f9ABCDEFG810, quarticCoreG5Q61p1f11ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5Q61p1f12ABCDEFG810 (b d : k) : k :=
+  (-742170348748800000 : k) * b ^ 16 * d ^ 3 + (-1068725302198272000000 : k) * b ^ 11 * d ^ 6
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5Q61p1f12_from
+    (b d : k) :
+    quarticCoreG5f1ABCDEFG810 b d * quarticCoreQ61p1f11ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreQ61p1f10ABCDEFG810 b d =
+      quarticCoreG5Q61p1f12ABCDEFG810 b d := by
+  simp only [quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreQ61p1f11ABCDEFG810, quarticCoreQ61p1f10ABCDEFG810, quarticCoreG5Q61p1f12ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5Q61p1f13ABCDEFG810 (b d : k) : k :=
+  (-59373627899904000000 : k) * b ^ 12 * d ^ 4
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5Q61p1f13_from
+    (b d : k) :
+    quarticCoreG5f2ABCDEFG810 b d * quarticCoreQ61p1f11ABCDEFG810 b d =
+      quarticCoreG5Q61p1f13ABCDEFG810 b d := by
+  simp only [quarticCoreG5f2ABCDEFG810, quarticCoreQ61p1f11ABCDEFG810, quarticCoreG5Q61p1f13ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5Q61p1viafABCDEFG810 (b d f : k) : k :=
+  quarticCoreG5Q61p1f1ABCDEFG810 b d * f +
+        quarticCoreG5Q61p1f2ABCDEFG810 b d * f ^ 2 +
+        quarticCoreG5Q61p1f3ABCDEFG810 b d * f ^ 3 +
+        quarticCoreG5Q61p1f4ABCDEFG810 b d * f ^ 4 +
+        quarticCoreG5Q61p1f5ABCDEFG810 b d * f ^ 5 +
+        quarticCoreG5Q61p1f6ABCDEFG810 b d * f ^ 6 +
+        quarticCoreG5Q61p1f7ABCDEFG810 b d * f ^ 7 +
+        quarticCoreG5Q61p1f8ABCDEFG810 b d * f ^ 8 +
+        quarticCoreG5Q61p1f9ABCDEFG810 b d * f ^ 9 +
+        quarticCoreG5Q61p1f10ABCDEFG810 b d * f ^ 10 +
+        quarticCoreG5Q61p1f11ABCDEFG810 b d * f ^ 11 +
+        quarticCoreG5Q61p1f12ABCDEFG810 b d * f ^ 12 +
+        quarticCoreG5Q61p1f13ABCDEFG810 b d * f ^ 13
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5Q61p1viaf_fsplit
+    (b d f : k) :
+    quarticCoreG5Q61p1viafABCDEFG810 b d f =
+      quarticCoreG5Q61p1f1ABCDEFG810 b d * f +
+        quarticCoreG5Q61p1f2ABCDEFG810 b d * f ^ 2 +
+        quarticCoreG5Q61p1f3ABCDEFG810 b d * f ^ 3 +
+        quarticCoreG5Q61p1f4ABCDEFG810 b d * f ^ 4 +
+        quarticCoreG5Q61p1f5ABCDEFG810 b d * f ^ 5 +
+        quarticCoreG5Q61p1f6ABCDEFG810 b d * f ^ 6 +
+        quarticCoreG5Q61p1f7ABCDEFG810 b d * f ^ 7 +
+        quarticCoreG5Q61p1f8ABCDEFG810 b d * f ^ 8 +
+        quarticCoreG5Q61p1f9ABCDEFG810 b d * f ^ 9 +
+        quarticCoreG5Q61p1f10ABCDEFG810 b d * f ^ 10 +
+        quarticCoreG5Q61p1f11ABCDEFG810 b d * f ^ 11 +
+        quarticCoreG5Q61p1f12ABCDEFG810 b d * f ^ 12 +
+        quarticCoreG5Q61p1f13ABCDEFG810 b d * f ^ 13 := by
+  simp only [quarticCoreG5Q61p1viafABCDEFG810]
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5Q61p1_eq_viaf
+    (b d f : k) :
+    quarticCoreG5ABCDEFG810 b d f * quarticCoreQ61p1ABCDEFG810 b d f =
+      quarticCoreG5Q61p1viafABCDEFG810 b d f := by
+  rw [quarticCoreG5_fsplit, quarticCoreQ61p1_fsplit]
+  rw [quarticCoreG5Q61p1viafABCDEFG810]
+  rw [← quarticCoreG5Q61p1f1_from, ← quarticCoreG5Q61p1f2_from, ← quarticCoreG5Q61p1f3_from, ← quarticCoreG5Q61p1f4_from, ← quarticCoreG5Q61p1f5_from, ← quarticCoreG5Q61p1f6_from, ← quarticCoreG5Q61p1f7_from, ← quarticCoreG5Q61p1f8_from, ← quarticCoreG5Q61p1f9_from, ← quarticCoreG5Q61p1f10_from, ← quarticCoreG5Q61p1f11_from, ← quarticCoreG5Q61p1f12_from, ← quarticCoreG5Q61p1f13_from]
+  generalize hG5f0 : quarticCoreG5f0ABCDEFG810 b d = xG5f0
+  generalize hG5f1 : quarticCoreG5f1ABCDEFG810 b d = xG5f1
+  generalize hG5f2 : quarticCoreG5f2ABCDEFG810 b d = xG5f2
+  generalize hQ61p1f1 : quarticCoreQ61p1f1ABCDEFG810 b d = xQ61p1f1
+  generalize hQ61p1f2 : quarticCoreQ61p1f2ABCDEFG810 b d = xQ61p1f2
+  generalize hQ61p1f3 : quarticCoreQ61p1f3ABCDEFG810 b d = xQ61p1f3
+  generalize hQ61p1f4 : quarticCoreQ61p1f4ABCDEFG810 b d = xQ61p1f4
+  generalize hQ61p1f5 : quarticCoreQ61p1f5ABCDEFG810 b d = xQ61p1f5
+  generalize hQ61p1f6 : quarticCoreQ61p1f6ABCDEFG810 b d = xQ61p1f6
+  generalize hQ61p1f7 : quarticCoreQ61p1f7ABCDEFG810 b d = xQ61p1f7
+  generalize hQ61p1f8 : quarticCoreQ61p1f8ABCDEFG810 b d = xQ61p1f8
+  generalize hQ61p1f9 : quarticCoreQ61p1f9ABCDEFG810 b d = xQ61p1f9
+  generalize hQ61p1f10 : quarticCoreQ61p1f10ABCDEFG810 b d = xQ61p1f10
+  generalize hQ61p1f11 : quarticCoreQ61p1f11ABCDEFG810 b d = xQ61p1f11
+  try ring
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5_mul_Q61_chunks
+    (b d f : k) :
+    quarticCoreG5ABCDEFG810 b d f * quarticCoreQ61ABCDEFG810 b d f =
+      quarticCoreG5ABCDEFG810 b d f * quarticCoreQ61p0ABCDEFG810 b d f +
+        quarticCoreG5ABCDEFG810 b d f * quarticCoreQ61p1ABCDEFG810 b d f := by
+  rw [quarticCoreQ61_split]
+  generalize hQ61p0 : quarticCoreQ61p0ABCDEFG810 b d f = xQ61p0
+  generalize hQ61p1 : quarticCoreQ61p1ABCDEFG810 b d f = xQ61p1
+  generalize hG5q : quarticCoreG5ABCDEFG810 b d f = xG5q
+  ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5Q61ABCDEFG810 (b d f : k) : k :=
+  quarticCoreG5Q61p0viafABCDEFG810 b d f +
+        quarticCoreG5Q61p1viafABCDEFG810 b d f
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5Q61_split
+    (b d f : k) :
+    quarticCoreG5Q61ABCDEFG810 b d f =
+      quarticCoreG5Q61p0viafABCDEFG810 b d f +
+        quarticCoreG5Q61p1viafABCDEFG810 b d f := by
+  simp only [quarticCoreG5Q61ABCDEFG810]
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5_mul_Q61_eq_G5Q61
+    (b d f : k) :
+    quarticCoreG5ABCDEFG810 b d f * quarticCoreQ61ABCDEFG810 b d f =
+      quarticCoreG5Q61ABCDEFG810 b d f := by
+  rw [quarticCoreG5_mul_Q61_chunks]
+  rw [quarticCoreG5Q61p0_eq_viaf, quarticCoreG5Q61p1_eq_viaf]
+  rw [quarticCoreG5Q61_split]
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5sqQ61p0f0ABCDEFG810 (b d : k) : k :=
+  (-2614689 : k) * b ^ 44 * d ^ 8 + (-18267960480 : k) * b ^ 39 * d ^ 11
+  + (-6096302150400 : k) * b ^ 34 * d ^ 14 + 172774091094528000 * b ^ 29 * d ^ 17
+  + 96680110551552000000 * b ^ 24 * d ^ 20 + 9287456097003110400000 * b ^ 19 * d ^ 23
+  + (-1141245190952976384000000 : k) * b ^ 14 * d ^ 26
+  + 37597284302334197760000000 * b ^ 9 * d ^ 29
+  + (-248267740417936588800000000 : k) * b ^ 4 * d ^ 32
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61p0f0_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreG5Q61p0f0ABCDEFG810 b d =
+      quarticCoreG5sqQ61p0f0ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5Q61p0f0ABCDEFG810, quarticCoreG5sqQ61p0f0ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5sqQ61p0f1ABCDEFG810 (b d : k) : k :=
+  (-2535456 : k) * b ^ 45 * d ^ 6 + (-999814816 : k) * b ^ 40 * d ^ 9
+  + 44994057292800 * b ^ 35 * d ^ 12 + (-184601917581312000 : k) * b ^ 30 * d ^ 15
+  + (-43840550572408832000 : k) * b ^ 25 * d ^ 18 + 894198261626306560000 * b ^ 20 * d ^ 21
+  + (-1668980277671100416000000 : k) * b ^ 15 * d ^ 24
+  + 23153391504512253952000000 * b ^ 10 * d ^ 27
+  + (-479313536337617879040000000 : k) * b ^ 5 * d ^ 30 + 1103412179635273728000000000 * d ^ 33
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61p0f1_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreG5Q61p0f1ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreG5Q61p0f0ABCDEFG810 b d =
+      quarticCoreG5sqQ61p0f1ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5Q61p0f1ABCDEFG810, quarticCoreG5Q61p0f0ABCDEFG810, quarticCoreG5sqQ61p0f1ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5sqQ61p0f2ABCDEFG810 (b d : k) : k :=
+  19208 * b ^ 46 * d ^ 4 + 4675073536 * b ^ 41 * d ^ 7 + (-46194406702080 : k) * b ^ 36 * d ^ 10
+  + 57511031284940800 * b ^ 31 * d ^ 13 + (-48078841784762368000 : k) * b ^ 26 * d ^ 16
+  + (-15033399904729825280000 : k) * b ^ 21 * d ^ 19
+  + (-1707202172216357683200000 : k) * b ^ 16 * d ^ 22
+  + (-4853689468818817024000000 : k) * b ^ 11 * d ^ 25
+  + (-366957884018975047680000000 : k) * b ^ 6 * d ^ 28
+  + (-310919604326734233600000000 : k) * b * d ^ 31
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61p0f2_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreG5Q61p0f2ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreG5Q61p0f1ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreG5Q61p0f0ABCDEFG810 b d =
+      quarticCoreG5sqQ61p0f2ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreG5Q61p0f2ABCDEFG810, quarticCoreG5Q61p0f1ABCDEFG810, quarticCoreG5Q61p0f0ABCDEFG810, quarticCoreG5sqQ61p0f2ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5sqQ61p0f3ABCDEFG810 (b d : k) : k :=
+  307328 * b ^ 47 * d ^ 2 + (-1839665408 : k) * b ^ 42 * d ^ 5 + 14662341406720 * b ^ 37 * d ^ 8
+  + (-20958691177267200 : k) * b ^ 32 * d ^ 11 + (-2778395584692224000 : k) * b ^ 27 * d ^ 14
+  + (-9692721152277872640000 : k) * b ^ 22 * d ^ 17
+  + (-1240146341731395174400000 : k) * b ^ 17 * d ^ 20
+  + (-8460088962466185216000000 : k) * b ^ 12 * d ^ 23
+  + (-161641516608415334400000000 : k) * b ^ 7 * d ^ 26
+  + (-5858428061676365414400000000 : k) * b ^ 2 * d ^ 29
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61p0f3_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreG5Q61p0f3ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreG5Q61p0f2ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreG5Q61p0f1ABCDEFG810 b d =
+      quarticCoreG5sqQ61p0f3ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreG5Q61p0f3ABCDEFG810, quarticCoreG5Q61p0f2ABCDEFG810, quarticCoreG5Q61p0f1ABCDEFG810, quarticCoreG5sqQ61p0f3ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5sqQ61p0f4ABCDEFG810 (b d : k) : k :=
+  (-38416 : k) * b ^ 48 + 50401792 * b ^ 43 * d ^ 3 + (-351541084160 : k) * b ^ 38 * d ^ 6
+  + 4003500651315200 * b ^ 33 * d ^ 9 + (-2057468620505088000 : k) * b ^ 28 * d ^ 12
+  + (-2783590947257057280000 : k) * b ^ 23 * d ^ 15
+  + (-541115704109799833600000 : k) * b ^ 18 * d ^ 18
+  + (-3601795523436085248000000 : k) * b ^ 13 * d ^ 21
+  + (-68274166768966041600000000 : k) * b ^ 8 * d ^ 24
+  + (-11533618808751548006400000000 : k) * b ^ 3 * d ^ 27
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61p0f4_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreG5Q61p0f4ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreG5Q61p0f3ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreG5Q61p0f2ABCDEFG810 b d =
+      quarticCoreG5sqQ61p0f4ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreG5Q61p0f4ABCDEFG810, quarticCoreG5Q61p0f3ABCDEFG810, quarticCoreG5Q61p0f2ABCDEFG810, quarticCoreG5sqQ61p0f4ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5sqQ61p0f5ABCDEFG810 (b d : k) : k :=
+  28274176 * b ^ 44 * d + (-475174748160 : k) * b ^ 39 * d ^ 4
+  + 325337651609600 * b ^ 34 * d ^ 7 + 87524413276160000 * b ^ 29 * d ^ 10
+  + (-661997106380144640000 : k) * b ^ 24 * d ^ 13
+  + (-158995478513660723200000 : k) * b ^ 19 * d ^ 16
+  + (-2395000116416086016000000 : k) * b ^ 14 * d ^ 19
+  + (-264329022059451514880000000 : k) * b ^ 9 * d ^ 22
+  + (-10722936561613144064000000000 : k) * b ^ 4 * d ^ 25
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61p0f5_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreG5Q61p0f5ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreG5Q61p0f4ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreG5Q61p0f3ABCDEFG810 b d =
+      quarticCoreG5sqQ61p0f5ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreG5Q61p0f5ABCDEFG810, quarticCoreG5Q61p0f4ABCDEFG810, quarticCoreG5Q61p0f3ABCDEFG810, quarticCoreG5sqQ61p0f5ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5sqQ61p0f6ABCDEFG810 (b d : k) : k :=
+  58107822080 * b ^ 40 * d ^ 2 + (-61675536384000 : k) * b ^ 35 * d ^ 5
+  + 141999407628288000 * b ^ 30 * d ^ 8 + (-112991495115505664000 : k) * b ^ 25 * d ^ 11
+  + (-43616153486973992960000 : k) * b ^ 20 * d ^ 14
+  + (-1522905432884615577600000 : k) * b ^ 15 * d ^ 17
+  + (-285461425252970004480000000 : k) * b ^ 10 * d ^ 20
+  + (-5428190340266642636800000000 : k) * b ^ 5 * d ^ 23
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61p0f6_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreG5Q61p0f6ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreG5Q61p0f5ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreG5Q61p0f4ABCDEFG810 b d =
+      quarticCoreG5sqQ61p0f6ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreG5Q61p0f6ABCDEFG810, quarticCoreG5Q61p0f5ABCDEFG810, quarticCoreG5Q61p0f4ABCDEFG810, quarticCoreG5sqQ61p0f6ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5sqQ61p0f7ABCDEFG810 (b d : k) : k :=
+  (-3050700800 : k) * b ^ 41 + (-3938294169600 : k) * b ^ 36 * d ^ 3
+  + 880011116544000 * b ^ 31 * d ^ 6 + 2784321702199296000 * b ^ 26 * d ^ 9
+  + (-11151630590279680000000 : k) * b ^ 21 * d ^ 12
+  + (-1036796071327563776000000 : k) * b ^ 16 * d ^ 15
+  + (-148388348585943498752000000 : k) * b ^ 11 * d ^ 18
+  + (-1538803494150995968000000000 : k) * b ^ 6 * d ^ 21
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61p0f7_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreG5Q61p0f7ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreG5Q61p0f6ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreG5Q61p0f5ABCDEFG810 b d =
+      quarticCoreG5sqQ61p0f7ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreG5Q61p0f7ABCDEFG810, quarticCoreG5Q61p0f6ABCDEFG810, quarticCoreG5Q61p0f5ABCDEFG810, quarticCoreG5sqQ61p0f7ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5sqQ61p0f8ABCDEFG810 (b d : k) : k :=
+  734737203200 * b ^ 37 * d + (-793954484224000 : k) * b ^ 32 * d ^ 4
+  + 764014351089664000 * b ^ 27 * d ^ 7 + (-1071796861481779200000 : k) * b ^ 22 * d ^ 10
+  + (-442855885212798156800000 : k) * b ^ 17 * d ^ 13
+  + (-52421825497097306112000000 : k) * b ^ 12 * d ^ 16
+  + (-282168136328596684800000000 : k) * b ^ 7 * d ^ 19
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61p0f8_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreG5Q61p0f8ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreG5Q61p0f7ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreG5Q61p0f6ABCDEFG810 b d =
+      quarticCoreG5sqQ61p0f8ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreG5Q61p0f8ABCDEFG810, quarticCoreG5Q61p0f7ABCDEFG810, quarticCoreG5Q61p0f6ABCDEFG810, quarticCoreG5sqQ61p0f8ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5sqQ61p0f9ABCDEFG810 (b d : k) : k :=
+  19478347776000 * b ^ 33 * d ^ 2 + (-49668276879360000 : k) * b ^ 28 * d ^ 5
+  + (-1787737187287040000 : k) * b ^ 23 * d ^ 8
+  + (-80823290288091955200000 : k) * b ^ 18 * d ^ 11
+  + (-14223337255052771328000000 : k) * b ^ 13 * d ^ 14
+  + (-79547738001076387840000000 : k) * b ^ 8 * d ^ 17
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61p0f9_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreG5Q61p0f9ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreG5Q61p0f8ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreG5Q61p0f7ABCDEFG810 b d =
+      quarticCoreG5sqQ61p0f9ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreG5Q61p0f9ABCDEFG810, quarticCoreG5Q61p0f8ABCDEFG810, quarticCoreG5Q61p0f7ABCDEFG810, quarticCoreG5sqQ61p0f9ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5sqQ61p0f10ABCDEFG810 (b d : k) : k :=
+  (-1845493760000 : k) * b ^ 34 + (-5060008345600000 : k) * b ^ 29 * d ^ 3
+  + (-3473329314856960000 : k) * b ^ 24 * d ^ 6 + (-4208379037325721600000 : k) * b ^ 19 * d ^ 9
+  + (-2502118547874906112000000 : k) * b ^ 14 * d ^ 12
+  + (-32447379784041758720000000 : k) * b ^ 9 * d ^ 15
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61p0f10_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreG5Q61p0f10ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreG5Q61p0f9ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreG5Q61p0f8ABCDEFG810 b d =
+      quarticCoreG5sqQ61p0f10ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreG5Q61p0f10ABCDEFG810, quarticCoreG5Q61p0f9ABCDEFG810, quarticCoreG5Q61p0f8ABCDEFG810, quarticCoreG5sqQ61p0f10ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5sqQ61p0f11ABCDEFG810 (b d : k) : k :=
+  542239621120000 * b ^ 30 * d + (-598718441062400000 : k) * b ^ 25 * d ^ 4
+  + (-63192712819507200000 : k) * b ^ 20 * d ^ 7
+  + (-197651783621804032000000 : k) * b ^ 15 * d ^ 10
+  + (-7809358302092984320000000 : k) * b ^ 10 * d ^ 13
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61p0f11_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreG5Q61p0f11ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreG5Q61p0f10ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreG5Q61p0f9ABCDEFG810 b d =
+      quarticCoreG5sqQ61p0f11ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreG5Q61p0f11ABCDEFG810, quarticCoreG5Q61p0f10ABCDEFG810, quarticCoreG5Q61p0f9ABCDEFG810, quarticCoreG5sqQ61p0f11ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5sqQ61p0f12ABCDEFG810 (b d : k) : k :=
+  (-31782757990400000 : k) * b ^ 26 * d ^ 2 + (-16080357556224000000 : k) * b ^ 21 * d ^ 5
+  + (-972243156860928000000 : k) * b ^ 16 * d ^ 8
+  + (-884579094778347520000000 : k) * b ^ 11 * d ^ 11
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61p0f12_from
+    (b d : k) :
+    quarticCoreG5f1ABCDEFG810 b d * quarticCoreG5Q61p0f11ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreG5Q61p0f10ABCDEFG810 b d =
+      quarticCoreG5sqQ61p0f12ABCDEFG810 b d := by
+  simp only [quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreG5Q61p0f11ABCDEFG810, quarticCoreG5Q61p0f10ABCDEFG810, quarticCoreG5sqQ61p0f12ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5sqQ61p0f13ABCDEFG810 (b d : k) : k :=
+  (-1236950581248000000 : k) * b ^ 22 * d ^ 3 + (-35228352553943040000000 : k) * b ^ 12 * d ^ 9
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61p0f13_from
+    (b d : k) :
+    quarticCoreG5f2ABCDEFG810 b d * quarticCoreG5Q61p0f11ABCDEFG810 b d =
+      quarticCoreG5sqQ61p0f13ABCDEFG810 b d := by
+  simp only [quarticCoreG5f2ABCDEFG810, quarticCoreG5Q61p0f11ABCDEFG810, quarticCoreG5sqQ61p0f13ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5sqQ61p0viafABCDEFG810 (b d f : k) : k :=
+  quarticCoreG5sqQ61p0f0ABCDEFG810 b d +
+        quarticCoreG5sqQ61p0f1ABCDEFG810 b d * f +
+        quarticCoreG5sqQ61p0f2ABCDEFG810 b d * f ^ 2 +
+        quarticCoreG5sqQ61p0f3ABCDEFG810 b d * f ^ 3 +
+        quarticCoreG5sqQ61p0f4ABCDEFG810 b d * f ^ 4 +
+        quarticCoreG5sqQ61p0f5ABCDEFG810 b d * f ^ 5 +
+        quarticCoreG5sqQ61p0f6ABCDEFG810 b d * f ^ 6 +
+        quarticCoreG5sqQ61p0f7ABCDEFG810 b d * f ^ 7 +
+        quarticCoreG5sqQ61p0f8ABCDEFG810 b d * f ^ 8 +
+        quarticCoreG5sqQ61p0f9ABCDEFG810 b d * f ^ 9 +
+        quarticCoreG5sqQ61p0f10ABCDEFG810 b d * f ^ 10 +
+        quarticCoreG5sqQ61p0f11ABCDEFG810 b d * f ^ 11 +
+        quarticCoreG5sqQ61p0f12ABCDEFG810 b d * f ^ 12 +
+        quarticCoreG5sqQ61p0f13ABCDEFG810 b d * f ^ 13
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61p0viaf_fsplit
+    (b d f : k) :
+    quarticCoreG5sqQ61p0viafABCDEFG810 b d f =
+      quarticCoreG5sqQ61p0f0ABCDEFG810 b d +
+        quarticCoreG5sqQ61p0f1ABCDEFG810 b d * f +
+        quarticCoreG5sqQ61p0f2ABCDEFG810 b d * f ^ 2 +
+        quarticCoreG5sqQ61p0f3ABCDEFG810 b d * f ^ 3 +
+        quarticCoreG5sqQ61p0f4ABCDEFG810 b d * f ^ 4 +
+        quarticCoreG5sqQ61p0f5ABCDEFG810 b d * f ^ 5 +
+        quarticCoreG5sqQ61p0f6ABCDEFG810 b d * f ^ 6 +
+        quarticCoreG5sqQ61p0f7ABCDEFG810 b d * f ^ 7 +
+        quarticCoreG5sqQ61p0f8ABCDEFG810 b d * f ^ 8 +
+        quarticCoreG5sqQ61p0f9ABCDEFG810 b d * f ^ 9 +
+        quarticCoreG5sqQ61p0f10ABCDEFG810 b d * f ^ 10 +
+        quarticCoreG5sqQ61p0f11ABCDEFG810 b d * f ^ 11 +
+        quarticCoreG5sqQ61p0f12ABCDEFG810 b d * f ^ 12 +
+        quarticCoreG5sqQ61p0f13ABCDEFG810 b d * f ^ 13 := by
+  simp only [quarticCoreG5sqQ61p0viafABCDEFG810]
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61p0_eq_viaf
+    (b d f : k) :
+    quarticCoreG5ABCDEFG810 b d f * quarticCoreG5Q61p0viafABCDEFG810 b d f =
+      quarticCoreG5sqQ61p0viafABCDEFG810 b d f := by
+  rw [quarticCoreG5_fsplit, quarticCoreG5Q61p0viaf_fsplit]
+  rw [quarticCoreG5sqQ61p0viafABCDEFG810]
+  rw [← quarticCoreG5sqQ61p0f0_from, ← quarticCoreG5sqQ61p0f1_from, ← quarticCoreG5sqQ61p0f2_from, ← quarticCoreG5sqQ61p0f3_from, ← quarticCoreG5sqQ61p0f4_from, ← quarticCoreG5sqQ61p0f5_from, ← quarticCoreG5sqQ61p0f6_from, ← quarticCoreG5sqQ61p0f7_from, ← quarticCoreG5sqQ61p0f8_from, ← quarticCoreG5sqQ61p0f9_from, ← quarticCoreG5sqQ61p0f10_from, ← quarticCoreG5sqQ61p0f11_from, ← quarticCoreG5sqQ61p0f12_from, ← quarticCoreG5sqQ61p0f13_from]
+  generalize hG5f0 : quarticCoreG5f0ABCDEFG810 b d = xG5f0
+  generalize hG5f1 : quarticCoreG5f1ABCDEFG810 b d = xG5f1
+  generalize hG5f2 : quarticCoreG5f2ABCDEFG810 b d = xG5f2
+  generalize hG5Q61p0f0 : quarticCoreG5Q61p0f0ABCDEFG810 b d = xG5Q61p0f0
+  generalize hG5Q61p0f1 : quarticCoreG5Q61p0f1ABCDEFG810 b d = xG5Q61p0f1
+  generalize hG5Q61p0f2 : quarticCoreG5Q61p0f2ABCDEFG810 b d = xG5Q61p0f2
+  generalize hG5Q61p0f3 : quarticCoreG5Q61p0f3ABCDEFG810 b d = xG5Q61p0f3
+  generalize hG5Q61p0f4 : quarticCoreG5Q61p0f4ABCDEFG810 b d = xG5Q61p0f4
+  generalize hG5Q61p0f5 : quarticCoreG5Q61p0f5ABCDEFG810 b d = xG5Q61p0f5
+  generalize hG5Q61p0f6 : quarticCoreG5Q61p0f6ABCDEFG810 b d = xG5Q61p0f6
+  generalize hG5Q61p0f7 : quarticCoreG5Q61p0f7ABCDEFG810 b d = xG5Q61p0f7
+  generalize hG5Q61p0f8 : quarticCoreG5Q61p0f8ABCDEFG810 b d = xG5Q61p0f8
+  generalize hG5Q61p0f9 : quarticCoreG5Q61p0f9ABCDEFG810 b d = xG5Q61p0f9
+  generalize hG5Q61p0f10 : quarticCoreG5Q61p0f10ABCDEFG810 b d = xG5Q61p0f10
+  generalize hG5Q61p0f11 : quarticCoreG5Q61p0f11ABCDEFG810 b d = xG5Q61p0f11
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5sqQ61p1f1ABCDEFG810 (b d : k) : k :=
+  10149452504711168000 * b ^ 25 * d ^ 18 + 6495649603015147520000 * b ^ 20 * d ^ 21
+  + 1039303936482423603200000 * b ^ 15 * d ^ 24
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61p1f1_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreG5Q61p1f1ABCDEFG810 b d =
+      quarticCoreG5sqQ61p1f1ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5Q61p1f1ABCDEFG810, quarticCoreG5sqQ61p1f1ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5sqQ61p1f2ABCDEFG810 (b d : k) : k :=
+  57089207413145600 * b ^ 31 * d ^ 13 + 32846382742700032000 * b ^ 26 * d ^ 16
+  + 8711962611435438080000 * b ^ 21 * d ^ 19 + 1364323665391491481600000 * b ^ 16 * d ^ 22
+  + 22957710525018931200000000 * b ^ 11 * d ^ 25 + 253621383168471859200000000 * b ^ 6 * d ^ 28
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61p1f2_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreG5Q61p1f2ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreG5Q61p1f1ABCDEFG810 b d =
+      quarticCoreG5sqQ61p1f2ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5Q61p1f2ABCDEFG810, quarticCoreG5Q61p1f1ABCDEFG810, quarticCoreG5sqQ61p1f2ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5sqQ61p1f3ABCDEFG810 (b d : k) : k :=
+  (-20759711786598400 : k) * b ^ 32 * d ^ 11 + 19038494992826368000 * b ^ 27 * d ^ 14
+  + 9129398424358092800000 * b ^ 22 * d ^ 17 + 990500681293810892800000 * b ^ 17 * d ^ 20
+  + 26086822611716669440000000 * b ^ 12 * d ^ 23 + 328511785700373299200000000 * b ^ 7 * d ^ 26
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61p1f3_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreG5Q61p1f3ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreG5Q61p1f2ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreG5Q61p1f1ABCDEFG810 b d =
+      quarticCoreG5sqQ61p1f3ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreG5Q61p1f3ABCDEFG810, quarticCoreG5Q61p1f2ABCDEFG810, quarticCoreG5Q61p1f1ABCDEFG810, quarticCoreG5sqQ61p1f3ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5sqQ61p1f4ABCDEFG810 (b d : k) : k :=
+  2138646750822400 * b ^ 33 * d ^ 9 + (-1808834895544320000 : k) * b ^ 28 * d ^ 12
+  + 4039267964860497920000 * b ^ 23 * d ^ 15 + 582109461282711142400000 * b ^ 18 * d ^ 18
+  + 14872741117551443968000000 * b ^ 13 * d ^ 21 + 291380755179849646080000000 * b ^ 8 * d ^ 24
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61p1f4_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreG5Q61p1f4ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreG5Q61p1f3ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreG5Q61p1f2ABCDEFG810 b d =
+      quarticCoreG5sqQ61p1f4ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreG5Q61p1f4ABCDEFG810, quarticCoreG5Q61p1f3ABCDEFG810, quarticCoreG5Q61p1f2ABCDEFG810, quarticCoreG5sqQ61p1f4ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5sqQ61p1f5ABCDEFG810 (b d : k) : k :=
+  (-91418263552000 : k) * b ^ 34 * d ^ 7 + (-413932997574656000 : k) * b ^ 29 * d ^ 10
+  + 616776675182510080000 * b ^ 24 * d ^ 13 + 221994572182454272000000 * b ^ 19 * d ^ 16
+  + 6564885779800129536000000 * b ^ 14 * d ^ 19 + 187538496510849187840000000 * b ^ 9 * d ^ 22
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61p1f5_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreG5Q61p1f5ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreG5Q61p1f4ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreG5Q61p1f3ABCDEFG810 b d =
+      quarticCoreG5sqQ61p1f5ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreG5Q61p1f5ABCDEFG810, quarticCoreG5Q61p1f4ABCDEFG810, quarticCoreG5Q61p1f3ABCDEFG810, quarticCoreG5sqQ61p1f5ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5sqQ61p1f6ABCDEFG810 (b d : k) : k :=
+  8310751232000 * b ^ 35 * d ^ 5 + 4733735639449600 * b ^ 30 * d ^ 8
+  + 25081234266783744000 * b ^ 25 * d ^ 11 + 44301901226164879360000 * b ^ 20 * d ^ 14
+  + 2825101494223215001600000 * b ^ 15 * d ^ 17 + 120542497175429447680000000 * b ^ 10 * d ^ 20
+  + 417644675949783941120000000 * b ^ 5 * d ^ 23
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61p1f6_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreG5Q61p1f6ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreG5Q61p1f5ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreG5Q61p1f4ABCDEFG810 b d =
+      quarticCoreG5sqQ61p1f6ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreG5Q61p1f6ABCDEFG810, quarticCoreG5Q61p1f5ABCDEFG810, quarticCoreG5Q61p1f4ABCDEFG810, quarticCoreG5sqQ61p1f6ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5sqQ61p1f7ABCDEFG810 (b d : k) : k :=
+  (-4650751229952000 : k) * b ^ 31 * d ^ 6 + 5784401036181504000 * b ^ 26 * d ^ 9
+  + 3861064574199398400000 * b ^ 21 * d ^ 12 + 855104409263144960000000 * b ^ 16 * d ^ 15
+  + 72049952440704827392000000 * b ^ 11 * d ^ 18 + 704302233703310950400000000 * b ^ 6 * d ^ 21
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61p1f7_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreG5Q61p1f7ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreG5Q61p1f6ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreG5Q61p1f5ABCDEFG810 b d =
+      quarticCoreG5sqQ61p1f7ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreG5Q61p1f7ABCDEFG810, quarticCoreG5Q61p1f6ABCDEFG810, quarticCoreG5Q61p1f5ABCDEFG810, quarticCoreG5sqQ61p1f7ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5sqQ61p1f8ABCDEFG810 (b d : k) : k :=
+  (-9094509363200 : k) * b ^ 32 * d ^ 4 + 260191333384192000 * b ^ 27 * d ^ 7
+  + 574702460338176000000 * b ^ 22 * d ^ 10 + 155853191532406374400000 * b ^ 17 * d ^ 13
+  + 26780422542960099328000000 * b ^ 12 * d ^ 16 + 470801153833335521280000000 * b ^ 7 * d ^ 19
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61p1f8_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreG5Q61p1f8ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreG5Q61p1f7ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreG5Q61p1f6ABCDEFG810 b d =
+      quarticCoreG5sqQ61p1f8ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreG5Q61p1f8ABCDEFG810, quarticCoreG5Q61p1f7ABCDEFG810, quarticCoreG5Q61p1f6ABCDEFG810, quarticCoreG5sqQ61p1f8ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5sqQ61p1f9ABCDEFG810 (b d : k) : k :=
+  23045183897600 * b ^ 33 * d ^ 2 + (-103028413693952000 : k) * b ^ 28 * d ^ 5
+  + 142849334512189440000 * b ^ 23 * d ^ 8 + 36366121173411430400000 * b ^ 18 * d ^ 11
+  + 5658889273865142272000000 * b ^ 13 * d ^ 14 + 156762642181500436480000000 * b ^ 8 * d ^ 17
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61p1f9_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreG5Q61p1f9ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreG5Q61p1f8ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreG5Q61p1f7ABCDEFG810 b d =
+      quarticCoreG5sqQ61p1f9ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreG5Q61p1f9ABCDEFG810, quarticCoreG5Q61p1f8ABCDEFG810, quarticCoreG5Q61p1f7ABCDEFG810, quarticCoreG5sqQ61p1f9ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5sqQ61p1f10ABCDEFG810 (b d : k) : k :=
+  (-4633195970560000 : k) * b ^ 29 * d ^ 3 + 7234561024983040000 * b ^ 24 * d ^ 6
+  + 10827229442133196800000 * b ^ 19 * d ^ 9 + 1301578569058615296000000 * b ^ 14 * d ^ 12
+  + 52529069060951900160000000 * b ^ 9 * d ^ 15
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61p1f10_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreG5Q61p1f10ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreG5Q61p1f9ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreG5Q61p1f8ABCDEFG810 b d =
+      quarticCoreG5sqQ61p1f10ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreG5Q61p1f10ABCDEFG810, quarticCoreG5Q61p1f9ABCDEFG810, quarticCoreG5Q61p1f8ABCDEFG810, quarticCoreG5sqQ61p1f10ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5sqQ61p1f11ABCDEFG810 (b d : k) : k :=
+  (-243181048299520000 : k) * b ^ 25 * d ^ 4 + 1213329979106918400000 * b ^ 20 * d ^ 7
+  + 457162091422285824000000 * b ^ 15 * d ^ 10 + 35285230290447892480000000 * b ^ 10 * d ^ 13
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61p1f11_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreG5Q61p1f11ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreG5Q61p1f10ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreG5Q61p1f9ABCDEFG810 b d =
+      quarticCoreG5sqQ61p1f11ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreG5Q61p1f11ABCDEFG810, quarticCoreG5Q61p1f10ABCDEFG810, quarticCoreG5Q61p1f9ABCDEFG810, quarticCoreG5sqQ61p1f11ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5sqQ61p1f12ABCDEFG810 (b d : k) : k :=
+  13915694039040000 * b ^ 26 * d ^ 2 + 3009913081036800000 * b ^ 21 * d ^ 5
+  + 91643194663501824000000 * b ^ 16 * d ^ 8 + 16755237793352908800000000 * b ^ 11 * d ^ 11
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61p1f12_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreG5Q61p1f12ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreG5Q61p1f11ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreG5Q61p1f10ABCDEFG810 b d =
+      quarticCoreG5sqQ61p1f12ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreG5Q61p1f12ABCDEFG810, quarticCoreG5Q61p1f11ABCDEFG810, quarticCoreG5Q61p1f10ABCDEFG810, quarticCoreG5sqQ61p1f12ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5sqQ61p1f13ABCDEFG810 (b d : k) : k :=
+  (-3710851743744000000 : k) * b ^ 22 * d ^ 3 + 6709219952689152000000 * b ^ 17 * d ^ 6
+  + 4061156148353433600000000 * b ^ 12 * d ^ 9
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61p1f13_from
+    (b d : k) :
+    quarticCoreG5f0ABCDEFG810 b d * quarticCoreG5Q61p1f13ABCDEFG810 b d +
+        quarticCoreG5f1ABCDEFG810 b d * quarticCoreG5Q61p1f12ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreG5Q61p1f11ABCDEFG810 b d =
+      quarticCoreG5sqQ61p1f13ABCDEFG810 b d := by
+  simp only [quarticCoreG5f0ABCDEFG810, quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreG5Q61p1f13ABCDEFG810, quarticCoreG5Q61p1f12ABCDEFG810, quarticCoreG5Q61p1f11ABCDEFG810, quarticCoreG5sqQ61p1f13ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5sqQ61p1f14ABCDEFG810 (b d : k) : k :=
+  118747255799808000000 * b ^ 18 * d ^ 4 + 465489242735247360000000 * b ^ 13 * d ^ 7
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61p1f14_from
+    (b d : k) :
+    quarticCoreG5f1ABCDEFG810 b d * quarticCoreG5Q61p1f13ABCDEFG810 b d +
+        quarticCoreG5f2ABCDEFG810 b d * quarticCoreG5Q61p1f12ABCDEFG810 b d =
+      quarticCoreG5sqQ61p1f14ABCDEFG810 b d := by
+  simp only [quarticCoreG5f1ABCDEFG810, quarticCoreG5f2ABCDEFG810, quarticCoreG5Q61p1f13ABCDEFG810, quarticCoreG5Q61p1f12ABCDEFG810, quarticCoreG5sqQ61p1f14ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5sqQ61p1f15ABCDEFG810 (b d : k) : k :=
+  18999560927969280000000 * b ^ 14 * d ^ 5
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61p1f15_from
+    (b d : k) :
+    quarticCoreG5f2ABCDEFG810 b d * quarticCoreG5Q61p1f13ABCDEFG810 b d =
+      quarticCoreG5sqQ61p1f15ABCDEFG810 b d := by
+  simp only [quarticCoreG5f2ABCDEFG810, quarticCoreG5Q61p1f13ABCDEFG810, quarticCoreG5sqQ61p1f15ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+def quarticCoreG5sqQ61p1viafABCDEFG810 (b d f : k) : k :=
+  quarticCoreG5sqQ61p1f1ABCDEFG810 b d * f +
+        quarticCoreG5sqQ61p1f2ABCDEFG810 b d * f ^ 2 +
+        quarticCoreG5sqQ61p1f3ABCDEFG810 b d * f ^ 3 +
+        quarticCoreG5sqQ61p1f4ABCDEFG810 b d * f ^ 4 +
+        quarticCoreG5sqQ61p1f5ABCDEFG810 b d * f ^ 5 +
+        quarticCoreG5sqQ61p1f6ABCDEFG810 b d * f ^ 6 +
+        quarticCoreG5sqQ61p1f7ABCDEFG810 b d * f ^ 7 +
+        quarticCoreG5sqQ61p1f8ABCDEFG810 b d * f ^ 8 +
+        quarticCoreG5sqQ61p1f9ABCDEFG810 b d * f ^ 9 +
+        quarticCoreG5sqQ61p1f10ABCDEFG810 b d * f ^ 10 +
+        quarticCoreG5sqQ61p1f11ABCDEFG810 b d * f ^ 11 +
+        quarticCoreG5sqQ61p1f12ABCDEFG810 b d * f ^ 12 +
+        quarticCoreG5sqQ61p1f13ABCDEFG810 b d * f ^ 13 +
+        quarticCoreG5sqQ61p1f14ABCDEFG810 b d * f ^ 14 +
+        quarticCoreG5sqQ61p1f15ABCDEFG810 b d * f ^ 15
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61p1viaf_fsplit
+    (b d f : k) :
+    quarticCoreG5sqQ61p1viafABCDEFG810 b d f =
+      quarticCoreG5sqQ61p1f1ABCDEFG810 b d * f +
+        quarticCoreG5sqQ61p1f2ABCDEFG810 b d * f ^ 2 +
+        quarticCoreG5sqQ61p1f3ABCDEFG810 b d * f ^ 3 +
+        quarticCoreG5sqQ61p1f4ABCDEFG810 b d * f ^ 4 +
+        quarticCoreG5sqQ61p1f5ABCDEFG810 b d * f ^ 5 +
+        quarticCoreG5sqQ61p1f6ABCDEFG810 b d * f ^ 6 +
+        quarticCoreG5sqQ61p1f7ABCDEFG810 b d * f ^ 7 +
+        quarticCoreG5sqQ61p1f8ABCDEFG810 b d * f ^ 8 +
+        quarticCoreG5sqQ61p1f9ABCDEFG810 b d * f ^ 9 +
+        quarticCoreG5sqQ61p1f10ABCDEFG810 b d * f ^ 10 +
+        quarticCoreG5sqQ61p1f11ABCDEFG810 b d * f ^ 11 +
+        quarticCoreG5sqQ61p1f12ABCDEFG810 b d * f ^ 12 +
+        quarticCoreG5sqQ61p1f13ABCDEFG810 b d * f ^ 13 +
+        quarticCoreG5sqQ61p1f14ABCDEFG810 b d * f ^ 14 +
+        quarticCoreG5sqQ61p1f15ABCDEFG810 b d * f ^ 15 := by
+  simp only [quarticCoreG5sqQ61p1viafABCDEFG810]
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61p1_eq_viaf
+    (b d f : k) :
+    quarticCoreG5ABCDEFG810 b d f * quarticCoreG5Q61p1viafABCDEFG810 b d f =
+      quarticCoreG5sqQ61p1viafABCDEFG810 b d f := by
+  rw [quarticCoreG5_fsplit, quarticCoreG5Q61p1viaf_fsplit]
+  rw [quarticCoreG5sqQ61p1viafABCDEFG810]
+  rw [← quarticCoreG5sqQ61p1f1_from, ← quarticCoreG5sqQ61p1f2_from, ← quarticCoreG5sqQ61p1f3_from, ← quarticCoreG5sqQ61p1f4_from, ← quarticCoreG5sqQ61p1f5_from, ← quarticCoreG5sqQ61p1f6_from, ← quarticCoreG5sqQ61p1f7_from, ← quarticCoreG5sqQ61p1f8_from, ← quarticCoreG5sqQ61p1f9_from, ← quarticCoreG5sqQ61p1f10_from, ← quarticCoreG5sqQ61p1f11_from, ← quarticCoreG5sqQ61p1f12_from, ← quarticCoreG5sqQ61p1f13_from, ← quarticCoreG5sqQ61p1f14_from, ← quarticCoreG5sqQ61p1f15_from]
+  generalize hG5f0 : quarticCoreG5f0ABCDEFG810 b d = xG5f0
+  generalize hG5f1 : quarticCoreG5f1ABCDEFG810 b d = xG5f1
+  generalize hG5f2 : quarticCoreG5f2ABCDEFG810 b d = xG5f2
+  generalize hG5Q61p1f1 : quarticCoreG5Q61p1f1ABCDEFG810 b d = xG5Q61p1f1
+  generalize hG5Q61p1f2 : quarticCoreG5Q61p1f2ABCDEFG810 b d = xG5Q61p1f2
+  generalize hG5Q61p1f3 : quarticCoreG5Q61p1f3ABCDEFG810 b d = xG5Q61p1f3
+  generalize hG5Q61p1f4 : quarticCoreG5Q61p1f4ABCDEFG810 b d = xG5Q61p1f4
+  generalize hG5Q61p1f5 : quarticCoreG5Q61p1f5ABCDEFG810 b d = xG5Q61p1f5
+  generalize hG5Q61p1f6 : quarticCoreG5Q61p1f6ABCDEFG810 b d = xG5Q61p1f6
+  generalize hG5Q61p1f7 : quarticCoreG5Q61p1f7ABCDEFG810 b d = xG5Q61p1f7
+  generalize hG5Q61p1f8 : quarticCoreG5Q61p1f8ABCDEFG810 b d = xG5Q61p1f8
+  generalize hG5Q61p1f9 : quarticCoreG5Q61p1f9ABCDEFG810 b d = xG5Q61p1f9
+  generalize hG5Q61p1f10 : quarticCoreG5Q61p1f10ABCDEFG810 b d = xG5Q61p1f10
+  generalize hG5Q61p1f11 : quarticCoreG5Q61p1f11ABCDEFG810 b d = xG5Q61p1f11
+  generalize hG5Q61p1f12 : quarticCoreG5Q61p1f12ABCDEFG810 b d = xG5Q61p1f12
+  generalize hG5Q61p1f13 : quarticCoreG5Q61p1f13ABCDEFG810 b d = xG5Q61p1f13
+  try ring
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5_mul_G5Q61_chunks
+    (b d f : k) :
+    quarticCoreG5ABCDEFG810 b d f * quarticCoreG5Q61ABCDEFG810 b d f =
+      quarticCoreG5ABCDEFG810 b d f * quarticCoreG5Q61p0viafABCDEFG810 b d f +
+        quarticCoreG5ABCDEFG810 b d f * quarticCoreG5Q61p1viafABCDEFG810 b d f := by
+  rw [quarticCoreG5Q61_split]
+  generalize hG5Q61p0viaf : quarticCoreG5Q61p0viafABCDEFG810 b d f = xG5Q61p0viaf
+  generalize hG5Q61p1viaf : quarticCoreG5Q61p1viafABCDEFG810 b d f = xG5Q61p1viaf
+  generalize hG5q3 : quarticCoreG5ABCDEFG810 b d f = xG5q3
+  ring
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61f0_sum
+    (b d : k) :
+    quarticCoreG5sqQ61p0f0ABCDEFG810 b d =
+      quarticCoreRU22U24f0ABCDEFG810 b d := by
+  simp only [quarticCoreG5sqQ61p0f0ABCDEFG810, quarticCoreRU22U24f0ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61f1_sum
+    (b d : k) :
+    quarticCoreG5sqQ61p0f1ABCDEFG810 b d +
+        quarticCoreG5sqQ61p1f1ABCDEFG810 b d =
+      quarticCoreRU22U24f1ABCDEFG810 b d := by
+  simp only [quarticCoreG5sqQ61p0f1ABCDEFG810, quarticCoreG5sqQ61p1f1ABCDEFG810, quarticCoreRU22U24f1ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61f2_sum
+    (b d : k) :
+    quarticCoreG5sqQ61p0f2ABCDEFG810 b d +
+        quarticCoreG5sqQ61p1f2ABCDEFG810 b d =
+      quarticCoreRU22U24f2ABCDEFG810 b d := by
+  simp only [quarticCoreG5sqQ61p0f2ABCDEFG810, quarticCoreG5sqQ61p1f2ABCDEFG810, quarticCoreRU22U24f2ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61f3_sum
+    (b d : k) :
+    quarticCoreG5sqQ61p0f3ABCDEFG810 b d +
+        quarticCoreG5sqQ61p1f3ABCDEFG810 b d =
+      quarticCoreRU22U24f3ABCDEFG810 b d := by
+  simp only [quarticCoreG5sqQ61p0f3ABCDEFG810, quarticCoreG5sqQ61p1f3ABCDEFG810, quarticCoreRU22U24f3ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61f4_sum
+    (b d : k) :
+    quarticCoreG5sqQ61p0f4ABCDEFG810 b d +
+        quarticCoreG5sqQ61p1f4ABCDEFG810 b d =
+      quarticCoreRU22U24f4ABCDEFG810 b d := by
+  simp only [quarticCoreG5sqQ61p0f4ABCDEFG810, quarticCoreG5sqQ61p1f4ABCDEFG810, quarticCoreRU22U24f4ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61f5_sum
+    (b d : k) :
+    quarticCoreG5sqQ61p0f5ABCDEFG810 b d +
+        quarticCoreG5sqQ61p1f5ABCDEFG810 b d =
+      quarticCoreRU22U24f5ABCDEFG810 b d := by
+  simp only [quarticCoreG5sqQ61p0f5ABCDEFG810, quarticCoreG5sqQ61p1f5ABCDEFG810, quarticCoreRU22U24f5ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61f6_sum
+    (b d : k) :
+    quarticCoreG5sqQ61p0f6ABCDEFG810 b d +
+        quarticCoreG5sqQ61p1f6ABCDEFG810 b d =
+      quarticCoreRU22U24f6ABCDEFG810 b d := by
+  simp only [quarticCoreG5sqQ61p0f6ABCDEFG810, quarticCoreG5sqQ61p1f6ABCDEFG810, quarticCoreRU22U24f6ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61f7_sum
+    (b d : k) :
+    quarticCoreG5sqQ61p0f7ABCDEFG810 b d +
+        quarticCoreG5sqQ61p1f7ABCDEFG810 b d =
+      quarticCoreRU22U24f7ABCDEFG810 b d := by
+  simp only [quarticCoreG5sqQ61p0f7ABCDEFG810, quarticCoreG5sqQ61p1f7ABCDEFG810, quarticCoreRU22U24f7ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61f8_sum
+    (b d : k) :
+    quarticCoreG5sqQ61p0f8ABCDEFG810 b d +
+        quarticCoreG5sqQ61p1f8ABCDEFG810 b d =
+      quarticCoreRU22U24f8ABCDEFG810 b d := by
+  simp only [quarticCoreG5sqQ61p0f8ABCDEFG810, quarticCoreG5sqQ61p1f8ABCDEFG810, quarticCoreRU22U24f8ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61f9_sum
+    (b d : k) :
+    quarticCoreG5sqQ61p0f9ABCDEFG810 b d +
+        quarticCoreG5sqQ61p1f9ABCDEFG810 b d =
+      quarticCoreRU22U24f9ABCDEFG810 b d := by
+  simp only [quarticCoreG5sqQ61p0f9ABCDEFG810, quarticCoreG5sqQ61p1f9ABCDEFG810, quarticCoreRU22U24f9ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61f10_sum
+    (b d : k) :
+    quarticCoreG5sqQ61p0f10ABCDEFG810 b d +
+        quarticCoreG5sqQ61p1f10ABCDEFG810 b d =
+      quarticCoreRU22U24f10ABCDEFG810 b d := by
+  simp only [quarticCoreG5sqQ61p0f10ABCDEFG810, quarticCoreG5sqQ61p1f10ABCDEFG810, quarticCoreRU22U24f10ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61f11_sum
+    (b d : k) :
+    quarticCoreG5sqQ61p0f11ABCDEFG810 b d +
+        quarticCoreG5sqQ61p1f11ABCDEFG810 b d =
+      quarticCoreRU22U24f11ABCDEFG810 b d := by
+  simp only [quarticCoreG5sqQ61p0f11ABCDEFG810, quarticCoreG5sqQ61p1f11ABCDEFG810, quarticCoreRU22U24f11ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61f12_sum
+    (b d : k) :
+    quarticCoreG5sqQ61p0f12ABCDEFG810 b d +
+        quarticCoreG5sqQ61p1f12ABCDEFG810 b d =
+      quarticCoreRU22U24f12ABCDEFG810 b d := by
+  simp only [quarticCoreG5sqQ61p0f12ABCDEFG810, quarticCoreG5sqQ61p1f12ABCDEFG810, quarticCoreRU22U24f12ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61f13_sum
+    (b d : k) :
+    quarticCoreG5sqQ61p0f13ABCDEFG810 b d +
+        quarticCoreG5sqQ61p1f13ABCDEFG810 b d =
+      quarticCoreRU22U24f13ABCDEFG810 b d := by
+  simp only [quarticCoreG5sqQ61p0f13ABCDEFG810, quarticCoreG5sqQ61p1f13ABCDEFG810, quarticCoreRU22U24f13ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61f14_sum
+    (b d : k) :
+    quarticCoreG5sqQ61p1f14ABCDEFG810 b d =
+      quarticCoreRU22U24f14ABCDEFG810 b d := by
+  simp only [quarticCoreG5sqQ61p1f14ABCDEFG810, quarticCoreRU22U24f14ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5sqQ61f15_sum
+    (b d : k) :
+    quarticCoreG5sqQ61p1f15ABCDEFG810 b d =
+      quarticCoreRU22U24f15ABCDEFG810 b d := by
+  simp only [quarticCoreG5sqQ61p1f15ABCDEFG810, quarticCoreRU22U24f15ABCDEFG810]
+  try ring
+set_option maxHeartbeats 64000000 in
+theorem quarticCoreG5_mul_G5Q61_eq_RU22U24
+    (b d f : k) :
+    quarticCoreG5ABCDEFG810 b d f * quarticCoreG5Q61ABCDEFG810 b d f =
+      quarticCoreRU22U24ABCDEFG810 b d f := by
+  rw [quarticCoreG5_mul_G5Q61_chunks]
+  rw [quarticCoreG5sqQ61p0_eq_viaf, quarticCoreG5sqQ61p1_eq_viaf]
+  rw [quarticCoreG5sqQ61p0viafABCDEFG810, quarticCoreG5sqQ61p1viafABCDEFG810, quarticCoreRU22U24_split]
+  have s0 := quarticCoreG5sqQ61f0_sum b d
+  have s1 := quarticCoreG5sqQ61f1_sum b d
+  have s2 := quarticCoreG5sqQ61f2_sum b d
+  have s3 := quarticCoreG5sqQ61f3_sum b d
+  have s4 := quarticCoreG5sqQ61f4_sum b d
+  have s5 := quarticCoreG5sqQ61f5_sum b d
+  have s6 := quarticCoreG5sqQ61f6_sum b d
+  have s7 := quarticCoreG5sqQ61f7_sum b d
+  have s8 := quarticCoreG5sqQ61f8_sum b d
+  have s9 := quarticCoreG5sqQ61f9_sum b d
+  have s10 := quarticCoreG5sqQ61f10_sum b d
+  have s11 := quarticCoreG5sqQ61f11_sum b d
+  have s12 := quarticCoreG5sqQ61f12_sum b d
+  have s13 := quarticCoreG5sqQ61f13_sum b d
+  have s14 := quarticCoreG5sqQ61f14_sum b d
+  have s15 := quarticCoreG5sqQ61f15_sum b d
+  linear_combination s0 + s1 * f + s2 * f ^ 2 + s3 * f ^ 3 + s4 * f ^ 4 + s5 * f ^ 5 + s6 * f ^ 6 + s7 * f ^ 7 + s8 * f ^ 8 + s9 * f ^ 9 + s10 * f ^ 10 + s11 * f ^ 11 + s12 * f ^ 12 + s13 * f ^ 13 + s14 * f ^ 14 + s15 * f ^ 15
+/-! ## `Q61 = 0` from `G5 ≠ 0` -/
+
+set_option maxHeartbeats 64000000 in
+theorem quarticConeABCDEFG810_Q61_zero
+    {j t : k}
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X])
+    (hcone : QuarticRatioConeABCDEFG810 A B C D E F G)
+    (hxi : (degreeZeroXiQuartic810 l beta gamma delta epsilon zeta
+          eta theta A B C D E F G).natDegree =
+        0)
+    (hmu : (degreeZeroMuQuartic810 l beta gamma delta epsilon zeta eta
+          theta A B C D E F G).natDegree =
+        0)
+    (homi : (degreeZeroOmicronQuartic810 l beta gamma delta epsilon zeta
+          eta theta A B C D E F G).natDegree =
+        0)
+    (hkap : (degreeZeroKappaQuartic810 l beta gamma delta epsilon zeta
+          eta theta A B C D E F G).natDegree =
+        0)
+    (hnu : (degreeZeroNuQuartic810 l beta gamma delta epsilon zeta eta
+          theta A B C D E F G).natDegree =
+        0)
+    (hpi : (degreeZeroPiQuartic810 l beta gamma delta epsilon zeta eta
+          theta A B C D E F G).natDegree =
+        0)
+    (hjdiv : j / t ≠ 0)
+    (hder : derivative
+        (degreeZeroPrimitiveQuartic810 l beta gamma delta epsilon zeta
+          eta theta A B C D E F G) =
+        Polynomial.C (j / t)) :
+    quarticCoreQ61ABCDEFG810 B.leadingCoeff D.leadingCoeff F.leadingCoeff = 0 := by
+  have hRU := quarticConeABCDEFG810_RU22U24_zero (j := j) (t := t)
+      l beta gamma delta epsilon zeta eta theta A B C D E F G hcone hxi hmu homi hkap hnu hpi hjdiv hder
+  have hG5 : quarticCoreG5ABCDEFG810 B.leadingCoeff D.leadingCoeff F.leadingCoeff ≠ 0 := by
+    intro h0
+    exact quarticConeABCDEFG810_residual10 (j := j) (t := t)
+      l beta gamma delta epsilon zeta eta theta A B C D E F G hcone hxi hmu homi hkap hnu hpi hjdiv hder
+      h0
+  have hfac2 := quarticCoreG5_mul_G5Q61_eq_RU22U24 B.leadingCoeff D.leadingCoeff F.leadingCoeff
+  rw [hRU] at hfac2
+  have hG5Q61 : quarticCoreG5Q61ABCDEFG810 B.leadingCoeff D.leadingCoeff F.leadingCoeff = 0 :=
+    (mul_eq_zero.mp hfac2).resolve_left hG5
+  have hfac1 := quarticCoreG5_mul_Q61_eq_G5Q61 B.leadingCoeff D.leadingCoeff F.leadingCoeff
+  rw [hG5Q61] at hfac1
+  exact (mul_eq_zero.mp hfac1).resolve_left hG5
+
 end QuarticFullConeABCDEFG810Q52
 
 end Max11DegreeRoutes
