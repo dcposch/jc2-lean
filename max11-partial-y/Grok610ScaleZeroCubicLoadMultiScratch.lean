@@ -1783,6 +1783,7 @@ theorem lambdaChamberRestCD610_natDegree_lt
 
 end CubicLoadSigmaCDFinish610
 
+
 /-! ## Residual 8: `{B,C}` and `{B,C,E}` closed; `{B,C,D,E}` off-wall closed.
 
 Leftover: `{C,D}` (N₁ walls and the chamber `2c+d ≤ a`) and `{B,C,D,E}`
