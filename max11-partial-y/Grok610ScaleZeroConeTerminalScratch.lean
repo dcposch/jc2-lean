@@ -2504,7 +2504,7 @@ theorem normalized610ScaleZero_lambdaPolynomial_eq_C
         0 := by
     rw [himg, haRes]
     simpa [ratFuncDerivation68, ratFuncDerivation46_apply] using
-      ratFuncDerivation68_C aRes
+      ratFuncDerivation68_C610 aRes
   obtain ⟨c, hc⟩ :=
     degreeZeroLambdaPolynomial610_eq_C_of_ratFuncDeriv l alpha beta delta
       epsilon zeta eta theta A B C0 D0 E0 hderiv

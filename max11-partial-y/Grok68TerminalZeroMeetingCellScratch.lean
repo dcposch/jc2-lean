@@ -413,7 +413,7 @@ theorem expand_degreeZeroPrimitivePolynomial68
 
 /-! ## Ground constants and the primitive derivative -/
 
-theorem ratFuncDerivation68_C (x : k) :
+theorem ratFuncDerivation68_C68 (x : k) :
     ratFuncDerivation68 (RatFunc.C x) = 0 := by
   have hp := ratFuncDerivation46_polynomial (C x : k[X])
   simpa [ratFuncDerivation68, RatFunc.algebraMap_C] using hp
@@ -502,10 +502,10 @@ theorem integratedPolynomialLowerSystem68_firstIntegralTwo_const68
     lowerRowFour_integrated68_eq_deriv ratFuncDerivation68 (RatFunc.C l)
       AR BR CR DR ER (RatFunc.C alpha) (RatFunc.C beta) (RatFunc.C gamma)
       (RatFunc.C delta) (RatFunc.C epsilon) (RatFunc.C zeta)
-      (ratFuncDerivation68_C l) (ratFuncDerivation68_C alpha)
-      (ratFuncDerivation68_C beta) (ratFuncDerivation68_C gamma)
-      (ratFuncDerivation68_C delta) (ratFuncDerivation68_C epsilon)
-      (ratFuncDerivation68_C zeta)
+      (ratFuncDerivation68_C68 l) (ratFuncDerivation68_C68 alpha)
+      (ratFuncDerivation68_C68 beta) (ratFuncDerivation68_C68 gamma)
+      (ratFuncDerivation68_C68 delta) (ratFuncDerivation68_C68 epsilon)
+      (ratFuncDerivation68_C68 zeta)
   have hrow4z :
       let Q := integratedQ68 (RatFunc.C l) AR BR (RatFunc.C beta)
       let R := integratedR68 (RatFunc.C l) AR BR CR (RatFunc.C alpha)
@@ -523,7 +523,7 @@ theorem integratedPolynomialLowerSystem68_firstIntegralTwo_const68
           3 * BR * ratFuncDerivation68 T - 2 * CR * ratFuncDerivation68 S -
           DR * ratFuncDerivation68 R =
         0 := by
-    simpa [hI4map, ratFuncDerivation68_C i4] using hrow4
+    simpa [hI4map, ratFuncDerivation68_C68 i4] using hrow4
   have hrow2map :
       algebraMap k[X] (RatFunc k)
           (lowerRowTwoPolynomial68 S0 T0 U0 V0 B C0 D E) =
@@ -563,11 +563,11 @@ theorem integratedPolynomialLowerSystem68_firstIntegralTwo_const68
     lowerRowTwo_integrated68_eq_deriv ratFuncDerivation68 (RatFunc.C l)
       AR BR CR DR ER (RatFunc.C alpha) (RatFunc.C beta) (RatFunc.C gamma)
       (RatFunc.C delta) (RatFunc.C epsilon) (RatFunc.C zeta)
-      (RatFunc.C eta) (ratFuncDerivation68_C l)
-      (ratFuncDerivation68_C alpha) (ratFuncDerivation68_C beta)
-      (ratFuncDerivation68_C gamma) (ratFuncDerivation68_C delta)
-      (ratFuncDerivation68_C epsilon) (ratFuncDerivation68_C zeta)
-      (ratFuncDerivation68_C eta)
+      (RatFunc.C eta) (ratFuncDerivation68_C68 l)
+      (ratFuncDerivation68_C68 alpha) (ratFuncDerivation68_C68 beta)
+      (ratFuncDerivation68_C68 gamma) (ratFuncDerivation68_C68 delta)
+      (ratFuncDerivation68_C68 epsilon) (ratFuncDerivation68_C68 zeta)
+      (ratFuncDerivation68_C68 eta)
   have hI2deriv :
       ratFuncDerivation68
           (firstIntegralTwo68 (RatFunc.C l) AR BR CR DR ER
@@ -661,47 +661,47 @@ theorem integratedPolynomialLowerSystem68_degreeZeroPrimitive_deriv68
       RatFunc.algebraMap_C] using this
   have hrow :=
     degreeZeroPrimitive68_deriv_eq_row ratFuncDerivation68 (RatFunc.C l)
-      AR BR CR DR ER PR QR RR SR TR UR VR (ratFuncDerivation68_C l)
+      AR BR CR DR ER PR QR RR SR TR UR VR (ratFuncDerivation68_C68 l)
       (by
         simp only [PR]
         rw [halphaR]
-        exact ratFuncDerivation68_C alpha)
+        exact ratFuncDerivation68_C68 alpha)
       (by
         simp only [QR]
         rw [hbetaR]
-        exact ratFuncDerivation68_C beta)
+        exact ratFuncDerivation68_C68 beta)
       (by
         simp only [PR, RR]
         rw [hgammaR]
-        exact ratFuncDerivation68_C gamma)
+        exact ratFuncDerivation68_C68 gamma)
       (by
         simp only [PR, QR, SR]
         rw [hdeltaR]
-        exact ratFuncDerivation68_C delta)
+        exact ratFuncDerivation68_C68 delta)
       (by
         simp only [PR, QR, RR, TR]
         rw [hepsilonR]
-        exact ratFuncDerivation68_C epsilon)
+        exact ratFuncDerivation68_C68 epsilon)
       (by
         simp only [PR, QR, RR, SR, UR]
         rw [hzetaR]
-        exact ratFuncDerivation68_C zeta)
+        exact ratFuncDerivation68_C68 zeta)
       (by
         simp only [PR, QR, RR, SR, TR, VR]
         rw [hetaR]
-        exact ratFuncDerivation68_C eta)
+        exact ratFuncDerivation68_C68 eta)
       (by
         simp only [PR, QR, RR, SR, TR, UR]
         rw [hbetaR, hgammaR, hdeltaR, hepsilonR, hzetaR, hI4map]
-        exact ratFuncDerivation68_C i4)
+        exact ratFuncDerivation68_C68 i4)
       (by
         simp only [PR, QR, RR, SR, TR, UR]
         rw [hbetaR, hgammaR, hdeltaR, hepsilonR, hzetaR, hI3map]
-        exact ratFuncDerivation68_C i3)
+        exact ratFuncDerivation68_C68 i3)
       (by
         simp only [PR, QR, RR, SR, TR, UR]
         rw [hbetaR, hgammaR, hdeltaR, hepsilonR, hzetaR, hI2map]
-        exact ratFuncDerivation68_C i2)
+        exact ratFuncDerivation68_C68 i2)
   have hprimRF :
       degreeZeroPrimitive68 (RatFunc.C l) AR BR CR DR ER PR QR RR SR TR
           UR VR =

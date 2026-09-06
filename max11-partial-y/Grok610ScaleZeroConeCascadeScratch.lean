@@ -1296,7 +1296,7 @@ theorem degreeZeroPrimitiveHighARest610_natDegree_lt
     (natDegree_smul_lt610 epsilon hepsilon) (natDegree_smul_lt610 zeta hzeta)
     (natDegree_smul_lt610 eta heta) (natDegree_smul_lt610 theta htheta)
 
-theorem uniqueHighA_impossible_of_l_ne
+theorem uniqueHighA_impossible_of_l_ne610
     (l alpha beta delta epsilon zeta eta theta j : k)
     (A B C0 D0 E0 : k[X]) (hl : l ≠ 0) (hj : j ≠ 0)
     (hcone : UniqueHighACone610 A B C0 D0 E0)
@@ -1332,7 +1332,7 @@ theorem uniqueHighA_impossible_of_l_ne
   omega
 
 set_option maxHeartbeats 16000000 in
-theorem uniqueHighA_impossible_of_l_zero_B_pos
+theorem uniqueHighA_impossible_of_l_zero_B_pos610
     (alpha beta delta epsilon zeta eta theta j : k)
     (A B C0 D0 E0 : k[X]) (hj : j ≠ 0)
     (hcone : UniqueHighACone610 A B C0 D0 E0)
@@ -1913,22 +1913,22 @@ theorem normalized610ScaleZero_coneCascadeResidual
   · intro hcone
     refine ⟨?_, ?_, ?_⟩
     · by_contra hlne
-      exact uniqueHighA_impossible_of_l_ne l alpha beta delta epsilon
+      exact uniqueHighA_impossible_of_l_ne610 l alpha beta delta epsilon
         zeta eta theta (j / t) A B C0 D0 E0 hlne hjdiv hcone hder
     · by_contra hBpos
       have hpos : 0 < B.natDegree := Nat.pos_of_ne_zero hBpos
       have hl0 : l = 0 := by
         by_contra hlne
-        exact uniqueHighA_impossible_of_l_ne l alpha beta delta epsilon
+        exact uniqueHighA_impossible_of_l_ne610 l alpha beta delta epsilon
           zeta eta theta (j / t) A B C0 D0 E0 hlne hjdiv hcone hder
       subst hl0
-      exact uniqueHighA_impossible_of_l_zero_B_pos alpha beta delta
+      exact uniqueHighA_impossible_of_l_zero_B_pos610 alpha beta delta
         epsilon zeta eta theta (j / t) A B C0 D0 E0 hjdiv hcone hpos hder
     · intro hB0
       by_contra hbetane
       have hl0 : l = 0 := by
         by_contra hlne
-        exact uniqueHighA_impossible_of_l_ne l alpha beta delta epsilon
+        exact uniqueHighA_impossible_of_l_ne610 l alpha beta delta epsilon
           zeta eta theta (j / t) A B C0 D0 E0 hlne hjdiv hcone hder
       subst hl0
       subst hB0
@@ -1967,8 +1967,8 @@ end Residual610
 #print axioms constantScale_monicSextic_polynomialCore610
 #print axioms normalized610ScaleZero_exists_primitivePolynomial
 #print axioms degreeZeroPrimitivePolynomial610_false_of_constant_core
-#print axioms uniqueHighA_impossible_of_l_ne
-#print axioms uniqueHighA_impossible_of_l_zero_B_pos
+#print axioms uniqueHighA_impossible_of_l_ne610
+#print axioms uniqueHighA_impossible_of_l_zero_B_pos610
 #print axioms uniqueHighA_impossible_of_l_zero_B_zero_beta_ne
 #print axioms extremeHighB_impossible
 #print axioms uniqueNonconstantD0_impossible

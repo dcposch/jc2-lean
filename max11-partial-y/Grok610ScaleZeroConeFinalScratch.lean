@@ -401,7 +401,7 @@ theorem highA_l0_A5Coefficient610_natDegree_eq_zero
     natDegree_C _
   change ((35 / 729 * alpha : k) • B + (92160 / 2239488 : k) • D0 +
       C (49 / 5184 * delta : k)).natDegree = 0
-  exact natDegree_eq_zero_of_le_zero <|
+  exact natDegree_eq_zero_of_le_zero610 <|
     (natDegree_add_le _ _).trans <| max_le
       ((natDegree_add_le _ _).trans (max_le hB' hD')) hc.le
 

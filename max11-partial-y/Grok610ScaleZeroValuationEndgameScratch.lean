@@ -226,13 +226,13 @@ section GroundIntegration610
 variable {k : Type*} [Field k] [CharZero k]
 
 /-- A ground constant is killed by the standard rational derivation. -/
-theorem ratFuncDerivation68_C (a : k) :
+theorem ratFuncDerivation68_C610 (a : k) :
     ratFuncDerivation68 (RatFunc.C a) = 0 := by
   have hp := ratFuncDerivation46_polynomial (C a : k[X])
   simpa [ratFuncDerivation68, RatFunc.algebraMap_C] using hp
 
 /-- Differential constants in `k(x)` descend uniquely to the ground field. -/
-theorem ratFuncDerivation68_exists_C {c : RatFunc k}
+theorem ratFuncDerivation68_exists_C610 {c : RatFunc k}
     (hc : ratFuncDerivation68 c = 0) :
     ∃ a : k, c = RatFunc.C a := by
   apply GCD369RatFuncConstantsOfPolynomialDerivative
@@ -332,16 +332,16 @@ theorem monicSexticDecic_residuals_exist_ground610
     (g.coeff 7) (g.coeff 6) (g.coeff 5) (g.coeff 4) (g.coeff 3)
     (g.coeff 2) (g.coeff 0) hL halpha hbeta hgamma hdelta hepsilon
     hzeta heta (by linear_combination h5)
-  obtain ⟨l, hl⟩ := ratFuncDerivation68_exists_C hL
-  obtain ⟨alpha, halphaC⟩ := ratFuncDerivation68_exists_C halpha
-  obtain ⟨beta, hbetaC⟩ := ratFuncDerivation68_exists_C hbeta
-  obtain ⟨gamma, hgammaC⟩ := ratFuncDerivation68_exists_C hgamma
-  obtain ⟨delta, hdeltaC⟩ := ratFuncDerivation68_exists_C hdelta
-  obtain ⟨epsilon, hepsilonC⟩ := ratFuncDerivation68_exists_C hepsilon
-  obtain ⟨zeta, hzetaC⟩ := ratFuncDerivation68_exists_C hzeta
-  obtain ⟨eta, hetaC⟩ := ratFuncDerivation68_exists_C heta
-  obtain ⟨theta, hthetaC⟩ := ratFuncDerivation68_exists_C htheta
-  obtain ⟨iota, hiotaC⟩ := ratFuncDerivation68_exists_C hiota
+  obtain ⟨l, hl⟩ := ratFuncDerivation68_exists_C610 hL
+  obtain ⟨alpha, halphaC⟩ := ratFuncDerivation68_exists_C610 halpha
+  obtain ⟨beta, hbetaC⟩ := ratFuncDerivation68_exists_C610 hbeta
+  obtain ⟨gamma, hgammaC⟩ := ratFuncDerivation68_exists_C610 hgamma
+  obtain ⟨delta, hdeltaC⟩ := ratFuncDerivation68_exists_C610 hdelta
+  obtain ⟨epsilon, hepsilonC⟩ := ratFuncDerivation68_exists_C610 hepsilon
+  obtain ⟨zeta, hzetaC⟩ := ratFuncDerivation68_exists_C610 hzeta
+  obtain ⟨eta, hetaC⟩ := ratFuncDerivation68_exists_C610 heta
+  obtain ⟨theta, hthetaC⟩ := ratFuncDerivation68_exists_C610 htheta
+  obtain ⟨iota, hiotaC⟩ := ratFuncDerivation68_exists_C610 hiota
   exact ⟨l, alpha, beta, gamma, delta, epsilon, zeta, eta, theta, iota,
     hl, halphaC, hbetaC, hgammaC, hdeltaC, hepsilonC, hzetaC, hetaC,
     hthetaC, hiotaC⟩
@@ -447,7 +447,7 @@ theorem integratedDecic_core_deriv_zero610
       (RatFunc.C epsilon) (RatFunc.C zeta) (RatFunc.C eta)
       (RatFunc.C iota)) = 0 := by
   have hConst (c : k) : ratFuncDerivation68 (RatFunc.C c) = 0 :=
-    ratFuncDerivation68_C c
+    ratFuncDerivation68_C610 c
   have hfrac (m n : ℕ) :
       ratFuncDerivation68 ((m : RatFunc k) / (n : RatFunc k)) = 0 :=
     derivation_natDiv_zero68 ratFuncDerivation68 m n
@@ -530,7 +530,7 @@ theorem monicSexticDecic_false_of_core_deriv_zero610
       hg_high hg10 hL hjac
   have hcore := integratedDecic_core_deriv_zero610 (g.coeff 9) (f.coeff 4)
     (f.coeff 3) (f.coeff 2) (f.coeff 1) (f.coeff 0) alpha beta gamma delta
-    epsilon zeta eta theta iota (by simpa [hl] using ratFuncDerivation68_C l)
+    epsilon zeta eta theta iota (by simpa [hl] using ratFuncDerivation68_C610 l)
     hA hB hC hD hE
   have hP0 : ratFuncDerivation68 (g.coeff 8) = 0 := by
     rw [hP]; exact hcore.1
@@ -740,7 +740,7 @@ theorem scaleZero_exists_monicDepressedBracket_610
     rw [hg9L, hLval]
   have hLconst : ratFuncDerivation68 (g.coeff 9) = 0 := by
     rw [hg9const]
-    exact ratFuncDerivation68_C (-lambda / 3)
+    exact ratFuncDerivation68_C610 (-lambda / 3)
   have hdiv : RatFunc.C j / hRF = RatFunc.C (j / t) := by
     simp only [hRF, map_div₀]
   refine ⟨hf_high, hf6, hf5, hg_high, hg10, hLconst, ?_⟩
@@ -1068,8 +1068,8 @@ end SourceValuationEndgame610
 #print axioms integratedX610
 #print axioms integratedResiduals610
 #print axioms reconstructDecicCoefficients610
-#print axioms ratFuncDerivation68_C
-#print axioms ratFuncDerivation68_exists_C
+#print axioms ratFuncDerivation68_C610
+#print axioms ratFuncDerivation68_exists_C610
 #print axioms monicSexticDecic_residuals_exist_ground610
 #print axioms monicSexticDecic_integrate_over_ground610
 #print axioms integratedDecic_core_deriv_zero610

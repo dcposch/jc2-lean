@@ -1103,7 +1103,7 @@ theorem normalized610ScaleZero_firstIntegrals_eq_C
         0 := by
     rw [himgLam, haRes]
     simpa [ratFuncDerivation68, ratFuncDerivation46_apply] using
-      ratFuncDerivation68_C aRes
+      ratFuncDerivation68_C610 aRes
   have hderivKap :
       ratFuncDerivation46
           (algebraMap k[X] (RatFunc k)

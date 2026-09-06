@@ -494,7 +494,7 @@ section HighAResidualCone610
 
 variable {k : Type*} [Field k] [CharZero k]
 
-theorem natDegree_eq_zero_of_le_zero {p : k[X]} (h : p.natDegree ≤ 0) :
+theorem natDegree_eq_zero_of_le_zero610 {p : k[X]} (h : p.natDegree ≤ 0) :
     p.natDegree = 0 :=
   Nat.eq_zero_of_le_zero h
 
@@ -503,7 +503,7 @@ theorem natDegree_add_C_of_natDegree_eq_zero
     (p + C c).natDegree = 0 := by
   have hle : (p + C c).natDegree ≤ 0 :=
     (natDegree_add_le p (C c)).trans (max_le (hp.le) (by simp [natDegree_C]))
-  exact natDegree_eq_zero_of_le_zero hle
+  exact natDegree_eq_zero_of_le_zero610 hle
 
 theorem highA_l0_constB_A6Coefficient610_natDegree_eq_zero
     (beta : k) {B : k[X]} (hB : B.natDegree = 0) :
@@ -514,7 +514,7 @@ theorem highA_l0_constB_A6Coefficient610_natDegree_eq_zero
     natDegree_C _
   change ((-(62720 / 2239488 : k)) • B +
       C (2695 / 559872 * beta : k)).natDegree = 0
-  exact natDegree_eq_zero_of_le_zero <|
+  exact natDegree_eq_zero_of_le_zero610 <|
     (natDegree_add_le _ _).trans (max_le hsmul hc.le)
 
 theorem highA_l0_B0_beta0_A5Coefficient610_natDegree_eq_zero
@@ -525,7 +525,7 @@ theorem highA_l0_B0_beta0_A5Coefficient610_natDegree_eq_zero
   have hc : (C (49 / 5184 * delta : k) : k[X]).natDegree = 0 :=
     natDegree_C _
   change ((92160 / 2239488 : k) • D0 + C (49 / 5184 * delta : k)).natDegree = 0
-  exact natDegree_eq_zero_of_le_zero <|
+  exact natDegree_eq_zero_of_le_zero610 <|
     (natDegree_add_le _ _).trans (max_le hsmul hc.le)
 
 set_option maxHeartbeats 16000000 in
@@ -983,7 +983,7 @@ theorem uniqueC0_cubicCoefficient610_natDegree_eq_zero
   change ((419904 / 2239488 * l : k) • A +
       (414720 / 2239488 : k) • B +
       C (-(36288 / 559872 * beta : k))).natDegree = 0
-  exact natDegree_eq_zero_of_le_zero <|
+  exact natDegree_eq_zero_of_le_zero610 <|
     (natDegree_add_le _ _).trans <| max_le
       ((natDegree_add_le _ _).trans (max_le hA' hB')) hc.le
 
@@ -1214,7 +1214,7 @@ theorem uniqueNonconstantE0_impossible_of_beta_zero_deg_ge_two
     have hLdeg :
         (degreeZeroE0LinearPolynomial610 l alpha theta A B C0 D0).natDegree =
           0 :=
-      natDegree_eq_zero_of_le_zero hlin
+      natDegree_eq_zero_of_le_zero610 hlin
     have hlead :
         (degreeZeroE0LinearPolynomial610 l alpha theta A B C0 D0 * E0).natDegree =
           E0.natDegree := by
