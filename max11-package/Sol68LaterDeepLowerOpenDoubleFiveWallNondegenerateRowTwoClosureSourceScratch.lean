@@ -1,0 +1,27 @@
+import Sol68LaterDeepLowerOpenDoubleFiveWallNondegenerateRowTwoClosureSourcePart04Scratch
+
+/-! # Row-two closure of the nondegenerate double-five tangent -/
+
+noncomputable section
+
+open Polynomial
+
+namespace Max11DegreeRoutes
+
+section LaterDeepLowerOpenDoubleFiveWallNondegenerateRowTwoClosureSource68
+
+variable {k : Type*} [Field k] [CharZero k]
+
+set_option maxHeartbeats 30000000
+set_option linter.unusedSectionVars false
+set_option linter.unusedVariables false
+set_option linter.unusedSimpArgs false
+
+#print axioms secondaryResidualRowTwoPolynomial68_coeff_sixRadius_of_nondegenerate_fiveWall
+#print axioms cubicLoadRowTwoPolynomial68_coeff_sixRadius_of_nondegenerate_fiveWall
+#print axioms laterDeepLowerOpenDoubleFiveWall_nondegenerate_rowTwo_inconsistent68
+#print axioms maximalExpandedIntegratedPolynomialLowerSystem_laterDeepLowerOpenDoubleFiveWallNondegenerate_inconsistent68
+
+end LaterDeepLowerOpenDoubleFiveWallNondegenerateRowTwoClosureSource68
+
+end Max11DegreeRoutes

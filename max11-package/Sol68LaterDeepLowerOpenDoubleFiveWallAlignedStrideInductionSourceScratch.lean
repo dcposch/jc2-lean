@@ -1,0 +1,32 @@
+import Sol68LaterDeepLowerOpenDoubleFiveWallAlignedStrideInductionSourcePart08Scratch
+
+/-! # Uniform aligned-stride induction on the degenerate double-five wall -/
+
+noncomputable section
+
+open Polynomial
+
+namespace Max11DegreeRoutes
+
+section LaterDeepLowerOpenDoubleFiveWallAlignedStrideInductionSource68
+
+variable {k : Type*} [Field k] [CharZero k]
+
+set_option maxHeartbeats 30000000
+set_option linter.unusedSectionVars false
+set_option linter.unusedVariables false
+set_option linter.unusedSimpArgs false
+
+#print axioms secondaryResidualInvariantThreePolynomial68_coeff_aligned_offset_of_fiveWall
+#print axioms secondaryResidualRowOnePolynomial68_coeff_aligned_offset_of_fiveWall
+#print axioms laterDeepLowerOpenDoubleFiveWall_degenerate_aligned_offset_edges_zero68
+#print axioms secondaryLoadInvariantThreePolynomial68_degree_lt_aligned_offset_of_doubleFiveWall
+#print axioms cubicLoadRowOnePolynomial68_degree_lt_aligned_offset_of_doubleFiveWall
+#print axioms laterDeepLowerOpenDoubleFiveWall_aligned_offset_source_step68
+#print axioms maximalExpandedIntegratedPolynomialLowerSystem_laterDeepLowerOpenDoubleFiveWallDegenerateAlignedOffsetDescent68
+#print axioms secondaryLoadInvariantThreePolynomial68_coeff_terminal_aligned_offset_of_fiveWall
+#print axioms maximalExpandedIntegratedPolynomialLowerSystem_laterDeepLowerOpenDoubleFiveWallDegenerateAlignedTerminalLoad68
+
+end LaterDeepLowerOpenDoubleFiveWallAlignedStrideInductionSource68
+
+end Max11DegreeRoutes

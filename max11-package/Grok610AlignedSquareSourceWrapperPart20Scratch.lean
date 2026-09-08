@@ -1,0 +1,17 @@
+import Grok610AlignedSquareSourceWrapperPart03Scratch
+import Grok610AlignedSquareSourceWrapperPart05Scratch
+import Grok610AlignedSquareSourceWrapperPart06Scratch
+
+noncomputable section
+open Polynomial
+namespace Max11DegreeRoutes
+set_option maxRecDepth 100000000
+set_option linter.unusedSectionVars false
+set_option linter.unusedVariables false
+
+theorem alignedSquareRemainingPole610_eq_sub :
+    alignedSquareRemainingPole610 =
+      alignedSquareSourceClearingPower610 - alignedSquareBaseOrder610 :=
+  rfl
+
+end Max11DegreeRoutes

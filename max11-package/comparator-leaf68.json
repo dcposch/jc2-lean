@@ -1,0 +1,53 @@
+{
+  "challenge_module": "Max11Challenge",
+  "solution_module": "Grok68TerminalZeroMeetingCellScratch",
+  "theorem_names": [
+    "Max11DegreeRoutes.proved_planeKellerNormalized68LowScaleRoute"
+  ],
+  "definition_names": [
+    "PlaneJacobian",
+    "IsPlaneKellerPair",
+    "PlanePairGenerates",
+    "PlaneKellerAutomorphicAtDegrees",
+    "Max11GCDTwoPrimitive",
+    "Max11DegreeRoutes.targetRescale",
+    "Max11DegreeRoutes.Normalized69Source",
+    "Max11DegreeRoutes.Cube69FirstRowSource",
+    "Max11DegreeRoutes.PlaneKeller69CubeRoute",
+    "Max11DegreeRoutes.PlaneKeller69NoncubeRoute",
+    "Max11DegreeRoutes.PlaneKeller69CubeExclusion",
+    "Max11DegreeRoutes.PlaneKeller69NoncubeExclusion",
+    "Max11DegreeRoutes.PlaneKeller69NondivisibleCoreRoute",
+    "Max11DegreeRoutes.PlaneKeller69DivisibleCubeExclusion",
+    "Max11DegreeRoutes.PlaneKeller69DivisibleNoncubeExclusion",
+    "Max11DegreeRoutes.PlaneKellerPrimeTotalDegreeGCDRoute",
+    "Max11DegreeRoutes.PlaneKellerTwicePrimeTotalDegreeGCDRoute",
+    "Max11DegreeRoutes.PlaneKellerEvenLeadingScaleGCDTwoRoute",
+    "Max11DegreeRoutes.PlaneKellerEvenLeadingScaleAtDegrees",
+    "Max11DegreeRoutes.PlaneKellerStandardEndpointGCDObstruction",
+    "Max11DegreeRoutes.PlaneKellerStandardEndpointGCDRoute",
+    "Max11DegreeRoutes.PlaneKellerLeadingScaleAtDegrees",
+    "Max11DegreeRoutes.PlaneKellerLowEvenLeadingScalesAtDegrees",
+    "Max11DegreeRoutes.Normalized46LeadingCoreSource",
+    "Max11DegreeRoutes.PlaneKellerNormalized46LowScaleRoute",
+    "Max11DegreeRoutes.PlaneKellerNormalized46ScaleTwoRoute",
+    "Max11DegreeRoutes.NormalizedConsecutiveLeadingCoreSource",
+    "Max11DegreeRoutes.PlaneKellerNormalizedConsecutiveLowScaleRoute",
+    "Max11DegreeRoutes.Normalized68LeadingCoreSource",
+    "Max11DegreeRoutes.PlaneKellerNormalized68LowScaleRoute",
+    "Max11DegreeRoutes.Normalized810LeadingCoreSource",
+    "Max11DegreeRoutes.PlaneKellerNormalized810LowScaleRoute",
+    "Max11DegreeRoutes.NormalizedCoprimeLeadingCoreSource",
+    "Max11DegreeRoutes.PlaneKellerNormalizedCoprimeLowScaleRoute",
+    "Max11DegreeRoutes.Normalized410LeadingCoreSource",
+    "Max11DegreeRoutes.PlaneKellerNormalized410LowScaleRoute",
+    "Max11DegreeRoutes.Normalized610LeadingCoreSource",
+    "Max11DegreeRoutes.PlaneKellerNormalized610LowScaleRoute"
+  ],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
+  "enable_nanoda": true
+}

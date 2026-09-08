@@ -1,0 +1,58 @@
+import Grok810ScaleZeroQuarticChamberRests2Scratch
+import Grok810ScaleZeroQuarticChamberKills2Part1Scratch
+import Grok810ScaleZeroQuarticChamberKills2Part2Scratch
+import Grok810ScaleZeroQuarticChamberKills2Part3Scratch
+import Grok810ScaleZeroQuarticChamberKills2Part4Scratch
+import Grok810ScaleZeroQuarticChamberKills2Part5Scratch
+import Grok810ScaleZeroQuarticChamberKills2Part6Scratch
+import Grok810ScaleZeroQuarticChamberKills2Part7Scratch
+import Grok810ScaleZeroQuarticChamberKills2Part8Scratch
+import Grok810ScaleZeroQuarticChamberKills2Part9Scratch
+import Grok810ScaleZeroQuarticChamberKills2Part10Scratch
+import Grok810ScaleZeroQuarticChamberKills2Part11Scratch
+import Grok810ScaleZeroQuarticChamberKills2Part12Scratch
+import Grok810ScaleZeroQuarticChamberKills2Part13Scratch
+import Grok810ScaleZeroQuarticChamberKills2Part14Scratch
+import Grok810ScaleZeroQuarticChamberKills2Part15Scratch
+import Grok810ScaleZeroQuarticChamberKills2Part16Scratch
+import Grok810ScaleZeroQuarticChamberKills2Part17Scratch
+import Grok810ScaleZeroQuarticChamberKills2Part18Scratch
+import Grok810ScaleZeroQuarticChamberKills2Part19Scratch
+import Grok810ScaleZeroQuarticChamberKills2Part20Scratch
+import Grok810ScaleZeroQuarticChamberKills2Part21Scratch
+import Grok810ScaleZeroQuarticChamberKills2Part22Scratch
+import Grok810ScaleZeroQuarticChamberKills2Part23Scratch
+import Grok810ScaleZeroQuarticChamberKills2Part24Scratch
+
+/-! # Cost-ladder chamber kills, `(8,10)` scale zero
+
+265 further single-monomial chamber kills.  Untracked note.
+-/
+
+open scoped Polynomial.Bivariate
+
+noncomputable section
+
+open Polynomial
+
+namespace Max11DegreeRoutes
+
+set_option linter.unusedVariables false
+set_option linter.unusedSimpArgs false
+set_option linter.unusedSectionVars false
+set_option linter.unusedTactic false
+set_option linter.unreachableTactic false
+set_option linter.unnecessarySeqFocus false
+set_option linter.flexible false
+set_option linter.style.haveILetI false
+set_option linter.unnecessarySimpa false
+
+set_option maxRecDepth 1000000
+
+variable {k : Type*} [Field k] [CharZero k]
+
+section QuarticChamberKills2810
+
+end QuarticChamberKills2810
+
+end Max11DegreeRoutes

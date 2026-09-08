@@ -1,0 +1,1108 @@
+import Grok810ScaleZeroQuarticChamberN7LadderScratch
+
+/-! # `N₆` load-free part, load columns and split, `(8,10)` scale zero
+
+`degreeZeroN6Quartic810` has 148 monomials.  `…ChamberFacesPart0Scratch` does this
+for `κ, μ, ξ, π` only; `UNOWNED_CHAMBERS.md` needs the same for `ο`, `Π`
+and the auxiliaries `N₂…N₇`.  Independent of the sibling
+`…ChamberInfra*` modules.  Untracked working note.
+-/
+
+open scoped Polynomial.Bivariate
+
+noncomputable section
+
+open Polynomial
+
+namespace Max11DegreeRoutes
+
+set_option linter.unusedVariables false
+set_option linter.unusedSimpArgs false
+set_option linter.unusedSectionVars false
+set_option linter.unusedTactic false
+set_option linter.unreachableTactic false
+set_option linter.unnecessarySeqFocus false
+set_option linter.flexible false
+set_option linter.style.haveILetI false
+set_option linter.unnecessarySimpa false
+
+set_option maxRecDepth 1000000
+
+variable {k : Type*} [Field k] [CharZero k]
+
+section QuarticChamberInfraN6810
+
+/-! ## `N₆`: load-free part and the eight load columns -/
+
+set_option maxHeartbeats 64000000 in
+/-- The load-free part of `degreeZeroN6Quartic810` (28 monomials). -/
+def n6QuarticLoadFree810
+    (A B C D E F G : k[X]) : k[X] :=
+  (145 / 12288 : k) • (A ^ 2 * B ^ 3 * C)
+  + (93 / 8192 : k) • (A * B ^ 5)
+  - (25 / 1536 : k) • (A ^ 2 * B ^ 2 * F)
+  - (25 / 768 : k) • (A ^ 2 * B * D ^ 2)
+  - (115 / 1536 : k) • (A * B ^ 3 * E)
+  - (225 / 1024 : k) • (A * B ^ 2 * C * D)
+  - (45 / 1024 : k) • (A * B * C ^ 3)
+  - (125 / 2048 : k) • (B ^ 4 * D)
+  - (265 / 2048 : k) • (B ^ 3 * C ^ 2)
+  + (15 / 128 : k) • (A * B * C * G)
+  + (25 / 96 : k) • (A * B * D * F)
+  + (25 / 192 : k) • (A * B * E ^ 2)
+  + (5 / 96 : k) • (A * C ^ 2 * F)
+  + (95 / 384 : k) • (A * C * D * E)
+  + (25 / 384 : k) • (A * D ^ 3)
+  + (15 / 256 : k) • (B ^ 3 * G)
+  + (85 / 256 : k) • (B ^ 2 * C * F)
+  + (85 / 256 : k) • (B ^ 2 * D * E)
+  + (45 / 128 : k) • (B * C ^ 2 * E)
+  + (45 / 128 : k) • (B * C * D ^ 2)
+  + (15 / 128 : k) • (C ^ 3 * D)
+  - (25 / 48 : k) • (A * F * G)
+  - (5 / 16 : k) • (B * E * G)
+  - (5 / 16 : k) • (B * F ^ 2)
+  - (5 / 16 : k) • (C * D * G)
+  - (5 / 8 : k) • (C * E * F)
+  - (5 / 16 : k) • (D ^ 2 * F)
+  - (5 / 16 : k) • (D * E ^ 2)
+
+set_option maxHeartbeats 64000000 in
+/-- The `l` column of `degreeZeroN6Quartic810`, chunk 1/2 (20 monomials). -/
+def n6QuarticColumnL1810
+    (l : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  (715 / 268435456 * l : k) • A ^ 8
+  + (105 / 1048576 * l : k) • (A ^ 6 * C)
+  - (255 / 4194304 * l : k) • (A ^ 5 * B ^ 2)
+  + (105 / 262144 * l : k) • (A ^ 5 * E)
+  - (135 / 262144 * l : k) • (A ^ 4 * B * D)
+  + (585 / 524288 * l : k) • (A ^ 4 * C ^ 2)
+  - (93 / 131072 * l : k) • (A ^ 3 * B ^ 2 * C)
+  + (1425 / 524288 * l : k) • (A ^ 2 * B ^ 4)
+  + (15 / 32768 * l : k) • (A ^ 4 * G)
+  + (81 / 8192 * l : k) • (A ^ 3 * C * E)
+  - (15 / 8192 * l : k) • (A ^ 3 * D ^ 2)
+  - (135 / 16384 * l : k) • (A ^ 2 * B ^ 2 * E)
+  - (51 / 4096 * l : k) • (A ^ 2 * B * C * D)
+  + (11 / 8192 * l : k) • (A ^ 2 * C ^ 3)
+  - (369 / 8192 * l : k) • (A * B ^ 3 * D)
+  - (765 / 16384 * l : k) • (A * B ^ 2 * C ^ 2)
+  - (567 / 16384 * l : k) • (B ^ 4 * C)
+  + (3 / 256 * l : k) • (A ^ 2 * C * G)
+  + (3 / 1024 * l : k) • (A ^ 2 * D * F)
+  + (51 / 2048 * l : k) • (A ^ 2 * E ^ 2)
+
+def n6QuarticColumnL1810_live_InfraN6c1
+    (l : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  (715 / 268435456 * l : k) • A ^ 8
+  + (105 / 1048576 * l : k) • (A ^ 6 * C)
+  - (255 / 4194304 * l : k) • (A ^ 5 * B ^ 2)
+  + (105 / 262144 * l : k) • (A ^ 5 * E)
+  - (135 / 262144 * l : k) • (A ^ 4 * B * D)
+
+set_option maxHeartbeats 64000000 in
+theorem n6QuarticColumnL1810_live_InfraN6c1_natDegree_lt
+    {d : ℕ}
+    (l : k)
+    (A B C D E F G : k[X])
+    (hd0 : 8 * A.natDegree < d)
+    (hd1 : 6 * A.natDegree + C.natDegree < d)
+    (hd2 : 5 * A.natDegree + 2 * B.natDegree < d)
+    (hd3 : 5 * A.natDegree + E.natDegree < d)
+    (hd4 : 4 * A.natDegree + B.natDegree + D.natDegree < d) :
+    (n6QuarticColumnL1810_live_InfraN6c1 l A B C D E F G).natDegree < d := by
+  simp only [n6QuarticColumnL1810_live_InfraN6c1]
+  compute_degree
+  omega
+
+def n6QuarticColumnL1810_live_InfraN6c2
+    (l : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  (585 / 524288 * l : k) • (A ^ 4 * C ^ 2)
+  - (93 / 131072 * l : k) • (A ^ 3 * B ^ 2 * C)
+  + (1425 / 524288 * l : k) • (A ^ 2 * B ^ 4)
+  + (15 / 32768 * l : k) • (A ^ 4 * G)
+  + (81 / 8192 * l : k) • (A ^ 3 * C * E)
+
+set_option maxHeartbeats 64000000 in
+theorem n6QuarticColumnL1810_live_InfraN6c2_natDegree_lt
+    {d : ℕ}
+    (l : k)
+    (A B C D E F G : k[X])
+    (hd5 : 4 * A.natDegree + 2 * C.natDegree < d)
+    (hd6 : 3 * A.natDegree + 2 * B.natDegree + C.natDegree < d)
+    (hd7 : 2 * A.natDegree + 4 * B.natDegree < d)
+    (hd8 : 4 * A.natDegree + G.natDegree < d)
+    (hd9 : 3 * A.natDegree + C.natDegree + E.natDegree < d) :
+    (n6QuarticColumnL1810_live_InfraN6c2 l A B C D E F G).natDegree < d := by
+  simp only [n6QuarticColumnL1810_live_InfraN6c2]
+  compute_degree
+  omega
+
+def n6QuarticColumnL1810_live_InfraN6c3
+    (l : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  -((15 / 8192 * l : k) • (A ^ 3 * D ^ 2))
+  - (135 / 16384 * l : k) • (A ^ 2 * B ^ 2 * E)
+  - (51 / 4096 * l : k) • (A ^ 2 * B * C * D)
+  + (11 / 8192 * l : k) • (A ^ 2 * C ^ 3)
+  - (369 / 8192 * l : k) • (A * B ^ 3 * D)
+
+set_option maxHeartbeats 64000000 in
+theorem n6QuarticColumnL1810_live_InfraN6c3_natDegree_lt
+    {d : ℕ}
+    (l : k)
+    (A B C D E F G : k[X])
+    (hd10 : 3 * A.natDegree + 2 * D.natDegree < d)
+    (hd11 : 2 * A.natDegree + 2 * B.natDegree + E.natDegree < d)
+    (hd12 : 2 * A.natDegree + B.natDegree + C.natDegree + D.natDegree < d)
+    (hd13 : 2 * A.natDegree + 3 * C.natDegree < d)
+    (hd14 : A.natDegree + 3 * B.natDegree + D.natDegree < d) :
+    (n6QuarticColumnL1810_live_InfraN6c3 l A B C D E F G).natDegree < d := by
+  simp only [n6QuarticColumnL1810_live_InfraN6c3]
+  compute_degree
+  omega
+
+def n6QuarticColumnL1810_live_InfraN6c4
+    (l : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  -((765 / 16384 * l : k) • (A * B ^ 2 * C ^ 2))
+  - (567 / 16384 * l : k) • (B ^ 4 * C)
+  + (3 / 256 * l : k) • (A ^ 2 * C * G)
+  + (3 / 1024 * l : k) • (A ^ 2 * D * F)
+  + (51 / 2048 * l : k) • (A ^ 2 * E ^ 2)
+
+set_option maxHeartbeats 64000000 in
+theorem n6QuarticColumnL1810_live_InfraN6c4_natDegree_lt
+    {d : ℕ}
+    (l : k)
+    (A B C D E F G : k[X])
+    (hd15 : A.natDegree + 2 * B.natDegree + 2 * C.natDegree < d)
+    (hd16 : 4 * B.natDegree + C.natDegree < d)
+    (hd17 : 2 * A.natDegree + C.natDegree + G.natDegree < d)
+    (hd18 : 2 * A.natDegree + D.natDegree + F.natDegree < d)
+    (hd19 : 2 * A.natDegree + 2 * E.natDegree < d) :
+    (n6QuarticColumnL1810_live_InfraN6c4 l A B C D E F G).natDegree < d := by
+  simp only [n6QuarticColumnL1810_live_InfraN6c4]
+  compute_degree
+  omega
+
+set_option maxHeartbeats 64000000 in
+theorem n6QuarticColumnL1810_natDegree_lt
+    {d : ℕ}
+    (l : k)
+    (A B C D E F G : k[X])
+    (hd0 : 8 * A.natDegree < d)
+    (hd1 : 6 * A.natDegree + C.natDegree < d)
+    (hd2 : 5 * A.natDegree + 2 * B.natDegree < d)
+    (hd3 : 5 * A.natDegree + E.natDegree < d)
+    (hd4 : 4 * A.natDegree + B.natDegree + D.natDegree < d)
+    (hd5 : 4 * A.natDegree + 2 * C.natDegree < d)
+    (hd6 : 3 * A.natDegree + 2 * B.natDegree + C.natDegree < d)
+    (hd7 : 2 * A.natDegree + 4 * B.natDegree < d)
+    (hd8 : 4 * A.natDegree + G.natDegree < d)
+    (hd9 : 3 * A.natDegree + C.natDegree + E.natDegree < d)
+    (hd10 : 3 * A.natDegree + 2 * D.natDegree < d)
+    (hd11 : 2 * A.natDegree + 2 * B.natDegree + E.natDegree < d)
+    (hd12 : 2 * A.natDegree + B.natDegree + C.natDegree + D.natDegree < d)
+    (hd13 : 2 * A.natDegree + 3 * C.natDegree < d)
+    (hd14 : A.natDegree + 3 * B.natDegree + D.natDegree < d)
+    (hd15 : A.natDegree + 2 * B.natDegree + 2 * C.natDegree < d)
+    (hd16 : 4 * B.natDegree + C.natDegree < d)
+    (hd17 : 2 * A.natDegree + C.natDegree + G.natDegree < d)
+    (hd18 : 2 * A.natDegree + D.natDegree + F.natDegree < d)
+    (hd19 : 2 * A.natDegree + 2 * E.natDegree < d) :
+    (n6QuarticColumnL1810 l A B C D E F G).natDegree < d := by
+  have hsplit : n6QuarticColumnL1810 l A B C D E F G = n6QuarticColumnL1810_live_InfraN6c1 l A B C D E F G + n6QuarticColumnL1810_live_InfraN6c2 l A B C D E F G + n6QuarticColumnL1810_live_InfraN6c3 l A B C D E F G + n6QuarticColumnL1810_live_InfraN6c4 l A B C D E F G := by
+    simp only [n6QuarticColumnL1810, n6QuarticColumnL1810_live_InfraN6c1, n6QuarticColumnL1810_live_InfraN6c2, n6QuarticColumnL1810_live_InfraN6c3, n6QuarticColumnL1810_live_InfraN6c4, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero]
+    abel
+  rw [hsplit]
+  exact (lt_of_le_of_lt (Polynomial.natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (Polynomial.natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (Polynomial.natDegree_add_le _ _) (max_lt (n6QuarticColumnL1810_live_InfraN6c1_natDegree_lt l A B C D E F G hd0 hd1 hd2 hd3 hd4) (n6QuarticColumnL1810_live_InfraN6c2_natDegree_lt l A B C D E F G hd5 hd6 hd7 hd8 hd9))) (n6QuarticColumnL1810_live_InfraN6c3_natDegree_lt l A B C D E F G hd10 hd11 hd12 hd13 hd14))) (n6QuarticColumnL1810_live_InfraN6c4_natDegree_lt l A B C D E F G hd15 hd16 hd17 hd18 hd19)))
+
+
+theorem n6QuarticColumnL1810_zero (A B C D E F G : k[X]) :
+    n6QuarticColumnL1810 0 A B C D E F G = 0 := by
+  simp [n6QuarticColumnL1810]
+
+set_option maxHeartbeats 64000000 in
+/-- The `l` column of `degreeZeroN6Quartic810`, chunk 2/2 (19 monomials). -/
+def n6QuarticColumnL2810
+    (l : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  (27 / 1024 * l : k) • (A * B ^ 2 * G)
+  + (21 / 256 * l : k) • (A * B * C * F)
+  + (75 / 512 * l : k) • (A * B * D * E)
+  + (39 / 1024 * l : k) • (A * C ^ 2 * E)
+  + (9 / 128 * l : k) • (A * C * D ^ 2)
+  + (27 / 512 * l : k) • (B ^ 3 * F)
+  + (45 / 256 * l : k) • (B ^ 2 * C * E)
+  + (45 / 512 * l : k) • (B ^ 2 * D ^ 2)
+  + (189 / 1024 * l : k) • (B * C ^ 2 * D)
+  + (63 / 4096 * l : k) • C ^ 4
+  + (3 / 64 * l : k) • (A * E * G)
+  - (3 / 16 * l : k) • (A * F ^ 2)
+  - (9 / 64 * l : k) • (B * D * G)
+  - (9 / 32 * l : k) • (B * E * F)
+  - (9 / 128 * l : k) • (C ^ 2 * G)
+  - (9 / 32 * l : k) • (C * D * F)
+  - (9 / 64 * l : k) • (C * E ^ 2)
+  - (9 / 64 * l : k) • (D ^ 2 * E)
+  + (9 / 16 * l : k) • G ^ 2
+
+def n6QuarticColumnL2810_live_InfraN6c1
+    (l : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  (27 / 1024 * l : k) • (A * B ^ 2 * G)
+  + (21 / 256 * l : k) • (A * B * C * F)
+  + (75 / 512 * l : k) • (A * B * D * E)
+  + (39 / 1024 * l : k) • (A * C ^ 2 * E)
+  + (9 / 128 * l : k) • (A * C * D ^ 2)
+
+set_option maxHeartbeats 64000000 in
+theorem n6QuarticColumnL2810_live_InfraN6c1_natDegree_lt
+    {d : ℕ}
+    (l : k)
+    (A B C D E F G : k[X])
+    (hd0 : A.natDegree + 2 * B.natDegree + G.natDegree < d)
+    (hd1 : A.natDegree + B.natDegree + C.natDegree + F.natDegree < d)
+    (hd2 : A.natDegree + B.natDegree + D.natDegree + E.natDegree < d)
+    (hd3 : A.natDegree + 2 * C.natDegree + E.natDegree < d)
+    (hd4 : A.natDegree + C.natDegree + 2 * D.natDegree < d) :
+    (n6QuarticColumnL2810_live_InfraN6c1 l A B C D E F G).natDegree < d := by
+  simp only [n6QuarticColumnL2810_live_InfraN6c1]
+  compute_degree
+  omega
+
+def n6QuarticColumnL2810_live_InfraN6c2
+    (l : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  (27 / 512 * l : k) • (B ^ 3 * F)
+  + (45 / 256 * l : k) • (B ^ 2 * C * E)
+  + (45 / 512 * l : k) • (B ^ 2 * D ^ 2)
+  + (189 / 1024 * l : k) • (B * C ^ 2 * D)
+  + (63 / 4096 * l : k) • C ^ 4
+
+set_option maxHeartbeats 64000000 in
+theorem n6QuarticColumnL2810_live_InfraN6c2_natDegree_lt
+    {d : ℕ}
+    (l : k)
+    (A B C D E F G : k[X])
+    (hd5 : 3 * B.natDegree + F.natDegree < d)
+    (hd6 : 2 * B.natDegree + C.natDegree + E.natDegree < d)
+    (hd7 : 2 * B.natDegree + 2 * D.natDegree < d)
+    (hd8 : B.natDegree + 2 * C.natDegree + D.natDegree < d)
+    (hd9 : 4 * C.natDegree < d) :
+    (n6QuarticColumnL2810_live_InfraN6c2 l A B C D E F G).natDegree < d := by
+  simp only [n6QuarticColumnL2810_live_InfraN6c2]
+  compute_degree
+  omega
+
+def n6QuarticColumnL2810_live_InfraN6c3
+    (l : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  (3 / 64 * l : k) • (A * E * G)
+  - (3 / 16 * l : k) • (A * F ^ 2)
+  - (9 / 64 * l : k) • (B * D * G)
+  - (9 / 32 * l : k) • (B * E * F)
+  - (9 / 128 * l : k) • (C ^ 2 * G)
+
+set_option maxHeartbeats 64000000 in
+theorem n6QuarticColumnL2810_live_InfraN6c3_natDegree_lt
+    {d : ℕ}
+    (l : k)
+    (A B C D E F G : k[X])
+    (hd10 : A.natDegree + E.natDegree + G.natDegree < d)
+    (hd11 : A.natDegree + 2 * F.natDegree < d)
+    (hd12 : B.natDegree + D.natDegree + G.natDegree < d)
+    (hd13 : B.natDegree + E.natDegree + F.natDegree < d)
+    (hd14 : 2 * C.natDegree + G.natDegree < d) :
+    (n6QuarticColumnL2810_live_InfraN6c3 l A B C D E F G).natDegree < d := by
+  simp only [n6QuarticColumnL2810_live_InfraN6c3]
+  compute_degree
+  omega
+
+def n6QuarticColumnL2810_live_InfraN6c4
+    (l : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  -((9 / 32 * l : k) • (C * D * F))
+  - (9 / 64 * l : k) • (C * E ^ 2)
+  - (9 / 64 * l : k) • (D ^ 2 * E)
+  + (9 / 16 * l : k) • G ^ 2
+
+set_option maxHeartbeats 64000000 in
+theorem n6QuarticColumnL2810_live_InfraN6c4_natDegree_lt
+    {d : ℕ}
+    (l : k)
+    (A B C D E F G : k[X])
+    (hd15 : C.natDegree + D.natDegree + F.natDegree < d)
+    (hd16 : C.natDegree + 2 * E.natDegree < d)
+    (hd17 : 2 * D.natDegree + E.natDegree < d)
+    (hd18 : 2 * G.natDegree < d) :
+    (n6QuarticColumnL2810_live_InfraN6c4 l A B C D E F G).natDegree < d := by
+  simp only [n6QuarticColumnL2810_live_InfraN6c4]
+  compute_degree
+  omega
+
+set_option maxHeartbeats 64000000 in
+theorem n6QuarticColumnL2810_natDegree_lt
+    {d : ℕ}
+    (l : k)
+    (A B C D E F G : k[X])
+    (hd0 : A.natDegree + 2 * B.natDegree + G.natDegree < d)
+    (hd1 : A.natDegree + B.natDegree + C.natDegree + F.natDegree < d)
+    (hd2 : A.natDegree + B.natDegree + D.natDegree + E.natDegree < d)
+    (hd3 : A.natDegree + 2 * C.natDegree + E.natDegree < d)
+    (hd4 : A.natDegree + C.natDegree + 2 * D.natDegree < d)
+    (hd5 : 3 * B.natDegree + F.natDegree < d)
+    (hd6 : 2 * B.natDegree + C.natDegree + E.natDegree < d)
+    (hd7 : 2 * B.natDegree + 2 * D.natDegree < d)
+    (hd8 : B.natDegree + 2 * C.natDegree + D.natDegree < d)
+    (hd9 : 4 * C.natDegree < d)
+    (hd10 : A.natDegree + E.natDegree + G.natDegree < d)
+    (hd11 : A.natDegree + 2 * F.natDegree < d)
+    (hd12 : B.natDegree + D.natDegree + G.natDegree < d)
+    (hd13 : B.natDegree + E.natDegree + F.natDegree < d)
+    (hd14 : 2 * C.natDegree + G.natDegree < d)
+    (hd15 : C.natDegree + D.natDegree + F.natDegree < d)
+    (hd16 : C.natDegree + 2 * E.natDegree < d)
+    (hd17 : 2 * D.natDegree + E.natDegree < d)
+    (hd18 : 2 * G.natDegree < d) :
+    (n6QuarticColumnL2810 l A B C D E F G).natDegree < d := by
+  have hsplit : n6QuarticColumnL2810 l A B C D E F G = n6QuarticColumnL2810_live_InfraN6c1 l A B C D E F G + n6QuarticColumnL2810_live_InfraN6c2 l A B C D E F G + n6QuarticColumnL2810_live_InfraN6c3 l A B C D E F G + n6QuarticColumnL2810_live_InfraN6c4 l A B C D E F G := by
+    simp only [n6QuarticColumnL2810, n6QuarticColumnL2810_live_InfraN6c1, n6QuarticColumnL2810_live_InfraN6c2, n6QuarticColumnL2810_live_InfraN6c3, n6QuarticColumnL2810_live_InfraN6c4, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero]
+    abel
+  rw [hsplit]
+  exact (lt_of_le_of_lt (Polynomial.natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (Polynomial.natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (Polynomial.natDegree_add_le _ _) (max_lt (n6QuarticColumnL2810_live_InfraN6c1_natDegree_lt l A B C D E F G hd0 hd1 hd2 hd3 hd4) (n6QuarticColumnL2810_live_InfraN6c2_natDegree_lt l A B C D E F G hd5 hd6 hd7 hd8 hd9))) (n6QuarticColumnL2810_live_InfraN6c3_natDegree_lt l A B C D E F G hd10 hd11 hd12 hd13 hd14))) (n6QuarticColumnL2810_live_InfraN6c4_natDegree_lt l A B C D E F G hd15 hd16 hd17 hd18)))
+
+
+theorem n6QuarticColumnL2810_zero (A B C D E F G : k[X]) :
+    n6QuarticColumnL2810 0 A B C D E F G = 0 := by
+  simp [n6QuarticColumnL2810]
+
+set_option maxHeartbeats 64000000 in
+/-- The `beta` column of `degreeZeroN6Quartic810`, chunk 1/2 (20 monomials). -/
+def n6QuarticColumnBeta1810
+    (beta : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  (11 / 1048576 * beta : k) • A ^ 7
+  + (35 / 98304 * beta : k) • (A ^ 5 * C)
+  - (35 / 131072 * beta : k) • (A ^ 4 * B ^ 2)
+  + (35 / 24576 * beta : k) • (A ^ 4 * E)
+  - (35 / 12288 * beta : k) • (A ^ 3 * B * D)
+  + (7 / 2048 * beta : k) • (A ^ 3 * C ^ 2)
+  + (175 / 49152 * beta : k) • (A ^ 2 * B ^ 2 * C)
+  + (91 / 8192 * beta : k) • (A * B ^ 4)
+  + (7 / 3072 * beta : k) • (A ^ 2 * B * F)
+  + (35 / 1024 * beta : k) • (A ^ 2 * C * E)
+  - (133 / 6144 * beta : k) • (A ^ 2 * D ^ 2)
+  - (49 / 768 * beta : k) • (A * B ^ 2 * E)
+  - (7 / 64 * beta : k) • (A * B * C * D)
+  - (7 / 768 * beta : k) • (A * C ^ 3)
+  - (7 / 128 * beta : k) • (B ^ 3 * D)
+  - (91 / 1024 * beta : k) • (B ^ 2 * C ^ 2)
+  + (7 / 96 * beta : k) • (A * D * F)
+  + (7 / 48 * beta : k) • (A * E ^ 2)
+  + (7 / 32 * beta : k) • (B * C * F)
+  + (7 / 32 * beta : k) • (B * D * E)
+
+def n6QuarticColumnBeta1810_live_InfraN6c1
+    (beta : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  (11 / 1048576 * beta : k) • A ^ 7
+  + (35 / 98304 * beta : k) • (A ^ 5 * C)
+  - (35 / 131072 * beta : k) • (A ^ 4 * B ^ 2)
+  + (35 / 24576 * beta : k) • (A ^ 4 * E)
+  - (35 / 12288 * beta : k) • (A ^ 3 * B * D)
+
+set_option maxHeartbeats 64000000 in
+theorem n6QuarticColumnBeta1810_live_InfraN6c1_natDegree_lt
+    {d : ℕ}
+    (beta : k)
+    (A B C D E F G : k[X])
+    (hd0 : 7 * A.natDegree < d)
+    (hd1 : 5 * A.natDegree + C.natDegree < d)
+    (hd2 : 4 * A.natDegree + 2 * B.natDegree < d)
+    (hd3 : 4 * A.natDegree + E.natDegree < d)
+    (hd4 : 3 * A.natDegree + B.natDegree + D.natDegree < d) :
+    (n6QuarticColumnBeta1810_live_InfraN6c1 beta A B C D E F G).natDegree < d := by
+  simp only [n6QuarticColumnBeta1810_live_InfraN6c1]
+  compute_degree
+  omega
+
+def n6QuarticColumnBeta1810_live_InfraN6c2
+    (beta : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  (7 / 2048 * beta : k) • (A ^ 3 * C ^ 2)
+  + (175 / 49152 * beta : k) • (A ^ 2 * B ^ 2 * C)
+  + (91 / 8192 * beta : k) • (A * B ^ 4)
+  + (7 / 3072 * beta : k) • (A ^ 2 * B * F)
+  + (35 / 1024 * beta : k) • (A ^ 2 * C * E)
+
+set_option maxHeartbeats 64000000 in
+theorem n6QuarticColumnBeta1810_live_InfraN6c2_natDegree_lt
+    {d : ℕ}
+    (beta : k)
+    (A B C D E F G : k[X])
+    (hd5 : 3 * A.natDegree + 2 * C.natDegree < d)
+    (hd6 : 2 * A.natDegree + 2 * B.natDegree + C.natDegree < d)
+    (hd7 : A.natDegree + 4 * B.natDegree < d)
+    (hd8 : 2 * A.natDegree + B.natDegree + F.natDegree < d)
+    (hd9 : 2 * A.natDegree + C.natDegree + E.natDegree < d) :
+    (n6QuarticColumnBeta1810_live_InfraN6c2 beta A B C D E F G).natDegree < d := by
+  simp only [n6QuarticColumnBeta1810_live_InfraN6c2]
+  compute_degree
+  omega
+
+def n6QuarticColumnBeta1810_live_InfraN6c3
+    (beta : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  -((133 / 6144 * beta : k) • (A ^ 2 * D ^ 2))
+  - (49 / 768 * beta : k) • (A * B ^ 2 * E)
+  - (7 / 64 * beta : k) • (A * B * C * D)
+  - (7 / 768 * beta : k) • (A * C ^ 3)
+  - (7 / 128 * beta : k) • (B ^ 3 * D)
+
+set_option maxHeartbeats 64000000 in
+theorem n6QuarticColumnBeta1810_live_InfraN6c3_natDegree_lt
+    {d : ℕ}
+    (beta : k)
+    (A B C D E F G : k[X])
+    (hd10 : 2 * A.natDegree + 2 * D.natDegree < d)
+    (hd11 : A.natDegree + 2 * B.natDegree + E.natDegree < d)
+    (hd12 : A.natDegree + B.natDegree + C.natDegree + D.natDegree < d)
+    (hd13 : A.natDegree + 3 * C.natDegree < d)
+    (hd14 : 3 * B.natDegree + D.natDegree < d) :
+    (n6QuarticColumnBeta1810_live_InfraN6c3 beta A B C D E F G).natDegree < d := by
+  simp only [n6QuarticColumnBeta1810_live_InfraN6c3]
+  compute_degree
+  omega
+
+def n6QuarticColumnBeta1810_live_InfraN6c4
+    (beta : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  -((91 / 1024 * beta : k) • (B ^ 2 * C ^ 2))
+  + (7 / 96 * beta : k) • (A * D * F)
+  + (7 / 48 * beta : k) • (A * E ^ 2)
+  + (7 / 32 * beta : k) • (B * C * F)
+  + (7 / 32 * beta : k) • (B * D * E)
+
+set_option maxHeartbeats 64000000 in
+theorem n6QuarticColumnBeta1810_live_InfraN6c4_natDegree_lt
+    {d : ℕ}
+    (beta : k)
+    (A B C D E F G : k[X])
+    (hd15 : 2 * B.natDegree + 2 * C.natDegree < d)
+    (hd16 : A.natDegree + D.natDegree + F.natDegree < d)
+    (hd17 : A.natDegree + 2 * E.natDegree < d)
+    (hd18 : B.natDegree + C.natDegree + F.natDegree < d)
+    (hd19 : B.natDegree + D.natDegree + E.natDegree < d) :
+    (n6QuarticColumnBeta1810_live_InfraN6c4 beta A B C D E F G).natDegree < d := by
+  simp only [n6QuarticColumnBeta1810_live_InfraN6c4]
+  compute_degree
+  omega
+
+set_option maxHeartbeats 64000000 in
+theorem n6QuarticColumnBeta1810_natDegree_lt
+    {d : ℕ}
+    (beta : k)
+    (A B C D E F G : k[X])
+    (hd0 : 7 * A.natDegree < d)
+    (hd1 : 5 * A.natDegree + C.natDegree < d)
+    (hd2 : 4 * A.natDegree + 2 * B.natDegree < d)
+    (hd3 : 4 * A.natDegree + E.natDegree < d)
+    (hd4 : 3 * A.natDegree + B.natDegree + D.natDegree < d)
+    (hd5 : 3 * A.natDegree + 2 * C.natDegree < d)
+    (hd6 : 2 * A.natDegree + 2 * B.natDegree + C.natDegree < d)
+    (hd7 : A.natDegree + 4 * B.natDegree < d)
+    (hd8 : 2 * A.natDegree + B.natDegree + F.natDegree < d)
+    (hd9 : 2 * A.natDegree + C.natDegree + E.natDegree < d)
+    (hd10 : 2 * A.natDegree + 2 * D.natDegree < d)
+    (hd11 : A.natDegree + 2 * B.natDegree + E.natDegree < d)
+    (hd12 : A.natDegree + B.natDegree + C.natDegree + D.natDegree < d)
+    (hd13 : A.natDegree + 3 * C.natDegree < d)
+    (hd14 : 3 * B.natDegree + D.natDegree < d)
+    (hd15 : 2 * B.natDegree + 2 * C.natDegree < d)
+    (hd16 : A.natDegree + D.natDegree + F.natDegree < d)
+    (hd17 : A.natDegree + 2 * E.natDegree < d)
+    (hd18 : B.natDegree + C.natDegree + F.natDegree < d)
+    (hd19 : B.natDegree + D.natDegree + E.natDegree < d) :
+    (n6QuarticColumnBeta1810 beta A B C D E F G).natDegree < d := by
+  have hsplit : n6QuarticColumnBeta1810 beta A B C D E F G = n6QuarticColumnBeta1810_live_InfraN6c1 beta A B C D E F G + n6QuarticColumnBeta1810_live_InfraN6c2 beta A B C D E F G + n6QuarticColumnBeta1810_live_InfraN6c3 beta A B C D E F G + n6QuarticColumnBeta1810_live_InfraN6c4 beta A B C D E F G := by
+    simp only [n6QuarticColumnBeta1810, n6QuarticColumnBeta1810_live_InfraN6c1, n6QuarticColumnBeta1810_live_InfraN6c2, n6QuarticColumnBeta1810_live_InfraN6c3, n6QuarticColumnBeta1810_live_InfraN6c4, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero]
+    abel
+  rw [hsplit]
+  exact (lt_of_le_of_lt (Polynomial.natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (Polynomial.natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (Polynomial.natDegree_add_le _ _) (max_lt (n6QuarticColumnBeta1810_live_InfraN6c1_natDegree_lt beta A B C D E F G hd0 hd1 hd2 hd3 hd4) (n6QuarticColumnBeta1810_live_InfraN6c2_natDegree_lt beta A B C D E F G hd5 hd6 hd7 hd8 hd9))) (n6QuarticColumnBeta1810_live_InfraN6c3_natDegree_lt beta A B C D E F G hd10 hd11 hd12 hd13 hd14))) (n6QuarticColumnBeta1810_live_InfraN6c4_natDegree_lt beta A B C D E F G hd15 hd16 hd17 hd18 hd19)))
+
+
+theorem n6QuarticColumnBeta1810_zero (A B C D E F G : k[X]) :
+    n6QuarticColumnBeta1810 0 A B C D E F G = 0 := by
+  simp [n6QuarticColumnBeta1810]
+
+set_option maxHeartbeats 64000000 in
+/-- The `beta` column of `degreeZeroN6Quartic810`, chunk 2/2 (3 monomials). -/
+def n6QuarticColumnBeta2810
+    (beta : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  (7 / 64 * beta : k) • (C ^ 2 * E)
+  + (7 / 64 * beta : k) • (C * D ^ 2)
+  - (7 / 16 * beta : k) • F ^ 2
+
+set_option maxHeartbeats 64000000 in
+theorem n6QuarticColumnBeta2810_natDegree_lt
+    {d : ℕ}
+    (beta : k)
+    (A B C D E F G : k[X])
+    (hd0 : 2 * C.natDegree + E.natDegree < d)
+    (hd1 : C.natDegree + 2 * D.natDegree < d)
+    (hd2 : 2 * F.natDegree < d) :
+    (n6QuarticColumnBeta2810 beta A B C D E F G).natDegree < d := by
+  simp only [n6QuarticColumnBeta2810]
+  compute_degree
+  omega
+
+theorem n6QuarticColumnBeta2810_zero (A B C D E F G : k[X]) :
+    n6QuarticColumnBeta2810 0 A B C D E F G = 0 := by
+  simp [n6QuarticColumnBeta2810]
+
+set_option maxHeartbeats 64000000 in
+/-- The `gamma` column of `degreeZeroN6Quartic810` (11 monomials). -/
+def n6QuarticColumnGamma810
+    (gamma : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  (5 / 768 * gamma : k) • (A ^ 2 * B ^ 3)
+  - (15 / 128 * gamma : k) • (A * B ^ 2 * D)
+  - (9 / 128 * gamma : k) • (A * B * C ^ 2)
+  - (27 / 256 * gamma : k) • (B ^ 3 * C)
+  - (1 / 32 * gamma : k) • (A * C * F)
+  + (5 / 16 * gamma : k) • (A * D * E)
+  + (9 / 64 * gamma : k) • (B ^ 2 * F)
+  + (3 / 8 * gamma : k) • (B * C * E)
+  + (3 / 16 * gamma : k) • (B * D ^ 2)
+  + (3 / 16 * gamma : k) • (C ^ 2 * D)
+  - (3 / 4 * gamma : k) • (E * F)
+
+def n6QuarticColumnGamma810_live_InfraN6c1
+    (gamma : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  (5 / 768 * gamma : k) • (A ^ 2 * B ^ 3)
+  - (15 / 128 * gamma : k) • (A * B ^ 2 * D)
+  - (9 / 128 * gamma : k) • (A * B * C ^ 2)
+  - (27 / 256 * gamma : k) • (B ^ 3 * C)
+  - (1 / 32 * gamma : k) • (A * C * F)
+  + (5 / 16 * gamma : k) • (A * D * E)
+
+set_option maxHeartbeats 64000000 in
+theorem n6QuarticColumnGamma810_live_InfraN6c1_natDegree_lt
+    {d : ℕ}
+    (gamma : k)
+    (A B C D E F G : k[X])
+    (hd0 : 2 * A.natDegree + 3 * B.natDegree < d)
+    (hd1 : A.natDegree + 2 * B.natDegree + D.natDegree < d)
+    (hd2 : A.natDegree + B.natDegree + 2 * C.natDegree < d)
+    (hd3 : 3 * B.natDegree + C.natDegree < d)
+    (hd4 : A.natDegree + C.natDegree + F.natDegree < d)
+    (hd5 : A.natDegree + D.natDegree + E.natDegree < d) :
+    (n6QuarticColumnGamma810_live_InfraN6c1 gamma A B C D E F G).natDegree < d := by
+  simp only [n6QuarticColumnGamma810_live_InfraN6c1]
+  compute_degree
+  omega
+
+def n6QuarticColumnGamma810_live_InfraN6c2
+    (gamma : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  (9 / 64 * gamma : k) • (B ^ 2 * F)
+  + (3 / 8 * gamma : k) • (B * C * E)
+  + (3 / 16 * gamma : k) • (B * D ^ 2)
+  + (3 / 16 * gamma : k) • (C ^ 2 * D)
+  - (3 / 4 * gamma : k) • (E * F)
+
+set_option maxHeartbeats 64000000 in
+theorem n6QuarticColumnGamma810_live_InfraN6c2_natDegree_lt
+    {d : ℕ}
+    (gamma : k)
+    (A B C D E F G : k[X])
+    (hd6 : 2 * B.natDegree + F.natDegree < d)
+    (hd7 : B.natDegree + C.natDegree + E.natDegree < d)
+    (hd8 : B.natDegree + 2 * D.natDegree < d)
+    (hd9 : 2 * C.natDegree + D.natDegree < d)
+    (hd10 : E.natDegree + F.natDegree < d) :
+    (n6QuarticColumnGamma810_live_InfraN6c2 gamma A B C D E F G).natDegree < d := by
+  simp only [n6QuarticColumnGamma810_live_InfraN6c2]
+  compute_degree
+  omega
+
+set_option maxHeartbeats 64000000 in
+theorem n6QuarticColumnGamma810_natDegree_lt
+    {d : ℕ}
+    (gamma : k)
+    (A B C D E F G : k[X])
+    (hd0 : 2 * A.natDegree + 3 * B.natDegree < d)
+    (hd1 : A.natDegree + 2 * B.natDegree + D.natDegree < d)
+    (hd2 : A.natDegree + B.natDegree + 2 * C.natDegree < d)
+    (hd3 : 3 * B.natDegree + C.natDegree < d)
+    (hd4 : A.natDegree + C.natDegree + F.natDegree < d)
+    (hd5 : A.natDegree + D.natDegree + E.natDegree < d)
+    (hd6 : 2 * B.natDegree + F.natDegree < d)
+    (hd7 : B.natDegree + C.natDegree + E.natDegree < d)
+    (hd8 : B.natDegree + 2 * D.natDegree < d)
+    (hd9 : 2 * C.natDegree + D.natDegree < d)
+    (hd10 : E.natDegree + F.natDegree < d) :
+    (n6QuarticColumnGamma810 gamma A B C D E F G).natDegree < d := by
+  have hsplit : n6QuarticColumnGamma810 gamma A B C D E F G = n6QuarticColumnGamma810_live_InfraN6c1 gamma A B C D E F G + n6QuarticColumnGamma810_live_InfraN6c2 gamma A B C D E F G := by
+    simp only [n6QuarticColumnGamma810, n6QuarticColumnGamma810_live_InfraN6c1, n6QuarticColumnGamma810_live_InfraN6c2, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero]
+    abel
+  rw [hsplit]
+  exact (lt_of_le_of_lt (Polynomial.natDegree_add_le _ _) (max_lt (n6QuarticColumnGamma810_live_InfraN6c1_natDegree_lt gamma A B C D E F G hd0 hd1 hd2 hd3 hd4 hd5) (n6QuarticColumnGamma810_live_InfraN6c2_natDegree_lt gamma A B C D E F G hd6 hd7 hd8 hd9 hd10)))
+
+
+theorem n6QuarticColumnGamma810_zero (A B C D E F G : k[X]) :
+    n6QuarticColumnGamma810 0 A B C D E F G = 0 := by
+  simp [n6QuarticColumnGamma810]
+
+set_option maxHeartbeats 64000000 in
+/-- The `delta` column of `degreeZeroN6Quartic810` (17 monomials). -/
+def n6QuarticColumnDelta810
+    (delta : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  (21 / 524288 * delta : k) • A ^ 6
+  + (5 / 4096 * delta : k) • (A ^ 4 * C)
+  - (65 / 49152 * delta : k) • (A ^ 3 * B ^ 2)
+  + (5 / 1024 * delta : k) • (A ^ 3 * E)
+  - (95 / 3072 * delta : k) • (A ^ 2 * B * D)
+  + (65 / 6144 * delta : k) • (A ^ 2 * C ^ 2)
+  - (125 / 1024 * delta : k) • (A * B ^ 2 * C)
+  - (135 / 4096 * delta : k) • B ^ 4
+  - (5 / 384 * delta : k) • (A ^ 2 * G)
+  + (5 / 96 * delta : k) • (A * B * F)
+  + (35 / 192 * delta : k) • (A * C * E)
+  + (5 / 32 * delta : k) • (A * D ^ 2)
+  + (25 / 128 * delta : k) • (B ^ 2 * E)
+  + (15 / 32 * delta : k) • (B * C * D)
+  + (5 / 64 * delta : k) • C ^ 3
+  - (5 / 8 * delta : k) • (D * F)
+  - (5 / 16 * delta : k) • E ^ 2
+
+def n6QuarticColumnDelta810_live_InfraN6c1
+    (delta : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  (21 / 524288 * delta : k) • A ^ 6
+  + (5 / 4096 * delta : k) • (A ^ 4 * C)
+  - (65 / 49152 * delta : k) • (A ^ 3 * B ^ 2)
+  + (5 / 1024 * delta : k) • (A ^ 3 * E)
+  - (95 / 3072 * delta : k) • (A ^ 2 * B * D)
+  + (65 / 6144 * delta : k) • (A ^ 2 * C ^ 2)
+
+set_option maxHeartbeats 64000000 in
+theorem n6QuarticColumnDelta810_live_InfraN6c1_natDegree_lt
+    {d : ℕ}
+    (delta : k)
+    (A B C D E F G : k[X])
+    (hd0 : 6 * A.natDegree < d)
+    (hd1 : 4 * A.natDegree + C.natDegree < d)
+    (hd2 : 3 * A.natDegree + 2 * B.natDegree < d)
+    (hd3 : 3 * A.natDegree + E.natDegree < d)
+    (hd4 : 2 * A.natDegree + B.natDegree + D.natDegree < d)
+    (hd5 : 2 * A.natDegree + 2 * C.natDegree < d) :
+    (n6QuarticColumnDelta810_live_InfraN6c1 delta A B C D E F G).natDegree < d := by
+  simp only [n6QuarticColumnDelta810_live_InfraN6c1]
+  compute_degree
+  omega
+
+def n6QuarticColumnDelta810_live_InfraN6c2
+    (delta : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  -((125 / 1024 * delta : k) • (A * B ^ 2 * C))
+  - (135 / 4096 * delta : k) • B ^ 4
+  - (5 / 384 * delta : k) • (A ^ 2 * G)
+  + (5 / 96 * delta : k) • (A * B * F)
+  + (35 / 192 * delta : k) • (A * C * E)
+  + (5 / 32 * delta : k) • (A * D ^ 2)
+
+set_option maxHeartbeats 64000000 in
+theorem n6QuarticColumnDelta810_live_InfraN6c2_natDegree_lt
+    {d : ℕ}
+    (delta : k)
+    (A B C D E F G : k[X])
+    (hd6 : A.natDegree + 2 * B.natDegree + C.natDegree < d)
+    (hd7 : 4 * B.natDegree < d)
+    (hd8 : 2 * A.natDegree + G.natDegree < d)
+    (hd9 : A.natDegree + B.natDegree + F.natDegree < d)
+    (hd10 : A.natDegree + C.natDegree + E.natDegree < d)
+    (hd11 : A.natDegree + 2 * D.natDegree < d) :
+    (n6QuarticColumnDelta810_live_InfraN6c2 delta A B C D E F G).natDegree < d := by
+  simp only [n6QuarticColumnDelta810_live_InfraN6c2]
+  compute_degree
+  omega
+
+def n6QuarticColumnDelta810_live_InfraN6c3
+    (delta : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  (25 / 128 * delta : k) • (B ^ 2 * E)
+  + (15 / 32 * delta : k) • (B * C * D)
+  + (5 / 64 * delta : k) • C ^ 3
+  - (5 / 8 * delta : k) • (D * F)
+  - (5 / 16 * delta : k) • E ^ 2
+
+set_option maxHeartbeats 64000000 in
+theorem n6QuarticColumnDelta810_live_InfraN6c3_natDegree_lt
+    {d : ℕ}
+    (delta : k)
+    (A B C D E F G : k[X])
+    (hd12 : 2 * B.natDegree + E.natDegree < d)
+    (hd13 : B.natDegree + C.natDegree + D.natDegree < d)
+    (hd14 : 3 * C.natDegree < d)
+    (hd15 : D.natDegree + F.natDegree < d)
+    (hd16 : 2 * E.natDegree < d) :
+    (n6QuarticColumnDelta810_live_InfraN6c3 delta A B C D E F G).natDegree < d := by
+  simp only [n6QuarticColumnDelta810_live_InfraN6c3]
+  compute_degree
+  omega
+
+set_option maxHeartbeats 64000000 in
+theorem n6QuarticColumnDelta810_natDegree_lt
+    {d : ℕ}
+    (delta : k)
+    (A B C D E F G : k[X])
+    (hd0 : 6 * A.natDegree < d)
+    (hd1 : 4 * A.natDegree + C.natDegree < d)
+    (hd2 : 3 * A.natDegree + 2 * B.natDegree < d)
+    (hd3 : 3 * A.natDegree + E.natDegree < d)
+    (hd4 : 2 * A.natDegree + B.natDegree + D.natDegree < d)
+    (hd5 : 2 * A.natDegree + 2 * C.natDegree < d)
+    (hd6 : A.natDegree + 2 * B.natDegree + C.natDegree < d)
+    (hd7 : 4 * B.natDegree < d)
+    (hd8 : 2 * A.natDegree + G.natDegree < d)
+    (hd9 : A.natDegree + B.natDegree + F.natDegree < d)
+    (hd10 : A.natDegree + C.natDegree + E.natDegree < d)
+    (hd11 : A.natDegree + 2 * D.natDegree < d)
+    (hd12 : 2 * B.natDegree + E.natDegree < d)
+    (hd13 : B.natDegree + C.natDegree + D.natDegree < d)
+    (hd14 : 3 * C.natDegree < d)
+    (hd15 : D.natDegree + F.natDegree < d)
+    (hd16 : 2 * E.natDegree < d) :
+    (n6QuarticColumnDelta810 delta A B C D E F G).natDegree < d := by
+  have hsplit : n6QuarticColumnDelta810 delta A B C D E F G = n6QuarticColumnDelta810_live_InfraN6c1 delta A B C D E F G + n6QuarticColumnDelta810_live_InfraN6c2 delta A B C D E F G + n6QuarticColumnDelta810_live_InfraN6c3 delta A B C D E F G := by
+    simp only [n6QuarticColumnDelta810, n6QuarticColumnDelta810_live_InfraN6c1, n6QuarticColumnDelta810_live_InfraN6c2, n6QuarticColumnDelta810_live_InfraN6c3, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero]
+    abel
+  rw [hsplit]
+  exact (lt_of_le_of_lt (Polynomial.natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (Polynomial.natDegree_add_le _ _) (max_lt (n6QuarticColumnDelta810_live_InfraN6c1_natDegree_lt delta A B C D E F G hd0 hd1 hd2 hd3 hd4 hd5) (n6QuarticColumnDelta810_live_InfraN6c2_natDegree_lt delta A B C D E F G hd6 hd7 hd8 hd9 hd10 hd11))) (n6QuarticColumnDelta810_live_InfraN6c3_natDegree_lt delta A B C D E F G hd12 hd13 hd14 hd15 hd16)))
+
+
+theorem n6QuarticColumnDelta810_zero (A B C D E F G : k[X]) :
+    n6QuarticColumnDelta810 0 A B C D E F G = 0 := by
+  simp [n6QuarticColumnDelta810]
+
+set_option maxHeartbeats 64000000 in
+/-- The `epsilon` column of `degreeZeroN6Quartic810` (7 monomials). -/
+def n6QuarticColumnEpsilon810
+    (epsilon : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  (-(5 / 96 * epsilon : k)) • (A * B ^ 3)
+  + (5 / 24 * epsilon : k) • (A * B * E)
+  + (3 / 16 * epsilon : k) • (A * C * D)
+  + (7 / 32 * epsilon : k) • (B ^ 2 * D)
+  + (1 / 4 * epsilon : k) • (B * C ^ 2)
+  - (1 / 2 * epsilon : k) • (C * F)
+  - (1 / 2 * epsilon : k) • (D * E)
+
+def n6QuarticColumnEpsilon810_live_InfraN6c1
+    (epsilon : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  (-(5 / 96 * epsilon : k)) • (A * B ^ 3)
+  + (5 / 24 * epsilon : k) • (A * B * E)
+  + (3 / 16 * epsilon : k) • (A * C * D)
+  + (7 / 32 * epsilon : k) • (B ^ 2 * D)
+
+set_option maxHeartbeats 64000000 in
+theorem n6QuarticColumnEpsilon810_live_InfraN6c1_natDegree_lt
+    {d : ℕ}
+    (epsilon : k)
+    (A B C D E F G : k[X])
+    (hd0 : A.natDegree + 3 * B.natDegree < d)
+    (hd1 : A.natDegree + B.natDegree + E.natDegree < d)
+    (hd2 : A.natDegree + C.natDegree + D.natDegree < d)
+    (hd3 : 2 * B.natDegree + D.natDegree < d) :
+    (n6QuarticColumnEpsilon810_live_InfraN6c1 epsilon A B C D E F G).natDegree < d := by
+  simp only [n6QuarticColumnEpsilon810_live_InfraN6c1]
+  compute_degree
+  omega
+
+def n6QuarticColumnEpsilon810_live_InfraN6c2
+    (epsilon : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  (1 / 4 * epsilon : k) • (B * C ^ 2)
+  - (1 / 2 * epsilon : k) • (C * F)
+  - (1 / 2 * epsilon : k) • (D * E)
+
+set_option maxHeartbeats 64000000 in
+theorem n6QuarticColumnEpsilon810_live_InfraN6c2_natDegree_lt
+    {d : ℕ}
+    (epsilon : k)
+    (A B C D E F G : k[X])
+    (hd4 : B.natDegree + 2 * C.natDegree < d)
+    (hd5 : C.natDegree + F.natDegree < d)
+    (hd6 : D.natDegree + E.natDegree < d) :
+    (n6QuarticColumnEpsilon810_live_InfraN6c2 epsilon A B C D E F G).natDegree < d := by
+  simp only [n6QuarticColumnEpsilon810_live_InfraN6c2]
+  compute_degree
+  omega
+
+set_option maxHeartbeats 64000000 in
+theorem n6QuarticColumnEpsilon810_natDegree_lt
+    {d : ℕ}
+    (epsilon : k)
+    (A B C D E F G : k[X])
+    (hd0 : A.natDegree + 3 * B.natDegree < d)
+    (hd1 : A.natDegree + B.natDegree + E.natDegree < d)
+    (hd2 : A.natDegree + C.natDegree + D.natDegree < d)
+    (hd3 : 2 * B.natDegree + D.natDegree < d)
+    (hd4 : B.natDegree + 2 * C.natDegree < d)
+    (hd5 : C.natDegree + F.natDegree < d)
+    (hd6 : D.natDegree + E.natDegree < d) :
+    (n6QuarticColumnEpsilon810 epsilon A B C D E F G).natDegree < d := by
+  have hsplit : n6QuarticColumnEpsilon810 epsilon A B C D E F G = n6QuarticColumnEpsilon810_live_InfraN6c1 epsilon A B C D E F G + n6QuarticColumnEpsilon810_live_InfraN6c2 epsilon A B C D E F G := by
+    simp only [n6QuarticColumnEpsilon810, n6QuarticColumnEpsilon810_live_InfraN6c1, n6QuarticColumnEpsilon810_live_InfraN6c2, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero]
+    abel
+  rw [hsplit]
+  exact (lt_of_le_of_lt (Polynomial.natDegree_add_le _ _) (max_lt (n6QuarticColumnEpsilon810_live_InfraN6c1_natDegree_lt epsilon A B C D E F G hd0 hd1 hd2 hd3) (n6QuarticColumnEpsilon810_live_InfraN6c2_natDegree_lt epsilon A B C D E F G hd4 hd5 hd6)))
+
+
+theorem n6QuarticColumnEpsilon810_zero (A B C D E F G : k[X]) :
+    n6QuarticColumnEpsilon810 0 A B C D E F G = 0 := by
+  simp [n6QuarticColumnEpsilon810]
+
+set_option maxHeartbeats 64000000 in
+/-- The `zeta` column of `degreeZeroN6Quartic810` (11 monomials). -/
+def n6QuarticColumnZeta810
+    (zeta : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  (7 / 49152 * zeta : k) • A ^ 5
+  + (1 / 256 * zeta : k) • (A ^ 3 * C)
+  - (11 / 1024 * zeta : k) • (A ^ 2 * B ^ 2)
+  + (1 / 64 * zeta : k) • (A ^ 2 * E)
+  + (3 / 16 * zeta : k) • (A * B * D)
+  + (3 / 64 * zeta : k) • (A * C ^ 2)
+  + (27 / 128 * zeta : k) • (B ^ 2 * C)
+  - (1 / 4 * zeta : k) • (A * G)
+  - (3 / 8 * zeta : k) • (B * F)
+  - (3 / 8 * zeta : k) • (C * E)
+  - (3 / 16 * zeta : k) • D ^ 2
+
+def n6QuarticColumnZeta810_live_InfraN6c1
+    (zeta : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  (7 / 49152 * zeta : k) • A ^ 5
+  + (1 / 256 * zeta : k) • (A ^ 3 * C)
+  - (11 / 1024 * zeta : k) • (A ^ 2 * B ^ 2)
+  + (1 / 64 * zeta : k) • (A ^ 2 * E)
+  + (3 / 16 * zeta : k) • (A * B * D)
+  + (3 / 64 * zeta : k) • (A * C ^ 2)
+
+set_option maxHeartbeats 64000000 in
+theorem n6QuarticColumnZeta810_live_InfraN6c1_natDegree_lt
+    {d : ℕ}
+    (zeta : k)
+    (A B C D E F G : k[X])
+    (hd0 : 5 * A.natDegree < d)
+    (hd1 : 3 * A.natDegree + C.natDegree < d)
+    (hd2 : 2 * A.natDegree + 2 * B.natDegree < d)
+    (hd3 : 2 * A.natDegree + E.natDegree < d)
+    (hd4 : A.natDegree + B.natDegree + D.natDegree < d)
+    (hd5 : A.natDegree + 2 * C.natDegree < d) :
+    (n6QuarticColumnZeta810_live_InfraN6c1 zeta A B C D E F G).natDegree < d := by
+  simp only [n6QuarticColumnZeta810_live_InfraN6c1]
+  compute_degree
+  omega
+
+def n6QuarticColumnZeta810_live_InfraN6c2
+    (zeta : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  (27 / 128 * zeta : k) • (B ^ 2 * C)
+  - (1 / 4 * zeta : k) • (A * G)
+  - (3 / 8 * zeta : k) • (B * F)
+  - (3 / 8 * zeta : k) • (C * E)
+  - (3 / 16 * zeta : k) • D ^ 2
+
+set_option maxHeartbeats 64000000 in
+theorem n6QuarticColumnZeta810_live_InfraN6c2_natDegree_lt
+    {d : ℕ}
+    (zeta : k)
+    (A B C D E F G : k[X])
+    (hd6 : 2 * B.natDegree + C.natDegree < d)
+    (hd7 : A.natDegree + G.natDegree < d)
+    (hd8 : B.natDegree + F.natDegree < d)
+    (hd9 : C.natDegree + E.natDegree < d)
+    (hd10 : 2 * D.natDegree < d) :
+    (n6QuarticColumnZeta810_live_InfraN6c2 zeta A B C D E F G).natDegree < d := by
+  simp only [n6QuarticColumnZeta810_live_InfraN6c2]
+  compute_degree
+  omega
+
+set_option maxHeartbeats 64000000 in
+theorem n6QuarticColumnZeta810_natDegree_lt
+    {d : ℕ}
+    (zeta : k)
+    (A B C D E F G : k[X])
+    (hd0 : 5 * A.natDegree < d)
+    (hd1 : 3 * A.natDegree + C.natDegree < d)
+    (hd2 : 2 * A.natDegree + 2 * B.natDegree < d)
+    (hd3 : 2 * A.natDegree + E.natDegree < d)
+    (hd4 : A.natDegree + B.natDegree + D.natDegree < d)
+    (hd5 : A.natDegree + 2 * C.natDegree < d)
+    (hd6 : 2 * B.natDegree + C.natDegree < d)
+    (hd7 : A.natDegree + G.natDegree < d)
+    (hd8 : B.natDegree + F.natDegree < d)
+    (hd9 : C.natDegree + E.natDegree < d)
+    (hd10 : 2 * D.natDegree < d) :
+    (n6QuarticColumnZeta810 zeta A B C D E F G).natDegree < d := by
+  have hsplit : n6QuarticColumnZeta810 zeta A B C D E F G = n6QuarticColumnZeta810_live_InfraN6c1 zeta A B C D E F G + n6QuarticColumnZeta810_live_InfraN6c2 zeta A B C D E F G := by
+    simp only [n6QuarticColumnZeta810, n6QuarticColumnZeta810_live_InfraN6c1, n6QuarticColumnZeta810_live_InfraN6c2, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero]
+    abel
+  rw [hsplit]
+  exact (lt_of_le_of_lt (Polynomial.natDegree_add_le _ _) (max_lt (n6QuarticColumnZeta810_live_InfraN6c1_natDegree_lt zeta A B C D E F G hd0 hd1 hd2 hd3 hd4 hd5) (n6QuarticColumnZeta810_live_InfraN6c2_natDegree_lt zeta A B C D E F G hd6 hd7 hd8 hd9 hd10)))
+
+
+theorem n6QuarticColumnZeta810_zero (A B C D E F G : k[X]) :
+    n6QuarticColumnZeta810 0 A B C D E F G = 0 := by
+  simp [n6QuarticColumnZeta810]
+
+set_option maxHeartbeats 64000000 in
+/-- The `eta` column of `degreeZeroN6Quartic810` (5 monomials). -/
+def n6QuarticColumnEta810
+    (eta : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  (3 / 32 * eta : k) • (A * B * C)
+  + (3 / 64 * eta : k) • B ^ 3
+  - (5 / 12 * eta : k) • (A * F)
+  - (1 / 4 * eta : k) • (B * E)
+  - (1 / 4 * eta : k) • (C * D)
+
+set_option maxHeartbeats 64000000 in
+theorem n6QuarticColumnEta810_natDegree_lt
+    {d : ℕ}
+    (eta : k)
+    (A B C D E F G : k[X])
+    (hd0 : A.natDegree + B.natDegree + C.natDegree < d)
+    (hd1 : 3 * B.natDegree < d)
+    (hd2 : A.natDegree + F.natDegree < d)
+    (hd3 : B.natDegree + E.natDegree < d)
+    (hd4 : C.natDegree + D.natDegree < d) :
+    (n6QuarticColumnEta810 eta A B C D E F G).natDegree < d := by
+  simp only [n6QuarticColumnEta810]
+  compute_degree
+  omega
+
+theorem n6QuarticColumnEta810_zero (A B C D E F G : k[X]) :
+    n6QuarticColumnEta810 0 A B C D E F G = 0 := by
+  simp [n6QuarticColumnEta810]
+
+set_option maxHeartbeats 64000000 in
+/-- The `theta` column of `degreeZeroN6Quartic810` (7 monomials). -/
+def n6QuarticColumnTheta810
+    (theta : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  (5 / 12288 * theta : k) • A ^ 4
+  + (1 / 96 * theta : k) • (A ^ 2 * C)
+  + (3 / 128 * theta : k) • (A * B ^ 2)
+  + (1 / 24 * theta : k) • (A * E)
+  - (1 / 8 * theta : k) • (B * D)
+  - (1 / 16 * theta : k) • C ^ 2
+  + (1 * theta : k) • G
+
+def n6QuarticColumnTheta810_live_InfraN6c1
+    (theta : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  (5 / 12288 * theta : k) • A ^ 4
+  + (1 / 96 * theta : k) • (A ^ 2 * C)
+  + (3 / 128 * theta : k) • (A * B ^ 2)
+  + (1 / 24 * theta : k) • (A * E)
+
+set_option maxHeartbeats 64000000 in
+theorem n6QuarticColumnTheta810_live_InfraN6c1_natDegree_lt
+    {d : ℕ}
+    (theta : k)
+    (A B C D E F G : k[X])
+    (hd0 : 4 * A.natDegree < d)
+    (hd1 : 2 * A.natDegree + C.natDegree < d)
+    (hd2 : A.natDegree + 2 * B.natDegree < d)
+    (hd3 : A.natDegree + E.natDegree < d) :
+    (n6QuarticColumnTheta810_live_InfraN6c1 theta A B C D E F G).natDegree < d := by
+  simp only [n6QuarticColumnTheta810_live_InfraN6c1]
+  compute_degree
+  omega
+
+def n6QuarticColumnTheta810_live_InfraN6c2
+    (theta : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  -((1 / 8 * theta : k) • (B * D))
+  - (1 / 16 * theta : k) • C ^ 2
+  + (1 * theta : k) • G
+
+set_option maxHeartbeats 64000000 in
+theorem n6QuarticColumnTheta810_live_InfraN6c2_natDegree_lt
+    {d : ℕ}
+    (theta : k)
+    (A B C D E F G : k[X])
+    (hd4 : B.natDegree + D.natDegree < d)
+    (hd5 : 2 * C.natDegree < d)
+    (hd6 : G.natDegree < d) :
+    (n6QuarticColumnTheta810_live_InfraN6c2 theta A B C D E F G).natDegree < d := by
+  simp only [n6QuarticColumnTheta810_live_InfraN6c2]
+  compute_degree
+  omega
+
+set_option maxHeartbeats 64000000 in
+theorem n6QuarticColumnTheta810_natDegree_lt
+    {d : ℕ}
+    (theta : k)
+    (A B C D E F G : k[X])
+    (hd0 : 4 * A.natDegree < d)
+    (hd1 : 2 * A.natDegree + C.natDegree < d)
+    (hd2 : A.natDegree + 2 * B.natDegree < d)
+    (hd3 : A.natDegree + E.natDegree < d)
+    (hd4 : B.natDegree + D.natDegree < d)
+    (hd5 : 2 * C.natDegree < d)
+    (hd6 : G.natDegree < d) :
+    (n6QuarticColumnTheta810 theta A B C D E F G).natDegree < d := by
+  have hsplit : n6QuarticColumnTheta810 theta A B C D E F G = n6QuarticColumnTheta810_live_InfraN6c1 theta A B C D E F G + n6QuarticColumnTheta810_live_InfraN6c2 theta A B C D E F G := by
+    simp only [n6QuarticColumnTheta810, n6QuarticColumnTheta810_live_InfraN6c1, n6QuarticColumnTheta810_live_InfraN6c2, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero]
+    abel
+  rw [hsplit]
+  exact (lt_of_le_of_lt (Polynomial.natDegree_add_le _ _) (max_lt (n6QuarticColumnTheta810_live_InfraN6c1_natDegree_lt theta A B C D E F G hd0 hd1 hd2 hd3) (n6QuarticColumnTheta810_live_InfraN6c2_natDegree_lt theta A B C D E F G hd4 hd5 hd6)))
+
+
+theorem n6QuarticColumnTheta810_zero (A B C D E F G : k[X]) :
+    n6QuarticColumnTheta810 0 A B C D E F G = 0 := by
+  simp [n6QuarticColumnTheta810]
+
+set_option maxHeartbeats 64000000 in
+/-- Cone-free split of `degreeZeroN6Quartic810` into its load-free part and its
+eight load columns. -/
+theorem degreeZeroN6Quartic810_eq_chamberSplit
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    degreeZeroN6Quartic810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      n6QuarticLoadFree810 A B C D E F G +
+      n6QuarticColumnL1810 l A B C D E F G +
+      n6QuarticColumnL2810 l A B C D E F G +
+      n6QuarticColumnBeta1810 beta A B C D E F G +
+      n6QuarticColumnBeta2810 beta A B C D E F G +
+      n6QuarticColumnGamma810 gamma A B C D E F G +
+      n6QuarticColumnDelta810 delta A B C D E F G +
+      n6QuarticColumnEpsilon810 epsilon A B C D E F G +
+      n6QuarticColumnZeta810 zeta A B C D E F G +
+      n6QuarticColumnEta810 eta A B C D E F G +
+      n6QuarticColumnTheta810 theta A B C D E F G := by
+  simp only [degreeZeroN6Quartic810, n6QuarticLoadFree810, n6QuarticColumnL1810, n6QuarticColumnL2810, n6QuarticColumnBeta1810, n6QuarticColumnBeta2810, n6QuarticColumnGamma810, n6QuarticColumnDelta810, n6QuarticColumnEpsilon810, n6QuarticColumnZeta810, n6QuarticColumnEta810, n6QuarticColumnTheta810, degreeZeroPrimitiveQuartic810, degreeZeroOmicronQuartic810, degreeZeroNuQuartic810, rhoBaseGroupQuartic810, rhoBetaGroupQuartic810, rhoGammaGroupQuartic810, rhoDeltaGroupQuartic810, rhoEpsilonGroupQuartic810, rhoZetaGroupQuartic810, rhoEtaGroupQuartic810, rhoThetaGroupQuartic810]
+  apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
+  simp only [Polynomial.smul_eq_C_mul, map_add, map_sub,
+    map_mul, map_pow, map_neg, map_zero, RatFunc.algebraMap_C,
+    map_div₀, map_ofNat, map_natCast, map_one]
+  ring
+
+
+end QuarticChamberInfraN6810
+
+end Max11DegreeRoutes

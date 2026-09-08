@@ -1,0 +1,81 @@
+import Grok610ScaleZeroCubicLoadMultiPart01Scratch
+import Grok610ScaleZeroCubicLoadMultiPart02Scratch
+import Grok610ScaleZeroCubicLoadMultiPart03Scratch
+import Grok610ScaleZeroCubicLoadMultiPart04Scratch
+import Grok610ScaleZeroCubicLoadMultiPart05Scratch
+import Grok610ScaleZeroCubicLoadMultiPart06Scratch
+import Grok610ScaleZeroCubicLoadMultiPart07Scratch
+import Grok610ScaleZeroCubicLoadMultiPart08Scratch
+import Grok610ScaleZeroCubicLoadMultiPart09Scratch
+import Grok610ScaleZeroCubicLoadMultiPart10Scratch
+import Grok610ScaleZeroCubicLoadMultiPart11Scratch
+import Grok610ScaleZeroCubicLoadMultiPart12Scratch
+import Grok610ScaleZeroCubicLoadMultiPart13Scratch
+import Grok610ScaleZeroCubicLoadMultiPart14Scratch
+import Grok610ScaleZeroCubicLoadMultiPart15Scratch
+import Grok610ScaleZeroCubicLoadMultiPart16Scratch
+import Grok610ScaleZeroCubicLoadMultiPart17Scratch
+import Grok610ScaleZeroCubicLoadMultiPart18Scratch
+import Grok610ScaleZeroCubicLoadMultiPart19Scratch
+import Grok610ScaleZeroCubicLoadMultiPart20Scratch
+import Grok610ScaleZeroCubicLoadMultiPart21Scratch
+import Grok610ScaleZeroCubicLoadMultiPart22Scratch
+import Grok610ScaleZeroCubicLoadMultiPart23Scratch
+import Grok610ScaleZeroCubicLoadMultiPart24Scratch
+import Grok610ScaleZeroCubicLoadMultiPart25Scratch
+import Grok610ScaleZeroCubicLoadMultiPart26Scratch
+import Grok610ScaleZeroCubicLoadMultiPart27Scratch
+import Grok610ScaleZeroCubicLoadMultiPart28Scratch
+import Grok610ScaleZeroCubicLoadMultiPart29Scratch
+import Grok610ScaleZeroCubicLoadMultiPart30Scratch
+import Grok610ScaleZeroCubicLoadMultiPart31Scratch
+import Grok610ScaleZeroCubicLoadMultiPart32Scratch
+import Grok610ScaleZeroCubicLoadMultiPart33Scratch
+import Grok610ScaleZeroCubicLoadMultiPart34Scratch
+import Grok610ScaleZeroCubicLoadMultiPart35Scratch
+import Grok610ScaleZeroCubicLoadMultiPart36Scratch
+import Grok610ScaleZeroCubicLoadMultiPart37Scratch
+import Grok610ScaleZeroCubicLoadMultiPart38Scratch
+import Grok610ScaleZeroCubicLoadMultiPart39Scratch
+import Grok610ScaleZeroCubicLoadMultiPart40Scratch
+import Grok610ScaleZeroCubicLoadMultiPart41Scratch
+import Grok610ScaleZeroCubicLoadMultiPart42Scratch
+import Grok610ScaleZeroCubicLoadMultiPart43Scratch
+import Grok610ScaleZeroCubicLoadMultiPart44Scratch
+import Grok610ScaleZeroCubicLoadMultiPart45Scratch
+import Grok610ScaleZeroCubicLoadMultiPart46Scratch
+import Grok610ScaleZeroCubicLoadMultiPart47Scratch
+import Grok610ScaleZeroCubicLoadMultiPart48Scratch
+import Grok610ScaleZeroCubicLoadMultiPart49Scratch
+import Grok610ScaleZeroCubicLoadMultiPart50Scratch
+import Grok610ScaleZeroCubicLoadMultiPart51Scratch
+import Grok610ScaleZeroCubicLoadMultiPart52Scratch
+import Grok610ScaleZeroCubicLoadMultiPart53Scratch
+import Grok610ScaleZeroCubicLoadMultiPart54Scratch
+import Grok610ScaleZeroCubicLoadMultiPart55Scratch
+
+/-! # Scale-zero cubic load-compete multi-monomial cones, `(6,10)`, `H = 0`
+
+Continuation of `Grok610ScaleZeroCubicLoadConesScratch`.  That file
+ends at `normalized610ScaleZero_cubicResidual7`: the leftover is the
+multi-monomial cones `{B,C}`, `{B,C,E}`, `{B,C,D,E}` and `{C,D}`
+(N₁ odd-column walls `7T ∈ {18a,30a,42a,54a}` and the chamber
+`2c+d ≤ a`).
+
+Plan `Grok610ScaleZeroCubicLoadCompetePlanScratch.md` File C (§2,
+§3.3–3.5, §4, §5 item 1): kill those cones via the identities
+`cubicSigmaInner_{BC,BCE,BCDE}` and the N₁/N₂ 2×2 on the CD/BCDE
+walls, then assemble `normalized610ScaleZero_impossible`.
+
+No `sorry`, no new axioms, no finite-root shortcut.
+Untracked working note.
+-/
+
+namespace Max11DegreeRoutes
+
+#print axioms cubicLoadSigmaCone_BC_impossible
+#print axioms cubicLoadSigmaCone_BCE_impossible
+#print axioms cubicLoadSigmaCone_BCDE_offWall_impossible
+#print axioms normalized610ScaleZero_cubicResidual8
+
+end Max11DegreeRoutes

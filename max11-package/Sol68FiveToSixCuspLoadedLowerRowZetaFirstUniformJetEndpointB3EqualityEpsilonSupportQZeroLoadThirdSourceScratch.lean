@@ -1,0 +1,26 @@
+import Sol68FiveToSixCuspLoadedLowerRowZetaFirstUniformJetEndpointB3EqualityEpsilonSupportQZeroLoadThirdSourcePart02Scratch
+
+/-! # Exact third-jet load coefficients on `q=0` -/
+
+noncomputable section
+
+open Polynomial
+
+namespace Max11DegreeRoutes
+
+section FiveToSixCuspLoadedLowerRowZetaFirstUniformJetEndpointB3EqualityEpsilonSupportQZeroLoadThirdSource68
+
+variable {k : Type*} [Field k] [CharZero k] [IsAlgClosed k]
+
+set_option maxHeartbeats 30000000
+set_option maxRecDepth 10000
+set_option linter.unusedSectionVars false
+set_option linter.unusedVariables false
+set_option linter.unusedSimpArgs false
+
+#print axioms fiveToSix_zetaFirst_B3_equality_support_qZero_rowTwo_load_third68
+#print axioms fiveToSix_zetaFirst_B3_equality_support_qZero_rowZero_load_third68
+
+end FiveToSixCuspLoadedLowerRowZetaFirstUniformJetEndpointB3EqualityEpsilonSupportQZeroLoadThirdSource68
+
+end Max11DegreeRoutes

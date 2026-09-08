@@ -1,0 +1,1137 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "jc2-max11-partial-y-degree-closure"
+  description: >-
+    Lean 4 / Mathlib proof of the exact finite degree-routing certificate
+    through maximum partial y-degree eleven, both abstractly and instantiated
+    for bivariate polynomials with nonzero constant Jacobian.  The concrete
+    strengthened characteristic-zero theorem proves the zero-degree,
+    equal-degree, and divisibility routes internally and concludes
+    K[P,Q]=K[x,y] from only the gcd-at-most-two and (6,9) route premises.
+    A further source-facing theorem replaces the (6,9) premise by exhaustive
+    normalized cube-core and noncube-core closure premises.  The imported
+    divisible-core assembly discharges both deep exclusions.  The local
+    source-shear, exact total-degree, and Dirichlet argument now reduce the
+    nondivisible history route to the canonical prime-total-degree-gcd theorem,
+    while a generic leading-degree/source-shear argument proves every coprime
+    partial-degree pair and the odd-common-scale half of gcd two from the same
+    prime theorem.  A finite classifier further reduces gcd two to five
+    primitive unordered degree pairs through eleven.  An exact source-shear
+    adapter to the published standard-pair endpoint obstruction eliminates
+    every even common-leading scale above two.  UFD extraction and invertible
+    target rescaling then normalize all five residual pairs to literal common
+    powers.  All five primitive gcd-two leaves are now closed internally; the
+    only remaining inputs are the canonical prime-total-degree-gcd theorem and
+    the published standard-endpoint obstruction, both cited as explicit
+    hypotheses.
+  authors:
+    - "Dan Clemens Posch"
+  license: "Apache-2.0"
+  responsible_maintainers:
+    - "Dan Clemens Posch"
+
+classification:
+  arxiv: ["math.AG", "math.AC", "math.CO"]
+  msc2020: ["14R15", "05A99"]
+
+sources:
+  - title: "GCD3 (6,9) coverage composition and the max-(11) threshold"
+    authors:
+      - "Dan Clemens Posch"
+    type: "other"
+    location: "sources/gcd3-69-coverage-composition-20260824.md"
+    relationship: "formalizes"
+    note: >-
+      Exact frozen campaign report containing the finite routing rules, the
+      exhaustive table through eleven, the recursive dependency graph, and
+      the frontier at twelve.  The Lean extraction formalizes that finite
+      composition only, not all mathematical leaves cited by the report.
+    license: "CC-BY-4.0"
+    author_endorsement: "participated"
+  - title: "Hostile different-model review: GCD3 (6,9) coverage composition"
+    authors:
+      - "Claude review agent under the JC2 campaign"
+    type: "other"
+    location: "sources/gcd3-69-coverage-composition-review-claude-20260824.md"
+    relationship: "background"
+    note: >-
+      Campaign-internal independent audit of the informal composition, copied
+      byte-for-byte.  It is not an external human review and does not review
+      this Lean extraction.
+    license: "CC-BY-4.0"
+    author_endorsement: "n/a"
+  - title: "Source-shear, common-core normalization, and low-scale Max-11 development"
+    authors:
+      - "Dan Clemens Posch"
+    type: "original-proof"
+    relationship: "other"
+    note: >-
+      These results are first presented by this Lean formalization rather than
+      imported from a prior paper or sibling proof.  The source-shear modules
+      give the exact bridge from partial y-degree to the published total-degree
+      theorems; the UFD and target-rescaling modules normalize the five
+      gcd-two leaves; and the `(4,6)` modules give a new complete proof of both
+      low scales.  The `(6,8)` modules extend that original development through
+      the canonical nontrivial expanded weighted-boundary cubic-core theorem,
+      strict transverse degree drop, exact-cubic contradiction, and attained
+      positive secondary defect radius.  The first abstract secondary chamber
+      is classified exactly; both invariant equations and all three one-form
+      equations are extracted from the literal polynomial system and applied
+      to the canonical expanded lower system.  In the chamber `2g<n`, the
+      resulting boundary has `e=0`, `a*b=3*d`, and attained support only in
+      the `B` or translated-`C` direction.  The abstract algebra of the next
+      prospective residual faces in `3g<n` is also checked: both one-sided
+      endpoints and the tied endpoint are impossible, while the middle face
+      forces `a*b^2+3*c^2=0` and two nonzero residual directions.  Coefficient
+      extraction is now connected to the literal polynomial invariants: the
+      translated defects have strict degree drop, all five exact residual
+      coordinate identities are checked, the invariant loads are below the
+      middle face, and the canonical expanded system satisfies the abstract
+      middle classifier whenever its explicit gaps obey `g<h<2g`.  The
+      residual selector now eliminates both endpoints and canonically lands
+      on that middle face.  Exact discriminant, incidence, and cubic defects
+      then expose the next Newton comparison: the two strict chambers force
+      discriminant gaps `g+h` and `4g-h`, while the balanced chamber supplies
+      its exact three-term boundary equation.  The literal row-two system is
+      split into this residual and a strictly lower load; its two strict
+      chambers are eliminated, forcing `2h=3g`, and the balanced coefficient
+      yields `4*b*c^2-9*d*e=0`.  The literal row-one system and load cutoff
+      then expose the nonzero coefficient
+      `(-64/9)*(4n-g)*c_top^3`, excluding the complete `3g<n` chamber.
+      Sharp load-wall coefficient identities extend that endgame through the
+      strict strip `2g<n<3g`, all five chambers on `n=3g`, and the first-gap
+      boundary `2g=n`; the latter uses residual degree drops, the residual
+      row-two trichotomy, and the balanced row-one contradiction.
+      On `n<2g`, `g<n`, the zero-load classification is propagated through
+      strict residual drops, an attained residual gap, sharp load cutoffs, and
+      the exact residual middle and double invariant faces.  The complete
+      row-two selector, double-face one-forms, and balanced row-one scalar then
+      exclude the subcritical chamber `3g<2n`.
+      These statements
+      refine the frozen finite composition and use the two published results
+      listed below only at their explicitly typed interfaces.
+    license: "Apache-2.0"
+    author_endorsement: "participated"
+  - title: "Two-dimensional Jacobian Conjecture"
+    authors:
+      - "Masayoshi Nagata"
+    type: "paper"
+    location: "https://repository.kulib.kyoto-u.ac.jp/server/api/core/bitstreams/9ef8e868-5526-4830-b19f-543c0af09e7c/content"
+    relationship: "background"
+    note: >-
+      Theorem 7.3 on pp. 169--170 repairs the Appelgate--Onishi argument and
+      proves the exact external premise used here: a complex Keller pair whose
+      total-degree gcd is prime generates the full polynomial ring.  This is
+      exposed in Lean as `PlaneKellerPrimeTotalDegreeGCDRoute`; the present
+      project proves the source-shear and Dirichlet reductions to that premise,
+      but does not formalize Nagata's Newton-polygon proof.
+    license: "unknown"
+    author_endorsement: "not-contacted"
+  - title: "On the shape of possible counterexamples to the Jacobian Conjecture"
+    authors:
+      - "Jorge A. Guccione"
+      - "Juan J. Guccione"
+      - "Christian Valqui"
+    type: "paper"
+    id: "doi:10.1016/j.jalgebra.2016.08.039"
+    location: "https://doi.org/10.1016/j.jalgebra.2016.08.039"
+    relationship: "background"
+    note: >-
+      Corollary 7.9 supplies the standard-pair endpoint obstruction exposed as
+      an explicit premise here.  The Lean development proves the source-shear
+      adapter to that premise, not the paper's Newton-polygon proof.  Its later
+      statement about B concerns the globally minimal counterexample and is
+      not used as an arbitrary-pair twice-prime theorem.
+    license: "unknown"
+    author_endorsement: "not-contacted"
+
+related_formalizations:
+  - id: "PALOMAR-2026-08-25-000002"
+    relationship: "other"
+    note: >-
+      Version 2 is the registered source-facing `(6,9)` noncube exclusion used
+      by the imported divisible-core assembly in this project.
+  - id: "local:gcd3-69-cube"
+    relationship: "other"
+    note: >-
+      The sibling project proves the complete source-facing polynomial-cube
+      exclusion, including the constant-core branch, imported by this project.
+  - id: "local:gcd3-69-composition"
+    relationship: "other"
+    note: >-
+      The sibling composition performs the exhaustive cube/noncube dispatch at
+      `(6,9)` and supplies the divisible common-cubic exclusion imported here.
+
+status:
+  scope: >-
+    Fully proved: the exact unordered route classification through eleven;
+    uniqueness of the primitive pair (6,9); strict recursive closure for an
+    arbitrary symmetric predicate Good; its concrete instantiation for
+    MvPolynomial (Fin 2) K using the actual Jacobian, partial y-degree, and
+    coordinate-subalgebra generation predicates; the zero-partial-degree,
+    equal-degree, and divisibility Keller routes in characteristic zero; and
+    the frontier checksum showing (8,12) and (9,12) as the first new primitive
+    pairs at maximum twelve.  The degree routes include a kernel-checked
+    weighted-Wronskian leading-coefficient argument and triangular target
+    shear.  The same argument is specialized to a genuine (6,9) Keller pair,
+    deriving its nonzero square/cube common leading core without assuming a
+    later landing case; independent nonzero target rescaling then normalizes
+    the leading coefficients to a literal square and cube while preserving
+    degree, Keller, and generation.  The next actual Jacobian row is also
+    extracted: in cube-root weights it makes the alignment discriminator
+    3*A-2*B constant.  A denominator-cleared version is proved directly from
+    leading rows s^6,s^9 without assuming divisibility of the next
+    coefficients.  Normalization and that row are packaged into an exhaustive
+    genuine-source dichotomy: a normalized noncube core or a nonzero literal
+    cube root satisfying the first cube row.  The literal cube/noncube split
+    is then composed into a genuine (6,9) theorem conditional on closure of
+    those two normalized branches.  A further source-honest composition
+    matches the reviewed history split exactly: `3 ∤ deg h` is charged to a
+    nondivisible-core route, while only `3 ∣ deg h` is charged to the cube and
+    noncube exclusions; degree-zero cores remain in the divisible residue.
+    The final assembly imports the exhaustive literal divisible-core theorem,
+    adapts its coefficient-polynomial Jacobian to the genuine normalized
+    MvPolynomial source, and supplies both divisible exclusion interfaces.
+    For the nondivisible core it constructs the triangular source
+    automorphism, proves both chain rules and Jacobian/generation invariance,
+    proves the exact total degrees 2(H+3L),3(H+3L) from unique maximal
+    shear-weight monomials, and uses Mathlib's Dirichlet theorem to choose
+    H+3L prime.  More generally, the leading weighted-Wronskian row proves
+    numerical proportionality of the two top coefficient degrees.  Exact
+    source shears then prove every positive coprime partial-degree pair from
+    the prime-total-degree-gcd theorem.  At partial-degree gcd two, Dirichlet
+    closes the odd common-scale case and isolates the even-scale residue.  A
+    finite recursive classifier restricts that residue to the five unordered
+    pairs (4,6), (4,10), (6,8), (6,10), and (8,10); a checked adapter shows
+    that a strong arbitrary-pair twice-prime result would close all five.  A
+    second checked adapter applies the reliable standard-pair endpoint
+    obstruction after a large source shear: it preserves the partial degrees
+    and leading coefficients, produces normalized endpoint (2,H), and closes
+    every even scale H > 2.  For each of the five remaining pairs, the top
+    Jacobian row is further factored in the polynomial UFD into exact common
+    powers with reduced weights (2,3), (2,5), (3,4), (3,5), or (4,5).
+    Independent target rescalings remove both scalar factors, preserve Keller
+    and generation, and prove that the common core has degree exactly H.
+    For the first normalized pair (4,6), the next genuine Jacobian row is now
+    also proved: with N=3*a_3*H-2*b_5 it gives N^2=kappa*H^5, and over an
+    algebraically closed field the nonzero branch has H=h^2 and N=lambda*h^5.
+    Over an arbitrary characteristic-zero differential field, the common
+    depressed quartic/sextic Jacobian is expanded through all eight rows; the
+    five upper rows integrate to the reviewed formulas and the next two are
+    exactly the derivatives of the first integrals I_2 and I_1.  After the
+    substitution U=A^2-4C, the full remaining Jacobian is proved to equal the
+    two exact coefficient-curve rows dJ_2,dJ_1 followed by the reviewed
+    one-form eta.  Both translated-origin boundary equations are derived by
+    exact evaluation, and the four weighted-leading forms are proved to have
+    the unique weighted-projective common zero [1:0:0:0].  All four full
+    cleared local-chart equations are verified with no truncation, as are the
+    terminal mismatch leading contradiction, the three aligned eliminated
+    Newton polynomials, the shifted plane curve, its component equations and
+    restricted one-form, and both monic boundary eliminants.  Presburger
+    proofs replace the finite scans for all three polynomial degree cones and
+    verify their one-form degree gaps.  The aligned monic quartic and octic
+    are converted into exact rational-function integrality results; the
+    polynomial representatives and both square/nonsquare last-row
+    unit-product contradictions are also proved.  Generic three- and
+    four-term Hahn-series tied-minimum lemmas and exhaustive rational
+    Newton-face tables are instantiated on every term of the full cleared
+    mismatch and aligned equations, including identically-zero coordinate
+    subloci and arbitrary regular boundary loads.  The finite-place embedding
+    and weighted-infinity theorem globalize these local contradictions at a
+    root of a square common core.  For a nonsquare aligned core, the
+    irreducible quadratic extension `K(x)(√H)`, its deck involution, fixed
+    field, differential, and constant-field descent are constructed
+    explicitly.  Deck parity kills the odd integration constants and descends
+    `q`, `B²`, `rB`, and `√H B`; the boundary quartic makes the required
+    representatives polynomial, and `M²=HK` closes the final row.  Thus both
+    H = 0 and H = 2 normalized `(4,6)` sources are excluded completely.
+    For the next `(6,8)` leaf, the complete twelve-row depressed
+    sextic/octic differential Jacobian and all seven triangular Faber
+    residuals are proved.  Their explicit reconstruction leaves five lower
+    rows; the first two are proved to be exact derivatives of displayed
+    coefficient invariants, followed by three literal one-form constraints.
+    The exact raw sextic/octic affine depression is also verified, including
+    the surviving septic alignment discriminator, and the literal source
+    bracket/raw coefficient bridge into `k(x)` is proved.  The omitted top row
+    forces the septic coefficient to be constant; it and all seven Faber
+    residuals descend to the ground field and reconstruct the integrated
+    octic coefficients.  At scale zero, all thirteen depressed coefficients
+    are represented by literal ground polynomials and both first integrals
+    descend.  Exact weighted coefficient formulas then extract the five top
+    lower rows from arbitrary bounded polynomial loads and force the unique
+    cubic-core boundary `B=D=0`, `C=A^2/3`, `E=A^3/27` at every positive
+    integral weighted radius.  A common expansion by `x -> x^60` now clears
+    the five weight denominators and constructs a positive attained maximal
+    radius whenever one load is nonconstant; the nonzero terminal row is
+    proved to force that nonconstancy.  The exact rational lower system is
+    pulled back to a packaged polynomial system; both invariants commute with
+    expansion, all three one-form rows acquire the common chain-rule factor,
+    and the canonical expanded maximal face is proved nontrivial with nonzero
+    top A coefficient.  In cubic transverse coordinates the four defects are
+    proved to have strict degree drop.  They cannot all vanish: the exact
+    quartic first integral makes the relevant loads zero, and the final
+    one-form then contradicts the nonzero Keller constant.  The minimum of
+    the four actual transverse degree deficits is consequently positive and
+    attained by a nonzero defect, with all four sharpened degree bounds; no
+    equal-drop assumption is made.  In the abstract chamber `2g<n`, the exact
+    five-equation face solver forces the leading defects to satisfy `e=0` and
+    `a*b=3*d`.  In `3g<n`, canonical residual-gap selection eliminates both
+    endpoint faces and lands on nonzero `A,B,c,d,e` with
+    `A*B^2+3*c^2=0`.  Exact invariant syzygies then lower the incidence and
+    cubic defects.  The next comparison is complete: on the two strict sides
+    the discriminant gaps are respectively `g+h` and `4g-h`, while the
+    balanced side satisfies the exact three-term boundary equation.  The
+    literal row-two equation and its load cutoff eliminate both strict sides,
+    force `2h=3g`, and extract `4*b*c^2-9*d*e=0` on the balanced face.  The
+    next row-one coefficient is `(-64/9)*(4n-g)*c_top^3`, and its literal
+    load is strictly lower, so the full canonical `3g<n` chamber is excluded.
+    All five normalized low-scale leaves --- `(4,6)`, `(4,10)`, `(6,8)`,
+    `(6,10)`, and `(8,10)` --- are now closed internally, so maximum actual
+    partial y-degree eleven for genuine characteristic-zero plane Keller pairs
+    follows from exactly the two cited classical results and nothing else:
+    the coordinate-free total-degree form of Nagata's 1989 Theorem 7.3
+    (`PlaneKellerPrimeTotalDegreeGCDRoute`) and the Guccione--Guccione--Valqui
+    standard-pair endpoint obstruction, Corollary 7.9
+    (`PlaneKellerStandardEndpointGCDObstruction`).  Not proved here:
+    scalar-extension/descent, or either classical theorem itself.  The plane
+    Jacobian conjecture itself is not claimed: this project proves only the
+    finite maximum-partial-degree-eleven composition, conditional on those two
+    external classical inputs.  The strong twice-prime statement is not
+    treated as established: GGV 2017 proves the restriction for the globally
+    minimal counterexample gcd B and records a gap in the earlier
+    arbitrary-pair proof.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+  main_results:
+    - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithClassicalInterfaces"
+      file: "Max11UnconditionalAssemblyScratch.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.planeKellerNormalized410LowScaleRoute_proved"
+      file: "Grok410ChainPromotionScratch.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator-leaf410.json"
+    - declaration: "Max11DegreeRoutes.proved_planeKellerNormalized68LowScaleRoute"
+      file: "Grok68TerminalZeroMeetingCellScratch.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator-leaf68.json"
+    - declaration: "Max11DegreeRoutes.proved_planeKellerNormalized610LowScaleRoute"
+      file: "Grok610ScaleZeroCubicLoadWallsScratch.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator-leaf610.json"
+    - declaration: "Max11DegreeRoutes.proved_planeKellerNormalized810LowScaleRoute"
+      file: "Grok810RouteClosureScratch.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator-leaf810.json"
+    - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithFourLowScaleLeaves"
+      file: "Max11Assembly.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.proved_planeKellerNormalized46LowScaleRoute"
+      file: "LowScale46ScaleTwo.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator-leaf46.json"
+    - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithNormalized46ScaleTwoAndFourLowScaleLeaves"
+      file: "Max11Assembly.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithFiveNormalizedLowScaleRoutes"
+      file: "Max11Assembly.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator-conditional.json"
+    - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithStandardEndpointObstructionAndFiveLowScaleLeaves"
+      file: "Max11Assembly.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.differentialJacobian_integrated46_eq"
+      file: "LowScale46NormalForm.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.differentialJacobian_integratedDiscriminant46_eq"
+      file: "LowScale46Curve.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.constantBracket_integrated68_lowerSystem"
+      file: "LowScale68Integrated.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.depressedL68_eq_discriminator"
+      file: "LowScale68Depression.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.differentialJacobian_affineDepress_sourceToRatFunc68"
+      file: "LowScale68SourceBridge.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.depressedCoefficients_integrate_over_ground68"
+      file: "LowScale68SourceBridge.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.integratedRationalLowerSystem_polynomialBoundary_cubicCore68"
+      file: "LowScale68PolynomialBoundary.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.exists_positive_integral_weightedRadius68"
+      file: "LowScale68WeightedRadius.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.exactCubicIntegratedPolynomialLowerSystem_impossible68"
+      file: "LowScale68CubicDescent.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_degreeDrop68"
+      file: "LowScale68CubicDescent.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_secondaryRadius68"
+      file: "LowScale68SecondaryRadius.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.firstSecondaryFace68_classify_of_two_mul_gap_lt_radius"
+      file: "LowScale68SecondaryFace.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.integratedLowerRowTwoPolynomial68_secondaryCoeff"
+      file: "LowScale68SecondaryExtraction.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.integratedLowerRowOnePolynomial68_secondaryCoeff"
+      file: "LowScale68SecondaryOneForms.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.integratedLowerRowZeroPolynomial68_secondaryCoeff"
+      file: "LowScale68SecondaryOneForms.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_secondarySmallGapBoundary68"
+      file: "LowScale68SecondarySmallGap.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.secondaryResidualBetweenFace68_classify"
+      file: "LowScale68SecondaryResidualFace.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.secondaryResidualBetweenFace68_classify_of_support"
+      file: "LowScale68SecondaryResidualFace.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.secondaryResidualDAtDoubleFace68_impossible"
+      file: "LowScale68SecondaryResidualFace.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.secondaryResidualTiedDoubleFace68_impossible_of_three_mul_gap_lt_radius"
+      file: "LowScale68SecondaryResidualFace.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_secondaryResidualDegreeDrops68"
+      file: "LowScale68SecondaryResidualExtraction.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.polynomialSecondaryResidualBetweenFace68_classify"
+      file: "LowScale68SecondaryResidualExtraction.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_l_eq_zero_of_radius_lt_twoGap68"
+      file: "LowScale68SecondaryLargeGapLoads.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_l_beta_eq_zero_of_threeRadius_lt_twoGap68"
+      file: "LowScale68SecondaryLargeGapLoads.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.integratedPolynomialLowerSystem_firstSecondaryClassified68_of_loadL"
+      file: "LowScale68SecondaryRelaxedFirstFace.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.integratedPolynomialLowerSystem_firstSecondaryClassified68_of_loadL_alpha"
+      file: "LowScale68SecondaryRelaxedFirstFace.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.polynomialSecondaryFourThreeZeroEquations68_of_loadL"
+      file: "LowScale68SecondaryRelaxedFirstFace.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_firstSecondaryClassified68_of_loadL"
+      file: "LowScale68SecondaryRelaxedCanonical.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_firstSecondaryClassified68_of_loadL_alpha"
+      file: "LowScale68SecondaryRelaxedCanonical.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_firstSecondaryFourThreeZero68_of_loadL"
+      file: "LowScale68SecondaryRelaxedCanonical.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.cubicLoadRowOnePolynomial68_eq_alphaRest"
+      file: "LowScale68SecondaryAlphaWall.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.integratedPolynomialLowerSystem_alphaWallClassified68"
+      file: "LowScale68SecondaryAlphaWall.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_alphaWallClassified68"
+      file: "LowScale68SecondaryAlphaWallCanonical.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.firstLoadWallFace68_classify_of_two_mul_gap_eq_radius"
+      file: "LowScale68SecondaryFirstLoadWallFace.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.cubicLoadRowTwoLCorePolynomial68_eq"
+      file: "LowScale68SecondaryFirstLoadWallCore.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.cubicFirstIntegralFourPolynomial68_coeff_loadWall"
+      file: "LowScale68SecondaryFirstLoadWallCore.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.integratedLowerRowOnePolynomial68_coeff_loadWall"
+      file: "LowScale68SecondaryFirstLoadWallCore.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.integratedLowerRowTwoPolynomial68_coeff_loadWall"
+      file: "LowScale68SecondaryFirstLoadWallRemainder.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.integratedLowerRowZeroPolynomial68_coeff_loadWall"
+      file: "LowScale68SecondaryFirstLoadWallRemainder.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.integratedPolynomialLowerSystem_firstLoadWallClassified68"
+      file: "LowScale68SecondaryFirstLoadWallRemainder.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_firstLoadWallClassified68"
+      file: "LowScale68SecondaryFirstLoadWallCanonical.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_firstLoadWallResidualGap68"
+      file: "LowScale68SecondaryFirstGapBoundaryFace.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_firstGapBoundary_impossible68"
+      file: "LowScale68SecondaryFirstGapBoundary.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.secondaryResidualGap68_gt_of_strictDrops"
+      file: "LowScale68SecondaryLargeGapResidual.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_largeGapResidualMiddleFace68"
+      file: "LowScale68SecondaryLargeGapResidual.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_residualOvershoot_loadL_eq_zero68"
+      file: "LowScale68SecondaryLargeGapResidual.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_largeGapLoadZeroResidualDoubleInvariants68"
+      file: "LowScale68SecondaryLargeGapLoadZeroFace.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_largeGapLoadZeroSubcritical_impossible68"
+      file: "LowScale68SecondaryLargeGapSubcritical.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_secondaryResidualMiddle68"
+      file: "LowScale68SecondaryResidualMiddle.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_secondaryResidualMiddleFace68"
+      file: "LowScale68SecondaryResidualMiddle.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_secondaryResidualDouble68"
+      file: "LowScale68SecondaryResidualDouble.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.secondaryResidualDoubleFace68_impossible"
+      file: "LowScale68SecondaryResidualDouble.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.residualDoubleLoadWallFace68_impossible"
+      file: "LowScale68SecondaryResidualDoubleLoadWall.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.secondaryResidualRowZeroPolynomial68_coeff_doubleLoadWall"
+      file: "LowScale68SecondaryResidualDoubleLoadWall.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_residualDoubleLoadWall_impossible68"
+      file: "LowScale68SecondaryResidualDoubleLoadWallCanonical.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_residualSumLoadWall_impossible68"
+      file: "LowScale68SecondaryResidualSumLoadWall.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_residualHalfRadiusLoadWall_impossible68"
+      file: "LowScale68SecondaryResidualHalfRadiusLoadWall.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_residualHalfRadiusI4Wall_impossible68"
+      file: "LowScale68SecondaryResidualHalfRadiusI4Wall.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_residualHalfRadiusBoundaryWall_impossible68"
+      file: "LowScale68SecondaryResidualHalfRadiusBoundary.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_residualLeftLoadWindow_impossible68"
+      file: "LowScale68SecondaryResidualLeftLoadWindow.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_residualLeftBoundaryWall_impossible68"
+      file: "LowScale68SecondaryResidualLeftBoundary.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_residualRowTwoLoadDominance_impossible68"
+      file: "LowScale68SecondaryResidualRowTwoLoadDominance.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_residualOvershoot_impossible68"
+      file: "LowScale68SecondaryResidualOvershootCanonical.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_residualOvershootBoundaryWall_impossible68"
+      file: "LowScale68SecondaryResidualOvershootBoundary.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_residualThreeGapBoundaryMiddle_impossible68"
+      file: "LowScale68SecondaryResidualThreeGapBoundaryMiddle.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_residualThreeGapBoundary_impossible68"
+      file: "LowScale68SecondaryResidualThreeGapBoundarySelector.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_residualStripSelector_impossible68"
+      file: "LowScale68SecondaryResidualStripSelector.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_residualStrictStrip_impossible68"
+      file: "LowScale68SecondaryResidualStripSelector.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_secondaryResidualSelect68"
+      file: "LowScale68SecondaryResidualSelector.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.secondaryResidualCubicDefect_leftChamber68"
+      file: "LowScale68SecondaryResidualDescent.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.secondaryResidualCubicDefect_rightChamber68"
+      file: "LowScale68SecondaryResidualDescent.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.secondaryResidualCubicDefect_balancedChamber68"
+      file: "LowScale68SecondaryResidualDescent.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.integratedPolynomialLowerSystem68_residualRowTwo"
+      file: "LowScale68SecondaryResidualRowTwoSystem.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.residualRowTwo_leftChamber_ne_zero68"
+      file: "LowScale68SecondaryResidualRowTwoFaces.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.residualRowTwo_rightChamber_ne_zero68"
+      file: "LowScale68SecondaryResidualRowTwoFaces.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.residualRowTwo_add_load_eq_zero_imp_balancedRelation68"
+      file: "LowScale68SecondaryResidualRowTwoBalanced.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.residualCanonicalSelectedGap_eq_balanced68"
+      file: "LowScale68SecondaryResidualBalancedSelector.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.residualCanonicalSelectedGap_eq_balanced68_of_system"
+      file: "LowScale68SecondaryResidualCanonicalBalanced.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.canonicalBalancedResidualData68_of_system"
+      file: "LowScale68SecondaryResidualCanonicalBalancedData.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.residualRowOne_coeff_balancedChamber_eq68"
+      file: "LowScale68SecondaryResidualRowOneFaces.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.cubicLoadRowOnePolynomial68_degree_lt_cubicFace"
+      file: "LowScale68SecondaryResidualRowOneSystem.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_secondaryResidualSmallChamber_impossible68"
+      file: "LowScale68SecondaryResidualBalancedEndgame.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_secondaryResidualSelect68_of_l_eq_zero"
+      file: "LowScale68SecondaryResidualLoadZeroEndgame.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.residualCanonicalSelectedGap_eq_balanced68_of_l_eq_zero"
+      file: "LowScale68SecondaryResidualLoadZeroEndgame.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.maximalExpandedIntegratedPolynomialLowerSystem_secondaryResidualLoadZero_impossible68"
+      file: "LowScale68SecondaryResidualLoadZeroEndgame.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Max11DegreeRoutes.mismatchDegreeCone46"
+      file: "LowScale46DegreeCones.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.maxTie4_of_polynomial_sum_add_lower_eq_zero46"
+      file: "LowScale46DegreeCones.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.affineDepress_rawSextic46"
+      file: "LowScale46Depression.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.depressedL46_eq_discriminator"
+      file: "LowScale46Depression.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.alignedBoundaryNonlinear_from_exactBoundaries_forces_polynomial46"
+      file: "LowScale46Integrality.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.nonsquare_aligned_unitProduct_impossible46"
+      file: "LowScale46Integrality.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.alignedBetaNewtonFaces_inconsistent46"
+      file: "LowScale46NewtonFaces.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.alignedDeltaNewtonFace46"
+      file: "LowScale46NewtonFaces.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.mismatchPolynomialTrajectory_impossible46"
+      file: "LowScale46PolynomialEndgame.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.mismatchFinitePole46_exhaustive"
+      file: "LowScale46FinitePoles.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.alignedBetaFinitePole46_exhaustive"
+      file: "LowScale46AlignedFinitePoles.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.alignedDeltaFinitePole46_exhaustive"
+      file: "LowScale46AlignedFinitePoles.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.alignedBetaOriginalPolynomialTrajectory_impossible46"
+      file: "LowScale46AlignedPolynomialEndgame.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.alignedDeltaOriginalPolynomialTrajectory_impossible46"
+      file: "LowScale46AlignedPolynomialEndgame.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.alignedZeroOriginalPolynomialTrajectory_impossible46"
+      file: "LowScale46AlignedPolynomialEndgame.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.alignedZeroFinitePole46_exhaustive"
+      file: "LowScale46AlignedZeroFinitePoles.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.alignedZeroSquareComponent_impossible46"
+      file: "LowScale46AlignedComponentEndgame.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.nonsquare_aligned_descent_lastRow_impossible46"
+      file: "LowScale46AlignedComponentEndgame.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.differentialJacobian_affineDepress_sourceToRatFunc46"
+      file: "LowScale46SourceBridge.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.squareAlignedDepressedSourceData46"
+      file: "LowScale46SourceBridge.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.alignedDepressedIntegratesOverGround46"
+      file: "LowScale46SourceBridge.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.alignedDepressedCoefficientCurveData46"
+      file: "LowScale46SourceBridge.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.squareAlignedSourceCurveData46"
+      file: "LowScale46SourceBridge.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.SquareAlignedSourceCurveData46.nonfinalStratum"
+      file: "LowScale46SourceBridge.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.normalized46ScaleZero_aligned_impossible"
+      file: "LowScale46ScaleZero.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.depressedCoefficientCurveData46"
+      file: "LowScale46GeneralSourceBridge.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.normalized46ScaleZero_impossible"
+      file: "LowScale46ScaleZero.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.ratFuncAtHahn46_injective"
+      file: "LowScale46PoleBridge.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.ratFuncAtHahn46_polynomial_orderTop_nonneg"
+      file: "LowScale46PoleBridge.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithStandardEndpointAndFiveLowScaleLeaves"
+      file: "Max11Assembly.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.planeKellerLeadingScaleAtDegrees_of_gcd_two_of_two_lt_scale"
+      file: "EndpointGCDRoute.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithFiveEvenScaleGCDTwoLeaves"
+      file: "Max11Assembly.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "MaxPartialDegreeElevenClosureWithFiveGCDTwoLeaves"
+      file: "Max11Core.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithEvenLeadingScaleGCDTwoRoute"
+      file: "Max11Assembly.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.planeKellerAutomorphicAtDegrees_of_coprime_and_primeTotalDegreeGCD"
+      file: "CoprimeDegreeRoute.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.planeKellerAutomorphicAtDegrees_of_gcd_two_and_evenLeadingScale"
+      file: "CoprimeDegreeRoute.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.planeKellerPair_69_sourceDichotomy"
+      file: "DegreeRoutes.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithNormalized69Exclusions"
+      file: "DegreeRoutes.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithHistoryAndDivisible69Exclusions"
+      file: "DegreeRoutes.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithNormalized69Routes"
+      file: "DegreeRoutes.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.planeKellerAutomorphicAtDegrees_69_of_normalized_routes"
+      file: "DegreeRoutes.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.planeKellerPair_69_normalize"
+      file: "DegreeRoutes.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.planeKellerPair_69_alignmentDiscriminator_constant"
+      file: "DegreeRoutes.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.planeKellerPair_69_cubeDiscriminatorNumerator_eq_zero"
+      file: "DegreeRoutes.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.planeKellerPair_69_commonCore"
+      file: "DegreeRoutes.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithElementaryRoutes"
+      file: "DegreeRoutes.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11ClassicalRoutes.Max11PlaneKellerGenerationWithZeroRoute"
+      file: "ClassicalRoutes.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11PlaneKellerGeneration"
+      file: "Max11Core.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "MaxPartialDegreeElevenClosure"
+      file: "Max11Core.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+
+automation:
+  methods:
+    - method: "agent"
+      models: ["xAI Grok 4.6", "Claude Opus 5", "Claude Fable 5.1"]
+      framework: "grok CLI, Claude Code"
+      tool_setup: >-
+        Agent-assisted extraction of the finite recursion, Lean proof
+        development, exhaustive arithmetic checking, build/debug cycles, and
+        source-alignment review against pinned Mathlib.  xAI Grok 4.6 runs
+        the proof lanes via the grok CLI; Claude Opus 5 handles planning and
+        code emitters via Claude Code; Claude Fable 5.1 coordinates the
+        campaign via Claude Code.
+      cost:
+        wall_time: "under one day of agent time"
+        spend_usd: "subscription-based"
+        hardware: "local Apple-silicon macOS machine and GitHub-hosted Linux CI"
+      prompting_notes: >-
+        The formalization isolates the exact finite composition from the
+        deeper algebraic leaves so its logical dependencies are explicit.
+    - method: "manual"
+      models: []
+      framework: "n/a"
+      tool_setup: "Human mathematical direction and responsibility for publication."
+      cost:
+        wall_time: "not separately recorded"
+        spend_usd: "not tracked"
+        hardware: "local machine"
+      prompting_notes: "n/a"
+  spend_usd: "subscription-based"
+  notes: >-
+    No external human review of the Lean project has yet occurred.  The
+    submitted proofs use only kernel-checked Mathlib tactics.
+
+fidelity:
+  divergences: >-
+    The source's final theorem concerns automorphy of characteristic-zero
+    bivariate Keller pairs.  The concrete Lean theorem now uses exactly that
+    polynomial/Jacobian/ring-generation predicate.  The strengthened theorem
+    proves the zero-degree, equal-degree, and divisibility routes, but assumes
+    the gcd-at-most-two theorem.  The broad source-facing version splits the
+    (6,9) leaf into explicit normalized cube and noncube closure premises; the
+    refined version instead exposes the source's exact core-degree split and
+    charges the deep exclusions only on `3 ∣ deg h`; `Max11Assembly` now
+    imports and adapts the complete divisible-core source exclusion.  The
+    nondivisible source-shear, exact-degree, and Dirichlet stack is also proved,
+    reducing that branch to the canonical prime-total-degree-gcd theorem.  A
+    generic version proves all coprime partial-degree pairs and the odd-scale
+    gcd-two cases from the same input.  A second finite classifier reduces the
+    former gcd-at-most-two premise to the even-scale subcase of five explicit
+    pairs.  The standard-pair endpoint obstruction then reduces those five
+    unbounded residues to the literal scales zero and two, and polynomial-UFD
+    extraction plus target rescaling puts all ten cases into exact normalized
+    common-core form.  Both `(4,6)` scales are excluded from the genuine source
+    dichotomy and polynomial coefficient-curve endgames.  The `(6,8)`
+    scale-zero route is proved through extraction and expansion to its
+    canonical nontrivial cubic-core polynomial boundary, strict transverse
+    degree drop, contradiction on the exact cubic locus, and attained positive
+    secondary defect radius.  All five equations of its abstract small-gap
+    face are extracted from the literal polynomial rows and applied to the
+    canonical expanded system, reducing the attained residual boundary to the
+    `B` or translated-`C` direction.  The next `3g<n` residual coordinates,
+    exact identities, degree drops, invariant load cutoffs, abstract face
+    solvers, canonical tropical selection, endpoint elimination, selected
+    middle discriminant classifier, exact defect syzygies, degree cutoffs, and
+    next three-way cubic-face classification, row-two system split,
+    strict-chamber eliminations, balanced row-two equation, row-one system
+    split and load cutoff, exact row-one cubic coefficient, and final
+    contradiction are proved, excluding the entire `3g<n` chamber.  It
+    does not
+    formalize the published prime theorem, the standard-endpoint theorem,
+    the secondary Newton-face `(6,8)` scale-zero descent, the other seven
+    normalized low-scale theorems, an arbitrary-pair twice-prime theorem, or
+    scalar-extension descent.  In particular, GGV
+    2017's theorem about the globally minimal
+    counterexample gcd B is not silently strengthened to a theorem about every
+    Keller pair.  No other divergences are known.
+
+review:
+  status: >-
+    self-assessed; informal source passed campaign-internal different-model
+    hostile review; Lean statements and source alignment await human audit;
+    no external peer review
+  reviewers:
+    - "Dan Clemens Posch"
+  notes: >-
+    The copied hostile review predates and does not inspect the Lean code.
+    This repository carries several Comparator configurations at one
+    commit: `comparator.json` (unconditional headline, solution module
+    `Max11Solution`), `comparator-conditional.json` (the headline with the
+    five leaf routes as hypotheses, solution module `Max11Assembly`), and
+    `comparator-leaf{46,410,68,610,810}.json` (one per proved leaf route).
+    Every entry states its hypotheses in the Lean statement itself; nothing
+    is assumed silently.
+    Kernel axiom reports and the project audit script find no sorryAx or
+    non-permitted axioms in Max11Core.lean, ClassicalRoutes.lean,
+    DegreeRoutes.lean, HistoryRoute.lean, HistoryDegree.lean,
+    TotalDegreeRoutes.lean, CoprimeDegreeRoute.lean, EndpointGCDRoute.lean,
+    LowScaleCore.lean, LowScale68NormalForm.lean,
+    LowScale68Integrated.lean, LowScale68Depression.lean,
+    LowScale68SourceBridge.lean, LowScale68ScaleZero.lean,
+    LowScale68Infinity.lean, LowScale68PolynomialBoundary.lean,
+    LowScale68WeightedRadius.lean, LowScale68Expansion.lean,
+    LowScale68CubicDescent.lean, LowScale68SecondaryRadius.lean,
+    LowScale68SecondaryFace.lean, LowScale68SecondaryExtraction.lean,
+    LowScale68SecondaryOneForms.lean, LowScale68SecondarySmallGap.lean,
+    LowScale68SecondaryResidualFace.lean,
+    LowScale68SecondaryResidualExtraction.lean,
+    LowScale68SecondaryLargeGapLoads.lean,
+    LowScale68SecondaryRelaxedFirstFace.lean,
+    LowScale68SecondaryRelaxedCanonical.lean,
+    LowScale68SecondaryAlphaWall.lean,
+    LowScale68SecondaryAlphaWallCanonical.lean,
+    LowScale68SecondaryFirstLoadWallFace.lean,
+    LowScale68SecondaryFirstLoadWallCore.lean,
+    LowScale68SecondaryFirstLoadWallRemainder.lean,
+    LowScale68SecondaryFirstLoadWallCanonical.lean,
+    LowScale68SecondaryFirstGapBoundaryFace.lean,
+    LowScale68SecondaryFirstGapBoundary.lean,
+    LowScale68SecondaryLargeGapResidual.lean,
+    LowScale68SecondaryLargeGapLoadZeroFace.lean,
+    LowScale68SecondaryLargeGapSubcritical.lean,
+    LowScale68SecondaryResidualMiddle.lean,
+    LowScale68SecondaryResidualDouble.lean,
+    LowScale68SecondaryResidualDoubleLoadWall.lean,
+    LowScale68SecondaryResidualDoubleLoadWallCanonical.lean,
+    LowScale68SecondaryResidualSumLoadWall.lean,
+    LowScale68SecondaryResidualHalfRadiusLoadWall.lean,
+    LowScale68SecondaryResidualHalfRadiusI4Wall.lean,
+    LowScale68SecondaryResidualHalfRadiusBoundary.lean,
+    LowScale68SecondaryResidualLeftLoadWindow.lean,
+    LowScale68SecondaryResidualLeftBoundary.lean,
+    LowScale68SecondaryResidualRowTwoLoadDominance.lean,
+    LowScale68SecondaryResidualOvershootCanonical.lean,
+    LowScale68SecondaryResidualOvershootBoundary.lean,
+    LowScale68SecondaryResidualThreeGapBoundaryMiddle.lean,
+    LowScale68SecondaryResidualThreeGapBoundarySelector.lean,
+    LowScale68SecondaryResidualStripSelector.lean,
+    LowScale68SecondaryResidualSelector.lean,
+    LowScale68SecondaryResidualDescent.lean,
+    LowScale68SecondaryResidualRowTwoSystem.lean,
+    LowScale68SecondaryResidualRowTwoFaces.lean,
+    LowScale68SecondaryResidualRowTwoBalanced.lean,
+    LowScale68SecondaryResidualBalancedSelector.lean,
+    LowScale68SecondaryResidualCanonicalBalanced.lean,
+    LowScale68SecondaryResidualCanonicalBalancedData.lean,
+    LowScale68SecondaryResidualRowOneFaces.lean,
+    LowScale68SecondaryResidualRowOneSystem.lean,
+    LowScale68SecondaryResidualBalancedEndgame.lean,
+    LowScale68SecondaryResidualLoadZeroEndgame.lean, or
+    Max11Assembly.lean.
+
+alignment:
+  namespace: "(root)"
+  statements:
+    - source: "Maximum actual partial y-degree eleven theorem modulo the two classical citations"
+      lean: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithClassicalInterfaces"
+      module: "Max11Solution"
+      status: >-
+        exact bivariate polynomial conclusion fully proved for maximum actual
+        partial y-degree eleven; every internal routing, normalization, and
+        low-scale leaf is closed, leaving exactly the two cited classical
+        hypotheses `PlaneKellerPrimeTotalDegreeGCDRoute` and
+        `PlaneKellerStandardEndpointGCDObstruction` as premises
+    - source: "Finite routing table and recursive closure, Sections 6--8"
+      lean: "MaxPartialDegreeElevenClosure"
+      module: "Max11Assembly"
+      status: >-
+        exact abstract recursion proved; Keller-pair route theorems remain
+        hypotheses
+    - source: "Maximum actual partial y-degree eleven theorem, Sections 1 and 6"
+      lean: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithFiveNormalizedLowScaleRoutes"
+      module: "Max11Challenge"
+      status: >-
+        exact bivariate polynomial conclusion and finite composition proved
+        CONDITIONALLY: the five normalized low-scale leaf routes at the
+        gcd-two pairs (4,6), (4,10), (6,8), (6,10), (8,10) and the two
+        classical results are explicit hypotheses of this theorem.  Each leaf
+        is proved in this repository and certified as its own Comparator
+        configuration (`comparator-leaf*.json`); the unconditional theorem
+        `Max11PlaneKellerGenerationWithClassicalInterfaces` composes them and
+        is certified by `comparator.json`.  The conditional entry exists only
+        because the unconditional closure exceeds the verifier's single-run
+        budget; it must be read together with the leaf entries.
+    - source: "Maximum-twelve frontier checksum, Section 9"
+      lean: "Max12FirstPrimitives"
+      module: "Max11Challenge"
+      status: "exact finite arithmetic statement proved"
+
+acknowledgements: >-
+  The Mathlib community, the Palomar registry conventions, and the campaign
+  review agents that audited the informal composition source.

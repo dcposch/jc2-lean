@@ -1,0 +1,115 @@
+import Grok68VanishingAInductionStepPart09Scratch
+
+/-! # Uniform producing induction on the `q=0` vanishing-A chamber
+
+Committed green through `k=4` produces vanishing `A_(2N-j)=0` for
+`j≤4`, and matching from a granted vanishing depth is already uniform
+(`Grok68VanishingAUniformCompanionScratch.lean`).
+
+The order-`k` producing companion, under vanishing through `k-1`, does
+not take per-`k` input:
+
+* only the `A_p` slot of `A'` reaches the companion remainder index
+  (the `A_(p-k)` slot overshoots `deg(Bc)`);
+* remainder cancel reduces to the pair `W0_(2p-k-1)` and `A_p W2_(p-k-1)`,
+  which cancel by the companion weights against `(B c)_(p-k)`;
+* load cancel is the two-generator combination of the order-`k` disc
+  and I4 jets with cofactors `(25P-14k)` and `(15P-14k)` (CAS leftover
+  `0` on `k=2..7`, and the same closed form for general `k`).
+
+This file lands remainder cancel, the load identity, and the producing
+step uniformly on `1≤k≤D`.  Induction from the committed `k≤4` base
+gives vanishing of `A` through `k=D` for every `m`.  Matching through
+`k=D` is then a theorem of granted vanishing, so the comparison
+polynomials drop to degree at most `N-1` and `E-D-1`.  Those degree
+bounds are not the identities `r_c=r_e=0`, so the committed
+`vanishingA_zero_remainder_impossible68` does not fire.
+
+This is not a closure.  Named gap: the comparison remainders after
+matching through `D`.
+-/
+
+noncomputable section
+
+open Polynomial
+
+namespace Max11DegreeRoutes
+
+section FiveToSixCuspLoadedLowerRowZetaFirstUniformJetEndpointB3EqualityEpsilonSupportQZeroVanishingAInductionStep68
+
+variable {k : Type*} [Field k] [CharZero k] [IsAlgClosed k]
+
+set_option maxHeartbeats 30000000
+set_option maxRecDepth 10000
+set_option linter.unusedSectionVars false
+set_option linter.unusedVariables false
+set_option linter.unusedSimpArgs false
+
+/-! ## Two-endpoint Cauchy products -/
+
+/-! ## Remainder transport at an arbitrary positive index -/
+
+/-! ## `A'` against a shorter right factor, after vanishing through `r-1` -/
+
+/-! ## Remainder cancel under vanishing through `r-1` -/
+
+/-! ## Row-two load as a derivative -/
+
+/-! ## Derivative Cauchy products and the row-zero load splitting -/
+
+/-! ## Source: order-`r` disc with vanishing through `r-1` -/
+
+/-! ## Companion reduction under vanishing through `r-1` -/
+
+/-! ## Matching algebra at the unmatched last slot -/
+
+theorem fiveToSix_qZero_i4_reduced_of_ih68
+    (b0 d0 : k) (bj cj ej dj : ℕ → k) (lam eGap cGap : k) (r : ℕ)
+    (hr : 0 < r)
+    (h0b : bj 0 = b0)
+    (h0c : cj 0 = lam * b0)
+    (h0e : ej 0 = -lam * d0)
+    (h0d : dj 0 = d0)
+    (hre : ej r = -lam * dj r + eGap)
+    (hrc : cj r = lam * bj r + cGap)
+    (hBc : ∀ j, 0 < j → j < r → cj j = lam * bj j)
+    (hEd : ∀ j, 0 < j → j < r → ej j = -lam * dj j) :
+    (∑ i ∈ Finset.range (r + 1), bj i * ej (r - i)) +
+      (∑ i ∈ Finset.range (r + 1), cj i * dj (r - i)) =
+      b0 * eGap + d0 * cGap := by
+  have hBe := fiveToSix_qZero_sum_ends68 (fun i => bj i * ej (r - i)) r hr
+  have hCd := fiveToSix_qZero_sum_ends68 (fun i => cj i * dj (r - i)) r hr
+  have hmid :
+      ∑ i ∈ (Finset.range r).erase 0,
+        (bj i * ej (r - i) + cj i * dj (r - i)) = 0 := by
+    refine Finset.sum_eq_zero ?_
+    intro i hi
+    have hi0 := Finset.mem_erase.mp hi
+    have hir : i < r := Finset.mem_range.mp hi0.2
+    have hi1 : 0 < i := Nat.pos_of_ne_zero hi0.1
+    have hir1 : 0 < r - i := by omega
+    have hir2 : r - i < r := by omega
+    rw [hEd (r - i) hir1 hir2, hBc i hi1 hir]
+    ring
+  have hmid' :
+      (∑ i ∈ (Finset.range r).erase 0, bj i * ej (r - i)) +
+        ∑ i ∈ (Finset.range r).erase 0, cj i * dj (r - i) = 0 := by
+    have hdistrib := Finset.sum_add_distrib
+      (s := (Finset.range r).erase 0)
+      (f := fun i => bj i * ej (r - i))
+      (g := fun i => cj i * dj (r - i))
+    exact hdistrib.symm.trans hmid
+  rw [hBe, hCd]
+  simp only [Nat.sub_zero, Nat.sub_self]
+  rw [h0b, h0c, h0e, h0d, hre, hrc]
+  linear_combination hmid'
+
+theorem fiveToSix_qZero_weight_rev_split68 (f : ℕ → k) (α : k) (r : ℕ) :
+    ∑ j ∈ Finset.range (r + 1), (α - ((r - j : ℕ) : k)) * f j =
+      α * ∑ j ∈ Finset.range (r + 1), f j -
+        ∑ j ∈ Finset.range (r + 1), ((r - j : ℕ) : k) * f j := by
+  simp only [sub_mul]
+  rw [Finset.sum_sub_distrib, Finset.mul_sum]
+
+end FiveToSixCuspLoadedLowerRowZetaFirstUniformJetEndpointB3EqualityEpsilonSupportQZeroVanishingAInductionStep68
+end Max11DegreeRoutes
