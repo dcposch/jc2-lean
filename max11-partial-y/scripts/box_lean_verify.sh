@@ -531,6 +531,7 @@ set +e
   printf 'export BOX_LEAN_COMPILE_TIMEOUT_SECONDS=%q\n' \
     "$compile_timeout_seconds"
   printf 'export BOX_LEAN_PROFILE=%q\n' "$profile"
+  printf 'export BOX_LEAN_THREADS=%q\n' "${BOX_LEAN_THREADS:-}"
   if ((${#lean_files[@]})); then
     # Independent isolated gates can share a deep scratch dependency.  The
     # content-addressed cache prevents repeat work only after an artifact has
@@ -591,6 +592,7 @@ else
   set +e
   lean_profile_args=()
   [[ "${BOX_LEAN_PROFILE:-0}" == 1 ]] && lean_profile_args+=(--profile)
+  [[ -n "${BOX_LEAN_THREADS:-}" ]] && lean_profile_args+=(-j "$BOX_LEAN_THREADS")
   if [[ "${BOX_LEAN_PROFILE:-0}" == 1 ]]; then
     /usr/bin/time -v -o "$metrics_tmp" \
       timeout --signal=TERM --kill-after=30s \
@@ -665,6 +667,7 @@ trap 'rm -f -- "$failure_tmp" "$metrics_tmp"' EXIT
 set +e
 lean_profile_args=()
 [[ "${BOX_LEAN_PROFILE:-0}" == 1 ]] && lean_profile_args+=(--profile)
+[[ -n "${BOX_LEAN_THREADS:-}" ]] && lean_profile_args+=(-j "$BOX_LEAN_THREADS")
 if [[ "${BOX_LEAN_PROFILE:-0}" == 1 ]]; then
   /usr/bin/time -v -o "$metrics_tmp" \
     timeout --signal=TERM --kill-after=30s \
