@@ -1,4 +1,5 @@
 import Grok610ScaleZeroConeResidualClosureScratch
+import Max11SpeedReflectDegLibScratch
 
 /-! # Scale-zero cone final tree for the normalized `(6,10)`, `H = 0` leaf
 
@@ -285,6 +286,199 @@ section A7WeakerCone610
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroBaseGroupHighARest610` (36 monomials, 5 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroBaseGroupHighARest610_eq_polyOf
+    (l : k) (A B C0 D0 E0 : k[X]) :
+    degreeZeroBaseGroupHighARest610 l A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+      [
+      (-(62720 / 2239488) : k), (113724 / 2239488 * l : k), (92160 / 2239488 : k),
+      (301806 / 2239488 * l : k), (491520 / 2239488 : k), (-(122472 / 2239488 * l) : k),
+      (343040 / 2239488 : k), (-(769824 / 2239488 * l) : k), (-(483840 / 2239488) : k),
+      (-(384912 / 2239488 * l) : k), (-(668160 / 2239488) : k), (-(1224720 / 2239488 * l) : k),
+      (-(1071360 / 2239488) : k), (-(1071360 / 2239488) : k), (699840 / 2239488 * l : k),
+      (559872 / 2239488 * l : k), (622080 / 2239488 : k), (-(209952 / 2239488 * l) : k),
+      (-(737280 / 2239488) : k), (839808 / 2239488 * l : k), (2519424 / 2239488 * l : k),
+      (1658880 / 2239488 : k), (1244160 / 2239488 : k), (419904 / 2239488 * l : k),
+      (1244160 / 2239488 : k), (-(36864 / 2239488) : k), (419904 / 2239488 * l : k),
+      (276480 / 2239488 : k), (629856 / 2239488 * l : k), (1244160 / 2239488 : k),
+      (414720 / 2239488 : k), (-(1679616 / 2239488 * l) : k), (-(839808 / 2239488 * l) : k),
+      (-(1679616 / 2239488 * l) : k), (-(2488320 / 2239488) : k), (-(829440 / 2239488) : k)]
+      [
+      [6, 1, 0, 0, 0], [5, 0, 1, 0, 0], [5, 0, 0, 1, 0], [4, 2, 0, 0, 0],
+      [4, 1, 1, 0, 0], [4, 0, 0, 0, 1], [3, 3, 0, 0, 0], [3, 1, 0, 1, 0],
+      [3, 1, 0, 0, 1], [3, 0, 2, 0, 0], [3, 0, 1, 1, 0], [2, 2, 1, 0, 0],
+      [2, 2, 0, 1, 0], [2, 1, 2, 0, 0], [2, 0, 1, 0, 1], [2, 0, 0, 2, 0],
+      [2, 0, 0, 1, 1], [1, 4, 0, 0, 0], [1, 3, 1, 0, 0], [1, 2, 0, 0, 1],
+      [1, 1, 1, 1, 0], [1, 1, 1, 0, 1], [1, 1, 0, 2, 0], [1, 0, 3, 0, 0],
+      [1, 0, 2, 1, 0], [0, 5, 0, 0, 0], [0, 3, 0, 1, 0], [0, 3, 0, 0, 1],
+      [0, 2, 2, 0, 0], [0, 2, 1, 1, 0], [0, 1, 3, 0, 0], [0, 1, 0, 1, 1],
+      [0, 0, 2, 0, 1], [0, 0, 1, 2, 0], [0, 0, 1, 1, 1], [0, 0, 0, 3, 0]] := by
+  simp only [degreeZeroBaseGroupHighARest610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  try module
+
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroAlphaGroupPolynomial610` (13 monomials, 5 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroAlphaGroupPolynomial610_eq_polyOf
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroAlphaGroupPolynomial610 A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+      [
+      (35 / 729 : k), (-(51 / 729) : k), (-(222 / 729) : k),
+      (-(117 / 729) : k), (189 / 729 : k), (297 / 729 : k),
+      (324 / 729 : k), (324 / 729 : k), (-(324 / 729) : k),
+      (108 / 729 : k), (-(324 / 729) : k), (-(324 / 729) : k),
+      (-(324 / 729) : k)]
+      [
+      [5, 1, 0, 0, 0], [4, 0, 0, 1, 0], [3, 1, 1, 0, 0], [2, 3, 0, 0, 0],
+      [2, 1, 0, 0, 1], [2, 0, 1, 1, 0], [1, 2, 0, 1, 0], [1, 1, 2, 0, 0],
+      [1, 0, 0, 1, 1], [0, 3, 1, 0, 0], [0, 1, 1, 0, 1], [0, 1, 0, 2, 0],
+      [0, 0, 2, 1, 0]] := by
+  simp only [degreeZeroAlphaGroupPolynomial610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  try module
+
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroBetaGroupPolynomial610` (14 monomials, 5 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroBetaGroupPolynomial610_eq_polyOf
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroBetaGroupPolynomial610 A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+      [
+      (2695 / 559872 : k), (-(23940 / 559872) : k), (-(51660 / 559872) : k),
+      (21168 / 559872 : k), (127008 / 559872 : k), (63504 / 559872 : k),
+      (136080 / 559872 : k), (-(108864 / 559872) : k), (-(108864 / 559872) : k),
+      (11340 / 559872 : k), (-(54432 / 559872) : k), (-(217728 / 559872) : k),
+      (-(36288 / 559872) : k), (326592 / 559872 : k)]
+      [
+      [6, 0, 0, 0, 0], [4, 0, 1, 0, 0], [3, 2, 0, 0, 0], [3, 0, 0, 0, 1],
+      [2, 1, 0, 1, 0], [2, 0, 2, 0, 0], [1, 2, 1, 0, 0], [1, 0, 1, 0, 1],
+      [1, 0, 0, 2, 0], [0, 4, 0, 0, 0], [0, 2, 0, 0, 1], [0, 1, 1, 1, 0],
+      [0, 0, 3, 0, 0], [0, 0, 0, 0, 2]] := by
+  simp only [degreeZeroBetaGroupPolynomial610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  try module
+
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroDeltaGroupPolynomial610` (7 monomials, 4 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroDeltaGroupPolynomial610_eq_polyOf
+    (A B C0 D0 : k[X]) :
+    degreeZeroDeltaGroupPolynomial610 A B C0 D0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0]
+      [
+      (49 / 5184 : k), (-(360 / 5184) : k), (-(600 / 5184) : k),
+      (1440 / 5184 : k), (720 / 5184 : k), (720 / 5184 : k),
+      (-(2160 / 5184) : k)]
+      [
+      [5, 0, 0, 0], [3, 0, 1, 0], [2, 2, 0, 0], [1, 1, 0, 1],
+      [1, 0, 2, 0], [0, 2, 1, 0], [0, 0, 0, 2]] := by
+  simp only [degreeZeroDeltaGroupPolynomial610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  try module
+
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroEpsilonGroupPolynomial610` (5 monomials, 4 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroEpsilonGroupPolynomial610_eq_polyOf
+    (A B C0 D0 : k[X]) :
+    degreeZeroEpsilonGroupPolynomial610 A B C0 D0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0]
+      [
+      (-(7 / 54) : k), (9 / 54 : k), (24 / 54 : k),
+      (4 / 54 : k), (-(36 / 54) : k)]
+      [
+      [3, 1, 0, 0], [2, 0, 0, 1], [1, 1, 1, 0], [0, 3, 0, 0],
+      [0, 0, 1, 1]] := by
+  simp only [degreeZeroEpsilonGroupPolynomial610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  try module
+
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroZetaGroupPolynomial610` (5 monomials, 4 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroZetaGroupPolynomial610_eq_polyOf
+    (A B C0 D0 : k[X]) :
+    degreeZeroZetaGroupPolynomial610 A B C0 D0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0]
+      [
+      (-(7 / 192) : k), (40 / 192 : k), (48 / 192 : k),
+      (-(96 / 192) : k), (-(48 / 192) : k)]
+      [
+      [4, 0, 0, 0], [2, 0, 1, 0], [1, 2, 0, 0], [0, 1, 0, 1],
+      [0, 0, 2, 0]] := by
+  simp only [degreeZeroZetaGroupPolynomial610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  try module
+
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroEtaGroupPolynomial610` (3 monomials, 4 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroEtaGroupPolynomial610_eq_polyOf
+    (A B C0 D0 : k[X]) :
+    degreeZeroEtaGroupPolynomial610 A B C0 D0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0]
+      [
+      (7 / 36 : k), (-(12 / 36) : k), (-(12 / 36) : k)]
+      [
+      [2, 1, 0, 0], [1, 0, 0, 1], [0, 1, 1, 0]] := by
+  simp only [degreeZeroEtaGroupPolynomial610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  try module
+
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroThetaGroupPolynomial610` (4 monomials, 4 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroThetaGroupPolynomial610_eq_polyOf
+    (A B C0 E0 : k[X]) :
+    degreeZeroThetaGroupPolynomial610 A B C0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, E0]
+      [
+      (7 / 216 : k), (-(36 / 216) : k), (-(18 / 216) : k),
+      (216 / 216 : k)]
+      [
+      [3, 0, 0, 0], [1, 0, 1, 0], [0, 2, 0, 0], [0, 0, 0, 1]] := by
+  simp only [degreeZeroThetaGroupPolynomial610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  try module
+
 set_option maxHeartbeats 16000000 in
 theorem degreeZeroPrimitiveHighARest610_natDegree_lt_of_A_outranks_B
     (l alpha beta delta epsilon zeta eta theta : k)
@@ -297,51 +491,171 @@ theorem degreeZeroPrimitiveHighARest610_natDegree_lt_of_A_outranks_B
   have hbase :
       (degreeZeroBaseGroupHighARest610 l A B C0 D0 E0).natDegree <
         7 * A.natDegree := by
-    simp only [degreeZeroBaseGroupHighARest610]
-    compute_degree
-    omega
+    rw [speedRefl_degreeZeroBaseGroupHighARest610_eq_polyOf]
+    first
+      | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+      | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+    simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+      Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+      Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+      Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+      mul_one, one_mul, and_true, true_and, natDegree_zero]
+    repeat' apply And.intro
+    all_goals first
+      | (right; right; omega)
+      | (left; norm_num; done)
+      | (right; left; simp; done)
+      | trivial
   have halpha :
       (degreeZeroAlphaGroupPolynomial610 A B C0 D0 E0).natDegree <
         7 * A.natDegree := by
-    simp only [degreeZeroAlphaGroupPolynomial610]
-    compute_degree
-    omega
+    rw [speedRefl_degreeZeroAlphaGroupPolynomial610_eq_polyOf]
+    first
+      | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+      | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+    simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+      Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+      Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+      Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+      mul_one, one_mul, and_true, true_and, natDegree_zero]
+    repeat' apply And.intro
+    all_goals first
+      | (right; right; omega)
+      | (left; norm_num; done)
+      | (right; left; simp; done)
+      | trivial
   have hbeta :
       (degreeZeroBetaGroupPolynomial610 A B C0 D0 E0).natDegree <
         7 * A.natDegree := by
-    simp only [degreeZeroBetaGroupPolynomial610]
-    compute_degree
-    omega
+    rw [speedRefl_degreeZeroBetaGroupPolynomial610_eq_polyOf]
+    first
+      | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+      | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+    simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+      Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+      Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+      Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+      mul_one, one_mul, and_true, true_and, natDegree_zero]
+    repeat' apply And.intro
+    all_goals first
+      | (right; right; omega)
+      | (left; norm_num; done)
+      | (right; left; simp; done)
+      | trivial
   have hdelta :
       (degreeZeroDeltaGroupPolynomial610 A B C0 D0).natDegree <
         7 * A.natDegree := by
-    simp only [degreeZeroDeltaGroupPolynomial610]
-    compute_degree
-    omega
+    rw [speedRefl_degreeZeroDeltaGroupPolynomial610_eq_polyOf]
+    first
+      | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+      | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+    simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+      Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+      Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+      Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+      mul_one, one_mul, and_true, true_and, natDegree_zero]
+    repeat' apply And.intro
+    all_goals first
+      | (right; right; omega)
+      | (left; norm_num; done)
+      | (right; left; simp; done)
+      | trivial
   have hepsilon :
       (degreeZeroEpsilonGroupPolynomial610 A B C0 D0).natDegree <
         7 * A.natDegree := by
-    simp only [degreeZeroEpsilonGroupPolynomial610]
-    compute_degree
-    omega
+    rw [speedRefl_degreeZeroEpsilonGroupPolynomial610_eq_polyOf]
+    first
+      | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+      | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+    simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+      Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+      Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+      Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+      mul_one, one_mul, and_true, true_and, natDegree_zero]
+    repeat' apply And.intro
+    all_goals first
+      | (right; right; omega)
+      | (left; norm_num; done)
+      | (right; left; simp; done)
+      | trivial
   have hzeta :
       (degreeZeroZetaGroupPolynomial610 A B C0 D0).natDegree <
         7 * A.natDegree := by
-    simp only [degreeZeroZetaGroupPolynomial610]
-    compute_degree
-    omega
+    rw [speedRefl_degreeZeroZetaGroupPolynomial610_eq_polyOf]
+    first
+      | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+      | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+    simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+      Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+      Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+      Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+      mul_one, one_mul, and_true, true_and, natDegree_zero]
+    repeat' apply And.intro
+    all_goals first
+      | (right; right; omega)
+      | (left; norm_num; done)
+      | (right; left; simp; done)
+      | trivial
   have heta :
       (degreeZeroEtaGroupPolynomial610 A B C0 D0).natDegree <
         7 * A.natDegree := by
-    simp only [degreeZeroEtaGroupPolynomial610]
-    compute_degree
-    omega
+    rw [speedRefl_degreeZeroEtaGroupPolynomial610_eq_polyOf]
+    first
+      | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+      | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+    simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+      Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+      Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+      Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+      mul_one, one_mul, and_true, true_and, natDegree_zero]
+    repeat' apply And.intro
+    all_goals first
+      | (right; right; omega)
+      | (left; norm_num; done)
+      | (right; left; simp; done)
+      | trivial
   have htheta :
       (degreeZeroThetaGroupPolynomial610 A B C0 E0).natDegree <
         7 * A.natDegree := by
-    simp only [degreeZeroThetaGroupPolynomial610]
-    compute_degree
-    omega
+    rw [speedRefl_degreeZeroThetaGroupPolynomial610_eq_polyOf]
+    first
+      | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+      | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+    simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+      Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+      Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+      Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+      mul_one, one_mul, and_true, true_and, natDegree_zero]
+    repeat' apply And.intro
+    all_goals first
+      | (right; right; omega)
+      | (left; norm_num; done)
+      | (right; left; simp; done)
+      | trivial
   simp only [degreeZeroPrimitiveHighARest610]
   exact natDegree_add8_lt610 hbase (natDegree_smul_lt610 alpha halpha)
     (natDegree_smul_lt610 beta hbeta) (natDegree_smul_lt610 delta hdelta)
@@ -405,6 +719,60 @@ theorem highA_l0_A5Coefficient610_natDegree_eq_zero
     (natDegree_add_le _ _).trans <| max_le
       ((natDegree_add_le _ _).trans (max_le hB' hD')) hc.le
 
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroBaseGroupHighA_l0_noA6_noA5D0_Rest610` (17 monomials, 5 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroBaseGroupHighA_l0_noA6_noA5D0_Rest610_eq_polyOf
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroBaseGroupHighA_l0_noA6_noA5D0_Rest610 A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+      [
+      (491520 / 2239488 : k), (343040 / 2239488 : k), (-(483840 / 2239488) : k),
+      (-(668160 / 2239488) : k), (-(1071360 / 2239488) : k), (-(1071360 / 2239488) : k),
+      (622080 / 2239488 : k), (-(737280 / 2239488) : k), (1658880 / 2239488 : k),
+      (1244160 / 2239488 : k), (1244160 / 2239488 : k), (-(36864 / 2239488) : k),
+      (276480 / 2239488 : k), (1244160 / 2239488 : k), (414720 / 2239488 : k),
+      (-(2488320 / 2239488) : k), (-(829440 / 2239488) : k)]
+      [
+      [4, 1, 1, 0, 0], [3, 3, 0, 0, 0], [3, 1, 0, 0, 1], [3, 0, 1, 1, 0],
+      [2, 2, 0, 1, 0], [2, 1, 2, 0, 0], [2, 0, 0, 1, 1], [1, 3, 1, 0, 0],
+      [1, 1, 1, 0, 1], [1, 1, 0, 2, 0], [1, 0, 2, 1, 0], [0, 5, 0, 0, 0],
+      [0, 3, 0, 0, 1], [0, 2, 1, 1, 0], [0, 1, 3, 0, 0], [0, 0, 1, 1, 1],
+      [0, 0, 0, 3, 0]] := by
+  simp only [degreeZeroBaseGroupHighA_l0_noA6_noA5D0_Rest610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  try module
+
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroBetaGroupNoA6Polynomial610` (13 monomials, 5 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroBetaGroupNoA6Polynomial610_eq_polyOf
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroBetaGroupNoA6Polynomial610 A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+      [
+      (-(23940 / 559872) : k), (-(51660 / 559872) : k), (21168 / 559872 : k),
+      (127008 / 559872 : k), (63504 / 559872 : k), (136080 / 559872 : k),
+      (-(108864 / 559872) : k), (-(108864 / 559872) : k), (11340 / 559872 : k),
+      (-(54432 / 559872) : k), (-(217728 / 559872) : k), (-(36288 / 559872) : k),
+      (326592 / 559872 : k)]
+      [
+      [4, 0, 1, 0, 0], [3, 2, 0, 0, 0], [3, 0, 0, 0, 1], [2, 1, 0, 1, 0],
+      [2, 0, 2, 0, 0], [1, 2, 1, 0, 0], [1, 0, 1, 0, 1], [1, 0, 0, 2, 0],
+      [0, 4, 0, 0, 0], [0, 2, 0, 0, 1], [0, 1, 1, 1, 0], [0, 0, 3, 0, 0],
+      [0, 0, 0, 0, 2]] := by
+  simp only [degreeZeroBetaGroupNoA6Polynomial610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  try module
+
 set_option maxHeartbeats 16000000 in
 theorem uniqueHighA_impossible_of_A6cancel_D0_pos
     (alpha beta delta epsilon zeta eta theta j : k)
@@ -447,67 +815,171 @@ theorem uniqueHighA_impossible_of_A6cancel_D0_pos
         (degreeZeroBaseGroupHighA_l0_noA6_noA5D0_Rest610 A B C0 D0
             E0).natDegree <
           5 * A.natDegree + D0.natDegree := by
-      simp only [degreeZeroBaseGroupHighA_l0_noA6_noA5D0_Rest610, zero_mul,
-        mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-        zero_pow_four, zero_pow_five]
-      compute_degree
-      omega
+      rw [speedRefl_degreeZeroBaseGroupHighA_l0_noA6_noA5D0_Rest610_eq_polyOf]
+      first
+        | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+        | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+      simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+        Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+        Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+        Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+        mul_one, one_mul, and_true, true_and, natDegree_zero]
+      repeat' apply And.intro
+      all_goals first
+        | (right; right; omega)
+        | (left; norm_num; done)
+        | (right; left; simp; done)
+        | trivial
     have halpha :
         (degreeZeroAlphaGroupPolynomial610 A B C0 D0 E0).natDegree <
           5 * A.natDegree + D0.natDegree := by
-      simp only [degreeZeroAlphaGroupPolynomial610, zero_mul, mul_zero,
-        zero_smul, smul_zero, zero_pow_two, zero_pow_three, zero_pow_four,
-        zero_pow_five]
-      compute_degree
-      omega
+      rw [speedRefl_degreeZeroAlphaGroupPolynomial610_eq_polyOf]
+      first
+        | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+        | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+      simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+        Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+        Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+        Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+        mul_one, one_mul, and_true, true_and, natDegree_zero]
+      repeat' apply And.intro
+      all_goals first
+        | (right; right; omega)
+        | (left; norm_num; done)
+        | (right; left; simp; done)
+        | trivial
     have hbetaG :
         (degreeZeroBetaGroupNoA6Polynomial610 A B C0 D0 E0).natDegree <
           5 * A.natDegree + D0.natDegree := by
-      simp only [degreeZeroBetaGroupNoA6Polynomial610, zero_mul, mul_zero,
-        zero_smul, smul_zero, zero_pow_two, zero_pow_three, zero_pow_four,
-        zero_pow_five]
-      compute_degree
-      omega
+      rw [speedRefl_degreeZeroBetaGroupNoA6Polynomial610_eq_polyOf]
+      first
+        | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+        | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+      simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+        Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+        Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+        Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+        mul_one, one_mul, and_true, true_and, natDegree_zero]
+      repeat' apply And.intro
+      all_goals first
+        | (right; right; omega)
+        | (left; norm_num; done)
+        | (right; left; simp; done)
+        | trivial
     have hdelta :
         (degreeZeroDeltaGroupPolynomial610 A B C0 D0).natDegree <
           5 * A.natDegree + D0.natDegree := by
-      simp only [degreeZeroDeltaGroupPolynomial610, zero_mul, mul_zero,
-        zero_smul, smul_zero, zero_pow_two, zero_pow_three, zero_pow_four,
-        zero_pow_five]
-      compute_degree
-      omega
+      rw [speedRefl_degreeZeroDeltaGroupPolynomial610_eq_polyOf]
+      first
+        | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+        | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+      simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+        Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+        Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+        Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+        mul_one, one_mul, and_true, true_and, natDegree_zero]
+      repeat' apply And.intro
+      all_goals first
+        | (right; right; omega)
+        | (left; norm_num; done)
+        | (right; left; simp; done)
+        | trivial
     have hepsilon :
         (degreeZeroEpsilonGroupPolynomial610 A B C0 D0).natDegree <
           5 * A.natDegree + D0.natDegree := by
-      simp only [degreeZeroEpsilonGroupPolynomial610, zero_mul, mul_zero,
-        zero_smul, smul_zero, zero_pow_two, zero_pow_three, zero_pow_four,
-        zero_pow_five]
-      compute_degree
-      omega
+      rw [speedRefl_degreeZeroEpsilonGroupPolynomial610_eq_polyOf]
+      first
+        | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+        | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+      simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+        Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+        Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+        Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+        mul_one, one_mul, and_true, true_and, natDegree_zero]
+      repeat' apply And.intro
+      all_goals first
+        | (right; right; omega)
+        | (left; norm_num; done)
+        | (right; left; simp; done)
+        | trivial
     have hzeta :
         (degreeZeroZetaGroupPolynomial610 A B C0 D0).natDegree <
           5 * A.natDegree + D0.natDegree := by
-      simp only [degreeZeroZetaGroupPolynomial610, zero_mul, mul_zero,
-        zero_smul, smul_zero, zero_pow_two, zero_pow_three, zero_pow_four,
-        zero_pow_five]
-      compute_degree
-      omega
+      rw [speedRefl_degreeZeroZetaGroupPolynomial610_eq_polyOf]
+      first
+        | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+        | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+      simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+        Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+        Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+        Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+        mul_one, one_mul, and_true, true_and, natDegree_zero]
+      repeat' apply And.intro
+      all_goals first
+        | (right; right; omega)
+        | (left; norm_num; done)
+        | (right; left; simp; done)
+        | trivial
     have heta :
         (degreeZeroEtaGroupPolynomial610 A B C0 D0).natDegree <
           5 * A.natDegree + D0.natDegree := by
-      simp only [degreeZeroEtaGroupPolynomial610, zero_mul, mul_zero,
-        zero_smul, smul_zero, zero_pow_two, zero_pow_three, zero_pow_four,
-        zero_pow_five]
-      compute_degree
-      omega
+      rw [speedRefl_degreeZeroEtaGroupPolynomial610_eq_polyOf]
+      first
+        | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+        | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+      simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+        Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+        Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+        Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+        mul_one, one_mul, and_true, true_and, natDegree_zero]
+      repeat' apply And.intro
+      all_goals first
+        | (right; right; omega)
+        | (left; norm_num; done)
+        | (right; left; simp; done)
+        | trivial
     have htheta :
         (degreeZeroThetaGroupPolynomial610 A B C0 E0).natDegree <
           5 * A.natDegree + D0.natDegree := by
-      simp only [degreeZeroThetaGroupPolynomial610, zero_mul, mul_zero,
-        zero_smul, smul_zero, zero_pow_two, zero_pow_three, zero_pow_four,
-        zero_pow_five]
-      compute_degree
-      omega
+      rw [speedRefl_degreeZeroThetaGroupPolynomial610_eq_polyOf]
+      first
+        | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+        | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+      simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+        Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+        Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+        Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+        mul_one, one_mul, and_true, true_and, natDegree_zero]
+      repeat' apply And.intro
+      all_goals first
+        | (right; right; omega)
+        | (left; norm_num; done)
+        | (right; left; simp; done)
+        | trivial
     simp only [degreeZeroPrimitiveHighA_l0_noA6_noA5D0_Rest610]
     exact natDegree_add8_lt610 hbase (natDegree_smul_lt610 alpha halpha)
       (natDegree_smul_lt610 beta hbetaG) (natDegree_smul_lt610 delta hdelta)
@@ -520,6 +992,51 @@ theorem uniqueHighA_impossible_of_A6cancel_D0_pos
     natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead] at hdeg
   rcases hcone with ⟨hApos, _⟩
   omega
+
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroAlphaGroupNoA5BPolynomial610` (12 monomials, 5 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroAlphaGroupNoA5BPolynomial610_eq_polyOf
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroAlphaGroupNoA5BPolynomial610 A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+      [
+      (-(51 / 729) : k), (-(222 / 729) : k), (-(117 / 729) : k),
+      (189 / 729 : k), (297 / 729 : k), (324 / 729 : k),
+      (324 / 729 : k), (-(324 / 729) : k), (108 / 729 : k),
+      (-(324 / 729) : k), (-(324 / 729) : k), (-(324 / 729) : k)]
+      [
+      [4, 0, 0, 1, 0], [3, 1, 1, 0, 0], [2, 3, 0, 0, 0], [2, 1, 0, 0, 1],
+      [2, 0, 1, 1, 0], [1, 2, 0, 1, 0], [1, 1, 2, 0, 0], [1, 0, 0, 1, 1],
+      [0, 3, 1, 0, 0], [0, 1, 1, 0, 1], [0, 1, 0, 2, 0], [0, 0, 2, 1, 0]] := by
+  simp only [degreeZeroAlphaGroupNoA5BPolynomial610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  try module
+
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroDeltaGroupNoA5Polynomial610` (6 monomials, 4 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroDeltaGroupNoA5Polynomial610_eq_polyOf
+    (A B C0 D0 : k[X]) :
+    degreeZeroDeltaGroupNoA5Polynomial610 A B C0 D0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0]
+      [
+      (-(360 / 5184) : k), (-(600 / 5184) : k), (1440 / 5184 : k),
+      (720 / 5184 : k), (720 / 5184 : k), (-(2160 / 5184) : k)]
+      [
+      [3, 0, 1, 0], [2, 2, 0, 0], [1, 1, 0, 1], [1, 0, 2, 0],
+      [0, 2, 1, 0], [0, 0, 0, 2]] := by
+  simp only [degreeZeroDeltaGroupNoA5Polynomial610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  try module
 
 set_option maxHeartbeats 16000000 in
 theorem uniqueHighA_impossible_of_A6cancel_A5_ne
@@ -561,67 +1078,171 @@ theorem uniqueHighA_impossible_of_A6cancel_A5_ne
         (degreeZeroBaseGroupHighA_l0_noA6_noA5D0_Rest610 A B C0 D0
             E0).natDegree <
           5 * A.natDegree := by
-      simp only [degreeZeroBaseGroupHighA_l0_noA6_noA5D0_Rest610, zero_mul,
-        mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-        zero_pow_four, zero_pow_five]
-      compute_degree
-      omega
+      rw [speedRefl_degreeZeroBaseGroupHighA_l0_noA6_noA5D0_Rest610_eq_polyOf]
+      first
+        | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+        | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+      simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+        Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+        Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+        Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+        mul_one, one_mul, and_true, true_and, natDegree_zero]
+      repeat' apply And.intro
+      all_goals first
+        | (right; right; omega)
+        | (left; norm_num; done)
+        | (right; left; simp; done)
+        | trivial
     have halpha :
         (degreeZeroAlphaGroupNoA5BPolynomial610 A B C0 D0 E0).natDegree <
           5 * A.natDegree := by
-      simp only [degreeZeroAlphaGroupNoA5BPolynomial610, zero_mul, mul_zero,
-        zero_smul, smul_zero, zero_pow_two, zero_pow_three, zero_pow_four,
-        zero_pow_five]
-      compute_degree
-      omega
+      rw [speedRefl_degreeZeroAlphaGroupNoA5BPolynomial610_eq_polyOf]
+      first
+        | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+        | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+      simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+        Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+        Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+        Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+        mul_one, one_mul, and_true, true_and, natDegree_zero]
+      repeat' apply And.intro
+      all_goals first
+        | (right; right; omega)
+        | (left; norm_num; done)
+        | (right; left; simp; done)
+        | trivial
     have hbetaG :
         (degreeZeroBetaGroupNoA6Polynomial610 A B C0 D0 E0).natDegree <
           5 * A.natDegree := by
-      simp only [degreeZeroBetaGroupNoA6Polynomial610, zero_mul, mul_zero,
-        zero_smul, smul_zero, zero_pow_two, zero_pow_three, zero_pow_four,
-        zero_pow_five]
-      compute_degree
-      omega
+      rw [speedRefl_degreeZeroBetaGroupNoA6Polynomial610_eq_polyOf]
+      first
+        | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+        | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+      simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+        Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+        Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+        Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+        mul_one, one_mul, and_true, true_and, natDegree_zero]
+      repeat' apply And.intro
+      all_goals first
+        | (right; right; omega)
+        | (left; norm_num; done)
+        | (right; left; simp; done)
+        | trivial
     have hdelta :
         (degreeZeroDeltaGroupNoA5Polynomial610 A B C0 D0).natDegree <
           5 * A.natDegree := by
-      simp only [degreeZeroDeltaGroupNoA5Polynomial610, zero_mul, mul_zero,
-        zero_smul, smul_zero, zero_pow_two, zero_pow_three, zero_pow_four,
-        zero_pow_five]
-      compute_degree
-      omega
+      rw [speedRefl_degreeZeroDeltaGroupNoA5Polynomial610_eq_polyOf]
+      first
+        | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+        | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+      simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+        Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+        Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+        Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+        mul_one, one_mul, and_true, true_and, natDegree_zero]
+      repeat' apply And.intro
+      all_goals first
+        | (right; right; omega)
+        | (left; norm_num; done)
+        | (right; left; simp; done)
+        | trivial
     have hepsilon :
         (degreeZeroEpsilonGroupPolynomial610 A B C0 D0).natDegree <
           5 * A.natDegree := by
-      simp only [degreeZeroEpsilonGroupPolynomial610, zero_mul, mul_zero,
-        zero_smul, smul_zero, zero_pow_two, zero_pow_three, zero_pow_four,
-        zero_pow_five]
-      compute_degree
-      omega
+      rw [speedRefl_degreeZeroEpsilonGroupPolynomial610_eq_polyOf]
+      first
+        | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+        | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+      simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+        Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+        Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+        Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+        mul_one, one_mul, and_true, true_and, natDegree_zero]
+      repeat' apply And.intro
+      all_goals first
+        | (right; right; omega)
+        | (left; norm_num; done)
+        | (right; left; simp; done)
+        | trivial
     have hzeta :
         (degreeZeroZetaGroupPolynomial610 A B C0 D0).natDegree <
           5 * A.natDegree := by
-      simp only [degreeZeroZetaGroupPolynomial610, zero_mul, mul_zero,
-        zero_smul, smul_zero, zero_pow_two, zero_pow_three, zero_pow_four,
-        zero_pow_five]
-      compute_degree
-      omega
+      rw [speedRefl_degreeZeroZetaGroupPolynomial610_eq_polyOf]
+      first
+        | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+        | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+      simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+        Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+        Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+        Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+        mul_one, one_mul, and_true, true_and, natDegree_zero]
+      repeat' apply And.intro
+      all_goals first
+        | (right; right; omega)
+        | (left; norm_num; done)
+        | (right; left; simp; done)
+        | trivial
     have heta :
         (degreeZeroEtaGroupPolynomial610 A B C0 D0).natDegree <
           5 * A.natDegree := by
-      simp only [degreeZeroEtaGroupPolynomial610, zero_mul, mul_zero,
-        zero_smul, smul_zero, zero_pow_two, zero_pow_three, zero_pow_four,
-        zero_pow_five]
-      compute_degree
-      omega
+      rw [speedRefl_degreeZeroEtaGroupPolynomial610_eq_polyOf]
+      first
+        | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+        | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+      simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+        Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+        Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+        Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+        mul_one, one_mul, and_true, true_and, natDegree_zero]
+      repeat' apply And.intro
+      all_goals first
+        | (right; right; omega)
+        | (left; norm_num; done)
+        | (right; left; simp; done)
+        | trivial
     have htheta :
         (degreeZeroThetaGroupPolynomial610 A B C0 E0).natDegree <
           5 * A.natDegree := by
-      simp only [degreeZeroThetaGroupPolynomial610, zero_mul, mul_zero,
-        zero_smul, smul_zero, zero_pow_two, zero_pow_three, zero_pow_four,
-        zero_pow_five]
-      compute_degree
-      omega
+      rw [speedRefl_degreeZeroThetaGroupPolynomial610_eq_polyOf]
+      first
+        | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+        | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+      simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+        Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+        Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+        Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+        mul_one, one_mul, and_true, true_and, natDegree_zero]
+      repeat' apply And.intro
+      all_goals first
+        | (right; right; omega)
+        | (left; norm_num; done)
+        | (right; left; simp; done)
+        | trivial
     simp only [degreeZeroPrimitiveHighA_l0_noA6_noA5_Rest610]
     exact natDegree_add8_lt610 hbase (natDegree_smul_lt610 alpha halpha)
       (natDegree_smul_lt610 beta hbetaG) (natDegree_smul_lt610 delta hdelta)
@@ -643,6 +1264,44 @@ end HighAFinal610
 section HighBTie610
 
 variable {k : Type*} [Field k] [CharZero k]
+
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroBaseGroupNoHighBTieRest610` (34 monomials, 5 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroBaseGroupNoHighBTieRest610_eq_polyOf
+    (l : k) (A B C0 D0 E0 : k[X]) :
+    degreeZeroBaseGroupNoHighBTieRest610 l A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+      [
+      (-(10935 / 2239488 * l) : k), (113724 / 2239488 * l : k), (92160 / 2239488 : k),
+      (301806 / 2239488 * l : k), (491520 / 2239488 : k), (-(122472 / 2239488 * l) : k),
+      (-(769824 / 2239488 * l) : k), (-(483840 / 2239488) : k), (-(384912 / 2239488 * l) : k),
+      (-(668160 / 2239488) : k), (-(1224720 / 2239488 * l) : k), (-(1071360 / 2239488) : k),
+      (-(1071360 / 2239488) : k), (699840 / 2239488 * l : k), (559872 / 2239488 * l : k),
+      (622080 / 2239488 : k), (-(209952 / 2239488 * l) : k), (-(737280 / 2239488) : k),
+      (839808 / 2239488 * l : k), (2519424 / 2239488 * l : k), (1658880 / 2239488 : k),
+      (1244160 / 2239488 : k), (419904 / 2239488 * l : k), (1244160 / 2239488 : k),
+      (419904 / 2239488 * l : k), (276480 / 2239488 : k), (629856 / 2239488 * l : k),
+      (1244160 / 2239488 : k), (414720 / 2239488 : k), (-(1679616 / 2239488 * l) : k),
+      (-(839808 / 2239488 * l) : k), (-(1679616 / 2239488 * l) : k), (-(2488320 / 2239488) : k),
+      (-(829440 / 2239488) : k)]
+      [
+      [7, 0, 0, 0, 0], [5, 0, 1, 0, 0], [5, 0, 0, 1, 0], [4, 2, 0, 0, 0],
+      [4, 1, 1, 0, 0], [4, 0, 0, 0, 1], [3, 1, 0, 1, 0], [3, 1, 0, 0, 1],
+      [3, 0, 2, 0, 0], [3, 0, 1, 1, 0], [2, 2, 1, 0, 0], [2, 2, 0, 1, 0],
+      [2, 1, 2, 0, 0], [2, 0, 1, 0, 1], [2, 0, 0, 2, 0], [2, 0, 0, 1, 1],
+      [1, 4, 0, 0, 0], [1, 3, 1, 0, 0], [1, 2, 0, 0, 1], [1, 1, 1, 1, 0],
+      [1, 1, 1, 0, 1], [1, 1, 0, 2, 0], [1, 0, 3, 0, 0], [1, 0, 2, 1, 0],
+      [0, 3, 0, 1, 0], [0, 3, 0, 0, 1], [0, 2, 2, 0, 0], [0, 2, 1, 1, 0],
+      [0, 1, 3, 0, 0], [0, 1, 0, 1, 1], [0, 0, 2, 0, 1], [0, 0, 1, 2, 0],
+      [0, 0, 1, 1, 1], [0, 0, 0, 3, 0]] := by
+  simp only [degreeZeroBaseGroupNoHighBTieRest610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  try module
 
 set_option maxHeartbeats 16000000 in
 theorem uniqueHighB_tie_impossible_of_combined_degree
@@ -670,67 +1329,171 @@ theorem uniqueHighB_tie_impossible_of_combined_degree
     have hbase :
         (degreeZeroBaseGroupNoHighBTieRest610 l A B C0 D0 E0).natDegree <
           5 * B.natDegree := by
-      simp only [degreeZeroBaseGroupNoHighBTieRest610, zero_mul, mul_zero,
-        zero_smul, smul_zero, zero_pow_two, zero_pow_three, zero_pow_four,
-        zero_pow_five]
-      compute_degree
-      omega
+      rw [speedRefl_degreeZeroBaseGroupNoHighBTieRest610_eq_polyOf]
+      first
+        | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+        | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+      simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+        Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+        Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+        Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+        mul_one, one_mul, and_true, true_and, natDegree_zero]
+      repeat' apply And.intro
+      all_goals first
+        | (right; right; omega)
+        | (left; norm_num; done)
+        | (right; left; simp; done)
+        | trivial
     have halpha :
         (degreeZeroAlphaGroupPolynomial610 A B C0 D0 E0).natDegree <
           5 * B.natDegree := by
-      simp only [degreeZeroAlphaGroupPolynomial610, zero_mul, mul_zero,
-        zero_smul, smul_zero, zero_pow_two, zero_pow_three, zero_pow_four,
-        zero_pow_five]
-      compute_degree
-      omega
+      rw [speedRefl_degreeZeroAlphaGroupPolynomial610_eq_polyOf]
+      first
+        | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+        | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+      simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+        Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+        Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+        Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+        mul_one, one_mul, and_true, true_and, natDegree_zero]
+      repeat' apply And.intro
+      all_goals first
+        | (right; right; omega)
+        | (left; norm_num; done)
+        | (right; left; simp; done)
+        | trivial
     have hbetaG :
         (degreeZeroBetaGroupPolynomial610 A B C0 D0 E0).natDegree <
           5 * B.natDegree := by
-      simp only [degreeZeroBetaGroupPolynomial610, zero_mul, mul_zero,
-        zero_smul, smul_zero, zero_pow_two, zero_pow_three, zero_pow_four,
-        zero_pow_five]
-      compute_degree
-      omega
+      rw [speedRefl_degreeZeroBetaGroupPolynomial610_eq_polyOf]
+      first
+        | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+        | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+      simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+        Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+        Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+        Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+        mul_one, one_mul, and_true, true_and, natDegree_zero]
+      repeat' apply And.intro
+      all_goals first
+        | (right; right; omega)
+        | (left; norm_num; done)
+        | (right; left; simp; done)
+        | trivial
     have hdelta :
         (degreeZeroDeltaGroupPolynomial610 A B C0 D0).natDegree <
           5 * B.natDegree := by
-      simp only [degreeZeroDeltaGroupPolynomial610, zero_mul, mul_zero,
-        zero_smul, smul_zero, zero_pow_two, zero_pow_three, zero_pow_four,
-        zero_pow_five]
-      compute_degree
-      omega
+      rw [speedRefl_degreeZeroDeltaGroupPolynomial610_eq_polyOf]
+      first
+        | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+        | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+      simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+        Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+        Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+        Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+        mul_one, one_mul, and_true, true_and, natDegree_zero]
+      repeat' apply And.intro
+      all_goals first
+        | (right; right; omega)
+        | (left; norm_num; done)
+        | (right; left; simp; done)
+        | trivial
     have hepsilon :
         (degreeZeroEpsilonGroupPolynomial610 A B C0 D0).natDegree <
           5 * B.natDegree := by
-      simp only [degreeZeroEpsilonGroupPolynomial610, zero_mul, mul_zero,
-        zero_smul, smul_zero, zero_pow_two, zero_pow_three, zero_pow_four,
-        zero_pow_five]
-      compute_degree
-      omega
+      rw [speedRefl_degreeZeroEpsilonGroupPolynomial610_eq_polyOf]
+      first
+        | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+        | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+      simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+        Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+        Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+        Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+        mul_one, one_mul, and_true, true_and, natDegree_zero]
+      repeat' apply And.intro
+      all_goals first
+        | (right; right; omega)
+        | (left; norm_num; done)
+        | (right; left; simp; done)
+        | trivial
     have hzeta :
         (degreeZeroZetaGroupPolynomial610 A B C0 D0).natDegree <
           5 * B.natDegree := by
-      simp only [degreeZeroZetaGroupPolynomial610, zero_mul, mul_zero,
-        zero_smul, smul_zero, zero_pow_two, zero_pow_three, zero_pow_four,
-        zero_pow_five]
-      compute_degree
-      omega
+      rw [speedRefl_degreeZeroZetaGroupPolynomial610_eq_polyOf]
+      first
+        | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+        | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+      simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+        Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+        Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+        Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+        mul_one, one_mul, and_true, true_and, natDegree_zero]
+      repeat' apply And.intro
+      all_goals first
+        | (right; right; omega)
+        | (left; norm_num; done)
+        | (right; left; simp; done)
+        | trivial
     have heta :
         (degreeZeroEtaGroupPolynomial610 A B C0 D0).natDegree <
           5 * B.natDegree := by
-      simp only [degreeZeroEtaGroupPolynomial610, zero_mul, mul_zero,
-        zero_smul, smul_zero, zero_pow_two, zero_pow_three, zero_pow_four,
-        zero_pow_five]
-      compute_degree
-      omega
+      rw [speedRefl_degreeZeroEtaGroupPolynomial610_eq_polyOf]
+      first
+        | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+        | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+      simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+        Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+        Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+        Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+        mul_one, one_mul, and_true, true_and, natDegree_zero]
+      repeat' apply And.intro
+      all_goals first
+        | (right; right; omega)
+        | (left; norm_num; done)
+        | (right; left; simp; done)
+        | trivial
     have htheta :
         (degreeZeroThetaGroupPolynomial610 A B C0 E0).natDegree <
           5 * B.natDegree := by
-      simp only [degreeZeroThetaGroupPolynomial610, zero_mul, mul_zero,
-        zero_smul, smul_zero, zero_pow_two, zero_pow_three, zero_pow_four,
-        zero_pow_five]
-      compute_degree
-      omega
+      rw [speedRefl_degreeZeroThetaGroupPolynomial610_eq_polyOf]
+      first
+        | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+        | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+      simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+        Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+        Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+        Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+        mul_one, one_mul, and_true, true_and, natDegree_zero]
+      repeat' apply And.intro
+      all_goals first
+        | (right; right; omega)
+        | (left; norm_num; done)
+        | (right; left; simp; done)
+        | trivial
     simp only [degreeZeroPrimitiveNoHighBTieRest610]
     exact natDegree_add8_lt610 hbase (natDegree_smul_lt610 alpha halpha)
       (natDegree_smul_lt610 beta hbetaG) (natDegree_smul_lt610 delta hdelta)

@@ -40,6 +40,7 @@ ap.add_argument('--headline', default='Max11Assembly'); ap.add_argument('--chall
 ap.add_argument('--name', default='jc2_max11')
 ap.add_argument('--licence', default=None,
                 help='path to the licence file to copy; default: search --src then the git root')
+ap.add_argument('--comparator', default=None, help='comparator file to ship as comparator.json (default: --src/comparator.json)')
 ap.add_argument('--check-only', action='store_true',
                 help='run the CONTRIBUTING.md checks against an existing --out and exit')
 a = ap.parse_args()
@@ -129,7 +130,7 @@ while stack:
     if p is None: print('MISSING module', m, file=sys.stderr); sys.exit(1)
     seen[m] = (p, where)
     for d in IMP.findall(open(p).read()):
-        if not d.startswith('Mathlib'): stack.append(d)
+        if not d.startswith(('Mathlib','Batteries','Aesop','Qq','Lean','Std','Init','Plausible','ProofWidgets','ImportGraph','LeanSearchClient','Cli')): stack.append(d)
 untracked = [m for m,(p,w) in seen.items() if w == 'src-untracked']
 if untracked: print('UNTRACKED modules in closure:', untracked, file=sys.stderr); sys.exit(1)
 
@@ -142,6 +143,16 @@ if not a.check_only:
     for m,(p,w) in seen.items(): shutil.copy2(p, os.path.join(out, m + '.lean'))
     for f in ('lean-toolchain','comparator.json','formalization.yaml','README.md'):
         if os.path.exists(os.path.join(src,f)): shutil.copy2(os.path.join(src,f), os.path.join(out,f))
+    if a.comparator: shutil.copy2(a.comparator, os.path.join(out,'comparator.json'))
+    # extra Comparator configurations (one Palomar entry each, same repo/commit,
+    # distinct paths): every comparator-*.json whose solution module is in the package
+    import glob as _glob
+    for f in sorted(_glob.glob(os.path.join(src,'comparator-*.json'))):
+        try: kj = json.load(open(f))
+        except Exception as e: bad(f'{f}: not JSON ({e})'); continue
+        sol = kj.get('solution_module')
+        if sol in seen: shutil.copy2(f, os.path.join(out, os.path.basename(f))); print('extra comparator', os.path.basename(f), '->', sol)
+        else: warn(f'{os.path.basename(f)}: solution_module {sol!r} not in this package; skipped')
     if licence_src:
         # keep the licence's own conventional basename
         shutil.copy2(licence_src, os.path.join(out, os.path.basename(licence_src)))

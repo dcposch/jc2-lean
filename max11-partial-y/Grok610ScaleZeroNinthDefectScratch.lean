@@ -36,6 +36,16 @@ open MvPolynomial Polynomial
 
 namespace Max11DegreeRoutes
 
+set_option linter.unusedVariables false
+set_option linter.unusedSimpArgs false
+set_option linter.unusedSectionVars false
+set_option linter.unusedTactic false
+set_option linter.unreachableTactic false
+set_option linter.unnecessarySeqFocus false
+set_option linter.flexible false
+set_option linter.style.haveILetI false
+set_option linter.unnecessarySimpa false
+
 set_option maxRecDepth 1000000
 
 section ScaleZeroNinthDefect610
@@ -526,6 +536,97 @@ theorem localClearedTenthDefect610_of_lambda_zero
     + (18 : F[X]) * b0 * h ^ 50 := by
   simp [localClearedTenthDefect610, map_zero]
 
+set_option maxHeartbeats 400000000 in
+/-- SPEED (recipe R2, `scripts/coord/LEAN_SPEED_REPORT.md` §7): the weight-`50`
+clearing of `iotaResidual610` carried out on the *atoms* rather than on the fully
+substituted source polynomials.  `iotaResidual610` is weighted homogeneous, so
+substituting `X_i = n_i / (d_i h^(e_i))` makes `18 * h^50 * iotaResidual610`
+a polynomial in `h, n_*` — 35 monomials. -/
+def speedIotaResidual610Scaled50 (h nL nA nB nC nD nE nP nQ nR nS nT nU nV nX : F) : F :=
+    (1 / 10368 : F) * h ^ 5 * nL * nA ^ 3 * nB
+    - (1 / 5184 : F) * h ^ 5 * nL * nA ^ 2 * nD
+    - (1 / 5184 : F) * h ^ 5 * nL * nA * nB * nC
+    - (1 / 52488 : F) * h ^ 5 * nL * nB ^ 3
+    + (1 / 279936 : F) * h ^ 5 * nL * nB * nE
+    + (1 / 5184 : F) * h ^ 5 * nL * nC * nD
+    - (1 / 41472 : F) * nA ^ 5
+    + (1 / 13824 : F) * nA ^ 4 * nP
+    + (5 / 41472 : F) * nA ^ 3 * nC
+    - (1 / 124416 : F) * nA ^ 3 * nR
+    + (5 / 46656 : F) * nA ^ 2 * nB ^ 2
+    - (7 / 23328 : F) * nA ^ 2 * nB * nQ
+    - (1 / 3456 : F) * nA ^ 2 * nC * nP
+    - (5 / 1119744 : F) * nA ^ 2 * nE
+    + (1 / 186624 : F) * nA ^ 2 * nT
+    - (1 / 5832 : F) * nA * nB ^ 2 * nP
+    - (5 / 17496 : F) * nA * nB * nD
+    + (5 / 46656 : F) * nA * nB * nS
+    - (5 / 41472 : F) * nA * nC ^ 2
+    + (1 / 41472 : F) * nA * nC * nR
+    + (7 / 11664 : F) * nA * nD * nQ
+    + (1 / 93312 : F) * nA * nE * nP
+    - (1 / 373248 : F) * nA * nV
+    - (5 / 69984 : F) * nB ^ 2 * nC
+    + (1 / 139968 : F) * nB ^ 2 * nR
+    + (7 / 23328 : F) * nB * nC * nQ
+    + (1 / 2916 : F) * nB * nD * nP
+    - (1 / 69984 : F) * nB * nU
+    + (1 / 6912 : F) * nC ^ 2 * nP
+    + (5 / 1119744 : F) * nC * nE
+    - (1 / 93312 : F) * nC * nT
+    + (5 / 34992 : F) * nD ^ 2
+    - (5 / 23328 : F) * nD * nS
+    - (1 / 1119744 : F) * nE * nR
+    + (1 / 3359232 : F) * nX
+
+set_option maxHeartbeats 400000000 in
+/-- The atom-level clearing: one `field_simp` over 15 atomic variables in
+place of the single enormous `field_simp` on the substituted rational function. -/
+theorem speedIotaResidual610Scaled50_eq (h : F) (hh : h ≠ 0) (nL nA nB nC nD nE nP nQ nR nS nT nU nV nX : F) :
+    (18 : F) * h ^ 50 *
+        iotaResidual610
+          (nL / 3)
+          (nA / (12 * h ^ 10))
+          (nB / (54 * h ^ 15))
+          (nC / (144 * h ^ 20))
+          (nD / (324 * h ^ 25))
+          (nE / (46656 * h ^ 30))
+          (nP / (4 * h ^ 10))
+          (nQ / (9 * h ^ 15))
+          (nR / (432 * h ^ 20))
+          (nS / (216 * h ^ 25))
+          (nT / (7776 * h ^ 30))
+          (nU / (11664 * h ^ 35))
+          (nV / (186624 * h ^ 40))
+          (nX / (60466176 * h ^ 50)) =
+      speedIotaResidual610Scaled50 h nL nA nB nC nD nE nP nQ nR nS nT nU nV nX := by
+  have hd2 : (2 : F) ≠ 0 := by norm_num
+  have hd3 : (3 : F) ≠ 0 := by norm_num
+  have hd4 : (4 : F) ≠ 0 := by norm_num
+  have hd9 : (9 : F) ≠ 0 := by norm_num
+  have hd12 : (12 : F) ≠ 0 := by norm_num
+  have hd54 : (54 : F) ≠ 0 := by norm_num
+  have hd144 : (144 : F) ≠ 0 := by norm_num
+  have hd216 : (216 : F) ≠ 0 := by norm_num
+  have hd324 : (324 : F) ≠ 0 := by norm_num
+  have hd432 : (432 : F) ≠ 0 := by norm_num
+  have hd7776 : (7776 : F) ≠ 0 := by norm_num
+  have hd11664 : (11664 : F) ≠ 0 := by norm_num
+  have hd46656 : (46656 : F) ≠ 0 := by norm_num
+  have hd186624 : (186624 : F) ≠ 0 := by norm_num
+  have hd60466176 : (60466176 : F) ≠ 0 := by norm_num
+  have hp10 : h ^ 10 ≠ 0 := pow_ne_zero 10 hh
+  have hp15 : h ^ 15 ≠ 0 := pow_ne_zero 15 hh
+  have hp20 : h ^ 20 ≠ 0 := pow_ne_zero 20 hh
+  have hp25 : h ^ 25 ≠ 0 := pow_ne_zero 25 hh
+  have hp30 : h ^ 30 ≠ 0 := pow_ne_zero 30 hh
+  have hp35 : h ^ 35 ≠ 0 := pow_ne_zero 35 hh
+  have hp40 : h ^ 40 ≠ 0 := pow_ne_zero 40 hh
+  have hp50 : h ^ 50 ≠ 0 := pow_ne_zero 50 hh
+  simp only [alphaResidual610, betaResidual610, deltaResidual610, epsilonResidual610, etaResidual610, gammaResidual610, iotaResidual610, zetaResidual610, speedIotaResidual610Scaled50]
+  field_simp
+  ring
+
 set_option maxHeartbeats 80000000 in
 /-- Clearing the first integral
 `X - γ E - (5/6) δ D - (2/3) ε C - (1/2) ζ B - (1/3) η A
@@ -817,14 +918,9 @@ theorem tenthDefect_eq_clearedIota610
             432 * b6 * h ^ 14) /
           (432 * h ^ 20) :=
     depressedR610_eq_cleared h a5 b9 b8 b7 b6 lambda hh hN
-  simp only [iotaResidual610, hL, hA, hB, hC, hD0, hE0, hP, hQ, hR, hS,
-    hT, hU, hV, hX, alphaResidual610, betaResidual610, gammaResidual610,
-    deltaResidual610, epsilonResidual610, zetaResidual610,
-    etaResidual610]
-  field_simp [hh, h2, h3, h4, h5, h6, h8, h9, h12, h16, h18, h27, h32,
-    h36, h54, h72, h81, h144, h216, h243, h324, h432, h648, h729, h7776,
-    h11664, h46656, h93312, h186624, h60466176, hh10, hh15, hh20, hh25,
-    hh30, hh35, hh40, hh45, hh50]
+  rw [hL, hA, hB, hC, hD0, hE0, hP, hQ, hR, hS, hT, hU, hV, hX,
+    speedIotaResidual610Scaled50_eq h hh]
+  simp only [speedIotaResidual610Scaled50]
   ring
 
 end Depression610Tenth

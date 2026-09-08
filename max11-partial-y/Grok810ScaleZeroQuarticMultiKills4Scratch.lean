@@ -1,4 +1,5 @@
 import Grok810ScaleZeroQuarticMultiKills3Scratch
+import Max11SpeedReflectDegLibScratch
 
 /-! # Quartic Stage A multi-cone certificates (part 4: 5-letter cones ABDEF–CDEFG) -/
 
@@ -114,6 +115,42 @@ theorem degreeZeroKappaQuartic810_eq_ABDEF_add_rest
   simp only [degreeZeroKappaQuartic810, kappaQuarticFaceABDEF810, degreeZeroKappaQuarticNoABDEF810]
   all_goals module
 
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroKappaQuarticNoABDEF810` (32 monomials, 7 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroKappaQuarticNoABDEF810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    degreeZeroKappaQuarticNoABDEF810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(15 / 128) : k), (5 / 16 : k), (5 / 16 : k),
+      (63 / 262144 * l : k), (45 / 8192 * l : k), (-(9 / 16384 * l) : k),
+      (27 / 1024 * l : k), (-(9 / 512 * l) : k), (9 / 1024 * l : k),
+      (-(63 / 1024 * l) : k), (9 / 64 * l : k), (9 / 64 * l : k),
+      (9 / 64 * l : k), (9 / 128 * l : k), (35 / 32768 * beta : k),
+      (21 / 1024 * beta : k), (7 / 1024 * beta : k), (7 / 64 * beta : k),
+      (-(7 / 64 * beta) : k), (-(7 / 128 * beta) : k), (7 / 8 * beta : k),
+      (-(3 / 16 * gamma) : k), (3 / 4 * gamma : k), (5 / 1024 * delta : k),
+      (5 / 64 * delta : k), (-(15 / 128 * delta) : k), (5 / 8 * delta : k),
+      (1 / 2 * epsilon : k), (3 / 128 * zeta : k), (3 / 8 * zeta : k),
+      (1 / 4 * eta : k), (1 / 8 * theta : k)]
+      [
+      [0, 1, 2, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 1], [0, 0, 1, 0, 0, 1, 0], [5, 0, 0, 0, 0, 0, 0],
+      [3, 0, 1, 0, 0, 0, 0], [2, 2, 0, 0, 0, 0, 0], [2, 0, 0, 0, 1, 0, 0], [1, 1, 0, 1, 0, 0, 0],
+      [1, 0, 2, 0, 0, 0, 0], [0, 2, 1, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 1], [0, 1, 0, 0, 0, 1, 0],
+      [0, 0, 1, 0, 1, 0, 0], [0, 0, 0, 2, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0], [2, 0, 1, 0, 0, 0, 0],
+      [1, 2, 0, 0, 0, 0, 0], [1, 0, 0, 0, 1, 0, 0], [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 1], [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0], [3, 0, 0, 0, 0, 0, 0],
+      [1, 0, 1, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 1, 0, 0, 0],
+      [2, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0]] := by
+  simp only [degreeZeroKappaQuarticNoABDEF810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  module
+
 set_option maxHeartbeats 16000000 in
 theorem degreeZeroKappaQuarticNoABDEF810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -125,9 +162,20 @@ theorem degreeZeroKappaQuarticNoABDEF810_natDegree_lt
   rcases hcone with ⟨hApos, hBpos, hDpos, hEpos, hFpos, hAB, hAD, hAE, hAF, hClt, hGlt⟩
   have hC1 : C.natDegree + 1 ≤ 2 * A.natDegree := Nat.succ_le_of_lt hClt
   have hG1 : G.natDegree + 1 ≤ 4 * A.natDegree := Nat.succ_le_of_lt hGlt
-  simp only [degreeZeroKappaQuarticNoABDEF810]
-  compute_degree
-  omega
+  rw [speedRefl_degreeZeroKappaQuarticNoABDEF810_eq_polyOf]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
+    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  repeat' apply And.intro
+  all_goals first
+    | (right; right; omega)
+    | (left; norm_num; done)
+    | (right; left; simp; done)
+    | trivial
 
 theorem kappaQuarticFaceABDEF810_coeff_top
     {A B C D E F G : k[X]}
@@ -224,6 +272,46 @@ theorem degreeZeroMuQuartic810_eq_ABDEF_add_rest
   simp only [degreeZeroMuQuartic810, muQuarticFaceABDEF810, degreeZeroMuQuarticNoABDEF810]
   all_goals module
 
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroMuQuarticNoABDEF810` (37 monomials, 7 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroMuQuarticNoABDEF810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    degreeZeroMuQuarticNoABDEF810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 512 : k), (-(15 / 64) : k), (-(5 / 128) : k),
+      (5 / 16 : k), (-(45 / 262144 * l) : k), (-(9 / 8192 * l) : k),
+      (-(9 / 8192 * l) : k), (63 / 8192 * l : k), (-(9 / 1024 * l) : k),
+      (-(9 / 512 * l) : k), (-(9 / 512 * l) : k), (-(63 / 1024 * l) : k),
+      (-(63 / 1024 * l) : k), (9 / 64 * l : k), (9 / 64 * l : k),
+      (9 / 64 * l : k), (-(7 / 8192 * beta) : k), (-(7 / 1024 * beta) : k),
+      (7 / 512 * beta : k), (21 / 1024 * beta : k), (-(7 / 64 * beta) : k),
+      (-(7 / 64 * beta) : k), (-(7 / 64 * beta) : k), (3 / 128 * gamma : k),
+      (-(3 / 16 * gamma) : k), (-(3 / 32 * gamma) : k), (3 / 4 * gamma : k),
+      (-(5 / 1024 * delta) : k), (-(5 / 64 * delta) : k), (-(15 / 64 * delta) : k),
+      (5 / 8 * delta : k), (-(1 / 8 * epsilon) : k), (1 / 2 * epsilon : k),
+      (-(3 / 64 * zeta) : k), (3 / 8 * zeta : k), (1 / 4 * eta : k),
+      (1 / 8 * theta : k)]
+      [
+      [1, 2, 1, 0, 0, 0, 0], [0, 1, 1, 1, 0, 0, 0], [0, 0, 3, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 1],
+      [4, 1, 0, 0, 0, 0, 0], [3, 0, 0, 1, 0, 0, 0], [2, 1, 1, 0, 0, 0, 0], [1, 3, 0, 0, 0, 0, 0],
+      [2, 0, 0, 0, 0, 1, 0], [1, 1, 0, 0, 1, 0, 0], [1, 0, 1, 1, 0, 0, 0], [0, 2, 0, 1, 0, 0, 0],
+      [0, 1, 2, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 1], [0, 0, 1, 0, 0, 1, 0], [0, 0, 0, 1, 1, 0, 0],
+      [3, 1, 0, 0, 0, 0, 0], [2, 0, 0, 1, 0, 0, 0], [1, 1, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0],
+      [1, 0, 0, 0, 0, 1, 0], [0, 1, 0, 0, 1, 0, 0], [0, 0, 1, 1, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0],
+      [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1], [2, 1, 0, 0, 0, 0, 0],
+      [1, 0, 0, 1, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0], [0, 2, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 1, 0, 0], [1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0],
+      [0, 1, 0, 0, 0, 0, 0]] := by
+  simp only [degreeZeroMuQuarticNoABDEF810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  module
+
 set_option maxHeartbeats 16000000 in
 theorem degreeZeroMuQuarticNoABDEF810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -235,9 +323,20 @@ theorem degreeZeroMuQuarticNoABDEF810_natDegree_lt
   rcases hcone with ⟨hApos, hBpos, hDpos, hEpos, hFpos, hAB, hAD, hAE, hAF, hClt, hGlt⟩
   have hC1 : C.natDegree + 1 ≤ 2 * A.natDegree := Nat.succ_le_of_lt hClt
   have hG1 : G.natDegree + 1 ≤ 4 * A.natDegree := Nat.succ_le_of_lt hGlt
-  simp only [degreeZeroMuQuarticNoABDEF810]
-  compute_degree
-  omega
+  rw [speedRefl_degreeZeroMuQuarticNoABDEF810_eq_polyOf]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
+    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  repeat' apply And.intro
+  all_goals first
+    | (right; right; omega)
+    | (left; norm_num; done)
+    | (right; left; simp; done)
+    | trivial
 
 theorem muQuarticFaceABDEF810_coeff_top
     {A B C D E F G : k[X]}
@@ -368,6 +467,55 @@ theorem degreeZeroNuQuartic810_eq_ABDEF_add_rest
   simp only [degreeZeroNuQuartic810, nuQuarticFaceABDEF810, degreeZeroNuQuarticNoABDEF810]
   all_goals module
 
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroNuQuarticNoABDEF810` (53 monomials, 7 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroNuQuarticNoABDEF810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    degreeZeroNuQuarticNoABDEF810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 1024 : k), (35 / 512 : k), (-(5 / 128) : k),
+      (-(5 / 128) : k), (-(15 / 64) : k), (-(15 / 128) : k),
+      (5 / 16 : k), (105 / 4194304 * l : k), (135 / 262144 * l : k),
+      (9 / 4096 * l : k), (9 / 8192 * l : k), (9 / 16384 * l : k),
+      (63 / 4096 * l : k), (315 / 32768 * l : k), (9 / 1024 * l : k),
+      (-(9 / 256 * l) : k), (-(9 / 512 * l) : k), (-(63 / 1024 * l) : k),
+      (-(63 / 512 * l) : k), (-(21 / 1024 * l) : k), (9 / 64 * l : k),
+      (9 / 64 * l : k), (9 / 128 * l : k), (7 / 65536 * beta : k),
+      (7 / 4096 * beta : k), (-(7 / 16384 * beta) : k), (7 / 1024 * beta : k),
+      (7 / 256 * beta : k), (63 / 1024 * beta : k), (-(7 / 64 * beta) : k),
+      (-(7 / 64 * beta) : k), (-(7 / 128 * beta) : k), (3 / 128 * gamma : k),
+      (5 / 128 * gamma : k), (-(3 / 32 * gamma) : k), (-(3 / 16 * gamma) : k),
+      (-(3 / 16 * gamma) : k), (15 / 32768 * delta : k), (5 / 1024 * delta : k),
+      (15 / 512 * delta : k), (-(15 / 64 * delta) : k), (-(15 / 128 * delta) : k),
+      (5 / 8 * delta : k), (-(1 / 16 * epsilon) : k), (-(1 / 4 * epsilon) : k),
+      (1 / 2 * epsilon : k), (1 / 512 * zeta : k), (-(15 / 128 * zeta) : k),
+      (3 / 8 * zeta : k), (-(1 / 32 * eta) : k), (1 / 4 * eta : k),
+      (1 / 128 * theta : k), (1 / 8 * theta : k)]
+      [
+      [1, 1, 2, 0, 0, 0, 0], [0, 3, 1, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 1], [1, 0, 1, 0, 0, 1, 0],
+      [0, 1, 1, 0, 1, 0, 0], [0, 0, 2, 1, 0, 0, 0], [0, 0, 0, 1, 0, 0, 1], [6, 0, 0, 0, 0, 0, 0],
+      [4, 0, 1, 0, 0, 0, 0], [3, 0, 0, 0, 1, 0, 0], [2, 1, 0, 1, 0, 0, 0], [2, 0, 2, 0, 0, 0, 0],
+      [1, 2, 1, 0, 0, 0, 0], [0, 4, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 1], [1, 1, 0, 0, 0, 1, 0],
+      [1, 0, 0, 2, 0, 0, 0], [0, 2, 0, 0, 1, 0, 0], [0, 1, 1, 1, 0, 0, 0], [0, 0, 3, 0, 0, 0, 0],
+      [0, 0, 1, 0, 0, 0, 1], [0, 0, 0, 1, 0, 1, 0], [0, 0, 0, 0, 2, 0, 0], [5, 0, 0, 0, 0, 0, 0],
+      [3, 0, 1, 0, 0, 0, 0], [2, 2, 0, 0, 0, 0, 0], [2, 0, 0, 0, 1, 0, 0], [1, 1, 0, 1, 0, 0, 0],
+      [0, 2, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 1, 0], [0, 0, 1, 0, 1, 0, 0], [0, 0, 0, 2, 0, 0, 0],
+      [1, 1, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0], [0, 1, 0, 0, 1, 0, 0],
+      [0, 0, 1, 1, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0], [2, 0, 1, 0, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0],
+      [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 1, 0, 0, 0],
+      [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0], [3, 0, 0, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 1, 0, 0], [1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0], [2, 0, 0, 0, 0, 0, 0],
+      [0, 0, 1, 0, 0, 0, 0]] := by
+  simp only [degreeZeroNuQuarticNoABDEF810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  module
+
 set_option maxHeartbeats 32000000 in
 theorem degreeZeroNuQuarticNoABDEF810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -379,9 +527,20 @@ theorem degreeZeroNuQuarticNoABDEF810_natDegree_lt
   rcases hcone with ⟨hApos, hBpos, hDpos, hEpos, hFpos, hAB, hAD, hAE, hAF, hClt, hGlt⟩
   have hC1 : C.natDegree + 1 ≤ 2 * A.natDegree := Nat.succ_le_of_lt hClt
   have hG1 : G.natDegree + 1 ≤ 4 * A.natDegree := Nat.succ_le_of_lt hGlt
-  simp only [degreeZeroNuQuarticNoABDEF810]
-  compute_degree
-  omega
+  rw [speedRefl_degreeZeroNuQuarticNoABDEF810_eq_polyOf]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
+    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  repeat' apply And.intro
+  all_goals first
+    | (right; right; omega)
+    | (left; norm_num; done)
+    | (right; left; simp; done)
+    | trivial
 
 theorem nuQuarticFaceABDEF810_coeff_top
     {A B C D E F G : k[X]}
@@ -514,6 +673,56 @@ theorem degreeZeroXiQuartic810_eq_ABDEF_add_rest
   simp only [degreeZeroXiQuartic810, xiQuarticFaceABDEF810, degreeZeroXiQuarticNoABDEF810]
   all_goals module
 
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroXiQuarticNoABDEF810` (55 monomials, 7 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroXiQuarticNoABDEF810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    degreeZeroXiQuarticNoABDEF810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 256 : k), (45 / 512 : k), (-(5 / 64) : k),
+      (-(25 / 128) : k), (-(15 / 128) : k), (-(15 / 128) : k),
+      (5 / 16 : k), (-(45 / 262144 * l) : k), (9 / 16384 * l : k),
+      (-(9 / 16384 * l) : k), (-(9 / 8192 * l) : k), (9 / 4096 * l : k),
+      (-(9 / 8192 * l) : k), (171 / 8192 * l : k), (9 / 1024 * l : k),
+      (63 / 2048 * l : k), (-(9 / 512 * l) : k), (-(9 / 512 * l) : k),
+      (-(45 / 1024 * l) : k), (-(27 / 256 * l) : k), (-(27 / 512 * l) : k),
+      (-(63 / 1024 * l) : k), (9 / 64 * l : k), (9 / 64 * l : k),
+      (-(7 / 8192 * beta) : k), (7 / 2048 * beta : k), (-(7 / 1024 * beta) : k),
+      (-(7 / 1024 * beta) : k), (7 / 256 * beta : k), (7 / 512 * beta : k),
+      (49 / 1024 * beta : k), (7 / 128 * beta : k), (-(7 / 64 * beta) : k),
+      (-(7 / 64 * beta) : k), (3 / 64 * gamma : k), (3 / 32 * gamma : k),
+      (-(3 / 32 * gamma) : k), (-(3 / 16 * gamma) : k), (-(3 / 32 * gamma) : k),
+      (-(5 / 1024 * delta) : k), (5 / 128 * delta : k), (5 / 128 * delta : k),
+      (-(5 / 64 * delta) : k), (-(5 / 32 * delta) : k), (-(15 / 64 * delta) : k),
+      (1 / 32 * epsilon : k), (-(3 / 16 * epsilon) : k), (-(1 / 8 * epsilon) : k),
+      (1 / 2 * epsilon : k), (-(3 / 64 * zeta) : k), (-(3 / 16 * zeta) : k),
+      (3 / 8 * zeta : k), (-(1 / 16 * eta) : k), (1 / 4 * eta : k),
+      (1 / 8 * theta : k)]
+      [
+      [1, 1, 1, 1, 0, 0, 0], [0, 2, 2, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 1], [0, 1, 1, 0, 0, 1, 0],
+      [0, 0, 2, 0, 1, 0, 0], [0, 0, 1, 2, 0, 0, 0], [0, 0, 0, 0, 1, 0, 1], [4, 0, 0, 1, 0, 0, 0],
+      [3, 1, 1, 0, 0, 0, 0], [2, 3, 0, 0, 0, 0, 0], [3, 0, 0, 0, 0, 1, 0], [2, 1, 0, 0, 1, 0, 0],
+      [2, 0, 1, 1, 0, 0, 0], [1, 2, 0, 1, 0, 0, 0], [1, 1, 2, 0, 0, 0, 0], [0, 3, 1, 0, 0, 0, 0],
+      [1, 0, 1, 0, 0, 1, 0], [1, 0, 0, 1, 1, 0, 0], [0, 2, 0, 0, 0, 1, 0], [0, 1, 1, 0, 1, 0, 0],
+      [0, 1, 0, 2, 0, 0, 0], [0, 0, 2, 1, 0, 0, 0], [0, 0, 0, 1, 0, 0, 1], [0, 0, 0, 0, 1, 1, 0],
+      [3, 0, 0, 1, 0, 0, 0], [2, 1, 1, 0, 0, 0, 0], [1, 3, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 1, 0],
+      [1, 1, 0, 0, 1, 0, 0], [1, 0, 1, 1, 0, 0, 0], [0, 2, 0, 1, 0, 0, 0], [0, 1, 2, 0, 0, 0, 0],
+      [0, 0, 1, 0, 0, 1, 0], [0, 0, 0, 1, 1, 0, 0], [1, 1, 0, 1, 0, 0, 0], [0, 2, 1, 0, 0, 0, 0],
+      [0, 1, 0, 0, 0, 1, 0], [0, 0, 1, 0, 1, 0, 0], [0, 0, 0, 2, 0, 0, 0], [2, 0, 0, 1, 0, 0, 0],
+      [1, 1, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0], [0, 1, 0, 0, 1, 0, 0],
+      [0, 0, 1, 1, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0], [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 1, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0],
+      [0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 1, 0, 0, 0]] := by
+  simp only [degreeZeroXiQuarticNoABDEF810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  module
+
 set_option maxHeartbeats 32000000 in
 theorem degreeZeroXiQuarticNoABDEF810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -525,9 +734,20 @@ theorem degreeZeroXiQuarticNoABDEF810_natDegree_lt
   rcases hcone with ⟨hApos, hBpos, hDpos, hEpos, hFpos, hAB, hAD, hAE, hAF, hClt, hGlt⟩
   have hC1 : C.natDegree + 1 ≤ 2 * A.natDegree := Nat.succ_le_of_lt hClt
   have hG1 : G.natDegree + 1 ≤ 4 * A.natDegree := Nat.succ_le_of_lt hGlt
-  simp only [degreeZeroXiQuarticNoABDEF810]
-  compute_degree
-  omega
+  rw [speedRefl_degreeZeroXiQuarticNoABDEF810_eq_polyOf]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
+    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  repeat' apply And.intro
+  all_goals first
+    | (right; right; omega)
+    | (left; norm_num; done)
+    | (right; left; simp; done)
+    | trivial
 
 theorem xiQuarticFaceABDEF810_coeff_top
     {A B C D E F G : k[X]}
@@ -701,6 +921,77 @@ theorem degreeZeroOmicronQuartic810_eq_ABDEF_add_rest
   simp only [degreeZeroOmicronQuartic810, omicronQuarticFaceABDEF810, degreeZeroOmicronQuarticNoABDEF810]
   all_goals module
 
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroOmicronQuarticNoABDEF810` (91 monomials, 7 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroOmicronQuarticNoABDEF810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    degreeZeroOmicronQuarticNoABDEF810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 16384 : k), (-(35 / 2048) : k), (-(5 / 2048) : k),
+      (-(5 / 2048) : k), (15 / 512 : k), (15 / 1024 : k),
+      (135 / 1024 : k), (45 / 1024 : k), (-(5 / 128) : k),
+      (-(15 / 128) : k), (-(5 / 64) : k), (-(25 / 128) : k),
+      (5 / 16 : k), (135 / 33554432 * l : k), (225 / 2097152 * l : k),
+      (-(171 / 4194304 * l) : k), (81 / 262144 * l : k), (-(9 / 65536 * l) : k),
+      (99 / 131072 * l : k), (-(45 / 131072 * l) : k), (-(189 / 65536 * l) : k),
+      (9 / 8192 * l : k), (-(9 / 4096 * l) : k), (27 / 8192 * l : k),
+      (45 / 4096 * l : k), (99 / 4096 * l : k), (9 / 8192 * l : k),
+      (189 / 8192 * l : k), (567 / 16384 * l : k), (9 / 512 * l : k),
+      (-(9 / 256 * l) : k), (-(27 / 1024 * l) : k), (-(9 / 128 * l) : k),
+      (-(45 / 512 * l) : k), (-(45 / 1024 * l) : k), (-(27 / 512 * l) : k),
+      (9 / 64 * l : k), (9 / 128 * l : k), (35 / 2097152 * beta : k),
+      (49 / 131072 * beta : k), (-(35 / 131072 * beta) : k), (7 / 8192 * beta : k),
+      (-(7 / 4096 * beta) : k), (21 / 8192 * beta : k), (-(91 / 8192 * beta) : k),
+      (-(189 / 32768 * beta) : k), (7 / 512 * beta : k), (7 / 512 * beta : k),
+      (35 / 1024 * beta : k), (21 / 256 * beta : k), (7 / 512 * beta : k),
+      (-(7 / 64 * beta) : k), (-(7 / 128 * beta) : k), (3 / 2048 * gamma : k),
+      (-(9 / 1024 * gamma) : k), (-(3 / 512 * gamma) : k), (3 / 128 * gamma : k),
+      (3 / 128 * gamma : k), (9 / 128 * gamma : k), (9 / 128 * gamma : k),
+      (-(3 / 32 * gamma) : k), (-(3 / 16 * gamma) : k), (9 / 131072 * delta : k),
+      (5 / 4096 * delta : k), (-(5 / 4096 * delta) : k), (5 / 128 * delta : k),
+      (5 / 512 * delta : k), (45 / 512 * delta : k), (-(5 / 64 * delta) : k),
+      (-(5 / 32 * delta) : k), (-(15 / 128 * delta) : k), (-(1 / 256 * epsilon) : k),
+      (1 / 32 * epsilon : k), (1 / 32 * epsilon : k), (-(1 / 16 * epsilon) : k),
+      (-(1 / 8 * epsilon) : k), (-(3 / 16 * epsilon) : k), (9 / 32768 * zeta : k),
+      (3 / 1024 * zeta : k), (9 / 512 * zeta : k), (-(9 / 64 * zeta) : k),
+      (-(9 / 128 * zeta) : k), (3 / 8 * zeta : k), (-(1 / 512 * eta) : k),
+      (-(1 / 32 * eta) : k), (-(3 / 32 * eta) : k), (1 / 4 * eta : k),
+      (1 / 1024 * theta : k), (1 / 64 * theta : k), (-(3 / 128 * theta) : k),
+      (1 / 8 * theta : k)]
+      [
+      [2, 1, 2, 0, 0, 0, 0], [1, 3, 1, 0, 0, 0, 0], [2, 1, 0, 0, 0, 0, 1], [2, 0, 1, 0, 0, 1, 0],
+      [1, 1, 1, 0, 1, 0, 0], [1, 0, 2, 1, 0, 0, 0], [0, 2, 1, 1, 0, 0, 0], [0, 1, 3, 0, 0, 0, 0],
+      [1, 0, 0, 1, 0, 0, 1], [0, 1, 1, 0, 0, 0, 1], [0, 0, 2, 0, 0, 1, 0], [0, 0, 1, 1, 1, 0, 0],
+      [0, 0, 0, 0, 0, 1, 1], [7, 0, 0, 0, 0, 0, 0], [5, 0, 1, 0, 0, 0, 0], [4, 2, 0, 0, 0, 0, 0],
+      [4, 0, 0, 0, 1, 0, 0], [3, 1, 0, 1, 0, 0, 0], [3, 0, 2, 0, 0, 0, 0], [2, 2, 1, 0, 0, 0, 0],
+      [1, 4, 0, 0, 0, 0, 0], [3, 0, 0, 0, 0, 0, 1], [2, 1, 0, 0, 0, 1, 0], [2, 0, 1, 0, 1, 0, 0],
+      [1, 2, 0, 0, 1, 0, 0], [1, 1, 1, 1, 0, 0, 0], [1, 0, 3, 0, 0, 0, 0], [0, 3, 0, 1, 0, 0, 0],
+      [0, 2, 2, 0, 0, 0, 0], [1, 0, 1, 0, 0, 0, 1], [1, 0, 0, 1, 0, 1, 0], [0, 2, 0, 0, 0, 0, 1],
+      [0, 1, 1, 0, 0, 1, 0], [0, 1, 0, 1, 1, 0, 0], [0, 0, 2, 0, 1, 0, 0], [0, 0, 1, 2, 0, 0, 0],
+      [0, 0, 0, 0, 1, 0, 1], [0, 0, 0, 0, 0, 2, 0], [6, 0, 0, 0, 0, 0, 0], [4, 0, 1, 0, 0, 0, 0],
+      [3, 2, 0, 0, 0, 0, 0], [3, 0, 0, 0, 1, 0, 0], [2, 1, 0, 1, 0, 0, 0], [2, 0, 2, 0, 0, 0, 0],
+      [1, 2, 1, 0, 0, 0, 0], [0, 4, 0, 0, 0, 0, 0], [1, 0, 1, 0, 1, 0, 0], [1, 0, 0, 2, 0, 0, 0],
+      [0, 2, 0, 0, 1, 0, 0], [0, 1, 1, 1, 0, 0, 0], [0, 0, 3, 0, 0, 0, 0], [0, 0, 0, 1, 0, 1, 0],
+      [0, 0, 0, 0, 2, 0, 0], [2, 1, 1, 0, 0, 0, 0], [1, 3, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 1, 0],
+      [1, 1, 0, 0, 1, 0, 0], [1, 0, 1, 1, 0, 0, 0], [0, 2, 0, 1, 0, 0, 0], [0, 1, 2, 0, 0, 0, 0],
+      [0, 0, 1, 0, 0, 1, 0], [0, 0, 0, 1, 1, 0, 0], [5, 0, 0, 0, 0, 0, 0], [3, 0, 1, 0, 0, 0, 0],
+      [2, 2, 0, 0, 0, 0, 0], [1, 1, 0, 1, 0, 0, 0], [1, 0, 2, 0, 0, 0, 0], [0, 2, 1, 0, 0, 0, 0],
+      [0, 1, 0, 0, 0, 1, 0], [0, 0, 1, 0, 1, 0, 0], [0, 0, 0, 2, 0, 0, 0], [2, 0, 0, 1, 0, 0, 0],
+      [1, 1, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0], [0, 1, 0, 0, 1, 0, 0],
+      [0, 0, 1, 1, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0], [2, 0, 1, 0, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0],
+      [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1], [2, 1, 0, 0, 0, 0, 0],
+      [1, 0, 0, 1, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0], [3, 0, 0, 0, 0, 0, 0],
+      [1, 0, 1, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0]] := by
+  simp only [degreeZeroOmicronQuarticNoABDEF810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  module
+
 set_option maxHeartbeats 32000000 in
 theorem degreeZeroOmicronQuarticNoABDEF810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -712,9 +1003,20 @@ theorem degreeZeroOmicronQuarticNoABDEF810_natDegree_lt
   rcases hcone with ⟨hApos, hBpos, hDpos, hEpos, hFpos, hAB, hAD, hAE, hAF, hClt, hGlt⟩
   have hC1 : C.natDegree + 1 ≤ 2 * A.natDegree := Nat.succ_le_of_lt hClt
   have hG1 : G.natDegree + 1 ≤ 4 * A.natDegree := Nat.succ_le_of_lt hGlt
-  simp only [degreeZeroOmicronQuarticNoABDEF810]
-  compute_degree
-  omega
+  rw [speedRefl_degreeZeroOmicronQuarticNoABDEF810_eq_polyOf]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
+    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  repeat' apply And.intro
+  all_goals first
+    | (right; right; omega)
+    | (left; norm_num; done)
+    | (right; left; simp; done)
+    | trivial
 
 theorem omicronQuarticFaceABDEF810_coeff_top
     {A B C D E F G : k[X]}
@@ -914,6 +1216,74 @@ theorem degreeZeroPiQuartic810_eq_ABDEF_add_rest
     piThetaGroupQuartic810, piQuarticFaceABDEF810, degreeZeroPiQuarticNoABDEF810]
   all_goals module
 
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroPiQuarticNoABDEF810` (87 monomials, 7 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroPiQuarticNoABDEF810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    degreeZeroPiQuarticNoABDEF810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(45 / 512) : k), (-(35 / 256) : k), (5 / 64 : k),
+      (5 / 32 : k), (5 / 32 : k), (45 / 64 : k),
+      (45 / 64 : k), (15 / 256 : k), (-(5 / 8) : k),
+      (-(5 / 16) : k), (-(15 / 16) : k), (-(5 / 8) : k),
+      (5 / 4 : k), (45 / 131072 * l : k), (-(3 / 32768 * l) : k),
+      (-(45 / 32768 * l) : k), (9 / 4096 * l : k), (9 / 4096 * l : k),
+      (-(27 / 4096 * l) : k), (9 / 4096 * l : k), (-(189 / 4096 * l) : k),
+      (-(63 / 4096 * l) : k), (-(27 / 1024 * l) : k), (9 / 512 * l : k),
+      (63 / 1024 * l : k), (9 / 128 * l : k), (27 / 256 * l : k),
+      (9 / 256 * l : k), (63 / 512 * l : k), (189 / 512 * l : k),
+      (63 / 512 * l : k), (-(9 / 64 * l) : k), (-(9 / 32 * l) : k),
+      (-(27 / 64 * l) : k), (-(9 / 32 * l) : k), (-(27 / 128 * l) : k),
+      (-(9 / 16 * l) : k), (-(3 / 32 * l) : k), (9 / 8 * l : k),
+      (7 / 4096 * beta : k), (7 / 4096 * beta : k), (-(7 / 1024 * beta) : k),
+      (7 / 512 * beta : k), (7 / 512 * beta : k), (-(21 / 256 * beta) : k),
+      (-(7 / 256 * beta) : k), (-(63 / 512 * beta) : k), (-(7 / 64 * beta) : k),
+      (7 / 32 * beta : k), (21 / 128 * beta : k), (7 / 16 * beta : k),
+      (7 / 32 * beta : k), (7 / 32 * beta : k), (-(7 / 8 * beta) : k),
+      (-(3 / 32 * gamma) : k), (-(15 / 256 * gamma) : k), (3 / 16 * gamma : k),
+      (3 / 8 * gamma : k), (3 / 4 * gamma : k), (1 / 8 * gamma : k),
+      (-(3 / 4 * gamma) : k), (-(3 / 4 * gamma) : k), (5 / 512 * delta : k),
+      (-(15 / 256 * delta) : k), (-(5 / 128 * delta) : k), (5 / 32 * delta : k),
+      (5 / 32 * delta : k), (15 / 32 * delta : k), (15 / 32 * delta : k),
+      (-(5 / 8 * delta) : k), (-(5 / 4 * delta) : k), (1 / 4 * epsilon : k),
+      (1 / 2 * epsilon : k), (-(1 / 2 * epsilon) : k), (-(1 * epsilon) : k),
+      (-(1 / 2 * epsilon) : k), (3 / 32 * zeta : k), (5 / 32 * zeta : k),
+      (-(3 / 8 * zeta) : k), (-(3 / 4 * zeta) : k), (-(3 / 4 * zeta) : k),
+      (1 / 16 * eta : k), (-(1 / 2 * eta) : k), (-(1 / 4 * eta) : k),
+      (2 * eta : k), (-(1 / 4 * theta) : k), (1 * theta : k)]
+      [
+      [1, 2, 2, 0, 0, 0, 0], [0, 4, 1, 0, 0, 0, 0], [1, 2, 0, 0, 0, 0, 1], [1, 1, 1, 0, 0, 1, 0],
+      [1, 0, 1, 2, 0, 0, 0], [0, 2, 1, 0, 1, 0, 0], [0, 1, 2, 1, 0, 0, 0], [0, 0, 4, 0, 0, 0, 0],
+      [0, 1, 0, 1, 0, 0, 1], [0, 0, 2, 0, 0, 0, 1], [0, 0, 1, 1, 0, 1, 0], [0, 0, 1, 0, 2, 0, 0],
+      [0, 0, 0, 0, 0, 0, 2], [4, 1, 1, 0, 0, 0, 0], [3, 3, 0, 0, 0, 0, 0], [4, 0, 0, 0, 0, 1, 0],
+      [3, 1, 0, 0, 1, 0, 0], [3, 0, 1, 1, 0, 0, 0], [2, 2, 0, 1, 0, 0, 0], [2, 1, 2, 0, 0, 0, 0],
+      [1, 3, 1, 0, 0, 0, 0], [0, 5, 0, 0, 0, 0, 0], [2, 0, 1, 0, 0, 1, 0], [2, 0, 0, 1, 1, 0, 0],
+      [1, 2, 0, 0, 0, 1, 0], [1, 1, 1, 0, 1, 0, 0], [1, 1, 0, 2, 0, 0, 0], [1, 0, 2, 1, 0, 0, 0],
+      [0, 3, 0, 0, 1, 0, 0], [0, 2, 1, 1, 0, 0, 0], [0, 1, 3, 0, 0, 0, 0], [1, 0, 0, 0, 1, 1, 0],
+      [0, 1, 1, 0, 0, 0, 1], [0, 1, 0, 1, 0, 1, 0], [0, 1, 0, 0, 2, 0, 0], [0, 0, 2, 0, 0, 1, 0],
+      [0, 0, 1, 1, 1, 0, 0], [0, 0, 0, 3, 0, 0, 0], [0, 0, 0, 0, 0, 1, 1], [3, 1, 1, 0, 0, 0, 0],
+      [2, 3, 0, 0, 0, 0, 0], [3, 0, 0, 0, 0, 1, 0], [2, 1, 0, 0, 1, 0, 0], [2, 0, 1, 1, 0, 0, 0],
+      [1, 2, 0, 1, 0, 0, 0], [1, 1, 2, 0, 0, 0, 0], [0, 3, 1, 0, 0, 0, 0], [1, 0, 1, 0, 0, 1, 0],
+      [1, 0, 0, 1, 1, 0, 0], [0, 2, 0, 0, 0, 1, 0], [0, 1, 1, 0, 1, 0, 0], [0, 1, 0, 2, 0, 0, 0],
+      [0, 0, 2, 1, 0, 0, 0], [0, 0, 0, 0, 1, 1, 0], [1, 2, 1, 0, 0, 0, 0], [0, 4, 0, 0, 0, 0, 0],
+      [1, 0, 0, 2, 0, 0, 0], [0, 2, 0, 0, 1, 0, 0], [0, 1, 1, 1, 0, 0, 0], [0, 0, 3, 0, 0, 0, 0],
+      [0, 0, 0, 1, 0, 1, 0], [0, 0, 0, 0, 2, 0, 0], [2, 1, 1, 0, 0, 0, 0], [1, 3, 0, 0, 0, 0, 0],
+      [2, 0, 0, 0, 0, 1, 0], [1, 1, 0, 0, 1, 0, 0], [1, 0, 1, 1, 0, 0, 0], [0, 2, 0, 1, 0, 0, 0],
+      [0, 1, 2, 0, 0, 0, 0], [0, 0, 1, 0, 0, 1, 0], [0, 0, 0, 1, 1, 0, 0], [1, 1, 0, 1, 0, 0, 0],
+      [0, 2, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 1, 0], [0, 0, 1, 0, 1, 0, 0], [0, 0, 0, 2, 0, 0, 0],
+      [1, 1, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0], [0, 1, 0, 0, 1, 0, 0],
+      [0, 0, 1, 1, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0], [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 1], [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0]] := by
+  simp only [degreeZeroPiQuarticNoABDEF810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  module
+
 set_option maxHeartbeats 32000000 in
 theorem degreeZeroPiQuarticNoABDEF810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -925,9 +1295,20 @@ theorem degreeZeroPiQuarticNoABDEF810_natDegree_lt
   rcases hcone with ⟨hApos, hBpos, hDpos, hEpos, hFpos, hAB, hAD, hAE, hAF, hClt, hGlt⟩
   have hC1 : C.natDegree + 1 ≤ 2 * A.natDegree := Nat.succ_le_of_lt hClt
   have hG1 : G.natDegree + 1 ≤ 4 * A.natDegree := Nat.succ_le_of_lt hGlt
-  simp only [degreeZeroPiQuarticNoABDEF810]
-  compute_degree
-  omega
+  rw [speedRefl_degreeZeroPiQuarticNoABDEF810_eq_polyOf]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
+    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  repeat' apply And.intro
+  all_goals first
+    | (right; right; omega)
+    | (left; norm_num; done)
+    | (right; left; simp; done)
+    | trivial
 
 theorem piQuarticFaceABDEF810_coeff_top
     {A B C D E F G : k[X]}
@@ -1174,6 +1555,107 @@ theorem degreeZeroPrimitiveQuartic810_eq_ABDEF_add_rest
     rhoThetaGroupQuartic810, primitiveQuarticFaceABDEF810, degreeZeroPrimitiveQuarticNoABDEF810]
   all_goals module
 
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroPrimitiveQuarticNoABDEF810` (144 monomials, 7 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroPrimitiveQuarticNoABDEF810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    degreeZeroPrimitiveQuarticNoABDEF810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 16384 : k), (15 / 8192 : k), (-(5 / 2048) : k),
+      (-(5 / 2048) : k), (15 / 1024 : k), (15 / 2048 : k),
+      (-(135 / 1024) : k), (-(15 / 1024) : k), (-(265 / 2048) : k),
+      (-(5 / 256) : k), (5 / 128 : k), (15 / 128 : k),
+      (15 / 256 : k), (85 / 256 : k), (45 / 128 : k),
+      (45 / 128 : k), (15 / 128 : k), (-(5 / 16) : k),
+      (-(5 / 16) : k), (-(5 / 16) : k), (-(5 / 8) : k),
+      (1575 / 268435456 * l : k), (765 / 4194304 * l : k), (-(369 / 4194304 * l) : k),
+      (171 / 262144 * l : k), (-(153 / 262144 * l) : k), (855 / 524288 * l : k),
+      (-(81 / 131072 * l) : k), (261 / 262144 * l : k), (45 / 32768 * l : k),
+      (-(9 / 4096 * l) : k), (99 / 8192 * l : k), (-(9 / 4096 * l) : k),
+      (-(9 / 4096 * l) : k), (9 / 8192 * l : k), (27 / 16384 * l : k),
+      (-(243 / 8192 * l) : k), (-(387 / 16384 * l) : k), (-(567 / 16384 * l) : k),
+      (27 / 1024 * l : k), (-(9 / 512 * l) : k), (27 / 1024 * l : k),
+      (9 / 1024 * l : k), (9 / 256 * l : k), (45 / 512 * l : k),
+      (9 / 1024 * l : k), (9 / 256 * l : k), (27 / 512 * l : k),
+      (45 / 256 * l : k), (45 / 512 * l : k), (189 / 1024 * l : k),
+      (63 / 4096 * l : k), (9 / 64 * l : k), (-(9 / 64 * l) : k),
+      (-(9 / 64 * l) : k), (-(9 / 32 * l) : k), (-(9 / 128 * l) : k),
+      (-(9 / 32 * l) : k), (-(9 / 64 * l) : k), (-(9 / 64 * l) : k),
+      (9 / 16 * l : k), (25 / 1048576 * beta : k), (21 / 32768 * beta : k),
+      (-(119 / 262144 * beta) : k), (35 / 16384 * beta : k), (-(7 / 2048 * beta) : k),
+      (21 / 4096 * beta : k), (-(21 / 8192 * beta) : k), (119 / 16384 * beta : k),
+      (21 / 512 * beta : k), (-(7 / 512 * beta) : k), (-(21 / 512 * beta) : k),
+      (-(7 / 128 * beta) : k), (-(7 / 128 * beta) : k), (-(91 / 1024 * beta) : k),
+      (7 / 64 * beta : k), (7 / 32 * beta : k), (7 / 32 * beta : k),
+      (7 / 64 * beta : k), (7 / 64 * beta : k), (-(7 / 16 * beta) : k),
+      (3 / 2048 * gamma : k), (3 / 2048 * gamma : k), (-(3 / 512 * gamma) : k),
+      (3 / 256 * gamma : k), (3 / 256 * gamma : k), (-(9 / 128 * gamma) : k),
+      (-(3 / 128 * gamma) : k), (-(27 / 256 * gamma) : k), (-(3 / 32 * gamma) : k),
+      (3 / 16 * gamma : k), (9 / 64 * gamma : k), (3 / 8 * gamma : k),
+      (3 / 16 * gamma : k), (3 / 16 * gamma : k), (-(3 / 4 * gamma) : k),
+      (25 / 262144 * delta : k), (35 / 16384 * delta : k), (-(25 / 16384 * delta) : k),
+      (5 / 1024 * delta : k), (-(5 / 512 * delta) : k), (15 / 1024 * delta : k),
+      (-(65 / 1024 * delta) : k), (-(135 / 4096 * delta) : k), (5 / 64 * delta : k),
+      (5 / 64 * delta : k), (25 / 128 * delta : k), (15 / 32 * delta : k),
+      (5 / 64 * delta : k), (-(5 / 8 * delta) : k), (-(5 / 16 * delta) : k),
+      (-(1 / 256 * epsilon) : k), (1 / 64 * epsilon : k), (-(1 / 32 * epsilon) : k),
+      (-(1 / 32 * epsilon) : k), (1 / 8 * epsilon : k), (1 / 16 * epsilon : k),
+      (7 / 32 * epsilon : k), (1 / 4 * epsilon : k), (-(1 / 2 * epsilon) : k),
+      (-(1 / 2 * epsilon) : k), (3 / 8192 * zeta : k), (3 / 512 * zeta : k),
+      (-(3 / 2048 * zeta) : k), (3 / 128 * zeta : k), (3 / 32 * zeta : k),
+      (27 / 128 * zeta : k), (-(3 / 8 * zeta) : k), (-(3 / 8 * zeta) : k),
+      (-(3 / 16 * zeta) : k), (-(1 / 512 * eta) : k), (-(1 / 64 * eta) : k),
+      (1 / 32 * eta : k), (3 / 64 * eta : k), (-(1 / 4 * eta) : k),
+      (-(1 / 4 * eta) : k), (-(1 / 4 * eta) : k), (5 / 4096 * theta : k),
+      (3 / 128 * theta : k), (1 / 128 * theta : k), (1 / 8 * theta : k),
+      (-(1 / 8 * theta) : k), (-(1 / 16 * theta) : k), (1 * theta : k)]
+      [
+      [3, 1, 2, 0, 0, 0, 0], [2, 3, 1, 0, 0, 0, 0], [3, 1, 0, 0, 0, 0, 1], [3, 0, 1, 0, 0, 1, 0],
+      [2, 1, 1, 0, 1, 0, 0], [2, 0, 2, 1, 0, 0, 0], [1, 2, 1, 1, 0, 0, 0], [1, 1, 3, 0, 0, 0, 0],
+      [0, 3, 2, 0, 0, 0, 0], [2, 0, 0, 1, 0, 0, 1], [1, 1, 1, 0, 0, 0, 1], [1, 0, 1, 1, 1, 0, 0],
+      [0, 3, 0, 0, 0, 0, 1], [0, 2, 1, 0, 0, 1, 0], [0, 1, 2, 0, 1, 0, 0], [0, 1, 1, 2, 0, 0, 0],
+      [0, 0, 3, 1, 0, 0, 0], [1, 0, 0, 0, 0, 1, 1], [0, 1, 0, 0, 1, 0, 1], [0, 0, 1, 1, 0, 0, 1],
+      [0, 0, 1, 0, 1, 1, 0], [8, 0, 0, 0, 0, 0, 0], [6, 0, 1, 0, 0, 0, 0], [5, 2, 0, 0, 0, 0, 0],
+      [5, 0, 0, 0, 1, 0, 0], [4, 1, 0, 1, 0, 0, 0], [4, 0, 2, 0, 0, 0, 0], [3, 2, 1, 0, 0, 0, 0],
+      [2, 4, 0, 0, 0, 0, 0], [4, 0, 0, 0, 0, 0, 1], [3, 1, 0, 0, 0, 1, 0], [3, 0, 1, 0, 1, 0, 0],
+      [3, 0, 0, 2, 0, 0, 0], [2, 2, 0, 0, 1, 0, 0], [2, 1, 1, 1, 0, 0, 0], [2, 0, 3, 0, 0, 0, 0],
+      [1, 3, 0, 1, 0, 0, 0], [1, 2, 2, 0, 0, 0, 0], [0, 4, 1, 0, 0, 0, 0], [2, 0, 1, 0, 0, 0, 1],
+      [2, 0, 0, 1, 0, 1, 0], [2, 0, 0, 0, 2, 0, 0], [1, 2, 0, 0, 0, 0, 1], [1, 1, 1, 0, 0, 1, 0],
+      [1, 1, 0, 1, 1, 0, 0], [1, 0, 2, 0, 1, 0, 0], [1, 0, 1, 2, 0, 0, 0], [0, 3, 0, 0, 0, 1, 0],
+      [0, 2, 1, 0, 1, 0, 0], [0, 2, 0, 2, 0, 0, 0], [0, 1, 2, 1, 0, 0, 0], [0, 0, 4, 0, 0, 0, 0],
+      [1, 0, 0, 0, 1, 0, 1], [1, 0, 0, 0, 0, 2, 0], [0, 1, 0, 1, 0, 0, 1], [0, 1, 0, 0, 1, 1, 0],
+      [0, 0, 2, 0, 0, 0, 1], [0, 0, 1, 1, 0, 1, 0], [0, 0, 1, 0, 2, 0, 0], [0, 0, 0, 2, 1, 0, 0],
+      [0, 0, 0, 0, 0, 0, 2], [7, 0, 0, 0, 0, 0, 0], [5, 0, 1, 0, 0, 0, 0], [4, 2, 0, 0, 0, 0, 0],
+      [4, 0, 0, 0, 1, 0, 0], [3, 1, 0, 1, 0, 0, 0], [3, 0, 2, 0, 0, 0, 0], [2, 2, 1, 0, 0, 0, 0],
+      [1, 4, 0, 0, 0, 0, 0], [2, 0, 1, 0, 1, 0, 0], [2, 0, 0, 2, 0, 0, 0], [1, 2, 0, 0, 1, 0, 0],
+      [1, 1, 1, 1, 0, 0, 0], [0, 3, 0, 1, 0, 0, 0], [0, 2, 2, 0, 0, 0, 0], [1, 0, 0, 0, 2, 0, 0],
+      [0, 1, 1, 0, 0, 1, 0], [0, 1, 0, 1, 1, 0, 0], [0, 0, 2, 0, 1, 0, 0], [0, 0, 1, 2, 0, 0, 0],
+      [0, 0, 0, 0, 0, 2, 0], [3, 1, 1, 0, 0, 0, 0], [2, 3, 0, 0, 0, 0, 0], [3, 0, 0, 0, 0, 1, 0],
+      [2, 1, 0, 0, 1, 0, 0], [2, 0, 1, 1, 0, 0, 0], [1, 2, 0, 1, 0, 0, 0], [1, 1, 2, 0, 0, 0, 0],
+      [0, 3, 1, 0, 0, 0, 0], [1, 0, 1, 0, 0, 1, 0], [1, 0, 0, 1, 1, 0, 0], [0, 2, 0, 0, 0, 1, 0],
+      [0, 1, 1, 0, 1, 0, 0], [0, 1, 0, 2, 0, 0, 0], [0, 0, 2, 1, 0, 0, 0], [0, 0, 0, 0, 1, 1, 0],
+      [6, 0, 0, 0, 0, 0, 0], [4, 0, 1, 0, 0, 0, 0], [3, 2, 0, 0, 0, 0, 0], [3, 0, 0, 0, 1, 0, 0],
+      [2, 1, 0, 1, 0, 0, 0], [2, 0, 2, 0, 0, 0, 0], [1, 2, 1, 0, 0, 0, 0], [0, 4, 0, 0, 0, 0, 0],
+      [1, 0, 1, 0, 1, 0, 0], [1, 0, 0, 2, 0, 0, 0], [0, 2, 0, 0, 1, 0, 0], [0, 1, 1, 1, 0, 0, 0],
+      [0, 0, 3, 0, 0, 0, 0], [0, 0, 0, 1, 0, 1, 0], [0, 0, 0, 0, 2, 0, 0], [3, 0, 0, 1, 0, 0, 0],
+      [2, 1, 1, 0, 0, 0, 0], [1, 3, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 1, 0], [1, 1, 0, 0, 1, 0, 0],
+      [1, 0, 1, 1, 0, 0, 0], [0, 2, 0, 1, 0, 0, 0], [0, 1, 2, 0, 0, 0, 0], [0, 0, 1, 0, 0, 1, 0],
+      [0, 0, 0, 1, 1, 0, 0], [5, 0, 0, 0, 0, 0, 0], [3, 0, 1, 0, 0, 0, 0], [2, 2, 0, 0, 0, 0, 0],
+      [2, 0, 0, 0, 1, 0, 0], [1, 1, 0, 1, 0, 0, 0], [0, 2, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 1, 0],
+      [0, 0, 1, 0, 1, 0, 0], [0, 0, 0, 2, 0, 0, 0], [3, 1, 0, 0, 0, 0, 0], [2, 0, 0, 1, 0, 0, 0],
+      [1, 1, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0], [0, 1, 0, 0, 1, 0, 0],
+      [0, 0, 1, 1, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0], [2, 0, 1, 0, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0],
+      [1, 0, 0, 0, 1, 0, 0], [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1]] := by
+  simp only [degreeZeroPrimitiveQuarticNoABDEF810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  module
+
 set_option maxHeartbeats 32000000 in
 theorem degreeZeroPrimitiveQuarticNoABDEF810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -1185,9 +1667,20 @@ theorem degreeZeroPrimitiveQuarticNoABDEF810_natDegree_lt
   rcases hcone with ⟨hApos, hBpos, hDpos, hEpos, hFpos, hAB, hAD, hAE, hAF, hClt, hGlt⟩
   have hC1 : C.natDegree + 1 ≤ 2 * A.natDegree := Nat.succ_le_of_lt hClt
   have hG1 : G.natDegree + 1 ≤ 4 * A.natDegree := Nat.succ_le_of_lt hGlt
-  simp only [degreeZeroPrimitiveQuarticNoABDEF810]
-  compute_degree
-  omega
+  rw [speedRefl_degreeZeroPrimitiveQuarticNoABDEF810_eq_polyOf]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
+    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  repeat' apply And.intro
+  all_goals first
+    | (right; right; omega)
+    | (left; norm_num; done)
+    | (right; left; simp; done)
+    | trivial
 
 theorem primitiveQuarticFaceABDEF810_coeff_top
     {A B C D E F G : k[X]}
@@ -1582,6 +2075,42 @@ theorem degreeZeroKappaQuartic810_eq_ABDEG_add_rest
   simp only [degreeZeroKappaQuartic810, kappaQuarticFaceABDEG810, degreeZeroKappaQuarticNoABDEG810]
   all_goals module
 
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroKappaQuarticNoABDEG810` (31 monomials, 7 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroKappaQuarticNoABDEG810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    degreeZeroKappaQuarticNoABDEG810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(15 / 128) : k), (5 / 16 : k), (63 / 262144 * l : k),
+      (45 / 8192 * l : k), (-(9 / 16384 * l) : k), (27 / 1024 * l : k),
+      (-(9 / 512 * l) : k), (9 / 1024 * l : k), (-(63 / 1024 * l) : k),
+      (9 / 64 * l : k), (9 / 64 * l : k), (9 / 64 * l : k),
+      (9 / 128 * l : k), (35 / 32768 * beta : k), (21 / 1024 * beta : k),
+      (7 / 1024 * beta : k), (7 / 64 * beta : k), (-(7 / 64 * beta) : k),
+      (-(7 / 128 * beta) : k), (7 / 8 * beta : k), (-(3 / 16 * gamma) : k),
+      (3 / 4 * gamma : k), (5 / 1024 * delta : k), (5 / 64 * delta : k),
+      (-(15 / 128 * delta) : k), (5 / 8 * delta : k), (1 / 2 * epsilon : k),
+      (3 / 128 * zeta : k), (3 / 8 * zeta : k), (1 / 4 * eta : k),
+      (1 / 8 * theta : k)]
+      [
+      [0, 1, 2, 0, 0, 0, 0], [0, 0, 1, 0, 0, 1, 0], [5, 0, 0, 0, 0, 0, 0], [3, 0, 1, 0, 0, 0, 0],
+      [2, 2, 0, 0, 0, 0, 0], [2, 0, 0, 0, 1, 0, 0], [1, 1, 0, 1, 0, 0, 0], [1, 0, 2, 0, 0, 0, 0],
+      [0, 2, 1, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 1], [0, 1, 0, 0, 0, 1, 0], [0, 0, 1, 0, 1, 0, 0],
+      [0, 0, 0, 2, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0], [2, 0, 1, 0, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0],
+      [1, 0, 0, 0, 1, 0, 0], [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1],
+      [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0], [3, 0, 0, 0, 0, 0, 0], [1, 0, 1, 0, 0, 0, 0],
+      [0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 1, 0, 0, 0], [2, 0, 0, 0, 0, 0, 0],
+      [0, 0, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0]] := by
+  simp only [degreeZeroKappaQuarticNoABDEG810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  module
+
 set_option maxHeartbeats 16000000 in
 theorem degreeZeroKappaQuarticNoABDEG810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -1593,9 +2122,20 @@ theorem degreeZeroKappaQuarticNoABDEG810_natDegree_lt
   rcases hcone with ⟨hApos, hBpos, hDpos, hEpos, hGpos, hAB, hAD, hAE, hAG, hClt, hFlt⟩
   have hC1 : C.natDegree + 1 ≤ 2 * A.natDegree := Nat.succ_le_of_lt hClt
   have hF1 : 2 * F.natDegree + 1 ≤ 7 * A.natDegree := Nat.succ_le_of_lt hFlt
-  simp only [degreeZeroKappaQuarticNoABDEG810]
-  compute_degree
-  omega
+  rw [speedRefl_degreeZeroKappaQuarticNoABDEG810_eq_polyOf]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
+    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  repeat' apply And.intro
+  all_goals first
+    | (right; right; omega)
+    | (left; norm_num; done)
+    | (right; left; simp; done)
+    | trivial
 
 theorem kappaQuarticFaceABDEG810_coeff_top
     {A B C D E F G : k[X]}
@@ -1698,6 +2238,46 @@ theorem degreeZeroMuQuartic810_eq_ABDEG_add_rest
   simp only [degreeZeroMuQuartic810, muQuarticFaceABDEG810, degreeZeroMuQuarticNoABDEG810]
   all_goals module
 
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroMuQuarticNoABDEG810` (39 monomials, 7 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroMuQuarticNoABDEG810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    degreeZeroMuQuarticNoABDEG810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 512 : k), (-(5 / 64) : k), (-(15 / 64) : k),
+      (-(5 / 128) : k), (5 / 16 : k), (5 / 16 : k),
+      (-(45 / 262144 * l) : k), (-(9 / 8192 * l) : k), (-(9 / 8192 * l) : k),
+      (63 / 8192 * l : k), (-(9 / 1024 * l) : k), (-(9 / 512 * l) : k),
+      (-(9 / 512 * l) : k), (-(63 / 1024 * l) : k), (-(63 / 1024 * l) : k),
+      (9 / 64 * l : k), (9 / 64 * l : k), (9 / 64 * l : k),
+      (-(7 / 8192 * beta) : k), (-(7 / 1024 * beta) : k), (7 / 512 * beta : k),
+      (21 / 1024 * beta : k), (-(7 / 64 * beta) : k), (-(7 / 64 * beta) : k),
+      (-(7 / 64 * beta) : k), (3 / 128 * gamma : k), (-(3 / 16 * gamma) : k),
+      (-(3 / 32 * gamma) : k), (3 / 4 * gamma : k), (-(5 / 1024 * delta) : k),
+      (-(5 / 64 * delta) : k), (-(15 / 64 * delta) : k), (5 / 8 * delta : k),
+      (-(1 / 8 * epsilon) : k), (1 / 2 * epsilon : k), (-(3 / 64 * zeta) : k),
+      (3 / 8 * zeta : k), (1 / 4 * eta : k), (1 / 8 * theta : k)]
+      [
+      [1, 2, 1, 0, 0, 0, 0], [1, 1, 0, 0, 0, 1, 0], [0, 1, 1, 1, 0, 0, 0], [0, 0, 3, 0, 0, 0, 0],
+      [0, 0, 1, 0, 0, 0, 1], [0, 0, 0, 1, 0, 1, 0], [4, 1, 0, 0, 0, 0, 0], [3, 0, 0, 1, 0, 0, 0],
+      [2, 1, 1, 0, 0, 0, 0], [1, 3, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 1, 0], [1, 1, 0, 0, 1, 0, 0],
+      [1, 0, 1, 1, 0, 0, 0], [0, 2, 0, 1, 0, 0, 0], [0, 1, 2, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 1],
+      [0, 0, 1, 0, 0, 1, 0], [0, 0, 0, 1, 1, 0, 0], [3, 1, 0, 0, 0, 0, 0], [2, 0, 0, 1, 0, 0, 0],
+      [1, 1, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0], [0, 1, 0, 0, 1, 0, 0],
+      [0, 0, 1, 1, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0], [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 1], [2, 1, 0, 0, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 1, 0], [0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0], [1, 1, 0, 0, 0, 0, 0],
+      [0, 0, 0, 1, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0]] := by
+  simp only [degreeZeroMuQuarticNoABDEG810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  module
+
 set_option maxHeartbeats 16000000 in
 theorem degreeZeroMuQuarticNoABDEG810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -1709,9 +2289,20 @@ theorem degreeZeroMuQuarticNoABDEG810_natDegree_lt
   rcases hcone with ⟨hApos, hBpos, hDpos, hEpos, hGpos, hAB, hAD, hAE, hAG, hClt, hFlt⟩
   have hC1 : C.natDegree + 1 ≤ 2 * A.natDegree := Nat.succ_le_of_lt hClt
   have hF1 : 2 * F.natDegree + 1 ≤ 7 * A.natDegree := Nat.succ_le_of_lt hFlt
-  simp only [degreeZeroMuQuarticNoABDEG810]
-  compute_degree
-  omega
+  rw [speedRefl_degreeZeroMuQuarticNoABDEG810_eq_polyOf]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
+    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  repeat' apply And.intro
+  all_goals first
+    | (right; right; omega)
+    | (left; norm_num; done)
+    | (right; left; simp; done)
+    | trivial
 
 theorem muQuarticFaceABDEG810_coeff_top
     {A B C D E F G : k[X]}
@@ -1830,6 +2421,55 @@ theorem degreeZeroNuQuartic810_eq_ABDEG_add_rest
   simp only [degreeZeroNuQuartic810, nuQuarticFaceABDEG810, degreeZeroNuQuarticNoABDEG810]
   all_goals module
 
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroNuQuarticNoABDEG810` (53 monomials, 7 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroNuQuarticNoABDEG810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    degreeZeroNuQuarticNoABDEG810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 1024 : k), (35 / 512 : k), (-(5 / 128) : k),
+      (-(15 / 128) : k), (-(15 / 64) : k), (-(15 / 128) : k),
+      (5 / 16 : k), (105 / 4194304 * l : k), (135 / 262144 * l : k),
+      (9 / 4096 * l : k), (9 / 8192 * l : k), (9 / 16384 * l : k),
+      (63 / 4096 * l : k), (315 / 32768 * l : k), (9 / 1024 * l : k),
+      (-(9 / 256 * l) : k), (-(9 / 512 * l) : k), (-(63 / 1024 * l) : k),
+      (-(63 / 512 * l) : k), (-(21 / 1024 * l) : k), (9 / 64 * l : k),
+      (9 / 64 * l : k), (9 / 128 * l : k), (7 / 65536 * beta : k),
+      (7 / 4096 * beta : k), (-(7 / 16384 * beta) : k), (7 / 1024 * beta : k),
+      (7 / 256 * beta : k), (63 / 1024 * beta : k), (-(7 / 64 * beta) : k),
+      (-(7 / 64 * beta) : k), (-(7 / 128 * beta) : k), (3 / 128 * gamma : k),
+      (5 / 128 * gamma : k), (-(3 / 32 * gamma) : k), (-(3 / 16 * gamma) : k),
+      (-(3 / 16 * gamma) : k), (15 / 32768 * delta : k), (5 / 1024 * delta : k),
+      (15 / 512 * delta : k), (-(15 / 64 * delta) : k), (-(15 / 128 * delta) : k),
+      (5 / 8 * delta : k), (-(1 / 16 * epsilon) : k), (-(1 / 4 * epsilon) : k),
+      (1 / 2 * epsilon : k), (1 / 512 * zeta : k), (-(15 / 128 * zeta) : k),
+      (3 / 8 * zeta : k), (-(1 / 32 * eta) : k), (1 / 4 * eta : k),
+      (1 / 128 * theta : k), (1 / 8 * theta : k)]
+      [
+      [1, 1, 2, 0, 0, 0, 0], [0, 3, 1, 0, 0, 0, 0], [1, 0, 1, 0, 0, 1, 0], [0, 2, 0, 0, 0, 1, 0],
+      [0, 1, 1, 0, 1, 0, 0], [0, 0, 2, 1, 0, 0, 0], [0, 0, 0, 0, 1, 1, 0], [6, 0, 0, 0, 0, 0, 0],
+      [4, 0, 1, 0, 0, 0, 0], [3, 0, 0, 0, 1, 0, 0], [2, 1, 0, 1, 0, 0, 0], [2, 0, 2, 0, 0, 0, 0],
+      [1, 2, 1, 0, 0, 0, 0], [0, 4, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 1], [1, 1, 0, 0, 0, 1, 0],
+      [1, 0, 0, 2, 0, 0, 0], [0, 2, 0, 0, 1, 0, 0], [0, 1, 1, 1, 0, 0, 0], [0, 0, 3, 0, 0, 0, 0],
+      [0, 0, 1, 0, 0, 0, 1], [0, 0, 0, 1, 0, 1, 0], [0, 0, 0, 0, 2, 0, 0], [5, 0, 0, 0, 0, 0, 0],
+      [3, 0, 1, 0, 0, 0, 0], [2, 2, 0, 0, 0, 0, 0], [2, 0, 0, 0, 1, 0, 0], [1, 1, 0, 1, 0, 0, 0],
+      [0, 2, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 1, 0], [0, 0, 1, 0, 1, 0, 0], [0, 0, 0, 2, 0, 0, 0],
+      [1, 1, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0], [0, 1, 0, 0, 1, 0, 0],
+      [0, 0, 1, 1, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0], [2, 0, 1, 0, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0],
+      [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 1, 0, 0, 0],
+      [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0], [3, 0, 0, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 1, 0, 0], [1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0], [2, 0, 0, 0, 0, 0, 0],
+      [0, 0, 1, 0, 0, 0, 0]] := by
+  simp only [degreeZeroNuQuarticNoABDEG810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  module
+
 set_option maxHeartbeats 32000000 in
 theorem degreeZeroNuQuarticNoABDEG810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -1841,9 +2481,20 @@ theorem degreeZeroNuQuarticNoABDEG810_natDegree_lt
   rcases hcone with ⟨hApos, hBpos, hDpos, hEpos, hGpos, hAB, hAD, hAE, hAG, hClt, hFlt⟩
   have hC1 : C.natDegree + 1 ≤ 2 * A.natDegree := Nat.succ_le_of_lt hClt
   have hF1 : 2 * F.natDegree + 1 ≤ 7 * A.natDegree := Nat.succ_le_of_lt hFlt
-  simp only [degreeZeroNuQuarticNoABDEG810]
-  compute_degree
-  omega
+  rw [speedRefl_degreeZeroNuQuarticNoABDEG810_eq_polyOf]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
+    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  repeat' apply And.intro
+  all_goals first
+    | (right; right; omega)
+    | (left; norm_num; done)
+    | (right; left; simp; done)
+    | trivial
 
 theorem nuQuarticFaceABDEG810_coeff_top
     {A B C D E F G : k[X]}
@@ -1976,6 +2627,56 @@ theorem degreeZeroXiQuartic810_eq_ABDEG_add_rest
   simp only [degreeZeroXiQuartic810, xiQuarticFaceABDEG810, degreeZeroXiQuarticNoABDEG810]
   all_goals module
 
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroXiQuarticNoABDEG810` (55 monomials, 7 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroXiQuarticNoABDEG810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    degreeZeroXiQuarticNoABDEG810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 256 : k), (45 / 512 : k), (-(5 / 64) : k),
+      (-(25 / 128) : k), (-(15 / 128) : k), (-(15 / 128) : k),
+      (5 / 32 : k), (-(45 / 262144 * l) : k), (9 / 16384 * l : k),
+      (-(9 / 16384 * l) : k), (-(9 / 8192 * l) : k), (9 / 4096 * l : k),
+      (-(9 / 8192 * l) : k), (171 / 8192 * l : k), (9 / 1024 * l : k),
+      (63 / 2048 * l : k), (-(9 / 512 * l) : k), (-(9 / 512 * l) : k),
+      (-(45 / 1024 * l) : k), (-(27 / 256 * l) : k), (-(27 / 512 * l) : k),
+      (-(63 / 1024 * l) : k), (9 / 64 * l : k), (9 / 64 * l : k),
+      (-(7 / 8192 * beta) : k), (7 / 2048 * beta : k), (-(7 / 1024 * beta) : k),
+      (-(7 / 1024 * beta) : k), (7 / 256 * beta : k), (7 / 512 * beta : k),
+      (49 / 1024 * beta : k), (7 / 128 * beta : k), (-(7 / 64 * beta) : k),
+      (-(7 / 64 * beta) : k), (3 / 64 * gamma : k), (3 / 32 * gamma : k),
+      (-(3 / 32 * gamma) : k), (-(3 / 16 * gamma) : k), (-(3 / 32 * gamma) : k),
+      (-(5 / 1024 * delta) : k), (5 / 128 * delta : k), (5 / 128 * delta : k),
+      (-(5 / 64 * delta) : k), (-(5 / 32 * delta) : k), (-(15 / 64 * delta) : k),
+      (1 / 32 * epsilon : k), (-(3 / 16 * epsilon) : k), (-(1 / 8 * epsilon) : k),
+      (1 / 2 * epsilon : k), (-(3 / 64 * zeta) : k), (-(3 / 16 * zeta) : k),
+      (3 / 8 * zeta : k), (-(1 / 16 * eta) : k), (1 / 4 * eta : k),
+      (1 / 8 * theta : k)]
+      [
+      [1, 1, 1, 1, 0, 0, 0], [0, 2, 2, 0, 0, 0, 0], [1, 0, 0, 1, 0, 1, 0], [0, 1, 1, 0, 0, 1, 0],
+      [0, 0, 2, 0, 1, 0, 0], [0, 0, 1, 2, 0, 0, 0], [0, 0, 0, 0, 0, 2, 0], [4, 0, 0, 1, 0, 0, 0],
+      [3, 1, 1, 0, 0, 0, 0], [2, 3, 0, 0, 0, 0, 0], [3, 0, 0, 0, 0, 1, 0], [2, 1, 0, 0, 1, 0, 0],
+      [2, 0, 1, 1, 0, 0, 0], [1, 2, 0, 1, 0, 0, 0], [1, 1, 2, 0, 0, 0, 0], [0, 3, 1, 0, 0, 0, 0],
+      [1, 0, 1, 0, 0, 1, 0], [1, 0, 0, 1, 1, 0, 0], [0, 2, 0, 0, 0, 1, 0], [0, 1, 1, 0, 1, 0, 0],
+      [0, 1, 0, 2, 0, 0, 0], [0, 0, 2, 1, 0, 0, 0], [0, 0, 0, 1, 0, 0, 1], [0, 0, 0, 0, 1, 1, 0],
+      [3, 0, 0, 1, 0, 0, 0], [2, 1, 1, 0, 0, 0, 0], [1, 3, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 1, 0],
+      [1, 1, 0, 0, 1, 0, 0], [1, 0, 1, 1, 0, 0, 0], [0, 2, 0, 1, 0, 0, 0], [0, 1, 2, 0, 0, 0, 0],
+      [0, 0, 1, 0, 0, 1, 0], [0, 0, 0, 1, 1, 0, 0], [1, 1, 0, 1, 0, 0, 0], [0, 2, 1, 0, 0, 0, 0],
+      [0, 1, 0, 0, 0, 1, 0], [0, 0, 1, 0, 1, 0, 0], [0, 0, 0, 2, 0, 0, 0], [2, 0, 0, 1, 0, 0, 0],
+      [1, 1, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0], [0, 1, 0, 0, 1, 0, 0],
+      [0, 0, 1, 1, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0], [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 1, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0],
+      [0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 1, 0, 0, 0]] := by
+  simp only [degreeZeroXiQuarticNoABDEG810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  module
+
 set_option maxHeartbeats 32000000 in
 theorem degreeZeroXiQuarticNoABDEG810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -1987,9 +2688,20 @@ theorem degreeZeroXiQuarticNoABDEG810_natDegree_lt
   rcases hcone with ⟨hApos, hBpos, hDpos, hEpos, hGpos, hAB, hAD, hAE, hAG, hClt, hFlt⟩
   have hC1 : C.natDegree + 1 ≤ 2 * A.natDegree := Nat.succ_le_of_lt hClt
   have hF1 : 2 * F.natDegree + 1 ≤ 7 * A.natDegree := Nat.succ_le_of_lt hFlt
-  simp only [degreeZeroXiQuarticNoABDEG810]
-  compute_degree
-  omega
+  rw [speedRefl_degreeZeroXiQuarticNoABDEG810_eq_polyOf]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
+    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  repeat' apply And.intro
+  all_goals first
+    | (right; right; omega)
+    | (left; norm_num; done)
+    | (right; left; simp; done)
+    | trivial
 
 theorem xiQuarticFaceABDEG810_coeff_top
     {A B C D E F G : k[X]}
@@ -2163,6 +2875,77 @@ theorem degreeZeroOmicronQuartic810_eq_ABDEG_add_rest
   simp only [degreeZeroOmicronQuartic810, omicronQuarticFaceABDEG810, degreeZeroOmicronQuarticNoABDEG810]
   all_goals module
 
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroOmicronQuarticNoABDEG810` (92 monomials, 7 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroOmicronQuarticNoABDEG810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    degreeZeroOmicronQuarticNoABDEG810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 16384 : k), (-(35 / 2048) : k), (-(5 / 2048) : k),
+      (25 / 1024 : k), (15 / 512 : k), (15 / 1024 : k),
+      (135 / 1024 : k), (45 / 1024 : k), (-(5 / 128) : k),
+      (-(15 / 128) : k), (-(5 / 32) : k), (-(5 / 64) : k),
+      (-(25 / 128) : k), (5 / 16 : k), (135 / 33554432 * l : k),
+      (225 / 2097152 * l : k), (-(171 / 4194304 * l) : k), (81 / 262144 * l : k),
+      (-(9 / 65536 * l) : k), (99 / 131072 * l : k), (-(45 / 131072 * l) : k),
+      (-(189 / 65536 * l) : k), (9 / 8192 * l : k), (-(9 / 4096 * l) : k),
+      (27 / 8192 * l : k), (45 / 4096 * l : k), (99 / 4096 * l : k),
+      (9 / 8192 * l : k), (189 / 8192 * l : k), (567 / 16384 * l : k),
+      (9 / 512 * l : k), (-(9 / 256 * l) : k), (-(27 / 1024 * l) : k),
+      (-(9 / 128 * l) : k), (-(45 / 512 * l) : k), (-(45 / 1024 * l) : k),
+      (-(27 / 512 * l) : k), (9 / 64 * l : k), (9 / 128 * l : k),
+      (35 / 2097152 * beta : k), (49 / 131072 * beta : k), (-(35 / 131072 * beta) : k),
+      (7 / 8192 * beta : k), (-(7 / 4096 * beta) : k), (21 / 8192 * beta : k),
+      (-(91 / 8192 * beta) : k), (-(189 / 32768 * beta) : k), (7 / 512 * beta : k),
+      (7 / 512 * beta : k), (35 / 1024 * beta : k), (21 / 256 * beta : k),
+      (7 / 512 * beta : k), (-(7 / 64 * beta) : k), (-(7 / 128 * beta) : k),
+      (3 / 2048 * gamma : k), (-(9 / 1024 * gamma) : k), (-(3 / 512 * gamma) : k),
+      (3 / 128 * gamma : k), (3 / 128 * gamma : k), (9 / 128 * gamma : k),
+      (9 / 128 * gamma : k), (-(3 / 32 * gamma) : k), (-(3 / 16 * gamma) : k),
+      (9 / 131072 * delta : k), (5 / 4096 * delta : k), (-(5 / 4096 * delta) : k),
+      (5 / 128 * delta : k), (5 / 512 * delta : k), (45 / 512 * delta : k),
+      (-(5 / 64 * delta) : k), (-(5 / 32 * delta) : k), (-(15 / 128 * delta) : k),
+      (-(1 / 256 * epsilon) : k), (1 / 32 * epsilon : k), (1 / 32 * epsilon : k),
+      (-(1 / 16 * epsilon) : k), (-(1 / 8 * epsilon) : k), (-(3 / 16 * epsilon) : k),
+      (9 / 32768 * zeta : k), (3 / 1024 * zeta : k), (9 / 512 * zeta : k),
+      (-(9 / 64 * zeta) : k), (-(9 / 128 * zeta) : k), (3 / 8 * zeta : k),
+      (-(1 / 512 * eta) : k), (-(1 / 32 * eta) : k), (-(3 / 32 * eta) : k),
+      (1 / 4 * eta : k), (1 / 1024 * theta : k), (1 / 64 * theta : k),
+      (-(3 / 128 * theta) : k), (1 / 8 * theta : k)]
+      [
+      [2, 1, 2, 0, 0, 0, 0], [1, 3, 1, 0, 0, 0, 0], [2, 0, 1, 0, 0, 1, 0], [1, 2, 0, 0, 0, 1, 0],
+      [1, 1, 1, 0, 1, 0, 0], [1, 0, 2, 1, 0, 0, 0], [0, 2, 1, 1, 0, 0, 0], [0, 1, 3, 0, 0, 0, 0],
+      [1, 0, 0, 0, 1, 1, 0], [0, 1, 1, 0, 0, 0, 1], [0, 1, 0, 1, 0, 1, 0], [0, 0, 2, 0, 0, 1, 0],
+      [0, 0, 1, 1, 1, 0, 0], [0, 0, 0, 0, 0, 1, 1], [7, 0, 0, 0, 0, 0, 0], [5, 0, 1, 0, 0, 0, 0],
+      [4, 2, 0, 0, 0, 0, 0], [4, 0, 0, 0, 1, 0, 0], [3, 1, 0, 1, 0, 0, 0], [3, 0, 2, 0, 0, 0, 0],
+      [2, 2, 1, 0, 0, 0, 0], [1, 4, 0, 0, 0, 0, 0], [3, 0, 0, 0, 0, 0, 1], [2, 1, 0, 0, 0, 1, 0],
+      [2, 0, 1, 0, 1, 0, 0], [1, 2, 0, 0, 1, 0, 0], [1, 1, 1, 1, 0, 0, 0], [1, 0, 3, 0, 0, 0, 0],
+      [0, 3, 0, 1, 0, 0, 0], [0, 2, 2, 0, 0, 0, 0], [1, 0, 1, 0, 0, 0, 1], [1, 0, 0, 1, 0, 1, 0],
+      [0, 2, 0, 0, 0, 0, 1], [0, 1, 1, 0, 0, 1, 0], [0, 1, 0, 1, 1, 0, 0], [0, 0, 2, 0, 1, 0, 0],
+      [0, 0, 1, 2, 0, 0, 0], [0, 0, 0, 0, 1, 0, 1], [0, 0, 0, 0, 0, 2, 0], [6, 0, 0, 0, 0, 0, 0],
+      [4, 0, 1, 0, 0, 0, 0], [3, 2, 0, 0, 0, 0, 0], [3, 0, 0, 0, 1, 0, 0], [2, 1, 0, 1, 0, 0, 0],
+      [2, 0, 2, 0, 0, 0, 0], [1, 2, 1, 0, 0, 0, 0], [0, 4, 0, 0, 0, 0, 0], [1, 0, 1, 0, 1, 0, 0],
+      [1, 0, 0, 2, 0, 0, 0], [0, 2, 0, 0, 1, 0, 0], [0, 1, 1, 1, 0, 0, 0], [0, 0, 3, 0, 0, 0, 0],
+      [0, 0, 0, 1, 0, 1, 0], [0, 0, 0, 0, 2, 0, 0], [2, 1, 1, 0, 0, 0, 0], [1, 3, 0, 0, 0, 0, 0],
+      [2, 0, 0, 0, 0, 1, 0], [1, 1, 0, 0, 1, 0, 0], [1, 0, 1, 1, 0, 0, 0], [0, 2, 0, 1, 0, 0, 0],
+      [0, 1, 2, 0, 0, 0, 0], [0, 0, 1, 0, 0, 1, 0], [0, 0, 0, 1, 1, 0, 0], [5, 0, 0, 0, 0, 0, 0],
+      [3, 0, 1, 0, 0, 0, 0], [2, 2, 0, 0, 0, 0, 0], [1, 1, 0, 1, 0, 0, 0], [1, 0, 2, 0, 0, 0, 0],
+      [0, 2, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 1, 0], [0, 0, 1, 0, 1, 0, 0], [0, 0, 0, 2, 0, 0, 0],
+      [2, 0, 0, 1, 0, 0, 0], [1, 1, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0],
+      [0, 1, 0, 0, 1, 0, 0], [0, 0, 1, 1, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0], [2, 0, 1, 0, 0, 0, 0],
+      [1, 2, 0, 0, 0, 0, 0], [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1],
+      [2, 1, 0, 0, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0],
+      [3, 0, 0, 0, 0, 0, 0], [1, 0, 1, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0]] := by
+  simp only [degreeZeroOmicronQuarticNoABDEG810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  module
+
 set_option maxHeartbeats 32000000 in
 theorem degreeZeroOmicronQuarticNoABDEG810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -2174,9 +2957,20 @@ theorem degreeZeroOmicronQuarticNoABDEG810_natDegree_lt
   rcases hcone with ⟨hApos, hBpos, hDpos, hEpos, hGpos, hAB, hAD, hAE, hAG, hClt, hFlt⟩
   have hC1 : C.natDegree + 1 ≤ 2 * A.natDegree := Nat.succ_le_of_lt hClt
   have hF1 : 2 * F.natDegree + 1 ≤ 7 * A.natDegree := Nat.succ_le_of_lt hFlt
-  simp only [degreeZeroOmicronQuarticNoABDEG810]
-  compute_degree
-  omega
+  rw [speedRefl_degreeZeroOmicronQuarticNoABDEG810_eq_polyOf]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
+    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  repeat' apply And.intro
+  all_goals first
+    | (right; right; omega)
+    | (left; norm_num; done)
+    | (right; left; simp; done)
+    | trivial
 
 theorem omicronQuarticFaceABDEG810_coeff_top
     {A B C D E F G : k[X]}
@@ -2435,6 +3229,109 @@ theorem degreeZeroPrimitiveQuartic810_eq_ABDEG_add_rest
     rhoThetaGroupQuartic810, primitiveQuarticFaceABDEG810, degreeZeroPrimitiveQuarticNoABDEG810]
   all_goals module
 
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroPrimitiveQuarticNoABDEG810` (145 monomials, 7 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroPrimitiveQuarticNoABDEG810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    degreeZeroPrimitiveQuarticNoABDEG810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 16384 : k), (15 / 8192 : k), (-(5 / 2048) : k),
+      (-(5 / 2048) : k), (15 / 1024 : k), (15 / 2048 : k),
+      (-(135 / 1024) : k), (-(15 / 1024) : k), (-(265 / 2048) : k),
+      (-(5 / 256) : k), (5 / 128 : k), (5 / 32 : k),
+      (15 / 128 : k), (85 / 256 : k), (45 / 128 : k),
+      (45 / 128 : k), (15 / 128 : k), (-(5 / 16) : k),
+      (-(5 / 16) : k), (-(5 / 16) : k), (-(5 / 8) : k),
+      (-(5 / 16) : k), (1575 / 268435456 * l : k), (765 / 4194304 * l : k),
+      (-(369 / 4194304 * l) : k), (171 / 262144 * l : k), (-(153 / 262144 * l) : k),
+      (855 / 524288 * l : k), (-(81 / 131072 * l) : k), (261 / 262144 * l : k),
+      (45 / 32768 * l : k), (-(9 / 4096 * l) : k), (99 / 8192 * l : k),
+      (-(9 / 4096 * l) : k), (-(9 / 4096 * l) : k), (9 / 8192 * l : k),
+      (27 / 16384 * l : k), (-(243 / 8192 * l) : k), (-(387 / 16384 * l) : k),
+      (-(567 / 16384 * l) : k), (27 / 1024 * l : k), (-(9 / 512 * l) : k),
+      (27 / 1024 * l : k), (9 / 1024 * l : k), (9 / 256 * l : k),
+      (45 / 512 * l : k), (9 / 1024 * l : k), (9 / 256 * l : k),
+      (27 / 512 * l : k), (45 / 256 * l : k), (45 / 512 * l : k),
+      (189 / 1024 * l : k), (63 / 4096 * l : k), (9 / 64 * l : k),
+      (-(9 / 64 * l) : k), (-(9 / 64 * l) : k), (-(9 / 32 * l) : k),
+      (-(9 / 128 * l) : k), (-(9 / 32 * l) : k), (-(9 / 64 * l) : k),
+      (-(9 / 64 * l) : k), (9 / 16 * l : k), (25 / 1048576 * beta : k),
+      (21 / 32768 * beta : k), (-(119 / 262144 * beta) : k), (35 / 16384 * beta : k),
+      (-(7 / 2048 * beta) : k), (21 / 4096 * beta : k), (-(21 / 8192 * beta) : k),
+      (119 / 16384 * beta : k), (21 / 512 * beta : k), (-(7 / 512 * beta) : k),
+      (-(21 / 512 * beta) : k), (-(7 / 128 * beta) : k), (-(7 / 128 * beta) : k),
+      (-(91 / 1024 * beta) : k), (7 / 64 * beta : k), (7 / 32 * beta : k),
+      (7 / 32 * beta : k), (7 / 64 * beta : k), (7 / 64 * beta : k),
+      (-(7 / 16 * beta) : k), (3 / 2048 * gamma : k), (3 / 2048 * gamma : k),
+      (-(3 / 512 * gamma) : k), (3 / 256 * gamma : k), (3 / 256 * gamma : k),
+      (-(9 / 128 * gamma) : k), (-(3 / 128 * gamma) : k), (-(27 / 256 * gamma) : k),
+      (-(3 / 32 * gamma) : k), (3 / 16 * gamma : k), (9 / 64 * gamma : k),
+      (3 / 8 * gamma : k), (3 / 16 * gamma : k), (3 / 16 * gamma : k),
+      (-(3 / 4 * gamma) : k), (25 / 262144 * delta : k), (35 / 16384 * delta : k),
+      (-(25 / 16384 * delta) : k), (5 / 1024 * delta : k), (-(5 / 512 * delta) : k),
+      (15 / 1024 * delta : k), (-(65 / 1024 * delta) : k), (-(135 / 4096 * delta) : k),
+      (5 / 64 * delta : k), (5 / 64 * delta : k), (25 / 128 * delta : k),
+      (15 / 32 * delta : k), (5 / 64 * delta : k), (-(5 / 8 * delta) : k),
+      (-(5 / 16 * delta) : k), (-(1 / 256 * epsilon) : k), (1 / 64 * epsilon : k),
+      (-(1 / 32 * epsilon) : k), (-(1 / 32 * epsilon) : k), (1 / 8 * epsilon : k),
+      (1 / 16 * epsilon : k), (7 / 32 * epsilon : k), (1 / 4 * epsilon : k),
+      (-(1 / 2 * epsilon) : k), (-(1 / 2 * epsilon) : k), (3 / 8192 * zeta : k),
+      (3 / 512 * zeta : k), (-(3 / 2048 * zeta) : k), (3 / 128 * zeta : k),
+      (3 / 32 * zeta : k), (27 / 128 * zeta : k), (-(3 / 8 * zeta) : k),
+      (-(3 / 8 * zeta) : k), (-(3 / 16 * zeta) : k), (-(1 / 512 * eta) : k),
+      (-(1 / 64 * eta) : k), (1 / 32 * eta : k), (3 / 64 * eta : k),
+      (-(1 / 4 * eta) : k), (-(1 / 4 * eta) : k), (-(1 / 4 * eta) : k),
+      (5 / 4096 * theta : k), (3 / 128 * theta : k), (1 / 128 * theta : k),
+      (1 / 8 * theta : k), (-(1 / 8 * theta) : k), (-(1 / 16 * theta) : k),
+      (1 * theta : k)]
+      [
+      [3, 1, 2, 0, 0, 0, 0], [2, 3, 1, 0, 0, 0, 0], [3, 0, 1, 0, 0, 1, 0], [2, 2, 0, 0, 0, 1, 0],
+      [2, 1, 1, 0, 1, 0, 0], [2, 0, 2, 1, 0, 0, 0], [1, 2, 1, 1, 0, 0, 0], [1, 1, 3, 0, 0, 0, 0],
+      [0, 3, 2, 0, 0, 0, 0], [2, 0, 0, 0, 1, 1, 0], [1, 1, 1, 0, 0, 0, 1], [1, 1, 0, 1, 0, 1, 0],
+      [1, 0, 1, 1, 1, 0, 0], [0, 2, 1, 0, 0, 1, 0], [0, 1, 2, 0, 1, 0, 0], [0, 1, 1, 2, 0, 0, 0],
+      [0, 0, 3, 1, 0, 0, 0], [1, 0, 0, 0, 0, 1, 1], [0, 1, 0, 0, 0, 2, 0], [0, 0, 1, 1, 0, 0, 1],
+      [0, 0, 1, 0, 1, 1, 0], [0, 0, 0, 2, 0, 1, 0], [8, 0, 0, 0, 0, 0, 0], [6, 0, 1, 0, 0, 0, 0],
+      [5, 2, 0, 0, 0, 0, 0], [5, 0, 0, 0, 1, 0, 0], [4, 1, 0, 1, 0, 0, 0], [4, 0, 2, 0, 0, 0, 0],
+      [3, 2, 1, 0, 0, 0, 0], [2, 4, 0, 0, 0, 0, 0], [4, 0, 0, 0, 0, 0, 1], [3, 1, 0, 0, 0, 1, 0],
+      [3, 0, 1, 0, 1, 0, 0], [3, 0, 0, 2, 0, 0, 0], [2, 2, 0, 0, 1, 0, 0], [2, 1, 1, 1, 0, 0, 0],
+      [2, 0, 3, 0, 0, 0, 0], [1, 3, 0, 1, 0, 0, 0], [1, 2, 2, 0, 0, 0, 0], [0, 4, 1, 0, 0, 0, 0],
+      [2, 0, 1, 0, 0, 0, 1], [2, 0, 0, 1, 0, 1, 0], [2, 0, 0, 0, 2, 0, 0], [1, 2, 0, 0, 0, 0, 1],
+      [1, 1, 1, 0, 0, 1, 0], [1, 1, 0, 1, 1, 0, 0], [1, 0, 2, 0, 1, 0, 0], [1, 0, 1, 2, 0, 0, 0],
+      [0, 3, 0, 0, 0, 1, 0], [0, 2, 1, 0, 1, 0, 0], [0, 2, 0, 2, 0, 0, 0], [0, 1, 2, 1, 0, 0, 0],
+      [0, 0, 4, 0, 0, 0, 0], [1, 0, 0, 0, 1, 0, 1], [1, 0, 0, 0, 0, 2, 0], [0, 1, 0, 1, 0, 0, 1],
+      [0, 1, 0, 0, 1, 1, 0], [0, 0, 2, 0, 0, 0, 1], [0, 0, 1, 1, 0, 1, 0], [0, 0, 1, 0, 2, 0, 0],
+      [0, 0, 0, 2, 1, 0, 0], [0, 0, 0, 0, 0, 0, 2], [7, 0, 0, 0, 0, 0, 0], [5, 0, 1, 0, 0, 0, 0],
+      [4, 2, 0, 0, 0, 0, 0], [4, 0, 0, 0, 1, 0, 0], [3, 1, 0, 1, 0, 0, 0], [3, 0, 2, 0, 0, 0, 0],
+      [2, 2, 1, 0, 0, 0, 0], [1, 4, 0, 0, 0, 0, 0], [2, 0, 1, 0, 1, 0, 0], [2, 0, 0, 2, 0, 0, 0],
+      [1, 2, 0, 0, 1, 0, 0], [1, 1, 1, 1, 0, 0, 0], [0, 3, 0, 1, 0, 0, 0], [0, 2, 2, 0, 0, 0, 0],
+      [1, 0, 0, 0, 2, 0, 0], [0, 1, 1, 0, 0, 1, 0], [0, 1, 0, 1, 1, 0, 0], [0, 0, 2, 0, 1, 0, 0],
+      [0, 0, 1, 2, 0, 0, 0], [0, 0, 0, 0, 0, 2, 0], [3, 1, 1, 0, 0, 0, 0], [2, 3, 0, 0, 0, 0, 0],
+      [3, 0, 0, 0, 0, 1, 0], [2, 1, 0, 0, 1, 0, 0], [2, 0, 1, 1, 0, 0, 0], [1, 2, 0, 1, 0, 0, 0],
+      [1, 1, 2, 0, 0, 0, 0], [0, 3, 1, 0, 0, 0, 0], [1, 0, 1, 0, 0, 1, 0], [1, 0, 0, 1, 1, 0, 0],
+      [0, 2, 0, 0, 0, 1, 0], [0, 1, 1, 0, 1, 0, 0], [0, 1, 0, 2, 0, 0, 0], [0, 0, 2, 1, 0, 0, 0],
+      [0, 0, 0, 0, 1, 1, 0], [6, 0, 0, 0, 0, 0, 0], [4, 0, 1, 0, 0, 0, 0], [3, 2, 0, 0, 0, 0, 0],
+      [3, 0, 0, 0, 1, 0, 0], [2, 1, 0, 1, 0, 0, 0], [2, 0, 2, 0, 0, 0, 0], [1, 2, 1, 0, 0, 0, 0],
+      [0, 4, 0, 0, 0, 0, 0], [1, 0, 1, 0, 1, 0, 0], [1, 0, 0, 2, 0, 0, 0], [0, 2, 0, 0, 1, 0, 0],
+      [0, 1, 1, 1, 0, 0, 0], [0, 0, 3, 0, 0, 0, 0], [0, 0, 0, 1, 0, 1, 0], [0, 0, 0, 0, 2, 0, 0],
+      [3, 0, 0, 1, 0, 0, 0], [2, 1, 1, 0, 0, 0, 0], [1, 3, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 1, 0],
+      [1, 1, 0, 0, 1, 0, 0], [1, 0, 1, 1, 0, 0, 0], [0, 2, 0, 1, 0, 0, 0], [0, 1, 2, 0, 0, 0, 0],
+      [0, 0, 1, 0, 0, 1, 0], [0, 0, 0, 1, 1, 0, 0], [5, 0, 0, 0, 0, 0, 0], [3, 0, 1, 0, 0, 0, 0],
+      [2, 2, 0, 0, 0, 0, 0], [2, 0, 0, 0, 1, 0, 0], [1, 1, 0, 1, 0, 0, 0], [0, 2, 1, 0, 0, 0, 0],
+      [0, 1, 0, 0, 0, 1, 0], [0, 0, 1, 0, 1, 0, 0], [0, 0, 0, 2, 0, 0, 0], [3, 1, 0, 0, 0, 0, 0],
+      [2, 0, 0, 1, 0, 0, 0], [1, 1, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0],
+      [0, 1, 0, 0, 1, 0, 0], [0, 0, 1, 1, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0], [2, 0, 1, 0, 0, 0, 0],
+      [1, 2, 0, 0, 0, 0, 0], [1, 0, 0, 0, 1, 0, 0], [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 1]] := by
+  simp only [degreeZeroPrimitiveQuarticNoABDEG810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  module
+
 set_option maxHeartbeats 32000000 in
 theorem degreeZeroPrimitiveQuarticNoABDEG810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -2446,9 +3343,20 @@ theorem degreeZeroPrimitiveQuarticNoABDEG810_natDegree_lt
   rcases hcone with ⟨hApos, hBpos, hDpos, hEpos, hGpos, hAB, hAD, hAE, hAG, hClt, hFlt⟩
   have hC1 : C.natDegree + 1 ≤ 2 * A.natDegree := Nat.succ_le_of_lt hClt
   have hF1 : 2 * F.natDegree + 1 ≤ 7 * A.natDegree := Nat.succ_le_of_lt hFlt
-  simp only [degreeZeroPrimitiveQuarticNoABDEG810]
-  compute_degree
-  omega
+  rw [speedRefl_degreeZeroPrimitiveQuarticNoABDEG810_eq_polyOf]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
+    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  repeat' apply And.intro
+  all_goals first
+    | (right; right; omega)
+    | (left; norm_num; done)
+    | (right; left; simp; done)
+    | trivial
 
 theorem primitiveQuarticFaceABDEG810_coeff_top
     {A B C D E F G : k[X]}
@@ -2819,6 +3727,42 @@ theorem degreeZeroKappaQuartic810_eq_ABDFG_add_rest
   simp only [degreeZeroKappaQuartic810, kappaQuarticFaceABDFG810, degreeZeroKappaQuarticNoABDFG810]
   all_goals module
 
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroKappaQuarticNoABDFG810` (32 monomials, 7 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroKappaQuarticNoABDFG810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    degreeZeroKappaQuarticNoABDFG810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(15 / 128) : k), (5 / 16 : k), (5 / 16 : k),
+      (63 / 262144 * l : k), (45 / 8192 * l : k), (-(9 / 16384 * l) : k),
+      (27 / 1024 * l : k), (-(9 / 512 * l) : k), (9 / 1024 * l : k),
+      (-(63 / 1024 * l) : k), (9 / 64 * l : k), (9 / 64 * l : k),
+      (9 / 64 * l : k), (9 / 128 * l : k), (35 / 32768 * beta : k),
+      (21 / 1024 * beta : k), (7 / 1024 * beta : k), (7 / 64 * beta : k),
+      (-(7 / 64 * beta) : k), (-(7 / 128 * beta) : k), (7 / 8 * beta : k),
+      (-(3 / 16 * gamma) : k), (3 / 4 * gamma : k), (5 / 1024 * delta : k),
+      (5 / 64 * delta : k), (-(15 / 128 * delta) : k), (5 / 8 * delta : k),
+      (1 / 2 * epsilon : k), (3 / 128 * zeta : k), (3 / 8 * zeta : k),
+      (1 / 4 * eta : k), (1 / 8 * theta : k)]
+      [
+      [0, 1, 2, 0, 0, 0, 0], [0, 0, 1, 0, 0, 1, 0], [0, 0, 0, 1, 1, 0, 0], [5, 0, 0, 0, 0, 0, 0],
+      [3, 0, 1, 0, 0, 0, 0], [2, 2, 0, 0, 0, 0, 0], [2, 0, 0, 0, 1, 0, 0], [1, 1, 0, 1, 0, 0, 0],
+      [1, 0, 2, 0, 0, 0, 0], [0, 2, 1, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 1], [0, 1, 0, 0, 0, 1, 0],
+      [0, 0, 1, 0, 1, 0, 0], [0, 0, 0, 2, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0], [2, 0, 1, 0, 0, 0, 0],
+      [1, 2, 0, 0, 0, 0, 0], [1, 0, 0, 0, 1, 0, 0], [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 1], [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0], [3, 0, 0, 0, 0, 0, 0],
+      [1, 0, 1, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 1, 0, 0, 0],
+      [2, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0]] := by
+  simp only [degreeZeroKappaQuarticNoABDFG810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  module
+
 set_option maxHeartbeats 16000000 in
 theorem degreeZeroKappaQuarticNoABDFG810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -2830,9 +3774,20 @@ theorem degreeZeroKappaQuarticNoABDFG810_natDegree_lt
   rcases hcone with ⟨hApos, hBpos, hDpos, hFpos, hGpos, hAB, hAD, hAF, hAG, hClt, hElt⟩
   have hC1 : C.natDegree + 1 ≤ 2 * A.natDegree := Nat.succ_le_of_lt hClt
   have hE1 : E.natDegree + 1 ≤ 3 * A.natDegree := Nat.succ_le_of_lt hElt
-  simp only [degreeZeroKappaQuarticNoABDFG810]
-  compute_degree
-  omega
+  rw [speedRefl_degreeZeroKappaQuarticNoABDFG810_eq_polyOf]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
+    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  repeat' apply And.intro
+  all_goals first
+    | (right; right; omega)
+    | (left; norm_num; done)
+    | (right; left; simp; done)
+    | trivial
 
 theorem kappaQuarticFaceABDFG810_coeff_top
     {A B C D E F G : k[X]}
@@ -2929,6 +3884,46 @@ theorem degreeZeroMuQuartic810_eq_ABDFG_add_rest
   simp only [degreeZeroMuQuartic810, muQuarticFaceABDFG810, degreeZeroMuQuarticNoABDFG810]
   all_goals module
 
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroMuQuarticNoABDFG810` (39 monomials, 7 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroMuQuarticNoABDFG810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    degreeZeroMuQuarticNoABDFG810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 512 : k), (-(15 / 128) : k), (-(15 / 64) : k),
+      (-(5 / 128) : k), (5 / 16 : k), (5 / 32 : k),
+      (-(45 / 262144 * l) : k), (-(9 / 8192 * l) : k), (-(9 / 8192 * l) : k),
+      (63 / 8192 * l : k), (-(9 / 1024 * l) : k), (-(9 / 512 * l) : k),
+      (-(9 / 512 * l) : k), (-(63 / 1024 * l) : k), (-(63 / 1024 * l) : k),
+      (9 / 64 * l : k), (9 / 64 * l : k), (9 / 64 * l : k),
+      (-(7 / 8192 * beta) : k), (-(7 / 1024 * beta) : k), (7 / 512 * beta : k),
+      (21 / 1024 * beta : k), (-(7 / 64 * beta) : k), (-(7 / 64 * beta) : k),
+      (-(7 / 64 * beta) : k), (3 / 128 * gamma : k), (-(3 / 16 * gamma) : k),
+      (-(3 / 32 * gamma) : k), (3 / 4 * gamma : k), (-(5 / 1024 * delta) : k),
+      (-(5 / 64 * delta) : k), (-(15 / 64 * delta) : k), (5 / 8 * delta : k),
+      (-(1 / 8 * epsilon) : k), (1 / 2 * epsilon : k), (-(3 / 64 * zeta) : k),
+      (3 / 8 * zeta : k), (1 / 4 * eta : k), (1 / 8 * theta : k)]
+      [
+      [1, 2, 1, 0, 0, 0, 0], [0, 2, 0, 0, 1, 0, 0], [0, 1, 1, 1, 0, 0, 0], [0, 0, 3, 0, 0, 0, 0],
+      [0, 0, 1, 0, 0, 0, 1], [0, 0, 0, 0, 2, 0, 0], [4, 1, 0, 0, 0, 0, 0], [3, 0, 0, 1, 0, 0, 0],
+      [2, 1, 1, 0, 0, 0, 0], [1, 3, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 1, 0], [1, 1, 0, 0, 1, 0, 0],
+      [1, 0, 1, 1, 0, 0, 0], [0, 2, 0, 1, 0, 0, 0], [0, 1, 2, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 1],
+      [0, 0, 1, 0, 0, 1, 0], [0, 0, 0, 1, 1, 0, 0], [3, 1, 0, 0, 0, 0, 0], [2, 0, 0, 1, 0, 0, 0],
+      [1, 1, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0], [0, 1, 0, 0, 1, 0, 0],
+      [0, 0, 1, 1, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0], [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 1], [2, 1, 0, 0, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 1, 0], [0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0], [1, 1, 0, 0, 0, 0, 0],
+      [0, 0, 0, 1, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0]] := by
+  simp only [degreeZeroMuQuarticNoABDFG810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  module
+
 set_option maxHeartbeats 16000000 in
 theorem degreeZeroMuQuarticNoABDFG810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -2940,9 +3935,20 @@ theorem degreeZeroMuQuarticNoABDFG810_natDegree_lt
   rcases hcone with ⟨hApos, hBpos, hDpos, hFpos, hGpos, hAB, hAD, hAF, hAG, hClt, hElt⟩
   have hC1 : C.natDegree + 1 ≤ 2 * A.natDegree := Nat.succ_le_of_lt hClt
   have hE1 : E.natDegree + 1 ≤ 3 * A.natDegree := Nat.succ_le_of_lt hElt
-  simp only [degreeZeroMuQuarticNoABDFG810]
-  compute_degree
-  omega
+  rw [speedRefl_degreeZeroMuQuarticNoABDFG810_eq_polyOf]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
+    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  repeat' apply And.intro
+  all_goals first
+    | (right; right; omega)
+    | (left; norm_num; done)
+    | (right; left; simp; done)
+    | trivial
 
 theorem muQuarticFaceABDFG810_coeff_top
     {A B C D E F G : k[X]}
@@ -3061,6 +4067,55 @@ theorem degreeZeroNuQuartic810_eq_ABDFG_add_rest
   simp only [degreeZeroNuQuartic810, nuQuarticFaceABDFG810, degreeZeroNuQuarticNoABDFG810]
   all_goals module
 
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroNuQuarticNoABDFG810` (53 monomials, 7 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroNuQuarticNoABDFG810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    degreeZeroNuQuarticNoABDFG810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 1024 : k), (35 / 512 : k), (-(5 / 128) : k),
+      (-(5 / 128) : k), (-(15 / 64) : k), (-(15 / 128) : k),
+      (5 / 16 : k), (105 / 4194304 * l : k), (135 / 262144 * l : k),
+      (9 / 4096 * l : k), (9 / 8192 * l : k), (9 / 16384 * l : k),
+      (63 / 4096 * l : k), (315 / 32768 * l : k), (9 / 1024 * l : k),
+      (-(9 / 256 * l) : k), (-(9 / 512 * l) : k), (-(63 / 1024 * l) : k),
+      (-(63 / 512 * l) : k), (-(21 / 1024 * l) : k), (9 / 64 * l : k),
+      (9 / 64 * l : k), (9 / 128 * l : k), (7 / 65536 * beta : k),
+      (7 / 4096 * beta : k), (-(7 / 16384 * beta) : k), (7 / 1024 * beta : k),
+      (7 / 256 * beta : k), (63 / 1024 * beta : k), (-(7 / 64 * beta) : k),
+      (-(7 / 64 * beta) : k), (-(7 / 128 * beta) : k), (3 / 128 * gamma : k),
+      (5 / 128 * gamma : k), (-(3 / 32 * gamma) : k), (-(3 / 16 * gamma) : k),
+      (-(3 / 16 * gamma) : k), (15 / 32768 * delta : k), (5 / 1024 * delta : k),
+      (15 / 512 * delta : k), (-(15 / 64 * delta) : k), (-(15 / 128 * delta) : k),
+      (5 / 8 * delta : k), (-(1 / 16 * epsilon) : k), (-(1 / 4 * epsilon) : k),
+      (1 / 2 * epsilon : k), (1 / 512 * zeta : k), (-(15 / 128 * zeta) : k),
+      (3 / 8 * zeta : k), (-(1 / 32 * eta) : k), (1 / 4 * eta : k),
+      (1 / 128 * theta : k), (1 / 8 * theta : k)]
+      [
+      [1, 1, 2, 0, 0, 0, 0], [0, 3, 1, 0, 0, 0, 0], [1, 0, 1, 0, 0, 1, 0], [1, 0, 0, 1, 1, 0, 0],
+      [0, 1, 1, 0, 1, 0, 0], [0, 0, 2, 1, 0, 0, 0], [0, 0, 0, 0, 1, 1, 0], [6, 0, 0, 0, 0, 0, 0],
+      [4, 0, 1, 0, 0, 0, 0], [3, 0, 0, 0, 1, 0, 0], [2, 1, 0, 1, 0, 0, 0], [2, 0, 2, 0, 0, 0, 0],
+      [1, 2, 1, 0, 0, 0, 0], [0, 4, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 1], [1, 1, 0, 0, 0, 1, 0],
+      [1, 0, 0, 2, 0, 0, 0], [0, 2, 0, 0, 1, 0, 0], [0, 1, 1, 1, 0, 0, 0], [0, 0, 3, 0, 0, 0, 0],
+      [0, 0, 1, 0, 0, 0, 1], [0, 0, 0, 1, 0, 1, 0], [0, 0, 0, 0, 2, 0, 0], [5, 0, 0, 0, 0, 0, 0],
+      [3, 0, 1, 0, 0, 0, 0], [2, 2, 0, 0, 0, 0, 0], [2, 0, 0, 0, 1, 0, 0], [1, 1, 0, 1, 0, 0, 0],
+      [0, 2, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 1, 0], [0, 0, 1, 0, 1, 0, 0], [0, 0, 0, 2, 0, 0, 0],
+      [1, 1, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0], [0, 1, 0, 0, 1, 0, 0],
+      [0, 0, 1, 1, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0], [2, 0, 1, 0, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0],
+      [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 1, 0, 0, 0],
+      [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0], [3, 0, 0, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 1, 0, 0], [1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0], [2, 0, 0, 0, 0, 0, 0],
+      [0, 0, 1, 0, 0, 0, 0]] := by
+  simp only [degreeZeroNuQuarticNoABDFG810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  module
+
 set_option maxHeartbeats 32000000 in
 theorem degreeZeroNuQuarticNoABDFG810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -3072,9 +4127,20 @@ theorem degreeZeroNuQuarticNoABDFG810_natDegree_lt
   rcases hcone with ⟨hApos, hBpos, hDpos, hFpos, hGpos, hAB, hAD, hAF, hAG, hClt, hElt⟩
   have hC1 : C.natDegree + 1 ≤ 2 * A.natDegree := Nat.succ_le_of_lt hClt
   have hE1 : E.natDegree + 1 ≤ 3 * A.natDegree := Nat.succ_le_of_lt hElt
-  simp only [degreeZeroNuQuarticNoABDFG810]
-  compute_degree
-  omega
+  rw [speedRefl_degreeZeroNuQuarticNoABDFG810_eq_polyOf]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
+    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  repeat' apply And.intro
+  all_goals first
+    | (right; right; omega)
+    | (left; norm_num; done)
+    | (right; left; simp; done)
+    | trivial
 
 theorem nuQuarticFaceABDFG810_coeff_top
     {A B C D E F G : k[X]}
@@ -3207,6 +4273,56 @@ theorem degreeZeroXiQuartic810_eq_ABDFG_add_rest
   simp only [degreeZeroXiQuartic810, xiQuarticFaceABDFG810, degreeZeroXiQuarticNoABDFG810]
   all_goals module
 
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroXiQuarticNoABDFG810` (56 monomials, 7 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroXiQuarticNoABDFG810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    degreeZeroXiQuarticNoABDFG810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 512 : k), (15 / 256 : k), (45 / 512 : k),
+      (-(25 / 128) : k), (-(25 / 128) : k), (-(15 / 128) : k),
+      (-(15 / 128) : k), (5 / 16 : k), (-(45 / 262144 * l) : k),
+      (9 / 16384 * l : k), (-(9 / 16384 * l) : k), (-(9 / 8192 * l) : k),
+      (9 / 4096 * l : k), (-(9 / 8192 * l) : k), (171 / 8192 * l : k),
+      (9 / 1024 * l : k), (63 / 2048 * l : k), (-(9 / 512 * l) : k),
+      (-(9 / 512 * l) : k), (-(45 / 1024 * l) : k), (-(27 / 256 * l) : k),
+      (-(27 / 512 * l) : k), (-(63 / 1024 * l) : k), (9 / 64 * l : k),
+      (9 / 64 * l : k), (-(7 / 8192 * beta) : k), (7 / 2048 * beta : k),
+      (-(7 / 1024 * beta) : k), (-(7 / 1024 * beta) : k), (7 / 256 * beta : k),
+      (7 / 512 * beta : k), (49 / 1024 * beta : k), (7 / 128 * beta : k),
+      (-(7 / 64 * beta) : k), (-(7 / 64 * beta) : k), (3 / 64 * gamma : k),
+      (3 / 32 * gamma : k), (-(3 / 32 * gamma) : k), (-(3 / 16 * gamma) : k),
+      (-(3 / 32 * gamma) : k), (-(5 / 1024 * delta) : k), (5 / 128 * delta : k),
+      (5 / 128 * delta : k), (-(5 / 64 * delta) : k), (-(5 / 32 * delta) : k),
+      (-(15 / 64 * delta) : k), (1 / 32 * epsilon : k), (-(3 / 16 * epsilon) : k),
+      (-(1 / 8 * epsilon) : k), (1 / 2 * epsilon : k), (-(3 / 64 * zeta) : k),
+      (-(3 / 16 * zeta) : k), (3 / 8 * zeta : k), (-(1 / 16 * eta) : k),
+      (1 / 4 * eta : k), (1 / 8 * theta : k)]
+      [
+      [1, 2, 0, 0, 1, 0, 0], [1, 1, 1, 1, 0, 0, 0], [0, 2, 2, 0, 0, 0, 0], [0, 1, 1, 0, 0, 1, 0],
+      [0, 1, 0, 1, 1, 0, 0], [0, 0, 2, 0, 1, 0, 0], [0, 0, 1, 2, 0, 0, 0], [0, 0, 0, 0, 1, 0, 1],
+      [4, 0, 0, 1, 0, 0, 0], [3, 1, 1, 0, 0, 0, 0], [2, 3, 0, 0, 0, 0, 0], [3, 0, 0, 0, 0, 1, 0],
+      [2, 1, 0, 0, 1, 0, 0], [2, 0, 1, 1, 0, 0, 0], [1, 2, 0, 1, 0, 0, 0], [1, 1, 2, 0, 0, 0, 0],
+      [0, 3, 1, 0, 0, 0, 0], [1, 0, 1, 0, 0, 1, 0], [1, 0, 0, 1, 1, 0, 0], [0, 2, 0, 0, 0, 1, 0],
+      [0, 1, 1, 0, 1, 0, 0], [0, 1, 0, 2, 0, 0, 0], [0, 0, 2, 1, 0, 0, 0], [0, 0, 0, 1, 0, 0, 1],
+      [0, 0, 0, 0, 1, 1, 0], [3, 0, 0, 1, 0, 0, 0], [2, 1, 1, 0, 0, 0, 0], [1, 3, 0, 0, 0, 0, 0],
+      [2, 0, 0, 0, 0, 1, 0], [1, 1, 0, 0, 1, 0, 0], [1, 0, 1, 1, 0, 0, 0], [0, 2, 0, 1, 0, 0, 0],
+      [0, 1, 2, 0, 0, 0, 0], [0, 0, 1, 0, 0, 1, 0], [0, 0, 0, 1, 1, 0, 0], [1, 1, 0, 1, 0, 0, 0],
+      [0, 2, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 1, 0], [0, 0, 1, 0, 1, 0, 0], [0, 0, 0, 2, 0, 0, 0],
+      [2, 0, 0, 1, 0, 0, 0], [1, 1, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0],
+      [0, 1, 0, 0, 1, 0, 0], [0, 0, 1, 1, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0], [0, 1, 0, 1, 0, 0, 0],
+      [0, 0, 2, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 1, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 1, 0], [0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 1, 0, 0, 0]] := by
+  simp only [degreeZeroXiQuarticNoABDFG810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  module
+
 set_option maxHeartbeats 32000000 in
 theorem degreeZeroXiQuarticNoABDFG810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -3218,9 +4334,20 @@ theorem degreeZeroXiQuarticNoABDFG810_natDegree_lt
   rcases hcone with ⟨hApos, hBpos, hDpos, hFpos, hGpos, hAB, hAD, hAF, hAG, hClt, hElt⟩
   have hC1 : C.natDegree + 1 ≤ 2 * A.natDegree := Nat.succ_le_of_lt hClt
   have hE1 : E.natDegree + 1 ≤ 3 * A.natDegree := Nat.succ_le_of_lt hElt
-  simp only [degreeZeroXiQuarticNoABDFG810]
-  compute_degree
-  omega
+  rw [speedRefl_degreeZeroXiQuarticNoABDFG810_eq_polyOf]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
+    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  repeat' apply And.intro
+  all_goals first
+    | (right; right; omega)
+    | (left; norm_num; done)
+    | (right; left; simp; done)
+    | trivial
 
 theorem xiQuarticFaceABDFG810_coeff_top
     {A B C D E F G : k[X]}
@@ -3388,6 +4515,77 @@ theorem degreeZeroOmicronQuartic810_eq_ABDFG_add_rest
   simp only [degreeZeroOmicronQuartic810, omicronQuarticFaceABDFG810, degreeZeroOmicronQuarticNoABDFG810]
   all_goals module
 
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroOmicronQuarticNoABDFG810` (92 monomials, 7 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroOmicronQuarticNoABDFG810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    degreeZeroOmicronQuarticNoABDFG810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 16384 : k), (-(35 / 2048) : k), (-(5 / 2048) : k),
+      (-(5 / 2048) : k), (15 / 512 : k), (15 / 1024 : k),
+      (5 / 128 : k), (135 / 1024 : k), (45 / 1024 : k),
+      (-(5 / 128) : k), (-(15 / 128) : k), (-(5 / 64) : k),
+      (-(5 / 64) : k), (-(25 / 128) : k), (135 / 33554432 * l : k),
+      (225 / 2097152 * l : k), (-(171 / 4194304 * l) : k), (81 / 262144 * l : k),
+      (-(9 / 65536 * l) : k), (99 / 131072 * l : k), (-(45 / 131072 * l) : k),
+      (-(189 / 65536 * l) : k), (9 / 8192 * l : k), (-(9 / 4096 * l) : k),
+      (27 / 8192 * l : k), (45 / 4096 * l : k), (99 / 4096 * l : k),
+      (9 / 8192 * l : k), (189 / 8192 * l : k), (567 / 16384 * l : k),
+      (9 / 512 * l : k), (-(9 / 256 * l) : k), (-(27 / 1024 * l) : k),
+      (-(9 / 128 * l) : k), (-(45 / 512 * l) : k), (-(45 / 1024 * l) : k),
+      (-(27 / 512 * l) : k), (9 / 64 * l : k), (9 / 128 * l : k),
+      (35 / 2097152 * beta : k), (49 / 131072 * beta : k), (-(35 / 131072 * beta) : k),
+      (7 / 8192 * beta : k), (-(7 / 4096 * beta) : k), (21 / 8192 * beta : k),
+      (-(91 / 8192 * beta) : k), (-(189 / 32768 * beta) : k), (7 / 512 * beta : k),
+      (7 / 512 * beta : k), (35 / 1024 * beta : k), (21 / 256 * beta : k),
+      (7 / 512 * beta : k), (-(7 / 64 * beta) : k), (-(7 / 128 * beta) : k),
+      (3 / 2048 * gamma : k), (-(9 / 1024 * gamma) : k), (-(3 / 512 * gamma) : k),
+      (3 / 128 * gamma : k), (3 / 128 * gamma : k), (9 / 128 * gamma : k),
+      (9 / 128 * gamma : k), (-(3 / 32 * gamma) : k), (-(3 / 16 * gamma) : k),
+      (9 / 131072 * delta : k), (5 / 4096 * delta : k), (-(5 / 4096 * delta) : k),
+      (5 / 128 * delta : k), (5 / 512 * delta : k), (45 / 512 * delta : k),
+      (-(5 / 64 * delta) : k), (-(5 / 32 * delta) : k), (-(15 / 128 * delta) : k),
+      (-(1 / 256 * epsilon) : k), (1 / 32 * epsilon : k), (1 / 32 * epsilon : k),
+      (-(1 / 16 * epsilon) : k), (-(1 / 8 * epsilon) : k), (-(3 / 16 * epsilon) : k),
+      (9 / 32768 * zeta : k), (3 / 1024 * zeta : k), (9 / 512 * zeta : k),
+      (-(9 / 64 * zeta) : k), (-(9 / 128 * zeta) : k), (3 / 8 * zeta : k),
+      (-(1 / 512 * eta) : k), (-(1 / 32 * eta) : k), (-(3 / 32 * eta) : k),
+      (1 / 4 * eta : k), (1 / 1024 * theta : k), (1 / 64 * theta : k),
+      (-(3 / 128 * theta) : k), (1 / 8 * theta : k)]
+      [
+      [2, 1, 2, 0, 0, 0, 0], [1, 3, 1, 0, 0, 0, 0], [2, 0, 1, 0, 0, 1, 0], [2, 0, 0, 1, 1, 0, 0],
+      [1, 1, 1, 0, 1, 0, 0], [1, 0, 2, 1, 0, 0, 0], [0, 3, 0, 0, 1, 0, 0], [0, 2, 1, 1, 0, 0, 0],
+      [0, 1, 3, 0, 0, 0, 0], [1, 0, 0, 0, 1, 1, 0], [0, 1, 1, 0, 0, 0, 1], [0, 1, 0, 0, 2, 0, 0],
+      [0, 0, 2, 0, 0, 1, 0], [0, 0, 1, 1, 1, 0, 0], [7, 0, 0, 0, 0, 0, 0], [5, 0, 1, 0, 0, 0, 0],
+      [4, 2, 0, 0, 0, 0, 0], [4, 0, 0, 0, 1, 0, 0], [3, 1, 0, 1, 0, 0, 0], [3, 0, 2, 0, 0, 0, 0],
+      [2, 2, 1, 0, 0, 0, 0], [1, 4, 0, 0, 0, 0, 0], [3, 0, 0, 0, 0, 0, 1], [2, 1, 0, 0, 0, 1, 0],
+      [2, 0, 1, 0, 1, 0, 0], [1, 2, 0, 0, 1, 0, 0], [1, 1, 1, 1, 0, 0, 0], [1, 0, 3, 0, 0, 0, 0],
+      [0, 3, 0, 1, 0, 0, 0], [0, 2, 2, 0, 0, 0, 0], [1, 0, 1, 0, 0, 0, 1], [1, 0, 0, 1, 0, 1, 0],
+      [0, 2, 0, 0, 0, 0, 1], [0, 1, 1, 0, 0, 1, 0], [0, 1, 0, 1, 1, 0, 0], [0, 0, 2, 0, 1, 0, 0],
+      [0, 0, 1, 2, 0, 0, 0], [0, 0, 0, 0, 1, 0, 1], [0, 0, 0, 0, 0, 2, 0], [6, 0, 0, 0, 0, 0, 0],
+      [4, 0, 1, 0, 0, 0, 0], [3, 2, 0, 0, 0, 0, 0], [3, 0, 0, 0, 1, 0, 0], [2, 1, 0, 1, 0, 0, 0],
+      [2, 0, 2, 0, 0, 0, 0], [1, 2, 1, 0, 0, 0, 0], [0, 4, 0, 0, 0, 0, 0], [1, 0, 1, 0, 1, 0, 0],
+      [1, 0, 0, 2, 0, 0, 0], [0, 2, 0, 0, 1, 0, 0], [0, 1, 1, 1, 0, 0, 0], [0, 0, 3, 0, 0, 0, 0],
+      [0, 0, 0, 1, 0, 1, 0], [0, 0, 0, 0, 2, 0, 0], [2, 1, 1, 0, 0, 0, 0], [1, 3, 0, 0, 0, 0, 0],
+      [2, 0, 0, 0, 0, 1, 0], [1, 1, 0, 0, 1, 0, 0], [1, 0, 1, 1, 0, 0, 0], [0, 2, 0, 1, 0, 0, 0],
+      [0, 1, 2, 0, 0, 0, 0], [0, 0, 1, 0, 0, 1, 0], [0, 0, 0, 1, 1, 0, 0], [5, 0, 0, 0, 0, 0, 0],
+      [3, 0, 1, 0, 0, 0, 0], [2, 2, 0, 0, 0, 0, 0], [1, 1, 0, 1, 0, 0, 0], [1, 0, 2, 0, 0, 0, 0],
+      [0, 2, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 1, 0], [0, 0, 1, 0, 1, 0, 0], [0, 0, 0, 2, 0, 0, 0],
+      [2, 0, 0, 1, 0, 0, 0], [1, 1, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0],
+      [0, 1, 0, 0, 1, 0, 0], [0, 0, 1, 1, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0], [2, 0, 1, 0, 0, 0, 0],
+      [1, 2, 0, 0, 0, 0, 0], [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1],
+      [2, 1, 0, 0, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0],
+      [3, 0, 0, 0, 0, 0, 0], [1, 0, 1, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0]] := by
+  simp only [degreeZeroOmicronQuarticNoABDFG810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  module
+
 set_option maxHeartbeats 32000000 in
 theorem degreeZeroOmicronQuarticNoABDFG810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -3399,9 +4597,20 @@ theorem degreeZeroOmicronQuarticNoABDFG810_natDegree_lt
   rcases hcone with ⟨hApos, hBpos, hDpos, hFpos, hGpos, hAB, hAD, hAF, hAG, hClt, hElt⟩
   have hC1 : C.natDegree + 1 ≤ 2 * A.natDegree := Nat.succ_le_of_lt hClt
   have hE1 : E.natDegree + 1 ≤ 3 * A.natDegree := Nat.succ_le_of_lt hElt
-  simp only [degreeZeroOmicronQuarticNoABDFG810]
-  compute_degree
-  omega
+  rw [speedRefl_degreeZeroOmicronQuarticNoABDFG810_eq_polyOf]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
+    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  repeat' apply And.intro
+  all_goals first
+    | (right; right; omega)
+    | (left; norm_num; done)
+    | (right; left; simp; done)
+    | trivial
 
 theorem omicronQuarticFaceABDFG810_coeff_top
     {A B C D E F G : k[X]}
@@ -3595,6 +4804,74 @@ theorem degreeZeroPiQuartic810_eq_ABDFG_add_rest
     piThetaGroupQuartic810, piQuarticFaceABDFG810, degreeZeroPiQuarticNoABDFG810]
   all_goals module
 
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroPiQuarticNoABDFG810` (87 monomials, 7 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroPiQuarticNoABDFG810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    degreeZeroPiQuarticNoABDFG810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(45 / 512) : k), (-(35 / 256) : k), (5 / 32 : k),
+      (5 / 16 : k), (5 / 32 : k), (45 / 64 : k),
+      (45 / 64 : k), (15 / 256 : k), (-(15 / 16) : k),
+      (-(5 / 16) : k), (-(15 / 16) : k), (-(5 / 8) : k),
+      (-(5 / 8) : k), (45 / 131072 * l : k), (-(3 / 32768 * l) : k),
+      (-(45 / 32768 * l) : k), (9 / 4096 * l : k), (9 / 4096 * l : k),
+      (-(27 / 4096 * l) : k), (9 / 4096 * l : k), (-(189 / 4096 * l) : k),
+      (-(63 / 4096 * l) : k), (-(27 / 1024 * l) : k), (9 / 512 * l : k),
+      (63 / 1024 * l : k), (9 / 128 * l : k), (27 / 256 * l : k),
+      (9 / 256 * l : k), (63 / 512 * l : k), (189 / 512 * l : k),
+      (63 / 512 * l : k), (-(9 / 64 * l) : k), (-(9 / 32 * l) : k),
+      (-(27 / 64 * l) : k), (-(9 / 32 * l) : k), (-(27 / 128 * l) : k),
+      (-(9 / 16 * l) : k), (-(3 / 32 * l) : k), (9 / 8 * l : k),
+      (7 / 4096 * beta : k), (7 / 4096 * beta : k), (-(7 / 1024 * beta) : k),
+      (7 / 512 * beta : k), (7 / 512 * beta : k), (-(21 / 256 * beta) : k),
+      (-(7 / 256 * beta) : k), (-(63 / 512 * beta) : k), (-(7 / 64 * beta) : k),
+      (7 / 32 * beta : k), (21 / 128 * beta : k), (7 / 16 * beta : k),
+      (7 / 32 * beta : k), (7 / 32 * beta : k), (-(7 / 8 * beta) : k),
+      (-(3 / 32 * gamma) : k), (-(15 / 256 * gamma) : k), (3 / 16 * gamma : k),
+      (3 / 8 * gamma : k), (3 / 4 * gamma : k), (1 / 8 * gamma : k),
+      (-(3 / 4 * gamma) : k), (-(3 / 4 * gamma) : k), (5 / 512 * delta : k),
+      (-(15 / 256 * delta) : k), (-(5 / 128 * delta) : k), (5 / 32 * delta : k),
+      (5 / 32 * delta : k), (15 / 32 * delta : k), (15 / 32 * delta : k),
+      (-(5 / 8 * delta) : k), (-(5 / 4 * delta) : k), (1 / 4 * epsilon : k),
+      (1 / 2 * epsilon : k), (-(1 / 2 * epsilon) : k), (-(1 * epsilon) : k),
+      (-(1 / 2 * epsilon) : k), (3 / 32 * zeta : k), (5 / 32 * zeta : k),
+      (-(3 / 8 * zeta) : k), (-(3 / 4 * zeta) : k), (-(3 / 4 * zeta) : k),
+      (1 / 16 * eta : k), (-(1 / 2 * eta) : k), (-(1 / 4 * eta) : k),
+      (2 * eta : k), (-(1 / 4 * theta) : k), (1 * theta : k)]
+      [
+      [1, 2, 2, 0, 0, 0, 0], [0, 4, 1, 0, 0, 0, 0], [1, 1, 1, 0, 0, 1, 0], [1, 1, 0, 1, 1, 0, 0],
+      [1, 0, 1, 2, 0, 0, 0], [0, 2, 1, 0, 1, 0, 0], [0, 1, 2, 1, 0, 0, 0], [0, 0, 4, 0, 0, 0, 0],
+      [0, 1, 0, 0, 1, 1, 0], [0, 0, 2, 0, 0, 0, 1], [0, 0, 1, 1, 0, 1, 0], [0, 0, 1, 0, 2, 0, 0],
+      [0, 0, 0, 2, 1, 0, 0], [4, 1, 1, 0, 0, 0, 0], [3, 3, 0, 0, 0, 0, 0], [4, 0, 0, 0, 0, 1, 0],
+      [3, 1, 0, 0, 1, 0, 0], [3, 0, 1, 1, 0, 0, 0], [2, 2, 0, 1, 0, 0, 0], [2, 1, 2, 0, 0, 0, 0],
+      [1, 3, 1, 0, 0, 0, 0], [0, 5, 0, 0, 0, 0, 0], [2, 0, 1, 0, 0, 1, 0], [2, 0, 0, 1, 1, 0, 0],
+      [1, 2, 0, 0, 0, 1, 0], [1, 1, 1, 0, 1, 0, 0], [1, 1, 0, 2, 0, 0, 0], [1, 0, 2, 1, 0, 0, 0],
+      [0, 3, 0, 0, 1, 0, 0], [0, 2, 1, 1, 0, 0, 0], [0, 1, 3, 0, 0, 0, 0], [1, 0, 0, 0, 1, 1, 0],
+      [0, 1, 1, 0, 0, 0, 1], [0, 1, 0, 1, 0, 1, 0], [0, 1, 0, 0, 2, 0, 0], [0, 0, 2, 0, 0, 1, 0],
+      [0, 0, 1, 1, 1, 0, 0], [0, 0, 0, 3, 0, 0, 0], [0, 0, 0, 0, 0, 1, 1], [3, 1, 1, 0, 0, 0, 0],
+      [2, 3, 0, 0, 0, 0, 0], [3, 0, 0, 0, 0, 1, 0], [2, 1, 0, 0, 1, 0, 0], [2, 0, 1, 1, 0, 0, 0],
+      [1, 2, 0, 1, 0, 0, 0], [1, 1, 2, 0, 0, 0, 0], [0, 3, 1, 0, 0, 0, 0], [1, 0, 1, 0, 0, 1, 0],
+      [1, 0, 0, 1, 1, 0, 0], [0, 2, 0, 0, 0, 1, 0], [0, 1, 1, 0, 1, 0, 0], [0, 1, 0, 2, 0, 0, 0],
+      [0, 0, 2, 1, 0, 0, 0], [0, 0, 0, 0, 1, 1, 0], [1, 2, 1, 0, 0, 0, 0], [0, 4, 0, 0, 0, 0, 0],
+      [1, 0, 0, 2, 0, 0, 0], [0, 2, 0, 0, 1, 0, 0], [0, 1, 1, 1, 0, 0, 0], [0, 0, 3, 0, 0, 0, 0],
+      [0, 0, 0, 1, 0, 1, 0], [0, 0, 0, 0, 2, 0, 0], [2, 1, 1, 0, 0, 0, 0], [1, 3, 0, 0, 0, 0, 0],
+      [2, 0, 0, 0, 0, 1, 0], [1, 1, 0, 0, 1, 0, 0], [1, 0, 1, 1, 0, 0, 0], [0, 2, 0, 1, 0, 0, 0],
+      [0, 1, 2, 0, 0, 0, 0], [0, 0, 1, 0, 0, 1, 0], [0, 0, 0, 1, 1, 0, 0], [1, 1, 0, 1, 0, 0, 0],
+      [0, 2, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 1, 0], [0, 0, 1, 0, 1, 0, 0], [0, 0, 0, 2, 0, 0, 0],
+      [1, 1, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0], [0, 1, 0, 0, 1, 0, 0],
+      [0, 0, 1, 1, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0], [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 1], [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0]] := by
+  simp only [degreeZeroPiQuarticNoABDFG810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  module
+
 set_option maxHeartbeats 32000000 in
 theorem degreeZeroPiQuarticNoABDFG810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -3606,9 +4883,20 @@ theorem degreeZeroPiQuarticNoABDFG810_natDegree_lt
   rcases hcone with ⟨hApos, hBpos, hDpos, hFpos, hGpos, hAB, hAD, hAF, hAG, hClt, hElt⟩
   have hC1 : C.natDegree + 1 ≤ 2 * A.natDegree := Nat.succ_le_of_lt hClt
   have hE1 : E.natDegree + 1 ≤ 3 * A.natDegree := Nat.succ_le_of_lt hElt
-  simp only [degreeZeroPiQuarticNoABDFG810]
-  compute_degree
-  omega
+  rw [speedRefl_degreeZeroPiQuarticNoABDFG810_eq_polyOf]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
+    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  repeat' apply And.intro
+  all_goals first
+    | (right; right; omega)
+    | (left; norm_num; done)
+    | (right; left; simp; done)
+    | trivial
 
 theorem piQuarticFaceABDFG810_coeff_top
     {A B C D E F G : k[X]}
@@ -3937,6 +5225,43 @@ theorem degreeZeroKappaQuartic810_eq_ABEFG_add_rest
   simp only [degreeZeroKappaQuartic810, kappaQuarticFaceABEFG810, degreeZeroKappaQuarticNoABEFG810]
   all_goals module
 
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroKappaQuarticNoABEFG810` (33 monomials, 7 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroKappaQuarticNoABEFG810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    degreeZeroKappaQuarticNoABEFG810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(15 / 128) : k), (-(15 / 128) : k), (5 / 16 : k),
+      (5 / 16 : k), (63 / 262144 * l : k), (45 / 8192 * l : k),
+      (-(9 / 16384 * l) : k), (27 / 1024 * l : k), (-(9 / 512 * l) : k),
+      (9 / 1024 * l : k), (-(63 / 1024 * l) : k), (9 / 64 * l : k),
+      (9 / 64 * l : k), (9 / 64 * l : k), (9 / 128 * l : k),
+      (35 / 32768 * beta : k), (21 / 1024 * beta : k), (7 / 1024 * beta : k),
+      (7 / 64 * beta : k), (-(7 / 64 * beta) : k), (-(7 / 128 * beta) : k),
+      (7 / 8 * beta : k), (-(3 / 16 * gamma) : k), (3 / 4 * gamma : k),
+      (5 / 1024 * delta : k), (5 / 64 * delta : k), (-(15 / 128 * delta) : k),
+      (5 / 8 * delta : k), (1 / 2 * epsilon : k), (3 / 128 * zeta : k),
+      (3 / 8 * zeta : k), (1 / 4 * eta : k), (1 / 8 * theta : k)]
+      [
+      [0, 2, 0, 1, 0, 0, 0], [0, 1, 2, 0, 0, 0, 0], [0, 0, 1, 0, 0, 1, 0], [0, 0, 0, 1, 1, 0, 0],
+      [5, 0, 0, 0, 0, 0, 0], [3, 0, 1, 0, 0, 0, 0], [2, 2, 0, 0, 0, 0, 0], [2, 0, 0, 0, 1, 0, 0],
+      [1, 1, 0, 1, 0, 0, 0], [1, 0, 2, 0, 0, 0, 0], [0, 2, 1, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 1],
+      [0, 1, 0, 0, 0, 1, 0], [0, 0, 1, 0, 1, 0, 0], [0, 0, 0, 2, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0],
+      [2, 0, 1, 0, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0], [1, 0, 0, 0, 1, 0, 0], [0, 1, 0, 1, 0, 0, 0],
+      [0, 0, 2, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1], [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0],
+      [3, 0, 0, 0, 0, 0, 0], [1, 0, 1, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0],
+      [0, 0, 0, 1, 0, 0, 0], [2, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0],
+      [1, 0, 0, 0, 0, 0, 0]] := by
+  simp only [degreeZeroKappaQuarticNoABEFG810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  module
+
 set_option maxHeartbeats 16000000 in
 theorem degreeZeroKappaQuarticNoABEFG810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -3948,9 +5273,20 @@ theorem degreeZeroKappaQuarticNoABEFG810_natDegree_lt
   rcases hcone with ⟨hApos, hBpos, hEpos, hFpos, hGpos, hAB, hAE, hAF, hAG, hClt, hDlt⟩
   have hC1 : C.natDegree + 1 ≤ 2 * A.natDegree := Nat.succ_le_of_lt hClt
   have hD1 : 2 * D.natDegree + 1 ≤ 5 * A.natDegree := Nat.succ_le_of_lt hDlt
-  simp only [degreeZeroKappaQuarticNoABEFG810]
-  compute_degree
-  omega
+  rw [speedRefl_degreeZeroKappaQuarticNoABEFG810_eq_polyOf]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
+    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  repeat' apply And.intro
+  all_goals first
+    | (right; right; omega)
+    | (left; norm_num; done)
+    | (right; left; simp; done)
+    | trivial
 
 theorem kappaQuarticFaceABEFG810_coeff_top
     {A B C D E F G : k[X]}
@@ -4041,6 +5377,46 @@ theorem degreeZeroMuQuartic810_eq_ABEFG_add_rest
   simp only [degreeZeroMuQuartic810, muQuarticFaceABEFG810, degreeZeroMuQuarticNoABEFG810]
   all_goals module
 
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroMuQuarticNoABEFG810` (39 monomials, 7 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroMuQuarticNoABEFG810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    degreeZeroMuQuarticNoABEFG810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 512 : k), (-(5 / 128) : k), (-(15 / 64) : k),
+      (-(5 / 128) : k), (5 / 16 : k), (5 / 16 : k),
+      (-(45 / 262144 * l) : k), (-(9 / 8192 * l) : k), (-(9 / 8192 * l) : k),
+      (63 / 8192 * l : k), (-(9 / 1024 * l) : k), (-(9 / 512 * l) : k),
+      (-(9 / 512 * l) : k), (-(63 / 1024 * l) : k), (-(63 / 1024 * l) : k),
+      (9 / 64 * l : k), (9 / 64 * l : k), (9 / 64 * l : k),
+      (-(7 / 8192 * beta) : k), (-(7 / 1024 * beta) : k), (7 / 512 * beta : k),
+      (21 / 1024 * beta : k), (-(7 / 64 * beta) : k), (-(7 / 64 * beta) : k),
+      (-(7 / 64 * beta) : k), (3 / 128 * gamma : k), (-(3 / 16 * gamma) : k),
+      (-(3 / 32 * gamma) : k), (3 / 4 * gamma : k), (-(5 / 1024 * delta) : k),
+      (-(5 / 64 * delta) : k), (-(15 / 64 * delta) : k), (5 / 8 * delta : k),
+      (-(1 / 8 * epsilon) : k), (1 / 2 * epsilon : k), (-(3 / 64 * zeta) : k),
+      (3 / 8 * zeta : k), (1 / 4 * eta : k), (1 / 8 * theta : k)]
+      [
+      [1, 2, 1, 0, 0, 0, 0], [1, 0, 0, 2, 0, 0, 0], [0, 1, 1, 1, 0, 0, 0], [0, 0, 3, 0, 0, 0, 0],
+      [0, 0, 1, 0, 0, 0, 1], [0, 0, 0, 1, 0, 1, 0], [4, 1, 0, 0, 0, 0, 0], [3, 0, 0, 1, 0, 0, 0],
+      [2, 1, 1, 0, 0, 0, 0], [1, 3, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 1, 0], [1, 1, 0, 0, 1, 0, 0],
+      [1, 0, 1, 1, 0, 0, 0], [0, 2, 0, 1, 0, 0, 0], [0, 1, 2, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 1],
+      [0, 0, 1, 0, 0, 1, 0], [0, 0, 0, 1, 1, 0, 0], [3, 1, 0, 0, 0, 0, 0], [2, 0, 0, 1, 0, 0, 0],
+      [1, 1, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0], [0, 1, 0, 0, 1, 0, 0],
+      [0, 0, 1, 1, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0], [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 1], [2, 1, 0, 0, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 1, 0], [0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0], [1, 1, 0, 0, 0, 0, 0],
+      [0, 0, 0, 1, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0]] := by
+  simp only [degreeZeroMuQuarticNoABEFG810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  module
+
 set_option maxHeartbeats 16000000 in
 theorem degreeZeroMuQuarticNoABEFG810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -4052,9 +5428,20 @@ theorem degreeZeroMuQuarticNoABEFG810_natDegree_lt
   rcases hcone with ⟨hApos, hBpos, hEpos, hFpos, hGpos, hAB, hAE, hAF, hAG, hClt, hDlt⟩
   have hC1 : C.natDegree + 1 ≤ 2 * A.natDegree := Nat.succ_le_of_lt hClt
   have hD1 : 2 * D.natDegree + 1 ≤ 5 * A.natDegree := Nat.succ_le_of_lt hDlt
-  simp only [degreeZeroMuQuarticNoABEFG810]
-  compute_degree
-  omega
+  rw [speedRefl_degreeZeroMuQuarticNoABEFG810_eq_polyOf]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
+    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  repeat' apply And.intro
+  all_goals first
+    | (right; right; omega)
+    | (left; norm_num; done)
+    | (right; left; simp; done)
+    | trivial
 
 theorem muQuarticFaceABEFG810_coeff_top
     {A B C D E F G : k[X]}
@@ -4173,6 +5560,56 @@ theorem degreeZeroNuQuartic810_eq_ABEFG_add_rest
   simp only [degreeZeroNuQuartic810, nuQuarticFaceABEFG810, degreeZeroNuQuarticNoABEFG810]
   all_goals module
 
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroNuQuarticNoABEFG810` (55 monomials, 7 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroNuQuarticNoABEFG810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    degreeZeroNuQuarticNoABEFG810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (45 / 1024 : k), (15 / 1024 : k), (35 / 512 : k),
+      (-(5 / 128) : k), (-(5 / 128) : k), (-(15 / 64) : k),
+      (-(15 / 128) : k), (-(15 / 128) : k), (5 / 16 : k),
+      (105 / 4194304 * l : k), (135 / 262144 * l : k), (9 / 4096 * l : k),
+      (9 / 8192 * l : k), (9 / 16384 * l : k), (63 / 4096 * l : k),
+      (315 / 32768 * l : k), (9 / 1024 * l : k), (-(9 / 256 * l) : k),
+      (-(9 / 512 * l) : k), (-(63 / 1024 * l) : k), (-(63 / 512 * l) : k),
+      (-(21 / 1024 * l) : k), (9 / 64 * l : k), (9 / 64 * l : k),
+      (9 / 128 * l : k), (7 / 65536 * beta : k), (7 / 4096 * beta : k),
+      (-(7 / 16384 * beta) : k), (7 / 1024 * beta : k), (7 / 256 * beta : k),
+      (63 / 1024 * beta : k), (-(7 / 64 * beta) : k), (-(7 / 64 * beta) : k),
+      (-(7 / 128 * beta) : k), (3 / 128 * gamma : k), (5 / 128 * gamma : k),
+      (-(3 / 32 * gamma) : k), (-(3 / 16 * gamma) : k), (-(3 / 16 * gamma) : k),
+      (15 / 32768 * delta : k), (5 / 1024 * delta : k), (15 / 512 * delta : k),
+      (-(15 / 64 * delta) : k), (-(15 / 128 * delta) : k), (5 / 8 * delta : k),
+      (-(1 / 16 * epsilon) : k), (-(1 / 4 * epsilon) : k), (1 / 2 * epsilon : k),
+      (1 / 512 * zeta : k), (-(15 / 128 * zeta) : k), (3 / 8 * zeta : k),
+      (-(1 / 32 * eta) : k), (1 / 4 * eta : k), (1 / 128 * theta : k),
+      (1 / 8 * theta : k)]
+      [
+      [1, 2, 0, 1, 0, 0, 0], [1, 1, 2, 0, 0, 0, 0], [0, 3, 1, 0, 0, 0, 0], [1, 0, 1, 0, 0, 1, 0],
+      [1, 0, 0, 1, 1, 0, 0], [0, 1, 1, 0, 1, 0, 0], [0, 1, 0, 2, 0, 0, 0], [0, 0, 2, 1, 0, 0, 0],
+      [0, 0, 0, 1, 0, 0, 1], [6, 0, 0, 0, 0, 0, 0], [4, 0, 1, 0, 0, 0, 0], [3, 0, 0, 0, 1, 0, 0],
+      [2, 1, 0, 1, 0, 0, 0], [2, 0, 2, 0, 0, 0, 0], [1, 2, 1, 0, 0, 0, 0], [0, 4, 0, 0, 0, 0, 0],
+      [2, 0, 0, 0, 0, 0, 1], [1, 1, 0, 0, 0, 1, 0], [1, 0, 0, 2, 0, 0, 0], [0, 2, 0, 0, 1, 0, 0],
+      [0, 1, 1, 1, 0, 0, 0], [0, 0, 3, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 1], [0, 0, 0, 1, 0, 1, 0],
+      [0, 0, 0, 0, 2, 0, 0], [5, 0, 0, 0, 0, 0, 0], [3, 0, 1, 0, 0, 0, 0], [2, 2, 0, 0, 0, 0, 0],
+      [2, 0, 0, 0, 1, 0, 0], [1, 1, 0, 1, 0, 0, 0], [0, 2, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 1, 0],
+      [0, 0, 1, 0, 1, 0, 0], [0, 0, 0, 2, 0, 0, 0], [1, 1, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0],
+      [1, 0, 0, 0, 0, 1, 0], [0, 1, 0, 0, 1, 0, 0], [0, 0, 1, 1, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0],
+      [2, 0, 1, 0, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0], [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 1, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0],
+      [3, 0, 0, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0], [1, 1, 0, 0, 0, 0, 0],
+      [0, 0, 0, 1, 0, 0, 0], [2, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0]] := by
+  simp only [degreeZeroNuQuarticNoABEFG810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  module
+
 set_option maxHeartbeats 32000000 in
 theorem degreeZeroNuQuarticNoABEFG810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -4184,9 +5621,20 @@ theorem degreeZeroNuQuarticNoABEFG810_natDegree_lt
   rcases hcone with ⟨hApos, hBpos, hEpos, hFpos, hGpos, hAB, hAE, hAF, hAG, hClt, hDlt⟩
   have hC1 : C.natDegree + 1 ≤ 2 * A.natDegree := Nat.succ_le_of_lt hClt
   have hD1 : 2 * D.natDegree + 1 ≤ 5 * A.natDegree := Nat.succ_le_of_lt hDlt
-  simp only [degreeZeroNuQuarticNoABEFG810]
-  compute_degree
-  omega
+  rw [speedRefl_degreeZeroNuQuarticNoABEFG810_eq_polyOf]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
+    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  repeat' apply And.intro
+  all_goals first
+    | (right; right; omega)
+    | (left; norm_num; done)
+    | (right; left; simp; done)
+    | trivial
 
 theorem nuQuarticFaceABEFG810_coeff_top
     {A B C D E F G : k[X]}
@@ -4307,6 +5755,56 @@ theorem degreeZeroXiQuartic810_eq_ABEFG_add_rest
   simp only [degreeZeroXiQuartic810, xiQuarticFaceABEFG810, degreeZeroXiQuarticNoABEFG810]
   all_goals module
 
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroXiQuarticNoABEFG810` (56 monomials, 7 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroXiQuarticNoABEFG810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    degreeZeroXiQuarticNoABEFG810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 256 : k), (55 / 1024 : k), (45 / 512 : k),
+      (-(5 / 64) : k), (-(25 / 128) : k), (-(25 / 128) : k),
+      (-(15 / 128) : k), (-(15 / 128) : k), (-(45 / 262144 * l) : k),
+      (9 / 16384 * l : k), (-(9 / 16384 * l) : k), (-(9 / 8192 * l) : k),
+      (9 / 4096 * l : k), (-(9 / 8192 * l) : k), (171 / 8192 * l : k),
+      (9 / 1024 * l : k), (63 / 2048 * l : k), (-(9 / 512 * l) : k),
+      (-(9 / 512 * l) : k), (-(45 / 1024 * l) : k), (-(27 / 256 * l) : k),
+      (-(27 / 512 * l) : k), (-(63 / 1024 * l) : k), (9 / 64 * l : k),
+      (9 / 64 * l : k), (-(7 / 8192 * beta) : k), (7 / 2048 * beta : k),
+      (-(7 / 1024 * beta) : k), (-(7 / 1024 * beta) : k), (7 / 256 * beta : k),
+      (7 / 512 * beta : k), (49 / 1024 * beta : k), (7 / 128 * beta : k),
+      (-(7 / 64 * beta) : k), (-(7 / 64 * beta) : k), (3 / 64 * gamma : k),
+      (3 / 32 * gamma : k), (-(3 / 32 * gamma) : k), (-(3 / 16 * gamma) : k),
+      (-(3 / 32 * gamma) : k), (-(5 / 1024 * delta) : k), (5 / 128 * delta : k),
+      (5 / 128 * delta : k), (-(5 / 64 * delta) : k), (-(5 / 32 * delta) : k),
+      (-(15 / 64 * delta) : k), (1 / 32 * epsilon : k), (-(3 / 16 * epsilon) : k),
+      (-(1 / 8 * epsilon) : k), (1 / 2 * epsilon : k), (-(3 / 64 * zeta) : k),
+      (-(3 / 16 * zeta) : k), (3 / 8 * zeta : k), (-(1 / 16 * eta) : k),
+      (1 / 4 * eta : k), (1 / 8 * theta : k)]
+      [
+      [1, 1, 1, 1, 0, 0, 0], [0, 3, 0, 1, 0, 0, 0], [0, 2, 2, 0, 0, 0, 0], [1, 0, 0, 1, 0, 1, 0],
+      [0, 1, 1, 0, 0, 1, 0], [0, 1, 0, 1, 1, 0, 0], [0, 0, 2, 0, 1, 0, 0], [0, 0, 1, 2, 0, 0, 0],
+      [4, 0, 0, 1, 0, 0, 0], [3, 1, 1, 0, 0, 0, 0], [2, 3, 0, 0, 0, 0, 0], [3, 0, 0, 0, 0, 1, 0],
+      [2, 1, 0, 0, 1, 0, 0], [2, 0, 1, 1, 0, 0, 0], [1, 2, 0, 1, 0, 0, 0], [1, 1, 2, 0, 0, 0, 0],
+      [0, 3, 1, 0, 0, 0, 0], [1, 0, 1, 0, 0, 1, 0], [1, 0, 0, 1, 1, 0, 0], [0, 2, 0, 0, 0, 1, 0],
+      [0, 1, 1, 0, 1, 0, 0], [0, 1, 0, 2, 0, 0, 0], [0, 0, 2, 1, 0, 0, 0], [0, 0, 0, 1, 0, 0, 1],
+      [0, 0, 0, 0, 1, 1, 0], [3, 0, 0, 1, 0, 0, 0], [2, 1, 1, 0, 0, 0, 0], [1, 3, 0, 0, 0, 0, 0],
+      [2, 0, 0, 0, 0, 1, 0], [1, 1, 0, 0, 1, 0, 0], [1, 0, 1, 1, 0, 0, 0], [0, 2, 0, 1, 0, 0, 0],
+      [0, 1, 2, 0, 0, 0, 0], [0, 0, 1, 0, 0, 1, 0], [0, 0, 0, 1, 1, 0, 0], [1, 1, 0, 1, 0, 0, 0],
+      [0, 2, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 1, 0], [0, 0, 1, 0, 1, 0, 0], [0, 0, 0, 2, 0, 0, 0],
+      [2, 0, 0, 1, 0, 0, 0], [1, 1, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0],
+      [0, 1, 0, 0, 1, 0, 0], [0, 0, 1, 1, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0], [0, 1, 0, 1, 0, 0, 0],
+      [0, 0, 2, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 1, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 1, 0], [0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 1, 0, 0, 0]] := by
+  simp only [degreeZeroXiQuarticNoABEFG810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  module
+
 set_option maxHeartbeats 32000000 in
 theorem degreeZeroXiQuarticNoABEFG810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -4318,9 +5816,20 @@ theorem degreeZeroXiQuarticNoABEFG810_natDegree_lt
   rcases hcone with ⟨hApos, hBpos, hEpos, hFpos, hGpos, hAB, hAE, hAF, hAG, hClt, hDlt⟩
   have hC1 : C.natDegree + 1 ≤ 2 * A.natDegree := Nat.succ_le_of_lt hClt
   have hD1 : 2 * D.natDegree + 1 ≤ 5 * A.natDegree := Nat.succ_le_of_lt hDlt
-  simp only [degreeZeroXiQuarticNoABEFG810]
-  compute_degree
-  omega
+  rw [speedRefl_degreeZeroXiQuarticNoABEFG810_eq_polyOf]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
+    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  repeat' apply And.intro
+  all_goals first
+    | (right; right; omega)
+    | (left; norm_num; done)
+    | (right; left; simp; done)
+    | trivial
 
 theorem xiQuarticFaceABEFG810_coeff_top
     {A B C D E F G : k[X]}
@@ -4488,6 +5997,79 @@ theorem degreeZeroOmicronQuartic810_eq_ABEFG_add_rest
   simp only [degreeZeroOmicronQuartic810, omicronQuarticFaceABEFG810, degreeZeroOmicronQuarticNoABEFG810]
   all_goals module
 
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroOmicronQuarticNoABEFG810` (94 monomials, 7 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroOmicronQuarticNoABEFG810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    degreeZeroOmicronQuarticNoABEFG810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(45 / 16384) : k), (15 / 16384 : k), (-(35 / 2048) : k),
+      (-(5 / 2048) : k), (-(5 / 2048) : k), (15 / 512 : k),
+      (35 / 1024 : k), (15 / 1024 : k), (135 / 1024 : k),
+      (45 / 1024 : k), (-(5 / 128) : k), (-(15 / 128) : k),
+      (-(5 / 32) : k), (-(5 / 64) : k), (-(25 / 128) : k),
+      (-(5 / 128) : k), (135 / 33554432 * l : k), (225 / 2097152 * l : k),
+      (-(171 / 4194304 * l) : k), (81 / 262144 * l : k), (-(9 / 65536 * l) : k),
+      (99 / 131072 * l : k), (-(45 / 131072 * l) : k), (-(189 / 65536 * l) : k),
+      (9 / 8192 * l : k), (-(9 / 4096 * l) : k), (27 / 8192 * l : k),
+      (45 / 4096 * l : k), (99 / 4096 * l : k), (9 / 8192 * l : k),
+      (189 / 8192 * l : k), (567 / 16384 * l : k), (9 / 512 * l : k),
+      (-(9 / 256 * l) : k), (-(27 / 1024 * l) : k), (-(9 / 128 * l) : k),
+      (-(45 / 512 * l) : k), (-(45 / 1024 * l) : k), (-(27 / 512 * l) : k),
+      (9 / 64 * l : k), (9 / 128 * l : k), (35 / 2097152 * beta : k),
+      (49 / 131072 * beta : k), (-(35 / 131072 * beta) : k), (7 / 8192 * beta : k),
+      (-(7 / 4096 * beta) : k), (21 / 8192 * beta : k), (-(91 / 8192 * beta) : k),
+      (-(189 / 32768 * beta) : k), (7 / 512 * beta : k), (7 / 512 * beta : k),
+      (35 / 1024 * beta : k), (21 / 256 * beta : k), (7 / 512 * beta : k),
+      (-(7 / 64 * beta) : k), (-(7 / 128 * beta) : k), (3 / 2048 * gamma : k),
+      (-(9 / 1024 * gamma) : k), (-(3 / 512 * gamma) : k), (3 / 128 * gamma : k),
+      (3 / 128 * gamma : k), (9 / 128 * gamma : k), (9 / 128 * gamma : k),
+      (-(3 / 32 * gamma) : k), (-(3 / 16 * gamma) : k), (9 / 131072 * delta : k),
+      (5 / 4096 * delta : k), (-(5 / 4096 * delta) : k), (5 / 128 * delta : k),
+      (5 / 512 * delta : k), (45 / 512 * delta : k), (-(5 / 64 * delta) : k),
+      (-(5 / 32 * delta) : k), (-(15 / 128 * delta) : k), (-(1 / 256 * epsilon) : k),
+      (1 / 32 * epsilon : k), (1 / 32 * epsilon : k), (-(1 / 16 * epsilon) : k),
+      (-(1 / 8 * epsilon) : k), (-(3 / 16 * epsilon) : k), (9 / 32768 * zeta : k),
+      (3 / 1024 * zeta : k), (9 / 512 * zeta : k), (-(9 / 64 * zeta) : k),
+      (-(9 / 128 * zeta) : k), (3 / 8 * zeta : k), (-(1 / 512 * eta) : k),
+      (-(1 / 32 * eta) : k), (-(3 / 32 * eta) : k), (1 / 4 * eta : k),
+      (1 / 1024 * theta : k), (1 / 64 * theta : k), (-(3 / 128 * theta) : k),
+      (1 / 8 * theta : k)]
+      [
+      [2, 2, 0, 1, 0, 0, 0], [2, 1, 2, 0, 0, 0, 0], [1, 3, 1, 0, 0, 0, 0], [2, 0, 1, 0, 0, 1, 0],
+      [2, 0, 0, 1, 1, 0, 0], [1, 1, 1, 0, 1, 0, 0], [1, 1, 0, 2, 0, 0, 0], [1, 0, 2, 1, 0, 0, 0],
+      [0, 2, 1, 1, 0, 0, 0], [0, 1, 3, 0, 0, 0, 0], [1, 0, 0, 1, 0, 0, 1], [0, 1, 1, 0, 0, 0, 1],
+      [0, 1, 0, 1, 0, 1, 0], [0, 0, 2, 0, 0, 1, 0], [0, 0, 1, 1, 1, 0, 0], [0, 0, 0, 3, 0, 0, 0],
+      [7, 0, 0, 0, 0, 0, 0], [5, 0, 1, 0, 0, 0, 0], [4, 2, 0, 0, 0, 0, 0], [4, 0, 0, 0, 1, 0, 0],
+      [3, 1, 0, 1, 0, 0, 0], [3, 0, 2, 0, 0, 0, 0], [2, 2, 1, 0, 0, 0, 0], [1, 4, 0, 0, 0, 0, 0],
+      [3, 0, 0, 0, 0, 0, 1], [2, 1, 0, 0, 0, 1, 0], [2, 0, 1, 0, 1, 0, 0], [1, 2, 0, 0, 1, 0, 0],
+      [1, 1, 1, 1, 0, 0, 0], [1, 0, 3, 0, 0, 0, 0], [0, 3, 0, 1, 0, 0, 0], [0, 2, 2, 0, 0, 0, 0],
+      [1, 0, 1, 0, 0, 0, 1], [1, 0, 0, 1, 0, 1, 0], [0, 2, 0, 0, 0, 0, 1], [0, 1, 1, 0, 0, 1, 0],
+      [0, 1, 0, 1, 1, 0, 0], [0, 0, 2, 0, 1, 0, 0], [0, 0, 1, 2, 0, 0, 0], [0, 0, 0, 0, 1, 0, 1],
+      [0, 0, 0, 0, 0, 2, 0], [6, 0, 0, 0, 0, 0, 0], [4, 0, 1, 0, 0, 0, 0], [3, 2, 0, 0, 0, 0, 0],
+      [3, 0, 0, 0, 1, 0, 0], [2, 1, 0, 1, 0, 0, 0], [2, 0, 2, 0, 0, 0, 0], [1, 2, 1, 0, 0, 0, 0],
+      [0, 4, 0, 0, 0, 0, 0], [1, 0, 1, 0, 1, 0, 0], [1, 0, 0, 2, 0, 0, 0], [0, 2, 0, 0, 1, 0, 0],
+      [0, 1, 1, 1, 0, 0, 0], [0, 0, 3, 0, 0, 0, 0], [0, 0, 0, 1, 0, 1, 0], [0, 0, 0, 0, 2, 0, 0],
+      [2, 1, 1, 0, 0, 0, 0], [1, 3, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 1, 0], [1, 1, 0, 0, 1, 0, 0],
+      [1, 0, 1, 1, 0, 0, 0], [0, 2, 0, 1, 0, 0, 0], [0, 1, 2, 0, 0, 0, 0], [0, 0, 1, 0, 0, 1, 0],
+      [0, 0, 0, 1, 1, 0, 0], [5, 0, 0, 0, 0, 0, 0], [3, 0, 1, 0, 0, 0, 0], [2, 2, 0, 0, 0, 0, 0],
+      [1, 1, 0, 1, 0, 0, 0], [1, 0, 2, 0, 0, 0, 0], [0, 2, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 1, 0],
+      [0, 0, 1, 0, 1, 0, 0], [0, 0, 0, 2, 0, 0, 0], [2, 0, 0, 1, 0, 0, 0], [1, 1, 1, 0, 0, 0, 0],
+      [0, 3, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0], [0, 1, 0, 0, 1, 0, 0], [0, 0, 1, 1, 0, 0, 0],
+      [4, 0, 0, 0, 0, 0, 0], [2, 0, 1, 0, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0], [0, 1, 0, 1, 0, 0, 0],
+      [0, 0, 2, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1], [2, 1, 0, 0, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0],
+      [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0], [3, 0, 0, 0, 0, 0, 0], [1, 0, 1, 0, 0, 0, 0],
+      [0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0]] := by
+  simp only [degreeZeroOmicronQuarticNoABEFG810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  module
+
 set_option maxHeartbeats 32000000 in
 theorem degreeZeroOmicronQuarticNoABEFG810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -4499,9 +6081,20 @@ theorem degreeZeroOmicronQuarticNoABEFG810_natDegree_lt
   rcases hcone with ⟨hApos, hBpos, hEpos, hFpos, hGpos, hAB, hAE, hAF, hAG, hClt, hDlt⟩
   have hC1 : C.natDegree + 1 ≤ 2 * A.natDegree := Nat.succ_le_of_lt hClt
   have hD1 : 2 * D.natDegree + 1 ≤ 5 * A.natDegree := Nat.succ_le_of_lt hDlt
-  simp only [degreeZeroOmicronQuarticNoABEFG810]
-  compute_degree
-  omega
+  rw [speedRefl_degreeZeroOmicronQuarticNoABEFG810_eq_polyOf]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
+    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  repeat' apply And.intro
+  all_goals first
+    | (right; right; omega)
+    | (left; norm_num; done)
+    | (right; left; simp; done)
+    | trivial
 
 theorem omicronQuarticFaceABEFG810_coeff_top
     {A B C D E F G : k[X]}
@@ -4683,6 +6276,76 @@ theorem degreeZeroPiQuartic810_eq_ABEFG_add_rest
     piThetaGroupQuartic810, piQuarticFaceABEFG810, degreeZeroPiQuarticNoABEFG810]
   all_goals module
 
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroPiQuarticNoABEFG810` (89 monomials, 7 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroPiQuarticNoABEFG810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    degreeZeroPiQuarticNoABEFG810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(15 / 128) : k), (-(45 / 512) : k), (-(35 / 256) : k),
+      (5 / 32 : k), (5 / 16 : k), (5 / 32 : k),
+      (45 / 64 : k), (45 / 128 : k), (45 / 64 : k),
+      (15 / 256 : k), (-(5 / 8) : k), (-(5 / 16) : k),
+      (-(15 / 16) : k), (-(5 / 8) : k), (-(5 / 8) : k),
+      (45 / 131072 * l : k), (-(3 / 32768 * l) : k), (-(45 / 32768 * l) : k),
+      (9 / 4096 * l : k), (9 / 4096 * l : k), (-(27 / 4096 * l) : k),
+      (9 / 4096 * l : k), (-(189 / 4096 * l) : k), (-(63 / 4096 * l) : k),
+      (-(27 / 1024 * l) : k), (9 / 512 * l : k), (63 / 1024 * l : k),
+      (9 / 128 * l : k), (27 / 256 * l : k), (9 / 256 * l : k),
+      (63 / 512 * l : k), (189 / 512 * l : k), (63 / 512 * l : k),
+      (-(9 / 64 * l) : k), (-(9 / 32 * l) : k), (-(27 / 64 * l) : k),
+      (-(9 / 32 * l) : k), (-(27 / 128 * l) : k), (-(9 / 16 * l) : k),
+      (-(3 / 32 * l) : k), (9 / 8 * l : k), (7 / 4096 * beta : k),
+      (7 / 4096 * beta : k), (-(7 / 1024 * beta) : k), (7 / 512 * beta : k),
+      (7 / 512 * beta : k), (-(21 / 256 * beta) : k), (-(7 / 256 * beta) : k),
+      (-(63 / 512 * beta) : k), (-(7 / 64 * beta) : k), (7 / 32 * beta : k),
+      (21 / 128 * beta : k), (7 / 16 * beta : k), (7 / 32 * beta : k),
+      (7 / 32 * beta : k), (-(7 / 8 * beta) : k), (-(3 / 32 * gamma) : k),
+      (-(15 / 256 * gamma) : k), (3 / 16 * gamma : k), (3 / 8 * gamma : k),
+      (3 / 4 * gamma : k), (1 / 8 * gamma : k), (-(3 / 4 * gamma) : k),
+      (-(3 / 4 * gamma) : k), (5 / 512 * delta : k), (-(15 / 256 * delta) : k),
+      (-(5 / 128 * delta) : k), (5 / 32 * delta : k), (5 / 32 * delta : k),
+      (15 / 32 * delta : k), (15 / 32 * delta : k), (-(5 / 8 * delta) : k),
+      (-(5 / 4 * delta) : k), (1 / 4 * epsilon : k), (1 / 2 * epsilon : k),
+      (-(1 / 2 * epsilon) : k), (-(1 * epsilon) : k), (-(1 / 2 * epsilon) : k),
+      (3 / 32 * zeta : k), (5 / 32 * zeta : k), (-(3 / 8 * zeta) : k),
+      (-(3 / 4 * zeta) : k), (-(3 / 4 * zeta) : k), (1 / 16 * eta : k),
+      (-(1 / 2 * eta) : k), (-(1 / 4 * eta) : k), (2 * eta : k),
+      (-(1 / 4 * theta) : k), (1 * theta : k)]
+      [
+      [1, 3, 0, 1, 0, 0, 0], [1, 2, 2, 0, 0, 0, 0], [0, 4, 1, 0, 0, 0, 0], [1, 1, 1, 0, 0, 1, 0],
+      [1, 1, 0, 1, 1, 0, 0], [1, 0, 1, 2, 0, 0, 0], [0, 2, 1, 0, 1, 0, 0], [0, 2, 0, 2, 0, 0, 0],
+      [0, 1, 2, 1, 0, 0, 0], [0, 0, 4, 0, 0, 0, 0], [0, 1, 0, 1, 0, 0, 1], [0, 0, 2, 0, 0, 0, 1],
+      [0, 0, 1, 1, 0, 1, 0], [0, 0, 1, 0, 2, 0, 0], [0, 0, 0, 2, 1, 0, 0], [4, 1, 1, 0, 0, 0, 0],
+      [3, 3, 0, 0, 0, 0, 0], [4, 0, 0, 0, 0, 1, 0], [3, 1, 0, 0, 1, 0, 0], [3, 0, 1, 1, 0, 0, 0],
+      [2, 2, 0, 1, 0, 0, 0], [2, 1, 2, 0, 0, 0, 0], [1, 3, 1, 0, 0, 0, 0], [0, 5, 0, 0, 0, 0, 0],
+      [2, 0, 1, 0, 0, 1, 0], [2, 0, 0, 1, 1, 0, 0], [1, 2, 0, 0, 0, 1, 0], [1, 1, 1, 0, 1, 0, 0],
+      [1, 1, 0, 2, 0, 0, 0], [1, 0, 2, 1, 0, 0, 0], [0, 3, 0, 0, 1, 0, 0], [0, 2, 1, 1, 0, 0, 0],
+      [0, 1, 3, 0, 0, 0, 0], [1, 0, 0, 0, 1, 1, 0], [0, 1, 1, 0, 0, 0, 1], [0, 1, 0, 1, 0, 1, 0],
+      [0, 1, 0, 0, 2, 0, 0], [0, 0, 2, 0, 0, 1, 0], [0, 0, 1, 1, 1, 0, 0], [0, 0, 0, 3, 0, 0, 0],
+      [0, 0, 0, 0, 0, 1, 1], [3, 1, 1, 0, 0, 0, 0], [2, 3, 0, 0, 0, 0, 0], [3, 0, 0, 0, 0, 1, 0],
+      [2, 1, 0, 0, 1, 0, 0], [2, 0, 1, 1, 0, 0, 0], [1, 2, 0, 1, 0, 0, 0], [1, 1, 2, 0, 0, 0, 0],
+      [0, 3, 1, 0, 0, 0, 0], [1, 0, 1, 0, 0, 1, 0], [1, 0, 0, 1, 1, 0, 0], [0, 2, 0, 0, 0, 1, 0],
+      [0, 1, 1, 0, 1, 0, 0], [0, 1, 0, 2, 0, 0, 0], [0, 0, 2, 1, 0, 0, 0], [0, 0, 0, 0, 1, 1, 0],
+      [1, 2, 1, 0, 0, 0, 0], [0, 4, 0, 0, 0, 0, 0], [1, 0, 0, 2, 0, 0, 0], [0, 2, 0, 0, 1, 0, 0],
+      [0, 1, 1, 1, 0, 0, 0], [0, 0, 3, 0, 0, 0, 0], [0, 0, 0, 1, 0, 1, 0], [0, 0, 0, 0, 2, 0, 0],
+      [2, 1, 1, 0, 0, 0, 0], [1, 3, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 1, 0], [1, 1, 0, 0, 1, 0, 0],
+      [1, 0, 1, 1, 0, 0, 0], [0, 2, 0, 1, 0, 0, 0], [0, 1, 2, 0, 0, 0, 0], [0, 0, 1, 0, 0, 1, 0],
+      [0, 0, 0, 1, 1, 0, 0], [1, 1, 0, 1, 0, 0, 0], [0, 2, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 1, 0],
+      [0, 0, 1, 0, 1, 0, 0], [0, 0, 0, 2, 0, 0, 0], [1, 1, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0],
+      [1, 0, 0, 0, 0, 1, 0], [0, 1, 0, 0, 1, 0, 0], [0, 0, 1, 1, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0],
+      [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1], [0, 1, 1, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 1, 0]] := by
+  simp only [degreeZeroPiQuarticNoABEFG810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  module
+
 set_option maxHeartbeats 32000000 in
 theorem degreeZeroPiQuarticNoABEFG810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -4694,9 +6357,20 @@ theorem degreeZeroPiQuarticNoABEFG810_natDegree_lt
   rcases hcone with ⟨hApos, hBpos, hEpos, hFpos, hGpos, hAB, hAE, hAF, hAG, hClt, hDlt⟩
   have hC1 : C.natDegree + 1 ≤ 2 * A.natDegree := Nat.succ_le_of_lt hClt
   have hD1 : 2 * D.natDegree + 1 ≤ 5 * A.natDegree := Nat.succ_le_of_lt hDlt
-  simp only [degreeZeroPiQuarticNoABEFG810]
-  compute_degree
-  omega
+  rw [speedRefl_degreeZeroPiQuarticNoABEFG810_eq_polyOf]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
+    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  repeat' apply And.intro
+  all_goals first
+    | (right; right; omega)
+    | (left; norm_num; done)
+    | (right; left; simp; done)
+    | trivial
 
 theorem piQuarticFaceABEFG810_coeff_top
     {A B C D E F G : k[X]}

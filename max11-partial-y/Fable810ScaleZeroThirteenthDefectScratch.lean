@@ -35,6 +35,15 @@ open MvPolynomial Polynomial
 
 namespace Max11DegreeRoutes
 
+set_option linter.unusedVariables false
+set_option linter.unusedSimpArgs false
+set_option linter.unusedTactic false
+set_option linter.unreachableTactic false
+set_option linter.unnecessarySeqFocus false
+set_option linter.flexible false
+set_option linter.style.haveILetI false
+set_option linter.unnecessarySimpa false
+
 set_option maxRecDepth 1000000
 
 /-! ## Literal next Keller coefficient -/
@@ -685,6 +694,173 @@ def localClearedFourteenthDefect810
 
 
 set_option maxHeartbeats 400000000 in
+/-- SPEED (recipe R2, `scripts/coord/LEAN_SPEED_REPORT.md` §7): the weight-`98`
+clearing of `xiResidual810` carried out on the *atoms* rather than on the fully
+substituted source polynomials.  `xiResidual810` is weighted homogeneous, so
+substituting `X_i = n_i / (d_i h^(e_i))` makes `8796093022208 * h^98 * xiResidual810`
+a polynomial in `h, n_*` — 111 monomials. -/
+def speedXiResidual810Scaled98 (h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW : F) : F :=
+    - (18144 : F) * h ^ 7 * nL * nA ^ 5 * nB
+    + (10080 : F) * h ^ 7 * nL * nA ^ 4 * nD
+    + (10080 : F) * h ^ 7 * nL * nA ^ 3 * nB * nC
+    - (1440 : F) * h ^ 7 * nL * nA ^ 3 * nF
+    + (161280 : F) * h ^ 7 * nL * nA ^ 2 * nB ^ 3
+    - (4320 : F) * h ^ 7 * nL * nA ^ 2 * nB * nE
+    - (4320 : F) * h ^ 7 * nL * nA ^ 2 * nC * nD
+    - (138240 : F) * h ^ 7 * nL * nA * nB ^ 2 * nD
+    - (1080 : F) * h ^ 7 * nL * nA * nB * nC ^ 2
+    + (216 : F) * h ^ 7 * nL * nA * nB * nG
+    + (432 : F) * h ^ 7 * nL * nA * nC * nF
+    + (1728 : F) * h ^ 7 * nL * nA * nD * nE
+    - (11520 : F) * h ^ 7 * nL * nB ^ 3 * nC
+    + (6912 : F) * h ^ 7 * nL * nB ^ 2 * nF
+    + (432 : F) * h ^ 7 * nL * nB * nC * nE
+    + (27648 : F) * h ^ 7 * nL * nB * nD ^ 2
+    + (216 : F) * h ^ 7 * nL * nC ^ 2 * nD
+    - (72 : F) * h ^ 7 * nL * nD * nG
+    - (144 : F) * h ^ 7 * nL * nE * nF
+    + (1320 : F) * nA ^ 7
+    - (336 : F) * nA ^ 6 * nP
+    - (1260 : F) * nA ^ 5 * nC
+    + (168 : F) * nA ^ 5 * nR
+    - (100800 : F) * nA ^ 4 * nB ^ 2
+    + (15680 : F) * nA ^ 4 * nB * nQ
+    + (280 : F) * nA ^ 4 * nC * nP
+    + (700 : F) * nA ^ 4 * nE
+    - (40 : F) * nA ^ 4 * nT
+    + (17920 : F) * nA ^ 3 * nB ^ 2 * nP
+    + (89600 : F) * nA ^ 3 * nB * nD
+    - (1600 : F) * nA ^ 3 * nB * nS
+    + (350 : F) * nA ^ 3 * nC ^ 2
+    - (120 : F) * nA ^ 3 * nC * nR
+    - (8960 : F) * nA ^ 3 * nD * nQ
+    - (160 : F) * nA ^ 3 * nE * nP
+    - (50 : F) * nA ^ 3 * nG
+    + (4 : F) * nA ^ 3 * nV
+    + (33600 : F) * nA ^ 2 * nB ^ 2 * nC
+    - (5760 : F) * nA ^ 2 * nB ^ 2 * nR
+    - (6720 : F) * nA ^ 2 * nB * nC * nQ
+    - (15360 : F) * nA ^ 2 * nB * nD * nP
+    - (9600 : F) * nA ^ 2 * nB * nF
+    + (576 : F) * nA ^ 2 * nB * nU
+    - (60 : F) * nA ^ 2 * nC ^ 2 * nP
+    - (300 : F) * nA ^ 2 * nC * nE
+    + (24 : F) * nA ^ 2 * nC * nT
+    - (19200 : F) * nA ^ 2 * nD ^ 2
+    + (960 : F) * nA ^ 2 * nD * nS
+    + (72 : F) * nA ^ 2 * nE * nR
+    + (1344 : F) * nA ^ 2 * nF * nQ
+    + (12 : F) * nA ^ 2 * nG * nP
+    + (179200 : F) * nA * nB ^ 4
+    - (71680 : F) * nA * nB ^ 3 * nQ
+    - (3840 : F) * nA * nB ^ 2 * nC * nP
+    - (9600 : F) * nA * nB ^ 2 * nE
+    + (768 : F) * nA * nB ^ 2 * nT
+    - (19200 : F) * nA * nB * nC * nD
+    + (480 : F) * nA * nB * nC * nS
+    + (4608 : F) * nA * nB * nD * nR
+    + (2688 : F) * nA * nB * nE * nQ
+    + (1536 : F) * nA * nB * nF * nP
+    - (16 : F) * nA * nB * nW
+    - (25 : F) * nA * nC ^ 3
+    + (18 : F) * nA * nC ^ 2 * nR
+    + (2688 : F) * nA * nC * nD * nQ
+    + (48 : F) * nA * nC * nE * nP
+    + (15 : F) * nA * nC * nG
+    - (2 : F) * nA * nC * nV
+    + (3072 : F) * nA * nD ^ 2 * nP
+    + (3840 : F) * nA * nD * nF
+    - (384 : F) * nA * nD * nU
+    + (60 : F) * nA * nE ^ 2
+    - (16 : F) * nA * nE * nT
+    - (160 : F) * nA * nF * nS
+    - (6 : F) * nA * nG * nR
+    - (10240 : F) * nB ^ 4 * nP
+    - (102400 : F) * nB ^ 3 * nD
+    + (2560 : F) * nB ^ 3 * nS
+    - (1200 : F) * nB ^ 2 * nC ^ 2
+    + (576 : F) * nB ^ 2 * nC * nR
+    + (43008 : F) * nB ^ 2 * nD * nQ
+    + (768 : F) * nB ^ 2 * nE * nP
+    + (240 : F) * nB ^ 2 * nG
+    - (32 : F) * nB ^ 2 * nV
+    + (336 : F) * nB * nC ^ 2 * nQ
+    + (1536 : F) * nB * nC * nD * nP
+    + (960 : F) * nB * nC * nF
+    - (96 : F) * nB * nC * nU
+    + (3840 : F) * nB * nD * nE
+    - (512 : F) * nB * nD * nT
+    - (160 : F) * nB * nE * nS
+    - (384 : F) * nB * nF * nR
+    - (112 : F) * nB * nG * nQ
+    + (2 : F) * nC ^ 3 * nP
+    + (15 : F) * nC ^ 2 * nE
+    - (2 : F) * nC ^ 2 * nT
+    + (1920 : F) * nC * nD ^ 2
+    - (160 : F) * nC * nD * nS
+    - (12 : F) * nC * nE * nR
+    - (224 : F) * nC * nF * nQ
+    - (2 : F) * nC * nG * nP
+    - (768 : F) * nD ^ 2 * nR
+    - (896 : F) * nD * nE * nQ
+    - (512 : F) * nD * nF * nP
+    + (16 : F) * nD * nW
+    - (8 : F) * nE ^ 2 * nP
+    - (5 : F) * nE * nG
+    + (2 : F) * nE * nV
+    - (160 : F) * nF ^ 2
+    + (96 : F) * nF * nU
+    + (2 : F) * nG * nT
+
+set_option maxHeartbeats 400000000 in
+/-- The atom-level clearing: one `field_simp` over 17 atomic variables in
+place of the single enormous `field_simp` on the substituted rational function. -/
+theorem speedXiResidual810Scaled98_eq (h : F) (hh : h ≠ 0) (nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW : F) :
+    (8796093022208 : F) * h ^ 98 *
+        xiResidual810
+          (nL / 4)
+          (nA / (16 * h ^ 14))
+          (nB / (32 * h ^ 21))
+          (nC / (2048 * h ^ 28))
+          (nD / (1024 * h ^ 35))
+          (nE / (65536 * h ^ 42))
+          (nF / (131072 * h ^ 49))
+          (nG / (16777216 * h ^ 56))
+          (nP / (64 * h ^ 14))
+          (nQ / (64 * h ^ 21))
+          (nR / (2048 * h ^ 28))
+          (nS / (8192 * h ^ 35))
+          (nT / (131072 * h ^ 42))
+          (nU / (262144 * h ^ 49))
+          (nV / (16777216 * h ^ 56))
+          (nW / (67108864 * h ^ 63)) =
+      speedXiResidual810Scaled98 h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW := by
+  have hd2 : (2 : F) ≠ 0 := by norm_num
+  have hd4 : (4 : F) ≠ 0 := by norm_num
+  have hd16 : (16 : F) ≠ 0 := by norm_num
+  have hd32 : (32 : F) ≠ 0 := by norm_num
+  have hd64 : (64 : F) ≠ 0 := by norm_num
+  have hd1024 : (1024 : F) ≠ 0 := by norm_num
+  have hd2048 : (2048 : F) ≠ 0 := by norm_num
+  have hd8192 : (8192 : F) ≠ 0 := by norm_num
+  have hd65536 : (65536 : F) ≠ 0 := by norm_num
+  have hd131072 : (131072 : F) ≠ 0 := by norm_num
+  have hd262144 : (262144 : F) ≠ 0 := by norm_num
+  have hd16777216 : (16777216 : F) ≠ 0 := by norm_num
+  have hd67108864 : (67108864 : F) ≠ 0 := by norm_num
+  have hp14 : h ^ 14 ≠ 0 := pow_ne_zero 14 hh
+  have hp21 : h ^ 21 ≠ 0 := pow_ne_zero 21 hh
+  have hp28 : h ^ 28 ≠ 0 := pow_ne_zero 28 hh
+  have hp35 : h ^ 35 ≠ 0 := pow_ne_zero 35 hh
+  have hp42 : h ^ 42 ≠ 0 := pow_ne_zero 42 hh
+  have hp49 : h ^ 49 ≠ 0 := pow_ne_zero 49 hh
+  have hp56 : h ^ 56 ≠ 0 := pow_ne_zero 56 hh
+  have hp63 : h ^ 63 ≠ 0 := pow_ne_zero 63 hh
+  simp only [alphaResidual810, betaResidual810, deltaResidual810, epsilonResidual810, etaResidual810, gammaResidual810, thetaResidual810, xiResidual810, zetaResidual810, speedXiResidual810Scaled98]
+  field_simp
+  ring
+
+set_option maxHeartbeats 400000000 in
 /-- Clearing the first integral `ξ` of the degree-`3` row against `h⁹⁸`
 on the ninth-power face. -/
 theorem fourteenthDefect_eq_clearedXi810
@@ -858,27 +1034,9 @@ theorem fourteenthDefect_eq_clearedXi810
             16777216 * a7 * b2 * h ^ 54 + 67108864 * b1 * h ^ 62) /
           (67108864 * h ^ 63) :=
     depressedW810_eq_cleared h a7 b9 b8 b7 b6 b5 b4 b3 b2 b1 lambda hh hN
-  simp only [localClearedFourteenthDefectCore810,
-    localClearedFourteenthDefectBlock0_810,
-    localClearedFourteenthDefectBlock1_810,
-    localClearedFourteenthDefectBlock2_810,
-    localClearedFourteenthDefectBlock3_810,
-    localClearedFourteenthDefectBlock4_810,
-    localClearedFourteenthDefectBlock5_810,
-    localClearedFourteenthDefectBlock6_810,
-    localClearedFourteenthDefectBlock7_810,
-    localClearedFourteenthDefectBlock8_810,
-    localClearedFourteenthDefectBlock9_810,
-    localClearedFourteenthDefectBlock10_810,
-    localClearedFourteenthDefectBlock11_810,
-    xiResidual810, hL, hA, hB, hC, hD0, hE0, hF0, hG0, hP, hQ,
-    hR, hS, hT0, hU0, hV0, hW0, alphaResidual810, betaResidual810,
-    gammaResidual810, deltaResidual810, epsilonResidual810,
-    zetaResidual810, etaResidual810, thetaResidual810]
-  field_simp [hh, h2, h4, h8, h16, h32, h64, h128, h256, h512, h1024, h2048,
-    h4096, h8192, h16384, h32768, h65536, h131072, h262144, h524288,
-    h16777216, h67108864, h8796093022208, hh14, hh21, hh28, hh35, hh42,
-    hh49, hh56, hh63, hh98]
+  rw [hL, hA, hB, hC, hD0, hE0, hF0, hG0, hP, hQ, hR, hS, hT0, hU0, hV0, hW0,
+    speedXiResidual810Scaled98_eq h hh]
+  simp only [speedXiResidual810Scaled98, localClearedFourteenthDefectBlock0_810, localClearedFourteenthDefectBlock10_810, localClearedFourteenthDefectBlock11_810, localClearedFourteenthDefectBlock1_810, localClearedFourteenthDefectBlock2_810, localClearedFourteenthDefectBlock3_810, localClearedFourteenthDefectBlock4_810, localClearedFourteenthDefectBlock5_810, localClearedFourteenthDefectBlock6_810, localClearedFourteenthDefectBlock7_810, localClearedFourteenthDefectBlock8_810, localClearedFourteenthDefectBlock9_810, localClearedFourteenthDefectCore810]
   ring
 
 end Depression810FourteenthClearing

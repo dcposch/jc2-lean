@@ -1,4 +1,4 @@
-import Grok810NonzeroFaceSplit5Scratch
+import Grok810NonzeroFaceSplitAssemblySpeedValTrimSpeedSplitPart4Scratch
 
 /-! # `(8,10)` nonzero-face closure, assembly: scaled `ρ`, linear-root False, exclusion
 
@@ -50,106 +50,6 @@ set_option linter.unusedSectionVars false
 section DegreeZeroSourceEqExpansion810
 
 variable {R : Type*} [CommRing R]
-
-set_option maxHeartbeats 1600000000 in
-theorem degreeZeroExpansionGroup0810_eq
-    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) :
-    degreeZeroExpansionGroup0810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda =
-      degreeZeroCompactBlock0Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda +
-      degreeZeroCompactBlock1Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda +
-      degreeZeroCompactBlock2Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  simp only [degreeZeroExpansionGroup0810, degreeZeroCompactBlock0Expansion810, degreeZeroCompactBlock1Expansion810, degreeZeroCompactBlock2Expansion810]
-  ring
-
-set_option maxHeartbeats 1600000000 in
-theorem degreeZeroExpansionGroup1810_eq
-    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) :
-    degreeZeroExpansionGroup1810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda =
-      degreeZeroCompactBlock3Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda +
-      degreeZeroCompactBlock4Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda +
-      degreeZeroCompactBlock5Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  simp only [degreeZeroExpansionGroup1810, degreeZeroCompactBlock3Expansion810, degreeZeroCompactBlock4Expansion810, degreeZeroCompactBlock5Expansion810]
-  ring
-
-set_option maxHeartbeats 1600000000 in
-theorem degreeZeroExpansionGroup2810_eq
-    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) :
-    degreeZeroExpansionGroup2810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda =
-      degreeZeroCompactBlock6Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda +
-      degreeZeroCompactBlock7Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda +
-      degreeZeroCompactBlock8Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  simp only [degreeZeroExpansionGroup2810, degreeZeroCompactBlock6Expansion810, degreeZeroCompactBlock7Expansion810, degreeZeroCompactBlock8Expansion810]
-  ring
-
-set_option maxHeartbeats 1600000000 in
-theorem degreeZeroExpansionGroup3810_eq
-    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) :
-    degreeZeroExpansionGroup3810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda =
-      degreeZeroCompactBlock9Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda +
-      degreeZeroCompactBlock10Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda +
-      degreeZeroCompactBlock11Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  simp only [degreeZeroExpansionGroup3810, degreeZeroCompactBlock9Expansion810, degreeZeroCompactBlock10Expansion810, degreeZeroCompactBlock11Expansion810]
-  ring
-
-set_option maxHeartbeats 1600000000 in
-theorem degreeZeroExpansionGroup4810_eq
-    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) :
-    degreeZeroExpansionGroup4810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda =
-      degreeZeroCompactBlock12Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda +
-      degreeZeroCompactBlock13Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda +
-      degreeZeroCompactBlock14Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  simp only [degreeZeroExpansionGroup4810, degreeZeroCompactBlock12Expansion810, degreeZeroCompactBlock13Expansion810, degreeZeroCompactBlock14Expansion810]
-  ring
-
-set_option maxHeartbeats 1600000000 in
-theorem degreeZeroExpansionGroup5810_eq
-    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) :
-    degreeZeroExpansionGroup5810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda =
-      degreeZeroCompactBlock15Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda +
-      degreeZeroCompactBlock16Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda +
-      degreeZeroCompactBlock17Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  simp only [degreeZeroExpansionGroup5810, degreeZeroCompactBlock15Expansion810, degreeZeroCompactBlock16Expansion810, degreeZeroCompactBlock17Expansion810]
-  ring
-
-set_option maxHeartbeats 1600000000 in
-theorem degreeZeroExpansionGroup6810_eq
-    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) :
-    degreeZeroExpansionGroup6810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda =
-      degreeZeroCompactBlock18Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda +
-      degreeZeroCompactBlock19Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda +
-      degreeZeroCompactBlock20Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  simp only [degreeZeroExpansionGroup6810, degreeZeroCompactBlock18Expansion810, degreeZeroCompactBlock19Expansion810, degreeZeroCompactBlock20Expansion810]
-  ring
-
-set_option maxHeartbeats 1600000000 in
-theorem degreeZeroExpansionGroup7810_eq
-    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) :
-    degreeZeroExpansionGroup7810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda =
-      degreeZeroCompactBlock21Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda +
-      degreeZeroCompactBlock22Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda +
-      degreeZeroCompactBlock23Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  simp only [degreeZeroExpansionGroup7810, degreeZeroCompactBlock21Expansion810, degreeZeroCompactBlock22Expansion810, degreeZeroCompactBlock23Expansion810]
-  ring
-
-set_option maxHeartbeats 1600000000 in
-/-- The `977`-term source is the sum of the eight expansion groups. -/
-theorem degreeZeroClearedSource810_eq_sum_groups
-    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) :
-    degreeZeroClearedSource810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4
-        b3 b2 b1 lambda =
-      degreeZeroExpansionGroup0810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda +
-      degreeZeroExpansionGroup1810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda +
-      degreeZeroExpansionGroup2810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda +
-      degreeZeroExpansionGroup3810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda +
-      degreeZeroExpansionGroup4810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda +
-      degreeZeroExpansionGroup5810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda +
-      degreeZeroExpansionGroup6810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda +
-      degreeZeroExpansionGroup7810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  simp only [degreeZeroClearedSource810, degreeZeroClearedSourceBlock0_810, degreeZeroClearedSourceBlock1_810, degreeZeroClearedSourceBlock2_810, degreeZeroClearedSourceBlock3_810, degreeZeroClearedSourceBlock4_810, degreeZeroClearedSourceBlock5_810, degreeZeroClearedSourceBlock6_810, degreeZeroClearedSourceBlock7_810, degreeZeroClearedSourceBlock8_810, degreeZeroClearedSourceBlock9_810, degreeZeroClearedSourceBlock10_810, degreeZeroClearedSourceBlock11_810, degreeZeroClearedSourceBlock12_810, degreeZeroClearedSourceBlock13_810, degreeZeroClearedSourceBlock14_810, degreeZeroClearedSourceBlock15_810, degreeZeroClearedSourceBlock16_810, degreeZeroClearedSourceBlock17_810, degreeZeroClearedSourceBlock18_810, degreeZeroClearedSourceBlock19_810, degreeZeroClearedSourceBlock20_810, degreeZeroClearedSourceBlock21_810, degreeZeroClearedSourceBlock22_810, degreeZeroClearedSourceBlock23_810, degreeZeroClearedSourceBlock24_810,
-    degreeZeroExpansionGroup0810, degreeZeroExpansionGroup1810, degreeZeroExpansionGroup2810, degreeZeroExpansionGroup3810, degreeZeroExpansionGroup4810, degreeZeroExpansionGroup5810, degreeZeroExpansionGroup6810, degreeZeroExpansionGroup7810]
-  ring
-
-#print axioms degreeZeroClearedSource810_eq_sum_groups
 
 set_option maxHeartbeats 800000000 in
 theorem degreeZeroClearedSource810_eq_sum_expansions
@@ -320,7 +220,7 @@ theorem degreeZeroClearedSource810_eq_scaledSourceRho
             b6 b5 b4 b3 b2)
           (h ^ 63 * depressedW810 h (octicDepressionR810 h a7) b9 b8 b7
             b6 b5 b4 b3 b2 b1) := by
-    simp only [degreeZeroLBar810, degreeZeroABar810, degreeZeroBBar810,
+    simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.monoR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, degreeZeroLBar810, degreeZeroABar810, degreeZeroBBar810,
       degreeZeroCBar810, degreeZeroDBar810, degreeZeroEBar810,
       degreeZeroFBar810, degreeZeroGBar810, degreeZeroPBar810,
       degreeZeroQBar810, degreeZeroRBar810, degreeZeroSBar810,
@@ -368,11 +268,11 @@ theorem degreeZeroClearedSource810_eq_scaledSourceRho
       (degreeZeroCompactToSourceIntegerScale810 : F) *
           (degreeZeroGroupedIntegerScale810 : F) =
         (degreeZeroClearedIntegerScale810 : F) := by
-    simp only [degreeZeroClearedIntegerScale810_eq_grouped_mul_compact,
+    simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.monoR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, degreeZeroClearedIntegerScale810_eq_grouped_mul_compact,
       Nat.cast_mul]
     ring
   rw [hcompact, hcoords, hwt, hrho, sourceRhoResidual810]
-  simp only [degreeZeroSourceClearingPower810]
+  simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.monoR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, degreeZeroSourceClearingPower810]
   rw [← hscale]
   ac_rfl
 
@@ -437,7 +337,7 @@ theorem degreeZeroSourceJetQuotient810_eq_scaledLeftJet
             ((degreeZeroClearedIntegerScale810 : F) *
               sourceRhoResidualLeftJet810 h t0 v1 u1 a4 a3 a2 a1 a0 s1
                 w1 b62 b5 b4 b3 b2 b1 lambda)) := by
-      simp only [degreeZeroSourceBaseOrder810,
+      simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.monoR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, degreeZeroSourceBaseOrder810,
         degreeZeroEffectiveTowerLength810,
         degreeZeroSourceClearingPower810]
       ring
@@ -575,3 +475,4 @@ theorem planeKeller810NonzeroFaceExclusion_closed :
 end NonzeroFaceExclusion810
 
 end Max11DegreeRoutes
+

@@ -1,0 +1,365 @@
+import Fable610ScaleTwoAlignedEleventhFacePart14Scratch
+import Fable610ScaleTwoAlignedEleventhFacePart15Scratch
+
+open scoped Polynomial.Bivariate
+noncomputable section
+open MvPolynomial Polynomial
+namespace Max11DegreeRoutes
+set_option maxRecDepth 100000000
+
+/-- Root data of the consumed degree-`4` row: at scale two the common
+core has a root where the jet `p₅, q₉, q₈, q₇, p₄, q₆` vanishes and
+the seventh-face pins hold; in the square chamber the carried
+resolution `e₂(a) = 0`, the branch `w₁(a) = 0 ∨ (μ = 0 ∧ e₁(a) = 0)`,
+the tenth-face tie, the NEW row pin `μ w₁(a)⁸ = 0`, and the NEW exact
+vanishing `s₄(a) = 0` of the eleventh witness hold; in the nonsquare
+chamber the residue evaluates to the FIRST `p₀`-loaded root relation
+of the aligned tower on top of the carried pins. -/
+theorem normalized610ScaleTwo_alignedEleventhFace_rootData
+    {K : Type*} [Field K] [CharZero K] [IsAlgClosed K]
+    {P Q : MvPolynomial (Fin 2) K} {H : K[X]}
+    (hsource : Normalized610LeadingCoreSource P Q H 2)
+    (haligned :
+      let p := (Polynomial.Bivariate.equivMvPolynomial K).symm P
+      let q := (Polynomial.Bivariate.equivMvPolynomial K).symm Q
+      (5 : K[X]) * p.coeff 5 * H ^ 2 - (3 : K[X]) * q.coeff 9 = 0) :
+    let p := (Polynomial.Bivariate.equivMvPolynomial K).symm P
+    let q := (Polynomial.Bivariate.equivMvPolynomial K).symm Q
+    ∃ a : K, H.eval a = 0 ∧ (p.coeff 5).eval a = 0 ∧
+      (q.coeff 9).eval a = 0 ∧ (q.coeff 8).eval a = 0 ∧
+      (q.coeff 7).eval a = 0 ∧ (p.coeff 4).eval a = 0 ∧
+      (q.coeff 6).eval a = 0 ∧
+      ((∃ h0 w1 f2 e1 e2 e3 u2 s2 s4 s5 : K[X], ∃ κ μ : K,
+          h0 ≠ 0 ∧ H = h0 ^ 2 ∧
+          h0.eval a = 0 ∧
+          p.coeff 5 = h0 ^ 4 * w1 ∧ p.coeff 4 = h0 ^ 2 * f2 ∧
+          (3 : K[X]) * f2 - w1 ^ 2 = h0 * e1 ∧
+          (27 : K[X]) * p.coeff 3 - w1 ^ 3 = h0 * e2 ∧
+          e2 = h0 * e3 ∧
+          w1 * (e2 - (3 : K[X]) * e1 * w1) = h0 * u2 ∧
+          (2048 : K[X]) * e1 ^ 3 * w1 ^ 4 - Polynomial.C μ * w1 ^ 7 =
+            h0 * s2 ∧
+          Polynomial.C μ * w1 ^ 8 = h0 * s4 ∧
+          s4 = h0 * s5 ∧
+          Polynomial.C μ * w1 ^ 8 = h0 ^ 2 * s5 ∧
+          alignedSecondDefect610 H (p.coeff 4) (p.coeff 5) (q.coeff 8) =
+            Polynomial.C κ * H ^ 5 ∧
+          alignedThirdDefect610 H (p.coeff 3) (p.coeff 4) (p.coeff 5)
+            (q.coeff 7) κ = Polynomial.C μ * h0 ^ 15 ∧
+          3 * f2.eval a = w1.eval a ^ 2 ∧
+          27 * (p.coeff 3).eval a = w1.eval a ^ 3 ∧
+          e2.eval a = 0 ∧
+          (w1.eval a = 0 ∨ (μ = 0 ∧ e1.eval a = 0)) ∧
+          135 * s2.eval a =
+            92160 * w1.eval a ^ 2 *
+              (81 * (p.coeff 2).eval a - u2.eval a) ^ 2 ∧
+          μ * w1.eval a ^ 8 = 0 ∧
+          s4.eval a = 0) ∨
+        (∃ g1 f t1 t2 u t3 v : K[X], ∃ κ κ₅ κ₇ : K,
+          p.coeff 5 = H ^ 2 * g1 ∧
+          p.coeff 4 = H * f ∧
+          (3 : K[X]) * f - g1 ^ 2 = H * t1 ∧
+          (27 : K[X]) * p.coeff 3 - g1 ^ 3 = H * t2 ∧
+          (81 : K[X]) * p.coeff 2 + (3 : K[X]) * g1 ^ 2 * t1 -
+            g1 * t2 = H * u ∧
+          t2 - (6 : K[X]) * g1 * t1 = H * t3 ∧
+          (243 : K[X]) * p.coeff 1 - g1 * u = H * v ∧
+          alignedSecondDefect610 H (p.coeff 4) (p.coeff 5) (q.coeff 8) =
+            Polynomial.C κ * H ^ 5 ∧
+          alignedSixthDefect610 H (p.coeff 0) (p.coeff 1) (p.coeff 2)
+            (p.coeff 3) (p.coeff 4) (p.coeff 5) (q.coeff 4) (q.coeff 5)
+            (q.coeff 6) (q.coeff 7) κ = Polynomial.C κ₅ * H ^ 15 ∧
+          alignedEighthDefect610 H (p.coeff 0) (p.coeff 1) (p.coeff 2)
+            (p.coeff 3) (p.coeff 4) (p.coeff 5) (q.coeff 2) (q.coeff 3)
+            (q.coeff 4) (q.coeff 5) (q.coeff 6) (q.coeff 7) κ =
+            Polynomial.C κ₇ * H ^ 20 ∧
+          3 * f.eval a = g1.eval a ^ 2 ∧
+          27 * (p.coeff 3).eval a = g1.eval a ^ 3 ∧
+          81 * (p.coeff 2).eval a =
+            g1.eval a * t2.eval a - 3 * g1.eval a ^ 2 * t1.eval a ∧
+          t2.eval a = 6 * g1.eval a * t1.eval a ∧
+          27 * (p.coeff 2).eval a = g1.eval a ^ 2 * t1.eval a ∧
+          243 * (p.coeff 1).eval a = g1.eval a * u.eval a ∧
+          1280 * g1.eval a ^ 2 * t3.eval a ^ 3 - 9216 * κ * g1.eval a *
+          t1.eval a * t3.eval a ^ 2 + 9216 * κ * g1.eval a * t3.eval a *
+          v.eval a + 23040 * g1.eval a * t1.eval a ^ 2 * t3.eval a ^ 2 -
+          23040 * g1.eval a * t1.eval a * t3.eval a * v.eval a - 3840 *
+          g1.eval a * t3.eval a ^ 2 * u.eval a + 11520 * g1.eval a *
+          v.eval a ^ 2 - 96 * κ₅ * t1.eval a * t3.eval a + 96 * κ₅ *
+          v.eval a + 3 * κ₇ * t3.eval a - 6718464 * κ * (p.coeff 0).eval a
+          * t3.eval a - 46080 * κ * t1.eval a ^ 3 * t3.eval a + 27648 * κ
+          * t1.eval a ^ 2 * v.eval a + 18432 * κ * t1.eval a * t3.eval a *
+          u.eval a - 9216 * κ * u.eval a * v.eval a + 16796160 * (p.coeff
+          0).eval a * t1.eval a * t3.eval a - 16796160 * (p.coeff 0).eval
+          a * v.eval a + 80640 * t1.eval a ^ 4 * t3.eval a - 46080 *
+          t1.eval a ^ 3 * v.eval a - 46080 * t1.eval a ^ 2 * t3.eval a *
+          u.eval a + 23040 * t1.eval a * u.eval a * v.eval a + 3840 *
+          t3.eval a * u.eval a ^ 2 = 0)) := by
+  dsimp only at haligned ⊢
+  have hH : H ≠ 0 := hsource.1
+  have hHdegree : H.natDegree = 2 := hsource.2.1
+  by_cases hsq : ∃ h0 : K[X], H = h0 ^ 2
+  · obtain ⟨h0, hHsq⟩ := hsq
+    have hh0 : h0 ≠ 0 := by
+      intro hzero
+      apply hH
+      simp [hHsq, hzero]
+    have hpacket5 :=
+      normalized610ScaleTwo_alignedFifthFace_squareChamber_packet
+        hsource hh0 hHsq haligned
+    dsimp only at hpacket5
+    obtain ⟨κA, μA, κ₃A, νA, w, r, w1', f1', hp5w, hq9, hq8, hq7,
+      htie4, hq6, hw1', hf1', _hq5', _hF5⟩ := hpacket5
+    have hpacket11 :=
+      normalized610ScaleTwo_alignedEleventhFace_squareChamber_packet
+        hsource hh0 hHsq haligned
+    dsimp only at hpacket11
+    obtain ⟨κB, μB, κ₃B, νB, κ₅B, ν₂B, κ₇B, κ₈B, μ₃B, κ₉B, κ₁₀B, μ₄B,
+      w1, f2, e1, e2, u2, e3, s2, s4, s5, _hμ₃, _hμ₄, hM9, hp5w1,
+      hp4f2, he1, he2, hu2, _hR8, he3, _h27, hR9, hs2, hR10x, hs4,
+      hR11x, hs5, hmu8, hQ9, hD9, _hE, _hF, _hG, _hI, _hJ, _hL, _hO,
+      _hΛ, _hΛ2⟩ := hpacket11
+    have hdeg1 : h0.natDegree = 1 := by
+      have h2 : (h0 ^ 2).natDegree = 2 := by rw [← hHsq]; exact hHdegree
+      rw [Polynomial.natDegree_pow] at h2
+      omega
+    have hdegne : h0.degree ≠ 0 := by
+      rw [Polynomial.degree_eq_natDegree hh0, hdeg1]
+      decide
+    obtain ⟨a, ha⟩ := IsAlgClosed.exists_root h0 hdegne
+    have hroot : h0.eval a = 0 := ha
+    have hr : r = h0 ^ 2 *
+        ((270 : K[X]) * f2 ^ 2 - (90 : K[X]) * f2 * w1' ^ 2 +
+          (10 : K[X]) * w1' ^ 4) := by
+      apply mul_left_cancel₀ (pow_ne_zero 2 hh0)
+      rw [hp4f2, hw1'] at htie4
+      linear_combination -htie4
+    have hra : r.eval a = 0 := by
+      rw [hr, Polynomial.eval_mul, Polynomial.eval_pow, hroot,
+        zero_pow (by norm_num : (2 : ℕ) ≠ 0), zero_mul]
+    have hpin1 : 3 * f2.eval a = w1.eval a ^ 2 := by
+      have hev := congrArg (fun t : K[X] => t.eval a) he1
+      simp only [Polynomial.eval_sub, Polynomial.eval_mul,
+        Polynomial.eval_pow, Polynomial.eval_ofNat] at hev
+      rw [hroot, zero_mul] at hev
+      linear_combination hev
+    have hpin2 : 27 * ((((Polynomial.Bivariate.equivMvPolynomial
+        K).symm P).coeff 3).eval a) = w1.eval a ^ 3 := by
+      have hev := congrArg (fun t : K[X] => t.eval a) he2
+      simp only [Polynomial.eval_sub, Polynomial.eval_mul,
+        Polynomial.eval_pow, Polynomial.eval_ofNat] at hev
+      rw [hroot, zero_mul] at hev
+      linear_combination hev
+    have hev1 := congrArg (fun t : K[X] => t.eval a) hu2
+    simp only [Polynomial.eval_mul, Polynomial.eval_sub,
+      Polynomial.eval_ofNat] at hev1
+    rw [hroot, zero_mul] at hev1
+    have h1 : w1.eval a *
+        (e2.eval a - 3 * e1.eval a * w1.eval a) = 0 := by
+      linear_combination hev1
+    have hevQ9 := congrArg (fun t : K[X] => t.eval a) hQ9
+    simp only [alignedEighthSquareCombinedRow610, Polynomial.eval_add,
+      Polynomial.eval_sub, Polynomial.eval_mul, Polynomial.eval_pow,
+      Polynomial.eval_C, Polynomial.eval_neg,
+      Polynomial.eval_ofNat] at hevQ9
+    rw [hroot] at hevQ9
+    have h2 : 1280 * e1.eval a *
+        (3 * e1.eval a * w1.eval a - e2.eval a) *
+        (6 * e1.eval a * w1.eval a - e2.eval a) +
+        189 * μB * w1.eval a ^ 5 = 0 := by
+      linear_combination -hevQ9
+    have hevR9 := congrArg (fun t : K[X] => t.eval a) hR9
+    simp only [alignedNinthSquarePeeledRow610, Polynomial.eval_add,
+      Polynomial.eval_sub, Polynomial.eval_mul, Polynomial.eval_pow,
+      Polynomial.eval_C, Polynomial.eval_neg,
+      Polynomial.eval_ofNat] at hevR9
+    rw [hroot] at hevR9
+    have h9 : 276480 * e1.eval a ^ 3 * w1.eval a ^ 3 -
+        5120 * e2.eval a ^ 3 - 189 * μB * w1.eval a ^ 6 = 0 := by
+      linear_combination hevR9
+    obtain ⟨hv0, hbranch⟩ := alignedNinthSquareResolve_610 h1 h2 h9
+    have hevR11 := congrArg (fun t : K[X] => t.eval a) hR10x
+    simp only [alignedTenthSquarePeeledRow610, Polynomial.eval_add,
+      Polynomial.eval_sub, Polynomial.eval_mul, Polynomial.eval_pow,
+      Polynomial.eval_C, Polynomial.eval_neg,
+      Polynomial.eval_ofNat] at hevR11
+    rw [hroot] at hevR11
+    have hhead : 184320 * e1.eval a ^ 2 * e2.eval a ^ 2 -
+        44789760 * e1.eval a ^ 2 *
+          ((((Polynomial.Bivariate.equivMvPolynomial K).symm P).coeff
+            2).eval a) * w1.eval a ^ 2 +
+        737280 * e1.eval a ^ 2 * u2.eval a * w1.eval a ^ 2 +
+        2268 * e1.eval a * μB * w1.eval a ^ 5 -
+        2488320 * e2.eval a ^ 2 *
+          ((((Polynomial.Bivariate.equivMvPolynomial K).symm P).coeff
+            2).eval a) +
+        40960 * e2.eval a ^ 2 * u2.eval a +
+        604661760 *
+          ((((Polynomial.Bivariate.equivMvPolynomial K).symm P).coeff
+            2).eval a) ^ 2 * w1.eval a ^ 2 -
+        14929920 *
+          ((((Polynomial.Bivariate.equivMvPolynomial K).symm P).coeff
+            2).eval a) * u2.eval a * w1.eval a ^ 2 -
+        135 * s2.eval a + 92160 * u2.eval a ^ 2 * w1.eval a ^ 2 =
+          0 := by
+      linear_combination hevR11
+    have htie := alignedTenthSquareTieResolve_610 h1 hv0 hhead
+    have hμw8a : μB * w1.eval a ^ 8 = 0 := by
+      have hev4 := congrArg (fun t : K[X] => t.eval a) hs4
+      simp only [Polynomial.eval_mul, Polynomial.eval_pow,
+        Polynomial.eval_C] at hev4
+      rw [hroot, zero_mul] at hev4
+      exact hev4
+    have hs4a : s4.eval a = 0 := by
+      have hev5 := congrArg (fun t : K[X] => t.eval a) hs5
+      simp only [Polynomial.eval_mul] at hev5
+      rw [hroot, zero_mul] at hev5
+      exact hev5
+    refine ⟨a, ?_, ?_, ?_, ?_, ?_, ?_, ?_,
+      Or.inl ⟨h0, w1, f2, e1, e2, e3, u2, s2, s4, s5, κB, μB, hh0,
+        hHsq, hroot, hp5w1, hp4f2, he1, he2, he3, hu2, hs2, hs4, hs5,
+        hmu8, hM9, hD9, hpin1, hpin2, hv0, hbranch, htie, hμw8a,
+        hs4a⟩⟩
+    · rw [hHsq, Polynomial.eval_pow, hroot,
+        zero_pow (by norm_num : (2 : ℕ) ≠ 0)]
+    · rw [hp5w1, Polynomial.eval_mul, Polynomial.eval_pow, hroot,
+        zero_pow (by norm_num : (4 : ℕ) ≠ 0), zero_mul]
+    · rw [hq9, Polynomial.eval_mul, Polynomial.eval_pow, hroot,
+        zero_pow (by norm_num : (7 : ℕ) ≠ 0), mul_zero]
+    · have hev := congrArg (fun t : K[X] => t.eval a) hq8
+      simp only [Polynomial.eval_mul, Polynomial.eval_pow,
+        Polynomial.eval_ofNat] at hev
+      rw [hroot, zero_pow (by norm_num : (4 : ℕ) ≠ 0), zero_mul] at hev
+      exact (mul_eq_zero.mp hev).resolve_left
+        (by norm_num : (9 : K) ≠ 0)
+    · have hev := congrArg (fun t : K[X] => t.eval a) hq7
+      simp only [Polynomial.eval_mul, Polynomial.eval_ofNat] at hev
+      rw [hroot, zero_mul] at hev
+      exact (mul_eq_zero.mp hev).resolve_left
+        (by norm_num : (81 : K) ≠ 0)
+    · rw [hp4f2, Polynomial.eval_mul, Polynomial.eval_pow, hroot,
+        zero_pow (by norm_num : (2 : ℕ) ≠ 0), zero_mul]
+    · have hev := congrArg (fun t : K[X] => t.eval a) hq6
+      simp only [Polynomial.eval_add, Polynomial.eval_sub,
+        Polynomial.eval_mul, Polynomial.eval_pow, Polynomial.eval_C,
+        Polynomial.eval_ofNat] at hev
+      rw [hroot] at hev
+      have h486 : (486 : K) * (((Polynomial.Bivariate.equivMvPolynomial
+          K).symm Q).coeff 6).eval a = 0 := by
+        linear_combination hev + hra
+      exact (mul_eq_zero.mp h486).resolve_left
+        (by norm_num : (486 : K) ≠ 0)
+  · have hnsq : ∀ h0 : K[X], H ≠ h0 ^ 2 := by
+      intro h0 hHsq
+      exact hsq ⟨h0, hHsq⟩
+    have hpacket5 :=
+      normalized610ScaleTwo_alignedFifthFace_nonsquareChamber_packet
+        hsource hnsq haligned
+    dsimp only at hpacket5
+    obtain ⟨κA, κ₃A, g1', f', _hp5', hq9, hq8, hq7, _hf', hq6, _hq5',
+      _hD0', _hE', _hF0'⟩ := hpacket5
+    have hpacket11 :=
+      normalized610ScaleTwo_alignedEleventhFace_nonsquareChamber_packet
+        hsource hnsq haligned
+    dsimp only at hpacket11
+    obtain ⟨κB, κ₃B, κ₅B, κ₇B, κ₉B, g1, f, t1, t2, u, t3, v, hM9, hp5,
+      hf, ht1, ht2, hu, ht3, hv, _hq0, _hq1, _hq2, _hD0, _hE, _hF0,
+      hG6, _hI0, hJ8, _hL0, _hO, _hΛ0, hres⟩ := hpacket11
+    have hdegne : H.degree ≠ 0 := by
+      rw [Polynomial.degree_eq_natDegree hH, hHdegree]
+      decide
+    obtain ⟨a, ha⟩ := IsAlgClosed.exists_root H hdegne
+    have hroot : H.eval a = 0 := ha
+    have hpin1 : 3 * f.eval a = g1.eval a ^ 2 := by
+      have hev := congrArg (fun t : K[X] => t.eval a) ht1
+      simp only [Polynomial.eval_sub, Polynomial.eval_mul,
+        Polynomial.eval_pow, Polynomial.eval_ofNat] at hev
+      rw [hroot, zero_mul] at hev
+      linear_combination hev
+    have hpin2 : 27 * ((((Polynomial.Bivariate.equivMvPolynomial
+        K).symm P).coeff 3).eval a) = g1.eval a ^ 3 := by
+      have hev := congrArg (fun t : K[X] => t.eval a) ht2
+      simp only [Polynomial.eval_sub, Polynomial.eval_mul,
+        Polynomial.eval_pow, Polynomial.eval_ofNat] at hev
+      rw [hroot, zero_mul] at hev
+      linear_combination hev
+    have hp2pin : 81 * ((((Polynomial.Bivariate.equivMvPolynomial
+        K).symm P).coeff 2).eval a) =
+        g1.eval a * t2.eval a - 3 * g1.eval a ^ 2 * t1.eval a := by
+      have hev := congrArg (fun t : K[X] => t.eval a) hu
+      simp only [Polynomial.eval_add, Polynomial.eval_sub,
+        Polynomial.eval_mul, Polynomial.eval_pow,
+        Polynomial.eval_ofNat] at hev
+      rw [hroot, zero_mul] at hev
+      linear_combination hev
+    have ht2pin : t2.eval a = 6 * g1.eval a * t1.eval a := by
+      have hev := congrArg (fun t : K[X] => t.eval a) ht3
+      simp only [Polynomial.eval_sub, Polynomial.eval_mul,
+        Polynomial.eval_ofNat] at hev
+      rw [hroot, zero_mul] at hev
+      linear_combination hev
+    have hp2ref : 27 * ((((Polynomial.Bivariate.equivMvPolynomial
+        K).symm P).coeff 2).eval a) =
+        g1.eval a ^ 2 * t1.eval a := by
+      linear_combination (3⁻¹ : K) * hp2pin +
+        (3⁻¹ : K) * g1.eval a * ht2pin
+    have hp1pin : 243 * ((((Polynomial.Bivariate.equivMvPolynomial
+        K).symm P).coeff 1).eval a) = g1.eval a * u.eval a := by
+      have hev := congrArg (fun t : K[X] => t.eval a) hv
+      simp only [Polynomial.eval_sub, Polynomial.eval_mul,
+        Polynomial.eval_ofNat] at hev
+      rw [hroot, zero_mul] at hev
+      linear_combination hev
+    have hevRes := congrArg (fun t : K[X] => t.eval a) hres
+    simp only [alignedEleventhNonsquareResidue610, Polynomial.eval_add,
+      Polynomial.eval_sub, Polynomial.eval_mul, Polynomial.eval_pow,
+      Polynomial.eval_C, Polynomial.eval_neg, Polynomial.eval_ofNat,
+      Polynomial.eval_zero] at hevRes
+    rw [hroot] at hevRes
+    have hbr :
+        1280 * g1.eval a ^ 2 * t3.eval a ^ 3 - 9216 * κB * g1.eval a *
+        t1.eval a * t3.eval a ^ 2 + 9216 * κB * g1.eval a * t3.eval a *
+        v.eval a + 23040 * g1.eval a * t1.eval a ^ 2 * t3.eval a ^ 2 -
+        23040 * g1.eval a * t1.eval a * t3.eval a * v.eval a - 3840 *
+        g1.eval a * t3.eval a ^ 2 * u.eval a + 11520 * g1.eval a * v.eval
+        a ^ 2 - 96 * κ₅B * t1.eval a * t3.eval a + 96 * κ₅B * v.eval a + 3
+        * κ₇B * t3.eval a - 6718464 * κB *
+        ((((Polynomial.Bivariate.equivMvPolynomial K).symm P).coeff
+        0).eval a) * t3.eval a - 46080 * κB * t1.eval a ^ 3 * t3.eval a +
+        27648 * κB * t1.eval a ^ 2 * v.eval a + 18432 * κB * t1.eval a *
+        t3.eval a * u.eval a - 9216 * κB * u.eval a * v.eval a + 16796160
+        * ((((Polynomial.Bivariate.equivMvPolynomial K).symm P).coeff
+        0).eval a) * t1.eval a * t3.eval a - 16796160 *
+        ((((Polynomial.Bivariate.equivMvPolynomial K).symm P).coeff
+        0).eval a) * v.eval a + 80640 * t1.eval a ^ 4 * t3.eval a - 46080
+        * t1.eval a ^ 3 * v.eval a - 46080 * t1.eval a ^ 2 * t3.eval a *
+        u.eval a + 23040 * t1.eval a * u.eval a * v.eval a + 3840 *
+        t3.eval a * u.eval a ^ 2 = 0 := by
+      linear_combination hevRes
+    refine ⟨a, hroot, ?_, ?_, ?_, ?_, ?_, ?_,
+      Or.inr ⟨g1, f, t1, t2, u, t3, v, κB, κ₅B, κ₇B, hp5, hf, ht1,
+        ht2, hu, ht3, hv, hM9, hG6, hJ8, hpin1, hpin2, hp2pin, ht2pin,
+        hp2ref, hp1pin, hbr⟩⟩
+    · rw [hp5, Polynomial.eval_mul, Polynomial.eval_pow, hroot,
+        zero_pow (by norm_num : (2 : ℕ) ≠ 0), zero_mul]
+    · rw [hq9, Polynomial.eval_mul, Polynomial.eval_pow, hroot,
+        zero_pow (by norm_num : (4 : ℕ) ≠ 0), mul_zero]
+    · have hev := congrArg (fun t : K[X] => t.eval a) hq8
+      simp only [Polynomial.eval_mul, Polynomial.eval_pow,
+        Polynomial.eval_ofNat] at hev
+      rw [hroot, zero_pow (by norm_num : (2 : ℕ) ≠ 0), zero_mul] at hev
+      exact (mul_eq_zero.mp hev).resolve_left
+        (by norm_num : (9 : K) ≠ 0)
+    · have hev := congrArg (fun t : K[X] => t.eval a) hq7
+      simp only [Polynomial.eval_mul, Polynomial.eval_ofNat] at hev
+      rw [hroot, zero_mul] at hev
+      exact (mul_eq_zero.mp hev).resolve_left
+        (by norm_num : (81 : K) ≠ 0)
+    · rw [hf, Polynomial.eval_mul, hroot, zero_mul]
+    · have hev := congrArg (fun t : K[X] => t.eval a) hq6
+      simp only [Polynomial.eval_mul, Polynomial.eval_ofNat] at hev
+      rw [hroot, zero_mul] at hev
+      exact (mul_eq_zero.mp hev).resolve_left
+        (by norm_num : (486 : K) ≠ 0)
+
+end Max11DegreeRoutes

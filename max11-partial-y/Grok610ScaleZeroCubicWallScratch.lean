@@ -886,8 +886,7 @@ theorem cubicSigmaSupportCone610_of
           · by_cases hload : 11 * A.natDegree < 4 * E.natDegree
             ·
               have hEpos : 0 < E.natDegree := by omega
-              refine CubicSigmaSupportCone610.sigmaE ?_
-              refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+              exact CubicSigmaSupportCone610.sigmaE (by simp only [CubicSigmaConeE610]; omega)
             · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
           · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
       · -- D lives
@@ -898,8 +897,7 @@ theorem cubicSigmaSupportCone610_of
           · by_cases hload : 9 * A.natDegree < 4 * D.natDegree
             ·
               have hDpos : 0 < D.natDegree := by omega
-              refine CubicSigmaSupportCone610.sigmaD ?_
-              refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+              exact CubicSigmaSupportCone610.sigmaD (by simp only [CubicSigmaConeD610]; omega)
             · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
           · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
         · -- E lives
@@ -909,8 +907,7 @@ theorem cubicSigmaSupportCone610_of
             · by_cases hload : 9 * A.natDegree < 4 * D.natDegree
               ·
                 have hDpos : 0 < D.natDegree := by omega
-                refine CubicSigmaSupportCone610.sigmaD ?_
-                refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                exact CubicSigmaSupportCone610.sigmaD (by simp only [CubicSigmaConeD610]; omega)
               · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
             · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
           · by_cases heq : 2 * E.natDegree = A.natDegree + 2 * D.natDegree
@@ -920,8 +917,7 @@ theorem cubicSigmaSupportCone610_of
                 ·
                   have hDpos : 0 < D.natDegree := by omega
                   have hEpos : 0 < E.natDegree := by omega
-                  refine CubicSigmaSupportCone610.sigmaDE ?_
-                  refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                  exact CubicSigmaSupportCone610.sigmaDE (by simp only [CubicSigmaConeDE610]; omega)
                 · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
               · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
             · -- E strictly outranks D
@@ -929,8 +925,7 @@ theorem cubicSigmaSupportCone610_of
               · by_cases hload : 11 * A.natDegree < 4 * E.natDegree
                 ·
                   have hEpos : 0 < E.natDegree := by omega
-                  refine CubicSigmaSupportCone610.sigmaE ?_
-                  refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                  exact CubicSigmaSupportCone610.sigmaE (by simp only [CubicSigmaConeE610]; omega)
                 · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
               · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
     · -- C lives
@@ -944,8 +939,7 @@ theorem cubicSigmaSupportCone610_of
           · by_cases hload : 11 * A.natDegree < 6 * C.natDegree
             ·
               have hCpos : 0 < C.natDegree := by omega
-              refine CubicSigmaSupportCone610.sigmaC ?_
-              refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+              exact CubicSigmaSupportCone610.sigmaC (by simp only [CubicSigmaConeC610]; omega)
             · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
           · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
         · -- E lives
@@ -955,8 +949,7 @@ theorem cubicSigmaSupportCone610_of
             · by_cases hload : 11 * A.natDegree < 6 * C.natDegree
               ·
                 have hCpos : 0 < C.natDegree := by omega
-                refine CubicSigmaSupportCone610.sigmaC ?_
-                refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                exact CubicSigmaSupportCone610.sigmaC (by simp only [CubicSigmaConeC610]; omega)
               · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
             · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
           · by_cases heq : 2 * E.natDegree = 3 * C.natDegree
@@ -966,8 +959,7 @@ theorem cubicSigmaSupportCone610_of
                 ·
                   have hCpos : 0 < C.natDegree := by omega
                   have hEpos : 0 < E.natDegree := by omega
-                  refine CubicSigmaSupportCone610.sigmaCE ?_
-                  refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                  exact CubicSigmaSupportCone610.sigmaCE (by simp only [CubicSigmaConeCE610]; omega)
                 · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
               · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
             · -- E strictly outranks C
@@ -975,8 +967,7 @@ theorem cubicSigmaSupportCone610_of
               · by_cases hload : 11 * A.natDegree < 4 * E.natDegree
                 ·
                   have hEpos : 0 < E.natDegree := by omega
-                  refine CubicSigmaSupportCone610.sigmaE ?_
-                  refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                  exact CubicSigmaSupportCone610.sigmaE (by simp only [CubicSigmaConeE610]; omega)
                 · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
               · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
       · -- D lives
@@ -989,8 +980,7 @@ theorem cubicSigmaSupportCone610_of
             · by_cases hload : 11 * A.natDegree < 6 * C.natDegree
               ·
                 have hCpos : 0 < C.natDegree := by omega
-                refine CubicSigmaSupportCone610.sigmaC ?_
-                refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                exact CubicSigmaSupportCone610.sigmaC (by simp only [CubicSigmaConeC610]; omega)
               · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
             · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
           · by_cases heq : A.natDegree + 2 * D.natDegree = 3 * C.natDegree
@@ -1000,8 +990,7 @@ theorem cubicSigmaSupportCone610_of
                 ·
                   have hCpos : 0 < C.natDegree := by omega
                   have hDpos : 0 < D.natDegree := by omega
-                  refine CubicSigmaSupportCone610.sigmaCD ?_
-                  refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                  exact CubicSigmaSupportCone610.sigmaCD (by simp only [CubicSigmaConeCD610]; omega)
                 · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
               · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
             · -- D strictly outranks C
@@ -1009,8 +998,7 @@ theorem cubicSigmaSupportCone610_of
               · by_cases hload : 9 * A.natDegree < 4 * D.natDegree
                 ·
                   have hDpos : 0 < D.natDegree := by omega
-                  refine CubicSigmaSupportCone610.sigmaD ?_
-                  refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                  exact CubicSigmaSupportCone610.sigmaD (by simp only [CubicSigmaConeD610]; omega)
                 · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
               · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
         · -- E lives
@@ -1022,8 +1010,7 @@ theorem cubicSigmaSupportCone610_of
               · by_cases hload : 11 * A.natDegree < 6 * C.natDegree
                 ·
                   have hCpos : 0 < C.natDegree := by omega
-                  refine CubicSigmaSupportCone610.sigmaC ?_
-                  refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                  exact CubicSigmaSupportCone610.sigmaC (by simp only [CubicSigmaConeC610]; omega)
                 · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
               · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
             · by_cases heq : 2 * E.natDegree = 3 * C.natDegree
@@ -1033,8 +1020,7 @@ theorem cubicSigmaSupportCone610_of
                   ·
                     have hCpos : 0 < C.natDegree := by omega
                     have hEpos : 0 < E.natDegree := by omega
-                    refine CubicSigmaSupportCone610.sigmaCE ?_
-                    refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                    exact CubicSigmaSupportCone610.sigmaCE (by simp only [CubicSigmaConeCE610]; omega)
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                 · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
               · -- E strictly outranks C
@@ -1042,8 +1028,7 @@ theorem cubicSigmaSupportCone610_of
                 · by_cases hload : 11 * A.natDegree < 4 * E.natDegree
                   ·
                     have hEpos : 0 < E.natDegree := by omega
-                    refine CubicSigmaSupportCone610.sigmaE ?_
-                    refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                    exact CubicSigmaSupportCone610.sigmaE (by simp only [CubicSigmaConeE610]; omega)
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                 · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
           · by_cases heq : A.natDegree + 2 * D.natDegree = 3 * C.natDegree
@@ -1055,8 +1040,7 @@ theorem cubicSigmaSupportCone610_of
                   ·
                     have hCpos : 0 < C.natDegree := by omega
                     have hDpos : 0 < D.natDegree := by omega
-                    refine CubicSigmaSupportCone610.sigmaCD ?_
-                    refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                    exact CubicSigmaSupportCone610.sigmaCD (by simp only [CubicSigmaConeCD610]; omega)
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                 · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
               · by_cases heq : 2 * E.natDegree = 3 * C.natDegree
@@ -1067,8 +1051,7 @@ theorem cubicSigmaSupportCone610_of
                       have hCpos : 0 < C.natDegree := by omega
                       have hDpos : 0 < D.natDegree := by omega
                       have hEpos : 0 < E.natDegree := by omega
-                      refine CubicSigmaSupportCone610.sigmaCDE ?_
-                      refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                      exact CubicSigmaSupportCone610.sigmaCDE (by simp only [CubicSigmaConeCDE610]; omega)
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                 · -- E strictly outranks CD
@@ -1076,8 +1059,7 @@ theorem cubicSigmaSupportCone610_of
                   · by_cases hload : 11 * A.natDegree < 4 * E.natDegree
                     ·
                       have hEpos : 0 < E.natDegree := by omega
-                      refine CubicSigmaSupportCone610.sigmaE ?_
-                      refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                      exact CubicSigmaSupportCone610.sigmaE (by simp only [CubicSigmaConeE610]; omega)
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
             · -- D strictly outranks C
@@ -1087,8 +1069,7 @@ theorem cubicSigmaSupportCone610_of
                 · by_cases hload : 9 * A.natDegree < 4 * D.natDegree
                   ·
                     have hDpos : 0 < D.natDegree := by omega
-                    refine CubicSigmaSupportCone610.sigmaD ?_
-                    refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                    exact CubicSigmaSupportCone610.sigmaD (by simp only [CubicSigmaConeD610]; omega)
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                 · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
               · by_cases heq : 2 * E.natDegree = A.natDegree + 2 * D.natDegree
@@ -1098,8 +1079,7 @@ theorem cubicSigmaSupportCone610_of
                     ·
                       have hDpos : 0 < D.natDegree := by omega
                       have hEpos : 0 < E.natDegree := by omega
-                      refine CubicSigmaSupportCone610.sigmaDE ?_
-                      refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                      exact CubicSigmaSupportCone610.sigmaDE (by simp only [CubicSigmaConeDE610]; omega)
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                 · -- E strictly outranks D
@@ -1107,8 +1087,7 @@ theorem cubicSigmaSupportCone610_of
                   · by_cases hload : 11 * A.natDegree < 4 * E.natDegree
                     ·
                       have hEpos : 0 < E.natDegree := by omega
-                      refine CubicSigmaSupportCone610.sigmaE ?_
-                      refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                      exact CubicSigmaSupportCone610.sigmaE (by simp only [CubicSigmaConeE610]; omega)
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
   · -- B lives
@@ -1125,8 +1104,7 @@ theorem cubicSigmaSupportCone610_of
           · by_cases hload : 4 * A.natDegree < 3 * B.natDegree
             ·
               have hBpos : 0 < B.natDegree := by omega
-              refine CubicSigmaSupportCone610.sigmaB ?_
-              refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+              exact CubicSigmaSupportCone610.sigmaB (by simp only [CubicSigmaConeB610]; omega)
             · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
           · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
         · -- E lives
@@ -1136,8 +1114,7 @@ theorem cubicSigmaSupportCone610_of
             · by_cases hload : 4 * A.natDegree < 3 * B.natDegree
               ·
                 have hBpos : 0 < B.natDegree := by omega
-                refine CubicSigmaSupportCone610.sigmaB ?_
-                refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                exact CubicSigmaSupportCone610.sigmaB (by simp only [CubicSigmaConeB610]; omega)
               · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
             · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
           · by_cases heq : 4 * E.natDegree = 3 * A.natDegree + 6 * B.natDegree
@@ -1147,8 +1124,7 @@ theorem cubicSigmaSupportCone610_of
                 ·
                   have hBpos : 0 < B.natDegree := by omega
                   have hEpos : 0 < E.natDegree := by omega
-                  refine CubicSigmaSupportCone610.sigmaBE ?_
-                  refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                  exact CubicSigmaSupportCone610.sigmaBE (by simp only [CubicSigmaConeBE610]; omega)
                 · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
               · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
             · -- E strictly outranks B
@@ -1156,8 +1132,7 @@ theorem cubicSigmaSupportCone610_of
               · by_cases hload : 11 * A.natDegree < 4 * E.natDegree
                 ·
                   have hEpos : 0 < E.natDegree := by omega
-                  refine CubicSigmaSupportCone610.sigmaE ?_
-                  refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                  exact CubicSigmaSupportCone610.sigmaE (by simp only [CubicSigmaConeE610]; omega)
                 · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
               · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
       · -- D lives
@@ -1170,8 +1145,7 @@ theorem cubicSigmaSupportCone610_of
             · by_cases hload : 4 * A.natDegree < 3 * B.natDegree
               ·
                 have hBpos : 0 < B.natDegree := by omega
-                refine CubicSigmaSupportCone610.sigmaB ?_
-                refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                exact CubicSigmaSupportCone610.sigmaB (by simp only [CubicSigmaConeB610]; omega)
               · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
             · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
           · by_cases heq : 4 * D.natDegree = A.natDegree + 6 * B.natDegree
@@ -1181,8 +1155,7 @@ theorem cubicSigmaSupportCone610_of
                 ·
                   have hBpos : 0 < B.natDegree := by omega
                   have hDpos : 0 < D.natDegree := by omega
-                  refine CubicSigmaSupportCone610.sigmaBD ?_
-                  refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                  exact CubicSigmaSupportCone610.sigmaBD (by simp only [CubicSigmaConeBD610]; omega)
                 · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
               · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
             · -- D strictly outranks B
@@ -1190,8 +1163,7 @@ theorem cubicSigmaSupportCone610_of
               · by_cases hload : 9 * A.natDegree < 4 * D.natDegree
                 ·
                   have hDpos : 0 < D.natDegree := by omega
-                  refine CubicSigmaSupportCone610.sigmaD ?_
-                  refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                  exact CubicSigmaSupportCone610.sigmaD (by simp only [CubicSigmaConeD610]; omega)
                 · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
               · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
         · -- E lives
@@ -1203,8 +1175,7 @@ theorem cubicSigmaSupportCone610_of
               · by_cases hload : 4 * A.natDegree < 3 * B.natDegree
                 ·
                   have hBpos : 0 < B.natDegree := by omega
-                  refine CubicSigmaSupportCone610.sigmaB ?_
-                  refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                  exact CubicSigmaSupportCone610.sigmaB (by simp only [CubicSigmaConeB610]; omega)
                 · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
               · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
             · by_cases heq : 4 * E.natDegree = 3 * A.natDegree + 6 * B.natDegree
@@ -1214,8 +1185,7 @@ theorem cubicSigmaSupportCone610_of
                   ·
                     have hBpos : 0 < B.natDegree := by omega
                     have hEpos : 0 < E.natDegree := by omega
-                    refine CubicSigmaSupportCone610.sigmaBE ?_
-                    refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                    exact CubicSigmaSupportCone610.sigmaBE (by simp only [CubicSigmaConeBE610]; omega)
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                 · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
               · -- E strictly outranks B
@@ -1223,8 +1193,7 @@ theorem cubicSigmaSupportCone610_of
                 · by_cases hload : 11 * A.natDegree < 4 * E.natDegree
                   ·
                     have hEpos : 0 < E.natDegree := by omega
-                    refine CubicSigmaSupportCone610.sigmaE ?_
-                    refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                    exact CubicSigmaSupportCone610.sigmaE (by simp only [CubicSigmaConeE610]; omega)
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                 · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
           · by_cases heq : 4 * D.natDegree = A.natDegree + 6 * B.natDegree
@@ -1236,8 +1205,7 @@ theorem cubicSigmaSupportCone610_of
                   ·
                     have hBpos : 0 < B.natDegree := by omega
                     have hDpos : 0 < D.natDegree := by omega
-                    refine CubicSigmaSupportCone610.sigmaBD ?_
-                    refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                    exact CubicSigmaSupportCone610.sigmaBD (by simp only [CubicSigmaConeBD610]; omega)
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                 · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
               · by_cases heq : 4 * E.natDegree = 3 * A.natDegree + 6 * B.natDegree
@@ -1248,8 +1216,7 @@ theorem cubicSigmaSupportCone610_of
                       have hBpos : 0 < B.natDegree := by omega
                       have hDpos : 0 < D.natDegree := by omega
                       have hEpos : 0 < E.natDegree := by omega
-                      refine CubicSigmaSupportCone610.sigmaBDE ?_
-                      refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                      exact CubicSigmaSupportCone610.sigmaBDE (by simp only [CubicSigmaConeBDE610]; omega)
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                 · -- E strictly outranks BD
@@ -1257,8 +1224,7 @@ theorem cubicSigmaSupportCone610_of
                   · by_cases hload : 11 * A.natDegree < 4 * E.natDegree
                     ·
                       have hEpos : 0 < E.natDegree := by omega
-                      refine CubicSigmaSupportCone610.sigmaE ?_
-                      refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                      exact CubicSigmaSupportCone610.sigmaE (by simp only [CubicSigmaConeE610]; omega)
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
             · -- D strictly outranks B
@@ -1268,8 +1234,7 @@ theorem cubicSigmaSupportCone610_of
                 · by_cases hload : 9 * A.natDegree < 4 * D.natDegree
                   ·
                     have hDpos : 0 < D.natDegree := by omega
-                    refine CubicSigmaSupportCone610.sigmaD ?_
-                    refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                    exact CubicSigmaSupportCone610.sigmaD (by simp only [CubicSigmaConeD610]; omega)
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                 · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
               · by_cases heq : 2 * E.natDegree = A.natDegree + 2 * D.natDegree
@@ -1279,8 +1244,7 @@ theorem cubicSigmaSupportCone610_of
                     ·
                       have hDpos : 0 < D.natDegree := by omega
                       have hEpos : 0 < E.natDegree := by omega
-                      refine CubicSigmaSupportCone610.sigmaDE ?_
-                      refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                      exact CubicSigmaSupportCone610.sigmaDE (by simp only [CubicSigmaConeDE610]; omega)
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                 · -- E strictly outranks D
@@ -1288,8 +1252,7 @@ theorem cubicSigmaSupportCone610_of
                   · by_cases hload : 11 * A.natDegree < 4 * E.natDegree
                     ·
                       have hEpos : 0 < E.natDegree := by omega
-                      refine CubicSigmaSupportCone610.sigmaE ?_
-                      refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                      exact CubicSigmaSupportCone610.sigmaE (by simp only [CubicSigmaConeE610]; omega)
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
     · -- C lives
@@ -1305,8 +1268,7 @@ theorem cubicSigmaSupportCone610_of
             · by_cases hload : 4 * A.natDegree < 3 * B.natDegree
               ·
                 have hBpos : 0 < B.natDegree := by omega
-                refine CubicSigmaSupportCone610.sigmaB ?_
-                refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                exact CubicSigmaSupportCone610.sigmaB (by simp only [CubicSigmaConeB610]; omega)
               · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
             · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
           · by_cases heq : 2 * C.natDegree = A.natDegree + 2 * B.natDegree
@@ -1316,8 +1278,7 @@ theorem cubicSigmaSupportCone610_of
                 ·
                   have hBpos : 0 < B.natDegree := by omega
                   have hCpos : 0 < C.natDegree := by omega
-                  refine CubicSigmaSupportCone610.sigmaBC ?_
-                  refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                  exact CubicSigmaSupportCone610.sigmaBC (by simp only [CubicSigmaConeBC610]; omega)
                 · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
               · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
             · -- C strictly outranks B
@@ -1325,8 +1286,7 @@ theorem cubicSigmaSupportCone610_of
               · by_cases hload : 11 * A.natDegree < 6 * C.natDegree
                 ·
                   have hCpos : 0 < C.natDegree := by omega
-                  refine CubicSigmaSupportCone610.sigmaC ?_
-                  refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                  exact CubicSigmaSupportCone610.sigmaC (by simp only [CubicSigmaConeC610]; omega)
                 · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
               · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
         · -- E lives
@@ -1338,8 +1298,7 @@ theorem cubicSigmaSupportCone610_of
               · by_cases hload : 4 * A.natDegree < 3 * B.natDegree
                 ·
                   have hBpos : 0 < B.natDegree := by omega
-                  refine CubicSigmaSupportCone610.sigmaB ?_
-                  refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                  exact CubicSigmaSupportCone610.sigmaB (by simp only [CubicSigmaConeB610]; omega)
                 · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
               · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
             · by_cases heq : 4 * E.natDegree = 3 * A.natDegree + 6 * B.natDegree
@@ -1349,8 +1308,7 @@ theorem cubicSigmaSupportCone610_of
                   ·
                     have hBpos : 0 < B.natDegree := by omega
                     have hEpos : 0 < E.natDegree := by omega
-                    refine CubicSigmaSupportCone610.sigmaBE ?_
-                    refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                    exact CubicSigmaSupportCone610.sigmaBE (by simp only [CubicSigmaConeBE610]; omega)
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                 · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
               · -- E strictly outranks B
@@ -1358,8 +1316,7 @@ theorem cubicSigmaSupportCone610_of
                 · by_cases hload : 11 * A.natDegree < 4 * E.natDegree
                   ·
                     have hEpos : 0 < E.natDegree := by omega
-                    refine CubicSigmaSupportCone610.sigmaE ?_
-                    refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                    exact CubicSigmaSupportCone610.sigmaE (by simp only [CubicSigmaConeE610]; omega)
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                 · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
           · by_cases heq : 2 * C.natDegree = A.natDegree + 2 * B.natDegree
@@ -1371,8 +1328,7 @@ theorem cubicSigmaSupportCone610_of
                   ·
                     have hBpos : 0 < B.natDegree := by omega
                     have hCpos : 0 < C.natDegree := by omega
-                    refine CubicSigmaSupportCone610.sigmaBC ?_
-                    refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                    exact CubicSigmaSupportCone610.sigmaBC (by simp only [CubicSigmaConeBC610]; omega)
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                 · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
               · by_cases heq : 4 * E.natDegree = 3 * A.natDegree + 6 * B.natDegree
@@ -1383,8 +1339,7 @@ theorem cubicSigmaSupportCone610_of
                       have hBpos : 0 < B.natDegree := by omega
                       have hCpos : 0 < C.natDegree := by omega
                       have hEpos : 0 < E.natDegree := by omega
-                      refine CubicSigmaSupportCone610.sigmaBCE ?_
-                      refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                      exact CubicSigmaSupportCone610.sigmaBCE (by simp only [CubicSigmaConeBCE610]; omega)
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                 · -- E strictly outranks BC
@@ -1392,8 +1347,7 @@ theorem cubicSigmaSupportCone610_of
                   · by_cases hload : 11 * A.natDegree < 4 * E.natDegree
                     ·
                       have hEpos : 0 < E.natDegree := by omega
-                      refine CubicSigmaSupportCone610.sigmaE ?_
-                      refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                      exact CubicSigmaSupportCone610.sigmaE (by simp only [CubicSigmaConeE610]; omega)
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
             · -- C strictly outranks B
@@ -1403,8 +1357,7 @@ theorem cubicSigmaSupportCone610_of
                 · by_cases hload : 11 * A.natDegree < 6 * C.natDegree
                   ·
                     have hCpos : 0 < C.natDegree := by omega
-                    refine CubicSigmaSupportCone610.sigmaC ?_
-                    refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                    exact CubicSigmaSupportCone610.sigmaC (by simp only [CubicSigmaConeC610]; omega)
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                 · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
               · by_cases heq : 2 * E.natDegree = 3 * C.natDegree
@@ -1414,8 +1367,7 @@ theorem cubicSigmaSupportCone610_of
                     ·
                       have hCpos : 0 < C.natDegree := by omega
                       have hEpos : 0 < E.natDegree := by omega
-                      refine CubicSigmaSupportCone610.sigmaCE ?_
-                      refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                      exact CubicSigmaSupportCone610.sigmaCE (by simp only [CubicSigmaConeCE610]; omega)
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                 · -- E strictly outranks C
@@ -1423,8 +1375,7 @@ theorem cubicSigmaSupportCone610_of
                   · by_cases hload : 11 * A.natDegree < 4 * E.natDegree
                     ·
                       have hEpos : 0 < E.natDegree := by omega
-                      refine CubicSigmaSupportCone610.sigmaE ?_
-                      refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                      exact CubicSigmaSupportCone610.sigmaE (by simp only [CubicSigmaConeE610]; omega)
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
       · -- D lives
@@ -1439,8 +1390,7 @@ theorem cubicSigmaSupportCone610_of
               · by_cases hload : 4 * A.natDegree < 3 * B.natDegree
                 ·
                   have hBpos : 0 < B.natDegree := by omega
-                  refine CubicSigmaSupportCone610.sigmaB ?_
-                  refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                  exact CubicSigmaSupportCone610.sigmaB (by simp only [CubicSigmaConeB610]; omega)
                 · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
               · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
             · by_cases heq : 4 * D.natDegree = A.natDegree + 6 * B.natDegree
@@ -1450,8 +1400,7 @@ theorem cubicSigmaSupportCone610_of
                   ·
                     have hBpos : 0 < B.natDegree := by omega
                     have hDpos : 0 < D.natDegree := by omega
-                    refine CubicSigmaSupportCone610.sigmaBD ?_
-                    refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                    exact CubicSigmaSupportCone610.sigmaBD (by simp only [CubicSigmaConeBD610]; omega)
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                 · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
               · -- D strictly outranks B
@@ -1459,8 +1408,7 @@ theorem cubicSigmaSupportCone610_of
                 · by_cases hload : 9 * A.natDegree < 4 * D.natDegree
                   ·
                     have hDpos : 0 < D.natDegree := by omega
-                    refine CubicSigmaSupportCone610.sigmaD ?_
-                    refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                    exact CubicSigmaSupportCone610.sigmaD (by simp only [CubicSigmaConeD610]; omega)
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                 · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
           · by_cases heq : 2 * C.natDegree = A.natDegree + 2 * B.natDegree
@@ -1472,8 +1420,7 @@ theorem cubicSigmaSupportCone610_of
                   ·
                     have hBpos : 0 < B.natDegree := by omega
                     have hCpos : 0 < C.natDegree := by omega
-                    refine CubicSigmaSupportCone610.sigmaBC ?_
-                    refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                    exact CubicSigmaSupportCone610.sigmaBC (by simp only [CubicSigmaConeBC610]; omega)
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                 · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
               · by_cases heq : 4 * D.natDegree = A.natDegree + 6 * B.natDegree
@@ -1484,8 +1431,7 @@ theorem cubicSigmaSupportCone610_of
                       have hBpos : 0 < B.natDegree := by omega
                       have hCpos : 0 < C.natDegree := by omega
                       have hDpos : 0 < D.natDegree := by omega
-                      refine CubicSigmaSupportCone610.sigmaBCD ?_
-                      refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                      exact CubicSigmaSupportCone610.sigmaBCD (by simp only [CubicSigmaConeBCD610]; omega)
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                 · -- D strictly outranks BC
@@ -1493,8 +1439,7 @@ theorem cubicSigmaSupportCone610_of
                   · by_cases hload : 9 * A.natDegree < 4 * D.natDegree
                     ·
                       have hDpos : 0 < D.natDegree := by omega
-                      refine CubicSigmaSupportCone610.sigmaD ?_
-                      refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                      exact CubicSigmaSupportCone610.sigmaD (by simp only [CubicSigmaConeD610]; omega)
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
             · -- C strictly outranks B
@@ -1504,8 +1449,7 @@ theorem cubicSigmaSupportCone610_of
                 · by_cases hload : 11 * A.natDegree < 6 * C.natDegree
                   ·
                     have hCpos : 0 < C.natDegree := by omega
-                    refine CubicSigmaSupportCone610.sigmaC ?_
-                    refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                    exact CubicSigmaSupportCone610.sigmaC (by simp only [CubicSigmaConeC610]; omega)
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                 · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
               · by_cases heq : A.natDegree + 2 * D.natDegree = 3 * C.natDegree
@@ -1515,8 +1459,7 @@ theorem cubicSigmaSupportCone610_of
                     ·
                       have hCpos : 0 < C.natDegree := by omega
                       have hDpos : 0 < D.natDegree := by omega
-                      refine CubicSigmaSupportCone610.sigmaCD ?_
-                      refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                      exact CubicSigmaSupportCone610.sigmaCD (by simp only [CubicSigmaConeCD610]; omega)
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                 · -- D strictly outranks C
@@ -1524,8 +1467,7 @@ theorem cubicSigmaSupportCone610_of
                   · by_cases hload : 9 * A.natDegree < 4 * D.natDegree
                     ·
                       have hDpos : 0 < D.natDegree := by omega
-                      refine CubicSigmaSupportCone610.sigmaD ?_
-                      refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                      exact CubicSigmaSupportCone610.sigmaD (by simp only [CubicSigmaConeD610]; omega)
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
         · -- E lives
@@ -1539,8 +1481,7 @@ theorem cubicSigmaSupportCone610_of
                 · by_cases hload : 4 * A.natDegree < 3 * B.natDegree
                   ·
                     have hBpos : 0 < B.natDegree := by omega
-                    refine CubicSigmaSupportCone610.sigmaB ?_
-                    refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                    exact CubicSigmaSupportCone610.sigmaB (by simp only [CubicSigmaConeB610]; omega)
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                 · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
               · by_cases heq : 4 * E.natDegree = 3 * A.natDegree + 6 * B.natDegree
@@ -1550,8 +1491,7 @@ theorem cubicSigmaSupportCone610_of
                     ·
                       have hBpos : 0 < B.natDegree := by omega
                       have hEpos : 0 < E.natDegree := by omega
-                      refine CubicSigmaSupportCone610.sigmaBE ?_
-                      refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                      exact CubicSigmaSupportCone610.sigmaBE (by simp only [CubicSigmaConeBE610]; omega)
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                 · -- E strictly outranks B
@@ -1559,8 +1499,7 @@ theorem cubicSigmaSupportCone610_of
                   · by_cases hload : 11 * A.natDegree < 4 * E.natDegree
                     ·
                       have hEpos : 0 < E.natDegree := by omega
-                      refine CubicSigmaSupportCone610.sigmaE ?_
-                      refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                      exact CubicSigmaSupportCone610.sigmaE (by simp only [CubicSigmaConeE610]; omega)
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
             · by_cases heq : 4 * D.natDegree = A.natDegree + 6 * B.natDegree
@@ -1572,8 +1511,7 @@ theorem cubicSigmaSupportCone610_of
                     ·
                       have hBpos : 0 < B.natDegree := by omega
                       have hDpos : 0 < D.natDegree := by omega
-                      refine CubicSigmaSupportCone610.sigmaBD ?_
-                      refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                      exact CubicSigmaSupportCone610.sigmaBD (by simp only [CubicSigmaConeBD610]; omega)
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                 · by_cases heq : 4 * E.natDegree = 3 * A.natDegree + 6 * B.natDegree
@@ -1584,8 +1522,7 @@ theorem cubicSigmaSupportCone610_of
                         have hBpos : 0 < B.natDegree := by omega
                         have hDpos : 0 < D.natDegree := by omega
                         have hEpos : 0 < E.natDegree := by omega
-                        refine CubicSigmaSupportCone610.sigmaBDE ?_
-                        refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                        exact CubicSigmaSupportCone610.sigmaBDE (by simp only [CubicSigmaConeBDE610]; omega)
                       · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                   · -- E strictly outranks BD
@@ -1593,8 +1530,7 @@ theorem cubicSigmaSupportCone610_of
                     · by_cases hload : 11 * A.natDegree < 4 * E.natDegree
                       ·
                         have hEpos : 0 < E.natDegree := by omega
-                        refine CubicSigmaSupportCone610.sigmaE ?_
-                        refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                        exact CubicSigmaSupportCone610.sigmaE (by simp only [CubicSigmaConeE610]; omega)
                       · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
               · -- D strictly outranks B
@@ -1604,8 +1540,7 @@ theorem cubicSigmaSupportCone610_of
                   · by_cases hload : 9 * A.natDegree < 4 * D.natDegree
                     ·
                       have hDpos : 0 < D.natDegree := by omega
-                      refine CubicSigmaSupportCone610.sigmaD ?_
-                      refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                      exact CubicSigmaSupportCone610.sigmaD (by simp only [CubicSigmaConeD610]; omega)
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                 · by_cases heq : 2 * E.natDegree = A.natDegree + 2 * D.natDegree
@@ -1615,8 +1550,7 @@ theorem cubicSigmaSupportCone610_of
                       ·
                         have hDpos : 0 < D.natDegree := by omega
                         have hEpos : 0 < E.natDegree := by omega
-                        refine CubicSigmaSupportCone610.sigmaDE ?_
-                        refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                        exact CubicSigmaSupportCone610.sigmaDE (by simp only [CubicSigmaConeDE610]; omega)
                       · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                   · -- E strictly outranks D
@@ -1624,8 +1558,7 @@ theorem cubicSigmaSupportCone610_of
                     · by_cases hload : 11 * A.natDegree < 4 * E.natDegree
                       ·
                         have hEpos : 0 < E.natDegree := by omega
-                        refine CubicSigmaSupportCone610.sigmaE ?_
-                        refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                        exact CubicSigmaSupportCone610.sigmaE (by simp only [CubicSigmaConeE610]; omega)
                       · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
           · by_cases heq : 2 * C.natDegree = A.natDegree + 2 * B.natDegree
@@ -1639,8 +1572,7 @@ theorem cubicSigmaSupportCone610_of
                     ·
                       have hBpos : 0 < B.natDegree := by omega
                       have hCpos : 0 < C.natDegree := by omega
-                      refine CubicSigmaSupportCone610.sigmaBC ?_
-                      refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                      exact CubicSigmaSupportCone610.sigmaBC (by simp only [CubicSigmaConeBC610]; omega)
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                 · by_cases heq : 4 * E.natDegree = 3 * A.natDegree + 6 * B.natDegree
@@ -1651,8 +1583,7 @@ theorem cubicSigmaSupportCone610_of
                         have hBpos : 0 < B.natDegree := by omega
                         have hCpos : 0 < C.natDegree := by omega
                         have hEpos : 0 < E.natDegree := by omega
-                        refine CubicSigmaSupportCone610.sigmaBCE ?_
-                        refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                        exact CubicSigmaSupportCone610.sigmaBCE (by simp only [CubicSigmaConeBCE610]; omega)
                       · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                   · -- E strictly outranks BC
@@ -1660,8 +1591,7 @@ theorem cubicSigmaSupportCone610_of
                     · by_cases hload : 11 * A.natDegree < 4 * E.natDegree
                       ·
                         have hEpos : 0 < E.natDegree := by omega
-                        refine CubicSigmaSupportCone610.sigmaE ?_
-                        refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                        exact CubicSigmaSupportCone610.sigmaE (by simp only [CubicSigmaConeE610]; omega)
                       · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
               · by_cases heq : 4 * D.natDegree = A.natDegree + 6 * B.natDegree
@@ -1674,8 +1604,7 @@ theorem cubicSigmaSupportCone610_of
                         have hBpos : 0 < B.natDegree := by omega
                         have hCpos : 0 < C.natDegree := by omega
                         have hDpos : 0 < D.natDegree := by omega
-                        refine CubicSigmaSupportCone610.sigmaBCD ?_
-                        refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                        exact CubicSigmaSupportCone610.sigmaBCD (by simp only [CubicSigmaConeBCD610]; omega)
                       · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                   · by_cases heq : 4 * E.natDegree = 3 * A.natDegree + 6 * B.natDegree
@@ -1687,8 +1616,7 @@ theorem cubicSigmaSupportCone610_of
                           have hCpos : 0 < C.natDegree := by omega
                           have hDpos : 0 < D.natDegree := by omega
                           have hEpos : 0 < E.natDegree := by omega
-                          refine CubicSigmaSupportCone610.sigmaBCDE ?_
-                          refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                          exact CubicSigmaSupportCone610.sigmaBCDE (by simp only [CubicSigmaConeBCDE610]; omega)
                         · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                       · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                     · -- E strictly outranks BCD
@@ -1696,8 +1624,7 @@ theorem cubicSigmaSupportCone610_of
                       · by_cases hload : 11 * A.natDegree < 4 * E.natDegree
                         ·
                           have hEpos : 0 < E.natDegree := by omega
-                          refine CubicSigmaSupportCone610.sigmaE ?_
-                          refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                          exact CubicSigmaSupportCone610.sigmaE (by simp only [CubicSigmaConeE610]; omega)
                         · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                       · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                 · -- D strictly outranks BC
@@ -1707,8 +1634,7 @@ theorem cubicSigmaSupportCone610_of
                     · by_cases hload : 9 * A.natDegree < 4 * D.natDegree
                       ·
                         have hDpos : 0 < D.natDegree := by omega
-                        refine CubicSigmaSupportCone610.sigmaD ?_
-                        refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                        exact CubicSigmaSupportCone610.sigmaD (by simp only [CubicSigmaConeD610]; omega)
                       · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                   · by_cases heq : 2 * E.natDegree = A.natDegree + 2 * D.natDegree
@@ -1718,8 +1644,7 @@ theorem cubicSigmaSupportCone610_of
                         ·
                           have hDpos : 0 < D.natDegree := by omega
                           have hEpos : 0 < E.natDegree := by omega
-                          refine CubicSigmaSupportCone610.sigmaDE ?_
-                          refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                          exact CubicSigmaSupportCone610.sigmaDE (by simp only [CubicSigmaConeDE610]; omega)
                         · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                       · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                     · -- E strictly outranks D
@@ -1727,8 +1652,7 @@ theorem cubicSigmaSupportCone610_of
                       · by_cases hload : 11 * A.natDegree < 4 * E.natDegree
                         ·
                           have hEpos : 0 < E.natDegree := by omega
-                          refine CubicSigmaSupportCone610.sigmaE ?_
-                          refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                          exact CubicSigmaSupportCone610.sigmaE (by simp only [CubicSigmaConeE610]; omega)
                         · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                       · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
             · -- C strictly outranks B
@@ -1740,8 +1664,7 @@ theorem cubicSigmaSupportCone610_of
                   · by_cases hload : 11 * A.natDegree < 6 * C.natDegree
                     ·
                       have hCpos : 0 < C.natDegree := by omega
-                      refine CubicSigmaSupportCone610.sigmaC ?_
-                      refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                      exact CubicSigmaSupportCone610.sigmaC (by simp only [CubicSigmaConeC610]; omega)
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                   · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                 · by_cases heq : 2 * E.natDegree = 3 * C.natDegree
@@ -1751,8 +1674,7 @@ theorem cubicSigmaSupportCone610_of
                       ·
                         have hCpos : 0 < C.natDegree := by omega
                         have hEpos : 0 < E.natDegree := by omega
-                        refine CubicSigmaSupportCone610.sigmaCE ?_
-                        refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                        exact CubicSigmaSupportCone610.sigmaCE (by simp only [CubicSigmaConeCE610]; omega)
                       · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                   · -- E strictly outranks C
@@ -1760,8 +1682,7 @@ theorem cubicSigmaSupportCone610_of
                     · by_cases hload : 11 * A.natDegree < 4 * E.natDegree
                       ·
                         have hEpos : 0 < E.natDegree := by omega
-                        refine CubicSigmaSupportCone610.sigmaE ?_
-                        refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                        exact CubicSigmaSupportCone610.sigmaE (by simp only [CubicSigmaConeE610]; omega)
                       · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
               · by_cases heq : A.natDegree + 2 * D.natDegree = 3 * C.natDegree
@@ -1773,8 +1694,7 @@ theorem cubicSigmaSupportCone610_of
                       ·
                         have hCpos : 0 < C.natDegree := by omega
                         have hDpos : 0 < D.natDegree := by omega
-                        refine CubicSigmaSupportCone610.sigmaCD ?_
-                        refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                        exact CubicSigmaSupportCone610.sigmaCD (by simp only [CubicSigmaConeCD610]; omega)
                       · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                   · by_cases heq : 2 * E.natDegree = 3 * C.natDegree
@@ -1785,8 +1705,7 @@ theorem cubicSigmaSupportCone610_of
                           have hCpos : 0 < C.natDegree := by omega
                           have hDpos : 0 < D.natDegree := by omega
                           have hEpos : 0 < E.natDegree := by omega
-                          refine CubicSigmaSupportCone610.sigmaCDE ?_
-                          refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                          exact CubicSigmaSupportCone610.sigmaCDE (by simp only [CubicSigmaConeCDE610]; omega)
                         · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                       · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                     · -- E strictly outranks CD
@@ -1794,8 +1713,7 @@ theorem cubicSigmaSupportCone610_of
                       · by_cases hload : 11 * A.natDegree < 4 * E.natDegree
                         ·
                           have hEpos : 0 < E.natDegree := by omega
-                          refine CubicSigmaSupportCone610.sigmaE ?_
-                          refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                          exact CubicSigmaSupportCone610.sigmaE (by simp only [CubicSigmaConeE610]; omega)
                         · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                       · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                 · -- D strictly outranks C
@@ -1805,8 +1723,7 @@ theorem cubicSigmaSupportCone610_of
                     · by_cases hload : 9 * A.natDegree < 4 * D.natDegree
                       ·
                         have hDpos : 0 < D.natDegree := by omega
-                        refine CubicSigmaSupportCone610.sigmaD ?_
-                        refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                        exact CubicSigmaSupportCone610.sigmaD (by simp only [CubicSigmaConeD610]; omega)
                       · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                     · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                   · by_cases heq : 2 * E.natDegree = A.natDegree + 2 * D.natDegree
@@ -1816,8 +1733,7 @@ theorem cubicSigmaSupportCone610_of
                         ·
                           have hDpos : 0 < D.natDegree := by omega
                           have hEpos : 0 < E.natDegree := by omega
-                          refine CubicSigmaSupportCone610.sigmaDE ?_
-                          refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                          exact CubicSigmaSupportCone610.sigmaDE (by simp only [CubicSigmaConeDE610]; omega)
                         · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                       · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                     · -- E strictly outranks D
@@ -1825,8 +1741,7 @@ theorem cubicSigmaSupportCone610_of
                       · by_cases hload : 11 * A.natDegree < 4 * E.natDegree
                         ·
                           have hEpos : 0 < E.natDegree := by omega
-                          refine CubicSigmaSupportCone610.sigmaE ?_
-                          refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+                          exact CubicSigmaSupportCone610.sigmaE (by simp only [CubicSigmaConeE610]; omega)
                         · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
                       · refine CubicSigmaSupportCone610.loadCompete ⟨⟨hApos, hAB, hAC, hAD, hAE⟩, by omega, by omega, by omega, by omega⟩
 

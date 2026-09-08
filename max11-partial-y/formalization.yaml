@@ -22,10 +22,10 @@ project:
     adapter to the published standard-pair endpoint obstruction eliminates
     every even common-leading scale above two.  UFD extraction and invertible
     target rescaling then normalize all five residual pairs to literal common
-    powers.  Both normalized `(4,6)` low scales are now excluded.  The
-    narrowest final inputs are therefore the prime theorem, the
-    standard-endpoint theorem, and scales zero and two at `(4,10)`, `(6,8)`,
-    `(6,10)`, and `(8,10)`.
+    powers.  All five primitive gcd-two leaves are now closed internally; the
+    only remaining inputs are the canonical prime-total-degree-gcd theorem and
+    the published standard-endpoint obstruction, both cited as explicit
+    hypotheses.
   authors:
     - "Dan Clemens Posch"
   license: "Apache-2.0"
@@ -287,17 +287,50 @@ status:
     force `2h=3g`, and extract `4*b*c^2-9*d*e=0` on the balanced face.  The
     next row-one coefficient is `(-64/9)*(4n-g)*c_top^3`, and its literal
     load is strictly lower, so the full canonical `3g<n` chamber is excluded.
-    Not proved here: scalar-extension/descent, the
-    prime-total-degree-gcd theorem itself, the standard-endpoint theorem
-    itself, the secondary Newton-face `(6,8)` scale-zero descent, or the other
-    seven normalized low-scale subcases.  The
-    strong twice-prime statement is not treated as established:
-    GGV 2017 proves the restriction for the globally minimal counterexample
-    gcd B and records a gap in the earlier arbitrary-pair proof.
+    All five normalized low-scale leaves --- `(4,6)`, `(4,10)`, `(6,8)`,
+    `(6,10)`, and `(8,10)` --- are now closed internally, so maximum actual
+    partial y-degree eleven for genuine characteristic-zero plane Keller pairs
+    follows from exactly the two cited classical results and nothing else:
+    the coordinate-free total-degree form of Nagata's 1989 Theorem 7.3
+    (`PlaneKellerPrimeTotalDegreeGCDRoute`) and the Guccione--Guccione--Valqui
+    standard-pair endpoint obstruction, Corollary 7.9
+    (`PlaneKellerStandardEndpointGCDObstruction`).  Not proved here:
+    scalar-extension/descent, or either classical theorem itself.  The plane
+    Jacobian conjecture itself is not claimed: this project proves only the
+    finite maximum-partial-degree-eleven composition, conditional on those two
+    external classical inputs.  The strong twice-prime statement is not
+    treated as established: GGV 2017 proves the restriction for the globally
+    minimal counterexample gcd B and records a gap in the earlier
+    arbitrary-pair proof.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
   main_results:
+    - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithClassicalInterfaces"
+      file: "Max11UnconditionalAssemblyScratch.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Max11DegreeRoutes.planeKellerNormalized410LowScaleRoute_proved"
+      file: "Grok410ChainPromotionScratch.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator-leaf410.json"
+    - declaration: "Max11DegreeRoutes.proved_planeKellerNormalized68LowScaleRoute"
+      file: "Grok68TerminalZeroMeetingCellScratch.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator-leaf68.json"
+    - declaration: "Max11DegreeRoutes.proved_planeKellerNormalized610LowScaleRoute"
+      file: "Grok610ScaleZeroCubicLoadWallsScratch.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator-leaf610.json"
+    - declaration: "Max11DegreeRoutes.proved_planeKellerNormalized810LowScaleRoute"
+      file: "Grok810RouteClosureScratch.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator-leaf810.json"
     - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithFourLowScaleLeaves"
       file: "Max11Assembly.lean"
       sorry_count: 0
@@ -307,7 +340,7 @@ status:
       file: "LowScale46ScaleTwo.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
-      comparator_config: "comparator.json"
+      comparator_config: "comparator-leaf46.json"
     - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithNormalized46ScaleTwoAndFourLowScaleLeaves"
       file: "Max11Assembly.lean"
       sorry_count: 0
@@ -317,7 +350,7 @@ status:
       file: "Max11Assembly.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
-      comparator_config: "comparator.json"
+      comparator_config: "comparator-conditional.json"
     - declaration: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithStandardEndpointObstructionAndFiveLowScaleLeaves"
       file: "Max11Assembly.lean"
       sorry_count: 0
@@ -914,12 +947,15 @@ status:
 automation:
   methods:
     - method: "agent"
-      models: ["OpenAI Codex (GPT-5 family)"]
-      framework: "Codex"
+      models: ["xAI Grok 4.6", "Claude Opus 5", "Claude Fable 5.1"]
+      framework: "grok CLI, Claude Code"
       tool_setup: >-
         Agent-assisted extraction of the finite recursion, Lean proof
         development, exhaustive arithmetic checking, build/debug cycles, and
-        source-alignment review against pinned Mathlib.
+        source-alignment review against pinned Mathlib.  xAI Grok 4.6 runs
+        the proof lanes via the grok CLI; Claude Opus 5 handles planning and
+        code emitters via Claude Code; Claude Fable 5.1 coordinates the
+        campaign via Claude Code.
       cost:
         wall_time: "under one day of agent time"
         spend_usd: "subscription-based"
@@ -994,6 +1030,13 @@ review:
     - "Dan Clemens Posch"
   notes: >-
     The copied hostile review predates and does not inspect the Lean code.
+    This repository carries several Comparator configurations at one
+    commit: `comparator.json` (unconditional headline, solution module
+    `Max11Solution`), `comparator-conditional.json` (the headline with the
+    five leaf routes as hypotheses, solution module `Max11Assembly`), and
+    `comparator-leaf{46,410,68,610,810}.json` (one per proved leaf route).
+    Every entry states its hypotheses in the Lean statement itself; nothing
+    is assumed silently.
     Kernel axiom reports and the project audit script find no sorryAx or
     non-permitted axioms in Max11Core.lean, ClassicalRoutes.lean,
     DegreeRoutes.lean, HistoryRoute.lean, HistoryDegree.lean,
@@ -1055,6 +1098,15 @@ review:
 alignment:
   namespace: "(root)"
   statements:
+    - source: "Maximum actual partial y-degree eleven theorem modulo the two classical citations"
+      lean: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithClassicalInterfaces"
+      module: "Max11Solution"
+      status: >-
+        exact bivariate polynomial conclusion fully proved for maximum actual
+        partial y-degree eleven; every internal routing, normalization, and
+        low-scale leaf is closed, leaving exactly the two cited classical
+        hypotheses `PlaneKellerPrimeTotalDegreeGCDRoute` and
+        `PlaneKellerStandardEndpointGCDObstruction` as premises
     - source: "Finite routing table and recursive closure, Sections 6--8"
       lean: "MaxPartialDegreeElevenClosure"
       module: "Max11Assembly"
@@ -1065,18 +1117,16 @@ alignment:
       lean: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithFiveNormalizedLowScaleRoutes"
       module: "Max11Challenge"
       status: >-
-        exact bivariate polynomial conclusion and finite composition proved;
-        the zero, equal-degree, divisibility, exhaustive (6,9), coprime-degree,
-        odd-scale gcd-two, and large-even-scale adapter routes are proved; the
-        prime-total-degree-gcd theorem, standard-pair endpoint obstruction, and
-        normalized scales zero and two at the four explicit gcd-two degree
-        pairs other than the completely proved `(4,6)` pair remain as
-        hypotheses; the `(6,8)` scale-zero proof is internally advanced through
-        its canonical nontrivial expanded polynomial cubic-core boundary,
-        strict transverse degree drop, exact-cubic contradiction, and attained
-        positive secondary defect radius; all five equations of its abstract
-        `2g<n` face are extracted and applied to the canonical expanded system,
-        reducing the attained residual boundary to `B` or translated `C`
+        exact bivariate polynomial conclusion and finite composition proved
+        CONDITIONALLY: the five normalized low-scale leaf routes at the
+        gcd-two pairs (4,6), (4,10), (6,8), (6,10), (8,10) and the two
+        classical results are explicit hypotheses of this theorem.  Each leaf
+        is proved in this repository and certified as its own Comparator
+        configuration (`comparator-leaf*.json`); the unconditional theorem
+        `Max11PlaneKellerGenerationWithClassicalInterfaces` composes them and
+        is certified by `comparator.json`.  The conditional entry exists only
+        because the unconditional closure exceeds the verifier's single-run
+        budget; it must be read together with the leaf entries.
     - source: "Maximum-twelve frontier checksum, Section 9"
       lean: "Max12FirstPrimitives"
       module: "Max11Challenge"

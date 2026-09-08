@@ -34,6 +34,15 @@ open MvPolynomial Polynomial
 
 namespace Max11DegreeRoutes
 
+set_option linter.unusedVariables false
+set_option linter.unusedSimpArgs false
+set_option linter.unusedTactic false
+set_option linter.unreachableTactic false
+set_option linter.unnecessarySeqFocus false
+set_option linter.flexible false
+set_option linter.style.haveILetI false
+set_option linter.unnecessarySimpa false
+
 set_option maxRecDepth 1000000
 
 section Depression810EighthClearing
@@ -110,6 +119,79 @@ def localClearedEighthDefect810
     + (4752384 : F[X]) * h ^ 6 * a7 ^ 6 * b8
     - (1160250 : F[X]) * a7 ^ 8
     + (16777216 : F[X]) * h ^ 54 * b2
+
+set_option maxHeartbeats 400000000 in
+/-- SPEED (recipe R2, `scripts/coord/LEAN_SPEED_REPORT.md` §7): the weight-`56`
+clearing of `etaResidual810` carried out on the *atoms* rather than on the fully
+substituted source polynomials.  `etaResidual810` is weighted homogeneous, so
+substituting `X_i = n_i / (d_i h^(e_i))` makes `16777216 * h^56 * etaResidual810`
+a polynomial in `h, n_*` — 22 monomials. -/
+def speedEtaResidual810Scaled56 (h nL nA nB nC nD nE nF nG nP nQ nR nS nT nV : F) : F :=
+    - (810 : F) * h ^ 7 * nL * nA ^ 2 * nB
+    + (360 : F) * h ^ 7 * nL * nA * nD
+    + (90 : F) * h ^ 7 * nL * nB * nC
+    - (36 : F) * h ^ 7 * nL * nF
+    + (975 / 8 : F) * nA ^ 4
+    - (30 : F) * nA ^ 3 * nP
+    - (225 / 4 : F) * nA ^ 2 * nC
+    + (15 : F) * nA ^ 2 * nR
+    - (1800 : F) * nA * nB ^ 2
+    + (560 : F) * nA * nB * nQ
+    + (10 : F) * nA * nC * nP
+    + (25 : F) * nA * nE
+    - (4 : F) * nA * nT
+    + (160 : F) * nB ^ 2 * nP
+    + (800 : F) * nB * nD
+    - (40 : F) * nB * nS
+    + (25 / 8 : F) * nC ^ 2
+    - (3 : F) * nC * nR
+    - (224 : F) * nD * nQ
+    - (4 : F) * nE * nP
+    - (5 / 4 : F) * nG
+    + (1 : F) * nV
+
+set_option maxHeartbeats 400000000 in
+/-- The atom-level clearing: one `field_simp` over 15 atomic variables in
+place of the single enormous `field_simp` on the substituted rational function. -/
+theorem speedEtaResidual810Scaled56_eq (h : F) (hh : h ≠ 0) (nL nA nB nC nD nE nF nG nP nQ nR nS nT nV : F) :
+    (16777216 : F) * h ^ 56 *
+        etaResidual810
+          (nL / 4)
+          (nA / (16 * h ^ 14))
+          (nB / (32 * h ^ 21))
+          (nC / (2048 * h ^ 28))
+          (nD / (1024 * h ^ 35))
+          (nE / (65536 * h ^ 42))
+          (nF / (131072 * h ^ 49))
+          (nG / (16777216 * h ^ 56))
+          (nP / (64 * h ^ 14))
+          (nQ / (64 * h ^ 21))
+          (nR / (2048 * h ^ 28))
+          (nS / (8192 * h ^ 35))
+          (nT / (131072 * h ^ 42))
+          (nV / (16777216 * h ^ 56)) =
+      speedEtaResidual810Scaled56 h nL nA nB nC nD nE nF nG nP nQ nR nS nT nV := by
+  have hd2 : (2 : F) ≠ 0 := by norm_num
+  have hd4 : (4 : F) ≠ 0 := by norm_num
+  have hd16 : (16 : F) ≠ 0 := by norm_num
+  have hd32 : (32 : F) ≠ 0 := by norm_num
+  have hd64 : (64 : F) ≠ 0 := by norm_num
+  have hd1024 : (1024 : F) ≠ 0 := by norm_num
+  have hd2048 : (2048 : F) ≠ 0 := by norm_num
+  have hd8192 : (8192 : F) ≠ 0 := by norm_num
+  have hd65536 : (65536 : F) ≠ 0 := by norm_num
+  have hd131072 : (131072 : F) ≠ 0 := by norm_num
+  have hd16777216 : (16777216 : F) ≠ 0 := by norm_num
+  have hp14 : h ^ 14 ≠ 0 := pow_ne_zero 14 hh
+  have hp21 : h ^ 21 ≠ 0 := pow_ne_zero 21 hh
+  have hp28 : h ^ 28 ≠ 0 := pow_ne_zero 28 hh
+  have hp35 : h ^ 35 ≠ 0 := pow_ne_zero 35 hh
+  have hp42 : h ^ 42 ≠ 0 := pow_ne_zero 42 hh
+  have hp49 : h ^ 49 ≠ 0 := pow_ne_zero 49 hh
+  have hp56 : h ^ 56 ≠ 0 := pow_ne_zero 56 hh
+  simp only [alphaResidual810, betaResidual810, deltaResidual810, epsilonResidual810, etaResidual810, gammaResidual810, speedEtaResidual810Scaled56]
+  field_simp
+  ring
 
 set_option maxHeartbeats 24000000 in
 /-- Clearing the first integral
@@ -320,12 +402,9 @@ theorem eighthDefect_eq_clearedEta810
             6291456 * a7 * b3 * h ^ 46 + 16777216 * b2 * h ^ 54) /
           (16777216 * h ^ 56) :=
     depressedV810_eq_cleared h a7 b9 b8 b7 b6 b5 b4 b3 b2 lambda hh hN
-  simp only [etaResidual810, hL, hA, hB, hC, hD0, hE0, hF0, hG0, hP, hQ,
-    hR, hS, hT0, hV0, alphaResidual810, betaResidual810, gammaResidual810,
-    deltaResidual810, epsilonResidual810]
-  field_simp [hh, h2, h4, h8, h16, h32, h64, h128, h1024, h2048, h8192,
-    h65536, h131072, h262144, h16777216, hh14, hh21, hh28, hh35, hh42,
-    hh49, hh56]
+  rw [hL, hA, hB, hC, hD0, hE0, hF0, hG0, hP, hQ, hR, hS, hT0, hV0,
+    speedEtaResidual810Scaled56_eq h hh]
+  simp only [speedEtaResidual810Scaled56]
   ring
 
 end Depression810EighthClearing

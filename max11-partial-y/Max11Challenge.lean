@@ -745,6 +745,42 @@ theorem Max11PlaneKellerGenerationWithFiveNormalizedLowScaleRoutes
       IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
   sorry
 
+/-- The normalized `(4,10)` low-scale route is proved internally. -/
+theorem planeKellerNormalized410LowScaleRoute_proved
+    {K : Type*} [Field K] [CharZero K] [IsAlgClosed K] :
+    PlaneKellerNormalized410LowScaleRoute (K := K) := by
+  sorry
+
+/-- The normalized `(6,8)` low-scale route is proved internally. -/
+theorem proved_planeKellerNormalized68LowScaleRoute
+    {K : Type*} [Field K] [CharZero K] [IsAlgClosed K] :
+    PlaneKellerNormalized68LowScaleRoute (K := K) := by
+  sorry
+
+/-- The normalized `(6,10)` low-scale route is proved internally. -/
+theorem proved_planeKellerNormalized610LowScaleRoute
+    {K : Type*} [Field K] [CharZero K] [IsAlgClosed K] :
+    PlaneKellerNormalized610LowScaleRoute (K := K) := by
+  sorry
+
+/-- The normalized `(8,10)` low-scale route is proved internally. -/
+theorem proved_planeKellerNormalized810LowScaleRoute
+    {K : Type*} [Field K] [CharZero K] [IsAlgClosed K] :
+    PlaneKellerNormalized810LowScaleRoute (K := K) := by
+  sorry
+
+/-- Max-11 with all five primitive gcd-two leaves proved internally: only the
+two classical inputs remain as explicit hypotheses. -/
+theorem Max11PlaneKellerGenerationWithClassicalInterfaces
+    {K : Type*} [Field K] [CharZero K] [IsAlgClosed K]
+    (hprime : PlaneKellerPrimeTotalDegreeGCDRoute (K := K))
+    (hendpoint : PlaneKellerStandardEndpointGCDObstruction (K := K)) :
+    ∀ P Q : MvPolynomial (Fin 2) K,
+      MvPolynomial.degreeOf 1 P ≤ 11 →
+      MvPolynomial.degreeOf 1 Q ≤ 11 →
+      IsPlaneKellerPair P Q → PlanePairGenerates P Q := by
+  sorry
+
 /-- Maximum eleven conditional on the prime and strong arbitrary-pair
 twice-prime total-degree routes. -/
 theorem Max11PlaneKellerGenerationWithPrimeAndTwicePrimeTotalDegreeGCDRoutes

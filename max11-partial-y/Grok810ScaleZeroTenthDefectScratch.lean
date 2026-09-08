@@ -32,6 +32,15 @@ open MvPolynomial Polynomial
 
 namespace Max11DegreeRoutes
 
+set_option linter.unusedVariables false
+set_option linter.unusedSimpArgs false
+set_option linter.unusedTactic false
+set_option linter.unreachableTactic false
+set_option linter.unnecessarySeqFocus false
+set_option linter.flexible false
+set_option linter.style.haveILetI false
+set_option linter.unnecessarySimpa false
+
 set_option maxRecDepth 1000000
 
 /-! ## Literal next Keller coefficient -/
@@ -325,6 +334,113 @@ def localClearedEleventhDefect810
     - (1202590842880 : F[X]) * h ^ 72 * a3 * a2
     - (1202590842880 : F[X]) * h ^ 72 * a4 * a1
     - (1202590842880 : F[X]) * h ^ 72 * a5 * a0
+
+set_option maxHeartbeats 400000000 in
+/-- SPEED (recipe R2, `scripts/coord/LEAN_SPEED_REPORT.md` §7): the weight-`77`
+clearing of `kappaResidual810` carried out on the *atoms* rather than on the fully
+substituted source polynomials.  `kappaResidual810` is weighted homogeneous, so
+substituting `X_i = n_i / (d_i h^(e_i))` makes `1099511627776 * h^77 * kappaResidual810`
+a polynomial in `h, n_*` — 51 monomials. -/
+def speedKappaResidual810Scaled77 (h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW : F) : F :=
+    (44919 : F) * h ^ 7 * nL * nA ^ 5
+    - (28980 : F) * h ^ 7 * nL * nA ^ 3 * nC
+    - (1391040 : F) * h ^ 7 * nL * nA ^ 2 * nB ^ 2
+    + (15120 : F) * h ^ 7 * nL * nA ^ 2 * nE
+    + (967680 : F) * h ^ 7 * nL * nA * nB * nD
+    + (3780 : F) * h ^ 7 * nL * nA * nC ^ 2
+    - (1008 : F) * h ^ 7 * nL * nA * nG
+    + (120960 : F) * h ^ 7 * nL * nB ^ 2 * nC
+    - (64512 : F) * h ^ 7 * nL * nB * nF
+    - (2016 : F) * h ^ 7 * nL * nC * nE
+    - (129024 : F) * h ^ 7 * nL * nD ^ 2
+    + (499100 : F) * nA ^ 4 * nB
+    - (45080 : F) * nA ^ 4 * nQ
+    - (103040 : F) * nA ^ 3 * nB * nP
+    - (257600 : F) * nA ^ 3 * nD
+    + (5600 : F) * nA ^ 3 * nS
+    - (193200 : F) * nA ^ 2 * nB * nC
+    + (40320 : F) * nA ^ 2 * nB * nR
+    + (23520 : F) * nA ^ 2 * nC * nQ
+    + (53760 : F) * nA ^ 2 * nD * nP
+    + (33600 : F) * nA ^ 2 * nF
+    - (2688 : F) * nA ^ 2 * nU
+    - (2060800 : F) * nA * nB ^ 3
+    + (752640 : F) * nA * nB ^ 2 * nQ
+    + (26880 : F) * nA * nB * nC * nP
+    + (67200 : F) * nA * nB * nE
+    - (7168 : F) * nA * nB * nT
+    + (67200 : F) * nA * nC * nD
+    - (2240 : F) * nA * nC * nS
+    - (21504 : F) * nA * nD * nR
+    - (12544 : F) * nA * nE * nQ
+    - (7168 : F) * nA * nF * nP
+    + (128 : F) * nA * nW
+    + (143360 : F) * nB ^ 3 * nP
+    + (1075200 : F) * nB ^ 2 * nD
+    - (35840 : F) * nB ^ 2 * nS
+    + (8400 : F) * nB * nC ^ 2
+    - (5376 : F) * nB * nC * nR
+    - (401408 : F) * nB * nD * nQ
+    - (7168 : F) * nB * nE * nP
+    - (2240 : F) * nB * nG
+    + (512 : F) * nB * nV
+    - (1568 : F) * nC ^ 2 * nQ
+    - (7168 : F) * nC * nD * nP
+    - (4480 : F) * nC * nF
+    + (768 : F) * nC * nU
+    - (17920 : F) * nD * nE
+    + (4096 : F) * nD * nT
+    + (1280 : F) * nE * nS
+    + (3072 : F) * nF * nR
+    + (896 : F) * nG * nQ
+
+set_option maxHeartbeats 400000000 in
+/-- The atom-level clearing: one `field_simp` over 17 atomic variables in
+place of the single enormous `field_simp` on the substituted rational function. -/
+theorem speedKappaResidual810Scaled77_eq (h : F) (hh : h ≠ 0) (nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW : F) :
+    (1099511627776 : F) * h ^ 77 *
+        kappaResidual810
+          (nL / 4)
+          (nA / (16 * h ^ 14))
+          (nB / (32 * h ^ 21))
+          (nC / (2048 * h ^ 28))
+          (nD / (1024 * h ^ 35))
+          (nE / (65536 * h ^ 42))
+          (nF / (131072 * h ^ 49))
+          (nG / (16777216 * h ^ 56))
+          (nP / (64 * h ^ 14))
+          (nQ / (64 * h ^ 21))
+          (nR / (2048 * h ^ 28))
+          (nS / (8192 * h ^ 35))
+          (nT / (131072 * h ^ 42))
+          (nU / (262144 * h ^ 49))
+          (nV / (16777216 * h ^ 56))
+          (nW / (67108864 * h ^ 63)) =
+      speedKappaResidual810Scaled77 h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW := by
+  have hd2 : (2 : F) ≠ 0 := by norm_num
+  have hd4 : (4 : F) ≠ 0 := by norm_num
+  have hd16 : (16 : F) ≠ 0 := by norm_num
+  have hd32 : (32 : F) ≠ 0 := by norm_num
+  have hd64 : (64 : F) ≠ 0 := by norm_num
+  have hd1024 : (1024 : F) ≠ 0 := by norm_num
+  have hd2048 : (2048 : F) ≠ 0 := by norm_num
+  have hd8192 : (8192 : F) ≠ 0 := by norm_num
+  have hd65536 : (65536 : F) ≠ 0 := by norm_num
+  have hd131072 : (131072 : F) ≠ 0 := by norm_num
+  have hd262144 : (262144 : F) ≠ 0 := by norm_num
+  have hd16777216 : (16777216 : F) ≠ 0 := by norm_num
+  have hd67108864 : (67108864 : F) ≠ 0 := by norm_num
+  have hp14 : h ^ 14 ≠ 0 := pow_ne_zero 14 hh
+  have hp21 : h ^ 21 ≠ 0 := pow_ne_zero 21 hh
+  have hp28 : h ^ 28 ≠ 0 := pow_ne_zero 28 hh
+  have hp35 : h ^ 35 ≠ 0 := pow_ne_zero 35 hh
+  have hp42 : h ^ 42 ≠ 0 := pow_ne_zero 42 hh
+  have hp49 : h ^ 49 ≠ 0 := pow_ne_zero 49 hh
+  have hp56 : h ^ 56 ≠ 0 := pow_ne_zero 56 hh
+  have hp63 : h ^ 63 ≠ 0 := pow_ne_zero 63 hh
+  simp only [alphaResidual810, betaResidual810, deltaResidual810, epsilonResidual810, etaResidual810, gammaResidual810, kappaResidual810, zetaResidual810, speedKappaResidual810Scaled77]
+  field_simp
+  ring
 
 set_option maxHeartbeats 40000000 in
 /-- Clearing the first integral `κ` of the degree-`6` row against `h⁷⁷`
@@ -681,14 +797,9 @@ theorem eleventhDefect_eq_clearedKappa810
             16777216 * a7 * b2 * h ^ 54 + 67108864 * b1 * h ^ 62) /
           (67108864 * h ^ 63) :=
     depressedW810_eq_cleared h a7 b9 b8 b7 b6 b5 b4 b3 b2 b1 lambda hh hN
-  simp only [kappaResidual810, hL, hA, hB, hC, hD0, hE0, hF0, hG0, hP, hQ,
-    hR, hS, hT0, hU0, hV0, hW0, alphaResidual810, betaResidual810,
-    gammaResidual810, deltaResidual810, epsilonResidual810,
-    zetaResidual810, etaResidual810]
-  field_simp [hh, h2, h4, h8, h16, h32, h64, h128, h512, h1024, h2048,
-    h4096, h8192, h16384, h32768, h65536, h131072, h262144, h16777216,
-    h67108864, h1099511627776, hh14, hh21, hh28, hh35, hh42, hh49, hh56,
-    hh63, hh77]
+  rw [hL, hA, hB, hC, hD0, hE0, hF0, hG0, hP, hQ, hR, hS, hT0, hU0, hV0, hW0,
+    speedKappaResidual810Scaled77_eq h hh]
+  simp only [speedKappaResidual810Scaled77]
   ring
 
 end Depression810EleventhClearing

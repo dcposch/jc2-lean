@@ -1,4 +1,5 @@
 import Grok610ScaleZeroConeTerminalScratch
+import Max11SpeedReflectDegLibScratch
 
 /-! # Scale-zero cone kappa/mu/omicron closure for the normalized `(6,10)`, `H = 0` leaf
 
@@ -1557,6 +1558,53 @@ def WeightedE0LeadsCone610 (A B C0 D0 E0 : k[X]) : Prop :=
     2 * A.natDegree + B.natDegree + D0.natDegree < 2 * E0.natDegree ∧
     B.natDegree + C0.natDegree + D0.natDegree < 2 * E0.natDegree
 
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroLambdaNoA6Polynomial610` (49 monomials, 5 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroLambdaNoA6Polynomial610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k) (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoA6Polynomial610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+      [
+      (-(70 / 729) : k), (-(35 / 729) : k), (-(15 / 256 * l) : k),
+      (-(8 / 729 * alpha) : k), (5 / 243 : k), (20 / 81 : k),
+      (3 / 32 * l : k), (10 / 81 : k), (20 / 81 : k),
+      (9 / 32 * l : k), (10 / 81 * alpha : k), (20 / 243 : k),
+      (3 / 32 * l : k), (20 / 243 * alpha : k), (385 / 7776 * beta : k),
+      (-(5 / 81) : k), (-(10 / 27) : k), (-(3 / 16 * l) : k),
+      (-(5 / 27) : k), (-(3 / 16 * l) : k), (-(4 / 27 * alpha) : k),
+      (-(35 / 1296 * beta) : k), (-(5 / 27) : k), (-(10 / 27) : k),
+      (-(3 / 8 * l) : k), (-(4 / 27 * alpha) : k), (-(3 / 8 * l) : k),
+      (-(8 / 27 * alpha) : k), (-(35 / 216 * beta) : k), (-(4 / 27 * alpha) : k),
+      (-(35 / 432 * beta) : k), (35 / 432 * delta : k), (4 / 81 * epsilon : k),
+      (5 / 9 : k), (3 / 4 * l : k), (2 / 9 * alpha : k),
+      (4 / 9 * alpha : k), (7 / 36 * beta : k), (7 / 36 * beta : k),
+      (-(5 / 36 * delta) : k), (-(1 / 9 * epsilon) : k), (-(5 / 36 * delta) : k),
+      (-(2 / 9 * epsilon) : k), (-(1 / 4 * zeta) : k), (-(1 / 9 * eta) : k),
+      (2 / 3 * epsilon : k), (1 / 2 * zeta : k), (1 / 3 * eta : k),
+      (1 / 6 * theta : k)]
+      [
+      [3, 2, 0, 0, 0], [4, 0, 1, 0, 0], [4, 1, 0, 0, 0], [5, 0, 0, 0, 0],
+      [0, 4, 0, 0, 0], [1, 2, 1, 0, 0], [1, 3, 0, 0, 0], [2, 0, 2, 0, 0],
+      [2, 1, 0, 1, 0], [2, 1, 1, 0, 0], [2, 2, 0, 0, 0], [3, 0, 0, 0, 1],
+      [3, 0, 0, 1, 0], [3, 0, 1, 0, 0], [3, 1, 0, 0, 0], [0, 0, 3, 0, 0],
+      [0, 1, 1, 1, 0], [0, 1, 2, 0, 0], [0, 2, 0, 0, 1], [0, 2, 0, 1, 0],
+      [0, 2, 1, 0, 0], [0, 3, 0, 0, 0], [1, 0, 0, 2, 0], [1, 0, 1, 0, 1],
+      [1, 0, 1, 1, 0], [1, 0, 2, 0, 0], [1, 1, 0, 0, 1], [1, 1, 0, 1, 0],
+      [1, 1, 1, 0, 0], [2, 0, 0, 0, 1], [2, 0, 0, 1, 0], [2, 1, 0, 0, 0],
+      [3, 0, 0, 0, 0], [0, 0, 0, 0, 2], [0, 0, 0, 1, 1], [0, 0, 0, 2, 0],
+      [0, 0, 1, 0, 1], [0, 0, 1, 1, 0], [0, 1, 0, 0, 1], [0, 1, 1, 0, 0],
+      [0, 2, 0, 0, 0], [1, 0, 0, 1, 0], [1, 0, 1, 0, 0], [1, 1, 0, 0, 0],
+      [2, 0, 0, 0, 0], [0, 0, 0, 0, 1], [0, 0, 0, 1, 0], [0, 0, 1, 0, 0],
+      [0, 1, 0, 0, 0]] := by
+  simp only [degreeZeroLambdaNoA6Polynomial610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  try module
+
 set_option maxHeartbeats 16000000 in
 theorem degreeZeroLambdaNoA6_natDegree_lt_of_weighted_A
     (l alpha beta delta epsilon zeta eta theta : k)
@@ -1566,11 +1614,71 @@ theorem degreeZeroLambdaNoA6_natDegree_lt_of_weighted_A
         eta theta A B C0 D0 E0).natDegree <
       6 * A.natDegree := by
   rcases hcone with ⟨hApos, hB, hC, hE, hD1, hD2, hD3⟩
-  simp only [degreeZeroLambdaNoA6Polynomial610, zero_mul, mul_zero,
-    zero_smul, smul_zero, zero_pow_two_km, zero_pow_three_km,
-    zero_pow_four_km, zero_pow_five_km]
-  compute_degree
-  omega
+  rw [speedRefl_degreeZeroLambdaNoA6Polynomial610_eq_polyOf]
+  first
+    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  repeat' apply And.intro
+  all_goals first
+    | (right; right; omega)
+    | (left; norm_num; done)
+    | (right; left; simp; done)
+    | trivial
+
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroLambdaNoB4Polynomial610` (49 monomials, 5 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroLambdaNoB4Polynomial610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k) (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoB4Polynomial610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+      [
+      (35 / 6561 : k), (-(70 / 729) : k), (-(35 / 729) : k),
+      (-(15 / 256 * l) : k), (-(8 / 729 * alpha) : k), (20 / 81 : k),
+      (3 / 32 * l : k), (10 / 81 : k), (20 / 81 : k),
+      (9 / 32 * l : k), (10 / 81 * alpha : k), (20 / 243 : k),
+      (3 / 32 * l : k), (20 / 243 * alpha : k), (385 / 7776 * beta : k),
+      (-(5 / 81) : k), (-(10 / 27) : k), (-(3 / 16 * l) : k),
+      (-(5 / 27) : k), (-(3 / 16 * l) : k), (-(4 / 27 * alpha) : k),
+      (-(35 / 1296 * beta) : k), (-(5 / 27) : k), (-(10 / 27) : k),
+      (-(3 / 8 * l) : k), (-(4 / 27 * alpha) : k), (-(3 / 8 * l) : k),
+      (-(8 / 27 * alpha) : k), (-(35 / 216 * beta) : k), (-(4 / 27 * alpha) : k),
+      (-(35 / 432 * beta) : k), (35 / 432 * delta : k), (4 / 81 * epsilon : k),
+      (5 / 9 : k), (3 / 4 * l : k), (2 / 9 * alpha : k),
+      (4 / 9 * alpha : k), (7 / 36 * beta : k), (7 / 36 * beta : k),
+      (-(5 / 36 * delta) : k), (-(1 / 9 * epsilon) : k), (-(5 / 36 * delta) : k),
+      (-(2 / 9 * epsilon) : k), (-(1 / 4 * zeta) : k), (-(1 / 9 * eta) : k),
+      (2 / 3 * epsilon : k), (1 / 2 * zeta : k), (1 / 3 * eta : k),
+      (1 / 6 * theta : k)]
+      [
+      [6, 0, 0, 0, 0], [3, 2, 0, 0, 0], [4, 0, 1, 0, 0], [4, 1, 0, 0, 0],
+      [5, 0, 0, 0, 0], [1, 2, 1, 0, 0], [1, 3, 0, 0, 0], [2, 0, 2, 0, 0],
+      [2, 1, 0, 1, 0], [2, 1, 1, 0, 0], [2, 2, 0, 0, 0], [3, 0, 0, 0, 1],
+      [3, 0, 0, 1, 0], [3, 0, 1, 0, 0], [3, 1, 0, 0, 0], [0, 0, 3, 0, 0],
+      [0, 1, 1, 1, 0], [0, 1, 2, 0, 0], [0, 2, 0, 0, 1], [0, 2, 0, 1, 0],
+      [0, 2, 1, 0, 0], [0, 3, 0, 0, 0], [1, 0, 0, 2, 0], [1, 0, 1, 0, 1],
+      [1, 0, 1, 1, 0], [1, 0, 2, 0, 0], [1, 1, 0, 0, 1], [1, 1, 0, 1, 0],
+      [1, 1, 1, 0, 0], [2, 0, 0, 0, 1], [2, 0, 0, 1, 0], [2, 1, 0, 0, 0],
+      [3, 0, 0, 0, 0], [0, 0, 0, 0, 2], [0, 0, 0, 1, 1], [0, 0, 0, 2, 0],
+      [0, 0, 1, 0, 1], [0, 0, 1, 1, 0], [0, 1, 0, 0, 1], [0, 1, 1, 0, 0],
+      [0, 2, 0, 0, 0], [1, 0, 0, 1, 0], [1, 0, 1, 0, 0], [1, 1, 0, 0, 0],
+      [2, 0, 0, 0, 0], [0, 0, 0, 0, 1], [0, 0, 0, 1, 0], [0, 0, 1, 0, 0],
+      [0, 1, 0, 0, 0]] := by
+  simp only [degreeZeroLambdaNoB4Polynomial610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  try module
 
 set_option maxHeartbeats 16000000 in
 theorem degreeZeroLambdaNoB4_natDegree_lt_of_weighted_B
@@ -1581,11 +1689,71 @@ theorem degreeZeroLambdaNoB4_natDegree_lt_of_weighted_B
         eta theta A B C0 D0 E0).natDegree <
       4 * B.natDegree := by
   rcases hcone with ⟨hBpos, hA, hC, hE, hD1, hD2, hD3⟩
-  simp only [degreeZeroLambdaNoB4Polynomial610, zero_mul, mul_zero,
-    zero_smul, smul_zero, zero_pow_two_km, zero_pow_three_km,
-    zero_pow_four_km, zero_pow_five_km]
-  compute_degree
-  omega
+  rw [speedRefl_degreeZeroLambdaNoB4Polynomial610_eq_polyOf]
+  first
+    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  repeat' apply And.intro
+  all_goals first
+    | (right; right; omega)
+    | (left; norm_num; done)
+    | (right; left; simp; done)
+    | trivial
+
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroLambdaNoC03Polynomial610` (49 monomials, 5 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroLambdaNoC03Polynomial610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k) (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoC03Polynomial610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+      [
+      (35 / 6561 : k), (-(70 / 729) : k), (-(35 / 729) : k),
+      (-(15 / 256 * l) : k), (-(8 / 729 * alpha) : k), (5 / 243 : k),
+      (20 / 81 : k), (3 / 32 * l : k), (10 / 81 : k),
+      (20 / 81 : k), (9 / 32 * l : k), (10 / 81 * alpha : k),
+      (20 / 243 : k), (3 / 32 * l : k), (20 / 243 * alpha : k),
+      (385 / 7776 * beta : k), (-(10 / 27) : k), (-(3 / 16 * l) : k),
+      (-(5 / 27) : k), (-(3 / 16 * l) : k), (-(4 / 27 * alpha) : k),
+      (-(35 / 1296 * beta) : k), (-(5 / 27) : k), (-(10 / 27) : k),
+      (-(3 / 8 * l) : k), (-(4 / 27 * alpha) : k), (-(3 / 8 * l) : k),
+      (-(8 / 27 * alpha) : k), (-(35 / 216 * beta) : k), (-(4 / 27 * alpha) : k),
+      (-(35 / 432 * beta) : k), (35 / 432 * delta : k), (4 / 81 * epsilon : k),
+      (5 / 9 : k), (3 / 4 * l : k), (2 / 9 * alpha : k),
+      (4 / 9 * alpha : k), (7 / 36 * beta : k), (7 / 36 * beta : k),
+      (-(5 / 36 * delta) : k), (-(1 / 9 * epsilon) : k), (-(5 / 36 * delta) : k),
+      (-(2 / 9 * epsilon) : k), (-(1 / 4 * zeta) : k), (-(1 / 9 * eta) : k),
+      (2 / 3 * epsilon : k), (1 / 2 * zeta : k), (1 / 3 * eta : k),
+      (1 / 6 * theta : k)]
+      [
+      [6, 0, 0, 0, 0], [3, 2, 0, 0, 0], [4, 0, 1, 0, 0], [4, 1, 0, 0, 0],
+      [5, 0, 0, 0, 0], [0, 4, 0, 0, 0], [1, 2, 1, 0, 0], [1, 3, 0, 0, 0],
+      [2, 0, 2, 0, 0], [2, 1, 0, 1, 0], [2, 1, 1, 0, 0], [2, 2, 0, 0, 0],
+      [3, 0, 0, 0, 1], [3, 0, 0, 1, 0], [3, 0, 1, 0, 0], [3, 1, 0, 0, 0],
+      [0, 1, 1, 1, 0], [0, 1, 2, 0, 0], [0, 2, 0, 0, 1], [0, 2, 0, 1, 0],
+      [0, 2, 1, 0, 0], [0, 3, 0, 0, 0], [1, 0, 0, 2, 0], [1, 0, 1, 0, 1],
+      [1, 0, 1, 1, 0], [1, 0, 2, 0, 0], [1, 1, 0, 0, 1], [1, 1, 0, 1, 0],
+      [1, 1, 1, 0, 0], [2, 0, 0, 0, 1], [2, 0, 0, 1, 0], [2, 1, 0, 0, 0],
+      [3, 0, 0, 0, 0], [0, 0, 0, 0, 2], [0, 0, 0, 1, 1], [0, 0, 0, 2, 0],
+      [0, 0, 1, 0, 1], [0, 0, 1, 1, 0], [0, 1, 0, 0, 1], [0, 1, 1, 0, 0],
+      [0, 2, 0, 0, 0], [1, 0, 0, 1, 0], [1, 0, 1, 0, 0], [1, 1, 0, 0, 0],
+      [2, 0, 0, 0, 0], [0, 0, 0, 0, 1], [0, 0, 0, 1, 0], [0, 0, 1, 0, 0],
+      [0, 1, 0, 0, 0]] := by
+  simp only [degreeZeroLambdaNoC03Polynomial610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  try module
 
 set_option maxHeartbeats 16000000 in
 theorem degreeZeroLambdaNoC03_natDegree_lt_of_weighted_C0
@@ -1596,11 +1764,71 @@ theorem degreeZeroLambdaNoC03_natDegree_lt_of_weighted_C0
         eta theta A B C0 D0 E0).natDegree <
       3 * C0.natDegree := by
   rcases hcone with ⟨hCpos, hA, hB, hE, hD1, hD2, hD3⟩
-  simp only [degreeZeroLambdaNoC03Polynomial610, zero_mul, mul_zero,
-    zero_smul, smul_zero, zero_pow_two_km, zero_pow_three_km,
-    zero_pow_four_km, zero_pow_five_km]
-  compute_degree
-  omega
+  rw [speedRefl_degreeZeroLambdaNoC03Polynomial610_eq_polyOf]
+  first
+    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  repeat' apply And.intro
+  all_goals first
+    | (right; right; omega)
+    | (left; norm_num; done)
+    | (right; left; simp; done)
+    | trivial
+
+set_option maxHeartbeats 400000000 in
+/-- Reflected form of `degreeZeroLambdaNoE02Polynomial610` (49 monomials, 5 atoms):
+the CAS-emitted coefficient list and exponent vectors.  Proved once, and
+used by every case-fan branch below, so the polynomial is reflected once
+instead of `2^k` times. -/
+theorem speedRefl_degreeZeroLambdaNoE02Polynomial610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k) (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoE02Polynomial610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+      [
+      (35 / 6561 : k), (-(70 / 729) : k), (-(35 / 729) : k),
+      (-(15 / 256 * l) : k), (-(8 / 729 * alpha) : k), (5 / 243 : k),
+      (20 / 81 : k), (3 / 32 * l : k), (10 / 81 : k),
+      (20 / 81 : k), (9 / 32 * l : k), (10 / 81 * alpha : k),
+      (20 / 243 : k), (3 / 32 * l : k), (20 / 243 * alpha : k),
+      (385 / 7776 * beta : k), (-(5 / 81) : k), (-(10 / 27) : k),
+      (-(3 / 16 * l) : k), (-(5 / 27) : k), (-(3 / 16 * l) : k),
+      (-(4 / 27 * alpha) : k), (-(35 / 1296 * beta) : k), (-(5 / 27) : k),
+      (-(10 / 27) : k), (-(3 / 8 * l) : k), (-(4 / 27 * alpha) : k),
+      (-(3 / 8 * l) : k), (-(8 / 27 * alpha) : k), (-(35 / 216 * beta) : k),
+      (-(4 / 27 * alpha) : k), (-(35 / 432 * beta) : k), (35 / 432 * delta : k),
+      (4 / 81 * epsilon : k), (3 / 4 * l : k), (2 / 9 * alpha : k),
+      (4 / 9 * alpha : k), (7 / 36 * beta : k), (7 / 36 * beta : k),
+      (-(5 / 36 * delta) : k), (-(1 / 9 * epsilon) : k), (-(5 / 36 * delta) : k),
+      (-(2 / 9 * epsilon) : k), (-(1 / 4 * zeta) : k), (-(1 / 9 * eta) : k),
+      (2 / 3 * epsilon : k), (1 / 2 * zeta : k), (1 / 3 * eta : k),
+      (1 / 6 * theta : k)]
+      [
+      [6, 0, 0, 0, 0], [3, 2, 0, 0, 0], [4, 0, 1, 0, 0], [4, 1, 0, 0, 0],
+      [5, 0, 0, 0, 0], [0, 4, 0, 0, 0], [1, 2, 1, 0, 0], [1, 3, 0, 0, 0],
+      [2, 0, 2, 0, 0], [2, 1, 0, 1, 0], [2, 1, 1, 0, 0], [2, 2, 0, 0, 0],
+      [3, 0, 0, 0, 1], [3, 0, 0, 1, 0], [3, 0, 1, 0, 0], [3, 1, 0, 0, 0],
+      [0, 0, 3, 0, 0], [0, 1, 1, 1, 0], [0, 1, 2, 0, 0], [0, 2, 0, 0, 1],
+      [0, 2, 0, 1, 0], [0, 2, 1, 0, 0], [0, 3, 0, 0, 0], [1, 0, 0, 2, 0],
+      [1, 0, 1, 0, 1], [1, 0, 1, 1, 0], [1, 0, 2, 0, 0], [1, 1, 0, 0, 1],
+      [1, 1, 0, 1, 0], [1, 1, 1, 0, 0], [2, 0, 0, 0, 1], [2, 0, 0, 1, 0],
+      [2, 1, 0, 0, 0], [3, 0, 0, 0, 0], [0, 0, 0, 1, 1], [0, 0, 0, 2, 0],
+      [0, 0, 1, 0, 1], [0, 0, 1, 1, 0], [0, 1, 0, 0, 1], [0, 1, 1, 0, 0],
+      [0, 2, 0, 0, 0], [1, 0, 0, 1, 0], [1, 0, 1, 0, 0], [1, 1, 0, 0, 0],
+      [2, 0, 0, 0, 0], [0, 0, 0, 0, 1], [0, 0, 0, 1, 0], [0, 0, 1, 0, 0],
+      [0, 1, 0, 0, 0]] := by
+  simp only [degreeZeroLambdaNoE02Polynomial610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  try module
 
 set_option maxHeartbeats 16000000 in
 theorem degreeZeroLambdaNoE02_natDegree_lt_of_weighted_E0
@@ -1611,11 +1839,24 @@ theorem degreeZeroLambdaNoE02_natDegree_lt_of_weighted_E0
         eta theta A B C0 D0 E0).natDegree <
       2 * E0.natDegree := by
   rcases hcone with ⟨hEpos, hA, hB, hC, hD1, hD2, hD3⟩
-  simp only [degreeZeroLambdaNoE02Polynomial610, zero_mul, mul_zero,
-    zero_smul, smul_zero, zero_pow_two_km, zero_pow_three_km,
-    zero_pow_four_km, zero_pow_five_km]
-  compute_degree
-  omega
+  rw [speedRefl_degreeZeroLambdaNoE02Polynomial610_eq_polyOf]
+  first
+    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
+    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
+                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
+                  Max11ReflectDeg.mdeg_cons,
+    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  repeat' apply And.intro
+  all_goals first
+    | (right; right; omega)
+    | (left; norm_num; done)
+    | (right; left; simp; done)
+    | trivial
 
 theorem lambda_A6_impossible_of_weighted_A
     (l alpha beta delta epsilon zeta eta theta : k)

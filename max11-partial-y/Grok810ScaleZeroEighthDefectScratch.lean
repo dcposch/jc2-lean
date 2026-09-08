@@ -34,6 +34,15 @@ open MvPolynomial Polynomial
 
 namespace Max11DegreeRoutes
 
+set_option linter.unusedVariables false
+set_option linter.unusedSimpArgs false
+set_option linter.unusedTactic false
+set_option linter.unreachableTactic false
+set_option linter.unnecessarySeqFocus false
+set_option linter.flexible false
+set_option linter.style.haveILetI false
+set_option linter.unnecessarySimpa false
+
 set_option maxRecDepth 1000000
 
 section Depression810NinthClearing
@@ -228,6 +237,90 @@ theorem depressedW810_eq_cleared
       hh63, h67108864]
     ring
   exact hrewrite
+
+set_option maxHeartbeats 400000000 in
+/-- SPEED (recipe R2, `scripts/coord/LEAN_SPEED_REPORT.md` §7): the weight-`63`
+clearing of `thetaResidual810` carried out on the *atoms* rather than on the fully
+substituted source polynomials.  `thetaResidual810` is weighted homogeneous, so
+substituting `X_i = n_i / (d_i h^(e_i))` makes `8589934592 * h^63 * thetaResidual810`
+a polynomial in `h, n_*` — 29 monomials. -/
+def speedThetaResidual810Scaled63 (h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nW : F) : F :=
+    (11475 : F) * h ^ 7 * nL * nA ^ 4
+    - (5508 : F) * h ^ 7 * nL * nA ^ 2 * nC
+    - (176256 : F) * h ^ 7 * nL * nA * nB ^ 2
+    + (2592 : F) * h ^ 7 * nL * nA * nE
+    + (82944 : F) * h ^ 7 * nL * nB * nD
+    + (324 : F) * h ^ 7 * nL * nC ^ 2
+    - (144 : F) * h ^ 7 * nL * nG
+    + (102000 : F) * nA ^ 3 * nB
+    - (11424 : F) * nA ^ 3 * nQ
+    - (19584 : F) * nA ^ 2 * nB * nP
+    - (48960 : F) * nA ^ 2 * nD
+    + (1440 : F) * nA ^ 2 * nS
+    - (24480 : F) * nA * nB * nC
+    + (6912 : F) * nA * nB * nR
+    + (4032 : F) * nA * nC * nQ
+    + (9216 : F) * nA * nD * nP
+    + (5760 : F) * nA * nF
+    - (768 : F) * nA * nU
+    - (130560 : F) * nB ^ 3
+    + (64512 : F) * nB ^ 2 * nQ
+    + (2304 : F) * nB * nC * nP
+    + (5760 : F) * nB * nE
+    - (1024 : F) * nB * nT
+    + (5760 : F) * nC * nD
+    - (320 : F) * nC * nS
+    - (3072 : F) * nD * nR
+    - (1792 : F) * nE * nQ
+    - (1024 : F) * nF * nP
+    + (128 : F) * nW
+
+set_option maxHeartbeats 400000000 in
+/-- The atom-level clearing: one `field_simp` over 16 atomic variables in
+place of the single enormous `field_simp` on the substituted rational function. -/
+theorem speedThetaResidual810Scaled63_eq (h : F) (hh : h ≠ 0) (nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nW : F) :
+    (8589934592 : F) * h ^ 63 *
+        thetaResidual810
+          (nL / 4)
+          (nA / (16 * h ^ 14))
+          (nB / (32 * h ^ 21))
+          (nC / (2048 * h ^ 28))
+          (nD / (1024 * h ^ 35))
+          (nE / (65536 * h ^ 42))
+          (nF / (131072 * h ^ 49))
+          (nG / (16777216 * h ^ 56))
+          (nP / (64 * h ^ 14))
+          (nQ / (64 * h ^ 21))
+          (nR / (2048 * h ^ 28))
+          (nS / (8192 * h ^ 35))
+          (nT / (131072 * h ^ 42))
+          (nU / (262144 * h ^ 49))
+          (nW / (67108864 * h ^ 63)) =
+      speedThetaResidual810Scaled63 h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nW := by
+  have hd2 : (2 : F) ≠ 0 := by norm_num
+  have hd4 : (4 : F) ≠ 0 := by norm_num
+  have hd16 : (16 : F) ≠ 0 := by norm_num
+  have hd32 : (32 : F) ≠ 0 := by norm_num
+  have hd64 : (64 : F) ≠ 0 := by norm_num
+  have hd1024 : (1024 : F) ≠ 0 := by norm_num
+  have hd2048 : (2048 : F) ≠ 0 := by norm_num
+  have hd8192 : (8192 : F) ≠ 0 := by norm_num
+  have hd65536 : (65536 : F) ≠ 0 := by norm_num
+  have hd131072 : (131072 : F) ≠ 0 := by norm_num
+  have hd262144 : (262144 : F) ≠ 0 := by norm_num
+  have hd16777216 : (16777216 : F) ≠ 0 := by norm_num
+  have hd67108864 : (67108864 : F) ≠ 0 := by norm_num
+  have hp14 : h ^ 14 ≠ 0 := pow_ne_zero 14 hh
+  have hp21 : h ^ 21 ≠ 0 := pow_ne_zero 21 hh
+  have hp28 : h ^ 28 ≠ 0 := pow_ne_zero 28 hh
+  have hp35 : h ^ 35 ≠ 0 := pow_ne_zero 35 hh
+  have hp42 : h ^ 42 ≠ 0 := pow_ne_zero 42 hh
+  have hp49 : h ^ 49 ≠ 0 := pow_ne_zero 49 hh
+  have hp56 : h ^ 56 ≠ 0 := pow_ne_zero 56 hh
+  have hp63 : h ^ 63 ≠ 0 := pow_ne_zero 63 hh
+  simp only [alphaResidual810, betaResidual810, deltaResidual810, epsilonResidual810, gammaResidual810, thetaResidual810, zetaResidual810, speedThetaResidual810Scaled63]
+  field_simp
+  ring
 
 set_option maxHeartbeats 40000000 in
 /-- Clearing the first integral
@@ -485,13 +578,9 @@ theorem ninthDefect_eq_clearedTheta810
             16777216 * a7 * b2 * h ^ 54 + 67108864 * b1 * h ^ 62) /
           (67108864 * h ^ 63) :=
     depressedW810_eq_cleared h a7 b9 b8 b7 b6 b5 b4 b3 b2 b1 lambda hh hN
-  simp only [thetaResidual810, hL, hA, hB, hC, hD0, hE0, hF0, hG0, hP, hQ,
-    hR, hS, hT0, hU0, hW0, alphaResidual810, betaResidual810,
-    gammaResidual810, deltaResidual810, epsilonResidual810,
-    zetaResidual810]
-  field_simp [hh, h2, h4, h8, h16, h32, h64, h128, h512, h1024, h2048,
-    h8192, h32768, h65536, h131072, h262144, h16777216, h67108864,
-    h8589934592, hh14, hh21, hh28, hh35, hh42, hh49, hh56, hh63]
+  rw [hL, hA, hB, hC, hD0, hE0, hF0, hG0, hP, hQ, hR, hS, hT0, hU0, hW0,
+    speedThetaResidual810Scaled63_eq h hh]
+  simp only [speedThetaResidual810Scaled63]
   ring
 
 end Depression810NinthClearing

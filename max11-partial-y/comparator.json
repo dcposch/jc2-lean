@@ -1,6 +1,6 @@
 {
   "challenge_module": "Max11Challenge",
-  "solution_module": "Max11Assembly",
+  "solution_module": "Max11Solution",
   "theorem_names": [
     "Max11RouteClassification",
     "Max11UniquePrimitive",
@@ -36,7 +36,12 @@
     "Max11DegreeRoutes.Max11PlaneKellerGenerationWithThreeNormalizedAndTwoLowScaleLeaves",
     "Max11DegreeRoutes.Max11PlaneKellerGenerationWithFiveNormalizedLowScaleRoutes",
     "Max11DegreeRoutes.Max11PlaneKellerGenerationWithPrimeAndTwicePrimeTotalDegreeGCDRoutes",
-    "Max12FirstPrimitives"
+    "Max12FirstPrimitives",
+    "Max11DegreeRoutes.Max11PlaneKellerGenerationWithClassicalInterfaces",
+    "Max11DegreeRoutes.proved_planeKellerNormalized68LowScaleRoute",
+    "Max11DegreeRoutes.proved_planeKellerNormalized610LowScaleRoute",
+    "Max11DegreeRoutes.proved_planeKellerNormalized810LowScaleRoute",
+    "Max11DegreeRoutes.planeKellerNormalized410LowScaleRoute_proved"
   ],
   "definition_names": [
     "PlaneJacobian",
@@ -78,6 +83,10 @@
     "Max11DegreeRoutes.Normalized610LeadingCoreSource",
     "Max11DegreeRoutes.PlaneKellerNormalized610LowScaleRoute"
   ],
-  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
   "enable_nanoda": true
 }
