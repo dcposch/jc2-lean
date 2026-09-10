@@ -46,6 +46,7 @@ set_option maxRecDepth 1000000
 
 /-! ## Literal next Keller coefficient -/
 
+set_option maxHeartbeats 64000000 in
 /-- The thirteenth row below the leading weighted-Wronskian row for outer
 degrees `(8,10)`.  Unused Jacobian coefficients of the eleventh-defect
 packet start at degree `4`. -/
@@ -89,6 +90,7 @@ section Depression810ThirteenthClearing
 
 variable {F : Type*} [Field F] [CharZero F]
 
+set_option maxHeartbeats 64000000 in
 /-- First residual of the degree-`4` row.  Unlike the previous first
 integrals, its exactness certificate uses the degree-`6` row again with
 the multiplier `-(5/64) A`. -/
@@ -168,10 +170,9 @@ def nuResidual810
     + (5 / 16 : F) * D0 * G0
     + (5 / 16 : F) * E0 * F0
 
-set_option maxHeartbeats 16000000 in
-/-- Polynomial numerator of `281474976710656 h⁹¹ ν` on the ninth-power
-face. -/
-def localClearedThirteenthDefect810
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 10. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk01
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
     (lambda : F) : F[X] :=
     - (1898935526600 : F[X]) * a7 ^ 13
@@ -184,6 +185,13 @@ def localClearedThirteenthDefect810
     - (17259568618240 : F[X]) * h ^ 16 * a7 ^ 10 * a5
     - (26553182489600 : F[X]) * h ^ 16 * a7 ^ 9 * a6 ^ 2
     + (7388711649280 : F[X]) * h ^ 22 * a7 ^ 9 * b6
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 20. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk02 (acc : F[X])
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    acc
     + (77581472317440 : F[X]) * h ^ 22 * a7 ^ 8 * a6 * b7
     + (88664539791360 : F[X]) * h ^ 22 * a7 ^ 8 * a5 * b8
     + (354658159165440 : F[X]) * h ^ 22 * a7 ^ 7 * a6 ^ 2 * b8
@@ -194,6 +202,13 @@ def localClearedThirteenthDefect810
     - (110830674739200 : F[X]) * h ^ 24 * a7 ^ 7 * a6 ^ 3
     - (7267585228800 : F[X]) * h ^ 30 * a7 ^ 8 * b5
     - (69768818196480 : F[X]) * h ^ 30 * a7 ^ 7 * a6 * b6
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 30. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk03 (acc : F[X])
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    acc
     - (81396954562560 : F[X]) * h ^ 30 * a7 ^ 7 * a5 * b7
     - (93025090928640 : F[X]) * h ^ 30 * a7 ^ 7 * a4 * b8
     - (284889340968960 : F[X]) * h ^ 30 * a7 ^ 6 * a6 ^ 2 * b7
@@ -204,6 +219,13 @@ def localClearedThirteenthDefect810
     - (232744416952320 : F[X]) * h ^ 31 * a7 ^ 6 * a6 ^ 3 * Polynomial.C lambda
     - (19985859379200 : F[X]) * h ^ 32 * a7 ^ 8 * a3
     - (29070340915200 : F[X]) * h ^ 32 * a7 ^ 7 * a6 * a4
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 40. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk04 (acc : F[X])
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    acc
     - (14535170457600 : F[X]) * h ^ 32 * a7 ^ 7 * a5 ^ 2
     + (356111676211200 : F[X]) * h ^ 32 * a7 ^ 6 * a6 ^ 2 * a5
     + (406984772812800 : F[X]) * h ^ 32 * a7 ^ 5 * a6 ^ 4
@@ -214,6 +236,13 @@ def localClearedThirteenthDefect810
     + (98290662113280 : F[X]) * h ^ 38 * a7 ^ 6 * a3 * b8
     + (221153989754880 : F[X]) * h ^ 38 * a7 ^ 5 * a6 ^ 2 * b6
     + (516025976094720 : F[X]) * h ^ 38 * a7 ^ 5 * a6 * a5 * b7
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 50. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk05 (acc : F[X])
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    acc
     + (589743972679680 : F[X]) * h ^ 38 * a7 ^ 5 * a6 * a4 * b8
     + (294871986339840 : F[X]) * h ^ 38 * a7 ^ 5 * a5 ^ 2 * b8
     + (430021646745600 : F[X]) * h ^ 38 * a7 ^ 4 * a6 ^ 3 * b7
@@ -224,6 +253,13 @@ def localClearedThirteenthDefect810
     + (91571573882880 : F[X]) * h ^ 39 * a7 ^ 6 * a5 ^ 2 * Polynomial.C lambda
     + (549429443297280 : F[X]) * h ^ 39 * a7 ^ 5 * a6 ^ 2 * a5 * Polynomial.C lambda
     + (228928934707200 : F[X]) * h ^ 39 * a7 ^ 4 * a6 ^ 4 * Polynomial.C lambda
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 60. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk06 (acc : F[X])
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    acc
     + (21939879936000 : F[X]) * h ^ 40 * a7 ^ 7 * a2
     + (15357915955200 : F[X]) * h ^ 40 * a7 ^ 6 * a6 * a3
     + (15357915955200 : F[X]) * h ^ 40 * a7 ^ 6 * a5 * a4
@@ -234,6 +270,13 @@ def localClearedThirteenthDefect810
     - (6552710807552 : F[X]) * h ^ 46 * a7 ^ 6 * b3
     - (52421686460416 : F[X]) * h ^ 46 * a7 ^ 5 * a6 * b4
     - (65527108075520 : F[X]) * h ^ 46 * a7 ^ 5 * a5 * b5
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 70. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk07 (acc : F[X])
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    acc
     - (78632529690624 : F[X]) * h ^ 46 * a7 ^ 5 * a4 * b6
     - (91737951305728 : F[X]) * h ^ 46 * a7 ^ 5 * a3 * b7
     - (104843372920832 : F[X]) * h ^ 46 * a7 ^ 5 * a2 * b8
@@ -244,6 +287,13 @@ def localClearedThirteenthDefect810
     - (229344878264320 : F[X]) * h ^ 46 * a7 ^ 4 * a5 ^ 2 * b7
     - (524216864604160 : F[X]) * h ^ 46 * a7 ^ 4 * a5 * a4 * b8
     - (262108432302080 : F[X]) * h ^ 46 * a7 ^ 3 * a6 ^ 3 * b6
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 80. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk08 (acc : F[X])
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    acc
     - (917379513057280 : F[X]) * h ^ 46 * a7 ^ 3 * a6 ^ 2 * a5 * b7
     - (1048433729208320 : F[X]) * h ^ 46 * a7 ^ 3 * a6 ^ 2 * a4 * b8
     - (1048433729208320 : F[X]) * h ^ 46 * a7 ^ 3 * a6 * a5 ^ 2 * b8
@@ -254,6 +304,13 @@ def localClearedThirteenthDefect810
     - (165865492316160 : F[X]) * h ^ 47 * a7 ^ 5 * a6 * a3 * Polynomial.C lambda
     - (165865492316160 : F[X]) * h ^ 47 * a7 ^ 5 * a5 * a4 * Polynomial.C lambda
     - (414663730790400 : F[X]) * h ^ 47 * a7 ^ 4 * a6 ^ 2 * a4 * Polynomial.C lambda
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 90. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk09 (acc : F[X])
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    acc
     - (414663730790400 : F[X]) * h ^ 47 * a7 ^ 4 * a6 * a5 ^ 2 * Polynomial.C lambda
     - (552884974387200 : F[X]) * h ^ 47 * a7 ^ 3 * a6 ^ 3 * a5 * Polynomial.C lambda
     - (82932746158080 : F[X]) * h ^ 47 * a7 ^ 2 * a6 ^ 5 * Polynomial.C lambda
@@ -264,6 +321,13 @@ def localClearedThirteenthDefect810
     + (982906621132800 : F[X]) * h ^ 48 * a7 ^ 3 * a6 ^ 3 * a4
     + (1474359931699200 : F[X]) * h ^ 48 * a7 ^ 3 * a6 ^ 2 * a5 ^ 2
     + (1105769948774400 : F[X]) * h ^ 48 * a7 ^ 2 * a6 ^ 4 * a5
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 100. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk10 (acc : F[X])
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    acc
     + (98290662113280 : F[X]) * h ^ 48 * a7 * a6 ^ 6
     + (5667209347072 : F[X]) * h ^ 54 * a7 ^ 5 * b2
     + (42504070103040 : F[X]) * h ^ 54 * a7 ^ 4 * a6 * b3
@@ -274,6 +338,13 @@ def localClearedThirteenthDefect810
     + (113344186941440 : F[X]) * h ^ 54 * a7 ^ 4 * a1 * b8
     + (113344186941440 : F[X]) * h ^ 54 * a7 ^ 3 * a6 ^ 2 * b4
     + (283360467353600 : F[X]) * h ^ 54 * a7 ^ 3 * a6 * a5 * b5
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 110. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk11 (acc : F[X])
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    acc
     + (340032560824320 : F[X]) * h ^ 54 * a7 ^ 3 * a6 * a4 * b6
     + (396704654295040 : F[X]) * h ^ 54 * a7 ^ 3 * a6 * a3 * b7
     + (453376747765760 : F[X]) * h ^ 54 * a7 ^ 3 * a6 * a2 * b8
@@ -284,6 +355,13 @@ def localClearedThirteenthDefect810
     + (141680233676800 : F[X]) * h ^ 54 * a7 ^ 2 * a6 ^ 3 * b5
     + (510048841236480 : F[X]) * h ^ 54 * a7 ^ 2 * a6 ^ 2 * a5 * b6
     + (595056981442560 : F[X]) * h ^ 54 * a7 ^ 2 * a6 ^ 2 * a4 * b7
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 120. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk12 (acc : F[X])
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    acc
     + (680065121648640 : F[X]) * h ^ 54 * a7 ^ 2 * a6 ^ 2 * a3 * b8
     + (595056981442560 : F[X]) * h ^ 54 * a7 ^ 2 * a6 * a5 ^ 2 * b7
     + (1360130243297280 : F[X]) * h ^ 54 * a7 ^ 2 * a6 * a5 * a4 * b8
@@ -294,6 +372,13 @@ def localClearedThirteenthDefect810
     + (680065121648640 : F[X]) * h ^ 54 * a7 * a6 ^ 2 * a5 ^ 2 * b8
     + (19835232714752 : F[X]) * h ^ 54 * a6 ^ 5 * b7
     + (113344186941440 : F[X]) * h ^ 54 * a6 ^ 4 * a5 * b8
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 130. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk13 (acc : F[X])
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    acc
     + (29487198633984 : F[X]) * h ^ 55 * a7 ^ 5 * a1 * Polynomial.C lambda
     + (147435993169920 : F[X]) * h ^ 55 * a7 ^ 4 * a6 * a2 * Polynomial.C lambda
     + (147435993169920 : F[X]) * h ^ 55 * a7 ^ 4 * a5 * a3 * Polynomial.C lambda
@@ -304,6 +389,13 @@ def localClearedThirteenthDefect810
     + (294871986339840 : F[X]) * h ^ 55 * a7 ^ 2 * a6 ^ 3 * a4 * Polynomial.C lambda
     + (442307979509760 : F[X]) * h ^ 55 * a7 ^ 2 * a6 ^ 2 * a5 ^ 2 * Polynomial.C lambda
     + (147435993169920 : F[X]) * h ^ 55 * a7 * a6 ^ 4 * a5 * Polynomial.C lambda
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 140. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk14 (acc : F[X])
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    acc
     + (4914533105664 : F[X]) * h ^ 55 * a6 ^ 6 * Polynomial.C lambda
     + (28336046735360 : F[X]) * h ^ 56 * a7 ^ 5 * a0
     - (17710029209600 : F[X]) * h ^ 56 * a7 ^ 4 * a6 * a1
@@ -314,6 +406,13 @@ def localClearedThirteenthDefect810
     - (354200584192000 : F[X]) * h ^ 56 * a7 ^ 3 * a6 * a4 ^ 2
     - (354200584192000 : F[X]) * h ^ 56 * a7 ^ 3 * a5 ^ 2 * a4
     - (672981109964800 : F[X]) * h ^ 56 * a7 ^ 2 * a6 ^ 3 * a3
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 150. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk15 (acc : F[X])
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    acc
     - (2018943329894400 : F[X]) * h ^ 56 * a7 ^ 2 * a6 ^ 2 * a5 * a4
     - (672981109964800 : F[X]) * h ^ 56 * a7 ^ 2 * a6 * a5 ^ 3
     - (495880817868800 : F[X]) * h ^ 56 * a7 * a6 ^ 4 * a4
@@ -324,6 +423,13 @@ def localClearedThirteenthDefect810
     - (46901042872320 : F[X]) * h ^ 62 * a7 ^ 3 * a5 * b3
     - (62534723829760 : F[X]) * h ^ 62 * a7 ^ 3 * a4 * b4
     - (78168404787200 : F[X]) * h ^ 62 * a7 ^ 3 * a3 * b5
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 160. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk16 (acc : F[X])
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    acc
     - (93802085744640 : F[X]) * h ^ 62 * a7 ^ 3 * a2 * b6
     - (109435766702080 : F[X]) * h ^ 62 * a7 ^ 3 * a1 * b7
     - (125069447659520 : F[X]) * h ^ 62 * a7 ^ 3 * a0 * b8
@@ -334,6 +440,13 @@ def localClearedThirteenthDefect810
     - (328307300106240 : F[X]) * h ^ 62 * a7 ^ 2 * a6 * a2 * b7
     - (375208342978560 : F[X]) * h ^ 62 * a7 ^ 2 * a6 * a1 * b8
     - (117252607180800 : F[X]) * h ^ 62 * a7 ^ 2 * a5 ^ 2 * b5
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 170. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk17 (acc : F[X])
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    acc
     - (281406257233920 : F[X]) * h ^ 62 * a7 ^ 2 * a5 * a4 * b6
     - (328307300106240 : F[X]) * h ^ 62 * a7 ^ 2 * a5 * a3 * b7
     - (375208342978560 : F[X]) * h ^ 62 * a7 ^ 2 * a5 * a2 * b8
@@ -344,6 +457,13 @@ def localClearedThirteenthDefect810
     - (281406257233920 : F[X]) * h ^ 62 * a7 * a6 ^ 2 * a4 * b6
     - (328307300106240 : F[X]) * h ^ 62 * a7 * a6 ^ 2 * a3 * b7
     - (375208342978560 : F[X]) * h ^ 62 * a7 * a6 ^ 2 * a2 * b8
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 180. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk18 (acc : F[X])
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    acc
     - (281406257233920 : F[X]) * h ^ 62 * a7 * a6 * a5 ^ 2 * b6
     - (656614600212480 : F[X]) * h ^ 62 * a7 * a6 * a5 * a4 * b7
     - (750416685957120 : F[X]) * h ^ 62 * a7 * a6 * a5 * a3 * b8
@@ -354,6 +474,13 @@ def localClearedThirteenthDefect810
     - (93802085744640 : F[X]) * h ^ 62 * a6 ^ 3 * a5 * b6
     - (109435766702080 : F[X]) * h ^ 62 * a6 ^ 3 * a4 * b7
     - (125069447659520 : F[X]) * h ^ 62 * a6 ^ 3 * a3 * b8
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 190. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk19 (acc : F[X])
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    acc
     - (164153650053120 : F[X]) * h ^ 62 * a6 ^ 2 * a5 ^ 2 * b7
     - (375208342978560 : F[X]) * h ^ 62 * a6 ^ 2 * a5 * a4 * b8
     - (125069447659520 : F[X]) * h ^ 62 * a6 * a5 ^ 3 * b8
@@ -364,6 +491,13 @@ def localClearedThirteenthDefect810
     - (191268315463680 : F[X]) * h ^ 63 * a7 ^ 2 * a6 ^ 2 * a2 * Polynomial.C lambda
     - (382536630927360 : F[X]) * h ^ 63 * a7 ^ 2 * a6 * a5 * a3 * Polynomial.C lambda
     - (191268315463680 : F[X]) * h ^ 63 * a7 ^ 2 * a6 * a4 ^ 2 * Polynomial.C lambda
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 200. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk20 (acc : F[X])
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    acc
     - (191268315463680 : F[X]) * h ^ 63 * a7 ^ 2 * a5 ^ 2 * a4 * Polynomial.C lambda
     - (127512210309120 : F[X]) * h ^ 63 * a7 * a6 ^ 3 * a3 * Polynomial.C lambda
     - (382536630927360 : F[X]) * h ^ 63 * a7 * a6 ^ 2 * a5 * a4 * Polynomial.C lambda
@@ -374,6 +508,13 @@ def localClearedThirteenthDefect810
     + (39084202393600 : F[X]) * h ^ 64 * a7 ^ 3 * a5 * a1
     + (39084202393600 : F[X]) * h ^ 64 * a7 ^ 3 * a4 * a2
     + (19542101196800 : F[X]) * h ^ 64 * a7 ^ 3 * a3 ^ 2
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 210. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk21 (acc : F[X])
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    acc
     + (322444669747200 : F[X]) * h ^ 64 * a7 ^ 2 * a6 ^ 2 * a1
     + (644889339494400 : F[X]) * h ^ 64 * a7 ^ 2 * a6 * a5 * a2
     + (644889339494400 : F[X]) * h ^ 64 * a7 ^ 2 * a6 * a4 * a3
@@ -384,6 +525,13 @@ def localClearedThirteenthDefect810
     + (586263035904000 : F[X]) * h ^ 64 * a7 * a6 ^ 2 * a4 ^ 2
     + (1172526071808000 : F[X]) * h ^ 64 * a7 * a6 * a5 ^ 2 * a4
     + (97710505984000 : F[X]) * h ^ 64 * a7 * a5 ^ 4
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 220. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk22 (acc : F[X])
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    acc
     + (141680233676800 : F[X]) * h ^ 64 * a6 ^ 4 * a3
     + (566720934707200 : F[X]) * h ^ 64 * a6 ^ 3 * a5 * a4
     + (283360467353600 : F[X]) * h ^ 64 * a6 ^ 2 * a5 ^ 3
@@ -394,6 +542,13 @@ def localClearedThirteenthDefect810
     + (89335319756800 : F[X]) * h ^ 70 * a7 ^ 2 * a2 * b5
     + (107202383708160 : F[X]) * h ^ 70 * a7 ^ 2 * a1 * b6
     + (125069447659520 : F[X]) * h ^ 70 * a7 ^ 2 * a0 * b7
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 230. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk23 (acc : F[X])
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    acc
     + (35734127902720 : F[X]) * h ^ 70 * a7 * a6 ^ 2 * b2
     + (107202383708160 : F[X]) * h ^ 70 * a7 * a6 * a5 * b3
     + (142936511610880 : F[X]) * h ^ 70 * a7 * a6 * a4 * b4
@@ -404,6 +559,13 @@ def localClearedThirteenthDefect810
     + (71468255805440 : F[X]) * h ^ 70 * a7 * a5 ^ 2 * b4
     + (178670639513600 : F[X]) * h ^ 70 * a7 * a5 * a4 * b5
     + (214404767416320 : F[X]) * h ^ 70 * a7 * a5 * a3 * b6
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 240. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk24 (acc : F[X])
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    acc
     + (250138895319040 : F[X]) * h ^ 70 * a7 * a5 * a2 * b7
     + (285873023221760 : F[X]) * h ^ 70 * a7 * a5 * a1 * b8
     + (107202383708160 : F[X]) * h ^ 70 * a7 * a4 ^ 2 * b6
@@ -414,6 +576,13 @@ def localClearedThirteenthDefect810
     + (71468255805440 : F[X]) * h ^ 70 * a6 ^ 2 * a5 * b4
     + (89335319756800 : F[X]) * h ^ 70 * a6 ^ 2 * a4 * b5
     + (107202383708160 : F[X]) * h ^ 70 * a6 ^ 2 * a3 * b6
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 250. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk25 (acc : F[X])
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    acc
     + (125069447659520 : F[X]) * h ^ 70 * a6 ^ 2 * a2 * b7
     + (142936511610880 : F[X]) * h ^ 70 * a6 ^ 2 * a1 * b8
     + (89335319756800 : F[X]) * h ^ 70 * a6 * a5 ^ 2 * b5
@@ -424,6 +593,13 @@ def localClearedThirteenthDefect810
     + (285873023221760 : F[X]) * h ^ 70 * a6 * a4 * a3 * b8
     + (35734127902720 : F[X]) * h ^ 70 * a5 ^ 3 * b6
     + (125069447659520 : F[X]) * h ^ 70 * a5 ^ 2 * a4 * b7
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 260. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk26 (acc : F[X])
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    acc
     + (142936511610880 : F[X]) * h ^ 70 * a5 ^ 2 * a3 * b8
     + (142936511610880 : F[X]) * h ^ 70 * a5 * a4 ^ 2 * b8
     + (105527346462720 : F[X]) * h ^ 71 * a7 ^ 2 * a6 * a0 * Polynomial.C lambda
@@ -434,6 +610,13 @@ def localClearedThirteenthDefect810
     + (211054692925440 : F[X]) * h ^ 71 * a7 * a6 * a5 * a2 * Polynomial.C lambda
     + (211054692925440 : F[X]) * h ^ 71 * a7 * a6 * a4 * a3 * Polynomial.C lambda
     + (105527346462720 : F[X]) * h ^ 71 * a7 * a5 ^ 2 * a3 * Polynomial.C lambda
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 270. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk27 (acc : F[X])
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    acc
     + (105527346462720 : F[X]) * h ^ 71 * a7 * a5 * a4 ^ 2 * Polynomial.C lambda
     + (35175782154240 : F[X]) * h ^ 71 * a6 ^ 3 * a2 * Polynomial.C lambda
     + (105527346462720 : F[X]) * h ^ 71 * a6 ^ 2 * a5 * a3 * Polynomial.C lambda
@@ -444,6 +627,13 @@ def localClearedThirteenthDefect810
     - (67001489817600 : F[X]) * h ^ 72 * a7 ^ 2 * a4 * a1
     - (67001489817600 : F[X]) * h ^ 72 * a7 ^ 2 * a3 * a2
     - (268005959270400 : F[X]) * h ^ 72 * a7 * a6 ^ 2 * a0
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 280. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk28 (acc : F[X])
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    acc
     - (536011918540800 : F[X]) * h ^ 72 * a7 * a6 * a5 * a1
     - (536011918540800 : F[X]) * h ^ 72 * a7 * a6 * a4 * a2
     - (268005959270400 : F[X]) * h ^ 72 * a7 * a6 * a3 ^ 2
@@ -454,6 +644,13 @@ def localClearedThirteenthDefect810
     - (469010428723200 : F[X]) * h ^ 72 * a6 ^ 2 * a5 * a2
     - (469010428723200 : F[X]) * h ^ 72 * a6 ^ 2 * a4 * a3
     - (469010428723200 : F[X]) * h ^ 72 * a6 * a5 ^ 2 * a3
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 290. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk29 (acc : F[X])
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    acc
     - (469010428723200 : F[X]) * h ^ 72 * a6 * a5 * a4 ^ 2
     - (156336809574400 : F[X]) * h ^ 72 * a5 ^ 3 * a4
     - (21990232555520 : F[X]) * h ^ 78 * a7 * a5 * b1
@@ -464,6 +661,13 @@ def localClearedThirteenthDefect810
     - (131941395333120 : F[X]) * h ^ 78 * a7 * a0 * b6
     - (10995116277760 : F[X]) * h ^ 78 * a6 ^ 2 * b1
     - (43980465111040 : F[X]) * h ^ 78 * a6 * a5 * b2
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 300. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk30 (acc : F[X])
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    acc
     - (65970697666560 : F[X]) * h ^ 78 * a6 * a4 * b3
     - (87960930222080 : F[X]) * h ^ 78 * a6 * a3 * b4
     - (109951162777600 : F[X]) * h ^ 78 * a6 * a2 * b5
@@ -474,6 +678,13 @@ def localClearedThirteenthDefect810
     - (109951162777600 : F[X]) * h ^ 78 * a5 * a3 * b5
     - (131941395333120 : F[X]) * h ^ 78 * a5 * a2 * b6
     - (153931627888640 : F[X]) * h ^ 78 * a5 * a1 * b7
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 310. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk31 (acc : F[X])
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    acc
     - (175921860444160 : F[X]) * h ^ 78 * a5 * a0 * b8
     - (54975581388800 : F[X]) * h ^ 78 * a4 ^ 2 * b5
     - (131941395333120 : F[X]) * h ^ 78 * a4 * a3 * b6
@@ -484,6 +695,13 @@ def localClearedThirteenthDefect810
     - (80401787781120 : F[X]) * h ^ 79 * a7 * a5 * a0 * Polynomial.C lambda
     - (80401787781120 : F[X]) * h ^ 79 * a7 * a4 * a1 * Polynomial.C lambda
     - (80401787781120 : F[X]) * h ^ 79 * a7 * a3 * a2 * Polynomial.C lambda
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 320. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk32 (acc : F[X])
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    acc
     - (40200893890560 : F[X]) * h ^ 79 * a6 ^ 2 * a0 * Polynomial.C lambda
     - (80401787781120 : F[X]) * h ^ 79 * a6 * a5 * a1 * Polynomial.C lambda
     - (80401787781120 : F[X]) * h ^ 79 * a6 * a4 * a2 * Polynomial.C lambda
@@ -494,6 +712,13 @@ def localClearedThirteenthDefect810
     + (109951162777600 : F[X]) * h ^ 80 * a7 * a4 * a0
     + (109951162777600 : F[X]) * h ^ 80 * a7 * a3 * a1
     + (54975581388800 : F[X]) * h ^ 80 * a7 * a2 ^ 2
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 330. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk33 (acc : F[X])
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    acc
     + (357341279027200 : F[X]) * h ^ 80 * a6 * a5 * a0
     + (357341279027200 : F[X]) * h ^ 80 * a6 * a4 * a1
     + (357341279027200 : F[X]) * h ^ 80 * a6 * a3 * a2
@@ -504,6 +729,13 @@ def localClearedThirteenthDefect810
     + (35184372088832 : F[X]) * h ^ 86 * a4 * b1
     + (70368744177664 : F[X]) * h ^ 86 * a3 * b2
     + (105553116266496 : F[X]) * h ^ 86 * a2 * b3
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 337. -/
+private abbrev fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk34 (acc : F[X])
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    acc
     + (140737488355328 : F[X]) * h ^ 86 * a1 * b4
     + (175921860444160 : F[X]) * h ^ 86 * a0 * b5
     + (49478023249920 : F[X]) * h ^ 87 * a4 * a0 * Polynomial.C lambda
@@ -512,13 +744,50 @@ def localClearedThirteenthDefect810
     - (219902325555200 : F[X]) * h ^ 88 * a3 * a0
     - (219902325555200 : F[X]) * h ^ 88 * a2 * a1
 
-set_option maxHeartbeats 400000000 in
-/-- SPEED (recipe R2, `scripts/coord/LEAN_SPEED_REPORT.md` §7): the weight-`91`
-clearing of `nuResidual810` carried out on the *atoms* rather than on the fully
-substituted source polynomials.  `nuResidual810` is weighted homogeneous, so
-substituting `X_i = n_i / (d_i h^(e_i))` makes `281474976710656 * h^91 * nuResidual810`
-a polynomial in `h, n_*` — 86 monomials. -/
-def speedNuResidual810Scaled91 (h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW : F) : F :=
+set_option maxHeartbeats 64000000 in
+/-- Polynomial numerator of `281474976710656 h⁹¹ ν` on the ninth-power
+face. -/
+def localClearedThirteenthDefect810
+    (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
+    (lambda : F) : F[X] :=
+    fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk34
+      (fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk33
+      (fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk32
+      (fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk31
+      (fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk30
+      (fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk29
+      (fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk28
+      (fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk27
+      (fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk26
+      (fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk25
+      (fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk24
+      (fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk23
+      (fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk22
+      (fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk21
+      (fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk20
+      (fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk19
+      (fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk18
+      (fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk17
+      (fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk16
+      (fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk15
+      (fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk14
+      (fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk13
+      (fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk12
+      (fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk11
+      (fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk10
+      (fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk09
+      (fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk08
+      (fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk07
+      (fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk06
+      (fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk05
+      (fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk04
+      (fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk03
+      (fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk02
+      (fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk01 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda) h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda) h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda) h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda) h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda) h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda) h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda) h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda) h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda) h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda) h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda) h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda) h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda) h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda) h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda) h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda) h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda) h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda) h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda) h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda) h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda) h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda) h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda) h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda) h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda) h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda) h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda) h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda) h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda) h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda) h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda) h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda) h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda) h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 10. -/
+private abbrev fable810twelfthSpeedT_speedNuResidual810Scaled91_chunk01 (h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW : F) : F :=
     - (292929 : F) * h ^ 7 * nL * nA ^ 6
     + (237510 : F) * h ^ 7 * nL * nA ^ 4 * nC
     + (15200640 : F) * h ^ 7 * nL * nA ^ 3 * nB ^ 2
@@ -529,6 +798,11 @@ def speedNuResidual810Scaled91 (h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV n
     - (3144960 : F) * h ^ 7 * nL * nA * nB ^ 2 * nC
     + (1198080 : F) * h ^ 7 * nL * nA * nB * nF
     + (37440 : F) * h ^ 7 * nL * nA * nC * nE
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 20. -/
+private abbrev fable810twelfthSpeedT_speedNuResidual810Scaled91_chunk02 (acc : F) (h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW : F) : F :=
+    acc
     + (2396160 : F) * h ^ 7 * nL * nA * nD ^ 2
     - (8386560 : F) * h ^ 7 * nL * nB ^ 4
     + (599040 : F) * h ^ 7 * nL * nB ^ 2 * nE
@@ -539,6 +813,11 @@ def speedNuResidual810Scaled91 (h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV n
     - (5760 : F) * h ^ 7 * nL * nE ^ 2
     - (3905720 : F) * nA ^ 5 * nB
     + (295568 : F) * nA ^ 5 * nQ
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 30. -/
+private abbrev fable810twelfthSpeedT_speedNuResidual810Scaled91_chunk03 (acc : F) (h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW : F) : F :=
+    acc
     + (844480 : F) * nA ^ 4 * nB * nP
     + (2111200 : F) * nA ^ 4 * nD
     - (36400 : F) * nA ^ 4 * nS
@@ -549,6 +828,11 @@ def speedNuResidual810Scaled91 (h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV n
     - (291200 : F) * nA ^ 3 * nF
     + (16640 : F) * nA ^ 3 * nU
     + (33779200 : F) * nA ^ 2 * nB ^ 3
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 40. -/
+private abbrev fable810twelfthSpeedT_speedNuResidual810Scaled91_chunk04 (acc : F) (h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW : F) : F :=
+    acc
     - (9784320 : F) * nA ^ 2 * nB ^ 2 * nQ
     - (349440 : F) * nA ^ 2 * nB * nC * nP
     - (873600 : F) * nA ^ 2 * nB * nE
@@ -559,6 +843,11 @@ def speedNuResidual810Scaled91 (h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV n
     + (116480 : F) * nA ^ 2 * nE * nQ
     + (66560 : F) * nA ^ 2 * nF * nP
     - (640 : F) * nA ^ 2 * nW
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 50. -/
+private abbrev fable810twelfthSpeedT_speedNuResidual810Scaled91_chunk05 (acc : F) (h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW : F) : F :=
+    acc
     - (3727360 : F) * nA * nB ^ 3 * nP
     - (27955200 : F) * nA * nB ^ 2 * nD
     + (665600 : F) * nA * nB ^ 2 * nS
@@ -569,6 +858,11 @@ def speedNuResidual810Scaled91 (h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV n
     + (41600 : F) * nA * nB * nG
     - (5120 : F) * nA * nB * nV
     + (29120 : F) * nA * nC ^ 2 * nQ
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 60. -/
+private abbrev fable810twelfthSpeedT_speedNuResidual810Scaled91_chunk06 (acc : F) (h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW : F) : F :=
+    acc
     + (133120 : F) * nA * nC * nD * nP
     + (83200 : F) * nA * nC * nF
     - (7680 : F) * nA * nC * nU
@@ -579,6 +873,11 @@ def speedNuResidual810Scaled91 (h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV n
     - (8960 : F) * nA * nG * nQ
     - (2329600 : F) * nB ^ 3 * nC
     + (532480 : F) * nB ^ 3 * nR
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 70. -/
+private abbrev fable810twelfthSpeedT_speedNuResidual810Scaled91_chunk07 (acc : F) (h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW : F) : F :=
+    acc
     + (931840 : F) * nB ^ 2 * nC * nQ
     + (2129920 : F) * nB ^ 2 * nD * nP
     + (1331200 : F) * nB ^ 2 * nF
@@ -589,6 +888,11 @@ def speedNuResidual810Scaled91 (h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV n
     + (5324800 : F) * nB * nD ^ 2
     - (409600 : F) * nB * nD * nS
     - (30720 : F) * nB * nE * nR
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 80. -/
+private abbrev fable810twelfthSpeedT_speedNuResidual810Scaled91_chunk08 (acc : F) (h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW : F) : F :=
+    acc
     - (573440 : F) * nB * nF * nQ
     - (5120 : F) * nB * nG * nP
     + (41600 : F) * nC ^ 2 * nD
@@ -599,6 +903,11 @@ def speedNuResidual810Scaled91 (h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV n
     + (256 : F) * nC * nW
     - (1146880 : F) * nD ^ 2 * nQ
     - (40960 : F) * nD * nE * nP
+
+set_option maxHeartbeats 64000000 in
+/-- Reducible prefix ending at monomial 86. -/
+private abbrev fable810twelfthSpeedT_speedNuResidual810Scaled91_chunk09 (acc : F) (h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW : F) : F :=
+    acc
     - (12800 : F) * nD * nG
     + (4096 : F) * nD * nV
     - (25600 : F) * nE * nF
@@ -606,7 +915,24 @@ def speedNuResidual810Scaled91 (h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV n
     + (8192 : F) * nF * nT
     + (1280 : F) * nG * nS
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
+/-- SPEED (recipe R2, `scripts/coord/LEAN_SPEED_REPORT.md` §7): the weight-`91`
+clearing of `nuResidual810` carried out on the *atoms* rather than on the fully
+substituted source polynomials.  `nuResidual810` is weighted homogeneous, so
+substituting `X_i = n_i / (d_i h^(e_i))` makes `281474976710656 * h^91 * nuResidual810`
+a polynomial in `h, n_*` — 86 monomials. -/
+def speedNuResidual810Scaled91 (h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW : F) : F :=
+    fable810twelfthSpeedT_speedNuResidual810Scaled91_chunk09
+      (fable810twelfthSpeedT_speedNuResidual810Scaled91_chunk08
+      (fable810twelfthSpeedT_speedNuResidual810Scaled91_chunk07
+      (fable810twelfthSpeedT_speedNuResidual810Scaled91_chunk06
+      (fable810twelfthSpeedT_speedNuResidual810Scaled91_chunk05
+      (fable810twelfthSpeedT_speedNuResidual810Scaled91_chunk04
+      (fable810twelfthSpeedT_speedNuResidual810Scaled91_chunk03
+      (fable810twelfthSpeedT_speedNuResidual810Scaled91_chunk02
+      (fable810twelfthSpeedT_speedNuResidual810Scaled91_chunk01 h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW) h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW) h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW) h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW) h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW) h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW) h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW) h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW) h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW
+
+set_option maxHeartbeats 64000000 in
 /-- The atom-level clearing: one `field_simp` over 17 atomic variables in
 place of the single enormous `field_simp` on the substituted rational function. -/
 theorem speedNuResidual810Scaled91_eq (h : F) (hh : h ≠ 0) (nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW : F) :
@@ -654,7 +980,15 @@ theorem speedNuResidual810Scaled91_eq (h : F) (hh : h ≠ 0) (nL nA nB nC nD nE 
   field_simp
   ring
 
-set_option maxHeartbeats 400000000 in
+-- Fix the scalar carrier before elaborating the large arithmetic tree.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := F) (β := F) (γ := F))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := F) (β := F) (γ := F))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := F) (β := F) (γ := F))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := F) (β := F) (γ := F))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := F) (β := Nat) (γ := F))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := F))
+
+set_option maxHeartbeats 64000000 in
 /-- Clearing the first integral `ν` of the degree-`4` row against `h⁹¹`
 on the ninth-power face. -/
 theorem thirteenthDefect_eq_clearedNu810
@@ -1165,7 +1499,7 @@ theorem thirteenthDefect_eq_clearedNu810
     depressedW810_eq_cleared h a7 b9 b8 b7 b6 b5 b4 b3 b2 b1 lambda hh hN
   rw [hL, hA, hB, hC, hD0, hE0, hF0, hG0, hP, hQ, hR, hS, hT0, hU0, hV0, hW0,
     speedNuResidual810Scaled91_eq h hh]
-  simp only [speedNuResidual810Scaled91]
+  simp only [speedNuResidual810Scaled91, fable810twelfthSpeedT_speedNuResidual810Scaled91_chunk01, fable810twelfthSpeedT_speedNuResidual810Scaled91_chunk02, fable810twelfthSpeedT_speedNuResidual810Scaled91_chunk03, fable810twelfthSpeedT_speedNuResidual810Scaled91_chunk04, fable810twelfthSpeedT_speedNuResidual810Scaled91_chunk05, fable810twelfthSpeedT_speedNuResidual810Scaled91_chunk06, fable810twelfthSpeedT_speedNuResidual810Scaled91_chunk07, fable810twelfthSpeedT_speedNuResidual810Scaled91_chunk08, fable810twelfthSpeedT_speedNuResidual810Scaled91_chunk09]
   ring
 
 end Depression810ThirteenthClearing
@@ -1176,6 +1510,7 @@ section DepressedRow810Thirteenth
 
 variable {k F : Type*} [Field k] [Field F] [Algebra k F] [CharZero F]
 
+set_option maxHeartbeats 64000000 in
 /-- For a depressed monic octic and a monic decic whose `z⁹` coefficient is
 already a differential constant, the degree-`4` Jacobian coefficient is
 exactly `5 S G' + 4 T F' + 3 U E' + 2 V D' + W C'
@@ -1285,7 +1620,7 @@ theorem differentialJacobian_coeff_4_monicOcticDecic
   simp only [differentialJacobian, Polynomial.coeff_sub, hfirst, hsecond]
   ring
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 theorem nuResidual810_deriv_zero
     (d : Derivation k F F)
     (L A B C0 D0 E0 F0 G0 P Q R S0 T0 U0 V0 W0 X0 : F)
@@ -1837,9 +2172,8 @@ theorem nuResidual810_deriv_zero
   have hrow6_red := hrow6
   rw [hWderiv, hPderiv, hQderiv, hRderiv, hSderiv, hTderiv, hUderiv,
     hVderiv] at hrow6_red
-  simp only [nuResidual810, alphaResidual810, betaResidual810,
-    gammaResidual810, deltaResidual810, epsilonResidual810,
-    zetaResidual810, etaResidual810, thetaResidual810, map_sub, map_add,
+  simp only [nuResidual810, halpha, hbeta, hgamma, hdelta, hepsilon,
+    hzeta, heta, htheta, map_sub, map_add,
     Derivation.leibniz, h12, h14, h18, h38, h54, h98, h78, h34, h58, h516,
     h316, h532, h15128, h5128, h7128, h9128, h1564, h964, h764, h35512,
     h211024, h631024, h31532768, h778192, h3158192, h1051024, h63512, h332,
@@ -1853,8 +2187,9 @@ theorem nuResidual810_deriv_zero
     hf1925_65536, hf5985_262144, hf12075_4194304, zero_mul, add_zero,
     mul_zero, pow_two, hsq, hsqB, hsqC, hsqD, hsqE, hcub, hcubB, hcubC,
     hquar, hquarB, hquint, hsextA]
-  rw [hWderiv, hPderiv, hQderiv, hRderiv, hSderiv, hTderiv, hUderiv,
-    hVderiv]
+  simp only [alphaResidual810, betaResidual810, gammaResidual810,
+    deltaResidual810, epsilonResidual810, zetaResidual810, etaResidual810,
+    thetaResidual810]
   linear_combination (1 / 8 : F) * hrow_red - (5 / 64 : F) * A * hrow6_red
 
 end DepressedRow810Thirteenth
@@ -1863,7 +2198,7 @@ section NonzeroThirteenthFaceClearing810
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- The twelfth octic/decic integral on a square-core ninth-power source:
 the cleared defect is a scalar times `h⁹¹`. -/
 theorem nonzeroFace810_thirteenthDefectPowerRelation
@@ -2355,12 +2690,9 @@ theorem nonzeroFace810_thirteenthDefectPowerRelation
       rw [hg9]
       simp [depressedL810, octicDepressionR810, sourceToRatFunc68,
         sourceToRatFunc46, b9]
-    simpa [localClearedThirteenthDefect810, map_sub, map_mul, map_pow,
+    simpa [localClearedThirteenthDefect810, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk01, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk02, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk03, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk04, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk05, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk06, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk07, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk08, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk09, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk10, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk11, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk12, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk13, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk14, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk15, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk16, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk17, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk18, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk19, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk20, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk21, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk22, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk23, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk24, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk25, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk26, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk27, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk28, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk29, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk30, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk31, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk32, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk33, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk34, map_sub, map_mul, map_pow,
       map_ofNat, map_neg, map_add, RatFunc.algebraMap_C, h, a7, a6, a5,
-      a4, a3, a2, a1, a0, b8, b7, b6, b5, b4, b3, b2, b1, nuResidual810,
-      alphaResidual810, betaResidual810, gammaResidual810,
-      deltaResidual810, epsilonResidual810, zetaResidual810,
-      etaResidual810, thetaResidual810, hf6, hf5, hf4, hf3, hf2, hf1,
+      a4, a3, a2, a1, a0, b8, b7, b6, b5, b4, b3, b2, b1, hf6, hf5, hf4, hf3, hf2, hf1,
       hf0, hg1, hg2, hg3, hg4, hg5, hg6, hg7, hg8', hg9L] using hF.symm
   have htarget :
       algebraMap k[X] (RatFunc k)
@@ -2386,6 +2718,7 @@ set_option linter.unusedSectionVars false
 
 /-! ## Degree-`4` source Jacobian row -/
 
+set_option maxHeartbeats 64000000 in
 /-- Source-facing degree-`4` Jacobian row of a normalized scale-zero
 `(8,10)` pair. -/
 theorem normalized810ScaleZero_thirteenthCoefficientJacobianRow
@@ -2416,6 +2749,7 @@ theorem normalized810ScaleZero_thirteenthCoefficientJacobianRow
   obtain ⟨j, _hj, hjac⟩ := bivariateJacobian_eq_C_of_keller hKeller
   simpa only [p, q] using fableScaleZero_thirteenthCoefficientJacobianRow_raw_810 hp hq hjac
 
+set_option maxHeartbeats 64000000 in
 /-- At scale zero the common core is constant, so the leading octic
 coefficient of the degree-`4` row is a differential constant. -/
 theorem scaleZero_thirteenthCoefficientJacobianRow_810
@@ -2438,6 +2772,7 @@ theorem scaleZero_thirteenthCoefficientJacobianRow_810
   have hrow := fableScaleZero_thirteenthCoefficientJacobianRow_raw_810 hp hq hjac
   simpa using hrow
 
+set_option maxHeartbeats 64000000 in
 /-- Source-facing scale-zero collapse of the degree-`4` row. -/
 theorem normalized810ScaleZero_thirteenthCoefficientJacobianRow_collapsed
     {P Q : MvPolynomial (Fin 2) k} {H : k[X]}
@@ -2472,6 +2807,7 @@ theorem normalized810ScaleZero_thirteenthCoefficientJacobianRow_collapsed
 
 /-! ## Degree-`4` monic Jacobian row -/
 
+set_option maxHeartbeats 64000000 in
 /-- For a monic octic and a monic decic whose `z⁹` coefficient `L` is
 already a differential constant, the degree-`4` Jacobian coefficient
 is exactly
@@ -2503,6 +2839,7 @@ theorem scaleZero_monicOcticDecic_degree4Row_810
   differentialJacobian_coeff_4_monicOcticDecic d f g hf_high hf8 hf7
     hg_high hg10 hL
 
+set_option maxHeartbeats 64000000 in
 /-- The same row integrates: if the degree-`8`, degree-`7`, degree-`6`,
 and degree-`4` Jacobian rows vanish, `L` is constant, and the residuals
 `α, β, γ, δ, ε, ζ, η, θ, ι` are constant, then the next residual `ν` is
@@ -2557,6 +2894,7 @@ theorem scaleZero_nuResidual_deriv_zero_810
 
 /-! ## Cleared weight-`91` defect on a constant square core -/
 
+set_option maxHeartbeats 64000000 in
 /-- On a constant square core the source discriminator is a scalar times
 `h⁹`, so the existing ninth-power identities apply with a constant
 square root on both the vanishing face `λ = 0` and the nonzero
@@ -2587,6 +2925,7 @@ theorem scaleZero_twelfthClearedDefect_exists_C_810
       hp hq hh0 hH hp8 hq10 hN hD
   exact ⟨lambda, eta, hN, heta⟩
 
+set_option maxHeartbeats 64000000 in
 /-- Aligned constant face `N = 0`: the same degree-`4` clearing applies
 with `λ = 0`, and the weight-`91` defect is still a ground constant.
 This does not close the face. -/
@@ -2615,6 +2954,7 @@ theorem scaleZero_alignedTwelfthClearedDefect_exists_C_810
       hp hq hh0 hH hp8 hq10 hN0 hD
   exact ⟨eta, heta⟩
 
+set_option maxHeartbeats 64000000 in
 /-- Nonzero constant face: `N` is a nonzero scalar times `h⁹`, and the
 weight-`91` defect is a ground constant.  This does not close the
 face. -/
@@ -2643,6 +2983,7 @@ theorem scaleZero_nonzeroTwelfthClearedDefect_exists_C_810
 
 variable [IsAlgClosed k]
 
+set_option maxHeartbeats 64000000 in
 /-- Source-facing twelfth residual packet for a normalized scale-zero
 `(8,10)` pair: after a square root of the core, the cleared weight-`91`
 defect is a ground-field constant. -/
@@ -2698,6 +3039,7 @@ theorem normalized810ScaleZero_exists_twelfthClearedDefect
   exact ⟨t, lambda, eta, ht, hHsq, by simpa only [p, q] using hN,
     by simpa only [p, q] using hX⟩
 
+set_option maxHeartbeats 64000000 in
 /-- The weight-`91` defect is a literal ground-field constant. -/
 theorem normalized810ScaleZero_twelfthClearedDefect_exists_C
     {P Q : MvPolynomial (Fin 2) k} {H : k[X]}
@@ -2751,6 +3093,7 @@ theorem normalized810ScaleZero_twelfthClearedDefect_exists_C
     exact (map_mul (Polynomial.C : k →+* k[X]) eta (t ^ 91)).symm
   exact hconst
 
+set_option maxHeartbeats 64000000 in
 /-- Newton degree of the twelfth cleared octic/decic defect at scale
 zero. -/
 theorem normalized810ScaleZero_twelfthClearedDefect_natDegree_le_zero
@@ -2783,6 +3126,7 @@ theorem normalized810ScaleZero_twelfthClearedDefect_natDegree_le_zero
   rw [hX]
   exact (natDegree_C eta).le
 
+set_option maxHeartbeats 64000000 in
 /-- Aligned/nonzero split of the scale-zero twelfth defect: both constant
 faces of `N` make the weight-`91` defect a ground constant, and neither
 face is excluded or claimed closed. -/
@@ -2821,6 +3165,7 @@ theorem normalized810ScaleZero_twelfthClearedDefectFirstFace
     · simpa [hlambda] using hX
   · exact Or.inr ⟨lambda, eta, hlambda, hN, hX⟩
 
+set_option maxHeartbeats 64000000 in
 /-- Explicit zero/nonzero constant branches of both the discriminator and
 the weight-`91` defect.  Neither vanishing face is claimed closed. -/
 theorem normalized810ScaleZero_twelfthClearedDefectBranches
@@ -2895,6 +3240,7 @@ theorem normalized810ScaleZero_twelfthClearedDefectBranches
       simpa only [heta, Polynomial.C_0] using hX
     · exact Or.inr ⟨heta, hX⟩
 
+set_option maxHeartbeats 64000000 in
 /-- Source-facing aligned packet: if the discriminator vanishes, the
 weight-`91` defect is still a ground constant.  The face is not
 closed. -/
@@ -2951,6 +3297,7 @@ theorem normalized810ScaleZero_aligned_exists_twelfthClearedDefect
       (by simpa only [p, q] using hNzero)
   exact ⟨t, eta, ht, hHsq, by simpa only [p, q] using hX⟩
 
+set_option maxHeartbeats 64000000 in
 /-- Source-facing nonzero packet: if the discriminator is a nonzero
 ground constant, the weight-`91` defect is still a ground constant.
 The face is not closed. -/

@@ -57,22 +57,22 @@ theorem muQuarticChamberFace18810_coeff_top_S15
     all_goals omega
   have hc0 : ((A * D ^ 2)).coeff (A.natDegree + 2 * D.natDegree) = A.leadingCoeff * D.leadingCoeff ^ 2 := by
     rw [← hd0, coeff_natDegree]
-    simp only [leadingCoeff_mul, leadingCoeff_pow]
+    all_goals simp only [leadingCoeff_mul, leadingCoeff_pow]
   have hd1 : (C ^ 3).natDegree = A.natDegree + 2 * D.natDegree := by
     simp only [natDegree_pow]
     all_goals omega
   have hc1 : (C ^ 3).coeff (A.natDegree + 2 * D.natDegree) = C.leadingCoeff ^ 3 := by
     rw [← hd1, coeff_natDegree]
-    simp only [leadingCoeff_mul, leadingCoeff_pow]
+    all_goals simp only [leadingCoeff_mul, leadingCoeff_pow]
   have hd2 : (E ^ 2).natDegree = A.natDegree + 2 * D.natDegree := by
     simp only [natDegree_pow]
     all_goals omega
   have hc2 : (E ^ 2).coeff (A.natDegree + 2 * D.natDegree) = E.leadingCoeff ^ 2 := by
     rw [← hd2, coeff_natDegree]
-    simp only [leadingCoeff_mul, leadingCoeff_pow]
+    all_goals simp only [leadingCoeff_mul, leadingCoeff_pow]
   rw [hc0, hc1, hc2]
-  simp only [muQuarticPowerInnerS15810]
-  ring
+  all_goals simp only [muQuarticPowerInnerS15810]
+  all_goals ring
 
 
 end QuarticChamberPowerKills810

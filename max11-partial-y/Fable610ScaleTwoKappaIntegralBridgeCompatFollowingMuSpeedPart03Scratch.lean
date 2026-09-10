@@ -10,7 +10,7 @@ section BridgeMuDepression610
 
 variable {F : Type*} [Field F] [CharZero F]
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 /-- Clearing the first integral `μ` of the degree-`2` row against `h⁶⁵`
 on the ninth-power face. -/
 theorem bridgeMuDefect_eq_cleared610

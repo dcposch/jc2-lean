@@ -147,6 +147,23 @@ def modules():
                 continue
             seen.add(q.stem)
             out.append((q.stem, q.read_text().split("\n")))
+    # a module whose heavy declarations were lifted into `…SpeedTPart<n>Scratch`
+    # helper parts by a speed lane keeps only the aggregator's name in the
+    # lists above; follow those imports so the declarations they carry still
+    # count as declared.  Transitive: the helper parts chain onto each other.
+    i = 0
+    while i < len(out):
+        m, lines = out[i]
+        i += 1
+        for ln in lines:
+            mm = re.match(r"^import (\S*SpeedTPart\d+\S*)\s*$", ln)
+            if not mm or mm.group(1) in seen:
+                continue
+            q = ROOT / (mm.group(1) + ".lean")
+            if not q.exists():
+                continue
+            seen.add(mm.group(1))
+            out.append((mm.group(1), q.read_text().split("\n")))
     return out
 
 
@@ -615,9 +632,13 @@ def check_kills(mods, names):
             log(f"  ChamberResidual6Scratch: {len(used6)} branches for "
                 f"{len(ctors)} chambers")
     # 4. the kills: rest-lemma / face-lemma arity and the 7-way band rcases
+    # the single-monomial kill families are split one declaration per module,
+    # so the aggregators carry no proof any more: read the `Part` modules too,
+    # or these checks would see almost nothing
     kl = [t for mm, t in text.items()
           if re.search(r"Chamber(?:Power|Refined|Unowned)?"
-                       r"(?:Kills|Systems|Splits|Refine)\d*Scratch$", mm)]
+                       r"(?:Kills|Systems|Splits|Refine)\d*"
+                       r"(?:Part\d+)?Scratch$", mm)]
     kl = ["\n".join(kl)] if kl else []
     nk = 0
     if kl:
@@ -630,10 +651,14 @@ def check_kills(mods, names):
             if want is None:
                 fail(f"kills: no signature for {mm.group(1)}")
                 continue
+            # a kill argument is `(by [clear * - …; ] omega)`, the same
+            # wrapped in `Or.inr`, an `Or.inr <name>`, or a bare hypothesis
             toks = (["hdpos"] +
-                    re.findall(r"\(Or\.inr ⟨[^⟩]*⟩\)|\(Or\.inr \(by omega\)\)"
+                    re.findall(r"\(Or\.inr ⟨[^⟩]*⟩\)"
+                               r"|\(Or\.inr \(by [^()]*omega\)\)"
                                r"|\(Or\.inr [A-Za-z0-9_']+\)"
-                               r"|\(by omega\)|[A-Za-z0-9_']+", mm.group(2)))
+                               r"|\(by [^()]*omega\)|[A-Za-z0-9_']+",
+                               mm.group(2)))
             if len(toks) != len(want):
                 fail(f"kills: {mm.group(1)} called with {len(toks)} args, "
                      f"wants {len(want)}")
@@ -647,10 +672,21 @@ def check_kills(mods, names):
             elif len(mm.group(2).split()) != len(want):
                 fail(f"kills: {mm.group(1)} called with "
                      f"{len(mm.group(2).split())} args, wants {len(want)}")
-        for mm in re.finditer(r"    rcases hb(\w+) with ([^\n]*)\n", kl[0]):
-            if len(mm.group(2).split("|")) != 7:
-                fail(f"kills: band rcases on {mm.group(1)} has "
-                     f"{len(mm.group(2).split('|'))} branches")
+        # a κ-letter band `rcases` has one branch per letter plus `l = 0`;
+        # a kill that first proves the band into the head of its load column
+        # (`hb<ld>s`) then splits that two-way — check both shapes, at any
+        # indentation, since the head stage nests the band `rcases` deeper
+        for mm in re.finditer(r"\n\s+rcases hb([a-z]+) with ([^\n]*)\n",
+                              kl[0]):
+            nm2 = mm.group(1)
+            # `hb<ld>s` is the head stage a kill proves the band into; no
+            # load is spelled with a trailing `s`, so the two are distinct
+            head = nm2.endswith("s") and nm2[:-1] in CC.LOADS
+            want = 2 if head else 7
+            got = len(mm.group(2).split("|"))
+            if got != want:
+                fail(f"kills: band rcases on hb{nm2} has "
+                     f"{got} branches, wants {want}")
         log(f"  kills: {nk} rest calls, {nf} face calls checked")
     log(f"  {nref} cross-module references, {ncall} column calls, {nbad} unresolved")
 

@@ -49,6 +49,8 @@ theorem muQuarticChamberFace1810_natDegree
   rw [natDegree_smul _ hc, natDegree_mul hAne (pow_ne_zero 2 hDne)]
   simp only [natDegree_pow]
   all_goals omega
+/-! ## Face degrees -/
+
 set_option maxHeartbeats 64000000 in
 theorem xiQuarticChamberFace0810_natDegree
     (A B C D E F G : k[X])
@@ -60,6 +62,8 @@ theorem xiQuarticChamberFace0810_natDegree
   rw [natDegree_smul _ hc]
   simp only [natDegree_pow]
   all_goals omega
+/-! ## Face degrees -/
+
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberFace0810_natDegree
     (A B C D E F G : k[X])
@@ -71,6 +75,8 @@ theorem muQuarticChamberFace0810_natDegree
   rw [natDegree_smul _ hc]
   simp only [natDegree_pow]
   all_goals omega
+/-! ## Face degrees -/
+
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberFace2810_natDegree
     (A B C D E F G : k[X])
@@ -82,6 +88,8 @@ theorem muQuarticChamberFace2810_natDegree
   rw [natDegree_smul _ hc]
   simp only [natDegree_pow]
   all_goals omega
+/-! ## Face degrees -/
+
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberFace4810_natDegree
     (A B C D E F G : k[X])
@@ -94,6 +102,8 @@ theorem muQuarticChamberFace4810_natDegree
   simp only [muQuarticChamberFace4810]
   rw [natDegree_smul _ hc, natDegree_mul (mul_ne_zero hAne hBne) hFne, natDegree_mul hAne hBne]
   all_goals omega
+/-! ## Face degrees -/
+
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberFace0810_natDegree
     (A B C D E F G : k[X])
@@ -105,6 +115,8 @@ theorem piQuarticChamberFace0810_natDegree
   rw [natDegree_smul _ hc]
   simp only [natDegree_pow]
   all_goals omega
+/-! ## Face degrees -/
+
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberFace6810_natDegree
     (A B C D E F G : k[X])
@@ -116,6 +128,8 @@ theorem muQuarticChamberFace6810_natDegree
   simp only [muQuarticChamberFace6810]
   rw [natDegree_smul _ hc, natDegree_mul hCne hGne]
   all_goals omega
+/-! ## Face degrees -/
+
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberFace2810_natDegree
     (A B C D E F G : k[X])
@@ -128,6 +142,8 @@ theorem piQuarticChamberFace2810_natDegree
   rw [natDegree_smul _ hc, natDegree_mul hAne (pow_ne_zero 2 hFne)]
   simp only [natDegree_pow]
   all_goals omega
+/-! ## Face degrees -/
+
 set_option maxHeartbeats 64000000 in
 theorem xiQuarticChamberFace12810_natDegree
     (A B C D E F G : k[X])
@@ -139,6 +155,8 @@ theorem xiQuarticChamberFace12810_natDegree
   simp only [xiQuarticChamberFace12810]
   rw [natDegree_smul _ hc, natDegree_mul hEne hGne]
   all_goals omega
+/-! ## Face degrees -/
+
 set_option maxHeartbeats 64000000 in
 theorem xiQuarticChamberFace2810_natDegree
     (A B C D E F G : k[X])
@@ -151,6 +169,8 @@ theorem xiQuarticChamberFace2810_natDegree
   rw [natDegree_smul _ hc, natDegree_mul (pow_ne_zero 2 hCne) hEne]
   simp only [natDegree_pow]
   all_goals omega
+/-! ## Face degrees -/
+
 set_option maxHeartbeats 64000000 in
 theorem xiQuarticChamberFace15810_natDegree
     (A B C D E F G : k[X])

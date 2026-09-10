@@ -72,36 +72,48 @@ theorem quarticRefinedBCDFG54L4810_impossible
     clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn; omega
   have hdz0 : 0 < A.natDegree + 2 * D.natDegree := by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0; omega
   have hz0l : l = 0 ∨ (4 * A.natDegree + B.natDegree < A.natDegree + 2 * D.natDegree ∧ 3 * A.natDegree + D.natDegree < A.natDegree + 2 * D.natDegree ∧ 2 * A.natDegree + B.natDegree + C.natDegree < A.natDegree + 2 * D.natDegree ∧ A.natDegree + 3 * B.natDegree < A.natDegree + 2 * D.natDegree ∧ 2 * A.natDegree + F.natDegree < A.natDegree + 2 * D.natDegree ∧ A.natDegree + C.natDegree + D.natDegree < A.natDegree + 2 * D.natDegree ∧ 2 * B.natDegree + D.natDegree < A.natDegree + 2 * D.natDegree ∧ B.natDegree + 2 * C.natDegree < A.natDegree + 2 * D.natDegree ∧ B.natDegree + G.natDegree < A.natDegree + 2 * D.natDegree ∧ C.natDegree + F.natDegree < A.natDegree + 2 * D.natDegree) := by
-    rcases hbl with h | h | h | h | h | h | h
+    have hbls : l = 0 ∨ (3 * A.natDegree + D.natDegree < A.natDegree + 2 * D.natDegree ∧ 4 * A.natDegree + B.natDegree < A.natDegree + 2 * D.natDegree) := by
+      rcases hbl with h | h | h | h | h | h | h
+      · exact Or.inl h
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact absurd h (by clear * - hEn hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq5 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+    rcases hbls with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 h; omega)
+    · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq5 hcq6; omega)
   have hz0beta : beta = 0 ∨ (3 * A.natDegree + B.natDegree < A.natDegree + 2 * D.natDegree ∧ 2 * A.natDegree + D.natDegree < A.natDegree + 2 * D.natDegree ∧ A.natDegree + B.natDegree + C.natDegree < A.natDegree + 2 * D.natDegree ∧ 3 * B.natDegree < A.natDegree + 2 * D.natDegree ∧ A.natDegree + F.natDegree < A.natDegree + 2 * D.natDegree ∧ C.natDegree + D.natDegree < A.natDegree + 2 * D.natDegree) := by
-    rcases hbbeta with h | h | h | h | h | h | h
+    have hbbetas : beta = 0 ∨ (3 * A.natDegree + B.natDegree < A.natDegree + 2 * D.natDegree) := by
+      rcases hbbeta with h | h | h | h | h | h | h
+      · exact Or.inl h
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact absurd h (by clear * - hEn hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq5 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+    rcases hbbetas with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 h; omega)
+    · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq5 hcq6; omega)
   have hz0delta : delta = 0 ∨ (2 * A.natDegree + B.natDegree < A.natDegree + 2 * D.natDegree ∧ A.natDegree + D.natDegree < A.natDegree + 2 * D.natDegree ∧ B.natDegree + C.natDegree < A.natDegree + 2 * D.natDegree ∧ F.natDegree < A.natDegree + 2 * D.natDegree) := by
-    rcases hbdelta with h | h | h | h | h | h | h
+    have hbdeltas : delta = 0 ∨ (2 * A.natDegree + B.natDegree < A.natDegree + 2 * D.natDegree) := by
+      rcases hbdelta with h | h | h | h | h | h | h
+      · exact Or.inl h
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact absurd h (by clear * - hEn hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq5 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+    rcases hbdeltas with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 h; omega)
+    · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq6 hApos; omega)
   have hr0 : (muQuarticChamberRest6003810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G).natDegree < A.natDegree + 2 * D.natDegree :=
     muQuarticChamberRest6003810_natDegree_lt_of_live_BCDFG l beta gamma delta epsilon zeta eta theta
-      A B C D E F G hdz0 hEz (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0; omega) hz0l hz0beta (Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0; omega)) hz0delta (Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0; omega)) (Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0; omega)) (Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0; omega)) (Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0; omega))
+      A B C D E F G hdz0 hEz (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq2; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq5; omega) hz0l hz0beta (Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6 hApos; omega)) hz0delta (Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hApos; omega)) (Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6 hApos; omega)) (Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)) (Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hApos; omega))
   have hct0 := muQuarticChamberFace6003810_coeff_top hAne hCne hDne hGne (B := B) (E := E) (F := F) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0; omega)
   have hq0 : (degreeZeroMuQuartic810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G).coeff (A.natDegree + 2 * D.natDegree) = 0 := by
@@ -117,36 +129,48 @@ theorem quarticRefinedBCDFG54L4810_impossible
     clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0; omega
   have hdz1 : 0 < A.natDegree + C.natDegree + 2 * D.natDegree := by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1; omega
   have hz1l : l = 0 ∨ (4 * A.natDegree + B.natDegree + C.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ 3 * A.natDegree + 3 * B.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ 4 * A.natDegree + F.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ 3 * A.natDegree + C.natDegree + D.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ 2 * A.natDegree + 2 * B.natDegree + D.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ 2 * A.natDegree + B.natDegree + 2 * C.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ A.natDegree + 3 * B.natDegree + C.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ 5 * B.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ 2 * A.natDegree + C.natDegree + F.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ A.natDegree + 2 * B.natDegree + F.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ A.natDegree + B.natDegree + 2 * D.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ A.natDegree + 2 * C.natDegree + D.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ 2 * B.natDegree + C.natDegree + D.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ B.natDegree + 3 * C.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ B.natDegree + C.natDegree + G.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ B.natDegree + D.natDegree + F.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ 2 * C.natDegree + F.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ 3 * D.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ F.natDegree + G.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree) := by
-    rcases hbl with h | h | h | h | h | h | h
+    have hbls : l = 0 ∨ (3 * A.natDegree + C.natDegree + D.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ 4 * A.natDegree + B.natDegree + C.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ 4 * A.natDegree + F.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree) := by
+      rcases hbl with h | h | h | h | h | h | h
+      · exact Or.inl h
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq4 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq5 hcq6; omega)
+      · exact absurd h (by clear * - hEn hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq5 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq5 hcq6; omega)
+    rcases hbls with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 h; omega)
+    · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq5 hcq6; omega)
   have hz1beta : beta = 0 ∨ (3 * A.natDegree + B.natDegree + C.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ 2 * A.natDegree + 3 * B.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ 3 * A.natDegree + F.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ 2 * A.natDegree + C.natDegree + D.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ A.natDegree + 2 * B.natDegree + D.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ A.natDegree + B.natDegree + 2 * C.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ 3 * B.natDegree + C.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ A.natDegree + C.natDegree + F.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ 2 * B.natDegree + F.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ B.natDegree + 2 * D.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ 2 * C.natDegree + D.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree) := by
-    rcases hbbeta with h | h | h | h | h | h | h
+    have hbbetas : beta = 0 ∨ (3 * A.natDegree + B.natDegree + C.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ 3 * A.natDegree + F.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree) := by
+      rcases hbbeta with h | h | h | h | h | h | h
+      · exact Or.inl h
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq4; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq5 hcq6; omega)
+      · exact absurd h (by clear * - hEn hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq5 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq5 hcq6; omega)
+    rcases hbbetas with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 h; omega)
+    · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq5 hcq6; omega)
   have hz1delta : delta = 0 ∨ (2 * A.natDegree + B.natDegree + C.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ A.natDegree + 3 * B.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ 2 * A.natDegree + F.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ A.natDegree + C.natDegree + D.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ 2 * B.natDegree + D.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ B.natDegree + 2 * C.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ C.natDegree + F.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree) := by
-    rcases hbdelta with h | h | h | h | h | h | h
+    have hbdeltas : delta = 0 ∨ (2 * A.natDegree + B.natDegree + C.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree ∧ 2 * A.natDegree + F.natDegree < A.natDegree + C.natDegree + 2 * D.natDegree) := by
+      rcases hbdelta with h | h | h | h | h | h | h
+      · exact Or.inl h
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq4; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq5 hcq6; omega)
+      · exact absurd h (by clear * - hEn hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq5 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq5 hcq6; omega)
+    rcases hbdeltas with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 h; omega)
+    · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq6 hApos; omega)
   have hr1 : (piQuarticChamberRest6004810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G).natDegree < A.natDegree + C.natDegree + 2 * D.natDegree :=
     piQuarticChamberRest6004810_natDegree_lt_of_live_BCDFG l beta gamma delta epsilon zeta eta theta
-      A B C D E F G hdz1 hEz (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1; omega) hz1l hz1beta (Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1; omega)) hz1delta (Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1; omega)) (Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1; omega)) (Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1; omega)) (Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1; omega))
+      A B C D E F G hdz1 hEz (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq3; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq2; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq5 hcq6; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq4; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq3 hcq6; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq5; omega) hz1l hz1beta (Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq6 hApos; omega)) hz1delta (Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hApos; omega)) (Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq5 hcq6 hApos; omega)) (Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6 hApos; omega)) (Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hApos; omega))
   have hct1 := piQuarticChamberFace6004810_coeff_top hAne hCne hDne hGne (B := B) (E := E) (F := F) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1; omega)
   have hq1 : (degreeZeroPiQuartic810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G).coeff (A.natDegree + C.natDegree + 2 * D.natDegree) = 0 := by
@@ -162,117 +186,137 @@ theorem quarticRefinedBCDFG54L4810_impossible
     clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1; omega
   have hdz2 : 0 < 2 * C.natDegree + D.natDegree := by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2; omega
   have hz2l : l = 0 ∨ (6 * A.natDegree < 2 * C.natDegree + D.natDegree ∧ 4 * A.natDegree + C.natDegree < 2 * C.natDegree + D.natDegree ∧ 3 * A.natDegree + 2 * B.natDegree < 2 * C.natDegree + D.natDegree ∧ 2 * A.natDegree + B.natDegree + D.natDegree < 2 * C.natDegree + D.natDegree ∧ 2 * A.natDegree + 2 * C.natDegree < 2 * C.natDegree + D.natDegree ∧ A.natDegree + 2 * B.natDegree + C.natDegree < 2 * C.natDegree + D.natDegree ∧ 4 * B.natDegree < 2 * C.natDegree + D.natDegree ∧ 2 * A.natDegree + G.natDegree < 2 * C.natDegree + D.natDegree ∧ A.natDegree + B.natDegree + F.natDegree < 2 * C.natDegree + D.natDegree ∧ A.natDegree + 2 * D.natDegree < 2 * C.natDegree + D.natDegree ∧ B.natDegree + C.natDegree + D.natDegree < 2 * C.natDegree + D.natDegree ∧ 3 * C.natDegree < 2 * C.natDegree + D.natDegree ∧ C.natDegree + G.natDegree < 2 * C.natDegree + D.natDegree ∧ D.natDegree + F.natDegree < 2 * C.natDegree + D.natDegree) := by
-    rcases h5bl with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+    have hbls : l = 0 ∨ (6 * A.natDegree < 2 * C.natDegree + D.natDegree) := by
+      rcases h5bl with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      · exact Or.inl h
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq5; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq3 hcq5; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq3 hcq5 hcq6; omega)
+      · exact Or.inr (by clear * - h hAE hEn hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq5; omega)
+      · exact Or.inr (by clear * - h hEn hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hAE hEn hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+    rcases hbls with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
+    · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq5 hcq6; omega)
   have hz2beta : beta = 0 ∨ (5 * A.natDegree < 2 * C.natDegree + D.natDegree ∧ 3 * A.natDegree + C.natDegree < 2 * C.natDegree + D.natDegree ∧ 2 * A.natDegree + 2 * B.natDegree < 2 * C.natDegree + D.natDegree ∧ A.natDegree + B.natDegree + D.natDegree < 2 * C.natDegree + D.natDegree ∧ A.natDegree + 2 * C.natDegree < 2 * C.natDegree + D.natDegree ∧ 2 * B.natDegree + C.natDegree < 2 * C.natDegree + D.natDegree ∧ A.natDegree + G.natDegree < 2 * C.natDegree + D.natDegree ∧ B.natDegree + F.natDegree < 2 * C.natDegree + D.natDegree ∧ 2 * D.natDegree < 2 * C.natDegree + D.natDegree) := by
-    rcases h5bbeta with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+    have hbbetas : beta = 0 ∨ (5 * A.natDegree < 2 * C.natDegree + D.natDegree) := by
+      rcases h5bbeta with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      · exact Or.inl h
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq5; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq3 hcq5; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq3 hcq5 hcq6; omega)
+      · exact Or.inr (by clear * - h hEn hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq5 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq5; omega)
+      · exact Or.inr (by clear * - h hEn hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hAE hEn hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+    rcases hbbetas with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
+    · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq5 hcq6; omega)
   have hz2delta : delta = 0 ∨ (4 * A.natDegree < 2 * C.natDegree + D.natDegree ∧ 2 * A.natDegree + C.natDegree < 2 * C.natDegree + D.natDegree ∧ A.natDegree + 2 * B.natDegree < 2 * C.natDegree + D.natDegree ∧ B.natDegree + D.natDegree < 2 * C.natDegree + D.natDegree ∧ 2 * C.natDegree < 2 * C.natDegree + D.natDegree ∧ G.natDegree < 2 * C.natDegree + D.natDegree) := by
-    rcases h5bdelta with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+    have hbdeltas : delta = 0 ∨ (4 * A.natDegree < 2 * C.natDegree + D.natDegree) := by
+      rcases h5bdelta with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      · exact Or.inl h
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq5; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq3 hcq5; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq3 hcq5 hcq6; omega)
+      · exact Or.inr (by clear * - h hEn hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq5 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq5; omega)
+      · exact Or.inr (by clear * - h hEn hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hAE hEn hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq5 hcq6; omega)
+      · exact Or.inr (by clear * - h hAE hEn hx0 hx1 hx2 hx3 hcq0 hcq1 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+    rcases hbdeltas with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
+    · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
   have hz2zeta : zeta = 0 ∨ (3 * A.natDegree < 2 * C.natDegree + D.natDegree ∧ A.natDegree + C.natDegree < 2 * C.natDegree + D.natDegree ∧ 2 * B.natDegree < 2 * C.natDegree + D.natDegree) := by
-    rcases h5bzeta with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+    have hbzetas : zeta = 0 ∨ (3 * A.natDegree < 2 * C.natDegree + D.natDegree) := by
+      rcases h5bzeta with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      · exact Or.inl h
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq5; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq3 hcq5; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq3 hcq5 hcq6; omega)
+      · exact Or.inr (by clear * - h hEn hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq5 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq5; omega)
+      · exact Or.inr (by clear * - h hEn hx0 hx1 hx2 hx3 hcq0 hcq1 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hEn hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq5 hcq6; omega)
+      · exact Or.inr (by clear * - h hEn hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hAE hEn hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+    rcases hbzetas with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
+    · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
   have hz2theta : theta = 0 ∨ (2 * A.natDegree < 2 * C.natDegree + D.natDegree ∧ C.natDegree < 2 * C.natDegree + D.natDegree) := by
-    rcases h5btheta with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+    have hbthetas : theta = 0 ∨ (2 * A.natDegree < 2 * C.natDegree + D.natDegree) := by
+      rcases h5btheta with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      · exact Or.inl h
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq3 hcq5; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq3; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq3; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq3 hcq5 hcq6; omega)
+      · exact Or.inr (by clear * - h hEn hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq5 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq2 hcq3; omega)
+      · exact Or.inr (by clear * - h hEn hx0 hx1 hx2 hx3 hcq0 hcq1 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq3; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hEn hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq5 hcq6; omega)
+      · exact Or.inr (by clear * - h hEn hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hEn hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq5 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq5 hcq6; omega)
+      · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
+    rcases hbthetas with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
-    · exact Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2 h; omega)
+    · exact Or.inr (by clear * - h hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)
   have hr2 : (n2QuarticChamberRest6000810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G).natDegree < 2 * C.natDegree + D.natDegree :=
     n2QuarticChamberRest6000810_natDegree_lt_of_live_BCDFG l beta gamma delta epsilon zeta eta theta
-      A B C D E F G hdz2 hEz (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2; omega) hz2l hz2beta (Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2; omega)) hz2delta (Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2; omega)) hz2zeta (Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2; omega)) hz2theta
+      A B C D E F G hdz2 hEz (by clear * - hx0 hx1 hx2 hx3 hcq3; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq3 hcq5; omega) (by clear * - hx0 hx1 hx2 hx3 hcq3 hcq6; omega) hz2l hz2beta (Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6 hApos; omega)) hz2delta (Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hApos; omega)) hz2zeta (Or.inr (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq3 hcq6; omega)) hz2theta
   have hct2 := n2QuarticChamberFace6000810_coeff_top hCne hDne hGne (A := A) (B := B) (E := E) (F := F) (by clear * - hx0 hx1 hx2 hx3 hcq0 hcq1 hcq2 hcq3 hcq4 hcq5 hcq6 hcq7 hcq8 hcq9 hcq10 hcq11 hcq12 hcq13 hcq14 hcq15 hApos hAB hAC hAD hAE hAF hAG hEn hdp0 hdz0 hdp1 hdz1 hdp2 hdz2; omega)
   have hq2 : (degreeZeroN2Quartic810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G).coeff (2 * C.natDegree + D.natDegree) = 0 := by

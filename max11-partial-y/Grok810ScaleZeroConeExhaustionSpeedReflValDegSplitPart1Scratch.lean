@@ -112,21 +112,21 @@ theorem degreeZeroMuNoA6_natDegree_lt_of_mixedB
         theta A B C0 D0 E0 F0 G0).natDegree <
       6 * A.natDegree := by
   rcases hcone with ⟨hApos, hBpos, h3, hC, hD, hE, hF, hG⟩
-  simp only [Max11ReflectDeg.polyOf_cons, Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right, pow_zero, pow_one, mul_one, one_mul, add_zero, degreeZeroMuNoA6Polynomial810, zero_mul, mul_zero, zero_smul,
-    smul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0),
-    zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), hC, hD, hE, hF,
-    hG]
-  compute_degree
-  simp only [hC, hD, hE, hF, hG]
-  have h4b : 4 * B.natDegree + 1 ≤ 6 * A.natDegree := by omega
-  have h3a2b : 3 * A.natDegree + 2 * B.natDegree + 1 ≤ 6 * A.natDegree := by
-    omega
-  have h4ab : 4 * A.natDegree + B.natDegree + 1 ≤ 6 * A.natDegree := by omega
-  have ha3b : A.natDegree + 3 * B.natDegree + 1 ≤ 6 * A.natDegree := by omega
-  have h3b : 3 * B.natDegree + 1 ≤ 6 * A.natDegree := by omega
-  have h2a2b : 2 * A.natDegree + 2 * B.natDegree + 1 ≤ 6 * A.natDegree := by
-    omega
-  omega
+  unfold degreeZeroMuNoA6Polynomial810
+  apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+    Nat.add_zero, Nat.zero_add, pow_zero, pow_one, mul_one, one_mul,
+    zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0),
+    zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0),
+    zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0),
+    zero_pow (by decide : (7 : ℕ) ≠ 0), hC, hD, hE, hF, hG,
+    eq_self_iff_true, true_or, or_true, and_true, true_and]
+  repeat' apply And.intro
+  all_goals first | omega | exact Or.inr (Or.inr (by omega))
 
 
 set_option maxHeartbeats 64000000 in
@@ -138,18 +138,21 @@ theorem degreeZeroMuNoA6_natDegree_lt_of_mixedC0
         theta A B C0 D0 E0 F0 G0).natDegree <
       6 * A.natDegree := by
   rcases hcone with ⟨hApos, hCpos, hAC, h2, hB, hD, hE, hF, hG⟩
-  simp only [Max11ReflectDeg.polyOf_cons, Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right, pow_zero, pow_one, mul_one, one_mul, add_zero, degreeZeroMuNoA6Polynomial810, zero_mul, mul_zero, zero_smul,
-    smul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0),
-    zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), hB, hD, hE, hF,
-    hG]
-  compute_degree
-  simp only [hB, hD, hE, hF, hG]
-  have h4ac : 4 * A.natDegree + C0.natDegree + 1 ≤ 6 * A.natDegree := by
-    omega
-  have h2a2c : 2 * A.natDegree + 2 * C0.natDegree + 1 ≤ 6 * A.natDegree := by
-    omega
-  have h3c : 3 * C0.natDegree + 1 ≤ 6 * A.natDegree := by omega
-  omega
+  unfold degreeZeroMuNoA6Polynomial810
+  apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+    Nat.add_zero, Nat.zero_add, pow_zero, pow_one, mul_one, one_mul,
+    zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0),
+    zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0),
+    zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0),
+    zero_pow (by decide : (7 : ℕ) ≠ 0), hB, hD, hE, hF, hG,
+    eq_self_iff_true, true_or, or_true, and_true, true_and]
+  repeat' apply And.intro
+  all_goals first | omega | exact Or.inr (Or.inr (by omega))
 
 
 set_option maxHeartbeats 64000000 in
@@ -161,17 +164,21 @@ theorem degreeZeroMuNoA6_natDegree_lt_of_mixedD0
         theta A B C0 D0 E0 F0 G0).natDegree <
       6 * A.natDegree := by
   rcases hcone with ⟨hApos, hDpos, h5, hB, hC, hE, hF, hG⟩
-  simp only [Max11ReflectDeg.polyOf_cons, Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right, pow_zero, pow_one, mul_one, one_mul, add_zero, degreeZeroMuNoA6Polynomial810, zero_mul, mul_zero, zero_smul,
-    smul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0),
-    zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), hB, hC, hE, hF,
-    hG]
-  compute_degree
-  simp only [hB, hC, hE, hF, hG]
-  have had : A.natDegree + 2 * D0.natDegree + 1 ≤ 6 * A.natDegree := by
-    omega
-  have h3aD : 3 * A.natDegree + D0.natDegree + 1 ≤ 6 * A.natDegree := by
-    omega
-  omega
+  unfold degreeZeroMuNoA6Polynomial810
+  apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+    Nat.add_zero, Nat.zero_add, pow_zero, pow_one, mul_one, one_mul,
+    zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0),
+    zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0),
+    zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0),
+    zero_pow (by decide : (7 : ℕ) ≠ 0), hB, hC, hE, hF, hG,
+    eq_self_iff_true, true_or, or_true, and_true, true_and]
+  repeat' apply And.intro
+  all_goals first | omega | exact Or.inr (Or.inr (by omega))
 
 
 set_option maxHeartbeats 64000000 in
@@ -183,16 +190,21 @@ theorem degreeZeroMuNoA6_natDegree_lt_of_AE03
         theta A B C0 D0 E0 F0 G0).natDegree <
       6 * A.natDegree := by
   rcases hcone with ⟨hApos, hEpos, htie, hB, hC, hD, hF, hG⟩
-  simp only [Max11ReflectDeg.polyOf_cons, Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right, pow_zero, pow_one, mul_one, one_mul, add_zero, degreeZeroMuNoA6Polynomial810, zero_mul, mul_zero, zero_smul,
-    smul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0),
-    zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), hB, hC, hD, hF,
-    hG]
-  compute_degree
-  simp only [hB, hC, hD, hF, hG, htie]
-  have h3ae : 3 * A.natDegree + E0.natDegree + 1 ≤ 6 * A.natDegree := by
-    omega
-  have h2e : 2 * E0.natDegree + 1 ≤ 6 * A.natDegree := by omega
-  omega
+  unfold degreeZeroMuNoA6Polynomial810
+  apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+    Nat.add_zero, Nat.zero_add, pow_zero, pow_one, mul_one, one_mul,
+    zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0),
+    zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0),
+    zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0),
+    zero_pow (by decide : (7 : ℕ) ≠ 0), hB, hC, hD, hF, hG,
+    eq_self_iff_true, true_or, or_true, and_true, true_and]
+  repeat' apply And.intro
+  all_goals first | omega | exact Or.inr (Or.inr (by omega))
 
 
 set_option maxHeartbeats 64000000 in
@@ -204,16 +216,21 @@ theorem degreeZeroMuNoA6_natDegree_lt_of_AF07
         theta A B C0 D0 E0 F0 G0).natDegree <
       6 * A.natDegree := by
   rcases hcone with ⟨hApos, hFpos, htie, hB, hC, hD, hE, hG⟩
-  simp only [Max11ReflectDeg.polyOf_cons, Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right, pow_zero, pow_one, mul_one, one_mul, add_zero, degreeZeroMuNoA6Polynomial810, zero_mul, mul_zero, zero_smul,
-    smul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0),
-    zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), hB, hC, hD, hE,
-    hG]
-  compute_degree
-  simp only [hB, hC, hD, hE, hG, htie]
-  have h2af : 2 * A.natDegree + F0.natDegree + 1 ≤ 6 * A.natDegree := by
-    omega
-  have haF : A.natDegree + F0.natDegree + 1 ≤ 6 * A.natDegree := by omega
-  omega
+  unfold degreeZeroMuNoA6Polynomial810
+  apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+    Nat.add_zero, Nat.zero_add, pow_zero, pow_one, mul_one, one_mul,
+    zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0),
+    zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0),
+    zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0),
+    zero_pow (by decide : (7 : ℕ) ≠ 0), hB, hC, hD, hE, hG,
+    eq_self_iff_true, true_or, or_true, and_true, true_and]
+  repeat' apply And.intro
+  all_goals first | omega | exact Or.inr (Or.inr (by omega))
 
 
 set_option maxHeartbeats 64000000 in
@@ -225,13 +242,21 @@ theorem degreeZeroMuNoAC02_natDegree_lt
         theta A B C0 D0 E0 F0 G0).natDegree <
       6 * A.natDegree := by
   rcases hcone with ⟨hApos, hCpos, htie, hB, hD, hE, hF, hG⟩
-  simp only [Max11ReflectDeg.polyOf_cons, Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right, pow_zero, pow_one, mul_one, one_mul, add_zero, degreeZeroMuNoAC02Polynomial810, zero_mul, mul_zero, zero_smul,
-    smul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0),
-    zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), hB, hD, hE, hF,
-    hG]
-  compute_degree
-  simp only [hB, hD, hE, hF, hG, htie]
-  omega
+  unfold degreeZeroMuNoAC02Polynomial810
+  apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+    Nat.add_zero, Nat.zero_add, pow_zero, pow_one, mul_one, one_mul,
+    zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0),
+    zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0),
+    zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0),
+    zero_pow (by decide : (7 : ℕ) ≠ 0), hB, hD, hE, hF, hG,
+    eq_self_iff_true, true_or, or_true, and_true, true_and]
+  repeat' apply And.intro
+  all_goals first | omega | exact Or.inr (Or.inr (by omega))
 
 
 set_option maxHeartbeats 64000000 in
@@ -243,13 +268,21 @@ theorem degreeZeroXiNoAC02_natDegree_lt
         theta A B C0 D0 E0 F0 G0).natDegree <
       7 * A.natDegree := by
   rcases hcone with ⟨hApos, hCpos, htie, hB, hD, hE, hF, hG⟩
-  simp only [Max11ReflectDeg.polyOf_cons, Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right, pow_zero, pow_one, mul_one, one_mul, add_zero, degreeZeroXiNoAC02Polynomial810, zero_mul, mul_zero, zero_smul,
-    smul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0),
-    zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), hB, hD, hE, hF,
-    hG]
-  compute_degree
-  simp only [hB, hD, hE, hF, hG, htie]
-  omega
+  unfold degreeZeroXiNoAC02Polynomial810
+  apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+    Nat.add_zero, Nat.zero_add, pow_zero, pow_one, mul_one, one_mul,
+    zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0),
+    zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0),
+    zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0),
+    zero_pow (by decide : (7 : ℕ) ≠ 0), hB, hD, hE, hF, hG,
+    eq_self_iff_true, true_or, or_true, and_true, true_and]
+  repeat' apply And.intro
+  all_goals first | omega | exact Or.inr (Or.inr (by omega))
 
 
 set_option maxHeartbeats 64000000 in
@@ -261,21 +294,21 @@ theorem degreeZeroMuNoAC02_natDegree_lt_of_ABC0
         theta A B C0 D0 E0 F0 G0).natDegree <
       6 * A.natDegree := by
   rcases hcone with ⟨hApos, hBpos, hCpos, htie, h4b, h5b, hD, hE, hF, hG⟩
-  simp only [Max11ReflectDeg.polyOf_cons, Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right, pow_zero, pow_one, mul_one, one_mul, add_zero, degreeZeroMuNoAC02Polynomial810, zero_mul, mul_zero, zero_smul,
-    smul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0),
-    zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), hD, hE, hF, hG]
-  compute_degree
-  simp only [hD, hE, hF, hG, htie, h4b, h5b]
-  have h3a2b : 3 * A.natDegree + 2 * B.natDegree + 1 ≤ 6 * A.natDegree := by
-    omega
-  have h4ab : 4 * A.natDegree + B.natDegree + 1 ≤ 6 * A.natDegree := by omega
-  have h4b : 4 * B.natDegree + 1 ≤ 6 * A.natDegree := by omega
-  have ha3b : A.natDegree + 3 * B.natDegree + 1 ≤ 6 * A.natDegree := by omega
-  have h2a2b : 2 * A.natDegree + 2 * B.natDegree + 1 ≤ 6 * A.natDegree := by
-    omega
-  have ha2bC : A.natDegree + 2 * B.natDegree + C0.natDegree + 1 ≤
-      6 * A.natDegree := by omega
-  omega
+  unfold degreeZeroMuNoAC02Polynomial810
+  apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+    Nat.add_zero, Nat.zero_add, pow_zero, pow_one, mul_one, one_mul,
+    zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0),
+    zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0),
+    zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0),
+    zero_pow (by decide : (7 : ℕ) ≠ 0), hD, hE, hF, hG,
+    eq_self_iff_true, true_or, or_true, and_true, true_and]
+  repeat' apply And.intro
+  all_goals first | omega | exact Or.inr (Or.inr (by omega))
 
 
 end ExhaustRests810

@@ -10,6 +10,7 @@ import Sol610ScaleTwoAlignedTwelfthCertificateWithCPart09Scratch
 import Sol610ScaleTwoAlignedTwelfthCertificateWithCPart10Scratch
 import Sol610ScaleTwoAlignedTwelfthCertificateWithCPart11Scratch
 import Fable610ScaleTwoAlignedFlatDefectPart07Scratch
+import Sol610ScaleTwoAlignedTwelfthCertificateWithCPart12BridgePart02Scratch
 
 open scoped Polynomial.Bivariate
 noncomputable section
@@ -24,6 +25,8 @@ open private memory610_flatSixthDefect from Fable610ScaleTwoAlignedFlatDefectPar
 open private memory610_flatSeventhDefect from Fable610ScaleTwoAlignedFlatDefectPart05Scratch in
 open private memory610_flatEighthDefect from Fable610ScaleTwoAlignedFlatDefectPart06Scratch in
 open private memory610_flatNinthDefect from Fable610ScaleTwoAlignedFlatDefectPart07Scratch in
+open private memory610_flatTenthDefect from Sol610ScaleTwoAlignedTwelfthCertificateWithCPart12BridgePart01Scratch in
+open private memory610_flatEleventhDefect from Sol610ScaleTwoAlignedTwelfthCertificateWithCPart12BridgePart02Scratch in
 set_option maxHeartbeats 480000000 in
 set_option maxRecDepth 100000 in
 /-- Exact C-extended multiplier identity for the degree-three row. -/
@@ -73,7 +76,7 @@ theorem alignedTwelfthDefect_withC_multiplier_identity_610
       alignedTwelfthCofactorLambda610 a5 *
         alignedOddWeightedRow610 55 H
           (alignedEleventhDefect610 H a0 a1 a2 a3 a4 a5 b1 b2 b3 b4 b5 b6 b7 κ) := by
-  simp only [alignedTwelfthBaseEquation610, alignedTwelfthCofactorC610, alignedTwelfthCofactorD610, alignedTwelfthCofactorE610, alignedTwelfthCofactorF610, alignedTwelfthCofactorG610, alignedTwelfthCofactorI610, alignedTwelfthCofactorJ610, alignedTwelfthCofactorL610, alignedTwelfthCofactorOmega610, alignedTwelfthCofactorLambda610, alignedEvenWeightedRow610, alignedOddWeightedRow610, alignedTwelfthDefect610, alignedTwelfthDefectBlock1_610, alignedTwelfthDefectBlock2_610, alignedTwelfthDefectBlock3_610, alignedTwelfthDefectBlock4_610, alignedTwelfthDefectBlock5_610, alignedEleventhDefect610, alignedTenthDefect610, memory610_flatNinthDefect, memory610_flatEighthDefect, memory610_flatSeventhDefect, memory610_flatSixthDefect, memory610_flatFifthDefect, memory610_flatFourthDefect, memory610_flatThirdDefect, alignedSecondDefect610, Polynomial.derivative_sub, Polynomial.derivative_add, Polynomial.derivative_mul, Polynomial.derivative_pow, Polynomial.derivative_ofNat, Polynomial.derivative_C, nsmul_eq_mul, zero_mul, mul_zero, zero_add, add_zero, Max11ReflectVal.polyR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_cons, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, Polynomial.derivative_neg, neg_zero]
+  simp only [alignedTwelfthBaseEquation610, alignedTwelfthCofactorC610, alignedTwelfthCofactorD610, alignedTwelfthCofactorE610, alignedTwelfthCofactorF610, alignedTwelfthCofactorG610, alignedTwelfthCofactorI610, alignedTwelfthCofactorJ610, alignedTwelfthCofactorL610, alignedTwelfthCofactorOmega610, alignedTwelfthCofactorLambda610, alignedEvenWeightedRow610, alignedOddWeightedRow610, alignedTwelfthDefect610, alignedTwelfthDefectBlock1_610, alignedTwelfthDefectBlock2_610, alignedTwelfthDefectBlock3_610, alignedTwelfthDefectBlock4_610, alignedTwelfthDefectBlock5_610, memory610_flatEleventhDefect, memory610_flatTenthDefect, memory610_flatNinthDefect, memory610_flatEighthDefect, memory610_flatSeventhDefect, memory610_flatSixthDefect, memory610_flatFifthDefect, memory610_flatFourthDefect, memory610_flatThirdDefect, alignedSecondDefect610, Polynomial.derivative_sub, Polynomial.derivative_add, Polynomial.derivative_mul, Polynomial.derivative_pow, Polynomial.derivative_ofNat, Polynomial.derivative_C, nsmul_eq_mul, zero_mul, mul_zero, zero_add, add_zero, Max11ReflectVal.polyR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_cons, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, Polynomial.derivative_neg, neg_zero]
   apply Polynomial.funext
   intro x
   simp only [Polynomial.eval_add, Polynomial.eval_sub, Polynomial.eval_mul,

@@ -77,7 +77,6 @@ theorem degreeZeroCompactBlock23_eq_expansion
   field_simp [h2, h4, h8, h16, h32, h64, h1024, h2048, h8192, h65536, h131072, h262144, h16777216, h67108864, h17179869184]
   ring
 
-#print axioms degreeZeroCompactBlock0_eq_expansion
 #print axioms degreeZeroCompactBlock23_eq_expansion
 
 end DegreeZeroCompactBlockClearing810

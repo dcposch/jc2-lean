@@ -28,7 +28,7 @@ section QuarticKills810
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroPiQuartic810_eq_ABDEF_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -42,7 +42,7 @@ theorem degreeZeroPiQuartic810_eq_ABDEF_add_rest
     piThetaGroupQuartic810, piQuarticFaceABDEF810, degreeZeroPiQuarticNoABDEF810]
   all_goals module
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroPiQuarticNoABDEF810` (87 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -108,9 +108,9 @@ theorem speedRefl_degreeZeroPiQuarticNoABDEF810_eq_polyOf
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  module
+  simp only [sub_eq_add_neg, neg_smul, add_assoc]
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroPiQuarticNoABDEF810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X])
@@ -122,20 +122,15 @@ theorem degreeZeroPiQuarticNoABDEF810_natDegree_lt
   have hC1 : C.natDegree + 1 ≤ 2 * A.natDegree := Nat.succ_le_of_lt hClt
   have hG1 : G.natDegree + 1 ≤ 4 * A.natDegree := Nat.succ_le_of_lt hGlt
   rw [speedRefl_degreeZeroPiQuarticNoABDEF810_eq_polyOf]
-  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
-    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+    Nat.add_zero, Nat.zero_add, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
+set_option maxHeartbeats 64000000 in
 theorem piQuarticFaceABDEF810_coeff_top
     {A B C D E F G : k[X]}
     (hcone : QuarticRatioConeABDEF810 A B C D E F G)
@@ -199,7 +194,7 @@ theorem piQuarticFaceABDEF810_coeff_top
   rw [hcf_A2B4, hcf_AB3D, hcf_ABDE, hcf_AF2, hcf_B3F, hcf_B2D2, hcf_BEF, hcf_D2E]
   ring
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def primitiveQuarticFaceABDEF810 (A B C D E F G : k[X]) : k[X] :=
   (-(5 / 65536 : k)) • (A ^ 4 * B ^ 3)
   - (15 / 16384 : k) • (A ^ 3 * B ^ 2 * D)
@@ -218,8 +213,9 @@ def primitiveQuarticFaceABDEF810 (A B C D E F G : k[X]) : k[X] :=
   - (5 / 16 : k) • (D ^ 2 * F)
   - (5 / 16 : k) • (D * E ^ 2)
 
-set_option maxHeartbeats 32000000 in
-def degreeZeroPrimitiveQuarticNoABDEF810
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 1–10, preserving signs and left association. -/
+private abbrev grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk01
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) : k[X] :=
   (15 / 16384 : k) • (A ^ 3 * B * C ^ 2)
@@ -232,6 +228,13 @@ def degreeZeroPrimitiveQuarticNoABDEF810
   - (15 / 1024 : k) • (A * B * C ^ 3)
   - (265 / 2048 : k) • (B ^ 3 * C ^ 2)
   - (5 / 256 : k) • (A ^ 2 * D * G)
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 11–20, preserving signs and left association. -/
+private abbrev grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk02 (acc : k[X])
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  acc
   + (5 / 128 : k) • (A * B * C * G)
   + (15 / 128 : k) • (A * C * D * E)
   + (15 / 256 : k) • (B ^ 3 * G)
@@ -242,6 +245,13 @@ def degreeZeroPrimitiveQuarticNoABDEF810
   - (5 / 16 : k) • (A * F * G)
   - (5 / 16 : k) • (B * E * G)
   - (5 / 16 : k) • (C * D * G)
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 21–30, preserving signs and left association. -/
+private abbrev grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk03 (acc : k[X])
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  acc
   - (5 / 8 : k) • (C * E * F)
   + (1575 / 268435456 * l : k) • A ^ 8
   + (765 / 4194304 * l : k) • (A ^ 6 * C)
@@ -252,6 +262,13 @@ def degreeZeroPrimitiveQuarticNoABDEF810
   - (81 / 131072 * l : k) • (A ^ 3 * B ^ 2 * C)
   + (261 / 262144 * l : k) • (A ^ 2 * B ^ 4)
   + (45 / 32768 * l : k) • (A ^ 4 * G)
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 31–40, preserving signs and left association. -/
+private abbrev grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk04 (acc : k[X])
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  acc
   - (9 / 4096 * l : k) • (A ^ 3 * B * F)
   + (99 / 8192 * l : k) • (A ^ 3 * C * E)
   - (9 / 4096 * l : k) • (A ^ 3 * D ^ 2)
@@ -262,6 +279,13 @@ def degreeZeroPrimitiveQuarticNoABDEF810
   - (387 / 16384 * l : k) • (A * B ^ 2 * C ^ 2)
   - (567 / 16384 * l : k) • (B ^ 4 * C)
   + (27 / 1024 * l : k) • (A ^ 2 * C * G)
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 41–50, preserving signs and left association. -/
+private abbrev grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk05 (acc : k[X])
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  acc
   - (9 / 512 * l : k) • (A ^ 2 * D * F)
   + (27 / 1024 * l : k) • (A ^ 2 * E ^ 2)
   + (9 / 1024 * l : k) • (A * B ^ 2 * G)
@@ -272,6 +296,13 @@ def degreeZeroPrimitiveQuarticNoABDEF810
   + (27 / 512 * l : k) • (B ^ 3 * F)
   + (45 / 256 * l : k) • (B ^ 2 * C * E)
   + (45 / 512 * l : k) • (B ^ 2 * D ^ 2)
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 51–60, preserving signs and left association. -/
+private abbrev grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk06 (acc : k[X])
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  acc
   + (189 / 1024 * l : k) • (B * C ^ 2 * D)
   + (63 / 4096 * l : k) • C ^ 4
   + (9 / 64 * l : k) • (A * E * G)
@@ -282,6 +313,13 @@ def degreeZeroPrimitiveQuarticNoABDEF810
   - (9 / 32 * l : k) • (C * D * F)
   - (9 / 64 * l : k) • (C * E ^ 2)
   - (9 / 64 * l : k) • (D ^ 2 * E)
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 61–70, preserving signs and left association. -/
+private abbrev grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk07 (acc : k[X])
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  acc
   + (9 / 16 * l : k) • G ^ 2
   + (25 / 1048576 * beta : k) • A ^ 7
   + (21 / 32768 * beta : k) • (A ^ 5 * C)
@@ -292,6 +330,13 @@ def degreeZeroPrimitiveQuarticNoABDEF810
   - (21 / 8192 * beta : k) • (A ^ 2 * B ^ 2 * C)
   + (119 / 16384 * beta : k) • (A * B ^ 4)
   + (21 / 512 * beta : k) • (A ^ 2 * C * E)
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 71–80, preserving signs and left association. -/
+private abbrev grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk08 (acc : k[X])
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  acc
   - (7 / 512 * beta : k) • (A ^ 2 * D ^ 2)
   - (21 / 512 * beta : k) • (A * B ^ 2 * E)
   - (7 / 128 * beta : k) • (A * B * C * D)
@@ -302,6 +347,13 @@ def degreeZeroPrimitiveQuarticNoABDEF810
   + (7 / 32 * beta : k) • (B * D * E)
   + (7 / 64 * beta : k) • (C ^ 2 * E)
   + (7 / 64 * beta : k) • (C * D ^ 2)
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 81–90, preserving signs and left association. -/
+private abbrev grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk09 (acc : k[X])
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  acc
   - (7 / 16 * beta : k) • F ^ 2
   + (3 / 2048 * gamma : k) • (A ^ 3 * B * C)
   + (3 / 2048 * gamma : k) • (A ^ 2 * B ^ 3)
@@ -312,6 +364,13 @@ def degreeZeroPrimitiveQuarticNoABDEF810
   - (3 / 128 * gamma : k) • (A * B * C ^ 2)
   - (27 / 256 * gamma : k) • (B ^ 3 * C)
   - (3 / 32 * gamma : k) • (A * C * F)
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 91–100, preserving signs and left association. -/
+private abbrev grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk10 (acc : k[X])
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  acc
   + (3 / 16 * gamma : k) • (A * D * E)
   + (9 / 64 * gamma : k) • (B ^ 2 * F)
   + (3 / 8 * gamma : k) • (B * C * E)
@@ -322,6 +381,13 @@ def degreeZeroPrimitiveQuarticNoABDEF810
   + (35 / 16384 * delta : k) • (A ^ 4 * C)
   - (25 / 16384 * delta : k) • (A ^ 3 * B ^ 2)
   + (5 / 1024 * delta : k) • (A ^ 3 * E)
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 101–110, preserving signs and left association. -/
+private abbrev grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk11 (acc : k[X])
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  acc
   - (5 / 512 * delta : k) • (A ^ 2 * B * D)
   + (15 / 1024 * delta : k) • (A ^ 2 * C ^ 2)
   - (65 / 1024 * delta : k) • (A * B ^ 2 * C)
@@ -332,6 +398,13 @@ def degreeZeroPrimitiveQuarticNoABDEF810
   + (15 / 32 * delta : k) • (B * C * D)
   + (5 / 64 * delta : k) • C ^ 3
   - (5 / 8 * delta : k) • (D * F)
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 111–120, preserving signs and left association. -/
+private abbrev grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk12 (acc : k[X])
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  acc
   - (5 / 16 * delta : k) • E ^ 2
   - (1 / 256 * epsilon : k) • (A ^ 3 * D)
   + (1 / 64 * epsilon : k) • (A ^ 2 * B * C)
@@ -342,6 +415,13 @@ def degreeZeroPrimitiveQuarticNoABDEF810
   + (7 / 32 * epsilon : k) • (B ^ 2 * D)
   + (1 / 4 * epsilon : k) • (B * C ^ 2)
   - (1 / 2 * epsilon : k) • (C * F)
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 121–130, preserving signs and left association. -/
+private abbrev grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk13 (acc : k[X])
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  acc
   - (1 / 2 * epsilon : k) • (D * E)
   + (3 / 8192 * zeta : k) • A ^ 5
   + (3 / 512 * zeta : k) • (A ^ 3 * C)
@@ -352,6 +432,13 @@ def degreeZeroPrimitiveQuarticNoABDEF810
   - (3 / 8 * zeta : k) • (B * F)
   - (3 / 8 * zeta : k) • (C * E)
   - (3 / 16 * zeta : k) • D ^ 2
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 131–140, preserving signs and left association. -/
+private abbrev grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk14 (acc : k[X])
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  acc
   - (1 / 512 * eta : k) • (A ^ 3 * B)
   - (1 / 64 * eta : k) • (A ^ 2 * D)
   + (1 / 32 * eta : k) • (A * B * C)
@@ -362,12 +449,39 @@ def degreeZeroPrimitiveQuarticNoABDEF810
   + (5 / 4096 * theta : k) • A ^ 4
   + (3 / 128 * theta : k) • (A ^ 2 * C)
   + (1 / 128 * theta : k) • (A * B ^ 2)
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 141–144, preserving signs and left association. -/
+private abbrev grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk15 (acc : k[X])
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  acc
   + (1 / 8 * theta : k) • (A * E)
   - (1 / 8 * theta : k) • (B * D)
   - (1 / 16 * theta : k) • C ^ 2
   + (1 * theta : k) • G
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
+def degreeZeroPrimitiveQuarticNoABDEF810
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) : k[X] :=
+  grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk15
+    (grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk14
+    (grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk13
+    (grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk12
+    (grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk11
+    (grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk10
+    (grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk09
+    (grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk08
+    (grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk07
+    (grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk06
+    (grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk05
+    (grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk04
+    (grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk03
+    (grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk02
+    (grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk01 l beta gamma delta epsilon zeta eta theta A B C D E F G) l beta gamma delta epsilon zeta eta theta A B C D E F G) l beta gamma delta epsilon zeta eta theta A B C D E F G) l beta gamma delta epsilon zeta eta theta A B C D E F G) l beta gamma delta epsilon zeta eta theta A B C D E F G) l beta gamma delta epsilon zeta eta theta A B C D E F G) l beta gamma delta epsilon zeta eta theta A B C D E F G) l beta gamma delta epsilon zeta eta theta A B C D E F G) l beta gamma delta epsilon zeta eta theta A B C D E F G) l beta gamma delta epsilon zeta eta theta A B C D E F G) l beta gamma delta epsilon zeta eta theta A B C D E F G) l beta gamma delta epsilon zeta eta theta A B C D E F G) l beta gamma delta epsilon zeta eta theta A B C D E F G) l beta gamma delta epsilon zeta eta theta A B C D E F G) l beta gamma delta epsilon zeta eta theta A B C D E F G
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroPrimitiveQuartic810_eq_ABDEF_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -378,10 +492,25 @@ theorem degreeZeroPrimitiveQuartic810_eq_ABDEF_add_rest
   simp only [degreeZeroPrimitiveQuartic810, rhoBaseGroupQuartic810,
     rhoBetaGroupQuartic810, rhoGammaGroupQuartic810, rhoDeltaGroupQuartic810,
     rhoEpsilonGroupQuartic810, rhoZetaGroupQuartic810, rhoEtaGroupQuartic810,
-    rhoThetaGroupQuartic810, primitiveQuarticFaceABDEF810, degreeZeroPrimitiveQuarticNoABDEF810]
+    rhoThetaGroupQuartic810, primitiveQuarticFaceABDEF810, degreeZeroPrimitiveQuarticNoABDEF810,
+    grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk01,
+    grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk02,
+    grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk03,
+    grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk04,
+    grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk05,
+    grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk06,
+    grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk07,
+    grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk08,
+    grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk09,
+    grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk10,
+    grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk11,
+    grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk12,
+    grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk13,
+    grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk14,
+    grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk15]
   all_goals module
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroPrimitiveQuarticNoABDEF810` (144 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -476,11 +605,26 @@ theorem speedRefl_degreeZeroPrimitiveQuarticNoABDEF810_eq_polyOf
       [1, 1, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0], [0, 1, 0, 0, 1, 0, 0],
       [0, 0, 1, 1, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0], [2, 0, 1, 0, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0],
       [1, 0, 0, 0, 1, 0, 0], [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1]] := by
-  simp only [degreeZeroPrimitiveQuarticNoABDEF810, Max11ReflectDeg.polyOf_cons,
+  simp only [degreeZeroPrimitiveQuarticNoABDEF810,
+    grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk01,
+    grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk02,
+    grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk03,
+    grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk04,
+    grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk05,
+    grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk06,
+    grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk07,
+    grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk08,
+    grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk09,
+    grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk10,
+    grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk11,
+    grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk12,
+    grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk13,
+    grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk14,
+    grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk15, Max11ReflectDeg.polyOf_cons,
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  module
+  simp only [sub_eq_add_neg, neg_smul, add_assoc]
 
 end QuarticKills810
 

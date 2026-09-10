@@ -10,10 +10,800 @@ section DegreeZeroOrderOneHead610
 
 variable {R : Type*} [CommRing R]
 
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 1–10; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk01
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    -1000057340805120*a42^7*h^4*lambda
+    - 15556447523635200*a42^7*h^4*w1
+    + 21584570939043840*a42^6*h^4*lambda*w1^2
+    + 18667737028362240*a42^6*h^4*s2*w1
+    + 63954284263833600*a42^6*h^4*w1^3
+    + 23334671285452800*a42^6*h^3*p32
+    - 3161471593512960*a42^6*h^3*u2
+    - 16258996766638080*a42^5*b63*h^3*w1
+    - 77344712531573760*a42^5*h^4*lambda*w1^4
+    - 115117711674900480*a42^5*h^4*s2*w1^3
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 11–20; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk02 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    - 34375427791810560*a42^5*h^4*w1^5
+    + 8129498383319040*a42^5*h^3*lambda*p21
+    - 42002408313815040*a42^5*h^3*lambda*p32*w1
+    - 27098327944396800*a42^5*h^3*p1
+    + 99360535796121600*a42^5*h^3*p21*w1
+    - 21678662355517440*a42^5*h^3*p32*s2
+    - 221679377211801600*a42^5*h^3*p32*w1^2
+    + 49002809699450880*a42^5*h^3*u2*w1^2
+    + 3251799353327616*a42^5*h^2*q53
+    + 70004013856358400*a42^4*b63*h^3*w1^3
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 21–30; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk03 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    + 19510796119965696*a42^4*b63*h^2*p32
+    - 9755398059982848*a42^4*h^4*lambda*p0
+    + 105274747612419840*a42^4*h^4*lambda*w1^6
+    - 86714649422069760*a42^4*h^4*p0*w1
+    + 206252566750863360*a42^4*h^4*s2*w1^5
+    - 66841109595187200*a42^4*h^4*w1^7
+    + 40647491916595200*a42^4*h^3*lambda*p1*w1
+    - 105006020784537600*a42^4*h^3*lambda*p21*w1^2
+    + 215845709390438400*a42^4*h^3*lambda*p32*w1^3
+    + 26014394826620928*a42^4*h^3*p1*s2
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 31–40; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk04 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    + 146782609698816000*a42^4*h^3*p1*w1^2
+    - 108393311777587200*a42^4*h^3*p21*s2*w1
+    - 194455594045440000*a42^4*h^3*p21*w1^3
+    + 280016055425433600*a42^4*h^3*p32*s2*w1^2
+    + 209849995240704000*a42^4*h^3*p32*w1^4
+    - 125909997144422400*a42^4*h^3*u2*w1^4
+    + 20323745958297600*a42^4*h^2*lambda*p32^2
+    - 135491639721984000*a42^4*h^2*p21*p32
+    + 22762595473293312*a42^4*h^2*p21*u2
+    + 248401339490304000*a42^4*h^2*p32^2*w1
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 41–50; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk05 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    - 94844147805388800*a42^4*h^2*p32*u2*w1
+    - 33872909930496000*a42^4*h^2*q53*w1^2
+    - 3080652018941952*a42^4*h*q3
+    + 13007197413310464*a42^4*h*q41*w1
+    - 86338283756175360*a42^3*b63*h^3*w1^5
+    - 24645216151535616*a42^3*b63*h^2*p1
+    + 78043184479862784*a42^3*b63*h^2*p21*w1
+    - 162589967666380800*a42^3*b63*h^2*p32*w1^2
+    + 81294983833190400*a42^3*h^4*lambda*p0*w1^2
+    - 68929894270036800*a42^3*h^4*lambda*w1^8
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 51–60; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk06 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    + 104057579306483712*a42^3*h^4*p0*s2*w1
+    + 60218506543104000*a42^3*h^4*p0*w1^3
+    - 160418663028449280*a42^3*h^4*s2*w1^7
+    + 85098634901280000*a42^3*h^4*w1^9
+    - 140008027712716800*a42^3*h^3*lambda*p1*w1^3
+    + 215845709390438400*a42^3*h^3*lambda*p21*w1^4
+    - 309378850126295040*a42^3*h^3*lambda*p32*w1^5
+    + 130071974133104640*a42^3*h^3*p0*p32
+    - 28752752176791552*a42^3*h^3*p0*u2
+    - 216786623555174400*a42^3*h^3*p1*s2*w1^2
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 61–70; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk07 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    - 19445559404544000*a42^3*h^3*p1*w1^4
+    + 373354740567244800*a42^3*h^3*p21*s2*w1^3
+    - 47965713197875200*a42^3*h^3*p21*w1^5
+    - 575588558374502400*a42^3*h^3*p32*s2*w1^4
+    + 143230949132544000*a42^3*h^3*p32*w1^6
+    + 1895785857810432*a42^3*h^3*q1
+    + 120313997271336960*a42^3*h^3*u2*w1^6
+    - 39021592239931392*a42^3*h^2*lambda*p1*p32
+    - 19510796119965696*a42^3*h^2*lambda*p21^2
+    + 162589967666380800*a42^3*h^2*lambda*p21*p32*w1
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 71–80; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk08 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    - 210012041569075200*a42^3*h^2*lambda*p32^2*w1^2
+    + 130071974133104640*a42^3*h^2*p1*p21
+    - 346858597688279040*a42^3*h^2*p1*p32*w1
+    + 91050381893173248*a42^3*h^2*p1*u2*w1
+    - 173429298844139520*a42^3*h^2*p21^2*w1
+    + 104057579306483712*a42^3*h^2*p21*p32*s2
+    + 587130438795264000*a42^3*h^2*p21*p32*w1^2
+    - 189688295610777600*a42^3*h^2*p21*u2*w1^2
+    - 216786623555174400*a42^3*h^2*p32^2*s2*w1
+    - 388911188090880000*a42^3*h^2*p32^2*w1^3
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 81–90; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk09 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    + 326685397996339200*a42^3*h^2*p32*u2*w1^3
+    - 8215072050511872*a42^3*h^2*q2*w1
+    + 58336678213632000*a42^3*h^2*q53*w1^4
+    - 20537680126279680*a42^3*h*p21*q53
+    - 90327759814656000*a42^3*h*p32^3
+    + 45525190946586624*a42^3*h*p32^2*u2
+    + 65035987066552320*a42^3*h*p32*q53*w1
+    + 19510796119965696*a42^3*h*q3*w1^2
+    - 36131103925862400*a42^3*h*q41*w1^3
+    - 16430144101023744*a42^3*p32*q41
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 91–100; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk10 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    - 73935648454606848*a42^2*b63*h^3*p0*w1
+    + 44196978589470720*a42^2*b63*h^3*w1^7
+    + 117064776719794176*a42^2*b63*h^2*p1*w1^2
+    - 162589967666380800*a42^2*b63*h^2*p21*w1^3
+    + 210012041569075200*a42^2*b63*h^2*p32*w1^4
+    - 73935648454606848*a42^2*b63*h*p21*p32
+    + 117064776719794176*a42^2*b63*h*p32^2*w1
+    - 105006020784537600*a42^2*h^4*lambda*p0*w1^4
+    + 23359575280401360*a42^2*h^4*lambda*w1^10
+    - 216786623555174400*a42^2*h^4*p0*s2*w1^3
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 101–110; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk11 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    + 93338685141811200*a42^2*h^4*p0*w1^5
+    + 61271017128921600*a42^2*h^4*s2*w1^9
+    - 37752848938022400*a42^2*h^4*w1^11
+    + 36967824227303424*a42^2*h^3*lambda*p0*p21
+    - 117064776719794176*a42^2*h^3*lambda*p0*p32*w1
+    + 129507425634263040*a42^2*h^3*lambda*p1*w1^5
+    - 154689425063147520*a42^2*h^3*lambda*p21*w1^6
+    + 180470995907005440*a42^2*h^3*lambda*p32*w1^7
+    - 123226080757678080*a42^2*h^3*p0*p1
+    + 205376801262796800*a42^2*h^3*p0*p21*w1
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 111–120; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk12 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    - 98580864606142464*a42^2*h^3*p0*p32*s2
+    - 227625954732933120*a42^2*h^3*p0*p32*w1^2
+    + 136575572839759872*a42^2*h^3*p0*u2*w1^2
+    + 280016055425433600*a42^2*h^3*p1*s2*w1^4
+    - 131905711294156800*a42^2*h^3*p1*w1^6
+    - 345353135024701440*a42^2*h^3*p21*s2*w1^5
+    + 171877138959052800*a42^2*h^3*p21*w1^7
+    + 412505133501726720*a42^2*h^3*p32*s2*w1^6
+    - 213056036834659200*a42^2*h^3*p32*w1^8
+    - 6161304037883904*a42^2*h^3*q1*w1^2
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 121–130; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk13 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    - 52637373806209920*a42^2*h^3*u2*w1^8
+    + 18483912113651712*a42^2*h^2*lambda*p1^2
+    - 117064776719794176*a42^2*h^2*lambda*p1*p21*w1
+    + 243884951499571200*a42^2*h^2*lambda*p1*p32*w1^2
+    + 121942475749785600*a42^2*h^2*lambda*p21^2*w1^2
+    - 420024083138150400*a42^2*h^2*lambda*p21*p32*w1^3
+    + 323768564085657600*a42^2*h^2*lambda*p32^2*w1^4
+    + 28436787867156480*a42^2*h^2*p0*q53
+    + 102688400631398400*a42^2*h^2*p1^2*w1
+    - 98580864606142464*a42^2*h^2*p1*p21*s2
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 131–140; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk14 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    - 227625954732933120*a42^2*h^2*p1*p21*w1^2
+    + 312172737919451136*a42^2*h^2*p1*p32*s2*w1
+    + 180655519629312000*a42^2*h^2*p1*p32*w1^3
+    - 189688295610777600*a42^2*h^2*p1*u2*w1^3
+    + 156086368959725568*a42^2*h^2*p21^2*s2*w1
+    + 90327759814656000*a42^2*h^2*p21^2*w1^3
+    - 650359870665523200*a42^2*h^2*p21*p32*s2*w1^2
+    - 58336678213632000*a42^2*h^2*p21*p32*w1^4
+    + 245014048497254400*a42^2*h^2*p21*u2*w1^4
+    + 560032110850867200*a42^2*h^2*p32^2*s2*w1^3
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 141–150; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk15 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    - 71948569796812800*a42^2*h^2*p32^2*w1^5
+    - 302183993146613760*a42^2*h^2*p32*u2*w1^5
+    + 13007197413310464*a42^2*h^2*q2*w1^3
+    - 35974284898406400*a42^2*h^2*q53*w1^6
+    - 58532388359897088*a42^2*h*lambda*p21*p32^2
+    + 81294983833190400*a42^2*h*lambda*p32^3*w1
+    + 195107961199656960*a42^2*h*p1*p32^2
+    - 86258256530374656*a42^2*h*p1*p32*u2
+    - 61613040378839040*a42^2*h*p1*q53*w1
+    + 195107961199656960*a42^2*h*p21^2*p32
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 151–160; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk16 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    - 43129128265187328*a42^2*h*p21^2*u2
+    - 520287896532418560*a42^2*h*p21*p32^2*w1
+    + 273151145679519744*a42^2*h*p21*p32*u2*w1
+    + 97553980599828480*a42^2*h*p21*q53*w1^2
+    + 52028789653241856*a42^2*h*p32^3*s2
+    + 293565219397632000*a42^2*h*p32^3*w1^2
+    - 284532443416166400*a42^2*h*p32^2*u2*w1^2
+    + 11374715146862592*a42^2*h*p32*q2
+    - 135491639721984000*a42^2*h*p32*q53*w1^3
+    - 20323745958297600*a42^2*h*q3*w1^4
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 161–170; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk17 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    + 28001605542543360*a42^2*h*q41*w1^5
+    + 22749430293725184*a42^2*p1*q41
+    + 17062072720293888*a42^2*p21*q3
+    - 49290432303071232*a42^2*p21*q41*w1
+    - 30806520189419520*a42^2*p32^2*q53
+    - 36967824227303424*a42^2*p32*q3*w1
+    + 78043184479862784*a42^2*p32*q41*w1^2
+    + 78043184479862784*a42*b63*h^3*p0*w1^3
+    - 10026166439278080*a42*b63*h^3*w1^9
+    + 68248290881175552*a42*b63*h^2*p0*p32
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 171–180; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk18 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    - 81294983833190400*a42*b63*h^2*p1*w1^4
+    + 84004816627630080*a42*b63*h^2*p21*w1^5
+    - 86338283756175360*a42*b63*h^2*p32*w1^6
+    + 68248290881175552*a42*b63*h*p1*p21
+    - 147871296909213696*a42*b63*h*p1*p32*w1
+    - 73935648454606848*a42*b63*h*p21^2*w1
+    + 234129553439588352*a42*b63*h*p21*p32*w1^2
+    - 162589967666380800*a42*b63*h*p32^2*w1^3
+    - 24645216151535616*a42*b63*p32^3
+    - 17062072720293888*a42*h^4*lambda*p0^2
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 181–190; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk19 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    + 43169141878087680*a42*h^4*lambda*p0*w1^6
+    - 3952251373199220*a42*h^4*lambda*w1^12
+    - 37915717156208640*a42*h^4*p0^2*w1
+    + 112006422170173440*a42*h^4*p0*s2*w1^5
+    - 68522447425536000*a42*h^4*p0*w1^7
+    - 11325854681406720*a42*h^4*s2*w1^11
+    + 7431583778665200*a42*h^4*w1^13
+    + 73935648454606848*a42*h^3*lambda*p0*p1*w1
+    - 117064776719794176*a42*h^3*lambda*p0*p21*w1^2
+    + 162589967666380800*a42*h^3*lambda*p0*p32*w1^3
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 191–200; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk20 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    - 44196978589470720*a42*h^3*lambda*p1*w1^7
+    + 45117748976751360*a42*h^3*lambda*p21*w1^8
+    - 45953262846691200*a42*h^3*lambda*p32*w1^9
+    + 90997721174900736*a42*h^3*p0*p1*s2
+    + 20537680126279680*a42*h^3*p0*p1*w1^2
+    - 197161729212284928*a42*h^3*p0*p21*s2*w1
+    + 43357324711034880*a42*h^3*p0*p21*w1^3
+    + 312172737919451136*a42*h^3*p0*p32*s2*w1^2
+    - 112909699768320000*a42*h^3*p0*p32*w1^4
+    - 94844147805388800*a42*h^3*p0*u2*w1^4
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 201–210; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk21 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    - 115117711674900480*a42*h^3*p1*s2*w1^6
+    + 70592396358182400*a42*h^3*p1*w1^8
+    + 117858609571921920*a42*h^3*p21*s2*w1^7
+    - 72411202061452800*a42*h^3*p21*w1^9
+    - 120313997271336960*a42*h^3*p32*s2*w1^8
+    + 74035812364113600*a42*h^3*p32*w1^10
+    + 3251799353327616*a42*h^3*q1*w1^4
+    + 10722427997561280*a42*h^3*u2*w1^10
+    + 36967824227303424*a42*h^2*lambda*p0*p32^2
+    - 58532388359897088*a42*h^2*lambda*p1^2*w1^2
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 211–220; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk22 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    + 162589967666380800*a42*h^2*lambda*p1*p21*w1^3
+    - 210012041569075200*a42*h^2*lambda*p1*p32*w1^4
+    - 105006020784537600*a42*h^2*lambda*p21^2*w1^4
+    + 259014851268526080*a42*h^2*lambda*p21*p32*w1^5
+    - 154689425063147520*a42*h^2*lambda*p32^2*w1^6
+    - 246452161515356160*a42*h^2*p0*p21*p32
+    + 79623006028038144*a42*h^2*p0*p21*u2
+    + 205376801262796800*a42*h^2*p0*p32^2*w1
+    - 172516513060749312*a42*h^2*p0*p32*u2*w1
+    - 61613040378839040*a42*h^2*p0*q53*w1^2
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 221–230; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk23 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    - 98580864606142464*a42*h^2*p1^2*s2*w1
+    + 21678662355517440*a42*h^2*p1^2*w1^3
+    + 312172737919451136*a42*h^2*p1*p21*s2*w1^2
+    - 112909699768320000*a42*h^2*p1*p21*w1^4
+    - 433573247110348800*a42*h^2*p1*p32*s2*w1^3
+    + 186677370283622400*a42*h^2*p1*p32*w1^5
+    + 98005619398901760*a42*h^2*p1*u2*w1^5
+    - 216786623555174400*a42*h^2*p21^2*s2*w1^3
+    + 93338685141811200*a42*h^2*p21^2*w1^5
+    + 560032110850867200*a42*h^2*p21*p32*s2*w1^4
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 231–240; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk24 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    - 263811422588313600*a42*h^2*p21*p32*w1^6
+    - 9749755840167936*a42*h^2*p21*q1
+    - 100727997715537920*a42*h^2*p21*u2*w1^6
+    - 345353135024701440*a42*h^2*p32^2*s2*w1^5
+    + 171877138959052800*a42*h^2*p32^2*w1^7
+    + 11374715146862592*a42*h^2*p32*q1*w1
+    + 103126283375431680*a42*h^2*p32*u2*w1^7
+    - 5419665588879360*a42*h^2*q2*w1^5
+    + 9207703872806400*a42*h^2*q53*w1^8
+    + 73935648454606848*a42*h*lambda*p1*p21*p32
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 241–250; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk25 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    - 117064776719794176*a42*h*lambda*p1*p32^2*w1
+    + 12322608075767808*a42*h*lambda*p21^3
+    - 117064776719794176*a42*h*lambda*p21^2*p32*w1
+    + 243884951499571200*a42*h*lambda*p21*p32^2*w1^2
+    - 140008027712716800*a42*h*lambda*p32^3*w1^3
+    - 29249267520503808*a42*h*p0*q3
+    + 45498860587450368*a42*h*p0*q41*w1
+    - 123226080757678080*a42*h*p1^2*p32
+    + 39811503014019072*a42*h*p1^2*u2
+    - 123226080757678080*a42*h*p1*p21^2
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 251–260; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk26 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    + 410753602525593600*a42*h*p1*p21*p32*w1
+    - 172516513060749312*a42*h*p1*p21*u2*w1
+    - 98580864606142464*a42*h*p1*p32^2*s2
+    - 227625954732933120*a42*h*p1*p32^2*w1^2
+    + 273151145679519744*a42*h*p1*p32*u2*w1^2
+    - 19499511680335872*a42*h*p1*q2
+    + 65035987066552320*a42*h*p1*q53*w1^3
+    + 68458933754265600*a42*h*p21^3*w1
+    - 98580864606142464*a42*h*p21^2*p32*s2
+    - 227625954732933120*a42*h*p21^2*p32*w1^2
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 261–270; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk27 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    + 136575572839759872*a42*h*p21^2*u2*w1^2
+    + 312172737919451136*a42*h*p21*p32^2*s2*w1
+    + 180655519629312000*a42*h*p21*p32^2*w1^3
+    - 379376591221555200*a42*h*p21*p32*u2*w1^3
+    + 22749430293725184*a42*h*p21*q2*w1
+    - 67745819860992000*a42*h*p21*q53*w1^4
+    - 216786623555174400*a42*h*p32^3*s2*w1^2
+    - 19445559404544000*a42*h*p32^3*w1^4
+    + 245014048497254400*a42*h*p32^2*u2*w1^4
+    - 24645216151535616*a42*h*p32*q2*w1^2
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 271–280; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk28 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    + 70004013856358400*a42*h*p32*q53*w1^5
+    + 7000401385635840*a42*h*q3*w1^6
+    - 8222693691064320*a42*h*q41*w1^7
+    - 9755398059982848*a42*lambda*p32^4
+    + 56873575734312960*a42*p1*p32*q53
+    + 34124145440587776*a42*p1*q3*w1
+    - 49290432303071232*a42*p1*q41*w1^2
+    + 28436787867156480*a42*p21^2*q53
+    + 130071974133104640*a42*p21*p32^3
+    - 86258256530374656*a42*p21*p32^2*u2
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 281–290; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk29 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    - 123226080757678080*a42*p21*p32*q53*w1
+    - 36967824227303424*a42*p21*q3*w1^2
+    + 52028789653241856*a42*p21*q41*w1^3
+    - 86714649422069760*a42*p32^4*w1
+    + 91050381893173248*a42*p32^3*u2*w1
+    + 97553980599828480*a42*p32^2*q53*w1^2
+    + 39021592239931392*a42*p32*q3*w1^3
+    - 54196655888793600*a42*p32*q41*w1^4
+    - 16258996766638080*b63*h^3*p0*w1^5
+    + 835513869939840*b63*h^3*w1^11
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 291–300; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk30 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    - 58498535041007616*b63*h^2*p0*p1
+    + 68248290881175552*b63*h^2*p0*p21*w1
+    - 73935648454606848*b63*h^2*p0*p32*w1^2
+    + 14000802771271680*b63*h^2*p1*w1^6
+    - 12334040536596480*b63*h^2*p21*w1^7
+    + 11049244647367680*b63*h^2*p32*w1^8
+    + 34124145440587776*b63*h*p1^2*w1
+    - 73935648454606848*b63*h*p1*p21*w1^2
+    + 78043184479862784*b63*h*p1*p32*w1^3
+    + 39021592239931392*b63*h*p21^2*w1^3
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 301–310; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk31 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    - 81294983833190400*b63*h*p21*p32*w1^4
+    + 42002408313815040*b63*h*p32^2*w1^5
+    + 34124145440587776*b63*p1*p32^2
+    + 34124145440587776*b63*p21^2*p32
+    - 73935648454606848*b63*p21*p32^2*w1
+    + 39021592239931392*b63*p32^3*w1^2
+    + 18483912113651712*h^4*lambda*p0^2*w1^2
+    - 5524622323683840*h^4*lambda*p0*w1^8
+    + 264207280442805*h^4*lambda*w1^14
+    + 45498860587450368*h^4*p0^2*s2*w1
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 311–320; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk32 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    - 27383573501706240*h^4*p0^2*w1^3
+    - 16445387382128640*h^4*p0*s2*w1^7
+    + 10912834219622400*h^4*p0*w1^9
+    + 810718230399840*h^4*s2*w1^13
+    - 547985470548040*h^4*w1^15
+    - 39021592239931392*h^3*lambda*p0*p1*w1^3
+    + 40647491916595200*h^3*lambda*p0*p21*w1^4
+    - 42002408313815040*h^3*lambda*p0*p32*w1^5
+    + 5013083219639040*h^3*lambda*p1*w1^9
+    - 4595326284669120*h^3*lambda*p21*w1^10
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 321–330; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk33 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    + 4247195505527520*h^3*lambda*p32*w1^11
+    + 56873575734312960*h^3*p0^2*p32
+    - 34124145440587776*h^3*p0^2*u2
+    - 98580864606142464*h^3*p0*p1*s2*w1^2
+    + 59616321477672960*h^3*p0*p1*w1^4
+    + 104057579306483712*h^3*p0*p21*s2*w1^3
+    - 63229431870259200*h^3*p0*p21*w1^5
+    - 108393311777587200*h^3*p0*p32*s2*w1^4
+    + 66114901975449600*h^3*p0*p32*w1^6
+    + 58498535041007616*h^3*p0*q1
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 331–340; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk34 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    + 16334269899816960*h^3*p0*u2*w1^6
+    + 14732326196490240*h^3*p1*s2*w1^8
+    - 9747661815964800*h^3*p1*w1^10
+    - 13368221919037440*h^3*p21*s2*w1^9
+    + 8819313071587200*h^3*p21*w1^11
+    + 12254203425784320*h^3*p32*s2*w1^10
+    - 8061806283640200*h^3*p32*w1^12
+    - 451638799073280*h^3*q1*w1^6
+    - 825843570519240*h^3*u2*w1^12
+    - 34124145440587776*h^2*lambda*p0*p1*p32
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 341–350; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk35 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    - 17062072720293888*h^2*lambda*p0*p21^2
+    + 73935648454606848*h^2*lambda*p0*p21*p32*w1
+    - 58532388359897088*h^2*lambda*p0*p32^2*w1^2
+    + 20323745958297600*h^2*lambda*p1^2*w1^4
+    - 42002408313815040*h^2*lambda*p1*p21*w1^5
+    + 43169141878087680*h^2*lambda*p1*p32*w1^6
+    + 21584570939043840*h^2*lambda*p21^2*w1^6
+    - 44196978589470720*h^2*lambda*p21*p32*w1^7
+    + 22558874488375680*h^2*lambda*p32^2*w1^8
+    + 113747151468625920*h^2*p0*p1*p21
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 351–360; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk36 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    - 75831434312417280*h^2*p0*p1*p32*w1
+    + 79623006028038144*h^2*p0*p1*u2*w1
+    - 37915717156208640*h^2*p0*p21^2*w1
+    + 90997721174900736*h^2*p0*p21*p32*s2
+    + 20537680126279680*h^2*p0*p21*p32*w1^2
+    - 86258256530374656*h^2*p0*p21*u2*w1^2
+    - 98580864606142464*h^2*p0*p32^2*s2*w1
+    + 21678662355517440*h^2*p0*p32^2*w1^3
+    + 91050381893173248*h^2*p0*p32*u2*w1^3
+    - 19499511680335872*h^2*p0*q2*w1
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 361–370; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk37 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    + 16258996766638080*h^2*p0*q53*w1^4
+    + 52028789653241856*h^2*p1^2*s2*w1^3
+    - 31614715935129600*h^2*p1^2*w1^5
+    - 108393311777587200*h^2*p1*p21*s2*w1^4
+    + 66114901975449600*h^2*p1*p21*w1^6
+    + 112006422170173440*h^2*p1*p32*s2*w1^5
+    - 68522447425536000*h^2*p1*p32*w1^7
+    - 9749755840167936*h^2*p1*q1*w1
+    - 14389713959362560*h^2*p1*u2*w1^7
+    + 56003211085086720*h^2*p21^2*s2*w1^5
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 371–380; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk38 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    - 34261223712768000*h^2*p21^2*w1^7
+    - 115117711674900480*h^2*p21*p32*s2*w1^6
+    + 70592396358182400*h^2*p21*p32*w1^8
+    + 5687357573431296*h^2*p21*q1*w1^2
+    + 12890785421928960*h^2*p21*u2*w1^8
+    + 58929304785960960*h^2*p32^2*s2*w1^7
+    - 36205601030726400*h^2*p32^2*w1^9
+    - 4107536025255936*h^2*p32*q1*w1^3
+    - 11697194179157760*h^2*p32*u2*w1^9
+    + 666704893870080*h^2*q2*w1^7
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 381–390; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk39 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    - 835513869939840*h^2*q53*w1^10
+    - 17062072720293888*h*lambda*p1^2*p21
+    + 36967824227303424*h*lambda*p1^2*p32*w1
+    + 36967824227303424*h*lambda*p1*p21^2*w1
+    - 117064776719794176*h*lambda*p1*p21*p32*w1^2
+    + 81294983833190400*h*lambda*p1*p32^2*w1^3
+    - 19510796119965696*h*lambda*p21^3*w1^2
+    + 81294983833190400*h*lambda*p21^2*p32*w1^3
+    - 105006020784537600*h*lambda*p21*p32^2*w1^4
+    + 43169141878087680*h*lambda*p32^3*w1^5
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 391–400; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk40 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    - 48748779200839680*h*p0*p21*q53
+    - 41075360252559360*h*p0*p32^3
+    + 39811503014019072*h*p0*p32^2*u2
+    + 56873575734312960*h*p0*p32*q53*w1
+    + 17062072720293888*h*p0*q3*w1^2
+    - 16430144101023744*h*p0*q41*w1^3
+    + 18957858578104320*h*p1^3
+    - 37915717156208640*h*p1^2*p21*w1
+    + 45498860587450368*h*p1^2*p32*s2
+    + 10268840063139840*h*p1^2*p32*w1^2
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 401–410; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk41 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    - 43129128265187328*h*p1^2*u2*w1^2
+    + 45498860587450368*h*p1*p21^2*s2
+    + 10268840063139840*h*p1*p21^2*w1^2
+    - 197161729212284928*h*p1*p21*p32*s2*w1
+    + 43357324711034880*h*p1*p21*p32*w1^3
+    + 91050381893173248*h*p1*p21*u2*w1^3
+    + 156086368959725568*h*p1*p32^2*s2*w1^2
+    - 56454849884160000*h*p1*p32^2*w1^4
+    - 94844147805388800*h*p1*p32*u2*w1^4
+    + 11374715146862592*h*p1*q2*w1^2
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 411–420; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk42 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    - 13549163972198400*h*p1*q53*w1^5
+    - 32860288202047488*h*p21^3*s2*w1
+    + 7226220785172480*h*p21^3*w1^3
+    + 156086368959725568*h*p21^2*p32*s2*w1^2
+    - 56454849884160000*h*p21^2*p32*w1^4
+    - 47422073902694400*h*p21^2*u2*w1^4
+    - 216786623555174400*h*p21*p32^2*s2*w1^3
+    + 93338685141811200*h*p21*p32^2*w1^5
+    + 98005619398901760*h*p21*p32*u2*w1^5
+    - 8215072050511872*h*p21*q2*w1^3
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 421–430; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk43 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    + 11667335642726400*h*p21*q53*w1^6
+    + 93338685141811200*h*p32^3*s2*w1^4
+    - 43968570431385600*h*p32^3*w1^6
+    - 4874877920083968*h*p32^2*q1
+    - 50363998857768960*h*p32^2*u2*w1^6
+    + 6503598706655232*h*p32*q2*w1^4
+    - 10278367113830400*h*p32*q53*w1^7
+    - 770877533537280*h*q3*w1^8
+    + 818462566471680*h*q41*w1^9
+    + 12322608075767808*lambda*p1*p32^3
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 431–440; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk44 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    + 18483912113651712*lambda*p21^2*p32^2
+    - 39021592239931392*lambda*p21*p32^3*w1
+    + 20323745958297600*lambda*p32^4*w1^2
+    - 38999023360671744*p0*p32*q41
+    - 24374389600419840*p1^2*q53
+    - 123226080757678080*p1*p21*p32^2
+    + 79623006028038144*p1*p21*p32*u2
+    + 56873575734312960*p1*p21*q53*w1
+    + 68458933754265600*p1*p32^3*w1
+    - 86258256530374656*p1*p32^2*u2*w1
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 441–450; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk45 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    - 61613040378839040*p1*p32*q53*w1^2
+    - 12322608075767808*p1*q3*w1^3
+    + 13007197413310464*p1*q41*w1^4
+    - 41075360252559360*p21^3*p32
+    + 13270501004673024*p21^3*u2
+    + 102688400631398400*p21^2*p32^2*w1
+    - 86258256530374656*p21^2*p32*u2*w1
+    - 30806520189419520*p21^2*q53*w1^2
+    - 32860288202047488*p21*p32^3*s2
+    - 75875318244311040*p21*p32^3*w1^2
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 451–460; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk46 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    + 136575572839759872*p21*p32^2*u2*w1^2
+    - 19499511680335872*p21*p32*q2
+    + 65035987066552320*p21*p32*q53*w1^3
+    + 9755398059982848*p21*q3*w1^4
+    - 10839331177758720*p21*q41*w1^5
+    + 26014394826620928*p32^4*s2*w1
+    + 15054626635776000*p32^4*w1^3
+    - 63229431870259200*p32^3*u2*w1^3
+    + 11374715146862592*p32^2*q2*w1
+    - 33872909930496000*p32^2*q53*w1^4
+
+set_option maxHeartbeats 64000000 in
+/-- Original monomials 461–462; preserves left association. -/
+private abbrev grok610SplitChildren05SpeedT_orderTwoPlus_chunk47 (acc : R)
+    (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
+    acc
+    - 8129498383319040*p32*q3*w1^5
+    + 9333868514181120*p32*q41*w1^6
+
+set_option maxHeartbeats 64000000 in
 /-- The remaining factor after `Head0 + h · OrderOne` is removed. -/
 def degreeZeroPostCollapseJetOrderTwoPlus610
     (h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda : R) : R :=
-  -1000057340805120*a42^7*h^4*lambda - 15556447523635200*a42^7*h^4*w1 + 21584570939043840*a42^6*h^4*lambda*w1^2 + 18667737028362240*a42^6*h^4*s2*w1 + 63954284263833600*a42^6*h^4*w1^3 + 23334671285452800*a42^6*h^3*p32 - 3161471593512960*a42^6*h^3*u2 - 16258996766638080*a42^5*b63*h^3*w1 - 77344712531573760*a42^5*h^4*lambda*w1^4 - 115117711674900480*a42^5*h^4*s2*w1^3 - 34375427791810560*a42^5*h^4*w1^5 + 8129498383319040*a42^5*h^3*lambda*p21 - 42002408313815040*a42^5*h^3*lambda*p32*w1 - 27098327944396800*a42^5*h^3*p1 + 99360535796121600*a42^5*h^3*p21*w1 - 21678662355517440*a42^5*h^3*p32*s2 - 221679377211801600*a42^5*h^3*p32*w1^2 + 49002809699450880*a42^5*h^3*u2*w1^2 + 3251799353327616*a42^5*h^2*q53 + 70004013856358400*a42^4*b63*h^3*w1^3 + 19510796119965696*a42^4*b63*h^2*p32 - 9755398059982848*a42^4*h^4*lambda*p0 + 105274747612419840*a42^4*h^4*lambda*w1^6 - 86714649422069760*a42^4*h^4*p0*w1 + 206252566750863360*a42^4*h^4*s2*w1^5 - 66841109595187200*a42^4*h^4*w1^7 + 40647491916595200*a42^4*h^3*lambda*p1*w1 - 105006020784537600*a42^4*h^3*lambda*p21*w1^2 + 215845709390438400*a42^4*h^3*lambda*p32*w1^3 + 26014394826620928*a42^4*h^3*p1*s2 + 146782609698816000*a42^4*h^3*p1*w1^2 - 108393311777587200*a42^4*h^3*p21*s2*w1 - 194455594045440000*a42^4*h^3*p21*w1^3 + 280016055425433600*a42^4*h^3*p32*s2*w1^2 + 209849995240704000*a42^4*h^3*p32*w1^4 - 125909997144422400*a42^4*h^3*u2*w1^4 + 20323745958297600*a42^4*h^2*lambda*p32^2 - 135491639721984000*a42^4*h^2*p21*p32 + 22762595473293312*a42^4*h^2*p21*u2 + 248401339490304000*a42^4*h^2*p32^2*w1 - 94844147805388800*a42^4*h^2*p32*u2*w1 - 33872909930496000*a42^4*h^2*q53*w1^2 - 3080652018941952*a42^4*h*q3 + 13007197413310464*a42^4*h*q41*w1 - 86338283756175360*a42^3*b63*h^3*w1^5 - 24645216151535616*a42^3*b63*h^2*p1 + 78043184479862784*a42^3*b63*h^2*p21*w1 - 162589967666380800*a42^3*b63*h^2*p32*w1^2 + 81294983833190400*a42^3*h^4*lambda*p0*w1^2 - 68929894270036800*a42^3*h^4*lambda*w1^8 + 104057579306483712*a42^3*h^4*p0*s2*w1 + 60218506543104000*a42^3*h^4*p0*w1^3 - 160418663028449280*a42^3*h^4*s2*w1^7 + 85098634901280000*a42^3*h^4*w1^9 - 140008027712716800*a42^3*h^3*lambda*p1*w1^3 + 215845709390438400*a42^3*h^3*lambda*p21*w1^4 - 309378850126295040*a42^3*h^3*lambda*p32*w1^5 + 130071974133104640*a42^3*h^3*p0*p32 - 28752752176791552*a42^3*h^3*p0*u2 - 216786623555174400*a42^3*h^3*p1*s2*w1^2 - 19445559404544000*a42^3*h^3*p1*w1^4 + 373354740567244800*a42^3*h^3*p21*s2*w1^3 - 47965713197875200*a42^3*h^3*p21*w1^5 - 575588558374502400*a42^3*h^3*p32*s2*w1^4 + 143230949132544000*a42^3*h^3*p32*w1^6 + 1895785857810432*a42^3*h^3*q1 + 120313997271336960*a42^3*h^3*u2*w1^6 - 39021592239931392*a42^3*h^2*lambda*p1*p32 - 19510796119965696*a42^3*h^2*lambda*p21^2 + 162589967666380800*a42^3*h^2*lambda*p21*p32*w1 - 210012041569075200*a42^3*h^2*lambda*p32^2*w1^2 + 130071974133104640*a42^3*h^2*p1*p21 - 346858597688279040*a42^3*h^2*p1*p32*w1 + 91050381893173248*a42^3*h^2*p1*u2*w1 - 173429298844139520*a42^3*h^2*p21^2*w1 + 104057579306483712*a42^3*h^2*p21*p32*s2 + 587130438795264000*a42^3*h^2*p21*p32*w1^2 - 189688295610777600*a42^3*h^2*p21*u2*w1^2 - 216786623555174400*a42^3*h^2*p32^2*s2*w1 - 388911188090880000*a42^3*h^2*p32^2*w1^3 + 326685397996339200*a42^3*h^2*p32*u2*w1^3 - 8215072050511872*a42^3*h^2*q2*w1 + 58336678213632000*a42^3*h^2*q53*w1^4 - 20537680126279680*a42^3*h*p21*q53 - 90327759814656000*a42^3*h*p32^3 + 45525190946586624*a42^3*h*p32^2*u2 + 65035987066552320*a42^3*h*p32*q53*w1 + 19510796119965696*a42^3*h*q3*w1^2 - 36131103925862400*a42^3*h*q41*w1^3 - 16430144101023744*a42^3*p32*q41 - 73935648454606848*a42^2*b63*h^3*p0*w1 + 44196978589470720*a42^2*b63*h^3*w1^7 + 117064776719794176*a42^2*b63*h^2*p1*w1^2 - 162589967666380800*a42^2*b63*h^2*p21*w1^3 + 210012041569075200*a42^2*b63*h^2*p32*w1^4 - 73935648454606848*a42^2*b63*h*p21*p32 + 117064776719794176*a42^2*b63*h*p32^2*w1 - 105006020784537600*a42^2*h^4*lambda*p0*w1^4 + 23359575280401360*a42^2*h^4*lambda*w1^10 - 216786623555174400*a42^2*h^4*p0*s2*w1^3 + 93338685141811200*a42^2*h^4*p0*w1^5 + 61271017128921600*a42^2*h^4*s2*w1^9 - 37752848938022400*a42^2*h^4*w1^11 + 36967824227303424*a42^2*h^3*lambda*p0*p21 - 117064776719794176*a42^2*h^3*lambda*p0*p32*w1 + 129507425634263040*a42^2*h^3*lambda*p1*w1^5 - 154689425063147520*a42^2*h^3*lambda*p21*w1^6 + 180470995907005440*a42^2*h^3*lambda*p32*w1^7 - 123226080757678080*a42^2*h^3*p0*p1 + 205376801262796800*a42^2*h^3*p0*p21*w1 - 98580864606142464*a42^2*h^3*p0*p32*s2 - 227625954732933120*a42^2*h^3*p0*p32*w1^2 + 136575572839759872*a42^2*h^3*p0*u2*w1^2 + 280016055425433600*a42^2*h^3*p1*s2*w1^4 - 131905711294156800*a42^2*h^3*p1*w1^6 - 345353135024701440*a42^2*h^3*p21*s2*w1^5 + 171877138959052800*a42^2*h^3*p21*w1^7 + 412505133501726720*a42^2*h^3*p32*s2*w1^6 - 213056036834659200*a42^2*h^3*p32*w1^8 - 6161304037883904*a42^2*h^3*q1*w1^2 - 52637373806209920*a42^2*h^3*u2*w1^8 + 18483912113651712*a42^2*h^2*lambda*p1^2 - 117064776719794176*a42^2*h^2*lambda*p1*p21*w1 + 243884951499571200*a42^2*h^2*lambda*p1*p32*w1^2 + 121942475749785600*a42^2*h^2*lambda*p21^2*w1^2 - 420024083138150400*a42^2*h^2*lambda*p21*p32*w1^3 + 323768564085657600*a42^2*h^2*lambda*p32^2*w1^4 + 28436787867156480*a42^2*h^2*p0*q53 + 102688400631398400*a42^2*h^2*p1^2*w1 - 98580864606142464*a42^2*h^2*p1*p21*s2 - 227625954732933120*a42^2*h^2*p1*p21*w1^2 + 312172737919451136*a42^2*h^2*p1*p32*s2*w1 + 180655519629312000*a42^2*h^2*p1*p32*w1^3 - 189688295610777600*a42^2*h^2*p1*u2*w1^3 + 156086368959725568*a42^2*h^2*p21^2*s2*w1 + 90327759814656000*a42^2*h^2*p21^2*w1^3 - 650359870665523200*a42^2*h^2*p21*p32*s2*w1^2 - 58336678213632000*a42^2*h^2*p21*p32*w1^4 + 245014048497254400*a42^2*h^2*p21*u2*w1^4 + 560032110850867200*a42^2*h^2*p32^2*s2*w1^3 - 71948569796812800*a42^2*h^2*p32^2*w1^5 - 302183993146613760*a42^2*h^2*p32*u2*w1^5 + 13007197413310464*a42^2*h^2*q2*w1^3 - 35974284898406400*a42^2*h^2*q53*w1^6 - 58532388359897088*a42^2*h*lambda*p21*p32^2 + 81294983833190400*a42^2*h*lambda*p32^3*w1 + 195107961199656960*a42^2*h*p1*p32^2 - 86258256530374656*a42^2*h*p1*p32*u2 - 61613040378839040*a42^2*h*p1*q53*w1 + 195107961199656960*a42^2*h*p21^2*p32 - 43129128265187328*a42^2*h*p21^2*u2 - 520287896532418560*a42^2*h*p21*p32^2*w1 + 273151145679519744*a42^2*h*p21*p32*u2*w1 + 97553980599828480*a42^2*h*p21*q53*w1^2 + 52028789653241856*a42^2*h*p32^3*s2 + 293565219397632000*a42^2*h*p32^3*w1^2 - 284532443416166400*a42^2*h*p32^2*u2*w1^2 + 11374715146862592*a42^2*h*p32*q2 - 135491639721984000*a42^2*h*p32*q53*w1^3 - 20323745958297600*a42^2*h*q3*w1^4 + 28001605542543360*a42^2*h*q41*w1^5 + 22749430293725184*a42^2*p1*q41 + 17062072720293888*a42^2*p21*q3 - 49290432303071232*a42^2*p21*q41*w1 - 30806520189419520*a42^2*p32^2*q53 - 36967824227303424*a42^2*p32*q3*w1 + 78043184479862784*a42^2*p32*q41*w1^2 + 78043184479862784*a42*b63*h^3*p0*w1^3 - 10026166439278080*a42*b63*h^3*w1^9 + 68248290881175552*a42*b63*h^2*p0*p32 - 81294983833190400*a42*b63*h^2*p1*w1^4 + 84004816627630080*a42*b63*h^2*p21*w1^5 - 86338283756175360*a42*b63*h^2*p32*w1^6 + 68248290881175552*a42*b63*h*p1*p21 - 147871296909213696*a42*b63*h*p1*p32*w1 - 73935648454606848*a42*b63*h*p21^2*w1 + 234129553439588352*a42*b63*h*p21*p32*w1^2 - 162589967666380800*a42*b63*h*p32^2*w1^3 - 24645216151535616*a42*b63*p32^3 - 17062072720293888*a42*h^4*lambda*p0^2 + 43169141878087680*a42*h^4*lambda*p0*w1^6 - 3952251373199220*a42*h^4*lambda*w1^12 - 37915717156208640*a42*h^4*p0^2*w1 + 112006422170173440*a42*h^4*p0*s2*w1^5 - 68522447425536000*a42*h^4*p0*w1^7 - 11325854681406720*a42*h^4*s2*w1^11 + 7431583778665200*a42*h^4*w1^13 + 73935648454606848*a42*h^3*lambda*p0*p1*w1 - 117064776719794176*a42*h^3*lambda*p0*p21*w1^2 + 162589967666380800*a42*h^3*lambda*p0*p32*w1^3 - 44196978589470720*a42*h^3*lambda*p1*w1^7 + 45117748976751360*a42*h^3*lambda*p21*w1^8 - 45953262846691200*a42*h^3*lambda*p32*w1^9 + 90997721174900736*a42*h^3*p0*p1*s2 + 20537680126279680*a42*h^3*p0*p1*w1^2 - 197161729212284928*a42*h^3*p0*p21*s2*w1 + 43357324711034880*a42*h^3*p0*p21*w1^3 + 312172737919451136*a42*h^3*p0*p32*s2*w1^2 - 112909699768320000*a42*h^3*p0*p32*w1^4 - 94844147805388800*a42*h^3*p0*u2*w1^4 - 115117711674900480*a42*h^3*p1*s2*w1^6 + 70592396358182400*a42*h^3*p1*w1^8 + 117858609571921920*a42*h^3*p21*s2*w1^7 - 72411202061452800*a42*h^3*p21*w1^9 - 120313997271336960*a42*h^3*p32*s2*w1^8 + 74035812364113600*a42*h^3*p32*w1^10 + 3251799353327616*a42*h^3*q1*w1^4 + 10722427997561280*a42*h^3*u2*w1^10 + 36967824227303424*a42*h^2*lambda*p0*p32^2 - 58532388359897088*a42*h^2*lambda*p1^2*w1^2 + 162589967666380800*a42*h^2*lambda*p1*p21*w1^3 - 210012041569075200*a42*h^2*lambda*p1*p32*w1^4 - 105006020784537600*a42*h^2*lambda*p21^2*w1^4 + 259014851268526080*a42*h^2*lambda*p21*p32*w1^5 - 154689425063147520*a42*h^2*lambda*p32^2*w1^6 - 246452161515356160*a42*h^2*p0*p21*p32 + 79623006028038144*a42*h^2*p0*p21*u2 + 205376801262796800*a42*h^2*p0*p32^2*w1 - 172516513060749312*a42*h^2*p0*p32*u2*w1 - 61613040378839040*a42*h^2*p0*q53*w1^2 - 98580864606142464*a42*h^2*p1^2*s2*w1 + 21678662355517440*a42*h^2*p1^2*w1^3 + 312172737919451136*a42*h^2*p1*p21*s2*w1^2 - 112909699768320000*a42*h^2*p1*p21*w1^4 - 433573247110348800*a42*h^2*p1*p32*s2*w1^3 + 186677370283622400*a42*h^2*p1*p32*w1^5 + 98005619398901760*a42*h^2*p1*u2*w1^5 - 216786623555174400*a42*h^2*p21^2*s2*w1^3 + 93338685141811200*a42*h^2*p21^2*w1^5 + 560032110850867200*a42*h^2*p21*p32*s2*w1^4 - 263811422588313600*a42*h^2*p21*p32*w1^6 - 9749755840167936*a42*h^2*p21*q1 - 100727997715537920*a42*h^2*p21*u2*w1^6 - 345353135024701440*a42*h^2*p32^2*s2*w1^5 + 171877138959052800*a42*h^2*p32^2*w1^7 + 11374715146862592*a42*h^2*p32*q1*w1 + 103126283375431680*a42*h^2*p32*u2*w1^7 - 5419665588879360*a42*h^2*q2*w1^5 + 9207703872806400*a42*h^2*q53*w1^8 + 73935648454606848*a42*h*lambda*p1*p21*p32 - 117064776719794176*a42*h*lambda*p1*p32^2*w1 + 12322608075767808*a42*h*lambda*p21^3 - 117064776719794176*a42*h*lambda*p21^2*p32*w1 + 243884951499571200*a42*h*lambda*p21*p32^2*w1^2 - 140008027712716800*a42*h*lambda*p32^3*w1^3 - 29249267520503808*a42*h*p0*q3 + 45498860587450368*a42*h*p0*q41*w1 - 123226080757678080*a42*h*p1^2*p32 + 39811503014019072*a42*h*p1^2*u2 - 123226080757678080*a42*h*p1*p21^2 + 410753602525593600*a42*h*p1*p21*p32*w1 - 172516513060749312*a42*h*p1*p21*u2*w1 - 98580864606142464*a42*h*p1*p32^2*s2 - 227625954732933120*a42*h*p1*p32^2*w1^2 + 273151145679519744*a42*h*p1*p32*u2*w1^2 - 19499511680335872*a42*h*p1*q2 + 65035987066552320*a42*h*p1*q53*w1^3 + 68458933754265600*a42*h*p21^3*w1 - 98580864606142464*a42*h*p21^2*p32*s2 - 227625954732933120*a42*h*p21^2*p32*w1^2 + 136575572839759872*a42*h*p21^2*u2*w1^2 + 312172737919451136*a42*h*p21*p32^2*s2*w1 + 180655519629312000*a42*h*p21*p32^2*w1^3 - 379376591221555200*a42*h*p21*p32*u2*w1^3 + 22749430293725184*a42*h*p21*q2*w1 - 67745819860992000*a42*h*p21*q53*w1^4 - 216786623555174400*a42*h*p32^3*s2*w1^2 - 19445559404544000*a42*h*p32^3*w1^4 + 245014048497254400*a42*h*p32^2*u2*w1^4 - 24645216151535616*a42*h*p32*q2*w1^2 + 70004013856358400*a42*h*p32*q53*w1^5 + 7000401385635840*a42*h*q3*w1^6 - 8222693691064320*a42*h*q41*w1^7 - 9755398059982848*a42*lambda*p32^4 + 56873575734312960*a42*p1*p32*q53 + 34124145440587776*a42*p1*q3*w1 - 49290432303071232*a42*p1*q41*w1^2 + 28436787867156480*a42*p21^2*q53 + 130071974133104640*a42*p21*p32^3 - 86258256530374656*a42*p21*p32^2*u2 - 123226080757678080*a42*p21*p32*q53*w1 - 36967824227303424*a42*p21*q3*w1^2 + 52028789653241856*a42*p21*q41*w1^3 - 86714649422069760*a42*p32^4*w1 + 91050381893173248*a42*p32^3*u2*w1 + 97553980599828480*a42*p32^2*q53*w1^2 + 39021592239931392*a42*p32*q3*w1^3 - 54196655888793600*a42*p32*q41*w1^4 - 16258996766638080*b63*h^3*p0*w1^5 + 835513869939840*b63*h^3*w1^11 - 58498535041007616*b63*h^2*p0*p1 + 68248290881175552*b63*h^2*p0*p21*w1 - 73935648454606848*b63*h^2*p0*p32*w1^2 + 14000802771271680*b63*h^2*p1*w1^6 - 12334040536596480*b63*h^2*p21*w1^7 + 11049244647367680*b63*h^2*p32*w1^8 + 34124145440587776*b63*h*p1^2*w1 - 73935648454606848*b63*h*p1*p21*w1^2 + 78043184479862784*b63*h*p1*p32*w1^3 + 39021592239931392*b63*h*p21^2*w1^3 - 81294983833190400*b63*h*p21*p32*w1^4 + 42002408313815040*b63*h*p32^2*w1^5 + 34124145440587776*b63*p1*p32^2 + 34124145440587776*b63*p21^2*p32 - 73935648454606848*b63*p21*p32^2*w1 + 39021592239931392*b63*p32^3*w1^2 + 18483912113651712*h^4*lambda*p0^2*w1^2 - 5524622323683840*h^4*lambda*p0*w1^8 + 264207280442805*h^4*lambda*w1^14 + 45498860587450368*h^4*p0^2*s2*w1 - 27383573501706240*h^4*p0^2*w1^3 - 16445387382128640*h^4*p0*s2*w1^7 + 10912834219622400*h^4*p0*w1^9 + 810718230399840*h^4*s2*w1^13 - 547985470548040*h^4*w1^15 - 39021592239931392*h^3*lambda*p0*p1*w1^3 + 40647491916595200*h^3*lambda*p0*p21*w1^4 - 42002408313815040*h^3*lambda*p0*p32*w1^5 + 5013083219639040*h^3*lambda*p1*w1^9 - 4595326284669120*h^3*lambda*p21*w1^10 + 4247195505527520*h^3*lambda*p32*w1^11 + 56873575734312960*h^3*p0^2*p32 - 34124145440587776*h^3*p0^2*u2 - 98580864606142464*h^3*p0*p1*s2*w1^2 + 59616321477672960*h^3*p0*p1*w1^4 + 104057579306483712*h^3*p0*p21*s2*w1^3 - 63229431870259200*h^3*p0*p21*w1^5 - 108393311777587200*h^3*p0*p32*s2*w1^4 + 66114901975449600*h^3*p0*p32*w1^6 + 58498535041007616*h^3*p0*q1 + 16334269899816960*h^3*p0*u2*w1^6 + 14732326196490240*h^3*p1*s2*w1^8 - 9747661815964800*h^3*p1*w1^10 - 13368221919037440*h^3*p21*s2*w1^9 + 8819313071587200*h^3*p21*w1^11 + 12254203425784320*h^3*p32*s2*w1^10 - 8061806283640200*h^3*p32*w1^12 - 451638799073280*h^3*q1*w1^6 - 825843570519240*h^3*u2*w1^12 - 34124145440587776*h^2*lambda*p0*p1*p32 - 17062072720293888*h^2*lambda*p0*p21^2 + 73935648454606848*h^2*lambda*p0*p21*p32*w1 - 58532388359897088*h^2*lambda*p0*p32^2*w1^2 + 20323745958297600*h^2*lambda*p1^2*w1^4 - 42002408313815040*h^2*lambda*p1*p21*w1^5 + 43169141878087680*h^2*lambda*p1*p32*w1^6 + 21584570939043840*h^2*lambda*p21^2*w1^6 - 44196978589470720*h^2*lambda*p21*p32*w1^7 + 22558874488375680*h^2*lambda*p32^2*w1^8 + 113747151468625920*h^2*p0*p1*p21 - 75831434312417280*h^2*p0*p1*p32*w1 + 79623006028038144*h^2*p0*p1*u2*w1 - 37915717156208640*h^2*p0*p21^2*w1 + 90997721174900736*h^2*p0*p21*p32*s2 + 20537680126279680*h^2*p0*p21*p32*w1^2 - 86258256530374656*h^2*p0*p21*u2*w1^2 - 98580864606142464*h^2*p0*p32^2*s2*w1 + 21678662355517440*h^2*p0*p32^2*w1^3 + 91050381893173248*h^2*p0*p32*u2*w1^3 - 19499511680335872*h^2*p0*q2*w1 + 16258996766638080*h^2*p0*q53*w1^4 + 52028789653241856*h^2*p1^2*s2*w1^3 - 31614715935129600*h^2*p1^2*w1^5 - 108393311777587200*h^2*p1*p21*s2*w1^4 + 66114901975449600*h^2*p1*p21*w1^6 + 112006422170173440*h^2*p1*p32*s2*w1^5 - 68522447425536000*h^2*p1*p32*w1^7 - 9749755840167936*h^2*p1*q1*w1 - 14389713959362560*h^2*p1*u2*w1^7 + 56003211085086720*h^2*p21^2*s2*w1^5 - 34261223712768000*h^2*p21^2*w1^7 - 115117711674900480*h^2*p21*p32*s2*w1^6 + 70592396358182400*h^2*p21*p32*w1^8 + 5687357573431296*h^2*p21*q1*w1^2 + 12890785421928960*h^2*p21*u2*w1^8 + 58929304785960960*h^2*p32^2*s2*w1^7 - 36205601030726400*h^2*p32^2*w1^9 - 4107536025255936*h^2*p32*q1*w1^3 - 11697194179157760*h^2*p32*u2*w1^9 + 666704893870080*h^2*q2*w1^7 - 835513869939840*h^2*q53*w1^10 - 17062072720293888*h*lambda*p1^2*p21 + 36967824227303424*h*lambda*p1^2*p32*w1 + 36967824227303424*h*lambda*p1*p21^2*w1 - 117064776719794176*h*lambda*p1*p21*p32*w1^2 + 81294983833190400*h*lambda*p1*p32^2*w1^3 - 19510796119965696*h*lambda*p21^3*w1^2 + 81294983833190400*h*lambda*p21^2*p32*w1^3 - 105006020784537600*h*lambda*p21*p32^2*w1^4 + 43169141878087680*h*lambda*p32^3*w1^5 - 48748779200839680*h*p0*p21*q53 - 41075360252559360*h*p0*p32^3 + 39811503014019072*h*p0*p32^2*u2 + 56873575734312960*h*p0*p32*q53*w1 + 17062072720293888*h*p0*q3*w1^2 - 16430144101023744*h*p0*q41*w1^3 + 18957858578104320*h*p1^3 - 37915717156208640*h*p1^2*p21*w1 + 45498860587450368*h*p1^2*p32*s2 + 10268840063139840*h*p1^2*p32*w1^2 - 43129128265187328*h*p1^2*u2*w1^2 + 45498860587450368*h*p1*p21^2*s2 + 10268840063139840*h*p1*p21^2*w1^2 - 197161729212284928*h*p1*p21*p32*s2*w1 + 43357324711034880*h*p1*p21*p32*w1^3 + 91050381893173248*h*p1*p21*u2*w1^3 + 156086368959725568*h*p1*p32^2*s2*w1^2 - 56454849884160000*h*p1*p32^2*w1^4 - 94844147805388800*h*p1*p32*u2*w1^4 + 11374715146862592*h*p1*q2*w1^2 - 13549163972198400*h*p1*q53*w1^5 - 32860288202047488*h*p21^3*s2*w1 + 7226220785172480*h*p21^3*w1^3 + 156086368959725568*h*p21^2*p32*s2*w1^2 - 56454849884160000*h*p21^2*p32*w1^4 - 47422073902694400*h*p21^2*u2*w1^4 - 216786623555174400*h*p21*p32^2*s2*w1^3 + 93338685141811200*h*p21*p32^2*w1^5 + 98005619398901760*h*p21*p32*u2*w1^5 - 8215072050511872*h*p21*q2*w1^3 + 11667335642726400*h*p21*q53*w1^6 + 93338685141811200*h*p32^3*s2*w1^4 - 43968570431385600*h*p32^3*w1^6 - 4874877920083968*h*p32^2*q1 - 50363998857768960*h*p32^2*u2*w1^6 + 6503598706655232*h*p32*q2*w1^4 - 10278367113830400*h*p32*q53*w1^7 - 770877533537280*h*q3*w1^8 + 818462566471680*h*q41*w1^9 + 12322608075767808*lambda*p1*p32^3 + 18483912113651712*lambda*p21^2*p32^2 - 39021592239931392*lambda*p21*p32^3*w1 + 20323745958297600*lambda*p32^4*w1^2 - 38999023360671744*p0*p32*q41 - 24374389600419840*p1^2*q53 - 123226080757678080*p1*p21*p32^2 + 79623006028038144*p1*p21*p32*u2 + 56873575734312960*p1*p21*q53*w1 + 68458933754265600*p1*p32^3*w1 - 86258256530374656*p1*p32^2*u2*w1 - 61613040378839040*p1*p32*q53*w1^2 - 12322608075767808*p1*q3*w1^3 + 13007197413310464*p1*q41*w1^4 - 41075360252559360*p21^3*p32 + 13270501004673024*p21^3*u2 + 102688400631398400*p21^2*p32^2*w1 - 86258256530374656*p21^2*p32*u2*w1 - 30806520189419520*p21^2*q53*w1^2 - 32860288202047488*p21*p32^3*s2 - 75875318244311040*p21*p32^3*w1^2 + 136575572839759872*p21*p32^2*u2*w1^2 - 19499511680335872*p21*p32*q2 + 65035987066552320*p21*p32*q53*w1^3 + 9755398059982848*p21*q3*w1^4 - 10839331177758720*p21*q41*w1^5 + 26014394826620928*p32^4*s2*w1 + 15054626635776000*p32^4*w1^3 - 63229431870259200*p32^3*u2*w1^3 + 11374715146862592*p32^2*q2*w1 - 33872909930496000*p32^2*q53*w1^4 - 8129498383319040*p32*q3*w1^5 + 9333868514181120*p32*q41*w1^6
+  grok610SplitChildren05SpeedT_orderTwoPlus_chunk47
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk46
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk45
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk44
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk43
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk42
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk41
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk40
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk39
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk38
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk37
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk36
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk35
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk34
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk33
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk32
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk31
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk30
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk29
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk28
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk27
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk26
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk25
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk24
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk23
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk22
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk21
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk20
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk19
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk18
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk17
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk16
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk15
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk14
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk13
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk12
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk11
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk10
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk09
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk08
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk07
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk06
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk05
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk04
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk03
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk02
+      (grok610SplitChildren05SpeedT_orderTwoPlus_chunk01 h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda) h w1 a42 p32 p21 p1 p0 s2 u2 b63 q53 q41 q3 q2 q1 lambda
 
 end DegreeZeroOrderOneHead610
 

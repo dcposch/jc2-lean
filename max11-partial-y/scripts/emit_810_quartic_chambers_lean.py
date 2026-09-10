@@ -232,7 +232,10 @@ def _strip_comments(text):
 # the ℕ-degree facts every kill shape has: the refined-leaf conjuncts, the
 # `A`-degree comparisons, the dead letters' degrees, the `natDegree_le`
 # bound, and the names a local `by_contra` / `rcases` binds.
-COMMON_KEEP = r"hx\d+|hApos|hA[B-G]|h[B-G]n|hle|hcon|h"
+COMMON_KEEP = (r"hx\d+|hApos|hA[B-G]|h[B-G]n|hle|hcon|h"
+               # the `0 < d` fact every kill contradicts at the end,
+               # and the two `by_contra` witnesses the kills bind
+               r"|hdpos|hzero|hz0")
 # the chamber kills: the chamber's own conjuncts (renamed `hcq…` so the
 # per-carrier `hq…` coefficient facts cannot shadow them) and the
 # per-carrier degree positivity facts.
@@ -240,6 +243,104 @@ KILL_KEEP = COMMON_KEEP + r"|hcq\d+|hdp\d+|hdz\d+"
 # the refinement trees: the chamber conjuncts keep their `hq…` names, and the
 # accumulated trichotomy path values are what the deeper branches need.
 TREE_KEEP = COMMON_KEEP + r"|hq\d+|hpv\d+"
+# the five single-monomial kill emitters: they name the `0 < d` fact `hdpos`,
+# the `by_contra` of the `hnc` step `hzero` and the `A ≠ 0` witness `hz0`.
+SINGLE_KEEP = KILL_KEEP + r"|hdpos|hzero|hz0|hrf\d+"
+
+# ------------------------------------- exact Farkas supports for `clear * -`
+# `omega` is complete for linear integer arithmetic, so an exact rational
+# Farkas certificate for an obligation names a *sufficient* set of
+# hypotheses; handing `omega` only those is a context restriction and can
+# never admit a false proof.  `scripts/_810_chamber_common.py` carries the
+# exact-rational LP these certificates come from.
+CONE_CONS = ([("hApos", CC.unit(0), True)]
+             + [(f"hA{X}", CC.sform(X), True) for X in SIG])
+NONNEG_CONS = [(None, CC.unit(i), False) for i in range(7)]
+
+
+def chamber_cons_named(nums, tag="hcq"):
+    """The chamber's ℕ conjuncts as `(name, vec, strict)`, in the order the
+    kill's `obtain` binds them (an equality contributes both directions
+    under one name)."""
+    out = []
+    for i, f in enumerate(nums):
+        try:
+            cs = CC.constraints_of(f)
+        except AssertionError:          # not a ℕ-degree comparison
+            continue
+        for v, st in cs:
+            out.append((f"{tag}{i}", v, st))
+    return out
+
+
+def dead_cons(live, letters=SIG):
+    """`h<X>n : X.natDegree = 0` for every dead letter."""
+    out = []
+    for X in letters:
+        if X not in live:
+            for v, st in CC.constraints_of(f"{X}.natDegree = 0"):
+                out.append((f"h{X}n", v, st))
+    return out
+
+
+def farkas_keep(cons, goals):
+    """The hypothesis names an exact Farkas proof of every goal uses, or
+    `None` when some goal is not derivable over ℚ from `cons`."""
+    plain = [(v, st) for _n, v, st in cons]
+    need = set()
+    for tgt, strict in goals:
+        lam = CC.derive(plain, tgt, strict)
+        if lam is None:
+            return None
+        for l, (n, _v, _s) in zip(lam, cons):
+            if l != 0 and n is not None:
+                need.add(n)
+    return need
+
+
+def keep_str(cons, goals, always=()):
+    """`clear * - …` keep-list for an `omega` discharging `goals`, or `None`
+    when no certificate exists (the caller then keeps the whole context)."""
+    need = farkas_keep(cons, goals)
+    if need is None:
+        return None
+    need |= set(always)
+    # `clear * -` wants at least one name, and `hApos` is in every kill
+    need = need or {"hApos"}
+    return " ".join(sorted(need, key=lambda s: (s != "h", len(s), s)))
+
+
+def cover_head(cons, goals):
+    """A small subset `S` of `goals` with `cons + S ⊢ every goal`.
+
+    The load column of a band is ordered so that its pure-`A` head dominates
+    the rest over the chamber's own conjuncts, so `S` is normally a single
+    conjunct: the kill can then turn the 7-way band `rcases` into that one
+    conjunct and expand it into the full ∧-chain once instead of six times.
+    Returns `None` when no proper subset works."""
+    if len(goals) < 2:
+        return None
+    def implies(S):
+        c = list(cons) + [(f"hS{j}", goals[j][0], goals[j][1]) for j in S]
+        plain = [(v, st) for _n, v, st in c]
+        return [CC.derive(plain, t, s) is not None for t, s in goals]
+    for j in range(len(goals)):          # the head is normally conjunct 0
+        if all(implies([j])):
+            return [j]
+    S, rest = [], list(range(len(goals)))
+    while not all(implies(S)):
+        best, bestn = None, -1
+        for j in rest:
+            n = sum(implies(S + [j]))
+            if n > bestn:
+                bestn, best = n, j
+        if best is None:
+            return None
+        S.append(best)
+        rest.remove(best)
+        if len(S) >= len(goals) - 1:
+            return None
+    return S
 
 _PR_OBTAIN = re.compile(r"^\s*obtain ⟨([^⟩]*)⟩")
 _PR_HAVE = re.compile(r"^\s*have (\w+)")
@@ -259,9 +360,24 @@ def prune_arith(body, names=None):
     keep = re.compile("^(?:" + (names or KILL_KEEP) + ")$")
     lines = body.split("\n")
     out, scope, pend = [], [], []
+    # a hypothesis a `rw … at h` targets may be a *binder of the theorem*, so
+    # it never enters `scope`; the closing `omega` of a kill contradicts
+    # exactly that hypothesis.  Keep it, scoped like everything else: at the
+    # indentation of the `rw` it belongs to, so a sibling branch of a tree kill
+    # does not inherit a `have` of the branch before it.
+    atn, sind = [], 0
     i = 0
     while i < len(lines):
         ln = lines[i]
+        if ln.startswith(("theorem ", "private theorem ", "set_option")):
+            atn = []
+        mat = re.match(r"^ *(?:\] )?at (\w+)$", ln)
+        if mat:
+            if mat.group(1) not in [a for a, _s in atn]:
+                atn.append((mat.group(1), sind))
+        elif ln.strip() and not ln.lstrip().startswith(("natDegree_add",
+                                                        "at ", "] at ")):
+            sind = len(ln) - len(ln.lstrip(" "))
         if not ln.strip():
             out.append(ln)
             i += 1
@@ -273,6 +389,7 @@ def prune_arith(body, names=None):
                 scope.append((n, d))
         pend = [x for x in pend if x[1] < ind]
         scope = [x for x in scope if x[1] <= ind]
+        atn = [x for x in atn if x[1] <= ind]
         m = _PR_HANE.match(ln)
         if m:
             # `A ≠ 0` is closed by `0 < A.natDegree` against `A.natDegree = 0`
@@ -294,8 +411,16 @@ def prune_arith(body, names=None):
             mm = _PR_HAVE.match(ln)
             if mm:
                 new = [mm.group(1)]
-        if "omega" in ln:
-            pre = "clear * - " + " ".join(n for n, _d in scope) + "; "
+        if ("omega" in ln and "clear * -" not in ln
+                and "all_goals" not in ln):
+            # the hypothesis a `rw … at h` has already targeted is a binder of
+            # the theorem (or a `have` of this proof) that `scope` may not
+            # carry, and it is the one the closing `omega` contradicts
+            live = [n for n, _d in scope]
+            for a, _s in atn:
+                if a not in live:
+                    live.append(a)
+            pre = "clear * - " + " ".join(live) + "; "
             ln = _PR_OMEGA.sub(pre + "omega", ln)
         out.append(ln)
         for n in new:
@@ -494,6 +619,9 @@ def close_imports(name, body):
         m = pick[0]
         add.append(m)
         have |= _import_closure([m])
+    if (REFL_NS + "." in _strip_comments(body)
+            and f"import {REFL_LIB}\n" not in body):
+        add.append(REFL_LIB)
     if not add:
         return body
     add = sorted(set(add))
@@ -567,7 +695,10 @@ EXHAUST_SPLIT = {"3", "4"}
 # tower chamber kills whose five carrier rows do not fit a 16 GiB runner in
 # one declaration; each row goes to a private lemma of its own module
 TOWER_ROW_SPLIT = ("quarticChamberBCDEFG58810_impossible",
-                   "quarticChamberBCDEFG15810_impossible")
+                   "quarticChamberBCDEFG15810_impossible",
+                   # measured at 10.09 GiB with the Farkas keep-lists in place
+                   "quarticChamberBCDEFG83810_impossible",
+                   "quarticChamberBCDEFG11810_impossible")
 
 
 def split_decls(name, section, doc, blocks, prev, tail="", base=0):
@@ -595,6 +726,7 @@ def split_decls(name, section, doc, blocks, prev, tail="", base=0):
 
 
 def write(name, body):
+    body = refl_localize(name[:-5], body)
     body = close_imports(name, body)
     _register(name[:-5], body)
     n = body.count("\n")
@@ -1281,11 +1413,199 @@ def poly_def(name, params, recs, letters=LET):
     if params:
         head += f"    ({params} : k)\n"
     head += "    (A B C D E F G : k[X]) : k[X] :=\n"
+    refl_register(name, params, recs)
     return head + EC.records_to_lean(recs) + "\n\n"
 
 
 def split_chunks(recs, size=CHUNK):
     return [recs[i:i + size] for i in range(0, len(recs), size)] or [[]]
+
+
+# ------------------------------------------------------- reflective degree
+# `compute_degree` closes `natDegree p < d` by decomposing `p` structurally
+# and `norm_num`-normalising the resulting `max` tree.  On these machine-
+# emitted rests -- tens of monomials in seven symbolic atoms over an abstract
+# `[Field k]` -- that last step is what the chamber taxonomy spends its CPU
+# on: 5-35 s per call, and there are thousands of calls.
+#
+# `Max11SpeedReflectDegLibScratch` reflects the polynomial instead: the
+# emitter writes out the coefficient list and the exponent vectors, the
+# library proves `natDegree (polyOf as cs es) <= bnd (as.map natDegree) es`
+# once by induction, and the residual goal is linear arithmetic in the atom
+# degrees that `omega` closes.  One `module` per *definition* then replaces
+# one `compute_degree` per *(definition, live set)* bound, and each module
+# carries its own private copy of the bridges it uses, so nothing is added to
+# any module's public interface.
+REFL_NS = "Max11ReflectDeg"
+REFL_LIB = "Max11SpeedReflectDegLibScratch"
+REFL_PREFIX = "refl810PolyOf_"
+REFL_DATA = {}            # polynomial def name -> (scalar params, records)
+_REFL_USE_RE = re.compile(REFL_PREFIX + r"([A-Za-z0-9_]+)")
+
+
+def refl_coeff(rec):
+    """The record's scalar as a `k`-typed coefficient of `polyOf`."""
+    qn, qd = int(rec["qn"]), int(rec["qd"])
+    loads = rec.get("loads") or {}
+    facs = []
+    for n in EC.LOAD_NAMES:
+        e = int(loads.get(n, 0) or 0)
+        if e == 1:
+            facs.append(n)
+        elif e > 1:
+            raise RuntimeError(f"load power {n}^{e}")
+    core = f"{abs(qn)}" if qd == 1 else f"{abs(qn)} / {qd}"
+    if facs:
+        core = core + " * " + " * ".join(facs)
+    return f"(-({core}) : k)" if qn < 0 else f"({core} : k)"
+
+
+def refl_exps(rec, letters=LET):
+    ex = rec.get("exps") or {}
+    return [int(ex.get(L, 0) or 0) for L in letters]
+
+
+def _refl_wrap(items, per, ind="      "):
+    return "\n".join(
+        ind + ", ".join(items[i:i + per]) + ("," if i + per < len(items) else "")
+        for i in range(0, len(items), per))
+
+
+def refl_register(name, params, recs):
+    """Record a monomial definition so its bridge can be reconstructed."""
+    if recs:
+        REFL_DATA[name] = (params, list(recs))
+
+
+def refl_ok(name):
+    return name in REFL_DATA
+
+
+def refl_bridge_text(name, letters=LET):
+    """`name … = polyOf [A…G] cs es`, private to whichever module uses it."""
+    params, recs = REFL_DATA[name]
+    args = params.split() if params else []
+    cs = [refl_coeff(r) for r in recs]
+    es = ["[" + ", ".join(str(x) for x in refl_exps(r, letters)) + "]"
+          for r in recs]
+    o = ["set_option maxHeartbeats 64000000 in",
+         f"/-- Reflected monomial data for `{name}` ({len(recs)} monomials).",
+         "The reflective degree checker of `Max11SpeedReflectDegLibScratch`",
+         "replaces `compute_degree` on every bound of this polynomial. -/",
+         f"private theorem {REFL_PREFIX}{name}"]
+    if params:
+        o.append(f"    ({params} : k)")
+    o.append("    (A B C D E F G : k[X]) :")
+    o.append("    " + " ".join([name] + args + list(letters)) + " =")
+    o.append(f"      {REFL_NS}.polyOf [" + ", ".join(letters) + "]")
+    o.append("      [")
+    o.append(_refl_wrap(cs, 3))
+    o.append("      ]")
+    o.append("      [")
+    o.append(_refl_wrap(es, 4))
+    o.append("      ] := by")
+    o.append(f"  simp only [{name}, {REFL_NS}.polyOf_cons,")
+    o.append(f"    {REFL_NS}.polyOf_nil_right, {REFL_NS}.mono_cons,")
+    o.append(f"    {REFL_NS}.mono_nil_left, {REFL_NS}.mono_nil_right,")
+    o.append("    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]")
+    o.append("  all_goals module")
+    o.append("")
+    return "\n".join(o) + "\n"
+
+
+def refl_bnd_proof(name, ind="  "):
+    """`(name …).natDegree < d` from one hypothesis per monomial."""
+    return [f"{ind}rw [{REFL_PREFIX}{name}]",
+            f"{ind}apply {REFL_NS}.natDegree_lt_of_bnd_lt",
+            f"{ind}simp only [{REFL_NS}.bnd_cons, {REFL_NS}.bnd_nil,",
+            f"{ind}  {REFL_NS}.mdeg_cons, {REFL_NS}.mdeg_nil_left,",
+            f"{ind}  {REFL_NS}.mdeg_nil_right, List.map_cons, List.map_nil,",
+            f"{ind}  Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,",
+            f"{ind}  max_lt_iff]",
+            f"{ind}repeat' apply And.intro",
+            f"{ind}all_goals omega"]
+
+
+def refl_degok_proof(name, ind="  ", pos="hdpos"):
+    """`(name …).natDegree < d` once the dead letters have been `subst`-ed.
+
+    `bnd` is blind to a monomial that died because one of its atoms was set to
+    zero, so the branch-aware `degOk` checker is used instead: the `simp only`
+    turns every dead monomial's side condition into `True` and normalises
+    every surviving one into a linear form in the atom degrees, and `omega`
+    finishes from the bound's own hypotheses."""
+    return [f"{ind}rw [{REFL_PREFIX}{name}]",
+            f"{ind}refine {REFL_NS}.natDegree_polyOf_lt_of_degOk {pos} ?_",
+            f"{ind}simp only [{REFL_NS}.degOk_cons, {REFL_NS}.degOk_nil_left,",
+            f"{ind}  {REFL_NS}.degOk_nil_right, {REFL_NS}.mono_cons,",
+            f"{ind}  {REFL_NS}.mono_nil_left, {REFL_NS}.mono_nil_right,",
+            f"{ind}  {REFL_NS}.mdeg_cons, {REFL_NS}.mdeg_nil_left,",
+            f"{ind}  {REFL_NS}.mdeg_nil_right, List.map_cons, List.map_nil,",
+            f"{ind}  {POWNAMES},",
+            f"{ind}  natDegree_zero, pow_zero, pow_one, one_mul, mul_one,",
+            f"{ind}  zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,",
+            f"{ind}  true_or, or_true, true_and, and_true]",
+            f"{ind}repeat' apply And.intro",
+            f"{ind}all_goals exact Or.inr (Or.inr (by omega))"]
+
+
+def refl_tag(mod):
+    t = mod
+    for pre in ("Grok810ScaleZeroQuartic", "Astra810ScaleZeroQuartic",
+                "Fable810ScaleZeroQuartic"):
+        if t.startswith(pre):
+            t = t[len(pre):]
+            break
+    if t.endswith("Scratch"):
+        t = t[:-len("Scratch")]
+    return "".join(ch for ch in t if ch.isalnum()) or "X"
+
+
+_REFL_ANCHOR = "variable {k : Type*} [Field k] [CharZero k]\n\n"
+
+
+_REFL_BLOCK_START = ("set_option", "theorem", "def", "private", "/--", "/-!",
+                     "noncomputable", "@[")
+
+
+def _refl_block_start(body, pos):
+    """The start of the top-level declaration block containing `pos`.
+
+    Emitted declarations are blank-line separated blocks of column-0 text, so
+    the previous blank line is the block boundary."""
+    j = body.rfind("\n\n", 0, pos)
+    while j >= 0:
+        k = j + 2
+        if body[k:].startswith(_REFL_BLOCK_START):
+            return k
+        j = body.rfind("\n\n", 0, j)
+    return None
+
+
+def refl_localize(mod, body):
+    """Give `mod` its own private copy of every reflection bridge it uses.
+
+    The bridges are private, so two modules may both carry the bridge of the
+    same definition; the name is tagged with the module anyway so that the
+    structural checker's global no-duplicate-declaration rule still holds.
+    Each bridge is spliced in front of the declaration that first uses it,
+    which puts it after the definition whenever that definition is emitted by
+    this same module."""
+    used = list(dict.fromkeys(_REFL_USE_RE.findall(body)))
+    if not used:
+        return body
+    fallback = body.index(_REFL_ANCHOR) + len(_REFL_ANCHOR)
+    m = re.match(r"section \S+\n\n", body[fallback:])
+    if m:
+        fallback += m.end()
+    spots = []
+    for n in used:
+        pos = body.index(REFL_PREFIX + n)
+        at = _refl_block_start(body, pos)
+        spots.append((fallback if at is None else at, n))
+    for at, n in sorted(spots, key=lambda x: -x[0]):
+        body = body[:at] + refl_bridge_text(n) + "\n" + body[at:]
+    return body.replace(REFL_PREFIX, f"{REFL_PREFIX}{refl_tag(mod)}_")
 
 
 def bound_lemma_split(name, params, recs):
@@ -1326,9 +1646,12 @@ def bound_lemma_split(name, params, recs):
         o[-1] += " :"
         o.append("    (" + " ".join([pn] + args + list("ABCDEFG"))
                  + ").natDegree < d := by")
-        o.append(f"  simp only [{pn}]")
-        o.append("  compute_degree")
-        o.append("  omega")
+        if refl_ok(pn):
+            o += refl_bnd_proof(pn)
+        else:
+            o.append(f"  simp only [{pn}]")
+            o.append("  compute_degree")
+            o.append("  omega")
         o.append("")
         body += "\n".join(o) + "\n"
     o = ["set_option maxHeartbeats 64000000 in", f"theorem {name}_split"]
@@ -1398,9 +1721,12 @@ def bound_lemma(name, params, recs, extra_hyps=()):
     out[-1] = out[-1] + " :"
     call = " ".join([name] + args + ["A", "B", "C", "D", "E", "F", "G"])
     out.append(f"    ({call}).natDegree < d := by")
-    out.append(f"  simp only [{name}]")
-    out.append("  compute_degree")
-    out.append("  omega")
+    if refl_ok(name):
+        out += refl_bnd_proof(name)
+    else:
+        out.append(f"  simp only [{name}]")
+        out.append("  compute_degree")
+        out.append("  omega")
     out.append("")
     return "\n".join(out) + "\n", [e for _, e in hyps]
 
@@ -1571,10 +1897,11 @@ def emit_faces(data, coords, chambers, prev):
                 out.append(f"  have hpow{e} : (0 : k[X]) ^ {e} = 0 := "
                            f"zero_pow (by decide)")
             pows = ", ".join(f"hpow{e}" for e in range(2, 9))
-            out.append(f"  simp only [{rname}, {pows}, {ZERO_SIMP}]")
-            if surv:
-                out.append("  compute_degree")
-            out.append("  omega")
+            if surv and refl_ok(rname):
+                out += refl_degok_proof(rname)
+            else:
+                out.append(f"  simp only [{rname}, {pows}, {ZERO_SIMP}]")
+                out.append("  omega")
             out.append("")
             bounds.append("\n".join(out) + "\n")
 
@@ -2637,10 +2964,11 @@ def emit_columns(coords, plan, prev):
             out.append(f"    ({nm} {ld} A B C D E F G).natDegree < d := by")
             out.append(subst_block(live).rstrip("\n"))
             out.append(POWS)
-            out.append(f"  simp only [{nm}, {POWNAMES}, {ZERO_SIMP}]")
-            if surv:
-                out.append("  compute_degree")
-            out.append("  omega")
+            if surv and refl_ok(nm):
+                out += refl_degok_proof(nm)
+            else:
+                out.append(f"  simp only [{nm}, {POWNAMES}, {ZERO_SIMP}]")
+                out.append("  omega")
             out.append("")
             body += "\n".join(x for x in out if x != "") + "\n\n"
             n += 1
@@ -2927,11 +3255,22 @@ def emit_kills(data, coords, chambers, plan, prev):
         if "A" in need:
             out.append("  have hAne : A ≠ 0 := by")
             out.append("    intro h0")
-            out.append("    have hz : A.natDegree = 0 := by simp [h0]")
-            out.append("    omega")
+            out.append("    have hz0 : A.natDegree = 0 := by simp [h0]")
+            out.append("    clear * - hApos hz0; omega")
+        # the exact-LP context every arithmetic leaf of this kill is decided
+        # over: the chamber's own conjuncts, cone `A`, the dead letters and
+        # (after its own `have`) `0 < d`
+        base = (chamber_cons_named(nums) + CONE_CONS + dead_cons(live)
+                + NONNEG_CONS)
+        dvec = CC.lin(d)
+        withd = base + [("hdpos", dvec, True)]
         out.append(f"  have hdpos : 0 < {d} := by")
         out.append("    by_contra hzero")
-        out.append("    exact hnc (by omega)")
+        knc = keep_str(base + [("hzero", tuple(-x for x in dvec), False)],
+                       [g for X in SIG
+                        for g in CC.target_of(f"{X}.natDegree = 0")])
+        out.append("    exact hnc (by "
+                   + (f"clear * - {knc}; " if knc else "") + "omega)")
         out.append("  obtain ⟨hbl, hbbeta, hbdelta, hbzeta, hbtheta⟩ :=")
         out.append(f"    quarticSigma_kappaLoadBands810 {LOADSIG8}")
         out.append("      A B C D E F G hA hkap")
@@ -2947,31 +3286,28 @@ def emit_kills(data, coords, chambers, plan, prev):
                 g = deg_expr(x.get("exps") or {})
                 if g not in uniq:
                     uniq.append(g)
-            conj = "(by omega)"          # a literal ∧-chain: one `omega` does all
+            goals = [CC.target_of(f"{g} < {d}")[0] for g in uniq]
             if st == "dominated":
-                args.append(f"(Or.inr {conj})")
+                kd = keep_str(withd, goals)
+                args.append("(Or.inr (by "
+                            + (f"clear * - {kd}; " if kd else "") + "omega))")
                 continue
             hn = f"hb{ld}'"
             args.append(hn)
-            body_conj = " ∧ ".join(f"{g} < {d}" for g in uniq)
-            out.append(f"  have {hn} : {ld} = 0 ∨ ({body_conj}) := by")
-            out.append(f"    rcases hb{ld} with h | " + " | ".join("h" for _ in SIG))
-            out.append("    · exact Or.inl h")
-            for X in SIG:
-                spec = TOP[ld][X]
-                if spec == "hard":
-                    out.append(f"    · exact absurd h{X}z h")
-                elif X not in live:
-                    out.append("    · exact absurd h (by omega)")
-                else:
-                    out.append(f"    · exact Or.inr {conj}")
+            out += band_block(hn, ld, f"hb{ld}",
+                              band_disjuncts("kappa-letter", ld), uniq, d,
+                              base, withd, live)
         zargs = " ".join(f"h{X}z" for X in SIG if X not in live)
         seenlf = []
         for x in surv_lf:
             g = deg_expr(x.get("exps") or {})
             if g not in seenlf:
                 seenlf.append(g)
-        lfargs = " ".join("(by omega)" for _ in seenlf)
+        lfa = []
+        for g in seenlf:
+            kg = keep_str(withd, [CC.target_of(f"{g} < {d}")[0]])
+            lfa.append("(by " + (f"clear * - {kg}; " if kg else "") + "omega)")
+        lfargs = " ".join(lfa)
         rname = f"{form}QuarticChamberRest{p}810"
         out.append(f"  have hrest : ({rname} {LOADSIG8}")
         out.append(f"      A B C D E F G).natDegree < {d} :=")
@@ -2984,8 +3320,9 @@ def emit_kills(data, coords, chambers, plan, prev):
         out.append(f"    {nm} A B C D E F G " + " ".join(f"h{L}ne" for L in need))
         out.append(f"  rw [degreeZero{CC.FORM_CAP[form]}Quartic810_eq_face{p}_add_rest,")
         out.append("    natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead]")
-        out.append(f"    at {deg_hyp if form != 'kappa' else 'hkap'}")
-        out.append("  omega")
+        hy = deg_hyp if form != "kappa" else "hkap"
+        out.append(f"    at {hy}")
+        out.append(f"  clear * - hdpos {hy}; omega")
         out.append("")
         body += "\n".join(out) + "\n"
         nk += 1
@@ -3000,7 +3337,9 @@ def emit_kills(data, coords, chambers, plan, prev):
         "`scripts/derive_810_quartic_chamber_killplan.py`; the rest are named in\n"
         "the residual.  Untracked working note."
     )
-    ln, _names = write_split(name, "QuarticChamberKills810", doc, body, prev)
+    ln, _names = write_split(name, "QuarticChamberKills810", doc,
+                             prune_arith(name_chamber_facts(body),
+                                         SINGLE_KEEP), prev)
     MODULES.append((name, ln, f"{len(used)} face-degree lemmas and {nk} "
                               "single-monomial chamber kills"))
     return name, {(e["live"], tuple(e["argmin"])) for e in leaves}
@@ -3500,12 +3839,15 @@ def emit_cost_ladder(prev, auxes=("kappa", "n2"), name=None, doc=None,
                         body += f"    ({h} : {s2})\n"
                     body = body[:-1] + " :\n"
                     body += (f"    ({sn} {zeroed} A B C D E F G).natDegree <\n"
-                             f"      {j} * A.natDegree := by\n"
-                             f"  simp only [{sn}, zero_mul, mul_zero, "
-                             "zero_smul,\n"
-                             "    smul_zero, add_zero, zero_add, sub_zero, "
-                             "neg_zero]\n"
-                             "  compute_degree\n  omega\n\n")
+                             f"      {j} * A.natDegree := by\n")
+                    if refl_ok(sn):
+                        body += "\n".join(refl_bnd_proof(sn)) + "\n\n"
+                    else:
+                        body += (f"  simp only [{sn}, zero_mul, mul_zero, "
+                                 "zero_smul,\n"
+                                 "    smul_zero, add_zero, zero_add, sub_zero, "
+                                 "neg_zero]\n"
+                                 "  compute_degree\n  omega\n\n")
                 if subs:
                     body += "set_option maxHeartbeats 64000000 in\n"
                     body += (f"theorem {nm}_split\n"
@@ -3538,6 +3880,8 @@ def emit_cost_ladder(prev, auxes=("kappa", "n2"), name=None, doc=None,
                     for t3 in tt[1:]:
                         acc2 = f"(natDegree_add_lt810 {acc2} ({t3}))"
                     body += f"  exact {acc2}\n\n"
+                elif refl_ok(nm):
+                    body += "\n".join(refl_bnd_proof(nm)) + "\n\n"
                 else:
                     body += (f"  simp only [{nm}, zero_mul, mul_zero, "
                              "zero_smul,\n"
@@ -3630,6 +3974,52 @@ def band_disjuncts(source, ld):
     return [(None, cost_le(m, w)) for m, w in cost_conjuncts(aux, ld)]
 
 
+def band_block(hn, ld, hv, dis, uniq, d, base, withd, live, ind="  ",
+               always=()):
+    """The band-to-∧-chain conversion of one load column of a kill.
+
+    `dis` is `band_disjuncts(source, ld)`.  The ∧-chain the rest lemma wants
+    is normally implied, over the chamber's own conjuncts, by a *single* one
+    of its own conjuncts (the head of the load column), so the 7- resp.
+    21-way band `rcases` is proved into that one conjunct and expanded into
+    the full chain once instead of once per branch.  Every `omega` gets the
+    `clear * -` keep-list of an exact rational Farkas certificate; where no
+    certificate exists the whole context is kept, so the shape can only get
+    slower, never unsound.  The statement of `hn` is unchanged."""
+    goals = [CC.target_of(f"{g} < {d}")[0] for g in uniq]
+    out = [f"{ind}have {hn} : {ld} = 0 ∨ ("
+           + " ∧ ".join(f"{g} < {d}" for g in uniq) + ") := by"]
+    head = cover_head(withd, goals)
+    i2, tgt = ind + "  ", goals
+    if head is not None:
+        out.append(f"{i2}have hb{ld}s : {ld} = 0 ∨ ("
+                   + " ∧ ".join(f"{uniq[j]} < {d}" for j in head) + ") := by")
+        i2, tgt = ind + "    ", [goals[j] for j in head]
+    out.append(f"{i2}rcases {hv} with h | " + " | ".join("h" for _ in dis))
+    out.append(f"{i2}· exact Or.inl h")
+    for X, txt in dis:
+        if X is not None and TOP[ld][X] == "hard":
+            out.append(f"{i2}· exact absurd h{X}z h")
+            continue
+        hc = CC.constraints_of(txt)[0]
+        kn = (keep_str(base, [(CC.scal7(-1, hc[0]), True)], always)
+              if X is not None and X not in live else None)
+        if kn is not None:
+            out.append(f"{i2}· exact absurd h (by clear * - {kn}; omega)")
+            continue
+        kb = keep_str(withd + [("h", hc[0], hc[1])], tgt, always)
+        out.append(f"{i2}· exact Or.inr (by "
+                   + (f"clear * - {kb}; " if kb else "") + "omega)")
+    if head is not None:
+        kh = keep_str(withd + [("h", goals[j][0], goals[j][1]) for j in head],
+                      goals, always)
+        out.append(f"{ind}  rcases hb{ld}s with h | h")
+        out.append(f"{ind}  · exact Or.inl h")
+        out.append(f"{ind}  · exact Or.inr (by "
+                   + (f"clear * - {kh}; " if kh else "") + "omega)")
+    return out
+
+
 FACES_PARTS = ["Grok810ScaleZeroQuarticChamberFacesPart0Scratch",
                "Grok810ScaleZeroQuarticChamberFacesPart1Scratch"] + \
     [f"Grok810ScaleZeroQuarticChamberFacesPart{i}Scratch" for i in range(2, 20)]
@@ -3703,10 +4093,11 @@ def emit_columns2(coords, plan2, have, prev, tag="2", doc=None,
             for e2 in range(2, 9):
                 out.append(f"  have hpow{e2} : (0 : k[X]) ^ {e2} = 0 := "
                            "zero_pow (by decide)")
-            out.append(f"  simp only [{nm}, {POWNAMES}, {ZERO_SIMP}]")
-            if surv:
-                out.append("  compute_degree")
-            out.append("  omega")
+            if surv and refl_ok(nm):
+                out += refl_degok_proof(nm)
+            else:
+                out.append(f"  simp only [{nm}, {POWNAMES}, {ZERO_SIMP}]")
+                out.append("  omega")
             out.append("")
             body += "\n".join(out) + "\n"
             n += 1
@@ -3950,10 +4341,19 @@ def emit_kills2(data, coords, chambers, plan2, have, killed1, prev,
                 out.append(f"  have h{X}n : {X}.natDegree = 0 := by simp [h{X}z]")
         if "A" in need:
             out += ["  have hAne : A ≠ 0 := by", "    intro h0",
-                    "    have hz : A.natDegree = 0 := by simp [h0]", "    omega"]
+                    "    have hz0 : A.natDegree = 0 := by simp [h0]",
+                    "    clear * - hApos hz0; omega"]
+        base = (chamber_cons_named(c.nums()) + CONE_CONS + dead_cons(live)
+                + NONNEG_CONS)
+        dvec = CC.lin(d)
+        withd = base + [("hdpos", dvec, True)]
         out.append(f"  have hdpos : 0 < {d} := by")
         out.append("    by_contra hzero")
-        out.append("    exact hnc (by omega)")
+        knc = keep_str(base + [("hzero", tuple(-x for x in dvec), False)],
+                       [g for X in SIG
+                        for g in CC.target_of(f"{X}.natDegree = 0")])
+        out.append("    exact hnc (by "
+                   + (f"clear * - {knc}; " if knc else "") + "omega)")
         for src in sorted(srcs):
             casc, loads, needsnu = BANDCASC[src]
             vs = ", ".join(BANDVAR[src].format(x) for x in loads)
@@ -3971,31 +4371,29 @@ def emit_kills2(data, coords, chambers, plan2, have, killed1, prev,
                 g = deg_expr(x.get("exps") or {})
                 if g not in uniq:
                     uniq.append(g)
-            conj = "(by omega)"          # a literal ∧-chain: one `omega` does all
             if v["status"] == "dominated":
-                args.append(f"(Or.inr {conj})")
+                kd = keep_str(withd, [CC.target_of(f"{g} < {d}")[0]
+                                      for g in uniq])
+                args.append("(Or.inr (by "
+                            + (f"clear * - {kd}; " if kd else "") + "omega))")
                 continue
             src = v["source"]
-            hv = BANDVAR[src].format(ld)
             hn = f"hz{ld}"
             args.append(hn)
-            dis = band_disjuncts(src, ld)
-            out.append(f"  have {hn} : {ld} = 0 ∨ ("
-                       + " ∧ ".join(f"{g} < {d}" for g in uniq) + ") := by")
-            out.append(f"    rcases {hv} with h | " + " | ".join("h" for _ in dis))
-            out.append("    · exact Or.inl h")
-            for X, _s in dis:
-                if X is not None and TOP[ld][X] == "hard":
-                    out.append(f"    · exact absurd h{X}z h")
-                else:
-                    out.append(f"    · exact Or.inr {conj}")
+            out += band_block(hn, ld, BANDVAR[src].format(ld),
+                              band_disjuncts(src, ld), uniq, d,
+                              base, withd, live)
         zargs = " ".join(f"h{X}z" for X in SIG if X not in live)
         seenlf = []
         for x in surv_lf:
             g = deg_expr(x.get("exps") or {})
             if g not in seenlf:
                 seenlf.append(g)
-        lfargs = " ".join("(by omega)" for _ in seenlf)
+        lfa = []
+        for g in seenlf:
+            kg = keep_str(withd, [CC.target_of(f"{g} < {d}")[0]])
+            lfa.append("(by " + (f"clear * - {kg}; " if kg else "") + "omega)")
+        lfargs = " ".join(lfa)
         rname = f"{form}QuarticChamberRest{p}810"
         out.append(f"  have hrest : ({rname} {LOADSIG8}")
         out.append(f"      A B C D E F G).natDegree < {d} :=")
@@ -4013,15 +4411,16 @@ def emit_kills2(data, coords, chambers, plan2, have, killed1, prev,
         tgt = ("hkap" if form == "kappa"
                else "hnu" if form == "nu" else deg_hyp)
         out.append(f"    at {tgt}")
-        out.append("  omega")
+        out.append(f"  clear * - hdpos {tgt}; omega")
         out.append("")
         body += "\n".join(out) + "\n"
         nk += 1
     name = f"Grok810ScaleZeroQuarticChamberKills{tag}Scratch"
     doc = doc or ("# Cost-ladder chamber kills, `(8,10)` scale zero\n\n"
                   f"{nk} further single-monomial chamber kills.  Untracked note.")
-    ln, _names = write_split(name, f"QuarticChamberKills{tag}810", doc, body,
-                             prev)
+    ln, _names = write_split(name, f"QuarticChamberKills{tag}810", doc,
+                             prune_arith(name_chamber_facts(body),
+                                         SINGLE_KEEP), prev)
     MODULES.append((name, ln, f"{nk} further single-monomial chamber kills"))
     return name, {(e["live"], tuple(e["argmin"])) for e in leaves}
 
@@ -4454,10 +4853,13 @@ def emit_extra_faces(data, coords, plan3full, have, prev):
         for e2 in range(2, 9):
             out.append(f"  have hpow{e2} : (0 : k[X]) ^ {e2} = 0 := "
                        "zero_pow (by decide)")
-        out.append(f"  simp only [{rname}, {POWNAMES}, {ZERO_SIMP}]")
-        if surv:
-            out.append("  compute_degree")
-        out.append("  omega")
+        if surv and refl_ok(rname):
+            out += refl_degok_proof(rname)
+        else:
+            out.append(f"  simp only [{rname}, {POWNAMES}, {ZERO_SIMP}]")
+            if surv:
+                out.append("  compute_degree")
+            out.append("  omega")
         out.append("")
         body += "\n".join(out) + "\n"
         nb += 1
@@ -4907,7 +5309,10 @@ def emit_kills4(data, coords, chambers, plan4full, innername, sysname, ctname,
             if X not in live:
                 out.append(f"  have h{X}n : {X}.natDegree = 0 := by simp [h{X}z]")
         out += ["  have hAne : A ≠ 0 := by", "    intro h0",
-                "    have hz0 : A.natDegree = 0 := by simp [h0]", "    omega"]
+                "    have hz0 : A.natDegree = 0 := by simp [h0]",
+                "    clear * - hApos hz0; omega"]
+        base = (chamber_cons_named(c.nums()) + CONE_CONS + dead_cons(live)
+                + NONNEG_CONS)
         for src in sorted(srcs):
             casc, loads, needsnu = BANDCASC[src]
             vs = ", ".join(BANDVAR[src].format(x) for x in loads)
@@ -4923,9 +5328,15 @@ def emit_kills4(data, coords, chambers, plan4full, innername, sysname, ctname,
             lf = EC.sort_records(coords[form + "_lf"])
             rest = [x for x in lf if rec_key(x) not in pk[(form, p)]]
             surv_lf = surviving(rest, live)
+            dvec = CC.lin(d)
+            withd = base + [(f"hdp{ci}", dvec, True)]
             out.append(f"  have hdp{ci} : 0 < {d} := by")
             out.append("    by_contra hzero")
-            out.append("    exact hnc (by omega)")
+            knc = keep_str(base + [("hzero", tuple(-x for x in dvec), False)],
+                           [g for X in SIG
+                            for g in CC.target_of(f"{X}.natDegree = 0")])
+            out.append("    exact hnc (by "
+                       + (f"clear * - {knc}; " if knc else "") + "omega)")
             args_r = []
             for ld in LOADS:
                 v = r["loads"][ld]
@@ -4937,30 +5348,30 @@ def emit_kills4(data, coords, chambers, plan4full, innername, sysname, ctname,
                     g = deg_expr(x.get("exps") or {})
                     if g not in uniq:
                         uniq.append(g)
-                conj = "(by omega)"      # a literal ∧-chain: one `omega`
                 if v["status"] == "dominated":
-                    args_r.append(f"(Or.inr {conj})")
+                    kd = keep_str(withd, [CC.target_of(f"{g} < {d}")[0]
+                                          for g in uniq])
+                    args_r.append("(Or.inr (by "
+                                  + (f"clear * - {kd}; " if kd else "")
+                                  + "omega))")
                     continue
                 hn = f"hz{ci}{ld}"
                 args_r.append(hn)
-                dis = band_disjuncts(v["source"], ld)
-                out.append(f"  have {hn} : {ld} = 0 ∨ ("
-                           + " ∧ ".join(f"{g} < {d}" for g in uniq) + ") := by")
-                out.append(f"    rcases {BANDVAR[v['source']].format(ld)} with h | "
-                           + " | ".join("h" for _ in dis))
-                out.append("    · exact Or.inl h")
-                for X, _s in dis:
-                    if X is not None and TOP[ld][X] == "hard":
-                        out.append(f"    · exact absurd h{X}z h")
-                    else:
-                        out.append(f"    · exact Or.inr {conj}")
+                out += band_block(hn, ld, BANDVAR[v["source"]].format(ld),
+                                  band_disjuncts(v["source"], ld), uniq, d,
+                                  base, withd, live)
             zargs = " ".join(f"h{X}z" for X in SIG if X not in live)
             seenlf = []
             for x in surv_lf:
                 g = deg_expr(x.get("exps") or {})
                 if g not in seenlf:
                     seenlf.append(g)
-            lfargs = " ".join("(by omega)" for _ in seenlf)
+            lfa = []
+            for g in seenlf:
+                kg = keep_str(withd, [CC.target_of(f"{g} < {d}")[0]])
+                lfa.append("(by " + (f"clear * - {kg}; " if kg else "")
+                           + "omega)")
+            lfargs = " ".join(lfa)
             rname = f"{form}QuarticChamberRest{p}810"
             out.append(f"  have hr{ci} : ({rname} {LOADSIG8}")
             out.append(f"      A B C D E F G).natDegree < {d} :=")
@@ -5014,7 +5425,9 @@ def emit_kills4(data, coords, chambers, plan4full, innername, sysname, ctname,
            "coefficient is extracted with `…ChamberInnerScratch`'s `_coeff_top`\n"
            "bridge, and the isobaric identity then contradicts a product of\n"
            "non-zero leading coefficients.  Untracked working note.")
-    split_decls(name, "QuarticChamberKills4810", doc, decl_blocks(body), prev)
+    split_decls(name, "QuarticChamberKills4810", doc,
+                decl_blocks(prune_arith(name_chamber_facts(body), SINGLE_KEEP)),
+                prev)
     MODULES.append((name, body.count("\n"),
                     f"{nk} multi-carrier chamber kills"))
     return name, {(e["live"], tuple(e["argmin"])) for e in plan4full["leaves"]
@@ -5575,7 +5988,10 @@ def emit_power_kills(data, coords, chambers, plan5full, have, prev):
             if X not in live:
                 out.append(f"  have h{X}n : {X}.natDegree = 0 := by simp [h{X}z]")
         out += ["  have hAne : A ≠ 0 := by", "    intro h0",
-                "    have hz0 : A.natDegree = 0 := by simp [h0]", "    omega"]
+                "    have hz0 : A.natDegree = 0 := by simp [h0]",
+                "    clear * - hApos hz0; omega"]
+        base = (chamber_cons_named(c.nums()) + CONE_CONS + dead_cons(live)
+                + NONNEG_CONS)
         for src in sorted(srcs):
             casc, loads, needsnu = BANDCASC[src]
             vs = ", ".join(BANDVAR[src].format(x) for x in loads)
@@ -5590,9 +6006,15 @@ def emit_power_kills(data, coords, chambers, plan5full, have, prev):
             lf = EC.sort_records(coords[form + "_lf"])
             rest = [x for x in lf if rec_key(x) not in pk[(form, p)]]
             surv_lf = surviving(rest, live)
+            dvec = CC.lin(d)
+            withd = base + [(f"hdp{ci}", dvec, True)]
             out.append(f"  have hdp{ci} : 0 < {d} := by")
             out.append("    by_contra hzero")
-            out.append("    exact hnc (by omega)")
+            knc = keep_str(base + [("hzero", tuple(-x for x in dvec), False)],
+                           [g for X in SIG
+                            for g in CC.target_of(f"{X}.natDegree = 0")])
+            out.append("    exact hnc (by "
+                       + (f"clear * - {knc}; " if knc else "") + "omega)")
             args_r = []
             for ld in LOADS:
                 v = r["loads"][ld]
@@ -5604,30 +6026,30 @@ def emit_power_kills(data, coords, chambers, plan5full, have, prev):
                     g = deg_expr(x.get("exps") or {})
                     if g not in uniq:
                         uniq.append(g)
-                conj = "(by omega)"      # a literal ∧-chain: one `omega`
                 if v["status"] == "dominated":
-                    args_r.append(f"(Or.inr {conj})")
+                    kd = keep_str(withd, [CC.target_of(f"{g} < {d}")[0]
+                                          for g in uniq])
+                    args_r.append("(Or.inr (by "
+                                  + (f"clear * - {kd}; " if kd else "")
+                                  + "omega))")
                     continue
                 hn = f"hz{ci}{ld}"
                 args_r.append(hn)
-                dis = band_disjuncts(v["source"], ld)
-                out.append(f"  have {hn} : {ld} = 0 ∨ ("
-                           + " ∧ ".join(f"{g} < {d}" for g in uniq) + ") := by")
-                out.append(f"    rcases {BANDVAR[v['source']].format(ld)} with h | "
-                           + " | ".join("h" for _ in dis))
-                out.append("    · exact Or.inl h")
-                for X, _s in dis:
-                    if X is not None and TOP[ld][X] == "hard":
-                        out.append(f"    · exact absurd h{X}z h")
-                    else:
-                        out.append(f"    · exact Or.inr {conj}")
+                out += band_block(hn, ld, BANDVAR[v["source"]].format(ld),
+                                  band_disjuncts(v["source"], ld), uniq, d,
+                                  base, withd, live)
             zargs = " ".join(f"h{X}z" for X in SIG if X not in live)
             seenlf = []
             for x in surv_lf:
                 g = deg_expr(x.get("exps") or {})
                 if g not in seenlf:
                     seenlf.append(g)
-            lfargs = " ".join("(by omega)" for _ in seenlf)
+            lfa = []
+            for g in seenlf:
+                kg = keep_str(withd, [CC.target_of(f"{g} < {d}")[0]])
+                lfa.append("(by " + (f"clear * - {kg}; " if kg else "")
+                           + "omega)")
+            lfargs = " ".join(lfa)
             rname = f"{form}QuarticChamberRest{p}810"
             out.append(f"  have hr{ci} : ({rname} {LOADSIG8}")
             out.append(f"      A B C D E F G).natDegree < {d} :=")
@@ -5673,7 +6095,8 @@ def emit_power_kills(data, coords, chambers, plan5full, have, prev):
            "the Singular-lifted isobaric identity then forces a product of non-zero\n"
            "leading coefficients to vanish.  Which chambers qualify is decided by\n"
            "`scripts/derive_810_quartic_chamber_killplan5.py`.  Untracked note.")
-    split_decls(name, "QuarticChamberPowerKills810", doc, decl_blocks(body),
+    split_decls(name, "QuarticChamberPowerKills810", doc,
+                decl_blocks(prune_arith(name_chamber_facts(body), SINGLE_KEEP)),
                 [prev, "Grok810ScaleZeroQuarticPowerCertificatesScratch"],
                 base=1)
     MODULES.append((name, body.count("\n"),
@@ -5842,7 +6265,11 @@ def emit_refined_kills(data, coords, chambers, plan6full, have, prev):
             if X not in live:
                 out.append(f"  have h{X}n : {X}.natDegree = 0 := by simp [h{X}z]")
         out += ["  have hAne : A ≠ 0 := by", "    intro h0",
-                "    have hz0 : A.natDegree = 0 := by simp [h0]", "    omega"]
+                "    have hz0 : A.natDegree = 0 := by simp [h0]",
+                "    clear * - hApos hz0; omega"]
+        base = (chamber_cons_named(c.nums())
+                + chamber_cons_named(rconj, tag="hrf")
+                + CONE_CONS + dead_cons(live) + NONNEG_CONS)
         for src in sorted(srcs):
             casc, loads, needsnu = BANDCASC[src]
             vs = ", ".join(BANDVAR[src].format(x) for x in loads)
@@ -5857,9 +6284,15 @@ def emit_refined_kills(data, coords, chambers, plan6full, have, prev):
             face = [x for x in lf if rec_key(x) in pk[(form, p)]]
             rest = [x for x in lf if rec_key(x) not in pk[(form, p)]]
             surv_lf = surviving(rest, live)
+            dvec = CC.lin(d)
+            withd = base + [(f"hdp{ci}", dvec, True)]
             out.append(f"  have hdp{ci} : 0 < {d} := by")
             out.append("    by_contra hzero")
-            out.append("    exact hnc (by omega)")
+            knc = keep_str(base + [("hzero", tuple(-x for x in dvec), False)],
+                           [g for X in SIG
+                            for g in CC.target_of(f"{X}.natDegree = 0")])
+            out.append("    exact hnc (by "
+                       + (f"clear * - {knc}; " if knc else "") + "omega)")
             args_r = []
             for ld in LOADS:
                 v = r["loads"][ld]
@@ -5871,30 +6304,30 @@ def emit_refined_kills(data, coords, chambers, plan6full, have, prev):
                     g = deg_expr(x.get("exps") or {})
                     if g not in uniq:
                         uniq.append(g)
-                conj = "(by omega)"      # a literal ∧-chain: one `omega`
                 if v["status"] == "dominated":
-                    args_r.append(f"(Or.inr {conj})")
+                    kd = keep_str(withd, [CC.target_of(f"{g} < {d}")[0]
+                                          for g in uniq])
+                    args_r.append("(Or.inr (by "
+                                  + (f"clear * - {kd}; " if kd else "")
+                                  + "omega))")
                     continue
                 hn = f"hz{ci}{ld}"
                 args_r.append(hn)
-                dis = band_disjuncts(v["source"], ld)
-                out.append(f"  have {hn} : {ld} = 0 ∨ ("
-                           + " ∧ ".join(f"{g} < {d}" for g in uniq) + ") := by")
-                out.append(f"    rcases {BANDVAR[v['source']].format(ld)} with h | "
-                           + " | ".join("h" for _ in dis))
-                out.append("    · exact Or.inl h")
-                for X, _s in dis:
-                    if X is not None and TOP[ld][X] == "hard":
-                        out.append(f"    · exact absurd h{X}z h")
-                    else:
-                        out.append(f"    · exact Or.inr {conj}")
+                out += band_block(hn, ld, BANDVAR[v["source"]].format(ld),
+                                  band_disjuncts(v["source"], ld), uniq, d,
+                                  base, withd, live)
             zargs = " ".join(f"h{X}z" for X in SIG if X not in live)
             seenlf = []
             for x in surv_lf:
                 g = deg_expr(x.get("exps") or {})
                 if g not in seenlf:
                     seenlf.append(g)
-            lfargs = " ".join("(by omega)" for _ in seenlf)
+            lfa = []
+            for g in seenlf:
+                kg = keep_str(withd, [CC.target_of(f"{g} < {d}")[0]])
+                lfa.append("(by " + (f"clear * - {kg}; " if kg else "")
+                           + "omega)")
+            lfargs = " ".join(lfa)
             rname = f"{form}QuarticChamberRest{p}810"
             out.append(f"  have hr{ci} : ({rname} {LOADSIG8}")
             out.append(f"      A B C D E F G).natDegree < {d} :=")
@@ -5961,7 +6394,7 @@ def emit_refined_kills(data, coords, chambers, plan6full, have, prev):
            "leaf's *full* conjunct set (cell + refinement) in\n"
            "`scripts/derive_810_quartic_chamber_killplan6.py`.  Untracked note.")
     split_decls(name, "QuarticChamberRefinedKills810", doc,
-                decl_blocks(body),
+                decl_blocks(prune_arith(name_chamber_facts(body), SINGLE_KEEP)),
                 [prev, "Grok810ScaleZeroQuarticPowerCertificatesScratch"])
     MODULES.append((name, body.count("\n"), f"{nk} refined-leaf kills"))
     killed = {}
@@ -6875,9 +7308,12 @@ def emit_unowned_columns(coords, plan, have, prev, tag="Unowned"):
                         o.append(f"    ({h} : {g} < d)")
                     o[-1] += " :"
                     o.append(f"    ({pn} {ld} A B C D E F G).natDegree < d := by")
-                    o.append(f"  simp only [{pn}]")
-                    o.append("  compute_degree")
-                    o.append("  omega")
+                    if refl_ok(pn):
+                        o += refl_bnd_proof(pn)
+                    else:
+                        o.append(f"  simp only [{pn}]")
+                        o.append("  compute_degree")
+                        o.append("  omega")
                     o.append("")
                     pre += "\n".join(o) + "\n"
                 o = ["set_option maxHeartbeats 64000000 in",
@@ -6941,17 +7377,23 @@ def emit_unowned_columns(coords, plan, have, prev, tag="Unowned"):
                 for e2 in range(2, 9):
                     out.append(f"  have hpow{e2} : (0 : k[X]) ^ {e2} = 0 := "
                                "zero_pow (by decide)")
-                out.append(f"  simp only [{nm}, {POWNAMES}, {ZERO_SIMP}]")
-                if surv:
-                    out.append("  compute_degree")
-                out.append("  omega")
+                if surv and refl_ok(nm):
+                    out += refl_degok_proof(nm)
+                else:
+                    out.append(f"  simp only [{nm}, {POWNAMES}, {ZERO_SIMP}]")
+                    if surv:
+                        out.append("  compute_degree")
+                    out.append("  omega")
             out.append("")
             blocks.append(pre + "\n".join(out) + "\n")
             n += 1
     names = []
     groups, cur, curl, curc = [], [], 0, 0
     for b in blocks:
-        nl, nc = b.count("\n"), b.count("compute_degree")
+        # a reflective bound costs a declaration too, so it counts the
+        # same way towards the per-module declaration budget
+        nl, nc = b.count("\n"), (b.count("  compute_degree\n")
+                                 + b.count(REFL_NS + ".natDegree_"))
         if cur and (curl + nl > 2200 or curc + nc > 65):
             groups.append(cur)
             cur, curl, curc = [], 0, 0
@@ -7033,9 +7475,12 @@ def emit_unowned_rests(coords, plan, packets, have, prev, tag="Unowned"):
                         q.append(f"    ({h} : {g} < d)")
                     q[-1] += " :"
                     q.append(f"    ({pn} A B C D E F G).natDegree < d := by")
-                    q.append(f"  simp only [{pn}]")
-                    q.append("  compute_degree")
-                    q.append("  omega")
+                    if refl_ok(pn):
+                        q += refl_bnd_proof(pn)
+                    else:
+                        q.append(f"  simp only [{pn}]")
+                        q.append("  compute_degree")
+                        q.append("  omega")
                     q.append("")
                     pre += "\n".join(q) + "\n"
                 q = ["set_option maxHeartbeats 64000000 in",
@@ -7087,10 +7532,13 @@ def emit_unowned_rests(coords, plan, packets, have, prev, tag="Unowned"):
                 for e2 in range(2, 9):
                     o.append(f"  have hpow{e2} : (0 : k[X]) ^ {e2} = 0 := "
                              "zero_pow (by decide)")
-                o.append(f"  simp only [{lfname}, {POWNAMES}, {ZERO_SIMP}]")
-                if surv:
-                    o.append("  compute_degree")
-                o.append("  omega")
+                if surv and refl_ok(lfname):
+                    o += refl_degok_proof(lfname)
+                else:
+                    o.append(f"  simp only [{lfname}, {POWNAMES}, {ZERO_SIMP}]")
+                    if surv:
+                        o.append("  compute_degree")
+                    o.append("  omega")
             o.append("")
             blocks.append(pre + "\n".join(o) + "\n")
             nlf += 1
@@ -7178,7 +7626,10 @@ def emit_unowned_rests(coords, plan, packets, have, prev, tag="Unowned"):
     names = []
     groups, cur, curl, curc = [], [], 0, 0
     for b in blocks:
-        nl, nc = b.count("\n"), b.count("compute_degree")
+        # a reflective bound costs a declaration too, so it counts the
+        # same way towards the per-module declaration budget
+        nl, nc = b.count("\n"), (b.count("  compute_degree\n")
+                                 + b.count(REFL_NS + ".natDegree_"))
         if cur and (curl + nl > 2200 or curc + nc > 65):
             groups.append(cur)
             cur, curl, curc = [], 0, 0
@@ -7352,7 +7803,15 @@ def emit_unowned_kills(coords, chambers, plan, packets, have, prev):
                 out.append(f"  have h{X}n : {X}.natDegree = 0 := by simp [h{X}z]")
         if "A" in need:
             out += ["  have hAne : A ≠ 0 := by", "    intro h0",
-                    "    have hz : A.natDegree = 0 := by simp [h0]", "    omega"]
+                    "    have hz0 : A.natDegree = 0 := by simp [h0]",
+                    "    clear * - hApos hz0; omega"]
+        # the refined-leaf extras `hx…` are not ℕ-degree data this pass can
+        # read, so they are always kept; every other keep-list is an exact
+        # rational Farkas support
+        xtra = tuple(f"hx{t}" for t in range(extra))
+        base = (chamber_cons_named(c.nums()) + CONE_CONS + dead_cons(live)
+                + NONNEG_CONS)
+        withd = base + [("hdpos", CC.lin(d), True)]
         out.append(f"  have hdpos : 0 < {d} := by")
         out += HNC_BLOCK
         for s in sorted(srcs):
@@ -7389,18 +7848,30 @@ def emit_unowned_kills(coords, chambers, plan, packets, have, prev):
                     comps.append(hn)
                 else:
                     comps.append("by omega")
-            conj = ("(by omega)" if all(x == "by omega" for x in comps)
-                    else (comps[0] if len(comps) == 1
-                          else "⟨" + ", ".join(comps) + "⟩"))
+            plain = all(x == "by omega" for x in comps)
+            if plain:
+                kd = keep_str(withd,
+                              [CC.target_of(f"{g} < {d}")[0] for g in uniq],
+                              xtra)
+                conj = ("(by " + (f"clear * - {kd}; " if kd else "")
+                        + "omega)")
+            else:
+                conj = (comps[0] if len(comps) == 1
+                        else "⟨" + ", ".join(comps) + "⟩")
             if v["status"].startswith("dominated"):
                 args.append(f"(Or.inr {conj})")
                 continue
             hn = f"hz{ld}"
             args.append(hn)
             dis = unowned_band_disjuncts(v["source"], ld)
+            hv = UNOWNED_BAND[v["source"]][2].format(ld)
+            if plain:
+                out += band_block(hn, ld, hv, dis, uniq, d, base, withd, live,
+                                  always=xtra)
+                continue
             out.append(f"  have {hn} : {ld} = 0 ∨ ("
                        + " ∧ ".join(f"{g} < {d}" for g in uniq) + ") := by")
-            out.append(f"    rcases {UNOWNED_BAND[v['source']][2].format(ld)} "
+            out.append(f"    rcases {hv} "
                        "with h | " + " | ".join("h" for _ in dis))
             out.append("    · exact Or.inl h")
             for X, _s in dis:
@@ -7414,7 +7885,13 @@ def emit_unowned_kills(coords, chambers, plan, packets, have, prev):
             g = deg_expr(x.get("exps") or {})
             if g not in seenlf:
                 seenlf.append(g)
-        lfargs = " ".join("(by omega)" for _ in seenlf)
+        lfa = []
+        for g in seenlf:
+            kg = keep_str(withd, [CC.target_of(f"{g} < {d}")[0]],
+                          xtra)
+            lfa.append("(by " + (f"clear * - {kg}; " if kg else "")
+                       + "omega)")
+        lfargs = " ".join(lfa)
         rname = f"{form}QuarticChamberRest{p}810"
         out.append(f"  have hrest : ({rname} {LOADSIG8}")
         out.append(f"      A B C D E F G).natDegree < {d} :=")
@@ -7874,7 +8351,14 @@ def emit_unowned_systems(coords, chambers, entries, packets, have, prev):
             if X not in live:
                 k.append(f"  have h{X}n : {X}.natDegree = 0 := by simp [h{X}z]")
         k += ["  have hAne : A ≠ 0 := by", "    intro h0",
-              "    have hz0 : A.natDegree = 0 := by simp [h0]", "    omega"]
+              "    have hz0 : A.natDegree = 0 := by simp [h0]",
+              "    clear * - hApos hz0; omega"]
+        # the refined-leaf extras `hx…` are not ℕ-degree data this pass can
+        # read, so they are always kept; every other keep-list is an exact
+        # rational Farkas support
+        xtra = tuple(f"hx{tt}" for tt in range(extra))
+        base = (chamber_cons_named(c.nums()) + CONE_CONS + dead_cons(live)
+                + NONNEG_CONS)
         for s in sorted(srcs):
             casc, loads, var, ex, _n = UNOWNED_BAND[s]
             k.append("  obtain ⟨" + ", ".join(var.format(x) for x in loads)
@@ -7899,6 +8383,7 @@ def emit_unowned_systems(coords, chambers, entries, packets, have, prev):
             # the rest lemmas bind `hdpos : 0 < d`; the k-side fact
             # above is stronger but is not that statement
             k.append(f"  have hdz{ci} : 0 < {d} := by omega")
+            withd = base + [(f"hdz{ci}", CC.lin(d), True)]
             args = []
             for ld in LOADS:
                 v = r["loads"][ld]
@@ -7926,18 +8411,30 @@ def emit_unowned_systems(coords, chambers, entries, packets, have, prev):
                         comps.append(hn)
                     else:
                         comps.append("by omega")
-                conj = ("(by omega)" if all(x == "by omega" for x in comps)
-                        else (comps[0] if len(comps) == 1
-                              else "⟨" + ", ".join(comps) + "⟩"))
+                plain = all(x == "by omega" for x in comps)
+                if plain:
+                    kd = keep_str(withd,
+                                  [CC.target_of(f"{g} < {d}")[0] for g in uniq],
+                                  xtra)
+                    conj = ("(by " + (f"clear * - {kd}; " if kd else "")
+                            + "omega)")
+                else:
+                    conj = (comps[0] if len(comps) == 1
+                            else "⟨" + ", ".join(comps) + "⟩")
                 if v["status"].startswith("dominated"):
                     args.append(f"(Or.inr {conj})")
                     continue
                 hn = f"hz{ci}{ld}"
                 args.append(hn)
                 dis = unowned_band_disjuncts(v["source"], ld)
+                hv = UNOWNED_BAND[v["source"]][2].format(ld)
+                if plain:
+                    k += band_block(hn, ld, hv, dis, uniq, d, base, withd,
+                                    live, always=xtra)
+                    continue
                 k.append(f"  have {hn} : {ld} = 0 ∨ ("
                          + " ∧ ".join(f"{g} < {d}" for g in uniq) + ") := by")
-                k.append(f"    rcases {UNOWNED_BAND[v['source']][2].format(ld)} "
+                k.append(f"    rcases {hv} "
                          "with h | " + " | ".join("h" for _ in dis))
                 k.append("    · exact Or.inl h")
                 for X, _s in dis:
@@ -7951,7 +8448,12 @@ def emit_unowned_systems(coords, chambers, entries, packets, have, prev):
                 g = deg_expr(x.get("exps") or {})
                 if g not in seenlf:
                     seenlf.append(g)
-            lfargs = " ".join("(by omega)" for _ in seenlf)
+            lfa = []
+            for g in seenlf:
+                kg = keep_str(withd, [CC.target_of(f"{g} < {d}")[0]], xtra)
+                lfa.append("(by " + (f"clear * - {kg}; " if kg else "")
+                           + "omega)")
+            lfargs = " ".join(lfa)
             rname = f"{form}QuarticChamberRest{p}810"
             k.append(f"  have hr{ci} : ({rname} {LOADSIG8}")
             k.append(f"      A B C D E F G).natDegree < {d} :=")
@@ -8202,8 +8704,16 @@ def face_degree_lemma(coords, form, p, packets, have, seen):
     return "\n".join(out) + "\n", nm, need, d, face
 
 
-def branch_kill_lines(coords, S, live, r, packets, facedeg, ind):
-    """The body of a single-carrier kill on one sub-chamber, indented."""
+def branch_kill_lines(coords, S, live, r, packets, facedeg, ind, base=None):
+    """The body of a single-carrier kill on one sub-chamber, indented.
+
+    `base` is the exact-LP context of the enclosing chamber (see
+    `chamber_cons_named`); when it is given, every band column whose conjuncts
+    are all plain `omega` goes through `band_block`, which keeps only a Farkas
+    support and proves the 7-/21-way band into the head of the column.  A
+    branch whose obligation needs the tree's own path values has no
+    certificate over `base`, so it falls back to the plain `omega` that
+    `prune_arith` then prunes by scope."""
     form, p, d = r["carrier"], r["packet"], r["d"]
     nm, need, _d, face = facedeg[(form, p)]
     _f, rest = unowned_face(coords, form, packets[(form, p)]["face"])
@@ -8215,6 +8725,7 @@ def branch_kill_lines(coords, S, live, r, packets, facedeg, ind):
     o += (["  " + x.strip() for x in HNC_BLOCK] if r["kside_hnc"]
           else ["  omega"])
     o.append(f"have hdzpos : 0 < {d} := by omega")
+    withd = (base + [("hdzpos", CC.lin(d), True)]) if base else None
     srcs = sorted({v.get("source") for v in r["loads"].values()
                    if v["status"].startswith("band")})
     for s in srcs:
@@ -8252,18 +8763,29 @@ def branch_kill_lines(coords, S, live, r, packets, facedeg, ind):
                 comps.append(hn)
             else:
                 comps.append("by omega")
-        conj = ("(by omega)" if all(x == "by omega" for x in comps)
-                else (comps[0] if len(comps) == 1
-                      else "⟨" + ", ".join(comps) + "⟩"))
+        plain = all(x == "by omega" for x in comps)
+        if plain and withd:
+            kd = keep_str(withd, [CC.target_of(f"{g} < {d}")[0] for g in uniq])
+            conj = "(by " + (f"clear * - {kd}; " if kd else "") + "omega)"
+        elif plain:
+            conj = "(by omega)"
+        else:
+            conj = (comps[0] if len(comps) == 1
+                    else "⟨" + ", ".join(comps) + "⟩")
         if v["status"].startswith("dominated"):
             args.append(f"(Or.inr {conj})")
             continue
         hn = f"hz{ld}"
         args.append(hn)
         dis = unowned_band_disjuncts(v["source"], ld)
+        hv = UNOWNED_BAND[v["source"]][2].format(ld)
+        if plain and withd:
+            o += band_block(hn, ld, hv, dis, uniq, d, base, withd, live,
+                            ind="")
+            continue
         o.append(f"have {hn} : {ld} = 0 ∨ ("
                  + " ∧ ".join(f"{g} < {d}" for g in uniq) + ") := by")
-        o.append(f"  rcases {UNOWNED_BAND[v['source']][2].format(ld)} with h | "
+        o.append(f"  rcases {hv} with h | "
                  + " | ".join("h" for _ in dis))
         o.append("  · exact Or.inl h")
         for X, _s in dis:
@@ -8277,7 +8799,11 @@ def branch_kill_lines(coords, S, live, r, packets, facedeg, ind):
         g = deg_expr(x.get("exps") or {})
         if g not in seenlf:
             seenlf.append(g)
-    lfargs = " ".join("(by omega)" for _ in seenlf)
+    lfa = []
+    for g in seenlf:
+        kg = keep_str(withd, [CC.target_of(f"{g} < {d}")[0]]) if withd else None
+        lfa.append("(by " + (f"clear * - {kg}; " if kg else "") + "omega)")
+    lfargs = " ".join(lfa)
     rname = f"{form}QuarticChamberRest{p}810"
     o.append(f"have hrest : ({rname} {LOADSIG8}")
     o.append(f"    A B C D E F G).natDegree < {d} :=")
@@ -8361,6 +8887,9 @@ def emit_unowned_splits(coords, chambers, entries, packets, have, prev):
                 o.append(f"  have h{X}n : {X}.natDegree = 0 := by simp [h{X}z]")
         o += ["  have hAne : A ≠ 0 := by", "    intro h0",
               "    have hz0 : A.natDegree = 0 := by simp [h0]", "    omega"]
+        # the chamber keeps its `hq…` names here (no `name_chamber_facts`)
+        cbase = (chamber_cons_named(c.nums(), tag="hq") + CONE_CONS
+                 + dead_cons(live) + NONNEG_CONS)
         if e["kind"] == "split":
             lets = e["split"]["letters"]
             order = [r for _t, r in e["branches"]]
@@ -8368,7 +8897,7 @@ def emit_unowned_splits(coords, chambers, entries, packets, have, prev):
             def rec(i, ind, lo, hi):
                 if i == len(lets):
                     return branch_kill_lines(coords, S, live, order[lo],
-                                             packets, facedeg, ind)
+                                             packets, facedeg, ind, cbase)
                 X = lets[i]
                 half = (hi - lo) // 2
                 ls = [f"{ind}by_cases hs{i} : 0 < {X}.natDegree", f"{ind}·"]
@@ -8386,7 +8915,7 @@ def emit_unowned_splits(coords, chambers, entries, packets, have, prev):
             for _t, r in e["branches"]:
                 o.append("  ·")
                 o += branch_kill_lines(coords, S, live, r, packets, facedeg,
-                                       "    ")
+                                       "    ", cbase)
         o.append("")
         body += "\n".join(o) + "\n"
         nk += 1
@@ -8500,19 +9029,19 @@ def tree_records(t, out=None):
     return out
 
 
-def tree_lines(coords, S, live, t, packets, facedeg, ind):
+def tree_lines(coords, S, live, t, packets, facedeg, ind, base=None):
     """The tactic block closing one node of a refinement tree."""
     if t["kind"] == "infeasible":
         return [ind + "omega"]
     if t["kind"] == "single":
         return branch_kill_lines(coords, S, live, t["rec"], packets, facedeg,
-                                 ind)
+                                 ind, base)
     o = [ind + f"rcases lt_trichotomy ({t['lhs']}) ({t['rhs']}) with "
          "hpv | hpv | hpv"]
     for tag in ("<", "=", ">"):
         o.append(ind + "·")
         o += tree_lines(coords, S, live, t["branches"][tag], packets, facedeg,
-                        ind + "  ")
+                        ind + "  ", base)
     return o
 
 
@@ -8589,7 +9118,10 @@ def emit_refine_trees(coords, chambers, entries, packets, have, prev):
                 o.append(f"  have h{X}n : {X}.natDegree = 0 := by simp [h{X}z]")
         o += ["  have hAne : A ≠ 0 := by", "    intro h0",
               "    have hz0 : A.natDegree = 0 := by simp [h0]", "    omega"]
-        o += tree_lines(coords, S, live, e["tree"], packets, facedeg, "  ")
+        cbase = (chamber_cons_named(c.nums(), tag="hq") + CONE_CONS
+                 + dead_cons(live) + NONNEG_CONS)
+        o += tree_lines(coords, S, live, e["tree"], packets, facedeg, "  ",
+                        cbase)
         o.append("")
         body += "\n".join(o) + "\n"
         nk += 1
@@ -9160,6 +9692,22 @@ def tower_plan():
     """(tag -> {cell, live, argmin, carriers, faces, nezero}) from the tower
     file's own doc comments and theorem signatures."""
     txt = (ROOT / (TOWER_FILE + ".lean")).read_text()
+    # a speed lane lifted the tower's heavy declarations into
+    # `…SpeedTPart<n>Scratch` helper modules; the plan reads the signatures, so
+    # follow those imports (the aggregator keeps only the import lines).
+    _seen, _todo = set(), re.findall(r"^import (\S*SpeedTPart\d+\S*)\s*$",
+                                    txt, re.M)
+    while _todo:
+        _m = _todo.pop()
+        if _m in _seen:
+            continue
+        _seen.add(_m)
+        _q = ROOT / (_m + ".lean")
+        if not _q.exists():
+            continue
+        _t = _q.read_text()
+        txt += "\n" + _t
+        _todo += re.findall(r"^import (\S*SpeedTPart\d+\S*)\s*$", _t, re.M)
     faces = {m.group(1): _lean_to_sympy(m.group(2)) for m in re.finditer(
         r"^def (\w+QuarticCostChamber\w+Face810) \(a b c d e f g : k\) : k :="
         r"\n((?:  .*\n)+)", txt, re.M)}
@@ -9357,7 +9905,14 @@ def emit_tower_kills(coords, chambers, entries, packets, have, prev):
             if X not in live:
                 k.append(f"  have h{X}n : {X}.natDegree = 0 := by simp [h{X}z]")
         k += ["  have hAne : A ≠ 0 := by", "    intro h0",
-              "    have hz0 : A.natDegree = 0 := by simp [h0]", "    omega"]
+              "    have hz0 : A.natDegree = 0 := by simp [h0]",
+              "    clear * - hApos hz0; omega"]
+        # the refined-leaf extras `hx…` are not ℕ-degree data this pass can
+        # read, so they are always kept; every other keep-list is an exact
+        # rational Farkas support
+        xtra = tuple(f"hx{tt}" for tt in range(extra))
+        base = (chamber_cons_named(c.nums()) + CONE_CONS + dead_cons(live)
+                + NONNEG_CONS)
         for s2 in sorted(srcs):
             casc, loads, var, ex, _n = UNOWNED_BAND[s2]
             k.append("  obtain ⟨" + ", ".join(var.format(x) for x in loads)
@@ -9377,6 +9932,7 @@ def emit_tower_kills(coords, chambers, entries, packets, have, prev):
             # the rest lemmas bind `hdpos : 0 < d`; the k-side fact
             # above is stronger but is not that statement
             k.append(f"  have hdz{ci} : 0 < {d} := by omega")
+            withd = base + [(f"hdz{ci}", CC.lin(d), True)]
             args = []
             for ld in LOADS:
                 v = r["loads"][ld]
@@ -9404,18 +9960,30 @@ def emit_tower_kills(coords, chambers, entries, packets, have, prev):
                         comps.append(hn)
                     else:
                         comps.append("by omega")
-                conj = ("(by omega)" if all(x == "by omega" for x in comps)
-                        else (comps[0] if len(comps) == 1
-                              else "⟨" + ", ".join(comps) + "⟩"))
+                plain = all(x == "by omega" for x in comps)
+                if plain:
+                    kd = keep_str(withd,
+                                  [CC.target_of(f"{g} < {d}")[0] for g in uniq],
+                                  xtra)
+                    conj = ("(by " + (f"clear * - {kd}; " if kd else "")
+                            + "omega)")
+                else:
+                    conj = (comps[0] if len(comps) == 1
+                            else "⟨" + ", ".join(comps) + "⟩")
                 if v["status"].startswith("dominated"):
                     args.append(f"(Or.inr {conj})")
                     continue
                 hn = f"hz{ci}{ld}"
                 args.append(hn)
                 dis = unowned_band_disjuncts(v["source"], ld)
+                hv = UNOWNED_BAND[v["source"]][2].format(ld)
+                if plain:
+                    k += band_block(hn, ld, hv, dis, uniq, d, base, withd,
+                                    live, always=xtra)
+                    continue
                 k.append(f"  have {hn} : {ld} = 0 ∨ ("
                          + " ∧ ".join(f"{g} < {d}" for g in uniq) + ") := by")
-                k.append(f"    rcases {UNOWNED_BAND[v['source']][2].format(ld)} "
+                k.append(f"    rcases {hv} "
                          "with h | " + " | ".join("h" for _ in dis))
                 k.append("    · exact Or.inl h")
                 for X, _s in dis:
@@ -9429,7 +9997,12 @@ def emit_tower_kills(coords, chambers, entries, packets, have, prev):
                 g = deg_expr(x.get("exps") or {})
                 if g not in seenlf:
                     seenlf.append(g)
-            lfargs = " ".join("(by omega)" for _ in seenlf)
+            lfa = []
+            for g in seenlf:
+                kg = keep_str(withd, [CC.target_of(f"{g} < {d}")[0]], xtra)
+                lfa.append("(by " + (f"clear * - {kg}; " if kg else "")
+                           + "omega)")
+            lfargs = " ".join(lfa)
             rname = f"{form}QuarticChamberRest{p}810"
             k.append(f"  have hr{ci} : ({rname} {LOADSIG8}")
             k.append(f"      A B C D E F G).natDegree < {d} :=")
@@ -9824,9 +10397,12 @@ def bound_block(name, param, recs, live, S):
         q[-1] += " :"
         q.append(f"    ({pn}{' ' + param if param else ''} A B C D E F G)"
                  ".natDegree < d := by")
-        q.append(f"  simp only [{pn}]")
-        q.append("  compute_degree")
-        q.append("  omega")
+        if refl_ok(pn):
+            q += refl_bnd_proof(pn)
+        else:
+            q.append(f"  simp only [{pn}]")
+            q.append("  compute_degree")
+            q.append("  omega")
         q.append("")
         body += "\n".join(q) + "\n"
     if parts:
@@ -9898,10 +10474,13 @@ def bound_block(name, param, recs, live, S):
         for e2 in range(2, 9):
             o.append(f"  have hpow{e2} : (0 : k[X]) ^ {e2} = 0 := "
                      "zero_pow (by decide)")
-        o.append(f"  simp only [{name}, {POWNAMES}, {ZERO_SIMP}]")
-        if surv:
-            o.append("  compute_degree")
-        o.append("  omega")
+        if surv and refl_ok(name):
+            o += refl_degok_proof(name)
+        else:
+            o.append(f"  simp only [{name}, {POWNAMES}, {ZERO_SIMP}]")
+            if surv:
+                o.append("  compute_degree")
+            o.append("  omega")
     o.append("")
     return body + "\n".join(o) + "\n"
 
@@ -10236,20 +10815,21 @@ def ne_chain(exps, hname):
 
 
 def tree_node_lines(coords, S, live, node, packets, facedeg, bridges, ind,
-                    ctr):
+                    ctr, base=None):
     """The tactic block closing one node of a validated plan tree."""
     if node["kind"] == "infeasible":
         return [ind + "omega"]
     if node["kind"] == "single":
         return branch_kill_lines(coords, S, live, node["rec"], packets,
-                                 facedeg, ind)
+                                 facedeg, ind, base)
     if node["kind"] == "split":
         o = [ind + f"rcases lt_trichotomy ({node['lhs']}) ({node['rhs']}) "
              "with hpv | hpv | hpv"]
         for tag in ("<", "=", ">") if not node["orient"] else (">", "=", "<"):
             o.append(ind + "·")
             o += tree_node_lines(coords, S, live, node["branches"][tag],
-                                 packets, facedeg, bridges, ind + "  ", ctr)
+                                 packets, facedeg, bridges, ind + "  ", ctr,
+                                 base)
         return o
     if node["kind"] == "loadkill":
         kl = node["kill"]
@@ -10269,7 +10849,7 @@ def tree_node_lines(coords, S, live, node, packets, facedeg, bridges, ind,
             if int(exps.get(L, 0) or 0) > 0:
                 pass
         return o + tree_node_lines(coords, S, live, node["then"], packets,
-                                   facedeg, bridges, ind, ctr)
+                                   facedeg, bridges, ind, ctr, base)
     # a multi-carrier system, possibly with tied load columns
     o, ins = [], []
     for m in node["rows"]:
@@ -10641,8 +11221,11 @@ def emit_unowned_trees(coords, chambers, entries, packets, have, prev):
             if X in live:
                 o.append(f"  have h{X}c : {X}.leadingCoeff ≠ 0 := "
                          f"leadingCoeff_ne_zero.mpr h{X}ne")
+        # the chamber keeps its `hq…` names here (no `name_chamber_facts`)
+        cbase = (chamber_cons_named(c.nums(), tag="hq") + CONE_CONS
+                 + dead_cons(live) + NONNEG_CONS)
         o += tree_node_lines(coords, S, live, e["tree"], packets, facedeg,
-                             bridges, "  ", [0])
+                             bridges, "  ", [0], cbase)
         o.append("")
         body += prune_arith(
             name_path_values(sparse_tree_rows("\n".join(o), head)),

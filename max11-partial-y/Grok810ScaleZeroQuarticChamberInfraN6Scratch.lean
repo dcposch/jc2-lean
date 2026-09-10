@@ -1,4 +1,5 @@
 import Grok810ScaleZeroQuarticChamberN7LadderScratch
+import Max11SpeedReflectDegLibScratch
 
 /-! # `N₆` load-free part, load columns and split, `(8,10)` scale zero
 
@@ -103,6 +104,30 @@ def n6QuarticColumnL1810_live_InfraN6c1
   - (135 / 262144 * l : k) • (A ^ 4 * B * D)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n6QuarticColumnL1810_live_InfraN6c1` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberInfraN6_n6QuarticColumnL1810_live_InfraN6c1
+    (l : k)
+    (A B C D E F G : k[X]) :
+    n6QuarticColumnL1810_live_InfraN6c1 l A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (715 / 268435456 * l : k), (105 / 1048576 * l : k), (-(255 / 4194304 * l) : k),
+      (105 / 262144 * l : k), (-(135 / 262144 * l) : k)
+      ]
+      [
+      [8, 0, 0, 0, 0, 0, 0], [6, 0, 1, 0, 0, 0, 0], [5, 2, 0, 0, 0, 0, 0], [5, 0, 0, 0, 1, 0, 0],
+      [4, 1, 0, 1, 0, 0, 0]
+      ] := by
+  simp only [n6QuarticColumnL1810_live_InfraN6c1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnL1810_live_InfraN6c1_natDegree_lt
     {d : ℕ}
     (l : k)
@@ -113,9 +138,15 @@ theorem n6QuarticColumnL1810_live_InfraN6c1_natDegree_lt
     (hd3 : 5 * A.natDegree + E.natDegree < d)
     (hd4 : 4 * A.natDegree + B.natDegree + D.natDegree < d) :
     (n6QuarticColumnL1810_live_InfraN6c1 l A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnL1810_live_InfraN6c1]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberInfraN6_n6QuarticColumnL1810_live_InfraN6c1]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 def n6QuarticColumnL1810_live_InfraN6c2
     (l : k)
@@ -125,6 +156,30 @@ def n6QuarticColumnL1810_live_InfraN6c2
   + (1425 / 524288 * l : k) • (A ^ 2 * B ^ 4)
   + (15 / 32768 * l : k) • (A ^ 4 * G)
   + (81 / 8192 * l : k) • (A ^ 3 * C * E)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n6QuarticColumnL1810_live_InfraN6c2` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberInfraN6_n6QuarticColumnL1810_live_InfraN6c2
+    (l : k)
+    (A B C D E F G : k[X]) :
+    n6QuarticColumnL1810_live_InfraN6c2 l A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (585 / 524288 * l : k), (-(93 / 131072 * l) : k), (1425 / 524288 * l : k),
+      (15 / 32768 * l : k), (81 / 8192 * l : k)
+      ]
+      [
+      [4, 0, 2, 0, 0, 0, 0], [3, 2, 1, 0, 0, 0, 0], [2, 4, 0, 0, 0, 0, 0], [4, 0, 0, 0, 0, 0, 1],
+      [3, 0, 1, 0, 1, 0, 0]
+      ] := by
+  simp only [n6QuarticColumnL1810_live_InfraN6c2, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnL1810_live_InfraN6c2_natDegree_lt
@@ -137,9 +192,15 @@ theorem n6QuarticColumnL1810_live_InfraN6c2_natDegree_lt
     (hd8 : 4 * A.natDegree + G.natDegree < d)
     (hd9 : 3 * A.natDegree + C.natDegree + E.natDegree < d) :
     (n6QuarticColumnL1810_live_InfraN6c2 l A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnL1810_live_InfraN6c2]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberInfraN6_n6QuarticColumnL1810_live_InfraN6c2]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 def n6QuarticColumnL1810_live_InfraN6c3
     (l : k)
@@ -149,6 +210,30 @@ def n6QuarticColumnL1810_live_InfraN6c3
   - (51 / 4096 * l : k) • (A ^ 2 * B * C * D)
   + (11 / 8192 * l : k) • (A ^ 2 * C ^ 3)
   - (369 / 8192 * l : k) • (A * B ^ 3 * D)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n6QuarticColumnL1810_live_InfraN6c3` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberInfraN6_n6QuarticColumnL1810_live_InfraN6c3
+    (l : k)
+    (A B C D E F G : k[X]) :
+    n6QuarticColumnL1810_live_InfraN6c3 l A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(15 / 8192 * l) : k), (-(135 / 16384 * l) : k), (-(51 / 4096 * l) : k),
+      (11 / 8192 * l : k), (-(369 / 8192 * l) : k)
+      ]
+      [
+      [3, 0, 0, 2, 0, 0, 0], [2, 2, 0, 0, 1, 0, 0], [2, 1, 1, 1, 0, 0, 0], [2, 0, 3, 0, 0, 0, 0],
+      [1, 3, 0, 1, 0, 0, 0]
+      ] := by
+  simp only [n6QuarticColumnL1810_live_InfraN6c3, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnL1810_live_InfraN6c3_natDegree_lt
@@ -161,9 +246,15 @@ theorem n6QuarticColumnL1810_live_InfraN6c3_natDegree_lt
     (hd13 : 2 * A.natDegree + 3 * C.natDegree < d)
     (hd14 : A.natDegree + 3 * B.natDegree + D.natDegree < d) :
     (n6QuarticColumnL1810_live_InfraN6c3 l A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnL1810_live_InfraN6c3]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberInfraN6_n6QuarticColumnL1810_live_InfraN6c3]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 def n6QuarticColumnL1810_live_InfraN6c4
     (l : k)
@@ -173,6 +264,30 @@ def n6QuarticColumnL1810_live_InfraN6c4
   + (3 / 256 * l : k) • (A ^ 2 * C * G)
   + (3 / 1024 * l : k) • (A ^ 2 * D * F)
   + (51 / 2048 * l : k) • (A ^ 2 * E ^ 2)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n6QuarticColumnL1810_live_InfraN6c4` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberInfraN6_n6QuarticColumnL1810_live_InfraN6c4
+    (l : k)
+    (A B C D E F G : k[X]) :
+    n6QuarticColumnL1810_live_InfraN6c4 l A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(765 / 16384 * l) : k), (-(567 / 16384 * l) : k), (3 / 256 * l : k),
+      (3 / 1024 * l : k), (51 / 2048 * l : k)
+      ]
+      [
+      [1, 2, 2, 0, 0, 0, 0], [0, 4, 1, 0, 0, 0, 0], [2, 0, 1, 0, 0, 0, 1], [2, 0, 0, 1, 0, 1, 0],
+      [2, 0, 0, 0, 2, 0, 0]
+      ] := by
+  simp only [n6QuarticColumnL1810_live_InfraN6c4, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnL1810_live_InfraN6c4_natDegree_lt
@@ -185,9 +300,15 @@ theorem n6QuarticColumnL1810_live_InfraN6c4_natDegree_lt
     (hd18 : 2 * A.natDegree + D.natDegree + F.natDegree < d)
     (hd19 : 2 * A.natDegree + 2 * E.natDegree < d) :
     (n6QuarticColumnL1810_live_InfraN6c4 l A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnL1810_live_InfraN6c4]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberInfraN6_n6QuarticColumnL1810_live_InfraN6c4]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnL1810_natDegree_lt
@@ -261,6 +382,30 @@ def n6QuarticColumnL2810_live_InfraN6c1
   + (9 / 128 * l : k) • (A * C * D ^ 2)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n6QuarticColumnL2810_live_InfraN6c1` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberInfraN6_n6QuarticColumnL2810_live_InfraN6c1
+    (l : k)
+    (A B C D E F G : k[X]) :
+    n6QuarticColumnL2810_live_InfraN6c1 l A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (27 / 1024 * l : k), (21 / 256 * l : k), (75 / 512 * l : k),
+      (39 / 1024 * l : k), (9 / 128 * l : k)
+      ]
+      [
+      [1, 2, 0, 0, 0, 0, 1], [1, 1, 1, 0, 0, 1, 0], [1, 1, 0, 1, 1, 0, 0], [1, 0, 2, 0, 1, 0, 0],
+      [1, 0, 1, 2, 0, 0, 0]
+      ] := by
+  simp only [n6QuarticColumnL2810_live_InfraN6c1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnL2810_live_InfraN6c1_natDegree_lt
     {d : ℕ}
     (l : k)
@@ -271,9 +416,15 @@ theorem n6QuarticColumnL2810_live_InfraN6c1_natDegree_lt
     (hd3 : A.natDegree + 2 * C.natDegree + E.natDegree < d)
     (hd4 : A.natDegree + C.natDegree + 2 * D.natDegree < d) :
     (n6QuarticColumnL2810_live_InfraN6c1 l A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnL2810_live_InfraN6c1]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberInfraN6_n6QuarticColumnL2810_live_InfraN6c1]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 def n6QuarticColumnL2810_live_InfraN6c2
     (l : k)
@@ -283,6 +434,30 @@ def n6QuarticColumnL2810_live_InfraN6c2
   + (45 / 512 * l : k) • (B ^ 2 * D ^ 2)
   + (189 / 1024 * l : k) • (B * C ^ 2 * D)
   + (63 / 4096 * l : k) • C ^ 4
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n6QuarticColumnL2810_live_InfraN6c2` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberInfraN6_n6QuarticColumnL2810_live_InfraN6c2
+    (l : k)
+    (A B C D E F G : k[X]) :
+    n6QuarticColumnL2810_live_InfraN6c2 l A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (27 / 512 * l : k), (45 / 256 * l : k), (45 / 512 * l : k),
+      (189 / 1024 * l : k), (63 / 4096 * l : k)
+      ]
+      [
+      [0, 3, 0, 0, 0, 1, 0], [0, 2, 1, 0, 1, 0, 0], [0, 2, 0, 2, 0, 0, 0], [0, 1, 2, 1, 0, 0, 0],
+      [0, 0, 4, 0, 0, 0, 0]
+      ] := by
+  simp only [n6QuarticColumnL2810_live_InfraN6c2, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnL2810_live_InfraN6c2_natDegree_lt
@@ -295,9 +470,15 @@ theorem n6QuarticColumnL2810_live_InfraN6c2_natDegree_lt
     (hd8 : B.natDegree + 2 * C.natDegree + D.natDegree < d)
     (hd9 : 4 * C.natDegree < d) :
     (n6QuarticColumnL2810_live_InfraN6c2 l A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnL2810_live_InfraN6c2]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberInfraN6_n6QuarticColumnL2810_live_InfraN6c2]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 def n6QuarticColumnL2810_live_InfraN6c3
     (l : k)
@@ -307,6 +488,30 @@ def n6QuarticColumnL2810_live_InfraN6c3
   - (9 / 64 * l : k) • (B * D * G)
   - (9 / 32 * l : k) • (B * E * F)
   - (9 / 128 * l : k) • (C ^ 2 * G)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n6QuarticColumnL2810_live_InfraN6c3` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberInfraN6_n6QuarticColumnL2810_live_InfraN6c3
+    (l : k)
+    (A B C D E F G : k[X]) :
+    n6QuarticColumnL2810_live_InfraN6c3 l A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (3 / 64 * l : k), (-(3 / 16 * l) : k), (-(9 / 64 * l) : k),
+      (-(9 / 32 * l) : k), (-(9 / 128 * l) : k)
+      ]
+      [
+      [1, 0, 0, 0, 1, 0, 1], [1, 0, 0, 0, 0, 2, 0], [0, 1, 0, 1, 0, 0, 1], [0, 1, 0, 0, 1, 1, 0],
+      [0, 0, 2, 0, 0, 0, 1]
+      ] := by
+  simp only [n6QuarticColumnL2810_live_InfraN6c3, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnL2810_live_InfraN6c3_natDegree_lt
@@ -319,9 +524,15 @@ theorem n6QuarticColumnL2810_live_InfraN6c3_natDegree_lt
     (hd13 : B.natDegree + E.natDegree + F.natDegree < d)
     (hd14 : 2 * C.natDegree + G.natDegree < d) :
     (n6QuarticColumnL2810_live_InfraN6c3 l A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnL2810_live_InfraN6c3]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberInfraN6_n6QuarticColumnL2810_live_InfraN6c3]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 def n6QuarticColumnL2810_live_InfraN6c4
     (l : k)
@@ -330,6 +541,29 @@ def n6QuarticColumnL2810_live_InfraN6c4
   - (9 / 64 * l : k) • (C * E ^ 2)
   - (9 / 64 * l : k) • (D ^ 2 * E)
   + (9 / 16 * l : k) • G ^ 2
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n6QuarticColumnL2810_live_InfraN6c4` (4 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberInfraN6_n6QuarticColumnL2810_live_InfraN6c4
+    (l : k)
+    (A B C D E F G : k[X]) :
+    n6QuarticColumnL2810_live_InfraN6c4 l A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(9 / 32 * l) : k), (-(9 / 64 * l) : k), (-(9 / 64 * l) : k),
+      (9 / 16 * l : k)
+      ]
+      [
+      [0, 0, 1, 1, 0, 1, 0], [0, 0, 1, 0, 2, 0, 0], [0, 0, 0, 2, 1, 0, 0], [0, 0, 0, 0, 0, 0, 2]
+      ] := by
+  simp only [n6QuarticColumnL2810_live_InfraN6c4, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnL2810_live_InfraN6c4_natDegree_lt
@@ -341,9 +575,15 @@ theorem n6QuarticColumnL2810_live_InfraN6c4_natDegree_lt
     (hd17 : 2 * D.natDegree + E.natDegree < d)
     (hd18 : 2 * G.natDegree < d) :
     (n6QuarticColumnL2810_live_InfraN6c4 l A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnL2810_live_InfraN6c4]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberInfraN6_n6QuarticColumnL2810_live_InfraN6c4]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnL2810_natDegree_lt
@@ -417,6 +657,30 @@ def n6QuarticColumnBeta1810_live_InfraN6c1
   - (35 / 12288 * beta : k) • (A ^ 3 * B * D)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n6QuarticColumnBeta1810_live_InfraN6c1` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberInfraN6_n6QuarticColumnBeta1810_live_InfraN6c1
+    (beta : k)
+    (A B C D E F G : k[X]) :
+    n6QuarticColumnBeta1810_live_InfraN6c1 beta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (11 / 1048576 * beta : k), (35 / 98304 * beta : k), (-(35 / 131072 * beta) : k),
+      (35 / 24576 * beta : k), (-(35 / 12288 * beta) : k)
+      ]
+      [
+      [7, 0, 0, 0, 0, 0, 0], [5, 0, 1, 0, 0, 0, 0], [4, 2, 0, 0, 0, 0, 0], [4, 0, 0, 0, 1, 0, 0],
+      [3, 1, 0, 1, 0, 0, 0]
+      ] := by
+  simp only [n6QuarticColumnBeta1810_live_InfraN6c1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnBeta1810_live_InfraN6c1_natDegree_lt
     {d : ℕ}
     (beta : k)
@@ -427,9 +691,15 @@ theorem n6QuarticColumnBeta1810_live_InfraN6c1_natDegree_lt
     (hd3 : 4 * A.natDegree + E.natDegree < d)
     (hd4 : 3 * A.natDegree + B.natDegree + D.natDegree < d) :
     (n6QuarticColumnBeta1810_live_InfraN6c1 beta A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnBeta1810_live_InfraN6c1]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberInfraN6_n6QuarticColumnBeta1810_live_InfraN6c1]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 def n6QuarticColumnBeta1810_live_InfraN6c2
     (beta : k)
@@ -439,6 +709,30 @@ def n6QuarticColumnBeta1810_live_InfraN6c2
   + (91 / 8192 * beta : k) • (A * B ^ 4)
   + (7 / 3072 * beta : k) • (A ^ 2 * B * F)
   + (35 / 1024 * beta : k) • (A ^ 2 * C * E)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n6QuarticColumnBeta1810_live_InfraN6c2` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberInfraN6_n6QuarticColumnBeta1810_live_InfraN6c2
+    (beta : k)
+    (A B C D E F G : k[X]) :
+    n6QuarticColumnBeta1810_live_InfraN6c2 beta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (7 / 2048 * beta : k), (175 / 49152 * beta : k), (91 / 8192 * beta : k),
+      (7 / 3072 * beta : k), (35 / 1024 * beta : k)
+      ]
+      [
+      [3, 0, 2, 0, 0, 0, 0], [2, 2, 1, 0, 0, 0, 0], [1, 4, 0, 0, 0, 0, 0], [2, 1, 0, 0, 0, 1, 0],
+      [2, 0, 1, 0, 1, 0, 0]
+      ] := by
+  simp only [n6QuarticColumnBeta1810_live_InfraN6c2, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnBeta1810_live_InfraN6c2_natDegree_lt
@@ -451,9 +745,15 @@ theorem n6QuarticColumnBeta1810_live_InfraN6c2_natDegree_lt
     (hd8 : 2 * A.natDegree + B.natDegree + F.natDegree < d)
     (hd9 : 2 * A.natDegree + C.natDegree + E.natDegree < d) :
     (n6QuarticColumnBeta1810_live_InfraN6c2 beta A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnBeta1810_live_InfraN6c2]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberInfraN6_n6QuarticColumnBeta1810_live_InfraN6c2]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 def n6QuarticColumnBeta1810_live_InfraN6c3
     (beta : k)
@@ -463,6 +763,30 @@ def n6QuarticColumnBeta1810_live_InfraN6c3
   - (7 / 64 * beta : k) • (A * B * C * D)
   - (7 / 768 * beta : k) • (A * C ^ 3)
   - (7 / 128 * beta : k) • (B ^ 3 * D)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n6QuarticColumnBeta1810_live_InfraN6c3` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberInfraN6_n6QuarticColumnBeta1810_live_InfraN6c3
+    (beta : k)
+    (A B C D E F G : k[X]) :
+    n6QuarticColumnBeta1810_live_InfraN6c3 beta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(133 / 6144 * beta) : k), (-(49 / 768 * beta) : k), (-(7 / 64 * beta) : k),
+      (-(7 / 768 * beta) : k), (-(7 / 128 * beta) : k)
+      ]
+      [
+      [2, 0, 0, 2, 0, 0, 0], [1, 2, 0, 0, 1, 0, 0], [1, 1, 1, 1, 0, 0, 0], [1, 0, 3, 0, 0, 0, 0],
+      [0, 3, 0, 1, 0, 0, 0]
+      ] := by
+  simp only [n6QuarticColumnBeta1810_live_InfraN6c3, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnBeta1810_live_InfraN6c3_natDegree_lt
@@ -475,9 +799,15 @@ theorem n6QuarticColumnBeta1810_live_InfraN6c3_natDegree_lt
     (hd13 : A.natDegree + 3 * C.natDegree < d)
     (hd14 : 3 * B.natDegree + D.natDegree < d) :
     (n6QuarticColumnBeta1810_live_InfraN6c3 beta A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnBeta1810_live_InfraN6c3]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberInfraN6_n6QuarticColumnBeta1810_live_InfraN6c3]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 def n6QuarticColumnBeta1810_live_InfraN6c4
     (beta : k)
@@ -487,6 +817,30 @@ def n6QuarticColumnBeta1810_live_InfraN6c4
   + (7 / 48 * beta : k) • (A * E ^ 2)
   + (7 / 32 * beta : k) • (B * C * F)
   + (7 / 32 * beta : k) • (B * D * E)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n6QuarticColumnBeta1810_live_InfraN6c4` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberInfraN6_n6QuarticColumnBeta1810_live_InfraN6c4
+    (beta : k)
+    (A B C D E F G : k[X]) :
+    n6QuarticColumnBeta1810_live_InfraN6c4 beta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(91 / 1024 * beta) : k), (7 / 96 * beta : k), (7 / 48 * beta : k),
+      (7 / 32 * beta : k), (7 / 32 * beta : k)
+      ]
+      [
+      [0, 2, 2, 0, 0, 0, 0], [1, 0, 0, 1, 0, 1, 0], [1, 0, 0, 0, 2, 0, 0], [0, 1, 1, 0, 0, 1, 0],
+      [0, 1, 0, 1, 1, 0, 0]
+      ] := by
+  simp only [n6QuarticColumnBeta1810_live_InfraN6c4, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnBeta1810_live_InfraN6c4_natDegree_lt
@@ -499,9 +853,15 @@ theorem n6QuarticColumnBeta1810_live_InfraN6c4_natDegree_lt
     (hd18 : B.natDegree + C.natDegree + F.natDegree < d)
     (hd19 : B.natDegree + D.natDegree + E.natDegree < d) :
     (n6QuarticColumnBeta1810_live_InfraN6c4 beta A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnBeta1810_live_InfraN6c4]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberInfraN6_n6QuarticColumnBeta1810_live_InfraN6c4]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnBeta1810_natDegree_lt
@@ -550,6 +910,28 @@ def n6QuarticColumnBeta2810
   - (7 / 16 * beta : k) • F ^ 2
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n6QuarticColumnBeta2810` (3 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberInfraN6_n6QuarticColumnBeta2810
+    (beta : k)
+    (A B C D E F G : k[X]) :
+    n6QuarticColumnBeta2810 beta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (7 / 64 * beta : k), (7 / 64 * beta : k), (-(7 / 16 * beta) : k)
+      ]
+      [
+      [0, 0, 2, 0, 1, 0, 0], [0, 0, 1, 2, 0, 0, 0], [0, 0, 0, 0, 0, 2, 0]
+      ] := by
+  simp only [n6QuarticColumnBeta2810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnBeta2810_natDegree_lt
     {d : ℕ}
     (beta : k)
@@ -558,9 +940,15 @@ theorem n6QuarticColumnBeta2810_natDegree_lt
     (hd1 : C.natDegree + 2 * D.natDegree < d)
     (hd2 : 2 * F.natDegree < d) :
     (n6QuarticColumnBeta2810 beta A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnBeta2810]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberInfraN6_n6QuarticColumnBeta2810]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 theorem n6QuarticColumnBeta2810_zero (A B C D E F G : k[X]) :
     n6QuarticColumnBeta2810 0 A B C D E F G = 0 := by
@@ -594,6 +982,30 @@ def n6QuarticColumnGamma810_live_InfraN6c1
   + (5 / 16 * gamma : k) • (A * D * E)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n6QuarticColumnGamma810_live_InfraN6c1` (6 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberInfraN6_n6QuarticColumnGamma810_live_InfraN6c1
+    (gamma : k)
+    (A B C D E F G : k[X]) :
+    n6QuarticColumnGamma810_live_InfraN6c1 gamma A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (5 / 768 * gamma : k), (-(15 / 128 * gamma) : k), (-(9 / 128 * gamma) : k),
+      (-(27 / 256 * gamma) : k), (-(1 / 32 * gamma) : k), (5 / 16 * gamma : k)
+      ]
+      [
+      [2, 3, 0, 0, 0, 0, 0], [1, 2, 0, 1, 0, 0, 0], [1, 1, 2, 0, 0, 0, 0], [0, 3, 1, 0, 0, 0, 0],
+      [1, 0, 1, 0, 0, 1, 0], [1, 0, 0, 1, 1, 0, 0]
+      ] := by
+  simp only [n6QuarticColumnGamma810_live_InfraN6c1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnGamma810_live_InfraN6c1_natDegree_lt
     {d : ℕ}
     (gamma : k)
@@ -605,9 +1017,15 @@ theorem n6QuarticColumnGamma810_live_InfraN6c1_natDegree_lt
     (hd4 : A.natDegree + C.natDegree + F.natDegree < d)
     (hd5 : A.natDegree + D.natDegree + E.natDegree < d) :
     (n6QuarticColumnGamma810_live_InfraN6c1 gamma A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnGamma810_live_InfraN6c1]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberInfraN6_n6QuarticColumnGamma810_live_InfraN6c1]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 def n6QuarticColumnGamma810_live_InfraN6c2
     (gamma : k)
@@ -617,6 +1035,30 @@ def n6QuarticColumnGamma810_live_InfraN6c2
   + (3 / 16 * gamma : k) • (B * D ^ 2)
   + (3 / 16 * gamma : k) • (C ^ 2 * D)
   - (3 / 4 * gamma : k) • (E * F)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n6QuarticColumnGamma810_live_InfraN6c2` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberInfraN6_n6QuarticColumnGamma810_live_InfraN6c2
+    (gamma : k)
+    (A B C D E F G : k[X]) :
+    n6QuarticColumnGamma810_live_InfraN6c2 gamma A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (9 / 64 * gamma : k), (3 / 8 * gamma : k), (3 / 16 * gamma : k),
+      (3 / 16 * gamma : k), (-(3 / 4 * gamma) : k)
+      ]
+      [
+      [0, 2, 0, 0, 0, 1, 0], [0, 1, 1, 0, 1, 0, 0], [0, 1, 0, 2, 0, 0, 0], [0, 0, 2, 1, 0, 0, 0],
+      [0, 0, 0, 0, 1, 1, 0]
+      ] := by
+  simp only [n6QuarticColumnGamma810_live_InfraN6c2, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnGamma810_live_InfraN6c2_natDegree_lt
@@ -629,9 +1071,15 @@ theorem n6QuarticColumnGamma810_live_InfraN6c2_natDegree_lt
     (hd9 : 2 * C.natDegree + D.natDegree < d)
     (hd10 : E.natDegree + F.natDegree < d) :
     (n6QuarticColumnGamma810_live_InfraN6c2 gamma A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnGamma810_live_InfraN6c2]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberInfraN6_n6QuarticColumnGamma810_live_InfraN6c2]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnGamma810_natDegree_lt
@@ -695,6 +1143,30 @@ def n6QuarticColumnDelta810_live_InfraN6c1
   + (65 / 6144 * delta : k) • (A ^ 2 * C ^ 2)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n6QuarticColumnDelta810_live_InfraN6c1` (6 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberInfraN6_n6QuarticColumnDelta810_live_InfraN6c1
+    (delta : k)
+    (A B C D E F G : k[X]) :
+    n6QuarticColumnDelta810_live_InfraN6c1 delta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (21 / 524288 * delta : k), (5 / 4096 * delta : k), (-(65 / 49152 * delta) : k),
+      (5 / 1024 * delta : k), (-(95 / 3072 * delta) : k), (65 / 6144 * delta : k)
+      ]
+      [
+      [6, 0, 0, 0, 0, 0, 0], [4, 0, 1, 0, 0, 0, 0], [3, 2, 0, 0, 0, 0, 0], [3, 0, 0, 0, 1, 0, 0],
+      [2, 1, 0, 1, 0, 0, 0], [2, 0, 2, 0, 0, 0, 0]
+      ] := by
+  simp only [n6QuarticColumnDelta810_live_InfraN6c1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnDelta810_live_InfraN6c1_natDegree_lt
     {d : ℕ}
     (delta : k)
@@ -706,9 +1178,15 @@ theorem n6QuarticColumnDelta810_live_InfraN6c1_natDegree_lt
     (hd4 : 2 * A.natDegree + B.natDegree + D.natDegree < d)
     (hd5 : 2 * A.natDegree + 2 * C.natDegree < d) :
     (n6QuarticColumnDelta810_live_InfraN6c1 delta A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnDelta810_live_InfraN6c1]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberInfraN6_n6QuarticColumnDelta810_live_InfraN6c1]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 def n6QuarticColumnDelta810_live_InfraN6c2
     (delta : k)
@@ -719,6 +1197,30 @@ def n6QuarticColumnDelta810_live_InfraN6c2
   + (5 / 96 * delta : k) • (A * B * F)
   + (35 / 192 * delta : k) • (A * C * E)
   + (5 / 32 * delta : k) • (A * D ^ 2)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n6QuarticColumnDelta810_live_InfraN6c2` (6 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberInfraN6_n6QuarticColumnDelta810_live_InfraN6c2
+    (delta : k)
+    (A B C D E F G : k[X]) :
+    n6QuarticColumnDelta810_live_InfraN6c2 delta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(125 / 1024 * delta) : k), (-(135 / 4096 * delta) : k), (-(5 / 384 * delta) : k),
+      (5 / 96 * delta : k), (35 / 192 * delta : k), (5 / 32 * delta : k)
+      ]
+      [
+      [1, 2, 1, 0, 0, 0, 0], [0, 4, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 1], [1, 1, 0, 0, 0, 1, 0],
+      [1, 0, 1, 0, 1, 0, 0], [1, 0, 0, 2, 0, 0, 0]
+      ] := by
+  simp only [n6QuarticColumnDelta810_live_InfraN6c2, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnDelta810_live_InfraN6c2_natDegree_lt
@@ -732,9 +1234,15 @@ theorem n6QuarticColumnDelta810_live_InfraN6c2_natDegree_lt
     (hd10 : A.natDegree + C.natDegree + E.natDegree < d)
     (hd11 : A.natDegree + 2 * D.natDegree < d) :
     (n6QuarticColumnDelta810_live_InfraN6c2 delta A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnDelta810_live_InfraN6c2]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberInfraN6_n6QuarticColumnDelta810_live_InfraN6c2]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 def n6QuarticColumnDelta810_live_InfraN6c3
     (delta : k)
@@ -744,6 +1252,30 @@ def n6QuarticColumnDelta810_live_InfraN6c3
   + (5 / 64 * delta : k) • C ^ 3
   - (5 / 8 * delta : k) • (D * F)
   - (5 / 16 * delta : k) • E ^ 2
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n6QuarticColumnDelta810_live_InfraN6c3` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberInfraN6_n6QuarticColumnDelta810_live_InfraN6c3
+    (delta : k)
+    (A B C D E F G : k[X]) :
+    n6QuarticColumnDelta810_live_InfraN6c3 delta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (25 / 128 * delta : k), (15 / 32 * delta : k), (5 / 64 * delta : k),
+      (-(5 / 8 * delta) : k), (-(5 / 16 * delta) : k)
+      ]
+      [
+      [0, 2, 0, 0, 1, 0, 0], [0, 1, 1, 1, 0, 0, 0], [0, 0, 3, 0, 0, 0, 0], [0, 0, 0, 1, 0, 1, 0],
+      [0, 0, 0, 0, 2, 0, 0]
+      ] := by
+  simp only [n6QuarticColumnDelta810_live_InfraN6c3, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnDelta810_live_InfraN6c3_natDegree_lt
@@ -756,9 +1288,15 @@ theorem n6QuarticColumnDelta810_live_InfraN6c3_natDegree_lt
     (hd15 : D.natDegree + F.natDegree < d)
     (hd16 : 2 * E.natDegree < d) :
     (n6QuarticColumnDelta810_live_InfraN6c3 delta A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnDelta810_live_InfraN6c3]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberInfraN6_n6QuarticColumnDelta810_live_InfraN6c3]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnDelta810_natDegree_lt
@@ -816,6 +1354,29 @@ def n6QuarticColumnEpsilon810_live_InfraN6c1
   + (7 / 32 * epsilon : k) • (B ^ 2 * D)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n6QuarticColumnEpsilon810_live_InfraN6c1` (4 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberInfraN6_n6QuarticColumnEpsilon810_live_InfraN6c1
+    (epsilon : k)
+    (A B C D E F G : k[X]) :
+    n6QuarticColumnEpsilon810_live_InfraN6c1 epsilon A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(5 / 96 * epsilon) : k), (5 / 24 * epsilon : k), (3 / 16 * epsilon : k),
+      (7 / 32 * epsilon : k)
+      ]
+      [
+      [1, 3, 0, 0, 0, 0, 0], [1, 1, 0, 0, 1, 0, 0], [1, 0, 1, 1, 0, 0, 0], [0, 2, 0, 1, 0, 0, 0]
+      ] := by
+  simp only [n6QuarticColumnEpsilon810_live_InfraN6c1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnEpsilon810_live_InfraN6c1_natDegree_lt
     {d : ℕ}
     (epsilon : k)
@@ -825,9 +1386,15 @@ theorem n6QuarticColumnEpsilon810_live_InfraN6c1_natDegree_lt
     (hd2 : A.natDegree + C.natDegree + D.natDegree < d)
     (hd3 : 2 * B.natDegree + D.natDegree < d) :
     (n6QuarticColumnEpsilon810_live_InfraN6c1 epsilon A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnEpsilon810_live_InfraN6c1]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberInfraN6_n6QuarticColumnEpsilon810_live_InfraN6c1]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 def n6QuarticColumnEpsilon810_live_InfraN6c2
     (epsilon : k)
@@ -835,6 +1402,28 @@ def n6QuarticColumnEpsilon810_live_InfraN6c2
   (1 / 4 * epsilon : k) • (B * C ^ 2)
   - (1 / 2 * epsilon : k) • (C * F)
   - (1 / 2 * epsilon : k) • (D * E)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n6QuarticColumnEpsilon810_live_InfraN6c2` (3 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberInfraN6_n6QuarticColumnEpsilon810_live_InfraN6c2
+    (epsilon : k)
+    (A B C D E F G : k[X]) :
+    n6QuarticColumnEpsilon810_live_InfraN6c2 epsilon A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (1 / 4 * epsilon : k), (-(1 / 2 * epsilon) : k), (-(1 / 2 * epsilon) : k)
+      ]
+      [
+      [0, 1, 2, 0, 0, 0, 0], [0, 0, 1, 0, 0, 1, 0], [0, 0, 0, 1, 1, 0, 0]
+      ] := by
+  simp only [n6QuarticColumnEpsilon810_live_InfraN6c2, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnEpsilon810_live_InfraN6c2_natDegree_lt
@@ -845,9 +1434,15 @@ theorem n6QuarticColumnEpsilon810_live_InfraN6c2_natDegree_lt
     (hd5 : C.natDegree + F.natDegree < d)
     (hd6 : D.natDegree + E.natDegree < d) :
     (n6QuarticColumnEpsilon810_live_InfraN6c2 epsilon A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnEpsilon810_live_InfraN6c2]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberInfraN6_n6QuarticColumnEpsilon810_live_InfraN6c2]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnEpsilon810_natDegree_lt
@@ -901,6 +1496,30 @@ def n6QuarticColumnZeta810_live_InfraN6c1
   + (3 / 64 * zeta : k) • (A * C ^ 2)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n6QuarticColumnZeta810_live_InfraN6c1` (6 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberInfraN6_n6QuarticColumnZeta810_live_InfraN6c1
+    (zeta : k)
+    (A B C D E F G : k[X]) :
+    n6QuarticColumnZeta810_live_InfraN6c1 zeta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (7 / 49152 * zeta : k), (1 / 256 * zeta : k), (-(11 / 1024 * zeta) : k),
+      (1 / 64 * zeta : k), (3 / 16 * zeta : k), (3 / 64 * zeta : k)
+      ]
+      [
+      [5, 0, 0, 0, 0, 0, 0], [3, 0, 1, 0, 0, 0, 0], [2, 2, 0, 0, 0, 0, 0], [2, 0, 0, 0, 1, 0, 0],
+      [1, 1, 0, 1, 0, 0, 0], [1, 0, 2, 0, 0, 0, 0]
+      ] := by
+  simp only [n6QuarticColumnZeta810_live_InfraN6c1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnZeta810_live_InfraN6c1_natDegree_lt
     {d : ℕ}
     (zeta : k)
@@ -912,9 +1531,15 @@ theorem n6QuarticColumnZeta810_live_InfraN6c1_natDegree_lt
     (hd4 : A.natDegree + B.natDegree + D.natDegree < d)
     (hd5 : A.natDegree + 2 * C.natDegree < d) :
     (n6QuarticColumnZeta810_live_InfraN6c1 zeta A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnZeta810_live_InfraN6c1]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberInfraN6_n6QuarticColumnZeta810_live_InfraN6c1]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 def n6QuarticColumnZeta810_live_InfraN6c2
     (zeta : k)
@@ -924,6 +1549,30 @@ def n6QuarticColumnZeta810_live_InfraN6c2
   - (3 / 8 * zeta : k) • (B * F)
   - (3 / 8 * zeta : k) • (C * E)
   - (3 / 16 * zeta : k) • D ^ 2
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n6QuarticColumnZeta810_live_InfraN6c2` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberInfraN6_n6QuarticColumnZeta810_live_InfraN6c2
+    (zeta : k)
+    (A B C D E F G : k[X]) :
+    n6QuarticColumnZeta810_live_InfraN6c2 zeta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (27 / 128 * zeta : k), (-(1 / 4 * zeta) : k), (-(3 / 8 * zeta) : k),
+      (-(3 / 8 * zeta) : k), (-(3 / 16 * zeta) : k)
+      ]
+      [
+      [0, 2, 1, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 1], [0, 1, 0, 0, 0, 1, 0], [0, 0, 1, 0, 1, 0, 0],
+      [0, 0, 0, 2, 0, 0, 0]
+      ] := by
+  simp only [n6QuarticColumnZeta810_live_InfraN6c2, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnZeta810_live_InfraN6c2_natDegree_lt
@@ -936,9 +1585,15 @@ theorem n6QuarticColumnZeta810_live_InfraN6c2_natDegree_lt
     (hd9 : C.natDegree + E.natDegree < d)
     (hd10 : 2 * D.natDegree < d) :
     (n6QuarticColumnZeta810_live_InfraN6c2 zeta A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnZeta810_live_InfraN6c2]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberInfraN6_n6QuarticColumnZeta810_live_InfraN6c2]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnZeta810_natDegree_lt
@@ -980,6 +1635,30 @@ def n6QuarticColumnEta810
   - (1 / 4 * eta : k) • (C * D)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n6QuarticColumnEta810` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberInfraN6_n6QuarticColumnEta810
+    (eta : k)
+    (A B C D E F G : k[X]) :
+    n6QuarticColumnEta810 eta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (3 / 32 * eta : k), (3 / 64 * eta : k), (-(5 / 12 * eta) : k),
+      (-(1 / 4 * eta) : k), (-(1 / 4 * eta) : k)
+      ]
+      [
+      [1, 1, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0], [0, 1, 0, 0, 1, 0, 0],
+      [0, 0, 1, 1, 0, 0, 0]
+      ] := by
+  simp only [n6QuarticColumnEta810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnEta810_natDegree_lt
     {d : ℕ}
     (eta : k)
@@ -990,9 +1669,15 @@ theorem n6QuarticColumnEta810_natDegree_lt
     (hd3 : B.natDegree + E.natDegree < d)
     (hd4 : C.natDegree + D.natDegree < d) :
     (n6QuarticColumnEta810 eta A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnEta810]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberInfraN6_n6QuarticColumnEta810]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 theorem n6QuarticColumnEta810_zero (A B C D E F G : k[X]) :
     n6QuarticColumnEta810 0 A B C D E F G = 0 := by
@@ -1020,6 +1705,29 @@ def n6QuarticColumnTheta810_live_InfraN6c1
   + (1 / 24 * theta : k) • (A * E)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n6QuarticColumnTheta810_live_InfraN6c1` (4 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberInfraN6_n6QuarticColumnTheta810_live_InfraN6c1
+    (theta : k)
+    (A B C D E F G : k[X]) :
+    n6QuarticColumnTheta810_live_InfraN6c1 theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (5 / 12288 * theta : k), (1 / 96 * theta : k), (3 / 128 * theta : k),
+      (1 / 24 * theta : k)
+      ]
+      [
+      [4, 0, 0, 0, 0, 0, 0], [2, 0, 1, 0, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0], [1, 0, 0, 0, 1, 0, 0]
+      ] := by
+  simp only [n6QuarticColumnTheta810_live_InfraN6c1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnTheta810_live_InfraN6c1_natDegree_lt
     {d : ℕ}
     (theta : k)
@@ -1029,9 +1737,15 @@ theorem n6QuarticColumnTheta810_live_InfraN6c1_natDegree_lt
     (hd2 : A.natDegree + 2 * B.natDegree < d)
     (hd3 : A.natDegree + E.natDegree < d) :
     (n6QuarticColumnTheta810_live_InfraN6c1 theta A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnTheta810_live_InfraN6c1]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberInfraN6_n6QuarticColumnTheta810_live_InfraN6c1]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 def n6QuarticColumnTheta810_live_InfraN6c2
     (theta : k)
@@ -1039,6 +1753,28 @@ def n6QuarticColumnTheta810_live_InfraN6c2
   -((1 / 8 * theta : k) • (B * D))
   - (1 / 16 * theta : k) • C ^ 2
   + (1 * theta : k) • G
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n6QuarticColumnTheta810_live_InfraN6c2` (3 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberInfraN6_n6QuarticColumnTheta810_live_InfraN6c2
+    (theta : k)
+    (A B C D E F G : k[X]) :
+    n6QuarticColumnTheta810_live_InfraN6c2 theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(1 / 8 * theta) : k), (-(1 / 16 * theta) : k), (1 * theta : k)
+      ]
+      [
+      [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1]
+      ] := by
+  simp only [n6QuarticColumnTheta810_live_InfraN6c2, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnTheta810_live_InfraN6c2_natDegree_lt
@@ -1049,9 +1785,15 @@ theorem n6QuarticColumnTheta810_live_InfraN6c2_natDegree_lt
     (hd5 : 2 * C.natDegree < d)
     (hd6 : G.natDegree < d) :
     (n6QuarticColumnTheta810_live_InfraN6c2 theta A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnTheta810_live_InfraN6c2]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberInfraN6_n6QuarticColumnTheta810_live_InfraN6c2]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnTheta810_natDegree_lt

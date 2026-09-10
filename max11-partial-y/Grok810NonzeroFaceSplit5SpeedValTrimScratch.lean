@@ -1,4 +1,10 @@
 import Grok810NonzeroFaceSplit4SpeedValChainScratch
+import Grok810NonzeroFaceSplit5SpeedValTrimSpeedTPart01Scratch
+import Grok810NonzeroFaceSplit5SpeedValTrimSpeedTPart02Scratch
+import Grok810NonzeroFaceSplit5SpeedValTrimSpeedTPart03Scratch
+import Grok810NonzeroFaceSplit5SpeedValTrimSpeedTPart04Scratch
+import Grok810NonzeroFaceSplit5SpeedValTrimSpeedTPart05Scratch
+import Grok810NonzeroFaceSplit5SpeedValTrimSpeedTPart06Scratch
 
 /-! # `(8,10)` nonzero-face closure, split 5: compact-block clearing
 
@@ -8,7 +14,7 @@ imported.
 
 This piece holds `DegreeZeroCompactBlockClearing810`: each compact
 block, after substituting the integer-cleared bars, equals its
-expansion, discharged by its own `field_simp; ring`.  Isolated so a
+expansion, discharged by rational-coefficient `ring`.  Isolated so a
 later failure does not recompile it.
 
 No `sorry`, no new axioms, no finite-root shortcut, no closure
@@ -44,7 +50,7 @@ section DegreeZeroCompactBlockClearing810
 
 variable {F : Type*} [Field F] [CharZero F]
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroCompactBlock0_eq_expansion
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : F) :
     (degreeZeroCompactToSourceIntegerScale810 : F) *
@@ -66,28 +72,9 @@ theorem degreeZeroCompactBlock0_eq_expansion
         (degreeZeroVBar810 h a7 b8 b7 b6 b5 b4 b3 b2 lambda / 16777216)
         (degreeZeroWBar810 h a7 b8 b7 b6 b5 b4 b3 b2 b1 lambda / 67108864)) =
       degreeZeroCompactBlock0Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  have h2 : (2 : F) ≠ 0 := by norm_num
-  have h4 : (4 : F) ≠ 0 := by norm_num
-  have h8 : (8 : F) ≠ 0 := by norm_num
-  have h16 : (16 : F) ≠ 0 := by norm_num
-  have h32 : (32 : F) ≠ 0 := by norm_num
-  have h64 : (64 : F) ≠ 0 := by norm_num
-  have h1024 : (1024 : F) ≠ 0 := by norm_num
-  have h2048 : (2048 : F) ≠ 0 := by norm_num
-  have h8192 : (8192 : F) ≠ 0 := by norm_num
-  have h65536 : (65536 : F) ≠ 0 := by norm_num
-  have h131072 : (131072 : F) ≠ 0 := by norm_num
-  have h262144 : (262144 : F) ≠ 0 := by norm_num
-  have h16777216 : (16777216 : F) ≠ 0 := by norm_num
-  have h67108864 : (67108864 : F) ≠ 0 := by norm_num
-  have h17179869184 : (17179869184 : F) ≠ 0 := by norm_num
-  simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.monoR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, degreeZeroCompactBlock0_810,
-    degreeZeroCompactBlock0Expansion810,
-    degreeZeroCompactToSourceIntegerScale810, degreeZeroLBar810, degreeZeroABar810, degreeZeroBBar810, degreeZeroCBar810, degreeZeroDBar810, degreeZeroEBar810, degreeZeroFBar810, degreeZeroGBar810, degreeZeroPBar810, degreeZeroQBar810, degreeZeroRBar810, degreeZeroSBar810, degreeZeroTBar810, degreeZeroUBar810, degreeZeroVBar810, degreeZeroWBar810]
-  field_simp [h2, h4, h8, h16, h32, h64, h1024, h2048, h8192, h65536, h131072, h262144, h16777216, h67108864, h17179869184]
-  ring
+  exact nonzeroFace5SpeedT_block0_eq_expansion h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroCompactBlock1_eq_expansion
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : F) :
     (degreeZeroCompactToSourceIntegerScale810 : F) *
@@ -109,28 +96,9 @@ theorem degreeZeroCompactBlock1_eq_expansion
         (degreeZeroVBar810 h a7 b8 b7 b6 b5 b4 b3 b2 lambda / 16777216)
         (degreeZeroWBar810 h a7 b8 b7 b6 b5 b4 b3 b2 b1 lambda / 67108864)) =
       degreeZeroCompactBlock1Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  have h2 : (2 : F) ≠ 0 := by norm_num
-  have h4 : (4 : F) ≠ 0 := by norm_num
-  have h8 : (8 : F) ≠ 0 := by norm_num
-  have h16 : (16 : F) ≠ 0 := by norm_num
-  have h32 : (32 : F) ≠ 0 := by norm_num
-  have h64 : (64 : F) ≠ 0 := by norm_num
-  have h1024 : (1024 : F) ≠ 0 := by norm_num
-  have h2048 : (2048 : F) ≠ 0 := by norm_num
-  have h8192 : (8192 : F) ≠ 0 := by norm_num
-  have h65536 : (65536 : F) ≠ 0 := by norm_num
-  have h131072 : (131072 : F) ≠ 0 := by norm_num
-  have h262144 : (262144 : F) ≠ 0 := by norm_num
-  have h16777216 : (16777216 : F) ≠ 0 := by norm_num
-  have h67108864 : (67108864 : F) ≠ 0 := by norm_num
-  have h17179869184 : (17179869184 : F) ≠ 0 := by norm_num
-  simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.monoR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, degreeZeroCompactBlock1_810,
-    degreeZeroCompactBlock1Expansion810,
-    degreeZeroCompactToSourceIntegerScale810, degreeZeroLBar810, degreeZeroABar810, degreeZeroBBar810, degreeZeroCBar810, degreeZeroDBar810, degreeZeroEBar810, degreeZeroFBar810, degreeZeroGBar810, degreeZeroPBar810, degreeZeroQBar810, degreeZeroRBar810, degreeZeroSBar810, degreeZeroTBar810, degreeZeroUBar810, degreeZeroVBar810, degreeZeroWBar810]
-  field_simp [h2, h4, h8, h16, h32, h64, h1024, h2048, h8192, h65536, h131072, h262144, h16777216, h67108864, h17179869184]
-  ring
+  exact nonzeroFace5SpeedT_block1_eq_expansion h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroCompactBlock2_eq_expansion
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : F) :
     (degreeZeroCompactToSourceIntegerScale810 : F) *
@@ -152,28 +120,9 @@ theorem degreeZeroCompactBlock2_eq_expansion
         (degreeZeroVBar810 h a7 b8 b7 b6 b5 b4 b3 b2 lambda / 16777216)
         (degreeZeroWBar810 h a7 b8 b7 b6 b5 b4 b3 b2 b1 lambda / 67108864)) =
       degreeZeroCompactBlock2Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  have h2 : (2 : F) ≠ 0 := by norm_num
-  have h4 : (4 : F) ≠ 0 := by norm_num
-  have h8 : (8 : F) ≠ 0 := by norm_num
-  have h16 : (16 : F) ≠ 0 := by norm_num
-  have h32 : (32 : F) ≠ 0 := by norm_num
-  have h64 : (64 : F) ≠ 0 := by norm_num
-  have h1024 : (1024 : F) ≠ 0 := by norm_num
-  have h2048 : (2048 : F) ≠ 0 := by norm_num
-  have h8192 : (8192 : F) ≠ 0 := by norm_num
-  have h65536 : (65536 : F) ≠ 0 := by norm_num
-  have h131072 : (131072 : F) ≠ 0 := by norm_num
-  have h262144 : (262144 : F) ≠ 0 := by norm_num
-  have h16777216 : (16777216 : F) ≠ 0 := by norm_num
-  have h67108864 : (67108864 : F) ≠ 0 := by norm_num
-  have h17179869184 : (17179869184 : F) ≠ 0 := by norm_num
-  simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.monoR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, degreeZeroCompactBlock2_810,
-    degreeZeroCompactBlock2Expansion810,
-    degreeZeroCompactToSourceIntegerScale810, degreeZeroLBar810, degreeZeroABar810, degreeZeroBBar810, degreeZeroCBar810, degreeZeroDBar810, degreeZeroEBar810, degreeZeroFBar810, degreeZeroGBar810, degreeZeroPBar810, degreeZeroQBar810, degreeZeroRBar810, degreeZeroSBar810, degreeZeroTBar810, degreeZeroUBar810, degreeZeroVBar810, degreeZeroWBar810]
-  field_simp [h2, h4, h8, h16, h32, h64, h1024, h2048, h8192, h65536, h131072, h262144, h16777216, h67108864, h17179869184]
-  ring
+  exact nonzeroFace5SpeedT_block2_eq_expansion h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroCompactBlock3_eq_expansion
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : F) :
     (degreeZeroCompactToSourceIntegerScale810 : F) *
@@ -195,28 +144,9 @@ theorem degreeZeroCompactBlock3_eq_expansion
         (degreeZeroVBar810 h a7 b8 b7 b6 b5 b4 b3 b2 lambda / 16777216)
         (degreeZeroWBar810 h a7 b8 b7 b6 b5 b4 b3 b2 b1 lambda / 67108864)) =
       degreeZeroCompactBlock3Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  have h2 : (2 : F) ≠ 0 := by norm_num
-  have h4 : (4 : F) ≠ 0 := by norm_num
-  have h8 : (8 : F) ≠ 0 := by norm_num
-  have h16 : (16 : F) ≠ 0 := by norm_num
-  have h32 : (32 : F) ≠ 0 := by norm_num
-  have h64 : (64 : F) ≠ 0 := by norm_num
-  have h1024 : (1024 : F) ≠ 0 := by norm_num
-  have h2048 : (2048 : F) ≠ 0 := by norm_num
-  have h8192 : (8192 : F) ≠ 0 := by norm_num
-  have h65536 : (65536 : F) ≠ 0 := by norm_num
-  have h131072 : (131072 : F) ≠ 0 := by norm_num
-  have h262144 : (262144 : F) ≠ 0 := by norm_num
-  have h16777216 : (16777216 : F) ≠ 0 := by norm_num
-  have h67108864 : (67108864 : F) ≠ 0 := by norm_num
-  have h17179869184 : (17179869184 : F) ≠ 0 := by norm_num
-  simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.monoR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, degreeZeroCompactBlock3_810,
-    degreeZeroCompactBlock3Expansion810,
-    degreeZeroCompactToSourceIntegerScale810, degreeZeroLBar810, degreeZeroABar810, degreeZeroBBar810, degreeZeroCBar810, degreeZeroDBar810, degreeZeroEBar810, degreeZeroFBar810, degreeZeroGBar810, degreeZeroPBar810, degreeZeroQBar810, degreeZeroRBar810, degreeZeroSBar810, degreeZeroTBar810, degreeZeroUBar810, degreeZeroVBar810, degreeZeroWBar810]
-  field_simp [h2, h4, h8, h16, h32, h64, h1024, h2048, h8192, h65536, h131072, h262144, h16777216, h67108864, h17179869184]
-  ring
+  exact nonzeroFace5SpeedT_block3_eq_expansion h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroCompactBlock4_eq_expansion
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : F) :
     (degreeZeroCompactToSourceIntegerScale810 : F) *
@@ -238,28 +168,9 @@ theorem degreeZeroCompactBlock4_eq_expansion
         (degreeZeroVBar810 h a7 b8 b7 b6 b5 b4 b3 b2 lambda / 16777216)
         (degreeZeroWBar810 h a7 b8 b7 b6 b5 b4 b3 b2 b1 lambda / 67108864)) =
       degreeZeroCompactBlock4Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  have h2 : (2 : F) ≠ 0 := by norm_num
-  have h4 : (4 : F) ≠ 0 := by norm_num
-  have h8 : (8 : F) ≠ 0 := by norm_num
-  have h16 : (16 : F) ≠ 0 := by norm_num
-  have h32 : (32 : F) ≠ 0 := by norm_num
-  have h64 : (64 : F) ≠ 0 := by norm_num
-  have h1024 : (1024 : F) ≠ 0 := by norm_num
-  have h2048 : (2048 : F) ≠ 0 := by norm_num
-  have h8192 : (8192 : F) ≠ 0 := by norm_num
-  have h65536 : (65536 : F) ≠ 0 := by norm_num
-  have h131072 : (131072 : F) ≠ 0 := by norm_num
-  have h262144 : (262144 : F) ≠ 0 := by norm_num
-  have h16777216 : (16777216 : F) ≠ 0 := by norm_num
-  have h67108864 : (67108864 : F) ≠ 0 := by norm_num
-  have h17179869184 : (17179869184 : F) ≠ 0 := by norm_num
-  simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.monoR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, degreeZeroCompactBlock4_810,
-    degreeZeroCompactBlock4Expansion810,
-    degreeZeroCompactToSourceIntegerScale810, degreeZeroLBar810, degreeZeroABar810, degreeZeroBBar810, degreeZeroCBar810, degreeZeroDBar810, degreeZeroEBar810, degreeZeroFBar810, degreeZeroGBar810, degreeZeroPBar810, degreeZeroQBar810, degreeZeroRBar810, degreeZeroSBar810, degreeZeroTBar810, degreeZeroUBar810, degreeZeroVBar810, degreeZeroWBar810]
-  field_simp [h2, h4, h8, h16, h32, h64, h1024, h2048, h8192, h65536, h131072, h262144, h16777216, h67108864, h17179869184]
-  ring
+  exact nonzeroFace5SpeedT_block4_eq_expansion h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroCompactBlock5_eq_expansion
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : F) :
     (degreeZeroCompactToSourceIntegerScale810 : F) *
@@ -281,28 +192,9 @@ theorem degreeZeroCompactBlock5_eq_expansion
         (degreeZeroVBar810 h a7 b8 b7 b6 b5 b4 b3 b2 lambda / 16777216)
         (degreeZeroWBar810 h a7 b8 b7 b6 b5 b4 b3 b2 b1 lambda / 67108864)) =
       degreeZeroCompactBlock5Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  have h2 : (2 : F) ≠ 0 := by norm_num
-  have h4 : (4 : F) ≠ 0 := by norm_num
-  have h8 : (8 : F) ≠ 0 := by norm_num
-  have h16 : (16 : F) ≠ 0 := by norm_num
-  have h32 : (32 : F) ≠ 0 := by norm_num
-  have h64 : (64 : F) ≠ 0 := by norm_num
-  have h1024 : (1024 : F) ≠ 0 := by norm_num
-  have h2048 : (2048 : F) ≠ 0 := by norm_num
-  have h8192 : (8192 : F) ≠ 0 := by norm_num
-  have h65536 : (65536 : F) ≠ 0 := by norm_num
-  have h131072 : (131072 : F) ≠ 0 := by norm_num
-  have h262144 : (262144 : F) ≠ 0 := by norm_num
-  have h16777216 : (16777216 : F) ≠ 0 := by norm_num
-  have h67108864 : (67108864 : F) ≠ 0 := by norm_num
-  have h17179869184 : (17179869184 : F) ≠ 0 := by norm_num
-  simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.monoR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, degreeZeroCompactBlock5_810,
-    degreeZeroCompactBlock5Expansion810,
-    degreeZeroCompactToSourceIntegerScale810, degreeZeroLBar810, degreeZeroABar810, degreeZeroBBar810, degreeZeroCBar810, degreeZeroDBar810, degreeZeroEBar810, degreeZeroFBar810, degreeZeroGBar810, degreeZeroPBar810, degreeZeroQBar810, degreeZeroRBar810, degreeZeroSBar810, degreeZeroTBar810, degreeZeroUBar810, degreeZeroVBar810, degreeZeroWBar810]
-  field_simp [h2, h4, h8, h16, h32, h64, h1024, h2048, h8192, h65536, h131072, h262144, h16777216, h67108864, h17179869184]
-  ring
+  exact nonzeroFace5SpeedT_block5_eq_expansion h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroCompactBlock6_eq_expansion
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : F) :
     (degreeZeroCompactToSourceIntegerScale810 : F) *
@@ -324,28 +216,9 @@ theorem degreeZeroCompactBlock6_eq_expansion
         (degreeZeroVBar810 h a7 b8 b7 b6 b5 b4 b3 b2 lambda / 16777216)
         (degreeZeroWBar810 h a7 b8 b7 b6 b5 b4 b3 b2 b1 lambda / 67108864)) =
       degreeZeroCompactBlock6Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  have h2 : (2 : F) ≠ 0 := by norm_num
-  have h4 : (4 : F) ≠ 0 := by norm_num
-  have h8 : (8 : F) ≠ 0 := by norm_num
-  have h16 : (16 : F) ≠ 0 := by norm_num
-  have h32 : (32 : F) ≠ 0 := by norm_num
-  have h64 : (64 : F) ≠ 0 := by norm_num
-  have h1024 : (1024 : F) ≠ 0 := by norm_num
-  have h2048 : (2048 : F) ≠ 0 := by norm_num
-  have h8192 : (8192 : F) ≠ 0 := by norm_num
-  have h65536 : (65536 : F) ≠ 0 := by norm_num
-  have h131072 : (131072 : F) ≠ 0 := by norm_num
-  have h262144 : (262144 : F) ≠ 0 := by norm_num
-  have h16777216 : (16777216 : F) ≠ 0 := by norm_num
-  have h67108864 : (67108864 : F) ≠ 0 := by norm_num
-  have h17179869184 : (17179869184 : F) ≠ 0 := by norm_num
-  simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.monoR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, degreeZeroCompactBlock6_810,
-    degreeZeroCompactBlock6Expansion810,
-    degreeZeroCompactToSourceIntegerScale810, degreeZeroLBar810, degreeZeroABar810, degreeZeroBBar810, degreeZeroCBar810, degreeZeroDBar810, degreeZeroEBar810, degreeZeroFBar810, degreeZeroGBar810, degreeZeroPBar810, degreeZeroQBar810, degreeZeroRBar810, degreeZeroSBar810, degreeZeroTBar810, degreeZeroUBar810, degreeZeroVBar810, degreeZeroWBar810]
-  field_simp [h2, h4, h8, h16, h32, h64, h1024, h2048, h8192, h65536, h131072, h262144, h16777216, h67108864, h17179869184]
-  ring
+  exact nonzeroFace5SpeedT_block6_eq_expansion h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroCompactBlock7_eq_expansion
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : F) :
     (degreeZeroCompactToSourceIntegerScale810 : F) *
@@ -367,28 +240,9 @@ theorem degreeZeroCompactBlock7_eq_expansion
         (degreeZeroVBar810 h a7 b8 b7 b6 b5 b4 b3 b2 lambda / 16777216)
         (degreeZeroWBar810 h a7 b8 b7 b6 b5 b4 b3 b2 b1 lambda / 67108864)) =
       degreeZeroCompactBlock7Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  have h2 : (2 : F) ≠ 0 := by norm_num
-  have h4 : (4 : F) ≠ 0 := by norm_num
-  have h8 : (8 : F) ≠ 0 := by norm_num
-  have h16 : (16 : F) ≠ 0 := by norm_num
-  have h32 : (32 : F) ≠ 0 := by norm_num
-  have h64 : (64 : F) ≠ 0 := by norm_num
-  have h1024 : (1024 : F) ≠ 0 := by norm_num
-  have h2048 : (2048 : F) ≠ 0 := by norm_num
-  have h8192 : (8192 : F) ≠ 0 := by norm_num
-  have h65536 : (65536 : F) ≠ 0 := by norm_num
-  have h131072 : (131072 : F) ≠ 0 := by norm_num
-  have h262144 : (262144 : F) ≠ 0 := by norm_num
-  have h16777216 : (16777216 : F) ≠ 0 := by norm_num
-  have h67108864 : (67108864 : F) ≠ 0 := by norm_num
-  have h17179869184 : (17179869184 : F) ≠ 0 := by norm_num
-  simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.monoR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, degreeZeroCompactBlock7_810,
-    degreeZeroCompactBlock7Expansion810,
-    degreeZeroCompactToSourceIntegerScale810, degreeZeroLBar810, degreeZeroABar810, degreeZeroBBar810, degreeZeroCBar810, degreeZeroDBar810, degreeZeroEBar810, degreeZeroFBar810, degreeZeroGBar810, degreeZeroPBar810, degreeZeroQBar810, degreeZeroRBar810, degreeZeroSBar810, degreeZeroTBar810, degreeZeroUBar810, degreeZeroVBar810, degreeZeroWBar810]
-  field_simp [h2, h4, h8, h16, h32, h64, h1024, h2048, h8192, h65536, h131072, h262144, h16777216, h67108864, h17179869184]
-  ring
+  exact nonzeroFace5SpeedT_block7_eq_expansion h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroCompactBlock8_eq_expansion
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : F) :
     (degreeZeroCompactToSourceIntegerScale810 : F) *
@@ -410,28 +264,9 @@ theorem degreeZeroCompactBlock8_eq_expansion
         (degreeZeroVBar810 h a7 b8 b7 b6 b5 b4 b3 b2 lambda / 16777216)
         (degreeZeroWBar810 h a7 b8 b7 b6 b5 b4 b3 b2 b1 lambda / 67108864)) =
       degreeZeroCompactBlock8Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  have h2 : (2 : F) ≠ 0 := by norm_num
-  have h4 : (4 : F) ≠ 0 := by norm_num
-  have h8 : (8 : F) ≠ 0 := by norm_num
-  have h16 : (16 : F) ≠ 0 := by norm_num
-  have h32 : (32 : F) ≠ 0 := by norm_num
-  have h64 : (64 : F) ≠ 0 := by norm_num
-  have h1024 : (1024 : F) ≠ 0 := by norm_num
-  have h2048 : (2048 : F) ≠ 0 := by norm_num
-  have h8192 : (8192 : F) ≠ 0 := by norm_num
-  have h65536 : (65536 : F) ≠ 0 := by norm_num
-  have h131072 : (131072 : F) ≠ 0 := by norm_num
-  have h262144 : (262144 : F) ≠ 0 := by norm_num
-  have h16777216 : (16777216 : F) ≠ 0 := by norm_num
-  have h67108864 : (67108864 : F) ≠ 0 := by norm_num
-  have h17179869184 : (17179869184 : F) ≠ 0 := by norm_num
-  simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.monoR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, degreeZeroCompactBlock8_810,
-    degreeZeroCompactBlock8Expansion810,
-    degreeZeroCompactToSourceIntegerScale810, degreeZeroLBar810, degreeZeroABar810, degreeZeroBBar810, degreeZeroCBar810, degreeZeroDBar810, degreeZeroEBar810, degreeZeroFBar810, degreeZeroGBar810, degreeZeroPBar810, degreeZeroQBar810, degreeZeroRBar810, degreeZeroSBar810, degreeZeroTBar810, degreeZeroUBar810, degreeZeroVBar810, degreeZeroWBar810]
-  field_simp [h2, h4, h8, h16, h32, h64, h1024, h2048, h8192, h65536, h131072, h262144, h16777216, h67108864, h17179869184]
-  ring
+  exact nonzeroFace5SpeedT_block8_eq_expansion h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroCompactBlock9_eq_expansion
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : F) :
     (degreeZeroCompactToSourceIntegerScale810 : F) *
@@ -453,28 +288,9 @@ theorem degreeZeroCompactBlock9_eq_expansion
         (degreeZeroVBar810 h a7 b8 b7 b6 b5 b4 b3 b2 lambda / 16777216)
         (degreeZeroWBar810 h a7 b8 b7 b6 b5 b4 b3 b2 b1 lambda / 67108864)) =
       degreeZeroCompactBlock9Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  have h2 : (2 : F) ≠ 0 := by norm_num
-  have h4 : (4 : F) ≠ 0 := by norm_num
-  have h8 : (8 : F) ≠ 0 := by norm_num
-  have h16 : (16 : F) ≠ 0 := by norm_num
-  have h32 : (32 : F) ≠ 0 := by norm_num
-  have h64 : (64 : F) ≠ 0 := by norm_num
-  have h1024 : (1024 : F) ≠ 0 := by norm_num
-  have h2048 : (2048 : F) ≠ 0 := by norm_num
-  have h8192 : (8192 : F) ≠ 0 := by norm_num
-  have h65536 : (65536 : F) ≠ 0 := by norm_num
-  have h131072 : (131072 : F) ≠ 0 := by norm_num
-  have h262144 : (262144 : F) ≠ 0 := by norm_num
-  have h16777216 : (16777216 : F) ≠ 0 := by norm_num
-  have h67108864 : (67108864 : F) ≠ 0 := by norm_num
-  have h17179869184 : (17179869184 : F) ≠ 0 := by norm_num
-  simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.monoR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, degreeZeroCompactBlock9_810,
-    degreeZeroCompactBlock9Expansion810,
-    degreeZeroCompactToSourceIntegerScale810, degreeZeroLBar810, degreeZeroABar810, degreeZeroBBar810, degreeZeroCBar810, degreeZeroDBar810, degreeZeroEBar810, degreeZeroFBar810, degreeZeroGBar810, degreeZeroPBar810, degreeZeroQBar810, degreeZeroRBar810, degreeZeroSBar810, degreeZeroTBar810, degreeZeroUBar810, degreeZeroVBar810, degreeZeroWBar810]
-  field_simp [h2, h4, h8, h16, h32, h64, h1024, h2048, h8192, h65536, h131072, h262144, h16777216, h67108864, h17179869184]
-  ring
+  exact nonzeroFace5SpeedT_block9_eq_expansion h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroCompactBlock10_eq_expansion
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : F) :
     (degreeZeroCompactToSourceIntegerScale810 : F) *
@@ -496,28 +312,9 @@ theorem degreeZeroCompactBlock10_eq_expansion
         (degreeZeroVBar810 h a7 b8 b7 b6 b5 b4 b3 b2 lambda / 16777216)
         (degreeZeroWBar810 h a7 b8 b7 b6 b5 b4 b3 b2 b1 lambda / 67108864)) =
       degreeZeroCompactBlock10Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  have h2 : (2 : F) ≠ 0 := by norm_num
-  have h4 : (4 : F) ≠ 0 := by norm_num
-  have h8 : (8 : F) ≠ 0 := by norm_num
-  have h16 : (16 : F) ≠ 0 := by norm_num
-  have h32 : (32 : F) ≠ 0 := by norm_num
-  have h64 : (64 : F) ≠ 0 := by norm_num
-  have h1024 : (1024 : F) ≠ 0 := by norm_num
-  have h2048 : (2048 : F) ≠ 0 := by norm_num
-  have h8192 : (8192 : F) ≠ 0 := by norm_num
-  have h65536 : (65536 : F) ≠ 0 := by norm_num
-  have h131072 : (131072 : F) ≠ 0 := by norm_num
-  have h262144 : (262144 : F) ≠ 0 := by norm_num
-  have h16777216 : (16777216 : F) ≠ 0 := by norm_num
-  have h67108864 : (67108864 : F) ≠ 0 := by norm_num
-  have h17179869184 : (17179869184 : F) ≠ 0 := by norm_num
-  simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.monoR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, degreeZeroCompactBlock10_810,
-    degreeZeroCompactBlock10Expansion810,
-    degreeZeroCompactToSourceIntegerScale810, degreeZeroLBar810, degreeZeroABar810, degreeZeroBBar810, degreeZeroCBar810, degreeZeroDBar810, degreeZeroEBar810, degreeZeroFBar810, degreeZeroGBar810, degreeZeroPBar810, degreeZeroQBar810, degreeZeroRBar810, degreeZeroSBar810, degreeZeroTBar810, degreeZeroUBar810, degreeZeroVBar810, degreeZeroWBar810]
-  field_simp [h2, h4, h8, h16, h32, h64, h1024, h2048, h8192, h65536, h131072, h262144, h16777216, h67108864, h17179869184]
-  ring
+  exact nonzeroFace5SpeedT_block10_eq_expansion h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroCompactBlock11_eq_expansion
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : F) :
     (degreeZeroCompactToSourceIntegerScale810 : F) *
@@ -539,28 +336,9 @@ theorem degreeZeroCompactBlock11_eq_expansion
         (degreeZeroVBar810 h a7 b8 b7 b6 b5 b4 b3 b2 lambda / 16777216)
         (degreeZeroWBar810 h a7 b8 b7 b6 b5 b4 b3 b2 b1 lambda / 67108864)) =
       degreeZeroCompactBlock11Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  have h2 : (2 : F) ≠ 0 := by norm_num
-  have h4 : (4 : F) ≠ 0 := by norm_num
-  have h8 : (8 : F) ≠ 0 := by norm_num
-  have h16 : (16 : F) ≠ 0 := by norm_num
-  have h32 : (32 : F) ≠ 0 := by norm_num
-  have h64 : (64 : F) ≠ 0 := by norm_num
-  have h1024 : (1024 : F) ≠ 0 := by norm_num
-  have h2048 : (2048 : F) ≠ 0 := by norm_num
-  have h8192 : (8192 : F) ≠ 0 := by norm_num
-  have h65536 : (65536 : F) ≠ 0 := by norm_num
-  have h131072 : (131072 : F) ≠ 0 := by norm_num
-  have h262144 : (262144 : F) ≠ 0 := by norm_num
-  have h16777216 : (16777216 : F) ≠ 0 := by norm_num
-  have h67108864 : (67108864 : F) ≠ 0 := by norm_num
-  have h17179869184 : (17179869184 : F) ≠ 0 := by norm_num
-  simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.monoR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, degreeZeroCompactBlock11_810,
-    degreeZeroCompactBlock11Expansion810,
-    degreeZeroCompactToSourceIntegerScale810, degreeZeroLBar810, degreeZeroABar810, degreeZeroBBar810, degreeZeroCBar810, degreeZeroDBar810, degreeZeroEBar810, degreeZeroFBar810, degreeZeroGBar810, degreeZeroPBar810, degreeZeroQBar810, degreeZeroRBar810, degreeZeroSBar810, degreeZeroTBar810, degreeZeroUBar810, degreeZeroVBar810, degreeZeroWBar810]
-  field_simp [h2, h4, h8, h16, h32, h64, h1024, h2048, h8192, h65536, h131072, h262144, h16777216, h67108864, h17179869184]
-  ring
+  exact nonzeroFace5SpeedT_block11_eq_expansion h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroCompactBlock12_eq_expansion
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : F) :
     (degreeZeroCompactToSourceIntegerScale810 : F) *
@@ -582,28 +360,9 @@ theorem degreeZeroCompactBlock12_eq_expansion
         (degreeZeroVBar810 h a7 b8 b7 b6 b5 b4 b3 b2 lambda / 16777216)
         (degreeZeroWBar810 h a7 b8 b7 b6 b5 b4 b3 b2 b1 lambda / 67108864)) =
       degreeZeroCompactBlock12Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  have h2 : (2 : F) ≠ 0 := by norm_num
-  have h4 : (4 : F) ≠ 0 := by norm_num
-  have h8 : (8 : F) ≠ 0 := by norm_num
-  have h16 : (16 : F) ≠ 0 := by norm_num
-  have h32 : (32 : F) ≠ 0 := by norm_num
-  have h64 : (64 : F) ≠ 0 := by norm_num
-  have h1024 : (1024 : F) ≠ 0 := by norm_num
-  have h2048 : (2048 : F) ≠ 0 := by norm_num
-  have h8192 : (8192 : F) ≠ 0 := by norm_num
-  have h65536 : (65536 : F) ≠ 0 := by norm_num
-  have h131072 : (131072 : F) ≠ 0 := by norm_num
-  have h262144 : (262144 : F) ≠ 0 := by norm_num
-  have h16777216 : (16777216 : F) ≠ 0 := by norm_num
-  have h67108864 : (67108864 : F) ≠ 0 := by norm_num
-  have h17179869184 : (17179869184 : F) ≠ 0 := by norm_num
-  simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.monoR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, degreeZeroCompactBlock12_810,
-    degreeZeroCompactBlock12Expansion810,
-    degreeZeroCompactToSourceIntegerScale810, degreeZeroLBar810, degreeZeroABar810, degreeZeroBBar810, degreeZeroCBar810, degreeZeroDBar810, degreeZeroEBar810, degreeZeroFBar810, degreeZeroGBar810, degreeZeroPBar810, degreeZeroQBar810, degreeZeroRBar810, degreeZeroSBar810, degreeZeroTBar810, degreeZeroUBar810, degreeZeroVBar810, degreeZeroWBar810]
-  field_simp [h2, h4, h8, h16, h32, h64, h1024, h2048, h8192, h65536, h131072, h262144, h16777216, h67108864, h17179869184]
-  ring
+  exact nonzeroFace5SpeedT_block12_eq_expansion h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroCompactBlock13_eq_expansion
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : F) :
     (degreeZeroCompactToSourceIntegerScale810 : F) *
@@ -625,28 +384,9 @@ theorem degreeZeroCompactBlock13_eq_expansion
         (degreeZeroVBar810 h a7 b8 b7 b6 b5 b4 b3 b2 lambda / 16777216)
         (degreeZeroWBar810 h a7 b8 b7 b6 b5 b4 b3 b2 b1 lambda / 67108864)) =
       degreeZeroCompactBlock13Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  have h2 : (2 : F) ≠ 0 := by norm_num
-  have h4 : (4 : F) ≠ 0 := by norm_num
-  have h8 : (8 : F) ≠ 0 := by norm_num
-  have h16 : (16 : F) ≠ 0 := by norm_num
-  have h32 : (32 : F) ≠ 0 := by norm_num
-  have h64 : (64 : F) ≠ 0 := by norm_num
-  have h1024 : (1024 : F) ≠ 0 := by norm_num
-  have h2048 : (2048 : F) ≠ 0 := by norm_num
-  have h8192 : (8192 : F) ≠ 0 := by norm_num
-  have h65536 : (65536 : F) ≠ 0 := by norm_num
-  have h131072 : (131072 : F) ≠ 0 := by norm_num
-  have h262144 : (262144 : F) ≠ 0 := by norm_num
-  have h16777216 : (16777216 : F) ≠ 0 := by norm_num
-  have h67108864 : (67108864 : F) ≠ 0 := by norm_num
-  have h17179869184 : (17179869184 : F) ≠ 0 := by norm_num
-  simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.monoR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, degreeZeroCompactBlock13_810,
-    degreeZeroCompactBlock13Expansion810,
-    degreeZeroCompactToSourceIntegerScale810, degreeZeroLBar810, degreeZeroABar810, degreeZeroBBar810, degreeZeroCBar810, degreeZeroDBar810, degreeZeroEBar810, degreeZeroFBar810, degreeZeroGBar810, degreeZeroPBar810, degreeZeroQBar810, degreeZeroRBar810, degreeZeroSBar810, degreeZeroTBar810, degreeZeroUBar810, degreeZeroVBar810, degreeZeroWBar810]
-  field_simp [h2, h4, h8, h16, h32, h64, h1024, h2048, h8192, h65536, h131072, h262144, h16777216, h67108864, h17179869184]
-  ring
+  exact nonzeroFace5SpeedT_block13_eq_expansion h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroCompactBlock14_eq_expansion
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : F) :
     (degreeZeroCompactToSourceIntegerScale810 : F) *
@@ -668,28 +408,9 @@ theorem degreeZeroCompactBlock14_eq_expansion
         (degreeZeroVBar810 h a7 b8 b7 b6 b5 b4 b3 b2 lambda / 16777216)
         (degreeZeroWBar810 h a7 b8 b7 b6 b5 b4 b3 b2 b1 lambda / 67108864)) =
       degreeZeroCompactBlock14Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  have h2 : (2 : F) ≠ 0 := by norm_num
-  have h4 : (4 : F) ≠ 0 := by norm_num
-  have h8 : (8 : F) ≠ 0 := by norm_num
-  have h16 : (16 : F) ≠ 0 := by norm_num
-  have h32 : (32 : F) ≠ 0 := by norm_num
-  have h64 : (64 : F) ≠ 0 := by norm_num
-  have h1024 : (1024 : F) ≠ 0 := by norm_num
-  have h2048 : (2048 : F) ≠ 0 := by norm_num
-  have h8192 : (8192 : F) ≠ 0 := by norm_num
-  have h65536 : (65536 : F) ≠ 0 := by norm_num
-  have h131072 : (131072 : F) ≠ 0 := by norm_num
-  have h262144 : (262144 : F) ≠ 0 := by norm_num
-  have h16777216 : (16777216 : F) ≠ 0 := by norm_num
-  have h67108864 : (67108864 : F) ≠ 0 := by norm_num
-  have h17179869184 : (17179869184 : F) ≠ 0 := by norm_num
-  simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.monoR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, degreeZeroCompactBlock14_810,
-    degreeZeroCompactBlock14Expansion810,
-    degreeZeroCompactToSourceIntegerScale810, degreeZeroLBar810, degreeZeroABar810, degreeZeroBBar810, degreeZeroCBar810, degreeZeroDBar810, degreeZeroEBar810, degreeZeroFBar810, degreeZeroGBar810, degreeZeroPBar810, degreeZeroQBar810, degreeZeroRBar810, degreeZeroSBar810, degreeZeroTBar810, degreeZeroUBar810, degreeZeroVBar810, degreeZeroWBar810]
-  field_simp [h2, h4, h8, h16, h32, h64, h1024, h2048, h8192, h65536, h131072, h262144, h16777216, h67108864, h17179869184]
-  ring
+  exact nonzeroFace5SpeedT_block14_eq_expansion h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroCompactBlock15_eq_expansion
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : F) :
     (degreeZeroCompactToSourceIntegerScale810 : F) *
@@ -711,28 +432,9 @@ theorem degreeZeroCompactBlock15_eq_expansion
         (degreeZeroVBar810 h a7 b8 b7 b6 b5 b4 b3 b2 lambda / 16777216)
         (degreeZeroWBar810 h a7 b8 b7 b6 b5 b4 b3 b2 b1 lambda / 67108864)) =
       degreeZeroCompactBlock15Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  have h2 : (2 : F) ≠ 0 := by norm_num
-  have h4 : (4 : F) ≠ 0 := by norm_num
-  have h8 : (8 : F) ≠ 0 := by norm_num
-  have h16 : (16 : F) ≠ 0 := by norm_num
-  have h32 : (32 : F) ≠ 0 := by norm_num
-  have h64 : (64 : F) ≠ 0 := by norm_num
-  have h1024 : (1024 : F) ≠ 0 := by norm_num
-  have h2048 : (2048 : F) ≠ 0 := by norm_num
-  have h8192 : (8192 : F) ≠ 0 := by norm_num
-  have h65536 : (65536 : F) ≠ 0 := by norm_num
-  have h131072 : (131072 : F) ≠ 0 := by norm_num
-  have h262144 : (262144 : F) ≠ 0 := by norm_num
-  have h16777216 : (16777216 : F) ≠ 0 := by norm_num
-  have h67108864 : (67108864 : F) ≠ 0 := by norm_num
-  have h17179869184 : (17179869184 : F) ≠ 0 := by norm_num
-  simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.monoR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, degreeZeroCompactBlock15_810,
-    degreeZeroCompactBlock15Expansion810,
-    degreeZeroCompactToSourceIntegerScale810, degreeZeroLBar810, degreeZeroABar810, degreeZeroBBar810, degreeZeroCBar810, degreeZeroDBar810, degreeZeroEBar810, degreeZeroFBar810, degreeZeroGBar810, degreeZeroPBar810, degreeZeroQBar810, degreeZeroRBar810, degreeZeroSBar810, degreeZeroTBar810, degreeZeroUBar810, degreeZeroVBar810, degreeZeroWBar810]
-  field_simp [h2, h4, h8, h16, h32, h64, h1024, h2048, h8192, h65536, h131072, h262144, h16777216, h67108864, h17179869184]
-  ring
+  exact nonzeroFace5SpeedT_block15_eq_expansion h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroCompactBlock16_eq_expansion
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : F) :
     (degreeZeroCompactToSourceIntegerScale810 : F) *
@@ -754,28 +456,9 @@ theorem degreeZeroCompactBlock16_eq_expansion
         (degreeZeroVBar810 h a7 b8 b7 b6 b5 b4 b3 b2 lambda / 16777216)
         (degreeZeroWBar810 h a7 b8 b7 b6 b5 b4 b3 b2 b1 lambda / 67108864)) =
       degreeZeroCompactBlock16Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  have h2 : (2 : F) ≠ 0 := by norm_num
-  have h4 : (4 : F) ≠ 0 := by norm_num
-  have h8 : (8 : F) ≠ 0 := by norm_num
-  have h16 : (16 : F) ≠ 0 := by norm_num
-  have h32 : (32 : F) ≠ 0 := by norm_num
-  have h64 : (64 : F) ≠ 0 := by norm_num
-  have h1024 : (1024 : F) ≠ 0 := by norm_num
-  have h2048 : (2048 : F) ≠ 0 := by norm_num
-  have h8192 : (8192 : F) ≠ 0 := by norm_num
-  have h65536 : (65536 : F) ≠ 0 := by norm_num
-  have h131072 : (131072 : F) ≠ 0 := by norm_num
-  have h262144 : (262144 : F) ≠ 0 := by norm_num
-  have h16777216 : (16777216 : F) ≠ 0 := by norm_num
-  have h67108864 : (67108864 : F) ≠ 0 := by norm_num
-  have h17179869184 : (17179869184 : F) ≠ 0 := by norm_num
-  simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.monoR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, degreeZeroCompactBlock16_810,
-    degreeZeroCompactBlock16Expansion810,
-    degreeZeroCompactToSourceIntegerScale810, degreeZeroLBar810, degreeZeroABar810, degreeZeroBBar810, degreeZeroCBar810, degreeZeroDBar810, degreeZeroEBar810, degreeZeroFBar810, degreeZeroGBar810, degreeZeroPBar810, degreeZeroQBar810, degreeZeroRBar810, degreeZeroSBar810, degreeZeroTBar810, degreeZeroUBar810, degreeZeroVBar810, degreeZeroWBar810]
-  field_simp [h2, h4, h8, h16, h32, h64, h1024, h2048, h8192, h65536, h131072, h262144, h16777216, h67108864, h17179869184]
-  ring
+  exact nonzeroFace5SpeedT_block16_eq_expansion h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroCompactBlock17_eq_expansion
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : F) :
     (degreeZeroCompactToSourceIntegerScale810 : F) *
@@ -797,28 +480,9 @@ theorem degreeZeroCompactBlock17_eq_expansion
         (degreeZeroVBar810 h a7 b8 b7 b6 b5 b4 b3 b2 lambda / 16777216)
         (degreeZeroWBar810 h a7 b8 b7 b6 b5 b4 b3 b2 b1 lambda / 67108864)) =
       degreeZeroCompactBlock17Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  have h2 : (2 : F) ≠ 0 := by norm_num
-  have h4 : (4 : F) ≠ 0 := by norm_num
-  have h8 : (8 : F) ≠ 0 := by norm_num
-  have h16 : (16 : F) ≠ 0 := by norm_num
-  have h32 : (32 : F) ≠ 0 := by norm_num
-  have h64 : (64 : F) ≠ 0 := by norm_num
-  have h1024 : (1024 : F) ≠ 0 := by norm_num
-  have h2048 : (2048 : F) ≠ 0 := by norm_num
-  have h8192 : (8192 : F) ≠ 0 := by norm_num
-  have h65536 : (65536 : F) ≠ 0 := by norm_num
-  have h131072 : (131072 : F) ≠ 0 := by norm_num
-  have h262144 : (262144 : F) ≠ 0 := by norm_num
-  have h16777216 : (16777216 : F) ≠ 0 := by norm_num
-  have h67108864 : (67108864 : F) ≠ 0 := by norm_num
-  have h17179869184 : (17179869184 : F) ≠ 0 := by norm_num
-  simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.monoR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, degreeZeroCompactBlock17_810,
-    degreeZeroCompactBlock17Expansion810,
-    degreeZeroCompactToSourceIntegerScale810, degreeZeroLBar810, degreeZeroABar810, degreeZeroBBar810, degreeZeroCBar810, degreeZeroDBar810, degreeZeroEBar810, degreeZeroFBar810, degreeZeroGBar810, degreeZeroPBar810, degreeZeroQBar810, degreeZeroRBar810, degreeZeroSBar810, degreeZeroTBar810, degreeZeroUBar810, degreeZeroVBar810, degreeZeroWBar810]
-  field_simp [h2, h4, h8, h16, h32, h64, h1024, h2048, h8192, h65536, h131072, h262144, h16777216, h67108864, h17179869184]
-  ring
+  exact nonzeroFace5SpeedT_block17_eq_expansion h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroCompactBlock18_eq_expansion
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : F) :
     (degreeZeroCompactToSourceIntegerScale810 : F) *
@@ -840,28 +504,9 @@ theorem degreeZeroCompactBlock18_eq_expansion
         (degreeZeroVBar810 h a7 b8 b7 b6 b5 b4 b3 b2 lambda / 16777216)
         (degreeZeroWBar810 h a7 b8 b7 b6 b5 b4 b3 b2 b1 lambda / 67108864)) =
       degreeZeroCompactBlock18Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  have h2 : (2 : F) ≠ 0 := by norm_num
-  have h4 : (4 : F) ≠ 0 := by norm_num
-  have h8 : (8 : F) ≠ 0 := by norm_num
-  have h16 : (16 : F) ≠ 0 := by norm_num
-  have h32 : (32 : F) ≠ 0 := by norm_num
-  have h64 : (64 : F) ≠ 0 := by norm_num
-  have h1024 : (1024 : F) ≠ 0 := by norm_num
-  have h2048 : (2048 : F) ≠ 0 := by norm_num
-  have h8192 : (8192 : F) ≠ 0 := by norm_num
-  have h65536 : (65536 : F) ≠ 0 := by norm_num
-  have h131072 : (131072 : F) ≠ 0 := by norm_num
-  have h262144 : (262144 : F) ≠ 0 := by norm_num
-  have h16777216 : (16777216 : F) ≠ 0 := by norm_num
-  have h67108864 : (67108864 : F) ≠ 0 := by norm_num
-  have h17179869184 : (17179869184 : F) ≠ 0 := by norm_num
-  simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.monoR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, degreeZeroCompactBlock18_810,
-    degreeZeroCompactBlock18Expansion810,
-    degreeZeroCompactToSourceIntegerScale810, degreeZeroLBar810, degreeZeroABar810, degreeZeroBBar810, degreeZeroCBar810, degreeZeroDBar810, degreeZeroEBar810, degreeZeroFBar810, degreeZeroGBar810, degreeZeroPBar810, degreeZeroQBar810, degreeZeroRBar810, degreeZeroSBar810, degreeZeroTBar810, degreeZeroUBar810, degreeZeroVBar810, degreeZeroWBar810]
-  field_simp [h2, h4, h8, h16, h32, h64, h1024, h2048, h8192, h65536, h131072, h262144, h16777216, h67108864, h17179869184]
-  ring
+  exact nonzeroFace5SpeedT_block18_eq_expansion h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroCompactBlock19_eq_expansion
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : F) :
     (degreeZeroCompactToSourceIntegerScale810 : F) *
@@ -883,28 +528,9 @@ theorem degreeZeroCompactBlock19_eq_expansion
         (degreeZeroVBar810 h a7 b8 b7 b6 b5 b4 b3 b2 lambda / 16777216)
         (degreeZeroWBar810 h a7 b8 b7 b6 b5 b4 b3 b2 b1 lambda / 67108864)) =
       degreeZeroCompactBlock19Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  have h2 : (2 : F) ≠ 0 := by norm_num
-  have h4 : (4 : F) ≠ 0 := by norm_num
-  have h8 : (8 : F) ≠ 0 := by norm_num
-  have h16 : (16 : F) ≠ 0 := by norm_num
-  have h32 : (32 : F) ≠ 0 := by norm_num
-  have h64 : (64 : F) ≠ 0 := by norm_num
-  have h1024 : (1024 : F) ≠ 0 := by norm_num
-  have h2048 : (2048 : F) ≠ 0 := by norm_num
-  have h8192 : (8192 : F) ≠ 0 := by norm_num
-  have h65536 : (65536 : F) ≠ 0 := by norm_num
-  have h131072 : (131072 : F) ≠ 0 := by norm_num
-  have h262144 : (262144 : F) ≠ 0 := by norm_num
-  have h16777216 : (16777216 : F) ≠ 0 := by norm_num
-  have h67108864 : (67108864 : F) ≠ 0 := by norm_num
-  have h17179869184 : (17179869184 : F) ≠ 0 := by norm_num
-  simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.monoR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, degreeZeroCompactBlock19_810,
-    degreeZeroCompactBlock19Expansion810,
-    degreeZeroCompactToSourceIntegerScale810, degreeZeroLBar810, degreeZeroABar810, degreeZeroBBar810, degreeZeroCBar810, degreeZeroDBar810, degreeZeroEBar810, degreeZeroFBar810, degreeZeroGBar810, degreeZeroPBar810, degreeZeroQBar810, degreeZeroRBar810, degreeZeroSBar810, degreeZeroTBar810, degreeZeroUBar810, degreeZeroVBar810, degreeZeroWBar810]
-  field_simp [h2, h4, h8, h16, h32, h64, h1024, h2048, h8192, h65536, h131072, h262144, h16777216, h67108864, h17179869184]
-  ring
+  exact nonzeroFace5SpeedT_block19_eq_expansion h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroCompactBlock20_eq_expansion
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : F) :
     (degreeZeroCompactToSourceIntegerScale810 : F) *
@@ -926,28 +552,9 @@ theorem degreeZeroCompactBlock20_eq_expansion
         (degreeZeroVBar810 h a7 b8 b7 b6 b5 b4 b3 b2 lambda / 16777216)
         (degreeZeroWBar810 h a7 b8 b7 b6 b5 b4 b3 b2 b1 lambda / 67108864)) =
       degreeZeroCompactBlock20Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  have h2 : (2 : F) ≠ 0 := by norm_num
-  have h4 : (4 : F) ≠ 0 := by norm_num
-  have h8 : (8 : F) ≠ 0 := by norm_num
-  have h16 : (16 : F) ≠ 0 := by norm_num
-  have h32 : (32 : F) ≠ 0 := by norm_num
-  have h64 : (64 : F) ≠ 0 := by norm_num
-  have h1024 : (1024 : F) ≠ 0 := by norm_num
-  have h2048 : (2048 : F) ≠ 0 := by norm_num
-  have h8192 : (8192 : F) ≠ 0 := by norm_num
-  have h65536 : (65536 : F) ≠ 0 := by norm_num
-  have h131072 : (131072 : F) ≠ 0 := by norm_num
-  have h262144 : (262144 : F) ≠ 0 := by norm_num
-  have h16777216 : (16777216 : F) ≠ 0 := by norm_num
-  have h67108864 : (67108864 : F) ≠ 0 := by norm_num
-  have h17179869184 : (17179869184 : F) ≠ 0 := by norm_num
-  simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.monoR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, degreeZeroCompactBlock20_810,
-    degreeZeroCompactBlock20Expansion810,
-    degreeZeroCompactToSourceIntegerScale810, degreeZeroLBar810, degreeZeroABar810, degreeZeroBBar810, degreeZeroCBar810, degreeZeroDBar810, degreeZeroEBar810, degreeZeroFBar810, degreeZeroGBar810, degreeZeroPBar810, degreeZeroQBar810, degreeZeroRBar810, degreeZeroSBar810, degreeZeroTBar810, degreeZeroUBar810, degreeZeroVBar810, degreeZeroWBar810]
-  field_simp [h2, h4, h8, h16, h32, h64, h1024, h2048, h8192, h65536, h131072, h262144, h16777216, h67108864, h17179869184]
-  ring
+  exact nonzeroFace5SpeedT_block20_eq_expansion h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroCompactBlock21_eq_expansion
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : F) :
     (degreeZeroCompactToSourceIntegerScale810 : F) *
@@ -969,28 +576,9 @@ theorem degreeZeroCompactBlock21_eq_expansion
         (degreeZeroVBar810 h a7 b8 b7 b6 b5 b4 b3 b2 lambda / 16777216)
         (degreeZeroWBar810 h a7 b8 b7 b6 b5 b4 b3 b2 b1 lambda / 67108864)) =
       degreeZeroCompactBlock21Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  have h2 : (2 : F) ≠ 0 := by norm_num
-  have h4 : (4 : F) ≠ 0 := by norm_num
-  have h8 : (8 : F) ≠ 0 := by norm_num
-  have h16 : (16 : F) ≠ 0 := by norm_num
-  have h32 : (32 : F) ≠ 0 := by norm_num
-  have h64 : (64 : F) ≠ 0 := by norm_num
-  have h1024 : (1024 : F) ≠ 0 := by norm_num
-  have h2048 : (2048 : F) ≠ 0 := by norm_num
-  have h8192 : (8192 : F) ≠ 0 := by norm_num
-  have h65536 : (65536 : F) ≠ 0 := by norm_num
-  have h131072 : (131072 : F) ≠ 0 := by norm_num
-  have h262144 : (262144 : F) ≠ 0 := by norm_num
-  have h16777216 : (16777216 : F) ≠ 0 := by norm_num
-  have h67108864 : (67108864 : F) ≠ 0 := by norm_num
-  have h17179869184 : (17179869184 : F) ≠ 0 := by norm_num
-  simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.monoR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, degreeZeroCompactBlock21_810,
-    degreeZeroCompactBlock21Expansion810,
-    degreeZeroCompactToSourceIntegerScale810, degreeZeroLBar810, degreeZeroABar810, degreeZeroBBar810, degreeZeroCBar810, degreeZeroDBar810, degreeZeroEBar810, degreeZeroFBar810, degreeZeroGBar810, degreeZeroPBar810, degreeZeroQBar810, degreeZeroRBar810, degreeZeroSBar810, degreeZeroTBar810, degreeZeroUBar810, degreeZeroVBar810, degreeZeroWBar810]
-  field_simp [h2, h4, h8, h16, h32, h64, h1024, h2048, h8192, h65536, h131072, h262144, h16777216, h67108864, h17179869184]
-  ring
+  exact nonzeroFace5SpeedT_block21_eq_expansion h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroCompactBlock22_eq_expansion
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : F) :
     (degreeZeroCompactToSourceIntegerScale810 : F) *
@@ -1012,28 +600,9 @@ theorem degreeZeroCompactBlock22_eq_expansion
         (degreeZeroVBar810 h a7 b8 b7 b6 b5 b4 b3 b2 lambda / 16777216)
         (degreeZeroWBar810 h a7 b8 b7 b6 b5 b4 b3 b2 b1 lambda / 67108864)) =
       degreeZeroCompactBlock22Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  have h2 : (2 : F) ≠ 0 := by norm_num
-  have h4 : (4 : F) ≠ 0 := by norm_num
-  have h8 : (8 : F) ≠ 0 := by norm_num
-  have h16 : (16 : F) ≠ 0 := by norm_num
-  have h32 : (32 : F) ≠ 0 := by norm_num
-  have h64 : (64 : F) ≠ 0 := by norm_num
-  have h1024 : (1024 : F) ≠ 0 := by norm_num
-  have h2048 : (2048 : F) ≠ 0 := by norm_num
-  have h8192 : (8192 : F) ≠ 0 := by norm_num
-  have h65536 : (65536 : F) ≠ 0 := by norm_num
-  have h131072 : (131072 : F) ≠ 0 := by norm_num
-  have h262144 : (262144 : F) ≠ 0 := by norm_num
-  have h16777216 : (16777216 : F) ≠ 0 := by norm_num
-  have h67108864 : (67108864 : F) ≠ 0 := by norm_num
-  have h17179869184 : (17179869184 : F) ≠ 0 := by norm_num
-  simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.monoR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, degreeZeroCompactBlock22_810,
-    degreeZeroCompactBlock22Expansion810,
-    degreeZeroCompactToSourceIntegerScale810, degreeZeroLBar810, degreeZeroABar810, degreeZeroBBar810, degreeZeroCBar810, degreeZeroDBar810, degreeZeroEBar810, degreeZeroFBar810, degreeZeroGBar810, degreeZeroPBar810, degreeZeroQBar810, degreeZeroRBar810, degreeZeroSBar810, degreeZeroTBar810, degreeZeroUBar810, degreeZeroVBar810, degreeZeroWBar810]
-  field_simp [h2, h4, h8, h16, h32, h64, h1024, h2048, h8192, h65536, h131072, h262144, h16777216, h67108864, h17179869184]
-  ring
+  exact nonzeroFace5SpeedT_block22_eq_expansion h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroCompactBlock23_eq_expansion
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : F) :
     (degreeZeroCompactToSourceIntegerScale810 : F) *
@@ -1055,31 +624,12 @@ theorem degreeZeroCompactBlock23_eq_expansion
         (degreeZeroVBar810 h a7 b8 b7 b6 b5 b4 b3 b2 lambda / 16777216)
         (degreeZeroWBar810 h a7 b8 b7 b6 b5 b4 b3 b2 b1 lambda / 67108864)) =
       degreeZeroCompactBlock23Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  have h2 : (2 : F) ≠ 0 := by norm_num
-  have h4 : (4 : F) ≠ 0 := by norm_num
-  have h8 : (8 : F) ≠ 0 := by norm_num
-  have h16 : (16 : F) ≠ 0 := by norm_num
-  have h32 : (32 : F) ≠ 0 := by norm_num
-  have h64 : (64 : F) ≠ 0 := by norm_num
-  have h1024 : (1024 : F) ≠ 0 := by norm_num
-  have h2048 : (2048 : F) ≠ 0 := by norm_num
-  have h8192 : (8192 : F) ≠ 0 := by norm_num
-  have h65536 : (65536 : F) ≠ 0 := by norm_num
-  have h131072 : (131072 : F) ≠ 0 := by norm_num
-  have h262144 : (262144 : F) ≠ 0 := by norm_num
-  have h16777216 : (16777216 : F) ≠ 0 := by norm_num
-  have h67108864 : (67108864 : F) ≠ 0 := by norm_num
-  have h17179869184 : (17179869184 : F) ≠ 0 := by norm_num
-  simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.monoR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, degreeZeroCompactBlock23_810,
-    degreeZeroCompactBlock23Expansion810,
-    degreeZeroCompactToSourceIntegerScale810, degreeZeroLBar810, degreeZeroABar810, degreeZeroBBar810, degreeZeroCBar810, degreeZeroDBar810, degreeZeroEBar810, degreeZeroFBar810, degreeZeroGBar810, degreeZeroPBar810, degreeZeroQBar810, degreeZeroRBar810, degreeZeroSBar810, degreeZeroTBar810, degreeZeroUBar810, degreeZeroVBar810, degreeZeroWBar810]
-  field_simp [h2, h4, h8, h16, h32, h64, h1024, h2048, h8192, h65536, h131072, h262144, h16777216, h67108864, h17179869184]
-  ring
+  exact nonzeroFace5SpeedT_block23_eq_expansion h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda
 
 #print axioms degreeZeroCompactBlock0_eq_expansion
 #print axioms degreeZeroCompactBlock23_eq_expansion
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 /-- Sum of the 24 compact-block expansions. -/
 theorem degreeZeroCompact_eq_sum_expansions
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : F) :

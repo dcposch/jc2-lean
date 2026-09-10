@@ -253,8 +253,7 @@ theorem piResidual810_deriv_identity
     piEpsilonCertificate810, piZetaCertificate810, piEtaCertificate810,
     piThetaCertificate810, piIotaCertificate810, piLCertificate810,
     kappaResidual810, muResidual810, nuResidual810, xiResidual810,
-    alphaResidual810, betaResidual810, gammaResidual810, deltaResidual810,
-    epsilonResidual810, zetaResidual810, etaResidual810, thetaResidual810,
+    etaResidual810, thetaResidual810,
     iotaResidual810, map_add, map_sub, map_neg, Derivation.leibniz,
     Derivation.leibniz_div, Derivation.leibniz_pow, nsmul_eq_mul]
   simp only [hd1, hd_ofNat, zero_mul, mul_zero, add_zero, zero_add, sub_zero]

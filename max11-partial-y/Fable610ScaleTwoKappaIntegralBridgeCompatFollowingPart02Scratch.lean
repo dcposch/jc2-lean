@@ -10,7 +10,7 @@ section BridgeMuDepression610
 
 variable {F : Type*} [Field F] [CharZero F]
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 /-- Polynomial numerator of `12582912 h⁶⁵ μ` on the ninth-power face. -/
 def bridgeClearedMuDefect610
     (h a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X]) (lambda : F) : F[X] :=

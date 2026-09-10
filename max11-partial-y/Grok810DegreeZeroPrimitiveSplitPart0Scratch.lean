@@ -85,12 +85,13 @@ theorem rhoResidual810_deriv_identity
     rhoEpsilonCertificate810, rhoZetaCertificate810, rhoEtaCertificate810,
     rhoThetaCertificate810, rhoIotaCertificate810, rhoLCertificate810,
     kappaResidual810, muResidual810, nuResidual810, xiResidual810,
-    omicronResidual810, alphaResidual810, betaResidual810, gammaResidual810,
-    deltaResidual810, epsilonResidual810, zetaResidual810, etaResidual810,
+    omicronResidual810,
     thetaResidual810, iotaResidual810, map_add, map_sub, map_neg,
     Derivation.leibniz, hd_div_ofNat, Derivation.leibniz_pow,
     hd1, hd_ofNat, smul_zero, zero_smul, add_zero, zero_add, sub_zero]
-  -- Compare the small scalar coefficient of each coordinate derivative.
+  -- The identity already holds with `alpha`…`eta` kept as opaque residual
+  -- atoms: only the tower above them has to be expanded.  Compare the small
+  -- scalar coefficient of each coordinate derivative.
   module
 
 

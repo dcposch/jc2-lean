@@ -1,4 +1,5 @@
 import Grok810ScaleZeroClosureScratch
+import Max11SpeedReflectDegLibScratch
 
 /-! # Scale-zero mixed-cone closure for normalized `(8,10)`, `H = 0`
 
@@ -58,6 +59,7 @@ section MixedCones810
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 /-- Unique-high `B` with `A` nonconstant, the other five letters
 constant, and `3 deg A < 2 deg B`.  CAS: `B⁵` of `ο` strictly leads. -/
 def B5LeadsMixedAPosCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
@@ -70,6 +72,7 @@ def B5LeadsMixedAPosCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
     F0.natDegree = 0 ∧
     G0.natDegree = 0
 
+set_option maxHeartbeats 64000000 in
 /-- Unique-high `B` with `A` nonconstant, the other five letters
 constant, and `3 deg A > 2 deg B`.  CAS: `A⁶ B` of `ο` strictly leads. -/
 def A6BLeadsOmicronCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
@@ -83,6 +86,7 @@ def A6BLeadsOmicronCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
     F0.natDegree = 0 ∧
     G0.natDegree = 0
 
+set_option maxHeartbeats 64000000 in
 /-- Ratio-tie `3 deg A = 2 deg B` with the other five letters constant.
 CAS: the load-free `μ` face is `11 A⁶ - 176 A³ B² + 32 B⁴`; with `ξ`
 the Groebner ideal contains `B⁵` and a power of `A`. -/
@@ -96,6 +100,7 @@ def AB23RatioTieCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
     F0.natDegree = 0 ∧
     G0.natDegree = 0
 
+set_option maxHeartbeats 64000000 in
 /-- Unique-high `C₀` with `A` nonconstant, `B` and the other four
 letters constant, and `2 deg A < deg C₀`.  CAS: `C₀³` of `μ` strictly
 leads. -/
@@ -109,6 +114,7 @@ def C03LeadsMixedAPosCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
     F0.natDegree = 0 ∧
     G0.natDegree = 0
 
+set_option maxHeartbeats 64000000 in
 /-- Unique-high `C₀` with `A` nonconstant, `2 deg A > deg C₀`, and the
 other five letters constant.  CAS: `A⁶` of `μ` strictly leads. -/
 def A6LeadsMuMixedC0Cone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
@@ -122,6 +128,7 @@ def A6LeadsMuMixedC0Cone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
     F0.natDegree = 0 ∧
     G0.natDegree = 0
 
+set_option maxHeartbeats 64000000 in
 /-- Ratio-tie `deg C₀ = 2 deg A` with the other five letters constant. -/
 def AC02RatioTieCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
   0 < A.natDegree ∧
@@ -133,6 +140,7 @@ def AC02RatioTieCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
     F0.natDegree = 0 ∧
     G0.natDegree = 0
 
+set_option maxHeartbeats 64000000 in
 /-- Unique-high `C₀` with `B` nonconstant, `A` and the other four
 letters constant.  CAS: `C₀³` of `μ` strictly leads on `5 deg B < 3 deg C₀`. -/
 def C03LeadsMixedBPosCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
@@ -145,6 +153,7 @@ def C03LeadsMixedBPosCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
     F0.natDegree = 0 ∧
     G0.natDegree = 0
 
+set_option maxHeartbeats 64000000 in
 /-- Unique-high `D₀` with `A` nonconstant and the other five letters
 constant.  Named-weight comparison `7 deg A < 3 deg D₀` is not enough
 for the mixed monomial `A⁵ D₀` of `ο` (degree `5 deg A + deg D₀`); the
@@ -160,6 +169,7 @@ def D03LeadsMixedAPosCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
     F0.natDegree = 0 ∧
     G0.natDegree = 0
 
+set_option maxHeartbeats 64000000 in
 /-- Unique `E₀²` of `μ` with the other six letters of degree zero except
 possibly `G₀` of degree at most `1`.  CAS: `E₀²` still strictly leads
 on unique-`G₀` of degree one with nonconstant `E₀`. -/
@@ -172,6 +182,7 @@ def E02LeadsMixedCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
     F0.natDegree = 0 ∧
     G0.natDegree < 2 * E0.natDegree
 
+set_option maxHeartbeats 64000000 in
 /-- Unique `F₀²` of `ξ` with the other six letters of degree zero except
 possibly `G₀` of degree at most `1`. -/
 def F02LeadsMixedCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
@@ -183,6 +194,7 @@ def F02LeadsMixedCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
     E0.natDegree = 0 ∧
     G0.natDegree < 2 * F0.natDegree
 
+set_option maxHeartbeats 64000000 in
 /-- Ratio-tie `2 deg E₀ = 3 deg A` with the other five letters constant. -/
 def AE03RatioTieCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
   0 < A.natDegree ∧
@@ -194,6 +206,7 @@ def AE03RatioTieCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
     F0.natDegree = 0 ∧
     G0.natDegree = 0
 
+set_option maxHeartbeats 64000000 in
 /-- Ratio-tie `2 deg E₀ = 2 deg B` wait: `deg E₀ = 2 deg B`. -/
 def BE02RatioTieCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
   0 < B.natDegree ∧
@@ -205,6 +218,7 @@ def BE02RatioTieCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
     F0.natDegree = 0 ∧
     G0.natDegree = 0
 
+set_option maxHeartbeats 64000000 in
 /-- Ratio-tie `2 deg E₀ = 3 deg C₀` with the other five letters constant. -/
 def C0E0RatioTieCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
   0 < C0.natDegree ∧
@@ -216,6 +230,7 @@ def C0E0RatioTieCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
     F0.natDegree = 0 ∧
     G0.natDegree = 0
 
+set_option maxHeartbeats 64000000 in
 /-- Ratio-tie `2 deg F₀ = 7 deg A` with the other five letters constant. -/
 def AF07RatioTieCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
   0 < A.natDegree ∧
@@ -227,6 +242,7 @@ def AF07RatioTieCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
     E0.natDegree = 0 ∧
     G0.natDegree = 0
 
+set_option maxHeartbeats 64000000 in
 /-- Ratio-tie `3 deg D₀ = 5 deg B` with the other five letters constant. -/
 def BD03RatioTieCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
   0 < B.natDegree ∧
@@ -238,6 +254,7 @@ def BD03RatioTieCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
     F0.natDegree = 0 ∧
     G0.natDegree = 0
 
+set_option maxHeartbeats 64000000 in
 /-- Pair `B`–`C₀` with `5 deg B = 3 deg C₀` and the other five constant. -/
 def BC03RatioTieCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
   0 < B.natDegree ∧
@@ -249,6 +266,7 @@ def BC03RatioTieCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
     F0.natDegree = 0 ∧
     G0.natDegree = 0
 
+set_option maxHeartbeats 64000000 in
 /-- Pair `C₀`–`D₀` with equal unweighted degree, others constant. -/
 def C0D0RatioTieCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
   0 < C0.natDegree ∧
@@ -259,6 +277,7 @@ def C0D0RatioTieCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
     F0.natDegree = 0 ∧
     G0.natDegree = 0
 
+set_option maxHeartbeats 64000000 in
 /-- Unique-`G₀` of degree one with exactly one other letter nonconstant
 of positive degree.  Parent unique-`G₀` required the other six of
 degree zero. -/
@@ -271,21 +290,27 @@ def UniqueG0WithBCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
     E0.natDegree = 0 ∧
     F0.natDegree = 0
 
+set_option maxHeartbeats 64000000 in
 private theorem zero_pow_two_rt {R : Type*} [Semiring R] : (0 : R) ^ 2 = 0 :=
   zero_pow (by decide : (2 : ℕ) ≠ 0)
 
+set_option maxHeartbeats 64000000 in
 private theorem zero_pow_three_rt {R : Type*} [Semiring R] : (0 : R) ^ 3 = 0 :=
   zero_pow (by decide : (3 : ℕ) ≠ 0)
 
+set_option maxHeartbeats 64000000 in
 private theorem zero_pow_four_rt {R : Type*} [Semiring R] : (0 : R) ^ 4 = 0 :=
   zero_pow (by decide : (4 : ℕ) ≠ 0)
 
+set_option maxHeartbeats 64000000 in
 private theorem zero_pow_five_rt {R : Type*} [Semiring R] : (0 : R) ^ 5 = 0 :=
   zero_pow (by decide : (5 : ℕ) ≠ 0)
 
+set_option maxHeartbeats 64000000 in
 private theorem zero_pow_six_rt {R : Type*} [Semiring R] : (0 : R) ^ 6 = 0 :=
   zero_pow (by decide : (6 : ℕ) ≠ 0)
 
+set_option maxHeartbeats 64000000 in
 private theorem zero_pow_seven_rt {R : Type*} [Semiring R] : (0 : R) ^ 7 = 0 :=
   zero_pow (by decide : (7 : ℕ) ≠ 0)
 
@@ -298,6 +323,7 @@ section MixedTieIdentities810
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 /-- On the `A`–`B` weight-tie `3 deg A = 2 deg B`, a linear combination
 of the load-free `μ` and `ξ` inner forms is `121 r³ (r³ - 14 s²)`.
 Parentheses on `r³ s²` match the `leadingCoeff_mul` expansion. -/
@@ -307,6 +333,7 @@ theorem mu_xi_AB23_inner_identity (r s : k) :
       121 * r ^ 3 * (r ^ 3 - 14 * s ^ 2) := by
   ring
 
+set_option maxHeartbeats 64000000 in
 /-- Substituting the `ξ` companion factor `r³ = 14 s²` into the `μ`
 inner form yields `-(276 s⁴)`. -/
 theorem mu_AB23_of_xi_companion_factor (s : k) :
@@ -314,6 +341,7 @@ theorem mu_AB23_of_xi_companion_factor (s : k) :
       -(276 * s ^ 4) := by
   ring
 
+set_option maxHeartbeats 64000000 in
 /-- If the `μ` inner form vanishes and `r ≠ 0`, the `ξ` inner form
 cannot vanish. -/
 theorem xi_AB23_inner_ne_of_mu_zero (r s : k)
@@ -356,19 +384,21 @@ section MixedCombinedFaces810
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 /-- Load-free `μ` face on the `A`–`B` tie `3 deg A = 2 deg B`. -/
 def muAB23Combined810 (A B : k[X]) : k[X] :=
   (385 / 65536 : k) • A ^ 6 -
     (385 / 4096 : k) • (A ^ 3 * B ^ 2) +
     (35 / 2048 : k) • B ^ 4
 
+set_option maxHeartbeats 64000000 in
 /-- Load-free `ξ` face on the same `A`–`B` tie. -/
 def xiAB23Combined810 (A B : k[X]) : k[X] :=
   -(165 / 65536 : k) • A ^ 7 +
     (1925 / 32768 : k) • (A ^ 4 * B ^ 2) -
     (35 / 1024 : k) • (A * B ^ 4)
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 /-- `μ` without the three `A`–`B` tie monomials. -/
 def degreeZeroMuNoAB23Polynomial810
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -428,7 +458,7 @@ def degreeZeroMuNoAB23Polynomial810
     + (1 / 4 * eta : k) • C0
     + (1 / 8 * theta : k) • B
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 /-- `ξ` without the three `A`–`B` tie monomials. -/
 def degreeZeroXiNoAB23Polynomial810
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -522,7 +552,7 @@ def degreeZeroXiNoAB23Polynomial810
     + (1 / 4 * eta : k) • E0
     + (1 / 8 * theta : k) • D0
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuPolynomial810_eq_AB23_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) :
@@ -535,7 +565,7 @@ theorem degreeZeroMuPolynomial810_eq_AB23_add_rest
     degreeZeroMuNoAB23Polynomial810]
   module
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiPolynomial810_eq_AB23_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) :
@@ -556,7 +586,119 @@ section MixedRests810
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for the mixed-cone degree bounds. -/
+private theorem mixedConesSpeedT_degreeZeroMuNoAB23Polynomial810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C0 D0 E0 F0 G0 : k[X]) :
+    degreeZeroMuNoAB23Polynomial810 l beta gamma delta epsilon zeta eta theta A B C0 D0 E0 F0 G0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0, F0, G0]
+      [
+      (-(385 / 8192) : k), (-(7245 / 262144 * l) : k), (105 / 512 : k),
+      (315 / 8192 * l : k), (105 / 1024 : k), (105 / 512 : k),
+      (945 / 8192 * l : k), (35 / 512 : k), (315 / 8192 * l : k),
+      (-(357 / 8192 * beta) : k), (-(45 / 2048 * gamma) : k), (-(5 / 128) : k),
+      (-(15 / 64) : k), (-(63 / 1024 * l) : k), (-(15 / 128) : k),
+      (-(63 / 1024 * l) : k), (21 / 1024 * beta : k), (-(15 / 128) : k),
+      (-(15 / 64) : k), (-(63 / 512 * l) : k), (-(15 / 64) : k),
+      (-(63 / 512 * l) : k), (63 / 512 * beta : k), (15 / 128 * gamma : k),
+      (-(15 / 128) : k), (-(63 / 1024 * l) : k), (63 / 1024 * beta : k),
+      (15 / 128 * gamma : k), (165 / 1024 * delta : k), (1 / 16 * epsilon : k),
+      (5 / 32 : k), (5 / 16 : k), (9 / 64 * l : k),
+      (5 / 16 : k), (9 / 64 * l : k), (-(7 / 64 * beta) : k),
+      (-(3 / 32 * gamma) : k), (9 / 64 * l : k), (-(7 / 64 * beta) : k),
+      (-(3 / 16 * gamma) : k), (-(15 / 64 * delta) : k), (-(1 / 8 * epsilon) : k),
+      (-(7 / 64 * beta) : k), (-(3 / 16 * gamma) : k), (-(15 / 64 * delta) : k),
+      (-(1 / 4 * epsilon) : k), (-(15 / 64 * zeta) : k), (-(3 / 32 * eta) : k),
+      (3 / 4 * gamma : k), (5 / 8 * delta : k), (1 / 2 * epsilon : k),
+      (3 / 8 * zeta : k), (1 / 4 * eta : k), (1 / 8 * theta : k)]
+      [
+      [4, 0, 1, 0, 0, 0, 0], [4, 1, 0, 0, 0, 0, 0], [1, 2, 1, 0, 0, 0, 0], [1, 3, 0, 0, 0, 0, 0],
+      [2, 0, 2, 0, 0, 0, 0], [2, 1, 0, 1, 0, 0, 0], [2, 1, 1, 0, 0, 0, 0], [3, 0, 0, 0, 1, 0, 0],
+      [3, 0, 0, 1, 0, 0, 0], [3, 1, 0, 0, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0], [0, 0, 3, 0, 0, 0, 0],
+      [0, 1, 1, 1, 0, 0, 0], [0, 1, 2, 0, 0, 0, 0], [0, 2, 0, 0, 1, 0, 0], [0, 2, 0, 1, 0, 0, 0],
+      [0, 3, 0, 0, 0, 0, 0], [1, 0, 0, 2, 0, 0, 0], [1, 0, 1, 0, 1, 0, 0], [1, 0, 1, 1, 0, 0, 0],
+      [1, 1, 0, 0, 0, 1, 0], [1, 1, 0, 0, 1, 0, 0], [1, 1, 1, 0, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0],
+      [2, 0, 0, 0, 0, 0, 1], [2, 0, 0, 0, 0, 1, 0], [2, 0, 0, 1, 0, 0, 0], [2, 0, 1, 0, 0, 0, 0],
+      [2, 1, 0, 0, 0, 0, 0], [3, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 2, 0, 0], [0, 0, 0, 1, 0, 1, 0],
+      [0, 0, 0, 1, 1, 0, 0], [0, 0, 1, 0, 0, 0, 1], [0, 0, 1, 0, 0, 1, 0], [0, 0, 1, 1, 0, 0, 0],
+      [0, 0, 2, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 1], [0, 1, 0, 0, 1, 0, 0], [0, 1, 0, 1, 0, 0, 0],
+      [0, 1, 1, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0], [1, 0, 0, 0, 1, 0, 0],
+      [1, 0, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 1, 0, 0, 0],
+      [0, 0, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0]] := by
+  simp only [degreeZeroMuNoAB23Polynomial810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for the mixed-cone degree bounds. -/
+private theorem mixedConesSpeedT_degreeZeroXiNoAB23Polynomial810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C0 D0 E0 F0 G0 : k[X]) :
+    degreeZeroXiNoAB23Polynomial810 l beta gamma delta epsilon zeta eta theta A B C0 D0 E0 F0 G0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0, F0, G0]
+      [
+      (385 / 16384 : k), (7245 / 524288 * l : k), (-(105 / 512) : k),
+      (-(315 / 8192 * l) : k), (-(35 / 512) : k), (-(525 / 4096) : k),
+      (-(315 / 4096 * l) : k), (-(245 / 8192) : k), (-(4725 / 262144 * l) : k),
+      (357 / 16384 * beta : k), (9 / 1024 * gamma : k), (45 / 512 : k),
+      (55 / 1024 : k), (63 / 2048 * l : k), (15 / 256 : k),
+      (165 / 512 : k), (189 / 2048 * l : k), (75 / 512 : k),
+      (693 / 8192 * l : k), (-(63 / 2048 * beta) : k), (75 / 1024 : k),
+      (75 / 512 : k), (693 / 8192 * l : k), (135 / 1024 : k),
+      (315 / 4096 * l : k), (-(189 / 2048 * beta) : k), (-(45 / 512 * gamma) : k),
+      (5 / 128 : k), (189 / 8192 * l : k), (-(231 / 8192 * beta) : k),
+      (-(15 / 256 * gamma) : k), (-(165 / 2048 * delta) : k), (-(3 / 128 * epsilon) : k),
+      (-(15 / 128) : k), (-(15 / 128) : k), (-(63 / 1024 * l) : k),
+      (-(25 / 128) : k), (-(27 / 512 * l) : k), (-(25 / 128) : k),
+      (-(27 / 256 * l) : k), (7 / 128 * beta : k), (-(5 / 64) : k),
+      (-(45 / 1024 * l) : k), (49 / 1024 * beta : k), (3 / 32 * gamma : k),
+      (5 / 128 * delta : k), (-(5 / 64) : k), (-(5 / 32) : k),
+      (-(45 / 512 * l) : k), (-(5 / 32) : k), (-(45 / 512 * l) : k),
+      (49 / 512 * beta : k), (3 / 32 * gamma : k), (-(9 / 128 * l) : k),
+      (21 / 256 * beta : k), (21 / 128 * gamma : k), (15 / 64 * delta : k),
+      (1 / 8 * epsilon : k), (35 / 1024 * beta : k), (9 / 128 * gamma : k),
+      (105 / 1024 * delta : k), (1 / 8 * epsilon : k), (15 / 128 * zeta : k),
+      (1 / 32 * eta : k), (5 / 32 : k), (5 / 16 : k),
+      (9 / 64 * l : k), (9 / 64 * l : k), (-(7 / 64 * beta) : k),
+      (-(3 / 32 * gamma) : k), (-(7 / 64 * beta) : k), (-(3 / 16 * gamma) : k),
+      (-(15 / 64 * delta) : k), (-(1 / 8 * epsilon) : k), (-(3 / 32 * gamma) : k),
+      (-(5 / 32 * delta) : k), (-(3 / 16 * epsilon) : k), (-(3 / 16 * zeta) : k),
+      (-(1 / 16 * eta) : k), (-(5 / 64 * delta) : k), (-(1 / 8 * epsilon) : k),
+      (-(9 / 64 * zeta) : k), (-(1 / 8 * eta) : k), (-(1 / 16 * theta) : k),
+      (1 / 2 * epsilon : k), (3 / 8 * zeta : k), (1 / 4 * eta : k),
+      (1 / 8 * theta : k)]
+      [
+      [5, 0, 1, 0, 0, 0, 0], [5, 1, 0, 0, 0, 0, 0], [2, 2, 1, 0, 0, 0, 0], [2, 3, 0, 0, 0, 0, 0],
+      [3, 0, 2, 0, 0, 0, 0], [3, 1, 0, 1, 0, 0, 0], [3, 1, 1, 0, 0, 0, 0], [4, 0, 0, 0, 1, 0, 0],
+      [4, 0, 0, 1, 0, 0, 0], [4, 1, 0, 0, 0, 0, 0], [5, 0, 0, 0, 0, 0, 0], [0, 2, 2, 0, 0, 0, 0],
+      [0, 3, 0, 1, 0, 0, 0], [0, 3, 1, 0, 0, 0, 0], [1, 0, 3, 0, 0, 0, 0], [1, 1, 1, 1, 0, 0, 0],
+      [1, 1, 2, 0, 0, 0, 0], [1, 2, 0, 0, 1, 0, 0], [1, 2, 0, 1, 0, 0, 0], [1, 3, 0, 0, 0, 0, 0],
+      [2, 0, 0, 2, 0, 0, 0], [2, 0, 1, 0, 1, 0, 0], [2, 0, 1, 1, 0, 0, 0], [2, 1, 0, 0, 0, 1, 0],
+      [2, 1, 0, 0, 1, 0, 0], [2, 1, 1, 0, 0, 0, 0], [2, 2, 0, 0, 0, 0, 0], [3, 0, 0, 0, 0, 0, 1],
+      [3, 0, 0, 0, 0, 1, 0], [3, 0, 0, 1, 0, 0, 0], [3, 0, 1, 0, 0, 0, 0], [3, 1, 0, 0, 0, 0, 0],
+      [4, 0, 0, 0, 0, 0, 0], [0, 0, 1, 2, 0, 0, 0], [0, 0, 2, 0, 1, 0, 0], [0, 0, 2, 1, 0, 0, 0],
+      [0, 1, 0, 1, 1, 0, 0], [0, 1, 0, 2, 0, 0, 0], [0, 1, 1, 0, 0, 1, 0], [0, 1, 1, 0, 1, 0, 0],
+      [0, 1, 2, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 1], [0, 2, 0, 0, 0, 1, 0], [0, 2, 0, 1, 0, 0, 0],
+      [0, 2, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0], [1, 0, 0, 0, 2, 0, 0], [1, 0, 0, 1, 0, 1, 0],
+      [1, 0, 0, 1, 1, 0, 0], [1, 0, 1, 0, 0, 0, 1], [1, 0, 1, 0, 0, 1, 0], [1, 0, 1, 1, 0, 0, 0],
+      [1, 0, 2, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 1], [1, 1, 0, 0, 1, 0, 0], [1, 1, 0, 1, 0, 0, 0],
+      [1, 1, 1, 0, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 1, 0], [2, 0, 0, 0, 1, 0, 0],
+      [2, 0, 0, 1, 0, 0, 0], [2, 0, 1, 0, 0, 0, 0], [2, 1, 0, 0, 0, 0, 0], [3, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 2, 0], [0, 0, 0, 0, 1, 0, 1], [0, 0, 0, 0, 1, 1, 0], [0, 0, 0, 1, 0, 0, 1],
+      [0, 0, 0, 1, 1, 0, 0], [0, 0, 0, 2, 0, 0, 0], [0, 0, 1, 0, 0, 1, 0], [0, 0, 1, 0, 1, 0, 0],
+      [0, 0, 1, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0], [0, 1, 0, 0, 0, 1, 0], [0, 1, 0, 0, 1, 0, 0],
+      [0, 1, 0, 1, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0],
+      [1, 0, 0, 0, 1, 0, 0], [1, 0, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 1, 0, 0, 0]] := by
+  simp only [degreeZeroXiNoAB23Polynomial810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  module
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoB5_natDegree_lt_of_mixedAPos
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -565,28 +707,26 @@ theorem degreeZeroOmicronNoB5_natDegree_lt_of_mixedAPos
         A B C0 D0 E0 F0 G0).natDegree <
       5 * B.natDegree := by
   rcases hcone with ⟨hBpos, hApos, h3a, hC, hD, hE, hF, hG⟩
-  simp only [degreeZeroOmicronNoB5Polynomial810, zero_mul, mul_zero, zero_smul, smul_zero,
-    zero_pow_two_rt, zero_pow_three_rt, zero_pow_four_rt, zero_pow_five_rt,
-    zero_pow_six_rt, zero_pow_seven_rt, hC, hD, hE, hF, hG]
-  compute_degree
-  simp only [hC, hD, hE, hF, hG]
-  have h3 : 3 * A.natDegree + 1 ≤ 2 * B.natDegree := Nat.succ_le_of_lt h3a
-  have h6ab : 6 * A.natDegree + B.natDegree + 1 ≤ 5 * B.natDegree := by omega
-  have h7a : 7 * A.natDegree + 1 ≤ 5 * B.natDegree := by omega
-  have h3a3b : 3 * A.natDegree + 3 * B.natDegree + 1 ≤ 5 * B.natDegree := by omega
-  have h4a2b : 4 * A.natDegree + 2 * B.natDegree + 1 ≤ 5 * B.natDegree := by omega
-  have ha4b : A.natDegree + 4 * B.natDegree + 1 ≤ 5 * B.natDegree := by omega
-  have h6a : 6 * A.natDegree + 1 ≤ 5 * B.natDegree := by omega
-  have h4ab : 4 * A.natDegree + B.natDegree + 1 ≤ 5 * B.natDegree := by omega
-  have h5a : 5 * A.natDegree + 1 ≤ 5 * B.natDegree := by omega
-  have h3a2b : 3 * A.natDegree + 2 * B.natDegree + 1 ≤ 5 * B.natDegree := by omega
-  have h2a2b : 2 * A.natDegree + 2 * B.natDegree + 1 ≤ 5 * B.natDegree := by omega
-  have h4b : 4 * B.natDegree + 1 ≤ 5 * B.natDegree := by omega
-  have h3alow : 3 * A.natDegree + 1 ≤ 5 * B.natDegree := by omega
-  have ha3b : A.natDegree + 3 * B.natDegree + 1 ≤ 5 * B.natDegree := by omega
-  omega
+  rw [degreeZeroOmicronNoB5Polynomial810_eq_groups]
+  apply natDegree_add8_lt810
+  all_goals first
+    | rw [speedRefl_degreeZeroOmicronNoB5G1_eq_polyOf]
+    | rw [speedRefl_degreeZeroOmicronNoB5G2_eq_polyOf]
+    | rw [speedRefl_degreeZeroOmicronNoB5G3_eq_polyOf]
+    | rw [speedRefl_degreeZeroOmicronNoB5G4_eq_polyOf]
+    | rw [speedRefl_degreeZeroOmicronNoB5G5_eq_polyOf]
+    | rw [speedRefl_degreeZeroOmicronNoB5G6_eq_polyOf]
+    | rw [speedRefl_degreeZeroOmicronNoB5G7_eq_polyOf]
+    | rw [speedRefl_degreeZeroOmicronNoB5G8_eq_polyOf]
+  all_goals apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  all_goals simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+    Nat.add_zero, Nat.zero_add, max_lt_iff]
+  all_goals repeat' apply And.intro
+  all_goals omega
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoAB23_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -595,18 +735,16 @@ theorem degreeZeroMuNoAB23_natDegree_lt
         A B C0 D0 E0 F0 G0).natDegree <
       6 * A.natDegree := by
   rcases hcone with ⟨hApos, hBpos, htie, hC, hD, hE, hF, hG⟩
-  simp only [degreeZeroMuNoAB23Polynomial810, zero_mul, mul_zero, zero_smul, smul_zero,
-    zero_pow_two_rt, zero_pow_three_rt, zero_pow_four_rt, zero_pow_five_rt,
-    zero_pow_six_rt, zero_pow_seven_rt, hC, hD, hE, hF, hG]
-  compute_degree
-  simp only [hC, hD, hE, hF, hG]
-  have h4ab : 4 * A.natDegree + B.natDegree + 1 ≤ 6 * A.natDegree := by omega
-  have ha3b : A.natDegree + 3 * B.natDegree + 1 ≤ 6 * A.natDegree := by omega
-  have h3b : 3 * B.natDegree + 1 ≤ 6 * A.natDegree := by omega
-  have h2a2b : 2 * A.natDegree + 2 * B.natDegree + 1 ≤ 6 * A.natDegree := by omega
-  omega
+  rw [mixedConesSpeedT_degreeZeroMuNoAB23Polynomial810_eq_polyOf]
+  all_goals apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  all_goals simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+    Nat.add_zero, Nat.zero_add, max_lt_iff]
+  all_goals repeat' apply And.intro
+  all_goals omega
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoAB23_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -615,20 +753,16 @@ theorem degreeZeroXiNoAB23_natDegree_lt
         A B C0 D0 E0 F0 G0).natDegree <
       7 * A.natDegree := by
   rcases hcone with ⟨hApos, hBpos, htie, hC, hD, hE, hF, hG⟩
-  simp only [degreeZeroXiNoAB23Polynomial810, zero_mul, mul_zero, zero_smul, smul_zero,
-    zero_pow_two_rt, zero_pow_three_rt, zero_pow_four_rt, zero_pow_five_rt,
-    zero_pow_six_rt, zero_pow_seven_rt, hC, hD, hE, hF, hG]
-  compute_degree
-  simp only [hC, hD, hE, hF, hG]
-  have h5ab : 5 * A.natDegree + B.natDegree + 1 ≤ 7 * A.natDegree := by omega
-  have h2a3b : 2 * A.natDegree + 3 * B.natDegree + 1 ≤ 7 * A.natDegree := by omega
-  have ha3b : A.natDegree + 3 * B.natDegree + 1 ≤ 7 * A.natDegree := by omega
-  have h3b : 3 * B.natDegree + 1 ≤ 7 * A.natDegree := by omega
-  have h4ab : 4 * A.natDegree + B.natDegree + 1 ≤ 7 * A.natDegree := by omega
-  have h2a2b : 2 * A.natDegree + 2 * B.natDegree + 1 ≤ 7 * A.natDegree := by omega
-  omega
+  rw [mixedConesSpeedT_degreeZeroXiNoAB23Polynomial810_eq_polyOf]
+  all_goals apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  all_goals simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+    Nat.add_zero, Nat.zero_add, max_lt_iff]
+  all_goals repeat' apply And.intro
+  all_goals omega
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoC03_natDegree_lt_of_mixedAPos
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -637,18 +771,26 @@ theorem degreeZeroMuNoC03_natDegree_lt_of_mixedAPos
         A B C0 D0 E0 F0 G0).natDegree <
       3 * C0.natDegree := by
   rcases hcone with ⟨hCpos, hApos, hB, h2a, hD, hE, hF, hG⟩
-  simp only [degreeZeroMuNoC03Polynomial810, zero_mul, mul_zero, zero_smul, smul_zero,
-    zero_pow_two_rt, zero_pow_three_rt, zero_pow_four_rt, zero_pow_five_rt,
-    zero_pow_six_rt, zero_pow_seven_rt, hB, hD, hE, hF, hG]
-  compute_degree
-  simp only [hB, hD, hE, hF, hG]
-  have h2 : 2 * A.natDegree + 1 ≤ C0.natDegree := Nat.succ_le_of_lt h2a
-  have h6a : 6 * A.natDegree + 1 ≤ 3 * C0.natDegree := by omega
-  have h4a : 4 * A.natDegree + 1 ≤ 3 * C0.natDegree := by omega
-  have h5a : 5 * A.natDegree + 1 ≤ 3 * C0.natDegree := by omega
-  omega
+  rw [degreeZeroMuNoC03Polynomial810_eq_groups]
+  apply natDegree_add8_lt810
+  all_goals first
+    | rw [speedRefl_degreeZeroMuNoC03G1_eq_polyOf]
+    | rw [speedRefl_degreeZeroMuNoC03G2_eq_polyOf]
+    | rw [speedRefl_degreeZeroMuNoC03G3_eq_polyOf]
+    | rw [speedRefl_degreeZeroMuNoC03G4_eq_polyOf]
+    | rw [speedRefl_degreeZeroMuNoC03G5_eq_polyOf]
+    | rw [speedRefl_degreeZeroMuNoC03G6_eq_polyOf]
+    | rw [speedRefl_degreeZeroMuNoC03G7_eq_polyOf]
+    | rw [speedRefl_degreeZeroMuNoC03G8_eq_polyOf]
+  all_goals apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  all_goals simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+    Nat.add_zero, Nat.zero_add, max_lt_iff]
+  all_goals repeat' apply And.intro
+  all_goals omega
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoC03_natDegree_lt_of_mixedBPos
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -657,15 +799,26 @@ theorem degreeZeroMuNoC03_natDegree_lt_of_mixedBPos
         A B C0 D0 E0 F0 G0).natDegree <
       3 * C0.natDegree := by
   rcases hcone with ⟨hCpos, hBpos, hA, h4b, hD, hE, hF, hG⟩
-  simp only [degreeZeroMuNoC03Polynomial810, zero_mul, mul_zero, zero_smul, smul_zero,
-    zero_pow_two_rt, zero_pow_three_rt, zero_pow_four_rt, zero_pow_five_rt,
-    zero_pow_six_rt, zero_pow_seven_rt, hA, hD, hE, hF, hG]
-  compute_degree
-  simp only [hA, hD, hE, hF, hG]
-  have h4 : 4 * B.natDegree + 1 ≤ 3 * C0.natDegree := Nat.succ_le_of_lt h4b
-  omega
+  rw [degreeZeroMuNoC03Polynomial810_eq_groups]
+  apply natDegree_add8_lt810
+  all_goals first
+    | rw [speedRefl_degreeZeroMuNoC03G1_eq_polyOf]
+    | rw [speedRefl_degreeZeroMuNoC03G2_eq_polyOf]
+    | rw [speedRefl_degreeZeroMuNoC03G3_eq_polyOf]
+    | rw [speedRefl_degreeZeroMuNoC03G4_eq_polyOf]
+    | rw [speedRefl_degreeZeroMuNoC03G5_eq_polyOf]
+    | rw [speedRefl_degreeZeroMuNoC03G6_eq_polyOf]
+    | rw [speedRefl_degreeZeroMuNoC03G7_eq_polyOf]
+    | rw [speedRefl_degreeZeroMuNoC03G8_eq_polyOf]
+  all_goals apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  all_goals simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+    Nat.add_zero, Nat.zero_add, max_lt_iff]
+  all_goals repeat' apply And.intro
+  all_goals omega
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoD03_natDegree_lt_of_mixedAPos
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -674,19 +827,26 @@ theorem degreeZeroOmicronNoD03_natDegree_lt_of_mixedAPos
         A B C0 D0 E0 F0 G0).natDegree <
       3 * D0.natDegree := by
   rcases hcone with ⟨hDpos, hApos, hB, hC, h7a, h5strict, hE, hF, hG⟩
-  simp only [degreeZeroOmicronNoD03Polynomial810, zero_mul, mul_zero, zero_smul, smul_zero,
-    zero_pow_two_rt, zero_pow_three_rt, zero_pow_four_rt, zero_pow_five_rt,
-    zero_pow_six_rt, zero_pow_seven_rt, hB, hC, hE, hF, hG]
-  compute_degree
-  simp only [hB, hC, hE, hF, hG]
-  have h7 : 7 * A.natDegree + 1 ≤ 3 * D0.natDegree := Nat.succ_le_of_lt h7a
-  have h5 : 5 * A.natDegree + 1 ≤ 2 * D0.natDegree := Nat.succ_le_of_lt h5strict
-  have h5ad : 5 * A.natDegree + D0.natDegree + 1 ≤ 3 * D0.natDegree := by omega
-  have h6a : 6 * A.natDegree + 1 ≤ 3 * D0.natDegree := by omega
-  have h2a2d : 2 * A.natDegree + 2 * D0.natDegree + 1 ≤ 3 * D0.natDegree := by omega
-  omega
+  rw [degreeZeroOmicronNoD03Polynomial810_eq_groups]
+  apply natDegree_add8_lt810
+  all_goals first
+    | rw [speedRefl_degreeZeroOmicronNoD03G1_eq_polyOf]
+    | rw [speedRefl_degreeZeroOmicronNoD03G2_eq_polyOf]
+    | rw [speedRefl_degreeZeroOmicronNoD03G3_eq_polyOf]
+    | rw [speedRefl_degreeZeroOmicronNoD03G4_eq_polyOf]
+    | rw [speedRefl_degreeZeroOmicronNoD03G5_eq_polyOf]
+    | rw [speedRefl_degreeZeroOmicronNoD03G6_eq_polyOf]
+    | rw [speedRefl_degreeZeroOmicronNoD03G7_eq_polyOf]
+    | rw [speedRefl_degreeZeroOmicronNoD03G8_eq_polyOf]
+  all_goals apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  all_goals simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+    Nat.add_zero, Nat.zero_add, max_lt_iff]
+  all_goals repeat' apply And.intro
+  all_goals omega
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoE02_natDegree_lt_of_mixed
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -695,15 +855,26 @@ theorem degreeZeroMuNoE02_natDegree_lt_of_mixed
         A B C0 D0 E0 F0 G0).natDegree <
       2 * E0.natDegree := by
   rcases hcone with ⟨hEpos, hA, hB, hC, hD, hF, hG⟩
-  simp only [degreeZeroMuNoE02Polynomial810, zero_mul, mul_zero, zero_smul, smul_zero,
-    zero_pow_two_rt, zero_pow_three_rt, zero_pow_four_rt, zero_pow_five_rt,
-    zero_pow_six_rt, zero_pow_seven_rt, hA, hB, hC, hD, hF]
-  compute_degree
-  simp only [hA, hB, hC, hD, hF]
-  have hG1 : G0.natDegree + 1 ≤ 2 * E0.natDegree := Nat.succ_le_of_lt hG
-  omega
+  rw [degreeZeroMuNoE02Polynomial810_eq_groups]
+  apply natDegree_add8_lt810
+  all_goals first
+    | rw [speedRefl_degreeZeroMuNoE02G1_eq_polyOf]
+    | rw [speedRefl_degreeZeroMuNoE02G2_eq_polyOf]
+    | rw [speedRefl_degreeZeroMuNoE02G3_eq_polyOf]
+    | rw [speedRefl_degreeZeroMuNoE02G4_eq_polyOf]
+    | rw [speedRefl_degreeZeroMuNoE02G5_eq_polyOf]
+    | rw [speedRefl_degreeZeroMuNoE02G6_eq_polyOf]
+    | rw [speedRefl_degreeZeroMuNoE02G7_eq_polyOf]
+    | rw [speedRefl_degreeZeroMuNoE02G8_eq_polyOf]
+  all_goals apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  all_goals simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+    Nat.add_zero, Nat.zero_add, max_lt_iff]
+  all_goals repeat' apply And.intro
+  all_goals omega
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoF02_natDegree_lt_of_mixed
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -712,15 +883,26 @@ theorem degreeZeroXiNoF02_natDegree_lt_of_mixed
         A B C0 D0 E0 F0 G0).natDegree <
       2 * F0.natDegree := by
   rcases hcone with ⟨hFpos, hA, hB, hC, hD, hE, hG⟩
-  simp only [degreeZeroXiNoF02Polynomial810, zero_mul, mul_zero, zero_smul, smul_zero,
-    zero_pow_two_rt, zero_pow_three_rt, zero_pow_four_rt, zero_pow_five_rt,
-    zero_pow_six_rt, zero_pow_seven_rt, hA, hB, hC, hD, hE]
-  compute_degree
-  simp only [hA, hB, hC, hD, hE]
-  have hG1 : G0.natDegree + 1 ≤ 2 * F0.natDegree := Nat.succ_le_of_lt hG
-  omega
+  rw [degreeZeroXiNoF02Polynomial810_eq_groups]
+  apply natDegree_add8_lt810
+  all_goals first
+    | rw [speedRefl_degreeZeroXiNoF02G1_eq_polyOf]
+    | rw [speedRefl_degreeZeroXiNoF02G2_eq_polyOf]
+    | rw [speedRefl_degreeZeroXiNoF02G3_eq_polyOf]
+    | rw [speedRefl_degreeZeroXiNoF02G4_eq_polyOf]
+    | rw [speedRefl_degreeZeroXiNoF02G5_eq_polyOf]
+    | rw [speedRefl_degreeZeroXiNoF02G6_eq_polyOf]
+    | rw [speedRefl_degreeZeroXiNoF02G7_eq_polyOf]
+    | rw [speedRefl_degreeZeroXiNoF02G8_eq_polyOf]
+  all_goals apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  all_goals simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+    Nat.add_zero, Nat.zero_add, max_lt_iff]
+  all_goals repeat' apply And.intro
+  all_goals omega
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoC03_natDegree_lt_of_C0D0
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -729,15 +911,26 @@ theorem degreeZeroMuNoC03_natDegree_lt_of_C0D0
         A B C0 D0 E0 F0 G0).natDegree <
       3 * C0.natDegree := by
   rcases hcone with ⟨hCpos, htie, hA, hB, hE, hF, hG⟩
-  simp only [degreeZeroMuNoC03Polynomial810, zero_mul, mul_zero, zero_smul, smul_zero,
-    zero_pow_two_rt, zero_pow_three_rt, zero_pow_four_rt, zero_pow_five_rt,
-    zero_pow_six_rt, zero_pow_seven_rt, hA, hB, hE, hF, hG]
-  compute_degree
-  simp only [hA, hB, hE, hF, hG, htie]
-  have h2d : 2 * D0.natDegree + 1 ≤ 3 * C0.natDegree := by omega
-  omega
+  rw [degreeZeroMuNoC03Polynomial810_eq_groups]
+  apply natDegree_add8_lt810
+  all_goals first
+    | rw [speedRefl_degreeZeroMuNoC03G1_eq_polyOf]
+    | rw [speedRefl_degreeZeroMuNoC03G2_eq_polyOf]
+    | rw [speedRefl_degreeZeroMuNoC03G3_eq_polyOf]
+    | rw [speedRefl_degreeZeroMuNoC03G4_eq_polyOf]
+    | rw [speedRefl_degreeZeroMuNoC03G5_eq_polyOf]
+    | rw [speedRefl_degreeZeroMuNoC03G6_eq_polyOf]
+    | rw [speedRefl_degreeZeroMuNoC03G7_eq_polyOf]
+    | rw [speedRefl_degreeZeroMuNoC03G8_eq_polyOf]
+  all_goals apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  all_goals simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+    Nat.add_zero, Nat.zero_add, max_lt_iff]
+  all_goals repeat' apply And.intro
+  all_goals omega
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoB5_natDegree_lt_of_G0withB
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -746,15 +939,24 @@ theorem degreeZeroOmicronNoB5_natDegree_lt_of_G0withB
         theta A B C0 D0 E0 F0 G0).natDegree <
       5 * B.natDegree := by
   rcases hcone with ⟨hGdeg, hBpos, hA, hC, hD, hE, hF⟩
-  simp only [degreeZeroOmicronNoB5Polynomial810, zero_mul, mul_zero, zero_smul,
-    smul_zero, zero_pow_two_rt, zero_pow_three_rt, zero_pow_four_rt,
-    zero_pow_five_rt, zero_pow_six_rt, zero_pow_seven_rt, hA, hC, hD, hE, hF]
-  compute_degree
-  simp only [hA, hC, hD, hE, hF, hGdeg]
-  have h4b : 4 * B.natDegree + 1 ≤ 5 * B.natDegree := by omega
-  have hG1 : G0.natDegree + 1 ≤ 5 * B.natDegree := by omega
-  have h2bG : 2 * B.natDegree + G0.natDegree + 1 ≤ 5 * B.natDegree := by omega
-  omega
+  rw [degreeZeroOmicronNoB5Polynomial810_eq_groups]
+  apply natDegree_add8_lt810
+  all_goals first
+    | rw [speedRefl_degreeZeroOmicronNoB5G1_eq_polyOf]
+    | rw [speedRefl_degreeZeroOmicronNoB5G2_eq_polyOf]
+    | rw [speedRefl_degreeZeroOmicronNoB5G3_eq_polyOf]
+    | rw [speedRefl_degreeZeroOmicronNoB5G4_eq_polyOf]
+    | rw [speedRefl_degreeZeroOmicronNoB5G5_eq_polyOf]
+    | rw [speedRefl_degreeZeroOmicronNoB5G6_eq_polyOf]
+    | rw [speedRefl_degreeZeroOmicronNoB5G7_eq_polyOf]
+    | rw [speedRefl_degreeZeroOmicronNoB5G8_eq_polyOf]
+  all_goals apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  all_goals simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+    Nat.add_zero, Nat.zero_add, max_lt_iff]
+  all_goals repeat' apply And.intro
+  all_goals omega
 
 end MixedRests810
 
@@ -764,6 +966,7 @@ section MixedImpossible810
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 theorem omicron_B5_impossible_of_mixedAPos
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -791,7 +994,7 @@ theorem omicron_B5_impossible_of_mixedAPos
   omega
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem muAB23Combined810_natDegree_eq_of_coeff_ne
     {A B : k[X]}
     (hA : A ≠ 0) (hB : B ≠ 0)
@@ -857,7 +1060,7 @@ theorem muAB23Combined810_natDegree_eq_of_coeff_ne
     exact mul_ne_zero h35 hcoeff
   exact natDegree_eq_of_le_of_coeff_ne_zero hle htop
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem xiAB23Combined810_natDegree_eq_of_coeff_ne
     {A B : k[X]}
     (hA : A ≠ 0) (hB : B ≠ 0)
@@ -931,7 +1134,7 @@ theorem xiAB23Combined810_natDegree_eq_of_coeff_ne
     exact mul_ne_zero (mul_ne_zero h5 hr) hcoeff
   exact natDegree_eq_of_le_of_coeff_ne_zero hle htop
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem mu_AB23_impossible
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -981,6 +1184,7 @@ theorem mu_AB23_impossible
       hcombdeg] at hmuDeg
     omega
 
+set_option maxHeartbeats 64000000 in
 theorem mu_C03_impossible_of_mixedAPos
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -1008,6 +1212,7 @@ theorem mu_C03_impossible_of_mixedAPos
   omega
 
 
+set_option maxHeartbeats 64000000 in
 theorem mu_C03_impossible_of_mixedBPos
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -1034,6 +1239,7 @@ theorem mu_C03_impossible_of_mixedBPos
   rcases hcone with ⟨hCpos, _⟩
   omega
 
+set_option maxHeartbeats 64000000 in
 theorem omicron_D03_impossible_of_mixedAPos
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -1060,6 +1266,7 @@ theorem omicron_D03_impossible_of_mixedAPos
   rcases hcone with ⟨hDpos, _⟩
   omega
 
+set_option maxHeartbeats 64000000 in
 theorem mu_C03_impossible_of_C0D0
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -1086,6 +1293,7 @@ theorem mu_C03_impossible_of_C0D0
   rcases hcone with ⟨hCpos, _⟩
   omega
 
+set_option maxHeartbeats 64000000 in
 theorem omicron_B5_impossible_of_G0withB
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -1112,6 +1320,7 @@ theorem omicron_B5_impossible_of_G0withB
   rcases hcone with ⟨_, hBpos, _⟩
   omega
 
+set_option maxHeartbeats 64000000 in
 theorem mu_E02_impossible_of_mixed
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -1138,6 +1347,7 @@ theorem mu_E02_impossible_of_mixed
   rcases hcone with ⟨hEpos, _⟩
   omega
 
+set_option maxHeartbeats 64000000 in
 theorem xi_F02_impossible_of_mixed
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -1173,6 +1383,7 @@ section MixedClosed810
 
 variable {k : Type*} [Field k] [CharZero k] [IsAlgClosed k]
 
+set_option maxHeartbeats 64000000 in
 /-- Remaining cones after mixed unique `ξ`/`μ`/`ο` faces, the `C₀`–`D₀`
 pair, unique-`G₀` with nonconstant `B`, and the `A`–`B` ratio-tie
 `3 deg A = 2 deg B`.  Unique-`G₀` of degree one with `l = 0` is empty
@@ -1252,6 +1463,7 @@ theorem normalized810ScaleZero_coneMixedResidual
     exact omicron_B5_impossible_of_G0withB l beta gamma delta epsilon
       zeta eta theta A B C0 D0 E0 F0 G0 hGB hom
 
+set_option maxHeartbeats 64000000 in
 theorem normalized810ScaleZero_impossible_of_mixedResidual
     {P Q : MvPolynomial (Fin 2) k} {H : k[X]}
     (hsource : Normalized810LeadingCoreSource P Q H 0)

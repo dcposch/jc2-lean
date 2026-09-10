@@ -1,5 +1,6 @@
 import Grok810ScaleZeroQuarticChamberResidual6Scratch
 import Grok810ScaleZeroQuarticTowerScratch
+import Max11SpeedReflectDegLibScratch
 
 /-! # The `N₇` cost ladder — the split the 202 wall kills need
 
@@ -263,6 +264,30 @@ def n7QuarticNoPureA1810_chunk1
   - (125 / 2048 : k) • (B ^ 4 * D)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n7QuarticNoPureA1810_chunk1` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA1810_chunk1
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    n7QuarticNoPureA1810_chunk1 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(5 / 2048) : k), (23 / 8192 : k), (-(5 / 512) : k),
+      (15 / 512 : k), (-(125 / 2048) : k)
+      ]
+      [
+      [2, 3, 1, 0, 0, 0, 0], [1, 5, 0, 0, 0, 0, 0], [1, 3, 0, 0, 1, 0, 0], [1, 1, 3, 0, 0, 0, 0],
+      [0, 4, 0, 1, 0, 0, 0]
+      ] := by
+  simp only [n7QuarticNoPureA1810_chunk1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n7QuarticNoPureA1810_chunk1_natDegree_lt
     {d : ℕ}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -273,9 +298,15 @@ theorem n7QuarticNoPureA1810_chunk1_natDegree_lt
     (hd3 : A.natDegree + B.natDegree + 3 * C.natDegree < d)
     (hd4 : 4 * B.natDegree + D.natDegree < d) :
     (n7QuarticNoPureA1810_chunk1 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
-  simp only [n7QuarticNoPureA1810_chunk1]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA1810_chunk1]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- A subchunk of `n7QuarticNoPureA1810` containing 5 monomials. -/
@@ -289,6 +320,30 @@ def n7QuarticNoPureA1810_chunk2
   + (15 / 256 : k) • (B ^ 3 * G)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n7QuarticNoPureA1810_chunk2` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA1810_chunk2
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    n7QuarticNoPureA1810_chunk2 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(265 / 2048) : k), (-(5 / 64) : k), (-(5 / 64) : k),
+      (-(5 / 64) : k), (15 / 256 : k)
+      ]
+      [
+      [0, 3, 2, 0, 0, 0, 0], [1, 1, 1, 0, 0, 0, 1], [1, 0, 2, 0, 0, 1, 0], [1, 0, 1, 1, 1, 0, 0],
+      [0, 3, 0, 0, 0, 0, 1]
+      ] := by
+  simp only [n7QuarticNoPureA1810_chunk2, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n7QuarticNoPureA1810_chunk2_natDegree_lt
     {d : ℕ}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -299,9 +354,15 @@ theorem n7QuarticNoPureA1810_chunk2_natDegree_lt
     (hd8 : A.natDegree + C.natDegree + D.natDegree + E.natDegree < d)
     (hd9 : 3 * B.natDegree + G.natDegree < d) :
     (n7QuarticNoPureA1810_chunk2 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
-  simp only [n7QuarticNoPureA1810_chunk2]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA1810_chunk2]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- A subchunk of `n7QuarticNoPureA1810` containing 5 monomials. -/
@@ -315,6 +376,30 @@ def n7QuarticNoPureA1810_chunk3
   + (15 / 128 : k) • (C ^ 3 * D)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n7QuarticNoPureA1810_chunk3` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA1810_chunk3
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    n7QuarticNoPureA1810_chunk3 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (85 / 256 : k), (85 / 256 : k), (45 / 128 : k),
+      (45 / 128 : k), (15 / 128 : k)
+      ]
+      [
+      [0, 2, 1, 0, 0, 1, 0], [0, 2, 0, 1, 1, 0, 0], [0, 1, 2, 0, 1, 0, 0], [0, 1, 1, 2, 0, 0, 0],
+      [0, 0, 3, 1, 0, 0, 0]
+      ] := by
+  simp only [n7QuarticNoPureA1810_chunk3, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n7QuarticNoPureA1810_chunk3_natDegree_lt
     {d : ℕ}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -325,9 +410,15 @@ theorem n7QuarticNoPureA1810_chunk3_natDegree_lt
     (hd13 : B.natDegree + C.natDegree + 2 * D.natDegree < d)
     (hd14 : 3 * C.natDegree + D.natDegree < d) :
     (n7QuarticNoPureA1810_chunk3 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
-  simp only [n7QuarticNoPureA1810_chunk3]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA1810_chunk3]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- A subchunk of `n7QuarticNoPureA1810` containing 5 monomials. -/
@@ -341,6 +432,30 @@ def n7QuarticNoPureA1810_chunk4
   - (5 / 16 : k) • (D ^ 2 * F)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n7QuarticNoPureA1810_chunk4` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA1810_chunk4
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    n7QuarticNoPureA1810_chunk4 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(5 / 16) : k), (-(5 / 16) : k), (-(5 / 16) : k),
+      (-(5 / 8) : k), (-(5 / 16) : k)
+      ]
+      [
+      [0, 1, 0, 0, 1, 0, 1], [0, 1, 0, 0, 0, 2, 0], [0, 0, 1, 1, 0, 0, 1], [0, 0, 1, 0, 1, 1, 0],
+      [0, 0, 0, 2, 0, 1, 0]
+      ] := by
+  simp only [n7QuarticNoPureA1810_chunk4, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n7QuarticNoPureA1810_chunk4_natDegree_lt
     {d : ℕ}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -351,9 +466,15 @@ theorem n7QuarticNoPureA1810_chunk4_natDegree_lt
     (hd18 : C.natDegree + E.natDegree + F.natDegree < d)
     (hd19 : 2 * D.natDegree + F.natDegree < d) :
     (n7QuarticNoPureA1810_chunk4 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
-  simp only [n7QuarticNoPureA1810_chunk4]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA1810_chunk4]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- The small subchunks recover `n7QuarticNoPureA1810` by additive regrouping. -/
@@ -408,6 +529,30 @@ def n7QuarticNoPureA2810_chunk1
   - (315 / 262144 * l : k) • (A ^ 4 * B * D)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n7QuarticNoPureA2810_chunk1` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA2810_chunk1
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    n7QuarticNoPureA2810_chunk1 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(5 / 16) : k), (315 / 524288 * l : k), (-(315 / 2097152 * l) : k),
+      (315 / 131072 * l : k), (-(315 / 262144 * l) : k)
+      ]
+      [
+      [0, 0, 0, 1, 2, 0, 0], [6, 0, 1, 0, 0, 0, 0], [5, 2, 0, 0, 0, 0, 0], [5, 0, 0, 0, 1, 0, 0],
+      [4, 1, 0, 1, 0, 0, 0]
+      ] := by
+  simp only [n7QuarticNoPureA2810_chunk1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n7QuarticNoPureA2810_chunk1_natDegree_lt
     {d : ℕ}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -418,9 +563,15 @@ theorem n7QuarticNoPureA2810_chunk1_natDegree_lt
     (hd3 : 5 * A.natDegree + E.natDegree < d)
     (hd4 : 4 * A.natDegree + B.natDegree + D.natDegree < d) :
     (n7QuarticNoPureA2810_chunk1 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
-  simp only [n7QuarticNoPureA2810_chunk1]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA2810_chunk1]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- A subchunk of `n7QuarticNoPureA2810` containing 5 monomials. -/
@@ -434,6 +585,30 @@ def n7QuarticNoPureA2810_chunk2
   - (45 / 8192 * l : k) • (A ^ 3 * B * F)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n7QuarticNoPureA2810_chunk2` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA2810_chunk2
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    n7QuarticNoPureA2810_chunk2 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (1485 / 524288 * l : k), (-(63 / 131072 * l) : k), (-(45 / 524288 * l) : k),
+      (315 / 32768 * l : k), (-(45 / 8192 * l) : k)
+      ]
+      [
+      [4, 0, 2, 0, 0, 0, 0], [3, 2, 1, 0, 0, 0, 0], [2, 4, 0, 0, 0, 0, 0], [4, 0, 0, 0, 0, 0, 1],
+      [3, 1, 0, 0, 0, 1, 0]
+      ] := by
+  simp only [n7QuarticNoPureA2810_chunk2, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n7QuarticNoPureA2810_chunk2_natDegree_lt
     {d : ℕ}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -444,9 +619,15 @@ theorem n7QuarticNoPureA2810_chunk2_natDegree_lt
     (hd8 : 4 * A.natDegree + G.natDegree < d)
     (hd9 : 3 * A.natDegree + B.natDegree + F.natDegree < d) :
     (n7QuarticNoPureA2810_chunk2 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
-  simp only [n7QuarticNoPureA2810_chunk2]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA2810_chunk2]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- A subchunk of `n7QuarticNoPureA2810` containing 5 monomials. -/
@@ -460,6 +641,30 @@ def n7QuarticNoPureA2810_chunk3
   - (9 / 8192 * l : k) • (A ^ 2 * C ^ 3)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n7QuarticNoPureA2810_chunk3` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA2810_chunk3
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    n7QuarticNoPureA2810_chunk3 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (171 / 8192 * l : k), (-(45 / 16384 * l) : k), (-(45 / 16384 * l) : k),
+      (9 / 4096 * l : k), (-(9 / 8192 * l) : k)
+      ]
+      [
+      [3, 0, 1, 0, 1, 0, 0], [3, 0, 0, 2, 0, 0, 0], [2, 2, 0, 0, 1, 0, 0], [2, 1, 1, 1, 0, 0, 0],
+      [2, 0, 3, 0, 0, 0, 0]
+      ] := by
+  simp only [n7QuarticNoPureA2810_chunk3, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n7QuarticNoPureA2810_chunk3_natDegree_lt
     {d : ℕ}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -470,9 +675,15 @@ theorem n7QuarticNoPureA2810_chunk3_natDegree_lt
     (hd13 : 2 * A.natDegree + B.natDegree + C.natDegree + D.natDegree < d)
     (hd14 : 2 * A.natDegree + 3 * C.natDegree < d) :
     (n7QuarticNoPureA2810_chunk3 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
-  simp only [n7QuarticNoPureA2810_chunk3]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA2810_chunk3]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- A subchunk of `n7QuarticNoPureA2810` containing 5 monomials. -/
@@ -486,6 +697,30 @@ def n7QuarticNoPureA2810_chunk4
   - (27 / 1024 * l : k) • (A ^ 2 * D * F)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n7QuarticNoPureA2810_chunk4` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA2810_chunk4
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    n7QuarticNoPureA2810_chunk4 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(27 / 4096 * l) : k), (45 / 4096 * l : k), (-(567 / 16384 * l) : k),
+      (9 / 128 * l : k), (-(27 / 1024 * l) : k)
+      ]
+      [
+      [1, 3, 0, 1, 0, 0, 0], [1, 2, 2, 0, 0, 0, 0], [0, 4, 1, 0, 0, 0, 0], [2, 0, 1, 0, 0, 0, 1],
+      [2, 0, 0, 1, 0, 1, 0]
+      ] := by
+  simp only [n7QuarticNoPureA2810_chunk4, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n7QuarticNoPureA2810_chunk4_natDegree_lt
     {d : ℕ}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -496,9 +731,15 @@ theorem n7QuarticNoPureA2810_chunk4_natDegree_lt
     (hd18 : 2 * A.natDegree + C.natDegree + G.natDegree < d)
     (hd19 : 2 * A.natDegree + D.natDegree + F.natDegree < d) :
     (n7QuarticNoPureA2810_chunk4 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
-  simp only [n7QuarticNoPureA2810_chunk4]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA2810_chunk4]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- The small subchunks recover `n7QuarticNoPureA2810` by additive regrouping. -/
@@ -553,6 +794,30 @@ def n7QuarticNoPureA3810_chunk1
   - (9 / 512 * l : k) • (A * C * D ^ 2)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n7QuarticNoPureA3810_chunk1` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA3810_chunk1
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    n7QuarticNoPureA3810_chunk1 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (81 / 2048 * l : k), (-(9 / 512 * l) : k), (-(9 / 256 * l) : k),
+      (-(9 / 256 * l) : k), (-(9 / 512 * l) : k)
+      ]
+      [
+      [2, 0, 0, 0, 2, 0, 0], [1, 2, 0, 0, 0, 0, 1], [1, 1, 1, 0, 0, 1, 0], [1, 0, 2, 0, 1, 0, 0],
+      [1, 0, 1, 2, 0, 0, 0]
+      ] := by
+  simp only [n7QuarticNoPureA3810_chunk1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n7QuarticNoPureA3810_chunk1_natDegree_lt
     {d : ℕ}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -563,9 +828,15 @@ theorem n7QuarticNoPureA3810_chunk1_natDegree_lt
     (hd3 : A.natDegree + 2 * C.natDegree + E.natDegree < d)
     (hd4 : A.natDegree + C.natDegree + 2 * D.natDegree < d) :
     (n7QuarticNoPureA3810_chunk1 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
-  simp only [n7QuarticNoPureA3810_chunk1]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA3810_chunk1]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- A subchunk of `n7QuarticNoPureA3810` containing 5 monomials. -/
@@ -579,6 +850,30 @@ def n7QuarticNoPureA3810_chunk2
   + (63 / 4096 * l : k) • C ^ 4
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n7QuarticNoPureA3810_chunk2` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA3810_chunk2
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    n7QuarticNoPureA3810_chunk2 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (27 / 512 * l : k), (45 / 256 * l : k), (45 / 512 * l : k),
+      (189 / 1024 * l : k), (63 / 4096 * l : k)
+      ]
+      [
+      [0, 3, 0, 0, 0, 1, 0], [0, 2, 1, 0, 1, 0, 0], [0, 2, 0, 2, 0, 0, 0], [0, 1, 2, 1, 0, 0, 0],
+      [0, 0, 4, 0, 0, 0, 0]
+      ] := by
+  simp only [n7QuarticNoPureA3810_chunk2, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n7QuarticNoPureA3810_chunk2_natDegree_lt
     {d : ℕ}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -589,9 +884,15 @@ theorem n7QuarticNoPureA3810_chunk2_natDegree_lt
     (hd8 : B.natDegree + 2 * C.natDegree + D.natDegree < d)
     (hd9 : 4 * C.natDegree < d) :
     (n7QuarticNoPureA3810_chunk2 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
-  simp only [n7QuarticNoPureA3810_chunk2]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA3810_chunk2]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- A subchunk of `n7QuarticNoPureA3810` containing 5 monomials. -/
@@ -605,6 +906,30 @@ def n7QuarticNoPureA3810_chunk3
   - (9 / 128 * l : k) • (C ^ 2 * G)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n7QuarticNoPureA3810_chunk3` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA3810_chunk3
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    n7QuarticNoPureA3810_chunk3 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (9 / 32 * l : k), (-(9 / 128 * l) : k), (-(9 / 64 * l) : k),
+      (-(9 / 32 * l) : k), (-(9 / 128 * l) : k)
+      ]
+      [
+      [1, 0, 0, 0, 1, 0, 1], [1, 0, 0, 0, 0, 2, 0], [0, 1, 0, 1, 0, 0, 1], [0, 1, 0, 0, 1, 1, 0],
+      [0, 0, 2, 0, 0, 0, 1]
+      ] := by
+  simp only [n7QuarticNoPureA3810_chunk3, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n7QuarticNoPureA3810_chunk3_natDegree_lt
     {d : ℕ}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -615,9 +940,15 @@ theorem n7QuarticNoPureA3810_chunk3_natDegree_lt
     (hd13 : B.natDegree + E.natDegree + F.natDegree < d)
     (hd14 : 2 * C.natDegree + G.natDegree < d) :
     (n7QuarticNoPureA3810_chunk3 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
-  simp only [n7QuarticNoPureA3810_chunk3]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA3810_chunk3]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- A subchunk of `n7QuarticNoPureA3810` containing 5 monomials. -/
@@ -631,6 +962,30 @@ def n7QuarticNoPureA3810_chunk4
   + (35 / 16384 * beta : k) • (A ^ 5 * C)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n7QuarticNoPureA3810_chunk4` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA3810_chunk4
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    n7QuarticNoPureA3810_chunk4 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(9 / 32 * l) : k), (-(9 / 64 * l) : k), (-(9 / 64 * l) : k),
+      (9 / 16 * l : k), (35 / 16384 * beta : k)
+      ]
+      [
+      [0, 0, 1, 1, 0, 1, 0], [0, 0, 1, 0, 2, 0, 0], [0, 0, 0, 2, 1, 0, 0], [0, 0, 0, 0, 0, 0, 2],
+      [5, 0, 1, 0, 0, 0, 0]
+      ] := by
+  simp only [n7QuarticNoPureA3810_chunk4, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n7QuarticNoPureA3810_chunk4_natDegree_lt
     {d : ℕ}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -641,9 +996,15 @@ theorem n7QuarticNoPureA3810_chunk4_natDegree_lt
     (hd18 : 2 * G.natDegree < d)
     (hd19 : 5 * A.natDegree + C.natDegree < d) :
     (n7QuarticNoPureA3810_chunk4 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
-  simp only [n7QuarticNoPureA3810_chunk4]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA3810_chunk4]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- The small subchunks recover `n7QuarticNoPureA3810` by additive regrouping. -/
@@ -698,6 +1059,30 @@ def n7QuarticNoPureA4810_chunk1
   - (35 / 16384 * beta : k) • (A ^ 2 * B ^ 2 * C)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n7QuarticNoPureA4810_chunk1` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA4810_chunk1
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    n7QuarticNoPureA4810_chunk1 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(35 / 65536 * beta) : k), (35 / 4096 * beta : k), (-(35 / 8192 * beta) : k),
+      (91 / 16384 * beta : k), (-(35 / 16384 * beta) : k)
+      ]
+      [
+      [4, 2, 0, 0, 0, 0, 0], [4, 0, 0, 0, 1, 0, 0], [3, 1, 0, 1, 0, 0, 0], [3, 0, 2, 0, 0, 0, 0],
+      [2, 2, 1, 0, 0, 0, 0]
+      ] := by
+  simp only [n7QuarticNoPureA4810_chunk1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n7QuarticNoPureA4810_chunk1_natDegree_lt
     {d : ℕ}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -708,9 +1093,15 @@ theorem n7QuarticNoPureA4810_chunk1_natDegree_lt
     (hd3 : 3 * A.natDegree + 2 * C.natDegree < d)
     (hd4 : 2 * A.natDegree + 2 * B.natDegree + C.natDegree < d) :
     (n7QuarticNoPureA4810_chunk1 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
-  simp only [n7QuarticNoPureA4810_chunk1]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA4810_chunk1]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- A subchunk of `n7QuarticNoPureA4810` containing 5 monomials. -/
@@ -724,6 +1115,30 @@ def n7QuarticNoPureA4810_chunk2
   - (21 / 2048 * beta : k) • (A ^ 2 * D ^ 2)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n7QuarticNoPureA4810_chunk2` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA4810_chunk2
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    n7QuarticNoPureA4810_chunk2 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (49 / 32768 * beta : k), (35 / 1024 * beta : k), (-(21 / 1024 * beta) : k),
+      (35 / 1024 * beta : k), (-(21 / 2048 * beta) : k)
+      ]
+      [
+      [1, 4, 0, 0, 0, 0, 0], [3, 0, 0, 0, 0, 0, 1], [2, 1, 0, 0, 0, 1, 0], [2, 0, 1, 0, 1, 0, 0],
+      [2, 0, 0, 2, 0, 0, 0]
+      ] := by
+  simp only [n7QuarticNoPureA4810_chunk2, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n7QuarticNoPureA4810_chunk2_natDegree_lt
     {d : ℕ}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -734,9 +1149,15 @@ theorem n7QuarticNoPureA4810_chunk2_natDegree_lt
     (hd8 : 2 * A.natDegree + C.natDegree + E.natDegree < d)
     (hd9 : 2 * A.natDegree + 2 * D.natDegree < d) :
     (n7QuarticNoPureA4810_chunk2 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
-  simp only [n7QuarticNoPureA4810_chunk2]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA4810_chunk2]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- A subchunk of `n7QuarticNoPureA4810` containing 5 monomials. -/
@@ -750,6 +1171,30 @@ def n7QuarticNoPureA4810_chunk3
   - (91 / 1024 * beta : k) • (B ^ 2 * C ^ 2)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n7QuarticNoPureA4810_chunk3` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA4810_chunk3
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    n7QuarticNoPureA4810_chunk3 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(7 / 1024 * beta) : k), (7 / 256 * beta : k), (7 / 512 * beta : k),
+      (-(7 / 128 * beta) : k), (-(91 / 1024 * beta) : k)
+      ]
+      [
+      [1, 2, 0, 0, 1, 0, 0], [1, 1, 1, 1, 0, 0, 0], [1, 0, 3, 0, 0, 0, 0], [0, 3, 0, 1, 0, 0, 0],
+      [0, 2, 2, 0, 0, 0, 0]
+      ] := by
+  simp only [n7QuarticNoPureA4810_chunk3, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n7QuarticNoPureA4810_chunk3_natDegree_lt
     {d : ℕ}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -760,9 +1205,15 @@ theorem n7QuarticNoPureA4810_chunk3_natDegree_lt
     (hd13 : 3 * B.natDegree + D.natDegree < d)
     (hd14 : 2 * B.natDegree + 2 * C.natDegree < d) :
     (n7QuarticNoPureA4810_chunk3 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
-  simp only [n7QuarticNoPureA4810_chunk3]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA4810_chunk3]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- A subchunk of `n7QuarticNoPureA4810` containing 5 monomials. -/
@@ -776,6 +1227,30 @@ def n7QuarticNoPureA4810_chunk4
   + (7 / 64 * beta : k) • (C ^ 2 * E)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n7QuarticNoPureA4810_chunk4` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA4810_chunk4
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    n7QuarticNoPureA4810_chunk4 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(7 / 64 * beta) : k), (7 / 128 * beta : k), (7 / 32 * beta : k),
+      (7 / 32 * beta : k), (7 / 64 * beta : k)
+      ]
+      [
+      [1, 0, 0, 1, 0, 1, 0], [1, 0, 0, 0, 2, 0, 0], [0, 1, 1, 0, 0, 1, 0], [0, 1, 0, 1, 1, 0, 0],
+      [0, 0, 2, 0, 1, 0, 0]
+      ] := by
+  simp only [n7QuarticNoPureA4810_chunk4, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n7QuarticNoPureA4810_chunk4_natDegree_lt
     {d : ℕ}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -786,9 +1261,15 @@ theorem n7QuarticNoPureA4810_chunk4_natDegree_lt
     (hd18 : B.natDegree + D.natDegree + E.natDegree < d)
     (hd19 : 2 * C.natDegree + E.natDegree < d) :
     (n7QuarticNoPureA4810_chunk4 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
-  simp only [n7QuarticNoPureA4810_chunk4]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA4810_chunk4]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- The small subchunks recover `n7QuarticNoPureA4810` by additive regrouping. -/
@@ -843,6 +1324,30 @@ def n7QuarticNoPureA5810_chunk1
   - (3 / 16 * gamma : k) • (A * C * F)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n7QuarticNoPureA5810_chunk1` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA5810_chunk1
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    n7QuarticNoPureA5810_chunk1 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (7 / 64 * beta : k), (-(7 / 16 * beta) : k), (3 / 64 * gamma : k),
+      (-(27 / 256 * gamma) : k), (-(3 / 16 * gamma) : k)
+      ]
+      [
+      [0, 0, 1, 2, 0, 0, 0], [0, 0, 0, 0, 0, 2, 0], [1, 1, 2, 0, 0, 0, 0], [0, 3, 1, 0, 0, 0, 0],
+      [1, 0, 1, 0, 0, 1, 0]
+      ] := by
+  simp only [n7QuarticNoPureA5810_chunk1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n7QuarticNoPureA5810_chunk1_natDegree_lt
     {d : ℕ}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -853,9 +1358,15 @@ theorem n7QuarticNoPureA5810_chunk1_natDegree_lt
     (hd3 : 3 * B.natDegree + C.natDegree < d)
     (hd4 : A.natDegree + C.natDegree + F.natDegree < d) :
     (n7QuarticNoPureA5810_chunk1 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
-  simp only [n7QuarticNoPureA5810_chunk1]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA5810_chunk1]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- A subchunk of `n7QuarticNoPureA5810` containing 5 monomials. -/
@@ -869,6 +1380,30 @@ def n7QuarticNoPureA5810_chunk2
   - (3 / 4 * gamma : k) • (E * F)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n7QuarticNoPureA5810_chunk2` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA5810_chunk2
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    n7QuarticNoPureA5810_chunk2 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (9 / 64 * gamma : k), (3 / 8 * gamma : k), (3 / 16 * gamma : k),
+      (3 / 16 * gamma : k), (-(3 / 4 * gamma) : k)
+      ]
+      [
+      [0, 2, 0, 0, 0, 1, 0], [0, 1, 1, 0, 1, 0, 0], [0, 1, 0, 2, 0, 0, 0], [0, 0, 2, 1, 0, 0, 0],
+      [0, 0, 0, 0, 1, 1, 0]
+      ] := by
+  simp only [n7QuarticNoPureA5810_chunk2, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n7QuarticNoPureA5810_chunk2_natDegree_lt
     {d : ℕ}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -879,9 +1414,15 @@ theorem n7QuarticNoPureA5810_chunk2_natDegree_lt
     (hd8 : 2 * C.natDegree + D.natDegree < d)
     (hd9 : E.natDegree + F.natDegree < d) :
     (n7QuarticNoPureA5810_chunk2 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
-  simp only [n7QuarticNoPureA5810_chunk2]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA5810_chunk2]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- A subchunk of `n7QuarticNoPureA5810` containing 5 monomials. -/
@@ -895,6 +1436,30 @@ def n7QuarticNoPureA5810_chunk3
   + (5 / 2048 * delta : k) • (A ^ 2 * C ^ 2)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n7QuarticNoPureA5810_chunk3` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA5810_chunk3
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    n7QuarticNoPureA5810_chunk3 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 2048 * delta : k), (-(15 / 8192 * delta) : k), (15 / 512 * delta : k),
+      (-(15 / 1024 * delta) : k), (5 / 2048 * delta : k)
+      ]
+      [
+      [4, 0, 1, 0, 0, 0, 0], [3, 2, 0, 0, 0, 0, 0], [3, 0, 0, 0, 1, 0, 0], [2, 1, 0, 1, 0, 0, 0],
+      [2, 0, 2, 0, 0, 0, 0]
+      ] := by
+  simp only [n7QuarticNoPureA5810_chunk3, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n7QuarticNoPureA5810_chunk3_natDegree_lt
     {d : ℕ}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -905,9 +1470,15 @@ theorem n7QuarticNoPureA5810_chunk3_natDegree_lt
     (hd13 : 2 * A.natDegree + B.natDegree + D.natDegree < d)
     (hd14 : 2 * A.natDegree + 2 * C.natDegree < d) :
     (n7QuarticNoPureA5810_chunk3 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
-  simp only [n7QuarticNoPureA5810_chunk3]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA5810_chunk3]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- A subchunk of `n7QuarticNoPureA5810` containing 5 monomials. -/
@@ -921,6 +1492,30 @@ def n7QuarticNoPureA5810_chunk4
   - (5 / 64 * delta : k) • (A * C * E)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n7QuarticNoPureA5810_chunk4` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA5810_chunk4
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    n7QuarticNoPureA5810_chunk4 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (25 / 1024 * delta : k), (-(135 / 4096 * delta) : k), (15 / 128 * delta : k),
+      (-(5 / 64 * delta) : k), (-(5 / 64 * delta) : k)
+      ]
+      [
+      [1, 2, 1, 0, 0, 0, 0], [0, 4, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 1], [1, 1, 0, 0, 0, 1, 0],
+      [1, 0, 1, 0, 1, 0, 0]
+      ] := by
+  simp only [n7QuarticNoPureA5810_chunk4, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n7QuarticNoPureA5810_chunk4_natDegree_lt
     {d : ℕ}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -931,9 +1526,15 @@ theorem n7QuarticNoPureA5810_chunk4_natDegree_lt
     (hd18 : A.natDegree + B.natDegree + F.natDegree < d)
     (hd19 : A.natDegree + C.natDegree + E.natDegree < d) :
     (n7QuarticNoPureA5810_chunk4 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
-  simp only [n7QuarticNoPureA5810_chunk4]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA5810_chunk4]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- The small subchunks recover `n7QuarticNoPureA5810` by additive regrouping. -/
@@ -988,6 +1589,30 @@ def n7QuarticNoPureA6810_chunk1
   - (5 / 8 * delta : k) • (D * F)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n7QuarticNoPureA6810_chunk1` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA6810_chunk1
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    n7QuarticNoPureA6810_chunk1 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(5 / 128 * delta) : k), (25 / 128 * delta : k), (15 / 32 * delta : k),
+      (5 / 64 * delta : k), (-(5 / 8 * delta) : k)
+      ]
+      [
+      [1, 0, 0, 2, 0, 0, 0], [0, 2, 0, 0, 1, 0, 0], [0, 1, 1, 1, 0, 0, 0], [0, 0, 3, 0, 0, 0, 0],
+      [0, 0, 0, 1, 0, 1, 0]
+      ] := by
+  simp only [n7QuarticNoPureA6810_chunk1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n7QuarticNoPureA6810_chunk1_natDegree_lt
     {d : ℕ}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -998,9 +1623,15 @@ theorem n7QuarticNoPureA6810_chunk1_natDegree_lt
     (hd3 : 3 * C.natDegree < d)
     (hd4 : D.natDegree + F.natDegree < d) :
     (n7QuarticNoPureA6810_chunk1 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
-  simp only [n7QuarticNoPureA6810_chunk1]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA6810_chunk1]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- A subchunk of `n7QuarticNoPureA6810` containing 5 monomials. -/
@@ -1014,6 +1645,30 @@ def n7QuarticNoPureA6810_chunk2
   - (1 / 2 * epsilon : k) • (C * F)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n7QuarticNoPureA6810_chunk2` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA6810_chunk2
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    n7QuarticNoPureA6810_chunk2 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(5 / 16 * delta) : k), (-(1 / 8 * epsilon) : k), (7 / 32 * epsilon : k),
+      (1 / 4 * epsilon : k), (-(1 / 2 * epsilon) : k)
+      ]
+      [
+      [0, 0, 0, 0, 2, 0, 0], [1, 0, 1, 1, 0, 0, 0], [0, 2, 0, 1, 0, 0, 0], [0, 1, 2, 0, 0, 0, 0],
+      [0, 0, 1, 0, 0, 1, 0]
+      ] := by
+  simp only [n7QuarticNoPureA6810_chunk2, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n7QuarticNoPureA6810_chunk2_natDegree_lt
     {d : ℕ}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -1024,9 +1679,15 @@ theorem n7QuarticNoPureA6810_chunk2_natDegree_lt
     (hd8 : B.natDegree + 2 * C.natDegree < d)
     (hd9 : C.natDegree + F.natDegree < d) :
     (n7QuarticNoPureA6810_chunk2 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
-  simp only [n7QuarticNoPureA6810_chunk2]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA6810_chunk2]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- A subchunk of `n7QuarticNoPureA6810` containing 5 monomials. -/
@@ -1040,6 +1701,30 @@ def n7QuarticNoPureA6810_chunk3
   - (3 / 64 * zeta : k) • (A * B * D)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n7QuarticNoPureA6810_chunk3` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA6810_chunk3
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    n7QuarticNoPureA6810_chunk3 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(1 / 2 * epsilon) : k), (3 / 128 * zeta : k), (-(3 / 512 * zeta) : k),
+      (3 / 32 * zeta : k), (-(3 / 64 * zeta) : k)
+      ]
+      [
+      [0, 0, 0, 1, 1, 0, 0], [3, 0, 1, 0, 0, 0, 0], [2, 2, 0, 0, 0, 0, 0], [2, 0, 0, 0, 1, 0, 0],
+      [1, 1, 0, 1, 0, 0, 0]
+      ] := by
+  simp only [n7QuarticNoPureA6810_chunk3, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n7QuarticNoPureA6810_chunk3_natDegree_lt
     {d : ℕ}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -1050,9 +1735,15 @@ theorem n7QuarticNoPureA6810_chunk3_natDegree_lt
     (hd13 : 2 * A.natDegree + E.natDegree < d)
     (hd14 : A.natDegree + B.natDegree + D.natDegree < d) :
     (n7QuarticNoPureA6810_chunk3 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
-  simp only [n7QuarticNoPureA6810_chunk3]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA6810_chunk3]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- A subchunk of `n7QuarticNoPureA6810` containing 5 monomials. -/
@@ -1066,6 +1757,30 @@ def n7QuarticNoPureA6810_chunk4
   - (3 / 8 * zeta : k) • (C * E)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n7QuarticNoPureA6810_chunk4` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA6810_chunk4
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    n7QuarticNoPureA6810_chunk4 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(9 / 128 * zeta) : k), (27 / 128 * zeta : k), (3 / 8 * zeta : k),
+      (-(3 / 8 * zeta) : k), (-(3 / 8 * zeta) : k)
+      ]
+      [
+      [1, 0, 2, 0, 0, 0, 0], [0, 2, 1, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 1], [0, 1, 0, 0, 0, 1, 0],
+      [0, 0, 1, 0, 1, 0, 0]
+      ] := by
+  simp only [n7QuarticNoPureA6810_chunk4, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n7QuarticNoPureA6810_chunk4_natDegree_lt
     {d : ℕ}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -1076,9 +1791,15 @@ theorem n7QuarticNoPureA6810_chunk4_natDegree_lt
     (hd18 : B.natDegree + F.natDegree < d)
     (hd19 : C.natDegree + E.natDegree < d) :
     (n7QuarticNoPureA6810_chunk4 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
-  simp only [n7QuarticNoPureA6810_chunk4]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA6810_chunk4]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- The small subchunks recover `n7QuarticNoPureA6810` by additive regrouping. -/
@@ -1133,6 +1854,30 @@ def n7QuarticNoPureA7810_chunk1
   - (1 / 4 * eta : k) • (C * D)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n7QuarticNoPureA7810_chunk1` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA7810_chunk1
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    n7QuarticNoPureA7810_chunk1 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(3 / 16 * zeta) : k), (-(1 / 16 * eta) : k), (3 / 64 * eta : k),
+      (-(1 / 4 * eta) : k), (-(1 / 4 * eta) : k)
+      ]
+      [
+      [0, 0, 0, 2, 0, 0, 0], [1, 1, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0], [0, 1, 0, 0, 1, 0, 0],
+      [0, 0, 1, 1, 0, 0, 0]
+      ] := by
+  simp only [n7QuarticNoPureA7810_chunk1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n7QuarticNoPureA7810_chunk1_natDegree_lt
     {d : ℕ}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -1143,9 +1888,15 @@ theorem n7QuarticNoPureA7810_chunk1_natDegree_lt
     (hd3 : B.natDegree + E.natDegree < d)
     (hd4 : C.natDegree + D.natDegree < d) :
     (n7QuarticNoPureA7810_chunk1 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
-  simp only [n7QuarticNoPureA7810_chunk1]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA7810_chunk1]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- A subchunk of `n7QuarticNoPureA7810` containing 5 monomials. -/
@@ -1159,6 +1910,30 @@ def n7QuarticNoPureA7810_chunk2
   - (1 / 16 * theta : k) • C ^ 2
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n7QuarticNoPureA7810_chunk2` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA7810_chunk2
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    n7QuarticNoPureA7810_chunk2 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (1 / 16 * theta : k), (-(1 / 64 * theta) : k), (1 / 4 * theta : k),
+      (-(1 / 8 * theta) : k), (-(1 / 16 * theta) : k)
+      ]
+      [
+      [2, 0, 1, 0, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0], [1, 0, 0, 0, 1, 0, 0], [0, 1, 0, 1, 0, 0, 0],
+      [0, 0, 2, 0, 0, 0, 0]
+      ] := by
+  simp only [n7QuarticNoPureA7810_chunk2, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n7QuarticNoPureA7810_chunk2_natDegree_lt
     {d : ℕ}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -1169,9 +1944,15 @@ theorem n7QuarticNoPureA7810_chunk2_natDegree_lt
     (hd8 : B.natDegree + D.natDegree < d)
     (hd9 : 2 * C.natDegree < d) :
     (n7QuarticNoPureA7810_chunk2 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
-  simp only [n7QuarticNoPureA7810_chunk2]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA7810_chunk2]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- A subchunk of `n7QuarticNoPureA7810` containing 1 monomial. -/
@@ -1181,15 +1962,43 @@ def n7QuarticNoPureA7810_chunk3
   (1 * theta : k) • G
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `n7QuarticNoPureA7810_chunk3` (1 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA7810_chunk3
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    n7QuarticNoPureA7810_chunk3 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (1 * theta : k)
+      ]
+      [
+      [0, 0, 0, 0, 0, 0, 1]
+      ] := by
+  simp only [n7QuarticNoPureA7810_chunk3, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem n7QuarticNoPureA7810_chunk3_natDegree_lt
     {d : ℕ}
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X])
     (hd10 : G.natDegree < d) :
     (n7QuarticNoPureA7810_chunk3 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
-  simp only [n7QuarticNoPureA7810_chunk3]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberN7Ladder_n7QuarticNoPureA7810_chunk3]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- The small subchunks recover `n7QuarticNoPureA7810` by additive regrouping. -/

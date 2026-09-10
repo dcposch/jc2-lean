@@ -57,22 +57,22 @@ theorem muQuarticChamberFace10810_coeff_top_S08
     all_goals omega
   have hc0 : ((A * B ^ 2 * C)).coeff (A.natDegree + 2 * B.natDegree + C.natDegree) = A.leadingCoeff * B.leadingCoeff ^ 2 * C.leadingCoeff := by
     rw [← hd0, coeff_natDegree]
-    simp only [leadingCoeff_mul, leadingCoeff_pow]
+    all_goals simp only [leadingCoeff_mul, leadingCoeff_pow]
   have hd1 : (C ^ 3).natDegree = A.natDegree + 2 * B.natDegree + C.natDegree := by
     simp only [natDegree_pow]
     all_goals omega
   have hc1 : (C ^ 3).coeff (A.natDegree + 2 * B.natDegree + C.natDegree) = C.leadingCoeff ^ 3 := by
     rw [← hd1, coeff_natDegree]
-    simp only [leadingCoeff_mul, leadingCoeff_pow]
+    all_goals simp only [leadingCoeff_mul, leadingCoeff_pow]
   have hd2 : ((C * G)).natDegree = A.natDegree + 2 * B.natDegree + C.natDegree := by
     rw [natDegree_mul hCne hGne]
     all_goals omega
   have hc2 : ((C * G)).coeff (A.natDegree + 2 * B.natDegree + C.natDegree) = C.leadingCoeff * G.leadingCoeff := by
     rw [← hd2, coeff_natDegree]
-    simp only [leadingCoeff_mul, leadingCoeff_pow]
+    all_goals simp only [leadingCoeff_mul, leadingCoeff_pow]
   rw [hc0, hc1, hc2]
-  simp only [muQuarticPowerInnerS08810]
-  ring
+  all_goals simp only [muQuarticPowerInnerS08810]
+  all_goals ring
 
 
 end QuarticChamberPowerKills810
