@@ -64,56 +64,56 @@ theorem piQuarticChamberFace9810_coeff_top_S32
     all_goals omega
   have hc0 : ((A ^ 2 * B ^ 4)).coeff (2 * A.natDegree + 4 * B.natDegree) = A.leadingCoeff ^ 2 * B.leadingCoeff ^ 4 := by
     rw [← hd0, coeff_natDegree]
-    simp only [leadingCoeff_mul, leadingCoeff_pow]
+    all_goals simp only [leadingCoeff_mul, leadingCoeff_pow]
   have hd1 : ((A * B ^ 2 * C ^ 2)).natDegree = 2 * A.natDegree + 4 * B.natDegree := by
     rw [natDegree_mul (mul_ne_zero hAne (pow_ne_zero 2 hBne)) (pow_ne_zero 2 hCne), natDegree_mul hAne (pow_ne_zero 2 hBne)]
     simp only [natDegree_pow]
     all_goals omega
   have hc1 : ((A * B ^ 2 * C ^ 2)).coeff (2 * A.natDegree + 4 * B.natDegree) = A.leadingCoeff * B.leadingCoeff ^ 2 * C.leadingCoeff ^ 2 := by
     rw [← hd1, coeff_natDegree]
-    simp only [leadingCoeff_mul, leadingCoeff_pow]
+    all_goals simp only [leadingCoeff_mul, leadingCoeff_pow]
   have hd2 : ((A * B ^ 2 * G)).natDegree = 2 * A.natDegree + 4 * B.natDegree := by
     rw [natDegree_mul (mul_ne_zero hAne (pow_ne_zero 2 hBne)) hGne, natDegree_mul hAne (pow_ne_zero 2 hBne)]
     simp only [natDegree_pow]
     all_goals omega
   have hc2 : ((A * B ^ 2 * G)).coeff (2 * A.natDegree + 4 * B.natDegree) = A.leadingCoeff * B.leadingCoeff ^ 2 * G.leadingCoeff := by
     rw [← hd2, coeff_natDegree]
-    simp only [leadingCoeff_mul, leadingCoeff_pow]
+    all_goals simp only [leadingCoeff_mul, leadingCoeff_pow]
   have hd3 : ((A * B * C * F)).natDegree = 2 * A.natDegree + 4 * B.natDegree := by
     rw [natDegree_mul (mul_ne_zero (mul_ne_zero hAne hBne) hCne) hFne, natDegree_mul (mul_ne_zero hAne hBne) hCne, natDegree_mul hAne hBne]
     all_goals omega
   have hc3 : ((A * B * C * F)).coeff (2 * A.natDegree + 4 * B.natDegree) = A.leadingCoeff * B.leadingCoeff * C.leadingCoeff * F.leadingCoeff := by
     rw [← hd3, coeff_natDegree]
-    simp only [leadingCoeff_mul, leadingCoeff_pow]
+    all_goals simp only [leadingCoeff_mul, leadingCoeff_pow]
   have hd4 : (C ^ 4).natDegree = 2 * A.natDegree + 4 * B.natDegree := by
     simp only [natDegree_pow]
     all_goals omega
   have hc4 : (C ^ 4).coeff (2 * A.natDegree + 4 * B.natDegree) = C.leadingCoeff ^ 4 := by
     rw [← hd4, coeff_natDegree]
-    simp only [leadingCoeff_mul, leadingCoeff_pow]
+    all_goals simp only [leadingCoeff_mul, leadingCoeff_pow]
   have hd5 : ((A * F ^ 2)).natDegree = 2 * A.natDegree + 4 * B.natDegree := by
     rw [natDegree_mul hAne (pow_ne_zero 2 hFne)]
     simp only [natDegree_pow]
     all_goals omega
   have hc5 : ((A * F ^ 2)).coeff (2 * A.natDegree + 4 * B.natDegree) = A.leadingCoeff * F.leadingCoeff ^ 2 := by
     rw [← hd5, coeff_natDegree]
-    simp only [leadingCoeff_mul, leadingCoeff_pow]
+    all_goals simp only [leadingCoeff_mul, leadingCoeff_pow]
   have hd6 : ((C ^ 2 * G)).natDegree = 2 * A.natDegree + 4 * B.natDegree := by
     rw [natDegree_mul (pow_ne_zero 2 hCne) hGne]
     simp only [natDegree_pow]
     all_goals omega
   have hc6 : ((C ^ 2 * G)).coeff (2 * A.natDegree + 4 * B.natDegree) = C.leadingCoeff ^ 2 * G.leadingCoeff := by
     rw [← hd6, coeff_natDegree]
-    simp only [leadingCoeff_mul, leadingCoeff_pow]
+    all_goals simp only [leadingCoeff_mul, leadingCoeff_pow]
   have hd7 : (G ^ 2).natDegree = 2 * A.natDegree + 4 * B.natDegree := by
     simp only [natDegree_pow]
     all_goals omega
   have hc7 : (G ^ 2).coeff (2 * A.natDegree + 4 * B.natDegree) = G.leadingCoeff ^ 2 := by
     rw [← hd7, coeff_natDegree]
-    simp only [leadingCoeff_mul, leadingCoeff_pow]
+    all_goals simp only [leadingCoeff_mul, leadingCoeff_pow]
   rw [hc0, hc1, hc2, hc3, hc4, hc5, hc6, hc7]
-  simp only [piQuarticPowerInnerS32810]
-  ring
+  all_goals simp only [piQuarticPowerInnerS32810]
+  all_goals ring
 
 end QuarticChamberRefinedKills810
 

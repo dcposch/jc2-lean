@@ -111,7 +111,7 @@
       "configFile": "lakefile.toml"
     }
   ],
-  "name": "jc2_max11_full",
+  "name": "jc2_max11",
   "lakeDir": ".lake",
   "fixedToolchain": false
 }

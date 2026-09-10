@@ -58,6 +58,7 @@ section DefectCones810
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 /-- `A` is a (not necessarily unique) maximum of the free core.  On this
 cone the face `A⁷` of `ξ` is unique of degree `7 deg A ≥ 7`. -/
 def AMaximalCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
@@ -69,6 +70,7 @@ def AMaximalCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
     F0.natDegree ≤ A.natDegree ∧
     G0.natDegree ≤ A.natDegree
 
+set_option maxHeartbeats 64000000 in
 /-- Unique-`B`: `B` strictly outranks the other six free letters. -/
 def UniqueHighBCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
   0 < B.natDegree ∧
@@ -79,6 +81,7 @@ def UniqueHighBCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
     F0.natDegree < B.natDegree ∧
     G0.natDegree < B.natDegree
 
+set_option maxHeartbeats 64000000 in
 /-- Unique-`B` with `A` of degree zero (the parent leftover unique-`B`
 chamber).  On this cone the face `B⁵` of `ο` is unique of degree
 `5 deg B ≥ 5`. -/
@@ -86,6 +89,7 @@ def BLeadsOmicronCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
   UniqueHighBCone810 A B C0 D0 E0 F0 G0 ∧
     A.natDegree = 0
 
+set_option maxHeartbeats 64000000 in
 /-- Unique-`C₀`. -/
 def UniqueHighC0Cone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
   0 < C0.natDegree ∧
@@ -96,12 +100,14 @@ def UniqueHighC0Cone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
     F0.natDegree < C0.natDegree ∧
     G0.natDegree < C0.natDegree
 
+set_option maxHeartbeats 64000000 in
 /-- Unique-`C₀` with `A` and `B` of degree zero. -/
 def C0LeadsMuCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
   UniqueHighC0Cone810 A B C0 D0 E0 F0 G0 ∧
     A.natDegree = 0 ∧
     B.natDegree = 0
 
+set_option maxHeartbeats 64000000 in
 /-- Unique-`D₀`. -/
 def UniqueHighD0Cone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
   0 < D0.natDegree ∧
@@ -112,12 +118,14 @@ def UniqueHighD0Cone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
     F0.natDegree < D0.natDegree ∧
     G0.natDegree < D0.natDegree
 
+set_option maxHeartbeats 64000000 in
 /-- Unique-`D₀` with `A` and `B` of degree zero. -/
 def D0LeadsOmicronCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
   UniqueHighD0Cone810 A B C0 D0 E0 F0 G0 ∧
     A.natDegree = 0 ∧
     B.natDegree = 0
 
+set_option maxHeartbeats 64000000 in
 /-- Unique nonconstant `E₀` with the other six letters of degree zero. -/
 def E0LeadsMuCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
   0 < E0.natDegree ∧
@@ -128,6 +136,7 @@ def E0LeadsMuCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
     F0.natDegree = 0 ∧
     G0.natDegree = 0
 
+set_option maxHeartbeats 64000000 in
 /-- Unique nonconstant `F₀` with the other six letters of degree zero. -/
 def F0LeadsXiCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
   0 < F0.natDegree ∧
@@ -138,6 +147,7 @@ def F0LeadsXiCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
     E0.natDegree = 0 ∧
     G0.natDegree = 0
 
+set_option maxHeartbeats 64000000 in
 /-- Unique-`G₀` of Newton degree one (the parent leftover chamber).
 The other six letters then have degree zero. -/
 def UniqueHighG0DegOneCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
@@ -149,21 +159,27 @@ def UniqueHighG0DegOneCone810 (A B C0 D0 E0 F0 G0 : k[X]) : Prop :=
     E0.natDegree = 0 ∧
     F0.natDegree = 0
 
+set_option maxHeartbeats 64000000 in
 private theorem zero_pow_two {R : Type*} [Semiring R] : (0 : R) ^ 2 = 0 :=
   zero_pow (by decide : (2 : ℕ) ≠ 0)
 
+set_option maxHeartbeats 64000000 in
 private theorem zero_pow_three {R : Type*} [Semiring R] : (0 : R) ^ 3 = 0 :=
   zero_pow (by decide : (3 : ℕ) ≠ 0)
 
+set_option maxHeartbeats 64000000 in
 private theorem zero_pow_four {R : Type*} [Semiring R] : (0 : R) ^ 4 = 0 :=
   zero_pow (by decide : (4 : ℕ) ≠ 0)
 
+set_option maxHeartbeats 64000000 in
 private theorem zero_pow_five {R : Type*} [Semiring R] : (0 : R) ^ 5 = 0 :=
   zero_pow (by decide : (5 : ℕ) ≠ 0)
 
+set_option maxHeartbeats 64000000 in
 private theorem zero_pow_six {R : Type*} [Semiring R] : (0 : R) ^ 6 = 0 :=
   zero_pow (by decide : (6 : ℕ) ≠ 0)
 
+set_option maxHeartbeats 64000000 in
 private theorem zero_pow_seven {R : Type*} [Semiring R] : (0 : R) ^ 7 = 0 :=
   zero_pow (by decide : (7 : ℕ) ≠ 0)
 
@@ -175,7 +191,7 @@ section FirstIntegralPolynomials810
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 /-- Polynomial pullback of `xiResidual810` after the triangular Faber
 coordinates are ground constants.  CAS: load-free face `A⁷`. -/
 def degreeZeroXiPolynomial810
@@ -273,7 +289,7 @@ def degreeZeroXiPolynomial810
     + (1 / 4 * eta : k) • E0
     + (1 / 8 * theta : k) • D0
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 /-- Polynomial pullback of `muResidual810` after triangular substitution.
 CAS: load-free faces `B⁴`, `C₀³`, `E₀²`. -/
 def degreeZeroMuPolynomial810
@@ -337,7 +353,7 @@ def degreeZeroMuPolynomial810
     + (1 / 4 * eta : k) • C0
     + (1 / 8 * theta : k) • B
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 /-- Polynomial pullback of `omicronResidual810` after the triangular Faber
 coordinates are ground constants.  CAS: load-free faces `B⁵`, `D₀³`. -/
 def degreeZeroOmicronPolynomial810
@@ -460,7 +476,7 @@ def degreeZeroOmicronPolynomial810
     + (1 / 4 * eta : k) • F0
     + (1 / 8 * theta : k) • E0
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 /-- `ξ` with the unique `A⁷` face deleted. -/
 def degreeZeroXiNoA7Polynomial810
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -556,7 +572,7 @@ def degreeZeroXiNoA7Polynomial810
     + (1 / 4 * eta : k) • E0
     + (1 / 8 * theta : k) • D0
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 /-- `ξ` with the unique `F₀²` face deleted. -/
 def degreeZeroXiNoF02Polynomial810
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -652,7 +668,7 @@ def degreeZeroXiNoF02Polynomial810
     + (1 / 4 * eta : k) • E0
     + (1 / 8 * theta : k) • D0
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 /-- `μ` with the unique `B⁴` face deleted. -/
 def degreeZeroMuNoB4Polynomial810
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -714,7 +730,7 @@ def degreeZeroMuNoB4Polynomial810
     + (1 / 4 * eta : k) • C0
     + (1 / 8 * theta : k) • B
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 /-- `μ` with the unique `C₀³` face deleted. -/
 def degreeZeroMuNoC03Polynomial810
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -776,7 +792,7 @@ def degreeZeroMuNoC03Polynomial810
     + (1 / 4 * eta : k) • C0
     + (1 / 8 * theta : k) • B
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 /-- `μ` with the unique `E₀²` face deleted. -/
 def degreeZeroMuNoE02Polynomial810
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -838,7 +854,7 @@ def degreeZeroMuNoE02Polynomial810
     + (1 / 4 * eta : k) • C0
     + (1 / 8 * theta : k) • B
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 /-- `ο` with the unique `B⁵` face deleted. -/
 def degreeZeroOmicronNoB5Polynomial810
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -959,7 +975,7 @@ def degreeZeroOmicronNoB5Polynomial810
     + (1 / 4 * eta : k) • F0
     + (1 / 8 * theta : k) • E0
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 /-- `ο` with the unique `D₀³` face deleted. -/
 def degreeZeroOmicronNoD03Polynomial810
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -1080,7 +1096,7 @@ def degreeZeroOmicronNoD03Polynomial810
     + (1 / 4 * eta : k) • F0
     + (1 / 8 * theta : k) • E0
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 /-- `G₀`-linear coefficient of `ξ` (no `G₀²` term). -/
 def xiG0Coefficient810
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -1093,6 +1109,7 @@ def xiG0Coefficient810
     + (9 / 64 * l : k) • D0
     + (1 / 2 * epsilon : k) • 1
 
+set_option maxHeartbeats 64000000 in
 /-- `G₀`-linear coefficient of `μ`. -/
 def muG0Coefficient810
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -1102,6 +1119,7 @@ def muG0Coefficient810
     + (9 / 64 * l : k) • B
     + (3 / 4 * gamma : k) • 1
 
+set_option maxHeartbeats 64000000 in
 /-- `G₀`-linear coefficient of `ο`. -/
 def omicronG0Coefficient810
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -1124,7 +1142,7 @@ section DefectSplittings810
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiPolynomial810_eq_A7_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) :
@@ -1134,9 +1152,10 @@ theorem degreeZeroXiPolynomial810_eq_A7_add_rest
         degreeZeroXiNoA7Polynomial810 l beta gamma delta epsilon zeta eta
           theta A B C0 D0 E0 F0 G0 := by
   simp only [degreeZeroXiPolynomial810, degreeZeroXiNoA7Polynomial810]
-  module
+  simp only [neg_smul]
+  abel
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiPolynomial810_eq_F02_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) :
@@ -1146,9 +1165,10 @@ theorem degreeZeroXiPolynomial810_eq_F02_add_rest
         degreeZeroXiNoF02Polynomial810 l beta gamma delta epsilon zeta eta
           theta A B C0 D0 E0 F0 G0 := by
   simp only [degreeZeroXiPolynomial810, degreeZeroXiNoF02Polynomial810]
-  module
+  simp only [neg_smul]
+  abel
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuPolynomial810_eq_B4_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) :
@@ -1158,9 +1178,9 @@ theorem degreeZeroMuPolynomial810_eq_B4_add_rest
         degreeZeroMuNoB4Polynomial810 l beta gamma delta epsilon zeta eta
           theta A B C0 D0 E0 F0 G0 := by
   simp only [degreeZeroMuPolynomial810, degreeZeroMuNoB4Polynomial810]
-  module
+  abel
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuPolynomial810_eq_C03_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) :
@@ -1170,9 +1190,10 @@ theorem degreeZeroMuPolynomial810_eq_C03_add_rest
         degreeZeroMuNoC03Polynomial810 l beta gamma delta epsilon zeta eta
           theta A B C0 D0 E0 F0 G0 := by
   simp only [degreeZeroMuPolynomial810, degreeZeroMuNoC03Polynomial810]
-  module
+  simp only [neg_smul]
+  abel
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuPolynomial810_eq_E02_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) :
@@ -1182,9 +1203,9 @@ theorem degreeZeroMuPolynomial810_eq_E02_add_rest
         degreeZeroMuNoE02Polynomial810 l beta gamma delta epsilon zeta eta
           theta A B C0 D0 E0 F0 G0 := by
   simp only [degreeZeroMuPolynomial810, degreeZeroMuNoE02Polynomial810]
-  module
+  abel
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronPolynomial810_eq_B5_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) :
@@ -1195,9 +1216,10 @@ theorem degreeZeroOmicronPolynomial810_eq_B5_add_rest
           eta theta A B C0 D0 E0 F0 G0 := by
   simp only [degreeZeroOmicronPolynomial810,
     degreeZeroOmicronNoB5Polynomial810]
-  module
+  simp only [neg_smul]
+  abel
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronPolynomial810_eq_D03_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) :
@@ -1208,7 +1230,8 @@ theorem degreeZeroOmicronPolynomial810_eq_D03_add_rest
           eta theta A B C0 D0 E0 F0 G0 := by
   simp only [degreeZeroOmicronPolynomial810,
     degreeZeroOmicronNoD03Polynomial810]
-  module
+  simp only [neg_smul]
+  abel
 
 end DefectSplittings810
 
@@ -1218,6 +1241,7 @@ section DefectGroups810
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroXiNoA7G1
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -1234,6 +1258,7 @@ def degreeZeroXiNoA7G1
     - (4725 / 262144 * l : k) • (A ^ 4 * D0)
     + (357 / 16384 * beta : k) • (A ^ 4 * B)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroXiNoA7G2
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -1250,6 +1275,7 @@ def degreeZeroXiNoA7G2
     + (75 / 1024 : k) • (A ^ 2 * D0 ^ 2)
     + (75 / 512 : k) • (A ^ 2 * C0 * E0)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroXiNoA7G3
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -1266,6 +1292,7 @@ def degreeZeroXiNoA7G3
     - (3 / 128 * epsilon : k) • A ^ 4
     - (15 / 128 : k) • (C0 * D0 ^ 2)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroXiNoA7G4
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -1282,6 +1309,7 @@ def degreeZeroXiNoA7G4
     + (3 / 32 * gamma : k) • (B ^ 2 * C0)
     + (5 / 128 * delta : k) • B ^ 3
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroXiNoA7G5
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -1298,6 +1326,7 @@ def degreeZeroXiNoA7G5
     + (15 / 64 * delta : k) • (A * B * C0)
     + (1 / 8 * epsilon : k) • (A * B ^ 2)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroXiNoA7G6
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -1314,6 +1343,7 @@ def degreeZeroXiNoA7G6
     - (7 / 64 * beta : k) • (D0 * E0)
     - (3 / 32 * gamma : k) • D0 ^ 2
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroXiNoA7G7
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -1330,6 +1360,7 @@ def degreeZeroXiNoA7G7
     - (1 / 8 * epsilon : k) • (A * E0)
     - (9 / 64 * zeta : k) • (A * D0)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroXiNoA7G8
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -1340,7 +1371,7 @@ def degreeZeroXiNoA7G8
     + (1 / 4 * eta : k) • E0
     + (1 / 8 * theta : k) • D0
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoA7Polynomial810_eq_groups
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) :
@@ -1363,9 +1394,10 @@ theorem degreeZeroXiNoA7Polynomial810_eq_groups
     degreeZeroXiNoA7G6,
     degreeZeroXiNoA7G7,
     degreeZeroXiNoA7G8]
-  module
+  simp only [neg_smul]
+  abel
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroXiNoA7G1` (12 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -1389,7 +1421,7 @@ theorem speedRefl_degreeZeroXiNoA7G1_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoA7G1_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -1417,7 +1449,7 @@ theorem degreeZeroXiNoA7G1_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroXiNoA7G2` (12 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -1441,7 +1473,7 @@ theorem speedRefl_degreeZeroXiNoA7G2_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoA7G2_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -1469,7 +1501,7 @@ theorem degreeZeroXiNoA7G2_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroXiNoA7G3` (12 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -1493,7 +1525,7 @@ theorem speedRefl_degreeZeroXiNoA7G3_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoA7G3_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -1521,7 +1553,7 @@ theorem degreeZeroXiNoA7G3_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroXiNoA7G4` (12 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -1545,7 +1577,7 @@ theorem speedRefl_degreeZeroXiNoA7G4_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoA7G4_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -1573,7 +1605,7 @@ theorem degreeZeroXiNoA7G4_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroXiNoA7G5` (12 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -1597,7 +1629,7 @@ theorem speedRefl_degreeZeroXiNoA7G5_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoA7G5_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -1625,7 +1657,7 @@ theorem degreeZeroXiNoA7G5_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroXiNoA7G6` (12 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -1649,7 +1681,7 @@ theorem speedRefl_degreeZeroXiNoA7G6_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoA7G6_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -1677,7 +1709,7 @@ theorem degreeZeroXiNoA7G6_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroXiNoA7G7` (12 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -1701,7 +1733,7 @@ theorem speedRefl_degreeZeroXiNoA7G7_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoA7G7_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -1729,7 +1761,7 @@ theorem degreeZeroXiNoA7G7_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroXiNoA7G8` (6 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -1750,7 +1782,7 @@ theorem speedRefl_degreeZeroXiNoA7G8_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoA7G8_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -1778,6 +1810,7 @@ theorem degreeZeroXiNoA7G8_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoA7Polynomial810_natDegree_lt_of_groups
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -1796,6 +1829,7 @@ theorem degreeZeroXiNoA7Polynomial810_natDegree_lt_of_groups
     (degreeZeroXiNoA7G7_natDegree_lt l beta gamma delta epsilon zeta eta theta A B C0 D0 E0 F0 G0 hcone)
     (degreeZeroXiNoA7G8_natDegree_lt l beta gamma delta epsilon zeta eta theta A B C0 D0 E0 F0 G0 hcone)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroXiNoF02G1
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -1812,6 +1846,7 @@ def degreeZeroXiNoF02G1
     - (245 / 8192 : k) • (A ^ 4 * E0)
     - (4725 / 262144 * l : k) • (A ^ 4 * D0)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroXiNoF02G2
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -1828,6 +1863,7 @@ def degreeZeroXiNoF02G2
     - (63 / 2048 * beta : k) • (A * B ^ 3)
     + (75 / 1024 : k) • (A ^ 2 * D0 ^ 2)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroXiNoF02G3
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -1844,6 +1880,7 @@ def degreeZeroXiNoF02G3
     - (165 / 2048 * delta : k) • (A ^ 3 * B)
     - (3 / 128 * epsilon : k) • A ^ 4
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroXiNoF02G4
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -1860,6 +1897,7 @@ def degreeZeroXiNoF02G4
     + (49 / 1024 * beta : k) • (B ^ 2 * D0)
     + (3 / 32 * gamma : k) • (B ^ 2 * C0)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroXiNoF02G5
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -1876,6 +1914,7 @@ def degreeZeroXiNoF02G5
     + (21 / 128 * gamma : k) • (A * B * D0)
     + (15 / 64 * delta : k) • (A * B * C0)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroXiNoF02G6
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -1892,6 +1931,7 @@ def degreeZeroXiNoF02G6
     - (7 / 64 * beta : k) • (D0 * E0)
     - (3 / 32 * gamma : k) • D0 ^ 2
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroXiNoF02G7
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -1908,6 +1948,7 @@ def degreeZeroXiNoF02G7
     - (1 / 8 * epsilon : k) • (A * E0)
     - (9 / 64 * zeta : k) • (A * D0)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroXiNoF02G8
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -1918,7 +1959,7 @@ def degreeZeroXiNoF02G8
     + (1 / 4 * eta : k) • E0
     + (1 / 8 * theta : k) • D0
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoF02Polynomial810_eq_groups
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) :
@@ -1941,9 +1982,10 @@ theorem degreeZeroXiNoF02Polynomial810_eq_groups
     degreeZeroXiNoF02G6,
     degreeZeroXiNoF02G7,
     degreeZeroXiNoF02G8]
-  module
+  simp only [neg_smul]
+  abel
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroXiNoF02G1` (12 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -1967,7 +2009,7 @@ theorem speedRefl_degreeZeroXiNoF02G1_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoF02G1_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -1995,7 +2037,7 @@ theorem degreeZeroXiNoF02G1_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroXiNoF02G2` (12 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -2019,7 +2061,7 @@ theorem speedRefl_degreeZeroXiNoF02G2_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoF02G2_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -2047,7 +2089,7 @@ theorem degreeZeroXiNoF02G2_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroXiNoF02G3` (12 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -2071,7 +2113,7 @@ theorem speedRefl_degreeZeroXiNoF02G3_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoF02G3_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -2099,7 +2141,7 @@ theorem degreeZeroXiNoF02G3_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroXiNoF02G4` (12 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -2123,7 +2165,7 @@ theorem speedRefl_degreeZeroXiNoF02G4_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoF02G4_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -2151,7 +2193,7 @@ theorem degreeZeroXiNoF02G4_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroXiNoF02G5` (12 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -2175,7 +2217,7 @@ theorem speedRefl_degreeZeroXiNoF02G5_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoF02G5_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -2203,7 +2245,7 @@ theorem degreeZeroXiNoF02G5_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroXiNoF02G6` (12 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -2227,7 +2269,7 @@ theorem speedRefl_degreeZeroXiNoF02G6_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoF02G6_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -2255,7 +2297,7 @@ theorem degreeZeroXiNoF02G6_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroXiNoF02G7` (12 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -2279,7 +2321,7 @@ theorem speedRefl_degreeZeroXiNoF02G7_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoF02G7_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -2307,7 +2349,7 @@ theorem degreeZeroXiNoF02G7_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroXiNoF02G8` (6 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -2328,7 +2370,7 @@ theorem speedRefl_degreeZeroXiNoF02G8_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoF02G8_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -2356,6 +2398,7 @@ theorem degreeZeroXiNoF02G8_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoF02Polynomial810_natDegree_lt_of_groups
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -2374,6 +2417,7 @@ theorem degreeZeroXiNoF02Polynomial810_natDegree_lt_of_groups
     (degreeZeroXiNoF02G7_natDegree_lt l beta gamma delta epsilon zeta eta theta A B C0 D0 E0 F0 G0 hcone)
     (degreeZeroXiNoF02G8_natDegree_lt l beta gamma delta epsilon zeta eta theta A B C0 D0 E0 F0 G0 hcone)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroMuNoB4G1
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -2385,6 +2429,7 @@ def degreeZeroMuNoB4G1
     + (315 / 8192 * l : k) • (A * B ^ 3)
     + (105 / 1024 : k) • (A ^ 2 * C0 ^ 2)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroMuNoB4G2
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -2396,6 +2441,7 @@ def degreeZeroMuNoB4G2
     - (45 / 2048 * gamma : k) • A ^ 4
     - (5 / 128 : k) • C0 ^ 3
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroMuNoB4G3
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -2407,6 +2453,7 @@ def degreeZeroMuNoB4G3
     - (15 / 128 : k) • (A * D0 ^ 2)
     - (15 / 64 : k) • (A * C0 * E0)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroMuNoB4G4
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -2418,6 +2465,7 @@ def degreeZeroMuNoB4G4
     - (15 / 128 : k) • (A ^ 2 * G0)
     - (63 / 1024 * l : k) • (A ^ 2 * F0)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroMuNoB4G5
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -2429,6 +2477,7 @@ def degreeZeroMuNoB4G5
     + (5 / 16 : k) • (D0 * F0)
     + (9 / 64 * l : k) • (D0 * E0)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroMuNoB4G6
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -2440,6 +2489,7 @@ def degreeZeroMuNoB4G6
     - (7 / 64 * beta : k) • (B * E0)
     - (3 / 16 * gamma : k) • (B * D0)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroMuNoB4G7
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -2451,6 +2501,7 @@ def degreeZeroMuNoB4G7
     - (1 / 4 * epsilon : k) • (A * C0)
     - (15 / 64 * zeta : k) • (A * B)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroMuNoB4G8
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -2462,7 +2513,7 @@ def degreeZeroMuNoB4G8
     + (1 / 4 * eta : k) • C0
     + (1 / 8 * theta : k) • B
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoB4Polynomial810_eq_groups
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) :
@@ -2485,9 +2536,10 @@ theorem degreeZeroMuNoB4Polynomial810_eq_groups
     degreeZeroMuNoB4G6,
     degreeZeroMuNoB4G7,
     degreeZeroMuNoB4G8]
-  module
+  simp only [neg_smul]
+  abel
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoB4G1` (7 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -2509,7 +2561,7 @@ theorem speedRefl_degreeZeroMuNoB4G1_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoB4G1_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -2537,7 +2589,7 @@ theorem degreeZeroMuNoB4G1_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoB4G2` (7 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -2559,7 +2611,7 @@ theorem speedRefl_degreeZeroMuNoB4G2_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoB4G2_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -2587,7 +2639,7 @@ theorem degreeZeroMuNoB4G2_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoB4G3` (7 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -2609,7 +2661,7 @@ theorem speedRefl_degreeZeroMuNoB4G3_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoB4G3_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -2637,7 +2689,7 @@ theorem degreeZeroMuNoB4G3_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoB4G4` (7 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -2659,7 +2711,7 @@ theorem speedRefl_degreeZeroMuNoB4G4_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoB4G4_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -2687,7 +2739,7 @@ theorem degreeZeroMuNoB4G4_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoB4G5` (7 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -2709,7 +2761,7 @@ theorem speedRefl_degreeZeroMuNoB4G5_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoB4G5_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -2737,7 +2789,7 @@ theorem degreeZeroMuNoB4G5_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoB4G6` (7 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -2759,7 +2811,7 @@ theorem speedRefl_degreeZeroMuNoB4G6_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoB4G6_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -2787,7 +2839,7 @@ theorem degreeZeroMuNoB4G6_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoB4G7` (7 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -2809,7 +2861,7 @@ theorem speedRefl_degreeZeroMuNoB4G7_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoB4G7_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -2837,7 +2889,7 @@ theorem degreeZeroMuNoB4G7_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoB4G8` (7 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -2859,7 +2911,7 @@ theorem speedRefl_degreeZeroMuNoB4G8_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoB4G8_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -2887,6 +2939,7 @@ theorem degreeZeroMuNoB4G8_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoB4Polynomial810_natDegree_lt_of_groups
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -2905,6 +2958,7 @@ theorem degreeZeroMuNoB4Polynomial810_natDegree_lt_of_groups
     (degreeZeroMuNoB4G7_natDegree_lt l beta gamma delta epsilon zeta eta theta A B C0 D0 E0 F0 G0 hcone)
     (degreeZeroMuNoB4G8_natDegree_lt l beta gamma delta epsilon zeta eta theta A B C0 D0 E0 F0 G0 hcone)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroMuNoC03G1
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -2916,6 +2970,7 @@ def degreeZeroMuNoC03G1
     + (105 / 512 : k) • (A * B ^ 2 * C0)
     + (315 / 8192 * l : k) • (A * B ^ 3)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroMuNoC03G2
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -2927,6 +2982,7 @@ def degreeZeroMuNoC03G2
     - (357 / 8192 * beta : k) • (A ^ 3 * B)
     - (45 / 2048 * gamma : k) • A ^ 4
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroMuNoC03G3
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -2938,6 +2994,7 @@ def degreeZeroMuNoC03G3
     - (15 / 128 : k) • (A * D0 ^ 2)
     - (15 / 64 : k) • (A * C0 * E0)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroMuNoC03G4
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -2949,6 +3006,7 @@ def degreeZeroMuNoC03G4
     - (15 / 128 : k) • (A ^ 2 * G0)
     - (63 / 1024 * l : k) • (A ^ 2 * F0)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroMuNoC03G5
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -2960,6 +3018,7 @@ def degreeZeroMuNoC03G5
     + (5 / 16 : k) • (D0 * F0)
     + (9 / 64 * l : k) • (D0 * E0)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroMuNoC03G6
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -2971,6 +3030,7 @@ def degreeZeroMuNoC03G6
     - (7 / 64 * beta : k) • (B * E0)
     - (3 / 16 * gamma : k) • (B * D0)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroMuNoC03G7
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -2982,6 +3042,7 @@ def degreeZeroMuNoC03G7
     - (1 / 4 * epsilon : k) • (A * C0)
     - (15 / 64 * zeta : k) • (A * B)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroMuNoC03G8
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -2993,7 +3054,7 @@ def degreeZeroMuNoC03G8
     + (1 / 4 * eta : k) • C0
     + (1 / 8 * theta : k) • B
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoC03Polynomial810_eq_groups
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) :
@@ -3016,9 +3077,10 @@ theorem degreeZeroMuNoC03Polynomial810_eq_groups
     degreeZeroMuNoC03G6,
     degreeZeroMuNoC03G7,
     degreeZeroMuNoC03G8]
-  module
+  simp only [neg_smul]
+  abel
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoC03G1` (7 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -3040,7 +3102,7 @@ theorem speedRefl_degreeZeroMuNoC03G1_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoC03G1_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -3068,7 +3130,7 @@ theorem degreeZeroMuNoC03G1_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoC03G2` (7 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -3090,7 +3152,7 @@ theorem speedRefl_degreeZeroMuNoC03G2_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoC03G2_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -3118,7 +3180,7 @@ theorem degreeZeroMuNoC03G2_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoC03G3` (7 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -3140,7 +3202,7 @@ theorem speedRefl_degreeZeroMuNoC03G3_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoC03G3_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -3168,7 +3230,7 @@ theorem degreeZeroMuNoC03G3_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoC03G4` (7 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -3190,7 +3252,7 @@ theorem speedRefl_degreeZeroMuNoC03G4_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoC03G4_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -3218,7 +3280,7 @@ theorem degreeZeroMuNoC03G4_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoC03G5` (7 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -3240,7 +3302,7 @@ theorem speedRefl_degreeZeroMuNoC03G5_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoC03G5_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -3268,7 +3330,7 @@ theorem degreeZeroMuNoC03G5_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoC03G6` (7 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -3290,7 +3352,7 @@ theorem speedRefl_degreeZeroMuNoC03G6_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoC03G6_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -3318,7 +3380,7 @@ theorem degreeZeroMuNoC03G6_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoC03G7` (7 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -3340,7 +3402,7 @@ theorem speedRefl_degreeZeroMuNoC03G7_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoC03G7_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -3368,7 +3430,7 @@ theorem degreeZeroMuNoC03G7_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoC03G8` (7 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -3390,7 +3452,7 @@ theorem speedRefl_degreeZeroMuNoC03G8_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoC03G8_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -3418,6 +3480,7 @@ theorem degreeZeroMuNoC03G8_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoC03Polynomial810_natDegree_lt_of_groups
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -3436,6 +3499,7 @@ theorem degreeZeroMuNoC03Polynomial810_natDegree_lt_of_groups
     (degreeZeroMuNoC03G7_natDegree_lt l beta gamma delta epsilon zeta eta theta A B C0 D0 E0 F0 G0 hcone)
     (degreeZeroMuNoC03G8_natDegree_lt l beta gamma delta epsilon zeta eta theta A B C0 D0 E0 F0 G0 hcone)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroMuNoE02G1
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -3447,6 +3511,7 @@ def degreeZeroMuNoE02G1
     + (105 / 512 : k) • (A * B ^ 2 * C0)
     + (315 / 8192 * l : k) • (A * B ^ 3)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroMuNoE02G2
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -3458,6 +3523,7 @@ def degreeZeroMuNoE02G2
     - (357 / 8192 * beta : k) • (A ^ 3 * B)
     - (45 / 2048 * gamma : k) • A ^ 4
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroMuNoE02G3
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -3469,6 +3535,7 @@ def degreeZeroMuNoE02G3
     + (21 / 1024 * beta : k) • B ^ 3
     - (15 / 128 : k) • (A * D0 ^ 2)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroMuNoE02G4
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -3480,6 +3547,7 @@ def degreeZeroMuNoE02G4
     + (15 / 128 * gamma : k) • (A * B ^ 2)
     - (15 / 128 : k) • (A ^ 2 * G0)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroMuNoE02G5
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -3491,6 +3559,7 @@ def degreeZeroMuNoE02G5
     + (5 / 16 : k) • (D0 * F0)
     + (9 / 64 * l : k) • (D0 * E0)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroMuNoE02G6
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -3502,6 +3571,7 @@ def degreeZeroMuNoE02G6
     - (7 / 64 * beta : k) • (B * E0)
     - (3 / 16 * gamma : k) • (B * D0)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroMuNoE02G7
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -3513,6 +3583,7 @@ def degreeZeroMuNoE02G7
     - (1 / 4 * epsilon : k) • (A * C0)
     - (15 / 64 * zeta : k) • (A * B)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroMuNoE02G8
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -3524,7 +3595,7 @@ def degreeZeroMuNoE02G8
     + (1 / 4 * eta : k) • C0
     + (1 / 8 * theta : k) • B
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoE02Polynomial810_eq_groups
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) :
@@ -3547,9 +3618,10 @@ theorem degreeZeroMuNoE02Polynomial810_eq_groups
     degreeZeroMuNoE02G6,
     degreeZeroMuNoE02G7,
     degreeZeroMuNoE02G8]
-  module
+  simp only [neg_smul]
+  abel
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoE02G1` (7 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -3571,7 +3643,7 @@ theorem speedRefl_degreeZeroMuNoE02G1_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoE02G1_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -3599,7 +3671,7 @@ theorem degreeZeroMuNoE02G1_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoE02G2` (7 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -3621,7 +3693,7 @@ theorem speedRefl_degreeZeroMuNoE02G2_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoE02G2_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -3649,7 +3721,7 @@ theorem degreeZeroMuNoE02G2_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoE02G3` (7 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -3671,7 +3743,7 @@ theorem speedRefl_degreeZeroMuNoE02G3_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoE02G3_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -3699,7 +3771,7 @@ theorem degreeZeroMuNoE02G3_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoE02G4` (7 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -3721,7 +3793,7 @@ theorem speedRefl_degreeZeroMuNoE02G4_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoE02G4_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -3749,7 +3821,7 @@ theorem degreeZeroMuNoE02G4_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoE02G5` (7 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -3771,7 +3843,7 @@ theorem speedRefl_degreeZeroMuNoE02G5_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoE02G5_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -3799,7 +3871,7 @@ theorem degreeZeroMuNoE02G5_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoE02G6` (7 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -3821,7 +3893,7 @@ theorem speedRefl_degreeZeroMuNoE02G6_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoE02G6_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -3849,7 +3921,7 @@ theorem degreeZeroMuNoE02G6_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoE02G7` (7 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -3871,7 +3943,7 @@ theorem speedRefl_degreeZeroMuNoE02G7_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoE02G7_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -3899,7 +3971,7 @@ theorem degreeZeroMuNoE02G7_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoE02G8` (7 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -3921,7 +3993,7 @@ theorem speedRefl_degreeZeroMuNoE02G8_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoE02G8_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -3949,6 +4021,7 @@ theorem degreeZeroMuNoE02G8_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoE02Polynomial810_natDegree_lt_of_groups
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -3967,6 +4040,7 @@ theorem degreeZeroMuNoE02Polynomial810_natDegree_lt_of_groups
     (degreeZeroMuNoE02G7_natDegree_lt l beta gamma delta epsilon zeta eta theta A B C0 D0 E0 F0 G0 hcone)
     (degreeZeroMuNoE02G8_natDegree_lt l beta gamma delta epsilon zeta eta theta A B C0 D0 E0 F0 G0 hcone)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroOmicronNoB5G1
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -3986,6 +4060,7 @@ def degreeZeroOmicronNoB5G1
     - (795 / 8192 : k) • (A ^ 3 * C0 * D0)
     - (3591 / 131072 * l : k) • (A ^ 3 * C0 ^ 2)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroOmicronNoB5G2
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -4005,6 +4080,7 @@ def degreeZeroOmicronNoB5G2
     - (189 / 32768 * beta : k) • B ^ 4
     + (135 / 1024 : k) • (A * C0 ^ 2 * D0)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroOmicronNoB5G3
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -4024,6 +4100,7 @@ def degreeZeroOmicronNoB5G3
     + (165 / 2048 : k) • (A ^ 2 * B * G0)
     + (207 / 4096 * l : k) • (A ^ 2 * B * F0)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroOmicronNoB5G4
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -4043,6 +4120,7 @@ def degreeZeroOmicronNoB5G4
     - (45 / 1024 * l : k) • (C0 ^ 2 * E0)
     + (7 / 512 * beta : k) • C0 ^ 3
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroOmicronNoB5G5
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -4062,6 +4140,7 @@ def degreeZeroOmicronNoB5G5
     - (9 / 256 * l : k) • (A * E0 ^ 2)
     - (15 / 128 : k) • (A * D0 * G0)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroOmicronNoB5G6
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -4081,6 +4160,7 @@ def degreeZeroOmicronNoB5G6
     + (21 / 256 * epsilon : k) • (A ^ 2 * D0)
     + (81 / 1024 * zeta : k) • (A ^ 2 * C0)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroOmicronNoB5G7
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -4100,6 +4180,7 @@ def degreeZeroOmicronNoB5G7
     - (5 / 64 * delta : k) • (B * F0)
     - (1 / 8 * epsilon : k) • (B * E0)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroOmicronNoB5G8
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -4114,7 +4195,7 @@ def degreeZeroOmicronNoB5G8
     + (1 / 4 * eta : k) • F0
     + (1 / 8 * theta : k) • E0
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoB5Polynomial810_eq_groups
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) :
@@ -4137,9 +4218,10 @@ theorem degreeZeroOmicronNoB5Polynomial810_eq_groups
     degreeZeroOmicronNoB5G6,
     degreeZeroOmicronNoB5G7,
     degreeZeroOmicronNoB5G8]
-  module
+  simp only [neg_smul]
+  abel
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronNoB5G1` (15 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -4165,7 +4247,7 @@ theorem speedRefl_degreeZeroOmicronNoB5G1_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoB5G1_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -4193,7 +4275,7 @@ theorem degreeZeroOmicronNoB5G1_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronNoB5G2` (15 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -4219,7 +4301,7 @@ theorem speedRefl_degreeZeroOmicronNoB5G2_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoB5G2_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -4247,7 +4329,7 @@ theorem degreeZeroOmicronNoB5G2_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronNoB5G3` (15 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -4273,7 +4355,7 @@ theorem speedRefl_degreeZeroOmicronNoB5G3_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoB5G3_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -4301,7 +4383,7 @@ theorem degreeZeroOmicronNoB5G3_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronNoB5G4` (15 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -4327,7 +4409,7 @@ theorem speedRefl_degreeZeroOmicronNoB5G4_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoB5G4_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -4355,7 +4437,7 @@ theorem degreeZeroOmicronNoB5G4_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronNoB5G5` (15 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -4381,7 +4463,7 @@ theorem speedRefl_degreeZeroOmicronNoB5G5_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoB5G5_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -4409,7 +4491,7 @@ theorem degreeZeroOmicronNoB5G5_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronNoB5G6` (15 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -4435,7 +4517,7 @@ theorem speedRefl_degreeZeroOmicronNoB5G6_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoB5G6_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -4463,7 +4545,7 @@ theorem degreeZeroOmicronNoB5G6_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronNoB5G7` (15 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -4489,7 +4571,7 @@ theorem speedRefl_degreeZeroOmicronNoB5G7_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoB5G7_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -4517,7 +4599,7 @@ theorem degreeZeroOmicronNoB5G7_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronNoB5G8` (10 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -4541,7 +4623,7 @@ theorem speedRefl_degreeZeroOmicronNoB5G8_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoB5G8_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -4569,6 +4651,7 @@ theorem degreeZeroOmicronNoB5G8_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoB5Polynomial810_natDegree_lt_of_groups
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -4587,6 +4670,7 @@ theorem degreeZeroOmicronNoB5Polynomial810_natDegree_lt_of_groups
     (degreeZeroOmicronNoB5G7_natDegree_lt l beta gamma delta epsilon zeta eta theta A B C0 D0 E0 F0 G0 hcone)
     (degreeZeroOmicronNoB5G8_natDegree_lt l beta gamma delta epsilon zeta eta theta A B C0 D0 E0 F0 G0 hcone)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroOmicronNoD03G1
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -4606,6 +4690,7 @@ def degreeZeroOmicronNoD03G1
     - (11151 / 131072 * l : k) • (A ^ 2 * B ^ 2 * C0)
     - (795 / 8192 : k) • (A ^ 3 * C0 * D0)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroOmicronNoD03G2
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -4625,6 +4710,7 @@ def degreeZeroOmicronNoD03G2
     + (189 / 8192 * l : k) • (B ^ 3 * D0)
     - (189 / 32768 * beta : k) • B ^ 4
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroOmicronNoD03G3
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -4644,6 +4730,7 @@ def degreeZeroOmicronNoD03G3
     - (273 / 8192 * beta : k) • (A ^ 2 * C0 ^ 2)
     + (165 / 2048 : k) • (A ^ 2 * B * G0)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroOmicronNoD03G4
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -4663,6 +4750,7 @@ def degreeZeroOmicronNoD03G4
     - (45 / 1024 * l : k) • (C0 ^ 2 * E0)
     + (7 / 512 * beta : k) • C0 ^ 3
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroOmicronNoD03G5
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -4682,6 +4770,7 @@ def degreeZeroOmicronNoD03G5
     - (9 / 256 * l : k) • (A * E0 ^ 2)
     - (15 / 128 : k) • (A * D0 * G0)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroOmicronNoD03G6
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -4701,6 +4790,7 @@ def degreeZeroOmicronNoD03G6
     + (21 / 256 * epsilon : k) • (A ^ 2 * D0)
     + (81 / 1024 * zeta : k) • (A ^ 2 * C0)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroOmicronNoD03G7
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -4720,6 +4810,7 @@ def degreeZeroOmicronNoD03G7
     - (5 / 64 * delta : k) • (B * F0)
     - (1 / 8 * epsilon : k) • (B * E0)
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroOmicronNoD03G8
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) : k[X] :=
@@ -4734,7 +4825,7 @@ def degreeZeroOmicronNoD03G8
     + (1 / 4 * eta : k) • F0
     + (1 / 8 * theta : k) • E0
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoD03Polynomial810_eq_groups
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) :
@@ -4757,9 +4848,10 @@ theorem degreeZeroOmicronNoD03Polynomial810_eq_groups
     degreeZeroOmicronNoD03G6,
     degreeZeroOmicronNoD03G7,
     degreeZeroOmicronNoD03G8]
-  module
+  simp only [neg_smul]
+  abel
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronNoD03G1` (15 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -4785,7 +4877,7 @@ theorem speedRefl_degreeZeroOmicronNoD03G1_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoD03G1_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -4813,7 +4905,7 @@ theorem degreeZeroOmicronNoD03G1_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronNoD03G2` (15 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -4839,7 +4931,7 @@ theorem speedRefl_degreeZeroOmicronNoD03G2_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoD03G2_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -4867,7 +4959,7 @@ theorem degreeZeroOmicronNoD03G2_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronNoD03G3` (15 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -4893,7 +4985,7 @@ theorem speedRefl_degreeZeroOmicronNoD03G3_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoD03G3_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -4921,7 +5013,7 @@ theorem degreeZeroOmicronNoD03G3_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronNoD03G4` (15 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -4947,7 +5039,7 @@ theorem speedRefl_degreeZeroOmicronNoD03G4_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoD03G4_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -4975,7 +5067,7 @@ theorem degreeZeroOmicronNoD03G4_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronNoD03G5` (15 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -5001,7 +5093,7 @@ theorem speedRefl_degreeZeroOmicronNoD03G5_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoD03G5_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -5029,7 +5121,7 @@ theorem degreeZeroOmicronNoD03G5_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronNoD03G6` (15 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -5055,7 +5147,7 @@ theorem speedRefl_degreeZeroOmicronNoD03G6_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoD03G6_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -5083,7 +5175,7 @@ theorem degreeZeroOmicronNoD03G6_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronNoD03G7` (15 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -5109,7 +5201,7 @@ theorem speedRefl_degreeZeroOmicronNoD03G7_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoD03G7_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -5137,7 +5229,7 @@ theorem degreeZeroOmicronNoD03G7_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronNoD03G8` (10 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -5161,7 +5253,7 @@ theorem speedRefl_degreeZeroOmicronNoD03G8_eq_polyOf
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
   try module
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoD03G8_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -5189,6 +5281,7 @@ theorem degreeZeroOmicronNoD03G8_natDegree_lt
     | (right; left; simp; done)
     | trivial
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoD03Polynomial810_natDegree_lt_of_groups
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -5215,6 +5308,7 @@ section DefectUniqueFaces810
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 theorem xi_A7_impossible_of_A_maximal
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -5241,6 +5335,7 @@ theorem xi_A7_impossible_of_A_maximal
   rcases hcone with ⟨hApos, _⟩
   omega
 
+set_option maxHeartbeats 64000000 in
 theorem omicron_B5_impossible_of_B_leads
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -5267,6 +5362,7 @@ theorem omicron_B5_impossible_of_B_leads
   rcases hcone with ⟨⟨hBpos, _⟩, _⟩
   omega
 
+set_option maxHeartbeats 64000000 in
 theorem mu_B4_impossible_of_B_leads
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -5293,6 +5389,7 @@ theorem mu_B4_impossible_of_B_leads
   rcases hcone with ⟨⟨hBpos, _⟩, _⟩
   omega
 
+set_option maxHeartbeats 64000000 in
 theorem mu_C03_impossible_of_C0_leads
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -5319,6 +5416,7 @@ theorem mu_C03_impossible_of_C0_leads
   rcases hcone with ⟨⟨hCpos, _⟩, _⟩
   omega
 
+set_option maxHeartbeats 64000000 in
 theorem omicron_D03_impossible_of_D0_leads
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -5345,6 +5443,7 @@ theorem omicron_D03_impossible_of_D0_leads
   rcases hcone with ⟨⟨hDpos, _⟩, _⟩
   omega
 
+set_option maxHeartbeats 64000000 in
 theorem mu_E02_impossible_of_E0_leads
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -5371,6 +5470,7 @@ theorem mu_E02_impossible_of_E0_leads
   rcases hcone with ⟨hEpos, _⟩
   omega
 
+set_option maxHeartbeats 64000000 in
 theorem xi_F02_impossible_of_F0_leads
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -5405,7 +5505,7 @@ section DefectAlgebraMap810
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 /-- Field-level integrated `ξ`. -/
 def degreeZeroXiIntegrated810
     {F : Type*} [Field F] [CharZero F]
@@ -5502,7 +5602,7 @@ def degreeZeroXiIntegrated810
     + (1 / 4 : F) * eta * E0
     + (1 / 8 : F) * theta * D0
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 /-- Field-level integrated `μ`. -/
 def degreeZeroMuIntegrated810
     {F : Type*} [Field F] [CharZero F]
@@ -5565,7 +5665,7 @@ def degreeZeroMuIntegrated810
     + (1 / 4 : F) * eta * C0
     + (1 / 8 : F) * theta * B
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 /-- Field-level integrated `ο`. -/
 def degreeZeroOmicronIntegrated810
     {F : Type*} [Field F] [CharZero F]
@@ -5687,7 +5787,7 @@ def degreeZeroOmicronIntegrated810
     + (1 / 4 : F) * eta * F0
     + (1 / 8 : F) * theta * E0
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem xiResidual810_eq_integrated
     {F : Type*} [Field F] [CharZero F]
     (L A B C0 D0 E0 F0 G0 P Q R S0 T0 U0 V0 W0
@@ -5707,7 +5807,7 @@ theorem xiResidual810_eq_integrated
     hdelta, hepsilon, hzeta, heta, htheta]
   ring
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem omicronResidual810_eq_integrated
     {F : Type*} [Field F] [CharZero F]
     (L A B C0 D0 E0 F0 G0 P Q R S0 T0 U0 V0 W0
@@ -5775,7 +5875,7 @@ theorem muResidual810_eq_integrated
     hdelta, hepsilon, hzeta, heta, alphaResidual810]
   ring
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem algebraMap_degreeZeroXiPolynomial810
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) :
@@ -5798,7 +5898,7 @@ theorem algebraMap_degreeZeroXiPolynomial810
     RatFunc.algebraMap_C, map_div₀, map_ofNat, map_one]
   try ring
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem algebraMap_degreeZeroMuPolynomial810
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) :
@@ -5821,7 +5921,7 @@ theorem algebraMap_degreeZeroMuPolynomial810
     RatFunc.algebraMap_C, map_div₀, map_ofNat, map_one]
   try ring
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem algebraMap_degreeZeroOmicronPolynomial810
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X]) :
@@ -5845,6 +5945,7 @@ theorem algebraMap_degreeZeroOmicronPolynomial810
     map_ofNat, map_one]
   try ring
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiPolynomial810_eq_C_of_ratFuncDeriv
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -5869,6 +5970,7 @@ theorem degreeZeroXiPolynomial810_eq_C_of_ratFuncDeriv
     simpa using hdmap
   exact ⟨I.coeff 0, Polynomial.eq_C_of_derivative_eq_zero hd⟩
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuPolynomial810_eq_C_of_ratFuncDeriv
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -5893,6 +5995,7 @@ theorem degreeZeroMuPolynomial810_eq_C_of_ratFuncDeriv
     simpa using hdmap
   exact ⟨I.coeff 0, Polynomial.eq_C_of_derivative_eq_zero hd⟩
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronPolynomial810_eq_C_of_ratFuncDeriv
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 F0 G0 : k[X])
@@ -5917,6 +6020,7 @@ theorem degreeZeroOmicronPolynomial810_eq_C_of_ratFuncDeriv
     simpa using hdmap
   exact ⟨I.coeff 0, Polynomial.eq_C_of_derivative_eq_zero hd⟩
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiPolynomial810_natDegree_eq_zero_of_eq_C
     {l beta gamma delta epsilon zeta eta theta : k}
     {A B C0 D0 E0 F0 G0 : k[X]} {c : k}
@@ -5929,6 +6033,7 @@ theorem degreeZeroXiPolynomial810_natDegree_eq_zero_of_eq_C
       0 := by
   rw [h, natDegree_C]
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuPolynomial810_natDegree_eq_zero_of_eq_C
     {l beta gamma delta epsilon zeta eta theta : k}
     {A B C0 D0 E0 F0 G0 : k[X]} {c : k}
@@ -5941,6 +6046,7 @@ theorem degreeZeroMuPolynomial810_natDegree_eq_zero_of_eq_C
       0 := by
   rw [h, natDegree_C]
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronPolynomial810_natDegree_eq_zero_of_eq_C
     {l beta gamma delta epsilon zeta eta theta : k}
     {A B C0 D0 E0 F0 G0 : k[X]} {c : k}
@@ -5961,7 +6067,7 @@ section SourceDefects810
 
 variable {k : Type*} [Field k] [CharZero k] [IsAlgClosed k]
 
-set_option maxHeartbeats 80000000 in
+set_option maxHeartbeats 64000000 in
 /-- Source-facing packet: the affine-depressed core has integrated `ξ`,
 `μ`, and `ο` polynomials equal to ground constants. -/
 theorem normalized810ScaleZero_defectPolynomials_eq_C
@@ -6471,6 +6577,7 @@ section DefectFacesClosed810
 
 variable {k : Type*} [Field k] [CharZero k] [IsAlgClosed k]
 
+set_option maxHeartbeats 64000000 in
 /-- Source-facing packet: `ξ`, `μ`, and `ο` are ground constants on the
 free core, and every unique weighted face named above is empty. -/
 theorem normalized810ScaleZero_defectFaces_closed
@@ -6538,6 +6645,7 @@ theorem normalized810ScaleZero_defectFaces_closed
       hjdiv hconst.1 hconst.2.1 hconst.2.2.1 hconst.2.2.2.1
       hconst.2.2.2.2.1 hconst.2.2.2.2.2.1 hconst.2.2.2.2.2.2 hder
 
+set_option maxHeartbeats 64000000 in
 /-- Remaining cones after every unique weighted `ξ`/`μ`/`ο` face named
 above.  Unique-`G₀` of degree one with vanishing `G₀`-linear
 coefficients of `ξ`, `μ`, and `ο` (CAS: those coefficients reduce to
@@ -6582,6 +6690,7 @@ theorem normalized810ScaleZero_coneDefectFacesResidual
     theta, cXi, cMu, cOm, A, B, C0, D0, E0, F0, G0, ht, hj, hjdiv, hHsq,
     hder, hxi, hmu, hom, hAmax, hBleads, hCleads, hDleads, hEleads, hFleads⟩
 
+set_option maxHeartbeats 64000000 in
 /-- Glue of the two constant faces through the defect-face residual: the
 scale-zero source is empty once the named leftover cones are excluded.
 Neither leftover cone is claimed empty here. -/

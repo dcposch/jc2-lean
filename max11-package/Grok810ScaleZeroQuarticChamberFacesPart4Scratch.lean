@@ -1,4 +1,5 @@
 import Grok810ScaleZeroQuarticChamberFacesPart1Scratch
+import Max11SpeedReflectDegLibScratch
 
 /-! # Cost-argmin rest bounds, part 4/10, `(8,10)` scale zero
 
@@ -61,6 +62,37 @@ theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_G
   omega
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `piQuarticChamberRestLF0810` (20 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810
+    (A B C D E F G : k[X]) :
+    piQuarticChamberRestLF0810 A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 4096 : k), (-(15 / 128) : k), (-(45 / 512) : k),
+      (-(35 / 256) : k), (5 / 64 : k), (5 / 32 : k),
+      (5 / 16 : k), (5 / 32 : k), (25 / 128 : k),
+      (45 / 64 : k), (45 / 128 : k), (45 / 64 : k),
+      (15 / 256 : k), (-(5 / 16) : k), (-(5 / 8) : k),
+      (-(15 / 16) : k), (-(5 / 16) : k), (-(15 / 16) : k),
+      (-(5 / 8) : k), (-(5 / 8) : k)
+      ]
+      [
+      [2, 4, 0, 0, 0, 0, 0], [1, 3, 0, 1, 0, 0, 0], [1, 2, 2, 0, 0, 0, 0], [0, 4, 1, 0, 0, 0, 0],
+      [1, 2, 0, 0, 0, 0, 1], [1, 1, 1, 0, 0, 1, 0], [1, 1, 0, 1, 1, 0, 0], [1, 0, 1, 2, 0, 0, 0],
+      [0, 3, 0, 0, 0, 1, 0], [0, 2, 1, 0, 1, 0, 0], [0, 2, 0, 2, 0, 0, 0], [0, 1, 2, 1, 0, 0, 0],
+      [0, 0, 4, 0, 0, 0, 0], [1, 0, 0, 0, 0, 2, 0], [0, 1, 0, 1, 0, 0, 1], [0, 1, 0, 0, 1, 1, 0],
+      [0, 0, 2, 0, 0, 0, 1], [0, 0, 1, 1, 0, 1, 0], [0, 0, 1, 0, 2, 0, 0], [0, 0, 0, 2, 1, 0, 0]
+      ] := by
+  simp only [piQuarticChamberRestLF0810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_BG
     {d : ℕ}
     (A B C D E F G : k[X])
@@ -83,9 +115,19 @@ theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_BG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [piQuarticChamberRestLF0810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_CG
@@ -110,9 +152,19 @@ theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_CG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [piQuarticChamberRestLF0810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_DG
@@ -184,9 +236,19 @@ theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_FG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [piQuarticChamberRestLF0810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_BCG
@@ -213,9 +275,19 @@ theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_BCG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [piQuarticChamberRestLF0810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_BDG
@@ -241,9 +313,19 @@ theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_BDG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [piQuarticChamberRestLF0810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_BEG
@@ -266,9 +348,19 @@ theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_BEG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [piQuarticChamberRestLF0810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_BFG
@@ -293,9 +385,19 @@ theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_BFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [piQuarticChamberRestLF0810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_CDG
@@ -319,9 +421,19 @@ theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_CDG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [piQuarticChamberRestLF0810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_CEG
@@ -345,9 +457,19 @@ theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_CEG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [piQuarticChamberRestLF0810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_CFG
@@ -371,9 +493,19 @@ theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_CFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [piQuarticChamberRestLF0810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_DEG
@@ -395,9 +527,19 @@ theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_DEG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [piQuarticChamberRestLF0810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_DFG
@@ -419,9 +561,19 @@ theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_DFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [piQuarticChamberRestLF0810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_EFG
@@ -443,9 +595,19 @@ theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_EFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [piQuarticChamberRestLF0810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 def piQuarticChamberRestLF0810_liveBCDG_p4c1
     (A B C D E F G : k[X]) : k[X] :=
@@ -455,6 +617,29 @@ def piQuarticChamberRestLF0810_liveBCDG_p4c1
   - (35 / 256 : k) • (B ^ 4 * C)
   + (5 / 64 : k) • (A * B ^ 2 * G)
   + (5 / 32 : k) • (A * C * D ^ 2)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `piQuarticChamberRestLF0810_liveBCDG_p4c1` (6 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCDG_p4c1
+    (A B C D E F G : k[X]) :
+    piQuarticChamberRestLF0810_liveBCDG_p4c1 A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 4096 : k), (-(15 / 128) : k), (-(45 / 512) : k),
+      (-(35 / 256) : k), (5 / 64 : k), (5 / 32 : k)
+      ]
+      [
+      [2, 4, 0, 0, 0, 0, 0], [1, 3, 0, 1, 0, 0, 0], [1, 2, 2, 0, 0, 0, 0], [0, 4, 1, 0, 0, 0, 0],
+      [1, 2, 0, 0, 0, 0, 1], [1, 0, 1, 2, 0, 0, 0]
+      ] := by
+  simp only [piQuarticChamberRestLF0810_liveBCDG_p4c1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_liveBCDG_p4c1_natDegree_lt
@@ -468,9 +653,15 @@ theorem piQuarticChamberRestLF0810_liveBCDG_p4c1_natDegree_lt
     (hd4 : A.natDegree + 2 * B.natDegree + G.natDegree < d)
     (hd5 : A.natDegree + C.natDegree + 2 * D.natDegree < d) :
     (piQuarticChamberRestLF0810_liveBCDG_p4c1 A B C D E F G).natDegree < d := by
-  simp only [piQuarticChamberRestLF0810_liveBCDG_p4c1]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCDG_p4c1]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 def piQuarticChamberRestLF0810_liveBCDG_p4c2
     (A B C D E F G : k[X]) : k[X] :=
@@ -479,6 +670,29 @@ def piQuarticChamberRestLF0810_liveBCDG_p4c2
   + (15 / 256 : k) • C ^ 4
   - (5 / 8 : k) • (B * D * G)
   - (5 / 16 : k) • (C ^ 2 * G)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `piQuarticChamberRestLF0810_liveBCDG_p4c2` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCDG_p4c2
+    (A B C D E F G : k[X]) :
+    piQuarticChamberRestLF0810_liveBCDG_p4c2 A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (45 / 128 : k), (45 / 64 : k), (15 / 256 : k),
+      (-(5 / 8) : k), (-(5 / 16) : k)
+      ]
+      [
+      [0, 2, 0, 2, 0, 0, 0], [0, 1, 2, 1, 0, 0, 0], [0, 0, 4, 0, 0, 0, 0], [0, 1, 0, 1, 0, 0, 1],
+      [0, 0, 2, 0, 0, 0, 1]
+      ] := by
+  simp only [piQuarticChamberRestLF0810_liveBCDG_p4c2, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_liveBCDG_p4c2_natDegree_lt
@@ -491,9 +705,15 @@ theorem piQuarticChamberRestLF0810_liveBCDG_p4c2_natDegree_lt
     (hd9 : B.natDegree + D.natDegree + G.natDegree < d)
     (hd10 : 2 * C.natDegree + G.natDegree < d) :
     (piQuarticChamberRestLF0810_liveBCDG_p4c2 A B C D E F G).natDegree < d := by
-  simp only [piQuarticChamberRestLF0810_liveBCDG_p4c2]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCDG_p4c2]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_BCDG
@@ -537,6 +757,28 @@ def piQuarticChamberRestLF0810_liveBCEG_p4c1
   + (5 / 64 : k) • (A * B ^ 2 * G)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `piQuarticChamberRestLF0810_liveBCEG_p4c1` (4 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCEG_p4c1
+    (A B C D E F G : k[X]) :
+    piQuarticChamberRestLF0810_liveBCEG_p4c1 A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 4096 : k), (-(45 / 512) : k), (-(35 / 256) : k),
+      (5 / 64 : k)
+      ]
+      [
+      [2, 4, 0, 0, 0, 0, 0], [1, 2, 2, 0, 0, 0, 0], [0, 4, 1, 0, 0, 0, 0], [1, 2, 0, 0, 0, 0, 1]
+      ] := by
+  simp only [piQuarticChamberRestLF0810_liveBCEG_p4c1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_liveBCEG_p4c1_natDegree_lt
     {d : ℕ}
     (A B C D E F G : k[X])
@@ -546,9 +788,15 @@ theorem piQuarticChamberRestLF0810_liveBCEG_p4c1_natDegree_lt
     (hd2 : 4 * B.natDegree + C.natDegree < d)
     (hd3 : A.natDegree + 2 * B.natDegree + G.natDegree < d) :
     (piQuarticChamberRestLF0810_liveBCEG_p4c1 A B C D E F G).natDegree < d := by
-  simp only [piQuarticChamberRestLF0810_liveBCEG_p4c1]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCEG_p4c1]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 def piQuarticChamberRestLF0810_liveBCEG_p4c2
     (A B C D E F G : k[X]) : k[X] :=
@@ -556,6 +804,28 @@ def piQuarticChamberRestLF0810_liveBCEG_p4c2
   + (15 / 256 : k) • C ^ 4
   - (5 / 16 : k) • (C ^ 2 * G)
   - (5 / 8 : k) • (C * E ^ 2)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `piQuarticChamberRestLF0810_liveBCEG_p4c2` (4 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCEG_p4c2
+    (A B C D E F G : k[X]) :
+    piQuarticChamberRestLF0810_liveBCEG_p4c2 A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (45 / 64 : k), (15 / 256 : k), (-(5 / 16) : k),
+      (-(5 / 8) : k)
+      ]
+      [
+      [0, 2, 1, 0, 1, 0, 0], [0, 0, 4, 0, 0, 0, 0], [0, 0, 2, 0, 0, 0, 1], [0, 0, 1, 0, 2, 0, 0]
+      ] := by
+  simp only [piQuarticChamberRestLF0810_liveBCEG_p4c2, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_liveBCEG_p4c2_natDegree_lt
@@ -567,9 +837,15 @@ theorem piQuarticChamberRestLF0810_liveBCEG_p4c2_natDegree_lt
     (hd6 : 2 * C.natDegree + G.natDegree < d)
     (hd7 : C.natDegree + 2 * E.natDegree < d) :
     (piQuarticChamberRestLF0810_liveBCEG_p4c2 A B C D E F G).natDegree < d := by
-  simp only [piQuarticChamberRestLF0810_liveBCEG_p4c2]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCEG_p4c2]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_BCEG
@@ -611,6 +887,29 @@ def piQuarticChamberRestLF0810_liveBCFG_p4c1
   + (5 / 32 : k) • (A * B * C * F)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `piQuarticChamberRestLF0810_liveBCFG_p4c1` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCFG_p4c1
+    (A B C D E F G : k[X]) :
+    piQuarticChamberRestLF0810_liveBCFG_p4c1 A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 4096 : k), (-(45 / 512) : k), (-(35 / 256) : k),
+      (5 / 64 : k), (5 / 32 : k)
+      ]
+      [
+      [2, 4, 0, 0, 0, 0, 0], [1, 2, 2, 0, 0, 0, 0], [0, 4, 1, 0, 0, 0, 0], [1, 2, 0, 0, 0, 0, 1],
+      [1, 1, 1, 0, 0, 1, 0]
+      ] := by
+  simp only [piQuarticChamberRestLF0810_liveBCFG_p4c1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_liveBCFG_p4c1_natDegree_lt
     {d : ℕ}
     (A B C D E F G : k[X])
@@ -621,9 +920,15 @@ theorem piQuarticChamberRestLF0810_liveBCFG_p4c1_natDegree_lt
     (hd3 : A.natDegree + 2 * B.natDegree + G.natDegree < d)
     (hd4 : A.natDegree + B.natDegree + C.natDegree + F.natDegree < d) :
     (piQuarticChamberRestLF0810_liveBCFG_p4c1 A B C D E F G).natDegree < d := by
-  simp only [piQuarticChamberRestLF0810_liveBCFG_p4c1]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCFG_p4c1]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 def piQuarticChamberRestLF0810_liveBCFG_p4c2
     (A B C D E F G : k[X]) : k[X] :=
@@ -631,6 +936,28 @@ def piQuarticChamberRestLF0810_liveBCFG_p4c2
   + (15 / 256 : k) • C ^ 4
   - (5 / 16 : k) • (A * F ^ 2)
   - (5 / 16 : k) • (C ^ 2 * G)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `piQuarticChamberRestLF0810_liveBCFG_p4c2` (4 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCFG_p4c2
+    (A B C D E F G : k[X]) :
+    piQuarticChamberRestLF0810_liveBCFG_p4c2 A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (25 / 128 : k), (15 / 256 : k), (-(5 / 16) : k),
+      (-(5 / 16) : k)
+      ]
+      [
+      [0, 3, 0, 0, 0, 1, 0], [0, 0, 4, 0, 0, 0, 0], [1, 0, 0, 0, 0, 2, 0], [0, 0, 2, 0, 0, 0, 1]
+      ] := by
+  simp only [piQuarticChamberRestLF0810_liveBCFG_p4c2, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_liveBCFG_p4c2_natDegree_lt
@@ -642,9 +969,15 @@ theorem piQuarticChamberRestLF0810_liveBCFG_p4c2_natDegree_lt
     (hd7 : A.natDegree + 2 * F.natDegree < d)
     (hd8 : 2 * C.natDegree + G.natDegree < d) :
     (piQuarticChamberRestLF0810_liveBCFG_p4c2 A B C D E F G).natDegree < d := by
-  simp only [piQuarticChamberRestLF0810_liveBCFG_p4c2]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCFG_p4c2]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_BCFG
@@ -702,9 +1035,19 @@ theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_BDEG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [piQuarticChamberRestLF0810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_BDFG
@@ -730,9 +1073,19 @@ theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_BDFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [piQuarticChamberRestLF0810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_BEFG
@@ -756,9 +1109,19 @@ theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_BEFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [piQuarticChamberRestLF0810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_CDEG
@@ -782,9 +1145,19 @@ theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_CDEG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [piQuarticChamberRestLF0810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_CDFG
@@ -808,9 +1181,19 @@ theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_CDFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [piQuarticChamberRestLF0810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_CEFG
@@ -833,9 +1216,19 @@ theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_CEFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [piQuarticChamberRestLF0810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_DEFG
@@ -856,9 +1249,19 @@ theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_DEFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [piQuarticChamberRestLF0810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 def piQuarticChamberRestLF0810_liveBCDEG_p4c1
     (A B C D E F G : k[X]) : k[X] :=
@@ -867,6 +1270,29 @@ def piQuarticChamberRestLF0810_liveBCDEG_p4c1
   - (45 / 512 : k) • (A * B ^ 2 * C ^ 2)
   - (35 / 256 : k) • (B ^ 4 * C)
   + (5 / 64 : k) • (A * B ^ 2 * G)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `piQuarticChamberRestLF0810_liveBCDEG_p4c1` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCDEG_p4c1
+    (A B C D E F G : k[X]) :
+    piQuarticChamberRestLF0810_liveBCDEG_p4c1 A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 4096 : k), (-(15 / 128) : k), (-(45 / 512) : k),
+      (-(35 / 256) : k), (5 / 64 : k)
+      ]
+      [
+      [2, 4, 0, 0, 0, 0, 0], [1, 3, 0, 1, 0, 0, 0], [1, 2, 2, 0, 0, 0, 0], [0, 4, 1, 0, 0, 0, 0],
+      [1, 2, 0, 0, 0, 0, 1]
+      ] := by
+  simp only [piQuarticChamberRestLF0810_liveBCDEG_p4c1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_liveBCDEG_p4c1_natDegree_lt
@@ -879,9 +1305,15 @@ theorem piQuarticChamberRestLF0810_liveBCDEG_p4c1_natDegree_lt
     (hd3 : 4 * B.natDegree + C.natDegree < d)
     (hd4 : A.natDegree + 2 * B.natDegree + G.natDegree < d) :
     (piQuarticChamberRestLF0810_liveBCDEG_p4c1 A B C D E F G).natDegree < d := by
-  simp only [piQuarticChamberRestLF0810_liveBCDEG_p4c1]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCDEG_p4c1]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 def piQuarticChamberRestLF0810_liveBCDEG_p4c2
     (A B C D E F G : k[X]) : k[X] :=
@@ -890,6 +1322,29 @@ def piQuarticChamberRestLF0810_liveBCDEG_p4c2
   + (45 / 64 : k) • (B ^ 2 * C * E)
   + (45 / 128 : k) • (B ^ 2 * D ^ 2)
   + (45 / 64 : k) • (B * C ^ 2 * D)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `piQuarticChamberRestLF0810_liveBCDEG_p4c2` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCDEG_p4c2
+    (A B C D E F G : k[X]) :
+    piQuarticChamberRestLF0810_liveBCDEG_p4c2 A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (5 / 16 : k), (5 / 32 : k), (45 / 64 : k),
+      (45 / 128 : k), (45 / 64 : k)
+      ]
+      [
+      [1, 1, 0, 1, 1, 0, 0], [1, 0, 1, 2, 0, 0, 0], [0, 2, 1, 0, 1, 0, 0], [0, 2, 0, 2, 0, 0, 0],
+      [0, 1, 2, 1, 0, 0, 0]
+      ] := by
+  simp only [piQuarticChamberRestLF0810_liveBCDEG_p4c2, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_liveBCDEG_p4c2_natDegree_lt
@@ -902,9 +1357,15 @@ theorem piQuarticChamberRestLF0810_liveBCDEG_p4c2_natDegree_lt
     (hd8 : 2 * B.natDegree + 2 * D.natDegree < d)
     (hd9 : B.natDegree + 2 * C.natDegree + D.natDegree < d) :
     (piQuarticChamberRestLF0810_liveBCDEG_p4c2 A B C D E F G).natDegree < d := by
-  simp only [piQuarticChamberRestLF0810_liveBCDEG_p4c2]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCDEG_p4c2]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 def piQuarticChamberRestLF0810_liveBCDEG_p4c3
     (A B C D E F G : k[X]) : k[X] :=
@@ -913,6 +1374,29 @@ def piQuarticChamberRestLF0810_liveBCDEG_p4c3
   - (5 / 16 : k) • (C ^ 2 * G)
   - (5 / 8 : k) • (C * E ^ 2)
   - (5 / 8 : k) • (D ^ 2 * E)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `piQuarticChamberRestLF0810_liveBCDEG_p4c3` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCDEG_p4c3
+    (A B C D E F G : k[X]) :
+    piQuarticChamberRestLF0810_liveBCDEG_p4c3 A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 256 : k), (-(5 / 8) : k), (-(5 / 16) : k),
+      (-(5 / 8) : k), (-(5 / 8) : k)
+      ]
+      [
+      [0, 0, 4, 0, 0, 0, 0], [0, 1, 0, 1, 0, 0, 1], [0, 0, 2, 0, 0, 0, 1], [0, 0, 1, 0, 2, 0, 0],
+      [0, 0, 0, 2, 1, 0, 0]
+      ] := by
+  simp only [piQuarticChamberRestLF0810_liveBCDEG_p4c3, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_liveBCDEG_p4c3_natDegree_lt
@@ -925,9 +1409,15 @@ theorem piQuarticChamberRestLF0810_liveBCDEG_p4c3_natDegree_lt
     (hd13 : C.natDegree + 2 * E.natDegree < d)
     (hd14 : 2 * D.natDegree + E.natDegree < d) :
     (piQuarticChamberRestLF0810_liveBCDEG_p4c3 A B C D E F G).natDegree < d := by
-  simp only [piQuarticChamberRestLF0810_liveBCDEG_p4c3]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCDEG_p4c3]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_BCDEG
@@ -974,6 +1464,29 @@ def piQuarticChamberRestLF0810_liveBCDFG_p4c1
   + (5 / 64 : k) • (A * B ^ 2 * G)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `piQuarticChamberRestLF0810_liveBCDFG_p4c1` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCDFG_p4c1
+    (A B C D E F G : k[X]) :
+    piQuarticChamberRestLF0810_liveBCDFG_p4c1 A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 4096 : k), (-(15 / 128) : k), (-(45 / 512) : k),
+      (-(35 / 256) : k), (5 / 64 : k)
+      ]
+      [
+      [2, 4, 0, 0, 0, 0, 0], [1, 3, 0, 1, 0, 0, 0], [1, 2, 2, 0, 0, 0, 0], [0, 4, 1, 0, 0, 0, 0],
+      [1, 2, 0, 0, 0, 0, 1]
+      ] := by
+  simp only [piQuarticChamberRestLF0810_liveBCDFG_p4c1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_liveBCDFG_p4c1_natDegree_lt
     {d : ℕ}
     (A B C D E F G : k[X])
@@ -984,9 +1497,15 @@ theorem piQuarticChamberRestLF0810_liveBCDFG_p4c1_natDegree_lt
     (hd3 : 4 * B.natDegree + C.natDegree < d)
     (hd4 : A.natDegree + 2 * B.natDegree + G.natDegree < d) :
     (piQuarticChamberRestLF0810_liveBCDFG_p4c1 A B C D E F G).natDegree < d := by
-  simp only [piQuarticChamberRestLF0810_liveBCDFG_p4c1]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCDFG_p4c1]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 def piQuarticChamberRestLF0810_liveBCDFG_p4c2
     (A B C D E F G : k[X]) : k[X] :=
@@ -995,6 +1514,29 @@ def piQuarticChamberRestLF0810_liveBCDFG_p4c2
   + (25 / 128 : k) • (B ^ 3 * F)
   + (45 / 128 : k) • (B ^ 2 * D ^ 2)
   + (45 / 64 : k) • (B * C ^ 2 * D)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `piQuarticChamberRestLF0810_liveBCDFG_p4c2` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCDFG_p4c2
+    (A B C D E F G : k[X]) :
+    piQuarticChamberRestLF0810_liveBCDFG_p4c2 A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (5 / 32 : k), (5 / 32 : k), (25 / 128 : k),
+      (45 / 128 : k), (45 / 64 : k)
+      ]
+      [
+      [1, 1, 1, 0, 0, 1, 0], [1, 0, 1, 2, 0, 0, 0], [0, 3, 0, 0, 0, 1, 0], [0, 2, 0, 2, 0, 0, 0],
+      [0, 1, 2, 1, 0, 0, 0]
+      ] := by
+  simp only [piQuarticChamberRestLF0810_liveBCDFG_p4c2, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_liveBCDFG_p4c2_natDegree_lt
@@ -1007,9 +1549,15 @@ theorem piQuarticChamberRestLF0810_liveBCDFG_p4c2_natDegree_lt
     (hd8 : 2 * B.natDegree + 2 * D.natDegree < d)
     (hd9 : B.natDegree + 2 * C.natDegree + D.natDegree < d) :
     (piQuarticChamberRestLF0810_liveBCDFG_p4c2 A B C D E F G).natDegree < d := by
-  simp only [piQuarticChamberRestLF0810_liveBCDFG_p4c2]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCDFG_p4c2]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 def piQuarticChamberRestLF0810_liveBCDFG_p4c3
     (A B C D E F G : k[X]) : k[X] :=
@@ -1018,6 +1566,29 @@ def piQuarticChamberRestLF0810_liveBCDFG_p4c3
   - (5 / 8 : k) • (B * D * G)
   - (5 / 16 : k) • (C ^ 2 * G)
   - (15 / 16 : k) • (C * D * F)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `piQuarticChamberRestLF0810_liveBCDFG_p4c3` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCDFG_p4c3
+    (A B C D E F G : k[X]) :
+    piQuarticChamberRestLF0810_liveBCDFG_p4c3 A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 256 : k), (-(5 / 16) : k), (-(5 / 8) : k),
+      (-(5 / 16) : k), (-(15 / 16) : k)
+      ]
+      [
+      [0, 0, 4, 0, 0, 0, 0], [1, 0, 0, 0, 0, 2, 0], [0, 1, 0, 1, 0, 0, 1], [0, 0, 2, 0, 0, 0, 1],
+      [0, 0, 1, 1, 0, 1, 0]
+      ] := by
+  simp only [piQuarticChamberRestLF0810_liveBCDFG_p4c3, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_liveBCDFG_p4c3_natDegree_lt
@@ -1030,9 +1601,15 @@ theorem piQuarticChamberRestLF0810_liveBCDFG_p4c3_natDegree_lt
     (hd13 : 2 * C.natDegree + G.natDegree < d)
     (hd14 : C.natDegree + D.natDegree + F.natDegree < d) :
     (piQuarticChamberRestLF0810_liveBCDFG_p4c3 A B C D E F G).natDegree < d := by
-  simp only [piQuarticChamberRestLF0810_liveBCDFG_p4c3]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCDFG_p4c3]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_BCDFG
@@ -1080,6 +1657,29 @@ def piQuarticChamberRestLF0810_liveBCEFG_p4c1
   + (25 / 128 : k) • (B ^ 3 * F)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `piQuarticChamberRestLF0810_liveBCEFG_p4c1` (6 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCEFG_p4c1
+    (A B C D E F G : k[X]) :
+    piQuarticChamberRestLF0810_liveBCEFG_p4c1 A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 4096 : k), (-(45 / 512) : k), (-(35 / 256) : k),
+      (5 / 64 : k), (5 / 32 : k), (25 / 128 : k)
+      ]
+      [
+      [2, 4, 0, 0, 0, 0, 0], [1, 2, 2, 0, 0, 0, 0], [0, 4, 1, 0, 0, 0, 0], [1, 2, 0, 0, 0, 0, 1],
+      [1, 1, 1, 0, 0, 1, 0], [0, 3, 0, 0, 0, 1, 0]
+      ] := by
+  simp only [piQuarticChamberRestLF0810_liveBCEFG_p4c1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_liveBCEFG_p4c1_natDegree_lt
     {d : ℕ}
     (A B C D E F G : k[X])
@@ -1091,9 +1691,15 @@ theorem piQuarticChamberRestLF0810_liveBCEFG_p4c1_natDegree_lt
     (hd4 : A.natDegree + B.natDegree + C.natDegree + F.natDegree < d)
     (hd5 : 3 * B.natDegree + F.natDegree < d) :
     (piQuarticChamberRestLF0810_liveBCEFG_p4c1 A B C D E F G).natDegree < d := by
-  simp only [piQuarticChamberRestLF0810_liveBCEFG_p4c1]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCEFG_p4c1]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 def piQuarticChamberRestLF0810_liveBCEFG_p4c2
     (A B C D E F G : k[X]) : k[X] :=
@@ -1103,6 +1709,29 @@ def piQuarticChamberRestLF0810_liveBCEFG_p4c2
   - (15 / 16 : k) • (B * E * F)
   - (5 / 16 : k) • (C ^ 2 * G)
   - (5 / 8 : k) • (C * E ^ 2)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `piQuarticChamberRestLF0810_liveBCEFG_p4c2` (6 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCEFG_p4c2
+    (A B C D E F G : k[X]) :
+    piQuarticChamberRestLF0810_liveBCEFG_p4c2 A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (45 / 64 : k), (15 / 256 : k), (-(5 / 16) : k),
+      (-(15 / 16) : k), (-(5 / 16) : k), (-(5 / 8) : k)
+      ]
+      [
+      [0, 2, 1, 0, 1, 0, 0], [0, 0, 4, 0, 0, 0, 0], [1, 0, 0, 0, 0, 2, 0], [0, 1, 0, 0, 1, 1, 0],
+      [0, 0, 2, 0, 0, 0, 1], [0, 0, 1, 0, 2, 0, 0]
+      ] := by
+  simp only [piQuarticChamberRestLF0810_liveBCEFG_p4c2, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_liveBCEFG_p4c2_natDegree_lt
@@ -1116,9 +1745,15 @@ theorem piQuarticChamberRestLF0810_liveBCEFG_p4c2_natDegree_lt
     (hd10 : 2 * C.natDegree + G.natDegree < d)
     (hd11 : C.natDegree + 2 * E.natDegree < d) :
     (piQuarticChamberRestLF0810_liveBCEFG_p4c2 A B C D E F G).natDegree < d := by
-  simp only [piQuarticChamberRestLF0810_liveBCEFG_p4c2]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCEFG_p4c2]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_BCEFG
@@ -1162,6 +1797,29 @@ def piQuarticChamberRestLF0810_liveBDEFG_p4c1
   + (25 / 128 : k) • (B ^ 3 * F)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `piQuarticChamberRestLF0810_liveBDEFG_p4c1` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBDEFG_p4c1
+    (A B C D E F G : k[X]) :
+    piQuarticChamberRestLF0810_liveBDEFG_p4c1 A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 4096 : k), (-(15 / 128) : k), (5 / 64 : k),
+      (5 / 16 : k), (25 / 128 : k)
+      ]
+      [
+      [2, 4, 0, 0, 0, 0, 0], [1, 3, 0, 1, 0, 0, 0], [1, 2, 0, 0, 0, 0, 1], [1, 1, 0, 1, 1, 0, 0],
+      [0, 3, 0, 0, 0, 1, 0]
+      ] := by
+  simp only [piQuarticChamberRestLF0810_liveBDEFG_p4c1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_liveBDEFG_p4c1_natDegree_lt
     {d : ℕ}
     (A B C D E F G : k[X])
@@ -1172,9 +1830,15 @@ theorem piQuarticChamberRestLF0810_liveBDEFG_p4c1_natDegree_lt
     (hd3 : A.natDegree + B.natDegree + D.natDegree + E.natDegree < d)
     (hd4 : 3 * B.natDegree + F.natDegree < d) :
     (piQuarticChamberRestLF0810_liveBDEFG_p4c1 A B C D E F G).natDegree < d := by
-  simp only [piQuarticChamberRestLF0810_liveBDEFG_p4c1]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBDEFG_p4c1]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 def piQuarticChamberRestLF0810_liveBDEFG_p4c2
     (A B C D E F G : k[X]) : k[X] :=
@@ -1183,6 +1847,29 @@ def piQuarticChamberRestLF0810_liveBDEFG_p4c2
   - (5 / 8 : k) • (B * D * G)
   - (15 / 16 : k) • (B * E * F)
   - (5 / 8 : k) • (D ^ 2 * E)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `piQuarticChamberRestLF0810_liveBDEFG_p4c2` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBDEFG_p4c2
+    (A B C D E F G : k[X]) :
+    piQuarticChamberRestLF0810_liveBDEFG_p4c2 A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (45 / 128 : k), (-(5 / 16) : k), (-(5 / 8) : k),
+      (-(15 / 16) : k), (-(5 / 8) : k)
+      ]
+      [
+      [0, 2, 0, 2, 0, 0, 0], [1, 0, 0, 0, 0, 2, 0], [0, 1, 0, 1, 0, 0, 1], [0, 1, 0, 0, 1, 1, 0],
+      [0, 0, 0, 2, 1, 0, 0]
+      ] := by
+  simp only [piQuarticChamberRestLF0810_liveBDEFG_p4c2, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_liveBDEFG_p4c2_natDegree_lt
@@ -1195,9 +1882,15 @@ theorem piQuarticChamberRestLF0810_liveBDEFG_p4c2_natDegree_lt
     (hd8 : B.natDegree + E.natDegree + F.natDegree < d)
     (hd9 : 2 * D.natDegree + E.natDegree < d) :
     (piQuarticChamberRestLF0810_liveBDEFG_p4c2 A B C D E F G).natDegree < d := by
-  simp only [piQuarticChamberRestLF0810_liveBDEFG_p4c2]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBDEFG_p4c2]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_BDEFG
@@ -1252,9 +1945,19 @@ theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_CDEFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [piQuarticChamberRestLF0810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 def piQuarticChamberRestLF0810_liveBCDEFG_p4c1
     (A B C D E F G : k[X]) : k[X] :=
@@ -1263,6 +1966,29 @@ def piQuarticChamberRestLF0810_liveBCDEFG_p4c1
   - (45 / 512 : k) • (A * B ^ 2 * C ^ 2)
   - (35 / 256 : k) • (B ^ 4 * C)
   + (5 / 64 : k) • (A * B ^ 2 * G)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `piQuarticChamberRestLF0810_liveBCDEFG_p4c1` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCDEFG_p4c1
+    (A B C D E F G : k[X]) :
+    piQuarticChamberRestLF0810_liveBCDEFG_p4c1 A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 4096 : k), (-(15 / 128) : k), (-(45 / 512) : k),
+      (-(35 / 256) : k), (5 / 64 : k)
+      ]
+      [
+      [2, 4, 0, 0, 0, 0, 0], [1, 3, 0, 1, 0, 0, 0], [1, 2, 2, 0, 0, 0, 0], [0, 4, 1, 0, 0, 0, 0],
+      [1, 2, 0, 0, 0, 0, 1]
+      ] := by
+  simp only [piQuarticChamberRestLF0810_liveBCDEFG_p4c1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_liveBCDEFG_p4c1_natDegree_lt
@@ -1275,9 +2001,15 @@ theorem piQuarticChamberRestLF0810_liveBCDEFG_p4c1_natDegree_lt
     (hd3 : 4 * B.natDegree + C.natDegree < d)
     (hd4 : A.natDegree + 2 * B.natDegree + G.natDegree < d) :
     (piQuarticChamberRestLF0810_liveBCDEFG_p4c1 A B C D E F G).natDegree < d := by
-  simp only [piQuarticChamberRestLF0810_liveBCDEFG_p4c1]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCDEFG_p4c1]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 def piQuarticChamberRestLF0810_liveBCDEFG_p4c2
     (A B C D E F G : k[X]) : k[X] :=
@@ -1286,6 +2018,29 @@ def piQuarticChamberRestLF0810_liveBCDEFG_p4c2
   + (5 / 32 : k) • (A * C * D ^ 2)
   + (25 / 128 : k) • (B ^ 3 * F)
   + (45 / 64 : k) • (B ^ 2 * C * E)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `piQuarticChamberRestLF0810_liveBCDEFG_p4c2` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCDEFG_p4c2
+    (A B C D E F G : k[X]) :
+    piQuarticChamberRestLF0810_liveBCDEFG_p4c2 A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (5 / 32 : k), (5 / 16 : k), (5 / 32 : k),
+      (25 / 128 : k), (45 / 64 : k)
+      ]
+      [
+      [1, 1, 1, 0, 0, 1, 0], [1, 1, 0, 1, 1, 0, 0], [1, 0, 1, 2, 0, 0, 0], [0, 3, 0, 0, 0, 1, 0],
+      [0, 2, 1, 0, 1, 0, 0]
+      ] := by
+  simp only [piQuarticChamberRestLF0810_liveBCDEFG_p4c2, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_liveBCDEFG_p4c2_natDegree_lt
@@ -1298,9 +2053,15 @@ theorem piQuarticChamberRestLF0810_liveBCDEFG_p4c2_natDegree_lt
     (hd8 : 3 * B.natDegree + F.natDegree < d)
     (hd9 : 2 * B.natDegree + C.natDegree + E.natDegree < d) :
     (piQuarticChamberRestLF0810_liveBCDEFG_p4c2 A B C D E F G).natDegree < d := by
-  simp only [piQuarticChamberRestLF0810_liveBCDEFG_p4c2]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCDEFG_p4c2]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 def piQuarticChamberRestLF0810_liveBCDEFG_p4c3
     (A B C D E F G : k[X]) : k[X] :=
@@ -1309,6 +2070,29 @@ def piQuarticChamberRestLF0810_liveBCDEFG_p4c3
   + (15 / 256 : k) • C ^ 4
   - (5 / 16 : k) • (A * F ^ 2)
   - (5 / 8 : k) • (B * D * G)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `piQuarticChamberRestLF0810_liveBCDEFG_p4c3` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCDEFG_p4c3
+    (A B C D E F G : k[X]) :
+    piQuarticChamberRestLF0810_liveBCDEFG_p4c3 A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (45 / 128 : k), (45 / 64 : k), (15 / 256 : k),
+      (-(5 / 16) : k), (-(5 / 8) : k)
+      ]
+      [
+      [0, 2, 0, 2, 0, 0, 0], [0, 1, 2, 1, 0, 0, 0], [0, 0, 4, 0, 0, 0, 0], [1, 0, 0, 0, 0, 2, 0],
+      [0, 1, 0, 1, 0, 0, 1]
+      ] := by
+  simp only [piQuarticChamberRestLF0810_liveBCDEFG_p4c3, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_liveBCDEFG_p4c3_natDegree_lt
@@ -1321,9 +2105,15 @@ theorem piQuarticChamberRestLF0810_liveBCDEFG_p4c3_natDegree_lt
     (hd13 : A.natDegree + 2 * F.natDegree < d)
     (hd14 : B.natDegree + D.natDegree + G.natDegree < d) :
     (piQuarticChamberRestLF0810_liveBCDEFG_p4c3 A B C D E F G).natDegree < d := by
-  simp only [piQuarticChamberRestLF0810_liveBCDEFG_p4c3]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCDEFG_p4c3]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 def piQuarticChamberRestLF0810_liveBCDEFG_p4c4
     (A B C D E F G : k[X]) : k[X] :=
@@ -1332,6 +2122,29 @@ def piQuarticChamberRestLF0810_liveBCDEFG_p4c4
   - (15 / 16 : k) • (C * D * F)
   - (5 / 8 : k) • (C * E ^ 2)
   - (5 / 8 : k) • (D ^ 2 * E)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `piQuarticChamberRestLF0810_liveBCDEFG_p4c4` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCDEFG_p4c4
+    (A B C D E F G : k[X]) :
+    piQuarticChamberRestLF0810_liveBCDEFG_p4c4 A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(15 / 16) : k), (-(5 / 16) : k), (-(15 / 16) : k),
+      (-(5 / 8) : k), (-(5 / 8) : k)
+      ]
+      [
+      [0, 1, 0, 0, 1, 1, 0], [0, 0, 2, 0, 0, 0, 1], [0, 0, 1, 1, 0, 1, 0], [0, 0, 1, 0, 2, 0, 0],
+      [0, 0, 0, 2, 1, 0, 0]
+      ] := by
+  simp only [piQuarticChamberRestLF0810_liveBCDEFG_p4c4, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_liveBCDEFG_p4c4_natDegree_lt
@@ -1344,9 +2157,15 @@ theorem piQuarticChamberRestLF0810_liveBCDEFG_p4c4_natDegree_lt
     (hd18 : C.natDegree + 2 * E.natDegree < d)
     (hd19 : 2 * D.natDegree + E.natDegree < d) :
     (piQuarticChamberRestLF0810_liveBCDEFG_p4c4 A B C D E F G).natDegree < d := by
-  simp only [piQuarticChamberRestLF0810_liveBCDEFG_p4c4]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_piQuarticChamberRestLF0810_liveBCDEFG_p4c4]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticChamberRestLF0810_natDegree_lt_of_live_BCDEFG
@@ -1405,6 +2224,28 @@ theorem kappaQuarticChamberRestLF1810_natDegree_lt_of_live_BC
   omega
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `kappaQuarticChamberRestLF1810` (4 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberFacesPart4_kappaQuarticChamberRestLF1810
+    (A B C D E F G : k[X]) :
+    kappaQuarticChamberRestLF1810 A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(15 / 128) : k), (5 / 16 : k), (5 / 16 : k),
+      (5 / 16 : k)
+      ]
+      [
+      [0, 2, 0, 1, 0, 0, 0], [0, 1, 0, 0, 0, 0, 1], [0, 0, 1, 0, 0, 1, 0], [0, 0, 0, 1, 1, 0, 0]
+      ] := by
+  simp only [kappaQuarticChamberRestLF1810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+
+set_option maxHeartbeats 64000000 in
 theorem kappaQuarticChamberRestLF1810_natDegree_lt_of_live_BCD
     {d : ℕ}
     (A B C D E F G : k[X])
@@ -1424,9 +2265,19 @@ theorem kappaQuarticChamberRestLF1810_natDegree_lt_of_live_BCD
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [kappaQuarticChamberRestLF1810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_kappaQuarticChamberRestLF1810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem kappaQuarticChamberRestLF1810_natDegree_lt_of_live_BCE
@@ -1470,9 +2321,19 @@ theorem kappaQuarticChamberRestLF1810_natDegree_lt_of_live_BCF
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [kappaQuarticChamberRestLF1810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_kappaQuarticChamberRestLF1810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem kappaQuarticChamberRestLF1810_natDegree_lt_of_live_BCG
@@ -1494,9 +2355,19 @@ theorem kappaQuarticChamberRestLF1810_natDegree_lt_of_live_BCG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [kappaQuarticChamberRestLF1810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_kappaQuarticChamberRestLF1810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem kappaQuarticChamberRestLF1810_natDegree_lt_of_live_BCDE
@@ -1517,9 +2388,19 @@ theorem kappaQuarticChamberRestLF1810_natDegree_lt_of_live_BCDE
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [kappaQuarticChamberRestLF1810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_kappaQuarticChamberRestLF1810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem kappaQuarticChamberRestLF1810_natDegree_lt_of_live_BCDF
@@ -1540,9 +2421,19 @@ theorem kappaQuarticChamberRestLF1810_natDegree_lt_of_live_BCDF
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [kappaQuarticChamberRestLF1810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_kappaQuarticChamberRestLF1810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem kappaQuarticChamberRestLF1810_natDegree_lt_of_live_BCDG
@@ -1563,9 +2454,19 @@ theorem kappaQuarticChamberRestLF1810_natDegree_lt_of_live_BCDG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [kappaQuarticChamberRestLF1810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_kappaQuarticChamberRestLF1810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem kappaQuarticChamberRestLF1810_natDegree_lt_of_live_BCEF
@@ -1585,9 +2486,19 @@ theorem kappaQuarticChamberRestLF1810_natDegree_lt_of_live_BCEF
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [kappaQuarticChamberRestLF1810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_kappaQuarticChamberRestLF1810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem kappaQuarticChamberRestLF1810_natDegree_lt_of_live_BCEG
@@ -1607,9 +2518,19 @@ theorem kappaQuarticChamberRestLF1810_natDegree_lt_of_live_BCEG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [kappaQuarticChamberRestLF1810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_kappaQuarticChamberRestLF1810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem kappaQuarticChamberRestLF1810_natDegree_lt_of_live_BCFG
@@ -1630,9 +2551,19 @@ theorem kappaQuarticChamberRestLF1810_natDegree_lt_of_live_BCFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [kappaQuarticChamberRestLF1810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_kappaQuarticChamberRestLF1810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem kappaQuarticChamberRestLF1810_natDegree_lt_of_live_BCDEF
@@ -1652,9 +2583,19 @@ theorem kappaQuarticChamberRestLF1810_natDegree_lt_of_live_BCDEF
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [kappaQuarticChamberRestLF1810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_kappaQuarticChamberRestLF1810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem kappaQuarticChamberRestLF1810_natDegree_lt_of_live_BCDEG
@@ -1674,9 +2615,19 @@ theorem kappaQuarticChamberRestLF1810_natDegree_lt_of_live_BCDEG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [kappaQuarticChamberRestLF1810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_kappaQuarticChamberRestLF1810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem kappaQuarticChamberRestLF1810_natDegree_lt_of_live_BCDFG
@@ -1696,9 +2647,19 @@ theorem kappaQuarticChamberRestLF1810_natDegree_lt_of_live_BCDFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [kappaQuarticChamberRestLF1810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_kappaQuarticChamberRestLF1810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem kappaQuarticChamberRestLF1810_natDegree_lt_of_live_BCEFG
@@ -1717,9 +2678,19 @@ theorem kappaQuarticChamberRestLF1810_natDegree_lt_of_live_BCEFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [kappaQuarticChamberRestLF1810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_kappaQuarticChamberRestLF1810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem kappaQuarticChamberRestLF1810_natDegree_lt_of_live_BCDEFG
@@ -1738,9 +2709,43 @@ theorem kappaQuarticChamberRestLF1810_natDegree_lt_of_live_BCDEFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [kappaQuarticChamberRestLF1810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_kappaQuarticChamberRestLF1810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `muQuarticChamberRestLF3810` (8 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF3810
+    (A B C D E F G : k[X]) :
+    muQuarticChamberRestLF3810 A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (35 / 2048 : k), (-(5 / 64) : k), (-(5 / 128) : k),
+      (-(15 / 128) : k), (-(15 / 64) : k), (5 / 16 : k),
+      (5 / 16 : k), (5 / 32 : k)
+      ]
+      [
+      [0, 4, 0, 0, 0, 0, 0], [1, 1, 0, 0, 0, 1, 0], [1, 0, 0, 2, 0, 0, 0], [0, 2, 0, 0, 1, 0, 0],
+      [0, 1, 1, 1, 0, 0, 0], [0, 0, 1, 0, 0, 0, 1], [0, 0, 0, 1, 0, 1, 0], [0, 0, 0, 0, 2, 0, 0]
+      ] := by
+  simp only [muQuarticChamberRestLF3810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF3810_natDegree_lt_of_live_BC
@@ -1764,9 +2769,19 @@ theorem muQuarticChamberRestLF3810_natDegree_lt_of_live_BC
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [muQuarticChamberRestLF3810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF3810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF3810_natDegree_lt_of_live_BCD
@@ -1790,9 +2805,19 @@ theorem muQuarticChamberRestLF3810_natDegree_lt_of_live_BCD
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [muQuarticChamberRestLF3810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF3810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF3810_natDegree_lt_of_live_BCE
@@ -1816,9 +2841,19 @@ theorem muQuarticChamberRestLF3810_natDegree_lt_of_live_BCE
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [muQuarticChamberRestLF3810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF3810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF3810_natDegree_lt_of_live_BCF
@@ -1841,9 +2876,19 @@ theorem muQuarticChamberRestLF3810_natDegree_lt_of_live_BCF
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [muQuarticChamberRestLF3810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF3810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF3810_natDegree_lt_of_live_BCG
@@ -1866,9 +2911,19 @@ theorem muQuarticChamberRestLF3810_natDegree_lt_of_live_BCG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [muQuarticChamberRestLF3810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF3810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF3810_natDegree_lt_of_live_BCDE
@@ -1892,9 +2947,19 @@ theorem muQuarticChamberRestLF3810_natDegree_lt_of_live_BCDE
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [muQuarticChamberRestLF3810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF3810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF3810_natDegree_lt_of_live_BCDF
@@ -1918,9 +2983,19 @@ theorem muQuarticChamberRestLF3810_natDegree_lt_of_live_BCDF
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [muQuarticChamberRestLF3810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF3810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF3810_natDegree_lt_of_live_BCDG
@@ -1943,9 +3018,19 @@ theorem muQuarticChamberRestLF3810_natDegree_lt_of_live_BCDG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [muQuarticChamberRestLF3810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF3810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF3810_natDegree_lt_of_live_BCEF
@@ -1968,9 +3053,19 @@ theorem muQuarticChamberRestLF3810_natDegree_lt_of_live_BCEF
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [muQuarticChamberRestLF3810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF3810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF3810_natDegree_lt_of_live_BCEG
@@ -1993,9 +3088,19 @@ theorem muQuarticChamberRestLF3810_natDegree_lt_of_live_BCEG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [muQuarticChamberRestLF3810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF3810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF3810_natDegree_lt_of_live_BCFG
@@ -2017,9 +3122,19 @@ theorem muQuarticChamberRestLF3810_natDegree_lt_of_live_BCFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [muQuarticChamberRestLF3810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF3810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF3810_natDegree_lt_of_live_BCDEF
@@ -2043,9 +3158,19 @@ theorem muQuarticChamberRestLF3810_natDegree_lt_of_live_BCDEF
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [muQuarticChamberRestLF3810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF3810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF3810_natDegree_lt_of_live_BCDEG
@@ -2068,9 +3193,19 @@ theorem muQuarticChamberRestLF3810_natDegree_lt_of_live_BCDEG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [muQuarticChamberRestLF3810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF3810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF3810_natDegree_lt_of_live_BCDFG
@@ -2093,9 +3228,19 @@ theorem muQuarticChamberRestLF3810_natDegree_lt_of_live_BCDFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [muQuarticChamberRestLF3810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF3810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF3810_natDegree_lt_of_live_BCEFG
@@ -2117,9 +3262,19 @@ theorem muQuarticChamberRestLF3810_natDegree_lt_of_live_BCEFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [muQuarticChamberRestLF3810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF3810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 def muQuarticChamberRestLF3810_liveBCDEFG_p4c1
     (A B C D E F G : k[X]) : k[X] :=
@@ -2127,6 +3282,28 @@ def muQuarticChamberRestLF3810_liveBCDEFG_p4c1
   - (5 / 64 : k) • (A * B * F)
   - (5 / 128 : k) • (A * D ^ 2)
   - (15 / 128 : k) • (B ^ 2 * E)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `muQuarticChamberRestLF3810_liveBCDEFG_p4c1` (4 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF3810_liveBCDEFG_p4c1
+    (A B C D E F G : k[X]) :
+    muQuarticChamberRestLF3810_liveBCDEFG_p4c1 A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (35 / 2048 : k), (-(5 / 64) : k), (-(5 / 128) : k),
+      (-(15 / 128) : k)
+      ]
+      [
+      [0, 4, 0, 0, 0, 0, 0], [1, 1, 0, 0, 0, 1, 0], [1, 0, 0, 2, 0, 0, 0], [0, 2, 0, 0, 1, 0, 0]
+      ] := by
+  simp only [muQuarticChamberRestLF3810_liveBCDEFG_p4c1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF3810_liveBCDEFG_p4c1_natDegree_lt
@@ -2138,9 +3315,15 @@ theorem muQuarticChamberRestLF3810_liveBCDEFG_p4c1_natDegree_lt
     (hd2 : A.natDegree + 2 * D.natDegree < d)
     (hd3 : 2 * B.natDegree + E.natDegree < d) :
     (muQuarticChamberRestLF3810_liveBCDEFG_p4c1 A B C D E F G).natDegree < d := by
-  simp only [muQuarticChamberRestLF3810_liveBCDEFG_p4c1]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF3810_liveBCDEFG_p4c1]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 def muQuarticChamberRestLF3810_liveBCDEFG_p4c2
     (A B C D E F G : k[X]) : k[X] :=
@@ -2148,6 +3331,28 @@ def muQuarticChamberRestLF3810_liveBCDEFG_p4c2
   + (5 / 16 : k) • (C * G)
   + (5 / 16 : k) • (D * F)
   + (5 / 32 : k) • E ^ 2
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `muQuarticChamberRestLF3810_liveBCDEFG_p4c2` (4 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF3810_liveBCDEFG_p4c2
+    (A B C D E F G : k[X]) :
+    muQuarticChamberRestLF3810_liveBCDEFG_p4c2 A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(15 / 64) : k), (5 / 16 : k), (5 / 16 : k),
+      (5 / 32 : k)
+      ]
+      [
+      [0, 1, 1, 1, 0, 0, 0], [0, 0, 1, 0, 0, 0, 1], [0, 0, 0, 1, 0, 1, 0], [0, 0, 0, 0, 2, 0, 0]
+      ] := by
+  simp only [muQuarticChamberRestLF3810_liveBCDEFG_p4c2, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF3810_liveBCDEFG_p4c2_natDegree_lt
@@ -2159,9 +3364,15 @@ theorem muQuarticChamberRestLF3810_liveBCDEFG_p4c2_natDegree_lt
     (hd6 : D.natDegree + F.natDegree < d)
     (hd7 : 2 * E.natDegree < d) :
     (muQuarticChamberRestLF3810_liveBCDEFG_p4c2 A B C D E F G).natDegree < d := by
-  simp only [muQuarticChamberRestLF3810_liveBCDEFG_p4c2]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF3810_liveBCDEFG_p4c2]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF3810_natDegree_lt_of_live_BCDEFG
@@ -2182,6 +3393,31 @@ theorem muQuarticChamberRestLF3810_natDegree_lt_of_live_BCDEFG
     abel
   rw [hsplit]
   exact (lt_of_le_of_lt (Polynomial.natDegree_add_le _ _) (max_lt (muQuarticChamberRestLF3810_liveBCDEFG_p4c1_natDegree_lt A B C D E F G hdpos hd0 hd1 hd2 hd3) (muQuarticChamberRestLF3810_liveBCDEFG_p4c2_natDegree_lt A B C D E F G hdpos hd4 hd5 hd6 hd7)))
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `muQuarticChamberRestLF4810` (9 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF4810
+    (A B C D E F G : k[X]) :
+    muQuarticChamberRestLF4810 A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 512 : k), (35 / 2048 : k), (-(5 / 128) : k),
+      (-(15 / 128) : k), (-(15 / 64) : k), (-(5 / 128) : k),
+      (5 / 16 : k), (5 / 16 : k), (5 / 32 : k)
+      ]
+      [
+      [1, 2, 1, 0, 0, 0, 0], [0, 4, 0, 0, 0, 0, 0], [1, 0, 0, 2, 0, 0, 0], [0, 2, 0, 0, 1, 0, 0],
+      [0, 1, 1, 1, 0, 0, 0], [0, 0, 3, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 1], [0, 0, 0, 1, 0, 1, 0],
+      [0, 0, 0, 0, 2, 0, 0]
+      ] := by
+  simp only [muQuarticChamberRestLF4810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF4810_natDegree_lt_of_live_BF
@@ -2205,9 +3441,19 @@ theorem muQuarticChamberRestLF4810_natDegree_lt_of_live_BF
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [muQuarticChamberRestLF4810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF4810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF4810_natDegree_lt_of_live_BCF
@@ -2231,9 +3477,19 @@ theorem muQuarticChamberRestLF4810_natDegree_lt_of_live_BCF
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [muQuarticChamberRestLF4810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF4810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF4810_natDegree_lt_of_live_BDF
@@ -2257,9 +3513,19 @@ theorem muQuarticChamberRestLF4810_natDegree_lt_of_live_BDF
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [muQuarticChamberRestLF4810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF4810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF4810_natDegree_lt_of_live_BEF
@@ -2283,9 +3549,19 @@ theorem muQuarticChamberRestLF4810_natDegree_lt_of_live_BEF
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [muQuarticChamberRestLF4810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF4810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF4810_natDegree_lt_of_live_BFG
@@ -2307,9 +3583,19 @@ theorem muQuarticChamberRestLF4810_natDegree_lt_of_live_BFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [muQuarticChamberRestLF4810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF4810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF4810_natDegree_lt_of_live_BCDF
@@ -2334,9 +3620,19 @@ theorem muQuarticChamberRestLF4810_natDegree_lt_of_live_BCDF
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [muQuarticChamberRestLF4810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF4810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF4810_natDegree_lt_of_live_BCEF
@@ -2360,9 +3656,19 @@ theorem muQuarticChamberRestLF4810_natDegree_lt_of_live_BCEF
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [muQuarticChamberRestLF4810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF4810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF4810_natDegree_lt_of_live_BCFG
@@ -2385,9 +3691,19 @@ theorem muQuarticChamberRestLF4810_natDegree_lt_of_live_BCFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [muQuarticChamberRestLF4810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF4810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF4810_natDegree_lt_of_live_BDEF
@@ -2411,9 +3727,19 @@ theorem muQuarticChamberRestLF4810_natDegree_lt_of_live_BDEF
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [muQuarticChamberRestLF4810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF4810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF4810_natDegree_lt_of_live_BDFG
@@ -2435,9 +3761,19 @@ theorem muQuarticChamberRestLF4810_natDegree_lt_of_live_BDFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [muQuarticChamberRestLF4810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF4810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF4810_natDegree_lt_of_live_BEFG
@@ -2459,9 +3795,19 @@ theorem muQuarticChamberRestLF4810_natDegree_lt_of_live_BEFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [muQuarticChamberRestLF4810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF4810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 def muQuarticChamberRestLF4810_liveBCDEF_p4c1
     (A B C D E F G : k[X]) : k[X] :=
@@ -2469,6 +3815,28 @@ def muQuarticChamberRestLF4810_liveBCDEF_p4c1
   + (35 / 2048 : k) • B ^ 4
   - (5 / 128 : k) • (A * D ^ 2)
   - (15 / 128 : k) • (B ^ 2 * E)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `muQuarticChamberRestLF4810_liveBCDEF_p4c1` (4 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF4810_liveBCDEF_p4c1
+    (A B C D E F G : k[X]) :
+    muQuarticChamberRestLF4810_liveBCDEF_p4c1 A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 512 : k), (35 / 2048 : k), (-(5 / 128) : k),
+      (-(15 / 128) : k)
+      ]
+      [
+      [1, 2, 1, 0, 0, 0, 0], [0, 4, 0, 0, 0, 0, 0], [1, 0, 0, 2, 0, 0, 0], [0, 2, 0, 0, 1, 0, 0]
+      ] := by
+  simp only [muQuarticChamberRestLF4810_liveBCDEF_p4c1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF4810_liveBCDEF_p4c1_natDegree_lt
@@ -2480,9 +3848,15 @@ theorem muQuarticChamberRestLF4810_liveBCDEF_p4c1_natDegree_lt
     (hd2 : A.natDegree + 2 * D.natDegree < d)
     (hd3 : 2 * B.natDegree + E.natDegree < d) :
     (muQuarticChamberRestLF4810_liveBCDEF_p4c1 A B C D E F G).natDegree < d := by
-  simp only [muQuarticChamberRestLF4810_liveBCDEF_p4c1]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF4810_liveBCDEF_p4c1]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 def muQuarticChamberRestLF4810_liveBCDEF_p4c2
     (A B C D E F G : k[X]) : k[X] :=
@@ -2490,6 +3864,28 @@ def muQuarticChamberRestLF4810_liveBCDEF_p4c2
   - (5 / 128 : k) • C ^ 3
   + (5 / 16 : k) • (D * F)
   + (5 / 32 : k) • E ^ 2
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `muQuarticChamberRestLF4810_liveBCDEF_p4c2` (4 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF4810_liveBCDEF_p4c2
+    (A B C D E F G : k[X]) :
+    muQuarticChamberRestLF4810_liveBCDEF_p4c2 A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(15 / 64) : k), (-(5 / 128) : k), (5 / 16 : k),
+      (5 / 32 : k)
+      ]
+      [
+      [0, 1, 1, 1, 0, 0, 0], [0, 0, 3, 0, 0, 0, 0], [0, 0, 0, 1, 0, 1, 0], [0, 0, 0, 0, 2, 0, 0]
+      ] := by
+  simp only [muQuarticChamberRestLF4810_liveBCDEF_p4c2, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF4810_liveBCDEF_p4c2_natDegree_lt
@@ -2501,9 +3897,15 @@ theorem muQuarticChamberRestLF4810_liveBCDEF_p4c2_natDegree_lt
     (hd6 : D.natDegree + F.natDegree < d)
     (hd7 : 2 * E.natDegree < d) :
     (muQuarticChamberRestLF4810_liveBCDEF_p4c2 A B C D E F G).natDegree < d := by
-  simp only [muQuarticChamberRestLF4810_liveBCDEF_p4c2]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF4810_liveBCDEF_p4c2]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF4810_natDegree_lt_of_live_BCDEF
@@ -2556,9 +3958,19 @@ theorem muQuarticChamberRestLF4810_natDegree_lt_of_live_BCDFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [muQuarticChamberRestLF4810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF4810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF4810_natDegree_lt_of_live_BCEFG
@@ -2581,9 +3993,19 @@ theorem muQuarticChamberRestLF4810_natDegree_lt_of_live_BCEFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [muQuarticChamberRestLF4810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF4810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF4810_natDegree_lt_of_live_BDEFG
@@ -2605,9 +4027,19 @@ theorem muQuarticChamberRestLF4810_natDegree_lt_of_live_BDEFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [muQuarticChamberRestLF4810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF4810]
+  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk hdpos ?_
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
+    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8,
+    natDegree_zero, pow_zero, pow_one, one_mul, mul_one,
+    zero_mul, mul_zero, zero_add, add_zero, eq_self_iff_true,
+    true_or, or_true, true_and, and_true]
+  repeat' apply And.intro
+  all_goals exact Or.inr (Or.inr (by omega))
 
 def muQuarticChamberRestLF4810_liveBCDEFG_p4c1
     (A B C D E F G : k[X]) : k[X] :=
@@ -2616,6 +4048,29 @@ def muQuarticChamberRestLF4810_liveBCDEFG_p4c1
   - (5 / 128 : k) • (A * D ^ 2)
   - (15 / 128 : k) • (B ^ 2 * E)
   - (15 / 64 : k) • (B * C * D)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `muQuarticChamberRestLF4810_liveBCDEFG_p4c1` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF4810_liveBCDEFG_p4c1
+    (A B C D E F G : k[X]) :
+    muQuarticChamberRestLF4810_liveBCDEFG_p4c1 A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 512 : k), (35 / 2048 : k), (-(5 / 128) : k),
+      (-(15 / 128) : k), (-(15 / 64) : k)
+      ]
+      [
+      [1, 2, 1, 0, 0, 0, 0], [0, 4, 0, 0, 0, 0, 0], [1, 0, 0, 2, 0, 0, 0], [0, 2, 0, 0, 1, 0, 0],
+      [0, 1, 1, 1, 0, 0, 0]
+      ] := by
+  simp only [muQuarticChamberRestLF4810_liveBCDEFG_p4c1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF4810_liveBCDEFG_p4c1_natDegree_lt
@@ -2628,9 +4083,15 @@ theorem muQuarticChamberRestLF4810_liveBCDEFG_p4c1_natDegree_lt
     (hd3 : 2 * B.natDegree + E.natDegree < d)
     (hd4 : B.natDegree + C.natDegree + D.natDegree < d) :
     (muQuarticChamberRestLF4810_liveBCDEFG_p4c1 A B C D E F G).natDegree < d := by
-  simp only [muQuarticChamberRestLF4810_liveBCDEFG_p4c1]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF4810_liveBCDEFG_p4c1]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 def muQuarticChamberRestLF4810_liveBCDEFG_p4c2
     (A B C D E F G : k[X]) : k[X] :=
@@ -2638,6 +4099,28 @@ def muQuarticChamberRestLF4810_liveBCDEFG_p4c2
   + (5 / 16 : k) • (C * G)
   + (5 / 16 : k) • (D * F)
   + (5 / 32 : k) • E ^ 2
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `muQuarticChamberRestLF4810_liveBCDEFG_p4c2` (4 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF4810_liveBCDEFG_p4c2
+    (A B C D E F G : k[X]) :
+    muQuarticChamberRestLF4810_liveBCDEFG_p4c2 A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(5 / 128) : k), (5 / 16 : k), (5 / 16 : k),
+      (5 / 32 : k)
+      ]
+      [
+      [0, 0, 3, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 1], [0, 0, 0, 1, 0, 1, 0], [0, 0, 0, 0, 2, 0, 0]
+      ] := by
+  simp only [muQuarticChamberRestLF4810_liveBCDEFG_p4c2, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF4810_liveBCDEFG_p4c2_natDegree_lt
@@ -2649,9 +4132,15 @@ theorem muQuarticChamberRestLF4810_liveBCDEFG_p4c2_natDegree_lt
     (hd7 : D.natDegree + F.natDegree < d)
     (hd8 : 2 * E.natDegree < d) :
     (muQuarticChamberRestLF4810_liveBCDEFG_p4c2 A B C D E F G).natDegree < d := by
-  simp only [muQuarticChamberRestLF4810_liveBCDEFG_p4c2]
-  compute_degree
-  omega
+  rw [refl810PolyOf_ChamberFacesPart4_muQuarticChamberRestLF4810_liveBCDEFG_p4c2]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 theorem muQuarticChamberRestLF4810_natDegree_lt_of_live_BCDEFG

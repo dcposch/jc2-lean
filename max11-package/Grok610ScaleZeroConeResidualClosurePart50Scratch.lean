@@ -22,7 +22,7 @@ open private zero_pow_two from Grok610ScaleZeroConeResidualClosurePart24Scratch 
 open private zero_pow_three from Grok610ScaleZeroConeResidualClosurePart25Scratch in
 open private zero_pow_four from Grok610ScaleZeroConeResidualClosurePart26Scratch in
 open private zero_pow_five from Grok610ScaleZeroConeResidualClosurePart27Scratch in
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem uniqueHighB_impossible_of_A6B_leads
     (l alpha beta delta epsilon zeta eta theta j : k)
     (A B C0 D0 E0 : k[X]) (hj : j ≠ 0)

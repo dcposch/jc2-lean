@@ -54,35 +54,46 @@ set_option linter.unusedSectionVars false
 
 /-! ## Bookkeeping: extracted base order -/
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroSourceBaseOrder810 : ℕ := 102
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroEffectiveTowerLength810 : ℕ := 17
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroClearedIntegerScale810 : ℕ := 4611686018427387904
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroSourceBaseOrder810_eq :
     degreeZeroSourceBaseOrder810 = 102 := rfl
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroEffectiveTowerLength810_eq :
     degreeZeroEffectiveTowerLength810 = 17 := rfl
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroClearedIntegerScale810_eq :
     degreeZeroClearedIntegerScale810 = 4611686018427387904 := rfl
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroEffectiveTowerLength810_eq_sub :
     degreeZeroEffectiveTowerLength810 =
       degreeZeroSourceClearingPower810 - degreeZeroSourceBaseOrder810 :=
   rfl
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroClearedIntegerScale810_eq_pow :
     degreeZeroClearedIntegerScale810 = 2 ^ 62 := rfl
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroSourceBaseOrder810_ne_sixtyNine :
     degreeZeroSourceBaseOrder810 ≠ 69 := by decide
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroSourceBaseOrder810_ne_ninetySix :
     degreeZeroSourceBaseOrder810 ≠ 96 := by decide
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroClearedIntegerScale810_ne_grouped :
     degreeZeroClearedIntegerScale810 ≠
       degreeZeroGroupedIntegerScale810 := by decide
@@ -96,7 +107,7 @@ section DegreeZeroCompact810
 
 variable {S : Type*} [CommRing S]
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 /-- Integer `215`-term compact of the grouped degree-zero
 primitive, obtained by clearing the grouped scale `2^{28}`.  The ring
 is named `S` so the residual coordinate `R` is not shadowed. -/
@@ -323,7 +334,7 @@ section DegreeZeroCompactFieldBridge810
 
 variable {F : Type*} [Field F] [CharZero F]
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 /-- Weight `17` of the compact numerator, with source-scale weight `7`
 per unit of residual weight. -/
 theorem degreeZeroClearedCompact810_weightedScale
@@ -349,7 +360,7 @@ section DegreeZeroClearedSource810
 
 variable {R : Type*} [CommRing R]
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Source block `0` of the `h^{119}`-cleared numerator. -/
 def degreeZeroClearedSourceBlock0_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) : R :=
     (648518346341351424 : R) * h ^ 119 * a0 ^ 2 * lambda
@@ -393,12 +404,12 @@ def degreeZeroClearedSourceBlock0_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 
     - (4035225266123964416 : R) * h ^ 110 * a2 * a0 * b7
     - (2017612633061982208 : R) * h ^ 110 * a1 ^ 2 * b7
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`102` head contributed by source block `0`. -/
 def degreeZeroSourceJetHeadBlock0_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Plus remainder contributed by source block `0`. -/
 def degreeZeroSourceJetPlusBlock0_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (648518346341351424 : R) * h ^ 16 * a0 ^ 2 * lambda
@@ -442,7 +453,7 @@ def degreeZeroSourceJetPlusBlock0_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4
     - (2882303761517117440 : R) * h ^ 7 * a3 * a1 * b5
     - (1441151880758558720 : R) * h ^ 7 * a2 ^ 2 * b5
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroClearedSourceBlock0_810_leftJet_factored
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroClearedSourceBlock0_810 h (h ^ 6 * t0) (h ^ 4 * v1)
@@ -457,7 +468,7 @@ private theorem degreeZeroClearedSourceBlock0_810_leftJet_factored
     degreeZeroSourceJetHeadBlock0_810,
     degreeZeroSourceJetPlusBlock0_810, degreeZeroSourceBaseOrder810]
   ring
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Source block `1` of the `h^{119}`-cleared numerator. -/
 def degreeZeroClearedSourceBlock1_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (4611686018427387904 : R) * h ^ 110 * a1 * a0 * b8
@@ -501,12 +512,12 @@ def degreeZeroClearedSourceBlock1_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 
     + (3100728343444586496 : R) * h ^ 103 * a6 * a5 * a4 * a1 * lambda
     + (3100728343444586496 : R) * h ^ 103 * a6 * a5 * a3 * a2 * lambda
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`102` head contributed by source block `1`. -/
 def degreeZeroSourceJetHeadBlock1_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Plus remainder contributed by source block `1`. -/
 def degreeZeroSourceJetPlusBlock1_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (405323966463344640 : R) * h ^ 13 * t0 ^ 2 * a1 * a0
@@ -550,7 +561,7 @@ def degreeZeroSourceJetPlusBlock1_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4
     - (6890507429876858880 : R) * h ^ 3 * u1 * a4 * a3 ^ 2
     - (2296835809958952960 : R) * h * a4 ^ 3 * a3
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroClearedSourceBlock1_810_leftJet_factored
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroClearedSourceBlock1_810 h (h ^ 6 * t0) (h ^ 4 * v1)
@@ -565,7 +576,7 @@ private theorem degreeZeroClearedSourceBlock1_810_leftJet_factored
     degreeZeroSourceJetHeadBlock1_810,
     degreeZeroSourceJetPlusBlock1_810, degreeZeroSourceBaseOrder810]
   ring
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Source block `2` of the `h^{119}`-cleared numerator. -/
 def degreeZeroClearedSourceBlock2_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) : R :=
     (1550364171722293248 : R) * h ^ 103 * a6 * a4 ^ 2 * a2 * lambda
@@ -609,12 +620,12 @@ def degreeZeroClearedSourceBlock2_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 
     + (1297036692682702848 : R) * h ^ 102 * a6 * a5 * a4 * b2
     + (1945555039024054272 : R) * h ^ 102 * a6 * a5 * a3 * b3
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`102` head contributed by source block `2`. -/
 def degreeZeroSourceJetHeadBlock2_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Plus remainder contributed by source block `2`. -/
 def degreeZeroSourceJetPlusBlock2_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (324259173170675712 : R) * h ^ 11 * t0 ^ 2 * a2 * b1
@@ -658,7 +669,7 @@ def degreeZeroSourceJetPlusBlock2_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4
     + (1550364171722293248 : R) * h ^ 2 * u1 * a4 ^ 2 * a3 * lambda
     + (129197014310191104 : R) * a4 ^ 4 * lambda
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroClearedSourceBlock2_810_leftJet_factored
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroClearedSourceBlock2_810 h (h ^ 6 * t0) (h ^ 4 * v1)
@@ -673,7 +684,7 @@ private theorem degreeZeroClearedSourceBlock2_810_leftJet_factored
     degreeZeroSourceJetHeadBlock2_810,
     degreeZeroSourceJetPlusBlock2_810, degreeZeroSourceBaseOrder810]
   ring
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Source block `3` of the `h^{119}`-cleared numerator. -/
 def degreeZeroClearedSourceBlock3_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) : R :=
     (2594073385365405696 : R) * h ^ 102 * a6 * a5 * a2 * b4
@@ -717,12 +728,12 @@ def degreeZeroClearedSourceBlock3_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 
     + (6029194001142251520 : R) * h ^ 96 * a7 ^ 2 * a6 * a3 * a0
     + (6029194001142251520 : R) * h ^ 96 * a7 ^ 2 * a6 * a2 * a1
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`102` head contributed by source block `3`. -/
 def degreeZeroSourceJetHeadBlock3_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (540431955284459520 : R) * a4 ^ 3 * b5
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Plus remainder contributed by source block `3`. -/
 def degreeZeroSourceJetPlusBlock3_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (574208952489738240 : R) * h ^ 11 * t0 ^ 3 * a2 * a0
@@ -765,7 +776,7 @@ def degreeZeroSourceJetPlusBlock3_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4
     + (3242591731706757120 : R) * h * u1 * a4 * a3 * b5
     + (1945555039024054272 : R) * h * a4 ^ 2 * a3 * b62
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroClearedSourceBlock3_810_leftJet_factored
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroClearedSourceBlock3_810 h (h ^ 6 * t0) (h ^ 4 * v1)
@@ -780,7 +791,7 @@ private theorem degreeZeroClearedSourceBlock3_810_leftJet_factored
     degreeZeroSourceJetHeadBlock3_810,
     degreeZeroSourceJetPlusBlock3_810, degreeZeroSourceBaseOrder810]
   ring
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Source block `4` of the `h^{119}`-cleared numerator. -/
 def degreeZeroClearedSourceBlock4_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) : R :=
     (6029194001142251520 : R) * h ^ 96 * a7 ^ 2 * a5 * a4 * a0
@@ -824,14 +835,14 @@ def degreeZeroClearedSourceBlock4_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 
     - (4844888036632166400 : R) * h ^ 95 * a7 ^ 2 * a5 * a3 * a2 * lambda
     - (2422444018316083200 : R) * h ^ 95 * a7 ^ 2 * a4 ^ 2 * a2 * lambda
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`102` head contributed by source block `4`. -/
 def degreeZeroSourceJetHeadBlock4_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (1148417904979476480 : R) * t0 * a4 ^ 4
     + (7177611906121728000 : R) * v1 * u1 * a4 ^ 3
     + (3588805953060864000 : R) * u1 ^ 3 * a4 ^ 2
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Plus remainder contributed by source block `4`. -/
 def degreeZeroSourceJetPlusBlock4_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (1614962678877388800 : R) * h ^ 10 * t0 ^ 3 * a3 * a0 * lambda
@@ -872,7 +883,7 @@ def degreeZeroSourceJetPlusBlock4_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4
     + (21532835718365184000 : R) * h * v1 * u1 ^ 2 * a4 * a3
     + (1794402976530432000 : R) * h * u1 ^ 4 * a3
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroClearedSourceBlock4_810_leftJet_factored
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroClearedSourceBlock4_810 h (h ^ 6 * t0) (h ^ 4 * v1)
@@ -887,7 +898,7 @@ private theorem degreeZeroClearedSourceBlock4_810_leftJet_factored
     degreeZeroSourceJetHeadBlock4_810,
     degreeZeroSourceJetPlusBlock4_810, degreeZeroSourceBaseOrder810]
   ring
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Source block `5` of the `h^{119}`-cleared numerator. -/
 def degreeZeroClearedSourceBlock5_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (2422444018316083200 : R) * h ^ 95 * a7 ^ 2 * a4 * a3 ^ 2 * lambda
@@ -931,12 +942,12 @@ def degreeZeroClearedSourceBlock5_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 
     - (3445253714938429440 : R) * h ^ 94 * a7 ^ 2 * a4 * a2 * b5
     - (4134304457926115328 : R) * h ^ 94 * a7 ^ 2 * a4 * a1 * b6
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`102` head contributed by source block `5`. -/
 def degreeZeroSourceJetHeadBlock5_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Plus remainder contributed by source block `5`. -/
 def degreeZeroSourceJetPlusBlock5_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (229683580995895296 : R) * h ^ 9 * t0 ^ 3 * a3 * b1
@@ -980,7 +991,7 @@ def degreeZeroSourceJetPlusBlock5_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4
     - (2422444018316083200 : R) * v1 * u1 ^ 2 * a4 ^ 2 * lambda
     - (403740669719347200 : R) * u1 ^ 4 * a4 * lambda
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroClearedSourceBlock5_810_leftJet_factored
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroClearedSourceBlock5_810 h (h ^ 6 * t0) (h ^ 4 * v1)
@@ -995,7 +1006,7 @@ private theorem degreeZeroClearedSourceBlock5_810_leftJet_factored
     degreeZeroSourceJetHeadBlock5_810,
     degreeZeroSourceJetPlusBlock5_810, degreeZeroSourceBaseOrder810]
   ring
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Source block `6` of the `h^{119}`-cleared numerator. -/
 def degreeZeroClearedSourceBlock6_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (4823355200913801216 : R) * h ^ 94 * a7 ^ 2 * a4 * a0 * b7
@@ -1039,12 +1050,12 @@ def degreeZeroClearedSourceBlock6_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 
     - (4823355200913801216 : R) * h ^ 94 * a7 * a5 * a3 ^ 2 * b7
     - (11024811887802974208 : R) * h ^ 94 * a7 * a5 * a3 * a2 * b8
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`102` head contributed by source block `6`. -/
 def degreeZeroSourceJetHeadBlock6_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (3445253714938429440 : R) * t0 * u1 * a4 ^ 2 * b5
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Plus remainder contributed by source block `6`. -/
 def degreeZeroSourceJetPlusBlock6_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (5512405943901487104 : R) * h ^ 9 * t0 ^ 2 * a3 * a0 * s1
@@ -1087,7 +1098,7 @@ def degreeZeroSourceJetPlusBlock6_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4
     - (3445253714938429440 : R) * h * t0 * u1 ^ 2 * a3 * b5
     - (8268608915852230656 : R) * h * t0 * u1 * a4 * a3 * b62
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroClearedSourceBlock6_810_leftJet_factored
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroClearedSourceBlock6_810 h (h ^ 6 * t0) (h ^ 4 * v1)
@@ -1102,7 +1113,7 @@ private theorem degreeZeroClearedSourceBlock6_810_leftJet_factored
     degreeZeroSourceJetHeadBlock6_810,
     degreeZeroSourceJetPlusBlock6_810, degreeZeroSourceBaseOrder810]
   ring
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Source block `7` of the `h^{119}`-cleared numerator. -/
 def degreeZeroClearedSourceBlock7_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (1378101485975371776 : R) * h ^ 94 * a7 * a4 ^ 3 * b6
@@ -1146,7 +1157,7 @@ def degreeZeroClearedSourceBlock7_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 
     - (2411677600456900608 : R) * h ^ 94 * a5 ^ 2 * a4 ^ 2 * b7
     - (5512405943901487104 : R) * h ^ 94 * a5 ^ 2 * a4 * a3 * b8
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`102` head contributed by source block `7`. -/
 def degreeZeroSourceJetHeadBlock7_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (1378101485975371776 : R) * t0 * a4 ^ 3 * b62
@@ -1158,7 +1169,7 @@ def degreeZeroSourceJetHeadBlock7_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b
     - (1378101485975371776 : R) * u1 ^ 3 * a4 * b62
     - (2411677600456900608 : R) * u1 ^ 2 * a4 ^ 2 * w1
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Plus remainder contributed by source block `7`. -/
 def degreeZeroSourceJetPlusBlock7_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (57420895248973824 : R) * h ^ 7 * v1 ^ 4 * b1
@@ -1194,7 +1205,7 @@ def degreeZeroSourceJetPlusBlock7_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4
     - (1607785066971267072 : R) * h * u1 ^ 3 * a3 * w1
     - (5512405943901487104 : R) * h * u1 ^ 2 * a4 * a3 * s1
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroClearedSourceBlock7_810_leftJet_factored
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroClearedSourceBlock7_810 h (h ^ 6 * t0) (h ^ 4 * v1)
@@ -1209,7 +1220,7 @@ private theorem degreeZeroClearedSourceBlock7_810_leftJet_factored
     degreeZeroSourceJetHeadBlock7_810,
     degreeZeroSourceJetPlusBlock7_810, degreeZeroSourceBaseOrder810]
   ring
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Source block `8` of the `h^{119}`-cleared numerator. -/
 def degreeZeroClearedSourceBlock8_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (1837468647967162368 : R) * h ^ 94 * a5 * a4 ^ 3 * b8
@@ -1253,7 +1264,7 @@ def degreeZeroClearedSourceBlock8_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 
     + (1665430262592307200 : R) * h ^ 87 * a7 ^ 4 * a4 * a0 * lambda
     + (1665430262592307200 : R) * h ^ 87 * a7 ^ 4 * a3 * a1 * lambda
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`102` head contributed by source block `8`. -/
 def degreeZeroSourceJetHeadBlock8_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (6729011161989120000 : R) * t0 ^ 2 * u1 * a4 ^ 3
@@ -1265,7 +1276,7 @@ def degreeZeroSourceJetHeadBlock8_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b
     - (1480382455637606400 : R) * v1 * u1 ^ 5
     - (1837468647967162368 : R) * u1 * a4 ^ 3 * s1
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Plus remainder contributed by source block `8`. -/
 def degreeZeroSourceJetPlusBlock8_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (672901116198912000 : R) * h ^ 9 * t0 ^ 4 * a3 * a0
@@ -1301,7 +1312,7 @@ def degreeZeroSourceJetPlusBlock8_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4
     - (7401912278188032000 : R) * h * v1 ^ 4 * a4 * a3
     - (14803824556376064000 : R) * h * v1 ^ 3 * u1 ^ 2 * a3
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroClearedSourceBlock8_810_leftJet_factored
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroClearedSourceBlock8_810 h (h ^ 6 * t0) (h ^ 4 * v1)
@@ -1316,7 +1327,7 @@ private theorem degreeZeroClearedSourceBlock8_810_leftJet_factored
     degreeZeroSourceJetHeadBlock8_810,
     degreeZeroSourceJetPlusBlock8_810, degreeZeroSourceBaseOrder810]
   ring
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Source block `9` of the `h^{119}`-cleared numerator. -/
 def degreeZeroClearedSourceBlock9_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) : R :=
     (832715131296153600 : R) * h ^ 87 * a7 ^ 4 * a2 ^ 2 * lambda
@@ -1360,12 +1371,12 @@ def degreeZeroClearedSourceBlock9_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 
     + (3588805953060864000 : R) * h ^ 86 * a7 ^ 3 * a6 * a1 * b5
     + (4306567143673036800 : R) * h ^ 86 * a7 ^ 3 * a6 * a0 * b6
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`102` head contributed by source block `9`. -/
 def degreeZeroSourceJetHeadBlock9_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Plus remainder contributed by source block `9`. -/
 def degreeZeroSourceJetPlusBlock9_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (832715131296153600 : R) * h ^ 8 * t0 ^ 4 * a2 ^ 2 * lambda
@@ -1409,7 +1420,7 @@ def degreeZeroSourceJetPlusBlock9_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4
     + (3330860525184614400 : R) * v1 ^ 3 * u1 ^ 2 * a4 * lambda
     + (832715131296153600 : R) * v1 ^ 2 * u1 ^ 4 * lambda
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroClearedSourceBlock9_810_leftJet_factored
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroClearedSourceBlock9_810 h (h ^ 6 * t0) (h ^ 4 * v1)
@@ -1424,7 +1435,7 @@ private theorem degreeZeroClearedSourceBlock9_810_leftJet_factored
     degreeZeroSourceJetHeadBlock9_810,
     degreeZeroSourceJetPlusBlock9_810, degreeZeroSourceBaseOrder810]
   ring
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Source block `10` of the `h^{119}`-cleared numerator. -/
 def degreeZeroClearedSourceBlock10_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) : R :=
     (717761190612172800 : R) * h ^ 86 * a7 ^ 3 * a5 ^ 2 * b2
@@ -1468,14 +1479,14 @@ def degreeZeroClearedSourceBlock10_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4
     + (8613134287346073600 : R) * h ^ 86 * a7 ^ 2 * a5 ^ 2 * a1 * b8
     + (6459850715509555200 : R) * h ^ 86 * a7 ^ 2 * a5 * a4 ^ 2 * b6
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`102` head contributed by source block `10`. -/
 def degreeZeroSourceJetHeadBlock10_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (5383208929591296000 : R) * t0 ^ 2 * v1 * a4 ^ 2 * b5
     + (5383208929591296000 : R) * t0 ^ 2 * u1 ^ 2 * a4 * b5
     + (6459850715509555200 : R) * t0 ^ 2 * u1 * a4 ^ 2 * b62
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Plus remainder contributed by source block `10`. -/
 def degreeZeroSourceJetPlusBlock10_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (5024328334285209600 : R) * h ^ 7 * t0 ^ 3 * u1 * a0 * w1
@@ -1516,7 +1527,7 @@ def degreeZeroSourceJetPlusBlock10_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b
     + (1435522381224345600 : R) * h * t0 ^ 2 * u1 ^ 3 * b4
     + (6459850715509555200 : R) * h * t0 ^ 2 * u1 ^ 2 * a3 * b62
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroClearedSourceBlock10_810_leftJet_factored
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroClearedSourceBlock10_810 h (h ^ 6 * t0) (h ^ 4 * v1)
@@ -1531,7 +1542,7 @@ private theorem degreeZeroClearedSourceBlock10_810_leftJet_factored
     degreeZeroSourceJetHeadBlock10_810,
     degreeZeroSourceJetPlusBlock10_810, degreeZeroSourceBaseOrder810]
   ring
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Source block `11` of the `h^{119}`-cleared numerator. -/
 def degreeZeroClearedSourceBlock11_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) : R :=
     (15072985002855628800 : R) * h ^ 86 * a7 ^ 2 * a5 * a4 * a3 * b7
@@ -1575,7 +1586,7 @@ def degreeZeroClearedSourceBlock11_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4
     + (1794402976530432000 : R) * h ^ 86 * a6 ^ 3 * a5 ^ 2 * b5
     + (4306567143673036800 : R) * h ^ 86 * a6 ^ 3 * a5 * a4 * b6
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`102` head contributed by source block `11`. -/
 def degreeZeroSourceJetHeadBlock11_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (2512164167142604800 : R) * t0 ^ 2 * a4 ^ 3 * w1
@@ -1592,7 +1603,7 @@ def degreeZeroSourceJetHeadBlock11_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 
     + (1794402976530432000 : R) * v1 ^ 3 * u1 ^ 2 * b5
     + (4306567143673036800 : R) * v1 ^ 3 * u1 * a4 * b62
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Plus remainder contributed by source block `11`. -/
 def degreeZeroSourceJetPlusBlock11_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (5742089524897382400 : R) * h ^ 7 * t0 * v1 ^ 3 * a0 * s1
@@ -1623,7 +1634,7 @@ def degreeZeroSourceJetPlusBlock11_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b
     + (717761190612172800 : R) * h * v1 ^ 4 * u1 * b4
     + (1076641785918259200 : R) * h * v1 ^ 4 * a3 * b62
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroClearedSourceBlock11_810_leftJet_factored
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroClearedSourceBlock11_810 h (h ^ 6 * t0) (h ^ 4 * v1)
@@ -1638,7 +1649,7 @@ private theorem degreeZeroClearedSourceBlock11_810_leftJet_factored
     degreeZeroSourceJetHeadBlock11_810,
     degreeZeroSourceJetPlusBlock11_810, degreeZeroSourceBaseOrder810]
   ring
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Source block `12` of the `h^{119}`-cleared numerator. -/
 def degreeZeroClearedSourceBlock12_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) : R :=
     (5024328334285209600 : R) * h ^ 86 * a6 ^ 3 * a5 * a3 * b7
@@ -1682,7 +1693,7 @@ def degreeZeroClearedSourceBlock12_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4
     + (29607649112752128000 : R) * h ^ 80 * a7 * a6 ^ 4 * a5 * a3
     + (14803824556376064000 : R) * h ^ 80 * a7 * a6 ^ 4 * a4 ^ 2
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`102` head contributed by source block `12`. -/
 def degreeZeroSourceJetHeadBlock12_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (8635564324552704000 : R) * t0 ^ 3 * v1 * a4 ^ 3
@@ -1699,7 +1710,7 @@ def degreeZeroSourceJetHeadBlock12_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 
     + (5742089524897382400 : R) * v1 * u1 ^ 3 * a4 * s1
     + (287104476244869120 : R) * u1 ^ 5 * s1
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Plus remainder contributed by source block `12`. -/
 def degreeZeroSourceJetPlusBlock12_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (740191227818803200 : R) * h ^ 7 * t0 ^ 5 * a4 * a0
@@ -1730,7 +1741,7 @@ def degreeZeroSourceJetPlusBlock12_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b
     + (5742089524897382400 : R) * h * v1 ^ 3 * a4 * a3 * s1
     + (8613134287346073600 : R) * h * v1 ^ 2 * u1 ^ 2 * a3 * s1
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroClearedSourceBlock12_810_leftJet_factored
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroClearedSourceBlock12_810 h (h ^ 6 * t0) (h ^ 4 * v1)
@@ -1745,7 +1756,7 @@ private theorem degreeZeroClearedSourceBlock12_810_leftJet_factored
     degreeZeroSourceJetHeadBlock12_810,
     degreeZeroSourceJetPlusBlock12_810, degreeZeroSourceBaseOrder810]
   ring
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Source block `13` of the `h^{119}`-cleared numerator. -/
 def degreeZeroClearedSourceBlock13_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) : R :=
     (59215298225504256000 : R) * h ^ 80 * a7 * a6 ^ 3 * a5 ^ 2 * a4
@@ -1789,7 +1800,7 @@ def degreeZeroClearedSourceBlock13_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4
     - (1480382455637606400 : R) * h ^ 78 * a7 ^ 4 * a6 * a5 * b2
     - (2220573683456409600 : R) * h ^ 78 * a7 ^ 4 * a6 * a4 * b3
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`102` head contributed by source block `13`. -/
 def degreeZeroSourceJetHeadBlock13_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (59215298225504256000 : R) * t0 * v1 ^ 3 * u1 ^ 2 * a4
@@ -1797,7 +1808,7 @@ def degreeZeroSourceJetHeadBlock13_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 
     + (7586960085142732800 : R) * v1 ^ 5 * u1 * a4
     + (6322466737618944000 : R) * v1 ^ 4 * u1 ^ 3
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Plus remainder contributed by source block `13`. -/
 def degreeZeroSourceJetPlusBlock13_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (1707066019157114880 : R) * h ^ 8 * t0 ^ 5 * u1 * a0 * lambda
@@ -1837,7 +1848,7 @@ def degreeZeroSourceJetPlusBlock13_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b
     - (284511003192852480 : R) * v1 ^ 6 * a4 * lambda
     - (853533009578557440 : R) * v1 ^ 5 * u1 ^ 2 * lambda
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroClearedSourceBlock13_810_leftJet_factored
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroClearedSourceBlock13_810 h (h ^ 6 * t0) (h ^ 4 * v1)
@@ -1852,7 +1863,7 @@ private theorem degreeZeroClearedSourceBlock13_810_leftJet_factored
     degreeZeroSourceJetHeadBlock13_810,
     degreeZeroSourceJetPlusBlock13_810, degreeZeroSourceBaseOrder810]
   ring
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Source block `14` of the `h^{119}`-cleared numerator. -/
 def degreeZeroClearedSourceBlock14_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (2960764911275212800 : R) * h ^ 78 * a7 ^ 4 * a6 * a3 * b4
@@ -1896,7 +1907,7 @@ def degreeZeroClearedSourceBlock14_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4
     - (3947686548366950400 : R) * h ^ 78 * a7 ^ 3 * a4 ^ 3 * b8
     - (1110286841728204800 : R) * h ^ 78 * a7 ^ 2 * a6 ^ 4 * b3
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`102` head contributed by source block `14`. -/
 def degreeZeroSourceJetHeadBlock14_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (1850478069547008000 : R) * t0 ^ 4 * a4 ^ 2 * b5
@@ -1907,7 +1918,7 @@ def degreeZeroSourceJetHeadBlock14_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 
     - (10362677189463244800 : R) * t0 ^ 3 * u1 * a4 ^ 2 * w1
     - (3947686548366950400 : R) * t0 ^ 3 * a4 ^ 3 * s1
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Plus remainder contributed by source block `14`. -/
 def degreeZeroSourceJetPlusBlock14_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (5181338594731622400 : R) * h ^ 7 * t0 ^ 4 * v1 * a0 * w1
@@ -1944,7 +1955,7 @@ def degreeZeroSourceJetPlusBlock14_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b
     - (10362677189463244800 : R) * h * t0 ^ 3 * u1 ^ 2 * a3 * w1
     - (23686119290201702400 : R) * h * t0 ^ 3 * u1 * a4 * a3 * s1
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroClearedSourceBlock14_810_leftJet_factored
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroClearedSourceBlock14_810 h (h ^ 6 * t0) (h ^ 4 * v1)
@@ -1959,7 +1970,7 @@ private theorem degreeZeroClearedSourceBlock14_810_leftJet_factored
     degreeZeroSourceJetHeadBlock14_810,
     degreeZeroSourceJetPlusBlock14_810, degreeZeroSourceBaseOrder810]
   ring
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Source block `15` of the `h^{119}`-cleared numerator. -/
 def degreeZeroClearedSourceBlock15_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (5921529822550425600 : R) * h ^ 78 * a7 ^ 2 * a6 ^ 3 * a5 * b4
@@ -2003,7 +2014,7 @@ def degreeZeroClearedSourceBlock15_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4
     + (790308342202368000 : R) * h ^ 72 * a7 ^ 6 * a3 * a2
     - (1896740021285683200 : R) * h ^ 72 * a7 ^ 5 * a6 ^ 2 * a0
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`102` head contributed by source block `15`. -/
 def degreeZeroSourceJetHeadBlock15_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (7401912278188032000 : R) * t0 ^ 2 * v1 ^ 3 * a4 * b5
@@ -2030,7 +2041,7 @@ def degreeZeroSourceJetHeadBlock15_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 
     - (5921529822550425600 : R) * v1 ^ 4 * u1 * a4 * s1
     - (3947686548366950400 : R) * v1 ^ 3 * u1 ^ 3 * s1
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Plus remainder contributed by source block `15`. -/
 def degreeZeroSourceJetPlusBlock15_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (790308342202368000 : R) * h ^ 7 * t0 ^ 6 * u1 * a0
@@ -2051,7 +2062,7 @@ def degreeZeroSourceJetPlusBlock15_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b
     - (23686119290201702400 : R) * h * t0 * v1 ^ 3 * u1 * a3 * s1
     - (1184305964510085120 : R) * h * v1 ^ 5 * a3 * s1
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroClearedSourceBlock15_810_leftJet_factored
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroClearedSourceBlock15_810 h (h ^ 6 * t0) (h ^ 4 * v1)
@@ -2066,7 +2077,7 @@ private theorem degreeZeroClearedSourceBlock15_810_leftJet_factored
     degreeZeroSourceJetHeadBlock15_810,
     degreeZeroSourceJetPlusBlock15_810, degreeZeroSourceBaseOrder810]
   ring
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Source block `16` of the `h^{119}`-cleared numerator. -/
 def degreeZeroClearedSourceBlock16_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (3793480042571366400 : R) * h ^ 72 * a7 ^ 5 * a6 * a5 * a1
@@ -2110,7 +2121,7 @@ def degreeZeroClearedSourceBlock16_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4
     + (34852597891124428800 : R) * h ^ 71 * a7 ^ 3 * a6 ^ 3 * a5 * a4 * lambda
     + (17426298945562214400 : R) * h ^ 71 * a7 ^ 3 * a6 ^ 2 * a5 ^ 3 * lambda
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`102` head contributed by source block `16`. -/
 def degreeZeroSourceJetHeadBlock16_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (632246673761894400 : R) * t0 ^ 5 * a4 ^ 3
@@ -2125,7 +2136,7 @@ def degreeZeroSourceJetHeadBlock16_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 
     - (18967400212856832000 : R) * t0 * v1 ^ 5 * u1 ^ 2
     - (1106431679083315200 : R) * v1 ^ 7 * u1
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Plus remainder contributed by source block `16`. -/
 def degreeZeroSourceJetPlusBlock16_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (1742629894556221440 : R) * h ^ 8 * t0 ^ 6 * v1 * a0 * lambda
@@ -2158,7 +2169,7 @@ def degreeZeroSourceJetPlusBlock16_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b
     + (34852597891124428800 : R) * t0 ^ 3 * v1 ^ 3 * u1 * a4 * lambda
     + (17426298945562214400 : R) * t0 ^ 3 * v1 ^ 2 * u1 ^ 3 * lambda
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroClearedSourceBlock16_810_leftJet_factored
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroClearedSourceBlock16_810 h (h ^ 6 * t0) (h ^ 4 * v1)
@@ -2173,7 +2184,7 @@ private theorem degreeZeroClearedSourceBlock16_810_leftJet_factored
     degreeZeroSourceJetHeadBlock16_810,
     degreeZeroSourceJetPlusBlock16_810, degreeZeroSourceBaseOrder810]
   ring
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Source block `17` of the `h^{119}`-cleared numerator. -/
 def degreeZeroClearedSourceBlock17_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) : R :=
     (5227889683668664320 : R) * h ^ 71 * a7 ^ 2 * a6 ^ 5 * a4 * lambda
@@ -2217,7 +2228,7 @@ def degreeZeroClearedSourceBlock17_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4
     + (30347840340570931200 : R) * h ^ 70 * a7 ^ 4 * a6 * a4 * a3 * b8
     + (3793480042571366400 : R) * h ^ 70 * a7 ^ 4 * a5 ^ 3 * b6
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`102` head contributed by source block `17`. -/
 def degreeZeroSourceJetHeadBlock17_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (3793480042571366400 : R) * t0 ^ 5 * u1 * a4 * b5
@@ -2228,7 +2239,7 @@ def degreeZeroSourceJetHeadBlock17_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 
     + (13277180148999782400 : R) * t0 ^ 4 * v1 * a4 ^ 2 * w1
     + (3793480042571366400 : R) * t0 ^ 4 * u1 ^ 3 * b62
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Plus remainder contributed by source block `17`. -/
 def degreeZeroSourceJetPlusBlock17_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (126449334752378880 : R) * h ^ 7 * t0 ^ 6 * v1 * b1
@@ -2265,7 +2276,7 @@ def degreeZeroSourceJetPlusBlock17_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b
     + (1742629894556221440 : R) * t0 * v1 ^ 6 * u1 * lambda
     + (31118390974218240 : R) * v1 ^ 8 * lambda
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroClearedSourceBlock17_810_leftJet_factored
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroClearedSourceBlock17_810 h (h ^ 6 * t0) (h ^ 4 * v1)
@@ -2280,7 +2291,7 @@ private theorem degreeZeroClearedSourceBlock17_810_leftJet_factored
     degreeZeroSourceJetHeadBlock17_810,
     degreeZeroSourceJetPlusBlock17_810, degreeZeroSourceBaseOrder810]
   ring
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Source block `18` of the `h^{119}`-cleared numerator. -/
 def degreeZeroClearedSourceBlock18_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) : R :=
     (13277180148999782400 : R) * h ^ 70 * a7 ^ 4 * a5 ^ 2 * a4 * b7
@@ -2324,7 +2335,7 @@ def degreeZeroClearedSourceBlock18_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4
     + (34852597891124428800 : R) * h ^ 64 * a7 ^ 5 * a6 ^ 2 * a5 * a3
     + (17426298945562214400 : R) * h ^ 64 * a7 ^ 5 * a6 ^ 2 * a4 ^ 2
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`102` head contributed by source block `18`. -/
 def degreeZeroSourceJetHeadBlock18_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (1452191578796851200 : R) * t0 ^ 6 * u1 * a4 ^ 2
@@ -2352,7 +2363,7 @@ def degreeZeroSourceJetHeadBlock18_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 
     + (126449334752378880 : R) * v1 ^ 7 * w1
     + (1011594678019031040 : R) * v1 ^ 6 * u1 * s1
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Plus remainder contributed by source block `18`. -/
 def degreeZeroSourceJetPlusBlock18_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (829823759312486400 : R) * h ^ 7 * t0 ^ 7 * v1 * a0
@@ -2372,7 +2383,7 @@ def degreeZeroSourceJetPlusBlock18_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b
     + (60695680681141862400 : R) * h * t0 ^ 3 * v1 ^ 2 * u1 * a3 * s1
     + (15173920170285465600 : R) * h * t0 ^ 2 * v1 ^ 4 * a3 * s1
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroClearedSourceBlock18_810_leftJet_factored
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroClearedSourceBlock18_810 h (h ^ 6 * t0) (h ^ 4 * v1)
@@ -2387,7 +2398,7 @@ private theorem degreeZeroClearedSourceBlock18_810_leftJet_factored
     degreeZeroSourceJetHeadBlock18_810,
     degreeZeroSourceJetPlusBlock18_810, degreeZeroSourceBaseOrder810]
   ring
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Source block `19` of the `h^{119}`-cleared numerator. -/
 def degreeZeroClearedSourceBlock19_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) : R :=
     (34852597891124428800 : R) * h ^ 64 * a7 ^ 5 * a6 * a5 ^ 2 * a4
@@ -2431,7 +2442,7 @@ def degreeZeroClearedSourceBlock19_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4
     - (1936255438395801600 : R) * h ^ 62 * a7 ^ 6 * a5 ^ 2 * b5
     - (4647013052149923840 : R) * h ^ 62 * a7 ^ 6 * a5 * a4 * b6
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`102` head contributed by source block `19`. -/
 def degreeZeroSourceJetHeadBlock19_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (3872510876791603200 : R) * t0 ^ 6 * v1 * a4 * b5
@@ -2446,7 +2457,7 @@ def degreeZeroSourceJetHeadBlock19_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 
     + (18878490524359065600 : R) * t0 ^ 2 * v1 ^ 6 * u1
     + (829823759312486400 : R) * t0 * v1 ^ 8
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Plus remainder contributed by source block `19`. -/
 def degreeZeroSourceJetPlusBlock19_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (221718535691304960 : R) * h ^ 8 * t0 ^ 8 * a0 * lambda
@@ -2479,7 +2490,7 @@ def degreeZeroSourceJetPlusBlock19_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b
     - (12416237998713077760 : R) * t0 ^ 3 * v1 ^ 5 * u1 * lambda
     - (886874142765219840 : R) * t0 ^ 2 * v1 ^ 7 * lambda
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroClearedSourceBlock19_810_leftJet_factored
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroClearedSourceBlock19_810 h (h ^ 6 * t0) (h ^ 4 * v1)
@@ -2494,7 +2505,7 @@ private theorem degreeZeroClearedSourceBlock19_810_leftJet_factored
     degreeZeroSourceJetHeadBlock19_810,
     degreeZeroSourceJetPlusBlock19_810, degreeZeroSourceBaseOrder810]
   ring
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Source block `20` of the `h^{119}`-cleared numerator. -/
 def degreeZeroClearedSourceBlock20_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (5421515227508244480 : R) * h ^ 62 * a7 ^ 6 * a5 * a3 * b7
@@ -2538,7 +2549,7 @@ def degreeZeroClearedSourceBlock20_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4
     - (37938504996067737600 : R) * h ^ 56 * a7 ^ 6 * a6 ^ 2 * a5 * a4
     - (12646168332022579200 : R) * h ^ 56 * a7 ^ 6 * a6 * a5 ^ 3
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`102` head contributed by source block `20`. -/
 def degreeZeroSourceJetHeadBlock20_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (985415714183577600 : R) * t0 ^ 7 * v1 * a4 ^ 2
@@ -2567,7 +2578,7 @@ def degreeZeroSourceJetHeadBlock20_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 
     - (18588052208599695360 : R) * t0 ^ 2 * v1 ^ 5 * u1 * s1
     - (885145343266652160 : R) * t0 * v1 ^ 7 * s1
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Plus remainder contributed by source block `20`. -/
 def degreeZeroSourceJetPlusBlock20_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (218981269818572800 : R) * h ^ 7 * t0 ^ 9 * a0
@@ -2586,7 +2597,7 @@ def degreeZeroSourceJetPlusBlock20_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b
     - (37176104417199390720 : R) * h * t0 ^ 5 * v1 * u1 * a3 * s1
     - (30980087014332825600 : R) * h * t0 ^ 4 * v1 ^ 3 * a3 * s1
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroClearedSourceBlock20_810_leftJet_factored
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroClearedSourceBlock20_810 h (h ^ 6 * t0) (h ^ 4 * v1)
@@ -2601,7 +2612,7 @@ private theorem degreeZeroClearedSourceBlock20_810_leftJet_factored
     degreeZeroSourceJetHeadBlock20_810,
     degreeZeroSourceJetPlusBlock20_810, degreeZeroSourceBaseOrder810]
   ring
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Source block `21` of the `h^{119}`-cleared numerator. -/
 def degreeZeroClearedSourceBlock21_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (34489549996425216000 : R) * h ^ 56 * a7 ^ 5 * a6 ^ 4 * a4
@@ -2645,7 +2656,7 @@ def degreeZeroClearedSourceBlock21_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4
     + (8277491999142051840 : R) * h ^ 54 * a7 ^ 5 * a6 ^ 4 * b6
     + (38628295995996241920 : R) * h ^ 54 * a7 ^ 5 * a6 ^ 3 * a5 * b7
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`102` head contributed by source block `21`. -/
 def degreeZeroSourceJetHeadBlock21_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (492707857091788800 : R) * t0 ^ 8 * a4 * b5
@@ -2667,7 +2678,7 @@ def degreeZeroSourceJetHeadBlock21_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 
     - (50009847494816563200 : R) * t0 ^ 4 * v1 ^ 5 * u1
     - (6240966189829324800 : R) * t0 ^ 3 * v1 ^ 7
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Plus remainder contributed by source block `21`. -/
 def degreeZeroSourceJetPlusBlock21_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (200162566943539200 : R) * h ^ 6 * t0 ^ 9 * a1 * lambda
@@ -2693,7 +2704,7 @@ def degreeZeroSourceJetPlusBlock21_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b
     + (25220483434885939200 : R) * t0 ^ 5 * v1 ^ 4 * u1 * lambda
     + (4203413905814323200 : R) * t0 ^ 4 * v1 ^ 6 * lambda
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroClearedSourceBlock21_810_leftJet_factored
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroClearedSourceBlock21_810 h (h ^ 6 * t0) (h ^ 4 * v1)
@@ -2708,7 +2719,7 @@ private theorem degreeZeroClearedSourceBlock21_810_leftJet_factored
     degreeZeroSourceJetHeadBlock21_810,
     degreeZeroSourceJetPlusBlock21_810, degreeZeroSourceBaseOrder810]
   ring
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Source block `22` of the `h^{119}`-cleared numerator. -/
 def degreeZeroClearedSourceBlock22_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) : R :=
     (44146623995424276480 : R) * h ^ 54 * a7 ^ 5 * a6 ^ 3 * a4 * b8
@@ -2752,7 +2763,7 @@ def degreeZeroClearedSourceBlock22_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4
     - (25620808568773017600 : R) * h ^ 46 * a7 ^ 7 * a6 * a5 ^ 2 * b8
     - (13077287706977894400 : R) * h ^ 46 * a7 ^ 6 * a6 ^ 4 * b7
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`102` head contributed by source block `22`. -/
 def degreeZeroSourceJetHeadBlock22_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (444805704318976000 : R) * t0 ^ 9 * u1 * b5
@@ -2780,7 +2791,7 @@ def degreeZeroSourceJetHeadBlock22_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 
     + (55183279994280345600 : R) * t0 ^ 4 * v1 ^ 4 * u1 * s1
     + (7357770665904046080 : R) * t0 ^ 3 * v1 ^ 6 * s1
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Plus remainder contributed by source block `22`. -/
 def degreeZeroSourceJetPlusBlock22_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (189042424335564800 : R) * h ^ 5 * t0 ^ 10 * a1
@@ -2800,7 +2811,7 @@ def degreeZeroSourceJetPlusBlock22_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b
     - (21917801080317542400 : R) * t0 ^ 7 * v1 ^ 3 * u1 * lambda
     - (7671230378111139840 : R) * t0 ^ 6 * v1 ^ 5 * lambda
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroClearedSourceBlock22_810_leftJet_factored
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroClearedSourceBlock22_810 h (h ^ 6 * t0) (h ^ 4 * v1)
@@ -2815,7 +2826,7 @@ private theorem degreeZeroClearedSourceBlock22_810_leftJet_factored
     degreeZeroSourceJetHeadBlock22_810,
     degreeZeroSourceJetPlusBlock22_810, degreeZeroSourceBaseOrder810]
   ring
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Source block `23` of the `h^{119}`-cleared numerator. -/
 def degreeZeroClearedSourceBlock23_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (59781886660470374400 : R) * h ^ 46 * a7 ^ 6 * a6 ^ 3 * a5 * b8
@@ -2859,7 +2870,7 @@ def degreeZeroClearedSourceBlock23_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4
     - (10958900540158771200 : R) * h ^ 30 * a7 ^ 9 * a6 ^ 3 * b8
     + (133214344962048000 : R) * h ^ 24 * a7 ^ 13 * a4
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`102` head contributed by source block `23`. -/
 def degreeZeroSourceJetHeadBlock23_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (133214344962048000 : R) * t0 ^ 13 * a4
@@ -2890,7 +2901,7 @@ def degreeZeroSourceJetHeadBlock23_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 
     - (59781886660470374400 : R) * t0 ^ 6 * v1 ^ 3 * u1 * s1
     - (17934565998141112320 : R) * t0 ^ 5 * v1 ^ 5 * s1
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Plus remainder contributed by source block `23`. -/
 def degreeZeroSourceJetPlusBlock23_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (166043947578163200 : R) * h ^ 3 * t0 ^ 11 * a2
@@ -2907,7 +2918,7 @@ def degreeZeroSourceJetPlusBlock23_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b
     + (9246572330758963200 : R) * t0 ^ 9 * v1 ^ 2 * u1 * lambda
     + (6934929248069222400 : R) * t0 ^ 8 * v1 ^ 4 * lambda
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroClearedSourceBlock23_810_leftJet_factored
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroClearedSourceBlock23_810 h (h ^ 6 * t0) (h ^ 4 * v1)
@@ -2922,7 +2933,7 @@ private theorem degreeZeroClearedSourceBlock23_810_leftJet_factored
     degreeZeroSourceJetHeadBlock23_810,
     degreeZeroSourceJetPlusBlock23_810, degreeZeroSourceBaseOrder810]
   ring
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Source block `24` of the `h^{119}`-cleared numerator. -/
 def degreeZeroClearedSourceBlock24_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) : R :=
     (952482566478643200 : R) * h ^ 24 * a7 ^ 12 * a6 * a5
@@ -2943,7 +2954,7 @@ def degreeZeroClearedSourceBlock24_810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4
     + (32304478653296640 : R) * h ^ 6 * a7 ^ 15 * b8
     - (8387881635621600 : R) * a7 ^ 17
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`102` head contributed by source block `24`. -/
 def degreeZeroSourceJetHeadBlock24_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (8387881635621600 : R) * t0 ^ 17
@@ -2960,7 +2971,7 @@ def degreeZeroSourceJetHeadBlock24_810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 
     + (346357296901324800 : R) * t0 ^ 11 * v1 ^ 3
     + (3325030050252718080 : R) * t0 ^ 11 * v1 ^ 2 * s1
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Plus remainder contributed by source block `24`. -/
 def degreeZeroSourceJetPlusBlock24_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (8020911814063155 : R) * t0 ^ 16 * lambda
@@ -2968,7 +2979,7 @@ def degreeZeroSourceJetPlusBlock24_810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b
     + (145370153939834880 : R) * t0 ^ 13 * u1 * lambda
     + (944906000608926720 : R) * t0 ^ 12 * v1 ^ 2 * lambda
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroClearedSourceBlock24_810_leftJet_factored
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroClearedSourceBlock24_810 h (h ^ 6 * t0) (h ^ 4 * v1)
@@ -2984,6 +2995,7 @@ private theorem degreeZeroClearedSourceBlock24_810_leftJet_factored
     degreeZeroSourceJetPlusBlock24_810, degreeZeroSourceBaseOrder810]
   ring
 
+set_option maxHeartbeats 64000000 in
 /-- The `977`-term integer numerator after substituting
 the octic depression into the compact primitive and clearing `2^{62}`.
 Generic `h`-degree `119`; raw `H_MIN = 0`. -/
@@ -3014,6 +3026,7 @@ def degreeZeroClearedSource810 (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b
   degreeZeroClearedSourceBlock23_810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda +
   degreeZeroClearedSourceBlock24_810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda
 
+set_option maxHeartbeats 64000000 in
 /-- The first surviving head of the degree-zero source jet. -/
 def degreeZeroSourceJetHead810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
   degreeZeroSourceJetHeadBlock0_810 t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda +
@@ -3042,6 +3055,7 @@ def degreeZeroSourceJetHead810 (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1
   degreeZeroSourceJetHeadBlock23_810 t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda +
   degreeZeroSourceJetHeadBlock24_810 t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Remaining factor after `Head + h · Plus` is removed from the
 order-`102` quotient. -/
 def degreeZeroSourceJetPlus810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
@@ -3071,6 +3085,7 @@ def degreeZeroSourceJetPlus810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 
   degreeZeroSourceJetPlusBlock23_810 h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda +
   degreeZeroSourceJetPlusBlock24_810 h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda
 
+set_option maxHeartbeats 64000000 in
 /-- The exact quotient after the factor `h^{102}` is removed from the
 cleared degree-zero source numerator on the unsolved left jet. -/
 def degreeZeroSourceJetQuotient810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
@@ -3079,6 +3094,7 @@ def degreeZeroSourceJetQuotient810 (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3
     h * degreeZeroSourceJetPlus810 h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62
       b5 b4 b3 b2 b1 lambda
 
+set_option maxHeartbeats 64000000 in
 /-- First head split of the order-`102` quotient. -/
 theorem degreeZeroSourceJetQuotient810_orderExpansion
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
@@ -3090,6 +3106,7 @@ theorem degreeZeroSourceJetQuotient810_orderExpansion
           b62 b5 b4 b3 b2 b1 lambda :=
   rfl
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroSourceJetQuotient810_zero
     (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroSourceJetQuotient810 0 t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62
@@ -3098,7 +3115,7 @@ theorem degreeZeroSourceJetQuotient810_zero
         b4 b3 b2 b1 lambda := by
   simp only [degreeZeroSourceJetQuotient810, zero_mul, add_zero]
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 /-- Exact order-`102` factorization of the cleared source numerator on
 the unsolved left jet. -/
 theorem degreeZeroClearedSource810_leftJet_factored
@@ -3175,7 +3192,7 @@ section DegreeZeroSourceJetMap810
 
 variable {R S : Type*} [CommRing R] [CommRing S]
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroSourceJetHead810_map
     (f : R →+* S)
     (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
@@ -3187,7 +3204,7 @@ theorem degreeZeroSourceJetHead810_map
   simp only [degreeZeroSourceJetHead810, degreeZeroSourceJetHeadBlock0_810, degreeZeroSourceJetHeadBlock1_810, degreeZeroSourceJetHeadBlock2_810, degreeZeroSourceJetHeadBlock3_810, degreeZeroSourceJetHeadBlock4_810, degreeZeroSourceJetHeadBlock5_810, degreeZeroSourceJetHeadBlock6_810, degreeZeroSourceJetHeadBlock7_810, degreeZeroSourceJetHeadBlock8_810, degreeZeroSourceJetHeadBlock9_810, degreeZeroSourceJetHeadBlock10_810, degreeZeroSourceJetHeadBlock11_810, degreeZeroSourceJetHeadBlock12_810, degreeZeroSourceJetHeadBlock13_810, degreeZeroSourceJetHeadBlock14_810, degreeZeroSourceJetHeadBlock15_810, degreeZeroSourceJetHeadBlock16_810, degreeZeroSourceJetHeadBlock17_810, degreeZeroSourceJetHeadBlock18_810, degreeZeroSourceJetHeadBlock19_810, degreeZeroSourceJetHeadBlock20_810, degreeZeroSourceJetHeadBlock21_810, degreeZeroSourceJetHeadBlock22_810, degreeZeroSourceJetHeadBlock23_810, degreeZeroSourceJetHeadBlock24_810, map_add,
     map_sub, map_neg, map_mul, map_pow, map_ofNat, map_zero]
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroSourceJetPlus810_map
     (f : R →+* S)
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
@@ -3199,6 +3216,7 @@ theorem degreeZeroSourceJetPlus810_map
   simp only [degreeZeroSourceJetPlus810, degreeZeroSourceJetPlusBlock0_810, degreeZeroSourceJetPlusBlock1_810, degreeZeroSourceJetPlusBlock2_810, degreeZeroSourceJetPlusBlock3_810, degreeZeroSourceJetPlusBlock4_810, degreeZeroSourceJetPlusBlock5_810, degreeZeroSourceJetPlusBlock6_810, degreeZeroSourceJetPlusBlock7_810, degreeZeroSourceJetPlusBlock8_810, degreeZeroSourceJetPlusBlock9_810, degreeZeroSourceJetPlusBlock10_810, degreeZeroSourceJetPlusBlock11_810, degreeZeroSourceJetPlusBlock12_810, degreeZeroSourceJetPlusBlock13_810, degreeZeroSourceJetPlusBlock14_810, degreeZeroSourceJetPlusBlock15_810, degreeZeroSourceJetPlusBlock16_810, degreeZeroSourceJetPlusBlock17_810, degreeZeroSourceJetPlusBlock18_810, degreeZeroSourceJetPlusBlock19_810, degreeZeroSourceJetPlusBlock20_810, degreeZeroSourceJetPlusBlock21_810, degreeZeroSourceJetPlusBlock22_810, degreeZeroSourceJetPlusBlock23_810, degreeZeroSourceJetPlusBlock24_810, map_add,
     map_sub, map_neg, map_mul, map_pow, map_ofNat, map_zero]
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroSourceJetQuotient810_map
     (f : R →+* S)
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
@@ -3210,7 +3228,7 @@ theorem degreeZeroSourceJetQuotient810_map
   simp only [degreeZeroSourceJetQuotient810, map_add, map_mul,
     degreeZeroSourceJetHead810_map, degreeZeroSourceJetPlus810_map]
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroClearedSource810_map
     (f : R →+* S)
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda : R) :
@@ -3231,6 +3249,7 @@ section DegreeZeroSourceJetEval810
 
 variable {k : Type*} [CommRing k]
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroSourceJetQuotient810_eval
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 : k[X])
     (lambda a : k) :
@@ -3244,6 +3263,7 @@ theorem degreeZeroSourceJetQuotient810_eval
     degreeZeroSourceJetQuotient810_map (Polynomial.evalRingHom a) h t0
       v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 (Polynomial.C lambda)
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroSourceJetQuotient810_eval_root
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 : k[X])
     (lambda a : k) (hroot : h.eval a = 0) :
@@ -3256,6 +3276,7 @@ theorem degreeZeroSourceJetQuotient810_eval_root
   rw [degreeZeroSourceJetQuotient810_eval, hroot,
     degreeZeroSourceJetQuotient810_zero]
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroSourceJetHead810_eval
     (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 : k[X])
     (lambda a : k) :
@@ -3279,6 +3300,7 @@ section DegreeZeroSourceLeftJet810
 
 variable {F : Type*} [Field F] [CharZero F]
 
+set_option maxHeartbeats 64000000 in
 /-- The grouped degree-zero primitive on the octic-decic depression of
 the unsolved left jet.  The ninth-power scalar `λ` is substituted into
 `b₉` exactly as in the source clearing. -/
@@ -3295,6 +3317,7 @@ section DegreeZeroSourceHead810
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 /-- The order-`102` head vanishes once the cleared source numerator has
 the ordinary simple-pole derivative, with remaining pole order `17`.
 The remaining-`17` clearing of the scaled left-jet primitive is the

@@ -55,16 +55,16 @@ theorem piQuarticChamberFace5810_coeff_top_S05
     all_goals omega
   have hc0 : ((A * C * D ^ 2)).coeff (A.natDegree + C.natDegree + 2 * D.natDegree) = A.leadingCoeff * C.leadingCoeff * D.leadingCoeff ^ 2 := by
     rw [← hd0, coeff_natDegree]
-    simp only [leadingCoeff_mul, leadingCoeff_pow]
+    all_goals simp only [leadingCoeff_mul, leadingCoeff_pow]
   have hd1 : (C ^ 4).natDegree = A.natDegree + C.natDegree + 2 * D.natDegree := by
     simp only [natDegree_pow]
     all_goals omega
   have hc1 : (C ^ 4).coeff (A.natDegree + C.natDegree + 2 * D.natDegree) = C.leadingCoeff ^ 4 := by
     rw [← hd1, coeff_natDegree]
-    simp only [leadingCoeff_mul, leadingCoeff_pow]
+    all_goals simp only [leadingCoeff_mul, leadingCoeff_pow]
   rw [hc0, hc1]
-  simp only [piQuarticPowerInnerS05810]
-  ring
+  all_goals simp only [piQuarticPowerInnerS05810]
+  all_goals ring
 
 
 end QuarticChamberPowerKills810

@@ -1,0 +1,97 @@
+import Grok810ScaleZeroQuarticSigmaLadderPart63Scratch
+
+/-! Part 64 of 95 of `Grok810ScaleZeroQuarticSigmaLadderScratch`, split so that no single module elaborates them all
+at once.  Statements are unchanged. -/
+
+open scoped Polynomial.Bivariate
+
+noncomputable section
+
+open Polynomial
+
+namespace Max11DegreeRoutes
+
+set_option linter.unusedVariables false
+set_option linter.unusedSimpArgs false
+set_option linter.unusedSectionVars false
+set_option linter.unusedTactic false
+set_option linter.unreachableTactic false
+set_option linter.unnecessarySeqFocus false
+set_option linter.flexible false
+set_option linter.style.haveILetI false
+set_option linter.unnecessarySimpa false
+
+set_option maxRecDepth 1000000
+
+variable {k : Type*} [Field k] [CharZero k]
+
+section QuarticSigmaExhaust810
+
+
+set_option maxHeartbeats 64000000 in
+theorem quarticSigmaSupportCone810_of_live_EFG
+    (A B C D E F G : k[X])
+    (hA : QuarticRatioConeA810 A B C D E F G)
+    (hBz : B = 0)
+    (hCz : C = 0)
+    (hDz : D = 0)
+    (hEne : E ≠ 0)
+    (hFne : F ≠ 0)
+    (hGne : G ≠ 0) :
+    QuarticSigmaSupportCone810 A B C D E F G := by
+  have ⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩ := hA
+  rcases lt_trichotomy (2 * F.natDegree) (A.natDegree + 2 * E.natDegree) with hEFlt | hEFeq | hEFgt
+  · -- E strictly outranks F
+    rcases lt_trichotomy (G.natDegree) (A.natDegree + E.natDegree) with hEGlt | hEGeq | hEGgt
+    · -- E strictly outranks G
+      exact QuarticSigmaSupportCone810.sigmaE ⟨hA, hEne, Or.inl hBz, Or.inl hCz, Or.inl hDz,
+        Or.inr hEFlt, Or.inr hEGlt⟩
+    · -- G ties E
+      exact QuarticSigmaSupportCone810.sigmaEG ⟨hA, hEne, hGne, hEGeq, Or.inl hBz, Or.inl hCz,
+        Or.inl hDz, Or.inr hEFlt⟩
+    · -- G strictly outranks E
+      exact QuarticSigmaSupportCone810.sigmaG ⟨hA, hGne, Or.inl hBz, Or.inl hCz, Or.inl hDz,
+        Or.inr hEGgt, Or.inr (by omega)⟩
+  · -- F ties E
+    rcases lt_trichotomy (G.natDegree) (A.natDegree + E.natDegree) with hEGlt | hEGeq | hEGgt
+    · -- E strictly outranks G
+      exact QuarticSigmaSupportCone810.sigmaEF ⟨hA, hEne, hFne, hEFeq, Or.inl hBz, Or.inl hCz,
+        Or.inl hDz, Or.inr hEGlt⟩
+    · -- G ties EF
+      exact QuarticSigmaSupportCone810.sigmaEFG ⟨hA, hEne, hFne, hGne, hEFeq, hEGeq, Or.inl hBz,
+        Or.inl hCz, Or.inl hDz⟩
+    · -- G strictly outranks EF
+      exact QuarticSigmaSupportCone810.sigmaG ⟨hA, hGne, Or.inl hBz, Or.inl hCz, Or.inl hDz,
+        Or.inr hEGgt, Or.inr (by omega)⟩
+  · -- F strictly outranks E
+    rcases lt_trichotomy (2 * G.natDegree) (A.natDegree + 2 * F.natDegree) with hFGlt | hFGeq | hFGgt
+    · -- F strictly outranks G
+      exact QuarticSigmaSupportCone810.sigmaF ⟨hA, hFne, Or.inl hBz, Or.inl hCz, Or.inl hDz,
+        Or.inr hEFgt, Or.inr hFGlt⟩
+    · -- G ties F
+      exact QuarticSigmaSupportCone810.sigmaFG ⟨hA, hFne, hGne, hFGeq, Or.inl hBz, Or.inl hCz,
+        Or.inl hDz, Or.inr hEFgt⟩
+    · -- G strictly outranks F
+      exact QuarticSigmaSupportCone810.sigmaG ⟨hA, hGne, Or.inl hBz, Or.inl hCz, Or.inl hDz,
+        Or.inr (by omega), Or.inr hFGgt⟩
+
+
+set_option maxHeartbeats 64000000 in
+theorem quarticSigmaSupportCone810_of_live_D
+    (A B C D E F G : k[X])
+    (hA : QuarticRatioConeA810 A B C D E F G)
+    (hBz : B = 0)
+    (hCz : C = 0)
+    (hDne : D ≠ 0)
+    (hEz : E = 0)
+    (hFz : F = 0)
+    (hGz : G = 0) :
+    QuarticSigmaSupportCone810 A B C D E F G := by
+  have ⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩ := hA
+  exact QuarticSigmaSupportCone810.sigmaD ⟨hA, hDne, Or.inl hBz, Or.inl hCz, Or.inl hEz,
+    Or.inl hFz, Or.inl hGz⟩
+
+
+end QuarticSigmaExhaust810
+end Max11DegreeRoutes
+end

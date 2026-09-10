@@ -64,6 +64,7 @@ variable {k : Type*} [Field k] [CharZero k]
 
 /-! ## Literal next Keller coefficient -/
 
+set_option maxHeartbeats 64000000 in
 /-- The eleventh row below the leading weighted-Wronskian row for outer
 degrees `(6,10)`.  Unused Jacobian coefficients of the ninth packet
 start at degree `4`. -/
@@ -103,6 +104,7 @@ theorem scaleZeroRaw_eleventhCoefficientJacobianRow_610 {K : Type*}
   rw [hC2, hC3, hC4, hC5]
   linear_combination hcoeff
 
+set_option maxHeartbeats 64000000 in
 /-- Source-facing degree-`4` Jacobian row of a normalized scale-zero
 `(6,10)` pair. -/
 theorem normalized610ScaleZero_eleventhCoefficientJacobianRow
@@ -134,6 +136,7 @@ theorem normalized610ScaleZero_eleventhCoefficientJacobianRow
   simpa only [p, q] using
     scaleZeroRaw_eleventhCoefficientJacobianRow_610 hp hq hjac
 
+set_option maxHeartbeats 64000000 in
 /-- At scale zero the common core is constant, so the leading sextic
 coefficient of the degree-`4` row is a differential constant.  The row
 itself has no `p₆'` term. -/
@@ -164,6 +167,7 @@ theorem scaleZero_eleventhCoefficientJacobianRow_610
   have hrow := scaleZeroRaw_eleventhCoefficientJacobianRow_610 hp hq hjac
   simpa [hp6der, hq10der] using hrow
 
+set_option maxHeartbeats 64000000 in
 /-- Source-facing scale-zero collapse of the degree-`4` row. -/
 theorem normalized610ScaleZero_eleventhCoefficientJacobianRow_collapsed
     {P Q : MvPolynomial (Fin 2) k} {H : k[X]}
@@ -201,6 +205,7 @@ section Depression610Eleventh
 
 variable {F : Type*} [Field F] [CharZero F]
 
+set_option maxHeartbeats 64000000 in
 /-- First residual of the degree-`4` row.  Equivalent to
 `(1/6) A θ + (1/3) B η + (1/2) C ζ - (1/8) A² ζ + (2/3) D ε
 - (2/9) A B ε + (5/6) E δ + (35/1296) A³ δ - (5/36) A C δ
@@ -256,7 +261,7 @@ def kappaResidual610
     (5 / 27 : F) * B * C0 ^ 2 +
     (10 / 9 : F) * D0 * E0
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 /-- Polynomial numerator of `3761479876608 h⁵⁵ κ` on the ninth-power face. -/
 def localClearedEleventhDefect610
     (h a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X]) (lambda : F) : F[X] :=
@@ -428,7 +433,7 @@ def localClearedEleventhDefect610
     + (2507653251072 : F[X]) * a1 * b4 * h ^ 50
     + (3134566563840 : F[X]) * a0 * b5 * h ^ 50
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 /-- Aligned specialization of the weight-fifty-five defect: the
 `λ`-monomials drop. -/
 theorem localClearedEleventhDefect610_of_lambda_zero
@@ -569,7 +574,7 @@ theorem localClearedEleventhDefect610_of_lambda_zero
     + (3134566563840 : F[X]) * a0 * b5 * h ^ 50 := by
   simp [localClearedEleventhDefect610, map_zero]
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- SPEED (recipe R2, `scripts/coord/LEAN_SPEED_REPORT.md` §7): the weight-`55`
 clearing of `kappaResidual610` carried out on the *atoms* rather than on the fully
 substituted source polynomials.  `kappaResidual610` is weighted homogeneous, so
@@ -620,7 +625,7 @@ def speedKappaResidual610Scaled55 (h nL nA nB nC nD nE nP nQ nR nS nT nU nV nW :
     + (995328 : F) * nD * nT
     + (311040 : F) * nE * nS
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- The atom-level clearing: one `field_simp` over 15 atomic variables in
 place of the single enormous `field_simp` on the substituted rational function. -/
 theorem speedKappaResidual610Scaled55_eq (h : F) (hh : h ≠ 0) (nL nA nB nC nD nE nP nQ nR nS nT nU nV nW : F) :
@@ -668,7 +673,7 @@ theorem speedKappaResidual610Scaled55_eq (h : F) (hh : h ≠ 0) (nL nA nB nC nD 
   field_simp
   ring
 
-set_option maxHeartbeats 80000000 in
+set_option maxHeartbeats 64000000 in
 /-- Clearing the first integral `κ` of the degree-`4` row against `h⁵⁵`
 on the ninth-power face. -/
 theorem eleventhDefect_eq_clearedKappa610
@@ -1015,6 +1020,7 @@ section DepressedRow610Eleventh
 
 variable {k F : Type*} [Field k] [Field F] [Algebra k F] [CharZero F]
 
+set_option maxHeartbeats 64000000 in
 /-- For a depressed monic sextic and a monic decic whose `z⁹` coefficient is
 already a differential constant, the degree-`4` Jacobian coefficient is
 exactly `5 S E' + 4 T D' + 3 U C' + 2 V B' + W A' - D T' - 2 C U'
@@ -1283,7 +1289,7 @@ theorem differentialJacobian_coeff_4_monicSexticDecic
   simp only [differentialJacobian, Polynomial.coeff_sub, hfirst, hsecond]
   ring
 
-set_option maxHeartbeats 80000000 in
+set_option maxHeartbeats 64000000 in
 theorem kappaResidual610_deriv_zero
     (d : Derivation k F F) (L A B C0 D0 E0 P Q R S0 T0 U0 V0 W0 : F)
     (hL : d L = 0)
@@ -1769,7 +1775,7 @@ section NonzeroEleventhDefect610
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 80000000 in
+set_option maxHeartbeats 64000000 in
 /-- The tenth sextic/decic integral on a square-core ninth-power source:
 the cleared defect is a scalar times `h⁵⁵`.  The degree-`5` iota
 integral and the exact `18 q₀ h⁵⁰` residual remain available from the
@@ -2254,6 +2260,7 @@ end NonzeroEleventhDefect610
 
 variable [IsAlgClosed k]
 
+set_option maxHeartbeats 64000000 in
 /-- Strongest exact tenth residual after the constant-scale source bridge:
 the cleared weight-fifty-five sextic/decic defect is a scalar times `h⁵⁵`.
 The weight-fifty iota residual `18 q₀ h⁵⁰` is preserved.  Both the
@@ -2322,6 +2329,7 @@ theorem scaleZero_tenthClearedDefect_exists_C_610
   exact ⟨lambda, alpha, gamma, delta, eps, zeta, eta, theta, iota, kappa, mu, hN,
     halpha, hgamma, hdelta, heps, hzeta, heta, htheta, hiota, hkappa, hmu⟩
 
+set_option maxHeartbeats 64000000 in
 /-- Source-facing tenth residual packet for a normalized scale-zero
 `(6,10)` pair.  The constants `λ` and `μ` may vanish, and the degree-`5`
 iota first integral remains a ground constant times `h⁵⁰`. -/
@@ -2396,6 +2404,7 @@ theorem normalized610ScaleZero_exists_tenthClearedDefect
     by simpa only [p, q] using hZ,
     by simpa only [p, q] using hmu⟩
 
+set_option maxHeartbeats 64000000 in
 /-- At scale zero the weight-fifty-five defect is a literal ground-field
 constant. -/
 theorem normalized610ScaleZero_tenthClearedDefect_exists_C
@@ -2446,6 +2455,7 @@ theorem normalized610ScaleZero_tenthClearedDefect_exists_C
     exact (map_mul (Polynomial.C : k →+* k[X]) mu (t ^ 55)).symm
   exact hconst
 
+set_option maxHeartbeats 64000000 in
 /-- Newton degree of the tenth cleared sextic/decic defect at scale zero. -/
 theorem normalized610ScaleZero_tenthClearedDefect_natDegree_le_zero
     {P Q : MvPolynomial (Fin 2) k} {H : k[X]}
@@ -2475,6 +2485,7 @@ theorem normalized610ScaleZero_tenthClearedDefect_natDegree_le_zero
   rw [hY]
   exact (natDegree_C mu).le
 
+set_option maxHeartbeats 64000000 in
 /-- The ninth packet's exact residual selector `18 q₀ h⁵⁰` remains
 available on the tenth packet. -/
 theorem normalized610ScaleZero_ninthSourceResidual_preserved
@@ -2496,6 +2507,7 @@ theorem normalized610ScaleZero_ninthSourceResidual_preserved
             (18 : k[X]) * q.coeff 0 * h0 ^ 50) :=
   normalized610ScaleZero_ninthSourceResidual hsource
 
+set_option maxHeartbeats 64000000 in
 /-- Exact tenth residual selector: `3134566563840 p₀ q₅ h⁵⁰` differs from a
 polynomial in the remaining tenth-defect monomials by a ground constant. -/
 theorem normalized610ScaleZero_tenthSourceResidual
@@ -2523,6 +2535,7 @@ theorem normalized610ScaleZero_tenthSourceResidual
   simp only [localClearedEleventhDefect610] at hX ⊢
   linear_combination hX
 
+set_option maxHeartbeats 64000000 in
 /-- Aligned/nonzero split of the scale-zero tenth cleared defect: it
 vanishes, or it is a nonzero ground-field constant. -/
 theorem normalized610ScaleZero_tenthClearedDefectFirstFace
@@ -2558,6 +2571,7 @@ theorem normalized610ScaleZero_tenthClearedDefectFirstFace
     simpa only [hmu, Polynomial.C_0] using hY
   · exact Or.inr ⟨mu, hmu, hY⟩
 
+set_option maxHeartbeats 64000000 in
 /-- Explicit zero/nonzero constant branches of both the discriminator and
 the weight-fifty-five defect.  The weight-fifty iota defect remains a
 ground constant. -/
@@ -2665,6 +2679,7 @@ theorem normalized610ScaleZero_tenthClearedDefectBranches
       simpa only [hmu, Polynomial.C_0] using hY
     · exact Or.inr ⟨hmu, hY⟩
 
+set_option maxHeartbeats 64000000 in
 /-- Aligned branch `N = 0`: the weight-fifty-five defect is still a ground
 constant, now with `λ = 0`. -/
 theorem normalized610ScaleZero_tenthClearedDefect_of_aligned
@@ -2730,6 +2745,7 @@ theorem normalized610ScaleZero_tenthClearedDefect_of_aligned
     exact (map_mul (Polynomial.C : k →+* k[X]) mu0 (t ^ 55)).symm
   exact hY
 
+set_option maxHeartbeats 64000000 in
 /-- Nonzero discriminator branch: `λ ≠ 0` and the weight-fifty-five defect
 is still a ground constant. -/
 theorem normalized610ScaleZero_tenthClearedDefect_of_nonzero

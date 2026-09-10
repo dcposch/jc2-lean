@@ -297,7 +297,8 @@ theorem alignedSquareClearedCompact610_mixedPair_factored
     alignedSquareMixedQBar610, alignedSquareMixedRBar610,
     alignedSquareMixedSBar610, alignedSquareMixedTBar610,
     alignedSquareMixedUBar610, alignedSquareMixedVBar610,
-    alignedSquareMixedWBar610, alignedSquareJetQuotient610]
+    alignedSquareMixedWBar610, alignedSquareJetQuotient610,
+    alignedSquareJetQuotient610c0, alignedSquareJetQuotient610c1, alignedSquareJetQuotient610c2, alignedSquareJetQuotient610c3, alignedSquareJetQuotient610c4, alignedSquareJetQuotient610c5, alignedSquareJetQuotient610c6, alignedSquareJetQuotient610c7, alignedSquareJetQuotient610c8, alignedSquareJetQuotient610c9, alignedSquareJetQuotient610c10, alignedSquareJetQuotient610c11, alignedSquareJetQuotient610c12, alignedSquareJetQuotient610c13, alignedSquareJetQuotient610c14, alignedSquareJetQuotient610c15, alignedSquareJetQuotient610c16, alignedSquareJetQuotient610c17, alignedSquareJetQuotient610c18, alignedSquareJetQuotient610c19, alignedSquareJetQuotient610c20, alignedSquareJetQuotient610c21, alignedSquareJetQuotient610c22, alignedSquareJetQuotient610c23, alignedSquareJetQuotient610c24, alignedSquareJetQuotient610c25, alignedSquareJetQuotient610c26, alignedSquareJetQuotient610c27, alignedSquareJetQuotient610c28, alignedSquareJetQuotient610c29, alignedSquareJetQuotient610c30, alignedSquareJetQuotient610c31, alignedSquareJetQuotient610c32, alignedSquareJetQuotient610c33, alignedSquareJetQuotient610c34, alignedSquareJetQuotient610c35, alignedSquareJetQuotient610c36, alignedSquareJetQuotient610c37, alignedSquareJetQuotient610c38]
   have h3 : (3 : F) ≠ 0 := by norm_num
   field_simp [h3]
   ring
@@ -558,7 +559,8 @@ theorem alignedSquareJetQuotient610_map
       alignedSquareJetQuotient610 (f h) (f w1) (f e1) (f e3) (f a2)
         (f a1) (f a0) (f b8) (f b7) (f b6) (f b5) (f b4) (f b3) (f b2)
         (f b1) := by
-  simp only [alignedSquareJetQuotient610, map_add, map_sub, map_neg,
+  simp only [alignedSquareJetQuotient610,
+    alignedSquareJetQuotient610c0, alignedSquareJetQuotient610c1, alignedSquareJetQuotient610c2, alignedSquareJetQuotient610c3, alignedSquareJetQuotient610c4, alignedSquareJetQuotient610c5, alignedSquareJetQuotient610c6, alignedSquareJetQuotient610c7, alignedSquareJetQuotient610c8, alignedSquareJetQuotient610c9, alignedSquareJetQuotient610c10, alignedSquareJetQuotient610c11, alignedSquareJetQuotient610c12, alignedSquareJetQuotient610c13, alignedSquareJetQuotient610c14, alignedSquareJetQuotient610c15, alignedSquareJetQuotient610c16, alignedSquareJetQuotient610c17, alignedSquareJetQuotient610c18, alignedSquareJetQuotient610c19, alignedSquareJetQuotient610c20, alignedSquareJetQuotient610c21, alignedSquareJetQuotient610c22, alignedSquareJetQuotient610c23, alignedSquareJetQuotient610c24, alignedSquareJetQuotient610c25, alignedSquareJetQuotient610c26, alignedSquareJetQuotient610c27, alignedSquareJetQuotient610c28, alignedSquareJetQuotient610c29, alignedSquareJetQuotient610c30, alignedSquareJetQuotient610c31, alignedSquareJetQuotient610c32, alignedSquareJetQuotient610c33, alignedSquareJetQuotient610c34, alignedSquareJetQuotient610c35, alignedSquareJetQuotient610c36, alignedSquareJetQuotient610c37, alignedSquareJetQuotient610c38, map_add, map_sub, map_neg,
     map_mul, map_pow, map_ofNat]
 
 end AlignedSquareJetMap610

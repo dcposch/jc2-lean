@@ -60,29 +60,29 @@ theorem kappaQuarticChamberFace11810_coeff_top_S32
     all_goals omega
   have hc0 : ((A * B ^ 3)).coeff (A.natDegree + 3 * B.natDegree) = A.leadingCoeff * B.leadingCoeff ^ 3 := by
     rw [← hd0, coeff_natDegree]
-    simp only [leadingCoeff_mul, leadingCoeff_pow]
+    all_goals simp only [leadingCoeff_mul, leadingCoeff_pow]
   have hd1 : ((B * C ^ 2)).natDegree = A.natDegree + 3 * B.natDegree := by
     rw [natDegree_mul hBne (pow_ne_zero 2 hCne)]
     simp only [natDegree_pow]
     all_goals omega
   have hc1 : ((B * C ^ 2)).coeff (A.natDegree + 3 * B.natDegree) = B.leadingCoeff * C.leadingCoeff ^ 2 := by
     rw [← hd1, coeff_natDegree]
-    simp only [leadingCoeff_mul, leadingCoeff_pow]
+    all_goals simp only [leadingCoeff_mul, leadingCoeff_pow]
   have hd2 : ((B * G)).natDegree = A.natDegree + 3 * B.natDegree := by
     rw [natDegree_mul hBne hGne]
     all_goals omega
   have hc2 : ((B * G)).coeff (A.natDegree + 3 * B.natDegree) = B.leadingCoeff * G.leadingCoeff := by
     rw [← hd2, coeff_natDegree]
-    simp only [leadingCoeff_mul, leadingCoeff_pow]
+    all_goals simp only [leadingCoeff_mul, leadingCoeff_pow]
   have hd3 : ((C * F)).natDegree = A.natDegree + 3 * B.natDegree := by
     rw [natDegree_mul hCne hFne]
     all_goals omega
   have hc3 : ((C * F)).coeff (A.natDegree + 3 * B.natDegree) = C.leadingCoeff * F.leadingCoeff := by
     rw [← hd3, coeff_natDegree]
-    simp only [leadingCoeff_mul, leadingCoeff_pow]
+    all_goals simp only [leadingCoeff_mul, leadingCoeff_pow]
   rw [hc0, hc1, hc2, hc3]
-  simp only [kappaQuarticPowerInnerS32810]
-  ring
+  all_goals simp only [kappaQuarticPowerInnerS32810]
+  all_goals ring
 
 end QuarticChamberRefinedKills810
 

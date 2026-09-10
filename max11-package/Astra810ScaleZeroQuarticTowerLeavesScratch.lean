@@ -1,4 +1,5 @@
 import Astra810ScaleZeroQuarticChamberBCDEFG12Scratch
+import Max11SpeedReflectDegLibScratch
 
 /-! # Five residual tower leaves for `(8,10)` at scale zero
 
@@ -71,6 +72,418 @@ theorem degreeZeroTowerLeavesAux810_natDegree_le
   exact natDegree_add_le810 hn hm
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_bandAuxBCDEFG12RestFree1810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bandAuxBCDEFG12RestFree1810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (23 / 8192 : k), (-(5 / 512) : k), (-(125 / 2048) : k),
+      (-(265 / 2048) : k), (15 / 256 : k), (85 / 256 : k)]
+      [
+      [1, 5, 0, 0, 0, 0, 0], [1, 3, 0, 0, 1, 0, 0], [0, 4, 0, 1, 0, 0, 0], [0, 3, 2, 0, 0, 0, 0],
+      [0, 3, 0, 0, 0, 0, 1], [0, 2, 1, 0, 0, 1, 0]] := by
+  simp only [bandAuxBCDEFG12RestFree1810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_bandAuxBCDEFG12RestFree2810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bandAuxBCDEFG12RestFree2810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (85 / 256 : k), (45 / 128 : k), (45 / 128 : k),
+      (-(5 / 16) : k), (-(5 / 16) : k), (15 / 128 : k)]
+      [
+      [0, 2, 0, 1, 1, 0, 0], [0, 1, 2, 0, 1, 0, 0], [0, 1, 1, 2, 0, 0, 0], [0, 1, 0, 0, 1, 0, 1],
+      [0, 1, 0, 0, 0, 2, 0], [0, 0, 3, 1, 0, 0, 0]] := by
+  simp only [bandAuxBCDEFG12RestFree2810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_bandAuxBCDEFG12RestFree3810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bandAuxBCDEFG12RestFree3810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(5 / 16) : k), (-(5 / 8) : k), (-(5 / 16) : k),
+      (-(5 / 16) : k), (-(15 / 512) : k)]
+      [
+      [0, 0, 1, 1, 0, 0, 1], [0, 0, 1, 0, 1, 1, 0], [0, 0, 0, 2, 0, 1, 0], [0, 0, 0, 1, 2, 0, 0],
+      [1, 2, 1, 1, 0, 0, 0]] := by
+  simp only [bandAuxBCDEFG12RestFree3810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_bandAuxBCDEFG12RestL1810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bandAuxBCDEFG12RestL1810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (693 / 1048576 * l : k), (-(315 / 2097152 * l) : k), (315 / 131072 * l : k),
+      (-(315 / 262144 * l) : k), (2205 / 524288 * l : k), (315 / 32768 * l : k)]
+      [
+      [6, 0, 1, 0, 0, 0, 0], [5, 2, 0, 0, 0, 0, 0], [5, 0, 0, 0, 1, 0, 0], [4, 1, 0, 1, 0, 0, 0],
+      [4, 0, 2, 0, 0, 0, 0], [4, 0, 0, 0, 0, 0, 1]] := by
+  simp only [bandAuxBCDEFG12RestL1810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_bandAuxBCDEFG12RestL2810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bandAuxBCDEFG12RestL2810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(81 / 131072 * l) : k), (-(45 / 8192 * l) : k), (225 / 8192 * l : k),
+      (-(45 / 16384 * l) : k), (-(45 / 524288 * l) : k), (-(45 / 16384 * l) : k)]
+      [
+      [3, 2, 1, 0, 0, 0, 0], [3, 1, 0, 0, 0, 1, 0], [3, 0, 1, 0, 1, 0, 0], [3, 0, 0, 2, 0, 0, 0],
+      [2, 4, 0, 0, 0, 0, 0], [2, 2, 0, 0, 1, 0, 0]] := by
+  simp only [bandAuxBCDEFG12RestL2810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_bandAuxBCDEFG12RestL3810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bandAuxBCDEFG12RestL3810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(9 / 4096 * l) : k), (9 / 8192 * l : k), (27 / 256 * l : k),
+      (-(27 / 1024 * l) : k), (81 / 2048 * l : k), (-(27 / 4096 * l) : k)]
+      [
+      [2, 1, 1, 1, 0, 0, 0], [2, 0, 3, 0, 0, 0, 0], [2, 0, 1, 0, 0, 0, 1], [2, 0, 0, 1, 0, 1, 0],
+      [2, 0, 0, 0, 2, 0, 0], [1, 3, 0, 1, 0, 0, 0]] := by
+  simp only [bandAuxBCDEFG12RestL3810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_bandAuxBCDEFG12RestL4810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bandAuxBCDEFG12RestL4810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(9 / 2048 * l) : k), (-(9 / 512 * l) : k), (9 / 32 * l : k),
+      (-(9 / 128 * l) : k), (-(567 / 16384 * l) : k), (27 / 512 * l : k)]
+      [
+      [1, 2, 2, 0, 0, 0, 0], [1, 2, 0, 0, 0, 0, 1], [1, 0, 0, 0, 1, 0, 1], [1, 0, 0, 0, 0, 2, 0],
+      [0, 4, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 1, 0]] := by
+  simp only [bandAuxBCDEFG12RestL4810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_bandAuxBCDEFG12RestL5810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bandAuxBCDEFG12RestL5810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (45 / 256 * l : k), (45 / 512 * l : k), (189 / 1024 * l : k),
+      (-(9 / 64 * l) : k), (-(9 / 32 * l) : k), (63 / 4096 * l : k)]
+      [
+      [0, 2, 1, 0, 1, 0, 0], [0, 2, 0, 2, 0, 0, 0], [0, 1, 2, 1, 0, 0, 0], [0, 1, 0, 1, 0, 0, 1],
+      [0, 1, 0, 0, 1, 1, 0], [0, 0, 4, 0, 0, 0, 0]] := by
+  simp only [bandAuxBCDEFG12RestL5810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_bandAuxBCDEFG12RestL6810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bandAuxBCDEFG12RestL6810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(9 / 128 * l) : k), (-(9 / 32 * l) : k), (-(9 / 64 * l) : k),
+      (-(9 / 64 * l) : k), (9 / 16 * l : k)]
+      [
+      [0, 0, 2, 0, 0, 0, 1], [0, 0, 1, 1, 0, 1, 0], [0, 0, 1, 0, 2, 0, 0], [0, 0, 0, 2, 1, 0, 0],
+      [0, 0, 0, 0, 0, 0, 2]] := by
+  simp only [bandAuxBCDEFG12RestL6810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_bandAuxBCDEFG12RestBeta1810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bandAuxBCDEFG12RestBeta1810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (315 / 131072 * beta : k), (-(35 / 65536 * beta) : k), (35 / 4096 * beta : k),
+      (-(35 / 8192 * beta) : k), (175 / 16384 * beta : k), (-(7 / 16384 * beta) : k)]
+      [
+      [5, 0, 1, 0, 0, 0, 0], [4, 2, 0, 0, 0, 0, 0], [4, 0, 0, 0, 1, 0, 0], [3, 1, 0, 1, 0, 0, 0],
+      [3, 0, 2, 0, 0, 0, 0], [2, 2, 1, 0, 0, 0, 0]] := by
+  simp only [bandAuxBCDEFG12RestBeta1810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_bandAuxBCDEFG12RestBeta2810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bandAuxBCDEFG12RestBeta2810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (63 / 1024 * beta : k), (-(21 / 2048 * beta) : k), (49 / 32768 * beta : k),
+      (-(7 / 1024 * beta) : k), (7 / 128 * beta : k), (-(7 / 128 * beta) : k)]
+      [
+      [2, 0, 1, 0, 1, 0, 0], [2, 0, 0, 2, 0, 0, 0], [1, 4, 0, 0, 0, 0, 0], [1, 2, 0, 0, 1, 0, 0],
+      [1, 0, 0, 0, 2, 0, 0], [0, 3, 0, 1, 0, 0, 0]] := by
+  simp only [bandAuxBCDEFG12RestBeta2810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_bandAuxBCDEFG12RestBeta3810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bandAuxBCDEFG12RestBeta3810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(91 / 1024 * beta) : k), (7 / 32 * beta : k), (7 / 32 * beta : k),
+      (7 / 64 * beta : k), (7 / 64 * beta : k), (-(7 / 16 * beta) : k)]
+      [
+      [0, 2, 2, 0, 0, 0, 0], [0, 1, 1, 0, 0, 1, 0], [0, 1, 0, 1, 1, 0, 0], [0, 0, 2, 0, 1, 0, 0],
+      [0, 0, 1, 2, 0, 0, 0], [0, 0, 0, 0, 0, 2, 0]] := by
+  simp only [bandAuxBCDEFG12RestBeta3810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_bandAuxBCDEFG12RestBeta4810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bandAuxBCDEFG12RestBeta4810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(7 / 64 * beta) : k), (-(21 / 1024 * beta) : k), (35 / 1024 * beta : k),
+      (7 / 32 * beta : k)]
+      [
+      [1, 0, 0, 1, 0, 1, 0], [2, 1, 0, 0, 0, 1, 0], [3, 0, 0, 0, 0, 0, 1], [1, 0, 1, 0, 0, 0, 1]] := by
+  simp only [bandAuxBCDEFG12RestBeta4810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_bandAuxBCDEFG12RestGamma1810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bandAuxBCDEFG12RestGamma1810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(27 / 256 * gamma) : k), (9 / 64 * gamma : k), (3 / 8 * gamma : k),
+      (3 / 16 * gamma : k), (3 / 16 * gamma : k), (-(3 / 4 * gamma) : k)]
+      [
+      [0, 3, 1, 0, 0, 0, 0], [0, 2, 0, 0, 0, 1, 0], [0, 1, 1, 0, 1, 0, 0], [0, 1, 0, 2, 0, 0, 0],
+      [0, 0, 2, 1, 0, 0, 0], [0, 0, 0, 0, 1, 1, 0]] := by
+  simp only [bandAuxBCDEFG12RestGamma1810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_bandAuxBCDEFG12RestDelta1810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bandAuxBCDEFG12RestDelta1810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (35 / 4096 * delta : k), (-(15 / 8192 * delta) : k), (15 / 512 * delta : k),
+      (-(15 / 1024 * delta) : k), (45 / 2048 * delta : k), (-(5 / 1024 * delta) : k)]
+      [
+      [4, 0, 1, 0, 0, 0, 0], [3, 2, 0, 0, 0, 0, 0], [3, 0, 0, 0, 1, 0, 0], [2, 1, 0, 1, 0, 0, 0],
+      [2, 0, 2, 0, 0, 0, 0], [1, 2, 1, 0, 0, 0, 0]] := by
+  simp only [bandAuxBCDEFG12RestDelta1810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_bandAuxBCDEFG12RestDelta2810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bandAuxBCDEFG12RestDelta2810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (5 / 64 * delta : k), (-(5 / 128 * delta) : k), (-(135 / 4096 * delta) : k),
+      (25 / 128 * delta : k), (15 / 32 * delta : k), (5 / 64 * delta : k)]
+      [
+      [1, 0, 1, 0, 1, 0, 0], [1, 0, 0, 2, 0, 0, 0], [0, 4, 0, 0, 0, 0, 0], [0, 2, 0, 0, 1, 0, 0],
+      [0, 1, 1, 1, 0, 0, 0], [0, 0, 3, 0, 0, 0, 0]] := by
+  simp only [bandAuxBCDEFG12RestDelta2810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_bandAuxBCDEFG12RestDelta3810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bandAuxBCDEFG12RestDelta3810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(5 / 8 * delta) : k), (-(5 / 16 * delta) : k), (-(5 / 64 * delta) : k),
+      (15 / 128 * delta : k)]
+      [
+      [0, 0, 0, 1, 0, 1, 0], [0, 0, 0, 0, 2, 0, 0], [1, 1, 0, 0, 0, 1, 0], [2, 0, 0, 0, 0, 0, 1]] := by
+  simp only [bandAuxBCDEFG12RestDelta3810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_bandAuxBCDEFG12RestEpsilon1810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bandAuxBCDEFG12RestEpsilon1810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (7 / 32 * epsilon : k), (1 / 4 * epsilon : k), (-(1 / 2 * epsilon) : k),
+      (-(1 / 2 * epsilon) : k)]
+      [
+      [0, 2, 0, 1, 0, 0, 0], [0, 1, 2, 0, 0, 0, 0], [0, 0, 1, 0, 0, 1, 0], [0, 0, 0, 1, 1, 0, 0]] := by
+  simp only [bandAuxBCDEFG12RestEpsilon1810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_bandAuxBCDEFG12RestZeta1810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bandAuxBCDEFG12RestZeta1810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 512 * zeta : k), (-(3 / 512 * zeta) : k), (3 / 32 * zeta : k),
+      (-(3 / 64 * zeta) : k), (27 / 128 * zeta : k), (-(3 / 8 * zeta) : k)]
+      [
+      [3, 0, 1, 0, 0, 0, 0], [2, 2, 0, 0, 0, 0, 0], [2, 0, 0, 0, 1, 0, 0], [1, 1, 0, 1, 0, 0, 0],
+      [0, 2, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 1, 0]] := by
+  simp only [bandAuxBCDEFG12RestZeta1810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_bandAuxBCDEFG12RestZeta2810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bandAuxBCDEFG12RestZeta2810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-(3 / 8 * zeta) : k), (-(3 / 16 * zeta) : k), (3 / 128 * zeta : k),
+      (3 / 8 * zeta : k)]
+      [
+      [0, 0, 1, 0, 1, 0, 0], [0, 0, 0, 2, 0, 0, 0], [1, 0, 2, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 1]] := by
+  simp only [bandAuxBCDEFG12RestZeta2810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_bandAuxBCDEFG12RestEta1810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bandAuxBCDEFG12RestEta1810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (3 / 64 * eta : k), (-(1 / 4 * eta) : k), (-(1 / 4 * eta) : k)]
+      [
+      [0, 3, 0, 0, 0, 0, 0], [0, 1, 0, 0, 1, 0, 0], [0, 0, 1, 1, 0, 0, 0]] := by
+  simp only [bandAuxBCDEFG12RestEta1810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_bandAuxBCDEFG12RestTheta1810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bandAuxBCDEFG12RestTheta1810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (3 / 32 * theta : k), (-(1 / 64 * theta) : k), (1 / 4 * theta : k),
+      (-(1 / 8 * theta) : k), (-(1 / 16 * theta) : k), (1 / 1 * theta : k)]
+      [
+      [2, 0, 1, 0, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0], [1, 0, 0, 0, 1, 0, 0], [0, 1, 0, 1, 0, 0, 0],
+      [0, 0, 2, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1]] := by
+  simp only [bandAuxBCDEFG12RestTheta1810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
 /-- Every non-pure auxiliary monomial is strictly below the candidate pure load degree, including equality at the old tower face. -/
 theorem towerLeavesAuxRest810_natDegree_lt
     {d : ℕ}
@@ -88,157 +501,289 @@ theorem towerLeavesAuxRest810_natDegree_lt
   rcases hc with ⟨⟨ha, hab, hac, had, hae, haf, hag⟩,
     h0, h1, h2, h3, h4⟩
   have hc0 : (bandAuxBCDEFG12RestFree1810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
-    simp only [bandAuxBCDEFG12RestFree1810]
-    compute_degree
-    omega
+    rw [astra810t_front_bandAuxBCDEFG12RestFree1810_eq_polyOf]
+    apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+    clear * - ha hab hac had hae haf hag h0 h1 h2 h3 h4 hd
+    simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+      Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+      Nat.add_zero, Nat.zero_add, max_lt_iff]
+    repeat' apply And.intro
+    all_goals omega
   have hc1 : (bandAuxBCDEFG12RestFree2810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
-    simp only [bandAuxBCDEFG12RestFree2810]
-    compute_degree
-    omega
+    rw [astra810t_front_bandAuxBCDEFG12RestFree2810_eq_polyOf]
+    apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+    clear * - ha hab hac had hae haf hag h0 h1 h2 h3 h4 hd
+    simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+      Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+      Nat.add_zero, Nat.zero_add, max_lt_iff]
+    repeat' apply And.intro
+    all_goals omega
   have hc2 : (bandAuxBCDEFG12RestFree3810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
-    simp only [bandAuxBCDEFG12RestFree3810]
-    compute_degree
-    omega
+    rw [astra810t_front_bandAuxBCDEFG12RestFree3810_eq_polyOf]
+    apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+    clear * - ha hab hac had hae haf hag h0 h1 h2 h3 h4 hd
+    simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+      Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+      Nat.add_zero, Nat.zero_add, max_lt_iff]
+    repeat' apply And.intro
+    all_goals omega
   have hc3 : (bandAuxBCDEFG12RestL1810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
     rcases hl with hz | hdload
     · simp only [bandAuxBCDEFG12RestL1810, hz, mul_zero, zero_mul, zero_smul,
         add_zero, neg_zero, natDegree_zero]
       omega
-    · simp only [bandAuxBCDEFG12RestL1810]
-      compute_degree
-      omega
+    · rw [astra810t_front_bandAuxBCDEFG12RestL1810_eq_polyOf]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - ha hab hac had hae haf hag h0 h1 h2 h3 h4 hd hdload
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hc4 : (bandAuxBCDEFG12RestL2810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
     rcases hl with hz | hdload
     · simp only [bandAuxBCDEFG12RestL2810, hz, mul_zero, zero_mul, zero_smul,
         add_zero, neg_zero, natDegree_zero]
       omega
-    · simp only [bandAuxBCDEFG12RestL2810]
-      compute_degree
-      omega
+    · rw [astra810t_front_bandAuxBCDEFG12RestL2810_eq_polyOf]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - ha hab hac had hae haf hag h0 h1 h2 h3 h4 hd hdload
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hc5 : (bandAuxBCDEFG12RestL3810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
     rcases hl with hz | hdload
     · simp only [bandAuxBCDEFG12RestL3810, hz, mul_zero, zero_mul, zero_smul,
         add_zero, neg_zero, natDegree_zero]
       omega
-    · simp only [bandAuxBCDEFG12RestL3810]
-      compute_degree
-      omega
+    · rw [astra810t_front_bandAuxBCDEFG12RestL3810_eq_polyOf]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - ha hab hac had hae haf hag h0 h1 h2 h3 h4 hd hdload
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hc6 : (bandAuxBCDEFG12RestL4810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
     rcases hl with hz | hdload
     · simp only [bandAuxBCDEFG12RestL4810, hz, mul_zero, zero_mul, zero_smul,
         add_zero, neg_zero, natDegree_zero]
       omega
-    · simp only [bandAuxBCDEFG12RestL4810]
-      compute_degree
-      omega
+    · rw [astra810t_front_bandAuxBCDEFG12RestL4810_eq_polyOf]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - ha hab hac had hae haf hag h0 h1 h2 h3 h4 hd hdload
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hc7 : (bandAuxBCDEFG12RestL5810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
     rcases hl with hz | hdload
     · simp only [bandAuxBCDEFG12RestL5810, hz, mul_zero, zero_mul, zero_smul,
         add_zero, neg_zero, natDegree_zero]
       omega
-    · simp only [bandAuxBCDEFG12RestL5810]
-      compute_degree
-      omega
+    · rw [astra810t_front_bandAuxBCDEFG12RestL5810_eq_polyOf]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - ha hab hac had hae haf hag h0 h1 h2 h3 h4 hd hdload
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hc8 : (bandAuxBCDEFG12RestL6810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
     rcases hl with hz | hdload
     · simp only [bandAuxBCDEFG12RestL6810, hz, mul_zero, zero_mul, zero_smul,
         add_zero, neg_zero, natDegree_zero]
       omega
-    · simp only [bandAuxBCDEFG12RestL6810]
-      compute_degree
-      omega
+    · rw [astra810t_front_bandAuxBCDEFG12RestL6810_eq_polyOf]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - ha hab hac had hae haf hag h0 h1 h2 h3 h4 hd hdload
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hc9 : (bandAuxBCDEFG12RestBeta1810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
     rcases hbeta with hz | hdload
     · simp only [bandAuxBCDEFG12RestBeta1810, hz, mul_zero, zero_mul, zero_smul,
         add_zero, neg_zero, natDegree_zero]
       omega
-    · simp only [bandAuxBCDEFG12RestBeta1810]
-      compute_degree
-      omega
+    · rw [astra810t_front_bandAuxBCDEFG12RestBeta1810_eq_polyOf]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - ha hab hac had hae haf hag h0 h1 h2 h3 h4 hd hdload
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hc10 : (bandAuxBCDEFG12RestBeta2810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
     rcases hbeta with hz | hdload
     · simp only [bandAuxBCDEFG12RestBeta2810, hz, mul_zero, zero_mul, zero_smul,
         add_zero, neg_zero, natDegree_zero]
       omega
-    · simp only [bandAuxBCDEFG12RestBeta2810]
-      compute_degree
-      omega
+    · rw [astra810t_front_bandAuxBCDEFG12RestBeta2810_eq_polyOf]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - ha hab hac had hae haf hag h0 h1 h2 h3 h4 hd hdload
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hc11 : (bandAuxBCDEFG12RestBeta3810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
     rcases hbeta with hz | hdload
     · simp only [bandAuxBCDEFG12RestBeta3810, hz, mul_zero, zero_mul, zero_smul,
         add_zero, neg_zero, natDegree_zero]
       omega
-    · simp only [bandAuxBCDEFG12RestBeta3810]
-      compute_degree
-      omega
+    · rw [astra810t_front_bandAuxBCDEFG12RestBeta3810_eq_polyOf]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - ha hab hac had hae haf hag h0 h1 h2 h3 h4 hd hdload
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hc12 : (bandAuxBCDEFG12RestBeta4810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
     rcases hbeta with hz | hdload
     · simp only [bandAuxBCDEFG12RestBeta4810, hz, mul_zero, zero_mul, zero_smul,
         add_zero, neg_zero, natDegree_zero]
       omega
-    · simp only [bandAuxBCDEFG12RestBeta4810]
-      compute_degree
-      omega
+    · rw [astra810t_front_bandAuxBCDEFG12RestBeta4810_eq_polyOf]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - ha hab hac had hae haf hag h0 h1 h2 h3 h4 hd hdload
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hc13 : (bandAuxBCDEFG12RestGamma1810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
-    simp only [bandAuxBCDEFG12RestGamma1810]
-    compute_degree
-    omega
+    rw [astra810t_front_bandAuxBCDEFG12RestGamma1810_eq_polyOf]
+    apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+    clear * - ha hab hac had hae haf hag h0 h1 h2 h3 h4 hd
+    simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+      Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+      Nat.add_zero, Nat.zero_add, max_lt_iff]
+    repeat' apply And.intro
+    all_goals omega
   have hc14 : (bandAuxBCDEFG12RestDelta1810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
     rcases hdelta with hz | hdload
     · simp only [bandAuxBCDEFG12RestDelta1810, hz, mul_zero, zero_mul, zero_smul,
         add_zero, neg_zero, natDegree_zero]
       omega
-    · simp only [bandAuxBCDEFG12RestDelta1810]
-      compute_degree
-      omega
+    · rw [astra810t_front_bandAuxBCDEFG12RestDelta1810_eq_polyOf]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - ha hab hac had hae haf hag h0 h1 h2 h3 h4 hd hdload
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hc15 : (bandAuxBCDEFG12RestDelta2810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
     rcases hdelta with hz | hdload
     · simp only [bandAuxBCDEFG12RestDelta2810, hz, mul_zero, zero_mul, zero_smul,
         add_zero, neg_zero, natDegree_zero]
       omega
-    · simp only [bandAuxBCDEFG12RestDelta2810]
-      compute_degree
-      omega
+    · rw [astra810t_front_bandAuxBCDEFG12RestDelta2810_eq_polyOf]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - ha hab hac had hae haf hag h0 h1 h2 h3 h4 hd hdload
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hc16 : (bandAuxBCDEFG12RestDelta3810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
     rcases hdelta with hz | hdload
     · simp only [bandAuxBCDEFG12RestDelta3810, hz, mul_zero, zero_mul, zero_smul,
         add_zero, neg_zero, natDegree_zero]
       omega
-    · simp only [bandAuxBCDEFG12RestDelta3810]
-      compute_degree
-      omega
+    · rw [astra810t_front_bandAuxBCDEFG12RestDelta3810_eq_polyOf]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - ha hab hac had hae haf hag h0 h1 h2 h3 h4 hd hdload
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hc17 : (bandAuxBCDEFG12RestEpsilon1810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
-    simp only [bandAuxBCDEFG12RestEpsilon1810]
-    compute_degree
-    omega
+    rw [astra810t_front_bandAuxBCDEFG12RestEpsilon1810_eq_polyOf]
+    apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+    clear * - ha hab hac had hae haf hag h0 h1 h2 h3 h4 hd
+    simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+      Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+      Nat.add_zero, Nat.zero_add, max_lt_iff]
+    repeat' apply And.intro
+    all_goals omega
   have hc18 : (bandAuxBCDEFG12RestZeta1810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
     rcases hzeta with hz | hdload
     · simp only [bandAuxBCDEFG12RestZeta1810, hz, mul_zero, zero_mul, zero_smul,
         add_zero, neg_zero, natDegree_zero]
       omega
-    · simp only [bandAuxBCDEFG12RestZeta1810]
-      compute_degree
-      omega
+    · rw [astra810t_front_bandAuxBCDEFG12RestZeta1810_eq_polyOf]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - ha hab hac had hae haf hag h0 h1 h2 h3 h4 hd hdload
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hc19 : (bandAuxBCDEFG12RestZeta2810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
     rcases hzeta with hz | hdload
     · simp only [bandAuxBCDEFG12RestZeta2810, hz, mul_zero, zero_mul, zero_smul,
         add_zero, neg_zero, natDegree_zero]
       omega
-    · simp only [bandAuxBCDEFG12RestZeta2810]
-      compute_degree
-      omega
+    · rw [astra810t_front_bandAuxBCDEFG12RestZeta2810_eq_polyOf]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - ha hab hac had hae haf hag h0 h1 h2 h3 h4 hd hdload
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hc20 : (bandAuxBCDEFG12RestEta1810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
-    simp only [bandAuxBCDEFG12RestEta1810]
-    compute_degree
-    omega
+    rw [astra810t_front_bandAuxBCDEFG12RestEta1810_eq_polyOf]
+    apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+    clear * - ha hab hac had hae haf hag h0 h1 h2 h3 h4 hd
+    simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+      Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+      Nat.add_zero, Nat.zero_add, max_lt_iff]
+    repeat' apply And.intro
+    all_goals omega
   have hc21 : (bandAuxBCDEFG12RestTheta1810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < d := by
     rcases htheta with hz | hdload
     · simp only [bandAuxBCDEFG12RestTheta1810, hz, mul_zero, zero_mul, zero_smul,
         add_zero, neg_zero, natDegree_zero]
       omega
-    · simp only [bandAuxBCDEFG12RestTheta1810]
-      compute_degree
-      omega
+    · rw [astra810t_front_bandAuxBCDEFG12RestTheta1810_eq_polyOf]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - ha hab hac had hae haf hag h0 h1 h2 h3 h4 hd hdload
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   simp only [bandAuxBCDEFG12Rest810]
   exact (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 hc0 hc1) hc2) hc3) hc4) hc5) hc6) hc7) hc8) hc9) hc10) hc11) hc12) hc13) hc14) hc15) hc16) hc17) hc18) hc19) hc20) hc21)
 
@@ -648,6 +1193,393 @@ theorem towerLeavesOpenIKappasplit810
   module
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIKappaRest0810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIKappaRest0810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+]
+      [
+] := by
+  simp only [towerLeavesOpenIKappaRest0810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIKappaRest0810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIKappaRest0810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-15 / 128 : k), (5 / 16 : k)]
+      [
+      [0, 2, 0, 1, 0, 0, 0], [0, 0, 0, 1, 1, 0, 0]] := by
+  simp only [towerLeavesOpenIKappaRest0810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIKappaRest1810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIKappaRest1810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (63 / 262144 * l : k), (45 / 8192 * l : k), (-9 / 16384 * l : k),
+      (27 / 1024 * l : k), (9 / 1024 * l : k)]
+      [
+      [5, 0, 0, 0, 0, 0, 0], [3, 0, 1, 0, 0, 0, 0], [2, 2, 0, 0, 0, 0, 0], [2, 0, 0, 0, 1, 0, 0],
+      [1, 0, 2, 0, 0, 0, 0]] := by
+  simp only [towerLeavesOpenIKappaRest1810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIKappaRest1810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIKappaRest1810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (63 / 262144 * l : k), (45 / 8192 * l : k), (-9 / 16384 * l : k),
+      (27 / 1024 * l : k), (-9 / 512 * l : k), (9 / 1024 * l : k)]
+      [
+      [5, 0, 0, 0, 0, 0, 0], [3, 0, 1, 0, 0, 0, 0], [2, 2, 0, 0, 0, 0, 0], [2, 0, 0, 0, 1, 0, 0],
+      [1, 1, 0, 1, 0, 0, 0], [1, 0, 2, 0, 0, 0, 0]] := by
+  simp only [towerLeavesOpenIKappaRest1810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIKappaRest2810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIKappaRest2810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (9 / 64 * l : k), (-63 / 1024 * l : k), (9 / 64 * l : k),
+      (9 / 64 * l : k)]
+      [
+      [1, 0, 0, 0, 0, 0, 1], [0, 2, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 1, 0], [0, 0, 1, 0, 1, 0, 0]] := by
+  simp only [towerLeavesOpenIKappaRest2810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIKappaRest2810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIKappaRest2810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (9 / 64 * l : k), (-63 / 1024 * l : k), (9 / 64 * l : k),
+      (9 / 64 * l : k), (9 / 128 * l : k)]
+      [
+      [1, 0, 0, 0, 0, 0, 1], [0, 2, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 1, 0], [0, 0, 1, 0, 1, 0, 0],
+      [0, 0, 0, 2, 0, 0, 0]] := by
+  simp only [towerLeavesOpenIKappaRest2810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIKappaRest3810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIKappaRest3810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (35 / 32768 * beta : k), (21 / 1024 * beta : k), (7 / 1024 * beta : k),
+      (7 / 64 * beta : k), (-7 / 128 * beta : k)]
+      [
+      [4, 0, 0, 0, 0, 0, 0], [2, 0, 1, 0, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0], [1, 0, 0, 0, 1, 0, 0],
+      [0, 0, 2, 0, 0, 0, 0]] := by
+  simp only [towerLeavesOpenIKappaRest3810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIKappaRest3810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIKappaRest3810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (35 / 32768 * beta : k), (21 / 1024 * beta : k), (7 / 1024 * beta : k),
+      (7 / 64 * beta : k), (-7 / 64 * beta : k), (-7 / 128 * beta : k)]
+      [
+      [4, 0, 0, 0, 0, 0, 0], [2, 0, 1, 0, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0], [1, 0, 0, 0, 1, 0, 0],
+      [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0]] := by
+  simp only [towerLeavesOpenIKappaRest3810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIKappaRest4810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIKappaRest4810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (7 / 8 * beta : k)]
+      [
+      [0, 0, 0, 0, 0, 0, 1]] := by
+  simp only [towerLeavesOpenIKappaRest4810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIKappaRest4810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIKappaRest4810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (7 / 8 * beta : k)]
+      [
+      [0, 0, 0, 0, 0, 0, 1]] := by
+  simp only [towerLeavesOpenIKappaRest4810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIKappaRest5810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIKappaRest5810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-3 / 16 * gamma : k), (3 / 4 * gamma : k)]
+      [
+      [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0]] := by
+  simp only [towerLeavesOpenIKappaRest5810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIKappaRest5810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIKappaRest5810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-3 / 16 * gamma : k), (3 / 4 * gamma : k)]
+      [
+      [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0]] := by
+  simp only [towerLeavesOpenIKappaRest5810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIKappaRest6810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIKappaRest6810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (5 / 1024 * delta : k), (5 / 64 * delta : k), (-15 / 128 * delta : k),
+      (5 / 8 * delta : k)]
+      [
+      [3, 0, 0, 0, 0, 0, 0], [1, 0, 1, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0]] := by
+  simp only [towerLeavesOpenIKappaRest6810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIKappaRest6810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIKappaRest6810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (5 / 1024 * delta : k), (5 / 64 * delta : k), (-15 / 128 * delta : k),
+      (5 / 8 * delta : k)]
+      [
+      [3, 0, 0, 0, 0, 0, 0], [1, 0, 1, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0]] := by
+  simp only [towerLeavesOpenIKappaRest6810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIKappaRest7810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIKappaRest7810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+]
+      [
+] := by
+  simp only [towerLeavesOpenIKappaRest7810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIKappaRest7810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIKappaRest7810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (1 / 2 * epsilon : k)]
+      [
+      [0, 0, 0, 1, 0, 0, 0]] := by
+  simp only [towerLeavesOpenIKappaRest7810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIKappaRest8810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIKappaRest8810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (3 / 128 * zeta : k), (3 / 8 * zeta : k)]
+      [
+      [2, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0]] := by
+  simp only [towerLeavesOpenIKappaRest8810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIKappaRest8810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIKappaRest8810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (3 / 128 * zeta : k), (3 / 8 * zeta : k)]
+      [
+      [2, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0]] := by
+  simp only [towerLeavesOpenIKappaRest8810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIKappaRest9810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIKappaRest9810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (1 / 4 * eta : k)]
+      [
+      [0, 1, 0, 0, 0, 0, 0]] := by
+  simp only [towerLeavesOpenIKappaRest9810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIKappaRest9810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIKappaRest9810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (1 / 4 * eta : k)]
+      [
+      [0, 1, 0, 0, 0, 0, 0]] := by
+  simp only [towerLeavesOpenIKappaRest9810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIKappaRest10810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIKappaRest10810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (1 / 8 * theta : k)]
+      [
+      [1, 0, 0, 0, 0, 0, 0]] := by
+  simp only [towerLeavesOpenIKappaRest10810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIKappaRest10810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIKappaRest10810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (1 / 8 * theta : k)]
+      [
+      [1, 0, 0, 0, 0, 0, 0]] := by
+  simp only [towerLeavesOpenIKappaRest10810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
 /-- The strict bands put every remainder chunk below the face. -/
 theorem towerLeavesOpenIKapparest_lt810
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -664,134 +1596,266 @@ theorem towerLeavesOpenIKapparest_lt810
   rcases hc with ⟨⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩, hCEq, hFEq, hGEq, hDbound, hEbound⟩
   have hr0 : (towerLeavesOpenIKappaRest0810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < A.natDegree + 3 * B.natDegree := by
     rcases hDle with hDz | hDle
-    · simp only [towerLeavesOpenIKappaRest0810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-      compute_degree
-      omega
-    · simp only [towerLeavesOpenIKappaRest0810]
-      compute_degree
-      omega
+    · rw [astra810t_front_towerLeavesOpenIKappaRest0810_Dzero_eq_polyOf (hDz := hDz)]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
+    · rw [astra810t_front_towerLeavesOpenIKappaRest0810_eq_polyOf]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hr1 : (towerLeavesOpenIKappaRest1810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < A.natDegree + 3 * B.natDegree := by
     rcases hDle with hDz | hDle
     · rcases hbl with hz | hb
       · simp only [towerLeavesOpenIKappaRest1810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIKappaRest1810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIKappaRest1810_Dzero_eq_polyOf (hDz := hDz)]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
     · rcases hbl with hz | hb
       · simp only [towerLeavesOpenIKappaRest1810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIKappaRest1810]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIKappaRest1810_eq_polyOf]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
   have hr2 : (towerLeavesOpenIKappaRest2810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < A.natDegree + 3 * B.natDegree := by
     rcases hDle with hDz | hDle
     · rcases hbl with hz | hb
       · simp only [towerLeavesOpenIKappaRest2810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIKappaRest2810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIKappaRest2810_Dzero_eq_polyOf (hDz := hDz)]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
     · rcases hbl with hz | hb
       · simp only [towerLeavesOpenIKappaRest2810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIKappaRest2810]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIKappaRest2810_eq_polyOf]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
   have hr3 : (towerLeavesOpenIKappaRest3810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < A.natDegree + 3 * B.natDegree := by
     rcases hDle with hDz | hDle
     · rcases hbbeta with hz | hb
       · simp only [towerLeavesOpenIKappaRest3810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIKappaRest3810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIKappaRest3810_Dzero_eq_polyOf (hDz := hDz)]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
     · rcases hbbeta with hz | hb
       · simp only [towerLeavesOpenIKappaRest3810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIKappaRest3810]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIKappaRest3810_eq_polyOf]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
   have hr4 : (towerLeavesOpenIKappaRest4810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < A.natDegree + 3 * B.natDegree := by
     rcases hDle with hDz | hDle
     · rcases hbbeta with hz | hb
       · simp only [towerLeavesOpenIKappaRest4810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIKappaRest4810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIKappaRest4810_Dzero_eq_polyOf (hDz := hDz)]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
     · rcases hbbeta with hz | hb
       · simp only [towerLeavesOpenIKappaRest4810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIKappaRest4810]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIKappaRest4810_eq_polyOf]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
   have hr5 : (towerLeavesOpenIKappaRest5810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < A.natDegree + 3 * B.natDegree := by
     rcases hDle with hDz | hDle
-    · simp only [towerLeavesOpenIKappaRest5810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-      compute_degree
-      omega
-    · simp only [towerLeavesOpenIKappaRest5810]
-      compute_degree
-      omega
+    · rw [astra810t_front_towerLeavesOpenIKappaRest5810_Dzero_eq_polyOf (hDz := hDz)]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
+    · rw [astra810t_front_towerLeavesOpenIKappaRest5810_eq_polyOf]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hr6 : (towerLeavesOpenIKappaRest6810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < A.natDegree + 3 * B.natDegree := by
     rcases hDle with hDz | hDle
     · rcases hbdelta with hz | hb
       · simp only [towerLeavesOpenIKappaRest6810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIKappaRest6810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIKappaRest6810_Dzero_eq_polyOf (hDz := hDz)]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
     · rcases hbdelta with hz | hb
       · simp only [towerLeavesOpenIKappaRest6810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIKappaRest6810]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIKappaRest6810_eq_polyOf]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
   have hr7 : (towerLeavesOpenIKappaRest7810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < A.natDegree + 3 * B.natDegree := by
     rcases hDle with hDz | hDle
-    · simp only [towerLeavesOpenIKappaRest7810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-      compute_degree
-      omega
-    · simp only [towerLeavesOpenIKappaRest7810]
-      compute_degree
-      omega
+    · rw [astra810t_front_towerLeavesOpenIKappaRest7810_Dzero_eq_polyOf (hDz := hDz)]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
+    · rw [astra810t_front_towerLeavesOpenIKappaRest7810_eq_polyOf]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hr8 : (towerLeavesOpenIKappaRest8810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < A.natDegree + 3 * B.natDegree := by
     rcases hDle with hDz | hDle
     · rcases hbzeta with hz | hb
       · simp only [towerLeavesOpenIKappaRest8810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIKappaRest8810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIKappaRest8810_Dzero_eq_polyOf (hDz := hDz)]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
     · rcases hbzeta with hz | hb
       · simp only [towerLeavesOpenIKappaRest8810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIKappaRest8810]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIKappaRest8810_eq_polyOf]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
   have hr9 : (towerLeavesOpenIKappaRest9810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < A.natDegree + 3 * B.natDegree := by
     rcases hDle with hDz | hDle
-    · simp only [towerLeavesOpenIKappaRest9810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-      compute_degree
-      omega
-    · simp only [towerLeavesOpenIKappaRest9810]
-      compute_degree
-      omega
+    · rw [astra810t_front_towerLeavesOpenIKappaRest9810_Dzero_eq_polyOf (hDz := hDz)]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
+    · rw [astra810t_front_towerLeavesOpenIKappaRest9810_eq_polyOf]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hr10 : (towerLeavesOpenIKappaRest10810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < A.natDegree + 3 * B.natDegree := by
     rcases hDle with hDz | hDle
     · rcases hbtheta with hz | hb
       · simp only [towerLeavesOpenIKappaRest10810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIKappaRest10810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIKappaRest10810_Dzero_eq_polyOf (hDz := hDz)]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
     · rcases hbtheta with hz | hb
       · simp only [towerLeavesOpenIKappaRest10810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIKappaRest10810]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIKappaRest10810_eq_polyOf]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
   unfold towerLeavesOpenIKappaRest810
   exact (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 hr0 hr1) hr2) hr3) hr4) hr5) hr6) hr7) hr8) hr9) hr10)
 
@@ -1005,6 +2069,394 @@ theorem towerLeavesOpenIMusplit810
   module
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIMuRest0810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIMuRest0810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (35 / 2048 : k), (-15 / 128 : k), (5 / 32 : k)]
+      [
+      [0, 4, 0, 0, 0, 0, 0], [0, 2, 0, 0, 1, 0, 0], [0, 0, 0, 0, 2, 0, 0]] := by
+  simp only [towerLeavesOpenIMuRest0810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIMuRest0810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIMuRest0810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-5 / 128 : k), (35 / 2048 : k), (-15 / 128 : k),
+      (-15 / 64 : k), (5 / 16 : k), (5 / 32 : k)]
+      [
+      [1, 0, 0, 2, 0, 0, 0], [0, 4, 0, 0, 0, 0, 0], [0, 2, 0, 0, 1, 0, 0], [0, 1, 1, 1, 0, 0, 0],
+      [0, 0, 0, 1, 0, 1, 0], [0, 0, 0, 0, 2, 0, 0]] := by
+  simp only [towerLeavesOpenIMuRest0810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIMuRest1810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIMuRest1810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-45 / 262144 * l : k), (-9 / 8192 * l : k), (-9 / 1024 * l : k),
+      (63 / 8192 * l : k), (-9 / 512 * l : k)]
+      [
+      [4, 1, 0, 0, 0, 0, 0], [2, 1, 1, 0, 0, 0, 0], [2, 0, 0, 0, 0, 1, 0], [1, 3, 0, 0, 0, 0, 0],
+      [1, 1, 0, 0, 1, 0, 0]] := by
+  simp only [towerLeavesOpenIMuRest1810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIMuRest1810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIMuRest1810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-45 / 262144 * l : k), (-9 / 8192 * l : k), (-9 / 8192 * l : k),
+      (-9 / 1024 * l : k), (63 / 8192 * l : k), (-9 / 512 * l : k)]
+      [
+      [4, 1, 0, 0, 0, 0, 0], [3, 0, 0, 1, 0, 0, 0], [2, 1, 1, 0, 0, 0, 0], [2, 0, 0, 0, 0, 1, 0],
+      [1, 3, 0, 0, 0, 0, 0], [1, 1, 0, 0, 1, 0, 0]] := by
+  simp only [towerLeavesOpenIMuRest1810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIMuRest2810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIMuRest2810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-63 / 1024 * l : k), (9 / 64 * l : k), (9 / 64 * l : k)]
+      [
+      [0, 1, 2, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 1], [0, 0, 1, 0, 0, 1, 0]] := by
+  simp only [towerLeavesOpenIMuRest2810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIMuRest2810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIMuRest2810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-9 / 512 * l : k), (-63 / 1024 * l : k), (-63 / 1024 * l : k),
+      (9 / 64 * l : k), (9 / 64 * l : k), (9 / 64 * l : k)]
+      [
+      [1, 0, 1, 1, 0, 0, 0], [0, 2, 0, 1, 0, 0, 0], [0, 1, 2, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 1],
+      [0, 0, 1, 0, 0, 1, 0], [0, 0, 0, 1, 1, 0, 0]] := by
+  simp only [towerLeavesOpenIMuRest2810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIMuRest3810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIMuRest3810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-7 / 8192 * beta : k), (7 / 512 * beta : k), (-7 / 64 * beta : k),
+      (21 / 1024 * beta : k), (-7 / 64 * beta : k)]
+      [
+      [3, 1, 0, 0, 0, 0, 0], [1, 1, 1, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0], [0, 3, 0, 0, 0, 0, 0],
+      [0, 1, 0, 0, 1, 0, 0]] := by
+  simp only [towerLeavesOpenIMuRest3810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIMuRest3810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIMuRest3810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-7 / 8192 * beta : k), (-7 / 1024 * beta : k), (7 / 512 * beta : k),
+      (-7 / 64 * beta : k), (21 / 1024 * beta : k), (-7 / 64 * beta : k)]
+      [
+      [3, 1, 0, 0, 0, 0, 0], [2, 0, 0, 1, 0, 0, 0], [1, 1, 1, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0],
+      [0, 3, 0, 0, 0, 0, 0], [0, 1, 0, 0, 1, 0, 0]] := by
+  simp only [towerLeavesOpenIMuRest3810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIMuRest4810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIMuRest4810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+]
+      [
+] := by
+  simp only [towerLeavesOpenIMuRest4810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIMuRest4810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIMuRest4810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-7 / 64 * beta : k)]
+      [
+      [0, 0, 1, 1, 0, 0, 0]] := by
+  simp only [towerLeavesOpenIMuRest4810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIMuRest5810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIMuRest5810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (3 / 128 * gamma : k), (-3 / 32 * gamma : k), (3 / 4 * gamma : k)]
+      [
+      [1, 2, 0, 0, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1]] := by
+  simp only [towerLeavesOpenIMuRest5810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIMuRest5810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIMuRest5810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (3 / 128 * gamma : k), (-3 / 16 * gamma : k), (-3 / 32 * gamma : k),
+      (3 / 4 * gamma : k)]
+      [
+      [1, 2, 0, 0, 0, 0, 0], [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1]] := by
+  simp only [towerLeavesOpenIMuRest5810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIMuRest6810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIMuRest6810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-5 / 1024 * delta : k), (-15 / 64 * delta : k), (5 / 8 * delta : k)]
+      [
+      [2, 1, 0, 0, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0]] := by
+  simp only [towerLeavesOpenIMuRest6810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIMuRest6810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIMuRest6810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-5 / 1024 * delta : k), (-5 / 64 * delta : k), (-15 / 64 * delta : k),
+      (5 / 8 * delta : k)]
+      [
+      [2, 1, 0, 0, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0]] := by
+  simp only [towerLeavesOpenIMuRest6810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIMuRest7810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIMuRest7810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-1 / 8 * epsilon : k), (1 / 2 * epsilon : k)]
+      [
+      [0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0]] := by
+  simp only [towerLeavesOpenIMuRest7810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIMuRest7810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIMuRest7810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-1 / 8 * epsilon : k), (1 / 2 * epsilon : k)]
+      [
+      [0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0]] := by
+  simp only [towerLeavesOpenIMuRest7810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIMuRest8810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIMuRest8810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-3 / 64 * zeta : k)]
+      [
+      [1, 1, 0, 0, 0, 0, 0]] := by
+  simp only [towerLeavesOpenIMuRest8810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIMuRest8810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIMuRest8810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-3 / 64 * zeta : k), (3 / 8 * zeta : k)]
+      [
+      [1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0]] := by
+  simp only [towerLeavesOpenIMuRest8810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIMuRest9810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIMuRest9810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (1 / 4 * eta : k)]
+      [
+      [0, 0, 1, 0, 0, 0, 0]] := by
+  simp only [towerLeavesOpenIMuRest9810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIMuRest9810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIMuRest9810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (1 / 4 * eta : k)]
+      [
+      [0, 0, 1, 0, 0, 0, 0]] := by
+  simp only [towerLeavesOpenIMuRest9810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIMuRest10810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIMuRest10810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (1 / 8 * theta : k)]
+      [
+      [0, 1, 0, 0, 0, 0, 0]] := by
+  simp only [towerLeavesOpenIMuRest10810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIMuRest10810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIMuRest10810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (1 / 8 * theta : k)]
+      [
+      [0, 1, 0, 0, 0, 0, 0]] := by
+  simp only [towerLeavesOpenIMuRest10810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
 /-- The strict bands put every remainder chunk below the face. -/
 theorem towerLeavesOpenIMurest_lt810
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -1021,134 +2473,266 @@ theorem towerLeavesOpenIMurest_lt810
   rcases hc with ⟨⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩, hCEq, hFEq, hGEq, hDbound, hEbound⟩
   have hr0 : (towerLeavesOpenIMuRest0810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 3 * C.natDegree := by
     rcases hDle with hDz | hDle
-    · simp only [towerLeavesOpenIMuRest0810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-      compute_degree
-      omega
-    · simp only [towerLeavesOpenIMuRest0810]
-      compute_degree
-      omega
+    · rw [astra810t_front_towerLeavesOpenIMuRest0810_Dzero_eq_polyOf (hDz := hDz)]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
+    · rw [astra810t_front_towerLeavesOpenIMuRest0810_eq_polyOf]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hr1 : (towerLeavesOpenIMuRest1810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 3 * C.natDegree := by
     rcases hDle with hDz | hDle
     · rcases hbl with hz | hb
       · simp only [towerLeavesOpenIMuRest1810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIMuRest1810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIMuRest1810_Dzero_eq_polyOf (hDz := hDz)]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
     · rcases hbl with hz | hb
       · simp only [towerLeavesOpenIMuRest1810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIMuRest1810]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIMuRest1810_eq_polyOf]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
   have hr2 : (towerLeavesOpenIMuRest2810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 3 * C.natDegree := by
     rcases hDle with hDz | hDle
     · rcases hbl with hz | hb
       · simp only [towerLeavesOpenIMuRest2810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIMuRest2810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIMuRest2810_Dzero_eq_polyOf (hDz := hDz)]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
     · rcases hbl with hz | hb
       · simp only [towerLeavesOpenIMuRest2810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIMuRest2810]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIMuRest2810_eq_polyOf]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
   have hr3 : (towerLeavesOpenIMuRest3810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 3 * C.natDegree := by
     rcases hDle with hDz | hDle
     · rcases hbbeta with hz | hb
       · simp only [towerLeavesOpenIMuRest3810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIMuRest3810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIMuRest3810_Dzero_eq_polyOf (hDz := hDz)]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
     · rcases hbbeta with hz | hb
       · simp only [towerLeavesOpenIMuRest3810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIMuRest3810]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIMuRest3810_eq_polyOf]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
   have hr4 : (towerLeavesOpenIMuRest4810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 3 * C.natDegree := by
     rcases hDle with hDz | hDle
     · rcases hbbeta with hz | hb
       · simp only [towerLeavesOpenIMuRest4810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIMuRest4810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIMuRest4810_Dzero_eq_polyOf (hDz := hDz)]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
     · rcases hbbeta with hz | hb
       · simp only [towerLeavesOpenIMuRest4810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIMuRest4810]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIMuRest4810_eq_polyOf]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
   have hr5 : (towerLeavesOpenIMuRest5810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 3 * C.natDegree := by
     rcases hDle with hDz | hDle
-    · simp only [towerLeavesOpenIMuRest5810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-      compute_degree
-      omega
-    · simp only [towerLeavesOpenIMuRest5810]
-      compute_degree
-      omega
+    · rw [astra810t_front_towerLeavesOpenIMuRest5810_Dzero_eq_polyOf (hDz := hDz)]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
+    · rw [astra810t_front_towerLeavesOpenIMuRest5810_eq_polyOf]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hr6 : (towerLeavesOpenIMuRest6810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 3 * C.natDegree := by
     rcases hDle with hDz | hDle
     · rcases hbdelta with hz | hb
       · simp only [towerLeavesOpenIMuRest6810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIMuRest6810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIMuRest6810_Dzero_eq_polyOf (hDz := hDz)]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
     · rcases hbdelta with hz | hb
       · simp only [towerLeavesOpenIMuRest6810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIMuRest6810]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIMuRest6810_eq_polyOf]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
   have hr7 : (towerLeavesOpenIMuRest7810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 3 * C.natDegree := by
     rcases hDle with hDz | hDle
-    · simp only [towerLeavesOpenIMuRest7810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-      compute_degree
-      omega
-    · simp only [towerLeavesOpenIMuRest7810]
-      compute_degree
-      omega
+    · rw [astra810t_front_towerLeavesOpenIMuRest7810_Dzero_eq_polyOf (hDz := hDz)]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
+    · rw [astra810t_front_towerLeavesOpenIMuRest7810_eq_polyOf]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hr8 : (towerLeavesOpenIMuRest8810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 3 * C.natDegree := by
     rcases hDle with hDz | hDle
     · rcases hbzeta with hz | hb
       · simp only [towerLeavesOpenIMuRest8810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIMuRest8810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIMuRest8810_Dzero_eq_polyOf (hDz := hDz)]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
     · rcases hbzeta with hz | hb
       · simp only [towerLeavesOpenIMuRest8810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIMuRest8810]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIMuRest8810_eq_polyOf]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
   have hr9 : (towerLeavesOpenIMuRest9810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 3 * C.natDegree := by
     rcases hDle with hDz | hDle
-    · simp only [towerLeavesOpenIMuRest9810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-      compute_degree
-      omega
-    · simp only [towerLeavesOpenIMuRest9810]
-      compute_degree
-      omega
+    · rw [astra810t_front_towerLeavesOpenIMuRest9810_Dzero_eq_polyOf (hDz := hDz)]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
+    · rw [astra810t_front_towerLeavesOpenIMuRest9810_eq_polyOf]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hr10 : (towerLeavesOpenIMuRest10810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 3 * C.natDegree := by
     rcases hDle with hDz | hDle
     · rcases hbtheta with hz | hb
       · simp only [towerLeavesOpenIMuRest10810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIMuRest10810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIMuRest10810_Dzero_eq_polyOf (hDz := hDz)]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
     · rcases hbtheta with hz | hb
       · simp only [towerLeavesOpenIMuRest10810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIMuRest10810]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIMuRest10810_eq_polyOf]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
   unfold towerLeavesOpenIMuRest810
   exact (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 hr0 hr1) hr2) hr3) hr4) hr5) hr6) hr7) hr8) hr9) hr10)
 
@@ -1469,6 +3053,687 @@ theorem towerLeavesOpenIPisplit810
   module
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest0810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIPiRest0810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-35 / 256 : k), (25 / 128 : k), (45 / 64 : k)]
+      [
+      [0, 4, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 1, 0], [0, 2, 1, 0, 1, 0, 0]] := by
+  simp only [towerLeavesOpenIPiRest0810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest0810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIPiRest0810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-15 / 128 : k), (5 / 16 : k), (5 / 32 : k),
+      (-35 / 256 : k), (25 / 128 : k), (45 / 64 : k)]
+      [
+      [1, 3, 0, 1, 0, 0, 0], [1, 1, 0, 1, 1, 0, 0], [1, 0, 1, 2, 0, 0, 0], [0, 4, 1, 0, 0, 0, 0],
+      [0, 3, 0, 0, 0, 1, 0], [0, 2, 1, 0, 1, 0, 0]] := by
+  simp only [towerLeavesOpenIPiRest0810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest1810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIPiRest1810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-15 / 16 : k), (-5 / 8 : k)]
+      [
+      [0, 1, 0, 0, 1, 1, 0], [0, 0, 1, 0, 2, 0, 0]] := by
+  simp only [towerLeavesOpenIPiRest1810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest1810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIPiRest1810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (45 / 128 : k), (45 / 64 : k), (-5 / 8 : k),
+      (-15 / 16 : k), (-15 / 16 : k), (-5 / 8 : k)]
+      [
+      [0, 2, 0, 2, 0, 0, 0], [0, 1, 2, 1, 0, 0, 0], [0, 1, 0, 1, 0, 0, 1], [0, 1, 0, 0, 1, 1, 0],
+      [0, 0, 1, 1, 0, 1, 0], [0, 0, 1, 0, 2, 0, 0]] := by
+  simp only [towerLeavesOpenIPiRest1810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest2810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIPiRest2810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+]
+      [
+] := by
+  simp only [towerLeavesOpenIPiRest2810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest2810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIPiRest2810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-5 / 8 : k)]
+      [
+      [0, 0, 0, 2, 1, 0, 0]] := by
+  simp only [towerLeavesOpenIPiRest2810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest3810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIPiRest3810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (45 / 131072 * l : k), (-45 / 32768 * l : k), (-3 / 32768 * l : k),
+      (9 / 4096 * l : k)]
+      [
+      [4, 1, 1, 0, 0, 0, 0], [4, 0, 0, 0, 0, 1, 0], [3, 3, 0, 0, 0, 0, 0], [3, 1, 0, 0, 1, 0, 0]] := by
+  simp only [towerLeavesOpenIPiRest3810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest3810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIPiRest3810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (45 / 131072 * l : k), (-45 / 32768 * l : k), (-3 / 32768 * l : k),
+      (9 / 4096 * l : k), (9 / 4096 * l : k), (-27 / 4096 * l : k)]
+      [
+      [4, 1, 1, 0, 0, 0, 0], [4, 0, 0, 0, 0, 1, 0], [3, 3, 0, 0, 0, 0, 0], [3, 1, 0, 0, 1, 0, 0],
+      [3, 0, 1, 1, 0, 0, 0], [2, 2, 0, 1, 0, 0, 0]] := by
+  simp only [towerLeavesOpenIPiRest3810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest4810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIPiRest4810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (9 / 4096 * l : k), (-27 / 1024 * l : k), (-189 / 4096 * l : k),
+      (63 / 1024 * l : k), (9 / 128 * l : k)]
+      [
+      [2, 1, 2, 0, 0, 0, 0], [2, 0, 1, 0, 0, 1, 0], [1, 3, 1, 0, 0, 0, 0], [1, 2, 0, 0, 0, 1, 0],
+      [1, 1, 1, 0, 1, 0, 0]] := by
+  simp only [towerLeavesOpenIPiRest4810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest4810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIPiRest4810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (9 / 4096 * l : k), (-27 / 1024 * l : k), (9 / 512 * l : k),
+      (-189 / 4096 * l : k), (63 / 1024 * l : k), (9 / 128 * l : k)]
+      [
+      [2, 1, 2, 0, 0, 0, 0], [2, 0, 1, 0, 0, 1, 0], [2, 0, 0, 1, 1, 0, 0], [1, 3, 1, 0, 0, 0, 0],
+      [1, 2, 0, 0, 0, 1, 0], [1, 1, 1, 0, 1, 0, 0]] := by
+  simp only [towerLeavesOpenIPiRest4810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest5810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIPiRest5810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-9 / 64 * l : k), (-63 / 4096 * l : k), (63 / 512 * l : k)]
+      [
+      [1, 0, 0, 0, 1, 1, 0], [0, 5, 0, 0, 0, 0, 0], [0, 3, 0, 0, 1, 0, 0]] := by
+  simp only [towerLeavesOpenIPiRest5810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest5810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIPiRest5810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (27 / 256 * l : k), (9 / 256 * l : k), (-9 / 64 * l : k),
+      (-63 / 4096 * l : k), (63 / 512 * l : k), (189 / 512 * l : k)]
+      [
+      [1, 1, 0, 2, 0, 0, 0], [1, 0, 2, 1, 0, 0, 0], [1, 0, 0, 0, 1, 1, 0], [0, 5, 0, 0, 0, 0, 0],
+      [0, 3, 0, 0, 1, 0, 0], [0, 2, 1, 1, 0, 0, 0]] := by
+  simp only [towerLeavesOpenIPiRest5810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest6810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIPiRest6810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (63 / 512 * l : k), (-9 / 32 * l : k), (-9 / 32 * l : k),
+      (-27 / 128 * l : k)]
+      [
+      [0, 1, 3, 0, 0, 0, 0], [0, 1, 1, 0, 0, 0, 1], [0, 1, 0, 0, 2, 0, 0], [0, 0, 2, 0, 0, 1, 0]] := by
+  simp only [towerLeavesOpenIPiRest6810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest6810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIPiRest6810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (63 / 512 * l : k), (-9 / 32 * l : k), (-27 / 64 * l : k),
+      (-9 / 32 * l : k), (-27 / 128 * l : k), (-9 / 16 * l : k)]
+      [
+      [0, 1, 3, 0, 0, 0, 0], [0, 1, 1, 0, 0, 0, 1], [0, 1, 0, 1, 0, 1, 0], [0, 1, 0, 0, 2, 0, 0],
+      [0, 0, 2, 0, 0, 1, 0], [0, 0, 1, 1, 1, 0, 0]] := by
+  simp only [towerLeavesOpenIPiRest6810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest7810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIPiRest7810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (9 / 8 * l : k)]
+      [
+      [0, 0, 0, 0, 0, 1, 1]] := by
+  simp only [towerLeavesOpenIPiRest7810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest7810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIPiRest7810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-3 / 32 * l : k), (9 / 8 * l : k)]
+      [
+      [0, 0, 0, 3, 0, 0, 0], [0, 0, 0, 0, 0, 1, 1]] := by
+  simp only [towerLeavesOpenIPiRest7810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest8810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIPiRest8810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (7 / 4096 * beta : k), (-7 / 1024 * beta : k), (7 / 4096 * beta : k),
+      (7 / 512 * beta : k)]
+      [
+      [3, 1, 1, 0, 0, 0, 0], [3, 0, 0, 0, 0, 1, 0], [2, 3, 0, 0, 0, 0, 0], [2, 1, 0, 0, 1, 0, 0]] := by
+  simp only [towerLeavesOpenIPiRest8810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest8810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIPiRest8810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (7 / 4096 * beta : k), (-7 / 1024 * beta : k), (7 / 4096 * beta : k),
+      (7 / 512 * beta : k), (7 / 512 * beta : k), (-21 / 256 * beta : k)]
+      [
+      [3, 1, 1, 0, 0, 0, 0], [3, 0, 0, 0, 0, 1, 0], [2, 3, 0, 0, 0, 0, 0], [2, 1, 0, 0, 1, 0, 0],
+      [2, 0, 1, 1, 0, 0, 0], [1, 2, 0, 1, 0, 0, 0]] := by
+  simp only [towerLeavesOpenIPiRest8810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest9810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIPiRest9810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-7 / 256 * beta : k), (-7 / 64 * beta : k), (-63 / 512 * beta : k),
+      (21 / 128 * beta : k), (7 / 16 * beta : k)]
+      [
+      [1, 1, 2, 0, 0, 0, 0], [1, 0, 1, 0, 0, 1, 0], [0, 3, 1, 0, 0, 0, 0], [0, 2, 0, 0, 0, 1, 0],
+      [0, 1, 1, 0, 1, 0, 0]] := by
+  simp only [towerLeavesOpenIPiRest9810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest9810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIPiRest9810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-7 / 256 * beta : k), (-7 / 64 * beta : k), (7 / 32 * beta : k),
+      (-63 / 512 * beta : k), (21 / 128 * beta : k), (7 / 16 * beta : k)]
+      [
+      [1, 1, 2, 0, 0, 0, 0], [1, 0, 1, 0, 0, 1, 0], [1, 0, 0, 1, 1, 0, 0], [0, 3, 1, 0, 0, 0, 0],
+      [0, 2, 0, 0, 0, 1, 0], [0, 1, 1, 0, 1, 0, 0]] := by
+  simp only [towerLeavesOpenIPiRest9810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest10810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIPiRest10810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-7 / 8 * beta : k)]
+      [
+      [0, 0, 0, 0, 1, 1, 0]] := by
+  simp only [towerLeavesOpenIPiRest10810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest10810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIPiRest10810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (7 / 32 * beta : k), (7 / 32 * beta : k), (-7 / 8 * beta : k)]
+      [
+      [0, 1, 0, 2, 0, 0, 0], [0, 0, 2, 1, 0, 0, 0], [0, 0, 0, 0, 1, 1, 0]] := by
+  simp only [towerLeavesOpenIPiRest10810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest11810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIPiRest11810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-3 / 32 * gamma : k), (-15 / 256 * gamma : k), (3 / 8 * gamma : k),
+      (1 / 8 * gamma : k)]
+      [
+      [1, 2, 1, 0, 0, 0, 0], [0, 4, 0, 0, 0, 0, 0], [0, 2, 0, 0, 1, 0, 0], [0, 0, 3, 0, 0, 0, 0]] := by
+  simp only [towerLeavesOpenIPiRest11810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest11810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIPiRest11810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-3 / 32 * gamma : k), (3 / 16 * gamma : k), (-15 / 256 * gamma : k),
+      (3 / 8 * gamma : k), (3 / 4 * gamma : k), (1 / 8 * gamma : k)]
+      [
+      [1, 2, 1, 0, 0, 0, 0], [1, 0, 0, 2, 0, 0, 0], [0, 4, 0, 0, 0, 0, 0], [0, 2, 0, 0, 1, 0, 0],
+      [0, 1, 1, 1, 0, 0, 0], [0, 0, 3, 0, 0, 0, 0]] := by
+  simp only [towerLeavesOpenIPiRest11810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest12810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIPiRest12810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-3 / 4 * gamma : k)]
+      [
+      [0, 0, 0, 0, 2, 0, 0]] := by
+  simp only [towerLeavesOpenIPiRest12810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest12810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIPiRest12810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-3 / 4 * gamma : k), (-3 / 4 * gamma : k)]
+      [
+      [0, 0, 0, 1, 0, 1, 0], [0, 0, 0, 0, 2, 0, 0]] := by
+  simp only [towerLeavesOpenIPiRest12810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest13810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIPiRest13810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (5 / 512 * delta : k), (-5 / 128 * delta : k), (-15 / 256 * delta : k),
+      (5 / 32 * delta : k)]
+      [
+      [2, 1, 1, 0, 0, 0, 0], [2, 0, 0, 0, 0, 1, 0], [1, 3, 0, 0, 0, 0, 0], [1, 1, 0, 0, 1, 0, 0]] := by
+  simp only [towerLeavesOpenIPiRest13810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest13810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIPiRest13810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (5 / 512 * delta : k), (-5 / 128 * delta : k), (-15 / 256 * delta : k),
+      (5 / 32 * delta : k), (5 / 32 * delta : k), (15 / 32 * delta : k)]
+      [
+      [2, 1, 1, 0, 0, 0, 0], [2, 0, 0, 0, 0, 1, 0], [1, 3, 0, 0, 0, 0, 0], [1, 1, 0, 0, 1, 0, 0],
+      [1, 0, 1, 1, 0, 0, 0], [0, 2, 0, 1, 0, 0, 0]] := by
+  simp only [towerLeavesOpenIPiRest13810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest14810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIPiRest14810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 32 * delta : k), (-5 / 8 * delta : k)]
+      [
+      [0, 1, 2, 0, 0, 0, 0], [0, 0, 1, 0, 0, 1, 0]] := by
+  simp only [towerLeavesOpenIPiRest14810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest14810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIPiRest14810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (15 / 32 * delta : k), (-5 / 8 * delta : k), (-5 / 4 * delta : k)]
+      [
+      [0, 1, 2, 0, 0, 0, 0], [0, 0, 1, 0, 0, 1, 0], [0, 0, 0, 1, 1, 0, 0]] := by
+  simp only [towerLeavesOpenIPiRest14810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest15810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIPiRest15810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (1 / 2 * epsilon : k), (-1 / 2 * epsilon : k), (-1 * epsilon : k)]
+      [
+      [0, 2, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 1, 0], [0, 0, 1, 0, 1, 0, 0]] := by
+  simp only [towerLeavesOpenIPiRest15810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest15810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIPiRest15810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (1 / 4 * epsilon : k), (1 / 2 * epsilon : k), (-1 / 2 * epsilon : k),
+      (-1 * epsilon : k), (-1 / 2 * epsilon : k)]
+      [
+      [1, 1, 0, 1, 0, 0, 0], [0, 2, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 1, 0], [0, 0, 1, 0, 1, 0, 0],
+      [0, 0, 0, 2, 0, 0, 0]] := by
+  simp only [towerLeavesOpenIPiRest15810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest16810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIPiRest16810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (3 / 32 * zeta : k), (-3 / 8 * zeta : k), (5 / 32 * zeta : k),
+      (-3 / 4 * zeta : k)]
+      [
+      [1, 1, 1, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0], [0, 3, 0, 0, 0, 0, 0], [0, 1, 0, 0, 1, 0, 0]] := by
+  simp only [towerLeavesOpenIPiRest16810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest16810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIPiRest16810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (3 / 32 * zeta : k), (-3 / 8 * zeta : k), (5 / 32 * zeta : k),
+      (-3 / 4 * zeta : k), (-3 / 4 * zeta : k)]
+      [
+      [1, 1, 1, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0], [0, 3, 0, 0, 0, 0, 0], [0, 1, 0, 0, 1, 0, 0],
+      [0, 0, 1, 1, 0, 0, 0]] := by
+  simp only [towerLeavesOpenIPiRest16810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest17810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIPiRest17810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (1 / 16 * eta : k), (-1 / 4 * eta : k), (2 * eta : k)]
+      [
+      [1, 2, 0, 0, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1]] := by
+  simp only [towerLeavesOpenIPiRest17810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest17810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIPiRest17810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (1 / 16 * eta : k), (-1 / 2 * eta : k), (-1 / 4 * eta : k),
+      (2 * eta : k)]
+      [
+      [1, 2, 0, 0, 0, 0, 0], [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1]] := by
+  simp only [towerLeavesOpenIPiRest17810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest18810_Dzero_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) (hDz : D = 0) :
+    towerLeavesOpenIPiRest18810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-1 / 4 * theta : k), (1 * theta : k)]
+      [
+      [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0]] := by
+  simp only [towerLeavesOpenIPiRest18810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc, hDz, zero_mul, mul_zero, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_smul, smul_zero, zero_add]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected exponent data for a tower-leaf remainder bound. -/
+private theorem astra810t_front_towerLeavesOpenIPiRest18810_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    towerLeavesOpenIPiRest18810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-1 / 4 * theta : k), (1 * theta : k)]
+      [
+      [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0]] := by
+  simp only [towerLeavesOpenIPiRest18810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    Max11ReflectDeg.mono_nil_right, pow_zero, pow_one,
+    mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
 /-- The strict bands put every remainder chunk below the face. -/
 theorem towerLeavesOpenIPirest_lt810
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -1485,228 +3750,456 @@ theorem towerLeavesOpenIPirest_lt810
   rcases hc with ⟨⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩, hCEq, hFEq, hGEq, hDbound, hEbound⟩
   have hr0 : (towerLeavesOpenIPiRest0810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * G.natDegree := by
     rcases hDle with hDz | hDle
-    · simp only [towerLeavesOpenIPiRest0810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-      compute_degree
-      omega
-    · simp only [towerLeavesOpenIPiRest0810]
-      compute_degree
-      omega
+    · rw [astra810t_front_towerLeavesOpenIPiRest0810_Dzero_eq_polyOf (hDz := hDz)]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
+    · rw [astra810t_front_towerLeavesOpenIPiRest0810_eq_polyOf]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hr1 : (towerLeavesOpenIPiRest1810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * G.natDegree := by
     rcases hDle with hDz | hDle
-    · simp only [towerLeavesOpenIPiRest1810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-      compute_degree
-      omega
-    · simp only [towerLeavesOpenIPiRest1810]
-      compute_degree
-      omega
+    · rw [astra810t_front_towerLeavesOpenIPiRest1810_Dzero_eq_polyOf (hDz := hDz)]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
+    · rw [astra810t_front_towerLeavesOpenIPiRest1810_eq_polyOf]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hr2 : (towerLeavesOpenIPiRest2810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * G.natDegree := by
     rcases hDle with hDz | hDle
-    · simp only [towerLeavesOpenIPiRest2810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-      compute_degree
-      omega
-    · simp only [towerLeavesOpenIPiRest2810]
-      compute_degree
-      omega
+    · rw [astra810t_front_towerLeavesOpenIPiRest2810_Dzero_eq_polyOf (hDz := hDz)]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
+    · rw [astra810t_front_towerLeavesOpenIPiRest2810_eq_polyOf]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hr3 : (towerLeavesOpenIPiRest3810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * G.natDegree := by
     rcases hDle with hDz | hDle
     · rcases hbl with hz | hb
       · simp only [towerLeavesOpenIPiRest3810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIPiRest3810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIPiRest3810_Dzero_eq_polyOf (hDz := hDz)]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
     · rcases hbl with hz | hb
       · simp only [towerLeavesOpenIPiRest3810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIPiRest3810]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIPiRest3810_eq_polyOf]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
   have hr4 : (towerLeavesOpenIPiRest4810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * G.natDegree := by
     rcases hDle with hDz | hDle
     · rcases hbl with hz | hb
       · simp only [towerLeavesOpenIPiRest4810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIPiRest4810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIPiRest4810_Dzero_eq_polyOf (hDz := hDz)]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
     · rcases hbl with hz | hb
       · simp only [towerLeavesOpenIPiRest4810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIPiRest4810]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIPiRest4810_eq_polyOf]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
   have hr5 : (towerLeavesOpenIPiRest5810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * G.natDegree := by
     rcases hDle with hDz | hDle
     · rcases hbl with hz | hb
       · simp only [towerLeavesOpenIPiRest5810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIPiRest5810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIPiRest5810_Dzero_eq_polyOf (hDz := hDz)]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
     · rcases hbl with hz | hb
       · simp only [towerLeavesOpenIPiRest5810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIPiRest5810]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIPiRest5810_eq_polyOf]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
   have hr6 : (towerLeavesOpenIPiRest6810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * G.natDegree := by
     rcases hDle with hDz | hDle
     · rcases hbl with hz | hb
       · simp only [towerLeavesOpenIPiRest6810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIPiRest6810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIPiRest6810_Dzero_eq_polyOf (hDz := hDz)]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
     · rcases hbl with hz | hb
       · simp only [towerLeavesOpenIPiRest6810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIPiRest6810]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIPiRest6810_eq_polyOf]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
   have hr7 : (towerLeavesOpenIPiRest7810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * G.natDegree := by
     rcases hDle with hDz | hDle
     · rcases hbl with hz | hb
       · simp only [towerLeavesOpenIPiRest7810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIPiRest7810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIPiRest7810_Dzero_eq_polyOf (hDz := hDz)]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
     · rcases hbl with hz | hb
       · simp only [towerLeavesOpenIPiRest7810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIPiRest7810]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIPiRest7810_eq_polyOf]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
   have hr8 : (towerLeavesOpenIPiRest8810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * G.natDegree := by
     rcases hDle with hDz | hDle
     · rcases hbbeta with hz | hb
       · simp only [towerLeavesOpenIPiRest8810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIPiRest8810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIPiRest8810_Dzero_eq_polyOf (hDz := hDz)]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
     · rcases hbbeta with hz | hb
       · simp only [towerLeavesOpenIPiRest8810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIPiRest8810]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIPiRest8810_eq_polyOf]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
   have hr9 : (towerLeavesOpenIPiRest9810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * G.natDegree := by
     rcases hDle with hDz | hDle
     · rcases hbbeta with hz | hb
       · simp only [towerLeavesOpenIPiRest9810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIPiRest9810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIPiRest9810_Dzero_eq_polyOf (hDz := hDz)]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
     · rcases hbbeta with hz | hb
       · simp only [towerLeavesOpenIPiRest9810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIPiRest9810]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIPiRest9810_eq_polyOf]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
   have hr10 : (towerLeavesOpenIPiRest10810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * G.natDegree := by
     rcases hDle with hDz | hDle
     · rcases hbbeta with hz | hb
       · simp only [towerLeavesOpenIPiRest10810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIPiRest10810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIPiRest10810_Dzero_eq_polyOf (hDz := hDz)]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
     · rcases hbbeta with hz | hb
       · simp only [towerLeavesOpenIPiRest10810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIPiRest10810]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIPiRest10810_eq_polyOf]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
   have hr11 : (towerLeavesOpenIPiRest11810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * G.natDegree := by
     rcases hDle with hDz | hDle
-    · simp only [towerLeavesOpenIPiRest11810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-      compute_degree
-      omega
-    · simp only [towerLeavesOpenIPiRest11810]
-      compute_degree
-      omega
+    · rw [astra810t_front_towerLeavesOpenIPiRest11810_Dzero_eq_polyOf (hDz := hDz)]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
+    · rw [astra810t_front_towerLeavesOpenIPiRest11810_eq_polyOf]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hr12 : (towerLeavesOpenIPiRest12810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * G.natDegree := by
     rcases hDle with hDz | hDle
-    · simp only [towerLeavesOpenIPiRest12810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-      compute_degree
-      omega
-    · simp only [towerLeavesOpenIPiRest12810]
-      compute_degree
-      omega
+    · rw [astra810t_front_towerLeavesOpenIPiRest12810_Dzero_eq_polyOf (hDz := hDz)]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
+    · rw [astra810t_front_towerLeavesOpenIPiRest12810_eq_polyOf]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hr13 : (towerLeavesOpenIPiRest13810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * G.natDegree := by
     rcases hDle with hDz | hDle
     · rcases hbdelta with hz | hb
       · simp only [towerLeavesOpenIPiRest13810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIPiRest13810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIPiRest13810_Dzero_eq_polyOf (hDz := hDz)]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
     · rcases hbdelta with hz | hb
       · simp only [towerLeavesOpenIPiRest13810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIPiRest13810]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIPiRest13810_eq_polyOf]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
   have hr14 : (towerLeavesOpenIPiRest14810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * G.natDegree := by
     rcases hDle with hDz | hDle
     · rcases hbdelta with hz | hb
       · simp only [towerLeavesOpenIPiRest14810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIPiRest14810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIPiRest14810_Dzero_eq_polyOf (hDz := hDz)]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
     · rcases hbdelta with hz | hb
       · simp only [towerLeavesOpenIPiRest14810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIPiRest14810]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIPiRest14810_eq_polyOf]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
   have hr15 : (towerLeavesOpenIPiRest15810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * G.natDegree := by
     rcases hDle with hDz | hDle
-    · simp only [towerLeavesOpenIPiRest15810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-      compute_degree
-      omega
-    · simp only [towerLeavesOpenIPiRest15810]
-      compute_degree
-      omega
+    · rw [astra810t_front_towerLeavesOpenIPiRest15810_Dzero_eq_polyOf (hDz := hDz)]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
+    · rw [astra810t_front_towerLeavesOpenIPiRest15810_eq_polyOf]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hr16 : (towerLeavesOpenIPiRest16810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * G.natDegree := by
     rcases hDle with hDz | hDle
     · rcases hbzeta with hz | hb
       · simp only [towerLeavesOpenIPiRest16810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIPiRest16810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIPiRest16810_Dzero_eq_polyOf (hDz := hDz)]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
     · rcases hbzeta with hz | hb
       · simp only [towerLeavesOpenIPiRest16810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIPiRest16810]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIPiRest16810_eq_polyOf]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
   have hr17 : (towerLeavesOpenIPiRest17810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * G.natDegree := by
     rcases hDle with hDz | hDle
-    · simp only [towerLeavesOpenIPiRest17810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-      compute_degree
-      omega
-    · simp only [towerLeavesOpenIPiRest17810]
-      compute_degree
-      omega
+    · rw [astra810t_front_towerLeavesOpenIPiRest17810_Dzero_eq_polyOf (hDz := hDz)]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
+    · rw [astra810t_front_towerLeavesOpenIPiRest17810_eq_polyOf]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add, max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hr18 : (towerLeavesOpenIPiRest18810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * G.natDegree := by
     rcases hDle with hDz | hDle
     · rcases hbtheta with hz | hb
       · simp only [towerLeavesOpenIPiRest18810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIPiRest18810, hDz, zero_mul, mul_zero, zero_pow, zero_smul, add_zero, zero_add]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIPiRest18810_Dzero_eq_polyOf (hDz := hDz)]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
     · rcases hbtheta with hz | hb
       · simp only [towerLeavesOpenIPiRest18810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
         omega
-      · simp only [towerLeavesOpenIPiRest18810]
-        compute_degree
-        omega
+      · rw [astra810t_front_towerLeavesOpenIPiRest18810_eq_polyOf]
+        apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+        clear * - hApos hAB hAC hAD hAE hAF hAG hCEq hFEq hGEq hDbound hEbound hEle hDle hb
+        simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+          Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add, max_lt_iff]
+        repeat' apply And.intro
+        all_goals omega
   unfold towerLeavesOpenIPiRest810
   exact (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 hr0 hr1) hr2) hr3) hr4) hr5) hr6) hr7) hr8) hr9) hr10) hr11) hr12) hr13) hr14) hr15) hr16) hr17) hr18)
 
@@ -1806,6 +4299,20 @@ theorem towerLeavesOpenIPiFace_zero810
 
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomials for a tower-leaf remainder bound. -/
+private theorem astra810t_bcdefg12N6RestLF0_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bcdefg12N6RestLF0 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+        [(93 / 8192 : k), (-115 / 1536 : k), (-225 / 1024 : k), (-125 / 2048 : k), (-265 / 2048 : k), (25 / 96 : k)]
+        [[1, 5, 0, 0, 0, 0, 0], [1, 3, 0, 0, 1, 0, 0], [1, 2, 1, 1, 0, 0, 0], [0, 4, 0, 1, 0, 0, 0], [0, 3, 2, 0, 0, 0, 0], [1, 1, 0, 1, 0, 1, 0]] := by
+  simp only [bcdefg12N6RestLF0, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
 /-- A tracked N6 remainder chunk lies below the common tower face. -/
 
 theorem towerLeaves_bcdefg12N6RestLF0_lt810
@@ -1822,18 +4329,64 @@ theorem towerLeaves_bcdefg12N6RestLF0_lt810
     (bcdefg12N6RestLF0 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * A.natDegree + 3 * B.natDegree + C.natDegree := by
   obtain ⟨hcone, hCdeg, hFdeg, hGdeg, hDdeg, hEdeg⟩ := hc
   obtain ⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩ := hcone
-
-  rcases hDle with hDz | hDd
-
-  · simp only [bcdefg12N6RestLF0, hDz, zero_pow (by decide : (2 : ℕ) ≠ 0),
-
-      zero_pow (by decide : (3 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero,
-
-      zero_smul, add_zero, zero_add, natDegree_zero] <;> (try compute_degree) <;> omega
-
-  · simp only [bcdefg12N6RestLF0]
-    compute_degree
+  rw [astra810t_bcdefg12N6RestLF0_eq_polyOf]
+  clear * - hApos hAB hAC hAD hAE hAF hAG hCdeg hFdeg hGdeg hDdeg hEdeg hEle hDle
+  apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_right, and_true]
+  repeat' apply And.intro
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+      Nat.add_zero, Nat.zero_add]
     omega
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+      Nat.add_zero, Nat.zero_add]
+    omega
+  · rcases hDle with hDz | hDd
+    · right; left
+      simp [Max11ReflectDeg.mono, hDz]
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+  · rcases hDle with hDz | hDd
+    · right; left
+      simp [Max11ReflectDeg.mono, hDz]
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+      Nat.add_zero, Nat.zero_add]
+    omega
+  · rcases hDle with hDz | hDd
+    · right; left
+      simp [Max11ReflectDeg.mono, hDz]
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomials for a tower-leaf remainder bound. -/
+private theorem astra810t_bcdefg12N6RestLF1_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bcdefg12N6RestLF1 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+        [(25 / 384 : k), (15 / 256 : k), (85 / 256 : k), (85 / 256 : k), (45 / 128 : k), (45 / 128 : k)]
+        [[1, 0, 0, 3, 0, 0, 0], [0, 3, 0, 0, 0, 0, 1], [0, 2, 1, 0, 0, 1, 0], [0, 2, 0, 1, 1, 0, 0], [0, 1, 2, 0, 1, 0, 0], [0, 1, 1, 2, 0, 0, 0]] := by
+  simp only [bcdefg12N6RestLF1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
 
 set_option maxHeartbeats 64000000 in
 /-- A tracked N6 remainder chunk lies below the common tower face. -/
@@ -1852,18 +4405,64 @@ theorem towerLeaves_bcdefg12N6RestLF1_lt810
     (bcdefg12N6RestLF1 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * A.natDegree + 3 * B.natDegree + C.natDegree := by
   obtain ⟨hcone, hCdeg, hFdeg, hGdeg, hDdeg, hEdeg⟩ := hc
   obtain ⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩ := hcone
-
-  rcases hDle with hDz | hDd
-
-  · simp only [bcdefg12N6RestLF1, hDz, zero_pow (by decide : (2 : ℕ) ≠ 0),
-
-      zero_pow (by decide : (3 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero,
-
-      zero_smul, add_zero, zero_add, natDegree_zero] <;> (try compute_degree) <;> omega
-
-  · simp only [bcdefg12N6RestLF1]
-    compute_degree
+  rw [astra810t_bcdefg12N6RestLF1_eq_polyOf]
+  clear * - hApos hAB hAC hAD hAE hAF hAG hCdeg hFdeg hGdeg hDdeg hEdeg hEle hDle
+  apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_right, and_true]
+  repeat' apply And.intro
+  · rcases hDle with hDz | hDd
+    · right; left
+      simp [Max11ReflectDeg.mono, hDz]
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+      Nat.add_zero, Nat.zero_add]
     omega
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+      Nat.add_zero, Nat.zero_add]
+    omega
+  · rcases hDle with hDz | hDd
+    · right; left
+      simp [Max11ReflectDeg.mono, hDz]
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+      Nat.add_zero, Nat.zero_add]
+    omega
+  · rcases hDle with hDz | hDd
+    · right; left
+      simp [Max11ReflectDeg.mono, hDz]
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomials for a tower-leaf remainder bound. -/
+private theorem astra810t_bcdefg12N6RestLF2_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bcdefg12N6RestLF2 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+        [(15 / 128 : k), (-5 / 16 : k), (-5 / 16 : k), (-5 / 16 : k), (-5 / 8 : k), (-5 / 16 : k)]
+        [[0, 0, 3, 1, 0, 0, 0], [0, 1, 0, 0, 1, 0, 1], [0, 1, 0, 0, 0, 2, 0], [0, 0, 1, 1, 0, 0, 1], [0, 0, 1, 0, 1, 1, 0], [0, 0, 0, 2, 0, 1, 0]] := by
+  simp only [bcdefg12N6RestLF2, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
 
 set_option maxHeartbeats 64000000 in
 /-- A tracked N6 remainder chunk lies below the common tower face. -/
@@ -1882,18 +4481,64 @@ theorem towerLeaves_bcdefg12N6RestLF2_lt810
     (bcdefg12N6RestLF2 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * A.natDegree + 3 * B.natDegree + C.natDegree := by
   obtain ⟨hcone, hCdeg, hFdeg, hGdeg, hDdeg, hEdeg⟩ := hc
   obtain ⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩ := hcone
-
-  rcases hDle with hDz | hDd
-
-  · simp only [bcdefg12N6RestLF2, hDz, zero_pow (by decide : (2 : ℕ) ≠ 0),
-
-      zero_pow (by decide : (3 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero,
-
-      zero_smul, add_zero, zero_add, natDegree_zero] <;> (try compute_degree) <;> omega
-
-  · simp only [bcdefg12N6RestLF2]
-    compute_degree
+  rw [astra810t_bcdefg12N6RestLF2_eq_polyOf]
+  clear * - hApos hAB hAC hAD hAE hAF hAG hCdeg hFdeg hGdeg hDdeg hEdeg hEle hDle
+  apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_right, and_true]
+  repeat' apply And.intro
+  · rcases hDle with hDz | hDd
+    · right; left
+      simp [Max11ReflectDeg.mono, hDz]
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+      Nat.add_zero, Nat.zero_add]
     omega
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+      Nat.add_zero, Nat.zero_add]
+    omega
+  · rcases hDle with hDz | hDd
+    · right; left
+      simp [Max11ReflectDeg.mono, hDz]
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+      Nat.add_zero, Nat.zero_add]
+    omega
+  · rcases hDle with hDz | hDd
+    · right; left
+      simp [Max11ReflectDeg.mono, hDz]
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomials for a tower-leaf remainder bound. -/
+private theorem astra810t_bcdefg12N6RestLF3_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bcdefg12N6RestLF3 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+        [(-5 / 16 : k)]
+        [[0, 0, 0, 1, 2, 0, 0]] := by
+  simp only [bcdefg12N6RestLF3, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
 
 set_option maxHeartbeats 64000000 in
 /-- A tracked N6 remainder chunk lies below the common tower face. -/
@@ -1912,18 +4557,33 @@ theorem towerLeaves_bcdefg12N6RestLF3_lt810
     (bcdefg12N6RestLF3 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * A.natDegree + 3 * B.natDegree + C.natDegree := by
   obtain ⟨hcone, hCdeg, hFdeg, hGdeg, hDdeg, hEdeg⟩ := hc
   obtain ⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩ := hcone
+  rw [astra810t_bcdefg12N6RestLF3_eq_polyOf]
+  clear * - hApos hAB hAC hAD hAE hAF hAG hCdeg hFdeg hGdeg hDdeg hEdeg hEle hDle
+  apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_right, and_true]
+  repeat' apply And.intro
+  · rcases hDle with hDz | hDd
+    · right; left
+      simp [Max11ReflectDeg.mono, hDz]
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
 
-  rcases hDle with hDz | hDd
-
-  · simp only [bcdefg12N6RestLF3, hDz, zero_pow (by decide : (2 : ℕ) ≠ 0),
-
-      zero_pow (by decide : (3 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero,
-
-      zero_smul, add_zero, zero_add, natDegree_zero] <;> (try compute_degree) <;> omega
-
-  · simp only [bcdefg12N6RestLF3]
-    compute_degree
-    omega
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomials for a tower-leaf remainder bound. -/
+private theorem astra810t_bcdefg12N6RestL0_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bcdefg12N6RestL0 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+        [(715 / 268435456 * l : k), (105 / 1048576 * l : k), (-255 / 4194304 * l : k), (105 / 262144 * l : k), (-135 / 262144 * l : k), (585 / 524288 * l : k)]
+        [[8, 0, 0, 0, 0, 0, 0], [6, 0, 1, 0, 0, 0, 0], [5, 2, 0, 0, 0, 0, 0], [5, 0, 0, 0, 1, 0, 0], [4, 1, 0, 1, 0, 0, 0], [4, 0, 2, 0, 0, 0, 0]] := by
+  simp only [bcdefg12N6RestL0, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
 
 set_option maxHeartbeats 64000000 in
 /-- A tracked N6 remainder chunk lies below the common tower face. -/
@@ -1942,23 +4602,62 @@ theorem towerLeaves_bcdefg12N6RestL0_lt810
     (bcdefg12N6RestL0 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * A.natDegree + 3 * B.natDegree + C.natDegree := by
   obtain ⟨hcone, hCdeg, hFdeg, hGdeg, hDdeg, hEdeg⟩ := hc
   obtain ⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩ := hcone
-
   rcases hbl with hz | hb
   · simp only [bcdefg12N6RestL0, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
     omega
   ·
-
-    rcases hDle with hDz | hDd
-
-    · simp only [bcdefg12N6RestL0, hDz, zero_pow (by decide : (2 : ℕ) ≠ 0),
-
-        zero_pow (by decide : (3 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero,
-
-        zero_smul, add_zero, zero_add, natDegree_zero] <;> (try compute_degree) <;> omega
-
-    · simp only [bcdefg12N6RestL0]
-      compute_degree
+    rw [astra810t_bcdefg12N6RestL0_eq_polyOf]
+    clear * - hApos hAB hAC hAD hAE hAF hAG hCdeg hFdeg hGdeg hDdeg hEdeg hEle hDle hb
+    apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+    simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_right, and_true]
+    repeat' apply And.intro
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
       omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · rcases hDle with hDz | hDd
+      · right; left
+        simp [Max11ReflectDeg.mono, hDz]
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add]
+        omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomials for a tower-leaf remainder bound. -/
+private theorem astra810t_bcdefg12N6RestL1_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bcdefg12N6RestL1 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+        [(-93 / 131072 * l : k), (1425 / 524288 * l : k), (15 / 32768 * l : k), (81 / 8192 * l : k), (-15 / 8192 * l : k), (-135 / 16384 * l : k)]
+        [[3, 2, 1, 0, 0, 0, 0], [2, 4, 0, 0, 0, 0, 0], [4, 0, 0, 0, 0, 0, 1], [3, 0, 1, 0, 1, 0, 0], [3, 0, 0, 2, 0, 0, 0], [2, 2, 0, 0, 1, 0, 0]] := by
+  simp only [bcdefg12N6RestL1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
 
 set_option maxHeartbeats 64000000 in
 /-- A tracked N6 remainder chunk lies below the common tower face. -/
@@ -1977,23 +4676,62 @@ theorem towerLeaves_bcdefg12N6RestL1_lt810
     (bcdefg12N6RestL1 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * A.natDegree + 3 * B.natDegree + C.natDegree := by
   obtain ⟨hcone, hCdeg, hFdeg, hGdeg, hDdeg, hEdeg⟩ := hc
   obtain ⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩ := hcone
-
   rcases hbl with hz | hb
   · simp only [bcdefg12N6RestL1, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
     omega
   ·
-
-    rcases hDle with hDz | hDd
-
-    · simp only [bcdefg12N6RestL1, hDz, zero_pow (by decide : (2 : ℕ) ≠ 0),
-
-        zero_pow (by decide : (3 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero,
-
-        zero_smul, add_zero, zero_add, natDegree_zero] <;> (try compute_degree) <;> omega
-
-    · simp only [bcdefg12N6RestL1]
-      compute_degree
+    rw [astra810t_bcdefg12N6RestL1_eq_polyOf]
+    clear * - hApos hAB hAC hAD hAE hAF hAG hCdeg hFdeg hGdeg hDdeg hEdeg hEle hDle hb
+    apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+    simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_right, and_true]
+    repeat' apply And.intro
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
       omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · rcases hDle with hDz | hDd
+      · right; left
+        simp [Max11ReflectDeg.mono, hDz]
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add]
+        omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomials for a tower-leaf remainder bound. -/
+private theorem astra810t_bcdefg12N6RestL2_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bcdefg12N6RestL2 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+        [(-51 / 4096 * l : k), (11 / 8192 * l : k), (-369 / 8192 * l : k), (-765 / 16384 * l : k), (-567 / 16384 * l : k), (3 / 256 * l : k)]
+        [[2, 1, 1, 1, 0, 0, 0], [2, 0, 3, 0, 0, 0, 0], [1, 3, 0, 1, 0, 0, 0], [1, 2, 2, 0, 0, 0, 0], [0, 4, 1, 0, 0, 0, 0], [2, 0, 1, 0, 0, 0, 1]] := by
+  simp only [bcdefg12N6RestL2, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
 
 set_option maxHeartbeats 64000000 in
 /-- A tracked N6 remainder chunk lies below the common tower face. -/
@@ -2012,23 +4750,65 @@ theorem towerLeaves_bcdefg12N6RestL2_lt810
     (bcdefg12N6RestL2 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * A.natDegree + 3 * B.natDegree + C.natDegree := by
   obtain ⟨hcone, hCdeg, hFdeg, hGdeg, hDdeg, hEdeg⟩ := hc
   obtain ⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩ := hcone
-
   rcases hbl with hz | hb
   · simp only [bcdefg12N6RestL2, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
     omega
   ·
-
-    rcases hDle with hDz | hDd
-
-    · simp only [bcdefg12N6RestL2, hDz, zero_pow (by decide : (2 : ℕ) ≠ 0),
-
-        zero_pow (by decide : (3 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero,
-
-        zero_smul, add_zero, zero_add, natDegree_zero] <;> (try compute_degree) <;> omega
-
-    · simp only [bcdefg12N6RestL2]
-      compute_degree
+    rw [astra810t_bcdefg12N6RestL2_eq_polyOf]
+    clear * - hApos hAB hAC hAD hAE hAF hAG hCdeg hFdeg hGdeg hDdeg hEdeg hEle hDle hb
+    apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+    simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_right, and_true]
+    repeat' apply And.intro
+    · rcases hDle with hDz | hDd
+      · right; left
+        simp [Max11ReflectDeg.mono, hDz]
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add]
+        omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
       omega
+    · rcases hDle with hDz | hDd
+      · right; left
+        simp [Max11ReflectDeg.mono, hDz]
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add]
+        omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomials for a tower-leaf remainder bound. -/
+private theorem astra810t_bcdefg12N6RestL3_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bcdefg12N6RestL3 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+        [(3 / 1024 * l : k), (51 / 2048 * l : k), (27 / 1024 * l : k), (21 / 256 * l : k), (75 / 512 * l : k), (39 / 1024 * l : k)]
+        [[2, 0, 0, 1, 0, 1, 0], [2, 0, 0, 0, 2, 0, 0], [1, 2, 0, 0, 0, 0, 1], [1, 1, 1, 0, 0, 1, 0], [1, 1, 0, 1, 1, 0, 0], [1, 0, 2, 0, 1, 0, 0]] := by
+  simp only [bcdefg12N6RestL3, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
 
 set_option maxHeartbeats 64000000 in
 /-- A tracked N6 remainder chunk lies below the common tower face. -/
@@ -2047,23 +4827,65 @@ theorem towerLeaves_bcdefg12N6RestL3_lt810
     (bcdefg12N6RestL3 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * A.natDegree + 3 * B.natDegree + C.natDegree := by
   obtain ⟨hcone, hCdeg, hFdeg, hGdeg, hDdeg, hEdeg⟩ := hc
   obtain ⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩ := hcone
-
   rcases hbl with hz | hb
   · simp only [bcdefg12N6RestL3, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
     omega
   ·
-
-    rcases hDle with hDz | hDd
-
-    · simp only [bcdefg12N6RestL3, hDz, zero_pow (by decide : (2 : ℕ) ≠ 0),
-
-        zero_pow (by decide : (3 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero,
-
-        zero_smul, add_zero, zero_add, natDegree_zero] <;> (try compute_degree) <;> omega
-
-    · simp only [bcdefg12N6RestL3]
-      compute_degree
+    rw [astra810t_bcdefg12N6RestL3_eq_polyOf]
+    clear * - hApos hAB hAC hAD hAE hAF hAG hCdeg hFdeg hGdeg hDdeg hEdeg hEle hDle hb
+    apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+    simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_right, and_true]
+    repeat' apply And.intro
+    · rcases hDle with hDz | hDd
+      · right; left
+        simp [Max11ReflectDeg.mono, hDz]
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add]
+        omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
       omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · rcases hDle with hDz | hDd
+      · right; left
+        simp [Max11ReflectDeg.mono, hDz]
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add]
+        omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomials for a tower-leaf remainder bound. -/
+private theorem astra810t_bcdefg12N6RestL4_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bcdefg12N6RestL4 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+        [(9 / 128 * l : k), (27 / 512 * l : k), (45 / 256 * l : k), (45 / 512 * l : k), (189 / 1024 * l : k), (63 / 4096 * l : k)]
+        [[1, 0, 1, 2, 0, 0, 0], [0, 3, 0, 0, 0, 1, 0], [0, 2, 1, 0, 1, 0, 0], [0, 2, 0, 2, 0, 0, 0], [0, 1, 2, 1, 0, 0, 0], [0, 0, 4, 0, 0, 0, 0]] := by
+  simp only [bcdefg12N6RestL4, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
 
 set_option maxHeartbeats 64000000 in
 /-- A tracked N6 remainder chunk lies below the common tower face. -/
@@ -2082,23 +4904,68 @@ theorem towerLeaves_bcdefg12N6RestL4_lt810
     (bcdefg12N6RestL4 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * A.natDegree + 3 * B.natDegree + C.natDegree := by
   obtain ⟨hcone, hCdeg, hFdeg, hGdeg, hDdeg, hEdeg⟩ := hc
   obtain ⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩ := hcone
-
   rcases hbl with hz | hb
   · simp only [bcdefg12N6RestL4, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
     omega
   ·
-
-    rcases hDle with hDz | hDd
-
-    · simp only [bcdefg12N6RestL4, hDz, zero_pow (by decide : (2 : ℕ) ≠ 0),
-
-        zero_pow (by decide : (3 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero,
-
-        zero_smul, add_zero, zero_add, natDegree_zero] <;> (try compute_degree) <;> omega
-
-    · simp only [bcdefg12N6RestL4]
-      compute_degree
+    rw [astra810t_bcdefg12N6RestL4_eq_polyOf]
+    clear * - hApos hAB hAC hAD hAE hAF hAG hCdeg hFdeg hGdeg hDdeg hEdeg hEle hDle hb
+    apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+    simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_right, and_true]
+    repeat' apply And.intro
+    · rcases hDle with hDz | hDd
+      · right; left
+        simp [Max11ReflectDeg.mono, hDz]
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add]
+        omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
       omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · rcases hDle with hDz | hDd
+      · right; left
+        simp [Max11ReflectDeg.mono, hDz]
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add]
+        omega
+    · rcases hDle with hDz | hDd
+      · right; left
+        simp [Max11ReflectDeg.mono, hDz]
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add]
+        omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomials for a tower-leaf remainder bound. -/
+private theorem astra810t_bcdefg12N6RestL5_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bcdefg12N6RestL5 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+        [(3 / 64 * l : k), (-3 / 16 * l : k), (-9 / 64 * l : k), (-9 / 32 * l : k), (-9 / 128 * l : k), (-9 / 32 * l : k)]
+        [[1, 0, 0, 0, 1, 0, 1], [1, 0, 0, 0, 0, 2, 0], [0, 1, 0, 1, 0, 0, 1], [0, 1, 0, 0, 1, 1, 0], [0, 0, 2, 0, 0, 0, 1], [0, 0, 1, 1, 0, 1, 0]] := by
+  simp only [bcdefg12N6RestL5, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
 
 set_option maxHeartbeats 64000000 in
 /-- A tracked N6 remainder chunk lies below the common tower face. -/
@@ -2117,23 +4984,65 @@ theorem towerLeaves_bcdefg12N6RestL5_lt810
     (bcdefg12N6RestL5 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * A.natDegree + 3 * B.natDegree + C.natDegree := by
   obtain ⟨hcone, hCdeg, hFdeg, hGdeg, hDdeg, hEdeg⟩ := hc
   obtain ⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩ := hcone
-
   rcases hbl with hz | hb
   · simp only [bcdefg12N6RestL5, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
     omega
   ·
-
-    rcases hDle with hDz | hDd
-
-    · simp only [bcdefg12N6RestL5, hDz, zero_pow (by decide : (2 : ℕ) ≠ 0),
-
-        zero_pow (by decide : (3 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero,
-
-        zero_smul, add_zero, zero_add, natDegree_zero] <;> (try compute_degree) <;> omega
-
-    · simp only [bcdefg12N6RestL5]
-      compute_degree
+    rw [astra810t_bcdefg12N6RestL5_eq_polyOf]
+    clear * - hApos hAB hAC hAD hAE hAF hAG hCdeg hFdeg hGdeg hDdeg hEdeg hEle hDle hb
+    apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+    simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_right, and_true]
+    repeat' apply And.intro
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
       omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · rcases hDle with hDz | hDd
+      · right; left
+        simp [Max11ReflectDeg.mono, hDz]
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add]
+        omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · rcases hDle with hDz | hDd
+      · right; left
+        simp [Max11ReflectDeg.mono, hDz]
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add]
+        omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomials for a tower-leaf remainder bound. -/
+private theorem astra810t_bcdefg12N6RestL6_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bcdefg12N6RestL6 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+        [(-9 / 64 * l : k), (-9 / 64 * l : k), (9 / 16 * l : k)]
+        [[0, 0, 1, 0, 2, 0, 0], [0, 0, 0, 2, 1, 0, 0], [0, 0, 0, 0, 0, 0, 2]] := by
+  simp only [bcdefg12N6RestL6, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
 
 set_option maxHeartbeats 64000000 in
 /-- A tracked N6 remainder chunk lies below the common tower face. -/
@@ -2152,23 +5061,47 @@ theorem towerLeaves_bcdefg12N6RestL6_lt810
     (bcdefg12N6RestL6 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * A.natDegree + 3 * B.natDegree + C.natDegree := by
   obtain ⟨hcone, hCdeg, hFdeg, hGdeg, hDdeg, hEdeg⟩ := hc
   obtain ⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩ := hcone
-
   rcases hbl with hz | hb
   · simp only [bcdefg12N6RestL6, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
     omega
   ·
-
-    rcases hDle with hDz | hDd
-
-    · simp only [bcdefg12N6RestL6, hDz, zero_pow (by decide : (2 : ℕ) ≠ 0),
-
-        zero_pow (by decide : (3 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero,
-
-        zero_smul, add_zero, zero_add, natDegree_zero] <;> (try compute_degree) <;> omega
-
-    · simp only [bcdefg12N6RestL6]
-      compute_degree
+    rw [astra810t_bcdefg12N6RestL6_eq_polyOf]
+    clear * - hApos hAB hAC hAD hAE hAF hAG hCdeg hFdeg hGdeg hDdeg hEdeg hEle hDle hb
+    apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+    simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_right, and_true]
+    repeat' apply And.intro
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
       omega
+    · rcases hDle with hDz | hDd
+      · right; left
+        simp [Max11ReflectDeg.mono, hDz]
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add]
+        omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomials for a tower-leaf remainder bound. -/
+private theorem astra810t_bcdefg12N6RestBeta0_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bcdefg12N6RestBeta0 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+        [(11 / 1048576 * beta : k), (35 / 98304 * beta : k), (-35 / 131072 * beta : k), (35 / 24576 * beta : k), (-35 / 12288 * beta : k), (7 / 2048 * beta : k)]
+        [[7, 0, 0, 0, 0, 0, 0], [5, 0, 1, 0, 0, 0, 0], [4, 2, 0, 0, 0, 0, 0], [4, 0, 0, 0, 1, 0, 0], [3, 1, 0, 1, 0, 0, 0], [3, 0, 2, 0, 0, 0, 0]] := by
+  simp only [bcdefg12N6RestBeta0, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
 
 set_option maxHeartbeats 64000000 in
 /-- A tracked N6 remainder chunk lies below the common tower face. -/
@@ -2187,23 +5120,62 @@ theorem towerLeaves_bcdefg12N6RestBeta0_lt810
     (bcdefg12N6RestBeta0 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * A.natDegree + 3 * B.natDegree + C.natDegree := by
   obtain ⟨hcone, hCdeg, hFdeg, hGdeg, hDdeg, hEdeg⟩ := hc
   obtain ⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩ := hcone
-
   rcases hbbeta with hz | hb
   · simp only [bcdefg12N6RestBeta0, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
     omega
   ·
-
-    rcases hDle with hDz | hDd
-
-    · simp only [bcdefg12N6RestBeta0, hDz, zero_pow (by decide : (2 : ℕ) ≠ 0),
-
-        zero_pow (by decide : (3 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero,
-
-        zero_smul, add_zero, zero_add, natDegree_zero] <;> (try compute_degree) <;> omega
-
-    · simp only [bcdefg12N6RestBeta0]
-      compute_degree
+    rw [astra810t_bcdefg12N6RestBeta0_eq_polyOf]
+    clear * - hApos hAB hAC hAD hAE hAF hAG hCdeg hFdeg hGdeg hDdeg hEdeg hEle hDle hb
+    apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+    simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_right, and_true]
+    repeat' apply And.intro
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
       omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · rcases hDle with hDz | hDd
+      · right; left
+        simp [Max11ReflectDeg.mono, hDz]
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add]
+        omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomials for a tower-leaf remainder bound. -/
+private theorem astra810t_bcdefg12N6RestBeta1_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bcdefg12N6RestBeta1 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+        [(175 / 49152 * beta : k), (91 / 8192 * beta : k), (35 / 1024 * beta : k), (-133 / 6144 * beta : k), (-49 / 768 * beta : k), (-7 / 64 * beta : k)]
+        [[2, 2, 1, 0, 0, 0, 0], [1, 4, 0, 0, 0, 0, 0], [2, 0, 1, 0, 1, 0, 0], [2, 0, 0, 2, 0, 0, 0], [1, 2, 0, 0, 1, 0, 0], [1, 1, 1, 1, 0, 0, 0]] := by
+  simp only [bcdefg12N6RestBeta1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
 
 set_option maxHeartbeats 64000000 in
 /-- A tracked N6 remainder chunk lies below the common tower face. -/
@@ -2222,23 +5194,65 @@ theorem towerLeaves_bcdefg12N6RestBeta1_lt810
     (bcdefg12N6RestBeta1 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * A.natDegree + 3 * B.natDegree + C.natDegree := by
   obtain ⟨hcone, hCdeg, hFdeg, hGdeg, hDdeg, hEdeg⟩ := hc
   obtain ⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩ := hcone
-
   rcases hbbeta with hz | hb
   · simp only [bcdefg12N6RestBeta1, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
     omega
   ·
-
-    rcases hDle with hDz | hDd
-
-    · simp only [bcdefg12N6RestBeta1, hDz, zero_pow (by decide : (2 : ℕ) ≠ 0),
-
-        zero_pow (by decide : (3 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero,
-
-        zero_smul, add_zero, zero_add, natDegree_zero] <;> (try compute_degree) <;> omega
-
-    · simp only [bcdefg12N6RestBeta1]
-      compute_degree
+    rw [astra810t_bcdefg12N6RestBeta1_eq_polyOf]
+    clear * - hApos hAB hAC hAD hAE hAF hAG hCdeg hFdeg hGdeg hDdeg hEdeg hEle hDle hb
+    apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+    simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_right, and_true]
+    repeat' apply And.intro
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
       omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · rcases hDle with hDz | hDd
+      · right; left
+        simp [Max11ReflectDeg.mono, hDz]
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add]
+        omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · rcases hDle with hDz | hDd
+      · right; left
+        simp [Max11ReflectDeg.mono, hDz]
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add]
+        omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomials for a tower-leaf remainder bound. -/
+private theorem astra810t_bcdefg12N6RestBeta2_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bcdefg12N6RestBeta2 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+        [(-7 / 128 * beta : k), (-91 / 1024 * beta : k), (7 / 48 * beta : k), (7 / 32 * beta : k), (7 / 32 * beta : k), (7 / 64 * beta : k)]
+        [[0, 3, 0, 1, 0, 0, 0], [0, 2, 2, 0, 0, 0, 0], [1, 0, 0, 0, 2, 0, 0], [0, 1, 1, 0, 0, 1, 0], [0, 1, 0, 1, 1, 0, 0], [0, 0, 2, 0, 1, 0, 0]] := by
+  simp only [bcdefg12N6RestBeta2, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
 
 set_option maxHeartbeats 64000000 in
 /-- A tracked N6 remainder chunk lies below the common tower face. -/
@@ -2257,23 +5271,65 @@ theorem towerLeaves_bcdefg12N6RestBeta2_lt810
     (bcdefg12N6RestBeta2 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * A.natDegree + 3 * B.natDegree + C.natDegree := by
   obtain ⟨hcone, hCdeg, hFdeg, hGdeg, hDdeg, hEdeg⟩ := hc
   obtain ⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩ := hcone
-
   rcases hbbeta with hz | hb
   · simp only [bcdefg12N6RestBeta2, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
     omega
   ·
-
-    rcases hDle with hDz | hDd
-
-    · simp only [bcdefg12N6RestBeta2, hDz, zero_pow (by decide : (2 : ℕ) ≠ 0),
-
-        zero_pow (by decide : (3 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero,
-
-        zero_smul, add_zero, zero_add, natDegree_zero] <;> (try compute_degree) <;> omega
-
-    · simp only [bcdefg12N6RestBeta2]
-      compute_degree
+    rw [astra810t_bcdefg12N6RestBeta2_eq_polyOf]
+    clear * - hApos hAB hAC hAD hAE hAF hAG hCdeg hFdeg hGdeg hDdeg hEdeg hEle hDle hb
+    apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+    simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_right, and_true]
+    repeat' apply And.intro
+    · rcases hDle with hDz | hDd
+      · right; left
+        simp [Max11ReflectDeg.mono, hDz]
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add]
+        omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
       omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · rcases hDle with hDz | hDd
+      · right; left
+        simp [Max11ReflectDeg.mono, hDz]
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add]
+        omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomials for a tower-leaf remainder bound. -/
+private theorem astra810t_bcdefg12N6RestBeta3_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bcdefg12N6RestBeta3 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+        [(7 / 64 * beta : k), (-7 / 16 * beta : k), (-7 / 768 * beta : k), (7 / 96 * beta : k), (7 / 3072 * beta : k)]
+        [[0, 0, 1, 2, 0, 0, 0], [0, 0, 0, 0, 0, 2, 0], [1, 0, 3, 0, 0, 0, 0], [1, 0, 0, 1, 0, 1, 0], [2, 1, 0, 0, 0, 1, 0]] := by
+  simp only [bcdefg12N6RestBeta3, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
 
 set_option maxHeartbeats 64000000 in
 /-- A tracked N6 remainder chunk lies below the common tower face. -/
@@ -2292,23 +5348,60 @@ theorem towerLeaves_bcdefg12N6RestBeta3_lt810
     (bcdefg12N6RestBeta3 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * A.natDegree + 3 * B.natDegree + C.natDegree := by
   obtain ⟨hcone, hCdeg, hFdeg, hGdeg, hDdeg, hEdeg⟩ := hc
   obtain ⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩ := hcone
-
   rcases hbbeta with hz | hb
   · simp only [bcdefg12N6RestBeta3, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
     omega
   ·
-
-    rcases hDle with hDz | hDd
-
-    · simp only [bcdefg12N6RestBeta3, hDz, zero_pow (by decide : (2 : ℕ) ≠ 0),
-
-        zero_pow (by decide : (3 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero,
-
-        zero_smul, add_zero, zero_add, natDegree_zero] <;> (try compute_degree) <;> omega
-
-    · simp only [bcdefg12N6RestBeta3]
-      compute_degree
+    rw [astra810t_bcdefg12N6RestBeta3_eq_polyOf]
+    clear * - hApos hAB hAC hAD hAE hAF hAG hCdeg hFdeg hGdeg hDdeg hEdeg hEle hDle hb
+    apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+    simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_right, and_true]
+    repeat' apply And.intro
+    · rcases hDle with hDz | hDd
+      · right; left
+        simp [Max11ReflectDeg.mono, hDz]
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add]
+        omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
       omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · rcases hDle with hDz | hDd
+      · right; left
+        simp [Max11ReflectDeg.mono, hDz]
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add]
+        omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomials for a tower-leaf remainder bound. -/
+private theorem astra810t_bcdefg12N6RestGamma0_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bcdefg12N6RestGamma0 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+        [(5 / 768 * gamma : k), (-15 / 128 * gamma : k), (-9 / 128 * gamma : k), (-27 / 256 * gamma : k), (-1 / 32 * gamma : k), (5 / 16 * gamma : k)]
+        [[2, 3, 0, 0, 0, 0, 0], [1, 2, 0, 1, 0, 0, 0], [1, 1, 2, 0, 0, 0, 0], [0, 3, 1, 0, 0, 0, 0], [1, 0, 1, 0, 0, 1, 0], [1, 0, 0, 1, 1, 0, 0]] := by
+  simp only [bcdefg12N6RestGamma0, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
 
 set_option maxHeartbeats 64000000 in
 /-- A tracked N6 remainder chunk lies below the common tower face. -/
@@ -2327,18 +5420,61 @@ theorem towerLeaves_bcdefg12N6RestGamma0_lt810
     (bcdefg12N6RestGamma0 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * A.natDegree + 3 * B.natDegree + C.natDegree := by
   obtain ⟨hcone, hCdeg, hFdeg, hGdeg, hDdeg, hEdeg⟩ := hc
   obtain ⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩ := hcone
-
-  rcases hDle with hDz | hDd
-
-  · simp only [bcdefg12N6RestGamma0, hDz, zero_pow (by decide : (2 : ℕ) ≠ 0),
-
-      zero_pow (by decide : (3 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero,
-
-      zero_smul, add_zero, zero_add, natDegree_zero] <;> (try compute_degree) <;> omega
-
-  · simp only [bcdefg12N6RestGamma0]
-    compute_degree
+  rw [astra810t_bcdefg12N6RestGamma0_eq_polyOf]
+  clear * - hApos hAB hAC hAD hAE hAF hAG hCdeg hFdeg hGdeg hDdeg hEdeg hEle hDle
+  apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_right, and_true]
+  repeat' apply And.intro
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+      Nat.add_zero, Nat.zero_add]
     omega
+  · rcases hDle with hDz | hDd
+    · right; left
+      simp [Max11ReflectDeg.mono, hDz]
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+      Nat.add_zero, Nat.zero_add]
+    omega
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+      Nat.add_zero, Nat.zero_add]
+    omega
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+      Nat.add_zero, Nat.zero_add]
+    omega
+  · rcases hDle with hDz | hDd
+    · right; left
+      simp [Max11ReflectDeg.mono, hDz]
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomials for a tower-leaf remainder bound. -/
+private theorem astra810t_bcdefg12N6RestGamma1_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bcdefg12N6RestGamma1 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+        [(9 / 64 * gamma : k), (3 / 8 * gamma : k), (3 / 16 * gamma : k), (3 / 16 * gamma : k), (-3 / 4 * gamma : k)]
+        [[0, 2, 0, 0, 0, 1, 0], [0, 1, 1, 0, 1, 0, 0], [0, 1, 0, 2, 0, 0, 0], [0, 0, 2, 1, 0, 0, 0], [0, 0, 0, 0, 1, 1, 0]] := by
+  simp only [bcdefg12N6RestGamma1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
 
 set_option maxHeartbeats 64000000 in
 /-- A tracked N6 remainder chunk lies below the common tower face. -/
@@ -2357,18 +5493,56 @@ theorem towerLeaves_bcdefg12N6RestGamma1_lt810
     (bcdefg12N6RestGamma1 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * A.natDegree + 3 * B.natDegree + C.natDegree := by
   obtain ⟨hcone, hCdeg, hFdeg, hGdeg, hDdeg, hEdeg⟩ := hc
   obtain ⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩ := hcone
-
-  rcases hDle with hDz | hDd
-
-  · simp only [bcdefg12N6RestGamma1, hDz, zero_pow (by decide : (2 : ℕ) ≠ 0),
-
-      zero_pow (by decide : (3 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero,
-
-      zero_smul, add_zero, zero_add, natDegree_zero] <;> (try compute_degree) <;> omega
-
-  · simp only [bcdefg12N6RestGamma1]
-    compute_degree
+  rw [astra810t_bcdefg12N6RestGamma1_eq_polyOf]
+  clear * - hApos hAB hAC hAD hAE hAF hAG hCdeg hFdeg hGdeg hDdeg hEdeg hEle hDle
+  apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_right, and_true]
+  repeat' apply And.intro
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+      Nat.add_zero, Nat.zero_add]
     omega
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+      Nat.add_zero, Nat.zero_add]
+    omega
+  · rcases hDle with hDz | hDd
+    · right; left
+      simp [Max11ReflectDeg.mono, hDz]
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+  · rcases hDle with hDz | hDd
+    · right; left
+      simp [Max11ReflectDeg.mono, hDz]
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+      Nat.add_zero, Nat.zero_add]
+    omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomials for a tower-leaf remainder bound. -/
+private theorem astra810t_bcdefg12N6RestDelta0_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bcdefg12N6RestDelta0 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+        [(21 / 524288 * delta : k), (5 / 4096 * delta : k), (-65 / 49152 * delta : k), (5 / 1024 * delta : k), (-95 / 3072 * delta : k), (65 / 6144 * delta : k)]
+        [[6, 0, 0, 0, 0, 0, 0], [4, 0, 1, 0, 0, 0, 0], [3, 2, 0, 0, 0, 0, 0], [3, 0, 0, 0, 1, 0, 0], [2, 1, 0, 1, 0, 0, 0], [2, 0, 2, 0, 0, 0, 0]] := by
+  simp only [bcdefg12N6RestDelta0, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
 
 set_option maxHeartbeats 64000000 in
 /-- A tracked N6 remainder chunk lies below the common tower face. -/
@@ -2387,23 +5561,62 @@ theorem towerLeaves_bcdefg12N6RestDelta0_lt810
     (bcdefg12N6RestDelta0 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * A.natDegree + 3 * B.natDegree + C.natDegree := by
   obtain ⟨hcone, hCdeg, hFdeg, hGdeg, hDdeg, hEdeg⟩ := hc
   obtain ⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩ := hcone
-
   rcases hbdelta with hz | hb
   · simp only [bcdefg12N6RestDelta0, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
     omega
   ·
-
-    rcases hDle with hDz | hDd
-
-    · simp only [bcdefg12N6RestDelta0, hDz, zero_pow (by decide : (2 : ℕ) ≠ 0),
-
-        zero_pow (by decide : (3 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero,
-
-        zero_smul, add_zero, zero_add, natDegree_zero] <;> (try compute_degree) <;> omega
-
-    · simp only [bcdefg12N6RestDelta0]
-      compute_degree
+    rw [astra810t_bcdefg12N6RestDelta0_eq_polyOf]
+    clear * - hApos hAB hAC hAD hAE hAF hAG hCdeg hFdeg hGdeg hDdeg hEdeg hEle hDle hb
+    apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+    simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_right, and_true]
+    repeat' apply And.intro
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
       omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · rcases hDle with hDz | hDd
+      · right; left
+        simp [Max11ReflectDeg.mono, hDz]
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add]
+        omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomials for a tower-leaf remainder bound. -/
+private theorem astra810t_bcdefg12N6RestDelta1_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bcdefg12N6RestDelta1 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+        [(-125 / 1024 * delta : k), (-135 / 4096 * delta : k), (35 / 192 * delta : k), (5 / 32 * delta : k), (25 / 128 * delta : k), (15 / 32 * delta : k)]
+        [[1, 2, 1, 0, 0, 0, 0], [0, 4, 0, 0, 0, 0, 0], [1, 0, 1, 0, 1, 0, 0], [1, 0, 0, 2, 0, 0, 0], [0, 2, 0, 0, 1, 0, 0], [0, 1, 1, 1, 0, 0, 0]] := by
+  simp only [bcdefg12N6RestDelta1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
 
 set_option maxHeartbeats 64000000 in
 /-- A tracked N6 remainder chunk lies below the common tower face. -/
@@ -2422,23 +5635,65 @@ theorem towerLeaves_bcdefg12N6RestDelta1_lt810
     (bcdefg12N6RestDelta1 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * A.natDegree + 3 * B.natDegree + C.natDegree := by
   obtain ⟨hcone, hCdeg, hFdeg, hGdeg, hDdeg, hEdeg⟩ := hc
   obtain ⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩ := hcone
-
   rcases hbdelta with hz | hb
   · simp only [bcdefg12N6RestDelta1, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
     omega
   ·
-
-    rcases hDle with hDz | hDd
-
-    · simp only [bcdefg12N6RestDelta1, hDz, zero_pow (by decide : (2 : ℕ) ≠ 0),
-
-        zero_pow (by decide : (3 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero,
-
-        zero_smul, add_zero, zero_add, natDegree_zero] <;> (try compute_degree) <;> omega
-
-    · simp only [bcdefg12N6RestDelta1]
-      compute_degree
+    rw [astra810t_bcdefg12N6RestDelta1_eq_polyOf]
+    clear * - hApos hAB hAC hAD hAE hAF hAG hCdeg hFdeg hGdeg hDdeg hEdeg hEle hDle hb
+    apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+    simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_right, and_true]
+    repeat' apply And.intro
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
       omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · rcases hDle with hDz | hDd
+      · right; left
+        simp [Max11ReflectDeg.mono, hDz]
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add]
+        omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · rcases hDle with hDz | hDd
+      · right; left
+        simp [Max11ReflectDeg.mono, hDz]
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add]
+        omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomials for a tower-leaf remainder bound. -/
+private theorem astra810t_bcdefg12N6RestDelta2_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bcdefg12N6RestDelta2 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+        [(5 / 64 * delta : k), (-5 / 8 * delta : k), (-5 / 16 * delta : k), (5 / 96 * delta : k), (-5 / 384 * delta : k)]
+        [[0, 0, 3, 0, 0, 0, 0], [0, 0, 0, 1, 0, 1, 0], [0, 0, 0, 0, 2, 0, 0], [1, 1, 0, 0, 0, 1, 0], [2, 0, 0, 0, 0, 0, 1]] := by
+  simp only [bcdefg12N6RestDelta2, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
 
 set_option maxHeartbeats 64000000 in
 /-- A tracked N6 remainder chunk lies below the common tower face. -/
@@ -2457,23 +5712,57 @@ theorem towerLeaves_bcdefg12N6RestDelta2_lt810
     (bcdefg12N6RestDelta2 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * A.natDegree + 3 * B.natDegree + C.natDegree := by
   obtain ⟨hcone, hCdeg, hFdeg, hGdeg, hDdeg, hEdeg⟩ := hc
   obtain ⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩ := hcone
-
   rcases hbdelta with hz | hb
   · simp only [bcdefg12N6RestDelta2, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
     omega
   ·
-
-    rcases hDle with hDz | hDd
-
-    · simp only [bcdefg12N6RestDelta2, hDz, zero_pow (by decide : (2 : ℕ) ≠ 0),
-
-        zero_pow (by decide : (3 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero,
-
-        zero_smul, add_zero, zero_add, natDegree_zero] <;> (try compute_degree) <;> omega
-
-    · simp only [bcdefg12N6RestDelta2]
-      compute_degree
+    rw [astra810t_bcdefg12N6RestDelta2_eq_polyOf]
+    clear * - hApos hAB hAC hAD hAE hAF hAG hCdeg hFdeg hGdeg hDdeg hEdeg hEle hDle hb
+    apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+    simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_right, and_true]
+    repeat' apply And.intro
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
       omega
+    · rcases hDle with hDz | hDd
+      · right; left
+        simp [Max11ReflectDeg.mono, hDz]
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add]
+        omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomials for a tower-leaf remainder bound. -/
+private theorem astra810t_bcdefg12N6RestEpsilon0_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bcdefg12N6RestEpsilon0 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+        [(-5 / 96 * epsilon : k), (5 / 24 * epsilon : k), (3 / 16 * epsilon : k), (7 / 32 * epsilon : k), (1 / 4 * epsilon : k), (-1 / 2 * epsilon : k)]
+        [[1, 3, 0, 0, 0, 0, 0], [1, 1, 0, 0, 1, 0, 0], [1, 0, 1, 1, 0, 0, 0], [0, 2, 0, 1, 0, 0, 0], [0, 1, 2, 0, 0, 0, 0], [0, 0, 1, 0, 0, 1, 0]] := by
+  simp only [bcdefg12N6RestEpsilon0, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
 
 set_option maxHeartbeats 64000000 in
 /-- A tracked N6 remainder chunk lies below the common tower face. -/
@@ -2492,18 +5781,61 @@ theorem towerLeaves_bcdefg12N6RestEpsilon0_lt810
     (bcdefg12N6RestEpsilon0 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * A.natDegree + 3 * B.natDegree + C.natDegree := by
   obtain ⟨hcone, hCdeg, hFdeg, hGdeg, hDdeg, hEdeg⟩ := hc
   obtain ⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩ := hcone
-
-  rcases hDle with hDz | hDd
-
-  · simp only [bcdefg12N6RestEpsilon0, hDz, zero_pow (by decide : (2 : ℕ) ≠ 0),
-
-      zero_pow (by decide : (3 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero,
-
-      zero_smul, add_zero, zero_add, natDegree_zero] <;> (try compute_degree) <;> omega
-
-  · simp only [bcdefg12N6RestEpsilon0]
-    compute_degree
+  rw [astra810t_bcdefg12N6RestEpsilon0_eq_polyOf]
+  clear * - hApos hAB hAC hAD hAE hAF hAG hCdeg hFdeg hGdeg hDdeg hEdeg hEle hDle
+  apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_right, and_true]
+  repeat' apply And.intro
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+      Nat.add_zero, Nat.zero_add]
     omega
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+      Nat.add_zero, Nat.zero_add]
+    omega
+  · rcases hDle with hDz | hDd
+    · right; left
+      simp [Max11ReflectDeg.mono, hDz]
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+  · rcases hDle with hDz | hDd
+    · right; left
+      simp [Max11ReflectDeg.mono, hDz]
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+      Nat.add_zero, Nat.zero_add]
+    omega
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+      Nat.add_zero, Nat.zero_add]
+    omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomials for a tower-leaf remainder bound. -/
+private theorem astra810t_bcdefg12N6RestEpsilon1_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bcdefg12N6RestEpsilon1 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+        [(-1 / 2 * epsilon : k)]
+        [[0, 0, 0, 1, 1, 0, 0]] := by
+  simp only [bcdefg12N6RestEpsilon1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
 
 set_option maxHeartbeats 64000000 in
 /-- A tracked N6 remainder chunk lies below the common tower face. -/
@@ -2522,18 +5854,33 @@ theorem towerLeaves_bcdefg12N6RestEpsilon1_lt810
     (bcdefg12N6RestEpsilon1 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * A.natDegree + 3 * B.natDegree + C.natDegree := by
   obtain ⟨hcone, hCdeg, hFdeg, hGdeg, hDdeg, hEdeg⟩ := hc
   obtain ⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩ := hcone
+  rw [astra810t_bcdefg12N6RestEpsilon1_eq_polyOf]
+  clear * - hApos hAB hAC hAD hAE hAF hAG hCdeg hFdeg hGdeg hDdeg hEdeg hEle hDle
+  apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_right, and_true]
+  repeat' apply And.intro
+  · rcases hDle with hDz | hDd
+    · right; left
+      simp [Max11ReflectDeg.mono, hDz]
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
 
-  rcases hDle with hDz | hDd
-
-  · simp only [bcdefg12N6RestEpsilon1, hDz, zero_pow (by decide : (2 : ℕ) ≠ 0),
-
-      zero_pow (by decide : (3 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero,
-
-      zero_smul, add_zero, zero_add, natDegree_zero] <;> (try compute_degree) <;> omega
-
-  · simp only [bcdefg12N6RestEpsilon1]
-    compute_degree
-    omega
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomials for a tower-leaf remainder bound. -/
+private theorem astra810t_bcdefg12N6RestZeta0_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bcdefg12N6RestZeta0 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+        [(7 / 49152 * zeta : k), (1 / 256 * zeta : k), (-11 / 1024 * zeta : k), (1 / 64 * zeta : k), (3 / 16 * zeta : k), (27 / 128 * zeta : k)]
+        [[5, 0, 0, 0, 0, 0, 0], [3, 0, 1, 0, 0, 0, 0], [2, 2, 0, 0, 0, 0, 0], [2, 0, 0, 0, 1, 0, 0], [1, 1, 0, 1, 0, 0, 0], [0, 2, 1, 0, 0, 0, 0]] := by
+  simp only [bcdefg12N6RestZeta0, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
 
 set_option maxHeartbeats 64000000 in
 /-- A tracked N6 remainder chunk lies below the common tower face. -/
@@ -2552,23 +5899,62 @@ theorem towerLeaves_bcdefg12N6RestZeta0_lt810
     (bcdefg12N6RestZeta0 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * A.natDegree + 3 * B.natDegree + C.natDegree := by
   obtain ⟨hcone, hCdeg, hFdeg, hGdeg, hDdeg, hEdeg⟩ := hc
   obtain ⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩ := hcone
-
   rcases hbzeta with hz | hb
   · simp only [bcdefg12N6RestZeta0, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
     omega
   ·
-
-    rcases hDle with hDz | hDd
-
-    · simp only [bcdefg12N6RestZeta0, hDz, zero_pow (by decide : (2 : ℕ) ≠ 0),
-
-        zero_pow (by decide : (3 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero,
-
-        zero_smul, add_zero, zero_add, natDegree_zero] <;> (try compute_degree) <;> omega
-
-    · simp only [bcdefg12N6RestZeta0]
-      compute_degree
+    rw [astra810t_bcdefg12N6RestZeta0_eq_polyOf]
+    clear * - hApos hAB hAC hAD hAE hAF hAG hCdeg hFdeg hGdeg hDdeg hEdeg hEle hDle hb
+    apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+    simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_right, and_true]
+    repeat' apply And.intro
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
       omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · rcases hDle with hDz | hDd
+      · right; left
+        simp [Max11ReflectDeg.mono, hDz]
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add]
+        omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomials for a tower-leaf remainder bound. -/
+private theorem astra810t_bcdefg12N6RestZeta1_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bcdefg12N6RestZeta1 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+        [(-3 / 8 * zeta : k), (-3 / 8 * zeta : k), (-3 / 16 * zeta : k), (3 / 64 * zeta : k), (-1 / 4 * zeta : k)]
+        [[0, 1, 0, 0, 0, 1, 0], [0, 0, 1, 0, 1, 0, 0], [0, 0, 0, 2, 0, 0, 0], [1, 0, 2, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 1]] := by
+  simp only [bcdefg12N6RestZeta1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
 
 set_option maxHeartbeats 64000000 in
 /-- A tracked N6 remainder chunk lies below the common tower face. -/
@@ -2587,23 +5973,57 @@ theorem towerLeaves_bcdefg12N6RestZeta1_lt810
     (bcdefg12N6RestZeta1 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * A.natDegree + 3 * B.natDegree + C.natDegree := by
   obtain ⟨hcone, hCdeg, hFdeg, hGdeg, hDdeg, hEdeg⟩ := hc
   obtain ⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩ := hcone
-
   rcases hbzeta with hz | hb
   · simp only [bcdefg12N6RestZeta1, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
     omega
   ·
-
-    rcases hDle with hDz | hDd
-
-    · simp only [bcdefg12N6RestZeta1, hDz, zero_pow (by decide : (2 : ℕ) ≠ 0),
-
-        zero_pow (by decide : (3 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero,
-
-        zero_smul, add_zero, zero_add, natDegree_zero] <;> (try compute_degree) <;> omega
-
-    · simp only [bcdefg12N6RestZeta1]
-      compute_degree
+    rw [astra810t_bcdefg12N6RestZeta1_eq_polyOf]
+    clear * - hApos hAB hAC hAD hAE hAF hAG hCdeg hFdeg hGdeg hDdeg hEdeg hEle hDle hb
+    apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+    simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_right, and_true]
+    repeat' apply And.intro
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
       omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · rcases hDle with hDz | hDd
+      · right; left
+        simp [Max11ReflectDeg.mono, hDz]
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add]
+        omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomials for a tower-leaf remainder bound. -/
+private theorem astra810t_bcdefg12N6RestEta0_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bcdefg12N6RestEta0 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+        [(3 / 32 * eta : k), (3 / 64 * eta : k), (-5 / 12 * eta : k), (-1 / 4 * eta : k), (-1 / 4 * eta : k)]
+        [[1, 1, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0], [0, 1, 0, 0, 1, 0, 0], [0, 0, 1, 1, 0, 0, 0]] := by
+  simp only [bcdefg12N6RestEta0, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
 
 set_option maxHeartbeats 64000000 in
 /-- A tracked N6 remainder chunk lies below the common tower face. -/
@@ -2622,18 +6042,53 @@ theorem towerLeaves_bcdefg12N6RestEta0_lt810
     (bcdefg12N6RestEta0 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * A.natDegree + 3 * B.natDegree + C.natDegree := by
   obtain ⟨hcone, hCdeg, hFdeg, hGdeg, hDdeg, hEdeg⟩ := hc
   obtain ⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩ := hcone
-
-  rcases hDle with hDz | hDd
-
-  · simp only [bcdefg12N6RestEta0, hDz, zero_pow (by decide : (2 : ℕ) ≠ 0),
-
-      zero_pow (by decide : (3 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero,
-
-      zero_smul, add_zero, zero_add, natDegree_zero] <;> (try compute_degree) <;> omega
-
-  · simp only [bcdefg12N6RestEta0]
-    compute_degree
+  rw [astra810t_bcdefg12N6RestEta0_eq_polyOf]
+  clear * - hApos hAB hAC hAD hAE hAF hAG hCdeg hFdeg hGdeg hDdeg hEdeg hEle hDle
+  apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_right, and_true]
+  repeat' apply And.intro
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+      Nat.add_zero, Nat.zero_add]
     omega
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+      Nat.add_zero, Nat.zero_add]
+    omega
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+      Nat.add_zero, Nat.zero_add]
+    omega
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+      Nat.add_zero, Nat.zero_add]
+    omega
+  · rcases hDle with hDz | hDd
+    · right; left
+      simp [Max11ReflectDeg.mono, hDz]
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomials for a tower-leaf remainder bound. -/
+private theorem astra810t_bcdefg12N6RestTheta0_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bcdefg12N6RestTheta0 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+        [(5 / 12288 * theta : k), (1 / 96 * theta : k), (3 / 128 * theta : k), (1 / 24 * theta : k), (-1 / 8 * theta : k), (-1 / 16 * theta : k)]
+        [[4, 0, 0, 0, 0, 0, 0], [2, 0, 1, 0, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0], [1, 0, 0, 0, 1, 0, 0], [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0]] := by
+  simp only [bcdefg12N6RestTheta0, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
 
 set_option maxHeartbeats 64000000 in
 /-- A tracked N6 remainder chunk lies below the common tower face. -/
@@ -2652,23 +6107,62 @@ theorem towerLeaves_bcdefg12N6RestTheta0_lt810
     (bcdefg12N6RestTheta0 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * A.natDegree + 3 * B.natDegree + C.natDegree := by
   obtain ⟨hcone, hCdeg, hFdeg, hGdeg, hDdeg, hEdeg⟩ := hc
   obtain ⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩ := hcone
-
   rcases hbtheta with hz | hb
   · simp only [bcdefg12N6RestTheta0, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
     omega
   ·
-
-    rcases hDle with hDz | hDd
-
-    · simp only [bcdefg12N6RestTheta0, hDz, zero_pow (by decide : (2 : ℕ) ≠ 0),
-
-        zero_pow (by decide : (3 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero,
-
-        zero_smul, add_zero, zero_add, natDegree_zero] <;> (try compute_degree) <;> omega
-
-    · simp only [bcdefg12N6RestTheta0]
-      compute_degree
+    rw [astra810t_bcdefg12N6RestTheta0_eq_polyOf]
+    clear * - hApos hAB hAC hAD hAE hAF hAG hCdeg hFdeg hGdeg hDdeg hEdeg hEle hDle hb
+    apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+    simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_right, and_true]
+    repeat' apply And.intro
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
       omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+    · rcases hDle with hDz | hDd
+      · right; left
+        simp [Max11ReflectDeg.mono, hDz]
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+          Nat.add_zero, Nat.zero_add]
+        omega
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomials for a tower-leaf remainder bound. -/
+private theorem astra810t_bcdefg12N6RestTheta1_eq_polyOf
+    (l beta gamma delta epsilon zeta eta theta : k) (A B C D E F G : k[X]) :
+    bcdefg12N6RestTheta1 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+        [(1 * theta : k)]
+        [[0, 0, 0, 0, 0, 0, 1]] := by
+  simp only [bcdefg12N6RestTheta1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
 
 set_option maxHeartbeats 64000000 in
 /-- A tracked N6 remainder chunk lies below the common tower face. -/
@@ -2687,15 +6181,20 @@ theorem towerLeaves_bcdefg12N6RestTheta1_lt810
     (bcdefg12N6RestTheta1 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 2 * A.natDegree + 3 * B.natDegree + C.natDegree := by
   obtain ⟨hcone, hCdeg, hFdeg, hGdeg, hDdeg, hEdeg⟩ := hc
   obtain ⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩ := hcone
-
   rcases hbtheta with hz | hb
   · simp only [bcdefg12N6RestTheta1, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
     omega
   ·
-
-    simp only [bcdefg12N6RestTheta1]
-    compute_degree
-    omega
+    rw [astra810t_bcdefg12N6RestTheta1_eq_polyOf]
+    clear * - hApos hAB hAC hAD hAE hAF hAG hCdeg hFdeg hGdeg hDdeg hEdeg hEle hDle hb
+    apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+    simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_right, and_true]
+    repeat' apply And.intro
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
 
 set_option maxHeartbeats 64000000 in
 /-- The six monomials of the common N6 face. -/
@@ -2719,6 +6218,20 @@ def towerLeavesN6Extra810
   + (95 / 384 : k) • (A * C * D * E)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomials for a tower-leaf remainder bound. -/
+private theorem astra810t_towerLeavesN6Extra810_eq_polyOf
+    (A B C D E F G : k[X]) :
+    towerLeavesN6Extra810 A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+        [(-25 / 768 : k), (25 / 192 : k), (95 / 384 : k)]
+        [[2, 1, 0, 2, 0, 0, 0], [1, 1, 0, 0, 2, 0, 0], [1, 0, 1, 1, 1, 0, 0]] := by
+  simp only [towerLeavesN6Extra810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  all_goals module
+
+set_option maxHeartbeats 64000000 in
 /-- The extra face terms lie strictly below the common N6 face. -/
 
 theorem towerLeavesN6Extra_lt810
@@ -2729,13 +6242,32 @@ theorem towerLeavesN6Extra_lt810
     (towerLeavesN6Extra810 A B C D E F G).natDegree < 2 * A.natDegree + 3 * B.natDegree + C.natDegree := by
   obtain ⟨hcone, hCdeg, hFdeg, hGdeg, hDdeg, hEdeg⟩ := hc
   obtain ⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩ := hcone
-  rcases hDle with hDz | hDd
-  · simp only [towerLeavesN6Extra810, hDz, zero_pow (by decide : (2 : ℕ) ≠ 0),
-      zero_pow (by decide : (3 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero,
-      zero_smul, add_zero, zero_add, natDegree_zero] <;> (try compute_degree) <;> omega
-  · simp only [towerLeavesN6Extra810]
-    compute_degree
+  rw [astra810t_towerLeavesN6Extra810_eq_polyOf]
+  clear * - hApos hAB hAC hAD hAE hAF hAG hCdeg hFdeg hGdeg hDdeg hEdeg hEle hDle
+  apply Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega)
+  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_right, and_true]
+  repeat' apply And.intro
+  · rcases hDle with hDz | hDd
+    · right; left
+      simp [Max11ReflectDeg.mono, hDz]
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+      Nat.add_zero, Nat.zero_add]
     omega
+  · rcases hDle with hDz | hDd
+    · right; left
+      simp [Max11ReflectDeg.mono, hDz]
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+        Nat.add_zero, Nat.zero_add]
+      omega
 
 set_option maxHeartbeats 64000000 in
 /-- The tracked maximal-tie face splits into the common face and three lower terms. -/

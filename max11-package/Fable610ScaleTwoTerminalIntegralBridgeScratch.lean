@@ -83,6 +83,7 @@ section BridgeIotaDepression610
 
 variable {F : Type*} [Field F] [CharZero F]
 
+set_option maxHeartbeats 64000000 in
 /-- Depressed decic `z⁰` coefficient. -/
 def terminalDepressedX610 (h r b9 b8 b7 b6 b5 b4 b3 b2 b1 b0 : F) : F :=
   r ^ 10 - (b9 / h ^ 9) * r ^ 9 + (b8 / h ^ 8) * r ^ 8 -
@@ -91,6 +92,7 @@ def terminalDepressedX610 (h r b9 b8 b7 b6 b5 b4 b3 b2 b1 b0 : F) : F :=
     (b3 / h ^ 3) * r ^ 3 + (b2 / h ^ 2) * r ^ 2 -
     (b1 / h) * r + b0
 
+set_option maxHeartbeats 64000000 in
 /-- First residual of the degree-`5` row.  Equivalent to
 `X - γ E - (5/6) δ D - (2/3) ε C - (1/2) ζ B - (1/3) η A
 - (10/9) C E - (5/9) D² + (5/27) A² E + (10/27) A B D + (5/27) A C²
@@ -128,7 +130,7 @@ def terminalIotaResidual610
     (3 / 8 : F) * L * A * B * C0 + (3 / 16 : F) * L * A ^ 2 * D0 +
     (1 / 16 : F) * L * B ^ 3 - (3 / 32 : F) * L * A ^ 3 * B
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 /-- Polynomial numerator of `18 h⁵⁰ ι` on the ninth-power face. -/
 def terminalClearedIotaDefect610
     (h a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 b0 : F[X]) (lambda : F) : F[X] :=
@@ -255,6 +257,7 @@ def terminalClearedIotaDefect610
     + (18 : F[X]) * b0 * h ^ 50
 
 
+set_option maxHeartbeats 64000000 in
 /-- Exact denominator clearing for the decic `z⁰` coordinate on the
 ninth-power face. -/
 theorem terminalDepressedX610_eq_cleared
@@ -314,7 +317,7 @@ theorem terminalDepressedX610_eq_cleared
     ring
   exact hrewrite
 
-set_option maxHeartbeats 80000000 in
+set_option maxHeartbeats 64000000 in
 /-- Clearing the first integral
 `X - γ E - (5/6) δ D - (2/3) ε C - (1/2) ζ B - (1/3) η A
 - (10/9) C E - (5/9) D² + (5/27) A² E + (10/27) A B D + (5/27) A C²
@@ -623,6 +626,7 @@ section BridgeIotaDepressedRow610
 
 variable {k F : Type*} [Field k] [Field F] [Algebra k F] [CharZero F]
 
+set_option maxHeartbeats 64000000 in
 /-- For a depressed monic sextic and a monic decic whose `z⁹` coefficient is
 already a differential constant, the degree-`5` Jacobian coefficient is
 exactly `6 R E' + 5 S D' + 4 T C' + 3 U B' + 2 V A' - D S' - 2 C T'
@@ -924,7 +928,7 @@ theorem differentialJacobian_coeff_5_monicSexticDecic_bridge
   ring
 
 
-set_option maxHeartbeats 80000000 in
+set_option maxHeartbeats 64000000 in
 theorem terminalIotaResidual610_deriv_zero
     (d : Derivation k F F) (L A B C0 D0 E0 P Q R S0 T0 U0 V0 X0 : F)
     (hL : d L = 0)
@@ -1426,6 +1430,7 @@ section BridgeAffineDecic610
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 /-- The `z⁰` coefficient of the affine depression of a degree-ten source. -/
 theorem affineDepress_degreeTen_coeff0_610_bridge
     (p : (RatFunc k)[X]) (h r : RatFunc k) (hh : h ≠ 0)
@@ -1644,7 +1649,7 @@ section NonzeroTerminalIotaClearing610
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 80000000 in
+set_option maxHeartbeats 64000000 in
 /-- The ninth sextic/decic integral on a square-core ninth-power source:
 the cleared defect is a scalar times `h⁵⁰`. -/
 theorem nonzeroFace610_terminalIotaPowerRelation
@@ -2076,6 +2081,7 @@ section BridgeIotaJet610
 
 variable {R : Type*} [CommRing R]
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`44` head of the jet-substituted cleared `ι` defect: the
 coefficient of `h⁴⁴` after the fifteenth-face jet `p₅ = h⁵ w₁`,
 `p₄ = h³ a₄₁`, `p₃ = h p₃₁`, `q₈ = h⁷ s₁`, `q₇ = h⁵ u₁`, `q₆ = h⁴ b₆₂`,
@@ -2095,7 +2101,7 @@ def bridgeIotaJetHead610 (w1 a41 p31 s1 u1 b62 q52 p2 q4 lam : R) : R :=
     - (21 : R) * w1 * p31 ^ 2 * u1
     + (15 : R) * w1 * p31 ^ 3
 
-set_option maxHeartbeats 40000000 in
+set_option maxHeartbeats 64000000 in
 /-- Tail of the jet-substituted cleared `ι` defect above order `h⁴⁵`. -/
 def bridgeIotaJetTail610
     (hh w1 a41 p31 s1 u1 b62 q52 p2 p1 p0 q4 q3 q2 q1 q0 lam : R) : R :=
@@ -2208,6 +2214,7 @@ def bridgeIotaJetTail610
     - (9 : R) * hh ^ 5 * lam * w1 ^ 3 * p0
     + (1 : R) * hh ^ 5 * lam * w1 ^ 9
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`45` head of the cleared `ι` defect on the deeper
 `p₃₁(a) = 0` sibling jet `p₃ = h² p₃₂`, `q₇ = h⁶ u₂`, `q₅ = h³ q₅₃`,
 `q₄ = h q₄₁`. -/
@@ -2223,7 +2230,7 @@ def bridgeIotaLeftHead610 (a41 s1 b62 p2 q41 : R) : R :=
     + (6 : R) * a41 ^ 4 * s1
     - (6 : R) * a41 ^ 5
 
-set_option maxHeartbeats 40000000 in
+set_option maxHeartbeats 64000000 in
 /-- Tail of the deeper sibling jet above order `h⁴⁶`. -/
 def bridgeIotaLeftTail610
     (hh w1 a41 p32 s1 u2 b62 q53 p2 p1 p0 q41 q3 q2 q1 q0 lam : R) : R :=
@@ -2347,7 +2354,7 @@ section BridgeIotaJetFactor610
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 40000000 in
+set_option maxHeartbeats 64000000 in
 /-- On the fifteenth-face jet the cleared `ι` defect factors exactly as
 `h⁴⁴` times its order-`44` head plus `h` times the tail. -/
 theorem terminalClearedIotaDefect610_jet_factored
@@ -2365,7 +2372,7 @@ theorem terminalClearedIotaDefect610_jet_factored
     bridgeIotaJetTail610]
   ring
 
-set_option maxHeartbeats 40000000 in
+set_option maxHeartbeats 64000000 in
 /-- On the deeper `p₃₁(a) = 0` sibling jet the cleared `ι` defect
 factors exactly as `h⁴⁵` times its order-`45` head plus `h` times the
 sibling tail. -/
@@ -2383,6 +2390,7 @@ theorem terminalClearedIotaDefect610_leftJet_factored
     bridgeIotaLeftTail610]
   ring
 
+set_option maxHeartbeats 64000000 in
 /-- Evaluation commutes with the order-`44` head. -/
 theorem bridgeIotaJetHead610_eval
     (w1 a41 p31 s1 u1 b62 q52 p2 q4 : k[X]) (lam x : k) :
@@ -2396,6 +2404,7 @@ theorem bridgeIotaJetHead610_eval
     Polynomial.eval_pow, Polynomial.eval_ofNat, Polynomial.eval_one,
     Polynomial.eval_C]
 
+set_option maxHeartbeats 64000000 in
 /-- Evaluation commutes with the order-`45` sibling head. -/
 theorem bridgeIotaLeftHead610_eval
     (a41 s1 b62 p2 q41 : k[X]) (x : k) :
@@ -2414,7 +2423,7 @@ section BridgeIotaScalars610
 
 variable {F : Type*} [Field F] [CharZero F]
 
-set_option maxHeartbeats 4000000 in
+set_option maxHeartbeats 64000000 in
 /-- Chamber-free reduction of the vanishing order-`44` head modulo the
 tenth-face root laws: the head carries the factored quotient
 `p₃₁² (27 b₆₂ - 30 a₄₁² - 5 p₂ + 9 λ p₃₁ - 40 p₃₁ w₁)`. -/
@@ -2435,7 +2444,7 @@ theorem bridgeIota_chamberFree_residual610
       (5 : F) * a41 * p31 * hq52 +
       (-(2 : F) * a41 ^ 2 + (4 : F) * p2 - (4 : F) * p31 * w1) * hq4
 
-set_option maxHeartbeats 4000000 in
+set_option maxHeartbeats 64000000 in
 /-- With the chamber-free `U`-load the factored quotient sharpens to
 `p₃₁² (144 b₆₂ - 170 a₄₁² + 45 λ p₃₁ - 220 p₃₁ w₁)`. -/
 theorem bridgeIota_uload_residual610
@@ -2458,7 +2467,7 @@ theorem bridgeIota_uload_residual610
       (30 : F) * a41 * p31 * hq52 +
       (-(12 : F) * a41 ^ 2 + (24 : F) * p2 - (24 : F) * p31 * w1) * hq4
 
-set_option maxHeartbeats 4000000 in
+set_option maxHeartbeats 64000000 in
 /-- On the complementary factor the recorded `b₆₂` law collapses the
 factored quotient to `p₃₁² (5 a₄₁² + 2 p₃₁ w₁)`. -/
 theorem bridgeIota_comp_residual610
@@ -2485,7 +2494,7 @@ theorem bridgeIota_comp_residual610
         (12 / 5 : F) * p31 * w1) * hq4 +
       (1 / 10 : F) * p31 ^ 2 * hcomp
 
-set_option maxHeartbeats 4000000 in
+set_option maxHeartbeats 64000000 in
 /-- On the `p₃₁(a) = 0` sibling the vanishing order-`45` head reduces,
 modulo the `s₁` law, the `q₄₁` law, and the `U`-load, to the exact
 factored relation `a₄₁ (4 a₄₁⁴ - 35 p₂ a₄₁² + 90 p₂²) = 0` on
@@ -2519,7 +2528,7 @@ section NonzeroTerminalIntegralBridge610
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 40000000 in
+set_option maxHeartbeats 64000000 in
 /-- Finite local terminal integral bridge: the fifteenth final-row
 packet together with the literal-source `h`-adic clearing of the
 degree-`5` first integral `ι` — the lowest of the uncleared degree-`5`
@@ -2741,7 +2750,7 @@ theorem nonzeroFace610_linearRoot_terminalIntegralBridge
         (q52.eval a) ((p.coeff 2).eval a) ((q.coeff 4).eval a) lambda
         hheadeval hMs hTu hVq hWq hUload hb62form⟩
 
-set_option maxHeartbeats 40000000 in
+set_option maxHeartbeats 64000000 in
 /-- Source-facing terminal integral bridge packet of a normalized
 scale-two `(6,10)` nonzero face: the fifteenth final-row boundary data
 `W E' - D X' = j ≠ 0` together with the weight-`50` power relation of

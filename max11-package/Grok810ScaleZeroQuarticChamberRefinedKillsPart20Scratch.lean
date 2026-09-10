@@ -56,16 +56,16 @@ theorem xiQuarticChamberFace11810_coeff_top_S33
     all_goals omega
   have hc0 : ((C ^ 2 * E)).coeff (2 * C.natDegree + E.natDegree) = C.leadingCoeff ^ 2 * E.leadingCoeff := by
     rw [← hd0, coeff_natDegree]
-    simp only [leadingCoeff_mul, leadingCoeff_pow]
+    all_goals simp only [leadingCoeff_mul, leadingCoeff_pow]
   have hd1 : ((E * G)).natDegree = 2 * C.natDegree + E.natDegree := by
     rw [natDegree_mul hEne hGne]
     all_goals omega
   have hc1 : ((E * G)).coeff (2 * C.natDegree + E.natDegree) = E.leadingCoeff * G.leadingCoeff := by
     rw [← hd1, coeff_natDegree]
-    simp only [leadingCoeff_mul, leadingCoeff_pow]
+    all_goals simp only [leadingCoeff_mul, leadingCoeff_pow]
   rw [hc0, hc1]
-  simp only [xiQuarticPowerInnerS33810]
-  ring
+  all_goals simp only [xiQuarticPowerInnerS33810]
+  all_goals ring
 
 end QuarticChamberRefinedKills810
 

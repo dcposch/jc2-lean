@@ -55,16 +55,16 @@ theorem kappaQuarticChamberFace7810_coeff_top_S18
     all_goals omega
   have hc0 : ((A * B ^ 3)).coeff (A.natDegree + 3 * B.natDegree) = A.leadingCoeff * B.leadingCoeff ^ 3 := by
     rw [← hd0, coeff_natDegree]
-    simp only [leadingCoeff_mul, leadingCoeff_pow]
+    all_goals simp only [leadingCoeff_mul, leadingCoeff_pow]
   have hd1 : ((B * G)).natDegree = A.natDegree + 3 * B.natDegree := by
     rw [natDegree_mul hBne hGne]
     all_goals omega
   have hc1 : ((B * G)).coeff (A.natDegree + 3 * B.natDegree) = B.leadingCoeff * G.leadingCoeff := by
     rw [← hd1, coeff_natDegree]
-    simp only [leadingCoeff_mul, leadingCoeff_pow]
+    all_goals simp only [leadingCoeff_mul, leadingCoeff_pow]
   rw [hc0, hc1]
-  simp only [kappaQuarticPowerInnerS18810]
-  ring
+  all_goals simp only [kappaQuarticPowerInnerS18810]
+  all_goals ring
 
 
 end QuarticChamberPowerKills810
