@@ -1,4 +1,3 @@
-import Fable810ScaleZeroThirteenthDefectPart15Scratch
 import Fable810ScaleZeroThirteenthDefectPart18Scratch
 
 /-! Part 19 of 37 of `Fable810ScaleZeroThirteenthDefectScratch`, split so that no single module elaborates them all

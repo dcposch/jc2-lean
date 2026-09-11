@@ -1,4 +1,4 @@
-import Grok810ScaleZeroConeExhaustionSpeedReflValDegSplitBaseScratch
+import Grok810ScaleZeroConeExhaustionSpeedReflValDegSplitPart1Scratch
 
 /-! # SPEED: theorems of `Grok810ScaleZeroConeExhaustionSpeedReflValDegScratch`, part 2 of 8, so that no single
 module retains all the reflective bridge proof terms at once.

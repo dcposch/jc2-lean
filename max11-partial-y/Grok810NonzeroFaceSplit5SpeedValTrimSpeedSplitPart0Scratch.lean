@@ -1,3 +1,4 @@
+import Grok810NonzeroFaceSplit1Scratch
 import Grok810NonzeroFaceSplit4SpeedValChainScratch
 
 /-! # SPEED (tranche 2): declarations moved out of `Grok810NonzeroFaceSplit5SpeedValTrimScratch` so that no

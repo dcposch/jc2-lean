@@ -1,4 +1,3 @@
-import Grok810DegreeZeroPrimitiveSplitPart4Scratch
 import Grok810DegreeZeroPrimitiveSplitPart6Scratch
 
 /-! # SPEED: drop-in for `Grok810DegreeZeroPrimitiveScratch`.  Every declaration now lives in the

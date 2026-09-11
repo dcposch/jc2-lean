@@ -1,7 +1,4 @@
-import LowScale68ScaleTwoAlignedNonsquareDivisibility
-import Grok810SpeedValLibScratch
-import Fable610ScaleZeroTwelfthDefectSpeedTPart03Scratch
-import Sol610ScaleTwoDegreeZeroLocalPoleScratch
+import Sol610ScaleTwoDegreeZeroPostCollapseCoordinateBridgeScratch
 
 noncomputable section
 open Polynomial

@@ -1,4 +1,5 @@
-import Grok610AlignedSquareSourceWrapperPart48Scratch
+import Grok610AlignedSquareSourceWrapperScratch
+import Grok610PoleCeilingLemmaScratch
 
 noncomputable section
 open Polynomial

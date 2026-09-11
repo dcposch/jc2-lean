@@ -1,4 +1,3 @@
-import Sol810PiDifferentialBridgeScratch
 import Grok810ScaleZeroConeRatioTiesScratch
 
 /-! # Scale-zero unique-`G₀` Jacobian closure for normalized `(8,10)`, `H = 0`

@@ -1,5 +1,4 @@
-import Max11SpeedReflectDegLibScratch
-import Fable810ScaleZeroTwelfthDefectScratch
+import Grok810ScaleZeroQuarticMultiKills7SpeedReflValDegSplitPart23Scratch
 
 /-! # SPEED: drop-in for `Grok810ScaleZeroQuarticMultiKills7SpeedReflValDegScratch`.  Every declaration now lives in the
 `SplitBase` / `SplitPart*` modules this imports, so every name the original

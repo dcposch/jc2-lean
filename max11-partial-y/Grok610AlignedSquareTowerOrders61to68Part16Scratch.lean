@@ -1,4 +1,3 @@
-import Grok610AlignedSquareSourceWrapperPart07Scratch
 import Grok610AlignedSquareTowerOrders61to68Part03Scratch
 
 noncomputable section
