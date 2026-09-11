@@ -1,3 +1,4 @@
+import Grok810ScaleZeroQuarticChamberExhaust4Part1Scratch
 import Grok810ScaleZeroQuarticChamberKills4Scratch
 
 /-! # Residual after the multi-carrier kills, `(8,10)` scale zero

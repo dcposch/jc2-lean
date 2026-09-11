@@ -1,3 +1,4 @@
+import Grok810ScaleZeroQuarticChamberExhaust4Part1Scratch
 import Grok810ScaleZeroQuarticChamberKillsScratch
 
 /-! # Residual after Files B/C, `(8,10)` scale zero

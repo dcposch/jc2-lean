@@ -1,3 +1,4 @@
+import Grok810ScaleZeroQuarticLoadLadderScratch
 import Grok810ScaleZeroQuarticChamberKills2Scratch
 
 /-! # Residual after the cost-form ladder, `(8,10)` scale zero

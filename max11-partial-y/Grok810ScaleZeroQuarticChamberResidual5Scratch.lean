@@ -1,3 +1,4 @@
+import Grok810ScaleZeroQuarticChamberExhaust4Part1Scratch
 import Grok810ScaleZeroQuarticChamberPowerKillsScratch
 
 /-! # Residual after the power-target kills, `(8,10)` scale zero
