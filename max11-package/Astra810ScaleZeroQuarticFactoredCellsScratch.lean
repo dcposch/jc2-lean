@@ -8,6 +8,20 @@ The auxiliary `N₄′ = Π − (1/2) A ο` and polynomial factorisations close
 `rEFG0` and `rCEFG3`. All arguments work over a field of characteristic zero.
 -/
 
+open Lean Meta Elab Tactic in
+set_option maxHeartbeats 64000000 in
+/-- The structural degree bound leaves its natural-number arithmetic to omega. -/
+elab (name := factored810SpeedDegreeTac) "factored810_speed_degree" : tactic =>
+  focus <| withMainContext do
+    let goal ← getMainGoal
+    let gt ← goal.getType''
+    let lem := Mathlib.Tactic.ComputeDegree.dispatchLemma
+      (Mathlib.Tactic.ComputeDegree.twoHeadsArgs gt)
+    let mut (gls, static) := (← goal.applyConst lem, [])
+    while gls != [] do
+      (gls, static) ← Mathlib.Tactic.ComputeDegree.splitApply gls static
+    setGoals (← Mathlib.Tactic.ComputeDegree.tryRfl static)
+
 open scoped Polynomial.Bivariate
 
 noncomputable section
@@ -77,7 +91,9 @@ theorem factoredN4PrimeEFG810 (epsilon eta : k) (A E F G : k[X]) :
   simp only [degreeZeroN4PrimeQuartic810, degreeZeroPrimitiveQuartic810,
     degreeZeroOmicronQuartic810, rhoBaseGroupQuartic810, rhoBetaGroupQuartic810,
     rhoGammaGroupQuartic810, rhoDeltaGroupQuartic810, rhoEpsilonGroupQuartic810,
-    rhoZetaGroupQuartic810, rhoEtaGroupQuartic810, rhoThetaGroupQuartic810]
+    rhoZetaGroupQuartic810, rhoEtaGroupQuartic810, rhoThetaGroupQuartic810,
+    zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add,
+    sub_zero, neg_zero]
   apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
   simp only [Polynomial.smul_eq_C_mul, map_add, map_sub, map_mul,
     map_pow, map_neg, map_zero, RatFunc.algebraMap_C, map_div₀,
@@ -92,7 +108,9 @@ theorem factoredPiEFG810 (gamma epsilon eta : k) (A E F G : k[X]) :
         ((5 / 4 : k) • G ^ 2 - (3 / 4 * gamma : k) • E ^ 2 + (2 * eta : k) • G) := by
   simp only [degreeZeroPiQuartic810, piBaseGroupQuartic810, piBetaGroupQuartic810,
     piGammaGroupQuartic810, piDeltaGroupQuartic810, piEpsilonGroupQuartic810,
-    piZetaGroupQuartic810, piEtaGroupQuartic810, piThetaGroupQuartic810]
+    piZetaGroupQuartic810, piEtaGroupQuartic810, piThetaGroupQuartic810,
+    zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add,
+    sub_zero, neg_zero]
   apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
   simp only [Polynomial.smul_eq_C_mul, map_add, map_sub, map_mul,
     map_pow, map_neg, map_zero, RatFunc.algebraMap_C, map_div₀,
@@ -123,7 +141,7 @@ theorem quarticUnownedCell_rEFG0_impossible_of_loads_of_E_constant
   by_cases hG : G.natDegree = 0
   · have hrest : ((5 / 4 : k) • G ^ 2 - (3 / 4 * gamma : k) • E ^ 2 +
         (2 * eta : k) • G).natDegree < A.natDegree + 2 * F.natDegree := by
-      compute_degree
+      factored810_speed_degree
       omega
     have hface : ((-(5 / 16) : k) • (A * F ^ 2)).natDegree = A.natDegree + 2 * F.natDegree := by
       rw [natDegree_smul _ (by norm_num : (-(5 / 16) : k) ≠ 0),
@@ -134,7 +152,7 @@ theorem quarticUnownedCell_rEFG0_impossible_of_loads_of_E_constant
     have hgamma : gamma = 0 := by
       by_contra hn
       have hrest : ((5 / 32 : k) • E ^ 2 + (1 / 2 * epsilon : k) • E).natDegree < G.natDegree := by
-        compute_degree
+        factored810_speed_degree
         omega
       have hface : ((3 / 4 * gamma : k) • G).natDegree = G.natDegree := by
         exact natDegree_smul _ (mul_ne_zero (by norm_num) hn)
@@ -146,7 +164,7 @@ theorem quarticUnownedCell_rEFG0_impossible_of_loads_of_E_constant
       A 0 0 0 E F G hApos hprim homi
     have hrest : ((-(3 / 8) * eta : k) • (A * F)).natDegree <
         A.natDegree + F.natDegree + G.natDegree := by
-      compute_degree
+      factored810_speed_degree
       omega
     have hface : ((-(15 / 32) : k) • (A * F * G)).natDegree =
         A.natDegree + F.natDegree + G.natDegree := by
@@ -224,11 +242,11 @@ theorem quarticFactored_BD_zero_C_constant_l_beta_zero810
       rw [natDegree_smul _ (mul_ne_zero (by norm_num) hl), natDegree_pow]
     have hr1 : R₁.natDegree < 5 * A.natDegree := by
       dsimp [R₁]
-      compute_degree
+      factored810_speed_degree
       omega
     have hr2 : R₂.natDegree < 5 * A.natDegree := by
       dsimp [R₂]
-      compute_degree
+      factored810_speed_degree
       omega
     have hr := natDegree_add_lt810 hr1 hr2
     rw [hsplit, natDegree_add_eq_left_of_natDegree_lt (by rwa [hface]), hface] at hkap
@@ -246,11 +264,11 @@ theorem quarticFactored_BD_zero_C_constant_l_beta_zero810
       rw [natDegree_smul _ (mul_ne_zero (by norm_num) hb), natDegree_pow]
     have hr1 : S₁.natDegree < 4 * A.natDegree := by
       dsimp [S₁]
-      compute_degree
+      factored810_speed_degree
       omega
     have hr2 : R₂.natDegree < 4 * A.natDegree := by
       dsimp [R₂]
-      compute_degree
+      factored810_speed_degree
       omega
     have hr := natDegree_add_lt810 hr1 hr2
     rw [hsplitB, natDegree_add_eq_left_of_natDegree_lt (by rwa [hface]), hface] at hkap
@@ -290,7 +308,7 @@ theorem quarticFactored_BD_zero_N2_theta_zero810
     rw [natDegree_smul _ (mul_ne_zero (by norm_num) ht0), natDegree_pow]
   have hr : ((5 / 16 : k) • (E * F) + (1 / 2 * epsilon : k) • F +
       (1 / 8 * theta : k) • C).natDegree < 2 * A.natDegree := by
-    compute_degree
+    factored810_speed_degree
     omega
   have hn := degreeZeroN2Quartic810_natDegree_le 0 0 gamma 0 epsilon 0 eta theta
     A 0 C 0 E F G hnu hkap
@@ -356,9 +374,9 @@ theorem factoredEFG_mu_E_top_impossible810
     rcases hd with hd | hf
     · subst delta
       simp only [mul_zero, zero_smul, add_zero]
-      compute_degree
+      factored810_speed_degree
       omega
-    · compute_degree
+    · factored810_speed_degree
       omega
   rw [natDegree_add_eq_left_of_natDegree_lt (by omega), ht] at hm
   omega
@@ -392,7 +410,8 @@ theorem quarticFactored_EFG_E_constant810
           (1 / 2 * epsilon : k) • E) := by
       simp [degreeZeroMuQuartic810]
       module
-    rwa [heq] at hmu
+    rw [heq] at hmu
+    exact hmu
   have he2 : E.natDegree < 2 * A.natDegree := by
     by_contra hn
     exact factoredEFG_mu_E_top_impossible810 gamma delta epsilon E F G
@@ -408,13 +427,14 @@ theorem quarticFactored_EFG_E_constant810
             (3 / 128 * zeta : k) • A ^ 2 + (1 / 8 * theta : k) • A) := by
         simp [degreeZeroKappaQuartic810]
         module
-      rwa [heq] at hkap
+      rw [heq] at hkap
+      exact hkap
     have ht : ((5 / 1024 * delta : k) • A ^ 3).natDegree = 3 * A.natDegree := by
       rw [natDegree_smul _ (mul_ne_zero (by norm_num) hd0), natDegree_pow]
     have hr : ((3 / 4 * gamma : k) • F + (5 / 8 * delta : k) • E +
         (3 / 128 * zeta : k) • A ^ 2 + (1 / 8 * theta : k) • A).natDegree <
         3 * A.natDegree := by
-      compute_degree
+      factored810_speed_degree
       omega
     rw [natDegree_add_eq_left_of_natDegree_lt (by omega), ht] at hkD
     omega
@@ -432,12 +452,13 @@ theorem quarticFactored_EFG_E_constant810
           ((3 / 4 * gamma : k) • F + (1 / 8 * theta : k) • A) := by
         simp [degreeZeroKappaQuartic810]
         module
-      rwa [heq] at hkap
+      rw [heq] at hkap
+      exact hkap
     have ht : ((3 / 128 * zeta : k) • A ^ 2).natDegree = 2 * A.natDegree := by
       rw [natDegree_smul _ (mul_ne_zero (by norm_num) hz0), natDegree_pow]
     have hr : ((3 / 4 * gamma : k) • F + (1 / 8 * theta : k) • A).natDegree <
         2 * A.natDegree := by
-      compute_degree
+      factored810_speed_degree
       omega
     rw [natDegree_add_eq_left_of_natDegree_lt (by omega), ht] at hkZ
     omega
@@ -451,7 +472,7 @@ theorem quarticFactored_EFG_E_constant810
       rw [natDegree_smul _ (by norm_num : (5 / 32 : k) ≠ 0), natDegree_pow]
     simp only [mul_zero, zero_smul, zero_add, add_zero] at hm
     have hr : ((1 / 2 * epsilon : k) • E).natDegree < 2 * E.natDegree := by
-      compute_degree
+      factored810_speed_degree
       omega
     rw [natDegree_add_eq_left_of_natDegree_lt (by omega), ht] at hm
     omega
@@ -475,7 +496,7 @@ theorem quarticFactored_EFG_E_constant810
         natDegree_smul _ hgc
       have hr : ((5 / 32 : k) • E ^ 2 +
           (1 / 2 * epsilon : k) • E).natDegree < G.natDegree := by
-        compute_degree
+        factored810_speed_degree
         omega
       rw [natDegree_add_eq_left_of_natDegree_lt (by omega), ht] at hm'
       omega
@@ -486,13 +507,14 @@ theorem quarticFactored_EFG_E_constant810
     have heq : degreeZeroKappaQuartic810 0 0 gamma 0 epsilon 0 eta theta
         A 0 0 0 E F G = (3 / 4 * gamma : k) • F + (1 / 8 * theta : k) • A := by
       simp [degreeZeroKappaQuartic810]
-    rwa [heq] at hkap
+    rw [heq] at hkap
+    exact hkap
   have hfa : F.natDegree ≤ A.natDegree := by
     by_contra hn
     have ht : ((3 / 4 * gamma : k) • F).natDegree = F.natDegree :=
       natDegree_smul _ hgc
     have hr : ((1 / 8 * theta : k) • A).natDegree < F.natDegree := by
-      compute_degree
+      factored810_speed_degree
       omega
     rw [natDegree_add_eq_left_of_natDegree_lt (by omega), ht] at hk
     omega
@@ -511,12 +533,13 @@ theorem quarticFactored_EFG_E_constant810
           (1 / 4 * eta : k) • E) := by
       simp [degreeZeroXiQuartic810]
       module
-    rwa [heq] at hxi
+    rw [heq] at hxi
+    exact hxi
   have ht : ((5 / 16 : k) • (E * G)).natDegree = E.natDegree + G.natDegree := by
     rw [natDegree_smul _ (by norm_num : (5 / 16 : k) ≠ 0), natDegree_mul hEne hGne]
   have hr : ((5 / 32 : k) • F ^ 2 + (1 / 2 * epsilon : k) • G +
       (1 / 4 * eta : k) • E).natDegree < E.natDegree + G.natDegree := by
-    compute_degree
+    factored810_speed_degree
     omega
   rw [natDegree_add_eq_left_of_natDegree_lt (by omega), ht] at hx
   omega
@@ -608,7 +631,7 @@ theorem quarticUnownedCEFG3_C_natDegree_eq_zero
       rcases hbbeta' with rfl | hb1
     all_goals
       simp only [R, mul_zero, zero_smul, sub_zero, add_zero]
-      compute_degree
+      factored810_speed_degree
       omega
   have hlead : ((5 / 16 : k) • (C * G)).natDegree =
       C.natDegree + G.natDegree := by
@@ -648,7 +671,9 @@ theorem quarticFactored_CEFG_remaining_loads_zero810
     (1 / 4 * eta : k) • C
   have hmuFac : degreeZeroMuQuartic810 0 0 gamma delta epsilon zeta eta theta
       A 0 C 0 E F G = (1 / 16 : k) • (Q * G) + R := by
-    simp only [degreeZeroMuQuartic810, Q, R]
+    simp only [degreeZeroMuQuartic810, Q, R,
+    zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add,
+    sub_zero, neg_zero]
     apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
     simp only [Polynomial.smul_eq_C_mul, map_add, map_sub, map_mul, map_pow,
       map_neg, map_zero, RatFunc.algebraMap_C, map_div₀, map_ofNat, map_natCast, map_one]
@@ -656,7 +681,7 @@ theorem quarticFactored_CEFG_remaining_loads_zero810
   have hQdeg : Q.natDegree = 0 := by
     apply natDegree_eq_zero_of_le_zero
     dsimp [Q]
-    compute_degree
+    factored810_speed_degree
     omega
   have hQzero : Q = 0 := by
     by_contra hQ
@@ -665,7 +690,7 @@ theorem quarticFactored_CEFG_remaining_loads_zero810
         natDegree_mul hQ hGne, hQdeg, zero_add]
     have hrest : R.natDegree < G.natDegree := by
       dsimp [R]
-      compute_degree
+      factored810_speed_degree
       omega
     rw [hmuFac, natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead] at hmu
     omega
@@ -680,7 +705,9 @@ theorem quarticFactored_CEFG_remaining_loads_zero810
           ((5 / 64 * delta : k) • (A * C) + (5 / 8 * delta : k) • E +
             (3 / 128 * zeta : k) • A ^ 2 + (3 / 8 * zeta : k) • C +
             (1 / 8 * theta : k) • A)) := by
-      simp only [degreeZeroKappaQuartic810, Q]
+      simp only [degreeZeroKappaQuartic810, Q,
+    zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add,
+    sub_zero, neg_zero]
       apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
       simp only [Polynomial.smul_eq_C_mul, map_add, map_sub, map_mul, map_pow,
         map_neg, map_zero, RatFunc.algebraMap_C, map_div₀, map_ofNat, map_natCast, map_one]
@@ -696,7 +723,7 @@ theorem quarticFactored_CEFG_remaining_loads_zero810
         (5 / 8 * delta : k) • E + (3 / 128 * zeta : k) • A ^ 2 +
         (3 / 8 * zeta : k) • C + (1 / 8 * theta : k) • A).natDegree <
         3 * A.natDegree := by
-      compute_degree
+      factored810_speed_degree
       omega
     rw [hkapReduced, natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead] at hkap
     omega
@@ -713,7 +740,7 @@ theorem quarticFactored_CEFG_remaining_loads_zero810
       rw [natDegree_smul _ hc, natDegree_pow]
     have hrest : ((3 / 8 * zeta : k) • C + (1 / 8 * theta : k) • A).natDegree <
         2 * A.natDegree := by
-      compute_degree
+      factored810_speed_degree
       omega
     rw [hkapZ, natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead] at hkap
     omega
@@ -782,7 +809,9 @@ theorem quarticUnownedCell_rCEFG3_impossible_of_loads
   let P : k[X] := Polynomial.C 5 * E + Polynomial.C (8 * epsilon)
   have hkapFac : degreeZeroKappaQuartic810 0 0 gamma 0 epsilon 0 eta 0
       A 0 C 0 E F G = Polynomial.C (1 / 16 : k) * (F * Q) := by
-    simp only [degreeZeroKappaQuartic810, Q]
+    simp only [degreeZeroKappaQuartic810, Q,
+    zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add,
+    sub_zero, neg_zero]
     apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
     simp only [Polynomial.smul_eq_C_mul, map_add, map_sub, map_mul, map_pow,
       map_neg, map_zero, RatFunc.algebraMap_C, map_div₀, map_ofNat, map_natCast, map_one]
@@ -790,7 +819,9 @@ theorem quarticUnownedCell_rCEFG3_impossible_of_loads
   have hnuFac : degreeZeroNuQuartic810 0 0 gamma 0 epsilon 0 eta 0
       A 0 C 0 E F G =
       Polynomial.C (-(1 / 128 : k)) * (F * (A * Q - Polynomial.C 8 * P)) := by
-    simp only [degreeZeroNuQuartic810, Q, P]
+    simp only [degreeZeroNuQuartic810, Q, P,
+    zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add,
+    sub_zero, neg_zero]
     apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
     simp only [Polynomial.smul_eq_C_mul, map_add, map_sub, map_mul, map_pow,
       map_neg, map_zero, RatFunc.algebraMap_C, map_div₀, map_ofNat, map_natCast, map_one]
@@ -810,7 +841,7 @@ theorem quarticUnownedCell_rCEFG3_impossible_of_loads
       rw [natDegree_mul hAne hQ, hQdeg, add_zero]
     have hrest : (Polynomial.C 8 * P).natDegree < A.natDegree := by
       dsimp [P]
-      compute_degree
+      factored810_speed_degree
       omega
     have hinner : (A * Q - Polynomial.C 8 * P).natDegree = A.natDegree := by
       rw [natDegree_sub_eq_left_of_natDegree_lt (by rwa [hlead]), hlead]
@@ -845,7 +876,9 @@ theorem quarticUnownedCell_rCEFG3_impossible_of_loads
         (F * (A ^ 2 * Q + Polynomial.C 16 * A * P +
           Polynomial.C 16 * C * Q + Polynomial.C 80 * C ^ 2 -
           Polynomial.C 640 * G - Polynomial.C (512 * eta))) := by
-      simp only [degreeZeroOmicronQuartic810, Q, P]
+      simp only [degreeZeroOmicronQuartic810, Q, P,
+    zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add,
+    sub_zero, neg_zero]
       apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
       simp only [Polynomial.smul_eq_C_mul, map_add, map_sub, map_mul, map_pow,
         map_neg, map_zero, RatFunc.algebraMap_C, map_div₀, map_ofNat, map_natCast, map_one]
@@ -866,7 +899,7 @@ theorem quarticUnownedCell_rCEFG3_impossible_of_loads
       rw [natDegree_mul hAne hP, hPdeg, add_zero]
     have hrest : (Polynomial.C 5 * C ^ 2 - Polynomial.C 40 * G -
         Polynomial.C (32 * eta)).natDegree < A.natDegree := by
-      compute_degree
+      factored810_speed_degree
       omega
     have heqinner : A * P + Polynomial.C 5 * C ^ 2 -
         Polynomial.C 40 * G - Polynomial.C (32 * eta) =
@@ -895,7 +928,7 @@ theorem quarticUnownedCell_rCEFG3_impossible_of_loads
     rw [natDegree_C_mul (by norm_num : (-40 : k) ≠ 0)]
   have hrest : (Polynomial.C 5 * C ^ 2 - Polynomial.C (32 * eta)).natDegree <
       G.natDegree := by
-    compute_degree
+    factored810_speed_degree
     omega
   have hinner : (A * P + Polynomial.C 5 * C ^ 2 -
       Polynomial.C 40 * G - Polynomial.C (32 * eta)).natDegree = G.natDegree := by

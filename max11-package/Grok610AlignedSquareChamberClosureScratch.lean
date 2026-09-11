@@ -1,10 +1,6 @@
 import Grok610RemainingAlignedFacesScratch
 import Grok610AlignedSquareM1M2Scratch
-import Grok610AlignedSquareSourceWrapperPart42Scratch
-import Grok610AlignedSquareSourceWrapperPart31Scratch
-import Grok610AlignedSquareSourceWrapperPart33Scratch
-import Grok610AlignedSquareSourceWrapperPart32Scratch
-import Grok610AlignedSquareSourceWrapperPart30Scratch
+import Grok610AlignedSquareSourceWrapperPart101Scratch
 import Grok610AlignedSquareTowerOrders69to75Scratch
 
 /-! # CLOSED. Source-facing closure of the `(6,10)` scale-two aligned-square chamber

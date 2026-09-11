@@ -1,4 +1,4 @@
-import Grok810ScaleZeroTenthDefectSpeedTPart02Scratch
+import Grok810ScaleZeroTenthDefectSpeedTPart101Scratch
 
 /-! # Scale-zero tenth defect for the normalized `(8,10)`, `H = 0` leaf
 

@@ -1,5 +1,5 @@
 import Sol610ScaleTwoNonzeroFourteenthPostCollapseHeadSplitScratch
-import Sol610ScaleTwoDegreeZeroPostCollapseJetPart03Scratch
+import Sol610ScaleTwoDegreeZeroPostCollapseJetPart101Scratch
 
 /-! # Degree-zero split of the `(6,10)` post-collapse chambers
 

@@ -1,4 +1,4 @@
-import Grok810ScaleZeroConeDefectFacesSpeedTPart13Scratch
+import Grok810ScaleZeroConeDefectFacesSpeedTPart102Scratch
 
 /-! # Scale-zero first-integral faces for the normalized `(8,10)`, `H = 0` leaf
 

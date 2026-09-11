@@ -1,5 +1,5 @@
-import Astra810ScaleZeroQuarticChamberBCDEFG12Part02Scratch
-import Astra810ScaleZeroQuarticChamberBCDEFG12Part26Scratch
+import Astra810ScaleZeroQuarticChamberBCDEFG12Part103Scratch
+import Astra810ScaleZeroQuarticChamberBCDEFG12Part104Scratch
 
 /-! # Five residual tower leaves for `(8,10)` at scale zero
 

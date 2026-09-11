@@ -1,4 +1,4 @@
-import Fable610ScaleTwoAlignedEleventhFacePart15Scratch
+import Fable610ScaleTwoAlignedEleventhFacePart102Scratch
 import Sol610ScaleTwoAlignedFourteenthSquareSourceScratch
 import Sol610ScaleTwoAlignedFifteenthFinalRowScratch
 

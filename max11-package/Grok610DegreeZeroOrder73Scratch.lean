@@ -1,7 +1,4 @@
-import Grok610DegreeZeroOrder72Part43Scratch
-import Grok610DegreeZeroOrder72Part27Scratch
-import Grok610DegreeZeroOrder72Part25Scratch
-import Grok610DegreeZeroOrder72Part23Scratch
+import Grok610DegreeZeroOrder72Part101Scratch
 
 /-! # Order-`73` continuation of the `(6,10)` degree-zero post-collapse tower
 

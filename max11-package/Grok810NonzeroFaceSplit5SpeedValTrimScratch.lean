@@ -2,8 +2,7 @@ import Grok810NonzeroFaceSplit5SpeedValTrimSpeedTPart06Scratch
 import Grok810NonzeroFaceSplit5SpeedValTrimSpeedTPart05Scratch
 import Grok810NonzeroFaceSplit5SpeedValTrimSpeedTPart04Scratch
 import Grok810NonzeroFaceSplit5SpeedValTrimSpeedTPart03Scratch
-import Grok810NonzeroFaceSplit5SpeedValTrimSpeedTPart02Scratch
-import Grok810NonzeroFaceSplit5SpeedValTrimSpeedTPart01Scratch
+import Grok810NonzeroFaceSplit5SpeedValTrimSpeedTPart101Scratch
 
 /-! # `(8,10)` nonzero-face closure, split 5: compact-block clearing
 
