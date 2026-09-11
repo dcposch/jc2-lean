@@ -1,4 +1,5 @@
-import Grok810ScaleZeroQuarticMultiKills2SpeedReflSplitBasePart10Scratch
+import Max11SpeedReflectDegLibScratch
+import Fable810ScaleZeroTwelfthDefectScratch
 
 /-! # Part 11 of `Grok810ScaleZeroQuarticMultiKills2SpeedReflSplitBaseScratch`.
 

@@ -1,4 +1,4 @@
-import Grok810ScaleZeroQuarticChamberExhaust2Part08Scratch
+import Grok810ScaleZeroQuarticChamberDefs4Scratch
 
 /-! Part 9 of 15 of `Grok810ScaleZeroQuarticChamberExhaust2Scratch`, split so that no single module elaborates them all
 at once.  Statements are unchanged. -/

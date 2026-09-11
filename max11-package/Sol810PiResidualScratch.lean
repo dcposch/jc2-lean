@@ -1,4 +1,4 @@
-import Fable810ScaleZeroFourteenthDefectScratch
+import Fable810ScaleZeroThirteenthDefectPart02Scratch
 
 /-! # The pure degree-one integral for the depressed `(8,10)` pair
 

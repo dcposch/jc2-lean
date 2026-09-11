@@ -1,3 +1,5 @@
+import Grok810ScaleZeroQuarticSigmaLadderPart35Scratch
+import Astra810ScaleZeroQuarticChamberBCDEFG12Part18Scratch
 import Astra810ScaleZeroQuarticChamberBCDEFG12Part19Scratch
 
 /-! # BCDEFG12 chamber, part 20

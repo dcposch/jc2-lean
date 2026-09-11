@@ -1,3 +1,7 @@
+import Grok810ScaleZeroQuarticMultiKills3SpeedReflSplitBasePart20Scratch
+import Grok810ScaleZeroQuarticMultiKills3SpeedReflSplitBasePart22Scratch
+import Grok810ScaleZeroQuarticMultiKills3SpeedReflSplitBasePart23Scratch
+import Grok810ScaleZeroQuarticMultiKills3SpeedReflSplitBasePart24Scratch
 import Grok810ScaleZeroQuarticMultiKills3SpeedReflSplitPart2Scratch
 
 /-! # SPEED: theorems of `Grok810ScaleZeroQuarticMultiKills3SpeedReflScratch`, part 3 of 4, so that no single

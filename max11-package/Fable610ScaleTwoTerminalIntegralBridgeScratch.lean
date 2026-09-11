@@ -1,3 +1,4 @@
+import Fable610ScaleTwoTerminalIntegralBridgeSpeedTPart01Scratch
 import Fable610ScaleTwoFifteenthFinalRowScratch
 import Grok610ScaleZeroSeventhDefectScratch
 
@@ -74,6 +75,16 @@ open MvPolynomial Polynomial
 
 namespace Max11DegreeRoutes
 
+set_option linter.unusedVariables false
+set_option linter.unusedSimpArgs false
+set_option linter.unusedSectionVars false
+set_option linter.unusedTactic false
+set_option linter.unreachableTactic false
+set_option linter.unnecessarySeqFocus false
+set_option linter.flexible false
+set_option linter.style.haveILetI false
+set_option linter.unnecessarySimpa false
+
 set_option maxRecDepth 1000000
 
 
@@ -129,133 +140,6 @@ def terminalIotaResidual610
     (3 / 4 : F) * L * B * E0 - (3 / 4 : F) * L * C0 * D0 +
     (3 / 8 : F) * L * A * B * C0 + (3 / 16 : F) * L * A ^ 2 * D0 +
     (1 / 16 : F) * L * B ^ 3 - (3 / 32 : F) * L * A ^ 3 * B
-
-set_option maxHeartbeats 64000000 in
-/-- Polynomial numerator of `18 h⁵⁰ ι` on the ninth-power face. -/
-def terminalClearedIotaDefect610
-    (h a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 b0 : F[X]) (lambda : F) : F[X] :=
-    (30 : F[X]) * a0 * a2 * h ^ 48
-    - (15 : F[X]) * a0 * a3 * a5 * h ^ 42
-    - (9 : F[X]) * a0 * a3 * h ^ 47 * Polynomial.C lambda
-    - (30 : F[X]) * a0 * a4 ^ 2 * h ^ 42
-    + (18 : F[X]) * a0 * a4 * a5 * h ^ 41 * Polynomial.C lambda
-    + (24 : F[X]) * a0 * a4 * b8 * h ^ 38
-    + (15 : F[X]) * a0 * a5 ^ 4 * h ^ 30
-    - (9 : F[X]) * a0 * a5 ^ 3 * h ^ 35 * Polynomial.C lambda
-    - (24 : F[X]) * a0 * a5 ^ 2 * b8 * h ^ 32
-    + (21 : F[X]) * a0 * a5 * b7 * h ^ 38
-    - (18 : F[X]) * a0 * b6 * h ^ 44
-    + (15 : F[X]) * a1 ^ 2 * h ^ 48
-    - (15 : F[X]) * a1 * a2 * a5 * h ^ 42
-    - (9 : F[X]) * a1 * a2 * h ^ 47 * Polynomial.C lambda
-    - (60 : F[X]) * a1 * a3 * a4 * h ^ 42
-    + (18 : F[X]) * a1 * a3 * a5 * h ^ 41 * Polynomial.C lambda
-    + (24 : F[X]) * a1 * a3 * b8 * h ^ 38
-    + (45 : F[X]) * a1 * a4 ^ 2 * a5 * h ^ 36
-    + (9 : F[X]) * a1 * a4 ^ 2 * h ^ 41 * Polynomial.C lambda
-    + (15 : F[X]) * a1 * a4 * a5 ^ 3 * h ^ 30
-    - (27 : F[X]) * a1 * a4 * a5 ^ 2 * h ^ 35 * Polynomial.C lambda
-    - (48 : F[X]) * a1 * a4 * a5 * b8 * h ^ 32
-    + (21 : F[X]) * a1 * a4 * b7 * h ^ 38
-    - (15 : F[X]) * a1 * a5 ^ 5 * h ^ 24
-    + (9 : F[X]) * a1 * a5 ^ 4 * h ^ 29 * Polynomial.C lambda
-    + (24 : F[X]) * a1 * a5 ^ 3 * b8 * h ^ 26
-    - (21 : F[X]) * a1 * a5 ^ 2 * b7 * h ^ 32
-    + (18 : F[X]) * a1 * a5 * b6 * h ^ 38
-    - (15 : F[X]) * a1 * b5 * h ^ 44
-    - (30 : F[X]) * a2 ^ 2 * a4 * h ^ 42
-    + (9 : F[X]) * a2 ^ 2 * a5 * h ^ 41 * Polynomial.C lambda
-    + (12 : F[X]) * a2 ^ 2 * b8 * h ^ 38
-    - (30 : F[X]) * a2 * a3 ^ 2 * h ^ 42
-    + (90 : F[X]) * a2 * a3 * a4 * a5 * h ^ 36
-    + (18 : F[X]) * a2 * a3 * a4 * h ^ 41 * Polynomial.C lambda
-    + (15 : F[X]) * a2 * a3 * a5 ^ 3 * h ^ 30
-    - (27 : F[X]) * a2 * a3 * a5 ^ 2 * h ^ 35 * Polynomial.C lambda
-    - (48 : F[X]) * a2 * a3 * a5 * b8 * h ^ 32
-    + (21 : F[X]) * a2 * a3 * b7 * h ^ 38
-    + (30 : F[X]) * a2 * a4 ^ 3 * h ^ 36
-    - (45 : F[X]) * a2 * a4 ^ 2 * a5 ^ 2 * h ^ 30
-    - (27 : F[X]) * a2 * a4 ^ 2 * a5 * h ^ 35 * Polynomial.C lambda
-    - (24 : F[X]) * a2 * a4 ^ 2 * b8 * h ^ 32
-    - (30 : F[X]) * a2 * a4 * a5 ^ 4 * h ^ 24
-    + (36 : F[X]) * a2 * a4 * a5 ^ 3 * h ^ 29 * Polynomial.C lambda
-    + (72 : F[X]) * a2 * a4 * a5 ^ 2 * b8 * h ^ 26
-    - (42 : F[X]) * a2 * a4 * a5 * b7 * h ^ 32
-    + (18 : F[X]) * a2 * a4 * b6 * h ^ 38
-    + (15 : F[X]) * a2 * a5 ^ 6 * h ^ 18
-    - (9 : F[X]) * a2 * a5 ^ 5 * h ^ 23 * Polynomial.C lambda
-    - (24 : F[X]) * a2 * a5 ^ 4 * b8 * h ^ 20
-    + (21 : F[X]) * a2 * a5 ^ 3 * b7 * h ^ 26
-    - (18 : F[X]) * a2 * a5 ^ 2 * b6 * h ^ 32
-    + (15 : F[X]) * a2 * a5 * b5 * h ^ 38
-    - (12 : F[X]) * a2 * b4 * h ^ 44
-    + (15 : F[X]) * a3 ^ 3 * a5 * h ^ 36
-    + (3 : F[X]) * a3 ^ 3 * h ^ 41 * Polynomial.C lambda
-    + (45 : F[X]) * a3 ^ 2 * a4 ^ 2 * h ^ 36
-    - (45 : F[X]) * a3 ^ 2 * a4 * a5 ^ 2 * h ^ 30
-    - (27 : F[X]) * a3 ^ 2 * a4 * a5 * h ^ 35 * Polynomial.C lambda
-    - (24 : F[X]) * a3 ^ 2 * a4 * b8 * h ^ 32
-    - (15 : F[X]) * a3 ^ 2 * a5 ^ 4 * h ^ 24
-    + (18 : F[X]) * a3 ^ 2 * a5 ^ 3 * h ^ 29 * Polynomial.C lambda
-    + (36 : F[X]) * a3 ^ 2 * a5 ^ 2 * b8 * h ^ 26
-    - (21 : F[X]) * a3 ^ 2 * a5 * b7 * h ^ 32
-    + (9 : F[X]) * a3 ^ 2 * b6 * h ^ 38
-    - (75 : F[X]) * a3 * a4 ^ 3 * a5 * h ^ 30
-    - (9 : F[X]) * a3 * a4 ^ 3 * h ^ 35 * Polynomial.C lambda
-    + (30 : F[X]) * a3 * a4 ^ 2 * a5 ^ 3 * h ^ 24
-    + (54 : F[X]) * a3 * a4 ^ 2 * a5 ^ 2 * h ^ 29 * Polynomial.C lambda
-    + (72 : F[X]) * a3 * a4 ^ 2 * a5 * b8 * h ^ 26
-    - (21 : F[X]) * a3 * a4 ^ 2 * b7 * h ^ 32
-    + (45 : F[X]) * a3 * a4 * a5 ^ 5 * h ^ 18
-    - (45 : F[X]) * a3 * a4 * a5 ^ 4 * h ^ 23 * Polynomial.C lambda
-    - (96 : F[X]) * a3 * a4 * a5 ^ 3 * b8 * h ^ 20
-    + (63 : F[X]) * a3 * a4 * a5 ^ 2 * b7 * h ^ 26
-    - (36 : F[X]) * a3 * a4 * a5 * b6 * h ^ 32
-    + (15 : F[X]) * a3 * a4 * b5 * h ^ 38
-    - (15 : F[X]) * a3 * a5 ^ 7 * h ^ 12
-    + (9 : F[X]) * a3 * a5 ^ 6 * h ^ 17 * Polynomial.C lambda
-    + (24 : F[X]) * a3 * a5 ^ 5 * b8 * h ^ 14
-    - (21 : F[X]) * a3 * a5 ^ 4 * b7 * h ^ 20
-    + (18 : F[X]) * a3 * a5 ^ 3 * b6 * h ^ 26
-    - (15 : F[X]) * a3 * a5 ^ 2 * b5 * h ^ 32
-    + (12 : F[X]) * a3 * a5 * b4 * h ^ 38
-    - (9 : F[X]) * a3 * b3 * h ^ 44
-    - (6 : F[X]) * a4 ^ 5 * h ^ 30
-    + (30 : F[X]) * a4 ^ 4 * a5 ^ 2 * h ^ 24
-    + (9 : F[X]) * a4 ^ 4 * a5 * h ^ 29 * Polynomial.C lambda
-    + (6 : F[X]) * a4 ^ 4 * b8 * h ^ 26
-    - (30 : F[X]) * a4 ^ 3 * a5 ^ 3 * h ^ 23 * Polynomial.C lambda
-    - (48 : F[X]) * a4 ^ 3 * a5 ^ 2 * b8 * h ^ 20
-    + (21 : F[X]) * a4 ^ 3 * a5 * b7 * h ^ 26
-    - (6 : F[X]) * a4 ^ 3 * b6 * h ^ 32
-    - (30 : F[X]) * a4 ^ 2 * a5 ^ 6 * h ^ 12
-    + (27 : F[X]) * a4 ^ 2 * a5 ^ 5 * h ^ 17 * Polynomial.C lambda
-    + (60 : F[X]) * a4 ^ 2 * a5 ^ 4 * b8 * h ^ 14
-    - (42 : F[X]) * a4 ^ 2 * a5 ^ 3 * b7 * h ^ 20
-    + (27 : F[X]) * a4 ^ 2 * a5 ^ 2 * b6 * h ^ 26
-    - (15 : F[X]) * a4 ^ 2 * a5 * b5 * h ^ 32
-    + (6 : F[X]) * a4 ^ 2 * b4 * h ^ 38
-    + (15 : F[X]) * a4 * a5 ^ 8 * h ^ 6
-    - (9 : F[X]) * a4 * a5 ^ 7 * h ^ 11 * Polynomial.C lambda
-    - (24 : F[X]) * a4 * a5 ^ 6 * b8 * h ^ 8
-    + (21 : F[X]) * a4 * a5 ^ 5 * b7 * h ^ 14
-    - (18 : F[X]) * a4 * a5 ^ 4 * b6 * h ^ 20
-    + (15 : F[X]) * a4 * a5 ^ 3 * b5 * h ^ 26
-    - (12 : F[X]) * a4 * a5 ^ 2 * b4 * h ^ 32
-    + (9 : F[X]) * a4 * a5 * b3 * h ^ 38
-    - (6 : F[X]) * a4 * b2 * h ^ 44
-    - (2 : F[X]) * a5 ^ 10
-    + (1 : F[X]) * a5 ^ 9 * h ^ 5 * Polynomial.C lambda
-    + (3 : F[X]) * a5 ^ 8 * b8 * h ^ 2
-    - (3 : F[X]) * a5 ^ 7 * b7 * h ^ 8
-    + (3 : F[X]) * a5 ^ 6 * b6 * h ^ 14
-    - (3 : F[X]) * a5 ^ 5 * b5 * h ^ 20
-    + (3 : F[X]) * a5 ^ 4 * b4 * h ^ 26
-    - (3 : F[X]) * a5 ^ 3 * b3 * h ^ 32
-    + (3 : F[X]) * a5 ^ 2 * b2 * h ^ 38
-    - (3 : F[X]) * a5 * b1 * h ^ 44
-    + (18 : F[X]) * b0 * h ^ 50
-
 
 set_option maxHeartbeats 64000000 in
 /-- Exact denominator clearing for the decic `z⁰` coordinate on the
@@ -316,6 +200,99 @@ theorem terminalDepressedX610_eq_cleared
       hh50, h60466176]
     ring
   exact hrewrite
+
+set_option maxHeartbeats 64000000 in
+/-- SPEED (recipe R2, `scripts/coord/LEAN_SPEED_REPORT.md` §7): the weight-`50`
+clearing of `terminalIotaResidual610` carried out on the *atoms* rather than on the fully
+substituted source polynomials.  `terminalIotaResidual610` is weighted homogeneous, so
+substituting `X_i = n_i / (d_i h^(e_i))` makes `18 * h^50 * terminalIotaResidual610`
+a polynomial in `h, n_*` — 35 monomials. -/
+private def terminalSpeedTAtoms50 (h nL nA nB nC nD nE nP nQ nR nS nT nU nV nX : F) : F :=
+    (1 / 10368 : F) * h ^ 5 * nL * nA ^ 3 * nB
+    - (1 / 5184 : F) * h ^ 5 * nL * nA ^ 2 * nD
+    - (1 / 5184 : F) * h ^ 5 * nL * nA * nB * nC
+    - (1 / 52488 : F) * h ^ 5 * nL * nB ^ 3
+    + (1 / 279936 : F) * h ^ 5 * nL * nB * nE
+    + (1 / 5184 : F) * h ^ 5 * nL * nC * nD
+    - (1 / 41472 : F) * nA ^ 5
+    + (1 / 13824 : F) * nA ^ 4 * nP
+    + (5 / 41472 : F) * nA ^ 3 * nC
+    - (1 / 124416 : F) * nA ^ 3 * nR
+    + (5 / 46656 : F) * nA ^ 2 * nB ^ 2
+    - (7 / 23328 : F) * nA ^ 2 * nB * nQ
+    - (1 / 3456 : F) * nA ^ 2 * nC * nP
+    - (5 / 1119744 : F) * nA ^ 2 * nE
+    + (1 / 186624 : F) * nA ^ 2 * nT
+    - (1 / 5832 : F) * nA * nB ^ 2 * nP
+    - (5 / 17496 : F) * nA * nB * nD
+    + (5 / 46656 : F) * nA * nB * nS
+    - (5 / 41472 : F) * nA * nC ^ 2
+    + (1 / 41472 : F) * nA * nC * nR
+    + (7 / 11664 : F) * nA * nD * nQ
+    + (1 / 93312 : F) * nA * nE * nP
+    - (1 / 373248 : F) * nA * nV
+    - (5 / 69984 : F) * nB ^ 2 * nC
+    + (1 / 139968 : F) * nB ^ 2 * nR
+    + (7 / 23328 : F) * nB * nC * nQ
+    + (1 / 2916 : F) * nB * nD * nP
+    - (1 / 69984 : F) * nB * nU
+    + (1 / 6912 : F) * nC ^ 2 * nP
+    + (5 / 1119744 : F) * nC * nE
+    - (1 / 93312 : F) * nC * nT
+    + (5 / 34992 : F) * nD ^ 2
+    - (5 / 23328 : F) * nD * nS
+    - (1 / 1119744 : F) * nE * nR
+    + (1 / 3359232 : F) * nX
+
+
+set_option maxHeartbeats 64000000 in
+/-- The atom-level clearing: one `field_simp` over 15 atomic variables in
+place of the single enormous `field_simp` on the substituted rational function. -/
+private theorem terminalSpeedTAtoms50_eq (h : F) (hh : h ≠ 0) (nL nA nB nC nD nE nP nQ nR nS nT nU nV nX : F) :
+    (18 : F) * h ^ 50 *
+        terminalIotaResidual610
+          (nL / 3)
+          (nA / (12 * h ^ 10))
+          (nB / (54 * h ^ 15))
+          (nC / (144 * h ^ 20))
+          (nD / (324 * h ^ 25))
+          (nE / (46656 * h ^ 30))
+          (nP / (4 * h ^ 10))
+          (nQ / (9 * h ^ 15))
+          (nR / (432 * h ^ 20))
+          (nS / (216 * h ^ 25))
+          (nT / (7776 * h ^ 30))
+          (nU / (11664 * h ^ 35))
+          (nV / (186624 * h ^ 40))
+          (nX / (60466176 * h ^ 50)) =
+      terminalSpeedTAtoms50 h nL nA nB nC nD nE nP nQ nR nS nT nU nV nX := by
+  have hd2 : (2 : F) ≠ 0 := by norm_num
+  have hd3 : (3 : F) ≠ 0 := by norm_num
+  have hd4 : (4 : F) ≠ 0 := by norm_num
+  have hd9 : (9 : F) ≠ 0 := by norm_num
+  have hd12 : (12 : F) ≠ 0 := by norm_num
+  have hd54 : (54 : F) ≠ 0 := by norm_num
+  have hd144 : (144 : F) ≠ 0 := by norm_num
+  have hd216 : (216 : F) ≠ 0 := by norm_num
+  have hd324 : (324 : F) ≠ 0 := by norm_num
+  have hd432 : (432 : F) ≠ 0 := by norm_num
+  have hd7776 : (7776 : F) ≠ 0 := by norm_num
+  have hd11664 : (11664 : F) ≠ 0 := by norm_num
+  have hd46656 : (46656 : F) ≠ 0 := by norm_num
+  have hd186624 : (186624 : F) ≠ 0 := by norm_num
+  have hd60466176 : (60466176 : F) ≠ 0 := by norm_num
+  have hp10 : h ^ 10 ≠ 0 := pow_ne_zero 10 hh
+  have hp15 : h ^ 15 ≠ 0 := pow_ne_zero 15 hh
+  have hp20 : h ^ 20 ≠ 0 := pow_ne_zero 20 hh
+  have hp25 : h ^ 25 ≠ 0 := pow_ne_zero 25 hh
+  have hp30 : h ^ 30 ≠ 0 := pow_ne_zero 30 hh
+  have hp35 : h ^ 35 ≠ 0 := pow_ne_zero 35 hh
+  have hp40 : h ^ 40 ≠ 0 := pow_ne_zero 40 hh
+  have hp50 : h ^ 50 ≠ 0 := pow_ne_zero 50 hh
+  simp only [alphaResidual610, betaResidual610, deltaResidual610, epsilonResidual610, etaResidual610, gammaResidual610, terminalIotaResidual610, zetaResidual610, terminalSpeedTAtoms50]
+  field_simp
+  ring
+
 
 set_option maxHeartbeats 64000000 in
 /-- Clearing the first integral
@@ -474,44 +451,6 @@ theorem terminalIotaDefect_eq_cleared610
     + (3 : F) * a5 ^ 2 * b2 * h ^ 38
     - (3 : F) * a5 * b1 * h ^ 44
     + (18 : F) * b0 * h ^ 50 := by
-  have h2 : (2 : F) ≠ 0 := by norm_num
-  have h3 : (3 : F) ≠ 0 := by norm_num
-  have h4 : (4 : F) ≠ 0 := by norm_num
-  have h5 : (5 : F) ≠ 0 := by norm_num
-  have h6 : (6 : F) ≠ 0 := by norm_num
-  have h8 : (8 : F) ≠ 0 := by norm_num
-  have h9 : (9 : F) ≠ 0 := by norm_num
-  have h12 : (12 : F) ≠ 0 := by norm_num
-  have h16 : (16 : F) ≠ 0 := by norm_num
-  have h18 : (18 : F) ≠ 0 := by norm_num
-  have h27 : (27 : F) ≠ 0 := by norm_num
-  have h32 : (32 : F) ≠ 0 := by norm_num
-  have h36 : (36 : F) ≠ 0 := by norm_num
-  have h54 : (54 : F) ≠ 0 := by norm_num
-  have h72 : (72 : F) ≠ 0 := by norm_num
-  have h81 : (81 : F) ≠ 0 := by norm_num
-  have h144 : (144 : F) ≠ 0 := by norm_num
-  have h216 : (216 : F) ≠ 0 := by norm_num
-  have h243 : (243 : F) ≠ 0 := by norm_num
-  have h324 : (324 : F) ≠ 0 := by norm_num
-  have h432 : (432 : F) ≠ 0 := by norm_num
-  have h648 : (648 : F) ≠ 0 := by norm_num
-  have h729 : (729 : F) ≠ 0 := by norm_num
-  have h7776 : (7776 : F) ≠ 0 := by norm_num
-  have h11664 : (11664 : F) ≠ 0 := by norm_num
-  have h46656 : (46656 : F) ≠ 0 := by norm_num
-  have h93312 : (93312 : F) ≠ 0 := by norm_num
-  have h186624 : (186624 : F) ≠ 0 := by norm_num
-  have h60466176 : (60466176 : F) ≠ 0 := by norm_num
-  have hh10 : h ^ 10 ≠ 0 := pow_ne_zero 10 hh
-  have hh15 : h ^ 15 ≠ 0 := pow_ne_zero 15 hh
-  have hh20 : h ^ 20 ≠ 0 := pow_ne_zero 20 hh
-  have hh25 : h ^ 25 ≠ 0 := pow_ne_zero 25 hh
-  have hh30 : h ^ 30 ≠ 0 := pow_ne_zero 30 hh
-  have hh35 : h ^ 35 ≠ 0 := pow_ne_zero 35 hh
-  have hh40 : h ^ 40 ≠ 0 := pow_ne_zero 40 hh
-  have hh45 : h ^ 45 ≠ 0 := pow_ne_zero 45 hh
-  have hh50 : h ^ 50 ≠ 0 := pow_ne_zero 50 hh
   have hL :
       depressedL610 h (sexticDepressionR610 h a5) b9 = -lambda / 3 :=
     depressedL610_eq_of_ninthPower h a5 b9 lambda hh hN
@@ -608,15 +547,11 @@ theorem terminalIotaDefect_eq_cleared610
             432 * b6 * h ^ 14) /
           (432 * h ^ 20) :=
     depressedR610_eq_cleared h a5 b9 b8 b7 b6 lambda hh hN
-  simp only [terminalIotaResidual610, hL, hA, hB, hC, hD0, hE0, hP, hQ, hR, hS,
-    hT, hU, hV, hX, alphaResidual610, betaResidual610, gammaResidual610,
-    deltaResidual610, epsilonResidual610, zetaResidual610,
-    etaResidual610]
-  field_simp [hh, h2, h3, h4, h5, h6, h8, h9, h12, h16, h18, h27, h32,
-    h36, h54, h72, h81, h144, h216, h243, h324, h432, h648, h729, h7776,
-    h11664, h46656, h93312, h186624, h60466176, hh10, hh15, hh20, hh25,
-    hh30, hh35, hh40, hh45, hh50]
+  rw [hL, hA, hB, hC, hD0, hE0, hP, hQ, hR, hS, hT, hU, hV, hX,
+    terminalSpeedTAtoms50_eq h hh]
+  simp only [terminalSpeedTAtoms50]
   ring
+
 
 end BridgeIotaDepression610
 
@@ -2053,12 +1988,11 @@ theorem nonzeroFace610_terminalIotaPowerRelation
       rw [hg9]
       simp [depressedL610, depressedL810, sexticDepressionR610,
         sourceToRatFunc68, sourceToRatFunc46, b9]
-    simpa [terminalClearedIotaDefect610, map_sub, map_add, map_mul, map_pow,
-      map_ofNat, map_neg, RatFunc.algebraMap_C, hRF, a5, a4, a3, a2, a1, a0,
-      b8, b7, b6, b5, b4, b3, b2, b1, b0, terminalIotaResidual610, alphaResidual610,
-      betaResidual610, gammaResidual610, deltaResidual610,
-      epsilonResidual610, zetaResidual610, etaResidual610, hf4, hf3, hf2,
-      hf1, hf0, hg0, hg2, hg3, hg4, hg5, hg6, hg7, hg8', hg9L] using hF.symm
+    unfold terminalClearedIotaDefect610
+    simp only [map_sub, map_add, map_mul, map_pow, map_ofNat, map_one, map_neg,
+      RatFunc.algebraMap_C]
+    rw [hf4, hf3, hf2, hf1, hf0, hg0, hg2, hg3, hg4, hg5, hg6, hg7, hg8', hg9L]
+    exact hF.symm
   have htarget :
       algebraMap k[X] (RatFunc k)
           (terminalClearedIotaDefect610 h0 (p.coeff 5) (p.coeff 4)
@@ -2080,6 +2014,12 @@ end NonzeroTerminalIotaClearing610
 section BridgeIotaJet610
 
 variable {R : Type*} [CommRing R]
+
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := R) (β := R) (γ := R))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := R) (β := R) (γ := R))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := R) (β := R) (γ := R))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := R) (β := Nat) (γ := R))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := R))
 
 set_option maxHeartbeats 64000000 in
 /-- Order-`44` head of the jet-substituted cleared `ι` defect: the
@@ -2368,8 +2308,7 @@ theorem terminalClearedIotaDefect610_jet_factored
             (Polynomial.C lambda) +
           h * bridgeIotaJetTail610 h w1 a41 p31 s1 u1 b62 q52 p2 p1 p0
             q4 q3 q2 q1 q0 (Polynomial.C lambda)) := by
-  simp only [terminalClearedIotaDefect610, bridgeIotaJetHead610,
-    bridgeIotaJetTail610]
+  unfold terminalClearedIotaDefect610 bridgeIotaJetHead610 bridgeIotaJetTail610
   ring
 
 set_option maxHeartbeats 64000000 in
@@ -2386,8 +2325,7 @@ theorem terminalClearedIotaDefect610_leftJet_factored
         (bridgeIotaLeftHead610 a41 s1 b62 p2 q41 +
           h * bridgeIotaLeftTail610 h w1 a41 p32 s1 u2 b62 q53 p2 p1 p0
             q41 q3 q2 q1 q0 (Polynomial.C lambda)) := by
-  simp only [terminalClearedIotaDefect610, bridgeIotaLeftHead610,
-    bridgeIotaLeftTail610]
+  unfold terminalClearedIotaDefect610 bridgeIotaLeftHead610 bridgeIotaLeftTail610
   ring
 
 set_option maxHeartbeats 64000000 in

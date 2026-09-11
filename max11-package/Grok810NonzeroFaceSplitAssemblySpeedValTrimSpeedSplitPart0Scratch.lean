@@ -1,4 +1,5 @@
-import Grok810NonzeroFaceSplit5SpeedValTrimScratch
+import Grok810NonzeroFaceSplit2SpeedValChainScratch
+import Grok810NonzeroFaceSplit4SpeedValChainScratch
 
 /-! # SPEED (tranche 2): declarations moved out of `Grok810NonzeroFaceSplitAssemblySpeedValTrimScratch` so that no
 single module retains more than a few large `polyR` unfoldings.

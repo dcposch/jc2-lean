@@ -1,3 +1,6 @@
+import Grok810ScaleZeroQuarticChamberDefs1Scratch
+import Grok810ScaleZeroQuarticChamberDefs2Scratch
+import Grok810ScaleZeroQuarticChamberBandsScratch
 import Grok810ScaleZeroQuarticChamberRestsScratch
 import Grok810ScaleZeroQuarticChamberKillsPart1Scratch
 

@@ -1,3 +1,5 @@
+import Fable610ScaleZeroTwelfthDefectSpeedTPart06Scratch
+import Sol610ScaleTwoAlignedFourteenthSquareSourceScratch
 import Fable610ScaleZeroTwelfthDefectScratch
 import Sol610ScaleTwoNonzeroFourteenthSourceDescentScratch
 

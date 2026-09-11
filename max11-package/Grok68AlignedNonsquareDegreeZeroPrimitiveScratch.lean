@@ -1,5 +1,5 @@
-import Grok68ScaleTwoDegreeZeroDifferentialBridgeScratch
 import LowScale68ScaleTwoAlignedNonsquareEndgame
+import Grok68ScaleTwoDegreeZeroDifferentialBridgeScratch
 
 /-! # Degree-zero primitive on the `(6,8)` aligned-nonsquare quadratic packet
 

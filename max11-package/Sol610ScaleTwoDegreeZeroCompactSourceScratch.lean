@@ -1,4 +1,4 @@
-import Sol610ScaleTwoDegreeZeroPrimitiveScratch
+import Sol610ScaleTwoDegreeZeroPrimitivePart09Scratch
 
 /-! # Compact source numerator of the `(6,10)` degree-zero primitive
 

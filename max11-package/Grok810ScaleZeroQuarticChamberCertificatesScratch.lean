@@ -1,4 +1,5 @@
-import Grok810ScaleZeroQuarticSigmaLadderScratch
+import Max11SpeedReflectDegLibScratch
+import Fable810ScaleZeroTwelfthDefectScratch
 
 /-! # Certificates for the 12 `no_monomial_target` chambers, `(8,10)` scale zero
 

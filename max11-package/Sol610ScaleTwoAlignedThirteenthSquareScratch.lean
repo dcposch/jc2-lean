@@ -1,5 +1,5 @@
+import Fable610ScaleZeroTwelfthDefectSpeedTPart05Scratch
 import Sol610ScaleTwoAlignedTwelfthSourceScratch
-import Fable610ScaleZeroTwelfthDefectScratch
 
 /-! # The odd weight-65 successor on the aligned `(6,10)` square chamber
 

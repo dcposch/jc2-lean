@@ -1,6 +1,4 @@
-import Grok810ScaleZeroQuarticChamberResidual6Scratch
-import Grok810ScaleZeroQuarticTowerScratch
-import Max11SpeedReflectDegLibScratch
+import Grok810ScaleZeroQuarticTowerSpeedTPart03Scratch
 
 /-! # The `N₇` cost ladder — the split the 202 wall kills need
 

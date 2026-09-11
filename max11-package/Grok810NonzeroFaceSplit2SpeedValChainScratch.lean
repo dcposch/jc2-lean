@@ -1,5 +1,5 @@
-import Grok810NonzeroFaceSplit1Scratch
 import Grok810SpeedValLibScratch
+import Grok810DegreeZeroPoleAndClearingScratch
 
 /-! # `(8,10)` nonzero-face closure, split 2: compact-block expansions 0–11
 

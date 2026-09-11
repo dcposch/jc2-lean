@@ -1,9 +1,0 @@
-import Fable810ScaleZeroEleventhDefectSpeedTPart01Scratch
-import Fable810ScaleZeroEleventhDefectSpeedTPart02Scratch
-import Fable810ScaleZeroEleventhDefectSpeedTPart03Scratch
-import Fable810ScaleZeroEleventhDefectSpeedTPart04Scratch
-import Fable810ScaleZeroEleventhDefectSpeedTPart05Scratch
-import Fable810ScaleZeroEleventhDefectSpeedTPart06Scratch
-
-/-! Scale-zero eleventh-defect packet, split into six bounded modules.
-Public declarations and their section contexts are preserved. -/

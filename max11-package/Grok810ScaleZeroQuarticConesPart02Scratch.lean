@@ -1,4 +1,5 @@
-import Grok810ScaleZeroQuarticConesPart01Scratch
+import Max11SpeedReflectDegLibScratch
+import Fable810ScaleZeroTwelfthDefectScratch
 
 /-! # Part 2 of `Grok810ScaleZeroQuarticConesScratch`.
 

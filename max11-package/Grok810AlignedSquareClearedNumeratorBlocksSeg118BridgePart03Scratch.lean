@@ -1,4 +1,5 @@
-import Grok810AlignedSquareClearedNumeratorBlocksSeg118BridgePart02Scratch
+import Grok810SpeedValLibScratch
+import Grok810DegreeZeroSourceNumeratorScratch
 
 /-! Bridge helper for `alignedSquareClearedNumerator810_eq_sum_expansions`:
 `h`-degree band decomposition, so that no single module runs a `ring` over

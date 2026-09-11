@@ -1,4 +1,4 @@
-import Sol610ScaleTwoAlignedFourteenthResidualSourceBridgeScratch
+import Sol610ScaleTwoAlignedFourteenthTailRecurrenceScratch
 
 /-! # Constant-field and local clearing bridge for the aligned `(6,10)` ν tail
 

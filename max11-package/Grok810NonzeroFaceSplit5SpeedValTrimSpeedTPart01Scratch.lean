@@ -1,4 +1,6 @@
-import Grok810NonzeroFaceSplit4SpeedValChainScratch
+import Grok810DegreeZeroCompactBridgeScratch
+import Grok810NonzeroFaceSplit1Scratch
+import Grok810NonzeroFaceSplit2SpeedValChainScratch
 
 /-! # `(8,10)` nonzero-face closure, split 5: compact-block clearing
 

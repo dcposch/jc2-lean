@@ -1,6 +1,6 @@
 import Fable610ScaleTwoAlignedNinthFacePart05Scratch
-import Fable610ScaleTwoAlignedNinthFacePart06Scratch
 import Fable610ScaleTwoAlignedNinthFacePart09Scratch
+import Fable610ScaleTwoAlignedNinthFacePart06Scratch
 
 open scoped Polynomial.Bivariate
 noncomputable section

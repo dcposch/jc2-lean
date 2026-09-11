@@ -1,8 +1,5 @@
-import Grok810AlignedSquareSourceWrapperScratch
-import Grok810DegreeZeroSourceNumeratorScratch
-import Grok810DegreeZeroCompactBridgeScratch
-import Grok810DegreeZeroTowerOrders111to118Scratch
 import Grok810SpeedValLibScratch
+import Grok810DegreeZeroPoleAndClearingScratch
 
 /-! Part 1 of 118 of `Grok810AlignedSquareClearedNumeratorBlocksScratch`, split so that no single module elaborates them all
 at once.  Statements are unchanged. -/

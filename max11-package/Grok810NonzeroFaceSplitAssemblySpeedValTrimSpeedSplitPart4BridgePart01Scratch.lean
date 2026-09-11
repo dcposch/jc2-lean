@@ -1,4 +1,5 @@
-import Grok810NonzeroFaceSplit4SpeedValChainScratch
+import Grok810SpeedValLibScratch
+import Grok810DegreeZeroSourceNumeratorScratch
 
 /-! Bridge helper for `degreeZeroClearedSource810_eq_sum_groups`:
 `h`-degree band decomposition, so that no single module runs a `ring`

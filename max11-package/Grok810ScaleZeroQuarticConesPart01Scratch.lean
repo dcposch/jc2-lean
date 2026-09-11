@@ -1,4 +1,4 @@
-import Grok810ScaleZeroQuarticConesPart00Scratch
+import Grok810ScaleZeroQuarticDefsScratch
 
 /-! # Part 1 of `Grok810ScaleZeroQuarticConesScratch`.
 

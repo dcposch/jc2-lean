@@ -1,6 +1,9 @@
-import Grok810ScaleZeroQuarticChamberResidualScratch
-import Grok810ScaleZeroQuarticLoadLadderScratch
-import Max11SpeedReflectDegLibScratch
+import Grok810ScaleZeroQuarticSigmaLadderPart35Scratch
+import Grok810ScaleZeroQuarticSigmaLadderPart36Scratch
+import Grok810ScaleZeroQuarticSigmaLadderPart37Scratch
+import Grok810ScaleZeroQuarticSigmaLadderPart38Scratch
+import Grok810ScaleZeroQuarticSigmaLadderPart41Scratch
+import Grok810ScaleZeroQuarticSigmaLadderPart42Scratch
 
 /-! # The cost-form `κ`/`N₂` load ladder, `(8,10)` scale zero
 

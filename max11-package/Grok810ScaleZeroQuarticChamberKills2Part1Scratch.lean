@@ -1,4 +1,4 @@
-import Grok810ScaleZeroQuarticChamberRests2Scratch
+import Grok810ScaleZeroQuarticChamberFacesPart1Scratch
 
 /-! # Cost-ladder chamber kills, `(8,10)` scale zero
 

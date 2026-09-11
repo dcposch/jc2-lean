@@ -1,5 +1,5 @@
-import LowScale810ScaleZeroFourthDefect
 import LowScale810ScaleTwoSixthFace
+import LowScale810ScaleZeroFourthDefect
 
 /-! # Scale-zero fifth defect for the normalized `(8,10)`, `H = 0` leaf
 

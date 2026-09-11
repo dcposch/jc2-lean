@@ -1,3 +1,5 @@
+import Sol610ScaleTwoAlignedFourteenthResidualSourceBridgeScratch
+import Sol610ScaleTwoAlignedFourteenthDefectClearingScratch
 import Sol610ScaleTwoAlignedFourteenthDefectMapScratch
 
 /-! # Constant-field descent of the aligned `(6,10)` ν source defect

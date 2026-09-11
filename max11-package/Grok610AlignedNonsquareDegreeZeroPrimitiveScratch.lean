@@ -1,5 +1,5 @@
-import Grok68AlignedNonsquareDegreeZeroPrimitiveScratch
 import Grok610AlignedSquareChamberClosureScratch
+import Grok68AlignedNonsquareDegreeZeroPrimitiveScratch
 
 /-! # Degree-zero primitive on the `(6,10)` aligned-nonsquare quadratic packet
 

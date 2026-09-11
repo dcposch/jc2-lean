@@ -1,3 +1,5 @@
+import Grok810ScaleZeroQuarticFullConeD6F6Part35Scratch
+import Grok810ScaleZeroQuarticFullConeD6F6Part37Scratch
 import Grok810ScaleZeroQuarticFullConeD6F6Part38Scratch
 
 /-! Part 39 of 61 of `Grok810ScaleZeroQuarticFullConeD6F6Scratch`, split so that no single module elaborates them all

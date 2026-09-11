@@ -10,6 +10,14 @@ section BridgeMuDepression610
 
 variable {F : Type*} [Field F] [CharZero F]
 
+-- Fix standard scalar arithmetic to the existing field carrier before elaboration.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := F) (β := F) (γ := F))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := F) (β := F) (γ := F))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := F) (β := F) (γ := F))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := F) (β := F) (γ := F))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := F) (β := Nat) (γ := F))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := F))
+
 set_option maxHeartbeats 64000000 in
 /-- Clearing the first integral `μ` of the degree-`2` row against `h⁶⁵`
 on the ninth-power face. -/

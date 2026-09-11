@@ -1,3 +1,5 @@
+import Fable810ScaleZeroThirteenthDefectPart02Scratch
+import Fable810ScaleZeroFourteenthDefectPart02Scratch
 import Grok810DegreeZeroPrimitiveSplitBaseScratch
 
 /-! # SPEED: theorems of `Grok810DegreeZeroPrimitiveScratch`, part 0 of 8, so that no single

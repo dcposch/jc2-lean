@@ -1,5 +1,5 @@
-import Grok610MultipleRootChamberScratch
 import Grok610AlignedSquareFinalRowScratch
+import Grok610MultipleRootChamberScratch
 
 /-! # Exact remaining aligned faces of the normalized `(6,10)` route
 

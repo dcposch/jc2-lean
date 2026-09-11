@@ -1,4 +1,5 @@
-import Sol610ScaleTwoAlignedTwelfthCertificateWithCScratch
+import Fable610ScaleTwoAlignedEleventhFacePart04Scratch
+import Sol610ScaleTwoAlignedTwelfthCertificateWithCPart12Scratch
 
 /-! # Source assembly for the aligned `(6,10)` twelfth defect
 

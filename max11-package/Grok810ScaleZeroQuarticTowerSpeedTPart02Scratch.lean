@@ -1,4 +1,5 @@
-import Grok810ScaleZeroQuarticTowerSpeedTPart01Scratch
+import Max11SpeedReflectDegLibScratch
+import Fable810ScaleZeroTwelfthDefectScratch
 
 open scoped Polynomial.Bivariate
 

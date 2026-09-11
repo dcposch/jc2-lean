@@ -1,4 +1,5 @@
-import Grok810DegreeZeroCompactBridgeScratch
+import Fable810ScaleTwoFifteenthFaceScratch
+import Grok810DegreeZeroSourceNumeratorScratch
 
 /-! # Clearing discharge of the `(8,10)` degree-zero Z-track
 

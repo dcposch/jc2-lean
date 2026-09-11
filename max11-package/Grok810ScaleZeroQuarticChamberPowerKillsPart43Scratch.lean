@@ -1,6 +1,9 @@
-import Grok810ScaleZeroQuarticChamberPowerKillsPart1Scratch
-import Grok810ScaleZeroQuarticChamberPowerKillsPart2Scratch
+import Grok810ScaleZeroQuarticChamberDefs1Scratch
+import Grok810ScaleZeroQuarticChamberBandsScratch
+import Grok810ScaleZeroQuarticChamberCostLadderScratch
 import Grok810ScaleZeroQuarticChamberRests5Scratch
+import Grok810ScaleZeroQuarticChamberPowerKillsPart2Scratch
+import Grok810ScaleZeroQuarticChamberPowerKillsPart1Scratch
 
 /-! # Power-target chamber kills, `(8,10)` scale zero
 

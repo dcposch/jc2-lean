@@ -1,6 +1,5 @@
-import Fable610ScaleTwoAlignedTenthFacePart02Scratch
 import Fable610ScaleTwoAlignedFlatDefectPart07Scratch
-import Grok810SpeedValLibScratch
+import Fable610ScaleTwoAlignedTenthFacePart02Scratch
 
 /-! Flat polynomial data for the tenth aligned defect, computed from the flat
 third…ninth data; each block has at most six monomials.  This removes the

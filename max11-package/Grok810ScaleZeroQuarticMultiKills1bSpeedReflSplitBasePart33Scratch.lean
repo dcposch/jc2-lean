@@ -1,4 +1,4 @@
-import Grok810ScaleZeroQuarticMultiKills1bSpeedReflSplitBasePart32Scratch
+import Grok810ScaleZeroQuarticDefsScratch
 
 /-! Part 33 of 84 of `Grok810ScaleZeroQuarticMultiKills1bSpeedReflSplitBaseScratch`, split so that no single module elaborates them all
 at once.  Statements are unchanged. -/

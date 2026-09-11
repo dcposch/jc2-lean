@@ -1,5 +1,4 @@
-import Grok810ScaleZeroQuarticLoadLadderScratch
-import Grok810ScaleZeroQuarticChamberDefs4Scratch
+import Grok810ScaleZeroQuarticDefsScratch
 
 /-! # Auxiliary `A`-power tower and open-chamber certificates, `(8,10)` scale zero
 

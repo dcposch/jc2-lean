@@ -1,5 +1,4 @@
 import Grok810ScaleZeroQuarticChamberFacesPart1Scratch
-import Max11SpeedReflectDegLibScratch
 
 /-! # Cost-argmin rest bounds, part 4/10, `(8,10)` scale zero
 

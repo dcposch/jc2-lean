@@ -1,4 +1,8 @@
-import Grok810ScaleZeroQuarticMultiKills3SpeedReflSplitBaseScratch
+import Grok810ScaleZeroQuarticMultiKills3SpeedReflSplitBasePart01Scratch
+import Grok810ScaleZeroQuarticMultiKills3SpeedReflSplitBasePart02Scratch
+import Grok810ScaleZeroQuarticMultiKills3SpeedReflSplitBasePart03Scratch
+import Grok810ScaleZeroQuarticMultiKills3SpeedReflSplitBasePart05Scratch
+import Grok810ScaleZeroQuarticMultiKills3SpeedReflSplitBasePart06Scratch
 
 /-! # SPEED: theorems of `Grok810ScaleZeroQuarticMultiKills3SpeedReflScratch`, part 0 of 4, so that no single
 module retains all the reflective bridge proof terms at once.

@@ -1,4 +1,3 @@
-import LowScale610ScaleTwoSourceFace
 import LowScale68ScaleTwoAlignedNonsquareDegreeTen
 
 /-! # Aligned scale-two discriminator face for the normalized `(6,10)` leaf

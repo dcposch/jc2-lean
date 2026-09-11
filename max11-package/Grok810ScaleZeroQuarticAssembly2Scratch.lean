@@ -1,6 +1,6 @@
-import Grok810ScaleZeroQuarticAssemblyCore2Scratch
-import Grok810ScaleZeroQuarticFullConeD6F6Scratch
 import Grok810ScaleZeroQuarticConstantCornerScratch
+import Grok810ScaleZeroQuarticFullConeD6F6Part61Scratch
+import Grok810ScaleZeroQuarticAssemblyCore2Scratch
 
 /-! # Final assembly, `(8,10)` scale zero
 

@@ -1,3 +1,4 @@
+import Grok810ScaleZeroQuarticChamberRests4Scratch
 import Grok810ScaleZeroQuarticChamberColumns5Scratch
 
 /-! # Chamber rests for the power-target kills, `(8,10)` scale zero

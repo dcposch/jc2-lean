@@ -1,3 +1,4 @@
+import Grok810ScaleZeroQuarticChamberRestsScratch
 import Grok810ScaleZeroQuarticChamberColumns3Scratch
 
 /-! # Chamber rests for the carrier-change kills, `(8,10)` scale zero

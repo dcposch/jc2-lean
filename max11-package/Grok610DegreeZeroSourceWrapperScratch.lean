@@ -1,5 +1,6 @@
-import Sol610ScaleTwoDegreeZeroPostCollapseCoordinateBridgeScratch
 import Sol610ScaleTwoDegreeZeroPostCollapseHeadSplitScratch
+import Sol610ScaleTwoDegreeZeroDifferentialBridgeScratch
+import Sol610ScaleTwoDegreeZeroPostCollapseCoordinateBridgeScratch
 
 /-! # Source-facing wrapper for the `(6,10)` degree-zero post-collapse split
 

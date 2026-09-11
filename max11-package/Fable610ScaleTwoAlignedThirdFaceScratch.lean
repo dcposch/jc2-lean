@@ -1,5 +1,5 @@
-import Fable610ScaleTwoAlignedFaceScratch
 import LowScale810ScaleTwoThirdFace
+import Fable610ScaleTwoAlignedFaceScratch
 
 /-! # Third aligned face row for the normalized `(6,10)` scale-two leaf
 

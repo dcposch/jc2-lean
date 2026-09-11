@@ -1,4 +1,4 @@
-import Grok810AlignedSquareClearedNumeratorBlocksSeg30Scratch
+import Grok810AlignedSquareClearedNumeratorBlocksSeg15Scratch
 
 /-! Part 31 of 118 of `Grok810AlignedSquareClearedNumeratorBlocksScratch`, split so that no single module elaborates them all
 at once.  Statements are unchanged. -/

@@ -1,7 +1,9 @@
+import Grok810ScaleZeroQuarticChamberBandsScratch
+import Grok810ScaleZeroQuarticChamberCostLadderScratch
+import Grok810ScaleZeroQuarticChamberRefineScratch
 import Grok810ScaleZeroQuarticChamberRests6Scratch
-import Grok810ScaleZeroQuarticPowerCertificatesScratch
-import Grok810ScaleZeroQuarticChamberRefinedKillsPart19Scratch
 import Grok810ScaleZeroQuarticChamberRefinedKillsPart20Scratch
+import Grok810ScaleZeroQuarticChamberRefinedKillsPart19Scratch
 
 /-! # Refined-leaf kills, `(8,10)` scale zero
 

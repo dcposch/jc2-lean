@@ -1,4 +1,4 @@
-import Grok810ScaleZeroQuarticChamberAuxTowerScratch
+import Grok810ScaleZeroQuarticSigmaLadderPart94Scratch
 import Grok810ScaleZeroQuarticLoadLadderScratch
 
 /-! # The κ load bands of the chamber kills, `(8,10)` scale zero

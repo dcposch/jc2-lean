@@ -1,3 +1,4 @@
+import Fable610ScaleTwoKappaIntegralBridgeCompatPart03Scratch
 import Fable610ScaleTwoKappaIntegralBridgeCompatNextLambdaSpeedPart02Scratch
 
 open scoped Polynomial.Bivariate

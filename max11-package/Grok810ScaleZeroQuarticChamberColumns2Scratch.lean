@@ -1,5 +1,4 @@
-import Grok810ScaleZeroQuarticChamberCostLadderScratch
-import Max11SpeedReflectDegLibScratch
+import Grok810ScaleZeroQuarticChamberFacesPart0Scratch
 
 /-! # Load-column bounds for the cost-ladder kills, `(8,10)` scale zero
 

@@ -1,4 +1,5 @@
-import Astra810ScaleZeroQuarticChamberBCDEFG12Part08Scratch
+import Max11SpeedReflectDegLibScratch
+import Fable810ScaleZeroTwelfthDefectScratch
 
 /-! # BCDEFG12 chamber, part 9
 

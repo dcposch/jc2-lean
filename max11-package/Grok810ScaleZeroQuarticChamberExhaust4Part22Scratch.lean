@@ -1,4 +1,4 @@
-import Grok810ScaleZeroQuarticChamberExhaust3Scratch
+import Grok810ScaleZeroQuarticChamberDefs4Scratch
 
 /-! # Cost-argmin chamber exhaust (4/4), `(8,10)` scale zero
 

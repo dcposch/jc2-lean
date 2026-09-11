@@ -1,4 +1,5 @@
-import Grok810ScaleZeroConeExhaustionScratch
+import Sol810PiDifferentialBridgeScratch
+import Grok810ScaleZeroConeDefectFacesScratch
 
 /-! # Seven-integral packet for the normalized `(8,10)`, `H = 0` leaf
 

@@ -1,5 +1,4 @@
-import Grok810ScaleZeroQuarticChamberBandsScratch
-import Max11SpeedReflectDegLibScratch
+import Grok810ScaleZeroQuarticChamberFacesPart0Scratch
 
 /-! # Load-column bounds per live-letter set, `(8,10)` scale zero
 

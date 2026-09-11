@@ -1,4 +1,4 @@
-import Grok810ScaleZeroQuarticSigmaLadderPart05Scratch
+import Grok810ScaleZeroQuarticDefsScratch
 
 /-! Part 6 of 95 of `Grok810ScaleZeroQuarticSigmaLadderScratch`, split so that no single module elaborates them all
 at once.  Statements are unchanged. -/

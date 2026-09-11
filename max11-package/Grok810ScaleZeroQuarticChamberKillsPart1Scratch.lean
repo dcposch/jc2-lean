@@ -1,4 +1,4 @@
-import Grok810ScaleZeroQuarticChamberRestsScratch
+import Grok810ScaleZeroQuarticChamberFacesPart1Scratch
 
 /-! # Single-monomial chamber kills, `(8,10)` scale zero
 
