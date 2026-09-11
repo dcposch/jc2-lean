@@ -1,4 +1,4 @@
-import Fable810ScaleZeroThirteenthDefectPart20Scratch
+import Fable810ScaleZeroThirteenthDefectPart101Scratch
 import Fable810ScaleZeroThirteenthDefectPart19Scratch
 import Fable810ScaleZeroThirteenthDefectPart21Scratch
 

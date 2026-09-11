@@ -1,4 +1,4 @@
-import Grok810DegreeZeroPrimitiveSplitPart2Scratch
+import Grok810DegreeZeroPrimitiveSplitPart101Scratch
 
 /-! # SPEED: theorems of `Grok810DegreeZeroPrimitiveScratch`, part 4 of 8, so that no single
 module retains all the reflective bridge proof terms at once.

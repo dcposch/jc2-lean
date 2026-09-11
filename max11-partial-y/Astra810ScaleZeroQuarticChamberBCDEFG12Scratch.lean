@@ -1,4 +1,4 @@
-import Astra810ScaleZeroQuarticChamberBCDEFG12Part27Scratch
+import Astra810ScaleZeroQuarticChamberBCDEFG12Part104Scratch
 
 /-! # The BCDEFG12 scale-zero chamber
 

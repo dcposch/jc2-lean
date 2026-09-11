@@ -1,7 +1,7 @@
 import Grok810ScaleZeroQuarticChamberDefs4Scratch
 import Grok810ScaleZeroQuarticChamberBandsScratch
 import Grok810ScaleZeroQuarticChamberRestsScratch
-import Grok810ScaleZeroQuarticChamberKillsPart1Scratch
+import Grok810ScaleZeroQuarticChamberKillsPart101Scratch
 
 /-! # Single-monomial chamber kills, `(8,10)` scale zero
 

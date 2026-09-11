@@ -1,5 +1,5 @@
 import Grok810DegreeZeroPrimitiveValDegScratch
-import Grok810DegreeZeroPrimitiveSplitPart6Scratch
+import Grok810DegreeZeroPrimitiveSplitPart101Scratch
 
 /-! # SPEED: drop-in for `Grok810DegreeZeroPrimitiveScratch`.  Every declaration now lives in the
 `SplitBase` / `SplitPart*` modules this imports, so every name the original

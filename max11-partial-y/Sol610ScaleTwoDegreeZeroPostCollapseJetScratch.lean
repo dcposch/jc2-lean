@@ -1,10 +1,5 @@
-import Sol610ScaleTwoDegreeZeroPostCollapseJetPart01Scratch
+import Sol610ScaleTwoDegreeZeroPostCollapseJetPart101Scratch
 import Sol610ScaleTwoDegreeZeroPostCollapseJetPart02Scratch
-import Sol610ScaleTwoDegreeZeroPostCollapseJetPart03Scratch
-import Sol610ScaleTwoDegreeZeroPostCollapseJetPart04Scratch
-import Sol610ScaleTwoDegreeZeroPostCollapseJetPart05Scratch
-import Sol610ScaleTwoDegreeZeroPostCollapseJetPart06Scratch
-import Sol610ScaleTwoDegreeZeroPostCollapseJetPart07Scratch
 
 /-! # Post-collapse source jet of the `(6,10)` degree-zero primitive
 

@@ -1,5 +1,5 @@
-import Fable810ScaleZeroFourteenthDefectPart40Scratch
-import Grok810DegreeZeroPrimitiveSplitPart6Scratch
+import Fable810ScaleZeroFourteenthDefectPart103Scratch
+import Grok810DegreeZeroPrimitiveSplitPart101Scratch
 
 /-! # Scale-zero final Jacobian row for the normalized `(8,10)`, `H = 0` leaf
 

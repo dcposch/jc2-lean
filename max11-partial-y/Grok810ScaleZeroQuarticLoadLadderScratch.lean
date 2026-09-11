@@ -1,5 +1,5 @@
-import Grok810ScaleZeroQuarticSigmaLadderPart42Scratch
-import Grok810ScaleZeroQuarticSigmaLadderPart95Scratch
+import Grok810ScaleZeroQuarticSigmaLadderPart101Scratch
+import Grok810ScaleZeroQuarticSigmaLadderPart105Scratch
 
 /-! # Scale-zero quartic κ load ladder, `(8,10)`, cone `A` (File A2)
 

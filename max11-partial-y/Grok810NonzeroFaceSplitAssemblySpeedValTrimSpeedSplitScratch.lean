@@ -1,4 +1,4 @@
-import Grok810NonzeroFaceSplitAssemblySpeedValTrimSpeedSplitPart4Scratch
+import Grok810NonzeroFaceSplitAssemblySpeedValTrimSpeedSplitPart101Scratch
 
 /-! # `(8,10)` nonzero-face closure, assembly: scaled `ρ`, linear-root False, exclusion
 

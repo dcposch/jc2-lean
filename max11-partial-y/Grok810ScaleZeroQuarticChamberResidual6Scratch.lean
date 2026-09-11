@@ -1,5 +1,6 @@
-import Grok810ScaleZeroQuarticChamberExhaust4Part1Scratch
+import Grok810ScaleZeroQuarticChamberExhaust4Part105Scratch
 import Grok810ScaleZeroQuarticChamberRefinedKillsScratch
+import Grok810ScaleZeroQuarticChamberExhaust4Part106Scratch
 
 /-! # The last chamber residual, `(8,10)` scale zero
 

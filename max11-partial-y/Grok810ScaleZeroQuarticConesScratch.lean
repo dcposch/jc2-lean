@@ -1,4 +1,4 @@
-import Grok810ScaleZeroQuarticConesPart30Scratch
+import Grok810ScaleZeroQuarticConesPart102Scratch
 
 /-! # Quartic Stage A residual: `R = {A}` or leftover `R = {A,B,C,D,E,F,G}` -/
 

@@ -1,5 +1,4 @@
-import Grok610AlignedSquareTowerOrders61to68Part18Scratch
-import Grok610AlignedSquareTowerOrders61to68Part21Scratch
+import Grok610AlignedSquareTowerOrders61to68Part212Scratch
 import Grok610AlignedSquareTowerOrders61to68Part26Scratch
 
 noncomputable section

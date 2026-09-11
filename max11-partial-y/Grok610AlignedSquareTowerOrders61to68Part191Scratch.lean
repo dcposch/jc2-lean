@@ -1,5 +1,4 @@
-import Grok610AlignedSquareTowerOrders61to68Part39Scratch
-import Grok610AlignedSquareTowerOrders61to68Part175Scratch
+import Grok610AlignedSquareTowerOrders61to68Part212Scratch
 
 noncomputable section
 open Polynomial

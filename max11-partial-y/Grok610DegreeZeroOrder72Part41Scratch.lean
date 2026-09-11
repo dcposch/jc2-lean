@@ -1,4 +1,4 @@
-import Grok610DegreeZeroOrder72Part36Scratch
+import Grok610DegreeZeroOrder72Part101Scratch
 
 noncomputable section
 open Polynomial

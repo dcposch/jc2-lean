@@ -1,4 +1,4 @@
-import Grok810DegreeZeroPrimitiveSplitPart6Scratch
+import Grok810DegreeZeroPrimitiveSplitPart101Scratch
 
 /-! # Source-facing wrapper for the `(8,10)` degree-zero primitive
 

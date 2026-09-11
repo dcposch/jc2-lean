@@ -1,4 +1,4 @@
-import Grok810ScaleZeroQuarticChamberFacesPart1Scratch
+import Grok810ScaleZeroQuarticChamberFacesPart101Scratch
 
 /-! # Cost-argmin rest bounds, part 7/10, `(8,10)` scale zero
 

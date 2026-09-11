@@ -2,7 +2,7 @@ import Grok810ScaleZeroQuarticChamberBandsScratch
 import Grok810ScaleZeroQuarticChamberCostLadderScratch
 import Grok810ScaleZeroQuarticChamberN7BandsScratch
 import Grok810ScaleZeroQuarticChamberUnownedSplitRests1Scratch
-import Grok810ScaleZeroQuarticChamberUnownedSystems9Part2Scratch
+import Grok810ScaleZeroQuarticChamberUnownedSystems9Part101Scratch
 
 /-! # Unowned letter splits and load trichotomies, `(8,10)` scale zero
 

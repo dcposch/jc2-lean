@@ -1,4 +1,4 @@
-import Grok810ScaleZeroQuarticMultiKills4Part23Scratch
+import Grok810ScaleZeroQuarticMultiKills4Part106Scratch
 
 /-! # Quartic Stage A multi-cone certificates (part 4: 5-letter cones ABDEF–CDEFG) -/
 

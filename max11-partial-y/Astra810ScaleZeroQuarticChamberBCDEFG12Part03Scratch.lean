@@ -1,5 +1,5 @@
 import Grok810ScaleZeroQuarticChamberDefs4Scratch
-import Astra810ScaleZeroQuarticChamberBCDEFG12Part01Scratch
+import Astra810ScaleZeroQuarticChamberBCDEFG12Part101Scratch
 
 /-! # BCDEFG12 chamber, part 3
 

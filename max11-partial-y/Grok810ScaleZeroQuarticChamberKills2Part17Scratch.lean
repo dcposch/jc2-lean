@@ -1,9 +1,9 @@
 import Grok810ScaleZeroQuarticChamberDefs3Scratch
 import Grok810ScaleZeroQuarticChamberRestsScratch
-import Grok810ScaleZeroQuarticChamberKillsPart1Scratch
+import Grok810ScaleZeroQuarticChamberKillsPart101Scratch
 import Grok810ScaleZeroQuarticChamberCostLadderScratch
 import Grok810ScaleZeroQuarticChamberRests2Scratch
-import Grok810ScaleZeroQuarticChamberKills2Part1Scratch
+import Grok810ScaleZeroQuarticChamberKills2Part101Scratch
 
 /-! # Cost-ladder chamber kills, `(8,10)` scale zero
 

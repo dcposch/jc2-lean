@@ -1,8 +1,6 @@
 import Fable610ScaleZeroTwelfthDefectSpeedTPart01Scratch
 import Fable610ScaleZeroTwelfthDefectSpeedTPart02Scratch
-import Fable610ScaleZeroTwelfthDefectSpeedTPart03Scratch
-import Fable610ScaleZeroTwelfthDefectSpeedTPart04Scratch
-import Fable610ScaleZeroTwelfthDefectSpeedTPart05Scratch
+import Fable610ScaleZeroTwelfthDefectSpeedTPart101Scratch
 import Fable610ScaleZeroTwelfthDefectSpeedTPart06Scratch
 
 /-! Scale-zero twelfth-defect packet, split into six bounded modules.

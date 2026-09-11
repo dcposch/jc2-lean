@@ -1,5 +1,6 @@
-import Grok810ScaleZeroQuarticChamberExhaust4Part1Scratch
+import Grok810ScaleZeroQuarticChamberExhaust4Part105Scratch
 import Grok810ScaleZeroQuarticChamberKills3Scratch
+import Grok810ScaleZeroQuarticChamberExhaust4Part106Scratch
 
 /-! # Residual after the carrier change, `(8,10)` scale zero
 

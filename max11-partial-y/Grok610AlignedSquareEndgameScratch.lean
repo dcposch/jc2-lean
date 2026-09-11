@@ -1,4 +1,4 @@
-import Fable610ScaleTwoAlignedEleventhFacePart14Scratch
+import Fable610ScaleTwoAlignedEleventhFacePart102Scratch
 import Grok610AlignedSquareFinalRowScratch
 
 /-! # Endgame of the aligned-square `(6,10)` chamber

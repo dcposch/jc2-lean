@@ -1,4 +1,4 @@
-import Grok810ScaleZeroQuarticConesPart30Scratch
+import Grok810ScaleZeroQuarticConesPart102Scratch
 
 /-! # Scale-zero quartic A-dominant Stage B, for normalized `(8,10)`, `H = 0`
 
