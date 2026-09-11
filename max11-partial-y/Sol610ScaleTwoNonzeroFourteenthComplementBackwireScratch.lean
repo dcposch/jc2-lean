@@ -1,4 +1,4 @@
-import Fable610ScaleTwoKappaIntegralBridgeCompatFollowingScratch
+import Fable610ScaleTwoKappaIntegralBridgeCompatFollowingPart18Scratch
 import Sol610ScaleTwoNonzeroFourteenthComplementCollapseScratch
 
 /-! # Backwire of the `(6,10)` fourth-tail complement collapse

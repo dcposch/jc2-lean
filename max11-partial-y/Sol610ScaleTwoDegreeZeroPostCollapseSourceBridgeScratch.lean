@@ -1,6 +1,7 @@
-import Sol610ScaleTwoDegreeZeroDifferentialBridgeScratch
-import Sol610ScaleTwoDegreeZeroPostCollapseJetScratch
 import Sol610ScaleTwoDegreeZeroLocalPoleScratch
+import Sol610ScaleTwoDegreeZeroPostCollapseJetPart07Scratch
+import Sol610ScaleTwoDegreeZeroPostCollapseJetPart06Scratch
+import Sol610ScaleTwoDegreeZeroPostCollapseJetPart02Scratch
 
 /-! # Source bridge for the `(6,10)` degree-zero post-collapse head
 

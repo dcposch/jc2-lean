@@ -1,6 +1,4 @@
-import Grok810DegreeZeroPrimitiveScratch
 import Grok810DegreeZeroSourceWrapperScratch
-import Grok810RemainingAlignedChambersScratch
 
 /-! # Aligned-square source wrapper for the `(8,10)` weight-seventeen primitive
 

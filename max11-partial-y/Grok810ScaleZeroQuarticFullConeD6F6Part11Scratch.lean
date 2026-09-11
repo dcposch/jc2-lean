@@ -1,4 +1,5 @@
-import Grok810ScaleZeroQuarticFullConeD6F6Part10Scratch
+import Max11SpeedReflectDegLibScratch
+import Fable810ScaleZeroTwelfthDefectScratch
 
 /-! Part 11 of 61 of `Grok810ScaleZeroQuarticFullConeD6F6Scratch`, split so that no single module elaborates them all
 at once.  Statements are unchanged. -/

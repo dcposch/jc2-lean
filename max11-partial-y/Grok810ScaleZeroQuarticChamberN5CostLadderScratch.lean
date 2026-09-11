@@ -1,7 +1,4 @@
-import Grok810ScaleZeroQuarticChamberN7LadderScratch
-import Grok810ScaleZeroQuarticChamberInfraN5Scratch
-import Grok810ScaleZeroQuarticLoadLadderScratch
-import Max11SpeedReflectDegLibScratch
+import Grok810ScaleZeroQuarticChamberAuxTowerScratch
 
 /-! # The cost-form `N₅` load ladder, `(8,10)` scale zero
 

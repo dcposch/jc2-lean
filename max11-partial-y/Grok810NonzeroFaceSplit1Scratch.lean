@@ -1,6 +1,4 @@
-import Grok810DegreeZeroClearingDischargeScratch
-import Grok810DegreeZeroTowerOrders111to118Scratch
-import Grok810RouteAdapterScratch
+import Grok810DegreeZeroSourceNumeratorScratch
 
 /-! # `(8,10)` nonzero-face closure, split 1: integer bars and compact blocks
 

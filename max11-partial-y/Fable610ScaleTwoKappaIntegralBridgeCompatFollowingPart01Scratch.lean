@@ -1,4 +1,4 @@
-import Fable610ScaleTwoKappaIntegralBridgeCompatNextScratch
+import Fable610ScaleTwoKappaIntegralBridgeCompatPart02Scratch
 
 open scoped Polynomial.Bivariate
 noncomputable section

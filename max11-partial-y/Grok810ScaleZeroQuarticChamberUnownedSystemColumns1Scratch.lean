@@ -1,6 +1,6 @@
-import Grok810ScaleZeroQuarticChamberUnownedSystemPackets1Scratch
-import Grok810ScaleZeroQuarticChamberUnownedSystemPackets2Scratch
-import Max11SpeedReflectDegLibScratch
+import Grok810ScaleZeroQuarticChamberNuFacesScratch
+import Grok810ScaleZeroQuarticChamberInfraPrimitiveScratch
+import Grok810ScaleZeroQuarticChamberInfraOmicronScratch
 
 /-! # UnownedSystem load-column bounds, part 1/10
 

@@ -1,3 +1,5 @@
+import Grok810ScaleZeroQuarticChamberDefs4Scratch
+import Grok810ScaleZeroQuarticTowerSpeedTPart01Scratch
 import Grok810ScaleZeroQuarticTowerSpeedTPart02Scratch
 
 open scoped Polynomial.Bivariate

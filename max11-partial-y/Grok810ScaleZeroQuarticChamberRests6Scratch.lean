@@ -1,4 +1,5 @@
-import Grok810ScaleZeroQuarticChamberResidual5Scratch
+import Grok810ScaleZeroQuarticChamberRestsScratch
+import Grok810ScaleZeroQuarticChamberColumns2Scratch
 
 /-! # Chamber rests for the refined-leaf kills
 

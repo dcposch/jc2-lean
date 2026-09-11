@@ -1,4 +1,6 @@
-import Grok610DegreeZeroSplitChildrenScratch
+import Grok610DegreeZeroSplitChildrenPart16Scratch
+import Grok610DegreeZeroSplitChildrenPart14Scratch
+import Grok610DegreeZeroSplitChildrenPart11Scratch
 
 /-! # Order-`71` grandchild of the `(6,10)` degree-zero post-collapse split
 

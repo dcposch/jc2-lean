@@ -1,3 +1,4 @@
+import Fable610ScaleTwoKappaIntegralBridgeCompatNextPart02Scratch
 import Fable610ScaleTwoKappaIntegralBridgeCompatNextPart09Scratch
 import Fable610ScaleTwoKappaIntegralBridgeCompatNextPart10Scratch
 

@@ -1,4 +1,6 @@
-import Grok810ScaleZeroQuarticChamberResidual3Scratch
+import Grok810ScaleZeroQuarticChamberRestsScratch
+import Grok810ScaleZeroQuarticChamberColumns2Scratch
+import Grok810ScaleZeroQuarticChamberNuFacesScratch
 
 /-! # Chamber rests for the multi-carrier kills, `(8,10)` scale zero
 

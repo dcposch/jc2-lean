@@ -1,7 +1,7 @@
-import Grok610DegreeZeroOrder74Part01Scratch
-import Grok610DegreeZeroOrder74Part14Scratch
-import Grok610DegreeZeroOrder74Part34Scratch
 import Grok610DegreeZeroOrder74Part37Scratch
+import Grok610DegreeZeroOrder74Part01Scratch
+import Grok610DegreeZeroOrder74Part34Scratch
+import Grok610DegreeZeroOrder74Part14Scratch
 
 noncomputable section
 open Polynomial

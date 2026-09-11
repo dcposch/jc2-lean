@@ -1,4 +1,10 @@
-import Grok810ScaleZeroQuarticConesPart22Scratch
+import Grok810ScaleZeroQuarticConesPart01Scratch
+import Grok810ScaleZeroQuarticConesPart02Scratch
+import Grok810ScaleZeroQuarticConesPart03Scratch
+import Grok810ScaleZeroQuarticConesPart04Scratch
+import Grok810ScaleZeroQuarticConesPart05Scratch
+import Grok810ScaleZeroQuarticConesPart07Scratch
+import Grok810ScaleZeroQuarticConesPart08Scratch
 
 /-! # Part 23 of `Grok810ScaleZeroQuarticConesScratch`.
 

@@ -1,4 +1,5 @@
-import Grok810ScaleZeroQuarticSigmaLadderScratch
+import Max11SpeedReflectDegLibScratch
+import Fable810ScaleZeroTwelfthDefectScratch
 
 /-! # Power-target certificates, `(8,10)` scale zero
 

@@ -1,4 +1,4 @@
-import Sol610ScaleTwoDegreeZeroPrimitiveScratch
+import Sol610ScaleTwoDegreeZeroPrimitivePart19Scratch
 
 /-! # Differential-Jacobian bridge for the `(6,10)` degree-zero primitive
 

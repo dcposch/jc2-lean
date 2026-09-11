@@ -1,4 +1,5 @@
-import Fable610ScaleTwoAlignedTenthFaceScratch
+import LowScale68ScaleTwoAlignedNonsquareDivisibility
+import Grok810SpeedValLibScratch
 
 open scoped Polynomial.Bivariate
 noncomputable section

@@ -1,5 +1,5 @@
-import Grok68ScaleTwoDegreeZeroPrimitiveScratch
 import LowScale68SourceBridge
+import Grok68ScaleTwoDegreeZeroPrimitiveScratch
 
 /-! # Differential-Jacobian bridge for the `(6,8)` degree-zero primitive
 

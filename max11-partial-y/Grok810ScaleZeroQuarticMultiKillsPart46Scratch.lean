@@ -1,3 +1,4 @@
+import Grok810ScaleZeroQuarticMultiKillsPart42Scratch
 import Grok810ScaleZeroQuarticMultiKillsPart45Scratch
 
 /-! Part 46 of 47 of `Grok810ScaleZeroQuarticMultiKillsScratch`, split so that no single module elaborates them all

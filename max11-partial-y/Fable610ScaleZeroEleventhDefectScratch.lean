@@ -1,9 +1,4 @@
-import Fable610ScaleZeroEleventhDefectSpeedTPart01Scratch
-import Fable610ScaleZeroEleventhDefectSpeedTPart02Scratch
-import Fable610ScaleZeroEleventhDefectSpeedTPart03Scratch
-import Fable610ScaleZeroEleventhDefectSpeedTPart04Scratch
-import Fable610ScaleZeroEleventhDefectSpeedTPart05Scratch
-import Fable610ScaleZeroEleventhDefectSpeedTPart06Scratch
+import LowScale46SourceBridge
 
 /-! Scale-zero eleventh-defect packet, split into six bounded modules.
 Public declarations and their section contexts are preserved. -/

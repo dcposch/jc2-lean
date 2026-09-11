@@ -1,6 +1,5 @@
 import Fable610ScaleTwoAlignedFifthFaceScratch
 import Fable610ScaleTwoAlignedFlatDefectPart02Scratch
-import Grok810SpeedValLibScratch
 
 open scoped Polynomial.Bivariate
 

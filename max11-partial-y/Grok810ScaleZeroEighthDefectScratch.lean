@@ -49,6 +49,7 @@ section Depression810NinthClearing
 
 variable {F : Type*} [Field F] [CharZero F]
 
+set_option maxHeartbeats 64000000 in
 /-- Depressed decic `z¹` coefficient. -/
 def depressedW810 (h r b9 b8 b7 b6 b5 b4 b3 b2 b1 : F) : F :=
   -10 * r ^ 9 + 9 * (b9 / h ^ 9) * r ^ 8 -
@@ -57,6 +58,7 @@ def depressedW810 (h r b9 b8 b7 b6 b5 b4 b3 b2 b1 : F) : F :=
     4 * (b4 / h ^ 4) * r ^ 3 + 3 * (b3 / h ^ 3) * r ^ 2 -
     2 * (b2 / h ^ 2) * r + b1 / h
 
+set_option maxHeartbeats 64000000 in
 /-- First residual of the degree-`8` row. -/
 def thetaResidual810
     (L A B C0 D0 E0 F0 G0 P Q R S0 T0 U0 W0 : F) : F :=
@@ -80,7 +82,7 @@ def thetaResidual810
     (3 / 16 : F) * gammaResidual810 L A B C0 P R * A * B -
     (15 / 128 : F) * deltaResidual810 L A B C0 D0 P Q S0 * A ^ 2)
 
-set_option maxHeartbeats 4000000 in
+set_option maxHeartbeats 64000000 in
 /-- Polynomial numerator of `8589934592 h⁶³ θ` on the ninth-power face. -/
 def localClearedNinthDefect810
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X])
@@ -181,6 +183,7 @@ def localClearedNinthDefect810
     + (407884400 : F[X]) * a7 ^ 9
     - (412982955 : F[X]) * a7 ^ 8 * Polynomial.C lambda * h ^ 7
 
+set_option maxHeartbeats 64000000 in
 /-- Exact denominator clearing for the decic `z¹` coordinate on the
 ninth-power face. -/
 theorem depressedW810_eq_cleared
@@ -238,7 +241,15 @@ theorem depressedW810_eq_cleared
     ring
   exact hrewrite
 
-set_option maxHeartbeats 400000000 in
+-- Fix scalar arithmetic carriers without changing declaration source terms.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := F) (β := F) (γ := F))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := F) (β := F) (γ := F))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := F) (β := F) (γ := F))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := F) (β := F) (γ := F))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := F) (β := Nat) (γ := F))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := F))
+
+set_option maxHeartbeats 64000000 in
 /-- SPEED (recipe R2, `scripts/coord/LEAN_SPEED_REPORT.md` §7): the weight-`63`
 clearing of `thetaResidual810` carried out on the *atoms* rather than on the fully
 substituted source polynomials.  `thetaResidual810` is weighted homogeneous, so
@@ -275,7 +286,7 @@ def speedThetaResidual810Scaled63 (h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU n
     - (1024 : F) * nF * nP
     + (128 : F) * nW
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- The atom-level clearing: one `field_simp` over 16 atomic variables in
 place of the single enormous `field_simp` on the substituted rational function. -/
 theorem speedThetaResidual810Scaled63_eq (h : F) (hh : h ≠ 0) (nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nW : F) :
@@ -322,7 +333,7 @@ theorem speedThetaResidual810Scaled63_eq (h : F) (hh : h ≠ 0) (nL nA nB nC nD 
   field_simp
   ring
 
-set_option maxHeartbeats 40000000 in
+set_option maxHeartbeats 64000000 in
 /-- Clearing the first integral
 `W - (9/8) L G - α F - (7/8) β E - (3/4) γ D - (5/8) δ C - (1/2) ε B
 - (3/8) ζ A - (5/16) A F - (5/16) B E - (5/16) C D + (5/128) B³
@@ -591,6 +602,7 @@ section DepressedRow810Ninth
 
 variable {k F : Type*} [Field k] [Field F] [Algebra k F] [CharZero F]
 
+set_option maxHeartbeats 64000000 in
 /-- For a depressed monic octic and a monic decic whose `z⁹` coefficient is
 already a differential constant, the degree-`8` Jacobian coefficient is
 exactly `9 L G' + 8 P F' + 7 Q E' + 6 R D' + 5 S C' + 4 T B' + 3 U A'
@@ -939,7 +951,7 @@ theorem differentialJacobian_coeff_8_monicOcticDecic
   simp only [differentialJacobian, Polynomial.coeff_sub, hfirst, hsecond]
   ring
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem thetaResidual810_deriv_zero
     (d : Derivation k F F)
     (L A B C0 D0 E0 F0 G0 P Q R S0 T0 U0 W0 : F)
@@ -1216,6 +1228,7 @@ section AffineDecic810Ninth
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 /-- The `z¹` coefficient of the affine depression of a degree-ten source. -/
 theorem affineDepress_degreeTen_coeff1_810
     (p : (RatFunc k)[X]) (h r : RatFunc k) (hh : h ≠ 0)
@@ -1438,6 +1451,7 @@ section NonzeroNinthFaceClearing810
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 /-- The eighth octic/decic integral on a square-core ninth-power source:
 the cleared defect is a scalar times `h⁶³`. -/
 theorem nonzeroFace810_ninthDefectPowerRelation
@@ -1863,6 +1877,7 @@ set_option linter.unusedSectionVars false
 
 /-! ## Degree-`8` source Jacobian row -/
 
+set_option maxHeartbeats 64000000 in
 /-- Source-facing degree-`8` Jacobian row of a normalized scale-zero
 `(8,10)` pair. -/
 theorem normalized810ScaleZero_ninthCoefficientJacobianRow
@@ -1900,6 +1915,7 @@ theorem normalized810ScaleZero_ninthCoefficientJacobianRow
   obtain ⟨j, _hj, hjac⟩ := bivariateJacobian_eq_C_of_keller hKeller
   simpa only [p, q] using ninthCoefficientJacobianRow_810 hp hq hjac
 
+set_option maxHeartbeats 64000000 in
 /-- At scale zero the common core is constant, so the leading octic
 coefficient of the degree-`8` row is a differential constant. -/
 theorem scaleZero_ninthCoefficientJacobianRow_810
@@ -1933,6 +1949,7 @@ theorem scaleZero_ninthCoefficientJacobianRow_810
   have hrow := ninthCoefficientJacobianRow_810 hp hq hjac
   simpa [hp8der] using hrow
 
+set_option maxHeartbeats 64000000 in
 /-- Source-facing scale-zero collapse of the degree-`8` row. -/
 theorem normalized810ScaleZero_ninthCoefficientJacobianRow_collapsed
     {P Q : MvPolynomial (Fin 2) k} {H : k[X]}
@@ -1972,6 +1989,7 @@ theorem normalized810ScaleZero_ninthCoefficientJacobianRow_collapsed
 
 /-! ## Degree-`8` monic Jacobian row -/
 
+set_option maxHeartbeats 64000000 in
 /-- For a monic octic and a monic decic whose `z⁹` coefficient `L` is
 already a differential constant, the degree-`8` Jacobian coefficient
 is exactly
@@ -2006,6 +2024,7 @@ theorem scaleZero_monicOcticDecic_degree8Row_810
   differentialJacobian_coeff_8_monicOcticDecic d f g hf_high hf8 hf7
     hg_high hg10 hL
 
+set_option maxHeartbeats 64000000 in
 /-- The same row integrates: if
 `9 L G' + 8 P F' + 7 Q E' + 6 R D' + 5 S C' + 4 T B' + 3 U A'
 - F P' - 2 E Q' - 3 D R' - 4 C S' - 5 B T' - 6 A U' - 8 W' = 0`,
@@ -2036,6 +2055,7 @@ theorem scaleZero_thetaResidual_deriv_zero_810
 
 /-! ## Cleared weight-`63` defect on a constant square core -/
 
+set_option maxHeartbeats 64000000 in
 /-- On a constant square core the source discriminator is a scalar times
 `h⁹`, so the existing ninth-power identities apply with a constant
 square root on both the vanishing face `λ = 0` and the nonzero
@@ -2066,6 +2086,7 @@ theorem scaleZero_eighthClearedDefect_exists_C_810
       hp hq hh0 hH hp8 hq10 hN hD
   exact ⟨lambda, eta, hN, heta⟩
 
+set_option maxHeartbeats 64000000 in
 /-- Aligned constant face `N = 0`: the same degree-`8` clearing applies
 with `λ = 0`, and the weight-`63` defect is still a ground constant.
 This does not close the face. -/
@@ -2094,6 +2115,7 @@ theorem scaleZero_alignedEighthClearedDefect_exists_C_810
       hp hq hh0 hH hp8 hq10 hN0 hD
   exact ⟨eta, heta⟩
 
+set_option maxHeartbeats 64000000 in
 /-- Nonzero constant face: `N` is a nonzero scalar times `h⁹`, and the
 weight-`63` defect is a ground constant.  This does not close the
 face. -/
@@ -2122,6 +2144,7 @@ theorem scaleZero_nonzeroEighthClearedDefect_exists_C_810
 
 variable [IsAlgClosed k]
 
+set_option maxHeartbeats 64000000 in
 /-- Source-facing eighth residual packet for a normalized scale-zero
 `(8,10)` pair: after a square root of the core, the cleared weight-`63`
 defect is a ground-field constant. -/
@@ -2177,6 +2200,7 @@ theorem normalized810ScaleZero_exists_eighthClearedDefect
   exact ⟨t, lambda, eta, ht, hHsq, by simpa only [p, q] using hN,
     by simpa only [p, q] using hX⟩
 
+set_option maxHeartbeats 64000000 in
 /-- The weight-`63` defect is a literal ground-field constant. -/
 theorem normalized810ScaleZero_eighthClearedDefect_exists_C
     {P Q : MvPolynomial (Fin 2) k} {H : k[X]}
@@ -2230,6 +2254,7 @@ theorem normalized810ScaleZero_eighthClearedDefect_exists_C
     exact (map_mul (Polynomial.C : k →+* k[X]) eta (t ^ 63)).symm
   exact hconst
 
+set_option maxHeartbeats 64000000 in
 /-- Newton degree of the ninth cleared octic/decic defect at scale
 zero. -/
 theorem normalized810ScaleZero_eighthClearedDefect_natDegree_le_zero
@@ -2262,6 +2287,7 @@ theorem normalized810ScaleZero_eighthClearedDefect_natDegree_le_zero
   rw [hX]
   exact (natDegree_C eta).le
 
+set_option maxHeartbeats 64000000 in
 /-- Aligned/nonzero split of the scale-zero eighth defect: both constant
 faces of `N` make the weight-`63` defect a ground constant, and neither
 face is excluded or claimed closed. -/
@@ -2300,6 +2326,7 @@ theorem normalized810ScaleZero_eighthClearedDefectFirstFace
     · simpa [hlambda] using hX
   · exact Or.inr ⟨lambda, eta, hlambda, hN, hX⟩
 
+set_option maxHeartbeats 64000000 in
 /-- Explicit zero/nonzero constant branches of both the discriminator and
 the weight-`63` defect.  Neither vanishing face is claimed closed. -/
 theorem normalized810ScaleZero_eighthClearedDefectBranches
@@ -2374,6 +2401,7 @@ theorem normalized810ScaleZero_eighthClearedDefectBranches
       simpa only [heta, Polynomial.C_0] using hX
     · exact Or.inr ⟨heta, hX⟩
 
+set_option maxHeartbeats 64000000 in
 /-- Source-facing aligned packet: if the discriminator vanishes, the
 weight-`63` defect is still a ground constant.  The face is not
 closed. -/
@@ -2430,6 +2458,7 @@ theorem normalized810ScaleZero_aligned_exists_eighthClearedDefect
       (by simpa only [p, q] using hNzero)
   exact ⟨t, eta, ht, hHsq, by simpa only [p, q] using hX⟩
 
+set_option maxHeartbeats 64000000 in
 /-- Source-facing nonzero packet: if the discriminator is a nonzero
 ground constant, the weight-`63` defect is still a ground constant.
 The face is not closed. -/

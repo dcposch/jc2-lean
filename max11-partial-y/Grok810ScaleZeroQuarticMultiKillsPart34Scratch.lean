@@ -1,3 +1,5 @@
+import Grok810ScaleZeroQuarticMultiKillsPart29Scratch
+import Grok810ScaleZeroQuarticMultiKillsPart32Scratch
 import Grok810ScaleZeroQuarticMultiKillsPart33Scratch
 
 /-! Part 34 of 47 of `Grok810ScaleZeroQuarticMultiKillsScratch`, split so that no single module elaborates them all

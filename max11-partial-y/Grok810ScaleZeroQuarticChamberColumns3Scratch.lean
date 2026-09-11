@@ -1,5 +1,4 @@
 import Grok810ScaleZeroQuarticChamberNuFacesScratch
-import Max11SpeedReflectDegLibScratch
 
 /-! # Load-column bounds for the carrier-change kills, `(8,10)` scale zero
 

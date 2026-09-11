@@ -1,4 +1,5 @@
-import Grok810ScaleZeroQuarticMultiKills2SpeedReflSplitBasePart06Scratch
+import Grok810ScaleZeroQuarticDefsScratch
+import Grok810ScaleZeroQuarticMultiKills2SpeedReflSplitBasePart04Scratch
 
 /-! # Part 7 of `Grok810ScaleZeroQuarticMultiKills2SpeedReflSplitBaseScratch`.
 

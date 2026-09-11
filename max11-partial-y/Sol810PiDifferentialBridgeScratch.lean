@@ -1,3 +1,5 @@
+import Fable810ScaleZeroThirteenthDefectPart20Scratch
+import Fable810ScaleZeroThirteenthDefectPart21Scratch
 import Sol810PiResidualScratch
 
 /-! # Monic differential-Jacobian bridge for the `(8,10)` pi integral

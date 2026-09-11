@@ -1,3 +1,4 @@
+import Grok810RemainingAlignedChambersScratch
 import Grok810AlignedSquareClearedNumeratorGlueScratch
 
 /-! # CLOSED. Source-facing closure of the `(8,10)` scale-two aligned-square chamber

@@ -1,4 +1,5 @@
-import Grok810ScaleZeroQuarticMultiKills6Part03Scratch
+import Grok810ScaleZeroQuarticDefsScratch
+import Grok810ScaleZeroQuarticMultiKills6Part00Scratch
 
 /-! # Part 4 of `Grok810ScaleZeroQuarticMultiKills6Scratch`.
 

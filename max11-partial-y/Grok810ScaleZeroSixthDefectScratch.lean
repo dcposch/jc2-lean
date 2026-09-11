@@ -1,5 +1,5 @@
-import Grok810ScaleZeroFifthDefectScratch
 import LowScale810ScaleTwoSeventhFace
+import Grok810ScaleZeroFifthDefectScratch
 
 /-! # Scale-zero sixth defect for the normalized `(8,10)`, `H = 0` leaf
 

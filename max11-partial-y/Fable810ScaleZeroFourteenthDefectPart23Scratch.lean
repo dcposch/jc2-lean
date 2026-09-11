@@ -1,4 +1,4 @@
-import Fable810ScaleZeroFourteenthDefectPart22Scratch
+import Fable810ScaleZeroTwelfthDefectScratch
 
 /-! Part 23 of 40 of `Fable810ScaleZeroFourteenthDefectScratch`, split so that no single module elaborates them all
 at once.  Statements are unchanged. -/

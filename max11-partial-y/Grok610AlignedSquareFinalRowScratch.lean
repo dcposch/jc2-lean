@@ -1,3 +1,5 @@
+import Fable610ScaleTwoAlignedEleventhFacePart15Scratch
+import Sol610ScaleTwoAlignedFourteenthSquareSourceScratch
 import Sol610ScaleTwoAlignedFifteenthFinalRowScratch
 
 /-! # Final Keller row on the aligned-square `(6,10)` branch

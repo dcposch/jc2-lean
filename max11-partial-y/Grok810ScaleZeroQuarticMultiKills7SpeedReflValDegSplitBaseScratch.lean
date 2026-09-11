@@ -1,5 +1,5 @@
-import Grok810ScaleZeroQuarticMultiKills6Scratch
 import Max11SpeedReflectDegLibScratch
+import Fable810ScaleZeroTwelfthDefectScratch
 
 /-! # Quartic Stage A multi-cone certificates (part 7: 6-letter cones ABDEFG–BCDEFG and all-constant) -/
 

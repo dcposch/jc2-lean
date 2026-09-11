@@ -10,6 +10,13 @@ section BridgeMuDepression610
 
 variable {F : Type*} [Field F] [CharZero F]
 
+-- Fix the carrier while retaining the original arithmetic heads and expression.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := F[X]) (β := F[X]) (γ := F[X]))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := F[X]) (β := F[X]) (γ := F[X]))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := F[X]) (β := F[X]) (γ := F[X]))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := F[X]) (β := Nat) (γ := F[X]))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := F[X]))
+
 set_option maxHeartbeats 64000000 in
 /-- Polynomial numerator of `12582912 h⁶⁵ μ` on the ninth-power face. -/
 def bridgeClearedMuDefect610

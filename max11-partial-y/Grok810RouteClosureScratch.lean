@@ -1,7 +1,7 @@
-import Grok810ScaleZeroQuarticAssembly2Scratch
-import Grok810NonzeroFaceSplitAssemblyScratch
-import Grok810AlignedSquareChamberClosureScratch
 import Grok810AlignedNonsquareDegreeZeroPrimitiveScratch
+import Grok810AlignedSquareChamberClosureScratch
+import Grok810NonzeroFaceSplitAssemblyScratch
+import Grok810ScaleZeroQuarticAssembly2Scratch
 
 /-! # Leaf closure: the normalized `(8,10)` low-scale route
 

@@ -1,4 +1,4 @@
-import Fable610ScaleTwoAlignedEighthFaceScratch
+import LowScale68ScaleTwoAlignedNonsquareDivisibility
 
 open scoped Polynomial.Bivariate
 noncomputable section

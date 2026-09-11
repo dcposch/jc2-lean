@@ -1,4 +1,7 @@
-import Sol610ScaleTwoDegreeZeroPostCollapseCoordinateBridgeScratch
+import LowScale68ScaleTwoAlignedNonsquareDivisibility
+import Grok810SpeedValLibScratch
+import Sol610ScaleTwoDegreeZeroLocalPoleScratch
+import Sol610ScaleTwoDegreeZeroPrimitivePart09Scratch
 
 noncomputable section
 open Polynomial

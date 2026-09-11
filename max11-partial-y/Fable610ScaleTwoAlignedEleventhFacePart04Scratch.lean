@@ -1,3 +1,4 @@
+import Fable610ScaleTwoAlignedTenthFacePart04Scratch
 import Fable610ScaleTwoAlignedEleventhFacePart01Scratch
 import Fable610ScaleTwoAlignedEleventhFacePart03Scratch
 

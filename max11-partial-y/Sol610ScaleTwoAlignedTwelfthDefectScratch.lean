@@ -1,5 +1,5 @@
+import Fable610ScaleZeroEleventhDefectSpeedTPart01Scratch
 import Sol610ScaleTwoAlignedTwelfthFaceScratch
-import Fable610ScaleZeroEleventhDefectScratch
 
 /-! # Weight-thirty algebraic block for the aligned `(6,10)` twelfth row
 

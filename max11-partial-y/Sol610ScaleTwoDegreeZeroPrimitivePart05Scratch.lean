@@ -1,4 +1,4 @@
-import Fable610ScaleZeroTwelfthDefectScratch
+import Fable610ScaleZeroTwelfthDefectSpeedTPart06Scratch
 
 noncomputable section
 namespace Max11DegreeRoutes

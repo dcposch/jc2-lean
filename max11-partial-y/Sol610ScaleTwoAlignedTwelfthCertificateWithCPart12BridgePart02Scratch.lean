@@ -1,5 +1,5 @@
+import Fable610ScaleTwoAlignedFlatDefectPart07Scratch
 import Fable610ScaleTwoAlignedEleventhFacePart02Scratch
-import Sol610ScaleTwoAlignedTwelfthCertificateWithCPart12BridgePart01Scratch
 
 /-! Flat polynomial data for the eleventh aligned defect, computed from the flat
 third…ninth data; each block has at most six monomials.  This removes the

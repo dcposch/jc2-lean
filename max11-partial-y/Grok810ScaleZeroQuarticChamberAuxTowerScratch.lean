@@ -1,4 +1,4 @@
-import Grok810ScaleZeroQuarticChamberFacesScratch
+import Grok810ScaleZeroQuarticDefsScratch
 
 /-! # The odd `A`-power auxiliary tower, `(8,10)` scale zero
 

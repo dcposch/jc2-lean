@@ -1,5 +1,5 @@
-import LowScale610ScaleZeroSixthDefect
 import LowScale610ScaleTwoEighthFace
+import LowScale610ScaleZeroSixthDefect
 
 /-! # Scale-zero seventh cleared defect for the normalized `(6,10)`, `H = 0` leaf
 

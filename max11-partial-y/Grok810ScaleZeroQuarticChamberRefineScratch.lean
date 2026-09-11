@@ -1,4 +1,4 @@
-import Grok810ScaleZeroQuarticChamberResidual4Scratch
+import Grok810ScaleZeroQuarticChamberDefs4Scratch
 
 /-! # The per-carrier tournament on the 11 refined cells, `(8,10)` scale zero
 

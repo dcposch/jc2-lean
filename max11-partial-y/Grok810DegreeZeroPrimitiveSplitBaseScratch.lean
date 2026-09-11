@@ -1,5 +1,4 @@
-import Sol810PiDifferentialBridgeScratch
-import Grok810DegreeZeroRowScratch
+import Fable810ScaleZeroTwelfthDefectScratch
 
 /-! # Grouped primitive of the depressed `(8,10)` degree-zero row
 

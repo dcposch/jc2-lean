@@ -1,3 +1,8 @@
+import Grok810ScaleZeroQuarticChamberFacesPart7Scratch
+import Grok810ScaleZeroQuarticChamberFacesPart6Scratch
+import Grok810ScaleZeroQuarticChamberFacesPart5Scratch
+import Grok810ScaleZeroQuarticChamberFacesPart2Scratch
+import Grok810ScaleZeroQuarticChamberColumnsScratch
 import Grok810ScaleZeroQuarticChamberColumns2Scratch
 
 /-! # Chamber rests for the cost-ladder kills, `(8,10)` scale zero

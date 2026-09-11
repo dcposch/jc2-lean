@@ -1,5 +1,4 @@
 import Grok810ScaleZeroMixedConesScratch
-import Max11SpeedReflectDegLibScratch
 
 /-! # Scale-zero cone exhaustion for normalized `(8,10)`, `H = 0`
 

@@ -1,5 +1,4 @@
-import Grok810ScaleZeroQuarticChamberRefineScratch
-import Max11SpeedReflectDegLibScratch
+import Grok810ScaleZeroQuarticChamberFacesPart0Scratch
 
 /-! # Load-column bounds for the power-target kills, `(8,10)` scale zero
 

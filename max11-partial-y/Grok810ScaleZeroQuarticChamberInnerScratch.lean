@@ -1,5 +1,5 @@
-import Grok810ScaleZeroQuarticChamberRests4Scratch
 import Grok810ScaleZeroQuarticChamberCertificatesScratch
+import Grok810ScaleZeroQuarticChamberNuFacesScratch
 
 /-! # Inner scalars, ideal identities and top-coefficient extraction
 

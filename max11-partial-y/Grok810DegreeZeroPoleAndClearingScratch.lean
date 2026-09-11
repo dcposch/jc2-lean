@@ -1,5 +1,5 @@
-import Grok810DegreeZeroSourceWrapperScratch
 import LowScale68ScaleTwoLocalDerivativeRowTwo
+import Grok810DegreeZeroSourceWrapperScratch
 
 /-! # Pole-one obstruction and source-homogeneous clearing of `(8,10)` degree zero
 

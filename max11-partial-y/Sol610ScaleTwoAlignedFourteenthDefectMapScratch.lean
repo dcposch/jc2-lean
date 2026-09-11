@@ -1,4 +1,4 @@
-import Sol610ScaleTwoAlignedFourteenthDefectClearingScratch
+import Sol610ScaleTwoAlignedFourteenthResidualConstantBridgeScratch
 
 /-! # Ring-hom transport for the compact aligned `(6,10)` ν numerator -/
 

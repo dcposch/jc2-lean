@@ -1,3 +1,4 @@
+import Sol610ScaleTwoAlignedFourteenthResidualDifferentialBridgeScratch
 import Sol610ScaleTwoNonzeroFourteenthCompactClearingScratch
 
 /-! # Constant-field descent of the nonzero `(6,10)` fourth-tail defect

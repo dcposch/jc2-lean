@@ -1,3 +1,5 @@
+import Fable610ScaleTwoKappaIntegralBridgeCompatPart03Scratch
+import Fable610ScaleTwoKappaIntegralBridgeCompatFollowingPart01Scratch
 import Fable610ScaleTwoKappaIntegralBridgeCompatFollowingMuSpeedPart01Scratch
 
 open scoped Polynomial.Bivariate

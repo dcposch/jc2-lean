@@ -1,5 +1,4 @@
-import Grok810ScaleZeroQuarticChamberN7LadderScratch
-import Max11SpeedReflectDegLibScratch
+import Grok810ScaleZeroQuarticSigmaLadderPart35Scratch
 
 /-! # `N₂` load-free part, load columns and split, `(8,10)` scale zero
 

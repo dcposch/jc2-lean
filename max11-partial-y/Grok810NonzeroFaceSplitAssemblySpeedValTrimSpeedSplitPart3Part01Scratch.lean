@@ -1,4 +1,5 @@
-import Grok810NonzeroFaceSplitAssemblySpeedValTrimSpeedSplitPart2Scratch
+import Grok810NonzeroFaceSplit3SpeedValChainScratch
+import Grok810NonzeroFaceSplit4SpeedValChainScratch
 
 /-! Part 1 of 2 of `Grok810NonzeroFaceSplitAssemblySpeedValTrimSpeedSplitPart3Scratch`, split so that no single module elaborates them all
 at once.  Statements are unchanged. -/

@@ -1,5 +1,4 @@
-import Grok810ScaleZeroQuarticConesScratch
-import Max11SpeedReflectDegLibScratch
+import Grok810ScaleZeroQuarticConesPart30Scratch
 
 /-! # Scale-zero quartic A-dominant Stage B, for normalized `(8,10)`, `H = 0`
 

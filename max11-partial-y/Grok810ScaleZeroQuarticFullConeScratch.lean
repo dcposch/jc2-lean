@@ -1,5 +1,4 @@
-import Grok810ScaleZeroQuarticConesScratch
-import Max11SpeedReflectDegLibScratch
+import Grok810ScaleZeroQuarticDefsScratch
 
 /-! # Full 7-letter cone `R = {A,B,C,D,E,F,G}` of normalized `(8,10)`, `H = 0`
 

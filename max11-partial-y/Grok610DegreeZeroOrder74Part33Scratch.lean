@@ -1,5 +1,5 @@
-import Grok610DegreeZeroOrder74Part16Scratch
 import Grok610DegreeZeroOrder74Part25Scratch
+import Grok610DegreeZeroOrder74Part16Scratch
 
 noncomputable section
 open Polynomial

@@ -1,4 +1,4 @@
-import Grok810ScaleZeroQuarticChamberDefs2Scratch
+import Grok810ScaleZeroQuarticDefsScratch
 
 /-! # Cost-argmin chamber definitions (3/4), `(8,10)` scale zero
 
