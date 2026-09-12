@@ -4,28 +4,24 @@ version: "v0.4"
 project:
   name: "jc2-max11-partial-y-degree-closure"
   description: >-
-    Lean 4 / Mathlib proof of the exact finite degree-routing certificate
-    through maximum partial y-degree eleven, both abstractly and instantiated
-    for bivariate polynomials with nonzero constant Jacobian.  The concrete
-    strengthened characteristic-zero theorem proves the zero-degree,
-    equal-degree, and divisibility routes internally and concludes
-    K[P,Q]=K[x,y] from only the gcd-at-most-two and (6,9) route premises.
-    A further source-facing theorem replaces the (6,9) premise by exhaustive
-    normalized cube-core and noncube-core closure premises.  The imported
-    divisible-core assembly discharges both deep exclusions.  The local
-    source-shear, exact total-degree, and Dirichlet argument now reduce the
-    nondivisible history route to the canonical prime-total-degree-gcd theorem,
-    while a generic leading-degree/source-shear argument proves every coprime
-    partial-degree pair and the odd-common-scale half of gcd two from the same
-    prime theorem.  A finite classifier further reduces gcd two to five
-    primitive unordered degree pairs through eleven.  An exact source-shear
-    adapter to the published standard-pair endpoint obstruction eliminates
-    every even common-leading scale above two.  UFD extraction and invertible
-    target rescaling then normalize all five residual pairs to literal common
-    powers.  All five primitive gcd-two leaves are now closed internally; the
-    only remaining inputs are the canonical prime-total-degree-gcd theorem and
-    the published standard-endpoint obstruction, both cited as explicit
-    hypotheses.
+    Lean 4 / Mathlib proof that every plane Keller pair with maximum actual
+    partial y-degree at most eleven generates the polynomial ring, over an
+    algebraically closed field K of characteristic zero, modulo exactly two
+    cited classical theorems stated as explicit hypotheses: Nagata's
+    prime-total-degree-gcd theorem and the Guccione--Guccione--Valqui
+    standard-pair endpoint obstruction.  The proof is an original finite
+    degree-routing composition: the zero-degree, equal-degree, divisibility,
+    coprime, and odd-common-scale routes are proved from the cited theorems;
+    a finite classifier reduces partial-degree gcd two to the five primitive
+    pairs (4,6), (4,10), (6,8), (6,10), (8,10); the endpoint obstruction, UFD
+    extraction, and target rescaling normalize each pair to literal common
+    scales 0 and 2; and all ten normalized low-scale cases are excluded
+    internally.  The repository carries seven Comparator configurations at
+    this commit (unconditional headline, headline conditional on the five
+    leaves, and one per leaf); each registry entry certifies only the
+    theorems named in its own comparator file.  Every theorem requires
+    algebraic closure; nothing is proved for non-algebraically-closed fields
+    of characteristic zero, and no scalar-extension descent is formalized.
   authors:
     - "Dan Clemens Posch"
   license: "Apache-2.0"
@@ -70,49 +66,20 @@ sources:
     relationship: "other"
     note: >-
       These results are first presented by this Lean formalization rather than
-      imported from a prior paper or sibling proof.  The source-shear modules
-      give the exact bridge from partial y-degree to the published total-degree
-      theorems; the UFD and target-rescaling modules normalize the five
-      gcd-two leaves; and the `(4,6)` modules give a new complete proof of both
-      low scales.  The `(6,8)` modules extend that original development through
-      the canonical nontrivial expanded weighted-boundary cubic-core theorem,
-      strict transverse degree drop, exact-cubic contradiction, and attained
-      positive secondary defect radius.  The first abstract secondary chamber
-      is classified exactly; both invariant equations and all three one-form
-      equations are extracted from the literal polynomial system and applied
-      to the canonical expanded lower system.  In the chamber `2g<n`, the
-      resulting boundary has `e=0`, `a*b=3*d`, and attained support only in
-      the `B` or translated-`C` direction.  The abstract algebra of the next
-      prospective residual faces in `3g<n` is also checked: both one-sided
-      endpoints and the tied endpoint are impossible, while the middle face
-      forces `a*b^2+3*c^2=0` and two nonzero residual directions.  Coefficient
-      extraction is now connected to the literal polynomial invariants: the
-      translated defects have strict degree drop, all five exact residual
-      coordinate identities are checked, the invariant loads are below the
-      middle face, and the canonical expanded system satisfies the abstract
-      middle classifier whenever its explicit gaps obey `g<h<2g`.  The
-      residual selector now eliminates both endpoints and canonically lands
-      on that middle face.  Exact discriminant, incidence, and cubic defects
-      then expose the next Newton comparison: the two strict chambers force
-      discriminant gaps `g+h` and `4g-h`, while the balanced chamber supplies
-      its exact three-term boundary equation.  The literal row-two system is
-      split into this residual and a strictly lower load; its two strict
-      chambers are eliminated, forcing `2h=3g`, and the balanced coefficient
-      yields `4*b*c^2-9*d*e=0`.  The literal row-one system and load cutoff
-      then expose the nonzero coefficient
-      `(-64/9)*(4n-g)*c_top^3`, excluding the complete `3g<n` chamber.
-      Sharp load-wall coefficient identities extend that endgame through the
-      strict strip `2g<n<3g`, all five chambers on `n=3g`, and the first-gap
-      boundary `2g=n`; the latter uses residual degree drops, the residual
-      row-two trichotomy, and the balanced row-one contradiction.
-      On `n<2g`, `g<n`, the zero-load classification is propagated through
-      strict residual drops, an attained residual gap, sharp load cutoffs, and
-      the exact residual middle and double invariant faces.  The complete
-      row-two selector, double-face one-forms, and balanced row-one scalar then
-      exclude the subcritical chamber `3g<2n`.
-      These statements
-      refine the frozen finite composition and use the two published results
-      listed below only at their explicitly typed interfaces.
+      imported from a prior paper or sibling proof: the source-shear bridge from
+      partial y-degree to the two published total-degree theorems, the finite
+      gcd-two classifier, the UFD common-core extraction and target rescaling
+      that normalize the five gcd-two pairs to literal scales 0 and 2, and the
+      complete exclusion of all ten normalized low-scale cases at (4,6), (4,10),
+      (6,8), (6,10), and (8,10).  The (4,6) proof works over an algebraically
+      closed field of characteristic zero through the genuine-source dichotomy,
+      the quartic/sextic first integrals, the coefficient-curve endgame, and the
+      square/nonsquare common-core descent.  The other four leaves proceed by
+      depressed normal forms, Faber residual reconstruction, weighted Newton-face
+      chamber classification, and load-wall coefficient identities; the module
+      docstrings record each step.  These statements refine the frozen finite
+      composition and use the two published results below only at their
+      explicitly typed interfaces.
     license: "Apache-2.0"
     author_endorsement: "participated"
   - title: "Two-dimensional Jacobian Conjecture"
@@ -167,142 +134,86 @@ related_formalizations:
 
 status:
   scope: >-
-    Fully proved: the exact unordered route classification through eleven;
-    uniqueness of the primitive pair (6,9); strict recursive closure for an
-    arbitrary symmetric predicate Good; its concrete instantiation for
-    MvPolynomial (Fin 2) K using the actual Jacobian, partial y-degree, and
-    coordinate-subalgebra generation predicates; the zero-partial-degree,
-    equal-degree, and divisibility Keller routes in characteristic zero; and
-    the frontier checksum showing (8,12) and (9,12) as the first new primitive
-    pairs at maximum twelve.  The degree routes include a kernel-checked
+    Field hypothesis.  Every theorem in this project is stated for an
+    arbitrary algebraically closed field K of characteristic zero (Lean
+    binders `{K : Type*} [Field K] [CharZero K] [IsAlgClosed K]`).  Algebraic
+    closure is used in the low-scale leaves (for example to write a nonzero
+    common core as H = h^2 at (4,6)); no result is claimed for
+    non-algebraically-closed fields of characteristic zero, and
+    scalar-extension descent is not formalized.
+
+    Fully proved (kernel-checked; sorry count 0; axioms propext,
+    Classical.choice, Quot.sound in every comparator theorem):
+
+    (1) The abstract finite routing certificate: the exact unordered route
+    classification through eleven, uniqueness of the primitive pair (6,9),
+    strict recursive closure for an arbitrary symmetric predicate, the
+    sharper classifier that leaves exactly five gcd-two primitives, and the
+    frontier checksum identifying (8,12) and (9,12) as the first new
+    primitives at maximum twelve.
+
+    (2) Its instantiation for MvPolynomial (Fin 2) K with the actual
+    Jacobian (MvPolynomial.pderiv), the actual partial y-degree
+    (degreeOf 1), and coordinate-ring generation (Algebra.adjoin), including
+    the zero-degree, equal-degree, and divisibility Keller routes with a
     weighted-Wronskian leading-coefficient argument and triangular target
-    shear.  The same argument is specialized to a genuine (6,9) Keller pair,
-    deriving its nonzero square/cube common leading core without assuming a
-    later landing case; independent nonzero target rescaling then normalizes
-    the leading coefficients to a literal square and cube while preserving
-    degree, Keller, and generation.  The next actual Jacobian row is also
-    extracted: in cube-root weights it makes the alignment discriminator
-    3*A-2*B constant.  A denominator-cleared version is proved directly from
-    leading rows s^6,s^9 without assuming divisibility of the next
-    coefficients.  Normalization and that row are packaged into an exhaustive
-    genuine-source dichotomy: a normalized noncube core or a nonzero literal
-    cube root satisfying the first cube row.  The literal cube/noncube split
-    is then composed into a genuine (6,9) theorem conditional on closure of
-    those two normalized branches.  A further source-honest composition
-    matches the reviewed history split exactly: `3 ∤ deg h` is charged to a
-    nondivisible-core route, while only `3 ∣ deg h` is charged to the cube and
-    noncube exclusions; degree-zero cores remain in the divisible residue.
-    The final assembly imports the exhaustive literal divisible-core theorem,
-    adapts its coefficient-polynomial Jacobian to the genuine normalized
-    MvPolynomial source, and supplies both divisible exclusion interfaces.
-    For the nondivisible core it constructs the triangular source
-    automorphism, proves both chain rules and Jacobian/generation invariance,
-    proves the exact total degrees 2(H+3L),3(H+3L) from unique maximal
-    shear-weight monomials, and uses Mathlib's Dirichlet theorem to choose
-    H+3L prime.  More generally, the leading weighted-Wronskian row proves
-    numerical proportionality of the two top coefficient degrees.  Exact
-    source shears then prove every positive coprime partial-degree pair from
-    the prime-total-degree-gcd theorem.  At partial-degree gcd two, Dirichlet
-    closes the odd common-scale case and isolates the even-scale residue.  A
-    finite recursive classifier restricts that residue to the five unordered
-    pairs (4,6), (4,10), (6,8), (6,10), and (8,10); a checked adapter shows
-    that a strong arbitrary-pair twice-prime result would close all five.  A
-    second checked adapter applies the reliable standard-pair endpoint
-    obstruction after a large source shear: it preserves the partial degrees
-    and leading coefficients, produces normalized endpoint (2,H), and closes
-    every even scale H > 2.  For each of the five remaining pairs, the top
-    Jacobian row is further factored in the polynomial UFD into exact common
-    powers with reduced weights (2,3), (2,5), (3,4), (3,5), or (4,5).
-    Independent target rescalings remove both scalar factors, preserve Keller
-    and generation, and prove that the common core has degree exactly H.
-    For the first normalized pair (4,6), the next genuine Jacobian row is now
-    also proved: with N=3*a_3*H-2*b_5 it gives N^2=kappa*H^5, and over an
-    algebraically closed field the nonzero branch has H=h^2 and N=lambda*h^5.
-    Over an arbitrary characteristic-zero differential field, the common
-    depressed quartic/sextic Jacobian is expanded through all eight rows; the
-    five upper rows integrate to the reviewed formulas and the next two are
-    exactly the derivatives of the first integrals I_2 and I_1.  After the
-    substitution U=A^2-4C, the full remaining Jacobian is proved to equal the
-    two exact coefficient-curve rows dJ_2,dJ_1 followed by the reviewed
-    one-form eta.  Both translated-origin boundary equations are derived by
-    exact evaluation, and the four weighted-leading forms are proved to have
-    the unique weighted-projective common zero [1:0:0:0].  All four full
-    cleared local-chart equations are verified with no truncation, as are the
-    terminal mismatch leading contradiction, the three aligned eliminated
-    Newton polynomials, the shifted plane curve, its component equations and
-    restricted one-form, and both monic boundary eliminants.  Presburger
-    proofs replace the finite scans for all three polynomial degree cones and
-    verify their one-form degree gaps.  The aligned monic quartic and octic
-    are converted into exact rational-function integrality results; the
-    polynomial representatives and both square/nonsquare last-row
-    unit-product contradictions are also proved.  Generic three- and
-    four-term Hahn-series tied-minimum lemmas and exhaustive rational
-    Newton-face tables are instantiated on every term of the full cleared
-    mismatch and aligned equations, including identically-zero coordinate
-    subloci and arbitrary regular boundary loads.  The finite-place embedding
-    and weighted-infinity theorem globalize these local contradictions at a
-    root of a square common core.  For a nonsquare aligned core, the
-    irreducible quadratic extension `K(x)(√H)`, its deck involution, fixed
-    field, differential, and constant-field descent are constructed
-    explicitly.  Deck parity kills the odd integration constants and descends
-    `q`, `B²`, `rB`, and `√H B`; the boundary quartic makes the required
-    representatives polynomial, and `M²=HK` closes the final row.  Thus both
-    H = 0 and H = 2 normalized `(4,6)` sources are excluded completely.
-    For the next `(6,8)` leaf, the complete twelve-row depressed
-    sextic/octic differential Jacobian and all seven triangular Faber
-    residuals are proved.  Their explicit reconstruction leaves five lower
-    rows; the first two are proved to be exact derivatives of displayed
-    coefficient invariants, followed by three literal one-form constraints.
-    The exact raw sextic/octic affine depression is also verified, including
-    the surviving septic alignment discriminator, and the literal source
-    bracket/raw coefficient bridge into `k(x)` is proved.  The omitted top row
-    forces the septic coefficient to be constant; it and all seven Faber
-    residuals descend to the ground field and reconstruct the integrated
-    octic coefficients.  At scale zero, all thirteen depressed coefficients
-    are represented by literal ground polynomials and both first integrals
-    descend.  Exact weighted coefficient formulas then extract the five top
-    lower rows from arbitrary bounded polynomial loads and force the unique
-    cubic-core boundary `B=D=0`, `C=A^2/3`, `E=A^3/27` at every positive
-    integral weighted radius.  A common expansion by `x -> x^60` now clears
-    the five weight denominators and constructs a positive attained maximal
-    radius whenever one load is nonconstant; the nonzero terminal row is
-    proved to force that nonconstancy.  The exact rational lower system is
-    pulled back to a packaged polynomial system; both invariants commute with
-    expansion, all three one-form rows acquire the common chain-rule factor,
-    and the canonical expanded maximal face is proved nontrivial with nonzero
-    top A coefficient.  In cubic transverse coordinates the four defects are
-    proved to have strict degree drop.  They cannot all vanish: the exact
-    quartic first integral makes the relevant loads zero, and the final
-    one-form then contradicts the nonzero Keller constant.  The minimum of
-    the four actual transverse degree deficits is consequently positive and
-    attained by a nonzero defect, with all four sharpened degree bounds; no
-    equal-drop assumption is made.  In the abstract chamber `2g<n`, the exact
-    five-equation face solver forces the leading defects to satisfy `e=0` and
-    `a*b=3*d`.  In `3g<n`, canonical residual-gap selection eliminates both
-    endpoint faces and lands on nonzero `A,B,c,d,e` with
-    `A*B^2+3*c^2=0`.  Exact invariant syzygies then lower the incidence and
-    cubic defects.  The next comparison is complete: on the two strict sides
-    the discriminant gaps are respectively `g+h` and `4g-h`, while the
-    balanced side satisfies the exact three-term boundary equation.  The
-    literal row-two equation and its load cutoff eliminate both strict sides,
-    force `2h=3g`, and extract `4*b*c^2-9*d*e=0` on the balanced face.  The
-    next row-one coefficient is `(-64/9)*(4n-g)*c_top^3`, and its literal
-    load is strictly lower, so the full canonical `3g<n` chamber is excluded.
-    All five normalized low-scale leaves --- `(4,6)`, `(4,10)`, `(6,8)`,
-    `(6,10)`, and `(8,10)` --- are now closed internally, so maximum actual
-    partial y-degree eleven for genuine characteristic-zero plane Keller pairs
-    follows from exactly the two cited classical results and nothing else:
-    the coordinate-free total-degree form of Nagata's 1989 Theorem 7.3
-    (`PlaneKellerPrimeTotalDegreeGCDRoute`) and the Guccione--Guccione--Valqui
-    standard-pair endpoint obstruction, Corollary 7.9
-    (`PlaneKellerStandardEndpointGCDObstruction`).  Not proved here:
-    scalar-extension/descent, or either classical theorem itself.  The plane
-    Jacobian conjecture itself is not claimed: this project proves only the
-    finite maximum-partial-degree-eleven composition, conditional on those two
-    external classical inputs.  The strong twice-prime statement is not
-    treated as established: GGV 2017 proves the restriction for the globally
-    minimal counterexample gcd B and records a gap in the earlier
-    arbitrary-pair proof.
+    shear.
+
+    (3) Reduction of every coprime partial-degree pair, of the odd common
+    scale at partial-degree gcd two, and of the nondivisible (6,9) history
+    route to the cited prime-total-degree-gcd theorem, by exact source shears
+    and Mathlib's Dirichlet theorem; the divisible (6,9) core is discharged by
+    the imported sibling exclusions.
+
+    (4) At partial-degree gcd two with even common scale H: the cited
+    standard-pair endpoint obstruction, applied after a large source shear,
+    eliminates every H > 2; polynomial-UFD extraction and independent target
+    rescaling then put each of the five pairs into exact normalized
+    common-core form at the literal scales H = 0 and H = 2.
+
+    (5) All ten normalized low-scale cases are excluded internally, one
+    theorem per pair covering both scales:
+    `proved_planeKellerNormalized46LowScaleRoute` (with
+    `proved_planeKellerNormalized46ScaleTwoRoute` for the scale-two half),
+    `planeKellerNormalized410LowScaleRoute_proved`,
+    `proved_planeKellerNormalized68LowScaleRoute`,
+    `proved_planeKellerNormalized610LowScaleRoute`, and
+    `proved_planeKellerNormalized810LowScaleRoute`.  No low-scale case
+    remains open.
+
+    (6) The headline
+    `Max11DegreeRoutes.Max11PlaneKellerGenerationWithClassicalInterfaces`:
+    for K as above and under the two classical hypotheses
+    `PlaneKellerPrimeTotalDegreeGCDRoute` and
+    `PlaneKellerStandardEndpointGCDObstruction`, every Keller pair P, Q with
+    degreeOf 1 P <= 11 and degreeOf 1 Q <= 11 satisfies
+    Algebra.adjoin K {P, Q} = top.
+
+    Comparator configurations at this commit (one registry entry each; each
+    entry certifies exactly the theorem_names listed in its own file, and
+    nothing else):
+    `comparator.json` (solution module Max11Solution, 40 theorems): the
+    unconditional headline (6) together with the supporting results;
+    `comparator-conditional.json` (Max11Assembly, 35 theorems): the same
+    composition with the five leaf routes (5) as additional explicit
+    hypotheses, registered separately only because the unconditional closure
+    exceeds the verifier's single-run budget;
+    `comparator-leaf46.json` (LowScale46ScaleTwo, 2 theorems): exactly the
+    two (4,6) leaf theorems, i.e. every normalized (4,6) leading-core source
+    at scale 0 or 2 generates, over algebraically closed K of characteristic
+    zero; this entry certifies nothing about the other four pairs, the
+    classifier, or the headline;
+    `comparator-leaf410.json`, `comparator-leaf68.json`,
+    `comparator-leaf610.json`, `comparator-leaf810.json` (1 theorem each):
+    the corresponding leaf theorem of (5) under the same field hypothesis.
+
+    Not proved here: Nagata's prime-total-degree-gcd theorem and the
+    Guccione--Guccione--Valqui endpoint obstruction (both are hypotheses of
+    every theorem that uses them); descent from algebraically closed fields
+    to arbitrary fields of characteristic zero; the plane Jacobian conjecture
+    itself beyond partial y-degree eleven; and the strong arbitrary-pair
+    twice-prime statement, which is not treated as established (GGV 2017
+    proves it only for the globally minimal counterexample gcd).
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
@@ -948,80 +859,75 @@ status:
 automation:
   methods:
     - method: "agent"
-      models: ["xAI Grok 4.6", "Claude Opus 5", "Claude Fable 5.1"]
-      framework: "grok CLI, Claude Code"
+      models: ["OpenAI Codex (gpt-6-astra; earlier Codex agent sessions, model not recorded)", "xAI Grok 4.6", "Claude Opus 5", "Claude Fable 5.1"]
+      framework: "OpenAI Codex CLI, grok CLI, Claude Code"
       tool_setup: >-
-        Agent-assisted extraction of the finite recursion, Lean proof
-        development, exhaustive arithmetic checking, build/debug cycles, and
-        source-alignment review against pinned Mathlib.  xAI Grok 4.6 runs
-        the proof lanes via the grok CLI; Claude Opus 5 handles planning and
-        code emitters via Claude Code; Claude Fable 5.1 coordinates the
-        campaign via Claude Code.
+        Agent-assisted formalization throughout: extraction of the finite
+        recursion, Lean proof development, exhaustive arithmetic checking,
+        build/debug cycles, source-alignment review against pinned Mathlib,
+        and verification-cost engineering (module splitting and merging,
+        reflective degree bounds).  OpenAI Codex agents wrote the core
+        definitions and the early modules (credited in the file headers of
+        Max11Core.lean, Max11Challenge.lean, Solution.lean, and
+        CubeCore.lean) and, as gpt-6-astra via the Codex CLI, a material
+        share of the (8,10) leaf proof modules (the `Astra*` module family)
+        and of the build-cost reductions.  xAI Grok 4.6 ran most of the
+        low-scale leaf proof lanes via the grok CLI (`Grok*` modules).
+        Claude Opus 5 handled planning and code emitters, and Claude Fable
+        5.1 coordinated the campaign, ran further proof lanes (`Fable*`
+        modules), assembled the package, and measured verification cost,
+        all via Claude Code.  All proofs are kernel-checked; agents are not
+        listed as project authors or maintainers.
       cost:
-        wall_time: "under one day of agent time"
-        spend_usd: "subscription-based"
-        hardware: "local Apple-silicon macOS machine and GitHub-hosted Linux CI"
+        wall_time: "several weeks of agent time (August--September 2026); not separately itemized"
+        spend_usd: "subscription plans plus prepaid API credits; not itemized"
+        hardware: "local Linux workstation, AWS EC2 instances (m7i/r7i class) for parallel Lean builds and a 4 vCPU / 16 GiB verifier replica, macOS, and GitHub-hosted Linux CI"
       prompting_notes: >-
-        The formalization isolates the exact finite composition from the
-        deeper algebraic leaves so its logical dependencies are explicit.
+        Lanes were given one target module and a precise statement to close,
+        with sorry-free compilation on a pinned toolchain as the acceptance
+        gate; the finite composition was kept separate from the algebraic
+        leaves so that every hypothesis is explicit in the Lean statement.
     - method: "manual"
       models: []
       framework: "n/a"
-      tool_setup: "Human mathematical direction and responsibility for publication."
+      tool_setup: "Human mathematical direction, review of the statements, and responsibility for publication."
       cost:
         wall_time: "not separately recorded"
         spend_usd: "not tracked"
         hardware: "local machine"
       prompting_notes: "n/a"
-  spend_usd: "subscription-based"
+  spend_usd: "subscription plans plus prepaid API credits; not itemized"
   notes: >-
     No external human review of the Lean project has yet occurred.  The
-    submitted proofs use only kernel-checked Mathlib tactics.
-
+    submitted proofs use only kernel-checked Mathlib tactics; the axiom
+    report of every comparator theorem is [propext, Classical.choice,
+    Quot.sound].
 fidelity:
   divergences: >-
-    The source's final theorem concerns automorphy of characteristic-zero
-    bivariate Keller pairs.  The concrete Lean theorem now uses exactly that
-    polynomial/Jacobian/ring-generation predicate.  The strengthened theorem
-    proves the zero-degree, equal-degree, and divisibility routes, but assumes
-    the gcd-at-most-two theorem.  The broad source-facing version splits the
-    (6,9) leaf into explicit normalized cube and noncube closure premises; the
-    refined version instead exposes the source's exact core-degree split and
-    charges the deep exclusions only on `3 ∣ deg h`; `Max11Assembly` now
-    imports and adapts the complete divisible-core source exclusion.  The
-    nondivisible source-shear, exact-degree, and Dirichlet stack is also proved,
-    reducing that branch to the canonical prime-total-degree-gcd theorem.  A
-    generic version proves all coprime partial-degree pairs and the odd-scale
-    gcd-two cases from the same input.  A second finite classifier reduces the
-    former gcd-at-most-two premise to the even-scale subcase of five explicit
-    pairs.  The standard-pair endpoint obstruction then reduces those five
-    unbounded residues to the literal scales zero and two, and polynomial-UFD
-    extraction plus target rescaling puts all ten cases into exact normalized
-    common-core form.  Both `(4,6)` scales are excluded from the genuine source
-    dichotomy and polynomial coefficient-curve endgames.  The `(6,8)`
-    scale-zero route is proved through extraction and expansion to its
-    canonical nontrivial cubic-core polynomial boundary, strict transverse
-    degree drop, contradiction on the exact cubic locus, and attained positive
-    secondary defect radius.  All five equations of its abstract small-gap
-    face are extracted from the literal polynomial rows and applied to the
-    canonical expanded system, reducing the attained residual boundary to the
-    `B` or translated-`C` direction.  The next `3g<n` residual coordinates,
-    exact identities, degree drops, invariant load cutoffs, abstract face
-    solvers, canonical tropical selection, endpoint elimination, selected
-    middle discriminant classifier, exact defect syzygies, degree cutoffs, and
-    next three-way cubic-face classification, row-two system split,
-    strict-chamber eliminations, balanced row-two equation, row-one system
-    split and load cutoff, exact row-one cubic coefficient, and final
-    contradiction are proved, excluding the entire `3g<n` chamber.  It
-    does not
-    formalize the published prime theorem, the standard-endpoint theorem,
-    the secondary Newton-face `(6,8)` scale-zero descent, the other seven
-    normalized low-scale theorems, an arbitrary-pair twice-prime theorem, or
-    scalar-extension descent.  In particular, GGV
-    2017's theorem about the globally minimal
-    counterexample gcd B is not silently strengthened to a theorem about every
-    Keller pair.  No other divergences are known.
-
+    The informal source (the frozen campaign report) states its final theorem
+    for characteristic-zero bivariate Keller pairs.  Every Lean theorem here
+    additionally assumes that the field is algebraically closed
+    (`[IsAlgClosed K]`); the low-scale leaves use this hypothesis, and no
+    descent from the algebraically closed case to arbitrary characteristic-zero
+    fields is formalized.  This is the one substantive narrowing of the
+    source statement.  The Lean development uses the source's exact
+    polynomial/Jacobian/ring-generation predicate (MvPolynomial.pderiv,
+    degreeOf 1, Algebra.adjoin).  It does not formalize the two cited
+    classical theorems; they enter only as the explicitly typed hypotheses
+    `PlaneKellerPrimeTotalDegreeGCDRoute` (Nagata 1989, Theorem 7.3, in
+    coordinate-free total-degree form) and
+    `PlaneKellerStandardEndpointGCDObstruction` (Guccione--Guccione--Valqui
+    2017, Corollary 7.9).  GGV's statement about the globally minimal
+    counterexample gcd is not strengthened to an arbitrary-pair twice-prime
+    theorem.  The finite composition follows the report's routing rules, but
+    the source-shear bridge, the gcd-two normalization, and all five low-scale
+    leaf exclusions are original to this formalization rather than
+    translations of the report or of the cited papers.  The seven Comparator
+    configurations certify different subsets of the development (see
+    status.scope); the conditional configuration is not a weaker
+    mathematical claim but the same composition with the five leaf theorems,
+    each certified by its own configuration, restated as hypotheses.  No
+    other divergences are known.
 review:
   status: >-
     self-assessed; informal source passed campaign-internal different-model
@@ -1031,71 +937,20 @@ review:
     - "Dan Clemens Posch"
   notes: >-
     The copied hostile review predates and does not inspect the Lean code.
-    This repository carries several Comparator configurations at one
-    commit: `comparator.json` (unconditional headline, solution module
+    This repository carries seven Comparator configurations at one commit:
+    `comparator.json` (unconditional headline, solution module
     `Max11Solution`), `comparator-conditional.json` (the headline with the
     five leaf routes as hypotheses, solution module `Max11Assembly`), and
-    `comparator-leaf{46,410,68,610,810}.json` (one per proved leaf route).
-    Every entry states its hypotheses in the Lean statement itself; nothing
-    is assumed silently.
-    Kernel axiom reports and the project audit script find no sorryAx or
-    non-permitted axioms in Max11Core.lean, ClassicalRoutes.lean,
-    DegreeRoutes.lean, HistoryRoute.lean, HistoryDegree.lean,
-    TotalDegreeRoutes.lean, CoprimeDegreeRoute.lean, EndpointGCDRoute.lean,
-    LowScaleCore.lean, LowScale68NormalForm.lean,
-    LowScale68Integrated.lean, LowScale68Depression.lean,
-    LowScale68SourceBridge.lean, LowScale68ScaleZero.lean,
-    LowScale68Infinity.lean, LowScale68PolynomialBoundary.lean,
-    LowScale68WeightedRadius.lean, LowScale68Expansion.lean,
-    LowScale68CubicDescent.lean, LowScale68SecondaryRadius.lean,
-    LowScale68SecondaryFace.lean, LowScale68SecondaryExtraction.lean,
-    LowScale68SecondaryOneForms.lean, LowScale68SecondarySmallGap.lean,
-    LowScale68SecondaryResidualFace.lean,
-    LowScale68SecondaryResidualExtraction.lean,
-    LowScale68SecondaryLargeGapLoads.lean,
-    LowScale68SecondaryRelaxedFirstFace.lean,
-    LowScale68SecondaryRelaxedCanonical.lean,
-    LowScale68SecondaryAlphaWall.lean,
-    LowScale68SecondaryAlphaWallCanonical.lean,
-    LowScale68SecondaryFirstLoadWallFace.lean,
-    LowScale68SecondaryFirstLoadWallCore.lean,
-    LowScale68SecondaryFirstLoadWallRemainder.lean,
-    LowScale68SecondaryFirstLoadWallCanonical.lean,
-    LowScale68SecondaryFirstGapBoundaryFace.lean,
-    LowScale68SecondaryFirstGapBoundary.lean,
-    LowScale68SecondaryLargeGapResidual.lean,
-    LowScale68SecondaryLargeGapLoadZeroFace.lean,
-    LowScale68SecondaryLargeGapSubcritical.lean,
-    LowScale68SecondaryResidualMiddle.lean,
-    LowScale68SecondaryResidualDouble.lean,
-    LowScale68SecondaryResidualDoubleLoadWall.lean,
-    LowScale68SecondaryResidualDoubleLoadWallCanonical.lean,
-    LowScale68SecondaryResidualSumLoadWall.lean,
-    LowScale68SecondaryResidualHalfRadiusLoadWall.lean,
-    LowScale68SecondaryResidualHalfRadiusI4Wall.lean,
-    LowScale68SecondaryResidualHalfRadiusBoundary.lean,
-    LowScale68SecondaryResidualLeftLoadWindow.lean,
-    LowScale68SecondaryResidualLeftBoundary.lean,
-    LowScale68SecondaryResidualRowTwoLoadDominance.lean,
-    LowScale68SecondaryResidualOvershootCanonical.lean,
-    LowScale68SecondaryResidualOvershootBoundary.lean,
-    LowScale68SecondaryResidualThreeGapBoundaryMiddle.lean,
-    LowScale68SecondaryResidualThreeGapBoundarySelector.lean,
-    LowScale68SecondaryResidualStripSelector.lean,
-    LowScale68SecondaryResidualSelector.lean,
-    LowScale68SecondaryResidualDescent.lean,
-    LowScale68SecondaryResidualRowTwoSystem.lean,
-    LowScale68SecondaryResidualRowTwoFaces.lean,
-    LowScale68SecondaryResidualRowTwoBalanced.lean,
-    LowScale68SecondaryResidualBalancedSelector.lean,
-    LowScale68SecondaryResidualCanonicalBalanced.lean,
-    LowScale68SecondaryResidualCanonicalBalancedData.lean,
-    LowScale68SecondaryResidualRowOneFaces.lean,
-    LowScale68SecondaryResidualRowOneSystem.lean,
-    LowScale68SecondaryResidualBalancedEndgame.lean,
-    LowScale68SecondaryResidualLoadZeroEndgame.lean, or
-    Max11Assembly.lean.
-
+    `comparator-leaf{46,410,68,610,810}.json` (one per proved leaf route;
+    solution modules `LowScale46ScaleTwo`, `Grok410ChainPromotionScratch`,
+    `Grok68TerminalZeroMeetingCellScratch`,
+    `Grok610ScaleZeroCubicLoadWallsScratch`,
+    `Grok810RouteClosureScratch`).  Every entry states its hypotheses,
+    including the algebraically-closed characteristic-zero field
+    hypothesis, in the Lean statement itself; nothing is assumed silently.
+    Kernel axiom reports for all seven comparator theorems and the project
+    audit script find no sorryAx and no axioms beyond propext,
+    Classical.choice, and Quot.sound in any module of the package.
 alignment:
   namespace: "(root)"
   statements:
@@ -1104,10 +959,12 @@ alignment:
       module: "Max11Solution"
       status: >-
         exact bivariate polynomial conclusion fully proved for maximum actual
-        partial y-degree eleven; every internal routing, normalization, and
+        partial y-degree eleven over an algebraically closed field of
+        characteristic zero; every internal routing, normalization, and
         low-scale leaf is closed, leaving exactly the two cited classical
         hypotheses `PlaneKellerPrimeTotalDegreeGCDRoute` and
-        `PlaneKellerStandardEndpointGCDObstruction` as premises
+        `PlaneKellerStandardEndpointGCDObstruction` as premises; certified by
+        comparator.json
     - source: "Finite routing table and recursive closure, Sections 6--8"
       lean: "MaxPartialDegreeElevenClosure"
       module: "Max11Assembly"
@@ -1116,9 +973,10 @@ alignment:
         hypotheses
     - source: "Maximum actual partial y-degree eleven theorem, Sections 1 and 6"
       lean: "Max11DegreeRoutes.Max11PlaneKellerGenerationWithFiveNormalizedLowScaleRoutes"
-      module: "Max11Challenge"
+      module: "Max11Assembly"
       status: >-
         exact bivariate polynomial conclusion and finite composition proved
+        over an algebraically closed field of characteristic zero
         CONDITIONALLY: the five normalized low-scale leaf routes at the
         gcd-two pairs (4,6), (4,10), (6,8), (6,10), (8,10) and the two
         classical results are explicit hypotheses of this theorem.  Each leaf
@@ -1127,12 +985,44 @@ alignment:
         `Max11PlaneKellerGenerationWithClassicalInterfaces` composes them and
         is certified by `comparator.json`.  The conditional entry exists only
         because the unconditional closure exceeds the verifier's single-run
-        budget; it must be read together with the leaf entries.
+        budget; it must be read together with the leaf entries.  Certified
+        by comparator-conditional.json
+    - source: "Original: complete exclusion of the normalized (4,6) low-scale sources at scales 0 and 2"
+      lean: "Max11DegreeRoutes.proved_planeKellerNormalized46LowScaleRoute"
+      module: "LowScale46ScaleTwo"
+      status: >-
+        fully proved over an algebraically closed field of characteristic
+        zero; certified by comparator-leaf46.json; that configuration also names the scale-two half
+        `proved_planeKellerNormalized46ScaleTwoRoute`, and certifies nothing
+        about the other four pairs, the classifier, or the headline
+    - source: "Original: complete exclusion of the normalized (4,10) low-scale sources at scales 0 and 2"
+      lean: "Max11DegreeRoutes.planeKellerNormalized410LowScaleRoute_proved"
+      module: "Grok410ChainPromotionScratch"
+      status: >-
+        fully proved over an algebraically closed field of characteristic
+        zero; certified by comparator-leaf410.json
+    - source: "Original: complete exclusion of the normalized (6,8) low-scale sources at scales 0 and 2"
+      lean: "Max11DegreeRoutes.proved_planeKellerNormalized68LowScaleRoute"
+      module: "Grok68TerminalZeroMeetingCellScratch"
+      status: >-
+        fully proved over an algebraically closed field of characteristic
+        zero; certified by comparator-leaf68.json
+    - source: "Original: complete exclusion of the normalized (6,10) low-scale sources at scales 0 and 2"
+      lean: "Max11DegreeRoutes.proved_planeKellerNormalized610LowScaleRoute"
+      module: "Grok610ScaleZeroCubicLoadWallsScratch"
+      status: >-
+        fully proved over an algebraically closed field of characteristic
+        zero; certified by comparator-leaf610.json
+    - source: "Original: complete exclusion of the normalized (8,10) low-scale sources at scales 0 and 2"
+      lean: "Max11DegreeRoutes.proved_planeKellerNormalized810LowScaleRoute"
+      module: "Grok810RouteClosureScratch"
+      status: >-
+        fully proved over an algebraically closed field of characteristic
+        zero; certified by comparator-leaf810.json
     - source: "Maximum-twelve frontier checksum, Section 9"
       lean: "Max12FirstPrimitives"
       module: "Max11Challenge"
       status: "exact finite arithmetic statement proved"
-
 acknowledgements: >-
   The Mathlib community, the Palomar registry conventions, and the campaign
   review agents that audited the informal composition source.
