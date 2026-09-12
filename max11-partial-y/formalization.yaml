@@ -42,12 +42,13 @@ sources:
       - "Dan Clemens Posch"
     type: "other"
     location: "sources/gcd3-69-coverage-composition-20260824.md"
-    relationship: "formalizes"
+    relationship: "other"
     note: >-
       Exact frozen campaign report containing the finite routing rules, the
       exhaustive table through eleven, the recursive dependency graph, and
-      the frontier at twelve.  The Lean extraction formalizes that finite
-      composition only, not all mathematical leaves cited by the report.
+      the frontier at twelve.  It is the informal antecedent of the finite
+      composition; the Lean development is an original proof and does not
+      formalize the report's own arguments or the leaves it cites.
     license: "CC-BY-4.0"
     author_endorsement: "participated"
   - title: "Hostile different-model review: GCD3 (6,9) coverage composition"
