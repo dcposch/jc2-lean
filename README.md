@@ -41,6 +41,11 @@ campaign to settle the question.
 Campaign artifacts: [paper + verification](https://doi.org/10.5281/zenodo.21894922),
 [theory bundle](https://doi.org/10.5281/zenodo.22002825).
 
-Each subdirectory is a self-contained lake project with its own
+The original worked-example identities are retained in
+[`cascade-certificate/`](cascade-certificate/), migrated from the campaign's
+former `lean/` directory. The broader obstruction is in `vertex-gap/`.
+
+Each subdirectory is a self-contained lake project. Registry projects have
 `Challenge.lean` (statements), `Solution.lean` (sorry-free proofs),
-`comparator.json`, and `formalization.yaml`.
+`comparator.json`, and `formalization.yaml`; the historical
+`cascade-certificate/` project uses `Jc.lean` and `Jc/Culprit.lean`.
