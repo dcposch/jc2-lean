@@ -1,5 +1,15 @@
 import RationalSource
 
+set_option linter.unusedTactic false
+set_option linter.unreachableTactic false
+set_option linter.unnecessarySeqFocus false
+set_option linter.flexible false
+set_option linter.style.haveILetI false
+set_option linter.unnecessarySimpa false
+set_option linter.unusedSectionVars false
+set_option linter.unusedVariables false
+set_option linter.unusedSimpArgs false
+
 noncomputable section
 
 open Polynomial
@@ -14,22 +24,26 @@ The input is the original pair in `k[x][y]`; no Faber or pole landing is an
 assumption.
 -/
 
+set_option maxHeartbeats 64000000 in
 /-- Coefficientwise differentiation in the inner source variable `x`. -/
 noncomputable def GCD369CubeSourceXDeriv
     {k : Type*} [CommRing k] (p : k[X][X]) : k[X][X] :=
   PolynomialModule.equivPolynomialSelf (Polynomial.derivative'.mapCoeffs p)
 
+set_option maxHeartbeats 64000000 in
 @[simp] theorem GCD369CubeSourceXDeriv_coeff
     {k : Type*} [CommRing k] (p : k[X][X]) (n : ℕ) :
     (GCD369CubeSourceXDeriv p).coeff n = (p.coeff n).derivative := by
   rfl
 
+set_option maxHeartbeats 64000000 in
 /-- The coefficient-polynomial Jacobian of a bivariate pair. -/
 noncomputable def GCD369CubeBivariateJacobian
     {k : Type*} [CommRing k] (p q : k[X][X]) : k[X][X] :=
   GCD369CubeSourceXDeriv p * derivative q -
     derivative p * GCD369CubeSourceXDeriv q
 
+set_option maxHeartbeats 64000000 in
 /-- The first row below the leading weighted-Wronskian row for outer
 degrees `(6,9)`. -/
 theorem GCD369CubeNextJacobianRow
@@ -59,6 +73,7 @@ theorem GCD369CubeNextJacobianRow
   rw [hC8, hC9, hC6, hC5]
   linear_combination hcoeff
 
+set_option maxHeartbeats 64000000 in
 /-- For a sextic, the fifth Hasse derivative consists of exactly its top
 two coefficients. -/
 theorem GCD369CubeHasseFiveOfDegreeSix
@@ -83,6 +98,7 @@ theorem GCD369CubeHasseFiveOfDegreeSix
   intro h
   exact (hn1 h.symm).elim
 
+set_option maxHeartbeats 64000000 in
 /-- For a nonic, the eighth Hasse derivative consists of exactly its top
 two coefficients. -/
 theorem GCD369CubeHasseEightOfDegreeNine
@@ -107,6 +123,7 @@ theorem GCD369CubeHasseEightOfDegreeNine
   intro h
   exact (hn1 h.symm).elim
 
+set_option maxHeartbeats 64000000 in
 /-- The Jacobian bracket for two polynomials over `k(x)`, using the
 quotient-rule derivative on coefficients and the ordinary derivative in the
 outer variable. -/
@@ -115,6 +132,7 @@ noncomputable def GCD369CubeRatFuncJacobian
   GCD369CubeRatFuncCoefficientDerivative p * derivative q -
     derivative p * GCD369CubeRatFuncCoefficientDerivative q
 
+set_option maxHeartbeats 64000000 in
 /-- A common substitution in the outer variable scales this bracket by the
 ordinary derivative of the substituted coordinate. -/
 theorem GCD369CubeRatFuncJacobian_comp
@@ -127,6 +145,7 @@ theorem GCD369CubeRatFuncJacobian_comp
     sub_comp, mul_comp]
   ring
 
+set_option maxHeartbeats 64000000 in
 /-- Coefficient convolution for the rational-function Jacobian bracket. -/
 theorem GCD369CubeRatFuncJacobian_coeff
     {k : Type*} [Field k] (p q : (RatFunc k)[X]) (n : ℕ) :
@@ -141,26 +160,31 @@ theorem GCD369CubeRatFuncJacobian_coeff
   simp only [coeff_sub, coeff_mul,
     GCD369CubeRatFuncCoefficientDerivative_coeff, coeff_derivative]
 
+set_option maxHeartbeats 64000000 in
 /-- The zeroth Faber polynomial. -/
 noncomputable def GCD369CubeFaberZero {K : Type*} [Field K]
     (_a0 _a1 _a2 _a3 _a4 : K) : K[X] :=
   monomial 0 1
 
+set_option maxHeartbeats 64000000 in
 /-- The first Faber polynomial. -/
 noncomputable def GCD369CubeFaberOne {K : Type*} [Field K]
     (_a0 _a1 _a2 _a3 _a4 : K) : K[X] :=
   monomial 1 1
 
+set_option maxHeartbeats 64000000 in
 /-- The second Faber polynomial, the polynomial part of `f^(1/3)`. -/
 noncomputable def GCD369CubeFaberTwo {K : Type*} [Field K]
     (_a0 _a1 _a2 _a3 a4 : K) : K[X] :=
   monomial 2 1 + monomial 0 (a4 / 3)
 
+set_option maxHeartbeats 64000000 in
 /-- The third Faber polynomial, the polynomial part of `f^(1/2)`. -/
 noncomputable def GCD369CubeFaberThree {K : Type*} [Field K]
     (_a0 _a1 _a2 a3 a4 : K) : K[X] :=
   monomial 3 1 + monomial 1 (a4 / 2) + monomial 0 (a3 / 2)
 
+set_option maxHeartbeats 64000000 in
 /-- The fourth Faber polynomial, the polynomial part of `f^(2/3)`. -/
 noncomputable def GCD369CubeFaberFour {K : Type*} [Field K]
     (_a0 _a1 a2 a3 a4 : K) : K[X] :=
@@ -168,6 +192,7 @@ noncomputable def GCD369CubeFaberFour {K : Type*} [Field K]
     monomial 1 (2 * a3 / 3) +
     monomial 0 (2 * a2 / 3 - a4 ^ 2 / 9)
 
+set_option maxHeartbeats 64000000 in
 /-- The fifth Faber polynomial, the polynomial part of `f^(5/6)`. -/
 noncomputable def GCD369CubeFaberFive {K : Type*} [Field K]
     (_a0 a1 a2 a3 a4 : K) : K[X] :=
@@ -176,11 +201,13 @@ noncomputable def GCD369CubeFaberFive {K : Type*} [Field K]
     monomial 1 (5 * a2 / 6 - 5 * a4 ^ 2 / 72) +
     monomial 0 (5 * a1 / 6 - 5 * a3 * a4 / 36)
 
+set_option maxHeartbeats 64000000 in
 /-- The sixth Faber polynomial is the depressed sextic itself. -/
 noncomputable def GCD369CubeFaberSix {K : Type*} [Field K]
     (a0 a1 a2 a3 a4 : K) : K[X] :=
   GCD369CubeDepressedSextic a0 a1 a2 a3 a4
 
+set_option maxHeartbeats 64000000 in
 /-- The seventh Faber polynomial, i.e. the polynomial part of `f^(7/6)`. -/
 noncomputable def GCD369CubeFaberSeven {K : Type*} [Field K]
     (a0 a1 a2 a3 a4 : K) : K[X] :=
@@ -193,6 +220,7 @@ noncomputable def GCD369CubeFaberSeven {K : Type*} [Field K]
     monomial 0 (7 * a1 * a4 / 36 + 7 * a2 * a3 / 36 -
       35 * a3 * a4 ^ 2 / 432)
 
+set_option maxHeartbeats 64000000 in
 /-- The eighth Faber polynomial, i.e. the polynomial part of `f^(4/3)`. -/
 noncomputable def GCD369CubeFaberEight {K : Type*} [Field K]
     (a0 a1 a2 a3 a4 : K) : K[X] :=
@@ -208,6 +236,7 @@ noncomputable def GCD369CubeFaberEight {K : Type*} [Field K]
       2 * a2 ^ 2 / 9 - 4 * a2 * a4 ^ 2 / 27 -
       4 * a3 ^ 2 * a4 / 27 + 5 * a4 ^ 4 / 243)
 
+set_option maxHeartbeats 64000000 in
 /-- The ninth Faber polynomial, i.e. the polynomial part of the formal
 power `f^(3/2)` for the depressed sextic `f`. -/
 noncomputable def GCD369CubeFaberNine {K : Type*} [Field K]
@@ -227,8 +256,9 @@ noncomputable def GCD369CubeFaberNine {K : Type*} [Field K]
       3 * a1 * a4 ^ 2 / 16 - 3 * a2 * a3 * a4 / 8 -
       a3 ^ 3 / 16 + 3 * a3 * a4 ^ 3 / 32)
 
+set_option maxHeartbeats 64000000 in
 set_option maxRecDepth 100000 in
-set_option maxHeartbeats 4000000 in
+set_option maxHeartbeats 64000000 in
 /-- All outer rows above degree four cancel in the bracket of a depressed
 sextic with its ninth Faber polynomial. -/
 theorem GCD369CubeFaberNine_highRows
@@ -285,7 +315,10 @@ theorem GCD369CubeFaberNine_highRows
   · interval_cases n <;>
       rw [GCD369CubeRatFuncJacobian_coeff] <;>
       simp only [Finset.Nat.sum_antidiagonal_eq_sum_range_succ_mk] <;>
-      norm_num [Finset.sum_range_succ, f, g,
+      norm_num only [Finset.sum_range_succ, Finset.sum_range_zero, f, g,
+        ite_true, ite_false,
+        zero_add, add_zero, zero_mul, mul_zero, one_mul, mul_one,
+        sub_zero, zero_sub, sub_self, pow_zero, pow_one, nsmul_eq_mul,
         GCD369CubeDepressedSextic, GCD369CubeFaberNine,
         coeff_add, coeff_monomial,
         GCD369CubeRatFuncDerivative_add, GCD369CubeRatFuncDerivative_mul,
@@ -296,8 +329,9 @@ theorem GCD369CubeFaberNine_highRows
       ring
   · exact natDegree_le_iff_coeff_eq_zero.mp hB n (by omega)
 
+set_option maxHeartbeats 64000000 in
 set_option maxRecDepth 100000 in
-set_option maxHeartbeats 4000000 in
+set_option maxHeartbeats 64000000 in
 /-- The eighth Faber polynomial has the same high-row cancellation. -/
 theorem GCD369CubeFaberEight_highRows
     {k : Type*} [Field k] [CharZero k]
@@ -355,7 +389,10 @@ theorem GCD369CubeFaberEight_highRows
   · interval_cases n <;>
       rw [GCD369CubeRatFuncJacobian_coeff] <;>
       simp only [Finset.Nat.sum_antidiagonal_eq_sum_range_succ_mk] <;>
-      norm_num [Finset.sum_range_succ, f, g,
+      norm_num only [Finset.sum_range_succ, Finset.sum_range_zero, f, g,
+        ite_true, ite_false,
+        zero_add, add_zero, zero_mul, mul_zero, one_mul, mul_one,
+        sub_zero, zero_sub, sub_self, pow_zero, pow_one, nsmul_eq_mul,
         GCD369CubeDepressedSextic, GCD369CubeFaberEight,
         coeff_add, coeff_monomial,
         GCD369CubeRatFuncDerivative_add, GCD369CubeRatFuncDerivative_mul,
@@ -366,8 +403,9 @@ theorem GCD369CubeFaberEight_highRows
       ring
   · exact natDegree_le_iff_coeff_eq_zero.mp hB n (by omega)
 
+set_option maxHeartbeats 64000000 in
 set_option maxRecDepth 100000 in
-set_option maxHeartbeats 4000000 in
+set_option maxHeartbeats 64000000 in
 /-- The seventh Faber polynomial has the same high-row cancellation. -/
 theorem GCD369CubeFaberSeven_highRows
     {k : Type*} [Field k] [CharZero k]
@@ -423,7 +461,10 @@ theorem GCD369CubeFaberSeven_highRows
   · interval_cases n <;>
       rw [GCD369CubeRatFuncJacobian_coeff] <;>
       simp only [Finset.Nat.sum_antidiagonal_eq_sum_range_succ_mk] <;>
-      norm_num [Finset.sum_range_succ, f, g,
+      norm_num only [Finset.sum_range_succ, Finset.sum_range_zero, f, g,
+        ite_true, ite_false,
+        zero_add, add_zero, zero_mul, mul_zero, one_mul, mul_one,
+        sub_zero, zero_sub, sub_self, pow_zero, pow_one, nsmul_eq_mul,
         GCD369CubeDepressedSextic, GCD369CubeFaberSeven,
         coeff_add, coeff_monomial,
         GCD369CubeRatFuncDerivative_add, GCD369CubeRatFuncDerivative_mul,
@@ -434,8 +475,9 @@ theorem GCD369CubeFaberSeven_highRows
       ring
   · exact natDegree_le_iff_coeff_eq_zero.mp hB n (by omega)
 
+set_option maxHeartbeats 64000000 in
 set_option maxRecDepth 100000 in
-set_option maxHeartbeats 4000000 in
+set_option maxHeartbeats 64000000 in
 /-- The fifth Faber polynomial has the same high-row cancellation. -/
 theorem GCD369CubeFaberFive_highRows
     {k : Type*} [Field k] [CharZero k]
@@ -485,7 +527,10 @@ theorem GCD369CubeFaberFive_highRows
   · interval_cases n <;>
       rw [GCD369CubeRatFuncJacobian_coeff] <;>
       simp only [Finset.Nat.sum_antidiagonal_eq_sum_range_succ_mk] <;>
-      norm_num [Finset.sum_range_succ, f, g,
+      norm_num only [Finset.sum_range_succ, Finset.sum_range_zero, f, g,
+        ite_true, ite_false,
+        zero_add, add_zero, zero_mul, mul_zero, one_mul, mul_one,
+        sub_zero, zero_sub, sub_self, pow_zero, pow_one, nsmul_eq_mul,
         GCD369CubeDepressedSextic, GCD369CubeFaberFive,
         coeff_add, coeff_monomial,
         GCD369CubeRatFuncDerivative_add, GCD369CubeRatFuncDerivative_mul,
@@ -496,8 +541,9 @@ theorem GCD369CubeFaberFive_highRows
       ring
   · exact natDegree_le_iff_coeff_eq_zero.mp hB n (by omega)
 
+set_option maxHeartbeats 64000000 in
 set_option maxRecDepth 100000 in
-set_option maxHeartbeats 4000000 in
+set_option maxHeartbeats 64000000 in
 /-- The fourth Faber polynomial has the same high-row cancellation. -/
 theorem GCD369CubeFaberFour_highRows
     {k : Type*} [Field k] [CharZero k]
@@ -545,7 +591,10 @@ theorem GCD369CubeFaberFour_highRows
   · interval_cases n <;>
       rw [GCD369CubeRatFuncJacobian_coeff] <;>
       simp only [Finset.Nat.sum_antidiagonal_eq_sum_range_succ_mk] <;>
-      norm_num [Finset.sum_range_succ, f, g,
+      norm_num only [Finset.sum_range_succ, Finset.sum_range_zero, f, g,
+        ite_true, ite_false,
+        zero_add, add_zero, zero_mul, mul_zero, one_mul, mul_one,
+        sub_zero, zero_sub, sub_self, pow_zero, pow_one, nsmul_eq_mul,
         GCD369CubeDepressedSextic, GCD369CubeFaberFour,
         coeff_add, coeff_monomial,
         GCD369CubeRatFuncDerivative_add, GCD369CubeRatFuncDerivative_mul,
@@ -556,8 +605,9 @@ theorem GCD369CubeFaberFour_highRows
       ring
   · exact natDegree_le_iff_coeff_eq_zero.mp hB n (by omega)
 
+set_option maxHeartbeats 64000000 in
 set_option maxRecDepth 100000 in
-set_option maxHeartbeats 4000000 in
+set_option maxHeartbeats 64000000 in
 /-- The third Faber polynomial has the same high-row cancellation. -/
 theorem GCD369CubeFaberThree_highRows
     {k : Type*} [Field k] [CharZero k]
@@ -601,7 +651,10 @@ theorem GCD369CubeFaberThree_highRows
   · interval_cases n <;>
       rw [GCD369CubeRatFuncJacobian_coeff] <;>
       simp only [Finset.Nat.sum_antidiagonal_eq_sum_range_succ_mk] <;>
-      norm_num [Finset.sum_range_succ, f, g,
+      norm_num only [Finset.sum_range_succ, Finset.sum_range_zero, f, g,
+        ite_true, ite_false,
+        zero_add, add_zero, zero_mul, mul_zero, one_mul, mul_one,
+        sub_zero, zero_sub, sub_self, pow_zero, pow_one, nsmul_eq_mul,
         GCD369CubeDepressedSextic, GCD369CubeFaberThree,
         coeff_add, coeff_monomial,
         GCD369CubeRatFuncDerivative_add, GCD369CubeRatFuncDerivative_mul,
@@ -612,8 +665,9 @@ theorem GCD369CubeFaberThree_highRows
       ring
   · exact natDegree_le_iff_coeff_eq_zero.mp hB n (by omega)
 
+set_option maxHeartbeats 64000000 in
 set_option maxRecDepth 100000 in
-set_option maxHeartbeats 4000000 in
+set_option maxHeartbeats 64000000 in
 /-- The second Faber polynomial has the same high-row cancellation. -/
 theorem GCD369CubeFaberTwo_highRows
     {k : Type*} [Field k] [CharZero k]
@@ -657,7 +711,10 @@ theorem GCD369CubeFaberTwo_highRows
   · interval_cases n <;>
       rw [GCD369CubeRatFuncJacobian_coeff] <;>
       simp only [Finset.Nat.sum_antidiagonal_eq_sum_range_succ_mk] <;>
-      norm_num [Finset.sum_range_succ, f, g,
+      norm_num only [Finset.sum_range_succ, Finset.sum_range_zero, f, g,
+        ite_true, ite_false,
+        zero_add, add_zero, zero_mul, mul_zero, one_mul, mul_one,
+        sub_zero, zero_sub, sub_self, pow_zero, pow_one, nsmul_eq_mul,
         GCD369CubeDepressedSextic, GCD369CubeFaberTwo,
         coeff_add, coeff_monomial,
         GCD369CubeRatFuncDerivative_add, GCD369CubeRatFuncDerivative_mul,
@@ -668,6 +725,7 @@ theorem GCD369CubeFaberTwo_highRows
       ring
   · exact natDegree_le_iff_coeff_eq_zero.mp hB n (by omega)
 
+set_option maxHeartbeats 64000000 in
 /-- The sixth Faber polynomial brackets with itself to zero. -/
 theorem GCD369CubeFaberSix_highRows
     {k : Type*} [Field k]
@@ -679,6 +737,7 @@ theorem GCD369CubeFaberSix_highRows
   ring
   norm_num
 
+set_option maxHeartbeats 64000000 in
 /-- The first Faber bracket is the coefficientwise derivative of the
 depressed sextic, hence has outer degree at most four. -/
 theorem GCD369CubeFaberOne_highRows
@@ -699,6 +758,7 @@ theorem GCD369CubeFaberOne_highRows
   norm_num
   compute_degree
 
+set_option maxHeartbeats 64000000 in
 /-- The zeroth Faber polynomial is constant, so its bracket vanishes. -/
 theorem GCD369CubeFaberZero_highRows
     {k : Type*} [Field k]
@@ -709,6 +769,7 @@ theorem GCD369CubeFaberZero_highRows
   unfold GCD369CubeRatFuncJacobian GCD369CubeFaberZero
   simp [GCD369CubeRatFuncCoefficientDerivative_one]
 
+set_option maxHeartbeats 64000000 in
 /-- A literal normalized polynomial cube source at partial degrees `(6,9)`.
 The two leading coefficients are the actual sixth and ninth powers of the
 same nonzero polynomial, and the original Jacobian is a nonzero scalar. -/
@@ -727,64 +788,76 @@ structure GCD369CubePolynomialSource (k : Type u) [Field k] where
 
 namespace GCD369CubePolynomialSource
 
+set_option maxHeartbeats 64000000 in
 /-- The rational-function image of the cube root. -/
 noncomputable def sRat {k : Type u} [Field k]
     (S : GCD369CubePolynomialSource k) : RatFunc k :=
   algebraMap k[X] (RatFunc k) S.s
 
+set_option maxHeartbeats 64000000 in
 /-- The normalized fifth sextic coefficient `A=a₅/s⁵`. -/
 noncomputable def A {k : Type u} [Field k]
     (S : GCD369CubePolynomialSource k) : RatFunc k :=
   algebraMap k[X] (RatFunc k) (S.p.coeff 5) / S.sRat ^ 5
 
+set_option maxHeartbeats 64000000 in
 /-- The normalized eighth nonic coefficient `B=b₈/s⁸`. -/
 noncomputable def B {k : Type u} [Field k]
     (S : GCD369CubePolynomialSource k) : RatFunc k :=
   algebraMap k[X] (RatFunc k) (S.q.coeff 8) / S.sRat ^ 8
 
+set_option maxHeartbeats 64000000 in
 /-- The canonical coefficient embedding into the rational function field. -/
 noncomputable def coefficientMap {k : Type u} [Field k]
     (_S : GCD369CubePolynomialSource k) : k[X] →+* RatFunc k :=
   algebraMap k[X] (RatFunc k)
 
+set_option maxHeartbeats 64000000 in
 /-- The original sextic after embedding its coefficient polynomials in
 `k(x)`. -/
 noncomputable def pRat {k : Type u} [Field k]
     (S : GCD369CubePolynomialSource k) : (RatFunc k)[X] :=
   S.p.map S.coefficientMap
 
+set_option maxHeartbeats 64000000 in
 /-- The original nonic after embedding its coefficient polynomials in
 `k(x)`. -/
 noncomputable def qRat {k : Type u} [Field k]
     (S : GCD369CubePolynomialSource k) : (RatFunc k)[X] :=
   S.q.map S.coefficientMap
 
+set_option maxHeartbeats 64000000 in
 /-- Translation used to depress the normalized sextic. -/
 noncomputable def translation {k : Type u} [Field k]
     (S : GCD369CubePolynomialSource k) : RatFunc k := S.A / 6
 
+set_option maxHeartbeats 64000000 in
 /-- The exact transformed sextic in the coordinate `z=s*y+r`. -/
 noncomputable def normalizedP {k : Type u} [Field k]
     (S : GCD369CubePolynomialSource k) : (RatFunc k)[X] :=
   GCD369CubeSourceTransform S.pRat S.sRat⁻¹
     (-(S.sRat⁻¹ * S.translation))
 
+set_option maxHeartbeats 64000000 in
 /-- The exact transformed nonic in the same coordinate `z=s*y+r`. -/
 noncomputable def normalizedQ {k : Type u} [Field k]
     (S : GCD369CubePolynomialSource k) : (RatFunc k)[X] :=
   GCD369CubeSourceTransform S.qRat S.sRat⁻¹
     (-(S.sRat⁻¹ * S.translation))
 
+set_option maxHeartbeats 64000000 in
 @[simp] theorem pRat_coeff
     {k : Type u} [Field k] (S : GCD369CubePolynomialSource k) (n : ℕ) :
     S.pRat.coeff n = algebraMap k[X] (RatFunc k) (S.p.coeff n) := by
   simp [pRat, coefficientMap]
 
+set_option maxHeartbeats 64000000 in
 @[simp] theorem qRat_coeff
     {k : Type u} [Field k] (S : GCD369CubePolynomialSource k) (n : ℕ) :
     S.qRat.coeff n = algebraMap k[X] (RatFunc k) (S.q.coeff n) := by
   simp [qRat, coefficientMap]
 
+set_option maxHeartbeats 64000000 in
 /-- Coefficientwise rational differentiation of the embedded sextic is the
 embedded inner-source derivative. -/
 theorem pRat_coefficientDerivative
@@ -795,6 +868,7 @@ theorem pRat_coefficientDerivative
   simp [GCD369CubeRatFuncDerivative_polynomial,
     GCD369CubeSourceXDeriv_coeff, coefficientMap]
 
+set_option maxHeartbeats 64000000 in
 /-- Coefficientwise rational differentiation of the embedded nonic is the
 embedded inner-source derivative. -/
 theorem qRat_coefficientDerivative
@@ -805,6 +879,7 @@ theorem qRat_coefficientDerivative
   simp [GCD369CubeRatFuncDerivative_polynomial,
     GCD369CubeSourceXDeriv_coeff, coefficientMap]
 
+set_option maxHeartbeats 64000000 in
 /-- Ordinary outer differentiation commutes with coefficient embedding for
 the sextic. -/
 theorem pRat_derivative
@@ -812,6 +887,7 @@ theorem pRat_derivative
     derivative S.pRat = (derivative S.p).map S.coefficientMap := by
   simp [pRat, derivative_map]
 
+set_option maxHeartbeats 64000000 in
 /-- Ordinary outer differentiation commutes with coefficient embedding for
 the nonic. -/
 theorem qRat_derivative
@@ -819,6 +895,7 @@ theorem qRat_derivative
     derivative S.qRat = (derivative S.q).map S.coefficientMap := by
   simp [qRat, derivative_map]
 
+set_option maxHeartbeats 64000000 in
 /-- Embedding the original bivariate source into `k(x)[y]` preserves its
 scalar Jacobian exactly. -/
 theorem pRat_qRat_jacobian
@@ -836,6 +913,7 @@ theorem pRat_qRat_jacobian
       simp [coefficientMap, RatFunc.algebraMap_C,
         RatFunc.algebraMap_eq_C]
 
+set_option maxHeartbeats 64000000 in
 theorem pRat_natDegree
     {k : Type u} [Field k] (S : GCD369CubePolynomialSource k) :
     S.pRat.natDegree = 6 := by
@@ -843,6 +921,7 @@ theorem pRat_natDegree
   · exact S.hp
   · exact RatFunc.algebraMap_injective k
 
+set_option maxHeartbeats 64000000 in
 theorem qRat_natDegree
     {k : Type u} [Field k] (S : GCD369CubePolynomialSource k) :
     S.qRat.natDegree = 9 := by
@@ -850,6 +929,7 @@ theorem qRat_natDegree
   · exact S.hq
   · exact RatFunc.algebraMap_injective k
 
+set_option maxHeartbeats 64000000 in
 /-- The normalized sextic is monic. -/
 theorem normalizedP_coeff_six
     {k : Type u} [Field k] [CharZero k]
@@ -866,6 +946,7 @@ theorem normalizedP_coeff_six
   rw [hlead]
   field_simp [hsRat]
 
+set_option maxHeartbeats 64000000 in
 /-- The translation `r=A/6` removes the fifth sextic coefficient exactly. -/
 theorem normalizedP_coeff_five
     {k : Type u} [Field k] [CharZero k]
@@ -881,6 +962,7 @@ theorem normalizedP_coeff_five
   field_simp [hsRat]
   simp [sRat]
 
+set_option maxHeartbeats 64000000 in
 /-- The normalized nonic is monic. -/
 theorem normalizedQ_coeff_nine
     {k : Type u} [Field k] [CharZero k]
@@ -897,6 +979,7 @@ theorem normalizedQ_coeff_nine
   rw [hlead]
   field_simp [hsRat]
 
+set_option maxHeartbeats 64000000 in
 /-- The same translation turns the eighth nonic coefficient into the
 base-field constant `-delta/2` supplied by the source Jacobian row. -/
 theorem normalizedQ_coeff_eight
@@ -922,6 +1005,7 @@ theorem normalizedQ_coeff_eight
   rw [← hdelta]
   ring
 
+set_option maxHeartbeats 64000000 in
 /-- The invertible affine normalization preserves the sextic degree. -/
 theorem normalizedP_natDegree
     {k : Type u} [Field k] (S : GCD369CubePolynomialSource k) :
@@ -948,6 +1032,7 @@ theorem normalizedP_natDegree
   · exact mul_ne_zero (leadingCoeff_ne_zero.mpr hp0)
       (pow_ne_zero _ (leadingCoeff_ne_zero.mpr hL0))
 
+set_option maxHeartbeats 64000000 in
 /-- The same affine normalization preserves the nonic degree. -/
 theorem normalizedQ_natDegree
     {k : Type u} [Field k] (S : GCD369CubePolynomialSource k) :
@@ -974,6 +1059,7 @@ theorem normalizedQ_natDegree
   · exact mul_ne_zero (leadingCoeff_ne_zero.mpr hq0)
       (pow_ne_zero _ (leadingCoeff_ne_zero.mpr hL0))
 
+set_option maxHeartbeats 64000000 in
 /-- The normalized sextic is literally the depressed sextic determined by
 its five lower coefficients. -/
 theorem normalizedP_eq_depressed
@@ -1003,6 +1089,7 @@ theorem normalizedP_eq_depressed
     simp [GCD369CubeDepressedSextic, coeff_monomial, coeff_C, hn0,
       hn1.symm, hn2.symm, hn3.symm, hn4.symm, hn6'.symm]
 
+set_option maxHeartbeats 64000000 in
 /-- The common affine source normalization divides the original scalar
 Jacobian by the cube-root polynomial, with all derivatives of the moving
 scale and translation cancelling by the chain rule. -/
@@ -1020,6 +1107,7 @@ theorem normalized_jacobian
   congr 1
   field_simp [hsRat]
 
+set_option maxHeartbeats 64000000 in
 /-- The denominator-cleared source row forced by the original Jacobian. -/
 theorem firstRow
     {k : Type u} [Field k] [CharZero k]
@@ -1056,6 +1144,7 @@ theorem firstRow
   exact (mul_eq_zero.mp hscaled).resolve_left
     (mul_ne_zero (by norm_num) (pow_ne_zero 5 S.hs))
 
+set_option maxHeartbeats 64000000 in
 /-- The alignment discriminator has one reduced rational presentation with
 denominator `s⁸`. -/
 theorem alignmentPresentation
@@ -1070,6 +1159,7 @@ theorem alignmentPresentation
   simp only [map_sub, map_mul, map_pow, map_ofNat]
   field_simp [hsRat]
 
+set_option maxHeartbeats 64000000 in
 /-- The literal first Jacobian row makes the rational alignment
 discriminator derivative vanish. -/
 theorem alignmentDerivative_zero
@@ -1099,6 +1189,7 @@ theorem alignmentDerivative_zero
       _ = 0 := by rw [S.firstRow, mul_zero]
   rw [← map_mul, ← map_mul, ← map_sub, hnumerator, map_zero, zero_div]
 
+set_option maxHeartbeats 64000000 in
 /-- The alignment discriminator is therefore an actual base-field
 constant, derived from the literal polynomial source. -/
 theorem alignmentConstant

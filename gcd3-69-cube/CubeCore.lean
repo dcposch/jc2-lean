@@ -14,6 +14,16 @@ partial-degree `(6,9)` reduction.
 
 open Polynomial
 
+set_option linter.unusedVariables false
+set_option linter.unusedSimpArgs false
+set_option linter.unusedSectionVars false
+set_option linter.unusedTactic false
+set_option linter.unreachableTactic false
+set_option linter.unnecessarySeqFocus false
+set_option linter.flexible false
+set_option linter.style.haveILetI false
+set_option linter.unnecessarySimpa false
+
 /-! ## Exact source Taylor interface
 
 The pole analysis is performed after the source change of variable
@@ -23,11 +33,13 @@ derivative.  Thus the value row and the depression parameter used by the
 later boundary arguments come from the original polynomial, rather than from
 an independent normal-form assumption. -/
 
+set_option maxHeartbeats 64000000 in
 /-- The polynomial obtained from `f(z)` by the source change `z = s*y + r`. -/
 noncomputable def GCD369CubeSourceTransform {R : Type*} [CommSemiring R]
     (f : R[X]) (s r : R) : R[X] :=
   f.comp (C s * X + C r)
 
+set_option maxHeartbeats 64000000 in
 /-- Exact Taylor coefficient formula after source scaling.  Hasse derivatives
 avoid factorial denominators and make the statement valid over every
 commutative semiring. -/
@@ -41,12 +53,14 @@ theorem GCD369CubeSourceTransformCoeff {R : Type*} [CommSemiring R]
   rw [htransform, comp_C_mul_X_coeff, taylor_coeff]
   exact mul_comm _ _
 
+set_option maxHeartbeats 64000000 in
 /-- The constant transformed coefficient is the original value `f(r)`. -/
 theorem GCD369CubeSourceTransformValue {R : Type*} [CommSemiring R]
     (f : R[X]) (s r : R) :
     (GCD369CubeSourceTransform f s r).coeff 0 = f.eval r := by
   simpa using GCD369CubeSourceTransformCoeff f s r 0
 
+set_option maxHeartbeats 64000000 in
 /-- A nonzero source scaling is exactly reversible. -/
 theorem GCD369CubeSourceTransformInverse {K : Type*} [Field K]
     (f : K[X]) (s r : K) (hs : s ≠ 0) :
@@ -64,6 +78,7 @@ theorem GCD369CubeSourceTransformInverse {K : Type*} [Field K]
   rw [GCD369CubeSourceTransform, GCD369CubeSourceTransform, comp_assoc,
     hcoordinate, comp_X]
 
+set_option maxHeartbeats 64000000 in
 /-- Consequently the scaled Taylor data determine the original polynomial. -/
 theorem GCD369CubeSourceTransform_injective {K : Type*} [Field K]
     (s r : K) (hs : s ≠ 0) :
@@ -74,12 +89,14 @@ theorem GCD369CubeSourceTransform_injective {K : Type*} [Field K]
   exact (GCD369CubeSourceTransformInverse f s r hs).symm.trans
     (hinv.trans (GCD369CubeSourceTransformInverse g s r hs))
 
+set_option maxHeartbeats 64000000 in
 /-- The monic depressed sextic used by the cube-core Faber reduction. -/
 noncomputable def GCD369CubeDepressedSextic {R : Type*} [Semiring R]
     (a0 a1 a2 a3 a4 : R) : R[X] :=
   monomial 6 1 + monomial 4 a4 + monomial 3 a3 +
     monomial 2 a2 + monomial 1 a1 + monomial 0 a0
 
+set_option maxHeartbeats 64000000 in
 /-- Its fifth Hasse derivative is `6z`; this is the depression identity
 behind the recovery of the source translation. -/
 theorem GCD369CubeDepressedSexticHasseFive {K : Type*}
@@ -89,6 +106,7 @@ theorem GCD369CubeDepressedSexticHasseFive {K : Type*}
   norm_num [GCD369CubeDepressedSextic, hasseDeriv_monomial,
     hasseDeriv_C, Nat.choose_eq_zero_of_lt]
 
+set_option maxHeartbeats 64000000 in
 /-- For `P(y)=f(sy+r)`, the fifth source coefficient is exactly `6s^5r`.
 In particular, when `s` is nonzero it determines the translation `r`. -/
 theorem GCD369CubeDepressedSourceCoeffFive {K : Type*}
@@ -106,47 +124,56 @@ These are the five normalized Laurent invariants reconstructed by the exact
 Faber replay.  Keeping the formulas in Lean lets later leading-component and
 first-load arguments reduce to kernel-checked polynomial identities. -/
 
+set_option maxHeartbeats 64000000 in
 /-- Denominator-cleared normalized Faber--Laurent invariant `r1`, defined
 over a commutative ring so residue maps can evaluate it functorially. -/
 abbrev GCD369CubeFaberFullN1 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 : K) : K :=
   46656*a0*a2 + 27648*a0*a3*d - 11664*a0*a4 ^ 2 + 12096*a0*a4*c7 + 51840*a0*c5 + 23328*a1 ^ 2 + 27648*a1*a2*d - 23328*a1*a3*a4 + 12096*a1*a3*c7 - 9216*a1*a4 ^ 2*d + 41472*a1*c4 - 11664*a2 ^ 2*a4 + 6048*a2 ^ 2*c7 - 11664*a2*a3 ^ 2 - 18432*a2*a3*a4*d + 5832*a2*a4 ^ 3 - 5040*a2*a4 ^ 2*c7 - 8640*a2*a4*c5 + 31104*a2*c3 - 3072*a3 ^ 3*d + 8748*a3 ^ 2*a4 ^ 2 - 5040*a3 ^ 2*a4*c7 - 4320*a3 ^ 2*c5 + 5120*a3*a4 ^ 3*d - 13824*a3*a4*c4 + 20736*a3*c2 - 729*a4 ^ 5 + 770*a4 ^ 4*c7 + 1680*a4 ^ 3*c5 - 7776*a4 ^ 2*c3 + 10368*a4*c1
 
+set_option maxHeartbeats 64000000 in
 /-- The normalized Faber--Laurent invariant `r1`. -/
 def GCD369CubeFaberR1 {K : Type*} [Field K]
     (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 : K) : K :=
   GCD369CubeFaberFullN1 a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 / 62208
 
+set_option maxHeartbeats 64000000 in
 /-- Denominator-cleared normalized Faber--Laurent invariant `r2`. -/
 abbrev GCD369CubeFaberFullN2 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 : K) : K :=
   139968*a0*a1 + 82944*a0*a2*d - 69984*a0*a3*a4 + 36288*a0*a3*c7 - 27648*a0*a4 ^ 2*d + 124416*a0*c4 + 41472*a1 ^ 2*d - 69984*a1*a2*a4 + 36288*a1*a2*c7 - 34992*a1*a3 ^ 2 - 55296*a1*a3*a4*d + 17496*a1*a4 ^ 3 - 15120*a1*a4 ^ 2*c7 - 25920*a1*a4*c5 + 93312*a1*c3 - 34992*a2 ^ 2*a3 - 27648*a2 ^ 2*a4*d - 27648*a2*a3 ^ 2*d + 52488*a2*a3*a4 ^ 2 - 30240*a2*a3*a4*c7 - 25920*a2*a3*c5 + 15360*a2*a4 ^ 3*d - 41472*a2*a4*c4 + 62208*a2*c2 + 17496*a3 ^ 3*a4 - 5040*a3 ^ 3*c7 + 23040*a3 ^ 2*a4 ^ 2*d - 20736*a3 ^ 2*c4 - 10935*a3*a4 ^ 4 + 9240*a3*a4 ^ 3*c7 + 15120*a3*a4 ^ 2*c5 - 46656*a3*a4*c3 + 31104*a3*c1 - 2048*a4 ^ 5*d + 9216*a4 ^ 3*c4 - 20736*a4 ^ 2*c2
 
+set_option maxHeartbeats 64000000 in
 /-- The normalized Faber--Laurent invariant `r2`. -/
 def GCD369CubeFaberR2 {K : Type*} [Field K]
     (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 : K) : K :=
   GCD369CubeFaberFullN2 a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 / 186624
 
+set_option maxHeartbeats 64000000 in
 /-- Denominator-cleared normalized Faber--Laurent invariant `r3`. -/
 abbrev GCD369CubeFaberFullN3 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 : K) : K :=
   93312*a0 ^ 2 + 110592*a0*a1*d - 62208*a0*a2*a4 + 48384*a0*a2*c7 - 46656*a0*a3 ^ 2 - 55296*a0*a3*a4*d + 15552*a0*a4 ^ 3 - 12096*a0*a4 ^ 2*c7 + 124416*a0*c3 - 31104*a1 ^ 2*a4 + 24192*a1 ^ 2*c7 - 93312*a1*a2*a3 - 55296*a1*a2*a4*d - 36864*a1*a3 ^ 2*d + 54432*a1*a3*a4 ^ 2 - 32256*a1*a3*a4*c7 - 34560*a1*a3*c5 + 14336*a1*a4 ^ 3*d - 27648*a1*a4*c4 + 82944*a1*c2 - 15552*a2 ^ 3 - 36864*a2 ^ 2*a3*d + 27216*a2 ^ 2*a4 ^ 2 - 16128*a2 ^ 2*a4*c7 - 17280*a2 ^ 2*c5 + 62208*a2*a3 ^ 2*a4 - 20160*a2*a3 ^ 2*c7 + 49152*a2*a3*a4 ^ 2*d - 55296*a2*a3*c4 - 10692*a2*a4 ^ 4 + 8960*a2*a4 ^ 3*c7 + 14400*a2*a4 ^ 2*c5 - 41472*a2*a4*c3 + 41472*a2*c1 + 5832*a3 ^ 4 + 18432*a3 ^ 3*a4*d - 23328*a3 ^ 2*a4 ^ 3 + 15120*a3 ^ 2*a4 ^ 2*c7 + 17280*a3 ^ 2*a4*c5 - 31104*a3 ^ 2*c3 - 10240*a3*a4 ^ 4*d + 27648*a3*a4 ^ 2*c4 - 41472*a3*a4*c2 + 1215*a4 ^ 6 - 1232*a4 ^ 5*c7 - 2520*a4 ^ 4*c5 + 10368*a4 ^ 3*c3 - 10368*a4 ^ 2*c1
 
+set_option maxHeartbeats 64000000 in
 /-- The normalized Faber--Laurent invariant `r3`. -/
 def GCD369CubeFaberR3 {K : Type*} [Field K]
     (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 : K) : K :=
   GCD369CubeFaberFullN3 a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 / 248832
 
+set_option maxHeartbeats 64000000 in
 /-- Denominator-cleared normalized Faber--Laurent invariant `r4`. -/
 abbrev GCD369CubeFaberFullN4 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 : K) : K :=
   373248*a0 ^ 2*d - 209952*a0*a1*a4 + 326592*a0*a1*c7 - 419904*a0*a2*a3 - 248832*a0*a2*a4*d - 124416*a0*a3 ^ 2*d + 209952*a0*a3*a4 ^ 2 - 108864*a0*a3*a4*c7 + 55296*a0*a4 ^ 3*d + 559872*a0*c2 - 209952*a1 ^ 2*a3 - 124416*a1 ^ 2*a4*d - 314928*a1*a2 ^ 2 - 373248*a1*a2*a3*d + 262440*a1*a2*a4 ^ 2 - 163296*a1*a2*a4*c7 - 233280*a1*a2*c5 + 262440*a1*a3 ^ 2*a4 - 81648*a1*a3 ^ 2*c7 + 207360*a1*a3*a4 ^ 2*d - 186624*a1*a3*c4 - 45927*a1*a4 ^ 4 + 37800*a1*a4 ^ 3*c7 + 58320*a1*a4 ^ 2*c5 - 139968*a1*a4*c3 + 279936*a1*c1 - 82944*a2 ^ 3*d + 314928*a2 ^ 2*a3*a4 - 108864*a2 ^ 2*a3*c7 + 124416*a2 ^ 2*a4 ^ 2*d - 186624*a2 ^ 2*c4 + 104976*a2*a3 ^ 3 + 248832*a2*a3 ^ 2*a4*d - 209952*a2*a3*a4 ^ 3 + 136080*a2*a3*a4 ^ 2*c7 + 155520*a2*a3*a4*c5 - 279936*a2*a3*c3 - 46080*a2*a4 ^ 4*d + 124416*a2*a4 ^ 2*c4 - 186624*a2*a4*c2 + 20736*a3 ^ 4*d - 104976*a3 ^ 3*a4 ^ 2 + 45360*a3 ^ 3*a4*c7 + 25920*a3 ^ 3*c5 - 92160*a3 ^ 2*a4 ^ 3*d + 124416*a3 ^ 2*a4*c4 - 93312*a3 ^ 2*c2 + 32805*a3*a4 ^ 5 - 27720*a3*a4 ^ 4*c7 - 45360*a3*a4 ^ 3*c5 + 139968*a3*a4 ^ 2*c3 - 93312*a3*a4*c1 + 5120*a4 ^ 6*d - 20736*a4 ^ 4*c4 + 41472*a4 ^ 3*c2
 
+set_option maxHeartbeats 64000000 in
 /-- The normalized Faber--Laurent invariant `r4`. -/
 def GCD369CubeFaberR4 {K : Type*} [Field K]
     (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 : K) : K :=
   GCD369CubeFaberFullN4 a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 / 1679616
 
+set_option maxHeartbeats 64000000 in
 /-- The four denominator-cleared invariants are weighted-homogeneous over
 every commutative ring. -/
 theorem GCD369CubeFaberFullNWeights {K : Type*} [CommRing K]
@@ -177,6 +204,7 @@ theorem GCD369CubeFaberFullNWeights {K : Type*} [CommRing K]
   · ring
   constructor <;> ring
 
+set_option maxHeartbeats 64000000 in
 /-- The first four explicit Faber invariants commute with every field
 homomorphism. -/
 theorem GCD369CubeFaberR_map
@@ -206,17 +234,20 @@ theorem GCD369CubeFaberR_map
   · simp only [GCD369CubeFaberR4, GCD369CubeFaberFullN4,
       _root_.map_div₀, map_add, map_sub, map_mul, map_pow, map_ofNat]
 
+set_option maxHeartbeats 64000000 in
 /-- The normalized Faber--Laurent invariant `r5`. -/
 def GCD369CubeFaberR5 {K : Type*} [Field K]
     (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 : K) : K :=
   (1306368*a0 ^ 2*c7 - 1679616*a0*a1*a3 - 995328*a0*a1*a4*d - 839808*a0*a2 ^ 2 - 995328*a0*a2*a3*d + 699840*a0*a2*a4 ^ 2 - 435456*a0*a2*a4*c7 + 839808*a0*a3 ^ 2*a4 - 217728*a0*a3 ^ 2*c7 + 580608*a0*a3*a4 ^ 2*d - 122472*a0*a4 ^ 4 + 84672*a0*a4 ^ 3*c7 + 2239488*a0*c1 - 1679616*a1 ^ 2*a2 - 995328*a1 ^ 2*a3*d + 559872*a1 ^ 2*a4 ^ 2 - 435456*a1 ^ 2*a4*c7 - 933120*a1 ^ 2*c5 - 995328*a1*a2 ^ 2*d + 2519424*a1*a2*a3*a4 - 870912*a1*a2*a3*c7 + 912384*a1*a2*a4 ^ 2*d - 1492992*a1*a2*c4 + 419904*a1*a3 ^ 3 + 995328*a1*a3 ^ 2*a4*d - 769824*a1*a3*a4 ^ 3 + 508032*a1*a3*a4 ^ 2*c7 + 622080*a1*a3*a4*c5 - 1119744*a1*a3*c3 - 156672*a1*a4 ^ 4*d + 373248*a1*a4 ^ 2*c4 - 746496*a1*a4*c2 + 419904*a2 ^ 3*a4 - 145152*a2 ^ 3*c7 + 629856*a2 ^ 2*a3 ^ 2 + 995328*a2 ^ 2*a3*a4*d - 384912*a2 ^ 2*a4 ^ 3 + 254016*a2 ^ 2*a4 ^ 2*c7 + 311040*a2 ^ 2*a4*c5 - 559872*a2 ^ 2*c3 + 331776*a2*a3 ^ 3*d - 1224720*a2*a3 ^ 2*a4 ^ 2 + 544320*a2*a3 ^ 2*a4*c7 + 311040*a2*a3 ^ 2*c5 - 681984*a2*a3*a4 ^ 3*d + 995328*a2*a3*a4*c4 - 746496*a2*a3*c2 + 113724*a2*a4 ^ 5 - 95760*a2*a4 ^ 4*c7 - 155520*a2*a4 ^ 3*c5 + 466560*a2*a4 ^ 2*c3 - 373248*a2*a4*c1 - 209952*a3 ^ 4*a4 + 45360*a3 ^ 4*c7 - 359424*a3 ^ 3*a4 ^ 2*d + 165888*a3 ^ 3*c4 + 301806*a3 ^ 2*a4 ^ 4 - 206640*a3 ^ 2*a4 ^ 3*c7 - 259200*a3 ^ 2*a4 ^ 2*c5 + 559872*a3 ^ 2*a4*c3 - 186624*a3 ^ 2*c1 + 107520*a3*a4 ^ 5*d - 290304*a3*a4 ^ 3*c4 + 435456*a3*a4 ^ 2*c2 - 10935*a4 ^ 7 + 10780*a4 ^ 6*c7 + 21168*a4 ^ 5*c5 - 81648*a4 ^ 4*c3 + 72576*a4 ^ 3*c1)/13436928
 
+set_option maxHeartbeats 64000000 in
 /-- The denominator-cleared numerator of the terminal Faber invariant,
 available over every commutative ring. -/
 abbrev GCD369CubeFaberFullN5 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 : K) : K :=
   1306368*a0 ^ 2*c7 - 1679616*a0*a1*a3 - 995328*a0*a1*a4*d - 839808*a0*a2 ^ 2 - 995328*a0*a2*a3*d + 699840*a0*a2*a4 ^ 2 - 435456*a0*a2*a4*c7 + 839808*a0*a3 ^ 2*a4 - 217728*a0*a3 ^ 2*c7 + 580608*a0*a3*a4 ^ 2*d - 122472*a0*a4 ^ 4 + 84672*a0*a4 ^ 3*c7 + 2239488*a0*c1 - 1679616*a1 ^ 2*a2 - 995328*a1 ^ 2*a3*d + 559872*a1 ^ 2*a4 ^ 2 - 435456*a1 ^ 2*a4*c7 - 933120*a1 ^ 2*c5 - 995328*a1*a2 ^ 2*d + 2519424*a1*a2*a3*a4 - 870912*a1*a2*a3*c7 + 912384*a1*a2*a4 ^ 2*d - 1492992*a1*a2*c4 + 419904*a1*a3 ^ 3 + 995328*a1*a3 ^ 2*a4*d - 769824*a1*a3*a4 ^ 3 + 508032*a1*a3*a4 ^ 2*c7 + 622080*a1*a3*a4*c5 - 1119744*a1*a3*c3 - 156672*a1*a4 ^ 4*d + 373248*a1*a4 ^ 2*c4 - 746496*a1*a4*c2 + 419904*a2 ^ 3*a4 - 145152*a2 ^ 3*c7 + 629856*a2 ^ 2*a3 ^ 2 + 995328*a2 ^ 2*a3*a4*d - 384912*a2 ^ 2*a4 ^ 3 + 254016*a2 ^ 2*a4 ^ 2*c7 + 311040*a2 ^ 2*a4*c5 - 559872*a2 ^ 2*c3 + 331776*a2*a3 ^ 3*d - 1224720*a2*a3 ^ 2*a4 ^ 2 + 544320*a2*a3 ^ 2*a4*c7 + 311040*a2*a3 ^ 2*c5 - 681984*a2*a3*a4 ^ 3*d + 995328*a2*a3*a4*c4 - 746496*a2*a3*c2 + 113724*a2*a4 ^ 5 - 95760*a2*a4 ^ 4*c7 - 155520*a2*a4 ^ 3*c5 + 466560*a2*a4 ^ 2*c3 - 373248*a2*a4*c1 - 209952*a3 ^ 4*a4 + 45360*a3 ^ 4*c7 - 359424*a3 ^ 3*a4 ^ 2*d + 165888*a3 ^ 3*c4 + 301806*a3 ^ 2*a4 ^ 4 - 206640*a3 ^ 2*a4 ^ 3*c7 - 259200*a3 ^ 2*a4 ^ 2*c5 + 559872*a3 ^ 2*a4*c3 - 186624*a3 ^ 2*c1 + 107520*a3*a4 ^ 5*d - 290304*a3*a4 ^ 3*c4 + 435456*a3*a4 ^ 2*c2 - 10935*a4 ^ 7 + 10780*a4 ^ 6*c7 + 21168*a4 ^ 5*c5 - 81648*a4 ^ 4*c3 + 72576*a4 ^ 3*c1
 
+set_option maxHeartbeats 64000000 in
 /-- The terminal invariant is its denominator-cleared numerator divided by
 the fixed scalar denominator. -/
 theorem GCD369CubeFaberR5_eq_fullN5_div
@@ -227,6 +258,7 @@ theorem GCD369CubeFaberR5_eq_fullN5_div
         13436928 := by
   rfl
 
+set_option maxHeartbeats 64000000 in
 /-- The terminal explicit Faber invariant commutes with every field
 homomorphism. -/
 theorem GCD369CubeFaberR5_map
@@ -238,6 +270,7 @@ theorem GCD369CubeFaberR5_map
   simp only [GCD369CubeFaberR5, _root_.map_div₀, map_add, map_sub,
     map_mul, map_pow, map_ofNat]
 
+set_option maxHeartbeats 64000000 in
 /-- The five explicit invariants have weights `10,11,12,13,14` under
 the source scaling of weights `(6,5,4,3,2;1,2,4,5,6,7,8)`. -/
 theorem GCD369CubeFaberInvariantWeights {K : Type*} [Field K] [CharZero K]
@@ -262,21 +295,16 @@ theorem GCD369CubeFaberInvariantWeights {K : Type*} [Field K] [CharZero K]
         (t ^ 3 * a3) (t ^ 2 * a4) (t * d) (t ^ 2 * c7) (t ^ 4 * c5)
         (t ^ 5 * c4) (t ^ 6 * c3) (t ^ 7 * c2) (t ^ 8 * c1) =
       t ^ 14 * GCD369CubeFaberR5 a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1 := by
-  constructor
-  · simp only [GCD369CubeFaberR1]
-    ring
-  constructor
-  · simp only [GCD369CubeFaberR2]
-    ring
-  constructor
-  · simp only [GCD369CubeFaberR3]
-    ring
-  constructor
-  · simp only [GCD369CubeFaberR4]
-    ring
+  obtain ⟨h1, h2, h3, h4⟩ := GCD369CubeFaberFullNWeights t a0 a1 a2 a3 a4 d c7 c5 c4 c3 c2 c1
+  refine ⟨?_, ?_, ?_, ?_, ?_⟩
+  · rw [GCD369CubeFaberR1, GCD369CubeFaberR1, h1, mul_div_assoc]
+  · rw [GCD369CubeFaberR2, GCD369CubeFaberR2, h2, mul_div_assoc]
+  · rw [GCD369CubeFaberR3, GCD369CubeFaberR3, h3, mul_div_assoc]
+  · rw [GCD369CubeFaberR4, GCD369CubeFaberR4, h4, mul_div_assoc]
   · simp only [GCD369CubeFaberR5]
     ring
 
+set_option maxHeartbeats 64000000 in
 /-- The common-cubic component annihilates all five zero-high-constant Faber
 invariants exactly. -/
 theorem GCD369CubeFaberCommonValues {K : Type*} [Field K] [CharZero K]
@@ -294,6 +322,7 @@ theorem GCD369CubeFaberCommonValues {K : Type*} [Field K] [CharZero K]
   norm_num [GCD369CubeFaberR1, GCD369CubeFaberR2, GCD369CubeFaberR3,
     GCD369CubeFaberR4, GCD369CubeFaberR5] <;> ring_nf <;> simp
 
+set_option maxHeartbeats 64000000 in
 /-- The Davenport--Stothers component annihilates the first four invariants
 and has terminal value `(27/2) * lambda^7`. -/
 theorem GCD369CubeFaberDSValues {K : Type*} [Field K] [CharZero K]
@@ -311,6 +340,7 @@ theorem GCD369CubeFaberDSValues {K : Type*} [Field K] [CharZero K]
   norm_num [GCD369CubeFaberR1, GCD369CubeFaberR2, GCD369CubeFaberR3,
     GCD369CubeFaberR4, GCD369CubeFaberR5] <;> ring_nf <;> simp
 
+set_option maxHeartbeats 64000000 in
 /-- Primitive numerator of the zero-high-constant invariant `r1`. -/
 def GCD369CubeFaberN1 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 : K) : K :=
@@ -318,6 +348,7 @@ def GCD369CubeFaberN1 {K : Type*} [CommRing K]
     32 * a1 * a3 * a4 - 16 * a2 ^ 2 * a4 - 16 * a2 * a3 ^ 2 +
     8 * a2 * a4 ^ 3 + 12 * a3 ^ 2 * a4 ^ 2 - a4 ^ 5
 
+set_option maxHeartbeats 64000000 in
 /-- Primitive numerator of the zero-high-constant invariant `r2`. -/
 def GCD369CubeFaberN2 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 : K) : K :=
@@ -325,6 +356,7 @@ def GCD369CubeFaberN2 {K : Type*} [CommRing K]
     16 * a1 * a3 ^ 2 + 8 * a1 * a4 ^ 3 - 16 * a2 ^ 2 * a3 +
     24 * a2 * a3 * a4 ^ 2 + 8 * a3 ^ 3 * a4 - 5 * a3 * a4 ^ 4
 
+set_option maxHeartbeats 64000000 in
 /-- Primitive numerator of the zero-high-constant invariant `r3`. -/
 def GCD369CubeFaberN3 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 : K) : K :=
@@ -334,6 +366,7 @@ def GCD369CubeFaberN3 {K : Type*} [CommRing K]
     256 * a2 * a3 ^ 2 * a4 - 44 * a2 * a4 ^ 4 + 24 * a3 ^ 4 -
     96 * a3 ^ 2 * a4 ^ 3 + 5 * a4 ^ 6
 
+set_option maxHeartbeats 64000000 in
 /-- Primitive numerator of the zero-high-constant invariant `r4`. -/
 def GCD369CubeFaberN4 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 : K) : K :=
@@ -343,6 +376,7 @@ def GCD369CubeFaberN4 {K : Type*} [CommRing K]
     16 * a2 * a3 ^ 3 - 32 * a2 * a3 * a4 ^ 3 -
     16 * a3 ^ 3 * a4 ^ 2 + 5 * a3 * a4 ^ 5
 
+set_option maxHeartbeats 64000000 in
 /-- The full denominator-cleared rows specialize to the primitive leading
 rows after all higher target coefficients vanish. -/
 theorem GCD369CubeFaberFullN_zeroHigh {K : Type*} [CommRing K]
@@ -369,6 +403,7 @@ theorem GCD369CubeFaberFullN_zeroHigh {K : Type*} [CommRing K]
 
 /-! ### Integral numerators on the first `d` load -/
 
+set_option maxHeartbeats 64000000 in
 /-- Denominator-cleared first Faber invariant when `d` is the only nonzero
 high target coefficient. -/
 def GCD369CubeFaberD1 {K : Type*} [CommRing K]
@@ -377,6 +412,7 @@ def GCD369CubeFaberD1 {K : Type*} [CommRing K]
     (27648 * a0 * a3 + 27648 * a1 * a2 - 9216 * a1 * a4 ^ 2 -
       18432 * a2 * a3 * a4 - 3072 * a3 ^ 3 + 5120 * a3 * a4 ^ 3)
 
+set_option maxHeartbeats 64000000 in
 /-- Denominator-cleared second Faber invariant on the `d` load. -/
 def GCD369CubeFaberD2 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 d : K) : K :=
@@ -386,6 +422,7 @@ def GCD369CubeFaberD2 {K : Type*} [CommRing K]
       27648 * a2 * a3 ^ 2 + 15360 * a2 * a4 ^ 3 +
       23040 * a3 ^ 2 * a4 ^ 2 - 2048 * a4 ^ 5)
 
+set_option maxHeartbeats 64000000 in
 /-- Denominator-cleared third Faber invariant on the `d` load. -/
 def GCD369CubeFaberD3 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 d : K) : K :=
@@ -396,6 +433,7 @@ def GCD369CubeFaberD3 {K : Type*} [CommRing K]
       49152 * a2 * a3 * a4 ^ 2 + 18432 * a3 ^ 3 * a4 -
       10240 * a3 * a4 ^ 4)
 
+set_option maxHeartbeats 64000000 in
 /-- Denominator-cleared fourth Faber invariant on the `d` load. -/
 def GCD369CubeFaberD4 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 d : K) : K :=
@@ -408,6 +446,7 @@ def GCD369CubeFaberD4 {K : Type*} [CommRing K]
       46080 * a2 * a4 ^ 4 + 20736 * a3 ^ 4 -
       92160 * a3 ^ 2 * a4 ^ 3 + 5120 * a4 ^ 6)
 
+set_option maxHeartbeats 64000000 in
 /-- The specialized integral `d` numerators are exactly the four original
 Faber invariants with their rational denominators cleared. -/
 theorem GCD369CubeFaberDNumerators {K : Type*} [Field K] [CharZero K]
@@ -421,23 +460,24 @@ theorem GCD369CubeFaberDNumerators {K : Type*} [Field K] [CharZero K]
     1679616 * GCD369CubeFaberR4 a0 a1 a2 a3 a4 d 0 0 0 0 0 0 =
         GCD369CubeFaberD4 a0 a1 a2 a3 a4 d := by
   constructor
-  · norm_num [GCD369CubeFaberR1, GCD369CubeFaberD1,
-      GCD369CubeFaberN1]
+  · rw [GCD369CubeFaberR1, mul_div_cancel₀ _ (by norm_num : (62208 : K) ≠ 0)]
+    simp only [GCD369CubeFaberD1, GCD369CubeFaberN1]
     ring
   constructor
-  · norm_num [GCD369CubeFaberR2, GCD369CubeFaberD2,
-      GCD369CubeFaberN2]
+  · rw [GCD369CubeFaberR2, mul_div_cancel₀ _ (by norm_num : (186624 : K) ≠ 0)]
+    simp only [GCD369CubeFaberD2, GCD369CubeFaberN2]
     ring
   constructor
-  · norm_num [GCD369CubeFaberR3, GCD369CubeFaberD3,
-      GCD369CubeFaberN3]
+  · rw [GCD369CubeFaberR3, mul_div_cancel₀ _ (by norm_num : (248832 : K) ≠ 0)]
+    simp only [GCD369CubeFaberD3, GCD369CubeFaberN3]
     ring
-  · norm_num [GCD369CubeFaberR4, GCD369CubeFaberD4,
-      GCD369CubeFaberN4]
+  · rw [GCD369CubeFaberR4, mul_div_cancel₀ _ (by norm_num : (1679616 : K) ≠ 0)]
+    simp only [GCD369CubeFaberD4, GCD369CubeFaberN4]
     ring
 
 /-! ### Integral numerators on the first `c7` load -/
 
+set_option maxHeartbeats 64000000 in
 /-- Denominator-cleared first Faber invariant when `c7` is the only nonzero
 high target coefficient. -/
 def GCD369CubeFaberC7N1 {K : Type*} [CommRing K]
@@ -446,6 +486,7 @@ def GCD369CubeFaberC7N1 {K : Type*} [CommRing K]
     (12096 * a0 * a4 + 12096 * a1 * a3 + 6048 * a2 ^ 2 -
       5040 * a2 * a4 ^ 2 - 5040 * a3 ^ 2 * a4 + 770 * a4 ^ 4)
 
+set_option maxHeartbeats 64000000 in
 /-- Denominator-cleared second Faber invariant on the `c7` load. -/
 def GCD369CubeFaberC7N2 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 c7 : K) : K :=
@@ -453,6 +494,7 @@ def GCD369CubeFaberC7N2 {K : Type*} [CommRing K]
     (36288 * a0 * a3 + 36288 * a1 * a2 - 15120 * a1 * a4 ^ 2 -
       30240 * a2 * a3 * a4 - 5040 * a3 ^ 3 + 9240 * a3 * a4 ^ 3)
 
+set_option maxHeartbeats 64000000 in
 /-- Denominator-cleared third Faber invariant on the `c7` load. -/
 def GCD369CubeFaberC7N3 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 c7 : K) : K :=
@@ -462,6 +504,7 @@ def GCD369CubeFaberC7N3 {K : Type*} [CommRing K]
       20160 * a2 * a3 ^ 2 + 8960 * a2 * a4 ^ 3 +
       15120 * a3 ^ 2 * a4 ^ 2 - 1232 * a4 ^ 5)
 
+set_option maxHeartbeats 64000000 in
 /-- Denominator-cleared fourth Faber invariant on the `c7` load. -/
 def GCD369CubeFaberC7N4 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 c7 : K) : K :=
@@ -472,6 +515,7 @@ def GCD369CubeFaberC7N4 {K : Type*} [CommRing K]
       136080 * a2 * a3 * a4 ^ 2 + 45360 * a3 ^ 3 * a4 -
       27720 * a3 * a4 ^ 4)
 
+set_option maxHeartbeats 64000000 in
 /-- The specialized integral `c7` numerators are the original Faber
 invariants with denominators cleared. -/
 theorem GCD369CubeFaberC7Numerators {K : Type*} [Field K] [CharZero K]
@@ -485,35 +529,38 @@ theorem GCD369CubeFaberC7Numerators {K : Type*} [Field K] [CharZero K]
     1679616 * GCD369CubeFaberR4 a0 a1 a2 a3 a4 0 c7 0 0 0 0 0 =
         GCD369CubeFaberC7N4 a0 a1 a2 a3 a4 c7 := by
   constructor
-  · norm_num [GCD369CubeFaberR1, GCD369CubeFaberC7N1,
-      GCD369CubeFaberN1]
+  · rw [GCD369CubeFaberR1, mul_div_cancel₀ _ (by norm_num : (62208 : K) ≠ 0)]
+    simp only [GCD369CubeFaberC7N1, GCD369CubeFaberN1]
     ring
   constructor
-  · norm_num [GCD369CubeFaberR2, GCD369CubeFaberC7N2,
-      GCD369CubeFaberN2]
+  · rw [GCD369CubeFaberR2, mul_div_cancel₀ _ (by norm_num : (186624 : K) ≠ 0)]
+    simp only [GCD369CubeFaberC7N2, GCD369CubeFaberN2]
     ring
   constructor
-  · norm_num [GCD369CubeFaberR3, GCD369CubeFaberC7N3,
-      GCD369CubeFaberN3]
+  · rw [GCD369CubeFaberR3, mul_div_cancel₀ _ (by norm_num : (248832 : K) ≠ 0)]
+    simp only [GCD369CubeFaberC7N3, GCD369CubeFaberN3]
     ring
-  · norm_num [GCD369CubeFaberR4, GCD369CubeFaberC7N4,
-      GCD369CubeFaberN4]
+  · rw [GCD369CubeFaberR4, mul_div_cancel₀ _ (by norm_num : (1679616 : K) ≠ 0)]
+    simp only [GCD369CubeFaberC7N4, GCD369CubeFaberN4]
     ring
 
 /-! ### Integral numerators on the first `c5` and `c4` loads -/
 
+set_option maxHeartbeats 64000000 in
 /-- Denominator-cleared first Faber invariant on the `c5` load. -/
 def GCD369CubeFaberC5N1 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 c5 : K) : K :=
   729 * GCD369CubeFaberN1 a0 a1 a2 a3 a4 + c5 *
     (51840 * a0 - 8640 * a2 * a4 - 4320 * a3 ^ 2 + 1680 * a4 ^ 3)
 
+set_option maxHeartbeats 64000000 in
 /-- Denominator-cleared second Faber invariant on the `c5` load. -/
 def GCD369CubeFaberC5N2 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 c5 : K) : K :=
   2187 * GCD369CubeFaberN2 a0 a1 a2 a3 a4 + c5 *
     (-25920 * a1 * a4 - 25920 * a2 * a3 + 15120 * a3 * a4 ^ 2)
 
+set_option maxHeartbeats 64000000 in
 /-- Denominator-cleared third Faber invariant on the `c5` load. -/
 def GCD369CubeFaberC5N3 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 c5 : K) : K :=
@@ -521,6 +568,7 @@ def GCD369CubeFaberC5N3 {K : Type*} [CommRing K]
     (-34560 * a1 * a3 - 17280 * a2 ^ 2 + 14400 * a2 * a4 ^ 2 +
       17280 * a3 ^ 2 * a4 - 2520 * a4 ^ 4)
 
+set_option maxHeartbeats 64000000 in
 /-- Denominator-cleared fourth Faber invariant on the `c5` load. -/
 def GCD369CubeFaberC5N4 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 c5 : K) : K :=
@@ -528,6 +576,7 @@ def GCD369CubeFaberC5N4 {K : Type*} [CommRing K]
     (-233280 * a1 * a2 + 58320 * a1 * a4 ^ 2 +
       155520 * a2 * a3 * a4 + 25920 * a3 ^ 3 - 45360 * a3 * a4 ^ 3)
 
+set_option maxHeartbeats 64000000 in
 /-- The specialized integral `c5` numerators clear the original Faber
 denominators. -/
 theorem GCD369CubeFaberC5Numerators {K : Type*} [Field K] [CharZero K]
@@ -541,39 +590,43 @@ theorem GCD369CubeFaberC5Numerators {K : Type*} [Field K] [CharZero K]
     1679616 * GCD369CubeFaberR4 a0 a1 a2 a3 a4 0 0 c5 0 0 0 0 =
         GCD369CubeFaberC5N4 a0 a1 a2 a3 a4 c5 := by
   constructor
-  · norm_num [GCD369CubeFaberR1, GCD369CubeFaberC5N1,
-      GCD369CubeFaberN1]
+  · rw [GCD369CubeFaberR1, mul_div_cancel₀ _ (by norm_num : (62208 : K) ≠ 0)]
+    simp only [GCD369CubeFaberC5N1, GCD369CubeFaberN1]
     ring
   constructor
-  · norm_num [GCD369CubeFaberR2, GCD369CubeFaberC5N2,
-      GCD369CubeFaberN2]
+  · rw [GCD369CubeFaberR2, mul_div_cancel₀ _ (by norm_num : (186624 : K) ≠ 0)]
+    simp only [GCD369CubeFaberC5N2, GCD369CubeFaberN2]
     ring
   constructor
-  · norm_num [GCD369CubeFaberR3, GCD369CubeFaberC5N3,
-      GCD369CubeFaberN3]
+  · rw [GCD369CubeFaberR3, mul_div_cancel₀ _ (by norm_num : (248832 : K) ≠ 0)]
+    simp only [GCD369CubeFaberC5N3, GCD369CubeFaberN3]
     ring
-  · norm_num [GCD369CubeFaberR4, GCD369CubeFaberC5N4,
-      GCD369CubeFaberN4]
+  · rw [GCD369CubeFaberR4, mul_div_cancel₀ _ (by norm_num : (1679616 : K) ≠ 0)]
+    simp only [GCD369CubeFaberC5N4, GCD369CubeFaberN4]
     ring
 
+set_option maxHeartbeats 64000000 in
 /-- Denominator-cleared first Faber invariant on the `c4` load. -/
 def GCD369CubeFaberC4N1 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 c4 : K) : K :=
   729 * GCD369CubeFaberN1 a0 a1 a2 a3 a4 + c4 *
     (41472 * a1 - 13824 * a3 * a4)
 
+set_option maxHeartbeats 64000000 in
 /-- Denominator-cleared second Faber invariant on the `c4` load. -/
 def GCD369CubeFaberC4N2 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 c4 : K) : K :=
   2187 * GCD369CubeFaberN2 a0 a1 a2 a3 a4 + c4 *
     (124416 * a0 - 41472 * a2 * a4 - 20736 * a3 ^ 2 + 9216 * a4 ^ 3)
 
+set_option maxHeartbeats 64000000 in
 /-- Denominator-cleared third Faber invariant on the `c4` load. -/
 def GCD369CubeFaberC4N3 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 c4 : K) : K :=
   243 * GCD369CubeFaberN3 a0 a1 a2 a3 a4 + c4 *
     (-27648 * a1 * a4 - 55296 * a2 * a3 + 27648 * a3 * a4 ^ 2)
 
+set_option maxHeartbeats 64000000 in
 /-- Denominator-cleared fourth Faber invariant on the `c4` load. -/
 def GCD369CubeFaberC4N4 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 c4 : K) : K :=
@@ -581,6 +634,7 @@ def GCD369CubeFaberC4N4 {K : Type*} [CommRing K]
     (-186624 * a1 * a3 - 186624 * a2 ^ 2 + 124416 * a2 * a4 ^ 2 +
       124416 * a3 ^ 2 * a4 - 20736 * a4 ^ 4)
 
+set_option maxHeartbeats 64000000 in
 /-- The specialized integral `c4` numerators clear the original Faber
 denominators. -/
 theorem GCD369CubeFaberC4Numerators {K : Type*} [Field K] [CharZero K]
@@ -594,40 +648,44 @@ theorem GCD369CubeFaberC4Numerators {K : Type*} [Field K] [CharZero K]
     1679616 * GCD369CubeFaberR4 a0 a1 a2 a3 a4 0 0 0 c4 0 0 0 =
         GCD369CubeFaberC4N4 a0 a1 a2 a3 a4 c4 := by
   constructor
-  · norm_num [GCD369CubeFaberR1, GCD369CubeFaberC4N1,
-      GCD369CubeFaberN1]
+  · rw [GCD369CubeFaberR1, mul_div_cancel₀ _ (by norm_num : (62208 : K) ≠ 0)]
+    simp only [GCD369CubeFaberC4N1, GCD369CubeFaberN1]
     ring
   constructor
-  · norm_num [GCD369CubeFaberR2, GCD369CubeFaberC4N2,
-      GCD369CubeFaberN2]
+  · rw [GCD369CubeFaberR2, mul_div_cancel₀ _ (by norm_num : (186624 : K) ≠ 0)]
+    simp only [GCD369CubeFaberC4N2, GCD369CubeFaberN2]
     ring
   constructor
-  · norm_num [GCD369CubeFaberR3, GCD369CubeFaberC4N3,
-      GCD369CubeFaberN3]
+  · rw [GCD369CubeFaberR3, mul_div_cancel₀ _ (by norm_num : (248832 : K) ≠ 0)]
+    simp only [GCD369CubeFaberC4N3, GCD369CubeFaberN3]
     ring
-  · norm_num [GCD369CubeFaberR4, GCD369CubeFaberC4N4,
-      GCD369CubeFaberN4]
+  · rw [GCD369CubeFaberR4, mul_div_cancel₀ _ (by norm_num : (1679616 : K) ≠ 0)]
+    simp only [GCD369CubeFaberC4N4, GCD369CubeFaberN4]
     ring
 
 /-! ### Integral numerators on the first `c2` and `c1` loads -/
 
+set_option maxHeartbeats 64000000 in
 /-- Denominator-cleared first Faber invariant on the `c2` load. -/
 def GCD369CubeFaberC2N1 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 c2 : K) : K :=
   729 * GCD369CubeFaberN1 a0 a1 a2 a3 a4 + c2 * (20736 * a3)
 
+set_option maxHeartbeats 64000000 in
 /-- Denominator-cleared second Faber invariant on the `c2` load. -/
 def GCD369CubeFaberC2N2 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 c2 : K) : K :=
   2187 * GCD369CubeFaberN2 a0 a1 a2 a3 a4 + c2 *
     (62208 * a2 - 20736 * a4 ^ 2)
 
+set_option maxHeartbeats 64000000 in
 /-- Denominator-cleared third Faber invariant on the `c2` load. -/
 def GCD369CubeFaberC2N3 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 c2 : K) : K :=
   243 * GCD369CubeFaberN3 a0 a1 a2 a3 a4 + c2 *
     (82944 * a1 - 41472 * a3 * a4)
 
+set_option maxHeartbeats 64000000 in
 /-- Denominator-cleared fourth Faber invariant on the `c2` load. -/
 def GCD369CubeFaberC2N4 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 c2 : K) : K :=
@@ -635,6 +693,7 @@ def GCD369CubeFaberC2N4 {K : Type*} [CommRing K]
     (559872 * a0 - 186624 * a2 * a4 - 93312 * a3 ^ 2 +
       41472 * a4 ^ 3)
 
+set_option maxHeartbeats 64000000 in
 /-- The specialized integral `c2` numerators clear the original Faber
 denominators. -/
 theorem GCD369CubeFaberC2Numerators {K : Type*} [Field K] [CharZero K]
@@ -648,43 +707,48 @@ theorem GCD369CubeFaberC2Numerators {K : Type*} [Field K] [CharZero K]
     1679616 * GCD369CubeFaberR4 a0 a1 a2 a3 a4 0 0 0 0 0 c2 0 =
         GCD369CubeFaberC2N4 a0 a1 a2 a3 a4 c2 := by
   constructor
-  · norm_num [GCD369CubeFaberR1, GCD369CubeFaberC2N1,
-      GCD369CubeFaberN1]
+  · rw [GCD369CubeFaberR1, mul_div_cancel₀ _ (by norm_num : (62208 : K) ≠ 0)]
+    simp only [GCD369CubeFaberC2N1, GCD369CubeFaberN1]
     ring
   constructor
-  · norm_num [GCD369CubeFaberR2, GCD369CubeFaberC2N2,
-      GCD369CubeFaberN2]
+  · rw [GCD369CubeFaberR2, mul_div_cancel₀ _ (by norm_num : (186624 : K) ≠ 0)]
+    simp only [GCD369CubeFaberC2N2, GCD369CubeFaberN2]
     ring
   constructor
-  · norm_num [GCD369CubeFaberR3, GCD369CubeFaberC2N3,
-      GCD369CubeFaberN3]
+  · rw [GCD369CubeFaberR3, mul_div_cancel₀ _ (by norm_num : (248832 : K) ≠ 0)]
+    simp only [GCD369CubeFaberC2N3, GCD369CubeFaberN3]
     ring
-  · norm_num [GCD369CubeFaberR4, GCD369CubeFaberC2N4,
-      GCD369CubeFaberN4]
+  · rw [GCD369CubeFaberR4, mul_div_cancel₀ _ (by norm_num : (1679616 : K) ≠ 0)]
+    simp only [GCD369CubeFaberC2N4, GCD369CubeFaberN4]
     ring
 
+set_option maxHeartbeats 64000000 in
 /-- Denominator-cleared first Faber invariant on the `c1` load. -/
 def GCD369CubeFaberC1N1 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 c1 : K) : K :=
   729 * GCD369CubeFaberN1 a0 a1 a2 a3 a4 + c1 * (10368 * a4)
 
+set_option maxHeartbeats 64000000 in
 /-- Denominator-cleared second Faber invariant on the `c1` load. -/
 def GCD369CubeFaberC1N2 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 c1 : K) : K :=
   2187 * GCD369CubeFaberN2 a0 a1 a2 a3 a4 + c1 * (31104 * a3)
 
+set_option maxHeartbeats 64000000 in
 /-- Denominator-cleared third Faber invariant on the `c1` load. -/
 def GCD369CubeFaberC1N3 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 c1 : K) : K :=
   243 * GCD369CubeFaberN3 a0 a1 a2 a3 a4 + c1 *
     (41472 * a2 - 10368 * a4 ^ 2)
 
+set_option maxHeartbeats 64000000 in
 /-- Denominator-cleared fourth Faber invariant on the `c1` load. -/
 def GCD369CubeFaberC1N4 {K : Type*} [CommRing K]
     (a0 a1 a2 a3 a4 c1 : K) : K :=
   6561 * GCD369CubeFaberN4 a0 a1 a2 a3 a4 + c1 *
     (279936 * a1 - 93312 * a3 * a4)
 
+set_option maxHeartbeats 64000000 in
 /-- The specialized integral `c1` numerators clear the original Faber
 denominators. -/
 theorem GCD369CubeFaberC1Numerators {K : Type*} [Field K] [CharZero K]
@@ -698,39 +762,43 @@ theorem GCD369CubeFaberC1Numerators {K : Type*} [Field K] [CharZero K]
     1679616 * GCD369CubeFaberR4 a0 a1 a2 a3 a4 0 0 0 0 0 0 c1 =
         GCD369CubeFaberC1N4 a0 a1 a2 a3 a4 c1 := by
   constructor
-  · norm_num [GCD369CubeFaberR1, GCD369CubeFaberC1N1,
-      GCD369CubeFaberN1]
+  · rw [GCD369CubeFaberR1, mul_div_cancel₀ _ (by norm_num : (62208 : K) ≠ 0)]
+    simp only [GCD369CubeFaberC1N1, GCD369CubeFaberN1]
     ring
   constructor
-  · norm_num [GCD369CubeFaberR2, GCD369CubeFaberC1N2,
-      GCD369CubeFaberN2]
+  · rw [GCD369CubeFaberR2, mul_div_cancel₀ _ (by norm_num : (186624 : K) ≠ 0)]
+    simp only [GCD369CubeFaberC1N2, GCD369CubeFaberN2]
     ring
   constructor
-  · norm_num [GCD369CubeFaberR3, GCD369CubeFaberC1N3,
-      GCD369CubeFaberN3]
+  · rw [GCD369CubeFaberR3, mul_div_cancel₀ _ (by norm_num : (248832 : K) ≠ 0)]
+    simp only [GCD369CubeFaberC1N3, GCD369CubeFaberN3]
     ring
-  · norm_num [GCD369CubeFaberR4, GCD369CubeFaberC1N4,
-      GCD369CubeFaberN4]
+  · rw [GCD369CubeFaberR4, mul_div_cancel₀ _ (by norm_num : (1679616 : K) ≠ 0)]
+    simp only [GCD369CubeFaberC1N4, GCD369CubeFaberN4]
     ring
 
 /-! ### Exact common-normal expansion -/
 
+set_option maxHeartbeats 64000000 in
 /-- First universal Kuranishi row on the common-cubic normal cone. -/
 def GCD369CubeNormalRow1 {K : Type*} [CommRing K]
     (Xn Yn Zn u : K) : K :=
   729 * u * Xn ^ 2 - 1458 * Xn * Zn - 729 * Yn ^ 2
 
+set_option maxHeartbeats 64000000 in
 /-- Second universal Kuranishi row on the common-cubic normal cone. -/
 def GCD369CubeNormalRow2 {K : Type*} [CommRing K]
     (Xn Yn Zn u v : K) : K :=
   -2187 * v * Xn ^ 2 - 4374 * u * Xn * Yn + 4374 * Yn * Zn
 
+set_option maxHeartbeats 64000000 in
 /-- Third universal Kuranishi row on the common-cubic normal cone. -/
 def GCD369CubeNormalRow3 {K : Type*} [CommRing K]
     (Xn Yn Zn u v : K) : K :=
   2 * u ^ 2 * Xn ^ 2 - 6 * v * Xn * Yn - 4 * u * Xn * Zn -
     2 * u * Yn ^ 2 + 3 * Zn ^ 2
 
+set_option maxHeartbeats 64000000 in
 /-- Fourth universal Kuranishi row on the common-cubic normal cone. -/
 def GCD369CubeNormalRow4 {K : Type*} [CommRing K]
     (Xn Yn Zn u v : K) : K :=
@@ -738,6 +806,7 @@ def GCD369CubeNormalRow4 {K : Type*} [CommRing K]
     26244 * v * Xn * Zn - 13122 * v * Yn ^ 2 -
     13122 * u * Yn * Zn
 
+set_option maxHeartbeats 64000000 in
 /-- Exact expansion of the first four zero-high Faber numerators along
 `(z^3+uz+v)^2 + h(Xz^2+Yz+Z)`.  In particular their constant and linear
 terms vanish, their quadratic terms are exactly the four Kuranishi rows,
@@ -777,6 +846,7 @@ theorem GCD369CubeFaberCommonNormalNumerators {K : Type*}
     simp only [C_add, C_mul, C_pow, C_neg, C_sub, C_ofNat]
     ring
 
+set_option maxHeartbeats 64000000 in
 /-- Quadratic-coefficient form of the exact common-normal numerator
 identity.  These are the four denominator-cleared target rows used when the
 first nonzero load is an invariant value rather than a high coefficient. -/
@@ -815,6 +885,7 @@ theorem GCD369CubeFaberCommonNormalCoefficients {K : Type*}
     simp only [coeff_sub, coeff_C_mul_X_pow]
     norm_num
 
+set_option maxHeartbeats 64000000 in
 /-- Along the common-cubic normal arc with `d = D h^2`, the four exact
 denominator-cleared Faber numerators have the displayed Kuranishi rows as
 their quadratic coefficients.  All omitted terms are certified multiples
@@ -841,6 +912,9 @@ theorem GCD369CubeFaberDNormalExpansion {K : Type*}
             160 * D * u ^ 6 - 5760 * D * u ^ 3 * v ^ 2 +
             6480 * D * v ^ 4)) * H ^ 2 + H ^ 3 * Q4 := by
   dsimp
+  have hnormal := GCD369CubeFaberCommonNormalNumerators Xn Yn Zn u v
+  dsimp at hnormal
+  rcases hnormal with ⟨hn1, hn2, hn3, hn4⟩
   let b11 : K :=
     -288 * D * Yn * u ^ 2 - 576 * D * Xn * u * v + 1728 * D * Zn * v
   let b12 : K := 864 * D * Xn * Yn
@@ -868,11 +942,9 @@ theorem GCD369CubeFaberDNormalExpansion {K : Type*}
     C (-64 * b31) + C (-64 * b32) * X,
     C (16 * b41) + C (16 * b42) * X + C (16 * b43) * X ^ 2, ?_⟩
   dsimp [b11, b12, b21, b22, b31, b32, b41, b42, b43]
-  simp only [GCD369CubeFaberD1, GCD369CubeFaberD2,
-    GCD369CubeFaberD3, GCD369CubeFaberD4,
-    GCD369CubeFaberN1, GCD369CubeFaberN2,
-    GCD369CubeFaberN3, GCD369CubeFaberN4,
-    GCD369CubeNormalRow1, GCD369CubeNormalRow2,
+  simp only [GCD369CubeFaberD1, GCD369CubeFaberD2, GCD369CubeFaberD3, GCD369CubeFaberD4]
+  rw [hn1, hn2, hn3, hn4]
+  simp only [GCD369CubeNormalRow1, GCD369CubeNormalRow2,
     GCD369CubeNormalRow3, GCD369CubeNormalRow4,
     C_add, C_mul, C_pow, C_neg, C_sub, C_ofNat]
   constructor
@@ -881,6 +953,7 @@ theorem GCD369CubeFaberDNormalExpansion {K : Type*}
   · ring
   constructor <;> ring
 
+set_option maxHeartbeats 64000000 in
 /-- Coefficient form of `GCD369CubeFaberDNormalExpansion`. -/
 theorem GCD369CubeFaberDNormalCoefficients {K : Type*}
     [Field K] [CharZero K] (Xn Yn Zn u v D : K) :
@@ -921,6 +994,7 @@ theorem GCD369CubeFaberDNormalCoefficients {K : Type*}
     simp only [coeff_add, coeff_C_mul_X_pow, coeff_X_pow_mul']
     norm_num
 
+set_option maxHeartbeats 64000000 in
 /-- Source-facing form of the first normalized `d` load: the four exact
 Faber numerators have zero quadratic coefficient on the common-normal arc. -/
 def GCD369CubeDLeadingFaberRows {K : Type*} [Field K]
@@ -936,6 +1010,7 @@ def GCD369CubeDLeadingFaberRows {K : Type*} [Field K]
   (GCD369CubeFaberD3 A0 A1 A2 A3 A4 (H ^ 2)).coeff 2 = 0 ∧
   (GCD369CubeFaberD4 A0 A1 A2 A3 A4 (H ^ 2)).coeff 2 = 0
 
+set_option maxHeartbeats 64000000 in
 /-- Exact common-normal expansion with the first retained high coefficient
 `c7 = T h^2`. -/
 theorem GCD369CubeFaberC7NormalExpansion {K : Type*}
@@ -962,6 +1037,9 @@ theorem GCD369CubeFaberC7NormalExpansion {K : Type*}
             2916 * v * Xn * Zn + 1458 * v * Yn ^ 2 +
             1458 * u * Yn * Zn)) * H ^ 2 + H ^ 3 * Q4 := by
   dsimp
+  have hnormal := GCD369CubeFaberCommonNormalNumerators Xn Yn Zn u v
+  dsimp at hnormal
+  rcases hnormal with ⟨hn1, hn2, hn3, hn4⟩
   let b11 : K :=
     -252 * T * Xn * u ^ 2 + 756 * T * Zn * u + 756 * T * Yn * v
   let b12 : K := 189 * T * Xn ^ 2
@@ -983,11 +1061,10 @@ theorem GCD369CubeFaberC7NormalExpansion {K : Type*}
     C (-64 * b31) + C (-64 * b32) * X,
     C (144 * b41) + C (144 * b42) * X, ?_⟩
   dsimp [b11, b12, b21, b22, b31, b32, b41, b42]
-  simp only [GCD369CubeFaberC7N1, GCD369CubeFaberC7N2,
-    GCD369CubeFaberC7N3, GCD369CubeFaberC7N4,
-    GCD369CubeFaberN1, GCD369CubeFaberN2,
-    GCD369CubeFaberN3, GCD369CubeFaberN4,
-    GCD369CubeNormalRow1, GCD369CubeNormalRow3,
+  simp only [GCD369CubeFaberC7N1, GCD369CubeFaberC7N2, GCD369CubeFaberC7N3, GCD369CubeFaberC7N4]
+  rw [hn1, hn2, hn3, hn4]
+  simp only [GCD369CubeNormalRow1, GCD369CubeNormalRow2,
+    GCD369CubeNormalRow3, GCD369CubeNormalRow4,
     C_add, C_mul, C_pow, C_neg, C_sub, C_ofNat]
   constructor
   · ring
@@ -995,6 +1072,7 @@ theorem GCD369CubeFaberC7NormalExpansion {K : Type*}
   · ring
   constructor <;> ring
 
+set_option maxHeartbeats 64000000 in
 /-- Coefficient form of `GCD369CubeFaberC7NormalExpansion`. -/
 theorem GCD369CubeFaberC7NormalCoefficients {K : Type*}
     [Field K] [CharZero K] (Xn Yn Zn u v T : K) :
@@ -1036,6 +1114,7 @@ theorem GCD369CubeFaberC7NormalCoefficients {K : Type*}
     simp only [coeff_add, coeff_C_mul_X_pow, coeff_X_pow_mul']
     norm_num
 
+set_option maxHeartbeats 64000000 in
 /-- Source-facing normalized `c7` load: the four exact Faber numerators have
 zero quadratic coefficient. -/
 def GCD369CubeC7LeadingFaberRows {K : Type*} [Field K]
@@ -1051,6 +1130,7 @@ def GCD369CubeC7LeadingFaberRows {K : Type*} [Field K]
   (GCD369CubeFaberC7N3 A0 A1 A2 A3 A4 (H ^ 2)).coeff 2 = 0 ∧
   (GCD369CubeFaberC7N4 A0 A1 A2 A3 A4 (H ^ 2)).coeff 2 = 0
 
+set_option maxHeartbeats 64000000 in
 /-- Exact common-normal expansion with `c5 = T h^2`. -/
 theorem GCD369CubeFaberC5NormalExpansion {K : Type*}
     [Field K] [CharZero K] (Xn Yn Zn u v T : K) :
@@ -1076,6 +1156,9 @@ theorem GCD369CubeFaberC5NormalExpansion {K : Type*}
             324 * v * Xn * Zn + 162 * v * Yn ^ 2 +
             162 * u * Yn * Zn)) * H ^ 2 + H ^ 3 * Q4 := by
   dsimp
+  have hnormal := GCD369CubeFaberCommonNormalNumerators Xn Yn Zn u v
+  dsimp at hnormal
+  rcases hnormal with ⟨hn1, hn2, hn3, hn4⟩
   let b11 : K := -180 * T * Xn * u + 540 * T * Zn
   let b21 : K := 60 * T * Yn * u + 60 * T * Xn * v
   let b31 : K := -40 * T * Xn * u ^ 2 + 120 * T * Yn * v + 27 * Xn ^ 3
@@ -1086,11 +1169,10 @@ theorem GCD369CubeFaberC5NormalExpansion {K : Type*}
     C (-576 * b31) + C (-576 * b32) * X,
     C (1296 * b41) + C (1296 * b42) * X, ?_⟩
   dsimp [b11, b21, b31, b32, b41, b42]
-  simp only [GCD369CubeFaberC5N1, GCD369CubeFaberC5N2,
-    GCD369CubeFaberC5N3, GCD369CubeFaberC5N4,
-    GCD369CubeFaberN1, GCD369CubeFaberN2,
-    GCD369CubeFaberN3, GCD369CubeFaberN4,
-    GCD369CubeNormalRow3,
+  simp only [GCD369CubeFaberC5N1, GCD369CubeFaberC5N2, GCD369CubeFaberC5N3, GCD369CubeFaberC5N4]
+  rw [hn1, hn2, hn3, hn4]
+  simp only [GCD369CubeNormalRow1, GCD369CubeNormalRow2,
+    GCD369CubeNormalRow3, GCD369CubeNormalRow4,
     C_add, C_mul, C_pow, C_neg, C_sub, C_ofNat]
   constructor
   · ring
@@ -1098,6 +1180,7 @@ theorem GCD369CubeFaberC5NormalExpansion {K : Type*}
   · ring
   constructor <;> ring
 
+set_option maxHeartbeats 64000000 in
 /-- Coefficient form of `GCD369CubeFaberC5NormalExpansion`. -/
 theorem GCD369CubeFaberC5NormalCoefficients {K : Type*}
     [Field K] [CharZero K] (Xn Yn Zn u v T : K) :
@@ -1139,6 +1222,7 @@ theorem GCD369CubeFaberC5NormalCoefficients {K : Type*}
     simp only [coeff_add, coeff_C_mul_X_pow, coeff_X_pow_mul']
     norm_num
 
+set_option maxHeartbeats 64000000 in
 /-- Source-facing normalized `c5` load. -/
 def GCD369CubeC5LeadingFaberRows {K : Type*} [Field K]
     (Xn Yn Zn u v : K) : Prop :=
@@ -1153,6 +1237,7 @@ def GCD369CubeC5LeadingFaberRows {K : Type*} [Field K]
   (GCD369CubeFaberC5N3 A0 A1 A2 A3 A4 (H ^ 2)).coeff 2 = 0 ∧
   (GCD369CubeFaberC5N4 A0 A1 A2 A3 A4 (H ^ 2)).coeff 2 = 0
 
+set_option maxHeartbeats 64000000 in
 /-- Exact common-normal expansion with `c4 = T h^2`. -/
 theorem GCD369CubeFaberC4NormalExpansion {K : Type*}
     [Field K] [CharZero K] (Xn Yn Zn u v T : K) :
@@ -1178,6 +1263,9 @@ theorem GCD369CubeFaberC4NormalExpansion {K : Type*}
             324 * v * Xn * Zn + 162 * v * Yn ^ 2 +
             162 * u * Yn * Zn)) * H ^ 2 + H ^ 3 * Q4 := by
   dsimp
+  have hnormal := GCD369CubeFaberCommonNormalNumerators Xn Yn Zn u v
+  dsimp at hnormal
+  rcases hnormal with ⟨hn1, hn2, hn3, hn4⟩
   let b11 : K := 48 * T * Yn
   let b21 : K := -288 * T * Xn * u + 432 * T * Zn
   let b31 : K := 32 * T * Yn * u + 64 * T * Xn * v + 9 * Xn ^ 3
@@ -1187,11 +1275,10 @@ theorem GCD369CubeFaberC4NormalExpansion {K : Type*}
   refine ⟨C (864 * b11), C (288 * b21), C (-1728 * b31),
     C (1296 * b41) + C (1296 * b42) * X, ?_⟩
   dsimp [b11, b21, b31, b41, b42]
-  simp only [GCD369CubeFaberC4N1, GCD369CubeFaberC4N2,
-    GCD369CubeFaberC4N3, GCD369CubeFaberC4N4,
-    GCD369CubeFaberN1, GCD369CubeFaberN2,
-    GCD369CubeFaberN3, GCD369CubeFaberN4,
-    GCD369CubeNormalRow3,
+  simp only [GCD369CubeFaberC4N1, GCD369CubeFaberC4N2, GCD369CubeFaberC4N3, GCD369CubeFaberC4N4]
+  rw [hn1, hn2, hn3, hn4]
+  simp only [GCD369CubeNormalRow1, GCD369CubeNormalRow2,
+    GCD369CubeNormalRow3, GCD369CubeNormalRow4,
     C_add, C_mul, C_pow, C_neg, C_sub, C_ofNat]
   constructor
   · ring
@@ -1199,6 +1286,7 @@ theorem GCD369CubeFaberC4NormalExpansion {K : Type*}
   · ring
   constructor <;> ring
 
+set_option maxHeartbeats 64000000 in
 /-- Coefficient form of `GCD369CubeFaberC4NormalExpansion`. -/
 theorem GCD369CubeFaberC4NormalCoefficients {K : Type*}
     [Field K] [CharZero K] (Xn Yn Zn u v T : K) :
@@ -1240,6 +1328,7 @@ theorem GCD369CubeFaberC4NormalCoefficients {K : Type*}
     simp only [coeff_add, coeff_C_mul_X_pow, coeff_X_pow_mul']
     norm_num
 
+set_option maxHeartbeats 64000000 in
 /-- Source-facing normalized `c4` load. -/
 def GCD369CubeC4LeadingFaberRows {K : Type*} [Field K]
     (Xn Yn Zn u v : K) : Prop :=
@@ -1254,6 +1343,7 @@ def GCD369CubeC4LeadingFaberRows {K : Type*} [Field K]
   (GCD369CubeFaberC4N3 A0 A1 A2 A3 A4 (H ^ 2)).coeff 2 = 0 ∧
   (GCD369CubeFaberC4N4 A0 A1 A2 A3 A4 (H ^ 2)).coeff 2 = 0
 
+set_option maxHeartbeats 64000000 in
 /-- Exact common-normal expansion with `c2 = T h^2`. -/
 theorem GCD369CubeFaberC2NormalExpansion {K : Type*}
     [Field K] [CharZero K] (Xn Yn Zn u v T : K) :
@@ -1278,14 +1368,16 @@ theorem GCD369CubeFaberC2NormalExpansion {K : Type*}
             324 * v * Xn * Zn + 162 * v * Yn ^ 2 +
             162 * u * Yn * Zn)) * H ^ 2 + H ^ 3 * Q4 := by
   dsimp
+  have hnormal := GCD369CubeFaberCommonNormalNumerators Xn Yn Zn u v
+  dsimp at hnormal
+  rcases hnormal with ⟨hn1, hn2, hn3, hn4⟩
   refine ⟨0, C (62208 * T * Xn),
     C (82944 * T * Yn - 15552 * Xn ^ 3),
     C (T * (559872 * Zn - 373248 * u * Xn) - 314928 * Yn * Xn ^ 2), ?_⟩
-  simp only [GCD369CubeFaberC2N1, GCD369CubeFaberC2N2,
-    GCD369CubeFaberC2N3, GCD369CubeFaberC2N4,
-    GCD369CubeFaberN1, GCD369CubeFaberN2,
-    GCD369CubeFaberN3, GCD369CubeFaberN4,
-    GCD369CubeNormalRow3,
+  simp only [GCD369CubeFaberC2N1, GCD369CubeFaberC2N2, GCD369CubeFaberC2N3, GCD369CubeFaberC2N4]
+  rw [hn1, hn2, hn3, hn4]
+  simp only [GCD369CubeNormalRow1, GCD369CubeNormalRow2,
+    GCD369CubeNormalRow3, GCD369CubeNormalRow4,
     C_add, C_mul, C_pow, C_neg, C_sub, C_ofNat]
   constructor
   · ring
@@ -1293,6 +1385,7 @@ theorem GCD369CubeFaberC2NormalExpansion {K : Type*}
   · ring
   constructor <;> ring
 
+set_option maxHeartbeats 64000000 in
 /-- Coefficient form of `GCD369CubeFaberC2NormalExpansion`. -/
 theorem GCD369CubeFaberC2NormalCoefficients {K : Type*}
     [Field K] [CharZero K] (Xn Yn Zn u v T : K) :
@@ -1334,6 +1427,7 @@ theorem GCD369CubeFaberC2NormalCoefficients {K : Type*}
     simp only [coeff_add, coeff_C_mul_X_pow, coeff_X_pow_mul']
     norm_num
 
+set_option maxHeartbeats 64000000 in
 /-- Source-facing normalized `c2` load. -/
 def GCD369CubeC2LeadingFaberRows {K : Type*} [Field K]
     (Xn Yn Zn u v : K) : Prop :=
@@ -1348,6 +1442,7 @@ def GCD369CubeC2LeadingFaberRows {K : Type*} [Field K]
   (GCD369CubeFaberC2N3 A0 A1 A2 A3 A4 (H ^ 2)).coeff 2 = 0 ∧
   (GCD369CubeFaberC2N4 A0 A1 A2 A3 A4 (H ^ 2)).coeff 2 = 0
 
+set_option maxHeartbeats 64000000 in
 /-- Exact common-normal expansion with `c1 = T h^2`. -/
 theorem GCD369CubeFaberC1NormalExpansion {K : Type*}
     [Field K] [CharZero K] (Xn Yn Zn u v T : K) :
@@ -1371,13 +1466,15 @@ theorem GCD369CubeFaberC1NormalExpansion {K : Type*}
             18 * u ^ 2 * Xn * Yn - 36 * v * Xn * Zn -
             18 * v * Yn ^ 2 - 18 * u * Yn * Zn)) * H ^ 2 + H ^ 3 * Q4 := by
   dsimp
+  have hnormal := GCD369CubeFaberCommonNormalNumerators Xn Yn Zn u v
+  dsimp at hnormal
+  rcases hnormal with ⟨hn1, hn2, hn3, hn4⟩
   refine ⟨0, 0, C (41472 * T * Xn - 15552 * Xn ^ 3),
     C (279936 * T * Yn - 314928 * Yn * Xn ^ 2), ?_⟩
-  simp only [GCD369CubeFaberC1N1, GCD369CubeFaberC1N2,
-    GCD369CubeFaberC1N3, GCD369CubeFaberC1N4,
-    GCD369CubeFaberN1, GCD369CubeFaberN2,
-    GCD369CubeFaberN3, GCD369CubeFaberN4,
-    GCD369CubeNormalRow3,
+  simp only [GCD369CubeFaberC1N1, GCD369CubeFaberC1N2, GCD369CubeFaberC1N3, GCD369CubeFaberC1N4]
+  rw [hn1, hn2, hn3, hn4]
+  simp only [GCD369CubeNormalRow1, GCD369CubeNormalRow2,
+    GCD369CubeNormalRow3, GCD369CubeNormalRow4,
     C_add, C_mul, C_pow, C_neg, C_sub, C_ofNat]
   constructor
   · ring
@@ -1385,6 +1482,7 @@ theorem GCD369CubeFaberC1NormalExpansion {K : Type*}
   · ring
   constructor <;> ring
 
+set_option maxHeartbeats 64000000 in
 /-- Coefficient form of `GCD369CubeFaberC1NormalExpansion`. -/
 theorem GCD369CubeFaberC1NormalCoefficients {K : Type*}
     [Field K] [CharZero K] (Xn Yn Zn u v T : K) :
@@ -1425,6 +1523,7 @@ theorem GCD369CubeFaberC1NormalCoefficients {K : Type*}
     simp only [coeff_add, coeff_C_mul_X_pow, coeff_X_pow_mul']
     norm_num
 
+set_option maxHeartbeats 64000000 in
 /-- Source-facing normalized `c1` load. -/
 def GCD369CubeC1LeadingFaberRows {K : Type*} [Field K]
     (Xn Yn Zn u v : K) : Prop :=
@@ -1439,6 +1538,7 @@ def GCD369CubeC1LeadingFaberRows {K : Type*} [Field K]
   (GCD369CubeFaberC1N3 A0 A1 A2 A3 A4 (H ^ 2)).coeff 2 = 0 ∧
   (GCD369CubeFaberC1N4 A0 A1 A2 A3 A4 (H ^ 2)).coeff 2 = 0
 
+set_option maxHeartbeats 64000000 in
 /-- Source-facing first `rho1` target load.  The value `62208` is the
 denominator-cleared normalization of `rho1 = 1`; the other three earlier
 invariant values vanish. -/
@@ -1455,6 +1555,7 @@ def GCD369CubeRhoOneLeadingFaberRows {K : Type*} [Field K]
   (GCD369CubeFaberN3 A0 A1 A2 A3 A4).coeff 2 = 0 ∧
   (6561 * GCD369CubeFaberN4 A0 A1 A2 A3 A4).coeff 2 = 0
 
+set_option maxHeartbeats 64000000 in
 /-- Source-facing first `rho2` target load.  The value `186624` is the
 denominator-cleared normalization of `rho2 = 1`. -/
 def GCD369CubeRhoTwoLeadingFaberRows {K : Type*} [Field K]
@@ -1470,6 +1571,7 @@ def GCD369CubeRhoTwoLeadingFaberRows {K : Type*} [Field K]
   (GCD369CubeFaberN3 A0 A1 A2 A3 A4).coeff 2 = 0 ∧
   (6561 * GCD369CubeFaberN4 A0 A1 A2 A3 A4).coeff 2 = 0
 
+set_option maxHeartbeats 64000000 in
 /-- Vanishing of the first four zero-high-constant Faber invariants is
 equivalent, in the direction needed below, to vanishing of their primitive
 integral numerators. -/
@@ -1483,25 +1585,27 @@ theorem GCD369CubeFaberZeroHighNumerators {K : Type*}
     GCD369CubeFaberN2 a0 a1 a2 a3 a4 = 0 ∧
     GCD369CubeFaberN3 a0 a1 a2 a3 a4 = 0 ∧
     GCD369CubeFaberN4 a0 a1 a2 a3 a4 = 0 := by
+  obtain ⟨h1, h2, h3, h4⟩ :=
+    GCD369CubeFaberFullN_zeroHigh a0 a1 a2 a3 a4
   have hscale1 :
       GCD369CubeFaberR1 a0 a1 a2 a3 a4 0 0 0 0 0 0 0 =
         (3 / 256) * GCD369CubeFaberN1 a0 a1 a2 a3 a4 := by
-    simp only [GCD369CubeFaberR1, GCD369CubeFaberN1]
+    rw [GCD369CubeFaberR1, h1]
     ring
   have hscale2 :
       GCD369CubeFaberR2 a0 a1 a2 a3 a4 0 0 0 0 0 0 0 =
         (3 / 256) * GCD369CubeFaberN2 a0 a1 a2 a3 a4 := by
-    simp only [GCD369CubeFaberR2, GCD369CubeFaberN2]
+    rw [GCD369CubeFaberR2, h2]
     ring
   have hscale3 :
       GCD369CubeFaberR3 a0 a1 a2 a3 a4 0 0 0 0 0 0 0 =
         (1 / 1024) * GCD369CubeFaberN3 a0 a1 a2 a3 a4 := by
-    simp only [GCD369CubeFaberR3, GCD369CubeFaberN3]
+    rw [GCD369CubeFaberR3, h3]
     ring
   have hscale4 :
       GCD369CubeFaberR4 a0 a1 a2 a3 a4 0 0 0 0 0 0 0 =
         (1 / 256) * GCD369CubeFaberN4 a0 a1 a2 a3 a4 := by
-    simp only [GCD369CubeFaberR4, GCD369CubeFaberN4]
+    rw [GCD369CubeFaberR4, h4]
     ring
   rw [hscale1] at hr1
   rw [hscale2] at hr2
@@ -1513,6 +1617,7 @@ theorem GCD369CubeFaberZeroHighNumerators {K : Type*}
     (mul_eq_zero.mp hr3).resolve_left (by norm_num),
     (mul_eq_zero.mp hr4).resolve_left (by norm_num)⟩
 
+set_option maxHeartbeats 64000000 in
 /-- The reduced zero-high-constant leading scheme has only the common-cubic
 and Davenport--Stothers components.  This is a pointwise proof over every
 characteristic-zero field: a compact fourth-power ideal certificate supplies
@@ -1595,6 +1700,7 @@ theorem GCD369CubeFaberLeadingComponentEquations {K : Type*}
       (pow_eq_zero_iff (by norm_num : (2 : ℕ) ≠ 0)).mp hBsq
     exact Or.inl ⟨hA, by linear_combination -hrel, hB⟩
 
+set_option maxHeartbeats 64000000 in
 /-- Actual vanishing of `r1,...,r4` therefore parameterizes the leading point
 as either a common cubic or the unique normalized DS curve. -/
 theorem GCD369CubeFaberLeadingComponentClassification {K : Type*}
@@ -1626,6 +1732,7 @@ theorem GCD369CubeFaberLeadingComponentClassification {K : Type*}
     · linear_combination (1 / 20) * ha0 + (3 / 160 * a4) * ha2
 
 
+set_option maxHeartbeats 64000000 in
 /-- The five polynomial parts multiplying the derivatives of the first five
 negative Laurent coefficients form a triangular basis.  Consequently a
 constant terminal row is equivalent to four first integrals and the displayed
@@ -1666,6 +1773,7 @@ theorem GCD369CubeLowerRowTriangularity {K : Type*} [Field K] [CharZero K]
     simp only [zero_smul, zero_add]
     simpa [mul_comm] using congrArg C h5
 
+set_option maxHeartbeats 64000000 in
 /-- The common-cubic `P_A` sheet has identically zero source bracket, for an
 arbitrary moving cubic and arbitrary constant deformation. -/
 theorem GCD369CubeZeroSheetBracket {K : Type*} [Field K] [CharZero K]
@@ -1680,6 +1788,7 @@ theorem GCD369CubeZeroSheetBracket {K : Type*} [Field K] [CharZero K]
   norm_num [C_div, C_mul, C_ofNat, C_eq_natCast]
   ring_nf
 
+set_option maxHeartbeats 64000000 in
 /-- The common-power terminal sheet cannot carry the required nonzero source
 bracket, for any moving cubic or constant deformation. -/
 theorem GCD369CubeZeroSheetTerminalExclusion
@@ -1693,6 +1802,7 @@ theorem GCD369CubeZeroSheetTerminalExclusion
       fdot * derivative g - derivative f * gdot ≠ 0) : False := by
   exact hterminal (GCD369CubeZeroSheetBracket Kpoly Kdot eta)
 
+set_option maxHeartbeats 64000000 in
 /-- The normalized Davenport--Stothers trajectory has the exact nonzero
 bracket used by the cube-core terminal analysis. -/
 theorem GCD369CubeDSBracket {K : Type*} [Field K] [CharZero K] (lambda : K) :
@@ -1717,6 +1827,7 @@ theorem GCD369CubeDSBracket {K : Type*} [Field K] [CharZero K] (lambda : K) :
     eval_zero, eval_one]
   ring
 
+set_option maxHeartbeats 64000000 in
 /-- A short Bezout certificate for the normalized DS boundary polynomials.
 In particular, they have no common root over any characteristic-zero field. -/
 theorem GCD369CubeDSBoundaryBezout {K : Type*} [Field K] [CharZero K] :
@@ -1751,6 +1862,7 @@ theorem GCD369CubeDSBoundaryBezout {K : Type*} [Field K] [CharZero K] :
       eval_C] at hbez
     norm_num at hbez
 
+set_option maxHeartbeats 64000000 in
 /-- The normalized Davenport--Stothers leading pair has no common boundary
 value.  This is the source-value form of the Bezout certificate. -/
 theorem GCD369CubeDSBoundaryExclusion {K : Type*} [Field K] [CharZero K]
@@ -1763,6 +1875,7 @@ theorem GCD369CubeDSBoundaryExclusion {K : Type*} [Field K] [CharZero K]
     False := by
   exact (GCD369CubeDSBoundaryBezout (K := K)).2 r hf hg
 
+set_option maxHeartbeats 64000000 in
 /-- The unique double-root projective normal has an unavoidable third
 invariant coefficient `-1/16`, independently of every next coefficient. -/
 theorem GCD369CubeDoubleRootNormalObstruction {K : Type*} [Field K] [CharZero K]
@@ -1771,6 +1884,7 @@ theorem GCD369CubeDoubleRootNormalObstruction {K : Type*} [Field K] [CharZero K]
       -(4 * S + 3) / 16 = 0) := by
   norm_num
 
+set_option maxHeartbeats 64000000 in
 /-- A point on the exceptional `d != 0` orbit polynomial cannot lie on the
 double-root discriminant, except at the excluded affine origin. -/
 theorem GCD369CubeExceptionalOrbitSquarefree {K : Type*} [Field K] [CharZero K]
@@ -1795,6 +1909,7 @@ theorem GCD369CubeExceptionalOrbitSquarefree {K : Type*} [Field K] [CharZero K]
     exact (pow_ne_zero 3 hu) hu3
   exact hprojective.elim (fun h => h hu) (fun h => h hv)
 
+set_option maxHeartbeats 64000000 in
 /-- The four forced quadratic rows for the normalized `d != 0` landing imply
 the exact exceptional-orbit equation.  The proof is the explicit
 ideal-membership certificate extracted from the deterministic Kuranishi
@@ -1818,6 +1933,7 @@ theorem GCD369CubeDExceptionalSupport {K : Type*} [Field K] [CharZero K]
     2 * u ^ 6 - 90 * u ^ 3 * v ^ 2 + 135 * v ^ 4 = 0 := by
   linear_combination (-9 / 88 * v) * h1 + (3 / 176 * u) * h2 + (1 / 176) * h4
 
+set_option maxHeartbeats 64000000 in
 /-- Every nonzero projective point on the normalized `d != 0` exceptional
 orbit has both common-cubic coordinates nonzero. -/
 theorem GCD369CubeDExceptionalCoordinatesNonzero
@@ -1845,6 +1961,7 @@ theorem GCD369CubeDExceptionalCoordinatesNonzero
       exact (pow_ne_zero 6 hu) hu6
     exact hprojective.elim (fun h => h hu) (fun h => h hv)
 
+set_option maxHeartbeats 64000000 in
 /-- On the normalized `d != 0` exceptional landing, the full forced terminal
 coefficient cannot vanish on the `u != 0` chart.  Explicitly, vanishing would
 force `u^11 = 0`. -/
@@ -1875,6 +1992,7 @@ theorem GCD369CubeDExceptionalTerminalNonzero
       (1035 / 13376 * u ^ 3 * v - 405 / 3344 * v ^ 3) * hterminal
   exact (pow_ne_zero 11 hu) hu11
 
+set_option maxHeartbeats 64000000 in
 /-- The localized unit certificate showing that the exceptional `d != 0`
 normal cannot share a root with its common cubic. -/
 theorem GCD369CubeDExceptionalNoCommonRootOnUChart
@@ -1965,6 +2083,7 @@ theorem GCD369CubeDExceptionalNoCommonRootOnUChart
       C5 * hK + C6 * hphi + C7 * hchart
   exact one_ne_zero hone
 
+set_option maxHeartbeats 64000000 in
 /-- The exceptional `d != 0` normal and its common cubic have no common
 field-valued root on any nonzero projective landing. -/
 theorem GCD369CubeDExceptionalNoCommonRoot
@@ -1990,6 +2109,7 @@ theorem GCD369CubeDExceptionalNoCommonRoot
   exact GCD369CubeDExceptionalNoCommonRootOnUChart
     Xn Yn Zn r u⁻¹ u v h1 h2 h3 h4 hK hphi (by simp [hu])
 
+set_option maxHeartbeats 64000000 in
 /-- The first retained `c7` load is supported on exactly the candidate
 projective divisor visible in its four Kuranishi rows. -/
 theorem GCD369CubeC7Support {K : Type*} [Field K] [CharZero K]
@@ -2010,6 +2130,7 @@ theorem GCD369CubeC7Support {K : Type*} [Field K] [CharZero K]
     u * v * (u ^ 3 - 6 * v ^ 2) = 0 := by
   linear_combination (1 / 280 * v) * h1 + (1 / 560 * u) * h2 + (1 / 560) * h4
 
+set_option maxHeartbeats 64000000 in
 /-- The full forced terminal coefficient on a first `c7` landing is nonzero
 at every nonzero projective common-cubic point. -/
 theorem GCD369CubeC7TerminalNonzero {K : Type*} [Field K] [CharZero K]
@@ -2043,6 +2164,7 @@ theorem GCD369CubeC7TerminalNonzero {K : Type*} [Field K] [CharZero K]
         (1 / 280 * u ^ 4 - 9 / 340 * u * v ^ 2) * hterminal
     exact (pow_ne_zero 10 hu) hu10
 
+set_option maxHeartbeats 64000000 in
 /-- The `u=0`, `v!=0` chart certificate for a first-`c7` landing. -/
 theorem GCD369CubeC7NoCommonRootOnUZeroChart
     {K : Type*} [Field K] [CharZero K]
@@ -2086,6 +2208,7 @@ theorem GCD369CubeC7NoCommonRootOnUZeroChart
       C6 * hphi + C7 * hu + C8 * hchart
   exact one_ne_zero hone
 
+set_option maxHeartbeats 64000000 in
 /-- The localized `u!=0` chart certificate for a first-`c7` landing. -/
 theorem GCD369CubeC7NoCommonRootOnUChart
     {K : Type*} [Field K] [CharZero K]
@@ -2178,6 +2301,7 @@ theorem GCD369CubeC7NoCommonRootOnUChart
       C5 * hK + C6 * hphi + C7 * hchart
   exact one_ne_zero hone
 
+set_option maxHeartbeats 64000000 in
 /-- At every projective first-`c7` landing, the common cubic and its normal
 have no common field-valued root. -/
 theorem GCD369CubeC7NoCommonRoot {K : Type*} [Field K] [CharZero K]
@@ -2205,6 +2329,7 @@ theorem GCD369CubeC7NoCommonRoot {K : Type*} [Field K] [CharZero K]
   · exact GCD369CubeC7NoCommonRootOnUChart
       Xn Yn Zn r u⁻¹ u v h1 h2 h3 h4 hK hphi (by simp [hu])
 
+set_option maxHeartbeats 64000000 in
 /-- The first retained `c5` load projects to
 `v * (u^3 - 3*v^2) = 0`. -/
 theorem GCD369CubeC5Support {K : Type*} [Field K] [CharZero K]
@@ -2225,6 +2350,7 @@ theorem GCD369CubeC5Support {K : Type*} [Field K] [CharZero K]
     v * (u ^ 3 - 3 * v ^ 2) = 0 := by
   linear_combination (1 / 160 * v) * h1 + (3 / 320 * u) * h2 + (3 / 320) * h4
 
+set_option maxHeartbeats 64000000 in
 /-- The full forced terminal coefficient on a first `c5` landing is nonzero
 at every nonzero projective common-cubic point. -/
 theorem GCD369CubeC5TerminalNonzero {K : Type*} [Field K] [CharZero K]
@@ -2258,6 +2384,7 @@ theorem GCD369CubeC5TerminalNonzero {K : Type*} [Field K] [CharZero K]
         (3 / 64 * u ^ 3 - 135 / 832 * v ^ 2) * hterminal
     exact (pow_ne_zero 8 hu) hu8
 
+set_option maxHeartbeats 64000000 in
 /-- The localized unit certificate showing that a first-`c5` normal cannot
 share a root with its common cubic. -/
 theorem GCD369CubeC5NoCommonRootOnUChart
@@ -2329,6 +2456,7 @@ theorem GCD369CubeC5NoCommonRootOnUChart
       C5 * hK + C6 * hphi + C7 * hchart
   exact one_ne_zero hone
 
+set_option maxHeartbeats 64000000 in
 /-- At every nonzero projective first-`c5` landing, the common cubic and its
 normal have no common field-valued root. -/
 theorem GCD369CubeC5NoCommonRoot {K : Type*} [Field K] [CharZero K]
@@ -2360,6 +2488,7 @@ theorem GCD369CubeC5NoCommonRoot {K : Type*} [Field K] [CharZero K]
   exact GCD369CubeC5NoCommonRootOnUChart
     Xn Yn Zn r u⁻¹ u v h1 h2 h3 h4 hK hphi (by simp [hu])
 
+set_option maxHeartbeats 64000000 in
 /-- The first retained `c4` load projects to
 `u * (u^3 - 18*v^2) = 0`. -/
 theorem GCD369CubeC4Support {K : Type*} [Field K] [CharZero K]
@@ -2379,6 +2508,7 @@ theorem GCD369CubeC4Support {K : Type*} [Field K] [CharZero K]
     u * (u ^ 3 - 18 * v ^ 2) = 0 := by
   linear_combination (-9 / 28 * v) * h1 + (1 / 56 * u) * h2 + (3 / 56) * h4
 
+set_option maxHeartbeats 64000000 in
 /-- The full forced terminal coefficient on a first `c4` landing is nonzero
 at every nonzero projective common-cubic point. -/
 theorem GCD369CubeC4TerminalNonzero {K : Type*} [Field K] [CharZero K]
@@ -2410,6 +2540,7 @@ theorem GCD369CubeC4TerminalNonzero {K : Type*} [Field K] [CharZero K]
         (81 / 308 * u * v) * hterminal
     exact (pow_ne_zero 7 hu) hu7
 
+set_option maxHeartbeats 64000000 in
 /-- The `u=0`, `v!=0` chart certificate for a first-`c4` landing. -/
 theorem GCD369CubeC4NoCommonRootOnUZeroChart
     {K : Type*} [Field K] [CharZero K]
@@ -2453,6 +2584,7 @@ theorem GCD369CubeC4NoCommonRootOnUZeroChart
       C6 * hphi + C7 * hu + C8 * hchart
   exact one_ne_zero hone
 
+set_option maxHeartbeats 64000000 in
 /-- The localized `u!=0` chart certificate for a first-`c4` landing. -/
 theorem GCD369CubeC4NoCommonRootOnUChart
     {K : Type*} [Field K] [CharZero K]
@@ -2510,6 +2642,7 @@ theorem GCD369CubeC4NoCommonRootOnUChart
       C5 * hK + C6 * hphi + C7 * hchart
   exact one_ne_zero hone
 
+set_option maxHeartbeats 64000000 in
 /-- At every projective first-`c4` landing, the common cubic and its normal
 have no common field-valued root. -/
 theorem GCD369CubeC4NoCommonRoot {K : Type*} [Field K] [CharZero K]
@@ -2535,6 +2668,7 @@ theorem GCD369CubeC4NoCommonRoot {K : Type*} [Field K] [CharZero K]
   · exact GCD369CubeC4NoCommonRootOnUChart
       Xn Yn Zn r u⁻¹ u v h1 h2 h3 h4 hK hphi (by simp [hu])
 
+set_option maxHeartbeats 64000000 in
 /-- The first retained `c2` load projects to `u^3 - 9*v^2 = 0`. -/
 theorem GCD369CubeC2Support {K : Type*} [Field K] [CharZero K]
     (Xn Yn Zn u v : K)
@@ -2553,6 +2687,7 @@ theorem GCD369CubeC2Support {K : Type*} [Field K] [CharZero K]
     u ^ 3 - 9 * v ^ 2 = 0 := by
   linear_combination (9 / 20 * v) * h1 + (3 / 40 * u) * h2 + (1 / 40) * h4
 
+set_option maxHeartbeats 64000000 in
 /-- The full forced terminal coefficient on a first `c2` landing is nonzero
 at every nonzero projective common-cubic point. -/
 theorem GCD369CubeC2TerminalNonzero {K : Type*} [Field K] [CharZero K]
@@ -2582,6 +2717,7 @@ theorem GCD369CubeC2TerminalNonzero {K : Type*} [Field K] [CharZero K]
         (1 / 40 * u ^ 2) * h4 + (9 / 40 * v) * hterminal
     exact (pow_ne_zero 5 hu) hu5
 
+set_option maxHeartbeats 64000000 in
 /-- The localized `u!=0` chart certificate for a first-`c2` landing. -/
 theorem GCD369CubeC2NoCommonRootOnUChart
     {K : Type*} [Field K] [CharZero K]
@@ -2633,6 +2769,7 @@ theorem GCD369CubeC2NoCommonRootOnUChart
       C5 * hK + C6 * hphi + C7 * hchart
   exact one_ne_zero hone
 
+set_option maxHeartbeats 64000000 in
 /-- At every projective first-`c2` landing, the common cubic and its normal
 have no common field-valued root. -/
 theorem GCD369CubeC2NoCommonRoot {K : Type*} [Field K] [CharZero K]
@@ -2664,6 +2801,7 @@ theorem GCD369CubeC2NoCommonRoot {K : Type*} [Field K] [CharZero K]
   exact GCD369CubeC2NoCommonRootOnUChart
     Xn Yn Zn r u⁻¹ u v h1 h2 h3 h4 hK hphi (by simp [hu])
 
+set_option maxHeartbeats 64000000 in
 /-- The first retained `c1` load projects to the two coordinate axes
 `u*v = 0`. -/
 theorem GCD369CubeC1Support {K : Type*} [Field K] [CharZero K]
@@ -2680,6 +2818,7 @@ theorem GCD369CubeC1Support {K : Type*} [Field K] [CharZero K]
     u * v = 0 := by
   linear_combination (1 / 16 * v) * h1 + (-1 / 32 * u) * h2 + (1 / 32) * h4
 
+set_option maxHeartbeats 64000000 in
 /-- The full forced terminal coefficient on a first `c1` landing is nonzero
 at every nonzero projective common-cubic point. -/
 theorem GCD369CubeC1TerminalNonzero {K : Type*} [Field K] [CharZero K]
@@ -2708,6 +2847,7 @@ theorem GCD369CubeC1TerminalNonzero {K : Type*} [Field K] [CharZero K]
         (1 / 32 * u) * hterminal
     exact (pow_ne_zero 4 hu) hu4
 
+set_option maxHeartbeats 64000000 in
 /-- The `u=0`, `v!=0` chart certificate for a first-`c1` landing. -/
 theorem GCD369CubeC1NoCommonRootOnUZeroChart
     {K : Type*} [Field K] [CharZero K]
@@ -2748,6 +2888,7 @@ theorem GCD369CubeC1NoCommonRootOnUZeroChart
       C6 * hphi + C7 * hu + C8 * hchart
   exact one_ne_zero hone
 
+set_option maxHeartbeats 64000000 in
 /-- The `v=0`, `u!=0` chart certificate for a first-`c1` landing. -/
 theorem GCD369CubeC1NoCommonRootOnVZeroChart
     {K : Type*} [Field K] [CharZero K]
@@ -2790,6 +2931,7 @@ theorem GCD369CubeC1NoCommonRootOnVZeroChart
       C6 * hphi + C7 * hv + C8 * hchart
   exact one_ne_zero hone
 
+set_option maxHeartbeats 64000000 in
 /-- At every nonzero projective first-`c1` landing, the common cubic and its
 normal have no common field-valued root. -/
 theorem GCD369CubeC1NoCommonRoot {K : Type*} [Field K] [CharZero K]
@@ -2815,6 +2957,7 @@ theorem GCD369CubeC1NoCommonRoot {K : Type*} [Field K] [CharZero K]
     exact GCD369CubeC1NoCommonRootOnVZeroChart
       Xn Yn Zn r u⁻¹ u v h1 h2 h3 h4 hK hphi hv (by simp [hu])
 
+set_option maxHeartbeats 64000000 in
 /-- With all high constants zero, a first `rho1` load forces `v = 0`. -/
 theorem GCD369CubeRhoOneSupport {K : Type*} [Field K] [CharZero K]
     (Xn Yn Zn u v : K)
@@ -2831,6 +2974,7 @@ theorem GCD369CubeRhoOneSupport {K : Type*} [Field K] [CharZero K]
   linear_combination (1 / 1944 * v) * h1 + (-1 / 11664 * u) * h2 +
     (-1 / 34992) * h4
 
+set_option maxHeartbeats 64000000 in
 /-- On a projective first-`rho1` landing, the quadratic terminal coefficient
 is nonzero.  The support equation forces `v=0`, after which the first row
 identifies it with `1944*u^2`. -/
@@ -2856,6 +3000,7 @@ theorem GCD369CubeRhoOneTerminalNonzero {K : Type*} [Field K] [CharZero K]
     linear_combination (1 / 1944 * u ^ 2) * h1 + (1 / 1944) * hterminal
   exact (pow_ne_zero 2 hu) hu2
 
+set_option maxHeartbeats 64000000 in
 /-- The `v=0`, `u!=0` chart certificate for a first-`rho1` landing. -/
 theorem GCD369CubeRhoOneNoCommonRootOnVZeroChart
     {K : Type*} [Field K] [CharZero K]
@@ -2899,6 +3044,7 @@ theorem GCD369CubeRhoOneNoCommonRootOnVZeroChart
       C6 * hphi + C7 * hv + C8 * hchart
   exact one_ne_zero hone
 
+set_option maxHeartbeats 64000000 in
 /-- At every projective first-`rho1` landing, the common cubic and its normal
 have no common field-valued root. -/
 theorem GCD369CubeRhoOneNoCommonRoot {K : Type*} [Field K] [CharZero K]
@@ -2920,6 +3066,7 @@ theorem GCD369CubeRhoOneNoCommonRoot {K : Type*} [Field K] [CharZero K]
   exact GCD369CubeRhoOneNoCommonRootOnVZeroChart
     Xn Yn Zn r u⁻¹ u v h1 h2 h3 h4 hK hphi hv (by simp [hu])
 
+set_option maxHeartbeats 64000000 in
 /-- With all high constants zero, a first `rho2` load forces `u = 0`. -/
 theorem GCD369CubeRhoTwoSupport {K : Type*} [Field K] [CharZero K]
     (Xn Yn Zn u v : K)
@@ -2937,6 +3084,7 @@ theorem GCD369CubeRhoTwoSupport {K : Type*} [Field K] [CharZero K]
   linear_combination (1 / 972 * v) * h1 + (-1 / 5832 * u) * h2 +
     (-1 / 17496) * h4
 
+set_option maxHeartbeats 64000000 in
 /-- On a projective first-`rho2` landing, the quadratic terminal coefficient
 is nonzero.  The support equation forces `u=0`, after which the second row
 identifies it with `-5832*v`. -/
@@ -2963,6 +3111,7 @@ theorem GCD369CubeRhoTwoTerminalNonzero {K : Type*} [Field K] [CharZero K]
     linear_combination (-1 / 5832 * v) * h2 + (-1 / 5832) * hterminal
   exact hv hv0
 
+set_option maxHeartbeats 64000000 in
 /-- The `u=0`, `v!=0` chart certificate for a first-`rho2` landing. -/
 theorem GCD369CubeRhoTwoNoCommonRootOnUZeroChart
     {K : Type*} [Field K] [CharZero K]
@@ -3001,6 +3150,7 @@ theorem GCD369CubeRhoTwoNoCommonRootOnUZeroChart
       C6 * hphi + C7 * hu + C8 * hchart
   exact one_ne_zero hone
 
+set_option maxHeartbeats 64000000 in
 /-- At every projective first-`rho2` landing, the common cubic and its normal
 have no common field-valued root. -/
 theorem GCD369CubeRhoTwoNoCommonRoot {K : Type*} [Field K] [CharZero K]
@@ -3023,6 +3173,7 @@ theorem GCD369CubeRhoTwoNoCommonRoot {K : Type*} [Field K] [CharZero K]
   exact GCD369CubeRhoTwoNoCommonRootOnUZeroChart
     Xn Yn Zn r v⁻¹ u v h1 h2 h3 h4 hK hphi hu (by simp [hv])
 
+set_option maxHeartbeats 64000000 in
 /-- A first `rho4` load has no common quadratic landing.  The displayed
 contradiction is the exact unit-ideal certificate from the Kuranishi replay. -/
 theorem GCD369CubeRhoFourFirstLoadImpossible {K : Type*} [Field K] [CharZero K]
@@ -3042,6 +3193,7 @@ theorem GCD369CubeRhoFourFirstLoadImpossible {K : Type*} [Field K] [CharZero K]
       (-1 / 52488) * h4
   exact one_ne_zero hone
 
+set_option maxHeartbeats 64000000 in
 /-- No quadratic normal direction can supply only the terminal row. -/
 theorem GCD369CubeTerminalOnlyQuadraticImpossible
     {K : Type*} [Field K] [CharZero K]
@@ -3077,6 +3229,7 @@ private theorem gcd369_outside_nat (q : ℚ) (hq : q < 0 ∨ (0 < q ∧ q < 1))
     subst n
     exact (ne_of_gt hq0) h
 
+set_option maxHeartbeats 64000000 in
 /-- Exact finite arithmetic behind every constant-core pole exclusion before
 the final `(rho3,rho4)` fibre.  Each displayed rational is a required degree
 of a nonzero coefficient (or, in the last row, a required correction degree),
@@ -3101,6 +3254,7 @@ theorem GCD369CubeConstantPoleDegreeAudit :
     apply gcd369_outside_nat
     norm_num
 
+set_option maxHeartbeats 64000000 in
 /-- Every integral-degree demand arising in the constant-core finite routing.
 The constructor names record the source row and the coefficient whose degree
 would have to equal the displayed rational number. -/
@@ -3119,6 +3273,7 @@ inductive GCD369CubeConstantPoleDegreeLanding : Prop where
   | rho2Y (n : ℕ) (h : (-1 : ℚ) / 6 = n)
   | rho2Z (n : ℕ) (h : (1 : ℚ) / 6 = n)
 
+set_option maxHeartbeats 64000000 in
 /-- The exact constant-core routing table has no integral polynomial-degree
 landing. -/
 theorem GCD369CubeConstantPoleDegreeLandingEmpty
@@ -3140,6 +3295,7 @@ theorem GCD369CubeConstantPoleDegreeLandingEmpty
   | rho2Y n h => exact hrho2Y n h
   | rho2Z n h => exact hrho2Z n h
 
+set_option maxHeartbeats 64000000 in
 /-- The original-boundary inequalities are strict for every early forced
 load, and become equalities for the first time at weight twelve. -/
 theorem GCD369CubeBoundaryWeightAudit :
@@ -3152,6 +3308,7 @@ theorem GCD369CubeBoundaryWeightAudit :
     rcases hk with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl <;> norm_num
   · norm_num
 
+set_option maxHeartbeats 64000000 in
 /-- The universal first-order boundary cancellation behind every early
 common-cubic landing.  If the cubic value and normal value do not vanish
 together and the transverse parameter is nonzero, then the reconstructed
@@ -3178,6 +3335,7 @@ theorem GCD369CubeBoundaryFirstOrderSeparation
     rw [hphi] at hf
     exact (pow_ne_zero 2 hKval) (by simpa using hf)
 
+set_option maxHeartbeats 64000000 in
 /-- Source-shaped form of `GCD369CubeBoundaryFirstOrderSeparation` for the
 common cubic `z^3+u*z+v` and transverse normal `X*z^2+Y*z+Z`. -/
 theorem GCD369CubeCommonCubicBoundaryFirstOrderSeparation
@@ -3198,6 +3356,7 @@ theorem GCD369CubeCommonCubicBoundaryFirstOrderSeparation
   · exact hf
   · exact hg
 
+set_option maxHeartbeats 64000000 in
 /-- The complete leading-order dichotomy for the reconstructed `f` boundary.
 If `K` has leading term `a*h^q` and the transverse normal has nonzero
 constant term `b`, then `K^2+h*phi` has order at most one unless the two
@@ -3258,6 +3417,7 @@ theorem GCD369CubeBoundaryLeadingOrderDichotomy
           norm_num
         rw [hseries, HahnSeries.orderTop_single hcancel]
 
+set_option maxHeartbeats 64000000 in
 /-- In the only possible first-order cancellation regime, where the cubic
 has `h`-order `1/2` and `K^2+h*phi` cancels, the leading term of
 `K^3+(3/2)h*K*phi` has exact `h`-order `3/2`.  Rational-exponent Hahn series
@@ -3286,6 +3446,7 @@ theorem GCD369CubeBoundaryCancellationOrder
     norm_num
   rw [hseries, HahnSeries.order_single hcoefficient]
 
+set_option maxHeartbeats 64000000 in
 /-- Terms of strictly larger Puiseux order cannot cancel the forced
 `3/2`-order boundary term. -/
 theorem GCD369CubeBoundaryCancellationOrderWithHigherTerms
@@ -3325,6 +3486,7 @@ theorem GCD369CubeBoundaryCancellationOrderWithHigherTerms
     (G + E).orderTop = G.orderTop := HahnSeries.orderTop_add_eq_left hGE
     _ = (↑(3 / 2 : ℚ) : WithTop ℚ) := hGtop
 
+set_option maxHeartbeats 64000000 in
 /-- A source value required to vanish to order strictly greater than `3/2`
 cannot contain the forced cancellation term plus only higher-order errors. -/
 theorem GCD369CubeBoundaryRegularityContradiction
@@ -3347,6 +3509,7 @@ theorem GCD369CubeBoundaryRegularityContradiction
   rw [horder] at hregular
   exact (not_le_of_gt hrequired) hregular
 
+set_option maxHeartbeats 64000000 in
 /-- The cancellation branch contradicts the original `g`-boundary order for
 every early forced load.  Weight twelve is deliberately absent: it is the
 first equality case and is handled by the reconstructed terminal fibres. -/
@@ -3372,6 +3535,7 @@ theorem GCD369CubeEarlyBoundaryRegularityContradiction
   exact GCD369CubeBoundaryRegularityContradiction
     a b h ha hcancel E hE (↑((18 : ℚ) / k) : WithTop ℚ) hstrictTop hregular
 
+set_option maxHeartbeats 64000000 in
 /-- The full early-boundary obstruction, including both noncancellation
 branches.  Higher-order errors cannot alter a leading `f` term of order at
 most one; in the unique cancellation branch, the corresponding `g` term has
@@ -3413,6 +3577,7 @@ theorem GCD369CubeEarlyBoundaryLeadingOrderContradiction
     exact GCD369CubeEarlyBoundaryRegularityContradiction
       k hk a b h ha hcancel EG hEG hgregular
 
+set_option maxHeartbeats 64000000 in
 /-- Source-coordinate form of the complete early-boundary obstruction.  A
 limiting root of the common cubic cannot also annihilate the certified normal,
 so the normal value is a unit and the Hahn-series dichotomy applies with its
@@ -3448,6 +3613,7 @@ theorem GCD369CubeEarlyCommonCubicBoundaryExclusion
     k hk q a (Xn * r ^ 2 + Yn * r + Zn) h ha hb hh EF EG hEF hEG
       hfregular hgregular
 
+set_option maxHeartbeats 64000000 in
 /-- Concrete source data for an early common-cubic pole landing.  Unlike an
 abstract routing predicate, every field records one of the quantities and
 inequalities appearing in the original-value reconstruction. -/
@@ -3486,6 +3652,7 @@ structure GCD369CubeEarlyBoundaryData (K : Type*) [Field K] where
     let C32 : HahnSeries ℚ K := HahnSeries.single 0 (3 / 2)
     (A ^ 3 + C32 * H * A * B + EG).orderTop
 
+set_option maxHeartbeats 64000000 in
 /-- No concrete early common-cubic pole landing can satisfy both original
 source boundary inequalities. -/
 theorem GCD369CubeEarlyBoundaryDataEmpty
@@ -3504,6 +3671,7 @@ those equations verbatim.  Their finite sum removes `k` and the
 no-common-root certificate from the source-facing input: both are derived
 from the selected row system. -/
 
+set_option maxHeartbeats 64000000 in
 /-- The normalized `d != 0` Kuranishi rows at the first common-cubic load. -/
 def GCD369CubeDExceptionalRows {K : Type*} [Field K]
     (Xn Yn Zn u v : K) : Prop :=
@@ -3519,6 +3687,7 @@ def GCD369CubeDExceptionalRows {K : Type*} [Field K]
       13122 * u * Yn * Zn + 160 * u ^ 6 - 5760 * u ^ 3 * v ^ 2 +
       6480 * v ^ 4 = 0
 
+set_option maxHeartbeats 64000000 in
 /-- The normalized exceptional `d` row system is forced by the quadratic
 coefficients of the exact denominator-cleared Faber equations. -/
 theorem GCD369CubeDExceptionalRows_of_faber
@@ -3552,6 +3721,7 @@ theorem GCD369CubeDExceptionalRows_of_faber
     exact (mul_eq_zero.mp hf4).resolve_left (by norm_num)
   exact ⟨hprojective, hr1, hr2, hr3, hr4⟩
 
+set_option maxHeartbeats 64000000 in
 /-- The normalized first-`c7` Kuranishi rows. -/
 def GCD369CubeC7Rows {K : Type*} [Field K]
     (Xn Yn Zn u v : K) : Prop :=
@@ -3566,6 +3736,7 @@ def GCD369CubeC7Rows {K : Type*} [Field K]
       1458 * u ^ 2 * Xn * Yn + 2916 * v * Xn * Zn +
       1458 * v * Yn ^ 2 + 1458 * u * Yn * Zn = 0
 
+set_option maxHeartbeats 64000000 in
 /-- The normalized `c7` row system is forced by the quadratic coefficients
 of the exact denominator-cleared Faber equations. -/
 theorem GCD369CubeC7Rows_of_faber
@@ -3604,6 +3775,7 @@ theorem GCD369CubeC7Rows_of_faber
   · rw [GCD369CubeNormalRow3] at hr3
     linear_combination hr3
 
+set_option maxHeartbeats 64000000 in
 /-- The normalized first-`c5` Kuranishi rows. -/
 def GCD369CubeC5Rows {K : Type*} [Field K]
     (Xn Yn Zn u v : K) : Prop :=
@@ -3618,6 +3790,7 @@ def GCD369CubeC5Rows {K : Type*} [Field K]
       162 * u ^ 2 * Xn * Yn + 324 * v * Xn * Zn +
       162 * v * Yn ^ 2 + 162 * u * Yn * Zn = 0
 
+set_option maxHeartbeats 64000000 in
 /-- The normalized `c5` rows are forced by the exact Faber coefficients. -/
 theorem GCD369CubeC5Rows_of_faber
     {K : Type*} [Field K] [CharZero K]
@@ -3656,6 +3829,7 @@ theorem GCD369CubeC5Rows_of_faber
   · linear_combination hr3
   · linear_combination hr4
 
+set_option maxHeartbeats 64000000 in
 /-- The normalized first-`c4` Kuranishi rows. -/
 def GCD369CubeC4Rows {K : Type*} [Field K]
     (Xn Yn Zn u v : K) : Prop :=
@@ -3669,6 +3843,7 @@ def GCD369CubeC4Rows {K : Type*} [Field K]
       162 * u ^ 2 * Xn * Yn + 324 * v * Xn * Zn +
       162 * v * Yn ^ 2 + 162 * u * Yn * Zn = 0
 
+set_option maxHeartbeats 64000000 in
 /-- The normalized `c4` rows are forced by the exact Faber coefficients. -/
 theorem GCD369CubeC4Rows_of_faber
     {K : Type*} [Field K] [CharZero K]
@@ -3706,6 +3881,7 @@ theorem GCD369CubeC4Rows_of_faber
   · linear_combination hr3
   · linear_combination hr4
 
+set_option maxHeartbeats 64000000 in
 /-- The normalized first-`c2` Kuranishi rows. -/
 def GCD369CubeC2Rows {K : Type*} [Field K]
     (Xn Yn Zn u v : K) : Prop :=
@@ -3719,6 +3895,7 @@ def GCD369CubeC2Rows {K : Type*} [Field K]
       162 * u ^ 2 * Xn * Yn + 324 * v * Xn * Zn +
       162 * v * Yn ^ 2 + 162 * u * Yn * Zn = 0
 
+set_option maxHeartbeats 64000000 in
 /-- The normalized `c2` rows are forced by the exact Faber coefficients. -/
 theorem GCD369CubeC2Rows_of_faber
     {K : Type*} [Field K] [CharZero K]
@@ -3756,6 +3933,7 @@ theorem GCD369CubeC2Rows_of_faber
   · linear_combination hr3
   · linear_combination hr4
 
+set_option maxHeartbeats 64000000 in
 /-- The normalized first-`c1` Kuranishi rows. -/
 def GCD369CubeC1Rows {K : Type*} [Field K]
     (Xn Yn Zn u v : K) : Prop :=
@@ -3767,6 +3945,7 @@ def GCD369CubeC1Rows {K : Type*} [Field K]
   8 * u * v + 27 * u * v * Xn ^ 2 + 18 * u ^ 2 * Xn * Yn -
       36 * v * Xn * Zn - 18 * v * Yn ^ 2 - 18 * u * Yn * Zn = 0
 
+set_option maxHeartbeats 64000000 in
 /-- The normalized `c1` rows are forced by the exact Faber coefficients. -/
 theorem GCD369CubeC1Rows_of_faber
     {K : Type*} [Field K] [CharZero K]
@@ -3803,6 +3982,7 @@ theorem GCD369CubeC1Rows_of_faber
   · linear_combination hr3
   · linear_combination hr4
 
+set_option maxHeartbeats 64000000 in
 /-- The normalized first-`rho1` Kuranishi rows. -/
 def GCD369CubeRhoOneRows {K : Type*} [Field K]
     (Xn Yn Zn u v : K) : Prop :=
@@ -3815,6 +3995,7 @@ def GCD369CubeRhoOneRows {K : Type*} [Field K]
       26244 * v * Xn * Zn - 13122 * v * Yn ^ 2 -
       13122 * u * Yn * Zn = 0
 
+set_option maxHeartbeats 64000000 in
 /-- The normalized first-`rho1` rows are forced by the exact
 denominator-cleared Faber target value. -/
 theorem GCD369CubeRhoOneRows_of_faber
@@ -3852,6 +4033,7 @@ theorem GCD369CubeRhoOneRows_of_faber
   · linear_combination hr3
   · linear_combination hr4
 
+set_option maxHeartbeats 64000000 in
 /-- The normalized first-`rho2` Kuranishi rows. -/
 def GCD369CubeRhoTwoRows {K : Type*} [Field K]
     (Xn Yn Zn u v : K) : Prop :=
@@ -3864,6 +4046,7 @@ def GCD369CubeRhoTwoRows {K : Type*} [Field K]
       26244 * v * Xn * Zn - 13122 * v * Yn ^ 2 -
       13122 * u * Yn * Zn = 0
 
+set_option maxHeartbeats 64000000 in
 /-- The normalized first-`rho2` rows are forced by the exact
 denominator-cleared Faber target value. -/
 theorem GCD369CubeRhoTwoRows_of_faber
@@ -3901,6 +4084,7 @@ theorem GCD369CubeRhoTwoRows_of_faber
   · linear_combination hr3
   · linear_combination hr4
 
+set_option maxHeartbeats 64000000 in
 /-- The eight source rows that can occur before the later-target fibers. -/
 inductive GCD369CubeEarlyLoadRows {K : Type*} [Field K]
     (Xn Yn Zn u v : K) : Type where
@@ -3915,6 +4099,7 @@ inductive GCD369CubeEarlyLoadRows {K : Type*} [Field K]
 
 namespace GCD369CubeEarlyLoadRows
 
+set_option maxHeartbeats 64000000 in
 /-- Scaled weight of the selected first nonzero source/target row. -/
 def weight {K : Type*} [Field K] {Xn Yn Zn u v : K}
     (R : GCD369CubeEarlyLoadRows Xn Yn Zn u v) : ℕ :=
@@ -3928,6 +4113,7 @@ def weight {K : Type*} [Field K] {Xn Yn Zn u v : K}
   | .rhoOne _ => 10
   | .rhoTwo _ => 11
 
+set_option maxHeartbeats 64000000 in
 /-- The exact early-load sum has precisely the eight weights used by the
 source boundary order theorem. -/
 theorem weight_mem {K : Type*} [Field K] {Xn Yn Zn u v : K}
@@ -3935,6 +4121,7 @@ theorem weight_mem {K : Type*} [Field K] {Xn Yn Zn u v : K}
     R.weight ∈ ([1, 2, 4, 5, 7, 8, 10, 11] : List ℕ) := by
   cases R <;> simp [weight]
 
+set_option maxHeartbeats 64000000 in
 /-- The exact Kuranishi rows imply the common cubic and its normal have no
 common field-valued root; this fact is no longer supplied by the caller. -/
 theorem noCommonRoot {K : Type*} [Field K] [CharZero K]
@@ -3972,6 +4159,7 @@ theorem noCommonRoot {K : Type*} [Field K] [CharZero K]
 
 end GCD369CubeEarlyLoadRows
 
+set_option maxHeartbeats 64000000 in
 /-- The eight source-facing Faber alternatives before the later target
 fibres.  Each constructor retains the exact denominator-cleared coefficient
 equations, rather than a prepackaged Kuranishi row system. -/
@@ -3996,6 +4184,7 @@ inductive GCD369CubeEarlyFaberLoad {K : Type*} [Field K]
 
 namespace GCD369CubeEarlyFaberLoad
 
+set_option maxHeartbeats 64000000 in
 /-- Convert exact Faber coefficient data to the corresponding normalized
 Kuranishi rows. -/
 def toRows {K : Type*} [Field K] [CharZero K] {Xn Yn Zn u v : K}
@@ -4019,11 +4208,13 @@ def toRows {K : Type*} [Field K] [CharZero K] {Xn Yn Zn u v : K}
   | .rhoTwo hprojective hfaber =>
       .rhoTwo (GCD369CubeRhoTwoRows_of_faber hprojective hfaber)
 
+set_option maxHeartbeats 64000000 in
 /-- Scaled weight of an exact source-facing Faber alternative. -/
 def weight {K : Type*} [Field K] [CharZero K] {Xn Yn Zn u v : K}
     (L : GCD369CubeEarlyFaberLoad Xn Yn Zn u v) : ℕ :=
   L.toRows.weight
 
+set_option maxHeartbeats 64000000 in
 /-- Every source-facing early Faber load has one of the eight audited
 weights. -/
 theorem weight_mem {K : Type*} [Field K] [CharZero K] {Xn Yn Zn u v : K}
@@ -4031,6 +4222,7 @@ theorem weight_mem {K : Type*} [Field K] [CharZero K] {Xn Yn Zn u v : K}
     L.weight ∈ ([1, 2, 4, 5, 7, 8, 10, 11] : List ℕ) :=
   L.toRows.weight_mem
 
+set_option maxHeartbeats 64000000 in
 /-- The exact Faber alternative itself supplies the no-common-root
 certificate needed by the boundary argument. -/
 theorem noCommonRoot {K : Type*} [Field K] [CharZero K]
@@ -4041,6 +4233,7 @@ theorem noCommonRoot {K : Type*} [Field K] [CharZero K]
 
 end GCD369CubeEarlyFaberLoad
 
+set_option maxHeartbeats 64000000 in
 /-- Source-boundary data whose first nonzero row is one of the eight exact
 Kuranishi systems.  Neither an arbitrary weight nor an externally supplied
 resultant certificate appears among its fields. -/
@@ -4076,6 +4269,7 @@ structure GCD369CubeExactEarlyBoundaryData (K : Type*) [Field K] where
     let C32 : HahnSeries ℚ K := HahnSeries.single 0 (3 / 2)
     (A ^ 3 + C32 * H * A * B + EG).orderTop
 
+set_option maxHeartbeats 64000000 in
 /-- Every exact early Kuranishi landing violates one of the two original
 source boundary inequalities. -/
 theorem GCD369CubeExactEarlyBoundaryDataEmpty
@@ -4086,6 +4280,7 @@ theorem GCD369CubeExactEarlyBoundaryDataEmpty
       D.ha D.hh D.rows.noCommonRoot D.hKroot D.EF D.EG D.hEF D.hEG
       D.hfregular D.hgregular
 
+set_option maxHeartbeats 64000000 in
 /-- Early source-boundary data stated entirely with the exact Faber
 coefficient alternative.  In contrast with `GCD369CubeExactEarlyBoundaryData`,
 the normalized row system is not a field of this structure. -/
@@ -4124,6 +4319,7 @@ structure GCD369CubeFaberEarlyBoundaryData
 
 namespace GCD369CubeFaberEarlyBoundaryData
 
+set_option maxHeartbeats 64000000 in
 /-- Forget only the exact Faber presentation after deriving its normalized
 rows; no mathematical hypothesis is added by this conversion. -/
 def toExact {K : Type*} [Field K] [CharZero K]
@@ -4151,6 +4347,7 @@ def toExact {K : Type*} [Field K] [CharZero K]
 
 end GCD369CubeFaberEarlyBoundaryData
 
+set_option maxHeartbeats 64000000 in
 /-- Every early boundary landing presented by its exact Faber coefficients
 is empty.  The weight, Kuranishi rows, and no-common-root certificate are all
 derived internally. -/
@@ -4159,6 +4356,7 @@ theorem GCD369CubeFaberEarlyBoundaryDataEmpty
     (D : GCD369CubeFaberEarlyBoundaryData K) : False :=
   GCD369CubeExactEarlyBoundaryDataEmpty D.toExact
 
+set_option maxHeartbeats 64000000 in
 /-- Local order of the numerator of a reduced rational derivative at a pole
 of the denominator.  If `N/B` is pointwise reduced and `B` has multiplicity
 `m > 0`, then `N'B-NB'` has multiplicity exactly `m-1`. -/
@@ -4231,6 +4429,7 @@ theorem GCD369ReducedQuotientWronskianLocal {K : Type*} [Field K] [CharZero K]
   rw [hRmult, add_zero] at hrm
   exact ⟨hW, by omega⟩
 
+set_option maxHeartbeats 64000000 in
 /-- Finite-place classification for a reduced rational primitive of `j/s`.
 The polynomial core and the rational denominator have exactly the same finite
 support, and their multiplicities differ by one. -/
@@ -4290,6 +4489,7 @@ theorem GCD369CubeRationalPrimitiveFinitePlace {K : Type*} [Field K] [CharZero K
   refine ⟨hxS, hxB, ?_⟩
   omega
 
+set_option maxHeartbeats 64000000 in
 /-- Global finite-support count for a rational primitive of `j/s`: over an
 algebraically closed field, `s` and the reduced denominator have identical
 root support, and `deg(s)` exceeds the denominator degree by exactly the
@@ -4372,6 +4572,7 @@ theorem GCD369CubeRationalPrimitiveRootCount {K : Type*} [Field K] [CharZero K]
     rw [hS] at hxS
     simpa using hxS
 
+set_option maxHeartbeats 64000000 in
 /-- Degree at infinity of the numerator of a reduced rational derivative once
 the additive constant has been chosen so that the numerator degree is smaller
 than the denominator degree. -/
@@ -4458,6 +4659,7 @@ theorem GCD369ReducedQuotientWronskianDegree {K : Type*} [Field K] [CharZero K]
         omega
     exact natDegree_eq_of_le_of_coeff_ne_zero hdegreeUpper hcoefficient
 
+set_option maxHeartbeats 64000000 in
 /-- Exact finite-pole reduction for the cube-core terminal row.  After
 subtracting the value at infinity, so the reduced numerator has smaller
 degree than its denominator, rational exactness of `j/s` forces `s` to be a
@@ -4527,6 +4729,7 @@ theorem GCD369CubeRationalPrimitiveOneRoot {K : Type*} [Field K] [CharZero K]
       congr 2
       omega
 
+set_option maxHeartbeats 64000000 in
 /-- Constant-core half of the same terminal reduction: a reduced rational
 primitive with nonzero constant derivative has constant denominator and
 affine numerator. -/
@@ -4580,6 +4783,7 @@ theorem GCD369CubeRationalPrimitiveConstantCore {K : Type*} [Field K] [CharZero 
   refine ⟨hBdegree, ?_⟩
   omega
 
+set_option maxHeartbeats 64000000 in
 /-- A rational primitive of `j/s` with nonconstant polynomial `s` cannot
 grow at infinity: in every reduced presentation its numerator degree is at
 most its denominator degree. -/
@@ -4619,6 +4823,7 @@ theorem GCD369CubeRationalPrimitiveNumeratorDegreeLe {K : Type*}
   simp only [zero_add] at hdegreeODE
   omega
 
+set_option maxHeartbeats 64000000 in
 /-- Source-form finite-pole dichotomy for a nonconstant polynomial cube root.
 For an arbitrary reduced rational presentation, the proof first rules out
 growth at infinity, subtracts the unique leading constant when necessary,
@@ -4726,6 +4931,7 @@ theorem GCD369CubeRationalPrimitiveNonconstantCore {K : Type*}
         hAreduced hAODE
     exact ⟨a, m, hm, hsform, hBform⟩
 
+set_option maxHeartbeats 64000000 in
 /-- Polynomial Fermat--Catalan `(2,3,6)` closes the homogeneous model of the
 smooth mixed cube-core elliptic fibre.  Thus every reduced homogeneous
 rational parametrization of `72 V² = 3 A³ + 512 μ` is constant when
@@ -4748,6 +4954,7 @@ theorem GCD369CubeMixedEllipticConstancy {K : Type*} [Field K] [CharZero K]
     (by norm_num : (2 : K) ≠ 0) (by norm_num : (3 : K) ≠ 0)
     (by norm_num : (6 : K) ≠ 0) hM hN hD hMN h72 hneg3 hnegmu heq
 
+set_option maxHeartbeats 64000000 in
 /-- The unmixed elliptic sheet has the same `(2,3,6)` obstruction in its
 homogeneous model `Y² = 3X³ + 4096 μ`. -/
 theorem GCD369CubeUnmixedEllipticConstancy {K : Type*} [Field K] [CharZero K]
@@ -4768,6 +4975,7 @@ theorem GCD369CubeUnmixedEllipticConstancy {K : Type*} [Field K] [CharZero K]
     (by norm_num : (2 : K) ≠ 0) (by norm_num : (3 : K) ≠ 0)
     (by norm_num : (6 : K) ≠ 0) hM hN hD hMN h1 hneg3 hnegmu heq
 
+set_option maxHeartbeats 64000000 in
 /-- A smooth mixed terminal fibre cannot carry a nonconstant rational
 coefficient path. -/
 theorem GCD369CubeMixedEllipticTerminalExclusion
@@ -4783,6 +4991,7 @@ theorem GCD369CubeMixedEllipticTerminalExclusion
   exact hnonconstant
     (GCD369CubeMixedEllipticConstancy mu hmu M N D hM hN hD hMN hcurve)
 
+set_option maxHeartbeats 64000000 in
 /-- A smooth unmixed terminal fibre cannot carry a nonconstant rational
 coefficient path. -/
 theorem GCD369CubeUnmixedEllipticTerminalExclusion
@@ -4798,6 +5007,7 @@ theorem GCD369CubeUnmixedEllipticTerminalExclusion
   exact hnonconstant
     (GCD369CubeUnmixedEllipticConstancy mu hmu M N D hM hN hD hMN hcurve)
 
+set_option maxHeartbeats 64000000 in
 /-- The cusp normalization from the mixed `(rho3,rho4)` fibre gives exactly
 the two-sided Laurent expression in the trajectory report. -/
 theorem GCD369CubeMixedCuspIdentity {K : Type*} [Field K] [CharZero K]
@@ -4813,6 +5023,7 @@ theorem GCD369CubeMixedCuspIdentity {K : Type*} [Field K] [CharZero K]
   · field_simp
     ring
 
+set_option maxHeartbeats 64000000 in
 /-- After clearing the cusp denominator, the numerator has a nonzero value
 at zero and degree thirteen.  These certify the distinct zero and infinity
 pole places when `nu != 0`. -/
@@ -4827,6 +5038,7 @@ theorem GCD369CubeMixedCuspPoleData {K : Type*} [Field K] [CharZero K]
     · simp
     · simp
 
+set_option maxHeartbeats 64000000 in
 /-- The numerator and denominator obtained by substituting a reduced rational
 `lambda = LN/LB` into the mixed cusp function remain pointwise reduced. -/
 theorem GCD369CubeMixedCuspReducedPresentation {K : Type*}
@@ -4876,6 +5088,7 @@ theorem GCD369CubeMixedCuspReducedPresentation {K : Type*}
       natDegree_mul (C_ne_zero.mpr (by norm_num)) (pow_ne_zero _ hLN),
       natDegree_C, natDegree_pow, natDegree_pow, zero_add]
 
+set_option maxHeartbeats 64000000 in
 /-- The singular mixed fibre has no nonconstant polynomial-core terminal
 trajectory.  For a reduced `lambda = LN/LB`, the exact two-pole cusp function
 has numerator `19683 LN^13 - nu^2 LB^13` and denominator
@@ -5028,6 +5241,7 @@ theorem GCD369CubeMixedCuspTerminalExclusion {K : Type*}
   rw [hPderivative, hQderivative, zero_mul, mul_zero, sub_zero, mul_zero] at hODE
   exact hright hODE.symm
 
+set_option maxHeartbeats 64000000 in
 /-- Constant polynomial cores cannot support the mixed cusp either: constant
 exactness forces an affine rational primitive, whereas the cusp denominator
 can be constant only when `lambda` itself is constant. -/
@@ -5069,6 +5283,7 @@ theorem GCD369CubeMixedCuspConstantTerminalExclusion {K : Type*}
   have hPconstant : P.natDegree = 0 := derivative_eq_zero.mp hPderivative
   omega
 
+set_option maxHeartbeats 64000000 in
 /-- The mixed cusp terminal fibre is empty for every nonzero polynomial core,
 without asking the caller to split constant from positive degree. -/
 theorem GCD369CubeMixedCuspAllCoreTerminalExclusion {K : Type*}
@@ -5087,6 +5302,7 @@ theorem GCD369CubeMixedCuspAllCoreTerminalExclusion {K : Type*}
       nu j hnu hj s LN LB hs hLN hLB (Nat.pos_of_ne_zero hsdegree)
         hlambdaReduced hODE
 
+set_option maxHeartbeats 64000000 in
 /-- A nonconstant affine rational primitive cannot be a seventh power.  This
 is the constant-core DS terminal obstruction in reduced numerator/denominator
 form. -/
@@ -5113,6 +5329,7 @@ theorem GCD369CubeDSConstantCoreTerminalExclusion {K : Type*}
   rw [natDegree_pow] at hQdegree hPdegree
   omega
 
+set_option maxHeartbeats 64000000 in
 /-- In the monomial-core DS branch, rational exactness forces the core
 exponent to be `1 mod 7`, exactly the arithmetic precursor to the original
 boundary-resultant exclusion. -/
@@ -5145,6 +5362,7 @@ theorem GCD369CubeDSMonomialExponent {K : Type*}
   refine ⟨a, m, hm, hsform, ?_⟩
   exact ⟨LB.natDegree, hQdegree.symm⟩
 
+set_option maxHeartbeats 64000000 in
 /-- The complete normalized Davenport--Stothers terminal alternative is
 empty once the original source boundary is retained.  Constant cores fail
 the seventh-power exactness theorem; positive-degree cores first acquire the
@@ -5170,6 +5388,7 @@ theorem GCD369CubeDSAllCoreTerminalExclusion {K : Type*}
     obtain ⟨r, hf, hg⟩ := hboundary
     exact GCD369CubeDSBoundaryExclusion r hf hg
 
+set_option maxHeartbeats 64000000 in
 /-- The concrete finite list of pole landings in the cube-core trajectory
 analysis.  Its constructors expose the original degree, boundary, Kuranishi,
 elliptic/cusp, bracket, and Davenport--Stothers data consumed by the branch
@@ -5254,6 +5473,7 @@ inductive GCD369CubeTrajectoryLanding
         eval r (X ^ 9 + C 6 * X ^ 7 + C 21 * X ^ 5 + C 35 * X ^ 3 +
           C (63 / 2) * X : K[X]) = 0)
 
+set_option maxHeartbeats 64000000 in
 /-- Every landing in the exact finite cube-core list is impossible.  This is
 finite branch glue only: source completeness additionally requires a theorem
 mapping the original cube-core Keller/Faber data into this landing type. -/

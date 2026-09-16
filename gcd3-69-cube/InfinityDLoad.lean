@@ -15,8 +15,33 @@ noncomputable section
 
 open Polynomial
 
+private theorem infinitySpeedT_add_sub {R : Type*} [AddCommGroup R]
+    (N Main : R) : N = Main + (N - Main) := by
+  abel
+
+private theorem infinitySpeedT_sub_split {R : Type*} [AddCommGroup R]
+    (N Nd Main : R) : N - Main = (N - Nd) + (Nd - Main) := by
+  abel
+
+private theorem infinitySpeedT_mul_rotate {R : Type*} [CommMonoid R]
+    (a b c : R) : a * b * c = b * (a * c) := by
+  ac_rfl
+
+private theorem infinitySpeedT_factor {R : Type*} [CommRing R]
+    (H K E : R) : H ^ 2 * K + H ^ 3 * E = H ^ 2 * (K + H * E) := by
+  ring
+
+private theorem infinitySpeedT_sub_last {R : Type*} [CommRing R]
+    (A B C Main : R) : (A - B + C + Main) - Main = A + -B + C := by
+  ring
+
+private theorem infinitySpeedT_sub_middle {R : Type*} [CommRing R]
+    (A B C Main : R) : (A - B + Main + C) - Main = A + -B + C := by
+  ring
+
 namespace GCD369CubeHahnRegular
 
+set_option maxHeartbeats 64000000 in
 /-- Every regular multiple of the square of a positive Hahn monomial has no
 coefficient below twice the monomial exponent. -/
 theorem coeff_monomial_sq_mul_eq_zero_of_lt
@@ -35,6 +60,7 @@ theorem coeff_monomial_sq_mul_eq_zero_of_lt
     simpa [add_comm, add_left_comm, add_assoc] using
       add_le_add_left hx ((↑delta : WithTop ℚ) + ↑delta))
 
+set_option maxHeartbeats 64000000 in
 /-- A square of a positive Hahn monomial raises every regular factor to
 order at least twice its exponent. -/
 theorem orderTop_monomial_sq_mul_lower
@@ -52,6 +78,7 @@ theorem orderTop_monomial_sq_mul_lower
   simpa [add_comm, add_left_comm, add_assoc] using
     add_le_add_left hx ((↑delta : WithTop ℚ) + ↑delta)
 
+set_option maxHeartbeats 64000000 in
 /-- A positive Hahn monomial power raises every regular factor by at least
 the corresponding multiple of its exponent. -/
 theorem orderTop_monomial_pow_mul_lower
@@ -69,6 +96,7 @@ theorem orderTop_monomial_pow_mul_lower
   simpa [add_comm] using
     add_le_add_left hx (↑((n : ℚ) * delta) : WithTop ℚ)
 
+set_option maxHeartbeats 64000000 in
 /-- If the regular factor has nonzero residue, the preceding lower bound is
 exact. -/
 theorem orderTop_monomial_pow_mul_eq_of_constantCoeff_ne
@@ -86,6 +114,7 @@ theorem orderTop_monomial_pow_mul_eq_of_constantCoeff_ne
     WithTop.coe_natCast]
   simp
 
+set_option maxHeartbeats 64000000 in
 /-- A monomial power strictly above a cutoff belongs to the corresponding
 higher-order ideal. -/
 theorem monomial_pow_mul_mem_higherOrderIdeal
@@ -98,6 +127,7 @@ theorem monomial_pow_mul_mem_higherOrderIdeal
 
 end GCD369CubeHahnRegular
 
+set_option maxHeartbeats 64000000 in
 /-- Every depressed cubic over an algebraically closed field has a root. -/
 theorem GCD369CubeExistsDepressedCubicRoot
     {k : Type*} [Field k] [IsAlgClosed k] (u v : k) :
@@ -117,6 +147,7 @@ theorem GCD369CubeExistsDepressedCubicRoot
   refine ⟨r, ?_⟩
   simpa [P, Polynomial.IsRoot] using hr
 
+set_option maxHeartbeats 64000000 in
 /-- The residual factor in the fifth pure-`d` numerator on the singular
 common-cubic parametrization. -/
 theorem GCD369CubeDTerminalResidual_doubleRoot
@@ -127,6 +158,7 @@ theorem GCD369CubeDTerminalResidual_doubleRoot
       -554729472 * r ^ 13 := by
   ring
 
+set_option maxHeartbeats 64000000 in
 /-- At the balanced singular timing, the first, second, and fourth loaded
 rows fix the fifth terminal residue.  The identity is polynomial, so it
 does not require dividing by either projective coordinate. -/
@@ -147,6 +179,7 @@ theorem GCD369CubeDLoadBalancedTerminal_identity
   linear_combination
     (-3456 * r ^ 4) * h1 + (864 * r ^ 3) * h2 + (-96 * r) * h4
 
+set_option maxHeartbeats 64000000 in
 /-- Consequently the balanced fifth residue cannot vanish on a nonzero
 singular projective jet. -/
 theorem GCD369CubeDLoadBalancedTerminal_nonzero
@@ -172,6 +205,7 @@ theorem GCD369CubeDLoadBalancedTerminal_nonzero
       (pow_ne_zero 3 hA)
   exact hnonzero hterminal.symm
 
+set_option maxHeartbeats 64000000 in
 /-- The weight-fourteen terminal polynomial on an arbitrary nonzero
 weight-one `d` landing. -/
 def GCD369CubeDExceptionalTerminalAt {K : Type*} [Field K]
@@ -181,6 +215,7 @@ def GCD369CubeDExceptionalTerminalAt {K : Type*} [Field K]
     729 * u ^ 2 * Yn ^ 2 - 4374 * v * Yn * Zn +
     d * (320 * u ^ 5 * v - 2880 * u ^ 2 * v ^ 3)
 
+set_option maxHeartbeats 64000000 in
 /-- Arbitrary nonzero `d` rows retain the normalized terminal
 nonvanishing certificate. -/
 theorem GCD369CubeDExceptionalTerminalAt_nonzero
@@ -223,6 +258,7 @@ theorem GCD369CubeDExceptionalTerminalAt_nonzero
   apply hterminal'
   rw [hhomogeneous, hzero, mul_zero]
 
+set_option maxHeartbeats 64000000 in
 /-- The common-cubic `u` coordinate cannot vanish on an arbitrary nonzero
 `d` exceptional orbit. -/
 theorem GCD369CubeDExceptionalRowsAt_u_ne_zero
@@ -243,6 +279,7 @@ theorem GCD369CubeDExceptionalRowsAt_u_ne_zero
 
 namespace GCD369CubeHahnCommonCoefficientData
 
+set_option maxHeartbeats 64000000 in
 /-- At the exact first-transverse tie, a weight-one ground-field load is
 the square of the transverse monomial times its residue. -/
 theorem TransverseScale.weightedRegular_one_constant_eq_transverse_sq
@@ -264,6 +301,7 @@ theorem TransverseScale.weightedRegular_one_constant_eq_transverse_sq
   rw [htie]
   congr 4 <;> ring
 
+set_option maxHeartbeats 64000000 in
 /-- The first zero-high numerator has no coefficient below the quadratic
 normal scale. -/
 theorem TransverseScale.zeroHighN1Coeff_zero_of_lt
@@ -282,6 +320,7 @@ theorem TransverseScale.zeroHighN1Coeff_zero_of_lt
   exact GCD369CubeHahnRegular.coeff_monomial_sq_mul_eq_zero_of_lt
     T.delta e T.hdelta he A
 
+set_option maxHeartbeats 64000000 in
 /-- The second zero-high numerator has no coefficient below the quadratic
 normal scale. -/
 theorem TransverseScale.zeroHighN2Coeff_zero_of_lt
@@ -300,6 +339,7 @@ theorem TransverseScale.zeroHighN2Coeff_zero_of_lt
   exact GCD369CubeHahnRegular.coeff_monomial_sq_mul_eq_zero_of_lt
     T.delta e T.hdelta he A
 
+set_option maxHeartbeats 64000000 in
 /-- The fourth zero-high numerator has no coefficient below the quadratic
 normal scale.  Its cubic correction is absorbed into the remaining regular
 factor. -/
@@ -324,6 +364,7 @@ theorem TransverseScale.zeroHighN4Coeff_zero_of_lt
   exact GCD369CubeHahnRegular.coeff_monomial_sq_mul_eq_zero_of_lt
     T.delta e T.hdelta he (A - B * H)
 
+set_option maxHeartbeats 64000000 in
 /-- A nonzero constant `d` cannot arrive strictly before the first
 quadratic transverse correction.  Unlike the finite-place theorem, this
 uses no original-value boundary packet. -/
@@ -497,7 +538,7 @@ theorem TransverseScale.d_eq_zero_before_transverse
     (lambda ^ 2 * D.u) (lambda ^ 3 * D.v)
   exact hnocommon r hr (by ring)
 
-set_option maxHeartbeats 1000000 in
+set_option maxHeartbeats 64000000 in
 /-- At the exact tie `p = 2*delta`, the four source coefficients are the
 arbitrary-`d` exceptional row packet on the first transverse residue. -/
 theorem TransverseScale.dExceptionalRowsAt_at_transverse
@@ -699,7 +740,7 @@ theorem TransverseScale.dExceptionalRowsAt_at_transverse
   · linear_combination (1 / 32) * hz4
 
 set_option maxRecDepth 10000 in
-set_option maxHeartbeats 4000000 in
+set_option maxHeartbeats 64000000 in
 /-- Along the exact common-cubic chart, the pure-`d` fifth numerator is a
 fixed combination of the first two loaded rows, the intrinsic cubic, and
 one regular residual factor.  The displayed residue is the only part of
@@ -809,9 +850,8 @@ theorem TransverseScale.dTerminalRelation
               D.cubicU D.cubicV +
           839808 * H ^ 3 *
             GCD369CubeNormalRow5Cubic T.Xn T.Yn T.Zn D.cubicU := by
-      rw [hchart0, hchart1, hchart2,
-        D.regular3_eq_two_cubicV, D.regular4_eq_two_cubicU]
-      exact h5
+      simpa only [hchart0, hchart1, hchart2,
+        D.regular3_eq_two_cubicV, D.regular4_eq_two_cubicU] using h5
     rw [GCD369CubeFaberFullN5_d_specialize, hzero5]
     dsimp only [GCD369CubeFaberD1, GCD369CubeFaberD2, dload, Rem]
     rw [h1, h2]
@@ -822,7 +862,7 @@ theorem TransverseScale.dTerminalRelation
     linear_combination (768 * H ^ 2) * hrow5
 
 set_option maxRecDepth 10000 in
-set_option maxHeartbeats 4000000 in
+set_option maxHeartbeats 64000000 in
 /-- Exact divisibility of the specialized fifth numerator by the square of
 the first transverse monomial; the displayed factor is its residue. -/
 theorem TransverseScale.dTerminalFactor_at_transverse
@@ -885,7 +925,7 @@ theorem TransverseScale.dTerminalFactor_at_transverse
   ring
 
 set_option maxRecDepth 10000 in
-set_option maxHeartbeats 4000000 in
+set_option maxHeartbeats 64000000 in
 /-- At the exact tie, the specialized fifth numerator has coefficient
 `768` times the arbitrary-`d` exceptional terminal polynomial. -/
 theorem TransverseScale.dTerminalCoeff_at_transverse
@@ -912,47 +952,8 @@ theorem TransverseScale.dTerminalCoeff_at_transverse
       245760 * D.cubicU ^ 2 * D.cubicV *
         (D.cubicU ^ 3 - 9 * D.cubicV ^ 2) *
           GCD369CubeHahnRegular.constant Kd
-  let E : GCD369CubeHahnRegular k :=
-    839808 * GCD369CubeNormalRow5Cubic T.Xn T.Yn T.Zn D.cubicU +
-      73728 *
-        (2 * D.cubicU ^ 4 * T.Yn +
-          5 * D.cubicU ^ 3 * D.cubicV * T.Xn -
-          27 * D.cubicU * D.cubicV ^ 2 * T.Yn +
-          9 * D.cubicV ^ 3 * T.Xn -
-          18 * D.cubicU ^ 2 * D.cubicV * T.Zn) *
-            GCD369CubeHahnRegular.constant Kd +
-      H * (331776 *
-        (5 * D.cubicU ^ 2 * T.Xn * T.Yn +
-          6 * D.cubicU * D.cubicV * T.Xn ^ 2 -
-          6 * D.cubicU * T.Yn * T.Zn -
-          6 * D.cubicV * T.Yn ^ 2 -
-          6 * D.cubicV * T.Xn * T.Zn) *
-            GCD369CubeHahnRegular.constant Kd) -
-      H ^ 2 * (995328 * T.Xn ^ 2 * T.Yn *
-        GCD369CubeHahnRegular.constant Kd)
-  have hload := T.weightedRegular_one_constant_eq_transverse_sq
-    Kd hd htie
-  have hfactor :
-      GCD369CubeFaberFullN5
-        D.faber.scale.regular0 D.faber.scale.regular1
-        D.faber.scale.regular2 D.faber.scale.regular3
-        D.faber.scale.regular4
-        (D.faber.scale.weightedRegular 1 D.faber.d)
-        0 0 0 0 0 0 = H ^ 2 * K + H ^ 3 * E := by
-    rw [T.regular0_eq, T.regular1_eq, T.regular2_eq,
-      D.regular3_eq_two_cubicV, D.regular4_eq_two_cubicU, hload]
-    have hH : monomial T.delta T.hdelta.le = H := by
-      exact (monomial_eq_regularMonomial T.delta T.hdelta.le).trans rfl
-    rw [hH]
-    have ha0 : D.cubicV ^ 2 + T.Zn * H =
-        D.cubicV ^ 2 + H * T.Zn := by ring
-    have ha1 : 2 * D.cubicU * D.cubicV + T.Yn * H =
-        2 * D.cubicU * D.cubicV + H * T.Yn := by ring
-    have ha2 : D.cubicU ^ 2 + T.Xn * H =
-        D.cubicU ^ 2 + H * T.Xn := by ring
-    rw [ha0, ha1, ha2, GCD369CubeFaberFullN5_d_expansion]
-    dsimp only [H, K, E]
-    ring
+  obtain ⟨E, hfactor⟩ := T.dTerminalFactor_at_transverse Kd hd htie
+  change _ = H ^ 2 * K + H ^ 3 * E at hfactor
   have hc := congrArg
     (fun z : GCD369CubeHahnRegular k => z.1.coeff (2 * T.delta)) hfactor
   have hmain := GCD369CubeHahnRegular.coeff_monomial_pow_mul_at
@@ -986,6 +987,7 @@ end GCD369CubeHahnCommonCoefficientData
 
 namespace GCD369CubeHahnFaberPoleData
 
+set_option maxHeartbeats 64000000 in
 /-- The first two pure-`d` source rows vanish strictly beyond the active
 weight-one exponent.  This is the order-theoretic strengthening of the two
 coefficient lemmas used by the terminal relation. -/
@@ -1109,6 +1111,7 @@ theorem dN12_mem_higherOrderIdeal
   · apply Ideal.Quotient.eq_zero_iff_mem.mp
     exact hq2 ▸ hqfull2
 
+set_option maxHeartbeats 64000000 in
 /-- The difference between the full fifth numerator and its pure `d`
 specialization is strictly beyond the weight-one exponent. -/
 theorem fullN5_sub_dSpecialized_mem_higherOrderIdeal
@@ -1194,6 +1197,7 @@ theorem fullN5_sub_dSpecialized_mem_higherOrderIdeal
     rw [map_sub, hq, sub_self]
   exact hdiff_mem
 
+set_option maxHeartbeats 64000000 in
 /-- Through the weight-one exponent, every later constant load is invisible
 in the fifth numerator. -/
 theorem fullN5Coeff_eq_dSpecialized
@@ -1247,6 +1251,7 @@ theorem fullN5Coeff_eq_dSpecialized
   exact sub_eq_zero.mp hdiff_coeff
 
 set_option maxRecDepth 10000 in
+set_option maxHeartbeats 64000000 in
 /-- Coefficientwise, the terminal Faber invariant is its cleared numerator
 times the inverse of the fixed nonzero denominator. -/
 theorem faberR5_coeff_eq_fullN5_coeff_div
@@ -1272,7 +1277,7 @@ theorem faberR5_coeff_eq_fullN5_coeff_div
   rw [div_eq_mul_inv]
 
 set_option maxRecDepth 10000 in
-set_option maxHeartbeats 4000000 in
+set_option maxHeartbeats 64000000 in
 /-- In the strict singular window `2 * delta < p < 3 * delta`, the pure
 weight-one load is the unique first term of the fifth numerator. -/
 theorem fullN5_orderTop_eq_p_of_singular_middle
@@ -1360,7 +1365,7 @@ theorem fullN5_orderTop_eq_p_of_singular_middle
         (GCD369CubeHahnRegular.constant Kd * Rem) := by
     dsimp only [Main]
     rw [hload]
-    ring
+    simp only [pow_one, mul_assoc]
   have hMainOrder : Main.1.orderTop =
       (↑D.faber.scale.p : WithTop ℚ) := by
     rw [hMainFactor]
@@ -1397,7 +1402,8 @@ theorem fullN5_orderTop_eq_p_of_singular_middle
         D.faber.scale.hp.le hlate)
   have hterm3 : 839808 * H ^ 3 *
       GCD369CubeNormalRow5Cubic T.Xn T.Yn T.Zn D.cubicU ∈ I := by
-    convert hterm3raw using 1 <;> ring
+    convert hterm3raw using 1
+    exact infinitySpeedT_mul_rotate _ _ _
   have hrelation' : Nd =
       24 * D.cubicU ^ 2 *
           GCD369CubeFaberD1
@@ -1428,7 +1434,15 @@ theorem fullN5_orderTop_eq_p_of_singular_middle
         839808 * H ^ 3 *
           GCD369CubeNormalRow5Cubic T.Xn T.Yn T.Zn D.cubicU := by
       rw [hrelation']
-      ring
+      simpa only [neg_mul] using infinitySpeedT_sub_last
+        (24 * D.cubicU ^ 2 * GCD369CubeFaberD1
+          D.faber.scale.regular0 D.faber.scale.regular1 D.faber.scale.regular2
+          D.faber.scale.regular3 D.faber.scale.regular4 dload)
+        (24 * D.cubicV * GCD369CubeFaberD2
+          D.faber.scale.regular0 D.faber.scale.regular1 D.faber.scale.regular2
+          D.faber.scale.regular3 D.faber.scale.regular4 dload)
+        (839808 * H ^ 3 * GCD369CubeNormalRow5Cubic T.Xn T.Yn T.Zn D.cubicU)
+        Main
     rw [heq]
     exact I.add_mem (I.add_mem hterm1 hterm2) hterm3
   have hNdiff : N - Nd ∈ I := by
@@ -1436,10 +1450,11 @@ theorem fullN5_orderTop_eq_p_of_singular_middle
       D.faber.fullN5_sub_dSpecialized_mem_higherOrderIdeal
         C7 C5 C4 C3 C2 C1 hc7 hc5 hc4 hc3 hc2 hc1
   have hNMain : N - Main ∈ I := by
-    have heq : N - Main = (N - Nd) + (Nd - Main) := by ring
+    have heq : N - Main = (N - Nd) + (Nd - Main) :=
+      infinitySpeedT_sub_split N Nd Main
     rw [heq]
     exact I.add_mem hNdiff hNdMain
-  have hsum : N = Main + (N - Main) := by ring
+  have hsum : N = Main + (N - Main) := infinitySpeedT_add_sub N Main
   have hlt : Main.1.orderTop < (N - Main).1.orderTop := by
     rw [hMainOrder]
     exact hNMain
@@ -1449,7 +1464,7 @@ theorem fullN5_orderTop_eq_p_of_singular_middle
   rw [HahnSeries.orderTop_add_eq_left hlt, hMainOrder]
 
 set_option maxRecDepth 10000 in
-set_option maxHeartbeats 4000000 in
+set_option maxHeartbeats 64000000 in
 /-- If the weight-one load comes strictly after the cubic transverse term,
 the intrinsic singular cubic is the unique first term of the fifth
 numerator. -/
@@ -1526,7 +1541,7 @@ theorem fullN5_orderTop_eq_three_delta_of_singular_late
         (pow_ne_zero 3 hA))
   have hMainFactor : Main = H ^ 3 * (839808 * C) := by
     dsimp only [Main]
-    ring
+    exact infinitySpeedT_mul_rotate _ _ _
   have hMainOrder : Main.1.orderTop =
       (↑(3 * T.delta) : WithTop ℚ) := by
     rw [hMainFactor]
@@ -1571,7 +1586,7 @@ theorem fullN5_orderTop_eq_three_delta_of_singular_late
     exact GCD369CubeHahnRegular.weightedRegular_constant_mem_higherOrderIdeal
       D.faber.scale 1 Kd he (by convert hlate using 1 <;> norm_num)
   have hloadterm : dload * Rem ∈ I := by
-    convert I.mul_mem_left Rem hdload using 1 <;> ring
+    simpa only [mul_comm dload Rem] using I.mul_mem_left Rem hdload
   have hrelation' : Nd =
       24 * D.cubicU ^ 2 *
           GCD369CubeFaberD1
@@ -1599,7 +1614,14 @@ theorem fullN5_orderTop_eq_three_delta_of_singular_late
             D.faber.scale.regular4 dload) +
         dload * Rem := by
       rw [hrelation']
-      ring
+      simpa only [neg_mul] using infinitySpeedT_sub_middle
+        (24 * D.cubicU ^ 2 * GCD369CubeFaberD1
+          D.faber.scale.regular0 D.faber.scale.regular1 D.faber.scale.regular2
+          D.faber.scale.regular3 D.faber.scale.regular4 dload)
+        (24 * D.cubicV * GCD369CubeFaberD2
+          D.faber.scale.regular0 D.faber.scale.regular1 D.faber.scale.regular2
+          D.faber.scale.regular3 D.faber.scale.regular4 dload)
+        (dload * Rem) Main
     rw [heq]
     exact I.add_mem (I.add_mem hterm1 hterm2) hloadterm
   have hNdiffP :=
@@ -1611,10 +1633,11 @@ theorem fullN5_orderTop_eq_three_delta_of_singular_late
     exact (WithTop.coe_lt_coe.mpr hlate).trans (by
       simpa only [N, Nd, dload] using hNdiffP)
   have hNMain : N - Main ∈ I := by
-    have heq : N - Main = (N - Nd) + (Nd - Main) := by ring
+    have heq : N - Main = (N - Nd) + (Nd - Main) :=
+      infinitySpeedT_sub_split N Nd Main
     rw [heq]
     exact I.add_mem hNdiff hNdMain
-  have hsum : N = Main + (N - Main) := by ring
+  have hsum : N = Main + (N - Main) := infinitySpeedT_add_sub N Main
   have hlt : Main.1.orderTop < (N - Main).1.orderTop := by
     rw [hMainOrder]
     exact hNMain
@@ -1624,6 +1647,7 @@ theorem fullN5_orderTop_eq_three_delta_of_singular_late
   rw [HahnSeries.orderTop_add_eq_left hlt, hMainOrder]
 
 set_option maxRecDepth 10000 in
+set_option maxHeartbeats 64000000 in
 /-- Dividing the cleared fifth numerator by its fixed nonzero scalar does
 not change its finite Hahn order. -/
 theorem faberR5_order_eq_of_fullN5_orderTop_eq
@@ -1668,6 +1692,7 @@ end GCD369CubeHahnFaberPoleData
 
 namespace GCD369CubePolynomialSource
 
+set_option maxHeartbeats 64000000 in
 /-- Source-facing strict weight-one routing at the constant-core infinity
 pole. -/
 theorem infinity_d_eq_zero_before_transverse
@@ -1710,7 +1735,7 @@ theorem infinity_d_eq_zero_before_transverse
   · exact hbefore
 
 set_option maxRecDepth 10000 in
-set_option maxHeartbeats 4000000 in
+set_option maxHeartbeats 64000000 in
 /-- A weight-one load cannot tie the first quadratic transverse scale.  The
 fifth numerator has a certified nonzero first coefficient, forcing the
 impossible constant-pole landing `13 * p = 1`. -/
@@ -1809,10 +1834,11 @@ theorem infinity_d_eq_zero_at_transverse
         (D.cubicU ^ 3 - 9 * D.cubicV ^ 2) *
           GCD369CubeHahnRegular.constant P.d
   obtain ⟨E, hfactor⟩ := T.dTerminalFactor_at_transverse P.d hdD htie
-  change Nd = H ^ 2 * K + H ^ 3 * E at hfactor
+  have hfactor : Nd = H ^ 2 * K + H ^ 3 * E := by
+    simpa only [D, Nd, H, K] using hfactor
   have hNdfactor : Nd = H ^ 2 * (K + H * E) := by
     rw [hfactor]
-    ring
+    exact infinitySpeedT_factor H K E
   have hNdLower : (↑D.faber.scale.p : WithTop ℚ) ≤ Nd.1.orderTop := by
     rw [hNdfactor, htie]
     exact GCD369CubeHahnRegular.orderTop_monomial_sq_mul_lower
@@ -1826,7 +1852,7 @@ theorem infinity_d_eq_zero_at_transverse
         hc7D hc5D hc4D hc3D hc2D hc1D
   have hdiffLower : (↑D.faber.scale.p : WithTop ℚ) ≤
       (N - Nd).1.orderTop := hdiff_mem.le
-  have hNsum : N = Nd + (N - Nd) := by ring
+  have hNsum : N = Nd + (N - Nd) := infinitySpeedT_add_sub N Nd
   have hNLower : (↑D.faber.scale.p : WithTop ℚ) ≤ N.1.orderTop := by
     rw [hNsum]
     exact (le_min hNdLower hdiffLower).trans
@@ -1900,7 +1926,7 @@ theorem infinity_d_eq_zero_at_transverse
   exact GCD369CubeConstantPoleDegreeLandingEmpty hlanding
 
 set_option maxRecDepth 10000 in
-set_option maxHeartbeats 4000000 in
+set_option maxHeartbeats 64000000 in
 /-- A nonzero weight-one load is impossible in the strict singular window
 between the quadratic and cubic transverse exponents. -/
 theorem infinity_d_eq_zero_singular_middle
@@ -2033,7 +2059,7 @@ theorem infinity_d_eq_zero_singular_middle
   exact GCD369CubeConstantPoleDegreeLandingEmpty hlanding
 
 set_option maxRecDepth 10000 in
-set_option maxHeartbeats 4000000 in
+set_option maxHeartbeats 64000000 in
 /-- A weight-one load is also impossible strictly after the cubic
 transverse exponent: the terminal order and the integral fourth-coefficient
 degree give incompatible bounds for the pole scale. -/
@@ -2178,13 +2204,13 @@ theorem infinity_d_eq_zero_singular_late
       have := hn
       rw [hzero] at this
       norm_num at this
-      linarith
+      linarith only [this]
     exact ne_of_gt D.faber.scale.hp hpzero
   have hn1 : (1 : ℚ) ≤ (n : ℚ) := by
     exact_mod_cast (Nat.one_le_iff_ne_zero.mpr hn0)
   have hpHalf : (1 : ℚ) / 2 ≤ D.faber.scale.p := by
     rw [hn] at hn1
-    linarith
-  linarith
+    linarith only [hn1]
+  linarith only [hscaleEq, hlate, hpHalf]
 
 end GCD369CubePolynomialSource
