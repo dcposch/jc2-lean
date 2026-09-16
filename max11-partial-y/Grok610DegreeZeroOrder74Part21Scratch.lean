@@ -1,4 +1,4 @@
-import Grok610DegreeZeroOrder74Part06Scratch
+import Grok610DegreeZeroOrder74Part101Scratch
 import Grok610DegreeZeroOrder74Part09Scratch
 
 noncomputable section

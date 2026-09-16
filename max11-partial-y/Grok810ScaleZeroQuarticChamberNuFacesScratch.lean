@@ -1,4 +1,4 @@
-import Grok810ScaleZeroQuarticChamberFacesPart101Scratch
+import Grok810ScaleZeroQuarticChamberFacesPart105Scratch
 
 /-! # `ν` faces and the carrier-change face packets, `(8,10)` scale zero
 

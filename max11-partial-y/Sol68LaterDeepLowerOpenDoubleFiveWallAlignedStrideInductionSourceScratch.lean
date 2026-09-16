@@ -1,4 +1,4 @@
-import Sol68LaterDeepLowerOpenDoubleFiveWallAlignedStrideInductionSourcePart08Scratch
+import Sol68LaterDeepLowerOpenDoubleFiveWallAlignedStrideInductionSourcePart102Scratch
 
 /-! # Uniform aligned-stride induction on the degenerate double-five wall -/
 

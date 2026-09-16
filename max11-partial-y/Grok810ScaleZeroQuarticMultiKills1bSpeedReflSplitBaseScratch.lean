@@ -1,7 +1,6 @@
 import Grok810ScaleZeroQuarticMultiKills1bSpeedReflSplitBasePart101Scratch
 import Grok810ScaleZeroQuarticMultiKills1bSpeedReflSplitBasePart102Scratch
-import Grok810ScaleZeroQuarticMultiKills1bSpeedReflSplitBasePart103Scratch
-import Grok810ScaleZeroQuarticMultiKills1bSpeedReflSplitBasePart104Scratch
+import Grok810ScaleZeroQuarticMultiKills1bSpeedReflSplitBasePart105Scratch
 
 /-! # Quartic Stage A multi-cone certificates (part 1b: 4-letter cones ABCD–ACEG) -/
 

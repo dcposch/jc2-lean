@@ -1,4 +1,4 @@
-import LowScale68SecondaryFirstGapBoundaryFacePart15Scratch
+import LowScale68SecondaryFirstGapBoundaryFacePart103Scratch
 
 /-! # Residual faces on the first-gap boundary `2g = n`
 

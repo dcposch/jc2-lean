@@ -3,8 +3,7 @@ import Grok810ScaleZeroQuarticChamberExhaust3Part0Scratch
 import Grok810ScaleZeroQuarticChamberExhaust3Part1Scratch
 import Grok810ScaleZeroQuarticChamberExhaust3Part2Scratch
 import Grok810ScaleZeroQuarticChamberExhaust3Part3Scratch
-import Grok810ScaleZeroQuarticChamberExhaust3Part4Scratch
-import Grok810ScaleZeroQuarticChamberExhaust3Part5Scratch
+import Grok810ScaleZeroQuarticChamberExhaust3Part101Scratch
 
 /-! # Cost-argmin chamber exhaust (3/4), `(8,10)` scale zero
 

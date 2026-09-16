@@ -1,4 +1,4 @@
-import LowScale68SecondaryLaterDeepFiveToSixRowOnePart02Scratch
+import LowScale68SecondaryLaterDeepFiveToSixRowOnePart101Scratch
 
 /-! # The row-one face in the later-deep five-to-six chamber
 

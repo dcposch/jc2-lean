@@ -1,4 +1,4 @@
-import Sol68FiveToSixCuspSimultaneousTerminalSplitPart1Scratch
+import Sol68FiveToSixCuspSimultaneousTerminalSplitPart101Scratch
 
 /-! # SPEED: theorems of `Sol68FiveToSixCuspSimultaneousTerminalScratch`, part 2 of 3, so that no single
 module retains all the reflective bridge proof terms at once.

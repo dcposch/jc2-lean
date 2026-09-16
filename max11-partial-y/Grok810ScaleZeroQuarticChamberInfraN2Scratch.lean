@@ -1,4 +1,4 @@
-import Grok810ScaleZeroQuarticSigmaLadderPart101Scratch
+import Grok810ScaleZeroQuarticSigmaLadderPart106Scratch
 
 /-! # `N₂` load-free part, load columns and split, `(8,10)` scale zero
 

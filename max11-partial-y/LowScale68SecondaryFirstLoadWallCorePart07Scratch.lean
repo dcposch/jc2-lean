@@ -1,4 +1,4 @@
-import LowScale68SecondaryFirstLoadWallCorePart06Scratch
+import LowScale68SecondaryFirstLoadWallCorePart101Scratch
 
 /-! # Literal coefficient cores on the `(6,8)` wall `2g = n`
 

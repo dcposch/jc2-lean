@@ -1,4 +1,4 @@
-import Grok810ScaleZeroQuarticSigmaLadderPart101Scratch
+import Grok810ScaleZeroQuarticSigmaLadderPart106Scratch
 
 /-! # The cost-form `κ`/`N₂` load ladder, `(8,10)` scale zero
 

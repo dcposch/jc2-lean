@@ -1,4 +1,4 @@
-import Fable410ScaleTwoAlignedEighthFacePart17Scratch
+import Fable410ScaleTwoAlignedEighthFacePart101Scratch
 
 /-! # Eighth aligned face for the normalized `(4,10)` scale-two leaf
 

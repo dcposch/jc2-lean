@@ -1,7 +1,6 @@
 import Mathlib
 import Grok810ScaleZeroQuarticChamberUnownedSystemBridges1Scratch
-import Grok810ScaleZeroQuarticChamberUnownedSystems13Part1Row0Scratch
-import Grok810ScaleZeroQuarticChamberUnownedSystems13Part1Row1Scratch
+import Grok810ScaleZeroQuarticChamberUnownedSystems13Part1Row101Scratch
 import Grok810ScaleZeroQuarticChamberUnownedSystems13Part3Row101Scratch
 import Grok810ScaleZeroQuarticChamberUnownedSystems13Part3Row2Scratch
 
@@ -96,8 +95,8 @@ variable {k : Type*} [Field k] [CharZero k]
 
 section QuarticChamberUnownedSystems13810
 
-open private quarticRefinedBCDEFG102L2810_impossible_row0 from Grok810ScaleZeroQuarticChamberUnownedSystems13Part1Row0Scratch in
-open private quarticRefinedBCDEFG102L2810_impossible_row7 from Grok810ScaleZeroQuarticChamberUnownedSystems13Part1Row1Scratch in
+open private quarticRefinedBCDEFG102L2810_impossible_row0 from Grok810ScaleZeroQuarticChamberUnownedSystems13Part1Row101Scratch in
+open private quarticRefinedBCDEFG102L2810_impossible_row7 from Grok810ScaleZeroQuarticChamberUnownedSystems13Part1Row101Scratch in
 set_option maxHeartbeats 64000000 in
 /-- Unowned chamber `BCDEFG` / `CG·DD·CCC` leaf 2 dies on the 10-carrier system (κ, μ, ν, ξ, ο, π, Π, N₂, N₃, N₄). -/
 theorem quarticRefinedBCDEFG102L2810_impossible

@@ -1,5 +1,5 @@
 import Grok810ScaleZeroQuarticChamberDefs4Scratch
-import Astra810ScaleZeroQuarticChamberBCDEFG12Part101Scratch
+import Astra810ScaleZeroQuarticChamberBCDEFG12Part105Scratch
 import Max11SpeedReflectDegLibScratch
 
 /-! # BCDEFG12 chamber, part 3

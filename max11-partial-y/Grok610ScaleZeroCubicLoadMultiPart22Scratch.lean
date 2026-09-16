@@ -1,4 +1,4 @@
-import Grok610ScaleZeroCubicLoadMultiPart21Scratch
+import Grok610ScaleZeroCubicLoadMultiPart101Scratch
 
 open scoped Polynomial.Bivariate
 noncomputable section

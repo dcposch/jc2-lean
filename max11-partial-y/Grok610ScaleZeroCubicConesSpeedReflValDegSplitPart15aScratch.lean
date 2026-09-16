@@ -1,4 +1,4 @@
-import Grok610ScaleZeroCubicConesSpeedReflValDegSplitPart14Scratch
+import Grok610ScaleZeroCubicConesSpeedReflValDegSplitPart106Scratch
 
 noncomputable section
 
