@@ -13,4 +13,4 @@ roots = ["Challenge"]
 
 [[lean_lib]]
 name = "Solution"
-roots = ["Solution"]
+roots = ["Solution", "SolutionSpeedTPart00Scratch"]
