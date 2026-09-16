@@ -13,7 +13,7 @@ section BridgeMuPowerRelation610
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 80000000 in
+set_option maxHeartbeats 64000000 in
 /-- The twelfth sextic/decic integral on a square-core ninth-power source:
 the cleared defect is a scalar times `h⁶⁵`.  The weight-fifty `ι`,
 weight-fifty-five `κ` and weight-sixty `λ` residuals remain available
@@ -194,7 +194,7 @@ theorem nonzeroFace610_bridgeMuPowerRelation
       differentialJacobian_coeff_13_monicSexticDecic
         ratFuncDerivation68 f g hf_high hf6 hf5 hg_high hg10 hLconst
     have hbr := congrArg (fun t : (RatFunc k)[X] => t.coeff 13) hbracket
-    simpa [f, g, Polynomial.coeff_C, show (13 : ℕ) ≠ 0 by norm_num] using
+    simpa only [Polynomial.coeff_C, if_neg (by decide : (13 : ℕ) ≠ 0)] using
       hrow.symm.trans hbr
   have hrow12 :
       (10 : RatFunc k) * ratFuncDerivation68 (f.coeff 3) +
@@ -204,7 +204,7 @@ theorem nonzeroFace610_bridgeMuPowerRelation
       differentialJacobian_coeff_12_monicSexticDecic
         ratFuncDerivation68 f g hf_high hf6 hf5 hg_high hg10 hLconst
     have hbr := congrArg (fun t : (RatFunc k)[X] => t.coeff 12) hbracket
-    simpa [f, g, Polynomial.coeff_C, show (12 : ℕ) ≠ 0 by norm_num] using
+    simpa only [Polynomial.coeff_C, if_neg (by decide : (12 : ℕ) ≠ 0)] using
       hrow.symm.trans hbr
   have hrow11 :
       (10 : RatFunc k) * ratFuncDerivation68 (f.coeff 2) +
@@ -216,7 +216,7 @@ theorem nonzeroFace610_bridgeMuPowerRelation
       differentialJacobian_coeff_11_monicSexticDecic
         ratFuncDerivation68 f g hf_high hf6 hf5 hg_high hg10 hLconst
     have hbr := congrArg (fun t : (RatFunc k)[X] => t.coeff 11) hbracket
-    simpa [f, g, Polynomial.coeff_C, show (11 : ℕ) ≠ 0 by norm_num] using
+    simpa only [Polynomial.coeff_C, if_neg (by decide : (11 : ℕ) ≠ 0)] using
       hrow.symm.trans hbr
   have hrow10 :
       (10 : RatFunc k) * ratFuncDerivation68 (f.coeff 1) +
@@ -230,7 +230,7 @@ theorem nonzeroFace610_bridgeMuPowerRelation
       differentialJacobian_coeff_10_monicSexticDecic
         ratFuncDerivation68 f g hf_high hf6 hf5 hg_high hg10 hLconst
     have hbr := congrArg (fun t : (RatFunc k)[X] => t.coeff 10) hbracket
-    simpa [f, g, Polynomial.coeff_C, show (10 : ℕ) ≠ 0 by norm_num] using
+    simpa only [Polynomial.coeff_C, if_neg (by decide : (10 : ℕ) ≠ 0)] using
       hrow.symm.trans hbr
   have hrow9 :
       (10 : RatFunc k) * ratFuncDerivation68 (f.coeff 0) +
@@ -246,7 +246,7 @@ theorem nonzeroFace610_bridgeMuPowerRelation
       differentialJacobian_coeff_9_monicSexticDecic
         ratFuncDerivation68 f g hf_high hf6 hf5 hg_high hg10 hLconst
     have hbr := congrArg (fun t : (RatFunc k)[X] => t.coeff 9) hbracket
-    simpa [f, g, Polynomial.coeff_C, show (9 : ℕ) ≠ 0 by norm_num] using
+    simpa only [Polynomial.coeff_C, if_neg (by decide : (9 : ℕ) ≠ 0)] using
       hrow.symm.trans hbr
   have hrow7 :
       (8 : RatFunc k) * g.coeff 8 * ratFuncDerivation68 (f.coeff 0) +
@@ -263,7 +263,7 @@ theorem nonzeroFace610_bridgeMuPowerRelation
       differentialJacobian_coeff_7_monicSexticDecic
         ratFuncDerivation68 f g hf_high hf6 hf5 hg_high hg10 hLconst
     have hbr := congrArg (fun t : (RatFunc k)[X] => t.coeff 7) hbracket
-    simpa [f, g, Polynomial.coeff_C, show (7 : ℕ) ≠ 0 by norm_num] using
+    simpa only [Polynomial.coeff_C, if_neg (by decide : (7 : ℕ) ≠ 0)] using
       hrow.symm.trans hbr
   have hrow8 :
       (9 : RatFunc k) * g.coeff 9 * ratFuncDerivation68 (f.coeff 0) +
@@ -280,7 +280,7 @@ theorem nonzeroFace610_bridgeMuPowerRelation
       differentialJacobian_coeff_8_monicSexticDecic
         ratFuncDerivation68 f g hf_high hf6 hf5 hg_high hg10 hLconst
     have hbr := congrArg (fun t : (RatFunc k)[X] => t.coeff 8) hbracket
-    simpa [f, g, Polynomial.coeff_C, show (8 : ℕ) ≠ 0 by norm_num] using
+    simpa only [Polynomial.coeff_C, if_neg (by decide : (8 : ℕ) ≠ 0)] using
       hrow.symm.trans hbr
   have hrow6 :
       (7 : RatFunc k) * g.coeff 7 * ratFuncDerivation68 (f.coeff 0) +
@@ -297,7 +297,7 @@ theorem nonzeroFace610_bridgeMuPowerRelation
       differentialJacobian_coeff_6_monicSexticDecic_bridge
         ratFuncDerivation68 f g hf_high hf6 hf5 hg_high hg10 hLconst
     have hbr := congrArg (fun t : (RatFunc k)[X] => t.coeff 6) hbracket
-    simpa [f, g, Polynomial.coeff_C, show (6 : ℕ) ≠ 0 by norm_num] using
+    simpa only [Polynomial.coeff_C, if_neg (by decide : (6 : ℕ) ≠ 0)] using
       hrow.symm.trans hbr
   have hrow5 :
       (6 : RatFunc k) * g.coeff 6 * ratFuncDerivation68 (f.coeff 0) +
@@ -314,7 +314,7 @@ theorem nonzeroFace610_bridgeMuPowerRelation
       differentialJacobian_coeff_5_monicSexticDecic_bridge
         ratFuncDerivation68 f g hf_high hf6 hf5 hg_high hg10 hLconst
     have hbr := congrArg (fun t : (RatFunc k)[X] => t.coeff 5) hbracket
-    simpa [f, g, Polynomial.coeff_C, show (5 : ℕ) ≠ 0 by norm_num] using
+    simpa only [Polynomial.coeff_C, if_neg (by decide : (5 : ℕ) ≠ 0)] using
       hrow.symm.trans hbr
   have hrow4 :
       (5 : RatFunc k) * g.coeff 5 * ratFuncDerivation68 (f.coeff 0) +
@@ -330,7 +330,7 @@ theorem nonzeroFace610_bridgeMuPowerRelation
       differentialJacobian_coeff_4_monicSexticDecic_bridge
         ratFuncDerivation68 f g hf_high hf6 hf5 hg_high hg10 hLconst
     have hbr := congrArg (fun t : (RatFunc k)[X] => t.coeff 4) hbracket
-    simpa [f, g, Polynomial.coeff_C, show (4 : ℕ) ≠ 0 by norm_num] using
+    simpa only [Polynomial.coeff_C, if_neg (by decide : (4 : ℕ) ≠ 0)] using
       hrow.symm.trans hbr
   have hrow2 :
       (3 : RatFunc k) * g.coeff 3 * ratFuncDerivation68 (f.coeff 0) +
@@ -343,7 +343,7 @@ theorem nonzeroFace610_bridgeMuPowerRelation
       differentialJacobian_coeff_2_monicSexticDecic_bridge
         ratFuncDerivation68 f g hf_high hf6 hf5 hg_high hg10 hLconst
     have hbr := congrArg (fun t : (RatFunc k)[X] => t.coeff 2) hbracket
-    simpa [f, g, Polynomial.coeff_C, show (2 : ℕ) ≠ 0 by norm_num] using
+    simpa only [Polynomial.coeff_C, if_neg (by decide : (2 : ℕ) ≠ 0)] using
       hrow.symm.trans hbr
   have hf4 : f.coeff 4 =
       depressedA610 hRF (sexticDepressionR610 hRF a5) a5 a4 := by
@@ -476,8 +476,8 @@ theorem nonzeroFace610_bridgeMuPowerRelation
       rw [hg9]
       simp [depressedL610, depressedL810, sexticDepressionR610,
         sourceToRatFunc68, sourceToRatFunc46, b9]
-    unfold bridgeClearedMuDefect610 bridgeMuResidual610 alphaResidual610 betaResidual610 deltaResidual610 epsilonResidual610 zetaResidual610 etaResidual610 bridgeThetaResidual610 at hF ⊢
-    simpa [map_sub, map_add, map_mul, map_pow, map_ofNat, map_neg, RatFunc.algebraMap_C, hRF, a5, a4, a3, a2, a1, a0, b8, b7, b6, b5, b4, b3, b2, b1, gammaResidual610, hf4, hf3, hf2, hf1, hf0, hg1, hg2, hg3, hg4, hg5, hg6, hg7, hg8', hg9L] using hF.symm
+    unfold bridgeClearedMuDefect610
+    simpa [map_sub, map_add, map_mul, map_pow, map_ofNat, map_neg, RatFunc.algebraMap_C, hRF, a5, a4, a3, a2, a1, a0, b8, b7, b6, b5, b4, b3, b2, b1, hf4, hf3, hf2, hf1, hf0, hg1, hg2, hg3, hg4, hg5, hg6, hg7, hg8', hg9L] using hF.symm
   have htarget :
       algebraMap k[X] (RatFunc k)
           (bridgeClearedMuDefect610 h0 (p.coeff 5) (p.coeff 4)
@@ -506,7 +506,7 @@ section NonzeroMuIntegralBridge610
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 40000000 in
+set_option maxHeartbeats 64000000 in
 /-- Finite local `μ` integral bridge: the `λ` bridge packet (the `ι`,
 `κ` and `λ` packets reused opaquely) together with the weight-`65`
 clearing of the degree-`2` first integral, its `h₀⁵⁹`-peeled factored

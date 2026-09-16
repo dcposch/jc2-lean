@@ -31,7 +31,11 @@ section QuarticKills810
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 32000000 in
+-- Resolve scalar carriers before elaborating the coefficient lists.
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroPrimitiveQuarticNoABDEFG810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X])
@@ -42,21 +46,17 @@ theorem degreeZeroPrimitiveQuarticNoABDEFG810_natDegree_lt
   rcases hcone with ⟨hApos, hBpos, hDpos, hEpos, hFpos, hGpos, hAB, hAD, hAE, hAF, hAG, hClt⟩
   have hC1 : C.natDegree + 1 ≤ 2 * A.natDegree := Nat.succ_le_of_lt hClt
   rw [speedRefl_degreeZeroPrimitiveQuarticNoABDEFG810_eq_polyOf]
-  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 
+set_option maxHeartbeats 64000000 in
 theorem primitiveQuarticFaceABDEFG810_coeff_top
     {A B C D E F G : k[X]}
     (hcone : QuarticRatioConeABDEFG810 A B C D E F G)
@@ -200,7 +200,7 @@ theorem primitiveQuarticFaceABDEFG810_coeff_top
   ring
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem quarticCone_ABDEFG_impossible
     {j t : k}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -400,7 +400,7 @@ theorem quarticCone_ABDEFG_impossible
 
 
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem quarticInner_ACDEFG_identity
     (a c d e f g : k) :
     ((-55 / 34048 : k) * a ^ 5 + (-2431 / 85120 : k) * a ^ 3 * c + (-439 / 8512 : k) * a ^ 2 * e + (-81 / 760 : k) * a * c ^ 2 + (-9 / 95 : k) * a * g + (-37 / 140 : k) * c * e + (13 / 140 : k) * d ^ 2) * kappaQuarticInnerACDEFG810 a c d e f g +
@@ -447,6 +447,11 @@ section QuarticKills810
 
 variable {k : Type*} [Field k] [CharZero k]
 
+-- Resolve scalar carriers before elaborating the coefficient lists.
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
+set_option maxHeartbeats 64000000 in
 theorem primitiveQuarticFaceACDEFG810_coeff_top
     {A B C D E F G : k[X]}
     (hcone : QuarticRatioConeACDEFG810 A B C D E F G)
@@ -542,7 +547,7 @@ theorem primitiveQuarticFaceACDEFG810_coeff_top
   ring
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem quarticCone_ACDEFG_impossible
     {j t : k}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -757,7 +762,7 @@ theorem quarticInner_BCDEFG_identity
   ring
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroKappaQuartic810_eq_BCDEFG_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -800,6 +805,10 @@ set_option maxRecDepth 8000000
 section QuarticKills810
 
 variable {k : Type*} [Field k] [CharZero k]
+
+-- Resolve scalar carriers before elaborating the coefficient lists.
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
 
 set_option maxHeartbeats 64000000 in
 theorem quarticCone_BCDEFG_impossible

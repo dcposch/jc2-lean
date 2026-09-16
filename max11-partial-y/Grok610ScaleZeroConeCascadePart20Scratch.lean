@@ -13,6 +13,7 @@ section PrimitivePolynomial610
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 /-- Beta group with the unique-`A` load face `A⁶` deleted. -/
 def degreeZeroBetaGroupNoA6Polynomial610 (A B C0 D0 E0 : k[X]) : k[X] :=
   (-(23940 / 559872 : k)) • (A ^ 4 * C0) -

@@ -1,3 +1,4 @@
+import Sol610ScaleTwoAlignedTwelfthCertificateWithCPart12BridgePart101Scratch
 import Fable610ScaleTwoAlignedFlatDefectPart101Scratch
 import Fable610ScaleTwoAlignedTenthFacePart101Scratch
 import Fable610ScaleTwoAlignedEleventhFacePart101Scratch
@@ -14,6 +15,8 @@ open MvPolynomial Polynomial
 namespace Max11DegreeRoutes
 set_option maxRecDepth 100000000
 
+open private memory610_flatTenthDefect from Sol610ScaleTwoAlignedTwelfthCertificateWithCPart12BridgePart101Scratch in
+open private memory610_flatEleventhDefect from Sol610ScaleTwoAlignedTwelfthCertificateWithCPart12BridgePart101Scratch in
 open private memory610_flatThirdDefect from Fable610ScaleTwoAlignedFlatDefectPart101Scratch in
 open private memory610_flatFourthDefect from Fable610ScaleTwoAlignedFlatDefectPart102Scratch in
 open private memory610_flatFifthDefect from Fable610ScaleTwoAlignedFlatDefectPart103Scratch in
@@ -21,7 +24,7 @@ open private memory610_flatSixthDefect from Fable610ScaleTwoAlignedFlatDefectPar
 open private memory610_flatSeventhDefect from Fable610ScaleTwoAlignedFlatDefectPart105Scratch in
 open private memory610_flatEighthDefect from Fable610ScaleTwoAlignedFlatDefectPart106Scratch in
 open private memory610_flatNinthDefect from Fable610ScaleTwoAlignedFlatDefectPart107Scratch in
-set_option maxHeartbeats 12800000000 in
+set_option maxHeartbeats 64000000 in
 /-- Exact combination of the degree-`4` Jacobian expression with the
 weighted derivative of `Λ`.  Every correction on the right-hand side
 vanishes on the aligned face with the consumed degree-`13` through
@@ -93,7 +96,7 @@ theorem alignedEleventhDefect_weightedDerivative_identity_610 {K : Type*}
       a0 a1 a2 a3 a4 a5 b0 b1 b2 b3 b4 b5 b6 b7 κ).derivative - (25 :
       K[X]) * alignedTenthDefect610 H a0 a1 a2 a3 a4 a5 b0 b1 b2 b3 b4 b5
       b6 b7 κ * H.derivative) := by
-  simp only [alignedEleventhDefect610, alignedTenthDefect610, memory610_flatNinthDefect, memory610_flatEighthDefect, memory610_flatSeventhDefect, memory610_flatSixthDefect, memory610_flatFifthDefect, memory610_flatFourthDefect, memory610_flatThirdDefect, Max11ReflectVal.polyR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_cons, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, Polynomial.derivative_sub, Polynomial.derivative_add, Polynomial.derivative_mul, Polynomial.derivative_pow, Polynomial.derivative_neg, Polynomial.derivative_ofNat, Polynomial.derivative_C, nsmul_eq_mul, zero_mul, mul_zero, zero_add, add_zero, neg_zero]
+  simp only [memory610_flatEleventhDefect, memory610_flatTenthDefect, memory610_flatNinthDefect, memory610_flatEighthDefect, memory610_flatSeventhDefect, memory610_flatSixthDefect, memory610_flatFifthDefect, memory610_flatFourthDefect, memory610_flatThirdDefect, Max11ReflectVal.polyR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_cons, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, Polynomial.derivative_sub, Polynomial.derivative_add, Polynomial.derivative_mul, Polynomial.derivative_pow, Polynomial.derivative_neg, Polynomial.derivative_ofNat, Polynomial.derivative_C, nsmul_eq_mul, zero_mul, mul_zero, zero_add, add_zero, neg_zero]
   apply Polynomial.funext
   intro x
   simp only [Polynomial.eval_add, Polynomial.eval_sub, Polynomial.eval_mul,

@@ -19,6 +19,15 @@ section DefectSplittings810
 
 variable {k : Type*} [Field k] [CharZero k]
 
+-- Resolve arithmetic carriers before elaborating the existing expressions.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k[X]) (β := k[X]) (γ := k[X]))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k[X]) (β := k[X]) (γ := k[X]))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k[X]) (β := Nat) (γ := k[X]))
+local infixr:73 (priority := high) " • " => (HSMul.hSMul (α := k) (β := k[X]) (γ := k[X]))
+
+-- Resolve arithmetic carriers before elaborating the existing expressions.
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiPolynomial810_eq_A7_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -132,6 +141,15 @@ set_option linter.unusedVariables false
 section DefectGroups810
 
 variable {k : Type*} [Field k] [CharZero k]
+
+-- Resolve arithmetic carriers before elaborating the existing expressions.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k[X]) (β := k[X]) (γ := k[X]))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k[X]) (β := k[X]) (γ := k[X]))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k[X]) (β := Nat) (γ := k[X]))
+local infixr:73 (priority := high) " • " => (HSMul.hSMul (α := k) (β := k[X]) (γ := k[X]))
+
+-- Resolve arithmetic carriers before elaborating the existing expressions.
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
 
 set_option maxHeartbeats 64000000 in
 def degreeZeroXiNoA7G1
@@ -307,11 +325,13 @@ theorem speedRefl_degreeZeroXiNoA7G1_eq_polyOf
       [4, 2, 0, 0, 0, 0, 0], [5, 0, 1, 0, 0, 0, 0], [5, 1, 0, 0, 0, 0, 0], [1, 4, 0, 0, 0, 0, 0],
       [2, 2, 1, 0, 0, 0, 0], [2, 3, 0, 0, 0, 0, 0], [3, 0, 2, 0, 0, 0, 0], [3, 1, 0, 1, 0, 0, 0],
       [3, 1, 1, 0, 0, 0, 0], [4, 0, 0, 0, 1, 0, 0], [4, 0, 0, 1, 0, 0, 0], [4, 1, 0, 0, 0, 0, 0]] := by
-  simp only [degreeZeroXiNoA7G1, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroXiNoA7G1, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoA7G1_natDegree_lt
@@ -323,23 +343,14 @@ theorem degreeZeroXiNoA7G1_natDegree_lt
       7 * A.natDegree := by
   rcases hcone with ⟨hApos, hB, hC, hD, hE, hF, hG⟩
   rw [speedRefl_degreeZeroXiNoA7G1_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroXiNoA7G2` (12 monomials, 7 atoms):
@@ -359,11 +370,13 @@ theorem speedRefl_degreeZeroXiNoA7G2_eq_polyOf
       [5, 0, 0, 0, 0, 0, 0], [0, 2, 2, 0, 0, 0, 0], [0, 3, 0, 1, 0, 0, 0], [0, 3, 1, 0, 0, 0, 0],
       [1, 0, 3, 0, 0, 0, 0], [1, 1, 1, 1, 0, 0, 0], [1, 1, 2, 0, 0, 0, 0], [1, 2, 0, 0, 1, 0, 0],
       [1, 2, 0, 1, 0, 0, 0], [1, 3, 0, 0, 0, 0, 0], [2, 0, 0, 2, 0, 0, 0], [2, 0, 1, 0, 1, 0, 0]] := by
-  simp only [degreeZeroXiNoA7G2, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroXiNoA7G2, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoA7G2_natDegree_lt
@@ -375,23 +388,14 @@ theorem degreeZeroXiNoA7G2_natDegree_lt
       7 * A.natDegree := by
   rcases hcone with ⟨hApos, hB, hC, hD, hE, hF, hG⟩
   rw [speedRefl_degreeZeroXiNoA7G2_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroXiNoA7G3` (12 monomials, 7 atoms):
@@ -411,11 +415,13 @@ theorem speedRefl_degreeZeroXiNoA7G3_eq_polyOf
       [2, 0, 1, 1, 0, 0, 0], [2, 1, 0, 0, 0, 1, 0], [2, 1, 0, 0, 1, 0, 0], [2, 1, 1, 0, 0, 0, 0],
       [2, 2, 0, 0, 0, 0, 0], [3, 0, 0, 0, 0, 0, 1], [3, 0, 0, 0, 0, 1, 0], [3, 0, 0, 1, 0, 0, 0],
       [3, 0, 1, 0, 0, 0, 0], [3, 1, 0, 0, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0], [0, 0, 1, 2, 0, 0, 0]] := by
-  simp only [degreeZeroXiNoA7G3, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroXiNoA7G3, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoA7G3_natDegree_lt
@@ -427,23 +433,14 @@ theorem degreeZeroXiNoA7G3_natDegree_lt
       7 * A.natDegree := by
   rcases hcone with ⟨hApos, hB, hC, hD, hE, hF, hG⟩
   rw [speedRefl_degreeZeroXiNoA7G3_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroXiNoA7G4` (12 monomials, 7 atoms):
@@ -463,11 +460,13 @@ theorem speedRefl_degreeZeroXiNoA7G4_eq_polyOf
       [0, 0, 2, 0, 1, 0, 0], [0, 0, 2, 1, 0, 0, 0], [0, 1, 0, 1, 1, 0, 0], [0, 1, 0, 2, 0, 0, 0],
       [0, 1, 1, 0, 0, 1, 0], [0, 1, 1, 0, 1, 0, 0], [0, 1, 2, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 1],
       [0, 2, 0, 0, 0, 1, 0], [0, 2, 0, 1, 0, 0, 0], [0, 2, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0]] := by
-  simp only [degreeZeroXiNoA7G4, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroXiNoA7G4, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoA7G4_natDegree_lt
@@ -479,23 +478,14 @@ theorem degreeZeroXiNoA7G4_natDegree_lt
       7 * A.natDegree := by
   rcases hcone with ⟨hApos, hB, hC, hD, hE, hF, hG⟩
   rw [speedRefl_degreeZeroXiNoA7G4_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroXiNoA7G5` (12 monomials, 7 atoms):
@@ -515,11 +505,13 @@ theorem speedRefl_degreeZeroXiNoA7G5_eq_polyOf
       [1, 0, 0, 0, 2, 0, 0], [1, 0, 0, 1, 0, 1, 0], [1, 0, 0, 1, 1, 0, 0], [1, 0, 1, 0, 0, 0, 1],
       [1, 0, 1, 0, 0, 1, 0], [1, 0, 1, 1, 0, 0, 0], [1, 0, 2, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 1],
       [1, 1, 0, 0, 1, 0, 0], [1, 1, 0, 1, 0, 0, 0], [1, 1, 1, 0, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0]] := by
-  simp only [degreeZeroXiNoA7G5, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroXiNoA7G5, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoA7G5_natDegree_lt
@@ -531,23 +523,14 @@ theorem degreeZeroXiNoA7G5_natDegree_lt
       7 * A.natDegree := by
   rcases hcone with ⟨hApos, hB, hC, hD, hE, hF, hG⟩
   rw [speedRefl_degreeZeroXiNoA7G5_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroXiNoA7G6` (12 monomials, 7 atoms):
@@ -567,11 +550,13 @@ theorem speedRefl_degreeZeroXiNoA7G6_eq_polyOf
       [2, 0, 0, 0, 0, 1, 0], [2, 0, 0, 0, 1, 0, 0], [2, 0, 0, 1, 0, 0, 0], [2, 0, 1, 0, 0, 0, 0],
       [2, 1, 0, 0, 0, 0, 0], [3, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 2, 0], [0, 0, 0, 0, 1, 0, 1],
       [0, 0, 0, 0, 1, 1, 0], [0, 0, 0, 1, 0, 0, 1], [0, 0, 0, 1, 1, 0, 0], [0, 0, 0, 2, 0, 0, 0]] := by
-  simp only [degreeZeroXiNoA7G6, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroXiNoA7G6, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoA7G6_natDegree_lt
@@ -583,23 +568,14 @@ theorem degreeZeroXiNoA7G6_natDegree_lt
       7 * A.natDegree := by
   rcases hcone with ⟨hApos, hB, hC, hD, hE, hF, hG⟩
   rw [speedRefl_degreeZeroXiNoA7G6_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroXiNoA7G7` (12 monomials, 7 atoms):
@@ -619,11 +595,13 @@ theorem speedRefl_degreeZeroXiNoA7G7_eq_polyOf
       [0, 0, 1, 0, 0, 1, 0], [0, 0, 1, 0, 1, 0, 0], [0, 0, 1, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0],
       [0, 1, 0, 0, 0, 1, 0], [0, 1, 0, 0, 1, 0, 0], [0, 1, 0, 1, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0],
       [0, 2, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0], [1, 0, 0, 0, 1, 0, 0], [1, 0, 0, 1, 0, 0, 0]] := by
-  simp only [degreeZeroXiNoA7G7, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroXiNoA7G7, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoA7G7_natDegree_lt
@@ -635,23 +613,14 @@ theorem degreeZeroXiNoA7G7_natDegree_lt
       7 * A.natDegree := by
   rcases hcone with ⟨hApos, hB, hC, hD, hE, hF, hG⟩
   rw [speedRefl_degreeZeroXiNoA7G7_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroXiNoA7G8` (6 monomials, 7 atoms):
@@ -668,11 +637,13 @@ theorem speedRefl_degreeZeroXiNoA7G8_eq_polyOf
       [
       [1, 0, 1, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 1, 0],
       [0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 1, 0, 0, 0]] := by
-  simp only [degreeZeroXiNoA7G8, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroXiNoA7G8, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoA7G8_natDegree_lt
@@ -684,23 +655,14 @@ theorem degreeZeroXiNoA7G8_natDegree_lt
       7 * A.natDegree := by
   rcases hcone with ⟨hApos, hB, hC, hD, hE, hF, hG⟩
   rw [speedRefl_degreeZeroXiNoA7G8_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoA7Polynomial810_natDegree_lt_of_groups
@@ -750,6 +712,15 @@ set_option linter.unusedVariables false
 section DefectGroups810
 
 variable {k : Type*} [Field k] [CharZero k]
+
+-- Resolve arithmetic carriers before elaborating the existing expressions.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k[X]) (β := k[X]) (γ := k[X]))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k[X]) (β := k[X]) (γ := k[X]))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k[X]) (β := Nat) (γ := k[X]))
+local infixr:73 (priority := high) " • " => (HSMul.hSMul (α := k) (β := k[X]) (γ := k[X]))
+
+-- Resolve arithmetic carriers before elaborating the existing expressions.
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
 
 set_option maxHeartbeats 64000000 in
 def degreeZeroXiNoF02G1
@@ -925,11 +896,13 @@ theorem speedRefl_degreeZeroXiNoF02G1_eq_polyOf
       [7, 0, 0, 0, 0, 0, 0], [4, 2, 0, 0, 0, 0, 0], [5, 0, 1, 0, 0, 0, 0], [5, 1, 0, 0, 0, 0, 0],
       [1, 4, 0, 0, 0, 0, 0], [2, 2, 1, 0, 0, 0, 0], [2, 3, 0, 0, 0, 0, 0], [3, 0, 2, 0, 0, 0, 0],
       [3, 1, 0, 1, 0, 0, 0], [3, 1, 1, 0, 0, 0, 0], [4, 0, 0, 0, 1, 0, 0], [4, 0, 0, 1, 0, 0, 0]] := by
-  simp only [degreeZeroXiNoF02G1, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroXiNoF02G1, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoF02G1_natDegree_lt
@@ -941,23 +914,14 @@ theorem degreeZeroXiNoF02G1_natDegree_lt
       2 * F0.natDegree := by
   rcases hcone with ⟨hFpos, hA, hB, hC, hD, hE, hG⟩
   rw [speedRefl_degreeZeroXiNoF02G1_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroXiNoF02G2` (12 monomials, 7 atoms):
@@ -977,11 +941,13 @@ theorem speedRefl_degreeZeroXiNoF02G2_eq_polyOf
       [4, 1, 0, 0, 0, 0, 0], [5, 0, 0, 0, 0, 0, 0], [0, 2, 2, 0, 0, 0, 0], [0, 3, 0, 1, 0, 0, 0],
       [0, 3, 1, 0, 0, 0, 0], [1, 0, 3, 0, 0, 0, 0], [1, 1, 1, 1, 0, 0, 0], [1, 1, 2, 0, 0, 0, 0],
       [1, 2, 0, 0, 1, 0, 0], [1, 2, 0, 1, 0, 0, 0], [1, 3, 0, 0, 0, 0, 0], [2, 0, 0, 2, 0, 0, 0]] := by
-  simp only [degreeZeroXiNoF02G2, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroXiNoF02G2, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoF02G2_natDegree_lt
@@ -993,23 +959,14 @@ theorem degreeZeroXiNoF02G2_natDegree_lt
       2 * F0.natDegree := by
   rcases hcone with ⟨hFpos, hA, hB, hC, hD, hE, hG⟩
   rw [speedRefl_degreeZeroXiNoF02G2_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroXiNoF02G3` (12 monomials, 7 atoms):
@@ -1029,11 +986,13 @@ theorem speedRefl_degreeZeroXiNoF02G3_eq_polyOf
       [2, 0, 1, 0, 1, 0, 0], [2, 0, 1, 1, 0, 0, 0], [2, 1, 0, 0, 0, 1, 0], [2, 1, 0, 0, 1, 0, 0],
       [2, 1, 1, 0, 0, 0, 0], [2, 2, 0, 0, 0, 0, 0], [3, 0, 0, 0, 0, 0, 1], [3, 0, 0, 0, 0, 1, 0],
       [3, 0, 0, 1, 0, 0, 0], [3, 0, 1, 0, 0, 0, 0], [3, 1, 0, 0, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0]] := by
-  simp only [degreeZeroXiNoF02G3, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroXiNoF02G3, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoF02G3_natDegree_lt
@@ -1045,23 +1004,14 @@ theorem degreeZeroXiNoF02G3_natDegree_lt
       2 * F0.natDegree := by
   rcases hcone with ⟨hFpos, hA, hB, hC, hD, hE, hG⟩
   rw [speedRefl_degreeZeroXiNoF02G3_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroXiNoF02G4` (12 monomials, 7 atoms):
@@ -1081,11 +1031,13 @@ theorem speedRefl_degreeZeroXiNoF02G4_eq_polyOf
       [0, 0, 1, 2, 0, 0, 0], [0, 0, 2, 0, 1, 0, 0], [0, 0, 2, 1, 0, 0, 0], [0, 1, 0, 1, 1, 0, 0],
       [0, 1, 0, 2, 0, 0, 0], [0, 1, 1, 0, 0, 1, 0], [0, 1, 1, 0, 1, 0, 0], [0, 1, 2, 0, 0, 0, 0],
       [0, 2, 0, 0, 0, 0, 1], [0, 2, 0, 0, 0, 1, 0], [0, 2, 0, 1, 0, 0, 0], [0, 2, 1, 0, 0, 0, 0]] := by
-  simp only [degreeZeroXiNoF02G4, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroXiNoF02G4, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoF02G4_natDegree_lt
@@ -1097,23 +1049,14 @@ theorem degreeZeroXiNoF02G4_natDegree_lt
       2 * F0.natDegree := by
   rcases hcone with ⟨hFpos, hA, hB, hC, hD, hE, hG⟩
   rw [speedRefl_degreeZeroXiNoF02G4_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroXiNoF02G5` (12 monomials, 7 atoms):
@@ -1133,11 +1076,13 @@ theorem speedRefl_degreeZeroXiNoF02G5_eq_polyOf
       [0, 3, 0, 0, 0, 0, 0], [1, 0, 0, 0, 2, 0, 0], [1, 0, 0, 1, 0, 1, 0], [1, 0, 0, 1, 1, 0, 0],
       [1, 0, 1, 0, 0, 0, 1], [1, 0, 1, 0, 0, 1, 0], [1, 0, 1, 1, 0, 0, 0], [1, 0, 2, 0, 0, 0, 0],
       [1, 1, 0, 0, 0, 0, 1], [1, 1, 0, 0, 1, 0, 0], [1, 1, 0, 1, 0, 0, 0], [1, 1, 1, 0, 0, 0, 0]] := by
-  simp only [degreeZeroXiNoF02G5, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroXiNoF02G5, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoF02G5_natDegree_lt
@@ -1149,23 +1094,14 @@ theorem degreeZeroXiNoF02G5_natDegree_lt
       2 * F0.natDegree := by
   rcases hcone with ⟨hFpos, hA, hB, hC, hD, hE, hG⟩
   rw [speedRefl_degreeZeroXiNoF02G5_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroXiNoF02G6` (12 monomials, 7 atoms):
@@ -1185,11 +1121,13 @@ theorem speedRefl_degreeZeroXiNoF02G6_eq_polyOf
       [1, 2, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 1, 0], [2, 0, 0, 0, 1, 0, 0], [2, 0, 0, 1, 0, 0, 0],
       [2, 0, 1, 0, 0, 0, 0], [2, 1, 0, 0, 0, 0, 0], [3, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 1],
       [0, 0, 0, 0, 1, 1, 0], [0, 0, 0, 1, 0, 0, 1], [0, 0, 0, 1, 1, 0, 0], [0, 0, 0, 2, 0, 0, 0]] := by
-  simp only [degreeZeroXiNoF02G6, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroXiNoF02G6, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoF02G6_natDegree_lt
@@ -1201,23 +1139,14 @@ theorem degreeZeroXiNoF02G6_natDegree_lt
       2 * F0.natDegree := by
   rcases hcone with ⟨hFpos, hA, hB, hC, hD, hE, hG⟩
   rw [speedRefl_degreeZeroXiNoF02G6_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroXiNoF02G7` (12 monomials, 7 atoms):
@@ -1237,11 +1166,13 @@ theorem speedRefl_degreeZeroXiNoF02G7_eq_polyOf
       [0, 0, 1, 0, 0, 1, 0], [0, 0, 1, 0, 1, 0, 0], [0, 0, 1, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0],
       [0, 1, 0, 0, 0, 1, 0], [0, 1, 0, 0, 1, 0, 0], [0, 1, 0, 1, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0],
       [0, 2, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0], [1, 0, 0, 0, 1, 0, 0], [1, 0, 0, 1, 0, 0, 0]] := by
-  simp only [degreeZeroXiNoF02G7, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroXiNoF02G7, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoF02G7_natDegree_lt
@@ -1253,23 +1184,14 @@ theorem degreeZeroXiNoF02G7_natDegree_lt
       2 * F0.natDegree := by
   rcases hcone with ⟨hFpos, hA, hB, hC, hD, hE, hG⟩
   rw [speedRefl_degreeZeroXiNoF02G7_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroXiNoF02G8` (6 monomials, 7 atoms):
@@ -1286,11 +1208,13 @@ theorem speedRefl_degreeZeroXiNoF02G8_eq_polyOf
       [
       [1, 0, 1, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 1, 0],
       [0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 1, 0, 0, 0]] := by
-  simp only [degreeZeroXiNoF02G8, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroXiNoF02G8, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoF02G8_natDegree_lt
@@ -1302,23 +1226,14 @@ theorem degreeZeroXiNoF02G8_natDegree_lt
       2 * F0.natDegree := by
   rcases hcone with ⟨hFpos, hA, hB, hC, hD, hE, hG⟩
   rw [speedRefl_degreeZeroXiNoF02G8_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiNoF02Polynomial810_natDegree_lt_of_groups
@@ -1368,6 +1283,15 @@ set_option linter.unusedVariables false
 section DefectGroups810
 
 variable {k : Type*} [Field k] [CharZero k]
+
+-- Resolve arithmetic carriers before elaborating the existing expressions.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k[X]) (β := k[X]) (γ := k[X]))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k[X]) (β := k[X]) (γ := k[X]))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k[X]) (β := Nat) (γ := k[X]))
+local infixr:73 (priority := high) " • " => (HSMul.hSMul (α := k) (β := k[X]) (γ := k[X]))
+
+-- Resolve arithmetic carriers before elaborating the existing expressions.
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
 
 set_option maxHeartbeats 64000000 in
 def degreeZeroMuNoB4G1
@@ -1507,11 +1431,13 @@ theorem speedRefl_degreeZeroMuNoB4G1_eq_polyOf
       [
       [6, 0, 0, 0, 0, 0, 0], [3, 2, 0, 0, 0, 0, 0], [4, 0, 1, 0, 0, 0, 0], [4, 1, 0, 0, 0, 0, 0],
       [1, 2, 1, 0, 0, 0, 0], [1, 3, 0, 0, 0, 0, 0], [2, 0, 2, 0, 0, 0, 0]] := by
-  simp only [degreeZeroMuNoB4G1, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroMuNoB4G1, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoB4G1_natDegree_lt
@@ -1523,23 +1449,14 @@ theorem degreeZeroMuNoB4G1_natDegree_lt
       4 * B.natDegree := by
   rcases hcone with ⟨⟨hBpos, hA, hC, hD, hE, hF, hG⟩, hA0⟩
   rw [speedRefl_degreeZeroMuNoB4G1_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoB4G2` (7 monomials, 7 atoms):
@@ -1557,11 +1474,13 @@ theorem speedRefl_degreeZeroMuNoB4G2_eq_polyOf
       [
       [2, 1, 0, 1, 0, 0, 0], [2, 1, 1, 0, 0, 0, 0], [3, 0, 0, 0, 1, 0, 0], [3, 0, 0, 1, 0, 0, 0],
       [3, 1, 0, 0, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0], [0, 0, 3, 0, 0, 0, 0]] := by
-  simp only [degreeZeroMuNoB4G2, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroMuNoB4G2, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoB4G2_natDegree_lt
@@ -1573,23 +1492,14 @@ theorem degreeZeroMuNoB4G2_natDegree_lt
       4 * B.natDegree := by
   rcases hcone with ⟨⟨hBpos, hA, hC, hD, hE, hF, hG⟩, hA0⟩
   rw [speedRefl_degreeZeroMuNoB4G2_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoB4G3` (7 monomials, 7 atoms):
@@ -1607,11 +1517,13 @@ theorem speedRefl_degreeZeroMuNoB4G3_eq_polyOf
       [
       [0, 1, 1, 1, 0, 0, 0], [0, 1, 2, 0, 0, 0, 0], [0, 2, 0, 0, 1, 0, 0], [0, 2, 0, 1, 0, 0, 0],
       [0, 3, 0, 0, 0, 0, 0], [1, 0, 0, 2, 0, 0, 0], [1, 0, 1, 0, 1, 0, 0]] := by
-  simp only [degreeZeroMuNoB4G3, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroMuNoB4G3, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoB4G3_natDegree_lt
@@ -1623,23 +1535,14 @@ theorem degreeZeroMuNoB4G3_natDegree_lt
       4 * B.natDegree := by
   rcases hcone with ⟨⟨hBpos, hA, hC, hD, hE, hF, hG⟩, hA0⟩
   rw [speedRefl_degreeZeroMuNoB4G3_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoB4G4` (7 monomials, 7 atoms):
@@ -1657,11 +1560,13 @@ theorem speedRefl_degreeZeroMuNoB4G4_eq_polyOf
       [
       [1, 0, 1, 1, 0, 0, 0], [1, 1, 0, 0, 0, 1, 0], [1, 1, 0, 0, 1, 0, 0], [1, 1, 1, 0, 0, 0, 0],
       [1, 2, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 1], [2, 0, 0, 0, 0, 1, 0]] := by
-  simp only [degreeZeroMuNoB4G4, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroMuNoB4G4, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoB4G4_natDegree_lt
@@ -1673,23 +1578,14 @@ theorem degreeZeroMuNoB4G4_natDegree_lt
       4 * B.natDegree := by
   rcases hcone with ⟨⟨hBpos, hA, hC, hD, hE, hF, hG⟩, hA0⟩
   rw [speedRefl_degreeZeroMuNoB4G4_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoB4G5` (7 monomials, 7 atoms):
@@ -1707,11 +1603,13 @@ theorem speedRefl_degreeZeroMuNoB4G5_eq_polyOf
       [
       [2, 0, 0, 1, 0, 0, 0], [2, 0, 1, 0, 0, 0, 0], [2, 1, 0, 0, 0, 0, 0], [3, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 2, 0, 0], [0, 0, 0, 1, 0, 1, 0], [0, 0, 0, 1, 1, 0, 0]] := by
-  simp only [degreeZeroMuNoB4G5, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroMuNoB4G5, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoB4G5_natDegree_lt
@@ -1723,23 +1621,14 @@ theorem degreeZeroMuNoB4G5_natDegree_lt
       4 * B.natDegree := by
   rcases hcone with ⟨⟨hBpos, hA, hC, hD, hE, hF, hG⟩, hA0⟩
   rw [speedRefl_degreeZeroMuNoB4G5_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoB4G6` (7 monomials, 7 atoms):
@@ -1757,11 +1646,13 @@ theorem speedRefl_degreeZeroMuNoB4G6_eq_polyOf
       [
       [0, 0, 1, 0, 0, 0, 1], [0, 0, 1, 0, 0, 1, 0], [0, 0, 1, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0],
       [0, 1, 0, 0, 0, 0, 1], [0, 1, 0, 0, 1, 0, 0], [0, 1, 0, 1, 0, 0, 0]] := by
-  simp only [degreeZeroMuNoB4G6, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroMuNoB4G6, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoB4G6_natDegree_lt
@@ -1773,23 +1664,14 @@ theorem degreeZeroMuNoB4G6_natDegree_lt
       4 * B.natDegree := by
   rcases hcone with ⟨⟨hBpos, hA, hC, hD, hE, hF, hG⟩, hA0⟩
   rw [speedRefl_degreeZeroMuNoB4G6_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoB4G7` (7 monomials, 7 atoms):
@@ -1807,11 +1689,13 @@ theorem speedRefl_degreeZeroMuNoB4G7_eq_polyOf
       [
       [0, 1, 1, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0], [1, 0, 0, 0, 1, 0, 0],
       [1, 0, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0]] := by
-  simp only [degreeZeroMuNoB4G7, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroMuNoB4G7, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoB4G7_natDegree_lt
@@ -1823,23 +1707,14 @@ theorem degreeZeroMuNoB4G7_natDegree_lt
       4 * B.natDegree := by
   rcases hcone with ⟨⟨hBpos, hA, hC, hD, hE, hF, hG⟩, hA0⟩
   rw [speedRefl_degreeZeroMuNoB4G7_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoB4G8` (7 monomials, 7 atoms):
@@ -1857,11 +1732,13 @@ theorem speedRefl_degreeZeroMuNoB4G8_eq_polyOf
       [
       [2, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 1, 0, 0],
       [0, 0, 0, 1, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0]] := by
-  simp only [degreeZeroMuNoB4G8, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroMuNoB4G8, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoB4G8_natDegree_lt
@@ -1873,23 +1750,14 @@ theorem degreeZeroMuNoB4G8_natDegree_lt
       4 * B.natDegree := by
   rcases hcone with ⟨⟨hBpos, hA, hC, hD, hE, hF, hG⟩, hA0⟩
   rw [speedRefl_degreeZeroMuNoB4G8_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoB4Polynomial810_natDegree_lt_of_groups
@@ -1939,6 +1807,15 @@ set_option linter.unusedVariables false
 section DefectGroups810
 
 variable {k : Type*} [Field k] [CharZero k]
+
+-- Resolve arithmetic carriers before elaborating the existing expressions.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k[X]) (β := k[X]) (γ := k[X]))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k[X]) (β := k[X]) (γ := k[X]))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k[X]) (β := Nat) (γ := k[X]))
+local infixr:73 (priority := high) " • " => (HSMul.hSMul (α := k) (β := k[X]) (γ := k[X]))
+
+-- Resolve arithmetic carriers before elaborating the existing expressions.
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
 
 set_option maxHeartbeats 64000000 in
 def degreeZeroMuNoC03G1
@@ -2078,11 +1955,13 @@ theorem speedRefl_degreeZeroMuNoC03G1_eq_polyOf
       [
       [6, 0, 0, 0, 0, 0, 0], [3, 2, 0, 0, 0, 0, 0], [4, 0, 1, 0, 0, 0, 0], [4, 1, 0, 0, 0, 0, 0],
       [0, 4, 0, 0, 0, 0, 0], [1, 2, 1, 0, 0, 0, 0], [1, 3, 0, 0, 0, 0, 0]] := by
-  simp only [degreeZeroMuNoC03G1, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroMuNoC03G1, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoC03G1_natDegree_lt
@@ -2094,23 +1973,14 @@ theorem degreeZeroMuNoC03G1_natDegree_lt
       3 * C0.natDegree := by
   rcases hcone with ⟨⟨hCpos, hA, hB, hD, hE, hF, hG⟩, hA0, hB0⟩
   rw [speedRefl_degreeZeroMuNoC03G1_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoC03G2` (7 monomials, 7 atoms):
@@ -2128,11 +1998,13 @@ theorem speedRefl_degreeZeroMuNoC03G2_eq_polyOf
       [
       [2, 0, 2, 0, 0, 0, 0], [2, 1, 0, 1, 0, 0, 0], [2, 1, 1, 0, 0, 0, 0], [3, 0, 0, 0, 1, 0, 0],
       [3, 0, 0, 1, 0, 0, 0], [3, 1, 0, 0, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0]] := by
-  simp only [degreeZeroMuNoC03G2, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroMuNoC03G2, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoC03G2_natDegree_lt
@@ -2144,23 +2016,14 @@ theorem degreeZeroMuNoC03G2_natDegree_lt
       3 * C0.natDegree := by
   rcases hcone with ⟨⟨hCpos, hA, hB, hD, hE, hF, hG⟩, hA0, hB0⟩
   rw [speedRefl_degreeZeroMuNoC03G2_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoC03G3` (7 monomials, 7 atoms):
@@ -2178,11 +2041,13 @@ theorem speedRefl_degreeZeroMuNoC03G3_eq_polyOf
       [
       [0, 1, 1, 1, 0, 0, 0], [0, 1, 2, 0, 0, 0, 0], [0, 2, 0, 0, 1, 0, 0], [0, 2, 0, 1, 0, 0, 0],
       [0, 3, 0, 0, 0, 0, 0], [1, 0, 0, 2, 0, 0, 0], [1, 0, 1, 0, 1, 0, 0]] := by
-  simp only [degreeZeroMuNoC03G3, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroMuNoC03G3, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoC03G3_natDegree_lt
@@ -2194,23 +2059,14 @@ theorem degreeZeroMuNoC03G3_natDegree_lt
       3 * C0.natDegree := by
   rcases hcone with ⟨⟨hCpos, hA, hB, hD, hE, hF, hG⟩, hA0, hB0⟩
   rw [speedRefl_degreeZeroMuNoC03G3_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoC03G4` (7 monomials, 7 atoms):
@@ -2228,11 +2084,13 @@ theorem speedRefl_degreeZeroMuNoC03G4_eq_polyOf
       [
       [1, 0, 1, 1, 0, 0, 0], [1, 1, 0, 0, 0, 1, 0], [1, 1, 0, 0, 1, 0, 0], [1, 1, 1, 0, 0, 0, 0],
       [1, 2, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 1], [2, 0, 0, 0, 0, 1, 0]] := by
-  simp only [degreeZeroMuNoC03G4, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroMuNoC03G4, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoC03G4_natDegree_lt
@@ -2244,23 +2102,14 @@ theorem degreeZeroMuNoC03G4_natDegree_lt
       3 * C0.natDegree := by
   rcases hcone with ⟨⟨hCpos, hA, hB, hD, hE, hF, hG⟩, hA0, hB0⟩
   rw [speedRefl_degreeZeroMuNoC03G4_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoC03G5` (7 monomials, 7 atoms):
@@ -2278,11 +2127,13 @@ theorem speedRefl_degreeZeroMuNoC03G5_eq_polyOf
       [
       [2, 0, 0, 1, 0, 0, 0], [2, 0, 1, 0, 0, 0, 0], [2, 1, 0, 0, 0, 0, 0], [3, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 2, 0, 0], [0, 0, 0, 1, 0, 1, 0], [0, 0, 0, 1, 1, 0, 0]] := by
-  simp only [degreeZeroMuNoC03G5, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroMuNoC03G5, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoC03G5_natDegree_lt
@@ -2294,23 +2145,14 @@ theorem degreeZeroMuNoC03G5_natDegree_lt
       3 * C0.natDegree := by
   rcases hcone with ⟨⟨hCpos, hA, hB, hD, hE, hF, hG⟩, hA0, hB0⟩
   rw [speedRefl_degreeZeroMuNoC03G5_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoC03G6` (7 monomials, 7 atoms):
@@ -2328,11 +2170,13 @@ theorem speedRefl_degreeZeroMuNoC03G6_eq_polyOf
       [
       [0, 0, 1, 0, 0, 0, 1], [0, 0, 1, 0, 0, 1, 0], [0, 0, 1, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0],
       [0, 1, 0, 0, 0, 0, 1], [0, 1, 0, 0, 1, 0, 0], [0, 1, 0, 1, 0, 0, 0]] := by
-  simp only [degreeZeroMuNoC03G6, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroMuNoC03G6, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoC03G6_natDegree_lt
@@ -2344,23 +2188,14 @@ theorem degreeZeroMuNoC03G6_natDegree_lt
       3 * C0.natDegree := by
   rcases hcone with ⟨⟨hCpos, hA, hB, hD, hE, hF, hG⟩, hA0, hB0⟩
   rw [speedRefl_degreeZeroMuNoC03G6_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoC03G7` (7 monomials, 7 atoms):
@@ -2378,11 +2213,13 @@ theorem speedRefl_degreeZeroMuNoC03G7_eq_polyOf
       [
       [0, 1, 1, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0], [1, 0, 0, 0, 1, 0, 0],
       [1, 0, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0]] := by
-  simp only [degreeZeroMuNoC03G7, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroMuNoC03G7, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoC03G7_natDegree_lt
@@ -2394,23 +2231,14 @@ theorem degreeZeroMuNoC03G7_natDegree_lt
       3 * C0.natDegree := by
   rcases hcone with ⟨⟨hCpos, hA, hB, hD, hE, hF, hG⟩, hA0, hB0⟩
   rw [speedRefl_degreeZeroMuNoC03G7_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoC03G8` (7 monomials, 7 atoms):
@@ -2428,11 +2256,13 @@ theorem speedRefl_degreeZeroMuNoC03G8_eq_polyOf
       [
       [2, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 1, 0, 0],
       [0, 0, 0, 1, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0]] := by
-  simp only [degreeZeroMuNoC03G8, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroMuNoC03G8, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoC03G8_natDegree_lt
@@ -2444,23 +2274,14 @@ theorem degreeZeroMuNoC03G8_natDegree_lt
       3 * C0.natDegree := by
   rcases hcone with ⟨⟨hCpos, hA, hB, hD, hE, hF, hG⟩, hA0, hB0⟩
   rw [speedRefl_degreeZeroMuNoC03G8_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoC03Polynomial810_natDegree_lt_of_groups
@@ -2510,6 +2331,15 @@ set_option linter.unusedVariables false
 section DefectGroups810
 
 variable {k : Type*} [Field k] [CharZero k]
+
+-- Resolve arithmetic carriers before elaborating the existing expressions.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k[X]) (β := k[X]) (γ := k[X]))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k[X]) (β := k[X]) (γ := k[X]))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k[X]) (β := Nat) (γ := k[X]))
+local infixr:73 (priority := high) " • " => (HSMul.hSMul (α := k) (β := k[X]) (γ := k[X]))
+
+-- Resolve arithmetic carriers before elaborating the existing expressions.
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
 
 set_option maxHeartbeats 64000000 in
 def degreeZeroMuNoE02G1
@@ -2649,11 +2479,13 @@ theorem speedRefl_degreeZeroMuNoE02G1_eq_polyOf
       [
       [6, 0, 0, 0, 0, 0, 0], [3, 2, 0, 0, 0, 0, 0], [4, 0, 1, 0, 0, 0, 0], [4, 1, 0, 0, 0, 0, 0],
       [0, 4, 0, 0, 0, 0, 0], [1, 2, 1, 0, 0, 0, 0], [1, 3, 0, 0, 0, 0, 0]] := by
-  simp only [degreeZeroMuNoE02G1, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroMuNoE02G1, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoE02G1_natDegree_lt
@@ -2665,23 +2497,14 @@ theorem degreeZeroMuNoE02G1_natDegree_lt
       2 * E0.natDegree := by
   rcases hcone with ⟨hEpos, hA, hB, hC, hD, hF, hG⟩
   rw [speedRefl_degreeZeroMuNoE02G1_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoE02G2` (7 monomials, 7 atoms):
@@ -2699,11 +2522,13 @@ theorem speedRefl_degreeZeroMuNoE02G2_eq_polyOf
       [
       [2, 0, 2, 0, 0, 0, 0], [2, 1, 0, 1, 0, 0, 0], [2, 1, 1, 0, 0, 0, 0], [3, 0, 0, 0, 1, 0, 0],
       [3, 0, 0, 1, 0, 0, 0], [3, 1, 0, 0, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0]] := by
-  simp only [degreeZeroMuNoE02G2, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroMuNoE02G2, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoE02G2_natDegree_lt
@@ -2715,23 +2540,14 @@ theorem degreeZeroMuNoE02G2_natDegree_lt
       2 * E0.natDegree := by
   rcases hcone with ⟨hEpos, hA, hB, hC, hD, hF, hG⟩
   rw [speedRefl_degreeZeroMuNoE02G2_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoE02G3` (7 monomials, 7 atoms):
@@ -2749,11 +2565,13 @@ theorem speedRefl_degreeZeroMuNoE02G3_eq_polyOf
       [
       [0, 0, 3, 0, 0, 0, 0], [0, 1, 1, 1, 0, 0, 0], [0, 1, 2, 0, 0, 0, 0], [0, 2, 0, 0, 1, 0, 0],
       [0, 2, 0, 1, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0], [1, 0, 0, 2, 0, 0, 0]] := by
-  simp only [degreeZeroMuNoE02G3, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroMuNoE02G3, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoE02G3_natDegree_lt
@@ -2765,23 +2583,14 @@ theorem degreeZeroMuNoE02G3_natDegree_lt
       2 * E0.natDegree := by
   rcases hcone with ⟨hEpos, hA, hB, hC, hD, hF, hG⟩
   rw [speedRefl_degreeZeroMuNoE02G3_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoE02G4` (7 monomials, 7 atoms):
@@ -2799,11 +2608,13 @@ theorem speedRefl_degreeZeroMuNoE02G4_eq_polyOf
       [
       [1, 0, 1, 0, 1, 0, 0], [1, 0, 1, 1, 0, 0, 0], [1, 1, 0, 0, 0, 1, 0], [1, 1, 0, 0, 1, 0, 0],
       [1, 1, 1, 0, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 1]] := by
-  simp only [degreeZeroMuNoE02G4, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroMuNoE02G4, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoE02G4_natDegree_lt
@@ -2815,23 +2626,14 @@ theorem degreeZeroMuNoE02G4_natDegree_lt
       2 * E0.natDegree := by
   rcases hcone with ⟨hEpos, hA, hB, hC, hD, hF, hG⟩
   rw [speedRefl_degreeZeroMuNoE02G4_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoE02G5` (7 monomials, 7 atoms):
@@ -2849,11 +2651,13 @@ theorem speedRefl_degreeZeroMuNoE02G5_eq_polyOf
       [
       [2, 0, 0, 0, 0, 1, 0], [2, 0, 0, 1, 0, 0, 0], [2, 0, 1, 0, 0, 0, 0], [2, 1, 0, 0, 0, 0, 0],
       [3, 0, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 1, 0], [0, 0, 0, 1, 1, 0, 0]] := by
-  simp only [degreeZeroMuNoE02G5, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroMuNoE02G5, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoE02G5_natDegree_lt
@@ -2865,23 +2669,14 @@ theorem degreeZeroMuNoE02G5_natDegree_lt
       2 * E0.natDegree := by
   rcases hcone with ⟨hEpos, hA, hB, hC, hD, hF, hG⟩
   rw [speedRefl_degreeZeroMuNoE02G5_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoE02G6` (7 monomials, 7 atoms):
@@ -2899,11 +2694,13 @@ theorem speedRefl_degreeZeroMuNoE02G6_eq_polyOf
       [
       [0, 0, 1, 0, 0, 0, 1], [0, 0, 1, 0, 0, 1, 0], [0, 0, 1, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0],
       [0, 1, 0, 0, 0, 0, 1], [0, 1, 0, 0, 1, 0, 0], [0, 1, 0, 1, 0, 0, 0]] := by
-  simp only [degreeZeroMuNoE02G6, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroMuNoE02G6, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoE02G6_natDegree_lt
@@ -2915,23 +2712,14 @@ theorem degreeZeroMuNoE02G6_natDegree_lt
       2 * E0.natDegree := by
   rcases hcone with ⟨hEpos, hA, hB, hC, hD, hF, hG⟩
   rw [speedRefl_degreeZeroMuNoE02G6_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoE02G7` (7 monomials, 7 atoms):
@@ -2949,11 +2737,13 @@ theorem speedRefl_degreeZeroMuNoE02G7_eq_polyOf
       [
       [0, 1, 1, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0], [1, 0, 0, 0, 1, 0, 0],
       [1, 0, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0]] := by
-  simp only [degreeZeroMuNoE02G7, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroMuNoE02G7, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoE02G7_natDegree_lt
@@ -2965,23 +2755,14 @@ theorem degreeZeroMuNoE02G7_natDegree_lt
       2 * E0.natDegree := by
   rcases hcone with ⟨hEpos, hA, hB, hC, hD, hF, hG⟩
   rw [speedRefl_degreeZeroMuNoE02G7_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuNoE02G8` (7 monomials, 7 atoms):
@@ -2999,11 +2780,13 @@ theorem speedRefl_degreeZeroMuNoE02G8_eq_polyOf
       [
       [2, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 1, 0, 0],
       [0, 0, 0, 1, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0]] := by
-  simp only [degreeZeroMuNoE02G8, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroMuNoE02G8, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoE02G8_natDegree_lt
@@ -3015,23 +2798,14 @@ theorem degreeZeroMuNoE02G8_natDegree_lt
       2 * E0.natDegree := by
   rcases hcone with ⟨hEpos, hA, hB, hC, hD, hF, hG⟩
   rw [speedRefl_degreeZeroMuNoE02G8_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuNoE02Polynomial810_natDegree_lt_of_groups
@@ -3081,6 +2855,15 @@ set_option linter.unusedVariables false
 section DefectGroups810
 
 variable {k : Type*} [Field k] [CharZero k]
+
+-- Resolve arithmetic carriers before elaborating the existing expressions.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k[X]) (β := k[X]) (γ := k[X]))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k[X]) (β := k[X]) (γ := k[X]))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k[X]) (β := Nat) (γ := k[X]))
+local infixr:73 (priority := high) " • " => (HSMul.hSMul (α := k) (β := k[X]) (γ := k[X]))
+
+-- Resolve arithmetic carriers before elaborating the existing expressions.
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
 
 set_option maxHeartbeats 64000000 in
 def degreeZeroOmicronNoB5G1
@@ -3283,11 +3066,13 @@ theorem speedRefl_degreeZeroOmicronNoB5G1_eq_polyOf
       [4, 2, 0, 0, 0, 0, 0], [5, 0, 0, 1, 0, 0, 0], [5, 0, 1, 0, 0, 0, 0], [6, 0, 0, 0, 0, 0, 0],
       [1, 3, 1, 0, 0, 0, 0], [1, 4, 0, 0, 0, 0, 0], [2, 1, 2, 0, 0, 0, 0], [2, 2, 0, 1, 0, 0, 0],
       [2, 2, 1, 0, 0, 0, 0], [3, 0, 1, 1, 0, 0, 0], [3, 0, 2, 0, 0, 0, 0]] := by
-  simp only [degreeZeroOmicronNoB5G1, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroOmicronNoB5G1, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoB5G1_natDegree_lt
@@ -3299,23 +3084,14 @@ theorem degreeZeroOmicronNoB5G1_natDegree_lt
       5 * B.natDegree := by
   rcases hcone with ⟨⟨hBpos, hA, hC, hD, hE, hF, hG⟩, hA0⟩
   rw [speedRefl_degreeZeroOmicronNoB5G1_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronNoB5G2` (15 monomials, 7 atoms):
@@ -3337,11 +3113,13 @@ theorem speedRefl_degreeZeroOmicronNoB5G2_eq_polyOf
       [4, 0, 0, 0, 1, 0, 0], [4, 0, 1, 0, 0, 0, 0], [4, 1, 0, 0, 0, 0, 0], [5, 0, 0, 0, 0, 0, 0],
       [0, 1, 3, 0, 0, 0, 0], [0, 2, 1, 1, 0, 0, 0], [0, 2, 2, 0, 0, 0, 0], [0, 3, 0, 0, 1, 0, 0],
       [0, 3, 0, 1, 0, 0, 0], [0, 4, 0, 0, 0, 0, 0], [1, 0, 2, 1, 0, 0, 0]] := by
-  simp only [degreeZeroOmicronNoB5G2, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroOmicronNoB5G2, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoB5G2_natDegree_lt
@@ -3353,23 +3131,14 @@ theorem degreeZeroOmicronNoB5G2_natDegree_lt
       5 * B.natDegree := by
   rcases hcone with ⟨⟨hBpos, hA, hC, hD, hE, hF, hG⟩, hA0⟩
   rw [speedRefl_degreeZeroOmicronNoB5G2_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronNoB5G3` (15 monomials, 7 atoms):
@@ -3391,11 +3160,13 @@ theorem speedRefl_degreeZeroOmicronNoB5G3_eq_polyOf
       [1, 2, 0, 0, 0, 1, 0], [1, 2, 0, 0, 1, 0, 0], [1, 2, 1, 0, 0, 0, 0], [1, 3, 0, 0, 0, 0, 0],
       [2, 0, 0, 1, 1, 0, 0], [2, 0, 0, 2, 0, 0, 0], [2, 0, 1, 0, 0, 1, 0], [2, 0, 1, 0, 1, 0, 0],
       [2, 0, 2, 0, 0, 0, 0], [2, 1, 0, 0, 0, 0, 1], [2, 1, 0, 0, 0, 1, 0]] := by
-  simp only [degreeZeroOmicronNoB5G3, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroOmicronNoB5G3, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoB5G3_natDegree_lt
@@ -3407,23 +3178,14 @@ theorem degreeZeroOmicronNoB5G3_natDegree_lt
       5 * B.natDegree := by
   rcases hcone with ⟨⟨hBpos, hA, hC, hD, hE, hF, hG⟩, hA0⟩
   rw [speedRefl_degreeZeroOmicronNoB5G3_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronNoB5G4` (15 monomials, 7 atoms):
@@ -3445,11 +3207,13 @@ theorem speedRefl_degreeZeroOmicronNoB5G4_eq_polyOf
       [3, 0, 0, 0, 1, 0, 0], [3, 0, 0, 1, 0, 0, 0], [3, 0, 1, 0, 0, 0, 0], [3, 1, 0, 0, 0, 0, 0],
       [4, 0, 0, 0, 0, 0, 0], [0, 0, 0, 3, 0, 0, 0], [0, 0, 1, 1, 1, 0, 0], [0, 0, 1, 2, 0, 0, 0],
       [0, 0, 2, 0, 0, 1, 0], [0, 0, 2, 0, 1, 0, 0], [0, 0, 3, 0, 0, 0, 0]] := by
-  simp only [degreeZeroOmicronNoB5G4, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroOmicronNoB5G4, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoB5G4_natDegree_lt
@@ -3461,23 +3225,14 @@ theorem degreeZeroOmicronNoB5G4_natDegree_lt
       5 * B.natDegree := by
   rcases hcone with ⟨⟨hBpos, hA, hC, hD, hE, hF, hG⟩, hA0⟩
   rw [speedRefl_degreeZeroOmicronNoB5G4_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronNoB5G5` (15 monomials, 7 atoms):
@@ -3499,11 +3254,13 @@ theorem speedRefl_degreeZeroOmicronNoB5G5_eq_polyOf
       [0, 1, 1, 0, 0, 1, 0], [0, 1, 1, 1, 0, 0, 0], [0, 1, 2, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 1],
       [0, 2, 0, 0, 1, 0, 0], [0, 2, 0, 1, 0, 0, 0], [0, 2, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0],
       [1, 0, 0, 0, 1, 1, 0], [1, 0, 0, 0, 2, 0, 0], [1, 0, 0, 1, 0, 0, 1]] := by
-  simp only [degreeZeroOmicronNoB5G5, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroOmicronNoB5G5, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoB5G5_natDegree_lt
@@ -3515,23 +3272,14 @@ theorem degreeZeroOmicronNoB5G5_natDegree_lt
       5 * B.natDegree := by
   rcases hcone with ⟨⟨hBpos, hA, hC, hD, hE, hF, hG⟩, hA0⟩
   rw [speedRefl_degreeZeroOmicronNoB5G5_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronNoB5G6` (15 monomials, 7 atoms):
@@ -3553,11 +3301,13 @@ theorem speedRefl_degreeZeroOmicronNoB5G6_eq_polyOf
       [1, 0, 1, 1, 0, 0, 0], [1, 0, 2, 0, 0, 0, 0], [1, 1, 0, 0, 0, 1, 0], [1, 1, 0, 0, 1, 0, 0],
       [1, 1, 0, 1, 0, 0, 0], [1, 1, 1, 0, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 1, 0],
       [2, 0, 0, 0, 1, 0, 0], [2, 0, 0, 1, 0, 0, 0], [2, 0, 1, 0, 0, 0, 0]] := by
-  simp only [degreeZeroOmicronNoB5G6, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroOmicronNoB5G6, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoB5G6_natDegree_lt
@@ -3569,23 +3319,14 @@ theorem degreeZeroOmicronNoB5G6_natDegree_lt
       5 * B.natDegree := by
   rcases hcone with ⟨⟨hBpos, hA, hC, hD, hE, hF, hG⟩, hA0⟩
   rw [speedRefl_degreeZeroOmicronNoB5G6_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronNoB5G7` (15 monomials, 7 atoms):
@@ -3607,11 +3348,13 @@ theorem speedRefl_degreeZeroOmicronNoB5G7_eq_polyOf
       [0, 0, 0, 0, 1, 0, 1], [0, 0, 0, 0, 2, 0, 0], [0, 0, 0, 1, 0, 1, 0], [0, 0, 0, 1, 1, 0, 0],
       [0, 0, 0, 2, 0, 0, 0], [0, 0, 1, 0, 0, 1, 0], [0, 0, 1, 0, 1, 0, 0], [0, 0, 1, 1, 0, 0, 0],
       [0, 0, 2, 0, 0, 0, 0], [0, 1, 0, 0, 0, 1, 0], [0, 1, 0, 0, 1, 0, 0]] := by
-  simp only [degreeZeroOmicronNoB5G7, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroOmicronNoB5G7, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoB5G7_natDegree_lt
@@ -3623,23 +3366,14 @@ theorem degreeZeroOmicronNoB5G7_natDegree_lt
       5 * B.natDegree := by
   rcases hcone with ⟨⟨hBpos, hA, hC, hD, hE, hF, hG⟩, hA0⟩
   rw [speedRefl_degreeZeroOmicronNoB5G7_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronNoB5G8` (10 monomials, 7 atoms):
@@ -3659,11 +3393,13 @@ theorem speedRefl_degreeZeroOmicronNoB5G8_eq_polyOf
       [0, 1, 0, 1, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0],
       [1, 0, 0, 0, 1, 0, 0], [1, 0, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1],
       [0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 1, 0, 0]] := by
-  simp only [degreeZeroOmicronNoB5G8, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroOmicronNoB5G8, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoB5G8_natDegree_lt
@@ -3675,23 +3411,14 @@ theorem degreeZeroOmicronNoB5G8_natDegree_lt
       5 * B.natDegree := by
   rcases hcone with ⟨⟨hBpos, hA, hC, hD, hE, hF, hG⟩, hA0⟩
   rw [speedRefl_degreeZeroOmicronNoB5G8_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoB5Polynomial810_natDegree_lt_of_groups
@@ -3741,6 +3468,15 @@ set_option linter.unusedVariables false
 section DefectGroups810
 
 variable {k : Type*} [Field k] [CharZero k]
+
+-- Resolve arithmetic carriers before elaborating the existing expressions.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k[X]) (β := k[X]) (γ := k[X]))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k[X]) (β := k[X]) (γ := k[X]))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k[X]) (β := Nat) (γ := k[X]))
+local infixr:73 (priority := high) " • " => (HSMul.hSMul (α := k) (β := k[X]) (γ := k[X]))
+
+-- Resolve arithmetic carriers before elaborating the existing expressions.
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
 
 set_option maxHeartbeats 64000000 in
 def degreeZeroOmicronNoD03G1
@@ -3943,11 +3679,13 @@ theorem speedRefl_degreeZeroOmicronNoD03G1_eq_polyOf
       [4, 2, 0, 0, 0, 0, 0], [5, 0, 0, 1, 0, 0, 0], [5, 0, 1, 0, 0, 0, 0], [6, 0, 0, 0, 0, 0, 0],
       [0, 5, 0, 0, 0, 0, 0], [1, 3, 1, 0, 0, 0, 0], [1, 4, 0, 0, 0, 0, 0], [2, 1, 2, 0, 0, 0, 0],
       [2, 2, 0, 1, 0, 0, 0], [2, 2, 1, 0, 0, 0, 0], [3, 0, 1, 1, 0, 0, 0]] := by
-  simp only [degreeZeroOmicronNoD03G1, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroOmicronNoD03G1, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoD03G1_natDegree_lt
@@ -3959,23 +3697,14 @@ theorem degreeZeroOmicronNoD03G1_natDegree_lt
       3 * D0.natDegree := by
   rcases hcone with ⟨⟨hDpos, hA, hB, hC, hE, hF, hG⟩, hA0, hB0⟩
   rw [speedRefl_degreeZeroOmicronNoD03G1_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronNoD03G2` (15 monomials, 7 atoms):
@@ -3997,11 +3726,13 @@ theorem speedRefl_degreeZeroOmicronNoD03G2_eq_polyOf
       [4, 0, 0, 0, 0, 1, 0], [4, 0, 0, 0, 1, 0, 0], [4, 0, 1, 0, 0, 0, 0], [4, 1, 0, 0, 0, 0, 0],
       [5, 0, 0, 0, 0, 0, 0], [0, 1, 3, 0, 0, 0, 0], [0, 2, 1, 1, 0, 0, 0], [0, 2, 2, 0, 0, 0, 0],
       [0, 3, 0, 0, 1, 0, 0], [0, 3, 0, 1, 0, 0, 0], [0, 4, 0, 0, 0, 0, 0]] := by
-  simp only [degreeZeroOmicronNoD03G2, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroOmicronNoD03G2, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoD03G2_natDegree_lt
@@ -4013,23 +3744,14 @@ theorem degreeZeroOmicronNoD03G2_natDegree_lt
       3 * D0.natDegree := by
   rcases hcone with ⟨⟨hDpos, hA, hB, hC, hE, hF, hG⟩, hA0, hB0⟩
   rw [speedRefl_degreeZeroOmicronNoD03G2_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronNoD03G3` (15 monomials, 7 atoms):
@@ -4051,11 +3773,13 @@ theorem speedRefl_degreeZeroOmicronNoD03G3_eq_polyOf
       [1, 1, 1, 1, 0, 0, 0], [1, 2, 0, 0, 0, 1, 0], [1, 2, 0, 0, 1, 0, 0], [1, 2, 1, 0, 0, 0, 0],
       [1, 3, 0, 0, 0, 0, 0], [2, 0, 0, 1, 1, 0, 0], [2, 0, 0, 2, 0, 0, 0], [2, 0, 1, 0, 0, 1, 0],
       [2, 0, 1, 0, 1, 0, 0], [2, 0, 2, 0, 0, 0, 0], [2, 1, 0, 0, 0, 0, 1]] := by
-  simp only [degreeZeroOmicronNoD03G3, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroOmicronNoD03G3, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoD03G3_natDegree_lt
@@ -4067,23 +3791,14 @@ theorem degreeZeroOmicronNoD03G3_natDegree_lt
       3 * D0.natDegree := by
   rcases hcone with ⟨⟨hDpos, hA, hB, hC, hE, hF, hG⟩, hA0, hB0⟩
   rw [speedRefl_degreeZeroOmicronNoD03G3_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronNoD03G4` (15 monomials, 7 atoms):
@@ -4105,11 +3820,13 @@ theorem speedRefl_degreeZeroOmicronNoD03G4_eq_polyOf
       [3, 0, 0, 0, 0, 0, 1], [3, 0, 0, 0, 1, 0, 0], [3, 0, 0, 1, 0, 0, 0], [3, 0, 1, 0, 0, 0, 0],
       [3, 1, 0, 0, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0], [0, 0, 1, 1, 1, 0, 0], [0, 0, 1, 2, 0, 0, 0],
       [0, 0, 2, 0, 0, 1, 0], [0, 0, 2, 0, 1, 0, 0], [0, 0, 3, 0, 0, 0, 0]] := by
-  simp only [degreeZeroOmicronNoD03G4, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroOmicronNoD03G4, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoD03G4_natDegree_lt
@@ -4121,23 +3838,14 @@ theorem degreeZeroOmicronNoD03G4_natDegree_lt
       3 * D0.natDegree := by
   rcases hcone with ⟨⟨hDpos, hA, hB, hC, hE, hF, hG⟩, hA0, hB0⟩
   rw [speedRefl_degreeZeroOmicronNoD03G4_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronNoD03G5` (15 monomials, 7 atoms):
@@ -4159,11 +3867,13 @@ theorem speedRefl_degreeZeroOmicronNoD03G5_eq_polyOf
       [0, 1, 1, 0, 0, 1, 0], [0, 1, 1, 1, 0, 0, 0], [0, 1, 2, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 1],
       [0, 2, 0, 0, 1, 0, 0], [0, 2, 0, 1, 0, 0, 0], [0, 2, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0],
       [1, 0, 0, 0, 1, 1, 0], [1, 0, 0, 0, 2, 0, 0], [1, 0, 0, 1, 0, 0, 1]] := by
-  simp only [degreeZeroOmicronNoD03G5, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroOmicronNoD03G5, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoD03G5_natDegree_lt
@@ -4175,23 +3885,14 @@ theorem degreeZeroOmicronNoD03G5_natDegree_lt
       3 * D0.natDegree := by
   rcases hcone with ⟨⟨hDpos, hA, hB, hC, hE, hF, hG⟩, hA0, hB0⟩
   rw [speedRefl_degreeZeroOmicronNoD03G5_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronNoD03G6` (15 monomials, 7 atoms):
@@ -4213,11 +3914,13 @@ theorem speedRefl_degreeZeroOmicronNoD03G6_eq_polyOf
       [1, 0, 1, 1, 0, 0, 0], [1, 0, 2, 0, 0, 0, 0], [1, 1, 0, 0, 0, 1, 0], [1, 1, 0, 0, 1, 0, 0],
       [1, 1, 0, 1, 0, 0, 0], [1, 1, 1, 0, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 1, 0],
       [2, 0, 0, 0, 1, 0, 0], [2, 0, 0, 1, 0, 0, 0], [2, 0, 1, 0, 0, 0, 0]] := by
-  simp only [degreeZeroOmicronNoD03G6, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroOmicronNoD03G6, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoD03G6_natDegree_lt
@@ -4229,23 +3932,14 @@ theorem degreeZeroOmicronNoD03G6_natDegree_lt
       3 * D0.natDegree := by
   rcases hcone with ⟨⟨hDpos, hA, hB, hC, hE, hF, hG⟩, hA0, hB0⟩
   rw [speedRefl_degreeZeroOmicronNoD03G6_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronNoD03G7` (15 monomials, 7 atoms):
@@ -4267,11 +3961,13 @@ theorem speedRefl_degreeZeroOmicronNoD03G7_eq_polyOf
       [0, 0, 0, 0, 1, 0, 1], [0, 0, 0, 0, 2, 0, 0], [0, 0, 0, 1, 0, 1, 0], [0, 0, 0, 1, 1, 0, 0],
       [0, 0, 0, 2, 0, 0, 0], [0, 0, 1, 0, 0, 1, 0], [0, 0, 1, 0, 1, 0, 0], [0, 0, 1, 1, 0, 0, 0],
       [0, 0, 2, 0, 0, 0, 0], [0, 1, 0, 0, 0, 1, 0], [0, 1, 0, 0, 1, 0, 0]] := by
-  simp only [degreeZeroOmicronNoD03G7, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroOmicronNoD03G7, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoD03G7_natDegree_lt
@@ -4283,23 +3979,14 @@ theorem degreeZeroOmicronNoD03G7_natDegree_lt
       3 * D0.natDegree := by
   rcases hcone with ⟨⟨hDpos, hA, hB, hC, hE, hF, hG⟩, hA0, hB0⟩
   rw [speedRefl_degreeZeroOmicronNoD03G7_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronNoD03G8` (10 monomials, 7 atoms):
@@ -4319,11 +4006,13 @@ theorem speedRefl_degreeZeroOmicronNoD03G8_eq_polyOf
       [0, 1, 0, 1, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0],
       [1, 0, 0, 0, 1, 0, 0], [1, 0, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1],
       [0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 1, 0, 0]] := by
-  simp only [degreeZeroOmicronNoD03G8, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroOmicronNoD03G8, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoD03G8_natDegree_lt
@@ -4335,23 +4024,14 @@ theorem degreeZeroOmicronNoD03G8_natDegree_lt
       3 * D0.natDegree := by
   rcases hcone with ⟨⟨hDpos, hA, hB, hC, hE, hF, hG⟩, hA0, hB0⟩
   rw [speedRefl_degreeZeroOmicronNoD03G8_eq_polyOf]
-  first
-    | refine Max11ReflectDeg.natDegree_polyOf_le_of_degLe ?_
-    | refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.degLe_cons,
-                  Max11ReflectDeg.degLe_nil_left, Max11ReflectDeg.degLe_nil_right,
-                  Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronNoD03Polynomial810_natDegree_lt_of_groups

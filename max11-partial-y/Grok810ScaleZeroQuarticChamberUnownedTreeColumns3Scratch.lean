@@ -63,9 +63,8 @@ theorem n4QuarticColumnBeta1810PartBCFG1810_natDegree_lt
     (hd4 : 2 * A.natDegree + 2 * B.natDegree + C.natDegree < d)
     (hd5 : A.natDegree + 4 * B.natDegree < d) :
     (n4QuarticColumnBeta1810PartBCFG1810 beta A B C D E F G).natDegree < d := by
-  simp only [n4QuarticColumnBeta1810PartBCFG1810]
-  compute_degree
-  omega
+  unfold n4QuarticColumnBeta1810PartBCFG1810
+  exact (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd2))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd3))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le)) (le_refl _)))) hd4))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le))) hd5)))
 
 set_option maxHeartbeats 64000000 in
 /-- Piece 2/2 of `n4QuarticColumnBeta1810` on the live set `BCFG` (3 monomials). -/
@@ -86,9 +85,8 @@ theorem n4QuarticColumnBeta1810PartBCFG2810_natDegree_lt
     (hd1 : 2 * B.natDegree + 2 * C.natDegree < d)
     (hd2 : B.natDegree + C.natDegree + F.natDegree < d) :
     (n4QuarticColumnBeta1810PartBCFG2810 beta A B C D E F G).natDegree < d := by
-  simp only [n4QuarticColumnBeta1810PartBCFG2810]
-  compute_degree
-  omega
+  unfold n4QuarticColumnBeta1810PartBCFG2810
+  exact (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le))) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _))) (le_refl _)))) hd2)))
 
 set_option maxHeartbeats 64000000 in
 theorem n4QuarticColumnBeta1810_split_of_live_BCFG
@@ -108,8 +106,8 @@ theorem n4QuarticColumnBeta1810_split_of_live_BCFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n4QuarticColumnBeta1810, n4QuarticColumnBeta1810PartBCFG1810, n4QuarticColumnBeta1810PartBCFG2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  all_goals module
+  simp only [n4QuarticColumnBeta1810, n4QuarticColumnBeta1810PartBCFG1810, n4QuarticColumnBeta1810PartBCFG2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero, sub_eq_add_neg, neg_smul, add_assoc]
+  all_goals rfl
 
 set_option maxHeartbeats 64000000 in
 theorem n4QuarticColumnBeta1810_natDegree_lt_of_live_BCFG
@@ -144,16 +142,8 @@ theorem n4QuarticColumnBeta2810_natDegree_lt_of_live_BCFG
     (n4QuarticColumnBeta2810 beta A B C D E F G).natDegree < d := by
   subst hDz
   subst hEz
-  have hpow2 : (0 : k[X]) ^ 2 = 0 := zero_pow (by decide)
-  have hpow3 : (0 : k[X]) ^ 3 = 0 := zero_pow (by decide)
-  have hpow4 : (0 : k[X]) ^ 4 = 0 := zero_pow (by decide)
-  have hpow5 : (0 : k[X]) ^ 5 = 0 := zero_pow (by decide)
-  have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
-  have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
-  have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n4QuarticColumnBeta2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  unfold n4QuarticColumnBeta2810
+  exact (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd0)))
 
 set_option maxHeartbeats 64000000 in
 theorem n4QuarticColumnGamma810_natDegree_lt_of_live_BCFG
@@ -170,16 +160,8 @@ theorem n4QuarticColumnGamma810_natDegree_lt_of_live_BCFG
     (n4QuarticColumnGamma810 gamma A B C D E F G).natDegree < d := by
   subst hDz
   subst hEz
-  have hpow2 : (0 : k[X]) ^ 2 = 0 := zero_pow (by decide)
-  have hpow3 : (0 : k[X]) ^ 3 = 0 := zero_pow (by decide)
-  have hpow4 : (0 : k[X]) ^ 4 = 0 := zero_pow (by decide)
-  have hpow5 : (0 : k[X]) ^ 5 = 0 := zero_pow (by decide)
-  have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
-  have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
-  have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n4QuarticColumnGamma810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  unfold n4QuarticColumnGamma810
+  exact (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd0) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _))) natDegree_pow_le))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd2))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd3))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos)))
 
 set_option maxHeartbeats 64000000 in
 /-- Piece 1/2 of `n4QuarticColumnDelta810` on the live set `BCFG` (6 monomials). -/
@@ -206,9 +188,8 @@ theorem n4QuarticColumnDelta810PartBCFG1810_natDegree_lt
     (hd4 : A.natDegree + 2 * B.natDegree + C.natDegree < d)
     (hd5 : 4 * B.natDegree < d) :
     (n4QuarticColumnDelta810PartBCFG1810 delta A B C D E F G).natDegree < d := by
-  simp only [n4QuarticColumnDelta810PartBCFG1810]
-  compute_degree
-  omega
+  unfold n4QuarticColumnDelta810PartBCFG1810
+  exact (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd2))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd3))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le)) (le_refl _)))) hd4))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd5)))
 
 set_option maxHeartbeats 64000000 in
 /-- Piece 2/2 of `n4QuarticColumnDelta810` on the live set `BCFG` (2 monomials). -/
@@ -227,9 +208,8 @@ theorem n4QuarticColumnDelta810PartBCFG2810_natDegree_lt
     (hd0 : A.natDegree + B.natDegree + F.natDegree < d)
     (hd1 : 3 * C.natDegree < d) :
     (n4QuarticColumnDelta810PartBCFG2810 delta A B C D E F G).natDegree < d := by
-  simp only [n4QuarticColumnDelta810PartBCFG2810]
-  compute_degree
-  omega
+  unfold n4QuarticColumnDelta810PartBCFG2810
+  exact (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _))) (le_refl _)))) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd1)))
 
 set_option maxHeartbeats 64000000 in
 theorem n4QuarticColumnDelta810_split_of_live_BCFG
@@ -249,8 +229,8 @@ theorem n4QuarticColumnDelta810_split_of_live_BCFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n4QuarticColumnDelta810, n4QuarticColumnDelta810PartBCFG1810, n4QuarticColumnDelta810PartBCFG2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  all_goals module
+  simp only [n4QuarticColumnDelta810, n4QuarticColumnDelta810PartBCFG1810, n4QuarticColumnDelta810PartBCFG2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero, sub_eq_add_neg, neg_smul, add_assoc]
+  all_goals rfl
 
 set_option maxHeartbeats 64000000 in
 theorem n4QuarticColumnDelta810_natDegree_lt_of_live_BCFG
@@ -288,16 +268,8 @@ theorem n4QuarticColumnEpsilon810_natDegree_lt_of_live_BCFG
     (n4QuarticColumnEpsilon810 epsilon A B C D E F G).natDegree < d := by
   subst hDz
   subst hEz
-  have hpow2 : (0 : k[X]) ^ 2 = 0 := zero_pow (by decide)
-  have hpow3 : (0 : k[X]) ^ 3 = 0 := zero_pow (by decide)
-  have hpow4 : (0 : k[X]) ^ 4 = 0 := zero_pow (by decide)
-  have hpow5 : (0 : k[X]) ^ 5 = 0 := zero_pow (by decide)
-  have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
-  have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
-  have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n4QuarticColumnEpsilon810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  unfold n4QuarticColumnEpsilon810
+  exact (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _))) (le_refl _)))) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd2))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le))) hd3))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _)))) hd4))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos)))
 
 set_option maxHeartbeats 64000000 in
 /-- Piece 1/2 of `n4QuarticColumnZeta810` on the live set `BCFG` (6 monomials). -/
@@ -324,9 +296,8 @@ theorem n4QuarticColumnZeta810PartBCFG1810_natDegree_lt
     (hd4 : 2 * B.natDegree + C.natDegree < d)
     (hd5 : A.natDegree + G.natDegree < d) :
     (n4QuarticColumnZeta810PartBCFG1810 zeta A B C D E F G).natDegree < d := by
-  simp only [n4QuarticColumnZeta810PartBCFG1810]
-  compute_degree
-  omega
+  unfold n4QuarticColumnZeta810PartBCFG1810
+  exact (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd2))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le))) hd3))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd4))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _)))) hd5)))
 
 set_option maxHeartbeats 64000000 in
 /-- Piece 2/2 of `n4QuarticColumnZeta810` on the live set `BCFG` (1 monomials). -/
@@ -343,9 +314,8 @@ theorem n4QuarticColumnZeta810PartBCFG2810_natDegree_lt
     (hdpos : 0 < d)
     (hd0 : B.natDegree + F.natDegree < d) :
     (n4QuarticColumnZeta810PartBCFG2810 zeta A B C D E F G).natDegree < d := by
-  simp only [n4QuarticColumnZeta810PartBCFG2810]
-  compute_degree
-  omega
+  unfold n4QuarticColumnZeta810PartBCFG2810
+  exact (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _)))) hd0)
 
 set_option maxHeartbeats 64000000 in
 theorem n4QuarticColumnZeta810_split_of_live_BCFG
@@ -365,8 +335,8 @@ theorem n4QuarticColumnZeta810_split_of_live_BCFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n4QuarticColumnZeta810, n4QuarticColumnZeta810PartBCFG1810, n4QuarticColumnZeta810PartBCFG2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  all_goals module
+  simp only [n4QuarticColumnZeta810, n4QuarticColumnZeta810PartBCFG1810, n4QuarticColumnZeta810PartBCFG2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero, sub_eq_add_neg, neg_smul, add_assoc]
+  all_goals rfl
 
 set_option maxHeartbeats 64000000 in
 theorem n4QuarticColumnZeta810_natDegree_lt_of_live_BCFG
@@ -401,16 +371,8 @@ theorem n4QuarticColumnEta810_natDegree_lt_of_live_BCFG
     (n4QuarticColumnEta810 eta A B C D E F G).natDegree < d := by
   subst hDz
   subst hEz
-  have hpow2 : (0 : k[X]) ^ 2 = 0 := zero_pow (by decide)
-  have hpow3 : (0 : k[X]) ^ 3 = 0 := zero_pow (by decide)
-  have hpow4 : (0 : k[X]) ^ 4 = 0 := zero_pow (by decide)
-  have hpow5 : (0 : k[X]) ^ 5 = 0 := zero_pow (by decide)
-  have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
-  have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
-  have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n4QuarticColumnEta810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  unfold n4QuarticColumnEta810
+  exact (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _))) (le_refl _)))) hd0))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _)))) hd2))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos)))
 
 set_option maxHeartbeats 64000000 in
 theorem n4QuarticColumnTheta810_natDegree_lt_of_live_BCFG
@@ -428,16 +390,8 @@ theorem n4QuarticColumnTheta810_natDegree_lt_of_live_BCFG
     (n4QuarticColumnTheta810 theta A B C D E F G).natDegree < d := by
   subst hDz
   subst hEz
-  have hpow2 : (0 : k[X]) ^ 2 = 0 := zero_pow (by decide)
-  have hpow3 : (0 : k[X]) ^ 3 = 0 := zero_pow (by decide)
-  have hpow4 : (0 : k[X]) ^ 4 = 0 := zero_pow (by decide)
-  have hpow5 : (0 : k[X]) ^ 5 = 0 := zero_pow (by decide)
-  have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
-  have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
-  have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n4QuarticColumnTheta810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  unfold n4QuarticColumnTheta810
+  exact (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le))) hd2))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd3))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_refl _)) hd4)))
 
 set_option maxHeartbeats 64000000 in
 /-- Piece 1/2 of `n5QuarticColumnL1810` on the live set `BCFG` (6 monomials). -/
@@ -464,9 +418,8 @@ theorem n5QuarticColumnL1810PartBCFG1810_natDegree_lt
     (hd4 : 2 * A.natDegree + 2 * B.natDegree + C.natDegree < d)
     (hd5 : A.natDegree + 4 * B.natDegree < d) :
     (n5QuarticColumnL1810PartBCFG1810 l A B C D E F G).natDegree < d := by
-  simp only [n5QuarticColumnL1810PartBCFG1810]
-  compute_degree
-  omega
+  unfold n5QuarticColumnL1810PartBCFG1810
+  exact (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd2))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd3))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le)) (le_refl _)))) hd4))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le))) hd5)))
 
 set_option maxHeartbeats 64000000 in
 /-- Piece 2/2 of `n5QuarticColumnL1810` on the live set `BCFG` (5 monomials). -/
@@ -491,9 +444,8 @@ theorem n5QuarticColumnL1810PartBCFG2810_natDegree_lt
     (hd3 : 2 * B.natDegree + 2 * C.natDegree < d)
     (hd4 : A.natDegree + C.natDegree + G.natDegree < d) :
     (n5QuarticColumnL1810PartBCFG2810 l A B C D E F G).natDegree < d := by
-  simp only [n5QuarticColumnL1810PartBCFG2810]
-  compute_degree
-  omega
+  unfold n5QuarticColumnL1810PartBCFG2810
+  exact (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _))) (le_refl _)))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le))) hd2))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd3))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _))) (le_refl _)))) hd4)))
 
 set_option maxHeartbeats 64000000 in
 theorem n5QuarticColumnL1810_split_of_live_BCFG
@@ -513,8 +465,8 @@ theorem n5QuarticColumnL1810_split_of_live_BCFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n5QuarticColumnL1810, n5QuarticColumnL1810PartBCFG1810, n5QuarticColumnL1810PartBCFG2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  all_goals module
+  simp only [n5QuarticColumnL1810, n5QuarticColumnL1810PartBCFG1810, n5QuarticColumnL1810PartBCFG2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero, sub_eq_add_neg, neg_smul, add_assoc]
+  all_goals rfl
 
 set_option maxHeartbeats 64000000 in
 theorem n5QuarticColumnL1810_natDegree_lt_of_live_BCFG
@@ -553,16 +505,8 @@ theorem n5QuarticColumnL2810_natDegree_lt_of_live_BCFG
     (n5QuarticColumnL2810 l A B C D E F G).natDegree < d := by
   subst hDz
   subst hEz
-  have hpow2 : (0 : k[X]) ^ 2 = 0 := zero_pow (by decide)
-  have hpow3 : (0 : k[X]) ^ 3 = 0 := zero_pow (by decide)
-  have hpow4 : (0 : k[X]) ^ 4 = 0 := zero_pow (by decide)
-  have hpow5 : (0 : k[X]) ^ 5 = 0 := zero_pow (by decide)
-  have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
-  have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
-  have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n5QuarticColumnL2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  unfold n5QuarticColumnL2810
+  exact (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _))) (le_refl _)))) hd1))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd2)))
 
 set_option maxHeartbeats 64000000 in
 /-- Piece 1/2 of `n5QuarticColumnBeta810` on the live set `BCFG` (6 monomials). -/
@@ -589,9 +533,8 @@ theorem n5QuarticColumnBeta810PartBCFG1810_natDegree_lt
     (hd4 : A.natDegree + 2 * B.natDegree + C.natDegree < d)
     (hd5 : 4 * B.natDegree < d) :
     (n5QuarticColumnBeta810PartBCFG1810 beta A B C D E F G).natDegree < d := by
-  simp only [n5QuarticColumnBeta810PartBCFG1810]
-  compute_degree
-  omega
+  unfold n5QuarticColumnBeta810PartBCFG1810
+  exact (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd2))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd3))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le)) (le_refl _)))) hd4))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd5)))
 
 set_option maxHeartbeats 64000000 in
 /-- Piece 2/2 of `n5QuarticColumnBeta810` on the live set `BCFG` (3 monomials). -/
@@ -612,9 +555,8 @@ theorem n5QuarticColumnBeta810PartBCFG2810_natDegree_lt
     (hd1 : A.natDegree + B.natDegree + F.natDegree < d)
     (hd2 : 3 * C.natDegree < d) :
     (n5QuarticColumnBeta810PartBCFG2810 beta A B C D E F G).natDegree < d := by
-  simp only [n5QuarticColumnBeta810PartBCFG2810]
-  compute_degree
-  omega
+  unfold n5QuarticColumnBeta810PartBCFG2810
+  exact (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _))) (le_refl _)))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd2)))
 
 set_option maxHeartbeats 64000000 in
 theorem n5QuarticColumnBeta810_split_of_live_BCFG
@@ -634,8 +576,8 @@ theorem n5QuarticColumnBeta810_split_of_live_BCFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n5QuarticColumnBeta810, n5QuarticColumnBeta810PartBCFG1810, n5QuarticColumnBeta810PartBCFG2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  all_goals module
+  simp only [n5QuarticColumnBeta810, n5QuarticColumnBeta810PartBCFG1810, n5QuarticColumnBeta810PartBCFG2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero, sub_eq_add_neg, neg_smul, add_assoc]
+  all_goals rfl
 
 set_option maxHeartbeats 64000000 in
 theorem n5QuarticColumnBeta810_natDegree_lt_of_live_BCFG
@@ -672,16 +614,8 @@ theorem n5QuarticColumnGamma810_natDegree_lt_of_live_BCFG
     (n5QuarticColumnGamma810 gamma A B C D E F G).natDegree < d := by
   subst hDz
   subst hEz
-  have hpow2 : (0 : k[X]) ^ 2 = 0 := zero_pow (by decide)
-  have hpow3 : (0 : k[X]) ^ 3 = 0 := zero_pow (by decide)
-  have hpow4 : (0 : k[X]) ^ 4 = 0 := zero_pow (by decide)
-  have hpow5 : (0 : k[X]) ^ 5 = 0 := zero_pow (by decide)
-  have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
-  have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
-  have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n5QuarticColumnGamma810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  unfold n5QuarticColumnGamma810
+  exact (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le))) hd0) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _)))) hd2))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos)))
 
 set_option maxHeartbeats 64000000 in
 /-- Piece 1/2 of `n5QuarticColumnDelta810` on the live set `BCFG` (6 monomials). -/
@@ -708,9 +642,8 @@ theorem n5QuarticColumnDelta810PartBCFG1810_natDegree_lt
     (hd4 : 2 * B.natDegree + C.natDegree < d)
     (hd5 : A.natDegree + G.natDegree < d) :
     (n5QuarticColumnDelta810PartBCFG1810 delta A B C D E F G).natDegree < d := by
-  simp only [n5QuarticColumnDelta810PartBCFG1810]
-  compute_degree
-  omega
+  unfold n5QuarticColumnDelta810PartBCFG1810
+  exact (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd2))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le))) hd3))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd4))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _)))) hd5)))
 
 set_option maxHeartbeats 64000000 in
 /-- Piece 2/2 of `n5QuarticColumnDelta810` on the live set `BCFG` (1 monomials). -/
@@ -727,9 +660,8 @@ theorem n5QuarticColumnDelta810PartBCFG2810_natDegree_lt
     (hdpos : 0 < d)
     (hd0 : B.natDegree + F.natDegree < d) :
     (n5QuarticColumnDelta810PartBCFG2810 delta A B C D E F G).natDegree < d := by
-  simp only [n5QuarticColumnDelta810PartBCFG2810]
-  compute_degree
-  omega
+  unfold n5QuarticColumnDelta810PartBCFG2810
+  exact (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _)))) hd0)
 
 set_option maxHeartbeats 64000000 in
 theorem n5QuarticColumnDelta810_split_of_live_BCFG
@@ -749,8 +681,8 @@ theorem n5QuarticColumnDelta810_split_of_live_BCFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n5QuarticColumnDelta810, n5QuarticColumnDelta810PartBCFG1810, n5QuarticColumnDelta810PartBCFG2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  all_goals module
+  simp only [n5QuarticColumnDelta810, n5QuarticColumnDelta810PartBCFG1810, n5QuarticColumnDelta810PartBCFG2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero, sub_eq_add_neg, neg_smul, add_assoc]
+  all_goals rfl
 
 set_option maxHeartbeats 64000000 in
 theorem n5QuarticColumnDelta810_natDegree_lt_of_live_BCFG
@@ -783,16 +715,8 @@ theorem n5QuarticColumnEpsilon810_natDegree_lt_of_live_BCFG
     (n5QuarticColumnEpsilon810 epsilon A B C D E F G).natDegree < d := by
   subst hDz
   subst hEz
-  have hpow2 : (0 : k[X]) ^ 2 = 0 := zero_pow (by decide)
-  have hpow3 : (0 : k[X]) ^ 3 = 0 := zero_pow (by decide)
-  have hpow4 : (0 : k[X]) ^ 4 = 0 := zero_pow (by decide)
-  have hpow5 : (0 : k[X]) ^ 5 = 0 := zero_pow (by decide)
-  have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
-  have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
-  have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n5QuarticColumnEpsilon810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  unfold n5QuarticColumnEpsilon810
+  exact (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd0) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos)))
 
 set_option maxHeartbeats 64000000 in
 theorem n5QuarticColumnZeta810_natDegree_lt_of_live_BCFG
@@ -810,16 +734,8 @@ theorem n5QuarticColumnZeta810_natDegree_lt_of_live_BCFG
     (n5QuarticColumnZeta810 zeta A B C D E F G).natDegree < d := by
   subst hDz
   subst hEz
-  have hpow2 : (0 : k[X]) ^ 2 = 0 := zero_pow (by decide)
-  have hpow3 : (0 : k[X]) ^ 3 = 0 := zero_pow (by decide)
-  have hpow4 : (0 : k[X]) ^ 4 = 0 := zero_pow (by decide)
-  have hpow5 : (0 : k[X]) ^ 5 = 0 := zero_pow (by decide)
-  have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
-  have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
-  have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n5QuarticColumnZeta810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  unfold n5QuarticColumnZeta810
+  exact (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le))) hd2))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd3))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_refl _)) hd4)))
 
 set_option maxHeartbeats 64000000 in
 theorem n5QuarticColumnEta810_natDegree_lt_of_live_BCFG
@@ -834,16 +750,8 @@ theorem n5QuarticColumnEta810_natDegree_lt_of_live_BCFG
     (n5QuarticColumnEta810 eta A B C D E F G).natDegree < d := by
   subst hDz
   subst hEz
-  have hpow2 : (0 : k[X]) ^ 2 = 0 := zero_pow (by decide)
-  have hpow3 : (0 : k[X]) ^ 3 = 0 := zero_pow (by decide)
-  have hpow4 : (0 : k[X]) ^ 4 = 0 := zero_pow (by decide)
-  have hpow5 : (0 : k[X]) ^ 5 = 0 := zero_pow (by decide)
-  have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
-  have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
-  have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n5QuarticColumnEta810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  unfold n5QuarticColumnEta810
+  exact (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _)))) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_refl _)) hd1)))
 
 set_option maxHeartbeats 64000000 in
 theorem n5QuarticColumnTheta810_natDegree_lt_of_live_BCFG
@@ -859,16 +767,8 @@ theorem n5QuarticColumnTheta810_natDegree_lt_of_live_BCFG
     (n5QuarticColumnTheta810 theta A B C D E F G).natDegree < d := by
   subst hDz
   subst hEz
-  have hpow2 : (0 : k[X]) ^ 2 = 0 := zero_pow (by decide)
-  have hpow3 : (0 : k[X]) ^ 3 = 0 := zero_pow (by decide)
-  have hpow4 : (0 : k[X]) ^ 4 = 0 := zero_pow (by decide)
-  have hpow5 : (0 : k[X]) ^ 5 = 0 := zero_pow (by decide)
-  have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
-  have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
-  have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n5QuarticColumnTheta810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  unfold n5QuarticColumnTheta810
+  exact (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _)))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd2))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos)))
 
 set_option maxHeartbeats 64000000 in
 /-- Piece 1/2 of `n6QuarticColumnL1810` on the live set `BCFG` (6 monomials). -/
@@ -895,9 +795,8 @@ theorem n6QuarticColumnL1810PartBCFG1810_natDegree_lt
     (hd4 : 3 * A.natDegree + 2 * B.natDegree + C.natDegree < d)
     (hd5 : 2 * A.natDegree + 4 * B.natDegree < d) :
     (n6QuarticColumnL1810PartBCFG1810 l A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnL1810PartBCFG1810]
-  compute_degree
-  omega
+  unfold n6QuarticColumnL1810PartBCFG1810
+  exact (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd2))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd3))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le)) (le_refl _)))) hd4))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd5)))
 
 set_option maxHeartbeats 64000000 in
 /-- Piece 2/2 of `n6QuarticColumnL1810` on the live set `BCFG` (5 monomials). -/
@@ -922,9 +821,8 @@ theorem n6QuarticColumnL1810PartBCFG2810_natDegree_lt
     (hd3 : 4 * B.natDegree + C.natDegree < d)
     (hd4 : 2 * A.natDegree + C.natDegree + G.natDegree < d) :
     (n6QuarticColumnL1810PartBCFG2810 l A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnL1810PartBCFG2810]
-  compute_degree
-  omega
+  unfold n6QuarticColumnL1810PartBCFG2810
+  exact (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le)) natDegree_pow_le))) hd2))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd3))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _))) (le_refl _)))) hd4)))
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnL1810_split_of_live_BCFG
@@ -944,8 +842,8 @@ theorem n6QuarticColumnL1810_split_of_live_BCFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n6QuarticColumnL1810, n6QuarticColumnL1810PartBCFG1810, n6QuarticColumnL1810PartBCFG2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  all_goals module
+  simp only [n6QuarticColumnL1810, n6QuarticColumnL1810PartBCFG1810, n6QuarticColumnL1810PartBCFG2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero, sub_eq_add_neg, neg_smul, add_assoc]
+  all_goals rfl
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnL1810_natDegree_lt_of_live_BCFG
@@ -995,9 +893,8 @@ theorem n6QuarticColumnL2810PartBCFG1810_natDegree_lt
     (hd4 : A.natDegree + 2 * F.natDegree < d)
     (hd5 : 2 * C.natDegree + G.natDegree < d) :
     (n6QuarticColumnL2810PartBCFG1810 l A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnL2810PartBCFG1810]
-  compute_degree
-  omega
+  unfold n6QuarticColumnL2810PartBCFG1810
+  exact (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le)) (le_refl _)))) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _))) (le_refl _))) (le_refl _)))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd2))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd3))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le))) hd4))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd5)))
 
 set_option maxHeartbeats 64000000 in
 /-- Piece 2/2 of `n6QuarticColumnL2810` on the live set `BCFG` (1 monomials). -/
@@ -1014,9 +911,8 @@ theorem n6QuarticColumnL2810PartBCFG2810_natDegree_lt
     (hdpos : 0 < d)
     (hd0 : 2 * G.natDegree < d) :
     (n6QuarticColumnL2810PartBCFG2810 l A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnL2810PartBCFG2810]
-  compute_degree
-  omega
+  unfold n6QuarticColumnL2810PartBCFG2810
+  exact (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd0)
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnL2810_split_of_live_BCFG
@@ -1036,8 +932,8 @@ theorem n6QuarticColumnL2810_split_of_live_BCFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n6QuarticColumnL2810, n6QuarticColumnL2810PartBCFG1810, n6QuarticColumnL2810PartBCFG2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  all_goals module
+  simp only [n6QuarticColumnL2810, n6QuarticColumnL2810PartBCFG1810, n6QuarticColumnL2810PartBCFG2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero, sub_eq_add_neg, neg_smul, add_assoc]
+  all_goals rfl
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnL2810_natDegree_lt_of_live_BCFG
@@ -1083,9 +979,8 @@ theorem n6QuarticColumnBeta1810PartBCFG1810_natDegree_lt
     (hd4 : 2 * A.natDegree + 2 * B.natDegree + C.natDegree < d)
     (hd5 : A.natDegree + 4 * B.natDegree < d) :
     (n6QuarticColumnBeta1810PartBCFG1810 beta A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnBeta1810PartBCFG1810]
-  compute_degree
-  omega
+  unfold n6QuarticColumnBeta1810PartBCFG1810
+  exact (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd2))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd3))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le)) (le_refl _)))) hd4))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le))) hd5)))
 
 set_option maxHeartbeats 64000000 in
 /-- Piece 2/2 of `n6QuarticColumnBeta1810` on the live set `BCFG` (4 monomials). -/
@@ -1108,9 +1003,8 @@ theorem n6QuarticColumnBeta1810PartBCFG2810_natDegree_lt
     (hd2 : 2 * B.natDegree + 2 * C.natDegree < d)
     (hd3 : B.natDegree + C.natDegree + F.natDegree < d) :
     (n6QuarticColumnBeta1810PartBCFG2810 beta A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnBeta1810PartBCFG2810]
-  compute_degree
-  omega
+  unfold n6QuarticColumnBeta1810PartBCFG2810
+  exact (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _))) (le_refl _)))) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd2))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _))) (le_refl _)))) hd3)))
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnBeta1810_split_of_live_BCFG
@@ -1130,8 +1024,8 @@ theorem n6QuarticColumnBeta1810_split_of_live_BCFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n6QuarticColumnBeta1810, n6QuarticColumnBeta1810PartBCFG1810, n6QuarticColumnBeta1810PartBCFG2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  all_goals module
+  simp only [n6QuarticColumnBeta1810, n6QuarticColumnBeta1810PartBCFG1810, n6QuarticColumnBeta1810PartBCFG2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero, sub_eq_add_neg, neg_smul, add_assoc]
+  all_goals rfl
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnBeta1810_natDegree_lt_of_live_BCFG
@@ -1167,16 +1061,8 @@ theorem n6QuarticColumnBeta2810_natDegree_lt_of_live_BCFG
     (n6QuarticColumnBeta2810 beta A B C D E F G).natDegree < d := by
   subst hDz
   subst hEz
-  have hpow2 : (0 : k[X]) ^ 2 = 0 := zero_pow (by decide)
-  have hpow3 : (0 : k[X]) ^ 3 = 0 := zero_pow (by decide)
-  have hpow4 : (0 : k[X]) ^ 4 = 0 := zero_pow (by decide)
-  have hpow5 : (0 : k[X]) ^ 5 = 0 := zero_pow (by decide)
-  have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
-  have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
-  have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n6QuarticColumnBeta2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  unfold n6QuarticColumnBeta2810
+  exact (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd0)))
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnGamma810_natDegree_lt_of_live_BCFG
@@ -1194,16 +1080,8 @@ theorem n6QuarticColumnGamma810_natDegree_lt_of_live_BCFG
     (n6QuarticColumnGamma810 gamma A B C D E F G).natDegree < d := by
   subst hDz
   subst hEz
-  have hpow2 : (0 : k[X]) ^ 2 = 0 := zero_pow (by decide)
-  have hpow3 : (0 : k[X]) ^ 3 = 0 := zero_pow (by decide)
-  have hpow4 : (0 : k[X]) ^ 4 = 0 := zero_pow (by decide)
-  have hpow5 : (0 : k[X]) ^ 5 = 0 := zero_pow (by decide)
-  have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
-  have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
-  have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n6QuarticColumnGamma810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  unfold n6QuarticColumnGamma810
+  exact (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd0) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _))) natDegree_pow_le))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd2))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _))) (le_refl _)))) hd3))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd4))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos)))
 
 set_option maxHeartbeats 64000000 in
 /-- Piece 1/2 of `n6QuarticColumnDelta810` on the live set `BCFG` (6 monomials). -/
@@ -1230,9 +1108,8 @@ theorem n6QuarticColumnDelta810PartBCFG1810_natDegree_lt
     (hd4 : A.natDegree + 2 * B.natDegree + C.natDegree < d)
     (hd5 : 4 * B.natDegree < d) :
     (n6QuarticColumnDelta810PartBCFG1810 delta A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnDelta810PartBCFG1810]
-  compute_degree
-  omega
+  unfold n6QuarticColumnDelta810PartBCFG1810
+  exact (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd2))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd3))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le)) (le_refl _)))) hd4))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd5)))
 
 set_option maxHeartbeats 64000000 in
 /-- Piece 2/2 of `n6QuarticColumnDelta810` on the live set `BCFG` (3 monomials). -/
@@ -1253,9 +1130,8 @@ theorem n6QuarticColumnDelta810PartBCFG2810_natDegree_lt
     (hd1 : A.natDegree + B.natDegree + F.natDegree < d)
     (hd2 : 3 * C.natDegree < d) :
     (n6QuarticColumnDelta810PartBCFG2810 delta A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnDelta810PartBCFG2810]
-  compute_degree
-  omega
+  unfold n6QuarticColumnDelta810PartBCFG2810
+  exact (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _))) (le_refl _)))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd2)))
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnDelta810_split_of_live_BCFG
@@ -1275,8 +1151,8 @@ theorem n6QuarticColumnDelta810_split_of_live_BCFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n6QuarticColumnDelta810, n6QuarticColumnDelta810PartBCFG1810, n6QuarticColumnDelta810PartBCFG2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  all_goals module
+  simp only [n6QuarticColumnDelta810, n6QuarticColumnDelta810PartBCFG1810, n6QuarticColumnDelta810PartBCFG2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero, sub_eq_add_neg, neg_smul, add_assoc]
+  all_goals rfl
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnDelta810_natDegree_lt_of_live_BCFG
@@ -1313,16 +1189,8 @@ theorem n6QuarticColumnEpsilon810_natDegree_lt_of_live_BCFG
     (n6QuarticColumnEpsilon810 epsilon A B C D E F G).natDegree < d := by
   subst hDz
   subst hEz
-  have hpow2 : (0 : k[X]) ^ 2 = 0 := zero_pow (by decide)
-  have hpow3 : (0 : k[X]) ^ 3 = 0 := zero_pow (by decide)
-  have hpow4 : (0 : k[X]) ^ 4 = 0 := zero_pow (by decide)
-  have hpow5 : (0 : k[X]) ^ 5 = 0 := zero_pow (by decide)
-  have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
-  have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
-  have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n6QuarticColumnEpsilon810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  unfold n6QuarticColumnEpsilon810
+  exact (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le))) hd0) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _)))) hd2))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos)))
 
 set_option maxHeartbeats 64000000 in
 /-- Piece 1/2 of `n6QuarticColumnZeta810` on the live set `BCFG` (6 monomials). -/
@@ -1349,9 +1217,8 @@ theorem n6QuarticColumnZeta810PartBCFG1810_natDegree_lt
     (hd4 : 2 * B.natDegree + C.natDegree < d)
     (hd5 : A.natDegree + G.natDegree < d) :
     (n6QuarticColumnZeta810PartBCFG1810 zeta A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnZeta810PartBCFG1810]
-  compute_degree
-  omega
+  unfold n6QuarticColumnZeta810PartBCFG1810
+  exact (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd2))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le))) hd3))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd4))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _)))) hd5)))
 
 set_option maxHeartbeats 64000000 in
 /-- Piece 2/2 of `n6QuarticColumnZeta810` on the live set `BCFG` (1 monomials). -/
@@ -1368,9 +1235,8 @@ theorem n6QuarticColumnZeta810PartBCFG2810_natDegree_lt
     (hdpos : 0 < d)
     (hd0 : B.natDegree + F.natDegree < d) :
     (n6QuarticColumnZeta810PartBCFG2810 zeta A B C D E F G).natDegree < d := by
-  simp only [n6QuarticColumnZeta810PartBCFG2810]
-  compute_degree
-  omega
+  unfold n6QuarticColumnZeta810PartBCFG2810
+  exact (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _)))) hd0)
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnZeta810_split_of_live_BCFG
@@ -1390,8 +1256,8 @@ theorem n6QuarticColumnZeta810_split_of_live_BCFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n6QuarticColumnZeta810, n6QuarticColumnZeta810PartBCFG1810, n6QuarticColumnZeta810PartBCFG2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  all_goals module
+  simp only [n6QuarticColumnZeta810, n6QuarticColumnZeta810PartBCFG1810, n6QuarticColumnZeta810PartBCFG2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero, sub_eq_add_neg, neg_smul, add_assoc]
+  all_goals rfl
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnZeta810_natDegree_lt_of_live_BCFG
@@ -1426,16 +1292,8 @@ theorem n6QuarticColumnEta810_natDegree_lt_of_live_BCFG
     (n6QuarticColumnEta810 eta A B C D E F G).natDegree < d := by
   subst hDz
   subst hEz
-  have hpow2 : (0 : k[X]) ^ 2 = 0 := zero_pow (by decide)
-  have hpow3 : (0 : k[X]) ^ 3 = 0 := zero_pow (by decide)
-  have hpow4 : (0 : k[X]) ^ 4 = 0 := zero_pow (by decide)
-  have hpow5 : (0 : k[X]) ^ 5 = 0 := zero_pow (by decide)
-  have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
-  have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
-  have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n6QuarticColumnEta810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  unfold n6QuarticColumnEta810
+  exact (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _))) (le_refl _)))) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _)))) hd2))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos)))
 
 set_option maxHeartbeats 64000000 in
 theorem n6QuarticColumnTheta810_natDegree_lt_of_live_BCFG
@@ -1453,16 +1311,8 @@ theorem n6QuarticColumnTheta810_natDegree_lt_of_live_BCFG
     (n6QuarticColumnTheta810 theta A B C D E F G).natDegree < d := by
   subst hDz
   subst hEz
-  have hpow2 : (0 : k[X]) ^ 2 = 0 := zero_pow (by decide)
-  have hpow3 : (0 : k[X]) ^ 3 = 0 := zero_pow (by decide)
-  have hpow4 : (0 : k[X]) ^ 4 = 0 := zero_pow (by decide)
-  have hpow5 : (0 : k[X]) ^ 5 = 0 := zero_pow (by decide)
-  have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
-  have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
-  have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n6QuarticColumnTheta810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  unfold n6QuarticColumnTheta810
+  exact (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le))) hd2))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd3))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_refl _)) hd4)))
 
 set_option maxHeartbeats 64000000 in
 /-- Piece 1/2 of `n7QuarticColumnL1810` on the live set `BCFG` (6 monomials). -/
@@ -1489,9 +1339,8 @@ theorem n7QuarticColumnL1810PartBCFG1810_natDegree_lt
     (hd4 : 3 * A.natDegree + 2 * B.natDegree + C.natDegree < d)
     (hd5 : 2 * A.natDegree + 4 * B.natDegree < d) :
     (n7QuarticColumnL1810PartBCFG1810 l A B C D E F G).natDegree < d := by
-  simp only [n7QuarticColumnL1810PartBCFG1810]
-  compute_degree
-  omega
+  unfold n7QuarticColumnL1810PartBCFG1810
+  exact (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd2))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd3))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le)) (le_refl _)))) hd4))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd5)))
 
 set_option maxHeartbeats 64000000 in
 /-- Piece 2/2 of `n7QuarticColumnL1810` on the live set `BCFG` (6 monomials). -/
@@ -1518,9 +1367,8 @@ theorem n7QuarticColumnL1810PartBCFG2810_natDegree_lt
     (hd4 : 4 * B.natDegree + C.natDegree < d)
     (hd5 : 2 * A.natDegree + C.natDegree + G.natDegree < d) :
     (n7QuarticColumnL1810PartBCFG2810 l A B C D E F G).natDegree < d := by
-  simp only [n7QuarticColumnL1810PartBCFG2810]
-  compute_degree
-  omega
+  unfold n7QuarticColumnL1810PartBCFG2810
+  exact (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _))) (le_refl _)))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd2))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le)) natDegree_pow_le))) hd3))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd4))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _))) (le_refl _)))) hd5)))
 
 set_option maxHeartbeats 64000000 in
 theorem n7QuarticColumnL1810_split_of_live_BCFG
@@ -1540,8 +1388,8 @@ theorem n7QuarticColumnL1810_split_of_live_BCFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n7QuarticColumnL1810, n7QuarticColumnL1810PartBCFG1810, n7QuarticColumnL1810PartBCFG2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  all_goals module
+  simp only [n7QuarticColumnL1810, n7QuarticColumnL1810PartBCFG1810, n7QuarticColumnL1810PartBCFG2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero, sub_eq_add_neg, neg_smul, add_assoc]
+  all_goals rfl
 
 set_option maxHeartbeats 64000000 in
 theorem n7QuarticColumnL1810_natDegree_lt_of_live_BCFG
@@ -1592,9 +1440,8 @@ theorem n7QuarticColumnL2810PartBCFG1810_natDegree_lt
     (hd4 : A.natDegree + 2 * F.natDegree < d)
     (hd5 : 2 * C.natDegree + G.natDegree < d) :
     (n7QuarticColumnL2810PartBCFG1810 l A B C D E F G).natDegree < d := by
-  simp only [n7QuarticColumnL2810PartBCFG1810]
-  compute_degree
-  omega
+  unfold n7QuarticColumnL2810PartBCFG1810
+  exact (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le)) (le_refl _)))) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _))) (le_refl _))) (le_refl _)))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd2))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd3))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le))) hd4))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd5)))
 
 set_option maxHeartbeats 64000000 in
 /-- Piece 2/2 of `n7QuarticColumnL2810` on the live set `BCFG` (1 monomials). -/
@@ -1611,9 +1458,8 @@ theorem n7QuarticColumnL2810PartBCFG2810_natDegree_lt
     (hdpos : 0 < d)
     (hd0 : 2 * G.natDegree < d) :
     (n7QuarticColumnL2810PartBCFG2810 l A B C D E F G).natDegree < d := by
-  simp only [n7QuarticColumnL2810PartBCFG2810]
-  compute_degree
-  omega
+  unfold n7QuarticColumnL2810PartBCFG2810
+  exact (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd0)
 
 set_option maxHeartbeats 64000000 in
 theorem n7QuarticColumnL2810_split_of_live_BCFG
@@ -1633,8 +1479,8 @@ theorem n7QuarticColumnL2810_split_of_live_BCFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n7QuarticColumnL2810, n7QuarticColumnL2810PartBCFG1810, n7QuarticColumnL2810PartBCFG2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  all_goals module
+  simp only [n7QuarticColumnL2810, n7QuarticColumnL2810PartBCFG1810, n7QuarticColumnL2810PartBCFG2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero, sub_eq_add_neg, neg_smul, add_assoc]
+  all_goals rfl
 
 set_option maxHeartbeats 64000000 in
 theorem n7QuarticColumnL2810_natDegree_lt_of_live_BCFG
@@ -1680,9 +1526,8 @@ theorem n7QuarticColumnBeta1810PartBCFG1810_natDegree_lt
     (hd4 : 2 * A.natDegree + 2 * B.natDegree + C.natDegree < d)
     (hd5 : A.natDegree + 4 * B.natDegree < d) :
     (n7QuarticColumnBeta1810PartBCFG1810 beta A B C D E F G).natDegree < d := by
-  simp only [n7QuarticColumnBeta1810PartBCFG1810]
-  compute_degree
-  omega
+  unfold n7QuarticColumnBeta1810PartBCFG1810
+  exact (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd2))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd3))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le)) (le_refl _)))) hd4))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le))) hd5)))
 
 set_option maxHeartbeats 64000000 in
 /-- Piece 2/2 of `n7QuarticColumnBeta1810` on the live set `BCFG` (5 monomials). -/
@@ -1707,9 +1552,8 @@ theorem n7QuarticColumnBeta1810PartBCFG2810_natDegree_lt
     (hd3 : 2 * B.natDegree + 2 * C.natDegree < d)
     (hd4 : B.natDegree + C.natDegree + F.natDegree < d) :
     (n7QuarticColumnBeta1810PartBCFG2810 beta A B C D E F G).natDegree < d := by
-  simp only [n7QuarticColumnBeta1810PartBCFG2810]
-  compute_degree
-  omega
+  unfold n7QuarticColumnBeta1810PartBCFG2810
+  exact (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _))) (le_refl _)))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le))) hd2))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd3))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _))) (le_refl _)))) hd4)))
 
 set_option maxHeartbeats 64000000 in
 theorem n7QuarticColumnBeta1810_split_of_live_BCFG
@@ -1729,8 +1573,8 @@ theorem n7QuarticColumnBeta1810_split_of_live_BCFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n7QuarticColumnBeta1810, n7QuarticColumnBeta1810PartBCFG1810, n7QuarticColumnBeta1810PartBCFG2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  all_goals module
+  simp only [n7QuarticColumnBeta1810, n7QuarticColumnBeta1810PartBCFG1810, n7QuarticColumnBeta1810PartBCFG2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero, sub_eq_add_neg, neg_smul, add_assoc]
+  all_goals rfl
 
 set_option maxHeartbeats 64000000 in
 theorem n7QuarticColumnBeta1810_natDegree_lt_of_live_BCFG
@@ -1767,16 +1611,8 @@ theorem n7QuarticColumnBeta2810_natDegree_lt_of_live_BCFG
     (n7QuarticColumnBeta2810 beta A B C D E F G).natDegree < d := by
   subst hDz
   subst hEz
-  have hpow2 : (0 : k[X]) ^ 2 = 0 := zero_pow (by decide)
-  have hpow3 : (0 : k[X]) ^ 3 = 0 := zero_pow (by decide)
-  have hpow4 : (0 : k[X]) ^ 4 = 0 := zero_pow (by decide)
-  have hpow5 : (0 : k[X]) ^ 5 = 0 := zero_pow (by decide)
-  have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
-  have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
-  have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n7QuarticColumnBeta2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  unfold n7QuarticColumnBeta2810
+  exact (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd0)))
 
 set_option maxHeartbeats 64000000 in
 theorem n7QuarticColumnGamma810_natDegree_lt_of_live_BCFG
@@ -1793,16 +1629,8 @@ theorem n7QuarticColumnGamma810_natDegree_lt_of_live_BCFG
     (n7QuarticColumnGamma810 gamma A B C D E F G).natDegree < d := by
   subst hDz
   subst hEz
-  have hpow2 : (0 : k[X]) ^ 2 = 0 := zero_pow (by decide)
-  have hpow3 : (0 : k[X]) ^ 3 = 0 := zero_pow (by decide)
-  have hpow4 : (0 : k[X]) ^ 4 = 0 := zero_pow (by decide)
-  have hpow5 : (0 : k[X]) ^ 5 = 0 := zero_pow (by decide)
-  have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
-  have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
-  have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n7QuarticColumnGamma810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  unfold n7QuarticColumnGamma810
+  exact (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _))) natDegree_pow_le))) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _))) (le_refl _)))) hd2))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd3))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos)))
 
 set_option maxHeartbeats 64000000 in
 /-- Piece 1/2 of `n7QuarticColumnDelta810` on the live set `BCFG` (6 monomials). -/
@@ -1829,9 +1657,8 @@ theorem n7QuarticColumnDelta810PartBCFG1810_natDegree_lt
     (hd4 : A.natDegree + 2 * B.natDegree + C.natDegree < d)
     (hd5 : 4 * B.natDegree < d) :
     (n7QuarticColumnDelta810PartBCFG1810 delta A B C D E F G).natDegree < d := by
-  simp only [n7QuarticColumnDelta810PartBCFG1810]
-  compute_degree
-  omega
+  unfold n7QuarticColumnDelta810PartBCFG1810
+  exact (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd2))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd3))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le)) (le_refl _)))) hd4))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd5)))
 
 set_option maxHeartbeats 64000000 in
 /-- Piece 2/2 of `n7QuarticColumnDelta810` on the live set `BCFG` (3 monomials). -/
@@ -1852,9 +1679,8 @@ theorem n7QuarticColumnDelta810PartBCFG2810_natDegree_lt
     (hd1 : A.natDegree + B.natDegree + F.natDegree < d)
     (hd2 : 3 * C.natDegree < d) :
     (n7QuarticColumnDelta810PartBCFG2810 delta A B C D E F G).natDegree < d := by
-  simp only [n7QuarticColumnDelta810PartBCFG2810]
-  compute_degree
-  omega
+  unfold n7QuarticColumnDelta810PartBCFG2810
+  exact (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _))) (le_refl _)))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd2)))
 
 set_option maxHeartbeats 64000000 in
 theorem n7QuarticColumnDelta810_split_of_live_BCFG
@@ -1874,8 +1700,8 @@ theorem n7QuarticColumnDelta810_split_of_live_BCFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n7QuarticColumnDelta810, n7QuarticColumnDelta810PartBCFG1810, n7QuarticColumnDelta810PartBCFG2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  all_goals module
+  simp only [n7QuarticColumnDelta810, n7QuarticColumnDelta810PartBCFG1810, n7QuarticColumnDelta810PartBCFG2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero, sub_eq_add_neg, neg_smul, add_assoc]
+  all_goals rfl
 
 set_option maxHeartbeats 64000000 in
 theorem n7QuarticColumnDelta810_natDegree_lt_of_live_BCFG
@@ -1911,16 +1737,8 @@ theorem n7QuarticColumnEpsilon810_natDegree_lt_of_live_BCFG
     (n7QuarticColumnEpsilon810 epsilon A B C D E F G).natDegree < d := by
   subst hDz
   subst hEz
-  have hpow2 : (0 : k[X]) ^ 2 = 0 := zero_pow (by decide)
-  have hpow3 : (0 : k[X]) ^ 3 = 0 := zero_pow (by decide)
-  have hpow4 : (0 : k[X]) ^ 4 = 0 := zero_pow (by decide)
-  have hpow5 : (0 : k[X]) ^ 5 = 0 := zero_pow (by decide)
-  have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
-  have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
-  have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n7QuarticColumnEpsilon810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  unfold n7QuarticColumnEpsilon810
+  exact (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le))) hd0))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _)))) hd1))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos)))
 
 set_option maxHeartbeats 64000000 in
 /-- Piece 1/2 of `n7QuarticColumnZeta810` on the live set `BCFG` (6 monomials). -/
@@ -1947,9 +1765,8 @@ theorem n7QuarticColumnZeta810PartBCFG1810_natDegree_lt
     (hd4 : 2 * B.natDegree + C.natDegree < d)
     (hd5 : A.natDegree + G.natDegree < d) :
     (n7QuarticColumnZeta810PartBCFG1810 zeta A B C D E F G).natDegree < d := by
-  simp only [n7QuarticColumnZeta810PartBCFG1810]
-  compute_degree
-  omega
+  unfold n7QuarticColumnZeta810PartBCFG1810
+  exact (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd2))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le))) hd3))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd4))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _)))) hd5)))
 
 set_option maxHeartbeats 64000000 in
 /-- Piece 2/2 of `n7QuarticColumnZeta810` on the live set `BCFG` (1 monomials). -/
@@ -1966,9 +1783,8 @@ theorem n7QuarticColumnZeta810PartBCFG2810_natDegree_lt
     (hdpos : 0 < d)
     (hd0 : B.natDegree + F.natDegree < d) :
     (n7QuarticColumnZeta810PartBCFG2810 zeta A B C D E F G).natDegree < d := by
-  simp only [n7QuarticColumnZeta810PartBCFG2810]
-  compute_degree
-  omega
+  unfold n7QuarticColumnZeta810PartBCFG2810
+  exact (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _)))) hd0)
 
 set_option maxHeartbeats 64000000 in
 theorem n7QuarticColumnZeta810_split_of_live_BCFG
@@ -1988,8 +1804,8 @@ theorem n7QuarticColumnZeta810_split_of_live_BCFG
   have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
   have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
   have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n7QuarticColumnZeta810, n7QuarticColumnZeta810PartBCFG1810, n7QuarticColumnZeta810PartBCFG2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  all_goals module
+  simp only [n7QuarticColumnZeta810, n7QuarticColumnZeta810PartBCFG1810, n7QuarticColumnZeta810PartBCFG2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero, sub_eq_add_neg, neg_smul, add_assoc]
+  all_goals rfl
 
 set_option maxHeartbeats 64000000 in
 theorem n7QuarticColumnZeta810_natDegree_lt_of_live_BCFG
@@ -2023,16 +1839,8 @@ theorem n7QuarticColumnEta810_natDegree_lt_of_live_BCFG
     (n7QuarticColumnEta810 eta A B C D E F G).natDegree < d := by
   subst hDz
   subst hEz
-  have hpow2 : (0 : k[X]) ^ 2 = 0 := zero_pow (by decide)
-  have hpow3 : (0 : k[X]) ^ 3 = 0 := zero_pow (by decide)
-  have hpow4 : (0 : k[X]) ^ 4 = 0 := zero_pow (by decide)
-  have hpow5 : (0 : k[X]) ^ 5 = 0 := zero_pow (by decide)
-  have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
-  have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
-  have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n7QuarticColumnEta810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  unfold n7QuarticColumnEta810
+  exact (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _))) (le_refl _)))) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd1))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos)))
 
 set_option maxHeartbeats 64000000 in
 theorem n7QuarticColumnTheta810_natDegree_lt_of_live_BCFG
@@ -2050,16 +1858,8 @@ theorem n7QuarticColumnTheta810_natDegree_lt_of_live_BCFG
     (n7QuarticColumnTheta810 theta A B C D E F G).natDegree < d := by
   subst hDz
   subst hEz
-  have hpow2 : (0 : k[X]) ^ 2 = 0 := zero_pow (by decide)
-  have hpow3 : (0 : k[X]) ^ 3 = 0 := zero_pow (by decide)
-  have hpow4 : (0 : k[X]) ^ 4 = 0 := zero_pow (by decide)
-  have hpow5 : (0 : k[X]) ^ 5 = 0 := zero_pow (by decide)
-  have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
-  have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
-  have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n7QuarticColumnTheta810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  unfold n7QuarticColumnTheta810
+  exact (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le))) hd2))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd3))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_refl _)) hd4)))
 
 set_option maxHeartbeats 64000000 in
 theorem kappaQuarticColumnEta810_natDegree_lt_of_live_DEFG
@@ -2099,16 +1899,8 @@ theorem n4QuarticColumnL1810_natDegree_lt_of_live_DEFG
     (n4QuarticColumnL1810 l A B C D E F G).natDegree < d := by
   subst hBz
   subst hCz
-  have hpow2 : (0 : k[X]) ^ 2 = 0 := zero_pow (by decide)
-  have hpow3 : (0 : k[X]) ^ 3 = 0 := zero_pow (by decide)
-  have hpow4 : (0 : k[X]) ^ 4 = 0 := zero_pow (by decide)
-  have hpow5 : (0 : k[X]) ^ 5 = 0 := zero_pow (by decide)
-  have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
-  have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
-  have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n4QuarticColumnL1810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  unfold n4QuarticColumnL1810
+  exact (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd0) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd1))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd2))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd3))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _))) (le_refl _)))) hd4))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd5)))
 
 set_option maxHeartbeats 64000000 in
 theorem n4QuarticColumnL2810_natDegree_lt_of_live_DEFG
@@ -2124,16 +1916,8 @@ theorem n4QuarticColumnL2810_natDegree_lt_of_live_DEFG
     (n4QuarticColumnL2810 l A B C D E F G).natDegree < d := by
   subst hBz
   subst hCz
-  have hpow2 : (0 : k[X]) ^ 2 = 0 := zero_pow (by decide)
-  have hpow3 : (0 : k[X]) ^ 3 = 0 := zero_pow (by decide)
-  have hpow4 : (0 : k[X]) ^ 4 = 0 := zero_pow (by decide)
-  have hpow5 : (0 : k[X]) ^ 5 = 0 := zero_pow (by decide)
-  have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
-  have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
-  have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n4QuarticColumnL2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  unfold n4QuarticColumnL2810
+  exact (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le))) hd0))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd2)))
 
 set_option maxHeartbeats 64000000 in
 theorem n4QuarticColumnBeta1810_natDegree_lt_of_live_DEFG
@@ -2151,16 +1935,8 @@ theorem n4QuarticColumnBeta1810_natDegree_lt_of_live_DEFG
     (n4QuarticColumnBeta1810 beta A B C D E F G).natDegree < d := by
   subst hBz
   subst hCz
-  have hpow2 : (0 : k[X]) ^ 2 = 0 := zero_pow (by decide)
-  have hpow3 : (0 : k[X]) ^ 3 = 0 := zero_pow (by decide)
-  have hpow4 : (0 : k[X]) ^ 4 = 0 := zero_pow (by decide)
-  have hpow5 : (0 : k[X]) ^ 5 = 0 := zero_pow (by decide)
-  have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
-  have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
-  have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n4QuarticColumnBeta1810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  unfold n4QuarticColumnBeta1810
+  exact (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd0) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd1))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le natDegree_pow_le))) hd2))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _))) (le_refl _)))) hd3))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le))) hd4))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos)))
 
 set_option maxHeartbeats 64000000 in
 theorem n4QuarticColumnBeta2810_natDegree_lt_of_live_DEFG
@@ -2174,16 +1950,8 @@ theorem n4QuarticColumnBeta2810_natDegree_lt_of_live_DEFG
     (n4QuarticColumnBeta2810 beta A B C D E F G).natDegree < d := by
   subst hBz
   subst hCz
-  have hpow2 : (0 : k[X]) ^ 2 = 0 := zero_pow (by decide)
-  have hpow3 : (0 : k[X]) ^ 3 = 0 := zero_pow (by decide)
-  have hpow4 : (0 : k[X]) ^ 4 = 0 := zero_pow (by decide)
-  have hpow5 : (0 : k[X]) ^ 5 = 0 := zero_pow (by decide)
-  have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
-  have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
-  have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n4QuarticColumnBeta2810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  unfold n4QuarticColumnBeta2810
+  exact (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd0)))
 
 set_option maxHeartbeats 64000000 in
 theorem n4QuarticColumnGamma810_natDegree_lt_of_live_DEFG
@@ -2198,16 +1966,8 @@ theorem n4QuarticColumnGamma810_natDegree_lt_of_live_DEFG
     (n4QuarticColumnGamma810 gamma A B C D E F G).natDegree < d := by
   subst hBz
   subst hCz
-  have hpow2 : (0 : k[X]) ^ 2 = 0 := zero_pow (by decide)
-  have hpow3 : (0 : k[X]) ^ 3 = 0 := zero_pow (by decide)
-  have hpow4 : (0 : k[X]) ^ 4 = 0 := zero_pow (by decide)
-  have hpow5 : (0 : k[X]) ^ 5 = 0 := zero_pow (by decide)
-  have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
-  have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
-  have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n4QuarticColumnGamma810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  unfold n4QuarticColumnGamma810
+  exact (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _))) (le_refl _)))) hd0))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _)))) hd1)))
 
 set_option maxHeartbeats 64000000 in
 theorem n4QuarticColumnDelta810_natDegree_lt_of_live_DEFG
@@ -2225,16 +1985,8 @@ theorem n4QuarticColumnDelta810_natDegree_lt_of_live_DEFG
     (n4QuarticColumnDelta810 delta A B C D E F G).natDegree < d := by
   subst hBz
   subst hCz
-  have hpow2 : (0 : k[X]) ^ 2 = 0 := zero_pow (by decide)
-  have hpow3 : (0 : k[X]) ^ 3 = 0 := zero_pow (by decide)
-  have hpow4 : (0 : k[X]) ^ 4 = 0 := zero_pow (by decide)
-  have hpow5 : (0 : k[X]) ^ 5 = 0 := zero_pow (by decide)
-  have hpow6 : (0 : k[X]) ^ 6 = 0 := zero_pow (by decide)
-  have hpow7 : (0 : k[X]) ^ 7 = 0 := zero_pow (by decide)
-  have hpow8 : (0 : k[X]) ^ 8 = 0 := zero_pow (by decide)
-  simp only [n4QuarticColumnDelta810, hpow2, hpow3, hpow4, hpow5, hpow6, hpow7, hpow8, zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add, sub_zero, zero_sub, neg_zero, natDegree_zero]
-  compute_degree
-  omega
+  unfold n4QuarticColumnDelta810
+  exact (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd0) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) hd1))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le))) hd2))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (by simpa only [zero_pow (by decide : (2 : ℕ) ≠ 0), zero_pow (by decide : (3 : ℕ) ≠ 0), zero_pow (by decide : (4 : ℕ) ≠ 0), zero_pow (by decide : (5 : ℕ) ≠ 0), zero_pow (by decide : (6 : ℕ) ≠ 0), zero_pow (by decide : (7 : ℕ) ≠ 0), zero_pow (by decide : (8 : ℕ) ≠ 0), zero_mul, mul_zero, smul_zero, natDegree_zero] using hdpos))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _)))) hd3))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) hd4)))
 
 
 end QuarticChamberUnownedTreeColumns3810

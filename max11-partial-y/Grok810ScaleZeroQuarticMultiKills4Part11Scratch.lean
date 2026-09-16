@@ -49,55 +49,55 @@ theorem omicronQuarticFaceABDEG810_coeff_top
     rw [← hdeg_A3B3, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow, leadingCoeff_pow]
   have hdeg_A2B2D : ((A ^ 2 * B ^ 2 * D)).natDegree = 3 * A.natDegree + 3 * B.natDegree := by
     rw [natDegree_mul (mul_ne_zero (pow_ne_zero 2 hAne) (pow_ne_zero 2 hBne)) hDne, natDegree_mul (pow_ne_zero 2 hAne) (pow_ne_zero 2 hBne), natDegree_pow, natDegree_pow]
-    omega
+    clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt; omega
   have hcf_A2B2D : ((A ^ 2 * B ^ 2 * D)).coeff (3 * A.natDegree + 3 * B.natDegree) =
       A.leadingCoeff ^ 2 * B.leadingCoeff ^ 2 * D.leadingCoeff := by
     rw [← hdeg_A2B2D, coeff_natDegree, leadingCoeff_mul, leadingCoeff_mul, leadingCoeff_pow, leadingCoeff_pow]
   have hdeg_A2BG : ((A ^ 2 * B * G)).natDegree = 3 * A.natDegree + 3 * B.natDegree := by
     rw [natDegree_mul (mul_ne_zero (pow_ne_zero 2 hAne) hBne) hGne, natDegree_mul (pow_ne_zero 2 hAne) hBne, natDegree_pow]
-    omega
+    clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt; omega
   have hcf_A2BG : ((A ^ 2 * B * G)).coeff (3 * A.natDegree + 3 * B.natDegree) =
       A.leadingCoeff ^ 2 * B.leadingCoeff * G.leadingCoeff := by
     rw [← hdeg_A2BG, coeff_natDegree, leadingCoeff_mul, leadingCoeff_mul, leadingCoeff_pow]
   have hdeg_A2DE : ((A ^ 2 * D * E)).natDegree = 3 * A.natDegree + 3 * B.natDegree := by
     rw [natDegree_mul (mul_ne_zero (pow_ne_zero 2 hAne) hDne) hEne, natDegree_mul (pow_ne_zero 2 hAne) hDne, natDegree_pow]
-    omega
+    clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt; omega
   have hcf_A2DE : ((A ^ 2 * D * E)).coeff (3 * A.natDegree + 3 * B.natDegree) =
       A.leadingCoeff ^ 2 * D.leadingCoeff * E.leadingCoeff := by
     rw [← hdeg_A2DE, coeff_natDegree, leadingCoeff_mul, leadingCoeff_mul, leadingCoeff_pow]
   have hdeg_ABD2 : ((A * B * D ^ 2)).natDegree = 3 * A.natDegree + 3 * B.natDegree := by
     rw [natDegree_mul (mul_ne_zero hAne hBne) (pow_ne_zero 2 hDne), natDegree_mul hAne hBne, natDegree_pow]
-    omega
+    clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt; omega
   have hcf_ABD2 : ((A * B * D ^ 2)).coeff (3 * A.natDegree + 3 * B.natDegree) =
       A.leadingCoeff * B.leadingCoeff * D.leadingCoeff ^ 2 := by
     rw [← hdeg_ABD2, coeff_natDegree, leadingCoeff_mul, leadingCoeff_mul, leadingCoeff_pow]
   have hdeg_ADG : ((A * D * G)).natDegree = 3 * A.natDegree + 3 * B.natDegree := by
     rw [natDegree_mul (mul_ne_zero hAne hDne) hGne, natDegree_mul hAne hDne]
-    omega
+    clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt; omega
   have hcf_ADG : ((A * D * G)).coeff (3 * A.natDegree + 3 * B.natDegree) =
       A.leadingCoeff * D.leadingCoeff * G.leadingCoeff := by
     rw [← hdeg_ADG, coeff_natDegree, leadingCoeff_mul, leadingCoeff_mul]
   have hdeg_B5 : (B ^ 5).natDegree = 3 * A.natDegree + 3 * B.natDegree := by
     rw [natDegree_pow]
-    omega
+    clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt; omega
   have hcf_B5 : (B ^ 5).coeff (3 * A.natDegree + 3 * B.natDegree) =
       B.leadingCoeff ^ 5 := by
     rw [← hdeg_B5, coeff_natDegree, leadingCoeff_pow]
   have hdeg_B3E : ((B ^ 3 * E)).natDegree = 3 * A.natDegree + 3 * B.natDegree := by
     rw [natDegree_mul (pow_ne_zero 3 hBne) hEne, natDegree_pow]
-    omega
+    clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt; omega
   have hcf_B3E : ((B ^ 3 * E)).coeff (3 * A.natDegree + 3 * B.natDegree) =
       B.leadingCoeff ^ 3 * E.leadingCoeff := by
     rw [← hdeg_B3E, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow]
   have hdeg_BE2 : ((B * E ^ 2)).natDegree = 3 * A.natDegree + 3 * B.natDegree := by
     rw [natDegree_mul hBne (pow_ne_zero 2 hEne), natDegree_pow]
-    omega
+    clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt; omega
   have hcf_BE2 : ((B * E ^ 2)).coeff (3 * A.natDegree + 3 * B.natDegree) =
       B.leadingCoeff * E.leadingCoeff ^ 2 := by
     rw [← hdeg_BE2, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow]
   have hdeg_D3 : (D ^ 3).natDegree = 3 * A.natDegree + 3 * B.natDegree := by
     rw [natDegree_pow]
-    omega
+    clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt; omega
   have hcf_D3 : (D ^ 3).coeff (3 * A.natDegree + 3 * B.natDegree) =
       D.leadingCoeff ^ 3 := by
     rw [← hdeg_D3, coeff_natDegree, leadingCoeff_pow]
@@ -420,6 +420,16 @@ theorem degreeZeroPrimitiveQuartic810_eq_ABDEG_add_rest
     grok810MultiKills4Part11SpeedT_degreeZeroPrimitiveQuarticNoABDEG810_chunk15]
   all_goals module
 
+section
+
+-- Fix scalar operation carriers for reflection coefficient elaboration.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroPrimitiveQuarticNoABDEG810` (145 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
@@ -517,6 +527,9 @@ theorem speedRefl_degreeZeroPrimitiveQuarticNoABDEG810_eq_polyOf
       [0, 1, 0, 0, 1, 0, 0], [0, 0, 1, 1, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0], [2, 0, 1, 0, 0, 0, 0],
       [1, 2, 0, 0, 0, 0, 0], [1, 0, 0, 0, 1, 0, 0], [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 1]] := by
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
   simp only [degreeZeroPrimitiveQuarticNoABDEG810,
     grok810MultiKills4Part11SpeedT_degreeZeroPrimitiveQuarticNoABDEG810_chunk01,
     grok810MultiKills4Part11SpeedT_degreeZeroPrimitiveQuarticNoABDEG810_chunk02,
@@ -532,11 +545,11 @@ theorem speedRefl_degreeZeroPrimitiveQuarticNoABDEG810_eq_polyOf
     grok810MultiKills4Part11SpeedT_degreeZeroPrimitiveQuarticNoABDEG810_chunk12,
     grok810MultiKills4Part11SpeedT_degreeZeroPrimitiveQuarticNoABDEG810_chunk13,
     grok810MultiKills4Part11SpeedT_degreeZeroPrimitiveQuarticNoABDEG810_chunk14,
-    grok810MultiKills4Part11SpeedT_degreeZeroPrimitiveQuarticNoABDEG810_chunk15, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    grok810MultiKills4Part11SpeedT_degreeZeroPrimitiveQuarticNoABDEG810_chunk15, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  simp only [sub_eq_add_neg, neg_smul, add_assoc]
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc, sub_eq_add_neg, neg_smul]
+
+end
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroPrimitiveQuarticNoABDEG810_natDegree_lt
@@ -556,7 +569,7 @@ theorem degreeZeroPrimitiveQuarticNoABDEG810_natDegree_lt
     List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
     Nat.add_zero, Nat.zero_add, max_lt_iff]
   repeat' apply And.intro
-  all_goals omega
+  all_goals clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt hC1 hF1; omega
 
 set_option maxHeartbeats 64000000 in
 theorem primitiveQuarticFaceABDEG810_coeff_top
@@ -579,85 +592,85 @@ theorem primitiveQuarticFaceABDEG810_coeff_top
     rw [← hdeg_A4B3, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow, leadingCoeff_pow]
   have hdeg_A3B2D : ((A ^ 3 * B ^ 2 * D)).natDegree = 4 * A.natDegree + 3 * B.natDegree := by
     rw [natDegree_mul (mul_ne_zero (pow_ne_zero 3 hAne) (pow_ne_zero 2 hBne)) hDne, natDegree_mul (pow_ne_zero 3 hAne) (pow_ne_zero 2 hBne), natDegree_pow, natDegree_pow]
-    omega
+    clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt; omega
   have hcf_A3B2D : ((A ^ 3 * B ^ 2 * D)).coeff (4 * A.natDegree + 3 * B.natDegree) =
       A.leadingCoeff ^ 3 * B.leadingCoeff ^ 2 * D.leadingCoeff := by
     rw [← hdeg_A3B2D, coeff_natDegree, leadingCoeff_mul, leadingCoeff_mul, leadingCoeff_pow, leadingCoeff_pow]
   have hdeg_A3BG : ((A ^ 3 * B * G)).natDegree = 4 * A.natDegree + 3 * B.natDegree := by
     rw [natDegree_mul (mul_ne_zero (pow_ne_zero 3 hAne) hBne) hGne, natDegree_mul (pow_ne_zero 3 hAne) hBne, natDegree_pow]
-    omega
+    clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt; omega
   have hcf_A3BG : ((A ^ 3 * B * G)).coeff (4 * A.natDegree + 3 * B.natDegree) =
       A.leadingCoeff ^ 3 * B.leadingCoeff * G.leadingCoeff := by
     rw [← hdeg_A3BG, coeff_natDegree, leadingCoeff_mul, leadingCoeff_mul, leadingCoeff_pow]
   have hdeg_A3DE : ((A ^ 3 * D * E)).natDegree = 4 * A.natDegree + 3 * B.natDegree := by
     rw [natDegree_mul (mul_ne_zero (pow_ne_zero 3 hAne) hDne) hEne, natDegree_mul (pow_ne_zero 3 hAne) hDne, natDegree_pow]
-    omega
+    clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt; omega
   have hcf_A3DE : ((A ^ 3 * D * E)).coeff (4 * A.natDegree + 3 * B.natDegree) =
       A.leadingCoeff ^ 3 * D.leadingCoeff * E.leadingCoeff := by
     rw [← hdeg_A3DE, coeff_natDegree, leadingCoeff_mul, leadingCoeff_mul, leadingCoeff_pow]
   have hdeg_A2BD2 : ((A ^ 2 * B * D ^ 2)).natDegree = 4 * A.natDegree + 3 * B.natDegree := by
     rw [natDegree_mul (mul_ne_zero (pow_ne_zero 2 hAne) hBne) (pow_ne_zero 2 hDne), natDegree_mul (pow_ne_zero 2 hAne) hBne, natDegree_pow, natDegree_pow]
-    omega
+    clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt; omega
   have hcf_A2BD2 : ((A ^ 2 * B * D ^ 2)).coeff (4 * A.natDegree + 3 * B.natDegree) =
       A.leadingCoeff ^ 2 * B.leadingCoeff * D.leadingCoeff ^ 2 := by
     rw [← hdeg_A2BD2, coeff_natDegree, leadingCoeff_mul, leadingCoeff_mul, leadingCoeff_pow, leadingCoeff_pow]
   have hdeg_A2DG : ((A ^ 2 * D * G)).natDegree = 4 * A.natDegree + 3 * B.natDegree := by
     rw [natDegree_mul (mul_ne_zero (pow_ne_zero 2 hAne) hDne) hGne, natDegree_mul (pow_ne_zero 2 hAne) hDne, natDegree_pow]
-    omega
+    clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt; omega
   have hcf_A2DG : ((A ^ 2 * D * G)).coeff (4 * A.natDegree + 3 * B.natDegree) =
       A.leadingCoeff ^ 2 * D.leadingCoeff * G.leadingCoeff := by
     rw [← hdeg_A2DG, coeff_natDegree, leadingCoeff_mul, leadingCoeff_mul, leadingCoeff_pow]
   have hdeg_AB5 : ((A * B ^ 5)).natDegree = 4 * A.natDegree + 3 * B.natDegree := by
     rw [natDegree_mul hAne (pow_ne_zero 5 hBne), natDegree_pow]
-    omega
+    clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt; omega
   have hcf_AB5 : ((A * B ^ 5)).coeff (4 * A.natDegree + 3 * B.natDegree) =
       A.leadingCoeff * B.leadingCoeff ^ 5 := by
     rw [← hdeg_AB5, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow]
   have hdeg_AB3E : ((A * B ^ 3 * E)).natDegree = 4 * A.natDegree + 3 * B.natDegree := by
     rw [natDegree_mul (mul_ne_zero hAne (pow_ne_zero 3 hBne)) hEne, natDegree_mul hAne (pow_ne_zero 3 hBne), natDegree_pow]
-    omega
+    clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt; omega
   have hcf_AB3E : ((A * B ^ 3 * E)).coeff (4 * A.natDegree + 3 * B.natDegree) =
       A.leadingCoeff * B.leadingCoeff ^ 3 * E.leadingCoeff := by
     rw [← hdeg_AB3E, coeff_natDegree, leadingCoeff_mul, leadingCoeff_mul, leadingCoeff_pow]
   have hdeg_ABE2 : ((A * B * E ^ 2)).natDegree = 4 * A.natDegree + 3 * B.natDegree := by
     rw [natDegree_mul (mul_ne_zero hAne hBne) (pow_ne_zero 2 hEne), natDegree_mul hAne hBne, natDegree_pow]
-    omega
+    clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt; omega
   have hcf_ABE2 : ((A * B * E ^ 2)).coeff (4 * A.natDegree + 3 * B.natDegree) =
       A.leadingCoeff * B.leadingCoeff * E.leadingCoeff ^ 2 := by
     rw [← hdeg_ABE2, coeff_natDegree, leadingCoeff_mul, leadingCoeff_mul, leadingCoeff_pow]
   have hdeg_AD3 : ((A * D ^ 3)).natDegree = 4 * A.natDegree + 3 * B.natDegree := by
     rw [natDegree_mul hAne (pow_ne_zero 3 hDne), natDegree_pow]
-    omega
+    clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt; omega
   have hcf_AD3 : ((A * D ^ 3)).coeff (4 * A.natDegree + 3 * B.natDegree) =
       A.leadingCoeff * D.leadingCoeff ^ 3 := by
     rw [← hdeg_AD3, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow]
   have hdeg_B4D : ((B ^ 4 * D)).natDegree = 4 * A.natDegree + 3 * B.natDegree := by
     rw [natDegree_mul (pow_ne_zero 4 hBne) hDne, natDegree_pow]
-    omega
+    clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt; omega
   have hcf_B4D : ((B ^ 4 * D)).coeff (4 * A.natDegree + 3 * B.natDegree) =
       B.leadingCoeff ^ 4 * D.leadingCoeff := by
     rw [← hdeg_B4D, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow]
   have hdeg_B3G : ((B ^ 3 * G)).natDegree = 4 * A.natDegree + 3 * B.natDegree := by
     rw [natDegree_mul (pow_ne_zero 3 hBne) hGne, natDegree_pow]
-    omega
+    clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt; omega
   have hcf_B3G : ((B ^ 3 * G)).coeff (4 * A.natDegree + 3 * B.natDegree) =
       B.leadingCoeff ^ 3 * G.leadingCoeff := by
     rw [← hdeg_B3G, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow]
   have hdeg_B2DE : ((B ^ 2 * D * E)).natDegree = 4 * A.natDegree + 3 * B.natDegree := by
     rw [natDegree_mul (mul_ne_zero (pow_ne_zero 2 hBne) hDne) hEne, natDegree_mul (pow_ne_zero 2 hBne) hDne, natDegree_pow]
-    omega
+    clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt; omega
   have hcf_B2DE : ((B ^ 2 * D * E)).coeff (4 * A.natDegree + 3 * B.natDegree) =
       B.leadingCoeff ^ 2 * D.leadingCoeff * E.leadingCoeff := by
     rw [← hdeg_B2DE, coeff_natDegree, leadingCoeff_mul, leadingCoeff_mul, leadingCoeff_pow]
   have hdeg_BEG : ((B * E * G)).natDegree = 4 * A.natDegree + 3 * B.natDegree := by
     rw [natDegree_mul (mul_ne_zero hBne hEne) hGne, natDegree_mul hBne hEne]
-    omega
+    clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt; omega
   have hcf_BEG : ((B * E * G)).coeff (4 * A.natDegree + 3 * B.natDegree) =
       B.leadingCoeff * E.leadingCoeff * G.leadingCoeff := by
     rw [← hdeg_BEG, coeff_natDegree, leadingCoeff_mul, leadingCoeff_mul]
   have hdeg_DE2 : ((D * E ^ 2)).natDegree = 4 * A.natDegree + 3 * B.natDegree := by
     rw [natDegree_mul hDne (pow_ne_zero 2 hEne), natDegree_pow]
-    omega
+    clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt; omega
   have hcf_DE2 : ((D * E ^ 2)).coeff (4 * A.natDegree + 3 * B.natDegree) =
       D.leadingCoeff * E.leadingCoeff ^ 2 := by
     rw [← hdeg_DE2, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow]
@@ -698,27 +711,27 @@ theorem quarticCone_ABDEG_impossible
     intro h0
     have : A.natDegree = 0 := by simp [h0]
     rcases hcone with ⟨hApos, hBpos, hDpos, hEpos, hGpos, hAB, hAD, hAE, hAG, hClt, hFlt⟩
-    omega
+    clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt this; omega
   have hBne : B ≠ 0 := by
     intro h0
     have : B.natDegree = 0 := by simp [h0]
     rcases hcone with ⟨hApos, hBpos, hDpos, hEpos, hGpos, hAB, hAD, hAE, hAG, hClt, hFlt⟩
-    omega
+    clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt this; omega
   have hDne : D ≠ 0 := by
     intro h0
     have : D.natDegree = 0 := by simp [h0]
     rcases hcone with ⟨hApos, hBpos, hDpos, hEpos, hGpos, hAB, hAD, hAE, hAG, hClt, hFlt⟩
-    omega
+    clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt this; omega
   have hEne : E ≠ 0 := by
     intro h0
     have : E.natDegree = 0 := by simp [h0]
     rcases hcone with ⟨hApos, hBpos, hDpos, hEpos, hGpos, hAB, hAD, hAE, hAG, hClt, hFlt⟩
-    omega
+    clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt this; omega
   have hGne : G ≠ 0 := by
     intro h0
     have : G.natDegree = 0 := by simp [h0]
     rcases hcone with ⟨hApos, hBpos, hDpos, hEpos, hGpos, hAB, hAD, hAE, hAG, hClt, hFlt⟩
-    omega
+    clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt this; omega
   have hprimdeg :
       (degreeZeroPrimitiveQuartic810 l beta gamma delta epsilon zeta
           eta theta A B C D E F G).natDegree =
@@ -733,7 +746,7 @@ theorem quarticCone_ABDEG_impossible
       apply coeff_eq_zero_of_natDegree_lt
       rw [hkap]
       rcases hcone with ⟨hApos, hBpos, hDpos, hEpos, hGpos, hAB, hAD, hAE, hAG, hClt, hFlt⟩
-      omega
+      clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt; omega
     rw [degreeZeroKappaQuartic810_eq_ABDEG_add_rest, coeff_add,
         coeff_eq_zero_of_natDegree_lt hrest, add_zero] at hz
     have hden : (1 / 512 : k) ≠ 0 :=
@@ -751,7 +764,7 @@ theorem quarticCone_ABDEG_impossible
       apply coeff_eq_zero_of_natDegree_lt
       rw [hmu]
       rcases hcone with ⟨hApos, hBpos, hDpos, hEpos, hGpos, hAB, hAD, hAE, hAG, hClt, hFlt⟩
-      omega
+      clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt; omega
     rw [degreeZeroMuQuartic810_eq_ABDEG_add_rest, coeff_add,
         coeff_eq_zero_of_natDegree_lt hrest, add_zero] at hz
     have hden : (1 / 2048 : k) ≠ 0 :=
@@ -769,7 +782,7 @@ theorem quarticCone_ABDEG_impossible
       apply coeff_eq_zero_of_natDegree_lt
       rw [hnu]
       rcases hcone with ⟨hApos, hBpos, hDpos, hEpos, hGpos, hAB, hAD, hAE, hAG, hClt, hFlt⟩
-      omega
+      clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt; omega
     rw [degreeZeroNuQuartic810_eq_ABDEG_add_rest, coeff_add,
         coeff_eq_zero_of_natDegree_lt hrest, add_zero] at hz
     have hden : (1 / 4096 : k) ≠ 0 :=
@@ -787,7 +800,7 @@ theorem quarticCone_ABDEG_impossible
       apply coeff_eq_zero_of_natDegree_lt
       rw [hxi]
       rcases hcone with ⟨hApos, hBpos, hDpos, hEpos, hGpos, hAB, hAD, hAE, hAG, hClt, hFlt⟩
-      omega
+      clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt; omega
     rw [degreeZeroXiQuartic810_eq_ABDEG_add_rest, coeff_add,
         coeff_eq_zero_of_natDegree_lt hrest, add_zero] at hz
     have hden : (1 / 2048 : k) ≠ 0 :=
@@ -805,7 +818,7 @@ theorem quarticCone_ABDEG_impossible
       apply coeff_eq_zero_of_natDegree_lt
       rw [homi]
       rcases hcone with ⟨hApos, hBpos, hDpos, hEpos, hGpos, hAB, hAD, hAE, hAG, hClt, hFlt⟩
-      omega
+      clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt; omega
     rw [degreeZeroOmicronQuartic810_eq_ABDEG_add_rest, coeff_add,
         coeff_eq_zero_of_natDegree_lt hrest, add_zero] at hz
     have hden : (1 / 65536 : k) ≠ 0 :=
@@ -823,7 +836,7 @@ theorem quarticCone_ABDEG_impossible
       apply coeff_eq_zero_of_natDegree_lt
       rw [hprimdeg]
       rcases hcone with ⟨hApos, hBpos, hDpos, hEpos, hGpos, hAB, hAD, hAE, hAG, hClt, hFlt⟩
-      omega
+      clear * - hApos hBpos hDpos hEpos hGpos hAB hAD hAE hAG hClt hFlt; omega
     rw [degreeZeroPrimitiveQuartic810_eq_ABDEG_add_rest, coeff_add,
         coeff_eq_zero_of_natDegree_lt hrest, add_zero] at hz
     have hden : (1 / 65536 : k) ≠ 0 :=

@@ -11,7 +11,7 @@ section BridgeMuJetFactor610
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- On the globally merged jet the cleared `μ` defect factors exactly
 as `h⁵⁹` times its factored order-`59` head plus `h` times the
 tail. -/
@@ -27,6 +27,7 @@ theorem bridgeClearedMuDefect610_jet_factored
           h * bridgeMuJetTail610 h w1 a41 p32 s1 u2 b62 q53 p2 p1
             p0 q41 q3 q2 q1 (Polynomial.C lambda)) := by
   unfold bridgeClearedMuDefect610 bridgeMuJetHead610 bridgeMuJetTail610
+  simp only [mul_pow, ← pow_mul, Nat.reduceMul]
   ring
 
 end BridgeMuJetFactor610

@@ -12,7 +12,7 @@ section HighBAndDCone610
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 /-- If `B` is the only nonconstant free-core letter, the face `B⁵` has
 degree at least five. -/
 theorem uniqueNonconstantB_impossible

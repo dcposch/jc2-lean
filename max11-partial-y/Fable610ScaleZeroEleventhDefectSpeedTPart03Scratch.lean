@@ -74,6 +74,13 @@ section Depression610Twelfth
 variable {F : Type*} [Field F] [CharZero F]
 
 
+-- Fix the carrier of standard arithmetic while elaborating the scalar identity.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := F) (β := F) (γ := F))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := F) (β := F) (γ := F))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := F) (β := F) (γ := F))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := F) (β := F) (γ := F))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := F) (β := Nat) (γ := F))
+
 set_option maxHeartbeats 64000000 in
 /-- Clearing the first integral `λ` of the degree-`3` row against `h⁶⁰`
 on the ninth-power face. -/

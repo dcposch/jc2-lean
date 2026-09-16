@@ -13,6 +13,7 @@ section PrimitivePolynomial610
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 /-- Polynomial pullback of `degreeZeroZetaGroup610`. -/
 def degreeZeroZetaGroupPolynomial610 (A B C0 D0 : k[X]) : k[X] :=
   (-(7 / 192 : k)) • A ^ 4 +

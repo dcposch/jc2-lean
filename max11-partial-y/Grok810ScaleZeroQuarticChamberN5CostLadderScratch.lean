@@ -217,7 +217,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestL810c1s1
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -292,7 +292,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestL810c1s2
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -367,7 +367,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestL810c1s3
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -436,7 +436,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestL810c1s4
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -486,7 +486,7 @@ theorem n5QuarticCostRestL810c1_split
         n5QuarticCostRestL810c1s3 l beta gamma delta epsilon zeta eta theta A B C D E F G +
         n5QuarticCostRestL810c1s4 l beta gamma delta epsilon zeta eta theta A B C D E F G := by
   simp only [n5QuarticCostRestL810c1, n5QuarticCostRestL810c1s1, n5QuarticCostRestL810c1s2, n5QuarticCostRestL810c1s3, n5QuarticCostRestL810c1s4]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 set_option maxHeartbeats 64000000 in
 theorem n5QuarticCostRestL810c1_natDegree_lt
@@ -553,7 +553,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestL810c2s1
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -628,7 +628,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestL810c2s2
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -703,7 +703,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestL810c2s3
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -772,7 +772,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestL810c2s4
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -822,7 +822,7 @@ theorem n5QuarticCostRestL810c2_split
         n5QuarticCostRestL810c2s3 l beta gamma delta epsilon zeta eta theta A B C D E F G +
         n5QuarticCostRestL810c2s4 l beta gamma delta epsilon zeta eta theta A B C D E F G := by
   simp only [n5QuarticCostRestL810c2, n5QuarticCostRestL810c2s1, n5QuarticCostRestL810c2s2, n5QuarticCostRestL810c2s3, n5QuarticCostRestL810c2s4]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 set_option maxHeartbeats 64000000 in
 theorem n5QuarticCostRestL810c2_natDegree_lt
@@ -889,7 +889,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestL810c3s1
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -964,7 +964,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestL810c3s2
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -1039,7 +1039,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestL810c3s3
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -1108,7 +1108,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestL810c3s4
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -1158,7 +1158,7 @@ theorem n5QuarticCostRestL810c3_split
         n5QuarticCostRestL810c3s3 l beta gamma delta epsilon zeta eta theta A B C D E F G +
         n5QuarticCostRestL810c3s4 l beta gamma delta epsilon zeta eta theta A B C D E F G := by
   simp only [n5QuarticCostRestL810c3, n5QuarticCostRestL810c3s1, n5QuarticCostRestL810c3s2, n5QuarticCostRestL810c3s3, n5QuarticCostRestL810c3s4]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 set_option maxHeartbeats 64000000 in
 theorem n5QuarticCostRestL810c3_natDegree_lt
@@ -1225,7 +1225,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestL810c4s1
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -1300,7 +1300,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestL810c4s2
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -1375,7 +1375,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestL810c4s3
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -1444,7 +1444,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestL810c4s4
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -1494,7 +1494,7 @@ theorem n5QuarticCostRestL810c4_split
         n5QuarticCostRestL810c4s3 l beta gamma delta epsilon zeta eta theta A B C D E F G +
         n5QuarticCostRestL810c4s4 l beta gamma delta epsilon zeta eta theta A B C D E F G := by
   simp only [n5QuarticCostRestL810c4, n5QuarticCostRestL810c4s1, n5QuarticCostRestL810c4s2, n5QuarticCostRestL810c4s3, n5QuarticCostRestL810c4s4]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 set_option maxHeartbeats 64000000 in
 theorem n5QuarticCostRestL810c4_natDegree_lt
@@ -1561,7 +1561,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestL810c5s1
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -1630,7 +1630,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestL810c5s2
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -1678,7 +1678,7 @@ theorem n5QuarticCostRestL810c5_split
       n5QuarticCostRestL810c5s1 l beta gamma delta epsilon zeta eta theta A B C D E F G +
         n5QuarticCostRestL810c5s2 l beta gamma delta epsilon zeta eta theta A B C D E F G := by
   simp only [n5QuarticCostRestL810c5, n5QuarticCostRestL810c5s1, n5QuarticCostRestL810c5s2]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 set_option maxHeartbeats 64000000 in
 theorem n5QuarticCostRestL810c5_natDegree_lt
@@ -1869,14 +1869,11 @@ theorem degreeZeroN5Quartic810_eq_betaCostColumn_add_rest
     degreeZeroN5Quartic810 0 beta gamma delta epsilon zeta eta theta A B C D E F G =
       n5QuarticBetaFace810 beta A +
         n5QuarticCostRestBeta810 0 beta gamma delta epsilon zeta eta theta A B C D E F G := by
-  simp only [degreeZeroN5Quartic810, degreeZeroOmicronQuartic810, degreeZeroNuQuartic810, degreeZeroKappaQuartic810, n5QuarticBetaFace810, n5QuarticCostRestBeta810, n5QuarticCostRestBeta810c1, n5QuarticCostRestBeta810c2, n5QuarticCostRestBeta810c3, n5QuarticCostRestBeta810c4,
+  rw [degreeZeroN5Quartic810_eq_lCostColumn_add_rest]
+  simp only [n5QuarticLFace810, n5QuarticCostRestL810, n5QuarticCostRestL810c1, n5QuarticCostRestL810c2, n5QuarticCostRestL810c3, n5QuarticCostRestL810c4, n5QuarticCostRestL810c5, n5QuarticBetaFace810, n5QuarticCostRestBeta810, n5QuarticCostRestBeta810c1, n5QuarticCostRestBeta810c2, n5QuarticCostRestBeta810c3, n5QuarticCostRestBeta810c4,
     zero_mul, mul_zero, zero_smul, smul_zero, add_zero,
-    zero_add, sub_zero, neg_zero, pow_one]
-  apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
-  simp only [Polynomial.smul_eq_C_mul, map_add, map_sub,
-    map_mul, map_pow, map_neg, map_zero, RatFunc.algebraMap_C,
-    map_div₀, map_ofNat, map_natCast, map_one]
-  ring
+    zero_add, sub_zero, neg_zero, pow_one, neg_smul]
+  abel
 
 set_option maxHeartbeats 64000000 in
 /-- Sub-chunk 1/4 of `n5QuarticCostRestBeta810c1`
@@ -1913,7 +1910,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestBeta810c1s1
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -1988,7 +1985,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestBeta810c1s2
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -2063,7 +2060,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestBeta810c1s3
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -2132,7 +2129,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestBeta810c1s4
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -2182,7 +2179,7 @@ theorem n5QuarticCostRestBeta810c1_split
         n5QuarticCostRestBeta810c1s3 l beta gamma delta epsilon zeta eta theta A B C D E F G +
         n5QuarticCostRestBeta810c1s4 l beta gamma delta epsilon zeta eta theta A B C D E F G := by
   simp only [n5QuarticCostRestBeta810c1, n5QuarticCostRestBeta810c1s1, n5QuarticCostRestBeta810c1s2, n5QuarticCostRestBeta810c1s3, n5QuarticCostRestBeta810c1s4]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 set_option maxHeartbeats 64000000 in
 theorem n5QuarticCostRestBeta810c1_natDegree_lt
@@ -2249,7 +2246,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestBeta810c2s1
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -2324,7 +2321,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestBeta810c2s2
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -2399,7 +2396,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestBeta810c2s3
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -2468,7 +2465,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestBeta810c2s4
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -2518,7 +2515,7 @@ theorem n5QuarticCostRestBeta810c2_split
         n5QuarticCostRestBeta810c2s3 l beta gamma delta epsilon zeta eta theta A B C D E F G +
         n5QuarticCostRestBeta810c2s4 l beta gamma delta epsilon zeta eta theta A B C D E F G := by
   simp only [n5QuarticCostRestBeta810c2, n5QuarticCostRestBeta810c2s1, n5QuarticCostRestBeta810c2s2, n5QuarticCostRestBeta810c2s3, n5QuarticCostRestBeta810c2s4]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 set_option maxHeartbeats 64000000 in
 theorem n5QuarticCostRestBeta810c2_natDegree_lt
@@ -2585,7 +2582,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestBeta810c3s1
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -2660,7 +2657,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestBeta810c3s2
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -2735,7 +2732,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestBeta810c3s3
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -2804,7 +2801,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestBeta810c3s4
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -2854,7 +2851,7 @@ theorem n5QuarticCostRestBeta810c3_split
         n5QuarticCostRestBeta810c3s3 l beta gamma delta epsilon zeta eta theta A B C D E F G +
         n5QuarticCostRestBeta810c3s4 l beta gamma delta epsilon zeta eta theta A B C D E F G := by
   simp only [n5QuarticCostRestBeta810c3, n5QuarticCostRestBeta810c3s1, n5QuarticCostRestBeta810c3s2, n5QuarticCostRestBeta810c3s3, n5QuarticCostRestBeta810c3s4]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 set_option maxHeartbeats 64000000 in
 theorem n5QuarticCostRestBeta810c3_natDegree_lt
@@ -2905,7 +2902,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestBeta810c4
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -3080,14 +3077,11 @@ theorem degreeZeroN5Quartic810_eq_deltaCostColumn_add_rest
     degreeZeroN5Quartic810 0 0 gamma delta epsilon zeta eta theta A B C D E F G =
       n5QuarticDeltaFace810 delta A +
         n5QuarticCostRestDelta810 0 0 gamma delta epsilon zeta eta theta A B C D E F G := by
-  simp only [degreeZeroN5Quartic810, degreeZeroOmicronQuartic810, degreeZeroNuQuartic810, degreeZeroKappaQuartic810, n5QuarticDeltaFace810, n5QuarticCostRestDelta810, n5QuarticCostRestDelta810c1, n5QuarticCostRestDelta810c2, n5QuarticCostRestDelta810c3,
+  rw [degreeZeroN5Quartic810_eq_lCostColumn_add_rest]
+  simp only [n5QuarticLFace810, n5QuarticCostRestL810, n5QuarticCostRestL810c1, n5QuarticCostRestL810c2, n5QuarticCostRestL810c3, n5QuarticCostRestL810c4, n5QuarticCostRestL810c5, n5QuarticDeltaFace810, n5QuarticCostRestDelta810, n5QuarticCostRestDelta810c1, n5QuarticCostRestDelta810c2, n5QuarticCostRestDelta810c3,
     zero_mul, mul_zero, zero_smul, smul_zero, add_zero,
-    zero_add, sub_zero, neg_zero, pow_one]
-  apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
-  simp only [Polynomial.smul_eq_C_mul, map_add, map_sub,
-    map_mul, map_pow, map_neg, map_zero, RatFunc.algebraMap_C,
-    map_div₀, map_ofNat, map_natCast, map_one]
-  ring
+    zero_add, sub_zero, neg_zero, pow_one, neg_smul]
+  abel
 
 set_option maxHeartbeats 64000000 in
 /-- Sub-chunk 1/4 of `n5QuarticCostRestDelta810c1`
@@ -3124,7 +3118,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestDelta810c1s1
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -3204,7 +3198,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestDelta810c1s2
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -3284,7 +3278,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestDelta810c1s3
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -3358,7 +3352,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestDelta810c1s4
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -3413,7 +3407,7 @@ theorem n5QuarticCostRestDelta810c1_split
         n5QuarticCostRestDelta810c1s3 l beta gamma delta epsilon zeta eta theta A B C D E F G +
         n5QuarticCostRestDelta810c1s4 l beta gamma delta epsilon zeta eta theta A B C D E F G := by
   simp only [n5QuarticCostRestDelta810c1, n5QuarticCostRestDelta810c1s1, n5QuarticCostRestDelta810c1s2, n5QuarticCostRestDelta810c1s3, n5QuarticCostRestDelta810c1s4]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 set_option maxHeartbeats 64000000 in
 theorem n5QuarticCostRestDelta810c1_natDegree_lt
@@ -3485,7 +3479,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestDelta810c2s1
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -3565,7 +3559,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestDelta810c2s2
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -3645,7 +3639,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestDelta810c2s3
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -3719,7 +3713,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestDelta810c2s4
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -3774,7 +3768,7 @@ theorem n5QuarticCostRestDelta810c2_split
         n5QuarticCostRestDelta810c2s3 l beta gamma delta epsilon zeta eta theta A B C D E F G +
         n5QuarticCostRestDelta810c2s4 l beta gamma delta epsilon zeta eta theta A B C D E F G := by
   simp only [n5QuarticCostRestDelta810c2, n5QuarticCostRestDelta810c2s1, n5QuarticCostRestDelta810c2s2, n5QuarticCostRestDelta810c2s3, n5QuarticCostRestDelta810c2s4]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 set_option maxHeartbeats 64000000 in
 theorem n5QuarticCostRestDelta810c2_natDegree_lt
@@ -3832,7 +3826,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestDelta810c3
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -4003,14 +3997,11 @@ theorem degreeZeroN5Quartic810_eq_zetaCostColumn_add_rest
     degreeZeroN5Quartic810 0 0 gamma 0 epsilon zeta eta theta A B C D E F G =
       n5QuarticZetaFace810 zeta A +
         n5QuarticCostRestZeta810 0 0 gamma 0 epsilon zeta eta theta A B C D E F G := by
-  simp only [degreeZeroN5Quartic810, degreeZeroOmicronQuartic810, degreeZeroNuQuartic810, degreeZeroKappaQuartic810, n5QuarticZetaFace810, n5QuarticCostRestZeta810, n5QuarticCostRestZeta810c1, n5QuarticCostRestZeta810c2,
+  rw [degreeZeroN5Quartic810_eq_lCostColumn_add_rest]
+  simp only [n5QuarticLFace810, n5QuarticCostRestL810, n5QuarticCostRestL810c1, n5QuarticCostRestL810c2, n5QuarticCostRestL810c3, n5QuarticCostRestL810c4, n5QuarticCostRestL810c5, n5QuarticZetaFace810, n5QuarticCostRestZeta810, n5QuarticCostRestZeta810c1, n5QuarticCostRestZeta810c2,
     zero_mul, mul_zero, zero_smul, smul_zero, add_zero,
-    zero_add, sub_zero, neg_zero, pow_one]
-  apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
-  simp only [Polynomial.smul_eq_C_mul, map_add, map_sub,
-    map_mul, map_pow, map_neg, map_zero, RatFunc.algebraMap_C,
-    map_div₀, map_ofNat, map_natCast, map_one]
-  ring
+    zero_add, sub_zero, neg_zero, pow_one, neg_smul]
+  abel
 
 set_option maxHeartbeats 64000000 in
 /-- Sub-chunk 1/4 of `n5QuarticCostRestZeta810c1`
@@ -4047,7 +4038,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestZeta810c1s1
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -4130,7 +4121,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestZeta810c1s2
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -4213,7 +4204,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestZeta810c1s3
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -4290,7 +4281,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestZeta810c1s4
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -4348,7 +4339,7 @@ theorem n5QuarticCostRestZeta810c1_split
         n5QuarticCostRestZeta810c1s3 l beta gamma delta epsilon zeta eta theta A B C D E F G +
         n5QuarticCostRestZeta810c1s4 l beta gamma delta epsilon zeta eta theta A B C D E F G := by
   simp only [n5QuarticCostRestZeta810c1, n5QuarticCostRestZeta810c1s1, n5QuarticCostRestZeta810c1s2, n5QuarticCostRestZeta810c1s3, n5QuarticCostRestZeta810c1s4]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 set_option maxHeartbeats 64000000 in
 theorem n5QuarticCostRestZeta810c1_natDegree_lt
@@ -4423,7 +4414,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestZeta810c2s1
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -4506,7 +4497,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestZeta810c2s2
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -4583,7 +4574,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestZeta810c2s3
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -4640,7 +4631,7 @@ theorem n5QuarticCostRestZeta810c2_split
         n5QuarticCostRestZeta810c2s2 l beta gamma delta epsilon zeta eta theta A B C D E F G +
         n5QuarticCostRestZeta810c2s3 l beta gamma delta epsilon zeta eta theta A B C D E F G := by
   simp only [n5QuarticCostRestZeta810c2, n5QuarticCostRestZeta810c2s1, n5QuarticCostRestZeta810c2s2, n5QuarticCostRestZeta810c2s3]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 set_option maxHeartbeats 64000000 in
 theorem n5QuarticCostRestZeta810c2_natDegree_lt
@@ -4805,14 +4796,11 @@ theorem degreeZeroN5Quartic810_eq_thetaCostColumn_add_rest
     degreeZeroN5Quartic810 0 0 gamma 0 epsilon 0 eta theta A B C D E F G =
       n5QuarticThetaFace810 theta A +
         n5QuarticCostRestTheta810 0 0 gamma 0 epsilon 0 eta theta A B C D E F G := by
-  simp only [degreeZeroN5Quartic810, degreeZeroOmicronQuartic810, degreeZeroNuQuartic810, degreeZeroKappaQuartic810, n5QuarticThetaFace810, n5QuarticCostRestTheta810, n5QuarticCostRestTheta810c1, n5QuarticCostRestTheta810c2,
+  rw [degreeZeroN5Quartic810_eq_lCostColumn_add_rest]
+  simp only [n5QuarticLFace810, n5QuarticCostRestL810, n5QuarticCostRestL810c1, n5QuarticCostRestL810c2, n5QuarticCostRestL810c3, n5QuarticCostRestL810c4, n5QuarticCostRestL810c5, n5QuarticThetaFace810, n5QuarticCostRestTheta810, n5QuarticCostRestTheta810c1, n5QuarticCostRestTheta810c2,
     zero_mul, mul_zero, zero_smul, smul_zero, add_zero,
-    zero_add, sub_zero, neg_zero, pow_one]
-  apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
-  simp only [Polynomial.smul_eq_C_mul, map_add, map_sub,
-    map_mul, map_pow, map_neg, map_zero, RatFunc.algebraMap_C,
-    map_div₀, map_ofNat, map_natCast, map_one]
-  ring
+    zero_add, sub_zero, neg_zero, pow_one, neg_smul]
+  abel
 
 set_option maxHeartbeats 64000000 in
 /-- Sub-chunk 1/4 of `n5QuarticCostRestTheta810c1`
@@ -4849,7 +4837,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestTheta810c1s1
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -4934,7 +4922,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestTheta810c1s2
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -5019,7 +5007,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestTheta810c1s3
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -5098,7 +5086,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestTheta810c1s4
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -5158,7 +5146,7 @@ theorem n5QuarticCostRestTheta810c1_split
         n5QuarticCostRestTheta810c1s3 l beta gamma delta epsilon zeta eta theta A B C D E F G +
         n5QuarticCostRestTheta810c1s4 l beta gamma delta epsilon zeta eta theta A B C D E F G := by
   simp only [n5QuarticCostRestTheta810c1, n5QuarticCostRestTheta810c1s1, n5QuarticCostRestTheta810c1s2, n5QuarticCostRestTheta810c1s3, n5QuarticCostRestTheta810c1s4]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 set_option maxHeartbeats 64000000 in
 theorem n5QuarticCostRestTheta810c1_natDegree_lt
@@ -5235,7 +5223,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestTheta810c2s1
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -5313,7 +5301,7 @@ private theorem refl810PolyOf_ChamberN5CostLadder_n5QuarticCostRestTheta810c2s2
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 
 set_option maxHeartbeats 64000000 in
@@ -5371,7 +5359,7 @@ theorem n5QuarticCostRestTheta810c2_split
       n5QuarticCostRestTheta810c2s1 l beta gamma delta epsilon zeta eta theta A B C D E F G +
         n5QuarticCostRestTheta810c2s2 l beta gamma delta epsilon zeta eta theta A B C D E F G := by
   simp only [n5QuarticCostRestTheta810c2, n5QuarticCostRestTheta810c2s1, n5QuarticCostRestTheta810c2s2]
-  all_goals module
+  all_goals simp only [neg_smul] <;> abel
 
 set_option maxHeartbeats 64000000 in
 theorem n5QuarticCostRestTheta810c2_natDegree_lt
@@ -5726,49 +5714,10 @@ theorem quarticSigmaN5Cost_l_band
       7 * A.natDegree ≤ 2 * B.natDegree + C.natDegree + D.natDegree ∨
       7 * A.natDegree ≤ B.natDegree + 3 * C.natDegree ∨
       7 * A.natDegree ≤ 5 * B.natDegree := by
-  by_cases hb0 : F.natDegree + G.natDegree < 7 * A.natDegree
-  · by_cases hb1 : 2 * B.natDegree + F.natDegree < 6 * A.natDegree
-    · by_cases hb2 : B.natDegree + C.natDegree + G.natDegree < 7 * A.natDegree
-      · by_cases hb3 : B.natDegree + 2 * D.natDegree < 6 * A.natDegree
-        · by_cases hb4 : B.natDegree + D.natDegree + F.natDegree < 7 * A.natDegree
-          · by_cases hb5 : B.natDegree + 2 * E.natDegree < 7 * A.natDegree
-            · by_cases hb6 : 2 * C.natDegree + F.natDegree < 7 * A.natDegree
-              · by_cases hb7 : C.natDegree + D.natDegree + E.natDegree < 7 * A.natDegree
-                · by_cases hb8 : 3 * D.natDegree < 7 * A.natDegree
-                  · by_cases hb9 : 3 * B.natDegree + C.natDegree < 6 * A.natDegree
-                    · by_cases hb10 : 3 * B.natDegree + E.natDegree < 7 * A.natDegree
-                      · by_cases hb11 : 2 * B.natDegree + C.natDegree + D.natDegree < 7 * A.natDegree
-                        · by_cases hb12 : B.natDegree + 3 * C.natDegree < 7 * A.natDegree
-                          · by_cases hb13 : 5 * B.natDegree < 7 * A.natDegree
-                            · exact Or.inl (hkill ⟨hA, hb0, hb1, hb2, hb3, hb4, hb5, hb6, hb7, hb8, hb9, hb10, hb11, hb12, hb13⟩)
-                            · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (?_))))))))))))))
-                              omega
-                          · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))))))))))
-                            omega
-                        · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))))))))))
-                          omega
-                      · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))))))))
-                        omega
-                    · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))))))))
-                      omega
-                  · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))))))
-                    omega
-                · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))))))
-                  omega
-              · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))))
-                omega
-            · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))))
-              omega
-          · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))
-            omega
-        · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))
-          omega
-      · refine Or.inr (Or.inr (Or.inr (Or.inl ?_)))
-        omega
-    · refine Or.inr (Or.inr (Or.inl ?_))
-      omega
-  · refine Or.inr (Or.inl ?_)
-    omega
+  by_contra h
+  simp only [not_or, not_le] at h
+  rcases h with ⟨hne, hp0, hp1, hp2, hp3, hp4, hp5, hp6, hp7, hp8, hp9, hp10, hp11, hp12, hp13⟩
+  exact hne (hkill ⟨hA, hp0, hp1, hp2, hp3, hp4, hp5, hp6, hp7, hp8, hp9, hp10, hp11, hp12, hp13⟩)
 
 set_option maxHeartbeats 64000000 in
 theorem quarticSigmaN5Cost_beta_band
@@ -5790,49 +5739,10 @@ theorem quarticSigmaN5Cost_beta_band
       6 * A.natDegree ≤ 2 * B.natDegree + C.natDegree + D.natDegree ∨
       6 * A.natDegree ≤ B.natDegree + 3 * C.natDegree ∨
       6 * A.natDegree ≤ 5 * B.natDegree := by
-  by_cases hb0 : F.natDegree + G.natDegree < 6 * A.natDegree
-  · by_cases hb1 : 2 * B.natDegree + F.natDegree < 5 * A.natDegree
-    · by_cases hb2 : B.natDegree + C.natDegree + G.natDegree < 6 * A.natDegree
-      · by_cases hb3 : B.natDegree + 2 * D.natDegree < 5 * A.natDegree
-        · by_cases hb4 : B.natDegree + D.natDegree + F.natDegree < 6 * A.natDegree
-          · by_cases hb5 : B.natDegree + 2 * E.natDegree < 6 * A.natDegree
-            · by_cases hb6 : 2 * C.natDegree + F.natDegree < 6 * A.natDegree
-              · by_cases hb7 : C.natDegree + D.natDegree + E.natDegree < 6 * A.natDegree
-                · by_cases hb8 : D.natDegree < 2 * A.natDegree
-                  · by_cases hb9 : 3 * B.natDegree + C.natDegree < 5 * A.natDegree
-                    · by_cases hb10 : 3 * B.natDegree + E.natDegree < 6 * A.natDegree
-                      · by_cases hb11 : 2 * B.natDegree + C.natDegree + D.natDegree < 6 * A.natDegree
-                        · by_cases hb12 : B.natDegree + 3 * C.natDegree < 6 * A.natDegree
-                          · by_cases hb13 : 5 * B.natDegree < 6 * A.natDegree
-                            · exact Or.inl (hkill ⟨hA, hb0, hb1, hb2, hb3, hb4, hb5, hb6, hb7, hb8, hb9, hb10, hb11, hb12, hb13⟩)
-                            · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (?_))))))))))))))
-                              omega
-                          · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))))))))))
-                            omega
-                        · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))))))))))
-                          omega
-                      · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))))))))
-                        omega
-                    · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))))))))
-                      omega
-                  · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))))))
-                    omega
-                · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))))))
-                  omega
-              · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))))
-                omega
-            · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))))
-              omega
-          · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))
-            omega
-        · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))
-          omega
-      · refine Or.inr (Or.inr (Or.inr (Or.inl ?_)))
-        omega
-    · refine Or.inr (Or.inr (Or.inl ?_))
-      omega
-  · refine Or.inr (Or.inl ?_)
-    omega
+  by_contra h
+  simp only [not_or, not_le] at h
+  rcases h with ⟨hne, hp0, hp1, hp2, hp3, hp4, hp5, hp6, hp7, hp8, hp9, hp10, hp11, hp12, hp13⟩
+  exact hne (hkill ⟨hA, hp0, hp1, hp2, hp3, hp4, hp5, hp6, hp7, hp8, hp9, hp10, hp11, hp12, hp13⟩)
 
 set_option maxHeartbeats 64000000 in
 theorem quarticSigmaN5Cost_delta_band
@@ -5859,64 +5769,10 @@ theorem quarticSigmaN5Cost_delta_band
       4 * A.natDegree ≤ 3 * B.natDegree ∨
       5 * A.natDegree ≤ 2 * B.natDegree + D.natDegree ∨
       5 * A.natDegree ≤ B.natDegree + 2 * C.natDegree := by
-  by_cases hb0 : F.natDegree + G.natDegree < 5 * A.natDegree
-  · by_cases hb1 : 2 * B.natDegree + F.natDegree < 4 * A.natDegree
-    · by_cases hb2 : B.natDegree + C.natDegree + G.natDegree < 5 * A.natDegree
-      · by_cases hb3 : B.natDegree + 2 * D.natDegree < 4 * A.natDegree
-        · by_cases hb4 : B.natDegree + D.natDegree + F.natDegree < 5 * A.natDegree
-          · by_cases hb5 : B.natDegree + 2 * E.natDegree < 5 * A.natDegree
-            · by_cases hb6 : 2 * C.natDegree + F.natDegree < 5 * A.natDegree
-              · by_cases hb7 : C.natDegree + D.natDegree + E.natDegree < 5 * A.natDegree
-                · by_cases hb8 : 3 * D.natDegree < 5 * A.natDegree
-                  · by_cases hb9 : 3 * B.natDegree + C.natDegree < 4 * A.natDegree
-                    · by_cases hb10 : 3 * B.natDegree + E.natDegree < 5 * A.natDegree
-                      · by_cases hb11 : 2 * B.natDegree + C.natDegree + D.natDegree < 5 * A.natDegree
-                        · by_cases hb12 : B.natDegree + 3 * C.natDegree < 5 * A.natDegree
-                          · by_cases hb13 : B.natDegree < A.natDegree
-                            · by_cases hb14 : C.natDegree + F.natDegree < 5 * A.natDegree
-                              · by_cases hb15 : D.natDegree + E.natDegree < 5 * A.natDegree
-                                · by_cases hb16 : 3 * B.natDegree < 4 * A.natDegree
-                                  · by_cases hb17 : 2 * B.natDegree + D.natDegree < 5 * A.natDegree
-                                    · by_cases hb18 : B.natDegree + 2 * C.natDegree < 5 * A.natDegree
-                                      · exact Or.inl (hkill ⟨hA, hb0, hb1, hb2, hb3, hb4, hb5, hb6, hb7, hb8, hb9, hb10, hb11, hb12, hb13, hb14, hb15, hb16, hb17, hb18⟩)
-                                      · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (?_)))))))))))))))))))
-                                        omega
-                                    · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))))))))))))))))
-                                      omega
-                                  · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))))))))))))))
-                                    omega
-                                · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))))))))))))))
-                                  omega
-                              · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))))))))))))
-                                omega
-                            · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))))))))))))
-                              omega
-                          · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))))))))))
-                            omega
-                        · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))))))))))
-                          omega
-                      · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))))))))
-                        omega
-                    · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))))))))
-                      omega
-                  · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))))))
-                    omega
-                · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))))))
-                  omega
-              · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))))
-                omega
-            · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))))
-              omega
-          · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))
-            omega
-        · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))
-          omega
-      · refine Or.inr (Or.inr (Or.inr (Or.inl ?_)))
-        omega
-    · refine Or.inr (Or.inr (Or.inl ?_))
-      omega
-  · refine Or.inr (Or.inl ?_)
-    omega
+  by_contra h
+  simp only [not_or, not_le] at h
+  rcases h with ⟨hne, hp0, hp1, hp2, hp3, hp4, hp5, hp6, hp7, hp8, hp9, hp10, hp11, hp12, hp13, hp14, hp15, hp16, hp17, hp18⟩
+  exact hne (hkill ⟨hA, hp0, hp1, hp2, hp3, hp4, hp5, hp6, hp7, hp8, hp9, hp10, hp11, hp12, hp13, hp14, hp15, hp16, hp17, hp18⟩)
 
 set_option maxHeartbeats 64000000 in
 theorem quarticSigmaN5Cost_zeta_band
@@ -5946,73 +5802,10 @@ theorem quarticSigmaN5Cost_zeta_band
       4 * A.natDegree ≤ B.natDegree + E.natDegree ∨
       4 * A.natDegree ≤ C.natDegree + D.natDegree ∨
       4 * A.natDegree ≤ 3 * B.natDegree := by
-  by_cases hb0 : F.natDegree + G.natDegree < 4 * A.natDegree
-  · by_cases hb1 : 2 * B.natDegree + F.natDegree < 3 * A.natDegree
-    · by_cases hb2 : B.natDegree + C.natDegree + G.natDegree < 4 * A.natDegree
-      · by_cases hb3 : B.natDegree + 2 * D.natDegree < 3 * A.natDegree
-        · by_cases hb4 : B.natDegree + D.natDegree + F.natDegree < 4 * A.natDegree
-          · by_cases hb5 : B.natDegree + 2 * E.natDegree < 4 * A.natDegree
-            · by_cases hb6 : 2 * C.natDegree + F.natDegree < 4 * A.natDegree
-              · by_cases hb7 : C.natDegree + D.natDegree + E.natDegree < 4 * A.natDegree
-                · by_cases hb8 : 3 * D.natDegree < 4 * A.natDegree
-                  · by_cases hb9 : 3 * B.natDegree + C.natDegree < 3 * A.natDegree
-                    · by_cases hb10 : 3 * B.natDegree + E.natDegree < 4 * A.natDegree
-                      · by_cases hb11 : 2 * B.natDegree + C.natDegree + D.natDegree < 4 * A.natDegree
-                        · by_cases hb12 : B.natDegree + 3 * C.natDegree < 4 * A.natDegree
-                          · by_cases hb13 : 5 * B.natDegree < 4 * A.natDegree
-                            · by_cases hb14 : C.natDegree + F.natDegree < 4 * A.natDegree
-                              · by_cases hb15 : D.natDegree + E.natDegree < 4 * A.natDegree
-                                · by_cases hb16 : B.natDegree < A.natDegree
-                                  · by_cases hb17 : 2 * B.natDegree + D.natDegree < 4 * A.natDegree
-                                    · by_cases hb18 : B.natDegree + 2 * C.natDegree < 4 * A.natDegree
-                                      · by_cases hb19 : B.natDegree + E.natDegree < 4 * A.natDegree
-                                        · by_cases hb20 : C.natDegree + D.natDegree < 4 * A.natDegree
-                                          · by_cases hb21 : 3 * B.natDegree < 4 * A.natDegree
-                                            · exact Or.inl (hkill ⟨hA, hb0, hb1, hb2, hb3, hb4, hb5, hb6, hb7, hb8, hb9, hb10, hb11, hb12, hb13, hb14, hb15, hb16, hb17, hb18, hb19, hb20, hb21⟩)
-                                            · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (?_))))))))))))))))))))))
-                                              omega
-                                          · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))))))))))))))))))
-                                            omega
-                                        · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))))))))))))))))))
-                                          omega
-                                      · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))))))))))))))))
-                                        omega
-                                    · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))))))))))))))))
-                                      omega
-                                  · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))))))))))))))
-                                    omega
-                                · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))))))))))))))
-                                  omega
-                              · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))))))))))))
-                                omega
-                            · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))))))))))))
-                              omega
-                          · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))))))))))
-                            omega
-                        · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))))))))))
-                          omega
-                      · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))))))))
-                        omega
-                    · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))))))))
-                      omega
-                  · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))))))
-                    omega
-                · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))))))
-                  omega
-              · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))))
-                omega
-            · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))))
-              omega
-          · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))
-            omega
-        · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))
-          omega
-      · refine Or.inr (Or.inr (Or.inr (Or.inl ?_)))
-        omega
-    · refine Or.inr (Or.inr (Or.inl ?_))
-      omega
-  · refine Or.inr (Or.inl ?_)
-    omega
+  by_contra h
+  simp only [not_or, not_le] at h
+  rcases h with ⟨hne, hp0, hp1, hp2, hp3, hp4, hp5, hp6, hp7, hp8, hp9, hp10, hp11, hp12, hp13, hp14, hp15, hp16, hp17, hp18, hp19, hp20, hp21⟩
+  exact hne (hkill ⟨hA, hp0, hp1, hp2, hp3, hp4, hp5, hp6, hp7, hp8, hp9, hp10, hp11, hp12, hp13, hp14, hp15, hp16, hp17, hp18, hp19, hp20, hp21⟩)
 
 set_option maxHeartbeats 64000000 in
 theorem quarticSigmaN5Cost_theta_band
@@ -6044,79 +5837,10 @@ theorem quarticSigmaN5Cost_theta_band
       A.natDegree ≤ B.natDegree ∨
       3 * A.natDegree ≤ F.natDegree ∨
       3 * A.natDegree ≤ B.natDegree + C.natDegree := by
-  by_cases hb0 : F.natDegree + G.natDegree < 3 * A.natDegree
-  · by_cases hb1 : 2 * B.natDegree + F.natDegree < 2 * A.natDegree
-    · by_cases hb2 : B.natDegree + C.natDegree + G.natDegree < 3 * A.natDegree
-      · by_cases hb3 : B.natDegree + 2 * D.natDegree < 2 * A.natDegree
-        · by_cases hb4 : B.natDegree + D.natDegree + F.natDegree < 3 * A.natDegree
-          · by_cases hb5 : B.natDegree + 2 * E.natDegree < 3 * A.natDegree
-            · by_cases hb6 : 2 * C.natDegree + F.natDegree < 3 * A.natDegree
-              · by_cases hb7 : C.natDegree + D.natDegree + E.natDegree < 3 * A.natDegree
-                · by_cases hb8 : D.natDegree < A.natDegree
-                  · by_cases hb9 : 3 * B.natDegree + C.natDegree < 2 * A.natDegree
-                    · by_cases hb10 : 3 * B.natDegree + E.natDegree < 3 * A.natDegree
-                      · by_cases hb11 : 2 * B.natDegree + C.natDegree + D.natDegree < 3 * A.natDegree
-                        · by_cases hb12 : B.natDegree + 3 * C.natDegree < 3 * A.natDegree
-                          · by_cases hb13 : 5 * B.natDegree < 3 * A.natDegree
-                            · by_cases hb14 : C.natDegree + F.natDegree < 3 * A.natDegree
-                              · by_cases hb15 : D.natDegree + E.natDegree < 3 * A.natDegree
-                                · by_cases hb16 : 3 * B.natDegree < 2 * A.natDegree
-                                  · by_cases hb17 : 2 * B.natDegree + D.natDegree < 3 * A.natDegree
-                                    · by_cases hb18 : B.natDegree + 2 * C.natDegree < 3 * A.natDegree
-                                      · by_cases hb19 : B.natDegree + E.natDegree < 3 * A.natDegree
-                                        · by_cases hb20 : C.natDegree + D.natDegree < 3 * A.natDegree
-                                          · by_cases hb21 : B.natDegree < A.natDegree
-                                            · by_cases hb22 : F.natDegree < 3 * A.natDegree
-                                              · by_cases hb23 : B.natDegree + C.natDegree < 3 * A.natDegree
-                                                · exact Or.inl (hkill ⟨hA, hb0, hb1, hb2, hb3, hb4, hb5, hb6, hb7, hb8, hb9, hb10, hb11, hb12, hb13, hb14, hb15, hb16, hb17, hb18, hb19, hb20, hb21, hb22, hb23⟩)
-                                                · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (?_))))))))))))))))))))))))
-                                                  omega
-                                              · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))))))))))))))))))))
-                                                omega
-                                            · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))))))))))))))))))))
-                                              omega
-                                          · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))))))))))))))))))
-                                            omega
-                                        · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))))))))))))))))))
-                                          omega
-                                      · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))))))))))))))))
-                                        omega
-                                    · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))))))))))))))))
-                                      omega
-                                  · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))))))))))))))
-                                    omega
-                                · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))))))))))))))
-                                  omega
-                              · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))))))))))))
-                                omega
-                            · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))))))))))))
-                              omega
-                          · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))))))))))
-                            omega
-                        · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))))))))))
-                          omega
-                      · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))))))))
-                        omega
-                    · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))))))))
-                      omega
-                  · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))))))
-                    omega
-                · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))))))
-                  omega
-              · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))))
-                omega
-            · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))))
-              omega
-          · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_)))))
-            omega
-        · refine Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ?_))))
-          omega
-      · refine Or.inr (Or.inr (Or.inr (Or.inl ?_)))
-        omega
-    · refine Or.inr (Or.inr (Or.inl ?_))
-      omega
-  · refine Or.inr (Or.inl ?_)
-    omega
+  by_contra h
+  simp only [not_or, not_le] at h
+  rcases h with ⟨hne, hp0, hp1, hp2, hp3, hp4, hp5, hp6, hp7, hp8, hp9, hp10, hp11, hp12, hp13, hp14, hp15, hp16, hp17, hp18, hp19, hp20, hp21, hp22, hp23⟩
+  exact hne (hkill ⟨hA, hp0, hp1, hp2, hp3, hp4, hp5, hp6, hp7, hp8, hp9, hp10, hp11, hp12, hp13, hp14, hp15, hp16, hp17, hp18, hp19, hp20, hp21, hp22, hp23⟩)
 
 set_option maxHeartbeats 64000000 in
 /-- The cost-form `N₅` ladder as five band disjunctions. -/

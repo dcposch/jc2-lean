@@ -1,3 +1,13 @@
+import Grok810ScaleZeroQuarticChamberKills4Part101SpeedTPart01Scratch
+import Grok810ScaleZeroQuarticChamberKills4Part101SpeedTPart02Scratch
+import Grok810ScaleZeroQuarticChamberKills4Part101SpeedTPart05Scratch
+import Grok810ScaleZeroQuarticChamberKills4Part101SpeedTPart06Scratch
+import Grok810ScaleZeroQuarticChamberKills4Part101SpeedTPart07Scratch
+import Grok810ScaleZeroQuarticChamberKills4Part101SpeedTPart08Scratch
+import Grok810ScaleZeroQuarticChamberKills4Part101SpeedTPart09Scratch
+import Grok810ScaleZeroQuarticChamberKills4Part101SpeedTPart10Scratch
+import Grok810ScaleZeroQuarticChamberKills4Part101SpeedTPart11Scratch
+import Grok810ScaleZeroQuarticChamberKills4Part101SpeedTPart13Scratch
 import Grok810ScaleZeroQuarticChamberDefs3Scratch
 import Grok810ScaleZeroQuarticChamberBandsScratch
 import Grok810ScaleZeroQuarticChamberRestsScratch
@@ -64,41 +74,41 @@ theorem quarticChamberBCEFG40810_impossible
     have hbls : l = 0 ∨ (4 * A.natDegree + B.natDegree < 3 * C.natDegree ∧ 2 * A.natDegree + F.natDegree < 3 * C.natDegree) := by
       rcases hbl with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq0 hcq7 hcq13; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq7 hcq13; omega)
-      · exact absurd h (by clear * - hDn hcq7 hcq13; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq5 hcq7 hcq13; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq7 hcq13; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq3 hcq7 hcq13; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1249 A.natDegree B.natDegree C.natDegree F.natDegree hcq7 h hcq0 hcq13)
+      · exact Or.inr (astra4u_Round4Package_nat_1250 A.natDegree B.natDegree C.natDegree F.natDegree hcq7 h hcq0 hcq13)
+      · exact absurd h (astra4u_Round4Package_nat_1251 A.natDegree B.natDegree C.natDegree D.natDegree F.natDegree hcq7 hcq13 hDn)
+      · exact Or.inr (astra4u_Round4Package_nat_1844 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree h hcq7 hcq0 hcq13 hcq5)
+      · exact Or.inr (astra4u_Round4Package_nat_1253 A.natDegree B.natDegree C.natDegree F.natDegree h hcq7 hcq0 hcq13)
+      · exact Or.inr (astra4u_Round4Package_nat_1960 A.natDegree B.natDegree C.natDegree F.natDegree G.natDegree h hcq7 hcq3 hcq0 hcq13)
     rcases hbls with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq0 hcq3 hcq5 hcq7 hcq13; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_2630 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree hcq7 hcq3 h hcq0 hcq13 hcq5)
   have hbbeta' : beta = 0 ∨ (3 * A.natDegree + B.natDegree < 3 * C.natDegree ∧ A.natDegree + B.natDegree + C.natDegree < 3 * C.natDegree ∧ 3 * B.natDegree < 3 * C.natDegree ∧ A.natDegree + F.natDegree < 3 * C.natDegree ∧ B.natDegree + E.natDegree < 3 * C.natDegree) := by
     have hbbetas : beta = 0 ∨ (3 * A.natDegree + B.natDegree < 3 * C.natDegree) := by
       rcases hbbeta with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq0 hcq13; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq13; omega)
-      · exact absurd h (by clear * - hDn hcq7 hcq13; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq5 hcq13; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq7 hcq13; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq3 hcq7 hcq13; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1256 A.natDegree B.natDegree C.natDegree F.natDegree h hcq0 hcq13)
+      · exact Or.inr (astra4u_Round4Package_nat_1257 A.natDegree B.natDegree C.natDegree F.natDegree h hcq0 hcq13)
+      · exact absurd h (astra4u_Round4Package_nat_1258 A.natDegree B.natDegree C.natDegree D.natDegree F.natDegree hcq7 hcq13 hDn)
+      · exact Or.inr (astra4u_Round4Package_nat_1846 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree h hcq0 hcq13 hcq5)
+      · exact Or.inr (astra4u_Round4Package_nat_1260 A.natDegree B.natDegree C.natDegree F.natDegree h hcq7 hcq0 hcq13)
+      · exact Or.inr (astra4u_Round4Package_nat_1962 A.natDegree B.natDegree C.natDegree F.natDegree G.natDegree h hcq7 hcq3 hcq0 hcq13)
     rcases hbbetas with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq0 hcq5 hApos hcq13; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_1847 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree hApos h hcq0 hcq13 hcq5)
   have hbdelta' : delta = 0 ∨ (2 * A.natDegree + B.natDegree < 3 * C.natDegree ∧ B.natDegree + C.natDegree < 3 * C.natDegree ∧ F.natDegree < 3 * C.natDegree) := by
     have hbdeltas : delta = 0 ∨ (2 * A.natDegree + B.natDegree < 3 * C.natDegree) := by
       rcases hbdelta with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq0 hcq13; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq13; omega)
-      · exact absurd h (by clear * - hDn hcq7 hcq13; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq5 hcq13; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq13; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq3 hcq7 hcq13; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1263 A.natDegree B.natDegree C.natDegree F.natDegree hcq0 h hcq13)
+      · exact Or.inr (astra4u_Round4Package_nat_1264 A.natDegree B.natDegree C.natDegree F.natDegree h hcq0 hcq13)
+      · exact absurd h (astra4u_Round4Package_nat_1265 A.natDegree B.natDegree C.natDegree D.natDegree F.natDegree hcq7 hcq13 hDn)
+      · exact Or.inr (astra4u_Round4Package_nat_1848 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree h hcq0 hcq13 hcq5)
+      · exact Or.inr (astra4u_Round4Package_nat_1267 A.natDegree B.natDegree C.natDegree F.natDegree h hcq0 hcq13)
+      · exact Or.inr (astra4u_Round4Package_nat_1963 A.natDegree B.natDegree C.natDegree F.natDegree G.natDegree h hcq7 hcq3 hcq0 hcq13)
     rcases hbdeltas with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq0 hApos hcq13; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_1269 A.natDegree B.natDegree C.natDegree F.natDegree hApos h hcq0 hcq13)
   have hrest : (muQuarticChamberRest0810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G).natDegree < 3 * C.natDegree :=
     muQuarticChamberRest0810_natDegree_lt_of_live_BCEFG l beta gamma delta epsilon zeta eta theta
@@ -109,7 +119,7 @@ theorem quarticChamberBCEFG40810_impossible
   rw [degreeZeroMuQuartic810_eq_face0_add_rest,
     natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead]
     at hmu
-  clear * - hdpos hmu; omega
+  exact (Nat.ne_of_gt hdpos) hmu
 /-! ## Face degrees -/
 
 set_option maxHeartbeats 64000000 in
@@ -138,41 +148,41 @@ theorem quarticChamberBCEFG41810_impossible
     have hbls : l = 0 ∨ (4 * A.natDegree + B.natDegree < C.natDegree + G.natDegree ∧ 2 * A.natDegree + F.natDegree < C.natDegree + G.natDegree) := by
       rcases hbl with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq7 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq7 hcq14; omega)
-      · exact absurd h (by clear * - hDn hcq0 hcq2 hcq7 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq4 hcq7 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq7 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq7 hcq14; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1964 A.natDegree B.natDegree C.natDegree F.natDegree G.natDegree hcq14 h hcq0 hcq2 hcq7)
+      · exact Or.inr (astra4u_Round4Package_nat_1965 A.natDegree B.natDegree C.natDegree F.natDegree G.natDegree hcq14 h hcq0 hcq2 hcq7)
+      · exact absurd h (astra4u_Round4Package_nat_1966 A.natDegree B.natDegree C.natDegree D.natDegree F.natDegree G.natDegree hcq14 hcq0 hcq2 hDn hcq7)
+      · exact Or.inr (astra4u_Round4Package_nat_2631 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree h hcq14 hcq0 hcq2 hcq4 hcq7)
+      · exact Or.inr (astra4u_Round4Package_nat_1968 A.natDegree B.natDegree C.natDegree F.natDegree G.natDegree h hcq14 hcq0 hcq2 hcq7)
+      · exact Or.inr (astra4u_Round4Package_nat_1969 A.natDegree B.natDegree C.natDegree F.natDegree G.natDegree h hcq14 hcq0 hcq2 hcq7)
     rcases hbls with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq0 hcq2 hcq4 hcq7 hcq14; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_2632 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree h hcq14 hcq0 hcq2 hcq4 hcq7)
   have hbbeta' : beta = 0 ∨ (3 * A.natDegree + B.natDegree < C.natDegree + G.natDegree ∧ A.natDegree + B.natDegree + C.natDegree < C.natDegree + G.natDegree ∧ 3 * B.natDegree < C.natDegree + G.natDegree ∧ A.natDegree + F.natDegree < C.natDegree + G.natDegree ∧ B.natDegree + E.natDegree < C.natDegree + G.natDegree) := by
     have hbbetas : beta = 0 ∨ (3 * A.natDegree + B.natDegree < C.natDegree + G.natDegree) := by
       rcases hbbeta with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq14; omega)
-      · exact absurd h (by clear * - hDn hcq0 hcq2 hcq7 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq4 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq7 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq7 hcq14; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1971 A.natDegree B.natDegree C.natDegree F.natDegree G.natDegree h hcq14 hcq0 hcq2)
+      · exact Or.inr (astra4u_Round4Package_nat_1972 A.natDegree B.natDegree C.natDegree F.natDegree G.natDegree hcq14 h hcq0 hcq2)
+      · exact absurd h (astra4u_Round4Package_nat_1973 A.natDegree B.natDegree C.natDegree D.natDegree F.natDegree G.natDegree hcq14 hcq0 hcq2 hDn hcq7)
+      · exact Or.inr (astra4u_Round4Package_nat_2633 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree hcq14 h hcq0 hcq2 hcq4)
+      · exact Or.inr (astra4u_Round4Package_nat_1975 A.natDegree B.natDegree C.natDegree F.natDegree G.natDegree h hcq14 hcq0 hcq2 hcq7)
+      · exact Or.inr (astra4u_Round4Package_nat_1976 A.natDegree B.natDegree C.natDegree F.natDegree G.natDegree h hcq14 hcq0 hcq2 hcq7)
     rcases hbbetas with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq0 hcq2 hcq4 hcq7 hcq14; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_2634 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree h hcq14 hcq0 hcq2 hcq4 hcq7)
   have hbdelta' : delta = 0 ∨ (2 * A.natDegree + B.natDegree < C.natDegree + G.natDegree ∧ B.natDegree + C.natDegree < C.natDegree + G.natDegree ∧ F.natDegree < C.natDegree + G.natDegree) := by
     have hbdeltas : delta = 0 ∨ (2 * A.natDegree + B.natDegree < C.natDegree + G.natDegree) := by
       rcases hbdelta with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq14; omega)
-      · exact absurd h (by clear * - hDn hcq0 hcq2 hcq7 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq4 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq7 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq7 hcq14; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1978 A.natDegree B.natDegree C.natDegree F.natDegree G.natDegree hcq14 hcq0 h hcq2)
+      · exact Or.inr (astra4u_Round4Package_nat_1979 A.natDegree B.natDegree C.natDegree F.natDegree G.natDegree h hcq14 hcq0 hcq2)
+      · exact absurd h (astra4u_Round4Package_nat_1980 A.natDegree B.natDegree C.natDegree D.natDegree F.natDegree G.natDegree hcq14 hcq0 hcq2 hDn hcq7)
+      · exact Or.inr (astra4u_Round4Package_nat_2635 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree hcq14 h hcq0 hcq2 hcq4)
+      · exact Or.inr (astra4u_Round4Package_nat_1982 A.natDegree B.natDegree C.natDegree F.natDegree G.natDegree hcq14 h hcq0 hcq2 hcq7)
+      · exact Or.inr (astra4u_Round4Package_nat_1983 A.natDegree B.natDegree C.natDegree F.natDegree G.natDegree h hcq14 hcq0 hcq2 hcq7)
     rcases hbdeltas with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq0 hcq2 hcq7 hcq14; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_1984 A.natDegree B.natDegree C.natDegree F.natDegree G.natDegree h hcq14 hcq0 hcq2 hcq7)
   have hrest : (muQuarticChamberRest6810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G).natDegree < C.natDegree + G.natDegree :=
     muQuarticChamberRest6810_natDegree_lt_of_live_BCEFG l beta gamma delta epsilon zeta eta theta
@@ -183,7 +193,7 @@ theorem quarticChamberBCEFG41810_impossible
   rw [degreeZeroMuQuartic810_eq_face6_add_rest,
     natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead]
     at hmu
-  clear * - hdpos hmu; omega
+  exact (Nat.ne_of_gt hdpos) hmu
 /-! ## Face degrees -/
 
 set_option maxHeartbeats 64000000 in
@@ -212,15 +222,15 @@ theorem quarticChamberBCEFG46810_impossible
     have hbls : l = 0 ∨ (2 * A.natDegree + F.natDegree < C.natDegree + G.natDegree) := by
       rcases hbl with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq5 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq14; omega)
-      · exact absurd h (by clear * - hDn hcq0 hcq1 hcq5 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq7 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq14; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1985 A.natDegree B.natDegree C.natDegree F.natDegree G.natDegree hcq1 hcq14 h hcq0 hcq5)
+      · exact Or.inr (astra4u_Round4Package_nat_1986 A.natDegree C.natDegree F.natDegree G.natDegree hcq1 hcq14 h hcq0)
+      · exact absurd h (astra4u_Round4Package_nat_1987 A.natDegree B.natDegree C.natDegree D.natDegree F.natDegree G.natDegree hcq1 hcq14 hcq0 hcq5 hDn)
+      · exact Or.inr (astra4u_Round4Package_nat_2636 A.natDegree C.natDegree E.natDegree F.natDegree G.natDegree h hcq1 hcq14 hcq0 hcq7)
+      · exact Or.inr (astra4u_Round4Package_nat_1989 A.natDegree C.natDegree F.natDegree G.natDegree h hcq1 hcq14 hcq0)
+      · exact Or.inr (astra4u_Round4Package_nat_1990 A.natDegree C.natDegree F.natDegree G.natDegree h hcq1 hcq14 hcq0)
     rcases hbls with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq0 hcq1 hcq5 hcq7 hcq14; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_2637 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree h hcq1 hcq14 hcq0 hcq5 hcq7)
   have hrest : (muQuarticChamberRest6810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G).natDegree < C.natDegree + G.natDegree :=
     muQuarticChamberRest6810_natDegree_lt_of_live_BCEFG l beta gamma delta epsilon zeta eta theta
@@ -231,7 +241,7 @@ theorem quarticChamberBCEFG46810_impossible
   rw [degreeZeroMuQuartic810_eq_face6_add_rest,
     natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead]
     at hmu
-  clear * - hdpos hmu; omega
+  exact (Nat.ne_of_gt hdpos) hmu
 /-! ## Face degrees -/
 
 set_option maxHeartbeats 64000000 in
@@ -260,41 +270,41 @@ theorem quarticChamberBCEFG47810_impossible
     have hbls : l = 0 ∨ (4 * A.natDegree + B.natDegree < 2 * E.natDegree ∧ 2 * A.natDegree + F.natDegree < 2 * E.natDegree) := by
       rcases hbl with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq4 hcq12; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq4 hcq12 hcq14; omega)
-      · exact absurd h (by clear * - hDn hcq0 hcq1 hcq4 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq4 hcq12 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq4 hcq12 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq3 hcq4 hcq12 hcq14; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1849 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree h hcq1 hcq0 hcq12 hcq4)
+      · exact Or.inr (astra4u_Round4Package_nat_1850 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree hcq14 h hcq0 hcq12 hcq4)
+      · exact absurd h (astra4u_Round4Package_nat_1540 A.natDegree C.natDegree D.natDegree E.natDegree F.natDegree hcq14 hcq0 hDn hcq4)
+      · exact Or.inr (astra4u_Round4Package_nat_1851 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree h hcq14 hcq0 hcq12 hcq4)
+      · exact Or.inr (astra4u_Round4Package_nat_1852 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree h hcq14 hcq0 hcq12 hcq4)
+      · exact Or.inr (astra4u_Round4Package_nat_2638 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree h hcq3 hcq14 hcq0 hcq12 hcq4)
     rcases hbls with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq0 hcq3 hcq4 hcq12 hcq14; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_2639 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree hcq3 h hcq14 hcq0 hcq12 hcq4)
   have hbbeta' : beta = 0 ∨ (3 * A.natDegree + B.natDegree < 2 * E.natDegree ∧ A.natDegree + B.natDegree + C.natDegree < 2 * E.natDegree ∧ 3 * B.natDegree < 2 * E.natDegree ∧ A.natDegree + F.natDegree < 2 * E.natDegree ∧ B.natDegree + E.natDegree < 2 * E.natDegree) := by
     have hbbetas : beta = 0 ∨ (3 * A.natDegree + B.natDegree < 2 * E.natDegree) := by
       rcases hbbeta with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq12; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq12; omega)
-      · exact absurd h (by clear * - hDn hcq0 hcq1 hcq4 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq4 hcq12; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq4 hcq12; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq3 hcq4 hcq12; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1854 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree h hcq1 hcq0 hcq12)
+      · exact Or.inr (astra4u_Round4Package_nat_1855 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree h hcq0 hcq12)
+      · exact absurd h (astra4u_Round4Package_nat_1547 A.natDegree C.natDegree D.natDegree E.natDegree F.natDegree hcq14 hcq0 hDn hcq4)
+      · exact Or.inr (astra4u_Round4Package_nat_1856 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree h hcq0 hcq12 hcq4)
+      · exact Or.inr (astra4u_Round4Package_nat_1857 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree h hcq0 hcq12 hcq4)
+      · exact Or.inr (astra4u_Round4Package_nat_2640 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree h hcq3 hcq0 hcq12 hcq4)
     rcases hbbetas with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq0 hcq4 hcq12 hcq14; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_1858 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree h hcq14 hcq0 hcq12 hcq4)
   have hbdelta' : delta = 0 ∨ (2 * A.natDegree + B.natDegree < 2 * E.natDegree ∧ B.natDegree + C.natDegree < 2 * E.natDegree ∧ F.natDegree < 2 * E.natDegree) := by
     have hbdeltas : delta = 0 ∨ (2 * A.natDegree + B.natDegree < 2 * E.natDegree) := by
       rcases hbdelta with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq12; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq12; omega)
-      · exact absurd h (by clear * - hDn hcq0 hcq1 hcq4 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq4 hcq12; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq4 hcq12; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq3 hcq4 hcq12; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1859 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree hcq1 hcq0 h hcq12)
+      · exact Or.inr (astra4u_Round4Package_nat_1860 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree h hcq0 hcq12)
+      · exact absurd h (astra4u_Round4Package_nat_1861 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree hcq14 hcq1 hcq0 hDn hcq4)
+      · exact Or.inr (astra4u_Round4Package_nat_1862 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree h hcq0 hcq12 hcq4)
+      · exact Or.inr (astra4u_Round4Package_nat_1863 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree h hcq0 hcq12 hcq4)
+      · exact Or.inr (astra4u_Round4Package_nat_2641 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree h hcq3 hcq0 hcq12 hcq4)
     rcases hbdeltas with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq0 hcq1 hcq4 hcq12; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_2642 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree h hcq1 hcq0 hcq12 hcq4)
   have hrest : (muQuarticChamberRest2810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G).natDegree < 2 * E.natDegree :=
     muQuarticChamberRest2810_natDegree_lt_of_live_BCEFG l beta gamma delta epsilon zeta eta theta
@@ -305,7 +315,7 @@ theorem quarticChamberBCEFG47810_impossible
   rw [degreeZeroMuQuartic810_eq_face2_add_rest,
     natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead]
     at hmu
-  clear * - hdpos hmu; omega
+  exact (Nat.ne_of_gt hdpos) hmu
 /-! ## Face degrees -/
 
 set_option maxHeartbeats 64000000 in
@@ -334,15 +344,15 @@ theorem quarticChamberBCEFG49810_impossible
     have hbls : l = 0 ∨ (2 * A.natDegree + F.natDegree < 2 * E.natDegree) := by
       rcases hbl with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq12; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq14; omega)
-      · exact absurd h (by clear * - hDn hApos; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq7 hcq14; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1866 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree h hcq3 hcq0 hcq1 hcq12)
+      · exact Or.inr (astra4u_Round4Package_nat_1551 A.natDegree C.natDegree E.natDegree F.natDegree hcq14 h hcq0 hcq1)
+      · exact absurd h (astra4u_Round4Package_nat_0222 A.natDegree D.natDegree hApos hDn)
+      · exact Or.inr (astra4u_Round4Package_nat_1552 A.natDegree C.natDegree E.natDegree F.natDegree h hcq14 hcq0 hcq1)
+      · exact Or.inr (astra4u_Round4Package_nat_1553 A.natDegree C.natDegree E.natDegree F.natDegree h hcq14 hcq0 hcq1)
+      · exact Or.inr (astra4u_Round4Package_nat_2346 A.natDegree C.natDegree E.natDegree F.natDegree G.natDegree h hcq14 hcq0 hcq1 hcq7)
     rcases hbls with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq7 hcq12 hcq14; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_2643 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree h hcq14 hcq3 hcq0 hcq1 hcq12 hcq7)
   have hrest : (muQuarticChamberRest2810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G).natDegree < 2 * E.natDegree :=
     muQuarticChamberRest2810_natDegree_lt_of_live_BCEFG l beta gamma delta epsilon zeta eta theta
@@ -353,7 +363,7 @@ theorem quarticChamberBCEFG49810_impossible
   rw [degreeZeroMuQuartic810_eq_face2_add_rest,
     natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead]
     at hmu
-  clear * - hdpos hmu; omega
+  exact (Nat.ne_of_gt hdpos) hmu
 /-! ## Face degrees -/
 
 set_option maxHeartbeats 64000000 in
@@ -382,15 +392,15 @@ theorem quarticChamberBCEFG50810_impossible
     have hbls : l = 0 ∨ (3 * A.natDegree + F.natDegree < 2 * F.natDegree) := by
       rcases hbl with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq1 hcq12; omega)
-      · exact Or.inr (by clear * - h hcq14; omega)
-      · exact absurd h (by clear * - hDn hApos; omega)
-      · exact Or.inr (by clear * - h hcq5 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq7 hcq14; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1270 A.natDegree B.natDegree C.natDegree F.natDegree h hcq1 hcq12)
+      · exact Or.inr (astra4u_Round4Package_nat_1147 A.natDegree C.natDegree F.natDegree hcq14 h)
+      · exact absurd h (astra4u_Round4Package_nat_0222 A.natDegree D.natDegree hApos hDn)
+      · exact Or.inr (astra4u_Round4Package_nat_1558 A.natDegree C.natDegree E.natDegree F.natDegree h hcq14 hcq5)
+      · exact Or.inr (astra4u_Round4Package_nat_1148 A.natDegree C.natDegree F.natDegree h hcq0 hcq14)
+      · exact Or.inr (astra4u_Round4Package_nat_1578 A.natDegree C.natDegree F.natDegree G.natDegree h hcq14 hcq7)
     rcases hbls with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq0 hcq1 hcq5 hcq12 hcq14; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_1868 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree hcq0 h hcq14 hcq1 hcq12 hcq5)
   have hrest : (xiQuarticChamberRest0810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G).natDegree < 2 * F.natDegree :=
     xiQuarticChamberRest0810_natDegree_lt_of_live_BCEFG l beta gamma delta epsilon zeta eta theta
@@ -401,7 +411,7 @@ theorem quarticChamberBCEFG50810_impossible
   rw [degreeZeroXiQuartic810_eq_face0_add_rest,
     natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead]
     at hxi
-  clear * - hdpos hxi; omega
+  exact (Nat.ne_of_gt hdpos) hxi
 /-! ## Face degrees -/
 
 set_option maxHeartbeats 64000000 in
@@ -430,41 +440,41 @@ theorem quarticChamberBCEFG51810_impossible
     have hbls : l = 0 ∨ (4 * A.natDegree + B.natDegree < C.natDegree + G.natDegree ∧ 2 * A.natDegree + F.natDegree < C.natDegree + G.natDegree) := by
       rcases hbl with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq8 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq2 hcq8 hcq14; omega)
-      · exact absurd h (by clear * - hDn hcq1 hcq8 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq2 hcq5 hcq8 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq8 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq2 hcq8 hcq14; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1992 A.natDegree B.natDegree C.natDegree F.natDegree G.natDegree hcq14 h hcq1 hcq0 hcq8)
+      · exact Or.inr (astra4u_Round4Package_nat_1993 A.natDegree B.natDegree C.natDegree F.natDegree G.natDegree hcq14 h hcq1 hcq2 hcq8)
+      · exact absurd h (astra4u_Round4Package_nat_1304 A.natDegree B.natDegree C.natDegree D.natDegree G.natDegree hcq14 hcq1 hDn hcq8)
+      · exact Or.inr (astra4u_Round4Package_nat_2644 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree h hcq14 hcq1 hcq2 hcq5 hcq8)
+      · exact Or.inr (astra4u_Round4Package_nat_1994 A.natDegree B.natDegree C.natDegree F.natDegree G.natDegree h hcq14 hcq2 hcq0 hcq8)
+      · exact Or.inr (astra4u_Round4Package_nat_1995 A.natDegree B.natDegree C.natDegree F.natDegree G.natDegree h hcq14 hcq1 hcq2 hcq8)
     rcases hbls with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq1 hcq5 hcq8 hcq14; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_2645 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree hcq14 h hcq1 hcq5 hcq8)
   have hbbeta' : beta = 0 ∨ (3 * A.natDegree + B.natDegree < C.natDegree + G.natDegree ∧ A.natDegree + B.natDegree + C.natDegree < C.natDegree + G.natDegree ∧ 3 * B.natDegree < C.natDegree + G.natDegree ∧ A.natDegree + F.natDegree < C.natDegree + G.natDegree ∧ B.natDegree + E.natDegree < C.natDegree + G.natDegree) := by
     have hbbetas : beta = 0 ∨ (3 * A.natDegree + B.natDegree < C.natDegree + G.natDegree) := by
       rcases hbbeta with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq1 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq14; omega)
-      · exact absurd h (by clear * - hDn hcq1 hcq8 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq5 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq8 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq8 hcq14; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1309 A.natDegree B.natDegree C.natDegree G.natDegree hcq14 h hcq1)
+      · exact Or.inr (astra4u_Round4Package_nat_1310 A.natDegree B.natDegree C.natDegree G.natDegree hcq14 h hcq1)
+      · exact absurd h (astra4u_Round4Package_nat_1311 A.natDegree B.natDegree C.natDegree D.natDegree G.natDegree hcq14 hcq1 hDn hcq8)
+      · exact Or.inr (astra4u_Round4Package_nat_1905 A.natDegree B.natDegree C.natDegree E.natDegree G.natDegree hcq14 h hcq1 hcq5)
+      · exact Or.inr (astra4u_Round4Package_nat_1997 A.natDegree B.natDegree C.natDegree F.natDegree G.natDegree h hcq14 hcq2 hcq0 hcq8)
+      · exact Or.inr (astra4u_Round4Package_nat_1314 A.natDegree B.natDegree C.natDegree G.natDegree h hcq14 hcq1 hcq8)
     rcases hbbetas with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq1 hcq2 hcq5 hcq8 hcq14; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_2646 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree hcq14 h hcq1 hcq2 hcq5 hcq8)
   have hbdelta' : delta = 0 ∨ (2 * A.natDegree + B.natDegree < C.natDegree + G.natDegree ∧ B.natDegree + C.natDegree < C.natDegree + G.natDegree ∧ F.natDegree < C.natDegree + G.natDegree) := by
     have hbdeltas : delta = 0 ∨ (2 * A.natDegree + B.natDegree < C.natDegree + G.natDegree) := by
       rcases hbdelta with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq1 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq14; omega)
-      · exact absurd h (by clear * - hDn hcq1 hcq8 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq5 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq8 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq8 hcq14; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1316 A.natDegree B.natDegree C.natDegree G.natDegree hcq14 hcq1 h)
+      · exact Or.inr (astra4u_Round4Package_nat_1317 A.natDegree B.natDegree C.natDegree G.natDegree hcq14 h hcq1)
+      · exact absurd h (astra4u_Round4Package_nat_1318 A.natDegree B.natDegree C.natDegree D.natDegree G.natDegree hcq14 hcq1 hDn hcq8)
+      · exact Or.inr (astra4u_Round4Package_nat_1907 A.natDegree B.natDegree C.natDegree E.natDegree G.natDegree hcq14 h hcq1 hcq5)
+      · exact Or.inr (astra4u_Round4Package_nat_1999 A.natDegree B.natDegree C.natDegree F.natDegree G.natDegree hcq14 h hcq2 hcq0 hcq8)
+      · exact Or.inr (astra4u_Round4Package_nat_1321 A.natDegree B.natDegree C.natDegree G.natDegree h hcq14 hcq1 hcq8)
     rcases hbdeltas with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq0 hcq1 hcq8 hcq14; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_2000 A.natDegree B.natDegree C.natDegree F.natDegree G.natDegree h hcq14 hcq1 hcq0 hcq8)
   have hrest : (muQuarticChamberRest6810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G).natDegree < C.natDegree + G.natDegree :=
     muQuarticChamberRest6810_natDegree_lt_of_live_BCEFG l beta gamma delta epsilon zeta eta theta
@@ -475,7 +485,7 @@ theorem quarticChamberBCEFG51810_impossible
   rw [degreeZeroMuQuartic810_eq_face6_add_rest,
     natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead]
     at hmu
-  clear * - hdpos hmu; omega
+  exact (Nat.ne_of_gt hdpos) hmu
 /-! ## Face degrees -/
 
 set_option maxHeartbeats 64000000 in
@@ -504,28 +514,28 @@ theorem quarticChamberBCEFG53810_impossible
     have hbls : l = 0 ∨ (3 * A.natDegree + B.natDegree + C.natDegree < E.natDegree + G.natDegree ∧ 3 * A.natDegree + F.natDegree < E.natDegree + G.natDegree) := by
       rcases hbl with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq5 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq3 hcq5 hcq14; omega)
-      · exact absurd h (by clear * - hDn hcq0 hcq2 hcq5 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq3 hcq5 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq5 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq3 hcq5 hcq14; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_2647 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree hcq14 h hcq2 hcq1 hcq0 hcq5)
+      · exact Or.inr (astra4u_Round4Package_nat_2648 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree hcq14 h hcq2 hcq3 hcq0 hcq5)
+      · exact absurd h (astra4u_Round4Package_nat_2649 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree G.natDegree hcq14 hcq2 hcq0 hDn hcq5)
+      · exact Or.inr (astra4u_Round4Package_nat_2650 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree h hcq14 hcq2 hcq3 hcq0 hcq5)
+      · exact Or.inr (astra4u_Round4Package_nat_2651 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree h hcq14 hcq3 hcq1 hcq0 hcq5)
+      · exact Or.inr (astra4u_Round4Package_nat_2652 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree h hcq14 hcq2 hcq3 hcq0 hcq5)
     rcases hbls with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq0 hcq2 hcq5 hcq14; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_2653 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree hcq14 h hcq2 hcq0 hcq5)
   have hbbeta' : beta = 0 ∨ (2 * A.natDegree + B.natDegree + C.natDegree < E.natDegree + G.natDegree ∧ A.natDegree + 3 * B.natDegree < E.natDegree + G.natDegree ∧ 2 * A.natDegree + F.natDegree < E.natDegree + G.natDegree ∧ A.natDegree + B.natDegree + E.natDegree < E.natDegree + G.natDegree ∧ B.natDegree + 2 * C.natDegree < E.natDegree + G.natDegree ∧ C.natDegree + F.natDegree < E.natDegree + G.natDegree) := by
     have hbbetas : beta = 0 ∨ (2 * A.natDegree + B.natDegree + C.natDegree < E.natDegree + G.natDegree ∧ 2 * A.natDegree + F.natDegree < E.natDegree + G.natDegree) := by
       rcases hbbeta with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq5 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq3 hcq5 hcq14; omega)
-      · exact absurd h (by clear * - hDn hcq0 hcq2 hcq5 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq3 hcq5 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq5 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq3 hcq5 hcq14; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_2654 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree hcq14 h hcq2 hcq1 hcq0 hcq5)
+      · exact Or.inr (astra4u_Round4Package_nat_2655 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree hcq14 h hcq2 hcq3 hcq0 hcq5)
+      · exact absurd h (astra4u_Round4Package_nat_2656 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree G.natDegree hcq14 hcq2 hcq0 hDn hcq5)
+      · exact Or.inr (astra4u_Round4Package_nat_2657 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree hcq14 h hcq2 hcq3 hcq0 hcq5)
+      · exact Or.inr (astra4u_Round4Package_nat_2658 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree h hcq14 hcq3 hcq1 hcq0 hcq5)
+      · exact Or.inr (astra4u_Round4Package_nat_2659 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree h hcq14 hcq2 hcq3 hcq0 hcq5)
     rcases hbbetas with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq0 hcq2 hcq5 hcq14; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_2660 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree h hcq14 hcq2 hcq0 hcq5)
   have hrest : (xiQuarticChamberRest12810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G).natDegree < E.natDegree + G.natDegree :=
     xiQuarticChamberRest12810_natDegree_lt_of_live_BCEFG l beta gamma delta epsilon zeta eta theta
@@ -536,7 +546,7 @@ theorem quarticChamberBCEFG53810_impossible
   rw [degreeZeroXiQuartic810_eq_face12_add_rest,
     natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead]
     at hxi
-  clear * - hdpos hxi; omega
+  exact (Nat.ne_of_gt hdpos) hxi
 /-! ## Face degrees -/
 
 set_option maxHeartbeats 64000000 in
@@ -565,15 +575,15 @@ theorem quarticChamberBCEFG55810_impossible
     have hbls : l = 0 ∨ (3 * A.natDegree + F.natDegree < E.natDegree + G.natDegree) := by
       rcases hbl with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq4 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq5 hcq14; omega)
-      · exact absurd h (by clear * - hDn hcq0 hcq1 hcq4 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq5 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq5 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq5 hcq14; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_2661 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree hcq14 h hcq4 hcq3 hcq1 hcq0)
+      · exact Or.inr (astra4u_Round4Package_nat_2348 A.natDegree C.natDegree E.natDegree F.natDegree G.natDegree hcq14 h hcq5 hcq1 hcq0)
+      · exact absurd h (astra4u_Round4Package_nat_2662 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree G.natDegree hcq14 hcq4 hcq1 hcq0 hDn)
+      · exact Or.inr (astra4u_Round4Package_nat_2349 A.natDegree C.natDegree E.natDegree F.natDegree G.natDegree h hcq14 hcq5 hcq1 hcq0)
+      · exact Or.inr (astra4u_Round4Package_nat_2350 A.natDegree C.natDegree E.natDegree F.natDegree G.natDegree h hcq14 hcq5 hcq1 hcq0)
+      · exact Or.inr (astra4u_Round4Package_nat_2351 A.natDegree C.natDegree E.natDegree F.natDegree G.natDegree h hcq14 hcq5 hcq1 hcq0)
     rcases hbls with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq0 hcq1 hcq4 hApos hcq14; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_2663 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree hApos hcq14 h hcq4 hcq1 hcq0)
   have hrest : (xiQuarticChamberRest12810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G).natDegree < E.natDegree + G.natDegree :=
     xiQuarticChamberRest12810_natDegree_lt_of_live_BCEFG l beta gamma delta epsilon zeta eta theta
@@ -584,7 +594,7 @@ theorem quarticChamberBCEFG55810_impossible
   rw [degreeZeroXiQuartic810_eq_face12_add_rest,
     natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead]
     at hxi
-  clear * - hdpos hxi; omega
+  exact (Nat.ne_of_gt hdpos) hxi
 /-! ## Face degrees -/
 
 set_option maxHeartbeats 64000000 in
@@ -613,15 +623,15 @@ theorem quarticChamberBCEFG56810_impossible
     have hbls : l = 0 ∨ (4 * A.natDegree + B.natDegree < C.natDegree + G.natDegree ∧ 2 * A.natDegree + F.natDegree < C.natDegree + G.natDegree) := by
       rcases hbl with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq3 hcq14; omega)
-      · exact absurd h (by clear * - hDn hcq0 hcq2 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq3 hcq6 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq14; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq3 hcq14; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_2001 A.natDegree B.natDegree C.natDegree F.natDegree G.natDegree hcq0 hcq14 h hcq2 hcq1)
+      · exact Or.inr (astra4u_Round4Package_nat_2002 A.natDegree B.natDegree C.natDegree F.natDegree G.natDegree hcq0 hcq14 h hcq2 hcq3)
+      · exact absurd h (astra4u_Round4Package_nat_1323 A.natDegree B.natDegree C.natDegree D.natDegree G.natDegree hcq0 hcq14 hcq2 hDn)
+      · exact Or.inr (astra4u_Round4Package_nat_2664 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree h hcq0 hcq14 hcq2 hcq3 hcq6)
+      · exact Or.inr (astra4u_Round4Package_nat_2003 A.natDegree B.natDegree C.natDegree F.natDegree G.natDegree h hcq0 hcq14 hcq3 hcq1)
+      · exact Or.inr (astra4u_Round4Package_nat_2004 A.natDegree B.natDegree C.natDegree F.natDegree G.natDegree h hcq0 hcq14 hcq2 hcq3)
     rcases hbls with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq0 hcq2 hcq6 hcq14; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_2665 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree hcq0 hcq14 h hcq2 hcq6)
   have hrest : (muQuarticChamberRest6810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G).natDegree < C.natDegree + G.natDegree :=
     muQuarticChamberRest6810_natDegree_lt_of_live_BCEFG l beta gamma delta epsilon zeta eta theta
@@ -632,7 +642,7 @@ theorem quarticChamberBCEFG56810_impossible
   rw [degreeZeroMuQuartic810_eq_face6_add_rest,
     natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead]
     at hmu
-  clear * - hdpos hmu; omega
+  exact (Nat.ne_of_gt hdpos) hmu
 /-! ## Face degrees -/
 
 set_option maxHeartbeats 64000000 in
@@ -661,41 +671,41 @@ theorem quarticChamberBCEFG57810_impossible
     have hbls : l = 0 ∨ (4 * A.natDegree + B.natDegree < 2 * E.natDegree ∧ 2 * A.natDegree + F.natDegree < 2 * E.natDegree) := by
       rcases hbl with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hAE hcq0 hcq9 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq4 hcq10 hcq14 hcq15; omega)
-      · exact absurd h (by clear * - hDn hApos; omega)
-      · exact Or.inr (by clear * - h hAE hcq4 hcq11; omega)
-      · exact Or.inr (by clear * - h hAE hcq0 hcq4; omega)
-      · exact Or.inr (by clear * - h hAE hcq4 hcq5 hcq11; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1416 A.natDegree B.natDegree E.natDegree F.natDegree hcq11 hcq9 hAE h hcq0)
+      · exact Or.inr (astra4u_Round4Package_nat_1869 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree hcq15 hcq4 hcq14 h hcq10)
+      · exact absurd h (astra4u_Round4Package_nat_0222 A.natDegree D.natDegree hApos hDn)
+      · exact Or.inr (astra4u_Round4Package_nat_1417 A.natDegree B.natDegree E.natDegree F.natDegree h hcq11 hcq4 hAE)
+      · exact Or.inr (astra4u_Round4Package_nat_1418 A.natDegree B.natDegree E.natDegree F.natDegree h hcq4 hAE hcq0)
+      · exact Or.inr (astra4u_Round4Package_nat_2178 A.natDegree B.natDegree E.natDegree F.natDegree G.natDegree h hcq11 hcq4 hAE hcq5)
     rcases hbls with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hAE hcq5 hcq11 hcq15; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_2666 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree hcq11 hcq15 hAE h hcq5)
   have hbbeta' : beta = 0 ∨ (3 * A.natDegree + B.natDegree < 2 * E.natDegree ∧ A.natDegree + B.natDegree + C.natDegree < 2 * E.natDegree ∧ 3 * B.natDegree < 2 * E.natDegree ∧ A.natDegree + F.natDegree < 2 * E.natDegree ∧ B.natDegree + E.natDegree < 2 * E.natDegree) := by
     have hbbetas : beta = 0 ∨ (3 * A.natDegree + B.natDegree < 2 * E.natDegree) := by
       rcases hbbeta with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq9; omega)
-      · exact Or.inr (by clear * - h hcq10 hcq14; omega)
-      · exact absurd h (by clear * - hDn hApos; omega)
-      · exact Or.inr (by clear * - h hApos hcq11; omega)
-      · exact Or.inr (by clear * - h hAE hcq0 hcq4; omega)
-      · exact Or.inr (by clear * - h hAE hcq5 hcq11; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1093 A.natDegree B.natDegree E.natDegree hcq9 h)
+      · exact Or.inr (astra4u_Round4Package_nat_1204 A.natDegree B.natDegree C.natDegree E.natDegree hcq14 h hcq10)
+      · exact absurd h (astra4u_Round4Package_nat_0229 A.natDegree D.natDegree hApos hDn)
+      · exact Or.inr (astra4u_Round4Package_nat_1094 A.natDegree B.natDegree E.natDegree hApos hcq11 h)
+      · exact Or.inr (astra4u_Round4Package_nat_1420 A.natDegree B.natDegree E.natDegree F.natDegree h hcq4 hAE hcq0)
+      · exact Or.inr (astra4u_Round4Package_nat_1457 A.natDegree B.natDegree E.natDegree G.natDegree h hcq11 hAE hcq5)
     rcases hbbetas with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq0 hApos hcq11 hcq15; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_1871 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree hApos hcq11 hcq15 h hcq0)
   have hbdelta' : delta = 0 ∨ (2 * A.natDegree + B.natDegree < 2 * E.natDegree ∧ B.natDegree + C.natDegree < 2 * E.natDegree ∧ F.natDegree < 2 * E.natDegree) := by
     have hbdeltas : delta = 0 ∨ (2 * A.natDegree + B.natDegree < 2 * E.natDegree) := by
       rcases hbdelta with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq9; omega)
-      · exact Or.inr (by clear * - h hcq10 hcq14; omega)
-      · exact absurd h (by clear * - hDn hApos; omega)
-      · exact Or.inr (by clear * - h hApos hcq11; omega)
-      · exact Or.inr (by clear * - h hcq0 hApos; omega)
-      · exact Or.inr (by clear * - h hAE hcq5 hcq11; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1096 A.natDegree B.natDegree E.natDegree hcq9 h)
+      · exact Or.inr (astra4u_Round4Package_nat_1206 A.natDegree B.natDegree C.natDegree E.natDegree h hcq14 hcq10)
+      · exact absurd h (astra4u_Round4Package_nat_0517 A.natDegree D.natDegree hApos hDn)
+      · exact Or.inr (astra4u_Round4Package_nat_1097 A.natDegree B.natDegree E.natDegree hApos hcq11 h)
+      · exact Or.inr (astra4u_Round4Package_nat_1422 A.natDegree B.natDegree E.natDegree F.natDegree hApos h hcq0)
+      · exact Or.inr (astra4u_Round4Package_nat_1458 A.natDegree B.natDegree E.natDegree G.natDegree h hcq11 hAE hcq5)
     rcases hbdeltas with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq0 hApos hcq10 hcq14; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_1872 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree hApos h hcq14 hcq10 hcq0)
   have hrest : (muQuarticChamberRest2810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G).natDegree < 2 * E.natDegree :=
     muQuarticChamberRest2810_natDegree_lt_of_live_BCEFG l beta gamma delta epsilon zeta eta theta
@@ -706,7 +716,7 @@ theorem quarticChamberBCEFG57810_impossible
   rw [degreeZeroMuQuartic810_eq_face2_add_rest,
     natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead]
     at hmu
-  clear * - hdpos hmu; omega
+  exact (Nat.ne_of_gt hdpos) hmu
 /-! ## Face degrees -/
 
 set_option maxHeartbeats 64000000 in
@@ -735,28 +745,28 @@ theorem quarticChamberBCEFG60810_impossible
     have hbls : l = 0 ∨ (3 * A.natDegree + B.natDegree + C.natDegree < 2 * C.natDegree + E.natDegree ∧ 3 * A.natDegree + F.natDegree < 2 * C.natDegree + E.natDegree) := by
       rcases hbl with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq11 hcq15; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq3 hcq11 hcq15; omega)
-      · exact absurd h (by clear * - hDn hcq0 hcq11 hcq15; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq3 hcq11 hcq15; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq15; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq3 hcq4 hcq11 hcq15; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1873 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree hcq15 hcq0 h hcq11 hcq1)
+      · exact Or.inr (astra4u_Round4Package_nat_1874 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree hcq15 hcq0 h hcq11 hcq3)
+      · exact absurd h (astra4u_Round4Package_nat_1875 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree hcq15 hcq0 hcq11 hDn)
+      · exact Or.inr (astra4u_Round4Package_nat_1876 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree h hcq15 hcq0 hcq11 hcq3)
+      · exact Or.inr (astra4u_Round4Package_nat_1877 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree h hcq15 hcq0 hcq3 hcq1)
+      · exact Or.inr (astra4u_Round4Package_nat_2667 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree h hcq15 hcq0 hcq11 hcq3 hcq4)
     rcases hbls with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq0 hcq1 hcq11 hcq15; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_1878 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree hcq15 hcq0 h hcq11 hcq1)
   have hbbeta' : beta = 0 ∨ (2 * A.natDegree + B.natDegree + C.natDegree < 2 * C.natDegree + E.natDegree ∧ A.natDegree + 3 * B.natDegree < 2 * C.natDegree + E.natDegree ∧ 2 * A.natDegree + F.natDegree < 2 * C.natDegree + E.natDegree ∧ A.natDegree + B.natDegree + E.natDegree < 2 * C.natDegree + E.natDegree ∧ B.natDegree + 2 * C.natDegree < 2 * C.natDegree + E.natDegree ∧ C.natDegree + F.natDegree < 2 * C.natDegree + E.natDegree) := by
     have hbbetas : beta = 0 ∨ (2 * A.natDegree + B.natDegree + C.natDegree < 2 * C.natDegree + E.natDegree ∧ 2 * A.natDegree + F.natDegree < 2 * C.natDegree + E.natDegree) := by
       rcases hbbeta with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq11 hcq15; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq3 hcq11 hcq15; omega)
-      · exact absurd h (by clear * - hDn hcq0 hcq11 hcq15; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq3 hcq11 hcq15; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq15; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq3 hcq4 hcq11 hcq15; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1879 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree hcq15 hcq0 h hcq11 hcq1)
+      · exact Or.inr (astra4u_Round4Package_nat_1880 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree hcq15 hcq0 h hcq11 hcq3)
+      · exact absurd h (astra4u_Round4Package_nat_1881 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree hcq15 hcq0 hcq11 hDn)
+      · exact Or.inr (astra4u_Round4Package_nat_1882 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree hcq15 hcq0 h hcq11 hcq3)
+      · exact Or.inr (astra4u_Round4Package_nat_1883 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree h hcq15 hcq0 hcq3 hcq1)
+      · exact Or.inr (astra4u_Round4Package_nat_2668 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree h hcq15 hcq0 hcq11 hcq3 hcq4)
     rcases hbbetas with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq0 hcq11 hcq15; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_1884 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree h hcq15 hcq0 hcq11)
   have hrest : (xiQuarticChamberRest2810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G).natDegree < 2 * C.natDegree + E.natDegree :=
     xiQuarticChamberRest2810_natDegree_lt_of_live_BCEFG l beta gamma delta epsilon zeta eta theta
@@ -767,7 +777,7 @@ theorem quarticChamberBCEFG60810_impossible
   rw [degreeZeroXiQuartic810_eq_face2_add_rest,
     natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead]
     at hxi
-  clear * - hdpos hxi; omega
+  exact (Nat.ne_of_gt hdpos) hxi
 
 end QuarticChamberKills810
 
@@ -833,15 +843,15 @@ theorem quarticChamberBCEFG61810_impossible
     have hbls : l = 0 ∨ (2 * A.natDegree + F.natDegree < 2 * E.natDegree) := by
       rcases hbl with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hAE hcq0 hcq5; omega)
-      · exact Or.inr (by clear * - h hAE hcq0 hcq1 hcq8; omega)
-      · exact absurd h (by clear * - hDn hApos; omega)
-      · exact Or.inr (by clear * - h hAE hcq0; omega)
-      · exact Or.inr (by clear * - h hAE hcq0; omega)
-      · exact Or.inr (by clear * - h hAE hcq0 hcq1; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1424 A.natDegree B.natDegree E.natDegree F.natDegree hAE h hcq0 hcq5)
+      · exact Or.inr (astra4u_Round4Package_nat_2360 A.natDegree C.natDegree E.natDegree F.natDegree G.natDegree hAE h hcq0 hcq1 hcq8)
+      · exact absurd h (astra4u_Round4Package_nat_0222 A.natDegree D.natDegree hApos hDn)
+      · exact Or.inr (astra4u_Round4Package_nat_1425 A.natDegree E.natDegree F.natDegree h hAE hcq0)
+      · exact Or.inr (astra4u_Round4Package_nat_1426 A.natDegree E.natDegree F.natDegree h hAE hcq0)
+      · exact Or.inr (astra4u_Round4Package_nat_2180 A.natDegree E.natDegree F.natDegree G.natDegree h hAE hcq0 hcq1)
     rcases hbls with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hAE hcq0 hcq1 hcq5 hcq8; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_2669 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree h hAE hcq0 hcq5 hcq1 hcq8)
   have hrest : (muQuarticChamberRest2810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G).natDegree < 2 * E.natDegree :=
     muQuarticChamberRest2810_natDegree_lt_of_live_BCEFG l beta gamma delta epsilon zeta eta theta
@@ -852,7 +862,7 @@ theorem quarticChamberBCEFG61810_impossible
   rw [degreeZeroMuQuartic810_eq_face2_add_rest,
     natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead]
     at hmu
-  clear * - hdpos hmu; omega
+  exact (Nat.ne_of_gt hdpos) hmu
 /-! ## Face degrees -/
 
 set_option maxHeartbeats 64000000 in
@@ -881,15 +891,15 @@ theorem quarticChamberBCEFG62810_impossible
     have hbls : l = 0 ∨ (2 * A.natDegree + F.natDegree < 2 * E.natDegree) := by
       rcases hbl with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hAE hcq0 hcq2; omega)
-      · exact Or.inr (by clear * - h hAE hcq0 hcq4; omega)
-      · exact absurd h (by clear * - hDn hApos; omega)
-      · exact Or.inr (by clear * - h hAE hcq0; omega)
-      · exact Or.inr (by clear * - h hAE hcq0; omega)
-      · exact Or.inr (by clear * - h hAE hcq0 hcq6; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1424 A.natDegree B.natDegree E.natDegree F.natDegree hAE h hcq0 hcq2)
+      · exact Or.inr (astra4u_Round4Package_nat_1568 A.natDegree C.natDegree E.natDegree F.natDegree hAE h hcq4 hcq0)
+      · exact absurd h (astra4u_Round4Package_nat_0222 A.natDegree D.natDegree hApos hDn)
+      · exact Or.inr (astra4u_Round4Package_nat_1425 A.natDegree E.natDegree F.natDegree h hAE hcq0)
+      · exact Or.inr (astra4u_Round4Package_nat_1426 A.natDegree E.natDegree F.natDegree h hAE hcq0)
+      · exact Or.inr (astra4u_Round4Package_nat_2182 A.natDegree E.natDegree F.natDegree G.natDegree h hAE hcq0 hcq6)
     rcases hbls with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hAE hcq0 hcq2 hcq4 hcq6; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_2670 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree h hAE hcq4 hcq0 hcq2 hcq6)
   have hrest : (muQuarticChamberRest2810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G).natDegree < 2 * E.natDegree :=
     muQuarticChamberRest2810_natDegree_lt_of_live_BCEFG l beta gamma delta epsilon zeta eta theta
@@ -900,7 +910,7 @@ theorem quarticChamberBCEFG62810_impossible
   rw [degreeZeroMuQuartic810_eq_face2_add_rest,
     natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead]
     at hmu
-  clear * - hdpos hmu; omega
+  exact (Nat.ne_of_gt hdpos) hmu
 /-! ## Face degrees -/
 
 set_option maxHeartbeats 64000000 in
@@ -929,15 +939,15 @@ theorem quarticChamberBCEFG63810_impossible
     have hbls : l = 0 ∨ (4 * A.natDegree + B.natDegree < 2 * E.natDegree ∧ 2 * A.natDegree + F.natDegree < 2 * E.natDegree) := by
       rcases hbl with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hAE hcq0 hcq2 hcq3; omega)
-      · exact Or.inr (by clear * - h hAE hcq0 hcq3 hcq5 hcq6; omega)
-      · exact absurd h (by clear * - hDn hApos; omega)
-      · exact Or.inr (by clear * - h hAE hcq0 hcq3 hcq6; omega)
-      · exact Or.inr (by clear * - h hAE hcq2 hcq6; omega)
-      · exact Or.inr (by clear * - h hAE hcq0 hcq3 hcq6; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_2184 A.natDegree B.natDegree E.natDegree F.natDegree G.natDegree hAE h hcq3 hcq2 hcq0)
+      · exact Or.inr (astra4u_Round4Package_nat_2671 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree hcq6 hAE h hcq3 hcq0 hcq5)
+      · exact absurd h (astra4u_Round4Package_nat_0222 A.natDegree D.natDegree hApos hDn)
+      · exact Or.inr (astra4u_Round4Package_nat_2185 A.natDegree B.natDegree E.natDegree F.natDegree G.natDegree h hcq6 hAE hcq3 hcq0)
+      · exact Or.inr (astra4u_Round4Package_nat_1418 A.natDegree B.natDegree E.natDegree F.natDegree h hcq6 hAE hcq2)
+      · exact Or.inr (astra4u_Round4Package_nat_2186 A.natDegree B.natDegree E.natDegree F.natDegree G.natDegree h hcq6 hAE hcq3 hcq0)
     rcases hbls with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hAE hcq0 hcq3 hcq5; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_2672 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree hAE h hcq3 hcq0 hcq5)
   have hrest : (muQuarticChamberRest2810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G).natDegree < 2 * E.natDegree :=
     muQuarticChamberRest2810_natDegree_lt_of_live_BCEFG l beta gamma delta epsilon zeta eta theta
@@ -948,7 +958,7 @@ theorem quarticChamberBCEFG63810_impossible
   rw [degreeZeroMuQuartic810_eq_face2_add_rest,
     natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead]
     at hmu
-  clear * - hdpos hmu; omega
+  exact (Nat.ne_of_gt hdpos) hmu
 /-! ## Face degrees -/
 
 set_option maxHeartbeats 64000000 in
@@ -977,15 +987,15 @@ theorem quarticChamberBCEFG64810_impossible
     have hbls : l = 0 ∨ (3 * A.natDegree + F.natDegree < 2 * F.natDegree) := by
       rcases hbl with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hAF hcq0; omega)
-      · exact Or.inr (by clear * - h hAF hcq2; omega)
-      · exact absurd h (by clear * - hDn hApos; omega)
-      · exact Or.inr (by clear * - h hAF hcq4; omega)
-      · exact Or.inr (by clear * - h hAF; omega)
-      · exact Or.inr (by clear * - h hAF hcq7; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1124 A.natDegree B.natDegree F.natDegree hcq0 h hAF)
+      · exact Or.inr (astra4u_Round4Package_nat_1152 A.natDegree C.natDegree F.natDegree hcq2 hAF h)
+      · exact absurd h (astra4u_Round4Package_nat_0222 A.natDegree D.natDegree hApos hDn)
+      · exact Or.inr (astra4u_Round4Package_nat_1175 A.natDegree E.natDegree F.natDegree h hAF hcq4)
+      · exact Or.inr (astra4u_Round4Package_nat_1071 A.natDegree F.natDegree h hAF)
+      · exact Or.inr (astra4u_Round4Package_nat_1481 A.natDegree F.natDegree G.natDegree h hcq7 hAF)
     rcases hbls with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hAF hcq0 hcq2 hcq4; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_1886 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree hcq0 hcq2 h hAF hcq4)
   have hrest : (xiQuarticChamberRest0810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G).natDegree < 2 * F.natDegree :=
     xiQuarticChamberRest0810_natDegree_lt_of_live_BCEFG l beta gamma delta epsilon zeta eta theta
@@ -996,7 +1006,7 @@ theorem quarticChamberBCEFG64810_impossible
   rw [degreeZeroXiQuartic810_eq_face0_add_rest,
     natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead]
     at hxi
-  clear * - hdpos hxi; omega
+  exact (Nat.ne_of_gt hdpos) hxi
 /-! ## Face degrees -/
 
 set_option maxHeartbeats 64000000 in
@@ -1025,15 +1035,15 @@ theorem quarticChamberBCEFG65810_impossible
     have hbls : l = 0 ∨ (3 * A.natDegree + F.natDegree < 2 * F.natDegree) := by
       rcases hbl with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hAF hcq2; omega)
-      · exact Or.inr (by clear * - h hAF hcq0 hcq5; omega)
-      · exact absurd h (by clear * - hDn hApos; omega)
-      · exact Or.inr (by clear * - h hAF hcq0 hcq8; omega)
-      · exact Or.inr (by clear * - h hAF; omega)
-      · exact Or.inr (by clear * - h hAF hcq0; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1124 A.natDegree B.natDegree F.natDegree hcq2 h hAF)
+      · exact Or.inr (astra4u_Round4Package_nat_1581 A.natDegree C.natDegree F.natDegree G.natDegree hAF h hcq0 hcq5)
+      · exact absurd h (astra4u_Round4Package_nat_0222 A.natDegree D.natDegree hApos hDn)
+      · exact Or.inr (astra4u_Round4Package_nat_1631 A.natDegree E.natDegree F.natDegree G.natDegree h hAF hcq0 hcq8)
+      · exact Or.inr (astra4u_Round4Package_nat_1071 A.natDegree F.natDegree h hAF)
+      · exact Or.inr (astra4u_Round4Package_nat_1482 A.natDegree F.natDegree G.natDegree h hAF hcq0)
     rcases hbls with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hAF hcq0 hcq2 hcq5 hcq8; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_2673 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree hcq2 h hAF hcq0 hcq5 hcq8)
   have hrest : (xiQuarticChamberRest0810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G).natDegree < 2 * F.natDegree :=
     xiQuarticChamberRest0810_natDegree_lt_of_live_BCEFG l beta gamma delta epsilon zeta eta theta
@@ -1044,7 +1054,7 @@ theorem quarticChamberBCEFG65810_impossible
   rw [degreeZeroXiQuartic810_eq_face0_add_rest,
     natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead]
     at hxi
-  clear * - hdpos hxi; omega
+  exact (Nat.ne_of_gt hdpos) hxi
 /-! ## Face degrees -/
 
 set_option maxHeartbeats 64000000 in
@@ -1073,15 +1083,15 @@ theorem quarticChamberBCEFG66810_impossible
     have hbls : l = 0 ∨ (4 * A.natDegree + F.natDegree < 2 * G.natDegree) := by
       rcases hbl with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hAG hcq0 hcq1; omega)
-      · exact Or.inr (by clear * - h hAG hcq3 hcq7; omega)
-      · exact absurd h (by clear * - hDn hApos; omega)
-      · exact Or.inr (by clear * - h hAG hcq4 hcq7; omega)
-      · exact Or.inr (by clear * - h hAG hcq7; omega)
-      · exact Or.inr (by clear * - h hAG hcq7; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1483 A.natDegree B.natDegree F.natDegree G.natDegree hcq0 hAG hcq1 h)
+      · exact Or.inr (astra4u_Round4Package_nat_1586 A.natDegree C.natDegree F.natDegree G.natDegree hcq3 hAG h hcq7)
+      · exact absurd h (astra4u_Round4Package_nat_0222 A.natDegree D.natDegree hApos hDn)
+      · exact Or.inr (astra4u_Round4Package_nat_1636 A.natDegree E.natDegree F.natDegree G.natDegree h hAG hcq7 hcq4)
+      · exact Or.inr (astra4u_Round4Package_nat_1179 A.natDegree F.natDegree G.natDegree h hAG hcq7)
+      · exact Or.inr (astra4u_Round4Package_nat_1180 A.natDegree F.natDegree G.natDegree h hAG hcq7)
     rcases hbls with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hAG hcq1 hcq3 hcq4 hApos; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_2674 A.natDegree B.natDegree C.natDegree E.natDegree F.natDegree G.natDegree hApos hcq3 h hAG hcq1 hcq4)
   have hrest : (piQuarticChamberRest0810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G).natDegree < 2 * G.natDegree :=
     piQuarticChamberRest0810_natDegree_lt_of_live_BCEFG l beta gamma delta epsilon zeta eta theta
@@ -1092,7 +1102,7 @@ theorem quarticChamberBCEFG66810_impossible
   rw [degreeZeroPiQuartic810_eq_face0_add_rest,
     natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead]
     at hpi
-  clear * - hdpos hpi; omega
+  exact (Nat.ne_of_gt hdpos) hpi
 /-! ## Face degrees -/
 
 set_option maxHeartbeats 64000000 in
@@ -1114,10 +1124,9 @@ theorem quarticChamberBDEFG1810_impossible
   have hAne : A ≠ 0 := by
     intro h0
     have hz0 : A.natDegree = 0 := by simp [h0]
-    clear * - hApos hz0; omega
+    exact (Nat.ne_of_gt hApos) hz0
   have hdpos : 0 < A.natDegree + B.natDegree + F.natDegree := by
-    by_contra hzero
-    exact hnc (by clear * - hCn hcq0 hcq1 hcq3 hcq5 hcq8 hcq11 hzero; omega)
+    clear * - hApos; omega
   obtain ⟨hbl, hbbeta, hbdelta, hbzeta, hbtheta⟩ :=
     quarticSigma_kappaLoadBands810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G hA hkap
@@ -1125,41 +1134,41 @@ theorem quarticChamberBDEFG1810_impossible
     have hbls : l = 0 ∨ (4 * A.natDegree + B.natDegree < A.natDegree + B.natDegree + F.natDegree) := by
       rcases hbl with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq11; omega)
-      · exact absurd h (by clear * - hCn hcq1 hcq8 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq3 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq5 hcq8 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq8 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq8 hcq11; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1098 A.natDegree B.natDegree F.natDegree h hcq11)
+      · exact absurd h (astra4u_Round4Package_nat_1099 A.natDegree B.natDegree C.natDegree F.natDegree hcq11 hCn hcq8)
+      · exact Or.inr (astra4u_Round4Package_nat_1341 A.natDegree B.natDegree D.natDegree F.natDegree h hcq11 hcq3)
+      · exact Or.inr (astra4u_Round4Package_nat_1399 A.natDegree B.natDegree E.natDegree F.natDegree h hcq5 hcq11 hcq8)
+      · exact Or.inr (astra4u_Round4Package_nat_1102 A.natDegree B.natDegree F.natDegree h hcq11 hcq8)
+      · exact Or.inr (astra4u_Round4Package_nat_1463 A.natDegree B.natDegree F.natDegree G.natDegree h hcq0 hcq11 hcq8)
     rcases hbls with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq0 hcq3 hcq5 hcq8 hcq11; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_2675 A.natDegree B.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hcq5 hcq0 h hcq11 hcq3 hcq8)
   have hbbeta' : beta = 0 ∨ (3 * A.natDegree + B.natDegree < A.natDegree + B.natDegree + F.natDegree ∧ 2 * A.natDegree + D.natDegree < A.natDegree + B.natDegree + F.natDegree ∧ 3 * B.natDegree < A.natDegree + B.natDegree + F.natDegree ∧ A.natDegree + F.natDegree < A.natDegree + B.natDegree + F.natDegree ∧ B.natDegree + E.natDegree < A.natDegree + B.natDegree + F.natDegree) := by
     have hbbetas : beta = 0 ∨ (3 * A.natDegree + B.natDegree < A.natDegree + B.natDegree + F.natDegree) := by
       rcases hbbeta with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq11; omega)
-      · exact absurd h (by clear * - hCn hcq1 hcq8 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq3 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq5 hcq8 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq8 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq8 hcq11; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1105 A.natDegree B.natDegree F.natDegree h hcq11)
+      · exact absurd h (astra4u_Round4Package_nat_1106 A.natDegree B.natDegree C.natDegree F.natDegree hcq11 hCn hcq8)
+      · exact Or.inr (astra4u_Round4Package_nat_1343 A.natDegree B.natDegree D.natDegree F.natDegree h hcq11 hcq3)
+      · exact Or.inr (astra4u_Round4Package_nat_1401 A.natDegree B.natDegree E.natDegree F.natDegree hcq5 h hcq11 hcq8)
+      · exact Or.inr (astra4u_Round4Package_nat_1109 A.natDegree B.natDegree F.natDegree h hcq11 hcq8)
+      · exact Or.inr (astra4u_Round4Package_nat_1465 A.natDegree B.natDegree F.natDegree G.natDegree h hcq0 hcq11 hcq8)
     rcases hbbetas with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq3 hcq5 hcq8 hcq11; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_2009 A.natDegree B.natDegree D.natDegree E.natDegree F.natDegree hcq5 h hcq11 hcq3 hcq8)
   have hbdelta' : delta = 0 ∨ (2 * A.natDegree + B.natDegree < A.natDegree + B.natDegree + F.natDegree ∧ A.natDegree + D.natDegree < A.natDegree + B.natDegree + F.natDegree ∧ F.natDegree < A.natDegree + B.natDegree + F.natDegree) := by
     have hbdeltas : delta = 0 ∨ (2 * A.natDegree + B.natDegree < A.natDegree + B.natDegree + F.natDegree) := by
       rcases hbdelta with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq11; omega)
-      · exact absurd h (by clear * - hCn hcq1 hcq8 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq3 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq5 hcq8 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq8 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq8 hcq11; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1112 A.natDegree B.natDegree F.natDegree hcq11 h)
+      · exact absurd h (astra4u_Round4Package_nat_1113 A.natDegree B.natDegree C.natDegree F.natDegree hcq11 hCn hcq8)
+      · exact Or.inr (astra4u_Round4Package_nat_1345 A.natDegree B.natDegree D.natDegree F.natDegree h hcq11 hcq3)
+      · exact Or.inr (astra4u_Round4Package_nat_1403 A.natDegree B.natDegree E.natDegree F.natDegree hcq5 h hcq11 hcq8)
+      · exact Or.inr (astra4u_Round4Package_nat_1116 A.natDegree B.natDegree F.natDegree h hcq11 hcq8)
+      · exact Or.inr (astra4u_Round4Package_nat_1466 A.natDegree B.natDegree F.natDegree G.natDegree h hcq0 hcq11 hcq8)
     rcases hbdeltas with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq3 hcq8; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_1346 A.natDegree B.natDegree D.natDegree F.natDegree h hcq3 hcq8)
   have hrest : (muQuarticChamberRest4810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G).natDegree < A.natDegree + B.natDegree + F.natDegree :=
     muQuarticChamberRest4810_natDegree_lt_of_live_BDEFG l beta gamma delta epsilon zeta eta theta
@@ -1170,7 +1179,7 @@ theorem quarticChamberBDEFG1810_impossible
   rw [degreeZeroMuQuartic810_eq_face4_add_rest,
     natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead]
     at hmu
-  clear * - hdpos hmu; omega
+  exact (Nat.ne_of_gt hdpos) hmu
 /-! ## Face degrees -/
 
 set_option maxHeartbeats 64000000 in
@@ -1192,10 +1201,9 @@ theorem quarticChamberBDEFG3810_impossible
   have hAne : A ≠ 0 := by
     intro h0
     have hz0 : A.natDegree = 0 := by simp [h0]
-    clear * - hApos hz0; omega
+    exact (Nat.ne_of_gt hApos) hz0
   have hdpos : 0 < A.natDegree + B.natDegree + F.natDegree := by
-    by_contra hzero
-    exact hnc (by clear * - hCn hcq0 hcq1 hcq3 hcq5 hcq8 hcq11 hzero; omega)
+    clear * - hApos; omega
   obtain ⟨hbl, hbbeta, hbdelta, hbzeta, hbtheta⟩ :=
     quarticSigma_kappaLoadBands810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G hA hkap
@@ -1203,41 +1211,41 @@ theorem quarticChamberBDEFG3810_impossible
     have hbls : l = 0 ∨ (4 * A.natDegree + B.natDegree < A.natDegree + B.natDegree + F.natDegree) := by
       rcases hbl with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq11; omega)
-      · exact absurd h (by clear * - hCn hcq3 hcq8 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq3 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq7 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq8 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq8 hcq11; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1098 A.natDegree B.natDegree F.natDegree h hcq11)
+      · exact absurd h (astra4u_Round4Package_nat_1099 A.natDegree B.natDegree C.natDegree F.natDegree hcq11 hCn hcq8)
+      · exact Or.inr (astra4u_Round4Package_nat_1341 A.natDegree B.natDegree D.natDegree F.natDegree h hcq11 hcq3)
+      · exact Or.inr (astra4u_Round4Package_nat_2150 A.natDegree B.natDegree E.natDegree F.natDegree G.natDegree h hcq0 hcq11 hcq7)
+      · exact Or.inr (astra4u_Round4Package_nat_1102 A.natDegree B.natDegree F.natDegree h hcq11 hcq8)
+      · exact Or.inr (astra4u_Round4Package_nat_1467 A.natDegree B.natDegree F.natDegree G.natDegree h hcq0 hcq11 hcq8)
     rcases hbls with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq0 hcq3 hcq7 hcq8 hcq11; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_2676 A.natDegree B.natDegree D.natDegree E.natDegree F.natDegree G.natDegree h hcq0 hcq11 hcq3 hcq7 hcq8)
   have hbbeta' : beta = 0 ∨ (3 * A.natDegree + B.natDegree < A.natDegree + B.natDegree + F.natDegree ∧ 2 * A.natDegree + D.natDegree < A.natDegree + B.natDegree + F.natDegree ∧ 3 * B.natDegree < A.natDegree + B.natDegree + F.natDegree ∧ A.natDegree + F.natDegree < A.natDegree + B.natDegree + F.natDegree ∧ B.natDegree + E.natDegree < A.natDegree + B.natDegree + F.natDegree) := by
     have hbbetas : beta = 0 ∨ (3 * A.natDegree + B.natDegree < A.natDegree + B.natDegree + F.natDegree) := by
       rcases hbbeta with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq11; omega)
-      · exact absurd h (by clear * - hCn hcq3 hcq8 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq3 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq7 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq8 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq8 hcq11; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1105 A.natDegree B.natDegree F.natDegree h hcq11)
+      · exact absurd h (astra4u_Round4Package_nat_1106 A.natDegree B.natDegree C.natDegree F.natDegree hcq11 hCn hcq8)
+      · exact Or.inr (astra4u_Round4Package_nat_1343 A.natDegree B.natDegree D.natDegree F.natDegree h hcq11 hcq3)
+      · exact Or.inr (astra4u_Round4Package_nat_2152 A.natDegree B.natDegree E.natDegree F.natDegree G.natDegree h hcq0 hcq11 hcq7)
+      · exact Or.inr (astra4u_Round4Package_nat_1109 A.natDegree B.natDegree F.natDegree h hcq11 hcq8)
+      · exact Or.inr (astra4u_Round4Package_nat_1469 A.natDegree B.natDegree F.natDegree G.natDegree h hcq0 hcq11 hcq8)
     rcases hbbetas with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq0 hcq3 hcq7 hcq8 hcq11; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_2677 A.natDegree B.natDegree D.natDegree E.natDegree F.natDegree G.natDegree h hcq0 hcq11 hcq3 hcq7 hcq8)
   have hbdelta' : delta = 0 ∨ (2 * A.natDegree + B.natDegree < A.natDegree + B.natDegree + F.natDegree ∧ A.natDegree + D.natDegree < A.natDegree + B.natDegree + F.natDegree ∧ F.natDegree < A.natDegree + B.natDegree + F.natDegree) := by
     have hbdeltas : delta = 0 ∨ (2 * A.natDegree + B.natDegree < A.natDegree + B.natDegree + F.natDegree) := by
       rcases hbdelta with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq11; omega)
-      · exact absurd h (by clear * - hCn hcq3 hcq8 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq3 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq7 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq8 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq8 hcq11; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1112 A.natDegree B.natDegree F.natDegree hcq11 h)
+      · exact absurd h (astra4u_Round4Package_nat_1113 A.natDegree B.natDegree C.natDegree F.natDegree hcq11 hCn hcq8)
+      · exact Or.inr (astra4u_Round4Package_nat_1345 A.natDegree B.natDegree D.natDegree F.natDegree h hcq11 hcq3)
+      · exact Or.inr (astra4u_Round4Package_nat_2154 A.natDegree B.natDegree E.natDegree F.natDegree G.natDegree h hcq0 hcq11 hcq7)
+      · exact Or.inr (astra4u_Round4Package_nat_1116 A.natDegree B.natDegree F.natDegree h hcq11 hcq8)
+      · exact Or.inr (astra4u_Round4Package_nat_1470 A.natDegree B.natDegree F.natDegree G.natDegree h hcq0 hcq11 hcq8)
     rcases hbdeltas with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq3 hcq8; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_1346 A.natDegree B.natDegree D.natDegree F.natDegree h hcq3 hcq8)
   have hrest : (muQuarticChamberRest4810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G).natDegree < A.natDegree + B.natDegree + F.natDegree :=
     muQuarticChamberRest4810_natDegree_lt_of_live_BDEFG l beta gamma delta epsilon zeta eta theta
@@ -1248,7 +1256,7 @@ theorem quarticChamberBDEFG3810_impossible
   rw [degreeZeroMuQuartic810_eq_face4_add_rest,
     natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead]
     at hmu
-  clear * - hdpos hmu; omega
+  exact (Nat.ne_of_gt hdpos) hmu
 /-! ## Face degrees -/
 
 set_option maxHeartbeats 64000000 in
@@ -1270,10 +1278,9 @@ theorem quarticChamberBDEFG14810_impossible
   have hAne : A ≠ 0 := by
     intro h0
     have hz0 : A.natDegree = 0 := by simp [h0]
-    clear * - hApos hz0; omega
+    exact (Nat.ne_of_gt hApos) hz0
   have hdpos : 0 < A.natDegree + B.natDegree + F.natDegree := by
-    by_contra hzero
-    exact hnc (by clear * - hCn hcq0 hcq1 hcq4 hcq8 hcq11 hzero; omega)
+    clear * - hApos; omega
   obtain ⟨hbl, hbbeta, hbdelta, hbzeta, hbtheta⟩ :=
     quarticSigma_kappaLoadBands810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G hA hkap
@@ -1281,28 +1288,28 @@ theorem quarticChamberBDEFG14810_impossible
     have hbls : l = 0 ∨ (4 * A.natDegree + B.natDegree < A.natDegree + B.natDegree + F.natDegree) := by
       rcases hbl with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq11; omega)
-      · exact absurd h (by clear * - hCn hApos; omega)
-      · exact Or.inr (by clear * - h hcq6 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq10 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq11; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1098 A.natDegree B.natDegree F.natDegree h hcq11)
+      · exact absurd h (astra4u_Round4Package_nat_0221 A.natDegree C.natDegree hApos hCn)
+      · exact Or.inr (astra4u_Round4Package_nat_1341 A.natDegree B.natDegree D.natDegree F.natDegree h hcq11 hcq6)
+      · exact Or.inr (astra4u_Round4Package_nat_2150 A.natDegree B.natDegree E.natDegree F.natDegree G.natDegree h hcq0 hcq11 hcq10)
+      · exact Or.inr (astra4u_Round4Package_nat_1119 A.natDegree B.natDegree F.natDegree h hcq1 hcq11)
+      · exact Or.inr (astra4u_Round4Package_nat_1471 A.natDegree B.natDegree F.natDegree G.natDegree h hcq1 hcq0 hcq11)
     rcases hbls with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq0 hcq1 hcq6 hcq10 hcq11; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_2678 A.natDegree B.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hcq1 h hcq0 hcq11 hcq6 hcq10)
   have hbbeta' : beta = 0 ∨ (3 * A.natDegree + B.natDegree < A.natDegree + B.natDegree + F.natDegree ∧ 2 * A.natDegree + D.natDegree < A.natDegree + B.natDegree + F.natDegree ∧ 3 * B.natDegree < A.natDegree + B.natDegree + F.natDegree ∧ A.natDegree + F.natDegree < A.natDegree + B.natDegree + F.natDegree ∧ B.natDegree + E.natDegree < A.natDegree + B.natDegree + F.natDegree) := by
     have hbbetas : beta = 0 ∨ (3 * A.natDegree + B.natDegree < A.natDegree + B.natDegree + F.natDegree) := by
       rcases hbbeta with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq1 hApos; omega)
-      · exact absurd h (by clear * - hCn hApos; omega)
-      · exact Or.inr (by clear * - h hcq6 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq10 hcq11; omega)
-      · exact Or.inr (by clear * - h hApos; omega)
-      · exact Or.inr (by clear * - h hcq0 hApos; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1121 A.natDegree B.natDegree F.natDegree hApos hcq1 h)
+      · exact absurd h (astra4u_Round4Package_nat_0228 A.natDegree C.natDegree hApos hCn)
+      · exact Or.inr (astra4u_Round4Package_nat_1343 A.natDegree B.natDegree D.natDegree F.natDegree h hcq11 hcq6)
+      · exact Or.inr (astra4u_Round4Package_nat_2152 A.natDegree B.natDegree E.natDegree F.natDegree G.natDegree h hcq0 hcq11 hcq10)
+      · exact Or.inr (astra4u_Round4Package_nat_1122 A.natDegree B.natDegree F.natDegree hApos h)
+      · exact Or.inr (astra4u_Round4Package_nat_1473 A.natDegree B.natDegree F.natDegree G.natDegree hApos h hcq0)
     rcases hbbetas with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq0 hcq1 hcq6 hApos hcq10 hcq11; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_2679 A.natDegree B.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hcq1 h hcq0 hcq11 hcq6 hcq10)
   have hrest : (muQuarticChamberRest4810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G).natDegree < A.natDegree + B.natDegree + F.natDegree :=
     muQuarticChamberRest4810_natDegree_lt_of_live_BDEFG l beta gamma delta epsilon zeta eta theta
@@ -1313,7 +1320,7 @@ theorem quarticChamberBDEFG14810_impossible
   rw [degreeZeroMuQuartic810_eq_face4_add_rest,
     natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead]
     at hmu
-  clear * - hdpos hmu; omega
+  exact (Nat.ne_of_gt hdpos) hmu
 /-! ## Face degrees -/
 
 set_option maxHeartbeats 64000000 in
@@ -1335,10 +1342,9 @@ theorem quarticChamberBDEFG15810_impossible
   have hAne : A ≠ 0 := by
     intro h0
     have hz0 : A.natDegree = 0 := by simp [h0]
-    clear * - hApos hz0; omega
+    exact (Nat.ne_of_gt hApos) hz0
   have hdpos : 0 < A.natDegree + D.natDegree + F.natDegree := by
-    by_contra hzero
-    exact hnc (by clear * - hCn hcq0 hcq1 hcq2 hcq3 hcq11 hzero; omega)
+    clear * - hApos; omega
   obtain ⟨hbl, hbbeta, hbdelta, hbzeta, hbtheta⟩ :=
     quarticSigma_kappaLoadBands810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G hA hkap
@@ -1346,41 +1352,41 @@ theorem quarticChamberBDEFG15810_impossible
     have hbls : l = 0 ∨ (4 * A.natDegree + D.natDegree < A.natDegree + D.natDegree + F.natDegree) := by
       rcases hbl with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq11; omega)
-      · exact absurd h (by clear * - hCn hcq0 hcq3 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq3 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq3 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq3 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq11; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1692 A.natDegree B.natDegree D.natDegree F.natDegree h hcq11)
+      · exact absurd h (astra4u_Round4Package_nat_2010 A.natDegree B.natDegree C.natDegree D.natDegree F.natDegree hcq11 hcq0 hCn hcq3)
+      · exact Or.inr (astra4u_Round4Package_nat_1694 A.natDegree B.natDegree D.natDegree F.natDegree h hcq11 hcq3)
+      · exact Or.inr (astra4u_Round4Package_nat_2011 A.natDegree B.natDegree D.natDegree E.natDegree F.natDegree h hcq2 hcq11 hcq0 hcq3)
+      · exact Or.inr (astra4u_Round4Package_nat_1696 A.natDegree B.natDegree D.natDegree F.natDegree h hcq11 hcq0 hcq3)
+      · exact Or.inr (astra4u_Round4Package_nat_2121 A.natDegree B.natDegree D.natDegree F.natDegree G.natDegree h hcq1 hcq11 hcq0 hcq3)
     rcases hbls with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq3 hcq11; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_2680 A.natDegree B.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hcq2 hcq1 h hcq11 hcq0 hcq3)
   have hbbeta' : beta = 0 ∨ (3 * A.natDegree + D.natDegree < A.natDegree + D.natDegree + F.natDegree ∧ A.natDegree + 3 * B.natDegree < A.natDegree + D.natDegree + F.natDegree ∧ 2 * A.natDegree + F.natDegree < A.natDegree + D.natDegree + F.natDegree ∧ A.natDegree + B.natDegree + E.natDegree < A.natDegree + D.natDegree + F.natDegree ∧ 2 * B.natDegree + D.natDegree < A.natDegree + D.natDegree + F.natDegree ∧ D.natDegree + E.natDegree < A.natDegree + D.natDegree + F.natDegree) := by
     have hbbetas : beta = 0 ∨ (3 * A.natDegree + D.natDegree < A.natDegree + D.natDegree + F.natDegree) := by
       rcases hbbeta with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq11; omega)
-      · exact absurd h (by clear * - hCn hcq0 hcq3 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq3 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq3 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq3 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq11; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1699 A.natDegree B.natDegree D.natDegree F.natDegree h hcq11)
+      · exact absurd h (astra4u_Round4Package_nat_2013 A.natDegree B.natDegree C.natDegree D.natDegree F.natDegree hcq11 hcq0 hCn hcq3)
+      · exact Or.inr (astra4u_Round4Package_nat_1701 A.natDegree B.natDegree D.natDegree F.natDegree h hcq11 hcq3)
+      · exact Or.inr (astra4u_Round4Package_nat_2014 A.natDegree B.natDegree D.natDegree E.natDegree F.natDegree hcq2 h hcq11 hcq0 hcq3)
+      · exact Or.inr (astra4u_Round4Package_nat_1703 A.natDegree B.natDegree D.natDegree F.natDegree h hcq11 hcq0 hcq3)
+      · exact Or.inr (astra4u_Round4Package_nat_2123 A.natDegree B.natDegree D.natDegree F.natDegree G.natDegree h hcq1 hcq11 hcq0 hcq3)
     rcases hbbetas with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq0 hcq2 hcq3 hcq11; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_2015 A.natDegree B.natDegree D.natDegree E.natDegree F.natDegree hcq2 h hcq11 hcq0 hcq3)
   have hbdelta' : delta = 0 ∨ (2 * A.natDegree + D.natDegree < A.natDegree + D.natDegree + F.natDegree ∧ 3 * B.natDegree < A.natDegree + D.natDegree + F.natDegree ∧ A.natDegree + F.natDegree < A.natDegree + D.natDegree + F.natDegree ∧ B.natDegree + E.natDegree < A.natDegree + D.natDegree + F.natDegree) := by
     have hbdeltas : delta = 0 ∨ (2 * A.natDegree + D.natDegree < A.natDegree + D.natDegree + F.natDegree) := by
       rcases hbdelta with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq11; omega)
-      · exact absurd h (by clear * - hCn hcq0 hcq3 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq3 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq3 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq3 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq11; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1706 A.natDegree B.natDegree D.natDegree F.natDegree hcq11 h)
+      · exact absurd h (astra4u_Round4Package_nat_2016 A.natDegree B.natDegree C.natDegree D.natDegree F.natDegree hcq11 hcq0 hCn hcq3)
+      · exact Or.inr (astra4u_Round4Package_nat_1708 A.natDegree B.natDegree D.natDegree F.natDegree h hcq11 hcq3)
+      · exact Or.inr (astra4u_Round4Package_nat_2017 A.natDegree B.natDegree D.natDegree E.natDegree F.natDegree hcq2 h hcq11 hcq0 hcq3)
+      · exact Or.inr (astra4u_Round4Package_nat_1710 A.natDegree B.natDegree D.natDegree F.natDegree h hcq11 hcq0 hcq3)
+      · exact Or.inr (astra4u_Round4Package_nat_2125 A.natDegree B.natDegree D.natDegree F.natDegree G.natDegree h hcq1 hcq11 hcq0 hcq3)
     rcases hbdeltas with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq0 hcq2 hcq3 hcq11; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_2018 A.natDegree B.natDegree D.natDegree E.natDegree F.natDegree h hcq2 hcq11 hcq0 hcq3)
   have hrest : (xiQuarticChamberRest15810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G).natDegree < A.natDegree + D.natDegree + F.natDegree :=
     xiQuarticChamberRest15810_natDegree_lt_of_live_BDEFG l beta gamma delta epsilon zeta eta theta
@@ -1391,7 +1397,7 @@ theorem quarticChamberBDEFG15810_impossible
   rw [degreeZeroXiQuartic810_eq_face15_add_rest,
     natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead]
     at hxi
-  clear * - hdpos hxi; omega
+  exact (Nat.ne_of_gt hdpos) hxi
 /-! ## Face degrees -/
 
 set_option maxHeartbeats 64000000 in
@@ -1413,10 +1419,9 @@ theorem quarticChamberBDEFG17810_impossible
   have hAne : A ≠ 0 := by
     intro h0
     have hz0 : A.natDegree = 0 := by simp [h0]
-    clear * - hApos hz0; omega
+    exact (Nat.ne_of_gt hApos) hz0
   have hdpos : 0 < A.natDegree + 2 * F.natDegree := by
-    by_contra hzero
-    exact hnc (by clear * - hCn hcq0 hcq1 hcq2 hcq6 hcq11 hzero; omega)
+    clear * - hApos; omega
   obtain ⟨hbl, hbbeta, hbdelta, hbzeta, hbtheta⟩ :=
     quarticSigma_kappaLoadBands810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G hA hkap
@@ -1424,28 +1429,28 @@ theorem quarticChamberBDEFG17810_impossible
     have hbls : l = 0 ∨ (4 * A.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree) := by
       rcases hbl with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq13; omega)
-      · exact absurd h (by clear * - hCn hApos; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq13; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq13; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq13; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8 hcq13; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_2019 A.natDegree B.natDegree D.natDegree E.natDegree F.natDegree h hcq1 hcq2 hcq13 hcq0)
+      · exact absurd h (astra4u_Round4Package_nat_0221 A.natDegree C.natDegree hApos hCn)
+      · exact Or.inr (astra4u_Round4Package_nat_2020 A.natDegree B.natDegree D.natDegree E.natDegree F.natDegree h hcq1 hcq2 hcq13 hcq0)
+      · exact Or.inr (astra4u_Round4Package_nat_2021 A.natDegree B.natDegree D.natDegree E.natDegree F.natDegree h hcq1 hcq2 hcq13 hcq0)
+      · exact Or.inr (astra4u_Round4Package_nat_2022 A.natDegree B.natDegree D.natDegree E.natDegree F.natDegree h hcq1 hcq2 hcq13 hcq0)
+      · exact Or.inr (astra4u_Round4Package_nat_2681 A.natDegree B.natDegree D.natDegree E.natDegree F.natDegree G.natDegree h hcq1 hcq2 hcq13 hcq0 hcq8)
     rcases hbls with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8 hcq13; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_2682 A.natDegree B.natDegree D.natDegree E.natDegree F.natDegree G.natDegree h hcq1 hcq2 hcq13 hcq0 hcq8)
   have hbbeta' : beta = 0 ∨ (2 * A.natDegree + 3 * B.natDegree < A.natDegree + 2 * F.natDegree ∧ 3 * A.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree ∧ 2 * A.natDegree + B.natDegree + E.natDegree < A.natDegree + 2 * F.natDegree ∧ A.natDegree + 2 * B.natDegree + D.natDegree < A.natDegree + 2 * F.natDegree ∧ A.natDegree + D.natDegree + E.natDegree < A.natDegree + 2 * F.natDegree ∧ 2 * B.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree ∧ B.natDegree + 2 * D.natDegree < A.natDegree + 2 * F.natDegree ∧ E.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree) := by
     have hbbetas : beta = 0 ∨ (3 * A.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree) := by
       rcases hbbeta with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq13; omega)
-      · exact absurd h (by clear * - hCn hApos; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq13; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq13; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq13; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8 hcq13; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_2024 A.natDegree B.natDegree D.natDegree E.natDegree F.natDegree h hcq1 hcq2 hcq13 hcq0)
+      · exact absurd h (astra4u_Round4Package_nat_0228 A.natDegree C.natDegree hApos hCn)
+      · exact Or.inr (astra4u_Round4Package_nat_2025 A.natDegree B.natDegree D.natDegree E.natDegree F.natDegree h hcq1 hcq2 hcq13 hcq0)
+      · exact Or.inr (astra4u_Round4Package_nat_2026 A.natDegree B.natDegree D.natDegree E.natDegree F.natDegree h hcq1 hcq2 hcq13 hcq0)
+      · exact Or.inr (astra4u_Round4Package_nat_2027 A.natDegree B.natDegree D.natDegree E.natDegree F.natDegree h hcq1 hcq2 hcq13 hcq0)
+      · exact Or.inr (astra4u_Round4Package_nat_2683 A.natDegree B.natDegree D.natDegree E.natDegree F.natDegree G.natDegree h hcq1 hcq2 hcq13 hcq0 hcq8)
     rcases hbbetas with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq13; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_2028 A.natDegree B.natDegree D.natDegree E.natDegree F.natDegree h hcq1 hcq2 hcq13 hcq0)
   have hrest : (piQuarticChamberRest2810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G).natDegree < A.natDegree + 2 * F.natDegree :=
     piQuarticChamberRest2810_natDegree_lt_of_live_BDEFG l beta gamma delta epsilon zeta eta theta
@@ -1456,7 +1461,7 @@ theorem quarticChamberBDEFG17810_impossible
   rw [degreeZeroPiQuartic810_eq_face2_add_rest,
     natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead]
     at hpi
-  clear * - hdpos hpi; omega
+  exact (Nat.ne_of_gt hdpos) hpi
 /-! ## Face degrees -/
 
 set_option maxHeartbeats 64000000 in
@@ -1478,10 +1483,9 @@ theorem quarticChamberBDEFG20810_impossible
   have hAne : A ≠ 0 := by
     intro h0
     have hz0 : A.natDegree = 0 := by simp [h0]
-    clear * - hApos hz0; omega
+    exact (Nat.ne_of_gt hApos) hz0
   have hdpos : 0 < A.natDegree + 2 * F.natDegree := by
-    by_contra hzero
-    exact hnc (by clear * - hCn hcq0 hcq1 hcq3 hcq4 hcq11 hzero; omega)
+    clear * - hApos; omega
   obtain ⟨hbl, hbbeta, hbdelta, hbzeta, hbtheta⟩ :=
     quarticSigma_kappaLoadBands810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G hA hkap
@@ -1489,28 +1493,28 @@ theorem quarticChamberBDEFG20810_impossible
     have hbls : l = 0 ∨ (4 * A.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree) := by
       rcases hbl with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq11; omega)
-      · exact absurd h (by clear * - hCn hApos; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq4 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq11; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq11; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1347 A.natDegree B.natDegree F.natDegree h hcq11)
+      · exact absurd h (astra4u_Round4Package_nat_0221 A.natDegree C.natDegree hApos hCn)
+      · exact Or.inr (astra4u_Round4Package_nat_1348 A.natDegree B.natDegree D.natDegree F.natDegree h hcq11 hcq1)
+      · exact Or.inr (astra4u_Round4Package_nat_2029 A.natDegree B.natDegree D.natDegree E.natDegree F.natDegree h hcq4 hcq11 hcq1 hcq0)
+      · exact Or.inr (astra4u_Round4Package_nat_1349 A.natDegree B.natDegree D.natDegree F.natDegree h hcq11 hcq1 hcq0)
+      · exact Or.inr (astra4u_Round4Package_nat_2127 A.natDegree B.natDegree D.natDegree F.natDegree G.natDegree h hcq3 hcq11 hcq1 hcq0)
     rcases hbls with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq4 hcq11; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_2684 A.natDegree B.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hcq4 hcq3 h hcq11 hcq1 hcq0)
   have hbbeta' : beta = 0 ∨ (2 * A.natDegree + 3 * B.natDegree < A.natDegree + 2 * F.natDegree ∧ 3 * A.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree ∧ 2 * A.natDegree + B.natDegree + E.natDegree < A.natDegree + 2 * F.natDegree ∧ A.natDegree + 2 * B.natDegree + D.natDegree < A.natDegree + 2 * F.natDegree ∧ A.natDegree + D.natDegree + E.natDegree < A.natDegree + 2 * F.natDegree ∧ 2 * B.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree ∧ B.natDegree + 2 * D.natDegree < A.natDegree + 2 * F.natDegree ∧ E.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree) := by
     have hbbetas : beta = 0 ∨ (3 * A.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree) := by
       rcases hbbeta with h | h | h | h | h | h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq0 hcq1 hApos; omega)
-      · exact absurd h (by clear * - hCn hApos; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq4 hcq11; omega)
-      · exact Or.inr (by clear * - h hApos; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq11; omega)
+      · exact Or.inr (astra4u_Round4Package_nat_1351 A.natDegree B.natDegree D.natDegree F.natDegree hApos h hcq1 hcq0)
+      · exact absurd h (astra4u_Round4Package_nat_0228 A.natDegree C.natDegree hApos hCn)
+      · exact Or.inr (astra4u_Round4Package_nat_1352 A.natDegree B.natDegree D.natDegree F.natDegree hApos h hcq1 hcq0)
+      · exact Or.inr (astra4u_Round4Package_nat_2031 A.natDegree B.natDegree D.natDegree E.natDegree F.natDegree hcq4 h hcq11 hcq1 hcq0)
+      · exact Or.inr (astra4u_Round4Package_nat_1353 A.natDegree F.natDegree hApos h)
+      · exact Or.inr (astra4u_Round4Package_nat_2129 A.natDegree B.natDegree D.natDegree F.natDegree G.natDegree h hcq3 hcq11 hcq1 hcq0)
     rcases hbbetas with h | h
     · exact Or.inl h
-    · exact Or.inr (by clear * - h hcq0 hcq1 hcq4 hApos hcq11; omega)
+    · exact Or.inr (astra4u_Round4Package_nat_2032 A.natDegree B.natDegree D.natDegree E.natDegree F.natDegree hApos hcq4 h hcq11 hcq1 hcq0)
   have hrest : (piQuarticChamberRest2810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G).natDegree < A.natDegree + 2 * F.natDegree :=
     piQuarticChamberRest2810_natDegree_lt_of_live_BDEFG l beta gamma delta epsilon zeta eta theta
@@ -1521,7 +1525,7 @@ theorem quarticChamberBDEFG20810_impossible
   rw [degreeZeroPiQuartic810_eq_face2_add_rest,
     natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead]
     at hpi
-  clear * - hdpos hpi; omega
+  exact (Nat.ne_of_gt hdpos) hpi
 
 end QuarticChamberKills810
 

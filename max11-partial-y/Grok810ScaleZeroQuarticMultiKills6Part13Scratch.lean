@@ -48,6 +48,16 @@ set_option maxHeartbeats 64000000 in
 def primitiveQuarticInnerABCEFG810 (a b c e f g : k) : k :=
   (-5 : k) * a ^ 4 * b ^ 3 + 60 * a ^ 3 * b * c ^ 2 + (-160 : k) * a ^ 3 * b * g + (-160 : k) * a ^ 3 * c * f + 120 * a ^ 2 * b ^ 3 * c + (-160 : k) * a ^ 2 * b ^ 2 * f + 960 * a ^ 2 * b * c * e + (-1280 : k) * a ^ 2 * e * f + 520 * a * b ^ 5 + (-3200 : k) * a * b ^ 3 * e + (-960 : k) * a * b * c ^ 3 + 2560 * a * b * c * g + 5120 * a * b * e ^ 2 + (-20480 : k) * a * f * g + (-8480 : k) * b ^ 3 * c ^ 2 + 3840 * b ^ 3 * g + 21760 * b ^ 2 * c * f + 23040 * b * c ^ 2 * e + (-20480 : k) * b * e * g + (-20480 : k) * b * f ^ 2 + (-40960 : k) * c * e * f
 
+section
+
+-- Specialize the existing scalar operations while elaborating the large identity.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
 set_option maxHeartbeats 64000000 in
 theorem quarticInner_ABCEFG_identity
     (a b c e f g : k) :
@@ -60,6 +70,8 @@ theorem quarticInner_ABCEFG_identity
       g ^ 5 := by
   simp only [kappaQuarticInnerABCEFG810, muQuarticInnerABCEFG810, nuQuarticInnerABCEFG810, xiQuarticInnerABCEFG810, omicronQuarticInnerABCEFG810, piQuarticInnerABCEFG810, primitiveQuarticInnerABCEFG810]
   ring
+
+end
 
 set_option maxHeartbeats 64000000 in
 def kappaQuarticFaceABCEFG810 (A B C D E F G : k[X]) : k[X] :=

@@ -200,6 +200,13 @@ section Depression610Twelfth
 variable {F : Type*} [Field F] [CharZero F]
 
 
+-- Round4 as4n: specialize standard arithmetic heads to their existing carrier.
+local infixl:65 (priority := 10001) " + " => (HAdd.hAdd (α := F) (β := F) (γ := F))
+local infixl:65 (priority := 10001) " - " => (HSub.hSub (α := F) (β := F) (γ := F))
+local infixl:70 (priority := 10001) " * " => (HMul.hMul (α := F) (β := F) (γ := F))
+local infixl:70 (priority := 10001) " / " => (HDiv.hDiv (α := F) (β := F) (γ := F))
+local infixr:80 (priority := 10001) " ^ " => (HPow.hPow (α := F) (β := Nat) (γ := F))
+
 set_option maxHeartbeats 64000000 in
 /-- First residual of the degree-`3` row, with `X'` eliminated through
 the degree-`5` row.  Equivalent to
@@ -268,6 +275,13 @@ def lambdaResidual610
     (10 / 27 : F) * B * C0 * D0 -
     (5 / 81 : F) * C0 ^ 3 +
     (5 / 9 : F) * E0 ^ 2
+
+-- Round4 as4n: specialize standard arithmetic heads to their existing carrier.
+local infixl:65 (priority := 10002) " + " => (HAdd.hAdd (α := F[X]) (β := F[X]) (γ := F[X]))
+local infixl:65 (priority := 10002) " - " => (HSub.hSub (α := F[X]) (β := F[X]) (γ := F[X]))
+local infixl:70 (priority := 10002) " * " => (HMul.hMul (α := F[X]) (β := F[X]) (γ := F[X]))
+local infixl:70 (priority := 10002) " / " => (HDiv.hDiv (α := F[X]) (β := F[X]) (γ := F[X]))
+local infixr:80 (priority := 10002) " ^ " => (HPow.hPow (α := F[X]) (β := Nat) (γ := F[X]))
 
 set_option maxHeartbeats 64000000 in
 /-- Independent accumulator chunk ending at monomial 10. -/

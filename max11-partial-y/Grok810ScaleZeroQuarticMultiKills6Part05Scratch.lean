@@ -42,6 +42,16 @@ theorem degreeZeroPiQuartic810_eq_ABCDEG_add_rest
     piThetaGroupQuartic810, piQuarticFaceABCDEG810, degreeZeroPiQuarticNoABCDEG810]
   all_goals module
 
+section
+
+-- Fix scalar operation carriers for reflection coefficient elaboration.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroPiQuarticNoABCDEG810` (79 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
@@ -100,11 +110,14 @@ theorem speedRefl_degreeZeroPiQuarticNoABCDEG810_eq_polyOf
       [1, 1, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0], [0, 1, 0, 0, 1, 0, 0],
       [0, 0, 1, 1, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0], [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 1], [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0]] := by
-  simp only [degreeZeroPiQuarticNoABCDEG810, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroPiQuarticNoABCDEG810, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  simp only [sub_eq_add_neg, neg_smul, add_assoc]
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc, sub_eq_add_neg, neg_smul]
+
+end
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroPiQuarticNoABCDEG810_natDegree_lt
@@ -123,7 +136,7 @@ theorem degreeZeroPiQuarticNoABCDEG810_natDegree_lt
     List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
     Nat.add_zero, Nat.zero_add, max_lt_iff]
   repeat' apply And.intro
-  all_goals omega
+  all_goals clear * - hApos hBpos hCpos hDpos hEpos hGpos hAB hAC hAD hAE hAG hFlt hF1; omega
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticFaceABCDEG810_coeff_top
@@ -147,91 +160,91 @@ theorem piQuarticFaceABCDEG810_coeff_top
     rw [← hdeg_A2B4, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow, leadingCoeff_pow]
   have hdeg_AB3D : ((A * B ^ 3 * D)).natDegree = 2 * A.natDegree + 4 * B.natDegree := by
     rw [natDegree_mul (mul_ne_zero hAne (pow_ne_zero 3 hBne)) hDne, natDegree_mul hAne (pow_ne_zero 3 hBne), natDegree_pow]
-    omega
+    clear * - hApos hBpos hCpos hDpos hEpos hGpos hAB hAC hAD hAE hAG hFlt; omega
   have hcf_AB3D : ((A * B ^ 3 * D)).coeff (2 * A.natDegree + 4 * B.natDegree) =
       A.leadingCoeff * B.leadingCoeff ^ 3 * D.leadingCoeff := by
     rw [← hdeg_AB3D, coeff_natDegree, leadingCoeff_mul, leadingCoeff_mul, leadingCoeff_pow]
   have hdeg_AB2C2 : ((A * B ^ 2 * C ^ 2)).natDegree = 2 * A.natDegree + 4 * B.natDegree := by
     rw [natDegree_mul (mul_ne_zero hAne (pow_ne_zero 2 hBne)) (pow_ne_zero 2 hCne), natDegree_mul hAne (pow_ne_zero 2 hBne), natDegree_pow, natDegree_pow]
-    omega
+    clear * - hApos hBpos hCpos hDpos hEpos hGpos hAB hAC hAD hAE hAG hFlt; omega
   have hcf_AB2C2 : ((A * B ^ 2 * C ^ 2)).coeff (2 * A.natDegree + 4 * B.natDegree) =
       A.leadingCoeff * B.leadingCoeff ^ 2 * C.leadingCoeff ^ 2 := by
     rw [← hdeg_AB2C2, coeff_natDegree, leadingCoeff_mul, leadingCoeff_mul, leadingCoeff_pow, leadingCoeff_pow]
   have hdeg_AB2G : ((A * B ^ 2 * G)).natDegree = 2 * A.natDegree + 4 * B.natDegree := by
     rw [natDegree_mul (mul_ne_zero hAne (pow_ne_zero 2 hBne)) hGne, natDegree_mul hAne (pow_ne_zero 2 hBne), natDegree_pow]
-    omega
+    clear * - hApos hBpos hCpos hDpos hEpos hGpos hAB hAC hAD hAE hAG hFlt; omega
   have hcf_AB2G : ((A * B ^ 2 * G)).coeff (2 * A.natDegree + 4 * B.natDegree) =
       A.leadingCoeff * B.leadingCoeff ^ 2 * G.leadingCoeff := by
     rw [← hdeg_AB2G, coeff_natDegree, leadingCoeff_mul, leadingCoeff_mul, leadingCoeff_pow]
   have hdeg_ABDE : ((A * B * D * E)).natDegree = 2 * A.natDegree + 4 * B.natDegree := by
     rw [natDegree_mul (mul_ne_zero (mul_ne_zero hAne hBne) hDne) hEne, natDegree_mul (mul_ne_zero hAne hBne) hDne, natDegree_mul hAne hBne]
-    omega
+    clear * - hApos hBpos hCpos hDpos hEpos hGpos hAB hAC hAD hAE hAG hFlt; omega
   have hcf_ABDE : ((A * B * D * E)).coeff (2 * A.natDegree + 4 * B.natDegree) =
       A.leadingCoeff * B.leadingCoeff * D.leadingCoeff * E.leadingCoeff := by
     rw [← hdeg_ABDE, coeff_natDegree, leadingCoeff_mul, leadingCoeff_mul, leadingCoeff_mul]
   have hdeg_ACD2 : ((A * C * D ^ 2)).natDegree = 2 * A.natDegree + 4 * B.natDegree := by
     rw [natDegree_mul (mul_ne_zero hAne hCne) (pow_ne_zero 2 hDne), natDegree_mul hAne hCne, natDegree_pow]
-    omega
+    clear * - hApos hBpos hCpos hDpos hEpos hGpos hAB hAC hAD hAE hAG hFlt; omega
   have hcf_ACD2 : ((A * C * D ^ 2)).coeff (2 * A.natDegree + 4 * B.natDegree) =
       A.leadingCoeff * C.leadingCoeff * D.leadingCoeff ^ 2 := by
     rw [← hdeg_ACD2, coeff_natDegree, leadingCoeff_mul, leadingCoeff_mul, leadingCoeff_pow]
   have hdeg_B4C : ((B ^ 4 * C)).natDegree = 2 * A.natDegree + 4 * B.natDegree := by
     rw [natDegree_mul (pow_ne_zero 4 hBne) hCne, natDegree_pow]
-    omega
+    clear * - hApos hBpos hCpos hDpos hEpos hGpos hAB hAC hAD hAE hAG hFlt; omega
   have hcf_B4C : ((B ^ 4 * C)).coeff (2 * A.natDegree + 4 * B.natDegree) =
       B.leadingCoeff ^ 4 * C.leadingCoeff := by
     rw [← hdeg_B4C, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow]
   have hdeg_B2CE : ((B ^ 2 * C * E)).natDegree = 2 * A.natDegree + 4 * B.natDegree := by
     rw [natDegree_mul (mul_ne_zero (pow_ne_zero 2 hBne) hCne) hEne, natDegree_mul (pow_ne_zero 2 hBne) hCne, natDegree_pow]
-    omega
+    clear * - hApos hBpos hCpos hDpos hEpos hGpos hAB hAC hAD hAE hAG hFlt; omega
   have hcf_B2CE : ((B ^ 2 * C * E)).coeff (2 * A.natDegree + 4 * B.natDegree) =
       B.leadingCoeff ^ 2 * C.leadingCoeff * E.leadingCoeff := by
     rw [← hdeg_B2CE, coeff_natDegree, leadingCoeff_mul, leadingCoeff_mul, leadingCoeff_pow]
   have hdeg_B2D2 : ((B ^ 2 * D ^ 2)).natDegree = 2 * A.natDegree + 4 * B.natDegree := by
     rw [natDegree_mul (pow_ne_zero 2 hBne) (pow_ne_zero 2 hDne), natDegree_pow, natDegree_pow]
-    omega
+    clear * - hApos hBpos hCpos hDpos hEpos hGpos hAB hAC hAD hAE hAG hFlt; omega
   have hcf_B2D2 : ((B ^ 2 * D ^ 2)).coeff (2 * A.natDegree + 4 * B.natDegree) =
       B.leadingCoeff ^ 2 * D.leadingCoeff ^ 2 := by
     rw [← hdeg_B2D2, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow, leadingCoeff_pow]
   have hdeg_BC2D : ((B * C ^ 2 * D)).natDegree = 2 * A.natDegree + 4 * B.natDegree := by
     rw [natDegree_mul (mul_ne_zero hBne (pow_ne_zero 2 hCne)) hDne, natDegree_mul hBne (pow_ne_zero 2 hCne), natDegree_pow]
-    omega
+    clear * - hApos hBpos hCpos hDpos hEpos hGpos hAB hAC hAD hAE hAG hFlt; omega
   have hcf_BC2D : ((B * C ^ 2 * D)).coeff (2 * A.natDegree + 4 * B.natDegree) =
       B.leadingCoeff * C.leadingCoeff ^ 2 * D.leadingCoeff := by
     rw [← hdeg_BC2D, coeff_natDegree, leadingCoeff_mul, leadingCoeff_mul, leadingCoeff_pow]
   have hdeg_BDG : ((B * D * G)).natDegree = 2 * A.natDegree + 4 * B.natDegree := by
     rw [natDegree_mul (mul_ne_zero hBne hDne) hGne, natDegree_mul hBne hDne]
-    omega
+    clear * - hApos hBpos hCpos hDpos hEpos hGpos hAB hAC hAD hAE hAG hFlt; omega
   have hcf_BDG : ((B * D * G)).coeff (2 * A.natDegree + 4 * B.natDegree) =
       B.leadingCoeff * D.leadingCoeff * G.leadingCoeff := by
     rw [← hdeg_BDG, coeff_natDegree, leadingCoeff_mul, leadingCoeff_mul]
   have hdeg_C4 : (C ^ 4).natDegree = 2 * A.natDegree + 4 * B.natDegree := by
     rw [natDegree_pow]
-    omega
+    clear * - hApos hBpos hCpos hDpos hEpos hGpos hAB hAC hAD hAE hAG hFlt; omega
   have hcf_C4 : (C ^ 4).coeff (2 * A.natDegree + 4 * B.natDegree) =
       C.leadingCoeff ^ 4 := by
     rw [← hdeg_C4, coeff_natDegree, leadingCoeff_pow]
   have hdeg_C2G : ((C ^ 2 * G)).natDegree = 2 * A.natDegree + 4 * B.natDegree := by
     rw [natDegree_mul (pow_ne_zero 2 hCne) hGne, natDegree_pow]
-    omega
+    clear * - hApos hBpos hCpos hDpos hEpos hGpos hAB hAC hAD hAE hAG hFlt; omega
   have hcf_C2G : ((C ^ 2 * G)).coeff (2 * A.natDegree + 4 * B.natDegree) =
       C.leadingCoeff ^ 2 * G.leadingCoeff := by
     rw [← hdeg_C2G, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow]
   have hdeg_CE2 : ((C * E ^ 2)).natDegree = 2 * A.natDegree + 4 * B.natDegree := by
     rw [natDegree_mul hCne (pow_ne_zero 2 hEne), natDegree_pow]
-    omega
+    clear * - hApos hBpos hCpos hDpos hEpos hGpos hAB hAC hAD hAE hAG hFlt; omega
   have hcf_CE2 : ((C * E ^ 2)).coeff (2 * A.natDegree + 4 * B.natDegree) =
       C.leadingCoeff * E.leadingCoeff ^ 2 := by
     rw [← hdeg_CE2, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow]
   have hdeg_D2E : ((D ^ 2 * E)).natDegree = 2 * A.natDegree + 4 * B.natDegree := by
     rw [natDegree_mul (pow_ne_zero 2 hDne) hEne, natDegree_pow]
-    omega
+    clear * - hApos hBpos hCpos hDpos hEpos hGpos hAB hAC hAD hAE hAG hFlt; omega
   have hcf_D2E : ((D ^ 2 * E)).coeff (2 * A.natDegree + 4 * B.natDegree) =
       D.leadingCoeff ^ 2 * E.leadingCoeff := by
     rw [← hdeg_D2E, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow]
   have hdeg_G2 : (G ^ 2).natDegree = 2 * A.natDegree + 4 * B.natDegree := by
     rw [natDegree_pow]
-    omega
+    clear * - hApos hBpos hCpos hDpos hEpos hGpos hAB hAC hAD hAE hAG hFlt; omega
   have hcf_G2 : (G ^ 2).coeff (2 * A.natDegree + 4 * B.natDegree) =
       G.leadingCoeff ^ 2 := by
     rw [← hdeg_G2, coeff_natDegree, leadingCoeff_pow]
@@ -545,6 +558,16 @@ theorem degreeZeroPrimitiveQuartic810_eq_ABCDEG_add_rest
     grok810MultiKills6Part05SpeedT_degreeZeroPrimitiveQuarticNoABCDEG810_chunk14]
   all_goals module
 
+section
+
+-- Fix scalar operation carriers for reflection coefficient elaboration.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroPrimitiveQuarticNoABCDEG810` (132 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
@@ -633,6 +656,9 @@ theorem speedRefl_degreeZeroPrimitiveQuarticNoABCDEG810_eq_polyOf
       [1, 1, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0], [0, 1, 0, 0, 1, 0, 0],
       [0, 0, 1, 1, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0], [2, 0, 1, 0, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0],
       [1, 0, 0, 0, 1, 0, 0], [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1]] := by
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
   simp only [degreeZeroPrimitiveQuarticNoABCDEG810,
     grok810MultiKills6Part05SpeedT_degreeZeroPrimitiveQuarticNoABCDEG810_chunk01,
     grok810MultiKills6Part05SpeedT_degreeZeroPrimitiveQuarticNoABCDEG810_chunk02,
@@ -647,11 +673,11 @@ theorem speedRefl_degreeZeroPrimitiveQuarticNoABCDEG810_eq_polyOf
     grok810MultiKills6Part05SpeedT_degreeZeroPrimitiveQuarticNoABCDEG810_chunk11,
     grok810MultiKills6Part05SpeedT_degreeZeroPrimitiveQuarticNoABCDEG810_chunk12,
     grok810MultiKills6Part05SpeedT_degreeZeroPrimitiveQuarticNoABCDEG810_chunk13,
-    grok810MultiKills6Part05SpeedT_degreeZeroPrimitiveQuarticNoABCDEG810_chunk14, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    grok810MultiKills6Part05SpeedT_degreeZeroPrimitiveQuarticNoABCDEG810_chunk14, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  simp only [sub_eq_add_neg, neg_smul, add_assoc]
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc, sub_eq_add_neg, neg_smul]
+
+end
 
 end QuarticKills810
 

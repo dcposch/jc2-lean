@@ -17,6 +17,27 @@ section SecondaryResidualDescent68
 
 variable {k : Type*} [Field k] [CharZero k]
 
+private theorem descent68SpeedT_add_lt {p q : k[X]} {bound : ℕ}
+    (hp : p.natDegree < bound) (hq : q.natDegree < bound) :
+    (p + q).natDegree < bound :=
+  (natDegree_add_le p q).trans_lt (max_lt hp hq)
+
+private theorem descent68SpeedT_sub_lt {p q : k[X]} {bound : ℕ}
+    (hp : p.natDegree < bound) (hq : q.natDegree < bound) :
+    (p - q).natDegree < bound :=
+  (natDegree_sub_le p q).trans_lt (max_lt hp hq)
+
+private theorem descent68SpeedT_smul_lt (a : k) {p : k[X]} {bound : ℕ}
+    (hp : p.natDegree < bound) : (a • p).natDegree < bound :=
+  (natDegree_smul_le a p).trans_lt hp
+
+private theorem descent68SpeedT_mulDeriv_lt {p q : k[X]} {u v bound : ℕ}
+    (hp : p.natDegree ≤ u) (hq : q.natDegree ≤ v) (h : u + (v - 1) < bound) :
+    (p * derivative q).natDegree < bound :=
+  natDegree_mul_le.trans_lt
+    (lt_of_le_of_lt
+      (Nat.add_le_add hp ((natDegree_derivative_le q).trans (Nat.sub_le_sub_right hq 1))) h)
+
 /-- The quadratic discriminant combination cancelled on the selected middle
 face. -/
 def secondaryResidualDiscriminantPolynomial68
@@ -43,7 +64,7 @@ theorem secondaryResidualInvariantFourPolynomial68_eq_incidenceDefect
     secondaryResidualIncidenceDefectPolynomial68]
   module
 
-set_option maxHeartbeats 1000000 in
+set_option maxHeartbeats 64000000 in
 /-- Multiplying the cubic invariant by `B` exposes the cubic defect, modulo
 the already-normalized incidence defect. -/
 theorem secondaryResidualInvariantThreePolynomial68_mul_eq_cubicDefect
@@ -65,7 +86,7 @@ theorem secondaryResidualInvariantThreePolynomial68_mul_eq_cubicDefect
   rw [hneg8]
   ring
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 /-- Cancellation of the selected scalar discriminant strictly lowers the
 corresponding polynomial discriminant. -/
 theorem secondaryResidualDiscriminantPolynomial68_degree_lt
@@ -78,14 +99,16 @@ theorem secondaryResidualDiscriminantPolynomial68_degree_lt
     (secondaryResidualDiscriminantPolynomial68 A B c).natDegree <
       8 * n - 2 * g := by
   have hB2deg : (B ^ 2).natDegree ≤ 6 * n - 2 * g := by
-    compute_degree
-    omega
+    exact (natDegree_pow_le_of_le 2 hB).trans (by clear * - hsmall; omega)
   have hdegree :
       (secondaryResidualDiscriminantPolynomial68 A B c).natDegree ≤
         8 * n - 2 * g := by
     simp only [secondaryResidualDiscriminantPolynomial68]
-    compute_degree
-    omega
+    apply (natDegree_add_le _ _).trans
+    apply max_le
+    · exact (natDegree_mul_le_of_le hA hB2deg).trans (by clear * - hsmall; omega)
+    · exact (natDegree_smul_le _ _).trans
+        ((natDegree_pow_le_of_le 2 hc).trans (by clear * - hsmall; omega))
   have hB2 : (B ^ 2).coeff (6 * n - 2 * g) =
       B.coeff (3 * n - g) ^ 2 := by
     have h := coeff_pow_at_bound68 B (3 * n - g) 2 hB
@@ -105,7 +128,7 @@ theorem secondaryResidualDiscriminantPolynomial68_degree_lt
     exact hdisc
   exact (natDegree_le_pred hdegree hcoeff).trans_lt (by omega)
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 /-- The middle-face incidence equation likewise cancels the old top
 coefficient of `B*e+c*d`. -/
 theorem secondaryResidualIncidencePolynomial68_degree_lt
@@ -119,8 +142,10 @@ theorem secondaryResidualIncidencePolynomial68_degree_lt
       c.coeff (4 * n - g) * d.coeff (5 * n - h) = 0) :
     (B * e + c * d).natDegree < 9 * n - g - h := by
   have hdegree : (B * e + c * d).natDegree ≤ 9 * n - g - h := by
-    compute_degree
-    omega
+    apply (natDegree_add_le _ _).trans
+    apply max_le
+    · exact (natDegree_mul_le_of_le hB he).trans (by clear * - hg hgh hh hsmall; omega)
+    · exact (natDegree_mul_le_of_le hc hd).trans (by clear * - hg hgh hh hsmall; omega)
   have hBe := coeff_mul_at_bounds68 B e
     (3 * n - g) (6 * n - h) hB he
   have hiBe : (3 * n - g) + (6 * n - h) = 9 * n - g - h := by omega
@@ -134,7 +159,7 @@ theorem secondaryResidualIncidencePolynomial68_degree_lt
     exact hincidence
   exact (natDegree_le_pred hdegree hcoeff).trans_lt (by omega)
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 /-- At the next cubic face, the quartic-invariant loads are still strictly
 lower even though the two residual directions occur at the middle gap `h`. -/
 theorem secondaryLoadInvariantFourPolynomial68_degree_lt_cubicFace
@@ -149,10 +174,39 @@ theorem secondaryLoadInvariantFourPolynomial68_degree_lt_cubicFace
       l beta gamma delta epsilon zeta A B c D e).natDegree <
         9 * n - 3 * g := by
   simp only [secondaryLoadInvariantFourPolynomial68]
-  compute_degree
-  omega
+  exact (descent68SpeedT_add_lt
+    (descent68SpeedT_add_lt
+    (descent68SpeedT_add_lt
+    (descent68SpeedT_sub_lt
+    (descent68SpeedT_add_lt
+    (descent68SpeedT_add_lt
+    (descent68SpeedT_add_lt
+    (descent68SpeedT_sub_lt
+    (descent68SpeedT_add_lt
+    (descent68SpeedT_add_lt
+    (descent68SpeedT_sub_lt
+    (descent68SpeedT_add_lt
+    (descent68SpeedT_add_lt
+    (descent68SpeedT_add_lt
+    (descent68SpeedT_add_lt
+    (descent68SpeedT_smul_lt _ (hA.trans_lt (by clear * - hg hgh hsmall; omega)))
+    (descent68SpeedT_smul_lt _ (hB.trans_lt (by clear * - hg hgh hsmall; omega))))
+    (descent68SpeedT_smul_lt _ ((natDegree_pow_le_of_le 2 hA).trans_lt (by clear * - hg hgh hsmall; omega))))
+    (descent68SpeedT_smul_lt _ (hc.trans_lt (by clear * - hg hgh hsmall; omega))))
+    (descent68SpeedT_smul_lt _ (hD.trans_lt (by clear * - hg hgh hsmall; omega))))
+    (descent68SpeedT_smul_lt _ ((natDegree_mul_le_of_le hA hB).trans_lt (by clear * - hg hgh hsmall; omega))))
+    (descent68SpeedT_smul_lt _ (he.trans_lt (by clear * - hg hgh hsmall; omega))))
+    (descent68SpeedT_smul_lt _ ((natDegree_mul_le_of_le hA hc).trans_lt (by clear * - hg hgh hsmall; omega))))
+    (descent68SpeedT_smul_lt _ ((natDegree_pow_le_of_le 2 hB).trans_lt (by clear * - hg hgh hsmall; omega))))
+    (descent68SpeedT_smul_lt _ ((natDegree_pow_le_of_le 3 hA).trans_lt (by clear * - hg hgh hsmall; omega))))
+    (descent68SpeedT_smul_lt _ ((natDegree_pow_le_of_le 4 hA).trans_lt (by clear * - hg hgh hsmall; omega))))
+    (descent68SpeedT_smul_lt _ ((natDegree_mul_le_of_le (natDegree_pow_le_of_le 2 hA) hc).trans_lt (by clear * - hg hgh hsmall; omega))))
+    (descent68SpeedT_smul_lt _ ((natDegree_mul_le_of_le hA (natDegree_pow_le_of_le 2 hB)).trans_lt (by clear * - hg hgh hsmall; omega))))
+    (descent68SpeedT_smul_lt _ ((natDegree_mul_le_of_le hA he).trans_lt (by clear * - hg hgh hsmall; omega))))
+    (descent68SpeedT_smul_lt _ ((natDegree_mul_le_of_le hB hD).trans_lt (by clear * - hg hgh hsmall; omega))))
+    (descent68SpeedT_smul_lt _ ((natDegree_pow_le_of_le 2 hc).trans_lt (by clear * - hg hgh hsmall; omega))))
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 /-- The cubic-invariant loads obey the corresponding next-face cutoff. -/
 theorem secondaryLoadInvariantThreePolynomial68_degree_lt_cubicFace
     (l beta gamma delta epsilon zeta : k) (A B c D e : k[X])
@@ -166,10 +220,37 @@ theorem secondaryLoadInvariantThreePolynomial68_degree_lt_cubicFace
       l beta gamma delta epsilon zeta A B c D e).natDegree <
         10 * n - 3 * g := by
   simp only [secondaryLoadInvariantThreePolynomial68]
-  compute_degree
-  omega
+  exact (descent68SpeedT_add_lt
+    (descent68SpeedT_add_lt
+    (descent68SpeedT_sub_lt
+    (descent68SpeedT_sub_lt
+    (descent68SpeedT_sub_lt
+    (descent68SpeedT_add_lt
+    (descent68SpeedT_sub_lt
+    (descent68SpeedT_sub_lt
+    (descent68SpeedT_add_lt
+    (descent68SpeedT_sub_lt
+    (descent68SpeedT_add_lt
+    (descent68SpeedT_sub_lt
+    (descent68SpeedT_add_lt
+    (descent68SpeedT_add_lt
+    (descent68SpeedT_smul_lt _ (hB.trans_lt (by clear * - hg hgh hsmall; omega)))
+    (descent68SpeedT_smul_lt _ (hc.trans_lt (by clear * - hg hgh hsmall; omega))))
+    (descent68SpeedT_smul_lt _ (he.trans_lt (by clear * - hg hgh hsmall; omega))))
+    (descent68SpeedT_smul_lt _ ((natDegree_pow_le_of_le 2 hB).trans_lt (by clear * - hg hgh hsmall; omega))))
+    (descent68SpeedT_smul_lt _ (hD.trans_lt (by clear * - hg hgh hsmall; omega))))
+    (descent68SpeedT_smul_lt _ ((natDegree_mul_le_of_le hA hB).trans_lt (by clear * - hg hgh hsmall; omega))))
+    (descent68SpeedT_smul_lt _ ((natDegree_mul_le_of_le (natDegree_pow_le_of_le 2 hA) hB).trans_lt (by clear * - hg hgh hsmall; omega))))
+    (descent68SpeedT_smul_lt _ ((natDegree_mul_le_of_le hA hD).trans_lt (by clear * - hg hgh hsmall; omega))))
+    (descent68SpeedT_smul_lt _ ((natDegree_mul_le_of_le hB hc).trans_lt (by clear * - hg hgh hsmall; omega))))
+    (descent68SpeedT_smul_lt _ ((natDegree_mul_le_of_le (natDegree_pow_le_of_le 3 hA) hB).trans_lt (by clear * - hg hgh hsmall; omega))))
+    (descent68SpeedT_smul_lt _ ((natDegree_mul_le_of_le (natDegree_pow_le_of_le 2 hA) hD).trans_lt (by clear * - hg hgh hsmall; omega))))
+    (descent68SpeedT_smul_lt _ ((natDegree_mul_le_of_le (natDegree_mul_le_of_le hA hB) hc).trans_lt (by clear * - hg hgh hsmall; omega))))
+    (descent68SpeedT_smul_lt _ ((natDegree_pow_le_of_le 3 hB).trans_lt (by clear * - hg hgh hsmall; omega))))
+    (descent68SpeedT_smul_lt _ ((natDegree_mul_le_of_le hB he).trans_lt (by clear * - hg hgh hsmall; omega))))
+    (descent68SpeedT_smul_lt _ ((natDegree_mul_le_of_le hD hc).trans_lt (by clear * - hg hgh hsmall; omega))))
 
-set_option maxHeartbeats 3000000 in
+set_option maxHeartbeats 64000000 in
 /-- The exact quartic invariant lowers the normalized incidence defect below
 the explicit `B^3` face. -/
 theorem secondaryResidualIncidenceDefectPolynomial68_degree_lt_cubicFace
@@ -190,8 +271,11 @@ theorem secondaryResidualIncidenceDefectPolynomial68_degree_lt_cubicFace
   let q := secondaryResidualIncidenceDefectPolynomial68 B c d e
   have hD : D.natDegree ≤ 5 * n - g := by
     simp only [D]
-    compute_degree
-    omega
+    apply (natDegree_add_le _ _).trans
+    apply max_le
+    · exact (natDegree_smul_le _ _).trans
+        ((natDegree_mul_le_of_le hA hB).trans (by clear * - hsmall; omega))
+    · exact hd.trans (by clear * - hgh; omega)
   have hload := secondaryLoadInvariantFourPolynomial68_degree_lt_cubicFace
     l beta gamma delta epsilon zeta A B c D e n g h hg hgh hsmall
     hA hB hc hD he
@@ -218,10 +302,14 @@ theorem secondaryResidualIncidenceDefectPolynomial68_degree_lt_cubicFace
             l beta gamma delta epsilon zeta A B c D e) := by rw [hcore]
   change q.natDegree < 9 * n - 3 * g
   rw [hq]
-  compute_degree
-  omega
+  apply descent68SpeedT_smul_lt
+  apply descent68SpeedT_sub_lt
+  · simp only [natDegree_C]
+    clear * - hg hsmall
+    omega
+  · exact hload
 
-set_option maxHeartbeats 4000000 in
+set_option maxHeartbeats 64000000 in
 /-- The cubic invariant and the quartic syzygy lower the next cubic defect
 below the `B^3*c` face. -/
 theorem secondaryResidualCubicDefectPolynomial68_degree_lt
@@ -246,8 +334,11 @@ theorem secondaryResidualCubicDefectPolynomial68_degree_lt
   let r := secondaryResidualCubicDefectPolynomial68 A B c d
   have hD : D.natDegree ≤ 5 * n - g := by
     simp only [D]
-    compute_degree
-    omega
+    apply (natDegree_add_le _ _).trans
+    apply max_le
+    · exact (natDegree_smul_le _ _).trans
+        ((natDegree_mul_le_of_le hA hB).trans (by clear * - hsmall; omega))
+    · exact hd.trans (by clear * - hgh; omega)
   have hq := secondaryResidualIncidenceDefectPolynomial68_degree_lt_cubicFace
     l beta gamma delta epsilon zeta i4 A B c d e n g h hg hgh hsmall
     hA hB hc hd he hi4
@@ -290,10 +381,24 @@ theorem secondaryResidualCubicDefectPolynomial68_degree_lt
             (8 / 3 : k) • (c * q)) := by rw [hcore]
   change r.natDegree < 13 * n - 4 * g
   rw [hr]
-  compute_degree
-  omega
+  apply descent68SpeedT_smul_lt
+  apply descent68SpeedT_sub_lt
+  · have hrem : (C i3 - secondaryLoadInvariantThreePolynomial68
+        l beta gamma delta epsilon zeta A B c D e).natDegree < 10 * n - 3 * g := by
+      apply descent68SpeedT_sub_lt
+      · simp only [natDegree_C]
+        clear * - hg hsmall
+        omega
+      · exact hload
+    apply natDegree_mul_le.trans_lt
+    clear * - hB hrem hg hsmall
+    omega
+  · apply descent68SpeedT_smul_lt
+    apply natDegree_mul_le.trans_lt
+    clear * - hc hq hg hsmall
+    omega
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 /-- The first residual one-form, rewritten through the normalized incidence
 defect.  This identity separates the next comparison `2h` versus `3g`: all
 terms involving the incidence defect are already below the latter face. -/
@@ -321,7 +426,7 @@ theorem secondaryResidualRowTwoPolynomial68_incidenceDefect
   simp only [map_div₀, map_ofNat, map_natCast, map_one]
   ring
 
-set_option maxHeartbeats 6000000 in
+set_option maxHeartbeats 64000000 in
 /-- After translating `D=A*B/3+d`, every constant-load contribution to the
 first one-form lies strictly below the next `3g` residual face. -/
 theorem cubicLoadRowTwoPolynomial68_degree_lt_cubicFace
@@ -349,8 +454,11 @@ theorem cubicLoadRowTwoPolynomial68_degree_lt_cubicFace
   have he' : e.natDegree ≤ 6 * n - g := by omega
   have hD : D.natDegree ≤ 5 * n - g := by
     simp only [D]
-    compute_degree
-    omega
+    apply (natDegree_add_le _ _).trans
+    apply max_le
+    · exact (natDegree_smul_le _ _).trans
+        ((natDegree_mul_le_of_le hA hB).trans (by clear * - hsmall; omega))
+    · exact hd.trans (by clear * - hgh; omega)
   have hloads := cubicLoadPolynomials68_degreeBounds
     l alpha beta gamma delta epsilon zeta eta A B c D e n g
     hn hg hsmall' hA hB hc hD he'
@@ -363,35 +471,45 @@ theorem cubicLoadRowTwoPolynomial68_degree_lt_cubicFace
     simpa only [Vl] using hloads.2.2.2
   have hC0 : C0.natDegree ≤ 4 * n := by
     simp only [C0]
-    compute_degree
-    omega
+    apply (natDegree_add_le _ _).trans
+    apply max_le
+    · exact (natDegree_smul_le _ _).trans
+        ((natDegree_pow_le_of_le 2 hA).trans (by clear * - hg hsmall; omega))
+    · exact hc.trans (by clear * - hg hsmall; omega)
   have hE : E.natDegree ≤ 6 * n := by
     simp only [E]
-    compute_degree
-    omega
+    apply (natDegree_add_le _ _).trans
+    apply max_le
+    · apply (natDegree_add_le _ _).trans
+      apply max_le
+      · exact (natDegree_smul_le _ _).trans
+          ((natDegree_pow_le_of_le 3 hA).trans (by clear * - hg hsmall; omega))
+      · exact (natDegree_smul_le _ _).trans
+          ((natDegree_mul_le_of_le hA hc).trans (by clear * - hg hsmall; omega))
+    · exact he.trans (by clear * - hg hsmall; omega)
   have hUlC : (Ul * derivative C0).natDegree < 11 * n - 3 * g - 1 := by
-    compute_degree
-    omega
+    exact descent68SpeedT_mulDeriv_lt hUl hC0 (by clear * - hg hsmall; omega)
   have hTlD : (Tl * derivative D).natDegree < 11 * n - 3 * g - 1 := by
-    compute_degree
-    omega
+    exact descent68SpeedT_mulDeriv_lt hTl hD (by clear * - hg hsmall; omega)
   have hSlE : (Sl * derivative E).natDegree < 11 * n - 3 * g - 1 := by
-    compute_degree
-    omega
+    exact descent68SpeedT_mulDeriv_lt hSl hE (by clear * - hg hsmall; omega)
   have hBVl : (B * derivative Vl).natDegree < 11 * n - 3 * g - 1 := by
-    compute_degree
-    omega
+    exact descent68SpeedT_mulDeriv_lt hB hVl (by clear * - hg hsmall; omega)
   have hC0Ul : (C0 * derivative Ul).natDegree < 11 * n - 3 * g - 1 := by
-    compute_degree
-    omega
+    exact descent68SpeedT_mulDeriv_lt hC0 hUl (by clear * - hg hsmall; omega)
   have hDTl : (D * derivative Tl).natDegree < 11 * n - 3 * g - 1 := by
-    compute_degree
-    omega
+    exact descent68SpeedT_mulDeriv_lt hD hTl (by clear * - hg hsmall; omega)
   change (Ul * derivative C0 + (2 : k) • (Tl * derivative D) +
     (3 : k) • (Sl * derivative E) - (3 : k) • (B * derivative Vl) -
     (2 : k) • (C0 * derivative Ul) - D * derivative Tl).natDegree < _
-  compute_degree
-  omega
+  exact descent68SpeedT_sub_lt
+    (descent68SpeedT_sub_lt
+      (descent68SpeedT_sub_lt
+        (descent68SpeedT_add_lt
+          (descent68SpeedT_add_lt hUlC (descent68SpeedT_smul_lt _ hTlD))
+          (descent68SpeedT_smul_lt _ hSlE))
+        (descent68SpeedT_smul_lt _ hBVl))
+      (descent68SpeedT_smul_lt _ hC0Ul)) hDTl
 
 /-- If two nonzero polynomial terms dominate a lower remainder in a
 vanishing sum, then the two displayed terms have the same degree. -/
@@ -436,7 +554,7 @@ private theorem singleTerm_add_lower_ne_zero68
     exact leadingCoeff_ne_zero.mpr hp
   exact hp0 hcoeff
 
-set_option maxHeartbeats 3000000 in
+set_option maxHeartbeats 64000000 in
 /-- On the side `2h < 3g`, cancellation in the cubic defect forces the
 discriminant defect to meet `B*d^2`.  In particular, its next gap is exactly
 `g+h`. -/
@@ -509,7 +627,7 @@ theorem secondaryResidualCubicDefect_leftChamber68
   · rw [hpdeg, hqdeg, hddeg] at hdegrees
     omega
 
-set_option maxHeartbeats 3000000 in
+set_option maxHeartbeats 64000000 in
 /-- On the side `3g < 2h`, cancellation in the cubic defect forces the
 discriminant defect to meet `B^3*c`.  Its next gap is exactly `4g-h`. -/
 theorem secondaryResidualCubicDefect_rightChamber68
@@ -581,7 +699,7 @@ theorem secondaryResidualCubicDefect_rightChamber68
   · rw [hpdeg, hqdeg, hddeg] at hdegrees
     omega
 
-set_option maxHeartbeats 4000000 in
+set_option maxHeartbeats 64000000 in
 /-- On the balanced face `2h = 3g`, the discriminant defect cannot lie above
 the common cubic face.  Its boundary coefficient participates in the exact
 three-term face equation, and is allowed to vanish if the other two terms
@@ -658,18 +776,16 @@ theorem secondaryResidualCubicDefect_balancedChamber68
     have hiD : (5 * n - h) + (8 * n - 4 * g + h) =
         13 * n - 4 * g := by omega
     rw [hiD] at hdDiscr
-    have hd2deg : (d ^ 2).natDegree ≤ 2 * (5 * n - h) := by
-      compute_degree
-      omega
+    have hd2deg : (d ^ 2).natDegree ≤ 2 * (5 * n - h) :=
+      natDegree_pow_le_of_le 2 hddeg.le
     have hd2 := coeff_pow_at_bound68 d (5 * n - h) 2 hddeg.le
     have hBd2 := coeff_mul_at_bounds68 B (d ^ 2)
       (3 * n - g) (2 * (5 * n - h)) hBdeg.le hd2deg
     have hiBd2 : (3 * n - g) + 2 * (5 * n - h) =
         13 * n - 4 * g := by omega
     rw [hiBd2, hd2] at hBd2
-    have hB3deg : (B ^ 3).natDegree ≤ 3 * (3 * n - g) := by
-      compute_degree
-      omega
+    have hB3deg : (B ^ 3).natDegree ≤ 3 * (3 * n - g) :=
+      natDegree_pow_le_of_le 3 hBdeg.le
     have hB3 := coeff_pow_at_bound68 B (3 * n - g) 3 hBdeg.le
     have hB3c := coeff_mul_at_bounds68 (B ^ 3) c
       (3 * (3 * n - g)) (4 * n - g) hB3deg hcdeg.le

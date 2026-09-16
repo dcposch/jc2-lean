@@ -13,6 +13,7 @@ section DegreeLemmas610
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 /-- Unique-max `B` cone. -/
 def UniqueHighBCone610 (A B C0 D0 E0 : k[X]) : Prop :=
   0 < B.natDegree ∧

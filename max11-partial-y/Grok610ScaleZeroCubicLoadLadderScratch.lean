@@ -45,30 +45,35 @@ section CubicN1ColumnPredicates610
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 /-- `7 Θ > 3 ρ`: the `β A⁵` column of `N₁` strictly tops `N₁`. -/
 def cubicN1BetaTop610 (A B C D E : k[X]) : Prop :=
   cubicLoadCompetes610 A B C D E ∧
     14 * B.natDegree < 15 * A.natDegree ∧ 7 * C.natDegree < 11 * A.natDegree ∧
     7 * D.natDegree < 13 * A.natDegree ∧ 14 * E.natDegree < 33 * A.natDegree
 
+set_option maxHeartbeats 64000000 in
 /-- `7 Θ > 5 ρ`. -/
 def cubicN1DeltaTop610 (A B C D E : k[X]) : Prop :=
   cubicLoadCompetes610 A B C D E ∧
     14 * B.natDegree < 11 * A.natDegree ∧ 7 * C.natDegree < 9 * A.natDegree ∧
     7 * D.natDegree < 10 * A.natDegree ∧ 14 * E.natDegree < 27 * A.natDegree
 
+set_option maxHeartbeats 64000000 in
 /-- `Θ > ρ`. -/
 def cubicN1ZetaTop610 (A B C D E : k[X]) : Prop :=
   cubicLoadCompetes610 A B C D E ∧
     2 * B.natDegree < A.natDegree ∧ C.natDegree < A.natDegree ∧
     D.natDegree < A.natDegree ∧ 2 * E.natDegree < 3 * A.natDegree
 
+set_option maxHeartbeats 64000000 in
 /-- `7 Θ > 9 ρ`. -/
 def cubicN1ThetaTop610 (A B C D E : k[X]) : Prop :=
   cubicLoadCompetes610 A B C D E ∧
     14 * B.natDegree < 3 * A.natDegree ∧ 7 * C.natDegree < 5 * A.natDegree ∧
     7 * D.natDegree < 4 * A.natDegree ∧ 14 * E.natDegree < 15 * A.natDegree
 
+set_option maxHeartbeats 64000000 in
 theorem cubicN1DeltaTop610_to_betaTop
     {A B C D E : k[X]} (h : cubicN1DeltaTop610 A B C D E) :
     cubicN1BetaTop610 A B C D E := by
@@ -83,6 +88,7 @@ theorem cubicN1DeltaTop610_to_betaTop
   · have : 14 * E.natDegree + 1 ≤ 27 * A.natDegree := Nat.succ_le_of_lt hE
     omega
 
+set_option maxHeartbeats 64000000 in
 theorem cubicN1ZetaTop610_to_deltaTop
     {A B C D E : k[X]} (h : cubicN1ZetaTop610 A B C D E) :
     cubicN1DeltaTop610 A B C D E := by
@@ -97,11 +103,13 @@ theorem cubicN1ZetaTop610_to_deltaTop
   · have : 2 * E.natDegree + 1 ≤ 3 * A.natDegree := Nat.succ_le_of_lt hE
     omega
 
+set_option maxHeartbeats 64000000 in
 theorem cubicN1ZetaTop610_to_betaTop
     {A B C D E : k[X]} (h : cubicN1ZetaTop610 A B C D E) :
     cubicN1BetaTop610 A B C D E :=
   cubicN1DeltaTop610_to_betaTop (cubicN1ZetaTop610_to_deltaTop h)
 
+set_option maxHeartbeats 64000000 in
 theorem cubicN1ThetaTop610_to_zetaTop
     {A B C D E : k[X]} (h : cubicN1ThetaTop610 A B C D E) :
     cubicN1ZetaTop610 A B C D E := by
@@ -116,11 +124,13 @@ theorem cubicN1ThetaTop610_to_zetaTop
   · have : 14 * E.natDegree + 1 ≤ 15 * A.natDegree := Nat.succ_le_of_lt hE
     omega
 
+set_option maxHeartbeats 64000000 in
 theorem cubicN1ThetaTop610_to_deltaTop
     {A B C D E : k[X]} (h : cubicN1ThetaTop610 A B C D E) :
     cubicN1DeltaTop610 A B C D E :=
   cubicN1ZetaTop610_to_deltaTop (cubicN1ThetaTop610_to_zetaTop h)
 
+set_option maxHeartbeats 64000000 in
 theorem cubicN1ThetaTop610_to_betaTop
     {A B C D E : k[X]} (h : cubicN1ThetaTop610 A B C D E) :
     cubicN1BetaTop610 A B C D E :=
@@ -144,10 +154,16 @@ theorem degreeZeroN1CubicNoLNoBetaA5610_natDegree_lt_of_N1BetaTop
   have hCn1 : 7 * C.natDegree + 1 ≤ 11 * A.natDegree := Nat.succ_le_of_lt hCn
   have hDn1 : 7 * D.natDegree + 1 ≤ 13 * A.natDegree := Nat.succ_le_of_lt hDn
   have hEn1 : 14 * E.natDegree + 1 ≤ 33 * A.natDegree := Nat.succ_le_of_lt hEn
-  simp only [degreeZeroN1CubicNoLNoBetaA5610]
-  compute_degree
-  omega
+  rw [speedRefl_degreeZeroN1CubicNoLNoBetaA5610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add, max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
+set_option maxHeartbeats 64000000 in
 theorem cubicN1_beta_eq_zero
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C D E : k[X])
@@ -197,10 +213,16 @@ theorem degreeZeroN1CubicNoLNoBetaNoDeltaA4610_natDegree_lt_of_N1DeltaTop
   have hCn1 : 7 * C.natDegree + 1 ≤ 9 * A.natDegree := Nat.succ_le_of_lt hCn
   have hDn1 : 7 * D.natDegree + 1 ≤ 10 * A.natDegree := Nat.succ_le_of_lt hDn
   have hEn1 : 14 * E.natDegree + 1 ≤ 27 * A.natDegree := Nat.succ_le_of_lt hEn
-  simp only [degreeZeroN1CubicNoLNoBetaNoDeltaA4610]
-  compute_degree
-  omega
+  rw [speedRefl_degreeZeroN1CubicNoLNoBetaNoDeltaA4610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add, max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
+set_option maxHeartbeats 64000000 in
 theorem cubicN1_delta_eq_zero
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C D E : k[X])
@@ -251,10 +273,16 @@ theorem degreeZeroN1CubicNoOddPureANoZetaA3610_natDegree_lt_of_N1ZetaTop
   have hCn1 : C.natDegree + 1 ≤ A.natDegree := Nat.succ_le_of_lt hCn
   have hDn1 : D.natDegree + 1 ≤ A.natDegree := Nat.succ_le_of_lt hDn
   have hEn1 : 2 * E.natDegree + 1 ≤ 3 * A.natDegree := Nat.succ_le_of_lt hEn
-  simp only [degreeZeroN1CubicNoOddPureANoZetaA3610]
-  compute_degree
-  omega
+  rw [speedRefl_degreeZeroN1CubicNoOddPureANoZetaA3610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add, max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
+set_option maxHeartbeats 64000000 in
 theorem cubicN1_zeta_eq_zero
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C D E : k[X])
@@ -306,10 +334,16 @@ theorem degreeZeroN1CubicNoOddPureANoThetaA2610_natDegree_lt_of_N1ThetaTop
   have hCn1 : 7 * C.natDegree + 1 ≤ 5 * A.natDegree := Nat.succ_le_of_lt hCn
   have hDn1 : 7 * D.natDegree + 1 ≤ 4 * A.natDegree := Nat.succ_le_of_lt hDn
   have hEn1 : 14 * E.natDegree + 1 ≤ 15 * A.natDegree := Nat.succ_le_of_lt hEn
-  simp only [degreeZeroN1CubicNoOddPureANoThetaA2610]
-  compute_degree
-  omega
+  rw [speedRefl_degreeZeroN1CubicNoOddPureANoThetaA2610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add, max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
+set_option maxHeartbeats 64000000 in
 theorem cubicN1_theta_eq_zero
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C D E : k[X])
@@ -344,6 +378,7 @@ theorem cubicN1_theta_eq_zero
       natDegree_add_eq_left_of_natDegree_lt (by rwa [hlead]), hlead]
   omega
 
+set_option maxHeartbeats 64000000 in
 theorem cubicN1_beta_band_disjunction
     {beta : k} (A B C D E : k[X])
     (hload : cubicLoadCompetes610 A B C D E)
@@ -367,6 +402,7 @@ theorem cubicN1_beta_band_disjunction
   · refine Or.inr (Or.inl ?_)
     omega
 
+set_option maxHeartbeats 64000000 in
 theorem cubicN1_delta_band_disjunction
     {delta : k} (A B C D E : k[X])
     (hload : cubicLoadCompetes610 A B C D E)
@@ -390,6 +426,7 @@ theorem cubicN1_delta_band_disjunction
   · refine Or.inr (Or.inl ?_)
     omega
 
+set_option maxHeartbeats 64000000 in
 theorem cubicN1_zeta_band_disjunction
     {zeta : k} (A B C D E : k[X])
     (hload : cubicLoadCompetes610 A B C D E)
@@ -413,6 +450,7 @@ theorem cubicN1_zeta_band_disjunction
   · refine Or.inr (Or.inl ?_)
     omega
 
+set_option maxHeartbeats 64000000 in
 theorem cubicN1_theta_band_disjunction
     {theta : k} (A B C D E : k[X])
     (hload : cubicLoadCompetes610 A B C D E)
@@ -444,96 +482,112 @@ section CubicLoadSigmaCones610
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 def CubicLoadSigmaConeB610 (A B C D E : k[X]) : Prop :=
   cubicLoadCompetes610 A B C D E ∧ B ≠ 0 ∧
     (C = 0 ∨ 2 * C.natDegree < A.natDegree + 2 * B.natDegree) ∧
     (D = 0 ∨ 4 * D.natDegree < A.natDegree + 6 * B.natDegree) ∧
     (E = 0 ∨ 4 * E.natDegree < 3 * A.natDegree + 6 * B.natDegree)
 
+set_option maxHeartbeats 64000000 in
 def CubicLoadSigmaConeC610 (A B C D E : k[X]) : Prop :=
   cubicLoadCompetes610 A B C D E ∧ C ≠ 0 ∧
     (B = 0 ∨ A.natDegree + 2 * B.natDegree < 2 * C.natDegree) ∧
     (D = 0 ∨ A.natDegree + 2 * D.natDegree < 3 * C.natDegree) ∧
     (E = 0 ∨ 2 * E.natDegree < 3 * C.natDegree)
 
+set_option maxHeartbeats 64000000 in
 def CubicLoadSigmaConeD610 (A B C D E : k[X]) : Prop :=
   cubicLoadCompetes610 A B C D E ∧ D ≠ 0 ∧
     (B = 0 ∨ A.natDegree + 6 * B.natDegree < 4 * D.natDegree) ∧
     (C = 0 ∨ 3 * C.natDegree < A.natDegree + 2 * D.natDegree) ∧
     (E = 0 ∨ 2 * E.natDegree < A.natDegree + 2 * D.natDegree)
 
+set_option maxHeartbeats 64000000 in
 def CubicLoadSigmaConeE610 (A B C D E : k[X]) : Prop :=
   cubicLoadCompetes610 A B C D E ∧ E ≠ 0 ∧
     (B = 0 ∨ 3 * A.natDegree + 6 * B.natDegree < 4 * E.natDegree) ∧
     (C = 0 ∨ 3 * C.natDegree < 2 * E.natDegree) ∧
     (D = 0 ∨ A.natDegree + 2 * D.natDegree < 2 * E.natDegree)
 
+set_option maxHeartbeats 64000000 in
 def CubicLoadSigmaConeBC610 (A B C D E : k[X]) : Prop :=
   cubicLoadCompetes610 A B C D E ∧ B ≠ 0 ∧ C ≠ 0 ∧
     4 * A.natDegree + 2 * B.natDegree = 3 * A.natDegree + 2 * C.natDegree ∧
     (D = 0 ∨ 4 * D.natDegree < A.natDegree + 6 * B.natDegree) ∧
     (E = 0 ∨ 4 * E.natDegree < 3 * A.natDegree + 6 * B.natDegree)
 
+set_option maxHeartbeats 64000000 in
 def CubicLoadSigmaConeBD610 (A B C D E : k[X]) : Prop :=
   cubicLoadCompetes610 A B C D E ∧ B ≠ 0 ∧ D ≠ 0 ∧
     10 * A.natDegree + 6 * B.natDegree = 9 * A.natDegree + 4 * D.natDegree ∧
     (C = 0 ∨ 2 * C.natDegree < A.natDegree + 2 * B.natDegree) ∧
     (E = 0 ∨ 4 * E.natDegree < 3 * A.natDegree + 6 * B.natDegree)
 
+set_option maxHeartbeats 64000000 in
 def CubicLoadSigmaConeBE610 (A B C D E : k[X]) : Prop :=
   cubicLoadCompetes610 A B C D E ∧ B ≠ 0 ∧ E ≠ 0 ∧
     12 * A.natDegree + 6 * B.natDegree = 9 * A.natDegree + 4 * E.natDegree ∧
     (C = 0 ∨ 2 * C.natDegree < A.natDegree + 2 * B.natDegree) ∧
     (D = 0 ∨ 4 * D.natDegree < A.natDegree + 6 * B.natDegree)
 
+set_option maxHeartbeats 64000000 in
 def CubicLoadSigmaConeCD610 (A B C D E : k[X]) : Prop :=
   cubicLoadCompetes610 A B C D E ∧ C ≠ 0 ∧ D ≠ 0 ∧
     5 * A.natDegree + 3 * C.natDegree = 6 * A.natDegree + 2 * D.natDegree ∧
     (B = 0 ∨ A.natDegree + 2 * B.natDegree < 2 * C.natDegree) ∧
     (E = 0 ∨ 2 * E.natDegree < 3 * C.natDegree)
 
+set_option maxHeartbeats 64000000 in
 def CubicLoadSigmaConeCE610 (A B C D E : k[X]) : Prop :=
   cubicLoadCompetes610 A B C D E ∧ C ≠ 0 ∧ E ≠ 0 ∧
     6 * A.natDegree + 3 * C.natDegree = 6 * A.natDegree + 2 * E.natDegree ∧
     (B = 0 ∨ A.natDegree + 2 * B.natDegree < 2 * C.natDegree) ∧
     (D = 0 ∨ A.natDegree + 2 * D.natDegree < 3 * C.natDegree)
 
+set_option maxHeartbeats 64000000 in
 def CubicLoadSigmaConeDE610 (A B C D E : k[X]) : Prop :=
   cubicLoadCompetes610 A B C D E ∧ D ≠ 0 ∧ E ≠ 0 ∧
     6 * A.natDegree + 2 * D.natDegree = 5 * A.natDegree + 2 * E.natDegree ∧
     (B = 0 ∨ A.natDegree + 6 * B.natDegree < 4 * D.natDegree) ∧
     (C = 0 ∨ 3 * C.natDegree < A.natDegree + 2 * D.natDegree)
 
+set_option maxHeartbeats 64000000 in
 def CubicLoadSigmaConeBCD610 (A B C D E : k[X]) : Prop :=
   cubicLoadCompetes610 A B C D E ∧ B ≠ 0 ∧ C ≠ 0 ∧ D ≠ 0 ∧
     4 * A.natDegree + 2 * B.natDegree = 3 * A.natDegree + 2 * C.natDegree ∧
     10 * A.natDegree + 6 * B.natDegree = 9 * A.natDegree + 4 * D.natDegree ∧
     (E = 0 ∨ 4 * E.natDegree < 3 * A.natDegree + 6 * B.natDegree)
 
+set_option maxHeartbeats 64000000 in
 def CubicLoadSigmaConeBCE610 (A B C D E : k[X]) : Prop :=
   cubicLoadCompetes610 A B C D E ∧ B ≠ 0 ∧ C ≠ 0 ∧ E ≠ 0 ∧
     4 * A.natDegree + 2 * B.natDegree = 3 * A.natDegree + 2 * C.natDegree ∧
     12 * A.natDegree + 6 * B.natDegree = 9 * A.natDegree + 4 * E.natDegree ∧
     (D = 0 ∨ 4 * D.natDegree < A.natDegree + 6 * B.natDegree)
 
+set_option maxHeartbeats 64000000 in
 def CubicLoadSigmaConeBDE610 (A B C D E : k[X]) : Prop :=
   cubicLoadCompetes610 A B C D E ∧ B ≠ 0 ∧ D ≠ 0 ∧ E ≠ 0 ∧
     10 * A.natDegree + 6 * B.natDegree = 9 * A.natDegree + 4 * D.natDegree ∧
     12 * A.natDegree + 6 * B.natDegree = 9 * A.natDegree + 4 * E.natDegree ∧
     (C = 0 ∨ 2 * C.natDegree < A.natDegree + 2 * B.natDegree)
 
+set_option maxHeartbeats 64000000 in
 def CubicLoadSigmaConeCDE610 (A B C D E : k[X]) : Prop :=
   cubicLoadCompetes610 A B C D E ∧ C ≠ 0 ∧ D ≠ 0 ∧ E ≠ 0 ∧
     5 * A.natDegree + 3 * C.natDegree = 6 * A.natDegree + 2 * D.natDegree ∧
     6 * A.natDegree + 3 * C.natDegree = 6 * A.natDegree + 2 * E.natDegree ∧
     (B = 0 ∨ A.natDegree + 2 * B.natDegree < 2 * C.natDegree)
 
+set_option maxHeartbeats 64000000 in
 def CubicLoadSigmaConeBCDE610 (A B C D E : k[X]) : Prop :=
   cubicLoadCompetes610 A B C D E ∧ B ≠ 0 ∧ C ≠ 0 ∧ D ≠ 0 ∧ E ≠ 0 ∧
     4 * A.natDegree + 2 * B.natDegree = 3 * A.natDegree + 2 * C.natDegree ∧
     10 * A.natDegree + 6 * B.natDegree = 9 * A.natDegree + 4 * D.natDegree ∧
     12 * A.natDegree + 6 * B.natDegree = 9 * A.natDegree + 4 * E.natDegree
 
+set_option maxHeartbeats 64000000 in
 inductive CubicLoadSigmaSupportCone610 (A B C D E : k[X]) : Prop
   | sigmaB : CubicLoadSigmaConeB610 A B C D E →
       CubicLoadSigmaSupportCone610 A B C D E

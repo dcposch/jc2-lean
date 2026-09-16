@@ -72,126 +72,41 @@ theorem quarticChamberEFG1810_impossible
       A B C D E F G hA hprim homi hnu hkap
   have hzl : l = 0 ∨ (8 * A.natDegree < A.natDegree + F.natDegree + G.natDegree ∧ 5 * A.natDegree + E.natDegree < A.natDegree + F.natDegree + G.natDegree ∧ 4 * A.natDegree + G.natDegree < A.natDegree + F.natDegree + G.natDegree ∧ 2 * A.natDegree + 2 * E.natDegree < A.natDegree + F.natDegree + G.natDegree ∧ A.natDegree + E.natDegree + G.natDegree < A.natDegree + F.natDegree + G.natDegree ∧ A.natDegree + 2 * F.natDegree < A.natDegree + F.natDegree + G.natDegree ∧ 2 * G.natDegree < A.natDegree + F.natDegree + G.natDegree) := by
     have hbls : l = 0 ∨ (8 * A.natDegree < A.natDegree + F.natDegree + G.natDegree) := by
-      rcases hkbl with h | h | h | h | h | h | h
+      rcases hkbl with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hAE hBn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAE hCn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAE hDn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAD hBn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAC hBn hcq0 hcq1 hApos; omega)
+      · exact Or.inr (by clear * - h hAE hBn hcq0 hcq1 hApos hCn hDn hAD hAC; omega)
     rcases hbls with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hAE hcq0 hcq1; omega)
   have hzbeta : beta = 0 ∨ (7 * A.natDegree < A.natDegree + F.natDegree + G.natDegree ∧ 4 * A.natDegree + E.natDegree < A.natDegree + F.natDegree + G.natDegree ∧ A.natDegree + 2 * E.natDegree < A.natDegree + F.natDegree + G.natDegree ∧ 2 * F.natDegree < A.natDegree + F.natDegree + G.natDegree) := by
     have hbbetas : beta = 0 ∨ (7 * A.natDegree < A.natDegree + F.natDegree + G.natDegree) := by
-      rcases hkbbeta with h | h | h | h | h | h | h
+      rcases hkbbeta with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hAE hBn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAE hCn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAE hDn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAD hBn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hBn hCn hcq0 hcq1 hApos; omega)
+      · exact Or.inr (by clear * - h hAE hBn hcq0 hcq1 hApos hCn hDn hAD; omega)
     rcases hbbetas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hAE hcq0; omega)
   have hzdelta : delta = 0 ∨ (6 * A.natDegree < A.natDegree + F.natDegree + G.natDegree ∧ 3 * A.natDegree + E.natDegree < A.natDegree + F.natDegree + G.natDegree ∧ 2 * A.natDegree + G.natDegree < A.natDegree + F.natDegree + G.natDegree ∧ 2 * E.natDegree < A.natDegree + F.natDegree + G.natDegree) := by
     have hbdeltas : delta = 0 ∨ (6 * A.natDegree < A.natDegree + F.natDegree + G.natDegree) := by
-      rcases hkbdelta with h | h | h | h | h | h | h | h | h
+      rcases hkbdelta with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hCn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAE hDn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAD hBn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hBn hCn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAC hBn hcq0 hcq1 hApos; omega)
+      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hApos hCn hAE hDn hAD hAC; omega)
     rcases hbdeltas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq1 hApos; omega)
   have hzzeta : zeta = 0 ∨ (5 * A.natDegree < A.natDegree + F.natDegree + G.natDegree ∧ 2 * A.natDegree + E.natDegree < A.natDegree + F.natDegree + G.natDegree ∧ A.natDegree + G.natDegree < A.natDegree + F.natDegree + G.natDegree) := by
     have hbzetas : zeta = 0 ∨ (5 * A.natDegree < A.natDegree + F.natDegree + G.natDegree) := by
-      rcases h7bzeta with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      rcases h7bzeta with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hAE hBn hCn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hApos; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAE hCn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAE hCn hDn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAE hCn hDn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hCn hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAE hDn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hDn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAC hBn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAE hBn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAE hBn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAC hAE hBn hCn hcq0 hcq1; omega)
-      · exact Or.inr (by clear * - h hAD hAE hBn hDn hcq0 hcq1; omega)
-      · exact Or.inr (by clear * - h hBn hCn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAE hBn hCn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hBn hCn hDn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAD hCn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAD hBn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAE hCn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAE hBn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hBn hCn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAC hAE hBn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hBn hDn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAD hCn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAC hBn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAD hCn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAC hAE hCn hcq0 hcq1; omega)
-      · exact Or.inr (by clear * - h hAD hAE hDn hcq0 hcq1; omega)
-      · exact Or.inr (by clear * - h hAD hBn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAC hBn hcq0 hcq1 hApos; omega)
+      · exact Or.inr (by clear * - h hAE hBn hCn hcq0 hcq1 hApos hDn hAC hAD; omega)
     rcases hbzetas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq1 hApos; omega)
   have hztheta : theta = 0 ∨ (4 * A.natDegree < A.natDegree + F.natDegree + G.natDegree ∧ A.natDegree + E.natDegree < A.natDegree + F.natDegree + G.natDegree ∧ G.natDegree < A.natDegree + F.natDegree + G.natDegree) := by
     have hbthetas : theta = 0 ∨ (4 * A.natDegree < A.natDegree + F.natDegree + G.natDegree) := by
-      rcases h7btheta with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      rcases h7btheta with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hBn hCn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hApos; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hCn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAE hCn hDn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAE hCn hDn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hCn hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAE hDn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hDn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hBn hCn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAE hBn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAE hBn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAE hBn hCn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAE hBn hDn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hBn hCn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAE hBn hCn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hBn hCn hDn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAD hCn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAD hBn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hCn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAE hBn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hBn hCn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAE hBn hCn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hBn hDn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAD hCn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAC hBn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAD hCn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAE hCn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAE hDn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAD hBn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hBn hCn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAC hBn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hAB hAE hBn hcq0 hcq1; omega)
-      · exact Or.inr (by clear * - h hAD hCn hcq0 hcq1 hApos; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hApos; omega)
+      · exact Or.inr (by clear * - h hBn hCn hcq0 hcq1 hApos hAE hDn hAD hAC hAB; omega)
     rcases hbthetas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq1 hApos; omega)
@@ -233,40 +148,25 @@ theorem quarticChamberBCDG17810_impossible
       A B C D E F G hA hkap
   have hzl : l = 0 ∨ (4 * A.natDegree + B.natDegree + C.natDegree < 2 * G.natDegree ∧ 3 * A.natDegree + 3 * B.natDegree < 2 * G.natDegree ∧ 3 * A.natDegree + C.natDegree + D.natDegree < 2 * G.natDegree ∧ 2 * A.natDegree + 2 * B.natDegree + D.natDegree < 2 * G.natDegree ∧ 2 * A.natDegree + B.natDegree + 2 * C.natDegree < 2 * G.natDegree ∧ A.natDegree + 3 * B.natDegree + C.natDegree < 2 * G.natDegree ∧ 5 * B.natDegree < 2 * G.natDegree ∧ A.natDegree + B.natDegree + 2 * D.natDegree < 2 * G.natDegree ∧ A.natDegree + 2 * C.natDegree + D.natDegree < 2 * G.natDegree ∧ 2 * B.natDegree + C.natDegree + D.natDegree < 2 * G.natDegree ∧ B.natDegree + 3 * C.natDegree < 2 * G.natDegree ∧ B.natDegree + C.natDegree + G.natDegree < 2 * G.natDegree ∧ 3 * D.natDegree < 2 * G.natDegree) := by
     have hbls : l = 0 ∨ (4 * A.natDegree + B.natDegree + C.natDegree < 2 * G.natDegree ∧ 3 * A.natDegree + C.natDegree + D.natDegree < 2 * G.natDegree) := by
-      rcases hbl with h | h | h | h | h | h | h
+      rcases hbl with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq1 hcq2 hcq9; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq2 hcq9; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq2 hcq9; omega)
-      · exact absurd h (by clear * - hEn hcq0 hcq1 hcq2 hcq9; omega)
-      · exact absurd h (by clear * - hFn hcq0 hcq1 hcq2 hcq9; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq9; omega)
+      · exact Or.inr (by clear * - h hcq1 hcq2 hcq9 hEn hcq0 hFn; omega)
     rcases hbls with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq9; omega)
   have hzbeta : beta = 0 ∨ (3 * A.natDegree + B.natDegree + C.natDegree < 2 * G.natDegree ∧ 2 * A.natDegree + 3 * B.natDegree < 2 * G.natDegree ∧ 2 * A.natDegree + C.natDegree + D.natDegree < 2 * G.natDegree ∧ A.natDegree + 2 * B.natDegree + D.natDegree < 2 * G.natDegree ∧ A.natDegree + B.natDegree + 2 * C.natDegree < 2 * G.natDegree ∧ 3 * B.natDegree + C.natDegree < 2 * G.natDegree ∧ B.natDegree + 2 * D.natDegree < 2 * G.natDegree ∧ 2 * C.natDegree + D.natDegree < 2 * G.natDegree) := by
     have hbbetas : beta = 0 ∨ (3 * A.natDegree + B.natDegree + C.natDegree < 2 * G.natDegree) := by
-      rcases hbbeta with h | h | h | h | h | h | h
+      rcases hbbeta with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq1 hcq9; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq9; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq2 hcq9; omega)
-      · exact absurd h (by clear * - hEn hcq0 hcq1 hcq2 hcq9; omega)
-      · exact absurd h (by clear * - hFn hcq0 hcq1 hcq2 hcq9; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq9; omega)
+      · exact Or.inr (by clear * - h hcq1 hcq9 hcq2 hEn hcq0 hFn; omega)
     rcases hbbetas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq9; omega)
   have hzdelta : delta = 0 ∨ (2 * A.natDegree + B.natDegree + C.natDegree < 2 * G.natDegree ∧ A.natDegree + 3 * B.natDegree < 2 * G.natDegree ∧ A.natDegree + C.natDegree + D.natDegree < 2 * G.natDegree ∧ 2 * B.natDegree + D.natDegree < 2 * G.natDegree ∧ B.natDegree + 2 * C.natDegree < 2 * G.natDegree) := by
     have hbdeltas : delta = 0 ∨ (2 * A.natDegree + B.natDegree + C.natDegree < 2 * G.natDegree) := by
-      rcases hbdelta with h | h | h | h | h | h | h
+      rcases hbdelta with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq1 hcq9; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq9; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq2 hcq9; omega)
-      · exact absurd h (by clear * - hEn hcq0 hcq1 hcq2 hcq9; omega)
-      · exact absurd h (by clear * - hFn hcq0 hcq1 hcq2 hcq9; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq9; omega)
+      · exact Or.inr (by clear * - h hcq1 hcq9 hcq2 hEn hcq0 hFn; omega)
     rcases hbdeltas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq9; omega)
@@ -308,129 +208,41 @@ theorem quarticChamberBCDG24810_impossible
       A B C D E F G hA homi hnu hkap
   have hzl : l = 0 ∨ (6 * A.natDegree < 2 * C.natDegree + D.natDegree ∧ 4 * A.natDegree + C.natDegree < 2 * C.natDegree + D.natDegree ∧ 3 * A.natDegree + 2 * B.natDegree < 2 * C.natDegree + D.natDegree ∧ 2 * A.natDegree + B.natDegree + D.natDegree < 2 * C.natDegree + D.natDegree ∧ 2 * A.natDegree + 2 * C.natDegree < 2 * C.natDegree + D.natDegree ∧ A.natDegree + 2 * B.natDegree + C.natDegree < 2 * C.natDegree + D.natDegree ∧ 4 * B.natDegree < 2 * C.natDegree + D.natDegree ∧ 2 * A.natDegree + G.natDegree < 2 * C.natDegree + D.natDegree ∧ A.natDegree + 2 * D.natDegree < 2 * C.natDegree + D.natDegree ∧ B.natDegree + C.natDegree + D.natDegree < 2 * C.natDegree + D.natDegree ∧ 3 * C.natDegree < 2 * C.natDegree + D.natDegree ∧ C.natDegree + G.natDegree < 2 * C.natDegree + D.natDegree) := by
     have hbls : l = 0 ∨ (6 * A.natDegree < 2 * C.natDegree + D.natDegree) := by
-      rcases h5bl with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      rcases h5bl with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hFn hcq0 hcq2 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hAF hFn hcq0 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq9; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq9; omega)
-      · exact Or.inr (by clear * - h hAF hFn hcq0 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hAE hEn hcq0 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hFn hcq0 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hEn hcq0 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq10; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq6 hcq9; omega)
-      · exact Or.inr (by clear * - h hAE hEn hcq0 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq9; omega)
-      · exact Or.inr (by clear * - h hcq9; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq6 hcq9; omega)
+      · exact Or.inr (by clear * - h hFn hcq0 hcq2 hcq9 hcq10 hAF hAE hEn hcq6; omega)
     rcases hbls with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq2 hcq9 hcq10; omega)
   have hzbeta : beta = 0 ∨ (5 * A.natDegree < 2 * C.natDegree + D.natDegree ∧ 3 * A.natDegree + C.natDegree < 2 * C.natDegree + D.natDegree ∧ 2 * A.natDegree + 2 * B.natDegree < 2 * C.natDegree + D.natDegree ∧ A.natDegree + B.natDegree + D.natDegree < 2 * C.natDegree + D.natDegree ∧ A.natDegree + 2 * C.natDegree < 2 * C.natDegree + D.natDegree ∧ 2 * B.natDegree + C.natDegree < 2 * C.natDegree + D.natDegree ∧ A.natDegree + G.natDegree < 2 * C.natDegree + D.natDegree ∧ 2 * D.natDegree < 2 * C.natDegree + D.natDegree) := by
     have hbbetas : beta = 0 ∨ (5 * A.natDegree < 2 * C.natDegree + D.natDegree) := by
-      rcases h5bbeta with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      rcases h5bbeta with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hFn hcq0 hcq2 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hAF hFn hcq0 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq9; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq9; omega)
-      · exact Or.inr (by clear * - h hFn hcq0 hcq2 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hEn hcq0 hcq2 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hFn hcq0 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hEn hcq0 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq10; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq6 hcq9; omega)
-      · exact Or.inr (by clear * - h hAE hEn hcq0 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq9; omega)
-      · exact Or.inr (by clear * - h hcq9; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq6 hcq9; omega)
+      · exact Or.inr (by clear * - h hFn hcq0 hcq2 hcq9 hcq10 hAF hEn hcq6 hAE; omega)
     rcases hbbetas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq2 hcq9 hcq10; omega)
   have hzdelta : delta = 0 ∨ (4 * A.natDegree < 2 * C.natDegree + D.natDegree ∧ 2 * A.natDegree + C.natDegree < 2 * C.natDegree + D.natDegree ∧ A.natDegree + 2 * B.natDegree < 2 * C.natDegree + D.natDegree ∧ B.natDegree + D.natDegree < 2 * C.natDegree + D.natDegree ∧ 2 * C.natDegree < 2 * C.natDegree + D.natDegree ∧ G.natDegree < 2 * C.natDegree + D.natDegree) := by
     have hbdeltas : delta = 0 ∨ (4 * A.natDegree < 2 * C.natDegree + D.natDegree) := by
-      rcases h5bdelta with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      rcases h5bdelta with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hFn hcq0 hcq2 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hAF hFn hcq0 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq9; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq9; omega)
-      · exact Or.inr (by clear * - h hFn hcq0 hcq2 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hEn hcq0 hcq2 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hFn hcq0 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hEn hcq0 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq10; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq6 hcq9; omega)
-      · exact Or.inr (by clear * - h hAE hEn hcq0 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq9; omega)
-      · exact Or.inr (by clear * - h hcq9; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq6 hcq9; omega)
-      · exact Or.inr (by clear * - h hAF hFn hcq0 hcq10; omega)
-      · exact Or.inr (by clear * - h hAE hEn hcq0 hcq10; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq9 hcq10; omega)
+      · exact Or.inr (by clear * - h hFn hcq0 hcq2 hcq9 hcq10 hAF hEn hcq6 hAE; omega)
     rcases hbdeltas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq2 hcq9 hcq10; omega)
   have hzzeta : zeta = 0 ∨ (3 * A.natDegree < 2 * C.natDegree + D.natDegree ∧ A.natDegree + C.natDegree < 2 * C.natDegree + D.natDegree ∧ 2 * B.natDegree < 2 * C.natDegree + D.natDegree) := by
     have hbzetas : zeta = 0 ∨ (3 * A.natDegree < 2 * C.natDegree + D.natDegree) := by
-      rcases h5bzeta with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      rcases h5bzeta with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hFn hcq0 hcq2 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hFn hcq0 hcq3 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq9; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq9; omega)
-      · exact Or.inr (by clear * - h hFn hcq0 hcq2 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hEn hcq0 hcq2 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hFn hcq0 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hEn hcq0 hcq10; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq10; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq6 hcq9; omega)
-      · exact Or.inr (by clear * - h hEn hcq0 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq9; omega)
-      · exact Or.inr (by clear * - h hcq9; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq6 hcq9; omega)
-      · exact Or.inr (by clear * - h hFn hcq0 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hEn hcq0 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq9; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hAE hEn hcq0 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq10; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq9 hcq10; omega)
+      · exact Or.inr (by clear * - h hFn hcq0 hcq2 hcq9 hcq10 hcq3 hEn hcq6 hAE; omega)
     rcases hbzetas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq9 hcq10; omega)
   have hztheta : theta = 0 ∨ (2 * A.natDegree < 2 * C.natDegree + D.natDegree ∧ C.natDegree < 2 * C.natDegree + D.natDegree) := by
     have hbthetas : theta = 0 ∨ (2 * A.natDegree < 2 * C.natDegree + D.natDegree) := by
-      rcases h5btheta with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      rcases h5btheta with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hFn hcq0 hcq2 hcq10; omega)
-      · exact Or.inr (by clear * - h hFn hcq0 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq9; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq9; omega)
-      · exact Or.inr (by clear * - h hFn hcq0 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hEn hcq0 hcq3 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hFn hcq0 hcq10; omega)
-      · exact Or.inr (by clear * - h hEn hcq0 hcq10; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq6 hcq9; omega)
-      · exact Or.inr (by clear * - h hEn hcq0 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq9; omega)
-      · exact Or.inr (by clear * - h hcq9; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq6 hcq9; omega)
-      · exact Or.inr (by clear * - h hFn hcq0 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hEn hcq0 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq6 hcq9; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hEn hcq0 hcq3 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq10; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hFn hcq0 hcq9 hcq10; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq9 hcq10; omega)
+      · exact Or.inr (by clear * - h hFn hcq0 hcq2 hcq10 hcq9 hEn hcq3 hcq6; omega)
     rcases hbthetas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq6 hcq9; omega)
@@ -476,90 +288,25 @@ theorem quarticChamberBDFG7810_impossible
       A B C D E F G hA hprim homi hnu hkap
   have hzl : l = 0 ∨ (5 * A.natDegree < B.natDegree + G.natDegree ∧ 2 * A.natDegree + 2 * B.natDegree < B.natDegree + G.natDegree ∧ A.natDegree + B.natDegree + D.natDegree < B.natDegree + G.natDegree ∧ A.natDegree + G.natDegree < B.natDegree + G.natDegree ∧ B.natDegree + F.natDegree < B.natDegree + G.natDegree ∧ 2 * D.natDegree < B.natDegree + G.natDegree) := by
     have hbls : l = 0 ∨ (5 * A.natDegree < B.natDegree + G.natDegree) := by
-      rcases h7bl with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      rcases h7bl with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAE hEn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAC hAE hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAC hAE hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAE hEn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAE hEn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAE hEn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAC hAE hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq7; omega)
+      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq7 hAE hEn; omega)
     rcases hbls with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq7; omega)
   have hzbeta : beta = 0 ∨ (4 * A.natDegree < B.natDegree + G.natDegree ∧ A.natDegree + 2 * B.natDegree < B.natDegree + G.natDegree ∧ B.natDegree + D.natDegree < B.natDegree + G.natDegree ∧ G.natDegree < B.natDegree + G.natDegree) := by
     have hbbetas : beta = 0 ∨ (4 * A.natDegree < B.natDegree + G.natDegree) := by
-      rcases h7bbeta with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      rcases h7bbeta with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAE hEn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAE hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAE hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hEn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAE hEn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAE hEn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAE hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq7; omega)
+      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq7 hAE hEn; omega)
     rcases hbbetas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq7; omega)
   have hzdelta : delta = 0 ∨ (3 * A.natDegree < B.natDegree + G.natDegree ∧ 2 * B.natDegree < B.natDegree + G.natDegree) := by
     have hbdeltas : delta = 0 ∨ (3 * A.natDegree < B.natDegree + G.natDegree) := by
-      rcases h7bdelta with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      rcases h7bdelta with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAE hEn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hApos; omega)
-      · exact Or.inr (by clear * - h hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAE hCn hEn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAE hCn hEn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hApos; omega)
-      · exact Or.inr (by clear * - h hEn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hEn hcq0 hcq1 hcq2 hcq7 hApos; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hApos; omega)
-      · exact Or.inr (by clear * - h hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hEn hcq0 hcq1 hcq2 hcq7 hApos; omega)
-      · exact Or.inr (by clear * - h hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAE hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAE hEn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAC hAE hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq7; omega)
+      · exact Or.inr (by clear * - h hCn hcq0 hcq1 hcq2 hcq7 hAE hEn hApos hAC; omega)
     rcases hbdeltas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hApos; omega)
@@ -603,90 +350,25 @@ theorem quarticChamberBEFG7810_impossible
       A B C D E F G hA hprim homi hnu hkap
   have hzl : l = 0 ∨ (5 * A.natDegree < B.natDegree + G.natDegree ∧ 2 * A.natDegree + 2 * B.natDegree < B.natDegree + G.natDegree ∧ 2 * A.natDegree + E.natDegree < B.natDegree + G.natDegree ∧ A.natDegree + G.natDegree < B.natDegree + G.natDegree ∧ B.natDegree + F.natDegree < B.natDegree + G.natDegree) := by
     have hbls : l = 0 ∨ (5 * A.natDegree < B.natDegree + G.natDegree) := by
-      rcases h7bl with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      rcases h7bl with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAC hAD hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAC hAD hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hDn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hDn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAD hDn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAC hAD hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAD hDn hcq0 hcq1 hcq2 hcq8; omega)
+      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq7 hcq8 hAD hDn; omega)
     rcases hbls with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8; omega)
   have hzbeta : beta = 0 ∨ (4 * A.natDegree < B.natDegree + G.natDegree ∧ A.natDegree + 2 * B.natDegree < B.natDegree + G.natDegree ∧ A.natDegree + E.natDegree < B.natDegree + G.natDegree ∧ G.natDegree < B.natDegree + G.natDegree) := by
     have hbbetas : beta = 0 ∨ (4 * A.natDegree < B.natDegree + G.natDegree) := by
-      rcases h7bbeta with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      rcases h7bbeta with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hDn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hDn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAD hDn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAD hDn hcq0 hcq1 hcq2 hcq8; omega)
+      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq7 hcq8 hAD hDn; omega)
     rcases hbbetas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8; omega)
   have hzdelta : delta = 0 ∨ (3 * A.natDegree < B.natDegree + G.natDegree ∧ 2 * B.natDegree < B.natDegree + G.natDegree ∧ E.natDegree < B.natDegree + G.natDegree) := by
     have hbdeltas : delta = 0 ∨ (3 * A.natDegree < B.natDegree + G.natDegree) := by
-      rcases h7bdelta with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      rcases h7bdelta with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hCn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hCn hDn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAD hCn hDn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hCn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hDn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hDn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hCn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hCn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAD hDn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hCn hDn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAD hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAD hDn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAD hDn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAD hCn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAC hCn hcq0 hcq1 hcq2 hcq8; omega)
+      · exact Or.inr (by clear * - h hCn hcq0 hcq1 hcq2 hcq8 hcq7 hAD hDn hAC; omega)
     rcases hbdeltas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq1 hcq2 hcq8; omega)
@@ -730,40 +412,25 @@ theorem quarticChamberCDEF1810_impossible
       A B C D E F G hA hkap
   have hzl : l = 0 ∨ (4 * A.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree ∧ 3 * A.natDegree + C.natDegree + D.natDegree < A.natDegree + 2 * F.natDegree ∧ 2 * A.natDegree + C.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree ∧ 2 * A.natDegree + D.natDegree + E.natDegree < A.natDegree + 2 * F.natDegree ∧ A.natDegree + 2 * C.natDegree + D.natDegree < A.natDegree + 2 * F.natDegree ∧ A.natDegree + E.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree ∧ 2 * C.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree ∧ C.natDegree + D.natDegree + E.natDegree < A.natDegree + 2 * F.natDegree ∧ 3 * D.natDegree < A.natDegree + 2 * F.natDegree) := by
     have hbls : l = 0 ∨ (4 * A.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree) := by
-      rcases hbl with h | h | h | h | h | h | h
+      rcases hbl with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hApos; omega)
-      · exact Or.inr (by clear * - h hcq6; omega)
-      · exact Or.inr (by clear * - h hcq2 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq4 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq5 hcq6; omega)
-      · exact absurd h (by clear * - hGn hApos; omega)
+      · exact Or.inr (by clear * - h hBn hApos hcq6 hcq2 hcq4 hcq5 hGn; omega)
     rcases hbls with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq2 hcq4 hcq5 hcq6; omega)
   have hzbeta : beta = 0 ∨ (3 * A.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree ∧ 2 * A.natDegree + C.natDegree + D.natDegree < A.natDegree + 2 * F.natDegree ∧ A.natDegree + C.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree ∧ A.natDegree + D.natDegree + E.natDegree < A.natDegree + 2 * F.natDegree ∧ 2 * C.natDegree + D.natDegree < A.natDegree + 2 * F.natDegree ∧ E.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree) := by
     have hbbetas : beta = 0 ∨ (3 * A.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree) := by
-      rcases hbbeta with h | h | h | h | h | h | h
+      rcases hbbeta with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hApos; omega)
-      · exact Or.inr (by clear * - h hcq6; omega)
-      · exact Or.inr (by clear * - h hcq2 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq4 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq5 hcq6; omega)
-      · exact absurd h (by clear * - hGn hApos; omega)
+      · exact Or.inr (by clear * - h hBn hApos hcq6 hcq2 hcq4 hcq5 hGn; omega)
     rcases hbbetas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq2 hcq4 hcq5 hcq6; omega)
   have hzdelta : delta = 0 ∨ (2 * A.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree ∧ A.natDegree + C.natDegree + D.natDegree < A.natDegree + 2 * F.natDegree ∧ C.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree ∧ D.natDegree + E.natDegree < A.natDegree + 2 * F.natDegree) := by
     have hbdeltas : delta = 0 ∨ (2 * A.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree) := by
-      rcases hbdelta with h | h | h | h | h | h | h
+      rcases hbdelta with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hApos; omega)
-      · exact Or.inr (by clear * - h hcq6; omega)
-      · exact Or.inr (by clear * - h hcq2 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq4 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq5 hcq6; omega)
-      · exact absurd h (by clear * - hGn hApos; omega)
+      · exact Or.inr (by clear * - h hBn hApos hcq6 hcq2 hcq4 hcq5 hGn; omega)
     rcases hbdeltas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq1 hcq2 hcq6 hApos; omega)
@@ -803,27 +470,17 @@ theorem quarticChamberCDEG1810_impossible
       A B C D E F G hA hkap
   have hzl : l = 0 ∨ (3 * A.natDegree + C.natDegree + D.natDegree < 2 * G.natDegree ∧ 2 * A.natDegree + D.natDegree + E.natDegree < 2 * G.natDegree ∧ A.natDegree + 2 * C.natDegree + D.natDegree < 2 * G.natDegree ∧ C.natDegree + D.natDegree + E.natDegree < 2 * G.natDegree ∧ 3 * D.natDegree < 2 * G.natDegree) := by
     have hbls : l = 0 ∨ (3 * A.natDegree + C.natDegree + D.natDegree < 2 * G.natDegree) := by
-      rcases hbl with h | h | h | h | h | h | h
+      rcases hbl with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hcq0 hcq5 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq5 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq5 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq4 hcq5 hcq6; omega)
-      · exact absurd h (by clear * - hFn hcq0 hcq5 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq5 hcq6; omega)
+      · exact Or.inr (by clear * - h hBn hcq0 hcq5 hcq6 hcq4 hFn; omega)
     rcases hbls with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq4 hcq5 hcq6; omega)
   have hzbeta : beta = 0 ∨ (2 * A.natDegree + C.natDegree + D.natDegree < 2 * G.natDegree ∧ A.natDegree + D.natDegree + E.natDegree < 2 * G.natDegree ∧ 2 * C.natDegree + D.natDegree < 2 * G.natDegree) := by
     have hbbetas : beta = 0 ∨ (2 * A.natDegree + C.natDegree + D.natDegree < 2 * G.natDegree) := by
-      rcases hbbeta with h | h | h | h | h | h | h
+      rcases hbbeta with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hcq0 hcq5 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq5 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq5 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq4 hcq5 hcq6; omega)
-      · exact absurd h (by clear * - hFn hcq0 hcq5 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq5 hcq6; omega)
+      · exact Or.inr (by clear * - h hBn hcq0 hcq5 hcq6 hcq4 hFn; omega)
     rcases hbbetas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq4 hcq5 hcq6; omega)
@@ -863,27 +520,17 @@ theorem quarticChamberCDEG3810_impossible
       A B C D E F G hA hkap
   have hzl : l = 0 ∨ (3 * A.natDegree + C.natDegree + D.natDegree < 2 * G.natDegree ∧ 2 * A.natDegree + D.natDegree + E.natDegree < 2 * G.natDegree ∧ A.natDegree + 2 * C.natDegree + D.natDegree < 2 * G.natDegree ∧ C.natDegree + D.natDegree + E.natDegree < 2 * G.natDegree ∧ 3 * D.natDegree < 2 * G.natDegree) := by
     have hbls : l = 0 ∨ (3 * A.natDegree + C.natDegree + D.natDegree < 2 * G.natDegree) := by
-      rcases hbl with h | h | h | h | h | h | h
+      rcases hbl with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hcq0 hcq2 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq2 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq2 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq6; omega)
-      · exact absurd h (by clear * - hFn hcq0 hcq2 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq6; omega)
+      · exact Or.inr (by clear * - h hBn hcq0 hcq2 hcq6 hcq1 hFn; omega)
     rcases hbls with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq6; omega)
   have hzbeta : beta = 0 ∨ (2 * A.natDegree + C.natDegree + D.natDegree < 2 * G.natDegree ∧ A.natDegree + D.natDegree + E.natDegree < 2 * G.natDegree ∧ 2 * C.natDegree + D.natDegree < 2 * G.natDegree) := by
     have hbbetas : beta = 0 ∨ (2 * A.natDegree + C.natDegree + D.natDegree < 2 * G.natDegree) := by
-      rcases hbbeta with h | h | h | h | h | h | h
+      rcases hbbeta with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hcq0 hcq2 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq2 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq2 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq6; omega)
-      · exact absurd h (by clear * - hFn hcq0 hcq2 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq6; omega)
+      · exact Or.inr (by clear * - h hBn hcq0 hcq2 hcq6 hcq1 hFn; omega)
     rcases hbbetas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq6; omega)
@@ -923,40 +570,25 @@ theorem quarticChamberCDEG9810_impossible
       A B C D E F G hA hkap
   have hzl : l = 0 ∨ (4 * A.natDegree + D.natDegree < E.natDegree + G.natDegree ∧ 2 * A.natDegree + C.natDegree + D.natDegree < E.natDegree + G.natDegree ∧ A.natDegree + D.natDegree + E.natDegree < E.natDegree + G.natDegree ∧ 2 * C.natDegree + D.natDegree < E.natDegree + G.natDegree ∧ D.natDegree + G.natDegree < E.natDegree + G.natDegree) := by
     have hbls : l = 0 ∨ (4 * A.natDegree + D.natDegree < E.natDegree + G.natDegree) := by
-      rcases hbl with h | h | h | h | h | h | h
+      rcases hbl with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hcq0 hcq1 hcq4 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq4 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq4 hcq6; omega)
-      · exact absurd h (by clear * - hFn hcq0 hcq1 hcq4 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq4 hcq6; omega)
+      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq4 hcq6 hFn; omega)
     rcases hbls with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq4 hcq6; omega)
   have hzbeta : beta = 0 ∨ (3 * A.natDegree + D.natDegree < E.natDegree + G.natDegree ∧ A.natDegree + C.natDegree + D.natDegree < E.natDegree + G.natDegree ∧ D.natDegree + E.natDegree < E.natDegree + G.natDegree) := by
     have hbbetas : beta = 0 ∨ (3 * A.natDegree + D.natDegree < E.natDegree + G.natDegree) := by
-      rcases hbbeta with h | h | h | h | h | h | h
+      rcases hbbeta with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hcq0 hcq1 hcq4 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq4 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq4 hcq6; omega)
-      · exact absurd h (by clear * - hFn hcq0 hcq1 hcq4 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq4 hcq6; omega)
+      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq4 hcq6 hFn; omega)
     rcases hbbetas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq4 hcq6; omega)
   have hzdelta : delta = 0 ∨ (2 * A.natDegree + D.natDegree < E.natDegree + G.natDegree ∧ C.natDegree + D.natDegree < E.natDegree + G.natDegree) := by
     have hbdeltas : delta = 0 ∨ (2 * A.natDegree + D.natDegree < E.natDegree + G.natDegree) := by
-      rcases hbdelta with h | h | h | h | h | h | h
+      rcases hbdelta with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hcq0 hcq1 hcq4 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq4 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq4 hcq6; omega)
-      · exact absurd h (by clear * - hFn hcq0 hcq1 hcq4 hcq6; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq4 hcq6; omega)
+      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq4 hcq6 hFn; omega)
     rcases hbdeltas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq4 hcq6; omega)
@@ -1002,129 +634,41 @@ theorem quarticChamberCDEG14810_impossible
       A B C D E F G hA homi hnu hkap
   have hzl : l = 0 ∨ (7 * A.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ 5 * A.natDegree + C.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ 4 * A.natDegree + E.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ 3 * A.natDegree + 2 * C.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ 3 * A.natDegree + G.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ 2 * A.natDegree + C.natDegree + E.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ 2 * A.natDegree + 2 * D.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ A.natDegree + 3 * C.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ A.natDegree + C.natDegree + G.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ A.natDegree + 2 * E.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ 2 * C.natDegree + E.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ C.natDegree + 2 * D.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ E.natDegree + G.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree) := by
     have hbls : l = 0 ∨ (7 * A.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree) := by
-      rcases h5bl with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      rcases h5bl with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hAF hFn hcq0 hcq1 hcq7; omega)
-      · exact Or.inr (by clear * - h hAF hBn hcq0 hcq1 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hAF hBn hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAF hFn hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq7; omega)
+      · exact Or.inr (by clear * - h hAF hFn hcq0 hcq1 hcq7 hBn hAB hcq2; omega)
     rcases hbls with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq7; omega)
   have hzbeta : beta = 0 ∨ (6 * A.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ 4 * A.natDegree + C.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ 3 * A.natDegree + E.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ 2 * A.natDegree + 2 * C.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ A.natDegree + C.natDegree + E.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ A.natDegree + 2 * D.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ 3 * C.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ 2 * E.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree) := by
     have hbbetas : beta = 0 ∨ (6 * A.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree) := by
-      rcases h5bbeta with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      rcases h5bbeta with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hAF hFn hcq0 hcq1 hcq7; omega)
-      · exact Or.inr (by clear * - h hAF hBn hcq0 hcq3 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hAF hBn hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hFn hcq0 hcq1 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq7; omega)
+      · exact Or.inr (by clear * - h hAF hFn hcq0 hcq1 hcq7 hBn hcq3 hAB hcq2; omega)
     rcases hbbetas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq2 hcq7; omega)
   have hzdelta : delta = 0 ∨ (5 * A.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ 3 * A.natDegree + C.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ A.natDegree + 2 * C.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ A.natDegree + G.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ C.natDegree + E.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ 2 * D.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree) := by
     have hbdeltas : delta = 0 ∨ (5 * A.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree) := by
-      rcases h5bdelta with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      rcases h5bdelta with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hAF hFn hcq0 hcq1 hcq7; omega)
-      · exact Or.inr (by clear * - h hAF hBn hcq0 hcq3 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hAF hBn hFn hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hFn hcq0 hcq1 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq7; omega)
-      · exact Or.inr (by clear * - h hAF hFn hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq7; omega)
+      · exact Or.inr (by clear * - h hAF hFn hcq0 hcq1 hcq7 hBn hcq3 hcq2 hAB; omega)
     rcases hbdeltas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq7; omega)
   have hzzeta : zeta = 0 ∨ (4 * A.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ 2 * A.natDegree + C.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ A.natDegree + E.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ 2 * C.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ G.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree) := by
     have hbzetas : zeta = 0 ∨ (4 * A.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree) := by
-      rcases h5bzeta with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      rcases h5bzeta with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hFn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hFn hcq0 hcq1 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hFn hcq0 hcq1 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hFn hcq0 hcq1 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq7; omega)
-      · exact Or.inr (by clear * - h hAF hFn hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq7; omega)
+      · exact Or.inr (by clear * - h hFn hcq0 hcq1 hcq2 hcq7 hBn hAF hAB; omega)
     rcases hbzetas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq7; omega)
   have hztheta : theta = 0 ∨ (3 * A.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ A.natDegree + C.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ E.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree) := by
     have hbthetas : theta = 0 ∨ (3 * A.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree) := by
-      rcases h5btheta with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      rcases h5btheta with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hFn hcq0 hcq1 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hFn hcq0 hcq1 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hFn hcq0 hcq1 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hFn hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq7; omega)
-      · exact Or.inr (by clear * - h hFn hcq0 hcq1 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq7; omega)
-      · exact Or.inr (by clear * - h hFn hcq0 hcq1 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq7; omega)
+      · exact Or.inr (by clear * - h hFn hcq0 hcq1 hcq7 hBn hcq2 hAB; omega)
     rcases hbthetas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq2 hcq7 hApos; omega)
@@ -1166,40 +710,25 @@ theorem quarticChamberCDEG20810_impossible
       A B C D E F G hA hkap
   have hzl : l = 0 ∨ (4 * A.natDegree + D.natDegree < 2 * C.natDegree + E.natDegree ∧ 2 * A.natDegree + C.natDegree + D.natDegree < 2 * C.natDegree + E.natDegree ∧ A.natDegree + D.natDegree + E.natDegree < 2 * C.natDegree + E.natDegree ∧ 2 * C.natDegree + D.natDegree < 2 * C.natDegree + E.natDegree ∧ D.natDegree + G.natDegree < 2 * C.natDegree + E.natDegree) := by
     have hbls : l = 0 ∨ (4 * A.natDegree + D.natDegree < 2 * C.natDegree + E.natDegree) := by
-      rcases hbl with h | h | h | h | h | h | h
+      rcases hbl with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hcq0 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq2; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq8; omega)
-      · exact absurd h (by clear * - hFn hcq0 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8; omega)
+      · exact Or.inr (by clear * - h hBn hcq0 hcq2 hcq8 hFn hcq1; omega)
     rcases hbls with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq1 hcq8; omega)
   have hzbeta : beta = 0 ∨ (3 * A.natDegree + D.natDegree < 2 * C.natDegree + E.natDegree ∧ A.natDegree + C.natDegree + D.natDegree < 2 * C.natDegree + E.natDegree ∧ D.natDegree + E.natDegree < 2 * C.natDegree + E.natDegree) := by
     have hbbetas : beta = 0 ∨ (3 * A.natDegree + D.natDegree < 2 * C.natDegree + E.natDegree) := by
-      rcases hbbeta with h | h | h | h | h | h | h
+      rcases hbbeta with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hcq0 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq2; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq8; omega)
-      · exact absurd h (by clear * - hFn hcq0 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8; omega)
+      · exact Or.inr (by clear * - h hBn hcq0 hcq2 hcq8 hFn hcq1; omega)
     rcases hbbetas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq8; omega)
   have hzdelta : delta = 0 ∨ (2 * A.natDegree + D.natDegree < 2 * C.natDegree + E.natDegree ∧ C.natDegree + D.natDegree < 2 * C.natDegree + E.natDegree) := by
     have hbdeltas : delta = 0 ∨ (2 * A.natDegree + D.natDegree < 2 * C.natDegree + E.natDegree) := by
-      rcases hbdelta with h | h | h | h | h | h | h
+      rcases hbdelta with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hcq0 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq2; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq8; omega)
-      · exact absurd h (by clear * - hFn hcq0 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8; omega)
+      · exact Or.inr (by clear * - h hBn hcq0 hcq2 hcq8 hFn hcq1; omega)
     rcases hbdeltas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq8; omega)
@@ -1243,40 +772,25 @@ theorem quarticChamberCDFG1810_impossible
       A B C D E F G hA hkap
   have hzl : l = 0 ∨ (4 * A.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree ∧ 3 * A.natDegree + C.natDegree + D.natDegree < A.natDegree + 2 * F.natDegree ∧ 2 * A.natDegree + C.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree ∧ A.natDegree + 2 * C.natDegree + D.natDegree < A.natDegree + 2 * F.natDegree ∧ 2 * C.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree ∧ 3 * D.natDegree < A.natDegree + 2 * F.natDegree ∧ F.natDegree + G.natDegree < A.natDegree + 2 * F.natDegree) := by
     have hbls : l = 0 ∨ (4 * A.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree) := by
-      rcases hbl with h | h | h | h | h | h | h
+      rcases hbl with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hApos; omega)
-      · exact Or.inr (by clear * - h hcq7; omega)
-      · exact Or.inr (by clear * - h hcq2 hcq7; omega)
-      · exact absurd h (by clear * - hEn hApos; omega)
-      · exact Or.inr (by clear * - h hcq4 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq4 hcq7; omega)
+      · exact Or.inr (by clear * - h hBn hApos hcq7 hcq2 hEn hcq4 hcq0; omega)
     rcases hbls with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq2 hcq4 hcq7; omega)
   have hzbeta : beta = 0 ∨ (3 * A.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree ∧ 2 * A.natDegree + C.natDegree + D.natDegree < A.natDegree + 2 * F.natDegree ∧ A.natDegree + C.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree ∧ 2 * C.natDegree + D.natDegree < A.natDegree + 2 * F.natDegree) := by
     have hbbetas : beta = 0 ∨ (3 * A.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree) := by
-      rcases hbbeta with h | h | h | h | h | h | h
+      rcases hbbeta with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hApos; omega)
-      · exact Or.inr (by clear * - h hcq7; omega)
-      · exact Or.inr (by clear * - h hcq2 hcq7; omega)
-      · exact absurd h (by clear * - hEn hApos; omega)
-      · exact Or.inr (by clear * - h hcq4 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq4 hcq7; omega)
+      · exact Or.inr (by clear * - h hBn hApos hcq7 hcq2 hEn hcq4 hcq0; omega)
     rcases hbbetas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq2 hcq4 hcq7; omega)
   have hzdelta : delta = 0 ∨ (2 * A.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree ∧ A.natDegree + C.natDegree + D.natDegree < A.natDegree + 2 * F.natDegree ∧ C.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree) := by
     have hbdeltas : delta = 0 ∨ (2 * A.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree) := by
-      rcases hbdelta with h | h | h | h | h | h | h
+      rcases hbdelta with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hApos; omega)
-      · exact Or.inr (by clear * - h hcq7; omega)
-      · exact Or.inr (by clear * - h hcq2 hcq7; omega)
-      · exact absurd h (by clear * - hEn hApos; omega)
-      · exact Or.inr (by clear * - h hcq4 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq4 hcq7; omega)
+      · exact Or.inr (by clear * - h hBn hApos hcq7 hcq2 hEn hcq4 hcq0; omega)
     rcases hbdeltas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq1 hcq7 hApos; omega)
@@ -1320,40 +834,25 @@ theorem quarticChamberCDFG5810_impossible
       A B C D E F G hA hkap
   have hzl : l = 0 ∨ (4 * A.natDegree + D.natDegree < A.natDegree + D.natDegree + F.natDegree ∧ 3 * A.natDegree + F.natDegree < A.natDegree + D.natDegree + F.natDegree ∧ 2 * A.natDegree + C.natDegree + D.natDegree < A.natDegree + D.natDegree + F.natDegree ∧ A.natDegree + C.natDegree + F.natDegree < A.natDegree + D.natDegree + F.natDegree ∧ 2 * C.natDegree + D.natDegree < A.natDegree + D.natDegree + F.natDegree ∧ D.natDegree + G.natDegree < A.natDegree + D.natDegree + F.natDegree) := by
     have hbls : l = 0 ∨ (4 * A.natDegree + D.natDegree < A.natDegree + D.natDegree + F.natDegree) := by
-      rcases hbl with h | h | h | h | h | h | h
+      rcases hbl with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hcq0 hcq1 hcq3 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq3 hcq7; omega)
-      · exact absurd h (by clear * - hEn hcq0 hcq1 hcq3 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq7; omega)
+      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq3 hcq7 hEn; omega)
     rcases hbls with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq7; omega)
   have hzbeta : beta = 0 ∨ (3 * A.natDegree + D.natDegree < A.natDegree + D.natDegree + F.natDegree ∧ 2 * A.natDegree + F.natDegree < A.natDegree + D.natDegree + F.natDegree ∧ A.natDegree + C.natDegree + D.natDegree < A.natDegree + D.natDegree + F.natDegree ∧ C.natDegree + F.natDegree < A.natDegree + D.natDegree + F.natDegree) := by
     have hbbetas : beta = 0 ∨ (3 * A.natDegree + D.natDegree < A.natDegree + D.natDegree + F.natDegree) := by
-      rcases hbbeta with h | h | h | h | h | h | h
+      rcases hbbeta with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hcq0 hcq1 hcq3 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq3 hcq7; omega)
-      · exact absurd h (by clear * - hEn hcq0 hcq1 hcq3 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq7; omega)
+      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq3 hcq7 hEn; omega)
     rcases hbbetas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq7; omega)
   have hzdelta : delta = 0 ∨ (2 * A.natDegree + D.natDegree < A.natDegree + D.natDegree + F.natDegree ∧ A.natDegree + F.natDegree < A.natDegree + D.natDegree + F.natDegree ∧ C.natDegree + D.natDegree < A.natDegree + D.natDegree + F.natDegree) := by
     have hbdeltas : delta = 0 ∨ (2 * A.natDegree + D.natDegree < A.natDegree + D.natDegree + F.natDegree) := by
-      rcases hbdelta with h | h | h | h | h | h | h
+      rcases hbdelta with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hcq0 hcq1 hcq3 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq3 hcq7; omega)
-      · exact absurd h (by clear * - hEn hcq0 hcq1 hcq3 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq7; omega)
+      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq3 hcq7 hEn; omega)
     rcases hbdeltas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq7; omega)
@@ -1397,130 +896,33 @@ theorem quarticChamberCDFG7810_impossible
       A B C D E F G hA hprim homi hnu hkap
   have hzl : l = 0 ∨ (6 * A.natDegree < D.natDegree + G.natDegree ∧ 4 * A.natDegree + C.natDegree < D.natDegree + G.natDegree ∧ 2 * A.natDegree + 2 * C.natDegree < D.natDegree + G.natDegree ∧ 2 * A.natDegree + G.natDegree < D.natDegree + G.natDegree ∧ A.natDegree + 2 * D.natDegree < D.natDegree + G.natDegree ∧ 3 * C.natDegree < D.natDegree + G.natDegree ∧ C.natDegree + G.natDegree < D.natDegree + G.natDegree ∧ D.natDegree + F.natDegree < D.natDegree + G.natDegree) := by
     have hbls : l = 0 ∨ (6 * A.natDegree < D.natDegree + G.natDegree) := by
-      rcases h7bl with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      rcases h7bl with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hAE hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq8; omega)
-      · exact Or.inr (by clear * - h hAE hEn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAE hEn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAE hEn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAE hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hAE hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAB hAE hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq7; omega)
+      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq7 hAE hcq8 hEn; omega)
     rcases hbls with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8; omega)
   have hzbeta : beta = 0 ∨ (5 * A.natDegree < D.natDegree + G.natDegree ∧ 3 * A.natDegree + C.natDegree < D.natDegree + G.natDegree ∧ A.natDegree + 2 * C.natDegree < D.natDegree + G.natDegree ∧ A.natDegree + G.natDegree < D.natDegree + G.natDegree ∧ 2 * D.natDegree < D.natDegree + G.natDegree) := by
     have hbbetas : beta = 0 ∨ (5 * A.natDegree < D.natDegree + G.natDegree) := by
-      rcases h7bbeta with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      rcases h7bbeta with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hAE hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq8; omega)
-      · exact Or.inr (by clear * - h hAE hEn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAE hEn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAE hEn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAE hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hAE hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAB hAE hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq7; omega)
+      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq7 hAE hcq8 hEn; omega)
     rcases hbbetas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8; omega)
   have hzdelta : delta = 0 ∨ (4 * A.natDegree < D.natDegree + G.natDegree ∧ 2 * A.natDegree + C.natDegree < D.natDegree + G.natDegree ∧ 2 * C.natDegree < D.natDegree + G.natDegree ∧ G.natDegree < D.natDegree + G.natDegree) := by
     have hbdeltas : delta = 0 ∨ (4 * A.natDegree < D.natDegree + G.natDegree) := by
-      rcases h7bdelta with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      rcases h7bdelta with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAE hBn hEn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq8; omega)
-      · exact Or.inr (by clear * - h hAE hEn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAE hEn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hEn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAE hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAE hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAE hBn hEn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAE hEn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAB hAE hBn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq8; omega)
+      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq2 hcq8 hAE hEn hcq7 hAB; omega)
     rcases hbdeltas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8; omega)
   have hzzeta : zeta = 0 ∨ (3 * A.natDegree < D.natDegree + G.natDegree ∧ A.natDegree + C.natDegree < D.natDegree + G.natDegree) := by
     have hbzetas : zeta = 0 ∨ (3 * A.natDegree < D.natDegree + G.natDegree) := by
-      rcases h7bzeta with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      rcases h7bzeta with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hEn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hApos; omega)
-      · exact Or.inr (by clear * - h hEn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hApos; omega)
-      · exact Or.inr (by clear * - h hEn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hApos; omega)
-      · exact Or.inr (by clear * - h hEn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAE hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAE hBn hEn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAE hBn hEn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAE hEn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAB hAE hBn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAE hEn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq8; omega)
+      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq2 hcq8 hEn hcq7 hApos hAE hAB; omega)
     rcases hbzetas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hApos; omega)
@@ -1562,40 +964,25 @@ theorem quarticChamberCDFG13810_impossible
       A B C D E F G hA hkap
   have hzl : l = 0 ∨ (4 * A.natDegree + F.natDegree < 2 * G.natDegree ∧ 3 * A.natDegree + C.natDegree + D.natDegree < 2 * G.natDegree ∧ 2 * A.natDegree + C.natDegree + F.natDegree < 2 * G.natDegree ∧ A.natDegree + 2 * C.natDegree + D.natDegree < 2 * G.natDegree ∧ 2 * C.natDegree + F.natDegree < 2 * G.natDegree ∧ 3 * D.natDegree < 2 * G.natDegree ∧ F.natDegree + G.natDegree < 2 * G.natDegree) := by
     have hbls : l = 0 ∨ (4 * A.natDegree + F.natDegree < 2 * G.natDegree ∧ 3 * A.natDegree + C.natDegree + D.natDegree < 2 * G.natDegree) := by
-      rcases hbl with h | h | h | h | h | h | h
+      rcases hbl with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hcq1 hcq6 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq6 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq6 hcq7; omega)
-      · exact absurd h (by clear * - hEn hcq1 hcq6 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq6 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq6 hcq7; omega)
+      · exact Or.inr (by clear * - h hBn hcq1 hcq6 hcq7 hcq0 hEn; omega)
     rcases hbls with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq1 hcq6 hcq7; omega)
   have hzbeta : beta = 0 ∨ (3 * A.natDegree + F.natDegree < 2 * G.natDegree ∧ 2 * A.natDegree + C.natDegree + D.natDegree < 2 * G.natDegree ∧ A.natDegree + C.natDegree + F.natDegree < 2 * G.natDegree ∧ 2 * C.natDegree + D.natDegree < 2 * G.natDegree) := by
     have hbbetas : beta = 0 ∨ (3 * A.natDegree + F.natDegree < 2 * G.natDegree ∧ 2 * A.natDegree + C.natDegree + D.natDegree < 2 * G.natDegree) := by
-      rcases hbbeta with h | h | h | h | h | h | h
+      rcases hbbeta with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hcq1 hcq6 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq6 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq6 hcq7; omega)
-      · exact absurd h (by clear * - hEn hcq1 hcq6 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq6 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq6 hcq7; omega)
+      · exact Or.inr (by clear * - h hBn hcq1 hcq6 hcq7 hcq0 hEn; omega)
     rcases hbbetas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq1 hcq6 hcq7; omega)
   have hzdelta : delta = 0 ∨ (2 * A.natDegree + F.natDegree < 2 * G.natDegree ∧ A.natDegree + C.natDegree + D.natDegree < 2 * G.natDegree ∧ C.natDegree + F.natDegree < 2 * G.natDegree) := by
     have hbdeltas : delta = 0 ∨ (2 * A.natDegree + F.natDegree < 2 * G.natDegree) := by
-      rcases hbdelta with h | h | h | h | h | h | h
+      rcases hbdelta with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hcq1 hcq6 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq6 hcq7; omega)
-      · exact absurd h (by clear * - hEn hcq1 hcq6 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq6 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq6 hcq7; omega)
+      · exact Or.inr (by clear * - h hBn hcq1 hcq6 hcq7 hcq0 hEn; omega)
     rcases hbdeltas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq1 hcq6 hcq7; omega)
@@ -1635,40 +1022,25 @@ theorem quarticChamberCDFG15810_impossible
       A B C D E F G hA hkap
   have hzl : l = 0 ∨ (4 * A.natDegree + F.natDegree < 2 * G.natDegree ∧ 3 * A.natDegree + C.natDegree + D.natDegree < 2 * G.natDegree ∧ 2 * A.natDegree + C.natDegree + F.natDegree < 2 * G.natDegree ∧ A.natDegree + 2 * C.natDegree + D.natDegree < 2 * G.natDegree ∧ 2 * C.natDegree + F.natDegree < 2 * G.natDegree ∧ 3 * D.natDegree < 2 * G.natDegree ∧ F.natDegree + G.natDegree < 2 * G.natDegree) := by
     have hbls : l = 0 ∨ (4 * A.natDegree + F.natDegree < 2 * G.natDegree ∧ 3 * A.natDegree + C.natDegree + D.natDegree < 2 * G.natDegree) := by
-      rcases hbl with h | h | h | h | h | h | h
+      rcases hbl with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hcq0 hcq2 hcq3 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq3 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq2 hcq3 hcq7; omega)
-      · exact absurd h (by clear * - hEn hcq0 hcq2 hcq3 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq3 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq3 hcq7; omega)
+      · exact Or.inr (by clear * - h hBn hcq0 hcq2 hcq3 hcq7 hcq1 hEn; omega)
     rcases hbls with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq3 hcq7; omega)
   have hzbeta : beta = 0 ∨ (3 * A.natDegree + F.natDegree < 2 * G.natDegree ∧ 2 * A.natDegree + C.natDegree + D.natDegree < 2 * G.natDegree ∧ A.natDegree + C.natDegree + F.natDegree < 2 * G.natDegree ∧ 2 * C.natDegree + D.natDegree < 2 * G.natDegree) := by
     have hbbetas : beta = 0 ∨ (3 * A.natDegree + F.natDegree < 2 * G.natDegree ∧ 2 * A.natDegree + C.natDegree + D.natDegree < 2 * G.natDegree) := by
-      rcases hbbeta with h | h | h | h | h | h | h
+      rcases hbbeta with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hcq0 hcq2 hcq3 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq3 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq2 hcq3 hcq7; omega)
-      · exact absurd h (by clear * - hEn hcq0 hcq2 hcq3 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq3 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq3 hcq7; omega)
+      · exact Or.inr (by clear * - h hBn hcq0 hcq2 hcq3 hcq7 hcq1 hEn; omega)
     rcases hbbetas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq3 hcq7; omega)
   have hzdelta : delta = 0 ∨ (2 * A.natDegree + F.natDegree < 2 * G.natDegree ∧ A.natDegree + C.natDegree + D.natDegree < 2 * G.natDegree ∧ C.natDegree + F.natDegree < 2 * G.natDegree) := by
     have hbdeltas : delta = 0 ∨ (2 * A.natDegree + F.natDegree < 2 * G.natDegree) := by
-      rcases hbdelta with h | h | h | h | h | h | h
+      rcases hbdelta with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hcq0 hcq2 hcq3 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq2 hcq3 hcq7; omega)
-      · exact absurd h (by clear * - hEn hcq0 hcq2 hcq3 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq3 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq3 hcq7; omega)
+      · exact Or.inr (by clear * - h hBn hcq0 hcq2 hcq3 hcq7 hcq1 hEn; omega)
     rcases hbdeltas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq3 hcq7; omega)
@@ -1714,129 +1086,41 @@ theorem quarticChamberCDFG20810_impossible
       A B C D E F G hA homi hnu hkap
   have hzl : l = 0 ∨ (7 * A.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ 5 * A.natDegree + C.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ 3 * A.natDegree + 2 * C.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ 3 * A.natDegree + G.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ 2 * A.natDegree + 2 * D.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ A.natDegree + 3 * C.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ A.natDegree + C.natDegree + G.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ A.natDegree + D.natDegree + F.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ C.natDegree + 2 * D.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ 2 * F.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree) := by
     have hbls : l = 0 ∨ (7 * A.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree) := by
-      rcases h5bl with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      rcases h5bl with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq3; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq8; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hAE hBn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq3; omega)
-      · exact Or.inr (by clear * - h hEn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq8; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq8; omega)
-      · exact Or.inr (by clear * - h hAE hBn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq8; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq3 hcq8; omega)
+      · exact Or.inr (by clear * - h hcq0 hcq2 hcq3 hAB hBn hcq8 hAE hEn; omega)
     rcases hbls with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq2 hcq3 hcq8; omega)
   have hzbeta : beta = 0 ∨ (6 * A.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ 4 * A.natDegree + C.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ 2 * A.natDegree + 2 * C.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ A.natDegree + 2 * D.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ 3 * C.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ D.natDegree + F.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree) := by
     have hbbetas : beta = 0 ∨ (6 * A.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree) := by
-      rcases h5bbeta with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      rcases h5bbeta with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq3; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq8; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hEn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq3; omega)
-      · exact Or.inr (by clear * - h hEn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq8; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq8; omega)
-      · exact Or.inr (by clear * - h hAE hBn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq8; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq3 hcq8; omega)
+      · exact Or.inr (by clear * - h hcq0 hcq2 hcq3 hAB hBn hcq8 hEn hAE; omega)
     rcases hbbetas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq3 hcq8; omega)
   have hzdelta : delta = 0 ∨ (5 * A.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ 3 * A.natDegree + C.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ A.natDegree + 2 * C.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ A.natDegree + G.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ 2 * D.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree) := by
     have hbdeltas : delta = 0 ∨ (5 * A.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree) := by
-      rcases h5bdelta with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      rcases h5bdelta with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq3; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hEn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq3; omega)
-      · exact Or.inr (by clear * - h hEn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hAE hBn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hAE hEn hcq0 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq8; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq8; omega)
+      · exact Or.inr (by clear * - h hcq0 hcq2 hcq3 hAB hBn hcq8 hEn hAE; omega)
     rcases hbdeltas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq2 hcq8; omega)
   have hzzeta : zeta = 0 ∨ (4 * A.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ 2 * A.natDegree + C.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ 2 * C.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ G.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree) := by
     have hbzetas : zeta = 0 ∨ (4 * A.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree) := by
-      rcases h5bzeta with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      rcases h5bzeta with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq3; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hEn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq3; omega)
-      · exact Or.inr (by clear * - h hEn hcq0 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hAE hBn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hEn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq8; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq8; omega)
-      · exact Or.inr (by clear * - h hAE hBn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq3 hcq8; omega)
+      · exact Or.inr (by clear * - h hcq0 hcq2 hcq3 hBn hcq8 hEn hAE hAB; omega)
     rcases hbzetas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq2 hcq8; omega)
   have hztheta : theta = 0 ∨ (3 * A.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree ∧ A.natDegree + C.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree) := by
     have hbthetas : theta = 0 ∨ (3 * A.natDegree < A.natDegree + 2 * C.natDegree + D.natDegree) := by
-      rcases h5btheta with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      rcases h5btheta with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hcq0 hcq2 hcq3; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq2 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hEn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq3; omega)
-      · exact Or.inr (by clear * - h hEn hcq0 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hEn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hEn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hEn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq8; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq3 hcq8; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq8; omega)
+      · exact Or.inr (by clear * - h hcq0 hcq2 hcq3 hBn hcq8 hEn hAB; omega)
     rcases hbthetas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq8; omega)
@@ -1882,40 +1166,25 @@ theorem quarticChamberCEFG1810_impossible
       A B C D E F G hA hkap
   have hzl : l = 0 ∨ (4 * A.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree ∧ 2 * A.natDegree + C.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree ∧ A.natDegree + E.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree ∧ 2 * C.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree ∧ F.natDegree + G.natDegree < A.natDegree + 2 * F.natDegree) := by
     have hbls : l = 0 ∨ (4 * A.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree) := by
-      rcases hbl with h | h | h | h | h | h | h
+      rcases hbl with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hApos; omega)
-      · exact Or.inr (by clear * - h hcq7; omega)
-      · exact absurd h (by clear * - hDn hApos; omega)
-      · exact Or.inr (by clear * - h hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq4 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq4 hcq7; omega)
+      · exact Or.inr (by clear * - h hBn hApos hcq7 hDn hcq2 hcq4 hcq0; omega)
     rcases hbls with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq2 hcq4 hcq7; omega)
   have hzbeta : beta = 0 ∨ (3 * A.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree ∧ A.natDegree + C.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree ∧ E.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree) := by
     have hbbetas : beta = 0 ∨ (3 * A.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree) := by
-      rcases hbbeta with h | h | h | h | h | h | h
+      rcases hbbeta with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hApos; omega)
-      · exact Or.inr (by clear * - h hcq7; omega)
-      · exact absurd h (by clear * - hDn hApos; omega)
-      · exact Or.inr (by clear * - h hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq4 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq4 hcq7; omega)
+      · exact Or.inr (by clear * - h hBn hApos hcq7 hDn hcq2 hcq4 hcq0; omega)
     rcases hbbetas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq2 hcq4 hcq7; omega)
   have hzdelta : delta = 0 ∨ (2 * A.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree ∧ C.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree) := by
     have hbdeltas : delta = 0 ∨ (2 * A.natDegree + F.natDegree < A.natDegree + 2 * F.natDegree) := by
-      rcases hbdelta with h | h | h | h | h | h | h
+      rcases hbdelta with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hApos; omega)
-      · exact Or.inr (by clear * - h hcq7; omega)
-      · exact absurd h (by clear * - hDn hApos; omega)
-      · exact Or.inr (by clear * - h hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq4 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq4 hcq7; omega)
+      · exact Or.inr (by clear * - h hBn hApos hcq7 hDn hcq2 hcq4 hcq0; omega)
     rcases hbdeltas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq7 hApos; omega)
@@ -1964,39 +1233,24 @@ theorem quarticChamberCEFG5810_impossible
       A B C D E F G hA hkap
   have hzl : l = 0 ∨ (3 * A.natDegree + F.natDegree < E.natDegree + G.natDegree ∧ A.natDegree + C.natDegree + F.natDegree < E.natDegree + G.natDegree ∧ E.natDegree + F.natDegree < E.natDegree + G.natDegree) := by
     have hbls : l = 0 ∨ (3 * A.natDegree + F.natDegree < E.natDegree + G.natDegree) := by
-      rcases hbl with h | h | h | h | h | h | h
+      rcases hbl with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq7; omega)
-      · exact absurd h (by clear * - hDn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq7; omega)
+      · exact Or.inr (by clear * - h hBn hcq1 hcq2 hcq7 hcq0 hDn; omega)
     rcases hbls with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq1 hcq2 hcq7; omega)
   have hzbeta : beta = 0 ∨ (2 * A.natDegree + F.natDegree < E.natDegree + G.natDegree ∧ C.natDegree + F.natDegree < E.natDegree + G.natDegree) := by
     have hbbetas : beta = 0 ∨ (2 * A.natDegree + F.natDegree < E.natDegree + G.natDegree) := by
-      rcases hbbeta with h | h | h | h | h | h | h
+      rcases hbbeta with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq7; omega)
-      · exact absurd h (by clear * - hDn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq7; omega)
+      · exact Or.inr (by clear * - h hBn hcq1 hcq2 hcq7 hcq0 hDn; omega)
     rcases hbbetas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq1 hcq2 hcq7; omega)
   have hzdelta : delta = 0 ∨ (A.natDegree + F.natDegree < E.natDegree + G.natDegree) := by
-    rcases hbdelta with h | h | h | h | h | h | h
+    rcases hbdelta with h | h
     · exact Or.inl h
-    · exact absurd h (by clear * - hBn hcq1 hcq2 hcq7; omega)
-    · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq7; omega)
-    · exact absurd h (by clear * - hDn hcq1 hcq2 hcq7; omega)
-    · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq7; omega)
-    · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq7; omega)
-    · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq7; omega)
+    · exact Or.inr (by clear * - h hBn hcq1 hcq2 hcq7 hcq0 hDn; omega)
   have hrest : (xiQuarticChamberRest5002810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G).natDegree < E.natDegree + G.natDegree :=
     xiQuarticChamberRest5002810_natDegree_lt_of_live_CEFG l beta gamma delta epsilon zeta eta theta
@@ -2037,130 +1291,33 @@ theorem quarticChamberCEFG7810_impossible
       A B C D E F G hA hprim homi hnu hkap
   have hzl : l = 0 ∨ (6 * A.natDegree < E.natDegree + F.natDegree ∧ 4 * A.natDegree + C.natDegree < E.natDegree + F.natDegree ∧ 3 * A.natDegree + E.natDegree < E.natDegree + F.natDegree ∧ 2 * A.natDegree + 2 * C.natDegree < E.natDegree + F.natDegree ∧ 2 * A.natDegree + G.natDegree < E.natDegree + F.natDegree ∧ A.natDegree + C.natDegree + E.natDegree < E.natDegree + F.natDegree ∧ 3 * C.natDegree < E.natDegree + F.natDegree ∧ C.natDegree + G.natDegree < E.natDegree + F.natDegree ∧ 2 * E.natDegree < E.natDegree + F.natDegree) := by
     have hbls : l = 0 ∨ (6 * A.natDegree < E.natDegree + F.natDegree) := by
-      rcases h7bl with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      rcases h7bl with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hDn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hDn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hDn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hDn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hAD hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hAD hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hDn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hBn hcq1 hcq2 hcq7; omega)
+      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq7 hAD hDn; omega)
     rcases hbls with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq7; omega)
   have hzbeta : beta = 0 ∨ (5 * A.natDegree < E.natDegree + F.natDegree ∧ 3 * A.natDegree + C.natDegree < E.natDegree + F.natDegree ∧ 2 * A.natDegree + E.natDegree < E.natDegree + F.natDegree ∧ A.natDegree + 2 * C.natDegree < E.natDegree + F.natDegree ∧ A.natDegree + G.natDegree < E.natDegree + F.natDegree ∧ C.natDegree + E.natDegree < E.natDegree + F.natDegree) := by
     have hbbetas : beta = 0 ∨ (5 * A.natDegree < E.natDegree + F.natDegree) := by
-      rcases h7bbeta with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      rcases h7bbeta with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hDn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hDn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hDn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hDn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hAD hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hAD hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hDn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hBn hcq1 hcq2 hcq7; omega)
+      · exact Or.inr (by clear * - h hAB hBn hcq0 hcq1 hcq2 hcq7 hAD hDn; omega)
     rcases hbbetas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq7; omega)
   have hzdelta : delta = 0 ∨ (4 * A.natDegree < E.natDegree + F.natDegree ∧ 2 * A.natDegree + C.natDegree < E.natDegree + F.natDegree ∧ A.natDegree + E.natDegree < E.natDegree + F.natDegree ∧ 2 * C.natDegree < E.natDegree + F.natDegree ∧ G.natDegree < E.natDegree + F.natDegree) := by
     have hbdeltas : delta = 0 ∨ (4 * A.natDegree < E.natDegree + F.natDegree) := by
-      rcases h7bdelta with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      rcases h7bdelta with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq2 hApos; omega)
-      · exact Or.inr (by clear * - h hAD hDn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hDn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq2 hApos; omega)
-      · exact Or.inr (by clear * - h hDn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hDn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hBn hDn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hDn hcq1 hcq2 hcq7 hApos; omega)
-      · exact Or.inr (by clear * - h hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hDn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq1 hcq2 hcq7; omega)
+      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq2 hcq7 hApos hAD hDn hAB; omega)
     rcases hbdeltas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hApos; omega)
   have hzzeta : zeta = 0 ∨ (3 * A.natDegree < E.natDegree + F.natDegree ∧ A.natDegree + C.natDegree < E.natDegree + F.natDegree ∧ E.natDegree < E.natDegree + F.natDegree) := by
     have hbzetas : zeta = 0 ∨ (3 * A.natDegree < E.natDegree + F.natDegree) := by
-      rcases h7bzeta with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
+      rcases h7bzeta with h | h
       · exact Or.inl h
-      · exact Or.inr (by clear * - h hBn hcq0 hcq2 hApos; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hApos; omega)
-      · exact Or.inr (by clear * - h hBn hcq1 hcq2 hApos; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq2 hApos; omega)
-      · exact Or.inr (by clear * - h hDn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hDn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq2 hApos; omega)
-      · exact Or.inr (by clear * - h hDn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hDn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hBn hDn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq1 hcq2 hApos; omega)
-      · exact Or.inr (by clear * - h hBn hcq1 hcq2 hApos; omega)
-      · exact Or.inr (by clear * - h hBn hDn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hDn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq2 hApos; omega)
-      · exact Or.inr (by clear * - h hApos; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hBn hDn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hDn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hDn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hDn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAD hBn hcq1 hcq2 hcq7; omega)
-      · exact Or.inr (by clear * - h hAB hBn hcq1 hcq2 hcq7; omega)
+      · exact Or.inr (by clear * - h hBn hcq0 hcq2 hApos hcq1 hDn hcq7 hAD hAB; omega)
     rcases hbzetas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq1 hcq2 hApos; omega)
@@ -2202,40 +1359,25 @@ theorem quarticChamberCEFG13810_impossible
       A B C D E F G hA hkap
   have hzl : l = 0 ∨ (4 * A.natDegree + F.natDegree < 2 * G.natDegree ∧ 2 * A.natDegree + C.natDegree + F.natDegree < 2 * G.natDegree ∧ A.natDegree + E.natDegree + F.natDegree < 2 * G.natDegree ∧ 2 * C.natDegree + F.natDegree < 2 * G.natDegree ∧ F.natDegree + G.natDegree < 2 * G.natDegree) := by
     have hbls : l = 0 ∨ (4 * A.natDegree + F.natDegree < 2 * G.natDegree) := by
-      rcases hbl with h | h | h | h | h | h | h
+      rcases hbl with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hcq3 hcq6 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq7; omega)
-      · exact absurd h (by clear * - hDn hcq3 hcq6 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq3 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq6 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq6 hcq7; omega)
+      · exact Or.inr (by clear * - h hBn hcq3 hcq6 hcq7 hcq0 hDn; omega)
     rcases hbls with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq3 hcq6 hcq7; omega)
   have hzbeta : beta = 0 ∨ (3 * A.natDegree + F.natDegree < 2 * G.natDegree ∧ A.natDegree + C.natDegree + F.natDegree < 2 * G.natDegree ∧ E.natDegree + F.natDegree < 2 * G.natDegree) := by
     have hbbetas : beta = 0 ∨ (3 * A.natDegree + F.natDegree < 2 * G.natDegree) := by
-      rcases hbbeta with h | h | h | h | h | h | h
+      rcases hbbeta with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hcq3 hcq6 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq7; omega)
-      · exact absurd h (by clear * - hDn hcq3 hcq6 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq3 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq6 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq6 hcq7; omega)
+      · exact Or.inr (by clear * - h hBn hcq3 hcq6 hcq7 hcq0 hDn; omega)
     rcases hbbetas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq3 hcq6 hcq7; omega)
   have hzdelta : delta = 0 ∨ (2 * A.natDegree + F.natDegree < 2 * G.natDegree ∧ C.natDegree + F.natDegree < 2 * G.natDegree) := by
     have hbdeltas : delta = 0 ∨ (2 * A.natDegree + F.natDegree < 2 * G.natDegree) := by
-      rcases hbdelta with h | h | h | h | h | h | h
+      rcases hbdelta with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hcq3 hcq6 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq7; omega)
-      · exact absurd h (by clear * - hDn hcq3 hcq6 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq3 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq6 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq6 hcq7; omega)
+      · exact Or.inr (by clear * - h hBn hcq3 hcq6 hcq7 hcq0 hDn; omega)
     rcases hbdeltas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq6 hcq7; omega)
@@ -2275,39 +1417,24 @@ theorem quarticChamberCEFG15810_impossible
       A B C D E F G hA hkap
   have hzl : l = 0 ∨ (3 * A.natDegree + F.natDegree < E.natDegree + G.natDegree ∧ A.natDegree + C.natDegree + F.natDegree < E.natDegree + G.natDegree ∧ E.natDegree + F.natDegree < E.natDegree + G.natDegree) := by
     have hbls : l = 0 ∨ (3 * A.natDegree + F.natDegree < E.natDegree + G.natDegree) := by
-      rcases hbl with h | h | h | h | h | h | h
+      rcases hbl with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hcq0 hcq1 hcq3 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq7; omega)
-      · exact absurd h (by clear * - hDn hcq0 hcq1 hcq3 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq7; omega)
+      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq3 hcq7 hDn; omega)
     rcases hbls with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq3 hcq7; omega)
   have hzbeta : beta = 0 ∨ (2 * A.natDegree + F.natDegree < E.natDegree + G.natDegree ∧ C.natDegree + F.natDegree < E.natDegree + G.natDegree) := by
     have hbbetas : beta = 0 ∨ (2 * A.natDegree + F.natDegree < E.natDegree + G.natDegree) := by
-      rcases hbbeta with h | h | h | h | h | h | h
+      rcases hbbeta with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hcq0 hcq1 hcq3 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq7; omega)
-      · exact absurd h (by clear * - hDn hcq0 hcq1 hcq3 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq7; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq7; omega)
+      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq3 hcq7 hDn; omega)
     rcases hbbetas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq3 hcq7; omega)
   have hzdelta : delta = 0 ∨ (A.natDegree + F.natDegree < E.natDegree + G.natDegree) := by
-    rcases hbdelta with h | h | h | h | h | h | h
+    rcases hbdelta with h | h
     · exact Or.inl h
-    · exact absurd h (by clear * - hBn hcq0 hcq1 hcq3 hcq7; omega)
-    · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq7; omega)
-    · exact absurd h (by clear * - hDn hcq0 hcq1 hcq3 hcq7; omega)
-    · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq7; omega)
-    · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq7; omega)
-    · exact Or.inr (by clear * - h hcq0 hcq1 hcq3 hcq7; omega)
+    · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq3 hcq7 hDn; omega)
   have hrest : (xiQuarticChamberRest5002810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G).natDegree < E.natDegree + G.natDegree :=
     xiQuarticChamberRest5002810_natDegree_lt_of_live_CEFG l beta gamma delta epsilon zeta eta theta
@@ -2344,39 +1471,24 @@ theorem quarticChamberCEFG20810_impossible
       A B C D E F G hA hkap
   have hzl : l = 0 ∨ (3 * A.natDegree + F.natDegree < 2 * C.natDegree + E.natDegree ∧ A.natDegree + C.natDegree + F.natDegree < 2 * C.natDegree + E.natDegree ∧ E.natDegree + F.natDegree < 2 * C.natDegree + E.natDegree) := by
     have hbls : l = 0 ∨ (3 * A.natDegree + F.natDegree < 2 * C.natDegree + E.natDegree) := by
-      rcases hbl with h | h | h | h | h | h | h
+      rcases hbl with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hcq0 hcq1 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq8; omega)
-      · exact absurd h (by clear * - hDn hcq0 hcq1 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8; omega)
+      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq8 hDn hcq2; omega)
     rcases hbls with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq8; omega)
   have hzbeta : beta = 0 ∨ (2 * A.natDegree + F.natDegree < 2 * C.natDegree + E.natDegree ∧ C.natDegree + F.natDegree < 2 * C.natDegree + E.natDegree) := by
     have hbbetas : beta = 0 ∨ (2 * A.natDegree + F.natDegree < 2 * C.natDegree + E.natDegree) := by
-      rcases hbbeta with h | h | h | h | h | h | h
+      rcases hbbeta with h | h
       · exact Or.inl h
-      · exact absurd h (by clear * - hBn hcq0 hcq1 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq8; omega)
-      · exact absurd h (by clear * - hDn hcq0 hcq1 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq8; omega)
-      · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8; omega)
+      · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq8 hDn hcq2; omega)
     rcases hbbetas with h | h
     · exact Or.inl h
     · exact Or.inr (by clear * - h hcq0 hcq8; omega)
   have hzdelta : delta = 0 ∨ (A.natDegree + F.natDegree < 2 * C.natDegree + E.natDegree) := by
-    rcases hbdelta with h | h | h | h | h | h | h
+    rcases hbdelta with h | h
     · exact Or.inl h
-    · exact absurd h (by clear * - hBn hcq0 hcq1 hcq8; omega)
-    · exact Or.inr (by clear * - h hcq0 hcq1 hcq8; omega)
-    · exact absurd h (by clear * - hDn hcq0 hcq1 hcq8; omega)
-    · exact Or.inr (by clear * - h hcq0 hcq1 hcq8; omega)
-    · exact Or.inr (by clear * - h hcq0 hcq1 hcq8; omega)
-    · exact Or.inr (by clear * - h hcq0 hcq1 hcq2 hcq8; omega)
+    · exact Or.inr (by clear * - h hBn hcq0 hcq1 hcq8 hDn hcq2; omega)
   have hrest : (xiQuarticChamberRest5000810 l beta gamma delta epsilon zeta eta theta
       A B C D E F G).natDegree < 2 * C.natDegree + E.natDegree :=
     xiQuarticChamberRest5000810_natDegree_lt_of_live_CEFG l beta gamma delta epsilon zeta eta theta

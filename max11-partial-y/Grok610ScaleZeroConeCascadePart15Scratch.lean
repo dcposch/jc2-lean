@@ -13,6 +13,7 @@ section PrimitivePolynomial610
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 /-- Unique-`A` rest with the next face `A⁶ B` also deleted. -/
 def degreeZeroBaseGroupHighA_noA6B_Rest610
     (l : k) (A B C0 D0 E0 : k[X]) : k[X] :=

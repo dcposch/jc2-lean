@@ -54,7 +54,34 @@ section IotaDerivZero410
 
 variable {k F : Type*} [Field k] [Field F] [Algebra k F] [CharZero F]
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
+/-- Shared flat residual identity keeps the clearing proof at its coefficient frontier. -/
+private theorem astra4q_iotaResidual410_flat
+    (L A B C0 P Q R S0 T0 U0 V0 Z0 : F) :
+    iotaResidual410 L A B C0 P Q R S0 T0 U0 V0 Z0 =
+      Z0 - (1 / 2 : F) * A * V0 - (3 / 4 : F) * B * U0 - C0 * T0 +
+        (1 / 2 : F) * (A * A) * T0 + (5 / 4 : F) * A * B * S0 +
+        (3 / 2 : F) * A * C0 * R + (3 / 4 : F) * (B * B) * R +
+        (7 / 4 : F) * B * C0 * Q + P * (C0 * C0) +
+        (1 / 2 : F) * (A * A * A * A) * P -
+        (1 / 2 : F) * (A * A * A) * R -
+        (7 / 4 : F) * (A * A) * B * Q -
+        (2 : F) * (A * A) * C0 * P -
+        (2 : F) * A * (B * B) * P +
+        (9 / 4 : F) * L * (A * A * A) * B -
+        (9 / 2 : F) * L * A * B * C0 -
+        (3 / 4 : F) * L * (B * B * B) -
+        (1 / 2 : F) * (A * A * A * A * A) +
+        (5 / 2 : F) * (A * A * A) * C0 +
+        (15 / 4 : F) * (A * A) * (B * B) -
+        (5 / 2 : F) * A * (C0 * C0) -
+        (5 / 2 : F) * (B * B) * C0 := by
+  simp only [iotaResidual410, alphaResidual410, betaResidual410,
+    gammaResidual410, deltaResidual410, epsilonResidual410,
+    zetaResidual410, etaResidual410, pow_two, pow_three]
+  ring
+
+set_option maxHeartbeats 64000000 in
 /-- The tenth-face residual `ι` is an exact first integral of the
 degree-`3` depressed Jacobian row on the second- through eighth-face
 integrals. -/
@@ -428,30 +455,8 @@ theorem iotaResidual410_deriv_zero
     rw [hZderiv, hVderiv, hUderiv, hTderiv, hSderiv, hRderiv, hQderiv,
       hPderiv]
     ring
-  have hexp :
-      iotaResidual410 L A B C0 P Q R S0 T0 U0 V0 Z0 =
-        Z0 - (1 / 2 : F) * A * V0 - (3 / 4 : F) * B * U0 - C0 * T0 +
-          (1 / 2 : F) * (A * A) * T0 + (5 / 4 : F) * A * B * S0 +
-          (3 / 2 : F) * A * C0 * R + (3 / 4 : F) * (B * B) * R +
-          (7 / 4 : F) * B * C0 * Q + P * (C0 * C0) +
-          (1 / 2 : F) * (A * A * A * A) * P -
-          (1 / 2 : F) * (A * A * A) * R -
-          (7 / 4 : F) * (A * A) * B * Q -
-          (2 : F) * (A * A) * C0 * P -
-          (2 : F) * A * (B * B) * P +
-          (9 / 4 : F) * L * (A * A * A) * B -
-          (9 / 2 : F) * L * A * B * C0 -
-          (3 / 4 : F) * L * (B * B * B) -
-          (1 / 2 : F) * (A * A * A * A * A) +
-          (5 / 2 : F) * (A * A * A) * C0 +
-          (15 / 4 : F) * (A * A) * (B * B) -
-          (5 / 2 : F) * A * (C0 * C0) -
-          (5 / 2 : F) * (B * B) * C0 := by
-    simp only [iotaResidual410, alphaResidual410, betaResidual410,
-      gammaResidual410, deltaResidual410, epsilonResidual410,
-      zetaResidual410, etaResidual410, pow_two, pow_three]
-    ring
-  rw [hexp]
+
+  rw [astra4q_iotaResidual410_flat]
   simp [map_sub, map_add, Derivation.leibniz, h2, h3, h4, h5, h2inv,
     h34, h54, h32div, h74, h94, h92, h154, h52, hL, hsqA, hsqB, hsqC,
     hcube, hfourth, hfifth, hcubeB, zero_mul, add_zero, mul_zero]
@@ -465,6 +470,7 @@ section AffineDecic410Bridge
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 /-- The `z⁰` coefficient of the affine depression of a degree-ten
 source. -/
 theorem affineDepress_degreeTen_coeff0_410
@@ -680,6 +686,7 @@ section IotaClearing410
 
 variable {F : Type*} [Field F] [CharZero F]
 
+set_option maxHeartbeats 64000000 in
 /-- Exact denominator clearing for the depressed decic `z⁰` coordinate
 on the ninth-power face. -/
 theorem depressedZ410_eq_cleared
@@ -712,6 +719,7 @@ theorem depressedZ410_eq_cleared
   field_simp [hh]
   ring
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`-3` numerator block of the cleared `ι`: eight times the
 terminal order-`-3` polar coefficient. -/
 def iotaPolarThreeNumerator410 (t2 vis w73 a1 b42 b31 : F[X])
@@ -723,6 +731,7 @@ def iotaPolarThreeNumerator410 (t2 vis w73 a1 b42 b31 : F[X])
     (8 : F[X]) * a1 * b42 * t2 -
     (6 : F[X]) * a1 * b31
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`-2` numerator block of the cleared `ι`: eight times the
 terminal order-`-2` polar coefficient. -/
 def iotaPolarTwoNumerator410 (t2 a22 s22 vis w73 q54 a1 a0 b42 b31 b2 :
@@ -752,6 +761,7 @@ def iotaPolarTwoNumerator410 (t2 a22 s22 vis w73 q54 a1 a0 b42 b31 b2 :
     (2 : F[X]) * b31 * t2 ^ 3 +
     (2 : F[X]) * b2 * t2 ^ 2
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`-1` numerator block of the cleared `ι`. -/
 def iotaPolarOneNumerator410 (t2 a22 s22 vis w73 q54 a1 a0 b1 : F[X])
     (lambda : F) : F[X] :=
@@ -789,6 +799,7 @@ def iotaPolarOneNumerator410 (t2 a22 s22 vis w73 q54 a1 a0 b1 : F[X])
     (2 : F[X]) * q54 * t2 ^ 5 -
     (2 : F[X]) * b1 * t2
 
+set_option maxHeartbeats 64000000 in
 /-- Regular (order-`0`) numerator block of the cleared `ι`. -/
 def iotaRegularNumerator410 (t2 a22 s22 a0 b0 : F[X]) (lambda : F) :
     F[X] :=
@@ -824,6 +835,7 @@ def iotaRegularNumerator410 (t2 a22 s22 a0 b0 : F[X]) (lambda : F) :
     Polynomial.C lambda * t2 ^ 9 -
     (3 : F[X]) * t2 ^ 10
 
+set_option maxHeartbeats 64000000 in
 /-- Polynomial numerator of `8 h³ ι` on the thirteenth-face jet, in
 `h`-nested form. -/
 def localClearedIotaResidual410 (h t2 a22 s22 vis w73 q54 a1 a0 b42 b31
@@ -835,7 +847,7 @@ def localClearedIotaResidual410 (h t2 a22 s22 vis w73 q54 a1 a0 b42 b31
           lambda +
         h * iotaRegularNumerator410 t2 a22 s22 a0 b0 lambda))
 
-set_option maxHeartbeats 80000000 in
+set_option maxHeartbeats 64000000 in
 /-- Exact `h³` clearing of the tenth-face residual `ι` on the
 thirteenth-face jet substitutions. -/
 theorem iotaDefect_eq_cleared410
@@ -1091,9 +1103,7 @@ theorem iotaDefect_eq_cleared410
       (h * b31) b2 b1 b0 lambda hh hN]
     field_simp [hh]
     ring
-  simp only [iotaResidual410, alphaResidual410, betaResidual410,
-    gammaResidual410, deltaResidual410, epsilonResidual410,
-    zetaResidual410, etaResidual410, hL, hA, hB, hC, hP, hQ, hR, hS,
+  rw [astra4q_iotaResidual410_flat, hL, hA, hB, hC, hP, hQ, hR, hS,
     hT, hU, hV, hZ]
   field_simp [hh]
   ring
@@ -1108,7 +1118,7 @@ variable {k : Type*} [Field k] [CharZero k]
 
 set_option linter.unusedSectionVars false
 
-set_option maxHeartbeats 80000000 in
+set_option maxHeartbeats 64000000 in
 /-- The tenth-face residual `ι` on a square-core ninth-power source is a
 differential constant, and on the thirteenth-face jet its cleared
 defect is a scalar times `h³`. -/
@@ -1614,6 +1624,7 @@ theorem nonzeroFace410_iotaResidualPowerRelation
   refine ⟨8 * c0, ?_⟩
   exact IsFractionRing.injective k[X] (RatFunc k) htarget
 
+set_option maxHeartbeats 64000000 in
 /-- The cleared `ι` defect is `h`-adically divisible by `h³`. -/
 theorem iotaBridge_hCubeDvd410 (h t2 a22 s22 vis w73 q54 a1 a0 b42 b31
     b2 b1 b0 : k[X]) (lambda c : k)
@@ -1625,6 +1636,7 @@ theorem iotaBridge_hCubeDvd410 (h t2 a22 s22 vis w73 q54 a1 a0 b42 b31
         b31 b2 b1 b0 lambda :=
   ⟨Polynomial.C c, by rw [hpow]; ring⟩
 
+set_option maxHeartbeats 64000000 in
 /-- At a root of the degree-one scale the order-`-3` numerator block of
 the cleared `ι` vanishes. -/
 theorem iotaBridge_orderThreeVanishes410 (h t2 a22 s22 vis w73 q54 a1
@@ -1639,6 +1651,7 @@ theorem iotaBridge_orderThreeVanishes410 (h t2 a22 s22 vis w73 q54 a1
   simpa [localClearedIotaResidual410, hroot, eval_add, eval_mul,
     eval_pow] using heval
 
+set_option maxHeartbeats 64000000 in
 /-- On the thirteenth-face jet the vanishing of the order-`-3` block
 forces the polar coefficient `15 p₁³ (λ + 4 t₂) / 256` to vanish at the
 root: the nonzero face splits into `p₁(a) = 0` or `λ + 4 t₂(a) = 0`.
@@ -1690,6 +1703,7 @@ theorem iotaBridge_polarSplit410 (h t2 a22 s22 vis w73 q54 a1 a0 b42
   · exact Or.inl h1
   · exact Or.inr hlin
 
+set_option maxHeartbeats 64000000 in
 /-- Exact order-`-2` residual: the power relation peels one `h` off the
 order-`-3` block and ties the cofactor to the order-`-2` block at the
 root.  The order-`-2` polar coefficient is not claimed to vanish. -/
@@ -1730,6 +1744,7 @@ theorem iotaBridge_orderTwoCofactor410 (h t2 a22 s22 vis w73 q54 a1 a0
     rw [hw]
     ring
 
+set_option maxHeartbeats 64000000 in
 /-- Jet form of the order-`-2` residual: the `h`-cofactor `w₁` of the
 order-`-3` block satisfies `128 w₁(a) + 3 p₁(a)² (-160 a₂₂² +
 18 λ a₂₂ t₂ + 440 a₂₂ t₂² - 27 λ t₂³ + 256 s₂₂ t₂² - 180 t₂⁴)(a) = 0`.

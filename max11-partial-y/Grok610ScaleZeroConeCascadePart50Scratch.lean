@@ -13,6 +13,7 @@ section PolynomialCore610
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 /-- At constant scale the monic sextic depression is a polynomial
 substitution, so every free-core letter has a representative in `k[x]`. -/
 theorem constantScale_monicSextic_polynomialCore610

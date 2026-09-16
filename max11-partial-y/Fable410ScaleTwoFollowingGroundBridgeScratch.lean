@@ -104,6 +104,7 @@ variable {F : Type*} [Field F] [CharZero F]
 
 set_option linter.unusedSectionVars false
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`-2` (polar) numerator block of the cleared `η` on the
 thirteenth-face jet: the third ground residue block at depth two, the
 first ground block seeing `q₂`, and the first with the polar-level
@@ -125,6 +126,7 @@ def etaGroundPolarTwoNumerator410
     (73728 : F[X]) * a1 * t2 * w73 -
     (40960 : F[X]) * a1 * q54
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`-1` numerator block of the cleared `η` on the
 thirteenth-face jet.  Every monomial carries one of the root-vanishing
 letters `q₇₆, w₇₃, q₅₄, p₁`, so the whole block vanishes at the root
@@ -152,6 +154,7 @@ def etaGroundPolarOneNumerator410
     (26880 : F[X]) * t2 ^ 4 * w73 -
     (25600 : F[X]) * t2 ^ 3 * q54
 
+set_option maxHeartbeats 64000000 in
 /-- Regular (order-`0`) numerator block of the cleared `η` on the
 thirteenth-face jet.  It is linear in `s₂₂` with the sextic cofactor
 `29568 t₂⁶ - 161280 a₂₂ t₂⁴ + 215040 a₂₂² t₂² - 122880 p₀ t₂² -
@@ -179,7 +182,7 @@ def etaGroundRegularNumerator410 (t2 a22 s22 a0 : F[X])
     (45045 : F[X]) * t2 ^ 8 +
     (15444 : F[X]) * Polynomial.C lambda * t2 ^ 7
 
-set_option maxHeartbeats 51200000 in
+set_option maxHeartbeats 64000000 in
 /-- Exact order-`-2` clearing of the eighth-face residual `η` on the
 thirteenth-face jet substitutions: `32768 h² η` is the polar-`2`
 residue block plus `h` times the polar-`1` block plus `h²` times the
@@ -264,97 +267,12 @@ theorem etaDefect_eq_cleared410
           (29568 : F) * s22 * t2 ^ 6 -
           (45045 : F) * t2 ^ 8 +
           (15444 : F) * lambda * t2 ^ 7) := by
-  have hL :
-      depressedL410 h (quarticDepressionR410 h (h ^ 3 * t2)) b9 =
-        -lambda / 2 :=
-    depressedL410_eq_of_ninthPower h (h ^ 3 * t2) b9 lambda hh hN
-  have hA :
-      depressedA410 h (quarticDepressionR410 h (h ^ 3 * t2))
-          (h ^ 3 * t2) (h ^ 2 * a22) =
-        (8 * a22 - 3 * t2 ^ 2) / 8 := by
-    rw [depressedA410_eq_cleared h (h ^ 3 * t2) (h ^ 2 * a22) hh]
-    field_simp [hh]
-  have hB :
-      depressedB410 h (quarticDepressionR410 h (h ^ 3 * t2))
-          (h ^ 3 * t2) (h ^ 2 * a22) a1 =
-        (8 * a1 - 4 * a22 * h * t2 + h * t2 ^ 3) / (8 * h) := by
-    rw [depressedB410_eq_cleared h (h ^ 3 * t2) (h ^ 2 * a22) a1 hh]
-    field_simp [hh]
-    ring
-  have hC :
-      depressedC410 h (quarticDepressionR410 h (h ^ 3 * t2))
-          (h ^ 3 * t2) (h ^ 2 * a22) a1 a0 =
-        (256 * a0 * h - 64 * a1 * t2 + 16 * a22 * t2 ^ 2 * h -
-            3 * t2 ^ 4 * h) / (256 * h) := by
-    rw [depressedC410_eq_cleared h (h ^ 3 * t2) (h ^ 2 * a22) a1 a0 hh]
-    field_simp [hh]
-  have hP :
-      depressedP410 h (quarticDepressionR410 h (h ^ 3 * t2)) b9
-          (h ^ 8 * s22) =
-        (16 * s22 - 45 * t2 ^ 2 + 18 * lambda * t2) / 16 := by
-    rw [depressedP410_eq_cleared_ninthPower h (h ^ 3 * t2) b9
-      (h ^ 8 * s22) lambda hh hN]
-    field_simp [hh]
-  have hQ :
-      depressedQ410 h (quarticDepressionR410 h (h ^ 3 * t2)) b9
-          (h ^ 8 * s22) (h ^ 6 * vis) =
-        (-(9 : F) * h * lambda * t2 ^ 2 - 16 * h * s22 * t2 +
-            30 * h * t2 ^ 3 + 8 * vis) / (8 * h) := by
-    rw [depressedQ410_eq_cleared h (h ^ 3 * t2) b9 (h ^ 8 * s22)
-      (h ^ 6 * vis) lambda hh hN]
-    field_simp [hh]
-    ring
-  have hR :
-      depressedR410 h (quarticDepressionR410 h (h ^ 3 * t2)) b9
-          (h ^ 8 * s22) (h ^ 6 * vis) (h ^ 5 * w73) =
-        (-(315 : F) * t2 ^ 4 * h + 84 * lambda * t2 ^ 3 * h +
-            224 * t2 ^ 2 * s22 * h - 224 * t2 * vis + 128 * w73) /
-          (128 * h) := by
-    rw [depressedR410_eq_cleared h (h ^ 3 * t2) b9 (h ^ 8 * s22)
-      (h ^ 6 * vis) (h ^ 5 * w73) lambda hh hN]
-    field_simp [hh]
-  have hS :
-      depressedS410 h (quarticDepressionR410 h (h ^ 3 * t2)) b9
-          (h ^ 8 * s22) (h ^ 6 * vis) (h ^ 5 * w73) (h ^ 4 * q54) =
-        ((252 : F) * t2 ^ 5 * h - 63 * lambda * t2 ^ 4 * h -
-            224 * t2 ^ 3 * s22 * h + 336 * t2 ^ 2 * vis -
-            384 * t2 * w73 + 256 * q54) / (256 * h) := by
-    rw [depressedS410_eq_cleared h (h ^ 3 * t2) b9 (h ^ 8 * s22)
-      (h ^ 6 * vis) (h ^ 5 * w73) (h ^ 4 * q54) lambda hh hN]
-    field_simp [hh]
-  have hT :
-      depressedT410 h (quarticDepressionR410 h (h ^ 3 * t2)) b9
-          (h ^ 8 * s22) (h ^ 6 * vis) (h ^ 5 * w73) (h ^ 4 * q54)
-          (h ^ 2 * b42) =
-        ((2048 : F) * b42 - 1120 * h * t2 ^ 3 * vis +
-            1920 * h * t2 ^ 2 * w73 - 2560 * h * t2 * q54 +
-            560 * h ^ 2 * t2 ^ 4 * s22 - 525 * h ^ 2 * t2 ^ 6 +
-            126 * lambda * h ^ 2 * t2 ^ 5) / (2048 * h ^ 2) := by
-    rw [depressedT410_eq_cleared h (h ^ 3 * t2) b9 (h ^ 8 * s22)
-      (h ^ 6 * vis) (h ^ 5 * w73) (h ^ 4 * q54) (h ^ 2 * b42) lambda
-      hh hN]
-    field_simp [hh]
-    ring
-  have hV :
-      depressedV410 h (quarticDepressionR410 h (h ^ 3 * t2)) b9
-          (h ^ 8 * s22) (h ^ 6 * vis) (h ^ 5 * w73) (h ^ 4 * q54)
-          (h ^ 2 * b42) (h * b31) b2 =
-        ((65536 : F) * b2 - 49152 * b31 * t2 + 24576 * b42 * t2 ^ 2 -
-            1344 * h * t2 ^ 5 * vis + 3840 * h * t2 ^ 4 * w73 -
-            10240 * h * t2 ^ 3 * q54 + 448 * h ^ 2 * t2 ^ 6 * s22 -
-            315 * h ^ 2 * t2 ^ 8 + 72 * lambda * h ^ 2 * t2 ^ 7) /
-          (65536 * h ^ 2) := by
-    rw [depressedV410_eq_cleared h (h ^ 3 * t2) b9 (h ^ 8 * s22)
-      (h ^ 6 * vis) (h ^ 5 * w73) (h ^ 4 * q54) (h ^ 2 * b42)
-      (h * b31) b2 lambda hh hN]
-    field_simp [hh]
-    ring
-  simp only [etaResidual410, alphaResidual410, betaResidual410,
-    gammaResidual410, deltaResidual410, epsilonResidual410, hL, hA,
-    hB, hC, hP, hQ, hR, hS, hT, hV]
-  field_simp [hh]
-  ring
+  apply mul_left_cancel₀ (pow_ne_zero 24 hh)
+  convert eighthDefect_eq_clearedEta410 h (h ^ 3 * t2) (h ^ 2 * a22)
+    a1 a0 b9 (h ^ 8 * s22) (h ^ 6 * vis) (h ^ 5 * w73)
+    (h ^ 4 * q54) (h ^ 2 * b42) (h * b31) b2 lambda hh hN using 1 <;> ring
 
+set_option maxHeartbeats 64000000 in
 /-- The `η` ground pin solves the order-`-2` polar block exactly: the
 polar-`2` residue block is `h₀` times the explicit ground-loaded
 cofactor — the first peel step of the order-`-2` pin, in factored
@@ -376,6 +294,7 @@ theorem etaGroundPin_solvePolarTwo410
         h0 * etaGroundRegularNumerator410 t2 a22 s22 a0 lambda) := by
   linear_combination hpin
 
+set_option maxHeartbeats 64000000 in
 /-- Root evaluation of the `η` ground pin: the polar-`2` residue block
 vanishes at the root of `h₀`. -/
 theorem etaGroundPin_rootEval410
@@ -406,6 +325,7 @@ theorem etaGroundPin_rootEval410
     add_zero] at h
   linear_combination h
 
+set_option maxHeartbeats 64000000 in
 /-- Root evaluation of the `η` ground pin combined with the `β`, `γ`,
 `δ`, `ε` and `ζ` ground pins: the thirteenth-face tie `256 q₂(a) =
 p₁(a)² (256 s₂₂(a) - 400 a₂₂(a) + 243 λ t₂(a) - 540 t₂(a)²)` (the jet
@@ -470,6 +390,7 @@ theorem etaGroundPin_rootEval_reDerivesY410
     (((21 : F) / 4) * a1.eval a * a22.eval a -
       ((21 : F) / 32) * a1.eval a * (t2.eval a) ^ 2) * hbe
 
+set_option maxHeartbeats 64000000 in
 /-- The `q₂` pin, `ζ`-eliminated: the `ζ`-pin tie kills the polar-`2`
 cross-term `b₃₁ t₂`, the `ε`-pin tie kills both `b₄₂` cross-terms,
 and the `δ`, `γ`, `β` pins kill `q₅₄`, `w₇₃` and the `q₇₆`
@@ -533,7 +454,7 @@ theorem q2GroundPin_zetaEliminated410
     (160 : F[X]) * a1 * hd - (1536 : F[X]) * a1 * t2 * hg +
     ((1344 : F[X]) * a1 * t2 ^ 2 - (3584 : F[X]) * a1 * a22) * hb
 
-set_option maxHeartbeats 12800000 in
+set_option maxHeartbeats 64000000 in
 /-- The fully eliminated `q₂` pin: the `ζ` and `ε` pins kill the
 `b₃₁`/`b₄₂` cross-terms, the `δ`, `γ`, `β` pins kill every order-`-1`
 letter at the `h₀`-level, and the `α` pin eliminates `s₂₂` entirely —
@@ -656,7 +577,7 @@ theorem q2GroundPin_fullyEliminated410
     ((65536 : F[X]) * a1 ^ 2 +
       (131072 : F[X]) * a0 * a22 * h0 ^ 2) * ha
 
-set_option maxHeartbeats 6400000 in
+set_option maxHeartbeats 64000000 in
 /-- `η`-loaded second `θ` peel: the `q₂` pin eliminates the letter
 `q₂` from the `ζ`-loaded order-`-2` theta block — NO letter survives
 on the polar side: every residual polar monomial carries `p₁²`. -/
@@ -723,7 +644,7 @@ theorem thetaSecondPeel_etaLoaded410
     ((96 : F[X]) * a22 - (60 : F[X]) * t2 ^ 2) * hb31 +
     (16 : F[X]) * t2 * hq2
 
-set_option maxHeartbeats 6400000 in
+set_option maxHeartbeats 64000000 in
 /-- `η`-loaded second `ι` peel (scaled by `4`): the `q₂` pin
 eliminates the letter `q₂` from the `ζ`-loaded order-`-2` iota block
 — NO letter survives on the polar side of EITHER tower. -/
@@ -800,6 +721,7 @@ theorem iotaSecondPeel_etaLoaded410
     ((12 : F[X]) * a22 * t2 - (4 : F[X]) * t2 ^ 3) * hb31 +
     ((2 : F[X]) * a22 - t2 ^ 2) * hq2
 
+set_option maxHeartbeats 64000000 in
 /-- Root evaluation of the `η` polar-`1` block: every monomial carries
 one of the root-vanishing letters `q₇₆, w₇₃, q₅₄, p₁`, so the whole
 block dies at the root. -/
@@ -814,6 +736,7 @@ theorem etaPolarOne_rootEval410
     hq54, ha1, mul_zero, zero_mul, add_zero, zero_add, sub_zero,
     zero_sub, neg_zero]
 
+set_option maxHeartbeats 64000000 in
 /-- The constant-free `η` derivative tie: since the solved polar-`2`
 cofactor itself vanishes at the root (the polar-`1` block dies there),
 the derivative of the `η` pin at the root is constant-free —
@@ -855,6 +778,7 @@ theorem etaPin_rootDerivativeKill410
     add_zero, zero_add, sub_zero, zero_sub, neg_zero] at heval
   linear_combination ((1 : F) / 8192) * heval
 
+set_option maxHeartbeats 64000000 in
 /-- The exact `η` derivative kill: combining the constant-free `η`
 derivative tie with the `ε` derivative kill `b₄₂'(a) = 0` and the `ζ`
 derivative kill `b₃₁'(a) = 0` forces `q₂'(a) = 0` — `q₂` vanishes
@@ -913,7 +837,7 @@ theorem etaPin_rootDerivativeKillFull410
     ((3 : F) / 4) * t2.eval a * hkb31 +
     (a22.eval a - ((3 : F) / 4) * (t2.eval a) ^ 2) * hkb42
 
-set_option maxHeartbeats 6400000 in
+set_option maxHeartbeats 64000000 in
 /-- Sharpest honest `η` residual, one derivative below the exact kill:
 the second derivative of the `η` pin at the root ties `q₂''(a)`,
 `b₃₁''(a)`, `b₄₂''(a)` and the derivative jet against `c_η` — the
@@ -996,7 +920,7 @@ variable {k : Type*} [Field k] [CharZero k]
 
 set_option linter.unusedSectionVars false
 
-set_option maxHeartbeats 12800000 in
+set_option maxHeartbeats 64000000 in
 /-- The row-`5` ground first integral `η` on a square-core ninth-power
 source, traced from the literal Keller row through the eighth-face
 power relation and expressed at its exact order `-2` on the
@@ -1057,8 +981,14 @@ theorem nonzeroFace410_etaResidualPowerRelation
 
 /-! ## Eta ground bridge packet -/
 
+-- All arithmetic below is homogeneous; expose the shared carrier to elaboration.
+local infixl:65 (priority := high) " + " => Add.add
+local infixl:65 (priority := high) " - " => Sub.sub
+local infixl:70 (priority := high) " * " => Mul.mul
+local infixl:70 (priority := high) " / " => Div.div
+
 set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 51200000 in
+set_option maxHeartbeats 64000000 in
 /-- Sharpest exact successor packet of the `η` ground bridge on the
 nonzero `(4,10)` face: everything from the zeta ground bridge packet,
 together with the row-`5` ground pin at its exact order `-2` — the
@@ -1893,20 +1823,157 @@ theorem nonzeroFace410_etaGroundBridgePacket
             (derivative h0).eval a *
               (etaGroundRegularNumerator410 t2 a22 s22 (p.coeff 0)
                   lambda).eval a) := by
-  obtain ⟨calpha, cbeta, cgamma, cdelta, cepsilon, czeta, ctheta, c,
-    v1, v2, v3, w1, w2, w3, ueps, uzeta, hpin, hsolve, hpowT, htw1,
-    htw2, htw3, htwc, hpowI, hiw1, hiw2, hiw3, hiwc, hTglobal,
-    hIglobal, ha1, hvis0, hw730, hq540, hb420, hb310, hb20, hv10,
-    hw10, hv2tie, hw2tie, hrootS, hTroot, hIroot, hkelP, hcombo, hbr,
-    hbpin, hbsolve, hbalpha, hbtheta, hbiota, hbderiv, hbderivA,
-    hgpin, hgsolve, hgalpha, hw73B, hw73F, hgiota, hgderiv, hw73deriv,
-    hdpin, hdsolve, hdalpha, hq54BG, hq54F, hthetaP2, hiotaP2,
-    hdderiv, hq54deriv, hepin, hesolve, hb42B, hueps, hb42tie,
-    hthetaE, hiotaE, hb42kill, h2tie, hzpin, hzsolve, hb31B, huzeta,
-    hb31full, hthetaZ, hiotaZ, hkill1, hkill0, hz2tie⟩ :=
+  obtain ⟨calpha, cbeta, cgamma, cdelta, cepsilon, czeta, ctheta, c, v1, v2, v3, w1, w2, w3, ueps, uzeta, hprev⟩ :=
     nonzeroFace410_zetaGroundBridgePacket p q H h0 j lambda t2 a22
       s22 vis w73 q54 b42 b31 a hp hq hh0 hH hp4 hq10 hN hD hp3 hp2
       hq8 hq7 hq6 hq5 hq4 hq3 hroot hT hU hW hV hX hY
+  have hpin := hprev.1
+  have hprev := hprev.2
+  have hsolve := hprev.1
+  have hprev := hprev.2
+  have hpowT := hprev.1
+  have hprev := hprev.2
+  have htw1 := hprev.1
+  have hprev := hprev.2
+  have htw2 := hprev.1
+  have hprev := hprev.2
+  have htw3 := hprev.1
+  have hprev := hprev.2
+  have htwc := hprev.1
+  have hprev := hprev.2
+  have hpowI := hprev.1
+  have hprev := hprev.2
+  have hiw1 := hprev.1
+  have hprev := hprev.2
+  have hiw2 := hprev.1
+  have hprev := hprev.2
+  have hiw3 := hprev.1
+  have hprev := hprev.2
+  have hiwc := hprev.1
+  have hprev := hprev.2
+  have hTglobal := hprev.1
+  have hprev := hprev.2
+  have hIglobal := hprev.1
+  have hprev := hprev.2
+  have ha1 := hprev.1
+  have hprev := hprev.2
+  have hvis0 := hprev.1
+  have hprev := hprev.2
+  have hw730 := hprev.1
+  have hprev := hprev.2
+  have hq540 := hprev.1
+  have hprev := hprev.2
+  have hb420 := hprev.1
+  have hprev := hprev.2
+  have hb310 := hprev.1
+  have hprev := hprev.2
+  have hb20 := hprev.1
+  have hprev := hprev.2
+  have hv10 := hprev.1
+  have hprev := hprev.2
+  have hw10 := hprev.1
+  have hprev := hprev.2
+  have hv2tie := hprev.1
+  have hprev := hprev.2
+  have hw2tie := hprev.1
+  have hprev := hprev.2
+  have hrootS := hprev.1
+  have hprev := hprev.2
+  have hTroot := hprev.1
+  have hprev := hprev.2
+  have hIroot := hprev.1
+  have hprev := hprev.2
+  have hkelP := hprev.1
+  have hprev := hprev.2
+  have hcombo := hprev.1
+  have hprev := hprev.2
+  have hbr := hprev.1
+  have hprev := hprev.2
+  have hbpin := hprev.1
+  have hprev := hprev.2
+  have hbsolve := hprev.1
+  have hprev := hprev.2
+  have hbalpha := hprev.1
+  have hprev := hprev.2
+  have hbtheta := hprev.1
+  have hprev := hprev.2
+  have hbiota := hprev.1
+  have hprev := hprev.2
+  have hbderiv := hprev.1
+  have hprev := hprev.2
+  have hbderivA := hprev.1
+  have hprev := hprev.2
+  have hgpin := hprev.1
+  have hprev := hprev.2
+  have hgsolve := hprev.1
+  have hprev := hprev.2
+  have hgalpha := hprev.1
+  have hprev := hprev.2
+  have hw73B := hprev.1
+  have hprev := hprev.2
+  have hw73F := hprev.1
+  have hprev := hprev.2
+  have hgiota := hprev.1
+  have hprev := hprev.2
+  have hgderiv := hprev.1
+  have hprev := hprev.2
+  have hw73deriv := hprev.1
+  have hprev := hprev.2
+  have hdpin := hprev.1
+  have hprev := hprev.2
+  have hdsolve := hprev.1
+  have hprev := hprev.2
+  have hdalpha := hprev.1
+  have hprev := hprev.2
+  have hq54BG := hprev.1
+  have hprev := hprev.2
+  have hq54F := hprev.1
+  have hprev := hprev.2
+  have hthetaP2 := hprev.1
+  have hprev := hprev.2
+  have hiotaP2 := hprev.1
+  have hprev := hprev.2
+  have hdderiv := hprev.1
+  have hprev := hprev.2
+  have hq54deriv := hprev.1
+  have hprev := hprev.2
+  have hepin := hprev.1
+  have hprev := hprev.2
+  have hesolve := hprev.1
+  have hprev := hprev.2
+  have hb42B := hprev.1
+  have hprev := hprev.2
+  have hueps := hprev.1
+  have hprev := hprev.2
+  have hb42tie := hprev.1
+  have hprev := hprev.2
+  have hthetaE := hprev.1
+  have hprev := hprev.2
+  have hiotaE := hprev.1
+  have hprev := hprev.2
+  have hb42kill := hprev.1
+  have hprev := hprev.2
+  have h2tie := hprev.1
+  have hprev := hprev.2
+  have hzpin := hprev.1
+  have hprev := hprev.2
+  have hzsolve := hprev.1
+  have hprev := hprev.2
+  have hb31B := hprev.1
+  have hprev := hprev.2
+  have huzeta := hprev.1
+  have hprev := hprev.2
+  have hb31full := hprev.1
+  have hprev := hprev.2
+  have hthetaZ := hprev.1
+  have hprev := hprev.2
+  have hiotaZ := hprev.1
+  have hprev := hprev.2
+  have hkill1 := hprev.1
+  have hprev := hprev.2
+  have hkill0 := hprev.1
+  have hprev := hprev.2
+  have hz2tie := hprev
   obtain ⟨ceta, hnpin⟩ :=
     nonzeroFace410_etaResidualPowerRelation p q H h0 j lambda t2 a22
       s22 vis w73 q54 b42 b31 hp hq hh0 hH hp4 hq10 hN hD hp3 hp2 hq8
@@ -1932,9 +1999,9 @@ theorem nonzeroFace410_etaGroundBridgePacket
     q54 (p.coeff 1) (p.coeff 0) b42 b31 (q.coeff 2) lambda ceta a
     hnpin hroot hvis0 hw730 hq540 ha1 hb420 hb310
   have hq2kill : (derivative (q.coeff 2)).eval a = 0 := by
-    linear_combination ((1 : k) / 4) * hq2dtie +
-      ((3 : k) / 4) * t2.eval a * hkill0 +
-      (a22.eval a - ((3 : k) / 4) * (t2.eval a) ^ 2) * hb42kill
+    have hzero := hq2dtie
+    simp only [hkill0, hb42kill, mul_zero, add_zero] at hzero
+    exact (mul_eq_zero.mp hzero).resolve_left (by norm_num)
   have hn2tie := etaPin_rootSecondDerivativeTie410 h0 t2 a22 s22 vis
     w73 q54 (p.coeff 1) (p.coeff 0) b42 b31 (q.coeff 2) lambda ceta a
     hnpin hroot hvis0 hw730 hq540 ha1 hb420 hb310

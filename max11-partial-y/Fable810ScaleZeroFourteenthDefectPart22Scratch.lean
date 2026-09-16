@@ -28,7 +28,14 @@ section Depression810FifteenthClearing
 variable {F : Type*} [Field F] [CharZero F]
 
 
-set_option maxHeartbeats 400000000 in
+-- Fix the carrier while elaborating the homogeneous scalar identity.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := F) (β := F) (γ := F))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := F) (β := F) (γ := F))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := F) (β := F) (γ := F))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := F) (β := F) (γ := F))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := F) (β := Nat) (γ := F))
+
+set_option maxHeartbeats 64000000 in
 /-- Clearing the first integral `ο` of the degree-`2` row against `h¹⁰⁵`
 on the ninth-power face. -/
 theorem fifteenthDefect_eq_clearedOmicron810
@@ -60,41 +67,6 @@ theorem fifteenthDefect_eq_clearedOmicron810
             b3 b2 b1) =
     localClearedFifteenthDefectCore810 h a7 a6 a5 a4 a3 a2 a1 a0
       b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  have h2 : (2 : F) ≠ 0 := by norm_num
-  have h4 : (4 : F) ≠ 0 := by norm_num
-  have h8 : (8 : F) ≠ 0 := by norm_num
-  have h16 : (16 : F) ≠ 0 := by norm_num
-  have h32 : (32 : F) ≠ 0 := by norm_num
-  have h64 : (64 : F) ≠ 0 := by norm_num
-  have h128 : (128 : F) ≠ 0 := by norm_num
-  have h256 : (256 : F) ≠ 0 := by norm_num
-  have h512 : (512 : F) ≠ 0 := by norm_num
-  have h1024 : (1024 : F) ≠ 0 := by norm_num
-  have h2048 : (2048 : F) ≠ 0 := by norm_num
-  have h4096 : (4096 : F) ≠ 0 := by norm_num
-  have h16384 : (16384 : F) ≠ 0 := by norm_num
-  have h8192 : (8192 : F) ≠ 0 := by norm_num
-  have h32768 : (32768 : F) ≠ 0 := by norm_num
-  have h65536 : (65536 : F) ≠ 0 := by norm_num
-  have h131072 : (131072 : F) ≠ 0 := by norm_num
-  have h262144 : (262144 : F) ≠ 0 := by norm_num
-  have h16777216 : (16777216 : F) ≠ 0 := by norm_num
-  have h67108864 : (67108864 : F) ≠ 0 := by norm_num
-  have h524288 : (524288 : F) ≠ 0 := by norm_num
-  have h1048576 : (1048576 : F) ≠ 0 := by norm_num
-  have h2097152 : (2097152 : F) ≠ 0 := by norm_num
-  have h4194304 : (4194304 : F) ≠ 0 := by norm_num
-  have h33554432 : (33554432 : F) ≠ 0 := by norm_num
-  have h36028797018963968 : (36028797018963968 : F) ≠ 0 := by norm_num
-  have hh14 : h ^ 14 ≠ 0 := pow_ne_zero 14 hh
-  have hh21 : h ^ 21 ≠ 0 := pow_ne_zero 21 hh
-  have hh28 : h ^ 28 ≠ 0 := pow_ne_zero 28 hh
-  have hh35 : h ^ 35 ≠ 0 := pow_ne_zero 35 hh
-  have hh42 : h ^ 42 ≠ 0 := pow_ne_zero 42 hh
-  have hh49 : h ^ 49 ≠ 0 := pow_ne_zero 49 hh
-  have hh56 : h ^ 56 ≠ 0 := pow_ne_zero 56 hh
-  have hh63 : h ^ 63 ≠ 0 := pow_ne_zero 63 hh
-  have hh105 : h ^ 105 ≠ 0 := pow_ne_zero 105 hh
   have hL :
       depressedL810 h (octicDepressionR810 h a7) b9 = -lambda / 4 :=
     depressedL810_eq_of_ninthPower h a7 b9 lambda hh hN

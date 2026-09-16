@@ -59,7 +59,7 @@ section KappaMuOmicronPolynomials610
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 /-- Field-level integrated `κ` (same coefficients as
 `degreeZeroKappaPolynomial610`).  CAS: 40 terms. -/
 def degreeZeroKappaIntegrated610
@@ -106,7 +106,7 @@ def degreeZeroKappaIntegrated610
   + (1 / 3 * eta : F) * B
   + (1 / 6 * theta : F) * A
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 /-- Polynomial pullback of `muResidual610` after the triangular Faber
 coordinates are ground constants.  CAS: 61 terms. -/
 def degreeZeroMuPolynomial610
@@ -174,7 +174,7 @@ def degreeZeroMuPolynomial610
   + (3 / 8 * l : k) • E0 ^ 2
   + (1 / 2 * zeta : k) • E0
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 /-- Field-level integrated `μ` (same coefficients as
 `degreeZeroMuPolynomial610`).  CAS: 61 terms. -/
 def degreeZeroMuIntegrated610
@@ -242,7 +242,7 @@ def degreeZeroMuIntegrated610
   + (3 / 8 * L : F) * E0 ^ 2
   + (1 / 2 * zeta : F) * E0
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 /-- Polynomial pullback of `rawFourthTailCoefficient610` after the triangular
 Faber coordinates are ground constants. -/
 def degreeZeroRawFourthTailPolynomial610
@@ -325,6 +325,7 @@ def degreeZeroRawFourthTailPolynomial610
     (1 / 4 * zeta : k) • (A * D0) -
     (1 / 4 * zeta : k) • (B * C0)
 
+set_option maxHeartbeats 64000000 in
 /-- Polynomial pullback of `fourteenthResidual610` (`ο`) after the
 triangular Faber coordinates are ground constants.
 `ο =` raw fourth tail `+ (B/6) κ + (A/3) λ`. -/
@@ -338,6 +339,7 @@ def degreeZeroOmicronPolynomial610
     (1 / 3 : k) • (A * degreeZeroLambdaPolynomial610 l alpha beta delta
       epsilon zeta eta theta A B C0 D0 E0)
 
+set_option maxHeartbeats 64000000 in
 /-- Field-level integrated `ο`. -/
 def degreeZeroOmicronIntegrated610
     {F : Type*} [Field F] [CharZero F]
@@ -359,7 +361,7 @@ section FirstIntegralIdentities610
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem kappaResidual610_eq_integrated
     {F : Type*} [Field F] [CharZero F]
     (L A B C0 D0 E0 alpha beta gamma delta epsilon zeta eta theta iota :
@@ -385,7 +387,7 @@ theorem kappaResidual610_eq_integrated
   rw [halpha, hbeta, hdelta, hepsilon, hzeta, heta, htheta]
   ring
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem algebraMap_degreeZeroKappaPolynomial610
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X]) :
@@ -453,7 +455,7 @@ theorem algebraMap_degreeZeroMuPolynomial610
     RatFunc.algebraMap_C, map_div₀, map_ofNat, map_one]
   try ring
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem fourteenthResidual610_eq_integrated
     {F : Type*} [Field F] [CharZero F]
     (L A B C0 D0 E0 alpha beta gamma delta epsilon zeta eta theta iota :
@@ -513,7 +515,7 @@ theorem algebraMap_degreeZeroRawFourthTailPolynomial610
     RatFunc.algebraMap_C, map_div₀, map_ofNat, map_one]
   try ring
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem algebraMap_degreeZeroOmicronPolynomial610
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X]) :
@@ -538,6 +540,7 @@ theorem algebraMap_degreeZeroOmicronPolynomial610
   simp [one_mul, mul_assoc, mul_left_comm, mul_comm]
   try ring_nf
 
+set_option maxHeartbeats 64000000 in
 /-- A polynomial whose RatFunc image has vanishing derivative is a
 ground constant. -/
 theorem polynomial_eq_C_of_ratFuncDeriv (I : k[X])
@@ -552,6 +555,7 @@ theorem polynomial_eq_C_of_ratFuncDeriv (I : k[X])
     simpa using hdmap
   exact ⟨I.coeff 0, Polynomial.eq_C_of_derivative_eq_zero hd⟩
 
+set_option maxHeartbeats 64000000 in
 theorem polynomial_natDegree_eq_zero_of_eq_C {I : k[X]} {c : k}
     (h : I = Polynomial.C c) : I.natDegree = 0 := by
   rw [h, natDegree_C]
@@ -564,6 +568,7 @@ section MonicBridges610
 
 variable {k F : Type*} [Field k] [Field F] [Algebra k F] [CharZero F]
 
+set_option maxHeartbeats 64000000 in
 /-- A constant depressed differential Jacobian makes `κ` a differential
 constant. -/
 theorem kappaResidual610_deriv_zero_of_monic_differentialJacobian
@@ -633,6 +638,7 @@ theorem kappaResidual610_deriv_zero_of_monic_differentialJacobian
     hzeta heta htheta (by linear_combination h6)
     (by linear_combination h4)
 
+set_option maxHeartbeats 64000000 in
 /-- A constant depressed differential Jacobian makes `μ` a differential
 constant. -/
 theorem muResidual610_deriv_zero_of_monic_differentialJacobian
@@ -714,7 +720,7 @@ section SourceFirstIntegrals610
 
 variable {k : Type*} [Field k] [CharZero k] [IsAlgClosed k]
 
-set_option maxHeartbeats 80000000 in
+set_option maxHeartbeats 64000000 in
 /-- Source-facing packet: the affine-depressed core has integrated `κ`,
 `λ`, `μ`, and `ο` polynomials equal to ground constants. -/
 theorem normalized610ScaleZero_firstIntegrals_eq_C
@@ -1226,23 +1232,29 @@ section UniqueBKappa610
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 private theorem zero_pow_two_km {R : Type*} [Semiring R] : (0 : R) ^ 2 = 0 :=
   zero_pow (by decide : (2 : ℕ) ≠ 0)
 
+set_option maxHeartbeats 64000000 in
 private theorem zero_pow_three_km {R : Type*} [Semiring R] : (0 : R) ^ 3 = 0 :=
   zero_pow (by decide : (3 : ℕ) ≠ 0)
 
+set_option maxHeartbeats 64000000 in
 private theorem zero_pow_four_km {R : Type*} [Semiring R] : (0 : R) ^ 4 = 0 :=
   zero_pow (by decide : (4 : ℕ) ≠ 0)
 
+set_option maxHeartbeats 64000000 in
 private theorem zero_pow_five_km {R : Type*} [Semiring R] : (0 : R) ^ 5 = 0 :=
   zero_pow (by decide : (5 : ℕ) ≠ 0)
 
+set_option maxHeartbeats 64000000 in
 /-- Load-free two-term `κ` face on the unique-`B` tie, written without
 nsmul so leading-coefficient arithmetic is direct. -/
 def kappaHighBTieExpanded610 (A B : k[X]) : k[X] :=
   (-(35 / 729 : k)) • (A ^ 4 * B) + (20 / 243 : k) • (A * B ^ 3)
 
+set_option maxHeartbeats 64000000 in
 /-- `κ` with the unique-`B` tie face deleted. -/
 def degreeZeroKappaNoHighBTieRest610
     (l alpha beta delta epsilon zeta eta theta : k)
@@ -1286,7 +1298,7 @@ def degreeZeroKappaNoHighBTieRest610
     (1 / 3 * eta : k) • B +
     (1 / 6 * theta : k) • A
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroKappaPolynomial610_eq_highBTie_add_rest
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X]) :
@@ -1299,7 +1311,96 @@ theorem degreeZeroKappaPolynomial610_eq_highBTie_add_rest
     degreeZeroKappaNoHighBTieRest610]
   module
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
+/-- Reflection of the unchanged unique-B kappa remainder. -/
+private theorem kappamu610SpeedT_rest_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroKappaNoHighBTieRest610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+      [(-(3 / 256 * l) : k),
+      (20 / 81 : k),
+      (9 / 64 * l : k),
+      (20 / 243 : k),
+      (3 / 32 * l : k),
+      (20 / 243 * alpha : k),
+      (385 / 31104 * beta : k),
+      (-(5 / 27) : k),
+      (-(5 / 27) : k),
+      (-(3 / 16 * l) : k),
+      (-(4 / 81 * alpha) : k),
+      (-(10 / 27) : k),
+      (-(3 / 16 * l) : k),
+      (-(10 / 27) : k),
+      (-(3 / 8 * l) : k),
+      (-(8 / 27 * alpha) : k),
+      (-(35 / 432 * beta) : k),
+      (-(3 / 16 * l) : k),
+      (-(4 / 27 * alpha) : k),
+      (-(35 / 432 * beta) : k),
+      (35 / 1296 * delta : k),
+      (10 / 9 : k),
+      (3 / 8 * l : k),
+      (3 / 4 * l : k),
+      (4 / 9 * alpha : k),
+      (7 / 72 * beta : k),
+      (4 / 9 * alpha : k),
+      (7 / 36 * beta : k),
+      (-(5 / 72 * delta) : k),
+      (7 / 36 * beta : k),
+      (-(5 / 36 * delta) : k),
+      (-(2 / 9 * epsilon) : k),
+      (-(1 / 8 * zeta) : k),
+      (5 / 6 * delta : k),
+      (2 / 3 * epsilon : k),
+      (1 / 2 * zeta : k),
+      (1 / 3 * eta : k),
+      (1 / 6 * theta : k)]
+      [[5, 0, 0, 0, 0],
+      [2, 1, 1, 0, 0],
+      [2, 2, 0, 0, 0],
+      [3, 0, 0, 1, 0],
+      [3, 0, 1, 0, 0],
+      [3, 1, 0, 0, 0],
+      [4, 0, 0, 0, 0],
+      [0, 1, 2, 0, 0],
+      [0, 2, 0, 1, 0],
+      [0, 2, 1, 0, 0],
+      [0, 3, 0, 0, 0],
+      [1, 0, 1, 1, 0],
+      [1, 0, 2, 0, 0],
+      [1, 1, 0, 0, 1],
+      [1, 1, 0, 1, 0],
+      [1, 1, 1, 0, 0],
+      [1, 2, 0, 0, 0],
+      [2, 0, 0, 0, 1],
+      [2, 0, 0, 1, 0],
+      [2, 0, 1, 0, 0],
+      [3, 0, 0, 0, 0],
+      [0, 0, 0, 1, 1],
+      [0, 0, 0, 2, 0],
+      [0, 0, 1, 0, 1],
+      [0, 0, 1, 1, 0],
+      [0, 0, 2, 0, 0],
+      [0, 1, 0, 0, 1],
+      [0, 1, 0, 1, 0],
+      [0, 2, 0, 0, 0],
+      [1, 0, 0, 0, 1],
+      [1, 0, 1, 0, 0],
+      [1, 1, 0, 0, 0],
+      [2, 0, 0, 0, 0],
+      [0, 0, 0, 0, 1],
+      [0, 0, 0, 1, 0],
+      [0, 0, 1, 0, 0],
+      [0, 1, 0, 0, 0],
+      [1, 0, 0, 0, 0]] := by
+  simp only [degreeZeroKappaNoHighBTieRest610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroKappaNoHighBTieRest610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1308,16 +1409,17 @@ theorem degreeZeroKappaNoHighBTieRest610_natDegree_lt
         eta theta A B C0 D0 E0).natDegree <
       4 * A.natDegree + B.natDegree := by
   rcases hcone with ⟨⟨hBpos, hA, hC, hD, hE⟩, htie⟩
-  simp only [degreeZeroKappaNoHighBTieRest610, zero_mul, mul_zero,
-    zero_smul, smul_zero, zero_pow_two_km, zero_pow_three_km,
-    zero_pow_four_km, zero_pow_five_km]
-  compute_degree
-  have hA1 : A.natDegree + 1 ≤ B.natDegree := Nat.succ_le_of_lt hA
-  have hC1 : C0.natDegree + 1 ≤ B.natDegree := Nat.succ_le_of_lt hC
-  have hD1 : D0.natDegree + 1 ≤ B.natDegree := Nat.succ_le_of_lt hD
-  have hE1 : E0.natDegree + 1 ≤ B.natDegree := Nat.succ_le_of_lt hE
-  omega
+  rw [kappamu610SpeedT_rest_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
+set_option maxHeartbeats 64000000 in
 /-- Leading-coefficient identity: `7 u = 12 v` forces the `λ` combination
 `7 u² - 126 u v + 27 v²` to `-8253 v² / 49`. -/
 theorem lambda_uv7_of_kappa_factor (u v : k)
@@ -1333,6 +1435,7 @@ theorem lambda_uv7_of_kappa_factor (u v : k)
     _ = 2331 * v ^ 2 - 882 * (12 * v) * v := by rw [h]
     _ = -8253 * v ^ 2 := by ring
 
+set_option maxHeartbeats 64000000 in
 theorem lambdaHighBTie_coeff_ne_zero_of_kappa_factor
     {A B : k[X]}
     (hA : A ≠ 0) (hB : B ≠ 0)
@@ -1370,6 +1473,7 @@ theorem lambdaHighBTie_coeff_ne_zero_of_kappa_factor
     div_ne_zero (by norm_num) (by norm_num)
   exact hne ((mul_eq_zero.mp hz).resolve_left h5)
 
+set_option maxHeartbeats 64000000 in
 theorem lambdaHighBTieCombined610_natDegree_eq_of_coeff_ne
     {A B : k[X]}
     (hA : A ≠ 0) (hB : B ≠ 0)
@@ -1411,6 +1515,7 @@ theorem lambdaHighBTieCombined610_natDegree_eq_of_coeff_ne
     · exact (natDegree_smul_le610 _ _).trans hB4.le
   exact natDegree_eq_of_le_of_coeff_ne_zero hle htop
 
+set_option maxHeartbeats 64000000 in
 /-- On the unique-`B` tie, a dropped `λ` combination cannot occur together
 with a dropped `κ` companion. -/
 theorem kappa_highBTie_impossible_of_lambda_drop
@@ -1518,6 +1623,7 @@ section WeightedLambda610
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 /-- Unique weighted `A⁶` face, allowing some letters to outrank `A` in
 ordinary degree so long as they stay below `6 deg A` in the four-face
 weights, and so long as the load-free `D₀` monomials stay strictly
@@ -1531,6 +1637,7 @@ def WeightedALeadsCone610 (A B C0 D0 E0 : k[X]) : Prop :=
     2 * A.natDegree + B.natDegree + D0.natDegree < 6 * A.natDegree ∧
     B.natDegree + C0.natDegree + D0.natDegree < 6 * A.natDegree
 
+set_option maxHeartbeats 64000000 in
 def WeightedBLeadsCone610 (A B C0 D0 E0 : k[X]) : Prop :=
   0 < B.natDegree ∧
     6 * A.natDegree < 4 * B.natDegree ∧
@@ -1540,6 +1647,7 @@ def WeightedBLeadsCone610 (A B C0 D0 E0 : k[X]) : Prop :=
     2 * A.natDegree + B.natDegree + D0.natDegree < 4 * B.natDegree ∧
     B.natDegree + C0.natDegree + D0.natDegree < 4 * B.natDegree
 
+set_option maxHeartbeats 64000000 in
 def WeightedC0LeadsCone610 (A B C0 D0 E0 : k[X]) : Prop :=
   0 < C0.natDegree ∧
     6 * A.natDegree < 3 * C0.natDegree ∧
@@ -1549,6 +1657,7 @@ def WeightedC0LeadsCone610 (A B C0 D0 E0 : k[X]) : Prop :=
     2 * A.natDegree + B.natDegree + D0.natDegree < 3 * C0.natDegree ∧
     B.natDegree + C0.natDegree + D0.natDegree < 3 * C0.natDegree
 
+set_option maxHeartbeats 64000000 in
 def WeightedE0LeadsCone610 (A B C0 D0 E0 : k[X]) : Prop :=
   0 < E0.natDegree ∧
     6 * A.natDegree < 2 * E0.natDegree ∧
@@ -1558,7 +1667,7 @@ def WeightedE0LeadsCone610 (A B C0 D0 E0 : k[X]) : Prop :=
     2 * A.natDegree + B.natDegree + D0.natDegree < 2 * E0.natDegree ∧
     B.natDegree + C0.natDegree + D0.natDegree < 2 * E0.natDegree
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroLambdaNoA6Polynomial610` (49 monomials, 5 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -1602,10 +1711,10 @@ theorem speedRefl_degreeZeroLambdaNoA6Polynomial610_eq_polyOf
   simp only [degreeZeroLambdaNoA6Polynomial610, Max11ReflectDeg.polyOf_cons,
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc]
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoA6_natDegree_lt_of_weighted_A
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1633,7 +1742,7 @@ theorem degreeZeroLambdaNoA6_natDegree_lt_of_weighted_A
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroLambdaNoB4Polynomial610` (49 monomials, 5 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -1677,10 +1786,10 @@ theorem speedRefl_degreeZeroLambdaNoB4Polynomial610_eq_polyOf
   simp only [degreeZeroLambdaNoB4Polynomial610, Max11ReflectDeg.polyOf_cons,
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc]
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoB4_natDegree_lt_of_weighted_B
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1708,7 +1817,7 @@ theorem degreeZeroLambdaNoB4_natDegree_lt_of_weighted_B
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroLambdaNoC03Polynomial610` (49 monomials, 5 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -1752,10 +1861,10 @@ theorem speedRefl_degreeZeroLambdaNoC03Polynomial610_eq_polyOf
   simp only [degreeZeroLambdaNoC03Polynomial610, Max11ReflectDeg.polyOf_cons,
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc]
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoC03_natDegree_lt_of_weighted_C0
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1783,7 +1892,7 @@ theorem degreeZeroLambdaNoC03_natDegree_lt_of_weighted_C0
     | (right; left; simp; done)
     | trivial
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroLambdaNoE02Polynomial610` (49 monomials, 5 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -1827,10 +1936,10 @@ theorem speedRefl_degreeZeroLambdaNoE02Polynomial610_eq_polyOf
   simp only [degreeZeroLambdaNoE02Polynomial610, Max11ReflectDeg.polyOf_cons,
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  try module
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc]
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoE02_natDegree_lt_of_weighted_E0
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1858,6 +1967,7 @@ theorem degreeZeroLambdaNoE02_natDegree_lt_of_weighted_E0
     | (right; left; simp; done)
     | trivial
 
+set_option maxHeartbeats 64000000 in
 theorem lambda_A6_impossible_of_weighted_A
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1884,6 +1994,7 @@ theorem lambda_A6_impossible_of_weighted_A
   rcases hcone with ⟨hApos, _⟩
   omega
 
+set_option maxHeartbeats 64000000 in
 theorem lambda_B4_impossible_of_weighted_B
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1909,6 +2020,7 @@ theorem lambda_B4_impossible_of_weighted_B
   rcases hcone with ⟨hBpos, _⟩
   omega
 
+set_option maxHeartbeats 64000000 in
 theorem lambda_C03_impossible_of_weighted_C0
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1938,6 +2050,7 @@ theorem lambda_C03_impossible_of_weighted_C0
   rcases hcone with ⟨hCpos, _⟩
   omega
 
+set_option maxHeartbeats 64000000 in
 theorem lambda_E02_impossible_of_weighted_E0
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1971,6 +2084,7 @@ section ClosedFaces610
 
 variable {k : Type*} [Field k] [CharZero k] [IsAlgClosed k]
 
+set_option maxHeartbeats 64000000 in
 theorem HighBTieCone610_lambda_drop
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -2015,6 +2129,7 @@ theorem HighBTieCone610_lambda_drop
   exact lambda_highBTie_impossible_of_combined_degree l alpha beta delta
     epsilon zeta eta theta A B C0 D0 E0 hcone heq hdeg
 
+set_option maxHeartbeats 64000000 in
 /-- Source-facing packet: `κ, λ, μ, ο` are ground constants, every unique
 weighted `λ` face (including those beyond the parent AMaximal / BLeads /
 C0Leads / E0Leads cones) is empty, and the unique-`B` tie is empty even
@@ -2139,6 +2254,7 @@ theorem normalized610ScaleZero_kappaMuFaces_closed
       beta delta epsilon zeta eta theta (j / t) A B C0 D0 E0 hjdiv
       hconst.1 hconst.2.1 hconst.2.2.1 hconst.2.2.2.1 hconst.2.2.2.2 hder
 
+set_option maxHeartbeats 64000000 in
 /-- Remaining cones after `κ` closes the unique-`B` drop and the broader
 unique weighted `λ` faces are empty.  Next unused data: `μ` and `ο` on
 the ratio-ties `A`–`C₀`, `A`–`E₀`, `B`–`C₀`, `B`–`E₀`, `C₀`–`E₀` and on

@@ -10,6 +10,16 @@ section BridgeKappaDepression610
 
 variable {F : Type*} [Field F] [CharZero F]
 
+-- Fix arithmetic inference without changing the public expression.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := F) (β := F) (γ := F))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := F) (β := F) (γ := F))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := F) (β := F) (γ := F))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := F) (β := F) (γ := F))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := F) (β := Nat) (γ := F))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := F))
+
+
+set_option maxHeartbeats 64000000 in
 /-- Depressed decic `z¹` coefficient. -/
 def terminalDepressedW610 (h r b9 b8 b7 b6 b5 b4 b3 b2 b1 : F) : F :=
   -10 * r ^ 9 + 9 * (b9 / h ^ 9) * r ^ 8 -
@@ -31,6 +41,16 @@ section BridgeKappaDepression610
 
 variable {F : Type*} [Field F] [CharZero F]
 
+-- Fix arithmetic inference without changing the public expression.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := F) (β := F) (γ := F))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := F) (β := F) (γ := F))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := F) (β := F) (γ := F))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := F) (β := F) (γ := F))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := F) (β := Nat) (γ := F))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := F))
+
+
+set_option maxHeartbeats 64000000 in
 /-- First residual of the degree-`6` row.  Equivalent to
 `W - (7/6) β E - γ D - (5/6) δ C - (2/3) ε B - (1/2) ζ A
 - (10/9) B E - (10/9) C D - (4/9) α B C - (7/72) β B² + (5/81) B³
@@ -77,6 +97,7 @@ section BridgeKappaDepressedRows610
 
 variable {k F : Type*} [Field k] [Field F] [Algebra k F] [CharZero F]
 
+set_option maxHeartbeats 64000000 in
 /-- For a depressed monic sextic and a monic decic whose `z⁹` coefficient is
 already a differential constant, the degree-`6` Jacobian coefficient is
 exactly `7 Q E' + 6 R D' + 5 S C' + 4 T B' + 3 U A' - D R' - 2 C S'
@@ -390,6 +411,7 @@ section BridgeKappaDepressedRows610
 
 variable {k F : Type*} [Field k] [Field F] [Algebra k F] [CharZero F]
 
+set_option maxHeartbeats 64000000 in
 /-- For a depressed monic sextic and a monic decic whose `z⁹` coefficient is
 already a differential constant, the degree-`4` Jacobian coefficient is
 exactly `5 S E' + 4 T D' + 3 U C' + 2 V B' + W A' - D T' - 2 C U'
@@ -671,6 +693,7 @@ section BridgeKappaAffineDecic610
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 theorem affineDepress_degreeTen_coeff1_610_bridge
     (p : (RatFunc k)[X]) (h r : RatFunc k) (hh : h ≠ 0)
     (hp10 : p.coeff 10 = h ^ 10)
@@ -899,7 +922,16 @@ section BridgeKappaJet610
 
 variable {R : Type*} [CommRing R]
 
-set_option maxHeartbeats 40000000 in
+-- Fix arithmetic inference without changing the public expression.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := R) (β := R) (γ := R))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := R) (β := R) (γ := R))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := R) (β := R) (γ := R))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := R) (β := R) (γ := R))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := R) (β := Nat) (γ := R))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := R))
+
+
+set_option maxHeartbeats 64000000 in
 /-- Tail of the jet-substituted cleared `κ` defect above order `h⁴⁹`. -/
 def bridgeKappaJetTail610
     (hh w1 a41 p31 s1 u1 b62 q52 p2 p1 p0 q4 q3 q2 q1 lam : R) : R :=
@@ -1079,7 +1111,7 @@ section BridgeKappaScalars610
 
 variable {F : Type*} [Field F] [CharZero F]
 
-set_option maxHeartbeats 4000000 in
+set_option maxHeartbeats 64000000 in
 /-- On the `p₃₁ ≠ 0` complement child the factored root relation
 forces `a₄₁ = 0`, the retained core forces `w₁ = 0`, and the two
 remaining ground relations collapse to the pins `80 p₂ = 9 λ p₃₁` and
@@ -1121,6 +1153,7 @@ section BridgeKappaDepression610
 
 variable {F : Type*} [Field F] [CharZero F]
 
+set_option maxHeartbeats 64000000 in
 /-- Exact denominator clearing for the decic `z¹` coordinate on the
 ninth-power face. -/
 theorem terminalDepressedW610_eq_cleared
@@ -1190,6 +1223,16 @@ section BridgeKappaDepression610
 
 variable {F : Type*} [Field F] [CharZero F]
 
+-- Fix arithmetic inference without changing the public expression.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := F) (β := F) (γ := F))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := F) (β := F) (γ := F))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := F) (β := F) (γ := F))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := F) (β := F) (γ := F))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := F) (β := Nat) (γ := F))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := F))
+
+
+set_option maxHeartbeats 64000000 in
 /-- First residual of the degree-`4` row.  Equivalent to
 `(1/6) A θ + (1/3) B η + (1/2) C ζ - (1/8) A² ζ + (2/3) D ε
 - (2/9) A B ε + (5/6) E δ + (35/1296) A³ δ - (5/36) A C δ

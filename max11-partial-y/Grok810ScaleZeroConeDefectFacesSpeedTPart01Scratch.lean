@@ -153,6 +153,12 @@ section FirstIntegralPolynomials810
 
 variable {k : Type*} [Field k] [CharZero k]
 
+-- Resolve arithmetic carriers before elaborating the existing expressions.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k[X]) (β := k[X]) (γ := k[X]))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k[X]) (β := k[X]) (γ := k[X]))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k[X]) (β := Nat) (γ := k[X]))
+local infixr:73 (priority := high) " • " => (HSMul.hSMul (α := k) (β := k[X]) (γ := k[X]))
+
 set_option maxHeartbeats 64000000 in
 /-- Polynomial pullback of `xiResidual810` after the triangular Faber
 coordinates are ground constants.  CAS: load-free face `A⁷`. -/

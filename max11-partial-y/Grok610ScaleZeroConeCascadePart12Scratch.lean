@@ -12,6 +12,7 @@ section DegreeLemmas610
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 /-- Extreme high-`B` subcone on which `B⁵` outranks `A⁶ B` and `A⁷`. -/
 def ExtremeHighBCone610 (A B C0 D0 E0 : k[X]) : Prop :=
   UniqueHighBCone610 A B C0 D0 E0 ∧

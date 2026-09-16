@@ -13,6 +13,7 @@ section DegreeLemmas610
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 /-- A nonzero scalar multiple of a unique positive-degree leading monomial
 cannot equal a constant polynomial. -/
 theorem smul_add_lower_ne_C610 (c q : k) (M R : k[X]) (d : ℕ)

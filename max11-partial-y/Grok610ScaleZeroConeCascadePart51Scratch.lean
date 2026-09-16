@@ -15,7 +15,7 @@ section SourcePrimitiveDegree610
 
 variable {k : Type*} [Field k] [CharZero k] [IsAlgClosed k]
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 /-- Source-facing polynomial trajectory: the free core has representatives
 in `k[x]`, the integrated primitive is a polynomial in those letters, and
 that polynomial has derivative `C (j / t)` hence Newton degree one. -/

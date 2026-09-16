@@ -12,6 +12,7 @@ section BridgeMuDepression610
 
 variable {F : Type*} [Field F] [CharZero F]
 
+set_option maxHeartbeats 64000000 in
 /-- First residual of the degree-`2` row.  Equivalent to
 `(1/6) C θ - (1/24) A² θ + (1/3) D η - (1/6) A B η + ...` on the
 second- through ninth-face integrals; unlike every lower bridge
@@ -405,6 +406,7 @@ section BridgeMuDepressedRow610
 
 variable {k F : Type*} [Field k] [Field F] [Algebra k F] [CharZero F]
 
+set_option maxHeartbeats 64000000 in
 /-- For a depressed monic sextic and a monic decic, the degree-`2`
 Jacobian coefficient is exactly `3 U E' + 2 V D' + W C'
 - D V' - 2 C W' - 3 B X'`. -/
@@ -490,6 +492,7 @@ section BridgeMuJet610
 
 variable {R : Type*} [CommRing R]
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`59` head of the jet-substituted cleared `μ` defect: the
 coefficient of `h⁵⁹` after the globally merged jet `p₅ = h⁵ w₁`,
 `p₄ = h³ a₄₁`, `p₃ = h² p₃₂`, `q₈ = h⁷ s₁`, `q₇ = h⁶ u₂`,
@@ -547,6 +550,7 @@ section BridgeMuJet610
 
 variable {R : Type*} [CommRing R]
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`61` head of the sibling-child deep jet: the coefficient of
 `h⁶¹` after the deeper jet `p₄ = h⁴ a₄₂`, `p₂ = h p₂₁`, `q₈ = h⁸ s₂`,
 `q₆ = h⁵ b₆₃`, `q₅ = h⁴ q₅₄`, `q₄ = h² q₄₂`, `q₃ = h q₃₁` is
@@ -578,7 +582,7 @@ section BridgeMuScalars610
 
 variable {F : Type*} [Field F] [CharZero F]
 
-set_option maxHeartbeats 4000000 in
+set_option maxHeartbeats 64000000 in
 /-- On the pinned complement child with the `q`-jet pin the
 chamber-free relation factors as `a₄₁³ · G = 0` — the honest split
 `a₄₁ = 0 ∨ 15552 q₃ = -2943 λ a₄₁³ + 14040 a₄₁³ w₁ + 1060 a₄₁² p₃₂
@@ -649,7 +653,13 @@ section BridgeMuDepressedRow610
 
 variable {k F : Type*} [Field k] [Field F] [Algebra k F] [CharZero F]
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
+/-- A derivation kills the quotient of two natural numeral constants. -/
+private theorem astra4ab_following_deriv_nat_div
+    (d : Derivation k F F) (m n : ℕ) : d ((m : F) / (n : F)) = 0 := by
+  simp only [Derivation.leibniz_div, d.map_natCast, smul_zero, sub_self]
+
+set_option maxHeartbeats 64000000 in
 theorem bridgeMuResidual610_deriv_zero
     (d : Derivation k F F) (L A B C0 D0 E0 P Q R S0 T0 U0 V0 W0 X0 : F)
     (hL : d L = 0)
@@ -696,54 +706,50 @@ theorem bridgeMuResidual610_deriv_zero
   have h128 : d (128 : F) = 0 := d.map_natCast 128
   have h243 : d (243 : F) = 0 := d.map_natCast 243
   have h1296 : d (1296 : F) = 0 := d.map_natCast 1296
-  have h53 : d (5 / 3 : F) = 0 := by
-    simp [Derivation.leibniz_div, h3, h5]
-  have h32 : d (3 / 2 : F) = 0 := by
-    simp [Derivation.leibniz_div, h2, h3]
-  have h43 : d (4 / 3 : F) = 0 := by
-    simp [Derivation.leibniz_div, h3, h4]
-  have h76 : d (7 / 6 : F) = 0 := by
-    simp [Derivation.leibniz_div, h6, h7]
-  have h56c : d (5 / 6 : F) = 0 := by
-    simp [Derivation.leibniz_div, h6, h5]
-  have h23 : d (2 / 3 : F) = 0 := by
-    simp [Derivation.leibniz_div, h3, h2]
-  have h12 : d (1 / 2 : F) = 0 := by
-    simp [Derivation.leibniz_inv, h2]
-  have h109 : d (10 / 9 : F) = 0 := by
-    have h10 : d (10 : F) = 0 := d.map_natCast 10
-    simp [Derivation.leibniz_div, h9, h10]
-  have h49 : d (4 / 9 : F) = 0 := by
-    simp [Derivation.leibniz_div, h9, h4]
-  have h772 : d (7 / 72 : F) = 0 := by
-    simp [Derivation.leibniz_div, h72, h7]
-  have h581 : d (5 / 81 : F) = 0 := by
-    simp [Derivation.leibniz_div, h81, h5]
-  have h736 : d (7 / 36 : F) = 0 := by
-    simp [Derivation.leibniz_div, h36, h7]
-  have h1027 : d (10 / 27 : F) = 0 := by
-    have h10 : d (10 : F) = 0 := d.map_natCast 10
-    simp [Derivation.leibniz_div, h27, h10]
-  have h572 : d (5 / 72 : F) = 0 := by
-    simp [Derivation.leibniz_div, h72, h5]
-  have h527 : d (5 / 27 : F) = 0 := by
-    simp [Derivation.leibniz_div, h27, h5]
-  have h427 : d (4 / 27 : F) = 0 := by
-    simp [Derivation.leibniz_div, h27, h4]
-  have h351296 : d (35 / 1296 : F) = 0 := by
-    have h35 : d (35 : F) = 0 := d.map_natCast 35
-    simp [Derivation.leibniz_div, h1296, h35]
-  have h20243 : d (20 / 243 : F) = 0 := by
-    have h20 : d (20 : F) = 0 := d.map_natCast 20
-    simp [Derivation.leibniz_div, h243, h20]
-  have h38 : d (3 / 8 : F) = 0 := by
-    simp [Derivation.leibniz_div, h8, h3]
-  have h34 : d (3 / 4 : F) = 0 := by
-    simp [Derivation.leibniz_div, h4, h3]
-  have h316 : d (3 / 16 : F) = 0 := by
-    simp [Derivation.leibniz_div, h16, h3]
-  have h3128 : d (3 / 128 : F) = 0 := by
-    simp [Derivation.leibniz_div, h128, h3]
+  have h53 : d (5 / 3 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 5 3
+  have h32 : d (3 / 2 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 3 2
+  have h43 : d (4 / 3 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 4 3
+  have h76 : d (7 / 6 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 7 6
+  have h56c : d (5 / 6 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 5 6
+  have h23 : d (2 / 3 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 2 3
+  have h12 : d (1 / 2 : F) = 0 :=
+    by simpa only [Nat.cast_one, Nat.cast_ofNat] using astra4ab_following_deriv_nat_div d 1 2
+  have h109 : d (10 / 9 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 10 9
+  have h49 : d (4 / 9 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 4 9
+  have h772 : d (7 / 72 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 7 72
+  have h581 : d (5 / 81 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 5 81
+  have h736 : d (7 / 36 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 7 36
+  have h1027 : d (10 / 27 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 10 27
+  have h572 : d (5 / 72 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 5 72
+  have h527 : d (5 / 27 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 5 27
+  have h427 : d (4 / 27 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 4 27
+  have h351296 : d (35 / 1296 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 35 1296
+  have h20243 : d (20 / 243 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 20 243
+  have h38 : d (3 / 8 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 3 8
+  have h34 : d (3 / 4 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 3 4
+  have h316 : d (3 / 16 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 3 16
+  have h3128 : d (3 / 128 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 3 128
   have hsq : d (A * A) = (2 : F) * A * d A := by
     simp [Derivation.leibniz]
     ring
@@ -754,20 +760,11 @@ theorem bridgeMuResidual610_deriv_zero
     simp [Derivation.leibniz, smul_eq_mul]
     ring
   have hcub : d (A ^ 3) = (3 : F) * A ^ 2 * d A := by
-    have h2A : d (A ^ 2) = (2 : F) * A * d A := by
-      simpa [pow_two] using hsq
-    simp [pow_three, Derivation.leibniz, h2A]
-    ring
+    simp only [Derivation.leibniz_pow, nsmul_eq_mul, smul_eq_mul, mul_assoc, Nat.cast_ofNat, Nat.reduceSub]
   have hcubB : d (B ^ 3) = (3 : F) * B ^ 2 * d B := by
-    have h2B : d (B ^ 2) = (2 : F) * B * d B := by
-      simpa [pow_two] using hsqB
-    simp [pow_three, Derivation.leibniz, h2B]
-    ring
+    simp only [Derivation.leibniz_pow, nsmul_eq_mul, smul_eq_mul, mul_assoc, Nat.cast_ofNat, Nat.reduceSub]
   have hquar : d (A ^ 4) = (4 : F) * A ^ 3 * d A := by
-    have : A ^ 4 = A ^ 3 * A := by ring
-    rw [this]
-    simp [Derivation.leibniz, hcub]
-    ring
+    simp only [Derivation.leibniz_pow, nsmul_eq_mul, smul_eq_mul, mul_assoc, Nat.cast_ofNat, Nat.reduceSub]
   have h10n : d (10 : F) = 0 := d.map_natCast 10
   have h20n : d (20 : F) = 0 := d.map_natCast 20
   have h32n : d (32 : F) = 0 := d.map_natCast 32
@@ -778,89 +775,77 @@ theorem bridgeMuResidual610_deriv_zero
   have h432n : d (432 : F) = 0 := d.map_natCast 432
   have h729n : d (729 : F) = 0 := d.map_natCast 729
   have h31104n : d (31104 : F) = 0 := d.map_natCast 31104
-  have h16f : d (1 / 6 : F) = 0 := by
-    simp [Derivation.leibniz_inv, h6]
-  have h13 : d (1 / 3 : F) = 0 := by
-    simp [Derivation.leibniz_inv, h3]
-  have h18f : d (1 / 8 : F) = 0 := by
-    simp [Derivation.leibniz_inv, h8]
-  have h29 : d (2 / 9 : F) = 0 := by
-    simp [Derivation.leibniz_div, h9, h2]
-  have h536 : d (5 / 36 : F) = 0 := by
-    simp [Derivation.leibniz_div, h36, h5]
-  have h827 : d (8 / 27 : F) = 0 := by
-    simp [Derivation.leibniz_div, h27, h8]
-  have h481 : d (4 / 81 : F) = 0 := by
-    simp [Derivation.leibniz_div, h81, h4]
-  have h38531104 : d (385 / 31104 : F) = 0 := by
-    simp [Derivation.leibniz_div, h31104n, h385n]
-  have h35432 : d (35 / 432 : F) = 0 := by
-    simp [Derivation.leibniz_div, h432n, h35n]
-  have h3256 : d (3 / 256 : F) = 0 := by
-    simp [Derivation.leibniz_div, h256n, h3]
-  have h332 : d (3 / 32 : F) = 0 := by
-    simp [Derivation.leibniz_div, h32n, h3]
-  have h964 : d (9 / 64 : F) = 0 := by
-    simp [Derivation.leibniz_div, h64n, h9]
-  have h35729 : d (35 / 729 : F) = 0 := by
-    simp [Derivation.leibniz_div, h729n, h35n]
-  have h2081 : d (20 / 81 : F) = 0 := by
-    simp [Derivation.leibniz_div, h81, h20n]
+  have h16f : d (1 / 6 : F) = 0 :=
+    by simpa only [Nat.cast_one, Nat.cast_ofNat] using astra4ab_following_deriv_nat_div d 1 6
+  have h13 : d (1 / 3 : F) = 0 :=
+    by simpa only [Nat.cast_one, Nat.cast_ofNat] using astra4ab_following_deriv_nat_div d 1 3
+  have h18f : d (1 / 8 : F) = 0 :=
+    by simpa only [Nat.cast_one, Nat.cast_ofNat] using astra4ab_following_deriv_nat_div d 1 8
+  have h29 : d (2 / 9 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 2 9
+  have h536 : d (5 / 36 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 5 36
+  have h827 : d (8 / 27 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 8 27
+  have h481 : d (4 / 81 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 4 81
+  have h38531104 : d (385 / 31104 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 385 31104
+  have h35432 : d (35 / 432 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 35 432
+  have h3256 : d (3 / 256 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 3 256
+  have h332 : d (3 / 32 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 3 32
+  have h964 : d (9 / 64 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 9 64
+  have h35729 : d (35 / 729 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 35 729
+  have h2081 : d (20 / 81 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 20 81
   have hsqD : d (D0 * D0) = (2 : F) * D0 * d D0 := by
     simp [Derivation.leibniz, smul_eq_mul]
     ring
   have hquint : d (A ^ 5) = (5 : F) * A ^ 4 * d A := by
-    have : A ^ 5 = A ^ 4 * A := by ring
-    rw [this]
-    simp [Derivation.leibniz, hquar]
-    ring
+    simp only [Derivation.leibniz_pow, nsmul_eq_mul, smul_eq_mul, mul_assoc, Nat.cast_ofNat, Nat.reduceSub]
   have h15n : d (15 : F) = 0 := d.map_natCast 15
   have h70n : d (70 : F) = 0 := d.map_natCast 70
   have h216n : d (216 : F) = 0 := d.map_natCast 216
   have h6561n : d (6561 : F) = 0 := d.map_natCast 6561
   have h7776n : d (7776 : F) = 0 := d.map_natCast 7776
-  have hx14 : d (1 / 4 : F) = 0 := by
-    simp [Derivation.leibniz_inv, h4]
-  have hx19 : d (1 / 9 : F) = 0 := by
-    simp [Derivation.leibniz_inv, h9]
-  have hx59 : d (5 / 9 : F) = 0 := by
-    simp [Derivation.leibniz_div, h9, h5]
-  have hx5243 : d (5 / 243 : F) = 0 := by
-    simp [Derivation.leibniz_div, h243, h5]
-  have hx8729 : d (8 / 729 : F) = 0 := by
-    simp [Derivation.leibniz_div, h729n, h8]
-  have hx932 : d (9 / 32 : F) = 0 := by
-    simp [Derivation.leibniz_div, h32n, h9]
-  have hx1081 : d (10 / 81 : F) = 0 := by
-    simp [Derivation.leibniz_div, h81, h10n]
-  have hx15256 : d (15 / 256 : F) = 0 := by
-    simp [Derivation.leibniz_div, h256n, h15n]
-  have hx35216 : d (35 / 216 : F) = 0 := by
-    simp [Derivation.leibniz_div, h216n, h35n]
-  have hx356561 : d (35 / 6561 : F) = 0 := by
-    simp [Derivation.leibniz_div, h6561n, h35n]
-  have hx70729 : d (70 / 729 : F) = 0 := by
-    simp [Derivation.leibniz_div, h729n, h70n]
-  have hx3857776 : d (385 / 7776 : F) = 0 := by
-    simp [Derivation.leibniz_div, h7776n, h385n]
+  have hx14 : d (1 / 4 : F) = 0 :=
+    by simpa only [Nat.cast_one, Nat.cast_ofNat] using astra4ab_following_deriv_nat_div d 1 4
+  have hx19 : d (1 / 9 : F) = 0 :=
+    by simpa only [Nat.cast_one, Nat.cast_ofNat] using astra4ab_following_deriv_nat_div d 1 9
+  have hx59 : d (5 / 9 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 5 9
+  have hx5243 : d (5 / 243 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 5 243
+  have hx8729 : d (8 / 729 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 8 729
+  have hx932 : d (9 / 32 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 9 32
+  have hx1081 : d (10 / 81 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 10 81
+  have hx15256 : d (15 / 256 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 15 256
+  have hx35216 : d (35 / 216 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 35 216
+  have hx356561 : d (35 / 6561 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 35 6561
+  have hx70729 : d (70 / 729 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 70 729
+  have hx3857776 : d (385 / 7776 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 385 7776
   have hsqE : d (E0 * E0) = (2 : F) * E0 * d E0 := by
     simp [Derivation.leibniz, smul_eq_mul]
     ring
   have hcubC : d (C0 ^ 3) = (3 : F) * C0 ^ 2 * d C0 := by
-    have h2C : d (C0 ^ 2) = (2 : F) * C0 * d C0 := by
-      simpa [pow_two] using hsqC
-    simp [pow_three, Derivation.leibniz, h2C]
-    ring
+    simp only [Derivation.leibniz_pow, nsmul_eq_mul, smul_eq_mul, mul_assoc, Nat.cast_ofNat, Nat.reduceSub]
   have hquarB : d (B ^ 4) = (4 : F) * B ^ 3 * d B := by
-    have : B ^ 4 = B ^ 3 * B := by ring
-    rw [this]
-    simp [Derivation.leibniz, hcubB]
-    ring
+    simp only [Derivation.leibniz_pow, nsmul_eq_mul, smul_eq_mul, mul_assoc, Nat.cast_ofNat, Nat.reduceSub]
   have hsext : d (A ^ 6) = (6 : F) * A ^ 5 * d A := by
-    have : A ^ 6 = A ^ 5 * A := by ring
-    rw [this]
-    simp [Derivation.leibniz, hquint]
-    ring
+    simp only [Derivation.leibniz_pow, nsmul_eq_mul, smul_eq_mul, mul_assoc, Nat.cast_ofNat, Nat.reduceSub]
   have hPderiv : d P = (5 / 3 : F) * d A := by
     have halpha' : d P - (5 / 3 : F) * d A = 0 := by
       simpa [alphaResidual610, map_sub, Derivation.leibniz, h53, zero_mul,
@@ -897,10 +882,10 @@ theorem bridgeMuResidual610_deriv_zero
     have h18 : d (18 : F) = 0 := d.map_natCast 18
     have h55 : d (55 : F) = 0 := d.map_natCast 55
     have h11 : d (11 : F) = 0 := d.map_natCast 11
-    have h5518 : d (55 / 18 : F) = 0 := by
-      simp [Derivation.leibniz_div, h18, h55]
-    have h118 : d (11 / 8 : F) = 0 := by
-      simp [Derivation.leibniz_div, h8, h11]
+    have h5518 : d (55 / 18 : F) = 0 :=
+      astra4ab_following_deriv_nat_div d 55 18
+    have h118 : d (11 / 8 : F) = 0 :=
+      astra4ab_following_deriv_nat_div d 11 8
     simp [map_sub, map_add, Derivation.leibniz, h53, h32, h43, h76, hL,
       h5518, h118, zero_mul, add_zero, mul_zero, hsq] at hdlt
     rw [hPderiv, hQderiv] at hdlt
@@ -927,14 +912,14 @@ theorem bridgeMuResidual610_deriv_zero
     have h25 : d (25 : F) = 0 := d.map_natCast 25
     have h10 : d (10 : F) = 0 := d.map_natCast 10
     have h100 : d (100 : F) = 0 := d.map_natCast 100
-    have h259 : d (25 / 9 : F) = 0 := by
-      simp [Derivation.leibniz_div, h9, h25]
-    have h2518 : d (25 / 18 : F) = 0 := by
-      simp [Derivation.leibniz_div, h18, h25]
-    have h52 : d (5 / 2 : F) = 0 := by
-      simp [Derivation.leibniz_div, h2, h5]
-    have h10081 : d (100 / 81 : F) = 0 := by
-      simp [Derivation.leibniz_div, h81, h100]
+    have h259 : d (25 / 9 : F) = 0 :=
+      astra4ab_following_deriv_nat_div d 25 9
+    have h2518 : d (25 / 18 : F) = 0 :=
+      astra4ab_following_deriv_nat_div d 25 18
+    have h52 : d (5 / 2 : F) = 0 :=
+      astra4ab_following_deriv_nat_div d 5 2
+    have h10081 : d (100 / 81 : F) = 0 :=
+      astra4ab_following_deriv_nat_div d 100 81
     have hcub' : d (A * A * A) = (3 : F) * (A * A) * d A := by
       simp [Derivation.leibniz]
       ring
@@ -974,16 +959,16 @@ theorem bridgeMuResidual610_deriv_zero
     rw [hexp] at hz
     have h25 : d (25 : F) = 0 := d.map_natCast 25
     have h15 : d (15 : F) = 0 := d.map_natCast 15
-    have h52 : d (5 / 2 : F) = 0 := by
-      simp [Derivation.leibniz_div, h2, h5]
-    have h78 : d (7 / 8 : F) = 0 := by
-      simp [Derivation.leibniz_div, h8, h7]
-    have h94 : d (9 / 4 : F) = 0 := by
-      simp [Derivation.leibniz_div, h4, h9]
-    have h98 : d (9 / 8 : F) = 0 := by
-      simp [Derivation.leibniz_div, h8, h9]
-    have h258 : d (25 / 8 : F) = 0 := by
-      simp [Derivation.leibniz_div, h8, h25]
+    have h52 : d (5 / 2 : F) = 0 :=
+      astra4ab_following_deriv_nat_div d 5 2
+    have h78 : d (7 / 8 : F) = 0 :=
+      astra4ab_following_deriv_nat_div d 7 8
+    have h94 : d (9 / 4 : F) = 0 :=
+      astra4ab_following_deriv_nat_div d 9 4
+    have h98 : d (9 / 8 : F) = 0 :=
+      astra4ab_following_deriv_nat_div d 9 8
+    have h258 : d (25 / 8 : F) = 0 :=
+      astra4ab_following_deriv_nat_div d 25 8
     have h16ne : (16 : F) ≠ 0 := by norm_num
     have h16inv : d (16 : F)⁻¹ = 0 := by
       have hone : (16 : F) * (16 : F)⁻¹ = 1 := mul_inv_cancel₀ h16ne
@@ -999,9 +984,8 @@ theorem bridgeMuResidual610_deriv_zero
       have honly : (16 : F) * d (16 : F)⁻¹ = 0 := by
         simpa [h16, mul_zero, add_zero] using hsum
       exact (mul_eq_zero.mp honly).resolve_left h16ne
-    have h1516 : d (15 / 16 : F) = 0 := by
-      simp [div_eq_mul_inv, Derivation.leibniz, h15, h16inv, zero_mul,
-        add_zero, mul_zero]
+    have h1516 : d (15 / 16 : F) = 0 :=
+      astra4ab_following_deriv_nat_div d 15 16
     have hcub' : d (A * A * A) = (3 : F) * (A * A) * d A := by
       simp [Derivation.leibniz]
       ring
@@ -1052,22 +1036,22 @@ theorem bridgeMuResidual610_deriv_zero
     have h70 : d (70 : F) = 0 := d.map_natCast 70
     have h175 : d (175 : F) = 0 := d.map_natCast 175
     have h10 : d (10 : F) = 0 := d.map_natCast 10
-    have h149 : d (14 / 9 : F) = 0 := by
-      simp [Derivation.leibniz_div, h9, h14]
-    have h169 : d (16 / 9 : F) = 0 := by
-      simp [Derivation.leibniz_div, h9, h16]
-    have h89 : d (8 / 9 : F) = 0 := by
-      simp [Derivation.leibniz_div, h9, h8]
-    have h5681 : d (56 / 81 : F) = 0 := by
-      simp [Derivation.leibniz_div, h81, h56]
-    have h209 : d (20 / 9 : F) = 0 := by
-      simp [Derivation.leibniz_div, h9, h20]
-    have h73 : d (7 / 3 : F) = 0 := by
-      simp [Derivation.leibniz_div, h3, h7]
-    have h7027 : d (70 / 27 : F) = 0 := by
-      simp [Derivation.leibniz_div, h27, h70]
-    have h175243 : d (175 / 243 : F) = 0 := by
-      simp [Derivation.leibniz_div, h243, h175]
+    have h149 : d (14 / 9 : F) = 0 :=
+      astra4ab_following_deriv_nat_div d 14 9
+    have h169 : d (16 / 9 : F) = 0 :=
+      astra4ab_following_deriv_nat_div d 16 9
+    have h89 : d (8 / 9 : F) = 0 :=
+      astra4ab_following_deriv_nat_div d 8 9
+    have h5681 : d (56 / 81 : F) = 0 :=
+      astra4ab_following_deriv_nat_div d 56 81
+    have h209 : d (20 / 9 : F) = 0 :=
+      astra4ab_following_deriv_nat_div d 20 9
+    have h73 : d (7 / 3 : F) = 0 :=
+      astra4ab_following_deriv_nat_div d 7 3
+    have h7027 : d (70 / 27 : F) = 0 :=
+      astra4ab_following_deriv_nat_div d 70 27
+    have h175243 : d (175 / 243 : F) = 0 :=
+      astra4ab_following_deriv_nat_div d 175 243
     have h109' : d (10 / 9 : F) = 0 := by
       simp [Derivation.leibniz_div, h9, h10]
     have hcub' : d (A * A * A) = (3 : F) * (A * A) * d A := by
@@ -1191,50 +1175,50 @@ theorem bridgeMuResidual610_deriv_zero
   have hmn1458 : d (1458 : F) = 0 := d.map_natCast 1458
   have hmn3456 : d (3456 : F) = 0 := d.map_natCast 3456
   have hmn15552 : d (15552 : F) = 0 := d.map_natCast 15552
-  have hmf1_24 : d (1 / 24 : F) = 0 := by
-    simp [Derivation.leibniz_inv, hmn24]
-  have hmf35_3456 : d (35 / 3456 : F) = 0 := by
-    simp [Derivation.leibniz_div, hmn3456, h35n]
-  have hmf25_432 : d (25 / 432 : F) = 0 := by
-    simp [Derivation.leibniz_div, h432n, hmn25]
-  have hmf77_15552 : d (77 / 15552 : F) = 0 := by
-    simp [Derivation.leibniz_div, hmn15552, hmn77]
-  have hmf35_972 : d (35 / 972 : F) = 0 := by
-    simp [Derivation.leibniz_div, hmn972, h35n]
-  have hmf35_576 : d (35 / 576 : F) = 0 := by
-    simp [Derivation.leibniz_div, hmn576, h35n]
-  have hmf7_144 : d (7 / 144 : F) = 0 := by
-    simp [Derivation.leibniz_div, hmn144, h7]
-  have hmf7_54 : d (7 / 54 : F) = 0 := by
-    simp [Derivation.leibniz_div, hmn54, h7]
-  have hmf7_108 : d (7 / 108 : F) = 0 := by
-    simp [Derivation.leibniz_div, hmn108, h7]
-  have hmf10_243 : d (10 / 243 : F) = 0 := by
-    simp [Derivation.leibniz_div, h243, h10n]
-  have hmf14_243 : d (14 / 243 : F) = 0 := by
-    simp [Derivation.leibniz_div, h243, hmn14]
-  have hmf16_81 : d (16 / 81 : F) = 0 := by
-    simp [Derivation.leibniz_div, h81, h16]
-  have hmf2_27 : d (2 / 27 : F) = 0 := by
-    simp [Derivation.leibniz_div, h27, h2]
-  have hmf5_1024 : d (5 / 1024 : F) = 0 := by
-    simp [Derivation.leibniz_div, hmn1024, h5]
-  have hmf11_256 : d (11 / 256 : F) = 0 := by
-    simp [Derivation.leibniz_div, h256n, hmn11]
-  have hmf1_16 : d (1 / 16 : F) = 0 := by
-    simp [Derivation.leibniz_inv, h16]
-  have hmf7_32 : d (7 / 32 : F) = 0 := by
-    simp [Derivation.leibniz_div, h32n, h7]
-  have hmf7_64 : d (7 / 64 : F) = 0 := by
-    simp [Derivation.leibniz_div, h64n, h7]
-  have hmf35_1458 : d (35 / 1458 : F) = 0 := by
-    simp [Derivation.leibniz_div, hmn1458, h35n]
-  have hmf25_729 : d (25 / 729 : F) = 0 := by
-    simp [Derivation.leibniz_div, h729n, hmn25]
-  have hmf110_729 : d (110 / 729 : F) = 0 := by
-    simp [Derivation.leibniz_div, h729n, hmn110]
-  have hmf35_162 : d (35 / 162 : F) = 0 := by
-    simp [Derivation.leibniz_div, hmn162, h35n]
+  have hmf1_24 : d (1 / 24 : F) = 0 :=
+    by simpa only [Nat.cast_one, Nat.cast_ofNat] using astra4ab_following_deriv_nat_div d 1 24
+  have hmf35_3456 : d (35 / 3456 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 35 3456
+  have hmf25_432 : d (25 / 432 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 25 432
+  have hmf77_15552 : d (77 / 15552 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 77 15552
+  have hmf35_972 : d (35 / 972 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 35 972
+  have hmf35_576 : d (35 / 576 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 35 576
+  have hmf7_144 : d (7 / 144 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 7 144
+  have hmf7_54 : d (7 / 54 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 7 54
+  have hmf7_108 : d (7 / 108 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 7 108
+  have hmf10_243 : d (10 / 243 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 10 243
+  have hmf14_243 : d (14 / 243 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 14 243
+  have hmf16_81 : d (16 / 81 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 16 81
+  have hmf2_27 : d (2 / 27 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 2 27
+  have hmf5_1024 : d (5 / 1024 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 5 1024
+  have hmf11_256 : d (11 / 256 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 11 256
+  have hmf1_16 : d (1 / 16 : F) = 0 :=
+    by simpa only [Nat.cast_one, Nat.cast_ofNat] using astra4ab_following_deriv_nat_div d 1 16
+  have hmf7_32 : d (7 / 32 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 7 32
+  have hmf7_64 : d (7 / 64 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 7 64
+  have hmf35_1458 : d (35 / 1458 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 35 1458
+  have hmf25_729 : d (25 / 729 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 25 729
+  have hmf110_729 : d (110 / 729 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 110 729
+  have hmf35_162 : d (35 / 162 : F) = 0 :=
+    astra4ab_following_deriv_nat_div d 35 162
   have hrow2_red := hrow2
   simp only [hXderiv, hWderiv, hPderiv, hQderiv, hRderiv, hSderiv,
     hTderiv, hUderiv, hVderiv] at hrow2_red
@@ -1270,6 +1254,7 @@ section BridgeMuJetFactor610
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 /-- Evaluation commutes with the order-`59` head. -/
 theorem bridgeMuJetHead610_eval
     (w1 a41 p32 s1 u2 b62 q53 p2 q41 q3 : k[X]) (lambda : k) (x : k) :
@@ -1295,6 +1280,7 @@ section BridgeMuJetFactor610
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 /-- Evaluation commutes with the order-`61` deep head. -/
 theorem bridgeMuDeepHead610_eval
     (w1 p32 u2 b63 p21 q42 q31 : k[X]) (lambda : k) (x : k) :
@@ -1320,7 +1306,7 @@ section BridgeMuScalars610
 
 variable {F : Type*} [Field F] [CharZero F]
 
-set_option maxHeartbeats 4000000 in
+set_option maxHeartbeats 64000000 in
 /-- Chamber-free reduction of the vanishing order-`59` head modulo
 `3 s₁ = 5 a₄₁` and the `p₃₁`-killed `U`-load alone. -/
 theorem bridgeMu_chamberFreeReduction610
@@ -1374,7 +1360,7 @@ section BridgeMuScalars610
 
 variable {F : Type*} [Field F] [CharZero F]
 
-set_option maxHeartbeats 4000000 in
+set_option maxHeartbeats 64000000 in
 /-- On the collapsed sibling child the vanishing order-`61` deep head
 factors as `p₃₂` times its cofactor — the honest split `p₃₂ = 0`
 (whence `u₂ = 0` through the retained tie) or the first `λ`-loaded

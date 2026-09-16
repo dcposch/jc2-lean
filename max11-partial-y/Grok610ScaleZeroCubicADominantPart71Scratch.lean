@@ -1,3 +1,4 @@
+import Max11SpeedReflectDegLibScratch
 import Grok610ScaleZeroCubicADominantPart08Scratch
 import Grok610ScaleZeroCubicADominantPart69Scratch
 
@@ -20,7 +21,49 @@ section CubicSigmaKills610
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
+/-- Reflect the unchanged polynomial literal into coefficient/exponent data. -/
+private theorem round4_astra4f_part71_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C D E : k[X]) :
+    degreeZeroOmicronCubicNoSigmaCE610 l alpha beta delta epsilon zeta eta theta A B C D E =
+      Max11ReflectDeg.polyOf [A, B, C, D, E]
+      [
+      (-(5 / 486 : k)), (5 / 81 : k), (10 / 81 : k),
+      (25 / 486 : k), (5 / 54 : k), (-(5 / 27 : k)),
+      (-(5 / 27 : k)), (-(5 / 6912 * l : k)), (1 / 864 * l : k),
+      (-(1 / 288 * l : k)), (-(1 / 96 * l : k)), (7 / 96 * l : k),
+      (1 / 24 * l : k), (1 / 16 * l : k), (-(1 / 8 * l : k)),
+      (-(1 / 4 * l : k)), (-(1 / 8 * l : k)), (-(3 / 16 * l : k)),
+      (4 / 81 * alpha : k), (1 / 81 * alpha : k), (-(2 / 27 * alpha : k)),
+      (-(2 / 27 * alpha : k)), (-(2 / 9 * alpha : k)), (-(4 / 81 * alpha : k)),
+      (2 / 9 * alpha : k), (-(7 / 2592 * beta : k)), (7 / 1296 * beta : k),
+      (7 / 648 * beta : k), (-(7 / 216 * beta : k)), (-(7 / 144 * beta : k)),
+      (-(7 / 108 * beta : k)), (7 / 36 * beta : k), (-(5 / 432 * delta : k)),
+      (5 / 108 * delta : k), (5 / 324 * delta : k), (-(5 / 36 * delta : k)),
+      (1 / 27 * epsilon : k), (-(1 / 9 * epsilon : k)), (-(1 / 9 * epsilon : k)),
+      (-(1 / 12 * zeta : k)), (-(1 / 6 * zeta : k)), (-(1 / 18 * eta : k)),
+      (1 / 3 * eta : k), (1 / 6 * theta : k)]
+      [
+      [1, 4, 0, 0, 0], [1, 2, 0, 0, 1], [1, 1, 1, 1, 0], [0, 3, 0, 1, 0],
+      [0, 2, 2, 0, 0], [0, 1, 0, 1, 1], [0, 0, 1, 2, 0], [4, 0, 0, 1, 0],
+      [3, 1, 1, 0, 0], [2, 3, 0, 0, 0], [2, 0, 1, 1, 0], [1, 2, 0, 1, 0],
+      [1, 1, 2, 0, 0], [0, 3, 1, 0, 0], [1, 0, 0, 1, 1], [0, 1, 1, 0, 1],
+      [0, 1, 0, 2, 0], [0, 0, 2, 1, 0], [1, 2, 1, 0, 0], [0, 4, 0, 0, 0],
+      [1, 0, 0, 2, 0], [0, 2, 0, 0, 1], [0, 1, 1, 1, 0], [0, 0, 3, 0, 0],
+      [0, 0, 0, 0, 2], [3, 0, 0, 1, 0], [2, 1, 1, 0, 0], [1, 3, 0, 0, 0],
+      [1, 0, 1, 1, 0], [0, 2, 0, 1, 0], [0, 1, 2, 0, 0], [0, 0, 0, 1, 1],
+      [2, 0, 0, 1, 0], [1, 1, 1, 0, 0], [0, 3, 0, 0, 0], [0, 0, 1, 1, 0],
+      [1, 2, 0, 0, 0], [0, 1, 0, 1, 0], [0, 0, 2, 0, 0], [1, 0, 0, 1, 0],
+      [0, 1, 1, 0, 0], [0, 2, 0, 0, 0], [0, 0, 0, 0, 1], [0, 0, 0, 1, 0]] := by
+  unfold degreeZeroOmicronCubicNoSigmaCE610
+  simp only [Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul, add_assoc]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronCubicNoSigmaCE610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C D E : k[X])
@@ -39,9 +82,15 @@ theorem degreeZeroOmicronCubicNoSigmaCE610_natDegree_lt
   have hs8 : A.natDegree + 2 * B.natDegree + 1 ≤ 2 * C.natDegree := Nat.succ_le_of_lt h8
   have hs9 : A.natDegree + 2 * D.natDegree + 1 ≤ 3 * C.natDegree := Nat.succ_le_of_lt h9
   have hs10 : 11 * A.natDegree + 1 ≤ 6 * C.natDegree := Nat.succ_le_of_lt h10
-  simp only [degreeZeroOmicronCubicNoSigmaCE610]
-  compute_degree
-  omega
+  rw [round4_astra4f_part71_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 end CubicSigmaKills610
 

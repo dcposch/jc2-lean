@@ -1,4 +1,5 @@
 import LowScale68SecondaryResidualFace
+import Max11SpeedReflectDegLibScratch
 
 /-! # First residual degree drop on the `(6,8)` secondary face
 
@@ -19,6 +20,7 @@ section SecondaryResidualExtraction68
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 /-- The first-face relation cancels the top coefficient of
 `D-A*B/3`, so the translated odd defect lies strictly below its old bound. -/
 theorem secondaryDDefectPolynomial68_degree_lt
@@ -46,6 +48,7 @@ theorem secondaryDDefectPolynomial68_degree_lt
   have hpred := natDegree_le_pred hdegree hcoeff
   omega
 
+set_option maxHeartbeats 64000000 in
 /-- Both translated residual directions lie strictly below the first
 secondary boundary after its two leading relations have been imposed. -/
 theorem firstSecondaryResidualDegreeDrops68
@@ -64,6 +67,7 @@ theorem firstSecondaryResidualDegreeDrops68
   have hpred := natDegree_le_pred he hetop
   omega
 
+set_option maxHeartbeats 64000000 in
 /-- Load-free quartic invariant in the residual coordinates
 `D=A*B/3+d`. -/
 def secondaryResidualInvariantFourPolynomial68
@@ -71,13 +75,14 @@ def secondaryResidualInvariantFourPolynomial68
   (-8 / 27 : k) • B ^ 3 + (8 / 3 : k) • (B * e) +
     (8 / 3 : k) • (c * d)
 
+set_option maxHeartbeats 64000000 in
 /-- Load-free cubic invariant in the residual coordinates. -/
 def secondaryResidualInvariantThreePolynomial68
     (A B c d e : k[X]) : k[X] :=
   (-8 / 9 : k) • (A * B * d) - (8 / 9 : k) • (B ^ 2 * c) +
     (8 / 3 : k) • (c * e) + (4 / 3 : k) • d ^ 2
 
-set_option maxHeartbeats 1000000 in
+set_option maxHeartbeats 64000000 in
 theorem cubicFirstIntegralFourPolynomial68_residualCoordinates
     (A B c d e : k[X]) :
     cubicFirstIntegralFourPolynomial68 0 0 0 0 0 0 A B c
@@ -91,7 +96,7 @@ theorem cubicFirstIntegralFourPolynomial68_residualCoordinates
   simp only [map_div₀, map_ofNat, map_one, zero_mul, add_zero, sub_zero]
   ring_nf
 
-set_option maxHeartbeats 1000000 in
+set_option maxHeartbeats 64000000 in
 theorem cubicFirstIntegralThreePolynomial68_residualCoordinates
     (A B c d e : k[X]) :
     cubicFirstIntegralThreePolynomial68 0 0 0 0 0 0 A B c
@@ -107,6 +112,7 @@ theorem cubicFirstIntegralThreePolynomial68_residualCoordinates
   rw [hneg8]
   ring
 
+set_option maxHeartbeats 64000000 in
 /-- Lower old-weight terms in the quartic invariant. -/
 def secondaryLoadInvariantFourPolynomial68
     (l beta gamma delta epsilon zeta : k)
@@ -123,6 +129,7 @@ def secondaryLoadInvariantFourPolynomial68
     (7 / 6 * l : k) • (A * e) +
     (7 / 6 * l : k) • (B * D) + (7 / 12 * l : k) • c ^ 2
 
+set_option maxHeartbeats 64000000 in
 /-- Lower old-weight terms in the cubic invariant. -/
 def secondaryLoadInvariantThreePolynomial68
     (l beta gamma delta epsilon zeta : k)
@@ -139,6 +146,62 @@ def secondaryLoadInvariantThreePolynomial68
     (35 / 216 * l : k) • B ^ 3 +
     (7 / 6 * l : k) • (B * e) + (7 / 6 * l : k) • (D * c)
 
+set_option maxHeartbeats 64000000 in
+private theorem extractionSpeedTsecondaryLoadInvariantFourPolynomial68Data
+    (l beta gamma delta epsilon zeta : k) (A B c D e : k[X]) :
+    secondaryLoadInvariantFourPolynomial68 l beta gamma delta epsilon zeta A B c D e =
+      Max11ReflectDeg.polyOf [A, B, c, D, e]
+        [(zeta : k), (2 * epsilon : k), (1 / 4 * delta : k), (3 * delta : k), (4 * gamma : k), (-(4 / 3 * gamma) : k), (5 * beta : k), (5 / 6 * beta : k), (-(5 / 12 * beta) : k), (5 / 72 * beta : k), (35 / 1728 * l : k), (7 / 24 * l : k), (-(35 / 72 * l) : k), (7 / 6 * l : k), (7 / 6 * l : k), (7 / 12 * l : k)]
+        [[1, 0, 0, 0, 0],
+      [0, 1, 0, 0, 0],
+      [2, 0, 0, 0, 0],
+      [0, 0, 1, 0, 0],
+      [0, 0, 0, 1, 0],
+      [1, 1, 0, 0, 0],
+      [0, 0, 0, 0, 1],
+      [1, 0, 1, 0, 0],
+      [0, 2, 0, 0, 0],
+      [3, 0, 0, 0, 0],
+      [4, 0, 0, 0, 0],
+      [2, 0, 1, 0, 0],
+      [1, 2, 0, 0, 0],
+      [1, 0, 0, 0, 1],
+      [0, 1, 0, 1, 0],
+      [0, 0, 2, 0, 0]] := by
+  simp only [secondaryLoadInvariantFourPolynomial68, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, pow_zero, pow_one, mul_one, one_mul,
+    add_zero, mul_assoc, mul_comm, mul_left_comm]
+  module
+
+set_option maxHeartbeats 64000000 in
+private theorem extractionSpeedTsecondaryLoadInvariantThreePolynomial68Data
+    (l beta gamma delta epsilon zeta : k) (A B c D e : k[X]) :
+    secondaryLoadInvariantThreePolynomial68 l beta gamma delta epsilon zeta A B c D e =
+      Max11ReflectDeg.polyOf [A, B, c, D, e]
+        [(zeta : k), (2 * epsilon : k), (4 * gamma : k), (-(2 / 3 * gamma) : k), (3 * delta : k), (-(3 / 2 * delta) : k), (5 / 24 * beta : k), (-(5 / 6 * beta) : k), (-(5 / 6 * beta) : k), (7 / 432 * l : k), (-(7 / 72 * l) : k), (-(7 / 12 * l) : k), (-(35 / 216 * l) : k), (7 / 6 * l : k), (7 / 6 * l : k)]
+        [[0, 1, 0, 0, 0],
+      [0, 0, 1, 0, 0],
+      [0, 0, 0, 0, 1],
+      [0, 2, 0, 0, 0],
+      [0, 0, 0, 1, 0],
+      [1, 1, 0, 0, 0],
+      [2, 1, 0, 0, 0],
+      [1, 0, 0, 1, 0],
+      [0, 1, 1, 0, 0],
+      [3, 1, 0, 0, 0],
+      [2, 0, 0, 1, 0],
+      [1, 1, 1, 0, 0],
+      [0, 3, 0, 0, 0],
+      [0, 1, 0, 0, 1],
+      [0, 0, 1, 1, 0]] := by
+  simp only [secondaryLoadInvariantThreePolynomial68, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_left, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, pow_zero, pow_one, mul_one, one_mul,
+    add_zero, mul_assoc, mul_comm, mul_left_comm]
+  module
+
+set_option maxHeartbeats 64000000 in
 theorem cubicFirstIntegralFourPolynomial68_secondaryLoadSplit
     (l beta gamma delta epsilon zeta : k) (A B c D e : k[X]) :
     cubicFirstIntegralFourPolynomial68 l beta gamma delta epsilon zeta
@@ -151,6 +214,7 @@ theorem cubicFirstIntegralFourPolynomial68_secondaryLoadSplit
     sub_zero]
   module
 
+set_option maxHeartbeats 64000000 in
 theorem cubicFirstIntegralThreePolynomial68_secondaryLoadSplit
     (l beta gamma delta epsilon zeta : k) (A B c D e : k[X]) :
     cubicFirstIntegralThreePolynomial68 l beta gamma delta epsilon zeta
@@ -163,7 +227,7 @@ theorem cubicFirstIntegralThreePolynomial68_secondaryLoadSplit
     sub_zero]
   module
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 /-- In `3g<n`, all load terms of the quartic invariant lie below every
 middle residual face `g<h<2g`. -/
 theorem secondaryLoadInvariantFourPolynomial68_degree_lt_middle
@@ -177,11 +241,15 @@ theorem secondaryLoadInvariantFourPolynomial68_degree_lt_middle
     (secondaryLoadInvariantFourPolynomial68
       l beta gamma delta epsilon zeta A B c D e).natDegree <
         9 * n - g - h := by
-  simp only [secondaryLoadInvariantFourPolynomial68]
-  compute_degree
+  rw [extractionSpeedTsecondaryLoadInvariantFourPolynomial68Data]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    List.map_cons, List.map_nil, mul_zero, zero_mul, one_mul, add_zero,
+    zero_add]
   omega
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 /-- The corresponding load cutoff for the cubic invariant. -/
 theorem secondaryLoadInvariantThreePolynomial68_degree_lt_middle
     (l beta gamma delta epsilon zeta : k) (A B c D e : k[X])
@@ -194,11 +262,15 @@ theorem secondaryLoadInvariantThreePolynomial68_degree_lt_middle
     (secondaryLoadInvariantThreePolynomial68
       l beta gamma delta epsilon zeta A B c D e).natDegree <
         10 * n - g - h := by
-  simp only [secondaryLoadInvariantThreePolynomial68]
-  compute_degree
+  rw [extractionSpeedTsecondaryLoadInvariantThreePolynomial68Data]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    List.map_cons, List.map_nil, mul_zero, zero_mul, one_mul, add_zero,
+    zero_add]
   omega
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 /-- In `3g<n`, every quartic-invariant load term is strictly below the
 double residual face at gap `2g`. -/
 theorem secondaryLoadInvariantFourPolynomial68_degree_lt_double
@@ -212,11 +284,15 @@ theorem secondaryLoadInvariantFourPolynomial68_degree_lt_double
     (secondaryLoadInvariantFourPolynomial68
       l beta gamma delta epsilon zeta A B c D e).natDegree <
         9 * n - 3 * g := by
-  simp only [secondaryLoadInvariantFourPolynomial68]
-  compute_degree
+  rw [extractionSpeedTsecondaryLoadInvariantFourPolynomial68Data]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    List.map_cons, List.map_nil, mul_zero, zero_mul, one_mul, add_zero,
+    zero_add]
   omega
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 /-- The corresponding load cutoff for the cubic invariant at gap `2g`. -/
 theorem secondaryLoadInvariantThreePolynomial68_degree_lt_double
     (l beta gamma delta epsilon zeta : k) (A B c D e : k[X])
@@ -229,11 +305,15 @@ theorem secondaryLoadInvariantThreePolynomial68_degree_lt_double
     (secondaryLoadInvariantThreePolynomial68
       l beta gamma delta epsilon zeta A B c D e).natDegree <
         10 * n - 3 * g := by
-  simp only [secondaryLoadInvariantThreePolynomial68]
-  compute_degree
+  rw [extractionSpeedTsecondaryLoadInvariantThreePolynomial68Data]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    List.map_cons, List.map_nil, mul_zero, zero_mul, one_mul, add_zero,
+    zero_add]
   omega
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 /-- Leading coefficient of the quartic invariant on a middle residual face
 `g<h<2g`. -/
 theorem secondaryResidualInvariantFourPolynomial68_coeff_middle
@@ -263,7 +343,7 @@ theorem secondaryResidualInvariantFourPolynomial68_coeff_middle
     coeff_smul, smul_eq_mul, coeff_eq_zero_of_natDegree_lt hB3, hBe, hcd]
   ring
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 /-- Leading coefficient of the cubic invariant on the same middle face. -/
 theorem secondaryResidualInvariantThreePolynomial68_coeff_middle
     (A B c d e : k[X]) (n g h : ℕ)
@@ -300,7 +380,7 @@ theorem secondaryResidualInvariantThreePolynomial68_coeff_middle
     coeff_eq_zero_of_natDegree_lt hd2]
   ring
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 /-- Quartic-invariant coefficient at the double residual gap `2g`. -/
 theorem secondaryResidualInvariantFourPolynomial68_coeff_double
     (B c d e : k[X]) (n g : ℕ) (hg : 0 < g) (hsmall : 3 * g < n)
@@ -331,7 +411,7 @@ theorem secondaryResidualInvariantFourPolynomial68_coeff_double
     coeff_smul, smul_eq_mul, hB3, hBe, hcd]
   ring
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 /-- Cubic-invariant coefficient at the same double gap. -/
 theorem secondaryResidualInvariantThreePolynomial68_coeff_double
     (A B c d e : k[X]) (n g : ℕ) (hg : 0 < g) (hsmall : 3 * g < n)
@@ -373,7 +453,7 @@ theorem secondaryResidualInvariantThreePolynomial68_coeff_double
     coeff_eq_zero_of_natDegree_lt hd2]
   ring
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 /-- The literal quartic invariant has the residual double-face coefficient:
 all constant-load terms are lower in `3g<n`. -/
 theorem cubicFirstIntegralFourPolynomial68_coeff_residualDouble
@@ -409,7 +489,7 @@ theorem cubicFirstIntegralFourPolynomial68_coeff_residualDouble
       n g hg hsmall hB hc hd he,
     coeff_eq_zero_of_natDegree_lt hload, add_zero]
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 /-- The corresponding literal cubic-invariant double-face coefficient. -/
 theorem cubicFirstIntegralThreePolynomial68_coeff_residualDouble
     (l beta gamma delta epsilon zeta : k) (A B c d e : k[X])
@@ -445,7 +525,7 @@ theorem cubicFirstIntegralThreePolynomial68_coeff_residualDouble
       n g hg hsmall hA hB hc hd he,
     coeff_eq_zero_of_natDegree_lt hload, add_zero]
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 /-- The literal quartic invariant has the same middle-face coefficient: all
 constant-load terms are strictly lower in `3g<n`. -/
 theorem cubicFirstIntegralFourPolynomial68_coeff_residualMiddle
@@ -481,7 +561,7 @@ theorem cubicFirstIntegralFourPolynomial68_coeff_residualMiddle
       n g h hg hgh hh hsmall hB hc hd he,
     coeff_eq_zero_of_natDegree_lt hload, add_zero]
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 /-- The corresponding literal cubic-invariant coefficient. -/
 theorem cubicFirstIntegralThreePolynomial68_coeff_residualMiddle
     (l beta gamma delta epsilon zeta : k) (A B c d e : k[X])
@@ -517,7 +597,7 @@ theorem cubicFirstIntegralThreePolynomial68_coeff_residualMiddle
       n g h hg hgh hh hsmall hA hB hc hd he,
     coeff_eq_zero_of_natDegree_lt hload, add_zero]
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 /-- The two literal constant invariants select the abstract middle residual
 face whenever the actual degree gaps satisfy `g<h<2g` in `3g<n`. -/
 theorem polynomialSecondaryResidualBetweenFace68
@@ -559,6 +639,7 @@ theorem polynomialSecondaryResidualBetweenFace68
     have hzero := (mul_eq_zero.mp hz).resolve_left hscalar
     linear_combination hzero
 
+set_option maxHeartbeats 64000000 in
 /-- Direct literal-polynomial form of the abstract middle-face classifier. -/
 theorem polynomialSecondaryResidualBetweenFace68_classify
     (l beta gamma delta epsilon zeta i4 i3 : k)
@@ -591,6 +672,7 @@ theorem polynomialSecondaryResidualBetweenFace68_classify
       l beta gamma delta epsilon zeta i4 i3 A B c d e n g h
       hg hgh hh hsmall hA hB hc hd he hi4 hi3)
 
+set_option maxHeartbeats 64000000 in
 /-- Load-free first one-form after translating `D=A*B/3+d`. -/
 def secondaryResidualRowTwoPolynomial68
     (A B c d e : k[X]) : k[X] :=
@@ -609,7 +691,7 @@ def secondaryResidualRowTwoPolynomial68
       (18 : k) • (d * derivative e) -
       (18 : k) • (derivative d * e))
 
-set_option maxHeartbeats 3000000 in
+set_option maxHeartbeats 64000000 in
 theorem cubicHomogeneousRowTwoPolynomial68_residualCoordinates
     (A B c d e : k[X]) :
     cubicHomogeneousRowTwoPolynomial68 A B c
@@ -624,6 +706,7 @@ theorem cubicHomogeneousRowTwoPolynomial68_residualCoordinates
   simp only [map_div₀, map_ofNat, map_natCast, map_one]
   ring
 
+set_option maxHeartbeats 64000000 in
 /-- Load-free second one-form in the residual coordinates. -/
 def secondaryResidualRowOnePolynomial68
     (A B c d e : k[X]) : k[X] :=
@@ -642,7 +725,7 @@ def secondaryResidualRowOnePolynomial68
       (6 : k) • (c ^ 2 * derivative c) -
       (18 : k) • (e * derivative e))
 
-set_option maxHeartbeats 3000000 in
+set_option maxHeartbeats 64000000 in
 /-- Coefficient of the residual second one-form on the tied double face. -/
 theorem secondaryResidualRowOnePolynomial68_coeff_double
     (A B c d e : k[X]) (n g : ℕ) (hg : 0 < g) (hsmall : 3 * g < n)
@@ -668,38 +751,38 @@ theorem secondaryResidualRowOnePolynomial68_coeff_double
           12 * (n : k) * c.coeff (4 * n - g) ^ 3) := by
   have hA2deg : (A ^ 2).natDegree ≤ 4 * n := by
     compute_degree
-    omega
+    clear * -hg hsmall hA hB hc hd he; omega
   have hB2deg : (B ^ 2).natDegree ≤ 6 * n - 2 * g := by
     compute_degree
-    omega
+    clear * -hg hsmall hA hB hc hd he; omega
   have hc2deg : (c ^ 2).natDegree ≤ 8 * n - 2 * g := by
     compute_degree
-    omega
+    clear * -hg hsmall hA hB hc hd he; omega
   have hA2 : (A ^ 2).coeff (4 * n) = A.coeff (2 * n) ^ 2 := by
     have h := coeff_pow_at_bound68 A (2 * n) 2 hA
-    have hi : 2 * (2 * n) = 4 * n := by omega
+    have hi : 2 * (2 * n) = 4 * n := by clear * -hg hsmall hA hB hc hd he; omega
     simpa only [hi] using h
   have hB2 : (B ^ 2).coeff (6 * n - 2 * g) =
       B.coeff (3 * n - g) ^ 2 := by
     have h := coeff_pow_at_bound68 B (3 * n - g) 2 hB
-    have hi : 2 * (3 * n - g) = 6 * n - 2 * g := by omega
+    have hi : 2 * (3 * n - g) = 6 * n - 2 * g := by clear * -hg hsmall hA hB hc hd he; omega
     simpa only [hi] using h
   have hc2 : (c ^ 2).coeff (8 * n - 2 * g) =
       c.coeff (4 * n - g) ^ 2 := by
     have h := coeff_pow_at_bound68 c (4 * n - g) 2 hc
-    have hi : 2 * (4 * n - g) = 8 * n - 2 * g := by omega
+    have hi : 2 * (4 * n - g) = 8 * n - 2 * g := by clear * -hg hsmall hA hB hc hd he; omega
     simpa only [hi] using h
   have h1 := coeff_mul_mul_derivative_at_bounds68 (A ^ 2) B d
-    (4 * n) (3 * n - g) (5 * n - 2 * g) (by omega)
+    (4 * n) (3 * n - g) (5 * n - 2 * g) (by clear * -hg hsmall hA hB hc hd he; omega)
     hA2deg hB hd
   have hi1 : 4 * n + (3 * n - g) + (5 * n - 2 * g) - 1 =
-      12 * n - 3 * g - 1 := by omega
+      12 * n - 3 * g - 1 := by clear * -hg hsmall hA hB hc hd he; omega
   rw [hi1, hA2] at h1
   have h2 := coeff_mul_mul_derivative_at_bounds68 (A ^ 2) d B
-    (4 * n) (5 * n - 2 * g) (3 * n - g) (by omega)
+    (4 * n) (5 * n - 2 * g) (3 * n - g) (by clear * -hg hsmall hA hB hc hd he; omega)
     hA2deg hd hB
   have hi2 : 4 * n + (5 * n - 2 * g) + (3 * n - g) - 1 =
-      12 * n - 3 * g - 1 := by omega
+      12 * n - 3 * g - 1 := by clear * -hg hsmall hA hB hc hd he; omega
   rw [hi2, hA2] at h2
   have h2' : (A ^ 2 * derivative B * d).coeff
       (12 * n - 3 * g - 1) =
@@ -707,10 +790,10 @@ theorem secondaryResidualRowOnePolynomial68_coeff_double
         d.coeff (5 * n - 2 * g) * ((3 * n - g : ℕ) : k) := by
     simpa only [mul_assoc, mul_comm, mul_left_comm] using h2
   have h3 := coeff_mul_mul_mul_derivative_at_bounds68 A B d A
-    (2 * n) (3 * n - g) (5 * n - 2 * g) (2 * n) (by omega)
+    (2 * n) (3 * n - g) (5 * n - 2 * g) (2 * n) (by clear * -hg hsmall hA hB hc hd he; omega)
     hA hB hd hA
   have hi3 : 2 * n + (3 * n - g) + (5 * n - 2 * g) + 2 * n - 1 =
-      12 * n - 3 * g - 1 := by omega
+      12 * n - 3 * g - 1 := by clear * -hg hsmall hA hB hc hd he; omega
   rw [hi3] at h3
   have h3' : (A * derivative A * B * d).coeff
       (12 * n - 3 * g - 1) =
@@ -718,24 +801,24 @@ theorem secondaryResidualRowOnePolynomial68_coeff_double
         d.coeff (5 * n - 2 * g) * ((2 * n : ℕ) : k) := by
     simpa only [mul_assoc, mul_comm, mul_left_comm] using h3
   have h4 := coeff_mul_mul_derivative_at_bounds68 A c e
-    (2 * n) (4 * n - g) (6 * n - 2 * g) (by omega) hA hc he
+    (2 * n) (4 * n - g) (6 * n - 2 * g) (by clear * -hg hsmall hA hB hc hd he; omega) hA hc he
   have hi4 : 2 * n + (4 * n - g) + (6 * n - 2 * g) - 1 =
-      12 * n - 3 * g - 1 := by omega
+      12 * n - 3 * g - 1 := by clear * -hg hsmall hA hB hc hd he; omega
   rw [hi4] at h4
   have h5 := coeff_mul_mul_derivative_at_bounds68 A e c
-    (2 * n) (6 * n - 2 * g) (4 * n - g) (by omega) hA he hc
+    (2 * n) (6 * n - 2 * g) (4 * n - g) (by clear * -hg hsmall hA hB hc hd he; omega) hA he hc
   have hi5 : 2 * n + (6 * n - 2 * g) + (4 * n - g) - 1 =
-      12 * n - 3 * g - 1 := by omega
+      12 * n - 3 * g - 1 := by clear * -hg hsmall hA hB hc hd he; omega
   rw [hi5] at h5
   have h5' : (A * derivative c * e).coeff (12 * n - 3 * g - 1) =
       A.coeff (2 * n) * c.coeff (4 * n - g) *
         e.coeff (6 * n - 2 * g) * ((4 * n - g : ℕ) : k) := by
     simpa only [mul_assoc, mul_comm, mul_left_comm] using h5
   have h6 := coeff_mul_mul_derivative_at_bounds68 (B ^ 2) c A
-    (6 * n - 2 * g) (4 * n - g) (2 * n) (by omega)
+    (6 * n - 2 * g) (4 * n - g) (2 * n) (by clear * -hg hsmall hA hB hc hd he; omega)
     hB2deg hc hA
   have hi6 : (6 * n - 2 * g) + (4 * n - g) + 2 * n - 1 =
-      12 * n - 3 * g - 1 := by omega
+      12 * n - 3 * g - 1 := by clear * -hg hsmall hA hB hc hd he; omega
   rw [hi6, hB2] at h6
   have h6' : (derivative A * B ^ 2 * c).coeff
       (12 * n - 3 * g - 1) =
@@ -743,38 +826,38 @@ theorem secondaryResidualRowOnePolynomial68_coeff_double
         c.coeff (4 * n - g) * ((2 * n : ℕ) : k) := by
     simpa only [mul_assoc, mul_comm, mul_left_comm] using h6
   have h7 := coeff_mul_derivative_at_bounds68 (c ^ 2) c
-    (8 * n - 2 * g) (4 * n - g) (by omega) hc2deg hc
+    (8 * n - 2 * g) (4 * n - g) (by clear * -hg hsmall hA hB hc hd he; omega) hc2deg hc
   have hi7 : (8 * n - 2 * g) + (4 * n - g) - 1 =
-      12 * n - 3 * g - 1 := by omega
+      12 * n - 3 * g - 1 := by clear * -hg hsmall hA hB hc hd he; omega
   rw [hi7, hc2] at h7
   have hlowA : (derivative A * d ^ 2).natDegree <
-      12 * n - 3 * g - 1 := by compute_degree; omega
+      12 * n - 3 * g - 1 := by compute_degree; clear * -hg hsmall hA hB hc hd he; omega
   have hlowB : (B ^ 2 * derivative e).natDegree <
-      12 * n - 3 * g - 1 := by compute_degree; omega
+      12 * n - 3 * g - 1 := by compute_degree; clear * -hg hsmall hA hB hc hd he; omega
   have hlowC : (B * c * derivative d).natDegree <
-      12 * n - 3 * g - 1 := by compute_degree; omega
+      12 * n - 3 * g - 1 := by compute_degree; clear * -hg hsmall hA hB hc hd he; omega
   have hlowD : (B * derivative c * d).natDegree <
-      12 * n - 3 * g - 1 := by compute_degree; omega
+      12 * n - 3 * g - 1 := by compute_degree; clear * -hg hsmall hA hB hc hd he; omega
   have hlowE : (derivative B * c * d).natDegree <
-      12 * n - 3 * g - 1 := by compute_degree; omega
+      12 * n - 3 * g - 1 := by compute_degree; clear * -hg hsmall hA hB hc hd he; omega
   have hlowF : (e * derivative e).natDegree <
-      12 * n - 3 * g - 1 := by compute_degree; omega
+      12 * n - 3 * g - 1 := by compute_degree; clear * -hg hsmall hA hB hc hd he; omega
   have hcast3 : (((3 * n - g : ℕ) : k)) = 3 * (n : k) - (g : k) := by
-    rw [Nat.cast_sub (by omega : g ≤ 3 * n)]
+    rw [Nat.cast_sub (by clear * -hg hsmall hA hB hc hd he; omega : g ≤ 3 * n)]
     push_cast
     rfl
   have hcast4 : (((4 * n - g : ℕ) : k)) = 4 * (n : k) - (g : k) := by
-    rw [Nat.cast_sub (by omega : g ≤ 4 * n)]
+    rw [Nat.cast_sub (by clear * -hg hsmall hA hB hc hd he; omega : g ≤ 4 * n)]
     push_cast
     rfl
   have hcast5 : (((5 * n - 2 * g : ℕ) : k)) =
       5 * (n : k) - 2 * (g : k) := by
-    rw [Nat.cast_sub (by omega : 2 * g ≤ 5 * n)]
+    rw [Nat.cast_sub (by clear * -hg hsmall hA hB hc hd he; omega : 2 * g ≤ 5 * n)]
     push_cast
     rfl
   have hcast6 : (((6 * n - 2 * g : ℕ) : k)) =
       6 * (n : k) - 2 * (g : k) := by
-    rw [Nat.cast_sub (by omega : 2 * g ≤ 6 * n)]
+    rw [Nat.cast_sub (by clear * -hg hsmall hA hB hc hd he; omega : 2 * g ≤ 6 * n)]
     push_cast
     rfl
   simp only [secondaryResidualRowOnePolynomial68, coeff_smul, coeff_add,
@@ -789,7 +872,7 @@ theorem secondaryResidualRowOnePolynomial68_coeff_double
   push_cast
   ring
 
-set_option maxHeartbeats 3000000 in
+set_option maxHeartbeats 64000000 in
 theorem cubicHomogeneousRowOnePolynomial68_residualCoordinates
     (A B c d e : k[X]) :
     cubicHomogeneousRowOnePolynomial68 A B c
@@ -806,6 +889,7 @@ theorem cubicHomogeneousRowOnePolynomial68_residualCoordinates
   simp only [map_div₀, map_ofNat, map_natCast, map_one]
   ring
 
+set_option maxHeartbeats 64000000 in
 /-- Load-free terminal one-form in the residual coordinates. -/
 def secondaryResidualRowZeroPolynomial68
     (A B c d e : k[X]) : k[X] :=
@@ -821,7 +905,7 @@ def secondaryResidualRowZeroPolynomial68
       (3 : k) • (derivative B * d ^ 2) -
       (3 : k) • (c * derivative c * d))
 
-set_option maxHeartbeats 3000000 in
+set_option maxHeartbeats 64000000 in
 /-- Coefficient of the residual terminal one-form on the double face. -/
 theorem secondaryResidualRowZeroPolynomial68_coeff_double
     (A B c d e : k[X]) (n g : ℕ) (hg : 0 < g) (hsmall : 3 * g < n)
@@ -839,49 +923,49 @@ theorem secondaryResidualRowZeroPolynomial68_coeff_double
             d.coeff (5 * n - 2 * g) +
           B.coeff (3 * n - g) * c.coeff (4 * n - g) ^ 2) := by
   have h1 := coeff_mul_mul_mul_derivative_at_bounds68 A B e A
-    (2 * n) (3 * n - g) (6 * n - 2 * g) (2 * n) (by omega)
+    (2 * n) (3 * n - g) (6 * n - 2 * g) (2 * n) (by clear * -hg hsmall hA hB hc hd he; omega)
     hA hB he hA
   have hi1 : 2 * n + (3 * n - g) + (6 * n - 2 * g) + 2 * n - 1 =
-      13 * n - 3 * g - 1 := by omega
+      13 * n - 3 * g - 1 := by clear * -hg hsmall hA hB hc hd he; omega
   rw [hi1] at h1
   have h1' : (A * derivative A * B * e).coeff (13 * n - 3 * g - 1) =
       A.coeff (2 * n) * A.coeff (2 * n) * B.coeff (3 * n - g) *
         e.coeff (6 * n - 2 * g) * ((2 * n : ℕ) : k) := by
     simpa only [mul_assoc, mul_comm, mul_left_comm] using h1
   have h2 := coeff_mul_mul_mul_derivative_at_bounds68 A c d A
-    (2 * n) (4 * n - g) (5 * n - 2 * g) (2 * n) (by omega)
+    (2 * n) (4 * n - g) (5 * n - 2 * g) (2 * n) (by clear * -hg hsmall hA hB hc hd he; omega)
     hA hc hd hA
   have hi2 : 2 * n + (4 * n - g) + (5 * n - 2 * g) + 2 * n - 1 =
-      13 * n - 3 * g - 1 := by omega
+      13 * n - 3 * g - 1 := by clear * -hg hsmall hA hB hc hd he; omega
   rw [hi2] at h2
   have h2' : (A * derivative A * c * d).coeff (13 * n - 3 * g - 1) =
       A.coeff (2 * n) * A.coeff (2 * n) * c.coeff (4 * n - g) *
         d.coeff (5 * n - 2 * g) * ((2 * n : ℕ) : k) := by
     simpa only [mul_assoc, mul_comm, mul_left_comm] using h2
   have h3 := coeff_mul_mul_mul_derivative_at_bounds68 B c c A
-    (3 * n - g) (4 * n - g) (4 * n - g) (2 * n) (by omega)
+    (3 * n - g) (4 * n - g) (4 * n - g) (2 * n) (by clear * -hg hsmall hA hB hc hd he; omega)
     hB hc hc hA
   have hi3 : (3 * n - g) + (4 * n - g) + (4 * n - g) + 2 * n - 1 =
-      13 * n - 3 * g - 1 := by omega
+      13 * n - 3 * g - 1 := by clear * -hg hsmall hA hB hc hd he; omega
   rw [hi3] at h3
   have h3' : (derivative A * B * c ^ 2).coeff (13 * n - 3 * g - 1) =
       A.coeff (2 * n) * B.coeff (3 * n - g) *
         c.coeff (4 * n - g) ^ 2 * ((2 * n : ℕ) : k) := by
     simpa only [pow_two, mul_assoc, mul_comm, mul_left_comm] using h3
   have hlow1 : (A * B ^ 2 * derivative d).natDegree <
-      13 * n - 3 * g - 1 := by compute_degree; omega
+      13 * n - 3 * g - 1 := by compute_degree; clear * -hg hsmall hA hB hc hd he; omega
   have hlow2 : (A * B * derivative B * d).natDegree <
-      13 * n - 3 * g - 1 := by compute_degree; omega
+      13 * n - 3 * g - 1 := by compute_degree; clear * -hg hsmall hA hB hc hd he; omega
   have hlow3 : (derivative A * d * e).natDegree <
-      13 * n - 3 * g - 1 := by compute_degree; omega
+      13 * n - 3 * g - 1 := by compute_degree; clear * -hg hsmall hA hB hc hd he; omega
   have hlow4 : (B * c * derivative e).natDegree <
-      13 * n - 3 * g - 1 := by compute_degree; omega
+      13 * n - 3 * g - 1 := by compute_degree; clear * -hg hsmall hA hB hc hd he; omega
   have hlow5 : (B * d * derivative d).natDegree <
-      13 * n - 3 * g - 1 := by compute_degree; omega
+      13 * n - 3 * g - 1 := by compute_degree; clear * -hg hsmall hA hB hc hd he; omega
   have hlow6 : (derivative B * d ^ 2).natDegree <
-      13 * n - 3 * g - 1 := by compute_degree; omega
+      13 * n - 3 * g - 1 := by compute_degree; clear * -hg hsmall hA hB hc hd he; omega
   have hlow7 : (c * derivative c * d).natDegree <
-      13 * n - 3 * g - 1 := by compute_degree; omega
+      13 * n - 3 * g - 1 := by compute_degree; clear * -hg hsmall hA hB hc hd he; omega
   simp only [secondaryResidualRowZeroPolynomial68, coeff_smul, coeff_add,
     coeff_sub, h1', h2', h3',
     coeff_eq_zero_of_natDegree_lt hlow1,
@@ -894,7 +978,7 @@ theorem secondaryResidualRowZeroPolynomial68_coeff_double
   push_cast
   ring
 
-set_option maxHeartbeats 3000000 in
+set_option maxHeartbeats 64000000 in
 theorem cubicHomogeneousRowZeroPolynomial68_residualCoordinates
     (A B c d e : k[X]) :
     cubicHomogeneousRowZeroPolynomial68 A B c
@@ -911,7 +995,7 @@ theorem cubicHomogeneousRowZeroPolynomial68_residualCoordinates
   simp only [map_div₀, map_ofNat, map_natCast, map_one]
   ring
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 /-- In `3g<n`, the constant-load contribution to the second one-form lies
 below the residual double-face coefficient. -/
 theorem cubicLoadRowOnePolynomial68_degree_lt_residualDouble
@@ -959,10 +1043,13 @@ theorem cubicLoadRowOnePolynomial68_degree_lt_residualDouble
       12 * n - 3 * g - 1 := by compute_degree; omega
   change (Ul * derivative D + (2 : k) • (Tl * derivative E) -
     (2 : k) • (C0 * derivative Vl) - D * derivative Ul).natDegree < _
-  compute_degree
-  omega
+  exact lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt
+    (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt
+      (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt hUlD
+        (lt_of_le_of_lt (natDegree_smul_le _ _) hTlE)))
+      (lt_of_le_of_lt (natDegree_smul_le _ _) hC0Vl))) hDUl)
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 /-- The terminal-row load also lies below its residual double-face
 coefficient in `3g<n`. -/
 theorem cubicLoadRowZeroPolynomial68_degree_lt_residualDouble
@@ -997,10 +1084,9 @@ theorem cubicLoadRowZeroPolynomial68_degree_lt_residualDouble
   have hDVl : (D * derivative Vl).natDegree <
       13 * n - 3 * g - 1 := by compute_degree; omega
   change (Ul * derivative E - D * derivative Vl).natDegree < _
-  compute_degree
-  omega
+  exact lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt hUlE hDVl)
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 /-- The canonical expanded lower system has genuine strict degree drop in
 both new residual coordinates throughout the first small-gap chamber. -/
 theorem maximalExpandedIntegratedPolynomialLowerSystem_secondaryResidualDegreeDrops68

@@ -23,6 +23,7 @@ set_option linter.unusedSectionVars false
 set_option linter.unusedVariables false
 /-! ## Residual gap after the first secondary face, without `3g < n` -/
 
+set_option maxHeartbeats 64000000 in
 /-- Strict residual degree drops already force the selected residual gap
 above `g`.  The old hypothesis `3g < n` is unnecessary. -/
 theorem secondaryResidualGap68_gt_of_strictDrops
@@ -52,7 +53,7 @@ theorem secondaryResidualGap68_gt_of_strictDrops
 
 /-! ## Shrunk residual window `g < h` and `g+h < n` inside `n ≤ 3g` -/
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 /-- Inside `n ≤ 3g`, the comparison `g+h < n` puts every quartic-invariant
 load strictly below the residual middle face `9n-g-h`. -/
 theorem secondaryLoadInvariantFourPolynomial68_degree_lt_middle_of_loadWindow
@@ -66,11 +67,58 @@ theorem secondaryLoadInvariantFourPolynomial68_degree_lt_middle_of_loadWindow
     (secondaryLoadInvariantFourPolynomial68
       l beta gamma delta epsilon zeta A B c D e).natDegree <
         9 * n - g - h := by
-  simp only [secondaryLoadInvariantFourPolynomial68]
-  compute_degree
-  omega
+  have speedTBound0 : A.natDegree < 9 * n - g - h := by
+    clear * - hg hgh hwin hA hB hc hD he
+    omega
+  have speedTBound1 : B.natDegree < 9 * n - g - h := by
+    clear * - hg hgh hwin hA hB hc hD he
+    omega
+  have speedTBound2 : (2 * A.natDegree) < 9 * n - g - h := by
+    clear * - hg hgh hwin hA hB hc hD he
+    omega
+  have speedTBound3 : c.natDegree < 9 * n - g - h := by
+    clear * - hg hgh hwin hA hB hc hD he
+    omega
+  have speedTBound4 : D.natDegree < 9 * n - g - h := by
+    clear * - hg hgh hwin hA hB hc hD he
+    omega
+  have speedTBound5 : (A.natDegree + B.natDegree) < 9 * n - g - h := by
+    clear * - hg hgh hwin hA hB hc hD he
+    omega
+  have speedTBound6 : e.natDegree < 9 * n - g - h := by
+    clear * - hg hgh hwin hA hB hc hD he
+    omega
+  have speedTBound7 : (A.natDegree + c.natDegree) < 9 * n - g - h := by
+    clear * - hg hgh hwin hA hB hc hD he
+    omega
+  have speedTBound8 : (2 * B.natDegree) < 9 * n - g - h := by
+    clear * - hg hgh hwin hA hB hc hD he
+    omega
+  have speedTBound9 : (3 * A.natDegree) < 9 * n - g - h := by
+    clear * - hg hgh hwin hA hB hc hD he
+    omega
+  have speedTBound10 : (4 * A.natDegree) < 9 * n - g - h := by
+    clear * - hg hgh hwin hA hB hc hD he
+    omega
+  have speedTBound11 : ((2 * A.natDegree) + c.natDegree) < 9 * n - g - h := by
+    clear * - hg hgh hwin hA hB hc hD he
+    omega
+  have speedTBound12 : (A.natDegree + (2 * B.natDegree)) < 9 * n - g - h := by
+    clear * - hg hgh hwin hA hB hc hD he
+    omega
+  have speedTBound13 : (A.natDegree + e.natDegree) < 9 * n - g - h := by
+    clear * - hg hgh hwin hA hB hc hD he
+    omega
+  have speedTBound14 : (B.natDegree + D.natDegree) < 9 * n - g - h := by
+    clear * - hg hgh hwin hA hB hc hD he
+    omega
+  have speedTBound15 : (2 * c.natDegree) < 9 * n - g - h := by
+    clear * - hg hgh hwin hA hB hc hD he
+    omega
+  unfold secondaryLoadInvariantFourPolynomial68
+  exact (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_refl _)) speedTBound0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_refl _)) speedTBound1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) speedTBound2))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_refl _)) speedTBound3))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_refl _)) speedTBound4))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _)))) speedTBound5))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_refl _)) speedTBound6))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _)))) speedTBound7))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) speedTBound8))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) speedTBound9))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) speedTBound10))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) speedTBound11))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) natDegree_pow_le))) speedTBound12))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _)))) speedTBound13))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _)))) speedTBound14))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) speedTBound15)))
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 /-- The corresponding cubic-invariant load cutoff.  The heaviest remaining
 load is `l A^3 B` at `9n-g`, which stays below `10n-g-h` once `h < n`. -/
 theorem secondaryLoadInvariantThreePolynomial68_degree_lt_middle_of_loadWindow
@@ -84,11 +132,55 @@ theorem secondaryLoadInvariantThreePolynomial68_degree_lt_middle_of_loadWindow
     (secondaryLoadInvariantThreePolynomial68
       l beta gamma delta epsilon zeta A B c D e).natDegree <
         10 * n - g - h := by
-  simp only [secondaryLoadInvariantThreePolynomial68]
-  compute_degree
-  omega
+  have speedTBound0 : B.natDegree < 10 * n - g - h := by
+    clear * - hg hwin hA hB hc hD he
+    omega
+  have speedTBound1 : c.natDegree < 10 * n - g - h := by
+    clear * - hg hwin hA hB hc hD he
+    omega
+  have speedTBound2 : e.natDegree < 10 * n - g - h := by
+    clear * - hg hwin hA hB hc hD he
+    omega
+  have speedTBound3 : (2 * B.natDegree) < 10 * n - g - h := by
+    clear * - hg hwin hA hB hc hD he
+    omega
+  have speedTBound4 : D.natDegree < 10 * n - g - h := by
+    clear * - hg hwin hA hB hc hD he
+    omega
+  have speedTBound5 : (A.natDegree + B.natDegree) < 10 * n - g - h := by
+    clear * - hg hwin hA hB hc hD he
+    omega
+  have speedTBound6 : ((2 * A.natDegree) + B.natDegree) < 10 * n - g - h := by
+    clear * - hg hwin hA hB hc hD he
+    omega
+  have speedTBound7 : (A.natDegree + D.natDegree) < 10 * n - g - h := by
+    clear * - hg hwin hA hB hc hD he
+    omega
+  have speedTBound8 : (B.natDegree + c.natDegree) < 10 * n - g - h := by
+    clear * - hg hwin hA hB hc hD he
+    omega
+  have speedTBound9 : ((3 * A.natDegree) + B.natDegree) < 10 * n - g - h := by
+    clear * - hg hwin hA hB hc hD he
+    omega
+  have speedTBound10 : ((2 * A.natDegree) + D.natDegree) < 10 * n - g - h := by
+    clear * - hg hwin hA hB hc hD he
+    omega
+  have speedTBound11 : ((A.natDegree + B.natDegree) + c.natDegree) < 10 * n - g - h := by
+    clear * - hg hwin hA hB hc hD he
+    omega
+  have speedTBound12 : (3 * B.natDegree) < 10 * n - g - h := by
+    clear * - hg hwin hA hB hc hD he
+    omega
+  have speedTBound13 : (B.natDegree + e.natDegree) < 10 * n - g - h := by
+    clear * - hg hwin hA hB hc hD he
+    omega
+  have speedTBound14 : (D.natDegree + c.natDegree) < 10 * n - g - h := by
+    clear * - hg hwin hA hB hc hD he
+    omega
+  unfold secondaryLoadInvariantThreePolynomial68
+  exact (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_sub_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_refl _)) speedTBound0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_refl _)) speedTBound1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_refl _)) speedTBound2))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) speedTBound3))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_refl _)) speedTBound4))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _)))) speedTBound5))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) speedTBound6))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _)))) speedTBound7))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _)))) speedTBound8))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) speedTBound9))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add natDegree_pow_le (le_refl _)))) speedTBound10))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _))) (le_refl _)))) speedTBound11))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) speedTBound12))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _)))) speedTBound13))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _)))) speedTBound14)))
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 /-- Load-free residual quartic coefficient on the shrunk middle face.
 The `B^3` term is lower because `h < 2g` follows from `g+h < n ≤ 3g`. -/
 theorem secondaryResidualInvariantFourPolynomial68_coeff_middle_of_loadWindow
@@ -116,7 +208,7 @@ theorem secondaryResidualInvariantFourPolynomial68_coeff_middle_of_loadWindow
     coeff_smul, smul_eq_mul, coeff_eq_zero_of_natDegree_lt hB3, hBe, hcd]
   ring
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 theorem secondaryResidualInvariantThreePolynomial68_coeff_middle_of_loadWindow
     (A B c d e : k[X]) (n g h : ℕ)
     (hg : 0 < g) (hgh : g < h) (hlarge : n ≤ 3 * g) (hwin : g + h < n)
@@ -151,7 +243,7 @@ theorem secondaryResidualInvariantThreePolynomial68_coeff_middle_of_loadWindow
     coeff_eq_zero_of_natDegree_lt hd2]
   ring
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 theorem cubicFirstIntegralFourPolynomial68_coeff_residualMiddle_of_loadWindow
     (l beta gamma delta epsilon zeta : k) (A B c d e : k[X])
     (n g h : ℕ) (hg : 0 < g) (hgh : g < h)
@@ -185,7 +277,7 @@ theorem cubicFirstIntegralFourPolynomial68_coeff_residualMiddle_of_loadWindow
       B c d e n g h hg hgh hlarge hwin hB hc hd he,
     coeff_eq_zero_of_natDegree_lt hload, add_zero]
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 theorem cubicFirstIntegralThreePolynomial68_coeff_residualMiddle_of_loadWindow
     (l beta gamma delta epsilon zeta : k) (A B c d e : k[X])
     (n g h : ℕ) (hg : 0 < g) (hgh : g < h)
@@ -220,6 +312,7 @@ theorem cubicFirstIntegralThreePolynomial68_coeff_residualMiddle_of_loadWindow
       A B c d e n g h hg hgh hlarge hwin hA hB hc hd he,
     coeff_eq_zero_of_natDegree_lt hload, add_zero]
 
+set_option maxHeartbeats 64000000 in
 /-- The two constant invariants still select the abstract residual middle
 face on the shrunk load-free window `g < h` and `g+h < n` inside `n ≤ 3g`. -/
 theorem polynomialSecondaryResidualBetweenFace68_of_loadWindow
@@ -258,7 +351,7 @@ theorem polynomialSecondaryResidualBetweenFace68_of_loadWindow
     have hzero := (mul_eq_zero.mp hz).resolve_left (by norm_num)
     linear_combination hzero
 
-set_option maxHeartbeats 4000000 in
+set_option maxHeartbeats 64000000 in
 /-- On a maximal expanded system in `n ≤ 3g`, a residual gap in the
 load-free window `g < h` and `g+h < n` supplies the residual middle face. -/
 theorem maximalExpandedIntegratedPolynomialLowerSystem_largeGapResidualMiddleFace68
@@ -352,7 +445,7 @@ theorem maximalExpandedIntegratedPolynomialLowerSystem_largeGapResidualMiddleFac
   have hA : Ae.natDegree ≤ 2 * n := by
     have hAe : Ae.natDegree = 2 * n := by
       simpa only [n, Ae, Be, Ce, De, Ee] using hdrop.1
-    omega
+    exact hAe.le
   have hB : Be.natDegree ≤ 3 * n - g := by
     simpa only [n, Ae, Be, Ce, ce, De, Ee, ee, g] using hsecondary.2.1
   have hc : ce.natDegree ≤ 4 * n - g := by
@@ -396,7 +489,7 @@ theorem maximalExpandedIntegratedPolynomialLowerSystem_largeGapResidualMiddleFac
 
 /-! ## Residual `A^4` collision when `n < g+h` and `n < 3g` -/
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 /-- If the residual gap overshoots the load window and we are still
 strictly below the double wall `n = 3g`, residual `I4` lies below `A^4`. -/
 theorem secondaryResidualInvariantFourPolynomial68_degree_lt_eightRadius
@@ -408,11 +501,19 @@ theorem secondaryResidualInvariantFourPolynomial68_degree_lt_eightRadius
     (he : e.natDegree ≤ 6 * n - h) :
     (secondaryResidualInvariantFourPolynomial68 B c d e).natDegree <
       8 * n := by
-  simp only [secondaryResidualInvariantFourPolynomial68]
-  compute_degree
-  omega
+  have speedTBound0 : (3 * B.natDegree) < 8 * n := by
+    clear * - hg hn hstrict hover hB hc hd he
+    omega
+  have speedTBound1 : (B.natDegree + e.natDegree) < 8 * n := by
+    clear * - hg hn hstrict hover hB hc hd he
+    omega
+  have speedTBound2 : (c.natDegree + d.natDegree) < 8 * n := by
+    clear * - hg hn hstrict hover hB hc hd he
+    omega
+  unfold secondaryResidualInvariantFourPolynomial68
+  exact (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (natDegree_add_le _ _) (max_lt (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) natDegree_pow_le) speedTBound0) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _)))) speedTBound1))) (lt_of_le_of_lt (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _)))) speedTBound2)))
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 theorem cubicFirstIntegralFourPolynomial68_coeff_eightRadius_of_residualOvershoot
     (l beta gamma delta epsilon zeta : k) (A B c d e : k[X])
     (n g h : ℕ) (hn : 0 < n) (hg : 0 < g) (hgh : g < h)
@@ -450,6 +551,7 @@ theorem cubicFirstIntegralFourPolynomial68_coeff_eightRadius_of_residualOvershoo
     secondaryLoadInvariantFourPolynomial68_coeff_eightRadius
       l beta gamma delta epsilon zeta A B c D e n g hn hg hA hB hc hD he']
 
+set_option maxHeartbeats 64000000 in
 /-- Residual overshoot `n < g+h` inside `n < 3g` again forces `l = 0`. -/
 theorem cubicFirstIntegralFourPolynomial68_imp_loadL_eq_zero_of_residualOvershoot
     (l beta gamma delta epsilon zeta i4 : k) (A B c d e : k[X])
@@ -476,7 +578,7 @@ theorem cubicFirstIntegralFourPolynomial68_imp_loadL_eq_zero_of_residualOvershoo
     (mul_eq_zero.mp hprod).resolve_left (by norm_num)
   exact (mul_eq_zero.mp hla).resolve_right (pow_ne_zero 4 ha)
 
-set_option maxHeartbeats 4000000 in
+set_option maxHeartbeats 64000000 in
 /-- On a maximal expanded system in `2g < n < 3g`, a residual gap with
 `n < g+h` forces `l = 0`. -/
 theorem maximalExpandedIntegratedPolynomialLowerSystem_residualOvershoot_loadL_eq_zero68
@@ -538,7 +640,7 @@ theorem maximalExpandedIntegratedPolynomialLowerSystem_residualOvershoot_loadL_e
   have hA : Ae.natDegree ≤ 2 * n := by
     have hAe : Ae.natDegree = 2 * n := by
       simpa only [n, Ae, Be, Ce, De, Ee] using hdrop.1
-    omega
+    exact hAe.le
   have hB : Be.natDegree ≤ 3 * n - g := by
     simpa only [n, Ae, Be, Ce, ce, De, Ee, ee, g] using hsecondary.2.1
   have hc : ce.natDegree ≤ 4 * n - g := by
@@ -554,8 +656,8 @@ theorem maximalExpandedIntegratedPolynomialLowerSystem_residualOvershoot_loadL_e
   have hgh : g < h := by
     simpa only [h] using secondaryResidualGap68_gt_of_strictDrops n g d ee
       hdrops.1 hdrops.2
-  have hdbase : d.natDegree < 5 * n := by omega
-  have hebase : ee.natDegree < 6 * n := by omega
+  have hdbase : d.natDegree < 5 * n := lt_of_lt_of_le hdrops.1 (Nat.sub_le _ _)
+  have hebase : ee.natDegree < 6 * n := lt_of_lt_of_le hdrops.2 (Nat.sub_le _ _)
   have hbounds : d.natDegree ≤ 5 * n - h ∧
       ee.natDegree ≤ 6 * n - h := by
     simpa only [h] using secondaryResidualGap68_degreeBounds n d ee

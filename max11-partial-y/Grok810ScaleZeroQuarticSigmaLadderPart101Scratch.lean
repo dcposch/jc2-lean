@@ -31,6 +31,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticSigmaSupportCones810
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticSigmaConeB810' (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     B ≠ 0 ∧
@@ -41,6 +42,7 @@ def QuarticSigmaConeB810' (A B C D E F G : k[X]) : Prop :=
     (G = 0 ∨ G.natDegree < A.natDegree + 2 * B.natDegree)
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticSigmaConeC810' (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     C ≠ 0 ∧
@@ -82,6 +84,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticSigmaSupportCones810
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeD810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     D ≠ 0 ∧
@@ -92,6 +95,7 @@ def QuarticLoadSigmaConeD810 (A B C D E F G : k[X]) : Prop :=
     (G = 0 ∨ 2 * G.natDegree < 3 * A.natDegree + 2 * D.natDegree)
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeE810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     E ≠ 0 ∧
@@ -133,6 +137,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticSigmaSupportCones810
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeF810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     F ≠ 0 ∧
@@ -143,6 +148,7 @@ def QuarticLoadSigmaConeF810 (A B C D E F G : k[X]) : Prop :=
     (G = 0 ∨ 2 * G.natDegree < A.natDegree + 2 * F.natDegree)
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeG810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     G ≠ 0 ∧
@@ -184,6 +190,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticSigmaSupportCones810
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticSigmaConeBC810' (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     B ≠ 0 ∧
@@ -195,6 +202,7 @@ def QuarticSigmaConeBC810' (A B C D E F G : k[X]) : Prop :=
     (G = 0 ∨ G.natDegree < A.natDegree + 2 * B.natDegree)
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeBD810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     B ≠ 0 ∧
@@ -237,6 +245,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticSigmaSupportCones810
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeBE810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     B ≠ 0 ∧
@@ -248,6 +257,7 @@ def QuarticLoadSigmaConeBE810 (A B C D E F G : k[X]) : Prop :=
     (G = 0 ∨ G.natDegree < A.natDegree + 2 * B.natDegree)
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeBF810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     B ≠ 0 ∧
@@ -290,6 +300,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticSigmaSupportCones810
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeBG810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     B ≠ 0 ∧
@@ -301,6 +312,7 @@ def QuarticLoadSigmaConeBG810 (A B C D E F G : k[X]) : Prop :=
     (F = 0 ∨ 2 * F.natDegree < A.natDegree + 4 * B.natDegree)
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeCD810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     C ≠ 0 ∧
@@ -343,6 +355,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticSigmaSupportCones810
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeCE810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     C ≠ 0 ∧
@@ -354,6 +367,7 @@ def QuarticLoadSigmaConeCE810 (A B C D E F G : k[X]) : Prop :=
     (G = 0 ∨ G.natDegree < 2 * C.natDegree)
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeCF810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     C ≠ 0 ∧
@@ -396,6 +410,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticSigmaSupportCones810
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeCG810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     C ≠ 0 ∧
@@ -407,6 +422,7 @@ def QuarticLoadSigmaConeCG810 (A B C D E F G : k[X]) : Prop :=
     (F = 0 ∨ A.natDegree + 2 * F.natDegree < 4 * C.natDegree)
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeDE810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     D ≠ 0 ∧
@@ -449,6 +465,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticSigmaSupportCones810
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeDF810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     D ≠ 0 ∧
@@ -460,6 +477,7 @@ def QuarticLoadSigmaConeDF810 (A B C D E F G : k[X]) : Prop :=
     (G = 0 ∨ 2 * G.natDegree < 3 * A.natDegree + 2 * D.natDegree)
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeDG810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     D ≠ 0 ∧
@@ -502,6 +520,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticSigmaSupportCones810
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeEF810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     E ≠ 0 ∧
@@ -513,6 +532,7 @@ def QuarticLoadSigmaConeEF810 (A B C D E F G : k[X]) : Prop :=
     (G = 0 ∨ G.natDegree < A.natDegree + E.natDegree)
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeEG810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     E ≠ 0 ∧
@@ -555,6 +575,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticSigmaSupportCones810
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeFG810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     F ≠ 0 ∧
@@ -566,6 +587,7 @@ def QuarticLoadSigmaConeFG810 (A B C D E F G : k[X]) : Prop :=
     (E = 0 ∨ A.natDegree + 2 * E.natDegree < 2 * F.natDegree)
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeBCD810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     B ≠ 0 ∧
@@ -609,6 +631,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticSigmaSupportCones810
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeBCE810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     B ≠ 0 ∧
@@ -621,6 +644,7 @@ def QuarticLoadSigmaConeBCE810 (A B C D E F G : k[X]) : Prop :=
     (G = 0 ∨ G.natDegree < A.natDegree + 2 * B.natDegree)
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeBCF810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     B ≠ 0 ∧
@@ -664,6 +688,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticSigmaSupportCones810
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeBCG810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     B ≠ 0 ∧
@@ -676,6 +701,7 @@ def QuarticLoadSigmaConeBCG810 (A B C D E F G : k[X]) : Prop :=
     (F = 0 ∨ 2 * F.natDegree < A.natDegree + 4 * B.natDegree)
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeBDE810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     B ≠ 0 ∧
@@ -719,6 +745,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticSigmaSupportCones810
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeBDF810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     B ≠ 0 ∧
@@ -731,6 +758,7 @@ def QuarticLoadSigmaConeBDF810 (A B C D E F G : k[X]) : Prop :=
     (G = 0 ∨ G.natDegree < A.natDegree + 2 * B.natDegree)
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeBDG810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     B ≠ 0 ∧
@@ -774,6 +802,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticSigmaSupportCones810
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeBEF810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     B ≠ 0 ∧
@@ -786,6 +815,7 @@ def QuarticLoadSigmaConeBEF810 (A B C D E F G : k[X]) : Prop :=
     (G = 0 ∨ G.natDegree < A.natDegree + 2 * B.natDegree)
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeBEG810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     B ≠ 0 ∧
@@ -829,6 +859,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticSigmaSupportCones810
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeBFG810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     B ≠ 0 ∧
@@ -841,6 +872,7 @@ def QuarticLoadSigmaConeBFG810 (A B C D E F G : k[X]) : Prop :=
     (E = 0 ∨ 4 * E.natDegree < 3 * A.natDegree + 6 * B.natDegree)
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeCDE810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     C ≠ 0 ∧
@@ -884,6 +916,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticSigmaSupportCones810
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeCDF810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     C ≠ 0 ∧
@@ -896,6 +929,7 @@ def QuarticLoadSigmaConeCDF810 (A B C D E F G : k[X]) : Prop :=
     (G = 0 ∨ G.natDegree < 2 * C.natDegree)
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeCDG810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     C ≠ 0 ∧
@@ -939,6 +973,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticSigmaSupportCones810
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeCEF810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     C ≠ 0 ∧
@@ -951,6 +986,7 @@ def QuarticLoadSigmaConeCEF810 (A B C D E F G : k[X]) : Prop :=
     (G = 0 ∨ G.natDegree < 2 * C.natDegree)
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeCEG810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     C ≠ 0 ∧
@@ -994,6 +1030,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticSigmaSupportCones810
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeCFG810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     C ≠ 0 ∧
@@ -1006,6 +1043,7 @@ def QuarticLoadSigmaConeCFG810 (A B C D E F G : k[X]) : Prop :=
     (E = 0 ∨ 2 * E.natDegree < 3 * C.natDegree)
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeDEF810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     D ≠ 0 ∧
@@ -1049,6 +1087,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticSigmaSupportCones810
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeDEG810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     D ≠ 0 ∧
@@ -1061,6 +1100,7 @@ def QuarticLoadSigmaConeDEG810 (A B C D E F G : k[X]) : Prop :=
     (F = 0 ∨ F.natDegree < A.natDegree + D.natDegree)
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeDFG810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     D ≠ 0 ∧
@@ -1104,6 +1144,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticSigmaSupportCones810
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeEFG810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     E ≠ 0 ∧
@@ -1116,6 +1157,7 @@ def QuarticLoadSigmaConeEFG810 (A B C D E F G : k[X]) : Prop :=
     (D = 0 ∨ A.natDegree + 2 * D.natDegree < 2 * E.natDegree)
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeBCDE810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     B ≠ 0 ∧
@@ -1160,6 +1202,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticSigmaSupportCones810
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeBCDF810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     B ≠ 0 ∧
@@ -1173,6 +1216,7 @@ def QuarticLoadSigmaConeBCDF810 (A B C D E F G : k[X]) : Prop :=
     (G = 0 ∨ G.natDegree < A.natDegree + 2 * B.natDegree)
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeBCDG810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     B ≠ 0 ∧
@@ -1217,6 +1261,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticSigmaSupportCones810
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeBCEF810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     B ≠ 0 ∧
@@ -1230,6 +1275,7 @@ def QuarticLoadSigmaConeBCEF810 (A B C D E F G : k[X]) : Prop :=
     (G = 0 ∨ G.natDegree < A.natDegree + 2 * B.natDegree)
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeBCEG810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     B ≠ 0 ∧
@@ -1274,6 +1320,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticSigmaSupportCones810
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeBCFG810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     B ≠ 0 ∧
@@ -1287,6 +1334,7 @@ def QuarticLoadSigmaConeBCFG810 (A B C D E F G : k[X]) : Prop :=
     (E = 0 ∨ 4 * E.natDegree < 3 * A.natDegree + 6 * B.natDegree)
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeBDEF810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     B ≠ 0 ∧
@@ -1331,6 +1379,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticSigmaSupportCones810
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeBDEG810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     B ≠ 0 ∧
@@ -1344,6 +1393,7 @@ def QuarticLoadSigmaConeBDEG810 (A B C D E F G : k[X]) : Prop :=
     (F = 0 ∨ 2 * F.natDegree < A.natDegree + 4 * B.natDegree)
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeBDFG810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     B ≠ 0 ∧
@@ -1388,6 +1438,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticSigmaSupportCones810
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeBEFG810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     B ≠ 0 ∧
@@ -1401,6 +1452,7 @@ def QuarticLoadSigmaConeBEFG810 (A B C D E F G : k[X]) : Prop :=
     (D = 0 ∨ 4 * D.natDegree < A.natDegree + 6 * B.natDegree)
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeCDEF810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     C ≠ 0 ∧
@@ -1445,6 +1497,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticSigmaSupportCones810
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeCDEG810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     C ≠ 0 ∧
@@ -1458,6 +1511,7 @@ def QuarticLoadSigmaConeCDEG810 (A B C D E F G : k[X]) : Prop :=
     (F = 0 ∨ A.natDegree + 2 * F.natDegree < 4 * C.natDegree)
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeCDFG810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     C ≠ 0 ∧
@@ -1502,6 +1556,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticSigmaSupportCones810
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeCEFG810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     C ≠ 0 ∧
@@ -1515,6 +1570,7 @@ def QuarticLoadSigmaConeCEFG810 (A B C D E F G : k[X]) : Prop :=
     (D = 0 ∨ A.natDegree + 2 * D.natDegree < 3 * C.natDegree)
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeDEFG810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     D ≠ 0 ∧
@@ -1559,6 +1615,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticSigmaSupportCones810
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeBCDEF810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     B ≠ 0 ∧
@@ -1573,6 +1630,7 @@ def QuarticLoadSigmaConeBCDEF810 (A B C D E F G : k[X]) : Prop :=
     (G = 0 ∨ G.natDegree < A.natDegree + 2 * B.natDegree)
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeBCDEG810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     B ≠ 0 ∧
@@ -1618,6 +1676,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticSigmaSupportCones810
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeBCDFG810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     B ≠ 0 ∧
@@ -1632,6 +1691,7 @@ def QuarticLoadSigmaConeBCDFG810 (A B C D E F G : k[X]) : Prop :=
     (E = 0 ∨ 4 * E.natDegree < 3 * A.natDegree + 6 * B.natDegree)
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeBCEFG810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     B ≠ 0 ∧
@@ -1677,6 +1737,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticSigmaSupportCones810
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeBDEFG810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     B ≠ 0 ∧
@@ -1691,6 +1752,7 @@ def QuarticLoadSigmaConeBDEFG810 (A B C D E F G : k[X]) : Prop :=
     (C = 0 ∨ 2 * C.natDegree < A.natDegree + 2 * B.natDegree)
 
 
+set_option maxHeartbeats 64000000 in
 def QuarticLoadSigmaConeCDEFG810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
     C ≠ 0 ∧
@@ -1754,6 +1816,7 @@ def QuarticLoadSigmaConeBCDEFG810 (A B C D E F G : k[X]) : Prop :=
 
 /-! ### Mixed-monomial residual cones (holes in the 63-cone taxonomy) -/
 
+set_option maxHeartbeats 64000000 in
 /-- Residual chamber of the σ-defect taxonomy: `B` wins the
 singleton-face race (`3σ_B ≤ k_Z σ_Z` for every live `Z`) yet the mixed
 monomial `B·F` is strictly cheaper than `B³` (`σ_F < 2σ_B`), so the
@@ -1803,6 +1866,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticSigmaSupportCones810
 
 
+set_option maxHeartbeats 64000000 in
 /-- Residual chamber of the σ-defect taxonomy: `B` wins the
 singleton-face race (`3σ_B ≤ k_Z σ_Z` for every live `Z`) yet the mixed
 monomial `B·G` is strictly cheaper than `B³` (`σ_G < 2σ_B`), so the
@@ -1821,6 +1885,7 @@ def QuarticMixedSigmaConeBG810 (A B C D E F G : k[X]) : Prop :=
     (F = 0 ∨ 4 * F.natDegree ≤ 5 * A.natDegree + 6 * B.natDegree)
 
 
+set_option maxHeartbeats 64000000 in
 /-- Residual chamber of the σ-defect taxonomy: `C` wins the
 singleton-face race (`3σ_C ≤ k_Z σ_Z` for every live `Z`) yet the mixed
 monomial `C·F` is strictly cheaper than `C³` (`σ_F < 2σ_C`), so the
@@ -1870,6 +1935,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticN2_810
 
 
+set_option maxHeartbeats 64000000 in
 /-- `ν + (1/8)·A·κ` : weight 13, level-2 face `(5/16)(DG+EF)`, zero on `S ⊆ {B,C}`. -/
 def degreeZeroN2Quartic810
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -1880,6 +1946,7 @@ def degreeZeroN2Quartic810
       epsilon zeta eta theta A B C D E F G)
 
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroN2Quartic810_natDegree_le
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X])
@@ -1943,9 +2010,11 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticN2_810
 
 
+set_option maxHeartbeats 64000000 in
 def n2QuarticLFace810 (l : k) (A : k[X]) : k[X] :=
   (231 / 4194304 * l : k) • A ^ 6
 
+set_option maxHeartbeats 64000000 in
 def n2QuarticBetaFace810 (beta : k) (A : k[X]) : k[X] :=
   (63 / 262144 * beta : k) • A ^ 5
 
@@ -1980,9 +2049,11 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticN2_810
 
 
+set_option maxHeartbeats 64000000 in
 def n2QuarticDeltaFace810 (delta : k) (A : k[X]) : k[X] :=
   (35 / 32768 * delta : k) • A ^ 4
 
+set_option maxHeartbeats 64000000 in
 def n2QuarticZetaFace810 (zeta : k) (A : k[X]) : k[X] :=
   (5 / 1024 * zeta : k) • A ^ 3
 
@@ -2017,6 +2088,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticN2_810
 
 
+set_option maxHeartbeats 64000000 in
 def n2QuarticThetaFace810 (theta : k) (A : k[X]) : k[X] :=
   (3 / 128 * theta : k) • A ^ 2
 
@@ -2156,9 +2228,11 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticKappaLadder810
 
 
+set_option maxHeartbeats 64000000 in
 def kappaQuarticLFace810 (l : k) (A : k[X]) : k[X] :=
   (63 / 262144 * l : k) • A ^ 5
 
+set_option maxHeartbeats 64000000 in
 def kappaQuarticBetaFace810 (beta : k) (A : k[X]) : k[X] :=
   (35 / 32768 * beta : k) • A ^ 4
 
@@ -2193,9 +2267,11 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticKappaLadder810
 
 
+set_option maxHeartbeats 64000000 in
 def kappaQuarticDeltaFace810 (delta : k) (A : k[X]) : k[X] :=
   (5 / 1024 * delta : k) • A ^ 3
 
+set_option maxHeartbeats 64000000 in
 def kappaQuarticZetaFace810 (zeta : k) (A : k[X]) : k[X] :=
   (3 / 128 * zeta : k) • A ^ 2
 
@@ -2351,6 +2427,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticKappaLadder810
 
 
+set_option maxHeartbeats 64000000 in
 /-- κ kills `beta` when `2s > 3 a`, expanded per letter. -/
 def QuarticKappaLoadTopBeta810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
@@ -2362,6 +2439,7 @@ def QuarticKappaLoadTopBeta810 (A B C D E F G : k[X]) : Prop :=
     (G = 0 ∨ 4 * G.natDegree < 13 * A.natDegree)
 
 
+set_option maxHeartbeats 64000000 in
 /-- κ kills `delta` when `2s > 5 a`, expanded per letter. -/
 def QuarticKappaLoadTopDelta810 (A B C D E F G : k[X]) : Prop :=
   QuarticRatioConeA810 A B C D E F G ∧
@@ -2424,16 +2502,17 @@ theorem primitiveQuartic_of_lettersZero
   have hpow3 : (0 : k[X]) ^ 3 = 0 := zero_pow (by decide)
   have hpow4 : (0 : k[X]) ^ 4 = 0 := zero_pow (by decide)
   have hpow5 : (0 : k[X]) ^ 5 = 0 := zero_pow (by decide)
+  simp only [hpow2, hpow3, hpow4, hpow5,
+    zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add,
+    sub_zero, neg_zero, sub_self]
   apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
   simp only [Polynomial.smul_eq_C_mul, map_add, map_sub, map_mul,
     map_pow, map_neg, map_zero, RatFunc.algebraMap_C, map_div₀,
     map_ofNat, map_natCast, map_one]
-  simp only [hpow2, hpow3, hpow4, hpow5,
-    zero_mul, mul_zero, zero_smul, smul_zero, add_zero, zero_add,
-    sub_zero, neg_zero, sub_self]
   ring
 
 
+set_option maxHeartbeats 64000000 in
 theorem quarticADominant_allLettersZero_impossible
     {j t : k}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -2719,6 +2798,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticN2_810
 
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroN2QuarticNoL810
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) : k[X] :=
@@ -2777,6 +2857,7 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticKappaLadder810
 
 
+set_option maxHeartbeats 64000000 in
 def degreeZeroKappaQuarticNoL810
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) : k[X] :=
@@ -2851,22 +2932,43 @@ theorem degreeZeroKappaQuarticNoL1810_natDegree_lt_of_lTop
     (degreeZeroKappaQuarticNoL1810 l beta gamma delta epsilon zeta eta theta
         A B C D E F G).natDegree <
       5 * A.natDegree := by
-  have hA1 : 0 + 1 ≤ A.natDegree := Nat.succ_le_of_lt hApos
-  have hB1 : 2 * B.natDegree + 1 ≤ 3 * A.natDegree := Nat.succ_le_of_lt hAB
-  have hC1 : C.natDegree + 1 ≤ 2 * A.natDegree := Nat.succ_le_of_lt hAC
-  have hD1 : 2 * D.natDegree + 1 ≤ 5 * A.natDegree := Nat.succ_le_of_lt hAD
-  have hE1 : E.natDegree + 1 ≤ 3 * A.natDegree := Nat.succ_le_of_lt hAE
-  have hF1 : 2 * F.natDegree + 1 ≤ 7 * A.natDegree := Nat.succ_le_of_lt hAF
-  have hG1 : G.natDegree + 1 ≤ 4 * A.natDegree := Nat.succ_le_of_lt hAG
-  have hBt1 : 4 * B.natDegree + 1 ≤ 5 * A.natDegree := Nat.succ_le_of_lt hBt
-  have hCt1 : 4 * C.natDegree + 1 ≤ 7 * A.natDegree := Nat.succ_le_of_lt hCt
-  have hDt1 : 4 * D.natDegree + 1 ≤ 9 * A.natDegree := Nat.succ_le_of_lt hDt
-  have hEt1 : 4 * E.natDegree + 1 ≤ 11 * A.natDegree := Nat.succ_le_of_lt hEt
-  have hFt1 : 4 * F.natDegree + 1 ≤ 13 * A.natDegree := Nat.succ_le_of_lt hFt
-  have hGt1 : 4 * G.natDegree + 1 ≤ 15 * A.natDegree := Nat.succ_le_of_lt hGt
-  simp only [degreeZeroKappaQuarticNoL1810]
-  compute_degree
-  omega
+  have hreflection :
+      degreeZeroKappaQuarticNoL1810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [(5 / 512 : k),
+      -((15 / 128 : k)),
+      -((15 / 128 : k)),
+      (5 / 16 : k),
+      (5 / 16 : k),
+      (5 / 16 : k),
+      (45 / 8192 * l : k),
+      -((9 / 16384 * l : k)),
+      (27 / 1024 * l : k)]
+      [[1, 3, 0, 0, 0, 0, 0],
+      [0, 2, 0, 1, 0, 0, 0],
+      [0, 1, 2, 0, 0, 0, 0],
+      [0, 1, 0, 0, 0, 0, 1],
+      [0, 0, 1, 0, 0, 1, 0],
+      [0, 0, 0, 1, 1, 0, 0],
+      [3, 0, 1, 0, 0, 0, 0],
+      [2, 2, 0, 0, 0, 0, 0],
+      [2, 0, 0, 0, 1, 0, 0]] := by
+    unfold Max11ReflectDeg.polyOf
+    rw [List.sum_eq_foldl]
+    dsimp only [List.zipWith, List.foldl]
+    simp only [degreeZeroKappaQuarticNoL1810, Max11ReflectDeg.mono_cons,
+      Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+      pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+      sub_eq_add_neg, neg_smul]
+  rw [hreflection]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 
 set_option maxHeartbeats 64000000 in
@@ -2889,22 +2991,43 @@ theorem degreeZeroKappaQuarticNoL2810_natDegree_lt_of_lTop
     (degreeZeroKappaQuarticNoL2810 l beta gamma delta epsilon zeta eta theta
         A B C D E F G).natDegree <
       5 * A.natDegree := by
-  have hA1 : 0 + 1 ≤ A.natDegree := Nat.succ_le_of_lt hApos
-  have hB1 : 2 * B.natDegree + 1 ≤ 3 * A.natDegree := Nat.succ_le_of_lt hAB
-  have hC1 : C.natDegree + 1 ≤ 2 * A.natDegree := Nat.succ_le_of_lt hAC
-  have hD1 : 2 * D.natDegree + 1 ≤ 5 * A.natDegree := Nat.succ_le_of_lt hAD
-  have hE1 : E.natDegree + 1 ≤ 3 * A.natDegree := Nat.succ_le_of_lt hAE
-  have hF1 : 2 * F.natDegree + 1 ≤ 7 * A.natDegree := Nat.succ_le_of_lt hAF
-  have hG1 : G.natDegree + 1 ≤ 4 * A.natDegree := Nat.succ_le_of_lt hAG
-  have hBt1 : 4 * B.natDegree + 1 ≤ 5 * A.natDegree := Nat.succ_le_of_lt hBt
-  have hCt1 : 4 * C.natDegree + 1 ≤ 7 * A.natDegree := Nat.succ_le_of_lt hCt
-  have hDt1 : 4 * D.natDegree + 1 ≤ 9 * A.natDegree := Nat.succ_le_of_lt hDt
-  have hEt1 : 4 * E.natDegree + 1 ≤ 11 * A.natDegree := Nat.succ_le_of_lt hEt
-  have hFt1 : 4 * F.natDegree + 1 ≤ 13 * A.natDegree := Nat.succ_le_of_lt hFt
-  have hGt1 : 4 * G.natDegree + 1 ≤ 15 * A.natDegree := Nat.succ_le_of_lt hGt
-  simp only [degreeZeroKappaQuarticNoL2810]
-  compute_degree
-  omega
+  have hreflection :
+      degreeZeroKappaQuarticNoL2810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [(-(9 / 512 * l : k)),
+      (9 / 1024 * l : k),
+      -((63 / 1024 * l : k)),
+      (9 / 64 * l : k),
+      (9 / 64 * l : k),
+      (9 / 64 * l : k),
+      (9 / 128 * l : k),
+      (35 / 32768 * beta : k),
+      (21 / 1024 * beta : k)]
+      [[1, 1, 0, 1, 0, 0, 0],
+      [1, 0, 2, 0, 0, 0, 0],
+      [0, 2, 1, 0, 0, 0, 0],
+      [1, 0, 0, 0, 0, 0, 1],
+      [0, 1, 0, 0, 0, 1, 0],
+      [0, 0, 1, 0, 1, 0, 0],
+      [0, 0, 0, 2, 0, 0, 0],
+      [4, 0, 0, 0, 0, 0, 0],
+      [2, 0, 1, 0, 0, 0, 0]] := by
+    unfold Max11ReflectDeg.polyOf
+    rw [List.sum_eq_foldl]
+    dsimp only [List.zipWith, List.foldl]
+    simp only [degreeZeroKappaQuarticNoL2810, Max11ReflectDeg.mono_cons,
+      Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+      pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+      sub_eq_add_neg, neg_smul]
+  rw [hreflection]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 
 end QuarticKappaLadder810

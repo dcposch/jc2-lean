@@ -13,6 +13,7 @@ section DegreeLemmas610
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 /-- A polynomial with nonzero constant derivative has exact degree one. -/
 theorem natDegree_eq_one_of_derivative_eq_nonzero_C610
     (P : k[X]) (j : k) (hj : j ≠ 0) (h : derivative P = C j) :

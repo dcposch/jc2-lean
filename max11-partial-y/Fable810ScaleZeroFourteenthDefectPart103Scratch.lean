@@ -29,7 +29,7 @@ section NonzeroFifteenthFaceClearing810
 variable {k : Type*} [Field k] [CharZero k]
 
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- The fourteenth octic/decic integral on a square-core ninth-power source:
 the cleared defect is a scalar times `h¹⁰⁵`. -/
 theorem nonzeroFace810_fifteenthDefectPowerRelation
@@ -533,8 +533,7 @@ theorem nonzeroFace810_fifteenthDefectPowerRelation
           algebraMap k (RatFunc k) a := by
     apply GCD369RatFuncConstantsOfPolynomialDerivative
       ratFuncDerivation46_polynomial
-    simpa [ratFuncDerivation68, ratFuncDerivation46_apply] using
-      hom0deriv
+    exact hom0deriv
   have hclear :
       algebraMap k[X] (RatFunc k)
           (localClearedFifteenthDefect810 h0 (p.coeff 7) (p.coeff 6)
@@ -554,7 +553,8 @@ theorem nonzeroFace810_fifteenthDefectPowerRelation
       rw [hg9]
       simp [depressedL810, octicDepressionR810, sourceToRatFunc68,
         sourceToRatFunc46, b9]
-    simpa [localClearedFifteenthDefect810,
+    conv_rhs => rw [hf6, hf5, hf4, hf3, hf2, hf1, hf0, hg1, hg2, hg3, hg4, hg5, hg6, hg7, hg8', hg9L, hF]
+    simp only [localClearedFifteenthDefect810,
       localClearedFifteenthDefectCore810,
       localClearedFifteenthDefectBlock0_810,
       localClearedFifteenthDefectBlock1_810,
@@ -573,11 +573,8 @@ theorem nonzeroFace810_fifteenthDefectPowerRelation
       localClearedFifteenthDefectBlock14_810,
       map_sub, map_mul, map_pow,
       map_ofNat, map_neg, map_add, RatFunc.algebraMap_C, h, a7, a6, a5,
-      a4, a3, a2, a1, a0, b8, b7, b6, b5, b4, b3, b2, b1, omicronResidual810,
-      alphaResidual810, betaResidual810, gammaResidual810,
-      deltaResidual810, epsilonResidual810, zetaResidual810,
-      etaResidual810, thetaResidual810, hf6, hf5, hf4, hf3, hf2, hf1,
-      hf0, hg1, hg2, hg3, hg4, hg5, hg6, hg7, hg8', hg9L] using hF.symm
+      a4, a3, a2, a1, a0, b8, b7, b6, b5, b4, b3, b2, b1, hf6, hf5, hf4, hf3, hf2, hf1,
+      hf0, hg1, hg2, hg3, hg4, hg5, hg6, hg7, hg8', hg9L]
   have htarget :
       algebraMap k[X] (RatFunc k)
           (localClearedFifteenthDefect810 h0 (p.coeff 7) (p.coeff 6)
@@ -627,6 +624,7 @@ set_option linter.unusedSectionVars false
 
 /-! ## Cleared weight-`105` defect on a constant square core -/
 
+set_option maxHeartbeats 64000000 in
 /-- On a constant square core the source discriminator is a scalar times
 `h⁹`, so the existing ninth-power identities apply with a constant
 square root on both the vanishing face `λ = 0` and the nonzero
@@ -690,6 +688,7 @@ variable {k : Type*} [Field k] [CharZero k]
 set_option linter.unusedSectionVars false
 
 
+set_option maxHeartbeats 64000000 in
 /-- Aligned constant face `N = 0`: the same degree-`2` clearing applies
 with `λ = 0`, and the weight-`105` defect is still a ground constant.
 This does not close the face. -/
@@ -751,6 +750,7 @@ variable {k : Type*} [Field k] [CharZero k]
 set_option linter.unusedSectionVars false
 
 
+set_option maxHeartbeats 64000000 in
 /-- Nonzero constant face: `N` is a nonzero scalar times `h⁹`, and the
 weight-`105` defect is a ground constant.  This does not close the
 face. -/
@@ -812,6 +812,7 @@ set_option linter.unusedSectionVars false
 variable [IsAlgClosed k]
 
 
+set_option maxHeartbeats 64000000 in
 /-- Source-facing fourteenth residual packet for a normalized scale-zero
 `(8,10)` pair: after a square root of the core, the cleared weight-`105`
 defect is a ground-field constant. -/
@@ -902,6 +903,7 @@ set_option linter.unusedSectionVars false
 variable [IsAlgClosed k]
 
 
+set_option maxHeartbeats 64000000 in
 /-- Source-facing aligned packet: if the discriminator vanishes, the
 weight-`105` defect is still a ground constant.  The face is not
 closed. -/
@@ -993,6 +995,7 @@ set_option linter.unusedSectionVars false
 variable [IsAlgClosed k]
 
 
+set_option maxHeartbeats 64000000 in
 /-- The weight-`105` defect is a literal ground-field constant. -/
 theorem normalized810ScaleZero_fourteenthClearedDefect_exists_C
     {P Q : MvPolynomial (Fin 2) k} {H : k[X]}
@@ -1081,6 +1084,7 @@ set_option linter.unusedSectionVars false
 variable [IsAlgClosed k]
 
 
+set_option maxHeartbeats 64000000 in
 /-- Aligned/nonzero split of the scale-zero fourteenth defect: both constant
 faces of `N` make the weight-`105` defect a ground constant, and neither
 face is excluded or claimed closed. -/
@@ -1154,6 +1158,7 @@ set_option linter.unusedSectionVars false
 variable [IsAlgClosed k]
 
 
+set_option maxHeartbeats 64000000 in
 /-- Explicit zero/nonzero constant branches of both the discriminator and
 the weight-`105` defect.  Neither vanishing face is claimed closed. -/
 theorem normalized810ScaleZero_fourteenthClearedDefectBranches
@@ -1263,6 +1268,7 @@ set_option linter.unusedSectionVars false
 variable [IsAlgClosed k]
 
 
+set_option maxHeartbeats 64000000 in
 /-- Newton degree of the fourteenth cleared octic/decic defect at scale
 zero. -/
 theorem normalized810ScaleZero_fourteenthClearedDefect_natDegree_le_zero
@@ -1330,6 +1336,7 @@ set_option linter.unusedSectionVars false
 variable [IsAlgClosed k]
 
 
+set_option maxHeartbeats 64000000 in
 /-- Source-facing nonzero packet: if the discriminator is a nonzero
 ground constant, the weight-`105` defect is still a ground constant.
 The face is not closed. -/

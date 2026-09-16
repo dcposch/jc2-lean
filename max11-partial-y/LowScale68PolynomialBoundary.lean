@@ -24,6 +24,7 @@ section PolynomialBoundary68
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 /-- The polynomial version of the integrated septic coefficient. -/
 def integratedSPolynomial68
     (l alpha beta delta : k) (A B C0 D : k[X]) : k[X] :=
@@ -31,6 +32,7 @@ def integratedSPolynomial68
     l • ((7 / 6 : k) • C0 + (7 / 72 : k) • A ^ 2) +
     alpha • B + (5 / 6 * beta : k) • A + C delta
 
+set_option maxHeartbeats 64000000 in
 /-- The polynomial version of the integrated sextic coefficient. -/
 def integratedTPolynomial68
     (l alpha beta gamma epsilon : k) (A B C0 D E : k[X]) : k[X] :=
@@ -40,6 +42,7 @@ def integratedTPolynomial68
     alpha • C0 + (5 / 6 * beta : k) • B +
     (2 / 3 * gamma : k) • A + C epsilon
 
+set_option maxHeartbeats 64000000 in
 /-- The polynomial version of the integrated linear coefficient. -/
 def integratedUPolynomial68
     (l alpha beta gamma delta zeta : k)
@@ -51,6 +54,7 @@ def integratedUPolynomial68
     alpha • D + beta • ((5 / 6 : k) • C0 - (5 / 72 : k) • A ^ 2) +
     (2 / 3 * gamma : k) • B + (1 / 2 * delta : k) • A + C zeta
 
+set_option maxHeartbeats 64000000 in
 /-- The polynomial version of the integrated constant coefficient. -/
 def integratedVPolynomial68
     (l alpha beta gamma delta epsilon eta : k)
@@ -64,6 +68,7 @@ def integratedVPolynomial68
     gamma • ((2 / 3 : k) • C0 - (1 / 9 : k) • A ^ 2) +
     (1 / 2 * delta : k) • B + (1 / 3 * epsilon : k) • A + C eta
 
+set_option maxHeartbeats 64000000 in
 /-- Polynomial representative of the first exact lower-row invariant. -/
 def firstIntegralFourPolynomial68
     (l beta gamma delta epsilon zeta : k)
@@ -82,6 +87,7 @@ def firstIntegralFourPolynomial68
     (4 / 3 * gamma : k) • (A * B) +
     (7 / 6 * l : k) • (A * E) + (7 / 6 * l : k) • (B * D)
 
+set_option maxHeartbeats 64000000 in
 /-- Polynomial representative of the second exact lower-row invariant. -/
 def firstIntegralThreePolynomial68
     (l beta gamma delta epsilon zeta : k)
@@ -101,6 +107,7 @@ def firstIntegralThreePolynomial68
     (385 / 1296 * l : k) • (A ^ 3 * B) -
     (35 / 36 * l : k) • (A * B * C0)
 
+set_option maxHeartbeats 64000000 in
 /-- Polynomial pullback of the first irreducible one-form row. -/
 def lowerRowTwoPolynomial68
     (S T U V B C0 D E : k[X]) : k[X] :=
@@ -108,16 +115,19 @@ def lowerRowTwoPolynomial68
     (3 : k) • (S * derivative E) - (3 : k) • (B * derivative V) -
     (2 : k) • (C0 * derivative U) - D * derivative T
 
+set_option maxHeartbeats 64000000 in
 /-- Polynomial pullback of the second irreducible one-form row. -/
 def lowerRowOnePolynomial68
     (T U V C0 D E : k[X]) : k[X] :=
   U * derivative D + (2 : k) • (T * derivative E) -
     (2 : k) • (C0 * derivative V) - D * derivative U
 
+set_option maxHeartbeats 64000000 in
 /-- Polynomial pullback of the terminal one-form row. -/
 def lowerRowZeroPolynomial68 (U V D E : k[X]) : k[X] :=
   U * derivative E - D * derivative V
 
+set_option maxHeartbeats 64000000 in
 /-- The polynomial integrated coefficients map to the differential-field
 formulas used by the source bridge. -/
 theorem algebraMap_integratedSPolynomial68
@@ -135,6 +145,7 @@ theorem algebraMap_integratedSPolynomial68
   simp only [map_neg, map_div₀, map_ofNat, map_one]
   ring
 
+set_option maxHeartbeats 64000000 in
 theorem algebraMap_integratedTPolynomial68
     (l alpha beta gamma epsilon : k) (A B C0 D E : k[X]) :
     algebraMap k[X] (RatFunc k)
@@ -152,6 +163,7 @@ theorem algebraMap_integratedTPolynomial68
   simp only [map_neg, map_div₀, map_ofNat, map_one]
   ring
 
+set_option maxHeartbeats 64000000 in
 theorem algebraMap_integratedUPolynomial68
     (l alpha beta gamma delta zeta : k) (A B C0 D E : k[X]) :
     algebraMap k[X] (RatFunc k)
@@ -169,6 +181,7 @@ theorem algebraMap_integratedUPolynomial68
   simp only [map_neg, map_div₀, map_ofNat, map_one]
   ring
 
+set_option maxHeartbeats 64000000 in
 theorem algebraMap_integratedVPolynomial68
     (l alpha beta gamma delta epsilon eta : k) (A B C0 D E : k[X]) :
     algebraMap k[X] (RatFunc k)
@@ -187,6 +200,7 @@ theorem algebraMap_integratedVPolynomial68
   simp only [map_neg, map_div₀, map_ofNat, map_one]
   ring
 
+set_option maxHeartbeats 64000000 in
 theorem algebraMap_firstIntegralFourPolynomial68
     (l beta gamma delta epsilon zeta : k) (A B C0 D E : k[X]) :
     algebraMap k[X] (RatFunc k)
@@ -206,6 +220,7 @@ theorem algebraMap_firstIntegralFourPolynomial68
   simp only [map_neg, map_div₀, map_ofNat, map_one]
   ring
 
+set_option maxHeartbeats 64000000 in
 theorem algebraMap_firstIntegralThreePolynomial68
     (l beta gamma delta epsilon zeta : k) (A B C0 D E : k[X]) :
     algebraMap k[X] (RatFunc k)
@@ -225,6 +240,7 @@ theorem algebraMap_firstIntegralThreePolynomial68
   simp only [map_neg, map_div₀, map_ofNat, map_one]
   ring
 
+set_option maxHeartbeats 64000000 in
 /-- The three polynomial one-form rows map exactly to the three remaining
 rational-function rows. -/
 theorem algebraMap_lowerRowTwoPolynomial68
@@ -252,6 +268,7 @@ theorem algebraMap_lowerRowTwoPolynomial68
   simp only [map_ofNat]
   ring
 
+set_option maxHeartbeats 64000000 in
 theorem algebraMap_lowerRowOnePolynomial68
     (T U V C0 D E : k[X]) :
     algebraMap k[X] (RatFunc k)
@@ -272,6 +289,7 @@ theorem algebraMap_lowerRowOnePolynomial68
   simp only [map_ofNat]
   ring
 
+set_option maxHeartbeats 64000000 in
 theorem algebraMap_lowerRowZeroPolynomial68 (U V D E : k[X]) :
     algebraMap k[X] (RatFunc k) (lowerRowZeroPolynomial68 U V D E) =
       algebraMap k[X] (RatFunc k) U *
@@ -282,6 +300,7 @@ theorem algebraMap_lowerRowZeroPolynomial68 (U V D E : k[X]) :
   rw [ratFuncDerivation46_polynomial, ratFuncDerivation46_polynomial]
   simp only [lowerRowZeroPolynomial68, map_sub, map_mul]
 
+set_option maxHeartbeats 64000000 in
 /-- A product has the expected coefficient at an arbitrary weighted
 boundary whenever the two factors satisfy their separate degree bounds. -/
 theorem coeff_mul_weightedBoundary68
@@ -291,6 +310,7 @@ theorem coeff_mul_weightedBoundary68
       p.coeff (u * n) * q.coeff (v * n) := by
   simpa [Nat.add_mul] using coeff_mul_add_eq_of_natDegree_le hp hq
 
+set_option maxHeartbeats 64000000 in
 /-- A power has the expected coefficient at an arbitrary weighted
 boundary. -/
 theorem coeff_pow_weightedBoundary68
@@ -298,6 +318,7 @@ theorem coeff_pow_weightedBoundary68
     (p ^ m).coeff ((m * u) * n) = p.coeff (u * n) ^ m := by
   simpa [Nat.mul_assoc] using (coeff_pow_of_natDegree_le (m := m) hp)
 
+set_option maxHeartbeats 64000000 in
 /-- A term of strictly smaller weight has zero coefficient at a higher
 positive weighted boundary. -/
 theorem coeff_weightedBoundary_eq_zero68
@@ -306,6 +327,7 @@ theorem coeff_weightedBoundary_eq_zero68
     p.coeff (v * n) = 0 := by
   exact coeff_eq_zero_of_natDegree_lt (hp.trans_lt (by nlinarith))
 
+set_option maxHeartbeats 64000000 in
 /-- Coefficient of a derivative at the top of a positive weighted
 boundary. -/
 theorem coeff_derivative_weightedBoundary68
@@ -320,6 +342,7 @@ theorem coeff_derivative_weightedBoundary68
     exact_mod_cast hindex
   rw [hcast]
 
+set_option maxHeartbeats 64000000 in
 /-- The top coefficient of `p*q'` is the product of the two boundary
 coefficients times the weighted derivative exponent. -/
 theorem coeff_mul_derivative_weightedBoundary68
@@ -338,6 +361,7 @@ theorem coeff_mul_derivative_weightedBoundary68
   rw [hindex]
   simpa [mul_assoc] using hmul
 
+set_option maxHeartbeats 64000000 in
 /-- The top coefficient of the integrated septic coefficient is independent
 of every ground-field integration load. -/
 theorem integratedSPolynomial68_topCoeff
@@ -350,7 +374,7 @@ theorem integratedSPolynomial68_topCoeff
   have hAB := coeff_mul_weightedBoundary68 A B 2 3 n hA hB
   have hC5 := coeff_weightedBoundary_eq_zero68 C0 4 5 n hn (by omega) hC
   have hA2 : (A ^ 2).natDegree ≤ 4 * n := by
-    exact natDegree_pow_le.trans (by nlinarith)
+    exact natDegree_pow_le.trans (by omega)
   have hA25 := coeff_weightedBoundary_eq_zero68 (A ^ 2) 4 5 n hn
     (by omega) hA2
   have hB5 := coeff_weightedBoundary_eq_zero68 B 3 5 n hn (by omega) hB
@@ -365,6 +389,7 @@ theorem integratedSPolynomial68_topCoeff
     smul_eq_mul]
   ring
 
+set_option maxHeartbeats 64000000 in
 /-- The top coefficient of the integrated sextic coefficient. -/
 theorem integratedTPolynomial68_topCoeff
     (l alpha beta gamma epsilon : k) (A B C0 D E : k[X])
@@ -383,7 +408,7 @@ theorem integratedTPolynomial68_topCoeff
   have hA3 := coeff_pow_weightedBoundary68 A 2 3 n hA
   have hD6 := coeff_weightedBoundary_eq_zero68 D 5 6 n hn (by omega) hD
   have hABdeg : (A * B).natDegree ≤ 5 * n := by
-    exact natDegree_mul_le.trans (by nlinarith)
+    exact natDegree_mul_le.trans (by omega)
   have hAB6 := coeff_weightedBoundary_eq_zero68 (A * B) 5 6 n hn
     (by omega) hABdeg
   have hC6 := coeff_weightedBoundary_eq_zero68 C0 4 6 n hn (by omega) hC
@@ -399,6 +424,7 @@ theorem integratedTPolynomial68_topCoeff
     add_zero, sub_zero, smul_eq_mul]
   ring
 
+set_option maxHeartbeats 64000000 in
 /-- The top coefficient of the integrated linear octic coefficient. -/
 theorem integratedUPolynomial68_topCoeff
     (l alpha beta gamma delta zeta : k) (A B C0 D E : k[X])
@@ -414,7 +440,7 @@ theorem integratedUPolynomial68_topCoeff
   have hBC := coeff_mul_weightedBoundary68 B C0 3 4 n hB hC
   have hAD := coeff_mul_weightedBoundary68 A D 2 5 n hA hD
   have hA2 : (A ^ 2).natDegree ≤ 4 * n :=
-    natDegree_pow_le.trans (by nlinarith)
+    natDegree_pow_le.trans (by omega)
   have hA2B := coeff_mul_weightedBoundary68 (A ^ 2) B 4 3 n hA2 hB
   have hA2c := coeff_pow_weightedBoundary68 A 2 2 n hA
   have hlower (p : k[X]) (u : ℕ) (hu : u < 7)
@@ -422,13 +448,13 @@ theorem integratedUPolynomial68_topCoeff
     coeff_weightedBoundary_eq_zero68 p u 7 n hn hu hp
   have hE7 := hlower E 6 (by omega) hE
   have hB2deg : (B ^ 2).natDegree ≤ 6 * n :=
-    natDegree_pow_le.trans (by nlinarith)
+    natDegree_pow_le.trans (by omega)
   have hB27 := hlower (B ^ 2) 6 (by omega) hB2deg
   have hACdeg : (A * C0).natDegree ≤ 6 * n :=
-    natDegree_mul_le.trans (by nlinarith)
+    natDegree_mul_le.trans (by omega)
   have hAC7 := hlower (A * C0) 6 (by omega) hACdeg
   have hA3deg : (A ^ 3).natDegree ≤ 6 * n :=
-    natDegree_pow_le.trans (by nlinarith)
+    natDegree_pow_le.trans (by omega)
   have hA37 := hlower (A ^ 3) 6 (by omega) hA3deg
   have hD7 := hlower D 5 (by omega) hD
   have hC7 := hlower C0 4 (by omega) hC
@@ -445,6 +471,7 @@ theorem integratedUPolynomial68_topCoeff
     hA27, hB7, hA7, hconst, mul_zero, add_zero, sub_zero, smul_eq_mul]
   ring
 
+set_option maxHeartbeats 64000000 in
 /-- The top coefficient of the integrated constant octic coefficient. -/
 theorem integratedVPolynomial68_topCoeff
     (l alpha beta gamma delta epsilon eta : k) (A B C0 D E : k[X])
@@ -464,11 +491,11 @@ theorem integratedVPolynomial68_topCoeff
   have hBD := coeff_mul_weightedBoundary68 B D 3 5 n hB hD
   have hAE := coeff_mul_weightedBoundary68 A E 2 6 n hA hE
   have hB2 : (B ^ 2).natDegree ≤ 6 * n :=
-    natDegree_pow_le.trans (by nlinarith)
+    natDegree_pow_le.trans (by omega)
   have hAB2 := coeff_mul_weightedBoundary68 A (B ^ 2) 2 6 n hA hB2
   have hB2c := coeff_pow_weightedBoundary68 B 3 2 n hB
   have hA2 : (A ^ 2).natDegree ≤ 4 * n :=
-    natDegree_pow_le.trans (by nlinarith)
+    natDegree_pow_le.trans (by omega)
   have hA2C := coeff_mul_weightedBoundary68 (A ^ 2) C0 4 4 n hA2 hC
   have hA2c := coeff_pow_weightedBoundary68 A 2 2 n hA
   have hA4 := coeff_pow_weightedBoundary68 A 2 4 n hA
@@ -476,18 +503,18 @@ theorem integratedVPolynomial68_topCoeff
       (hp : p.natDegree ≤ u * n) : p.coeff (8 * n) = 0 :=
     coeff_weightedBoundary_eq_zero68 p u 8 n hn hu hp
   have hBCdeg : (B * C0).natDegree ≤ 7 * n :=
-    natDegree_mul_le.trans (by nlinarith)
+    natDegree_mul_le.trans (by omega)
   have hBC8 := hlower (B * C0) 7 (by omega) hBCdeg
   have hADdeg : (A * D).natDegree ≤ 7 * n :=
-    natDegree_mul_le.trans (by nlinarith)
+    natDegree_mul_le.trans (by omega)
   have hAD8 := hlower (A * D) 7 (by omega) hADdeg
   have hA2Bdeg : (A ^ 2 * B).natDegree ≤ 7 * n :=
-    natDegree_mul_le.trans (by nlinarith)
+    natDegree_mul_le.trans (by omega)
   have hA2B8 := hlower (A ^ 2 * B) 7 (by omega) hA2Bdeg
   have hE8 := hlower E 6 (by omega) hE
   have hD8 := hlower D 5 (by omega) hD
   have hABdeg : (A * B).natDegree ≤ 5 * n :=
-    natDegree_mul_le.trans (by nlinarith)
+    natDegree_mul_le.trans (by omega)
   have hAB8 := hlower (A * B) 5 (by omega) hABdeg
   have hC8 := hlower C0 4 (by omega) hC
   have hA28 := hlower (A ^ 2) 4 (by omega) hA2
@@ -504,7 +531,7 @@ theorem integratedVPolynomial68_topCoeff
     mul_zero, add_zero, sub_zero, smul_eq_mul]
   ring
 
-set_option maxHeartbeats 1000000 in
+set_option maxHeartbeats 64000000 in
 /-- The first irreducible one-form row extracts `topRowTwo68` at its weighted
 boundary. -/
 theorem lowerRowTwoPolynomial68_topCoeff
@@ -555,7 +582,7 @@ theorem lowerRowTwoPolynomial68_topCoeff
   push_cast
   ring
 
-set_option maxHeartbeats 1000000 in
+set_option maxHeartbeats 64000000 in
 /-- The second irreducible one-form row extracts `topRowOne68`. -/
 theorem lowerRowOnePolynomial68_topCoeff
     (A B C0 D E T U V : k[X]) (n : ℕ) (hn : 0 < n)
@@ -597,7 +624,7 @@ theorem lowerRowOnePolynomial68_topCoeff
   push_cast
   ring
 
-set_option maxHeartbeats 1000000 in
+set_option maxHeartbeats 64000000 in
 /-- The terminal one-form row extracts `topRowZero68`. -/
 theorem lowerRowZeroPolynomial68_topCoeff
     (A B C0 D E U V : k[X]) (n : ℕ) (hn : 0 < n)
@@ -628,7 +655,7 @@ theorem lowerRowZeroPolynomial68_topCoeff
   push_cast
   ring
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 /-- The degree-nine boundary of the first exact invariant is the first
 scalar top row, up to a nonzero normalization. -/
 theorem firstIntegralFourPolynomial68_topCoeff
@@ -648,17 +675,17 @@ theorem firstIntegralFourPolynomial68_topCoeff
   let d := D.coeff (5 * n)
   let e := E.coeff (6 * n)
   have hA2deg : (A ^ 2).natDegree ≤ 4 * n :=
-    natDegree_pow_le.trans (by nlinarith)
+    natDegree_pow_le.trans (by omega)
   have hA3deg : (A ^ 3).natDegree ≤ 6 * n :=
-    natDegree_pow_le.trans (by nlinarith)
+    natDegree_pow_le.trans (by omega)
   have hA4deg : (A ^ 4).natDegree ≤ 8 * n :=
-    natDegree_pow_le.trans (by nlinarith)
+    natDegree_pow_le.trans (by omega)
   have hB2deg : (B ^ 2).natDegree ≤ 6 * n :=
-    natDegree_pow_le.trans (by nlinarith)
+    natDegree_pow_le.trans (by omega)
   have hB3deg : (B ^ 3).natDegree ≤ 9 * n :=
-    natDegree_pow_le.trans (by nlinarith)
+    natDegree_pow_le.trans (by omega)
   have hC2deg : (C0 ^ 2).natDegree ≤ 8 * n :=
-    natDegree_pow_le.trans (by nlinarith)
+    natDegree_pow_le.trans (by omega)
   have hB3 : (B ^ 3).coeff (9 * n) = b ^ 3 := by
     simpa [b] using coeff_pow_weightedBoundary68 B 3 3 n hB
   have hA2D : (A ^ 2 * D).coeff (9 * n) = a ^ 2 * d := by
@@ -674,7 +701,7 @@ theorem firstIntegralFourPolynomial68_topCoeff
     rw [coeff_pow_weightedBoundary68 A 2 3 n hA] at h
     simpa [a, b] using h
   have hABdeg : (A * B).natDegree ≤ 5 * n :=
-    natDegree_mul_le.trans (by nlinarith)
+    natDegree_mul_le.trans (by omega)
   have hABC : (A * B * C0).coeff (9 * n) = a * b * c := by
     have h := coeff_mul_weightedBoundary68 (A * B) C0 5 4 n hABdeg hC
     rw [coeff_mul_weightedBoundary68 A B 2 3 n hA hB] at h
@@ -693,20 +720,20 @@ theorem firstIntegralFourPolynomial68_topCoeff
   have hA39 := lower (A ^ 3) 6 (by omega) hA3deg
   have hA49 := lower (A ^ 4) 8 (by omega) hA4deg
   have hAB2deg : (A * B ^ 2).natDegree ≤ 8 * n :=
-    natDegree_mul_le.trans (by nlinarith)
+    natDegree_mul_le.trans (by omega)
   have hAB29 := lower (A * B ^ 2) 8 (by omega) hAB2deg
   have hA2Cdeg : (A ^ 2 * C0).natDegree ≤ 8 * n :=
-    natDegree_mul_le.trans (by nlinarith)
+    natDegree_mul_le.trans (by omega)
   have hA2C9 := lower (A ^ 2 * C0) 8 (by omega) hA2Cdeg
   have hACdeg : (A * C0).natDegree ≤ 6 * n :=
-    natDegree_mul_le.trans (by nlinarith)
+    natDegree_mul_le.trans (by omega)
   have hAC9 := lower (A * C0) 6 (by omega) hACdeg
   have hAB9 := lower (A * B) 5 (by omega) hABdeg
   have hAEdeg : (A * E).natDegree ≤ 8 * n :=
-    natDegree_mul_le.trans (by nlinarith)
+    natDegree_mul_le.trans (by omega)
   have hAE9 := lower (A * E) 8 (by omega) hAEdeg
   have hBDdeg : (B * D).natDegree ≤ 8 * n :=
-    natDegree_mul_le.trans (by nlinarith)
+    natDegree_mul_le.trans (by omega)
   have hBD9 := lower (B * D) 8 (by omega) hBDdeg
   simp only [firstIntegralFourPolynomial68, coeff_add, coeff_sub, coeff_smul,
     hB3, hA9, hB9, hC9, hD9, hE9, hA2D, hB29, hA29, hC29,
@@ -716,7 +743,7 @@ theorem firstIntegralFourPolynomial68_topCoeff
   simp only [topRowFour68]
   ring
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 /-- The degree-ten boundary of the second exact invariant is the second
 scalar top row, up to a nonzero normalization. -/
 theorem firstIntegralThreePolynomial68_topCoeff
@@ -736,19 +763,19 @@ theorem firstIntegralThreePolynomial68_topCoeff
   let d := D.coeff (5 * n)
   let e := E.coeff (6 * n)
   have hA2deg : (A ^ 2).natDegree ≤ 4 * n :=
-    natDegree_pow_le.trans (by nlinarith)
+    natDegree_pow_le.trans (by omega)
   have hA3deg : (A ^ 3).natDegree ≤ 6 * n :=
-    natDegree_pow_le.trans (by nlinarith)
+    natDegree_pow_le.trans (by omega)
   have hA5deg : (A ^ 5).natDegree ≤ 10 * n :=
-    natDegree_pow_le.trans (by nlinarith)
+    natDegree_pow_le.trans (by omega)
   have hB2deg : (B ^ 2).natDegree ≤ 6 * n :=
-    natDegree_pow_le.trans (by nlinarith)
+    natDegree_pow_le.trans (by omega)
   have hB3deg : (B ^ 3).natDegree ≤ 9 * n :=
-    natDegree_pow_le.trans (by nlinarith)
+    natDegree_pow_le.trans (by omega)
   have hC2deg : (C0 ^ 2).natDegree ≤ 8 * n :=
-    natDegree_pow_le.trans (by nlinarith)
+    natDegree_pow_le.trans (by omega)
   have hD2deg : (D ^ 2).natDegree ≤ 10 * n :=
-    natDegree_pow_le.trans (by nlinarith)
+    natDegree_pow_le.trans (by omega)
   have hA5 : (A ^ 5).coeff (10 * n) = a ^ 5 := by
     simpa [a] using coeff_pow_weightedBoundary68 A 2 5 n hA
   have hD2 : (D ^ 2).coeff (10 * n) = d ^ 2 := by
@@ -778,7 +805,7 @@ theorem firstIntegralThreePolynomial68_topCoeff
     rw [coeff_pow_weightedBoundary68 A 2 3 n hA] at h
     simpa [a, c] using h
   have hABdeg : (A * B).natDegree ≤ 5 * n :=
-    natDegree_mul_le.trans (by nlinarith)
+    natDegree_mul_le.trans (by omega)
   have hABD : (A * B * D).coeff (10 * n) = a * b * d := by
     have h := coeff_mul_weightedBoundary68 (A * B) D 5 5 n hABdeg hD
     rw [coeff_mul_weightedBoundary68 A B 2 3 n hA hB] at h
@@ -795,32 +822,32 @@ theorem firstIntegralThreePolynomial68_topCoeff
   have hB210 := lower (B ^ 2) 6 (by omega) hB2deg
   have hA310 := lower (A ^ 3) 6 (by omega) hA3deg
   have hA2Ddeg : (A ^ 2 * D).natDegree ≤ 9 * n :=
-    natDegree_mul_le.trans (by nlinarith)
+    natDegree_mul_le.trans (by omega)
   have hA2D10 := lower (A ^ 2 * D) 9 (by omega) hA2Ddeg
   have hADdeg : (A * D).natDegree ≤ 7 * n :=
-    natDegree_mul_le.trans (by nlinarith)
+    natDegree_mul_le.trans (by omega)
   have hAD10 := lower (A * D) 7 (by omega) hADdeg
   have hBCdeg : (B * C0).natDegree ≤ 7 * n :=
-    natDegree_mul_le.trans (by nlinarith)
+    natDegree_mul_le.trans (by omega)
   have hBC10 := lower (B * C0) 7 (by omega) hBCdeg
   have hACdeg : (A * C0).natDegree ≤ 6 * n :=
-    natDegree_mul_le.trans (by nlinarith)
+    natDegree_mul_le.trans (by omega)
   have hAC10 := lower (A * C0) 6 (by omega) hACdeg
   have hAB10 := lower (A * B) 5 (by omega) hABdeg
   have hBEdeg : (B * E).natDegree ≤ 9 * n :=
-    natDegree_mul_le.trans (by nlinarith)
+    natDegree_mul_le.trans (by omega)
   have hBE10 := lower (B * E) 9 (by omega) hBEdeg
   have hCDdeg : (C0 * D).natDegree ≤ 9 * n :=
-    natDegree_mul_le.trans (by nlinarith)
+    natDegree_mul_le.trans (by omega)
   have hCD10 := lower (C0 * D) 9 (by omega) hCDdeg
   have hA2Bdeg : (A ^ 2 * B).natDegree ≤ 7 * n :=
-    natDegree_mul_le.trans (by nlinarith)
+    natDegree_mul_le.trans (by omega)
   have hA2B10 := lower (A ^ 2 * B) 7 (by omega) hA2Bdeg
   have hA3Bdeg : (A ^ 3 * B).natDegree ≤ 9 * n :=
-    natDegree_mul_le.trans (by nlinarith)
+    natDegree_mul_le.trans (by omega)
   have hA3B10 := lower (A ^ 3 * B) 9 (by omega) hA3Bdeg
   have hABCdeg : (A * B * C0).natDegree ≤ 9 * n :=
-    natDegree_mul_le.trans (by nlinarith)
+    natDegree_mul_le.trans (by omega)
   have hABC10 := lower (A * B * C0) 9 (by omega) hABCdeg
   simp only [firstIntegralThreePolynomial68, coeff_add, coeff_sub, coeff_smul,
     hA5, hD2, hB10, hC10, hD10, hE10, hB310, hAC2, hB2C, hA2E,
@@ -831,6 +858,7 @@ theorem firstIntegralThreePolynomial68_topCoeff
   simp only [topRowThree68]
   ring
 
+set_option maxHeartbeats 64000000 in
 /-- The four integrated octic coefficients have exactly the boundary
 coefficients used by the three lower one-form rows. -/
 structure IntegratedBoundaryCoefficients68
@@ -855,6 +883,7 @@ structure IntegratedBoundaryCoefficients68
     (4 / 27 : k) * A.coeff (2 * n) ^ 2 * C0.coeff (4 * n) +
     (5 / 243 : k) * A.coeff (2 * n) ^ 4
 
+set_option maxHeartbeats 64000000 in
 /-- The literal integrated polynomial formulas supply the complete boundary
 coefficient package. -/
 theorem integratedPolynomial68_boundaryCoefficients
@@ -879,7 +908,7 @@ theorem integratedPolynomial68_boundaryCoefficients
     integratedVPolynomial68_topCoeff l alpha beta gamma delta epsilon eta
       A B C0 D E n hn hA hB hC hD hE⟩
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 /-- The four literal integrated polynomials satisfy their expected weighted
 degree bounds. -/
 theorem integratedPolynomial68_degreeBounds
@@ -905,7 +934,7 @@ theorem integratedPolynomial68_degreeBounds
     omega
   constructor <;> compute_degree <;> omega
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 /-- Exact polynomial extraction of the complete scalar infinity system when
 the terminal row has zero coefficient at the tested boundary.  Consequently
 the five boundary coefficients have the unique depressed cubic-core shape. -/
@@ -977,7 +1006,7 @@ theorem polynomialLowerSystem_cubicCore68_of_terminalCoeff_zero
     (C0.coeff (4 * n)) (D.coeff (5 * n)) (E.coeff (6 * n))
     hrow4 hrow3 hrow2 hrow1 hrow0
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 /-- Exact polynomial extraction for a constant terminal row. -/
 theorem polynomialLowerSystem_cubicCore68
     (l beta gamma delta epsilon zeta i4 i3 terminal : k)
@@ -1006,7 +1035,7 @@ theorem polynomialLowerSystem_cubicCore68
     l beta gamma delta epsilon zeta i4 i3 A B C0 D E S T U V n hn
     hA hB hC hD hE hSdeg hTdeg hUdeg hVdeg htop hI4 hI3 h2 h1 h0top
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 /-- Source-facing bridge for the scale-zero polynomial boundary.  Once the
 five sextic coefficients have polynomial representatives with the displayed
 degree bounds, the integrated rational-function lower system forces their

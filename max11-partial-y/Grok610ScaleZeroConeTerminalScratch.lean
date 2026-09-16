@@ -1,5 +1,6 @@
 import Grok610ScaleZeroConeFinalScratch
 import Grok610AlignedSquareChamberClosureScratch
+import Max11SpeedReflectDegLibScratch
 
 /-! # Scale-zero cone terminal for the normalized `(6,10)`, `H = 0` leaf
 
@@ -61,6 +62,7 @@ section FirstIntegralPolynomials610
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 /-- Polynomial pullback of `lambdaResidual610` after the triangular Faber
 coordinates are ground constants.  CAS: 50 terms. -/
 def degreeZeroLambdaPolynomial610
@@ -117,6 +119,7 @@ def degreeZeroLambdaPolynomial610
     (1 / 3 * eta : k) • C0 +
     (1 / 6 * theta : k) • B
 
+set_option maxHeartbeats 64000000 in
 /-- Polynomial pullback of `kappaResidual610` after the triangular Faber
 coordinates are ground constants.  CAS: 40 terms. -/
 def degreeZeroKappaPolynomial610
@@ -214,6 +217,7 @@ section LambdaSplittings610
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 /-- `λ` with the unique `A⁶` face deleted. -/
 def degreeZeroLambdaNoA6Polynomial610
     (l alpha beta delta epsilon zeta eta theta : k)
@@ -268,7 +272,7 @@ def degreeZeroLambdaNoA6Polynomial610
     (1 / 3 * eta : k) • C0 +
     (1 / 6 * theta : k) • B
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaPolynomial610_eq_A6_add_rest
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X]) :
@@ -279,8 +283,10 @@ theorem degreeZeroLambdaPolynomial610_eq_A6_add_rest
           eta theta A B C0 D0 E0 := by
   simp only [degreeZeroLambdaPolynomial610,
     degreeZeroLambdaNoA6Polynomial610]
-  module
+  simp only [neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+  try ac_rfl
 
+set_option maxHeartbeats 64000000 in
 /-- `λ` with the unique `B⁴` face deleted. -/
 def degreeZeroLambdaNoB4Polynomial610
     (l alpha beta delta epsilon zeta eta theta : k)
@@ -335,7 +341,7 @@ def degreeZeroLambdaNoB4Polynomial610
     (1 / 3 * eta : k) • C0 +
     (1 / 6 * theta : k) • B
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaPolynomial610_eq_B4_add_rest
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X]) :
@@ -346,8 +352,10 @@ theorem degreeZeroLambdaPolynomial610_eq_B4_add_rest
           eta theta A B C0 D0 E0 := by
   simp only [degreeZeroLambdaPolynomial610,
     degreeZeroLambdaNoB4Polynomial610]
-  module
+  simp only [neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+  try ac_rfl
 
+set_option maxHeartbeats 64000000 in
 /-- `λ` with the unique `C₀³` face deleted. -/
 def degreeZeroLambdaNoC03Polynomial610
     (l alpha beta delta epsilon zeta eta theta : k)
@@ -402,7 +410,7 @@ def degreeZeroLambdaNoC03Polynomial610
     (1 / 3 * eta : k) • C0 +
     (1 / 6 * theta : k) • B
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaPolynomial610_eq_C03_add_rest
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X]) :
@@ -415,6 +423,7 @@ theorem degreeZeroLambdaPolynomial610_eq_C03_add_rest
     degreeZeroLambdaNoC03Polynomial610]
   module
 
+set_option maxHeartbeats 64000000 in
 /-- `λ` with the unique `E₀²` face deleted. -/
 def degreeZeroLambdaNoE02Polynomial610
     (l alpha beta delta epsilon zeta eta theta : k)
@@ -469,7 +478,7 @@ def degreeZeroLambdaNoE02Polynomial610
     (1 / 3 * eta : k) • C0 +
     (1 / 6 * theta : k) • B
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaPolynomial610_eq_E02_add_rest
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X]) :
@@ -482,6 +491,7 @@ theorem degreeZeroLambdaPolynomial610_eq_E02_add_rest
     degreeZeroLambdaNoE02Polynomial610]
   module
 
+set_option maxHeartbeats 64000000 in
 /-- `λ` with the three unique-`B` tie faces deleted. -/
 def degreeZeroLambdaNoHighBTieRest610
     (l alpha beta delta epsilon zeta eta theta : k)
@@ -534,7 +544,7 @@ def degreeZeroLambdaNoHighBTieRest610
     (1 / 3 * eta : k) • C0 +
     (1 / 6 * theta : k) • B
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaPolynomial610_eq_highBTie_add_rest
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X]) :
@@ -567,6 +577,7 @@ section LambdaGroups610
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 theorem natDegree_add6_lt610
     {p1 p2 p3 p4 p5 p6 : k[X]} {d : ℕ}
     (h1 : p1.natDegree < d) (h2 : p2.natDegree < d)
@@ -660,7 +671,7 @@ def degreeZeroLambdaNoA6G8_610
     + (1 / 3 * eta : k) • C0
     + (1 / 6 * theta : k) • B
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoA6Polynomial610_eq_groups
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X]) :
@@ -684,9 +695,30 @@ theorem degreeZeroLambdaNoA6Polynomial610_eq_groups
     degreeZeroLambdaNoA6G7_610,
     degreeZeroLambdaNoA6G8_610
     ]
-  module
+  simp only [neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+  try ac_rfl
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoA6G1_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoA6G1_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [(-(70 / 729 : k)),
+          -((35 / 729 : k)),
+          -((15 / 256 * l : k)),
+          -((8 / 729 * alpha : k)),
+          (5 / 243 : k),
+          (20 / 81 : k),
+          (3 / 32 * l : k)]
+        [[3, 2, 0, 0, 0], [4, 0, 1, 0, 0], [4, 1, 0, 0, 0], [5, 0, 0, 0, 0], [0, 4, 0, 0, 0], [1, 2, 1, 0, 0], [1, 3, 0, 0, 0]] := by
+  simp only [degreeZeroLambdaNoA6G1_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoA6G1_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -695,12 +727,35 @@ theorem degreeZeroLambdaNoA6G1_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       6 * A.natDegree := by
   rcases hcone with ⟨hApos, hB, hC, hD, hE⟩
-  simp only [degreeZeroLambdaNoA6G1_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoA6G1_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoA6G2_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoA6G2_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [(10 / 81 : k),
+          (20 / 81 : k),
+          (9 / 32 * l : k),
+          (10 / 81 * alpha : k),
+          (20 / 243 : k),
+          (3 / 32 * l : k)]
+        [[2, 0, 2, 0, 0], [2, 1, 0, 1, 0], [2, 1, 1, 0, 0], [2, 2, 0, 0, 0], [3, 0, 0, 0, 1], [3, 0, 0, 1, 0]] := by
+  simp only [degreeZeroLambdaNoA6G2_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoA6G2_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -709,12 +764,35 @@ theorem degreeZeroLambdaNoA6G2_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       6 * A.natDegree := by
   rcases hcone with ⟨hApos, hB, hC, hD, hE⟩
-  simp only [degreeZeroLambdaNoA6G2_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoA6G2_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoA6G3_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoA6G3_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [(20 / 243 * alpha : k),
+          (385 / 7776 * beta : k),
+          -((5 / 81 : k)),
+          -((10 / 27 : k)),
+          -((3 / 16 * l : k)),
+          -((5 / 27 : k))]
+        [[3, 0, 1, 0, 0], [3, 1, 0, 0, 0], [0, 0, 3, 0, 0], [0, 1, 1, 1, 0], [0, 1, 2, 0, 0], [0, 2, 0, 0, 1]] := by
+  simp only [degreeZeroLambdaNoA6G3_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoA6G3_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -723,12 +801,35 @@ theorem degreeZeroLambdaNoA6G3_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       6 * A.natDegree := by
   rcases hcone with ⟨hApos, hB, hC, hD, hE⟩
-  simp only [degreeZeroLambdaNoA6G3_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoA6G3_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoA6G4_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoA6G4_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [-((3 / 16 * l : k)),
+          -((4 / 27 * alpha : k)),
+          -((35 / 1296 * beta : k)),
+          -((5 / 27 : k)),
+          -((10 / 27 : k)),
+          -((3 / 8 * l : k))]
+        [[0, 2, 0, 1, 0], [0, 2, 1, 0, 0], [0, 3, 0, 0, 0], [1, 0, 0, 2, 0], [1, 0, 1, 0, 1], [1, 0, 1, 1, 0]] := by
+  simp only [degreeZeroLambdaNoA6G4_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoA6G4_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -737,12 +838,35 @@ theorem degreeZeroLambdaNoA6G4_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       6 * A.natDegree := by
   rcases hcone with ⟨hApos, hB, hC, hD, hE⟩
-  simp only [degreeZeroLambdaNoA6G4_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoA6G4_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoA6G5_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoA6G5_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [-((4 / 27 * alpha : k)),
+          -((3 / 8 * l : k)),
+          -((8 / 27 * alpha : k)),
+          -((35 / 216 * beta : k)),
+          -((4 / 27 * alpha : k)),
+          -((35 / 432 * beta : k))]
+        [[1, 0, 2, 0, 0], [1, 1, 0, 0, 1], [1, 1, 0, 1, 0], [1, 1, 1, 0, 0], [2, 0, 0, 0, 1], [2, 0, 0, 1, 0]] := by
+  simp only [degreeZeroLambdaNoA6G5_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoA6G5_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -751,12 +875,35 @@ theorem degreeZeroLambdaNoA6G5_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       6 * A.natDegree := by
   rcases hcone with ⟨hApos, hB, hC, hD, hE⟩
-  simp only [degreeZeroLambdaNoA6G5_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoA6G5_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoA6G6_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoA6G6_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [(35 / 432 * delta : k),
+          (4 / 81 * epsilon : k),
+          (5 / 9 : k),
+          (3 / 4 * l : k),
+          (2 / 9 * alpha : k),
+          (4 / 9 * alpha : k)]
+        [[2, 1, 0, 0, 0], [3, 0, 0, 0, 0], [0, 0, 0, 0, 2], [0, 0, 0, 1, 1], [0, 0, 0, 2, 0], [0, 0, 1, 0, 1]] := by
+  simp only [degreeZeroLambdaNoA6G6_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoA6G6_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -765,12 +912,35 @@ theorem degreeZeroLambdaNoA6G6_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       6 * A.natDegree := by
   rcases hcone with ⟨hApos, hB, hC, hD, hE⟩
-  simp only [degreeZeroLambdaNoA6G6_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoA6G6_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoA6G7_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoA6G7_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [(7 / 36 * beta : k),
+          (7 / 36 * beta : k),
+          -((5 / 36 * delta : k)),
+          -((1 / 9 * epsilon : k)),
+          -((5 / 36 * delta : k)),
+          -((2 / 9 * epsilon : k))]
+        [[0, 0, 1, 1, 0], [0, 1, 0, 0, 1], [0, 1, 1, 0, 0], [0, 2, 0, 0, 0], [1, 0, 0, 1, 0], [1, 0, 1, 0, 0]] := by
+  simp only [degreeZeroLambdaNoA6G7_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoA6G7_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -779,12 +949,35 @@ theorem degreeZeroLambdaNoA6G7_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       6 * A.natDegree := by
   rcases hcone with ⟨hApos, hB, hC, hD, hE⟩
-  simp only [degreeZeroLambdaNoA6G7_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoA6G7_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoA6G8_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoA6G8_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [-((1 / 4 * zeta : k)),
+          -((1 / 9 * eta : k)),
+          (2 / 3 * epsilon : k),
+          (1 / 2 * zeta : k),
+          (1 / 3 * eta : k),
+          (1 / 6 * theta : k)]
+        [[1, 1, 0, 0, 0], [2, 0, 0, 0, 0], [0, 0, 0, 0, 1], [0, 0, 0, 1, 0], [0, 0, 1, 0, 0], [0, 1, 0, 0, 0]] := by
+  simp only [degreeZeroLambdaNoA6G8_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoA6G8_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -793,11 +986,16 @@ theorem degreeZeroLambdaNoA6G8_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       6 * A.natDegree := by
   rcases hcone with ⟨hApos, hB, hC, hD, hE⟩
-  simp only [degreeZeroLambdaNoA6G8_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoA6G8_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoA6Polynomial610_natDegree_lt_of_groups
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -897,7 +1095,7 @@ def degreeZeroLambdaNoB4G8_610
     + (1 / 3 * eta : k) • C0
     + (1 / 6 * theta : k) • B
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoB4Polynomial610_eq_groups
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X]) :
@@ -921,9 +1119,30 @@ theorem degreeZeroLambdaNoB4Polynomial610_eq_groups
     degreeZeroLambdaNoB4G7_610,
     degreeZeroLambdaNoB4G8_610
     ]
-  module
+  simp only [neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+  try ac_rfl
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoB4G1_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoB4G1_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [(35 / 6561 : k),
+          -((70 / 729 : k)),
+          -((35 / 729 : k)),
+          -((15 / 256 * l : k)),
+          -((8 / 729 * alpha : k)),
+          (20 / 81 : k),
+          (3 / 32 * l : k)]
+        [[6, 0, 0, 0, 0], [3, 2, 0, 0, 0], [4, 0, 1, 0, 0], [4, 1, 0, 0, 0], [5, 0, 0, 0, 0], [1, 2, 1, 0, 0], [1, 3, 0, 0, 0]] := by
+  simp only [degreeZeroLambdaNoB4G1_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoB4G1_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -932,12 +1151,35 @@ theorem degreeZeroLambdaNoB4G1_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       4 * B.natDegree := by
   rcases hcone with ⟨⟨hBpos, hA, hC, hD, hE⟩, hwt⟩
-  simp only [degreeZeroLambdaNoB4G1_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoB4G1_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoB4G2_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoB4G2_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [(10 / 81 : k),
+          (20 / 81 : k),
+          (9 / 32 * l : k),
+          (10 / 81 * alpha : k),
+          (20 / 243 : k),
+          (3 / 32 * l : k)]
+        [[2, 0, 2, 0, 0], [2, 1, 0, 1, 0], [2, 1, 1, 0, 0], [2, 2, 0, 0, 0], [3, 0, 0, 0, 1], [3, 0, 0, 1, 0]] := by
+  simp only [degreeZeroLambdaNoB4G2_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoB4G2_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -946,12 +1188,35 @@ theorem degreeZeroLambdaNoB4G2_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       4 * B.natDegree := by
   rcases hcone with ⟨⟨hBpos, hA, hC, hD, hE⟩, hwt⟩
-  simp only [degreeZeroLambdaNoB4G2_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoB4G2_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoB4G3_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoB4G3_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [(20 / 243 * alpha : k),
+          (385 / 7776 * beta : k),
+          -((5 / 81 : k)),
+          -((10 / 27 : k)),
+          -((3 / 16 * l : k)),
+          -((5 / 27 : k))]
+        [[3, 0, 1, 0, 0], [3, 1, 0, 0, 0], [0, 0, 3, 0, 0], [0, 1, 1, 1, 0], [0, 1, 2, 0, 0], [0, 2, 0, 0, 1]] := by
+  simp only [degreeZeroLambdaNoB4G3_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoB4G3_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -960,12 +1225,35 @@ theorem degreeZeroLambdaNoB4G3_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       4 * B.natDegree := by
   rcases hcone with ⟨⟨hBpos, hA, hC, hD, hE⟩, hwt⟩
-  simp only [degreeZeroLambdaNoB4G3_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoB4G3_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoB4G4_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoB4G4_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [-((3 / 16 * l : k)),
+          -((4 / 27 * alpha : k)),
+          -((35 / 1296 * beta : k)),
+          -((5 / 27 : k)),
+          -((10 / 27 : k)),
+          -((3 / 8 * l : k))]
+        [[0, 2, 0, 1, 0], [0, 2, 1, 0, 0], [0, 3, 0, 0, 0], [1, 0, 0, 2, 0], [1, 0, 1, 0, 1], [1, 0, 1, 1, 0]] := by
+  simp only [degreeZeroLambdaNoB4G4_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoB4G4_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -974,12 +1262,35 @@ theorem degreeZeroLambdaNoB4G4_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       4 * B.natDegree := by
   rcases hcone with ⟨⟨hBpos, hA, hC, hD, hE⟩, hwt⟩
-  simp only [degreeZeroLambdaNoB4G4_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoB4G4_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoB4G5_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoB4G5_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [-((4 / 27 * alpha : k)),
+          -((3 / 8 * l : k)),
+          -((8 / 27 * alpha : k)),
+          -((35 / 216 * beta : k)),
+          -((4 / 27 * alpha : k)),
+          -((35 / 432 * beta : k))]
+        [[1, 0, 2, 0, 0], [1, 1, 0, 0, 1], [1, 1, 0, 1, 0], [1, 1, 1, 0, 0], [2, 0, 0, 0, 1], [2, 0, 0, 1, 0]] := by
+  simp only [degreeZeroLambdaNoB4G5_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoB4G5_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -988,12 +1299,35 @@ theorem degreeZeroLambdaNoB4G5_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       4 * B.natDegree := by
   rcases hcone with ⟨⟨hBpos, hA, hC, hD, hE⟩, hwt⟩
-  simp only [degreeZeroLambdaNoB4G5_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoB4G5_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoB4G6_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoB4G6_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [(35 / 432 * delta : k),
+          (4 / 81 * epsilon : k),
+          (5 / 9 : k),
+          (3 / 4 * l : k),
+          (2 / 9 * alpha : k),
+          (4 / 9 * alpha : k)]
+        [[2, 1, 0, 0, 0], [3, 0, 0, 0, 0], [0, 0, 0, 0, 2], [0, 0, 0, 1, 1], [0, 0, 0, 2, 0], [0, 0, 1, 0, 1]] := by
+  simp only [degreeZeroLambdaNoB4G6_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoB4G6_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1002,12 +1336,35 @@ theorem degreeZeroLambdaNoB4G6_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       4 * B.natDegree := by
   rcases hcone with ⟨⟨hBpos, hA, hC, hD, hE⟩, hwt⟩
-  simp only [degreeZeroLambdaNoB4G6_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoB4G6_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoB4G7_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoB4G7_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [(7 / 36 * beta : k),
+          (7 / 36 * beta : k),
+          -((5 / 36 * delta : k)),
+          -((1 / 9 * epsilon : k)),
+          -((5 / 36 * delta : k)),
+          -((2 / 9 * epsilon : k))]
+        [[0, 0, 1, 1, 0], [0, 1, 0, 0, 1], [0, 1, 1, 0, 0], [0, 2, 0, 0, 0], [1, 0, 0, 1, 0], [1, 0, 1, 0, 0]] := by
+  simp only [degreeZeroLambdaNoB4G7_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoB4G7_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1016,12 +1373,35 @@ theorem degreeZeroLambdaNoB4G7_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       4 * B.natDegree := by
   rcases hcone with ⟨⟨hBpos, hA, hC, hD, hE⟩, hwt⟩
-  simp only [degreeZeroLambdaNoB4G7_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoB4G7_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoB4G8_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoB4G8_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [-((1 / 4 * zeta : k)),
+          -((1 / 9 * eta : k)),
+          (2 / 3 * epsilon : k),
+          (1 / 2 * zeta : k),
+          (1 / 3 * eta : k),
+          (1 / 6 * theta : k)]
+        [[1, 1, 0, 0, 0], [2, 0, 0, 0, 0], [0, 0, 0, 0, 1], [0, 0, 0, 1, 0], [0, 0, 1, 0, 0], [0, 1, 0, 0, 0]] := by
+  simp only [degreeZeroLambdaNoB4G8_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoB4G8_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1030,11 +1410,16 @@ theorem degreeZeroLambdaNoB4G8_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       4 * B.natDegree := by
   rcases hcone with ⟨⟨hBpos, hA, hC, hD, hE⟩, hwt⟩
-  simp only [degreeZeroLambdaNoB4G8_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoB4G8_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoB4Polynomial610_natDegree_lt_of_groups
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1134,7 +1519,7 @@ def degreeZeroLambdaNoC03G8_610
     + (1 / 3 * eta : k) • C0
     + (1 / 6 * theta : k) • B
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoC03Polynomial610_eq_groups
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X]) :
@@ -1158,9 +1543,30 @@ theorem degreeZeroLambdaNoC03Polynomial610_eq_groups
     degreeZeroLambdaNoC03G7_610,
     degreeZeroLambdaNoC03G8_610
     ]
-  module
+  simp only [neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+  try ac_rfl
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoC03G1_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoC03G1_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [(35 / 6561 : k),
+          -((70 / 729 : k)),
+          -((35 / 729 : k)),
+          -((15 / 256 * l : k)),
+          -((8 / 729 * alpha : k)),
+          (5 / 243 : k),
+          (20 / 81 : k)]
+        [[6, 0, 0, 0, 0], [3, 2, 0, 0, 0], [4, 0, 1, 0, 0], [4, 1, 0, 0, 0], [5, 0, 0, 0, 0], [0, 4, 0, 0, 0], [1, 2, 1, 0, 0]] := by
+  simp only [degreeZeroLambdaNoC03G1_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoC03G1_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1169,12 +1575,35 @@ theorem degreeZeroLambdaNoC03G1_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       3 * C0.natDegree := by
   rcases hcone with ⟨⟨hCpos, hA, hB, hD, hE⟩, hAwt, hBwt, hEwt⟩
-  simp only [degreeZeroLambdaNoC03G1_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoC03G1_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoC03G2_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoC03G2_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [(3 / 32 * l : k),
+          (10 / 81 : k),
+          (20 / 81 : k),
+          (9 / 32 * l : k),
+          (10 / 81 * alpha : k),
+          (20 / 243 : k)]
+        [[1, 3, 0, 0, 0], [2, 0, 2, 0, 0], [2, 1, 0, 1, 0], [2, 1, 1, 0, 0], [2, 2, 0, 0, 0], [3, 0, 0, 0, 1]] := by
+  simp only [degreeZeroLambdaNoC03G2_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoC03G2_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1183,12 +1612,35 @@ theorem degreeZeroLambdaNoC03G2_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       3 * C0.natDegree := by
   rcases hcone with ⟨⟨hCpos, hA, hB, hD, hE⟩, hAwt, hBwt, hEwt⟩
-  simp only [degreeZeroLambdaNoC03G2_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoC03G2_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoC03G3_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoC03G3_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [(3 / 32 * l : k),
+          (20 / 243 * alpha : k),
+          (385 / 7776 * beta : k),
+          -((10 / 27 : k)),
+          -((3 / 16 * l : k)),
+          -((5 / 27 : k))]
+        [[3, 0, 0, 1, 0], [3, 0, 1, 0, 0], [3, 1, 0, 0, 0], [0, 1, 1, 1, 0], [0, 1, 2, 0, 0], [0, 2, 0, 0, 1]] := by
+  simp only [degreeZeroLambdaNoC03G3_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoC03G3_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1197,12 +1649,35 @@ theorem degreeZeroLambdaNoC03G3_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       3 * C0.natDegree := by
   rcases hcone with ⟨⟨hCpos, hA, hB, hD, hE⟩, hAwt, hBwt, hEwt⟩
-  simp only [degreeZeroLambdaNoC03G3_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoC03G3_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoC03G4_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoC03G4_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [-((3 / 16 * l : k)),
+          -((4 / 27 * alpha : k)),
+          -((35 / 1296 * beta : k)),
+          -((5 / 27 : k)),
+          -((10 / 27 : k)),
+          -((3 / 8 * l : k))]
+        [[0, 2, 0, 1, 0], [0, 2, 1, 0, 0], [0, 3, 0, 0, 0], [1, 0, 0, 2, 0], [1, 0, 1, 0, 1], [1, 0, 1, 1, 0]] := by
+  simp only [degreeZeroLambdaNoC03G4_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoC03G4_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1211,12 +1686,35 @@ theorem degreeZeroLambdaNoC03G4_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       3 * C0.natDegree := by
   rcases hcone with ⟨⟨hCpos, hA, hB, hD, hE⟩, hAwt, hBwt, hEwt⟩
-  simp only [degreeZeroLambdaNoC03G4_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoC03G4_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoC03G5_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoC03G5_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [-((4 / 27 * alpha : k)),
+          -((3 / 8 * l : k)),
+          -((8 / 27 * alpha : k)),
+          -((35 / 216 * beta : k)),
+          -((4 / 27 * alpha : k)),
+          -((35 / 432 * beta : k))]
+        [[1, 0, 2, 0, 0], [1, 1, 0, 0, 1], [1, 1, 0, 1, 0], [1, 1, 1, 0, 0], [2, 0, 0, 0, 1], [2, 0, 0, 1, 0]] := by
+  simp only [degreeZeroLambdaNoC03G5_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoC03G5_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1225,12 +1723,35 @@ theorem degreeZeroLambdaNoC03G5_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       3 * C0.natDegree := by
   rcases hcone with ⟨⟨hCpos, hA, hB, hD, hE⟩, hAwt, hBwt, hEwt⟩
-  simp only [degreeZeroLambdaNoC03G5_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoC03G5_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoC03G6_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoC03G6_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [(35 / 432 * delta : k),
+          (4 / 81 * epsilon : k),
+          (5 / 9 : k),
+          (3 / 4 * l : k),
+          (2 / 9 * alpha : k),
+          (4 / 9 * alpha : k)]
+        [[2, 1, 0, 0, 0], [3, 0, 0, 0, 0], [0, 0, 0, 0, 2], [0, 0, 0, 1, 1], [0, 0, 0, 2, 0], [0, 0, 1, 0, 1]] := by
+  simp only [degreeZeroLambdaNoC03G6_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoC03G6_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1239,12 +1760,35 @@ theorem degreeZeroLambdaNoC03G6_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       3 * C0.natDegree := by
   rcases hcone with ⟨⟨hCpos, hA, hB, hD, hE⟩, hAwt, hBwt, hEwt⟩
-  simp only [degreeZeroLambdaNoC03G6_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoC03G6_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoC03G7_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoC03G7_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [(7 / 36 * beta : k),
+          (7 / 36 * beta : k),
+          -((5 / 36 * delta : k)),
+          -((1 / 9 * epsilon : k)),
+          -((5 / 36 * delta : k)),
+          -((2 / 9 * epsilon : k))]
+        [[0, 0, 1, 1, 0], [0, 1, 0, 0, 1], [0, 1, 1, 0, 0], [0, 2, 0, 0, 0], [1, 0, 0, 1, 0], [1, 0, 1, 0, 0]] := by
+  simp only [degreeZeroLambdaNoC03G7_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoC03G7_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1253,12 +1797,35 @@ theorem degreeZeroLambdaNoC03G7_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       3 * C0.natDegree := by
   rcases hcone with ⟨⟨hCpos, hA, hB, hD, hE⟩, hAwt, hBwt, hEwt⟩
-  simp only [degreeZeroLambdaNoC03G7_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoC03G7_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoC03G8_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoC03G8_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [-((1 / 4 * zeta : k)),
+          -((1 / 9 * eta : k)),
+          (2 / 3 * epsilon : k),
+          (1 / 2 * zeta : k),
+          (1 / 3 * eta : k),
+          (1 / 6 * theta : k)]
+        [[1, 1, 0, 0, 0], [2, 0, 0, 0, 0], [0, 0, 0, 0, 1], [0, 0, 0, 1, 0], [0, 0, 1, 0, 0], [0, 1, 0, 0, 0]] := by
+  simp only [degreeZeroLambdaNoC03G8_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoC03G8_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1267,11 +1834,16 @@ theorem degreeZeroLambdaNoC03G8_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       3 * C0.natDegree := by
   rcases hcone with ⟨⟨hCpos, hA, hB, hD, hE⟩, hAwt, hBwt, hEwt⟩
-  simp only [degreeZeroLambdaNoC03G8_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoC03G8_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoC03Polynomial610_natDegree_lt_of_groups
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1371,7 +1943,7 @@ def degreeZeroLambdaNoE02G8_610
     + (1 / 3 * eta : k) • C0
     + (1 / 6 * theta : k) • B
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoE02Polynomial610_eq_groups
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X]) :
@@ -1395,9 +1967,30 @@ theorem degreeZeroLambdaNoE02Polynomial610_eq_groups
     degreeZeroLambdaNoE02G7_610,
     degreeZeroLambdaNoE02G8_610
     ]
-  module
+  simp only [neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+  try ac_rfl
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoE02G1_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoE02G1_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [(35 / 6561 : k),
+          -((70 / 729 : k)),
+          -((35 / 729 : k)),
+          -((15 / 256 * l : k)),
+          -((8 / 729 * alpha : k)),
+          (5 / 243 : k),
+          (20 / 81 : k)]
+        [[6, 0, 0, 0, 0], [3, 2, 0, 0, 0], [4, 0, 1, 0, 0], [4, 1, 0, 0, 0], [5, 0, 0, 0, 0], [0, 4, 0, 0, 0], [1, 2, 1, 0, 0]] := by
+  simp only [degreeZeroLambdaNoE02G1_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoE02G1_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1406,12 +1999,35 @@ theorem degreeZeroLambdaNoE02G1_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       2 * E0.natDegree := by
   rcases hcone with ⟨⟨hEpos, hA, hB, hC, hD⟩, hA0, hB0, hC0, hD0⟩
-  simp only [degreeZeroLambdaNoE02G1_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoE02G1_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoE02G2_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoE02G2_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [(3 / 32 * l : k),
+          (10 / 81 : k),
+          (20 / 81 : k),
+          (9 / 32 * l : k),
+          (10 / 81 * alpha : k),
+          (20 / 243 : k)]
+        [[1, 3, 0, 0, 0], [2, 0, 2, 0, 0], [2, 1, 0, 1, 0], [2, 1, 1, 0, 0], [2, 2, 0, 0, 0], [3, 0, 0, 0, 1]] := by
+  simp only [degreeZeroLambdaNoE02G2_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoE02G2_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1420,12 +2036,35 @@ theorem degreeZeroLambdaNoE02G2_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       2 * E0.natDegree := by
   rcases hcone with ⟨⟨hEpos, hA, hB, hC, hD⟩, hA0, hB0, hC0, hD0⟩
-  simp only [degreeZeroLambdaNoE02G2_610, zero_mul, mul_zero, zero_smul,
-    smul_zero, zero_pow_two, zero_pow_three, zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoE02G2_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoE02G3_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoE02G3_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [(3 / 32 * l : k),
+          (20 / 243 * alpha : k),
+          (385 / 7776 * beta : k),
+          -((5 / 81 : k)),
+          -((10 / 27 : k)),
+          -((3 / 16 * l : k))]
+        [[3, 0, 0, 1, 0], [3, 0, 1, 0, 0], [3, 1, 0, 0, 0], [0, 0, 3, 0, 0], [0, 1, 1, 1, 0], [0, 1, 2, 0, 0]] := by
+  simp only [degreeZeroLambdaNoE02G3_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoE02G3_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1434,12 +2073,35 @@ theorem degreeZeroLambdaNoE02G3_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       2 * E0.natDegree := by
   rcases hcone with ⟨⟨hEpos, hA, hB, hC, hD⟩, hA0, hB0, hC0, hD0⟩
-  simp only [degreeZeroLambdaNoE02G3_610, zero_mul, mul_zero, zero_smul,
-    smul_zero, zero_pow_two, zero_pow_three, zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoE02G3_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoE02G4_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoE02G4_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [(-(5 / 27 : k)),
+          -((3 / 16 * l : k)),
+          -((4 / 27 * alpha : k)),
+          -((35 / 1296 * beta : k)),
+          -((5 / 27 : k)),
+          -((10 / 27 : k))]
+        [[0, 2, 0, 0, 1], [0, 2, 0, 1, 0], [0, 2, 1, 0, 0], [0, 3, 0, 0, 0], [1, 0, 0, 2, 0], [1, 0, 1, 0, 1]] := by
+  simp only [degreeZeroLambdaNoE02G4_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoE02G4_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1448,12 +2110,35 @@ theorem degreeZeroLambdaNoE02G4_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       2 * E0.natDegree := by
   rcases hcone with ⟨⟨hEpos, hA, hB, hC, hD⟩, hA0, hB0, hC0, hD0⟩
-  simp only [degreeZeroLambdaNoE02G4_610, zero_mul, mul_zero, zero_smul,
-    smul_zero, zero_pow_two, zero_pow_three, zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoE02G4_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoE02G5_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoE02G5_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [-((3 / 8 * l : k)),
+          -((4 / 27 * alpha : k)),
+          -((3 / 8 * l : k)),
+          -((8 / 27 * alpha : k)),
+          -((35 / 216 * beta : k)),
+          -((4 / 27 * alpha : k))]
+        [[1, 0, 1, 1, 0], [1, 0, 2, 0, 0], [1, 1, 0, 0, 1], [1, 1, 0, 1, 0], [1, 1, 1, 0, 0], [2, 0, 0, 0, 1]] := by
+  simp only [degreeZeroLambdaNoE02G5_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoE02G5_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1462,12 +2147,35 @@ theorem degreeZeroLambdaNoE02G5_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       2 * E0.natDegree := by
   rcases hcone with ⟨⟨hEpos, hA, hB, hC, hD⟩, hA0, hB0, hC0, hD0⟩
-  simp only [degreeZeroLambdaNoE02G5_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoE02G5_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoE02G6_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoE02G6_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [-((35 / 432 * beta : k)),
+          (35 / 432 * delta : k),
+          (4 / 81 * epsilon : k),
+          (3 / 4 * l : k),
+          (2 / 9 * alpha : k),
+          (4 / 9 * alpha : k)]
+        [[2, 0, 0, 1, 0], [2, 1, 0, 0, 0], [3, 0, 0, 0, 0], [0, 0, 0, 1, 1], [0, 0, 0, 2, 0], [0, 0, 1, 0, 1]] := by
+  simp only [degreeZeroLambdaNoE02G6_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoE02G6_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1476,12 +2184,35 @@ theorem degreeZeroLambdaNoE02G6_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       2 * E0.natDegree := by
   rcases hcone with ⟨⟨hEpos, hA, hB, hC, hD⟩, hA0, hB0, hC0, hD0⟩
-  simp only [degreeZeroLambdaNoE02G6_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoE02G6_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoE02G7_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoE02G7_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [(7 / 36 * beta : k),
+          (7 / 36 * beta : k),
+          -((5 / 36 * delta : k)),
+          -((1 / 9 * epsilon : k)),
+          -((5 / 36 * delta : k)),
+          -((2 / 9 * epsilon : k))]
+        [[0, 0, 1, 1, 0], [0, 1, 0, 0, 1], [0, 1, 1, 0, 0], [0, 2, 0, 0, 0], [1, 0, 0, 1, 0], [1, 0, 1, 0, 0]] := by
+  simp only [degreeZeroLambdaNoE02G7_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoE02G7_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1490,12 +2221,35 @@ theorem degreeZeroLambdaNoE02G7_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       2 * E0.natDegree := by
   rcases hcone with ⟨⟨hEpos, hA, hB, hC, hD⟩, hA0, hB0, hC0, hD0⟩
-  simp only [degreeZeroLambdaNoE02G7_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoE02G7_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoE02G8_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoE02G8_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [-((1 / 4 * zeta : k)),
+          -((1 / 9 * eta : k)),
+          (2 / 3 * epsilon : k),
+          (1 / 2 * zeta : k),
+          (1 / 3 * eta : k),
+          (1 / 6 * theta : k)]
+        [[1, 1, 0, 0, 0], [2, 0, 0, 0, 0], [0, 0, 0, 0, 1], [0, 0, 0, 1, 0], [0, 0, 1, 0, 0], [0, 1, 0, 0, 0]] := by
+  simp only [degreeZeroLambdaNoE02G8_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoE02G8_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1504,11 +2258,16 @@ theorem degreeZeroLambdaNoE02G8_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       2 * E0.natDegree := by
   rcases hcone with ⟨⟨hEpos, hA, hB, hC, hD⟩, hA0, hB0, hC0, hD0⟩
-  simp only [degreeZeroLambdaNoE02G8_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoE02G8_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoE02Polynomial610_natDegree_lt_of_groups
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1606,7 +2365,7 @@ def degreeZeroLambdaNoHighBTieG8_610
     + (1 / 3 * eta : k) • C0
     + (1 / 6 * theta : k) • B
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoHighBTieRest610_eq_groups
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X]) :
@@ -1630,9 +2389,29 @@ theorem degreeZeroLambdaNoHighBTieRest610_eq_groups
     degreeZeroLambdaNoHighBTieG7_610,
     degreeZeroLambdaNoHighBTieG8_610
     ]
-  module
+  simp only [neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+  try ac_rfl
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoHighBTieG1_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoHighBTieG1_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [(-(35 / 729 : k)),
+          -((15 / 256 * l : k)),
+          -((8 / 729 * alpha : k)),
+          (20 / 81 : k),
+          (3 / 32 * l : k),
+          (10 / 81 : k)]
+        [[4, 0, 1, 0, 0], [4, 1, 0, 0, 0], [5, 0, 0, 0, 0], [1, 2, 1, 0, 0], [1, 3, 0, 0, 0], [2, 0, 2, 0, 0]] := by
+  simp only [degreeZeroLambdaNoHighBTieG1_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoHighBTieG1_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1641,12 +2420,35 @@ theorem degreeZeroLambdaNoHighBTieG1_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       4 * B.natDegree := by
   rcases hcone with ⟨⟨hBpos, hA, hC, hD, hE⟩, htie⟩
-  simp only [degreeZeroLambdaNoHighBTieG1_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoHighBTieG1_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoHighBTieG2_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoHighBTieG2_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [(20 / 81 : k),
+          (9 / 32 * l : k),
+          (10 / 81 * alpha : k),
+          (20 / 243 : k),
+          (3 / 32 * l : k),
+          (20 / 243 * alpha : k)]
+        [[2, 1, 0, 1, 0], [2, 1, 1, 0, 0], [2, 2, 0, 0, 0], [3, 0, 0, 0, 1], [3, 0, 0, 1, 0], [3, 0, 1, 0, 0]] := by
+  simp only [degreeZeroLambdaNoHighBTieG2_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoHighBTieG2_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1655,12 +2457,35 @@ theorem degreeZeroLambdaNoHighBTieG2_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       4 * B.natDegree := by
   rcases hcone with ⟨⟨hBpos, hA, hC, hD, hE⟩, htie⟩
-  simp only [degreeZeroLambdaNoHighBTieG2_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoHighBTieG2_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoHighBTieG3_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoHighBTieG3_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [(385 / 7776 * beta : k),
+          -((5 / 81 : k)),
+          -((10 / 27 : k)),
+          -((3 / 16 * l : k)),
+          -((5 / 27 : k)),
+          -((3 / 16 * l : k))]
+        [[3, 1, 0, 0, 0], [0, 0, 3, 0, 0], [0, 1, 1, 1, 0], [0, 1, 2, 0, 0], [0, 2, 0, 0, 1], [0, 2, 0, 1, 0]] := by
+  simp only [degreeZeroLambdaNoHighBTieG3_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoHighBTieG3_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1669,12 +2494,35 @@ theorem degreeZeroLambdaNoHighBTieG3_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       4 * B.natDegree := by
   rcases hcone with ⟨⟨hBpos, hA, hC, hD, hE⟩, htie⟩
-  simp only [degreeZeroLambdaNoHighBTieG3_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoHighBTieG3_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoHighBTieG4_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoHighBTieG4_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [-((4 / 27 * alpha : k)),
+          -((35 / 1296 * beta : k)),
+          -((5 / 27 : k)),
+          -((10 / 27 : k)),
+          -((3 / 8 * l : k)),
+          -((4 / 27 * alpha : k))]
+        [[0, 2, 1, 0, 0], [0, 3, 0, 0, 0], [1, 0, 0, 2, 0], [1, 0, 1, 0, 1], [1, 0, 1, 1, 0], [1, 0, 2, 0, 0]] := by
+  simp only [degreeZeroLambdaNoHighBTieG4_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoHighBTieG4_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1683,12 +2531,35 @@ theorem degreeZeroLambdaNoHighBTieG4_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       4 * B.natDegree := by
   rcases hcone with ⟨⟨hBpos, hA, hC, hD, hE⟩, htie⟩
-  simp only [degreeZeroLambdaNoHighBTieG4_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoHighBTieG4_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoHighBTieG5_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoHighBTieG5_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [-((3 / 8 * l : k)),
+          -((8 / 27 * alpha : k)),
+          -((35 / 216 * beta : k)),
+          -((4 / 27 * alpha : k)),
+          -((35 / 432 * beta : k)),
+          (35 / 432 * delta : k)]
+        [[1, 1, 0, 0, 1], [1, 1, 0, 1, 0], [1, 1, 1, 0, 0], [2, 0, 0, 0, 1], [2, 0, 0, 1, 0], [2, 1, 0, 0, 0]] := by
+  simp only [degreeZeroLambdaNoHighBTieG5_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoHighBTieG5_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1697,12 +2568,35 @@ theorem degreeZeroLambdaNoHighBTieG5_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       4 * B.natDegree := by
   rcases hcone with ⟨⟨hBpos, hA, hC, hD, hE⟩, htie⟩
-  simp only [degreeZeroLambdaNoHighBTieG5_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoHighBTieG5_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoHighBTieG6_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoHighBTieG6_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [(4 / 81 * epsilon : k),
+          (5 / 9 : k),
+          (3 / 4 * l : k),
+          (2 / 9 * alpha : k),
+          (4 / 9 * alpha : k),
+          (7 / 36 * beta : k)]
+        [[3, 0, 0, 0, 0], [0, 0, 0, 0, 2], [0, 0, 0, 1, 1], [0, 0, 0, 2, 0], [0, 0, 1, 0, 1], [0, 0, 1, 1, 0]] := by
+  simp only [degreeZeroLambdaNoHighBTieG6_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoHighBTieG6_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1711,12 +2605,35 @@ theorem degreeZeroLambdaNoHighBTieG6_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       4 * B.natDegree := by
   rcases hcone with ⟨⟨hBpos, hA, hC, hD, hE⟩, htie⟩
-  simp only [degreeZeroLambdaNoHighBTieG6_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoHighBTieG6_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoHighBTieG7_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoHighBTieG7_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [(7 / 36 * beta : k),
+          -((5 / 36 * delta : k)),
+          -((1 / 9 * epsilon : k)),
+          -((5 / 36 * delta : k)),
+          -((2 / 9 * epsilon : k)),
+          -((1 / 4 * zeta : k))]
+        [[0, 1, 0, 0, 1], [0, 1, 1, 0, 0], [0, 2, 0, 0, 0], [1, 0, 0, 1, 0], [1, 0, 1, 0, 0], [1, 1, 0, 0, 0]] := by
+  simp only [degreeZeroLambdaNoHighBTieG7_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoHighBTieG7_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1725,12 +2642,34 @@ theorem degreeZeroLambdaNoHighBTieG7_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       4 * B.natDegree := by
   rcases hcone with ⟨⟨hBpos, hA, hC, hD, hE⟩, htie⟩
-  simp only [degreeZeroLambdaNoHighBTieG7_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoHighBTieG7_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
+private theorem terminalSpeedT_degreeZeroLambdaNoHighBTieG8_610_eq_polyOf
+    (l alpha beta delta epsilon zeta eta theta : k)
+    (A B C0 D0 E0 : k[X]) :
+    degreeZeroLambdaNoHighBTieG8_610 l alpha beta delta epsilon zeta eta theta A B C0 D0 E0 =
+      Max11ReflectDeg.polyOf [A, B, C0, D0, E0]
+        [-((1 / 9 * eta : k)),
+          (2 / 3 * epsilon : k),
+          (1 / 2 * zeta : k),
+          (1 / 3 * eta : k),
+          (1 / 6 * theta : k)]
+        [[2, 0, 0, 0, 0], [0, 0, 0, 0, 1], [0, 0, 0, 1, 0], [0, 0, 1, 0, 0], [0, 1, 0, 0, 0]] := by
+  simp only [degreeZeroLambdaNoHighBTieG8_610, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    neg_smul, sub_eq_add_neg, add_assoc, zero_add]
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoHighBTieG8_610_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1739,11 +2678,16 @@ theorem degreeZeroLambdaNoHighBTieG8_610_natDegree_lt
         theta A B C0 D0 E0).natDegree <
       4 * B.natDegree := by
   rcases hcone with ⟨⟨hBpos, hA, hC, hD, hE⟩, htie⟩
-  simp only [degreeZeroLambdaNoHighBTieG8_610, zero_mul, mul_zero, zero_smul, smul_zero, zero_pow_two, zero_pow_three,
-    zero_pow_four, zero_pow_five]
-  compute_degree
+  rw [terminalSpeedT_degreeZeroLambdaNoHighBTieG8_610_eq_polyOf]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.add_zero, Nat.zero_add, Nat.mul_zero, Nat.zero_mul,
+    Nat.one_mul, max_lt_iff]
   omega
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoHighBTieRest610_natDegree_lt_of_groups
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1770,6 +2714,7 @@ section LambdaUniqueFaces610
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoA6_natDegree_lt_of_A_maximal
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1780,6 +2725,7 @@ theorem degreeZeroLambdaNoA6_natDegree_lt_of_A_maximal
   degreeZeroLambdaNoA6Polynomial610_natDegree_lt_of_groups l alpha beta
     delta epsilon zeta eta theta A B C0 D0 E0 hcone
 
+set_option maxHeartbeats 64000000 in
 theorem lambda_A6_impossible_of_A_maximal
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1806,6 +2752,7 @@ theorem lambda_A6_impossible_of_A_maximal
   rcases hcone with ⟨hApos, _⟩
   omega
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoB4_natDegree_lt_of_B_leads
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1816,6 +2763,7 @@ theorem degreeZeroLambdaNoB4_natDegree_lt_of_B_leads
   degreeZeroLambdaNoB4Polynomial610_natDegree_lt_of_groups l alpha beta
     delta epsilon zeta eta theta A B C0 D0 E0 hcone
 
+set_option maxHeartbeats 64000000 in
 theorem lambda_B4_impossible_of_B_leads
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1842,6 +2790,7 @@ theorem lambda_B4_impossible_of_B_leads
   rcases hcone with ⟨⟨hBpos, _⟩, _⟩
   omega
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoC03_natDegree_lt_of_C0_leads
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1852,6 +2801,7 @@ theorem degreeZeroLambdaNoC03_natDegree_lt_of_C0_leads
   degreeZeroLambdaNoC03Polynomial610_natDegree_lt_of_groups l alpha beta
     delta epsilon zeta eta theta A B C0 D0 E0 hcone
 
+set_option maxHeartbeats 64000000 in
 theorem lambda_C03_impossible_of_C0_leads
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1878,6 +2828,7 @@ theorem lambda_C03_impossible_of_C0_leads
   rcases hcone with ⟨⟨hCpos, _⟩, _⟩
   omega
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoE02_natDegree_lt_of_E0_leads
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1888,6 +2839,7 @@ theorem degreeZeroLambdaNoE02_natDegree_lt_of_E0_leads
   degreeZeroLambdaNoE02Polynomial610_natDegree_lt_of_groups l alpha beta
     delta epsilon zeta eta theta A B C0 D0 E0 hcone
 
+set_option maxHeartbeats 64000000 in
 theorem lambda_E02_impossible_of_E0_leads
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1914,6 +2866,7 @@ theorem lambda_E02_impossible_of_E0_leads
   rcases hcone with ⟨⟨hEpos, _⟩, _⟩
   omega
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaNoHighBTieRest_natDegree_lt
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1924,6 +2877,7 @@ theorem degreeZeroLambdaNoHighBTieRest_natDegree_lt
   degreeZeroLambdaNoHighBTieRest610_natDegree_lt_of_groups l alpha beta
     delta epsilon zeta eta theta A B C0 D0 E0 hcone
 
+set_option maxHeartbeats 64000000 in
 theorem lambda_highBTie_impossible_of_combined_degree
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X])
@@ -1951,6 +2905,7 @@ section LambdaAlgebraMap610
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 /-- Field-level integrated `λ` (same coefficients as the polynomial
 pullback). -/
 def degreeZeroLambdaIntegrated610
@@ -2007,7 +2962,7 @@ def degreeZeroLambdaIntegrated610
     (1 / 3 : F) * eta * C0 +
     (1 / 6 : F) * theta * B
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem lambdaResidual610_eq_integrated
     {F : Type*} [Field F] [CharZero F]
     (L A B C0 D0 E0 alpha beta gamma delta epsilon zeta eta theta iota :
@@ -2031,9 +2986,10 @@ theorem lambdaResidual610_eq_integrated
       zeta eta theta iota
   simp only [lambdaResidual610, degreeZeroLambdaIntegrated610]
   rw [halpha, hbeta, hdelta, hepsilon, hzeta, heta, htheta]
-  ring
+  simp only [sub_eq_add_neg]
+  ac_rfl
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem algebraMap_degreeZeroLambdaPolynomial610
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X]) :
@@ -2052,8 +3008,9 @@ theorem algebraMap_degreeZeroLambdaPolynomial610
   simp only [degreeZeroLambdaPolynomial610, degreeZeroLambdaIntegrated610,
     map_add, map_sub, map_neg, map_mul, map_pow, Polynomial.smul_eq_C_mul,
     RatFunc.algebraMap_C, map_div₀, map_ofNat, map_one]
-  try ring
+  try ac_rfl
 
+set_option maxHeartbeats 64000000 in
 /-- A polynomial whose RatFunc image has vanishing derivative is a
 ground constant. -/
 theorem degreeZeroLambdaPolynomial610_eq_C_of_ratFuncDeriv
@@ -2080,6 +3037,7 @@ theorem degreeZeroLambdaPolynomial610_eq_C_of_ratFuncDeriv
     simpa using hdmap
   exact ⟨I.coeff 0, Polynomial.eq_C_of_derivative_eq_zero hd⟩
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroLambdaPolynomial610_natDegree_eq_zero_of_eq_C
     {l alpha beta delta epsilon zeta eta theta : k}
     {A B C0 D0 E0 : k[X]} {c : k}
@@ -2100,7 +3058,7 @@ section SourceLambda610
 
 variable {k : Type*} [Field k] [CharZero k] [IsAlgClosed k]
 
-set_option maxHeartbeats 80000000 in
+set_option maxHeartbeats 64000000 in
 /-- The twelfth-defect clearing forces the depressed `λ` residual of a
 normalized scale-zero `(6,10)` source to a ground constant. -/
 theorem scaleZero_lambdaResidual_depressed_eq_C_610
@@ -2272,12 +3230,12 @@ theorem scaleZero_lambdaResidual_depressed_eq_C_610
               b5 b4 b3 b2 b1) =
         RatFunc.C nu := by
     apply mul_right_cancel₀ hhpow
-    convert hEq using 1 <;> ring
+    exact (mul_right_comm _ _ _).trans hEq
   apply mul_left_cancel₀ hne
   rw [hmul]
   simp [map_div₀, map_ofNat, mul_div_cancel₀ _ hne]
 
-set_option maxHeartbeats 80000000 in
+set_option maxHeartbeats 64000000 in
 /-- Source-facing packet: the affine-depressed core has an integrated `λ`
 polynomial equal to a ground constant. -/
 theorem normalized610ScaleZero_lambdaPolynomial_eq_C
@@ -2521,6 +3479,7 @@ section Impossible610
 
 variable {k : Type*} [Field k] [CharZero k] [IsAlgClosed k]
 
+set_option maxHeartbeats 64000000 in
 /-- Source-facing packet: `λ` is a ground constant on the free core, and
 every unique weighted face of `λ` together with the parent unique-letter
 chambers is empty.  The remaining cones are the ratio-ties of two or more
@@ -2613,6 +3572,7 @@ theorem normalized610ScaleZero_lambdaFaces_closed
       beta delta epsilon zeta eta theta (j / t) A B C0 D0 E0 hjdiv
       hconst.1 hconst.2.1 hconst.2.2.1 hconst.2.2.2.1 hconst.2.2.2.2 hder
 
+set_option maxHeartbeats 64000000 in
 /-- Remaining cones after every unique weighted `λ` face and every parent
 unique-letter chamber.  The unused first integral `κ` is the next
 comparison for the unique-`B` tie with dropped `λ` combination (leading
@@ -2657,6 +3617,7 @@ theorem normalized610ScaleZero_coneTerminalResidual
     hder, hlam, hAmax, hBleads, hCleads, hEleads, hBtie, hBtiePrim, hExt,
     hA6B⟩
 
+set_option maxHeartbeats 64000000 in
 /-- The scale-zero leaf is empty once the residual cones of
 `normalized610ScaleZero_coneTerminalResidual` are excluded. -/
 theorem normalized610ScaleZero_impossible_of_coneResidual
@@ -2707,6 +3668,7 @@ section Glue610
 
 variable {K : Type*} [Field K] [CharZero K] [IsAlgClosed K]
 
+set_option maxHeartbeats 64000000 in
 /-- The normalized `(6,10)` low-scale route, modulo the remaining aligned
 nonsquare chamber and the leftover scale-zero residual cones.  The
 aligned-square exclusion is the source-facing theorem

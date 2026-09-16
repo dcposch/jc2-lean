@@ -15,7 +15,7 @@ section SourcePrimitiveDegree610
 
 variable {k : Type*} [Field k] [CharZero k] [IsAlgClosed k]
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 /-- A constant free core makes the polynomial primitive constant, hence
 cannot support derivative `C (j / t) ≠ 0`. -/
 theorem degreeZeroPrimitivePolynomial610_false_of_constant_core
@@ -39,54 +39,15 @@ theorem degreeZeroPrimitivePolynomial610_false_of_constant_core
       (degreeZeroPrimitivePolynomial610 l alpha beta delta epsilon zeta
           eta theta A B C0 D0 E0).natDegree ≤
         0 := by
-    have hbase :
-        (degreeZeroBaseGroupPolynomial610 l A B C0 D0 E0).natDegree ≤ 0 := by
-      simp only [degreeZeroBaseGroupPolynomial610]
-      compute_degree
-      omega
-    have halpha :
-        (degreeZeroAlphaGroupPolynomial610 A B C0 D0 E0).natDegree ≤ 0 := by
-      simp only [degreeZeroAlphaGroupPolynomial610]
-      compute_degree
-      omega
-    have hbeta :
-        (degreeZeroBetaGroupPolynomial610 A B C0 D0 E0).natDegree ≤ 0 := by
-      simp only [degreeZeroBetaGroupPolynomial610]
-      compute_degree
-      omega
-    have hdelta :
-        (degreeZeroDeltaGroupPolynomial610 A B C0 D0).natDegree ≤ 0 := by
-      simp only [degreeZeroDeltaGroupPolynomial610]
-      compute_degree
-      omega
-    have hepsilon :
-        (degreeZeroEpsilonGroupPolynomial610 A B C0 D0).natDegree ≤ 0 := by
-      simp only [degreeZeroEpsilonGroupPolynomial610]
-      compute_degree
-      omega
-    have hzeta :
-        (degreeZeroZetaGroupPolynomial610 A B C0 D0).natDegree ≤ 0 := by
-      simp only [degreeZeroZetaGroupPolynomial610]
-      compute_degree
-      omega
-    have heta :
-        (degreeZeroEtaGroupPolynomial610 A B C0 D0).natDegree ≤ 0 := by
-      simp only [degreeZeroEtaGroupPolynomial610]
-      compute_degree
-      omega
-    have htheta :
-        (degreeZeroThetaGroupPolynomial610 A B C0 E0).natDegree ≤ 0 := by
-      simp only [degreeZeroThetaGroupPolynomial610]
-      compute_degree
-      omega
-    simp only [degreeZeroPrimitivePolynomial610]
-    exact natDegree_add8_le610 hbase (natDegree_smul_le_of_le610 alpha halpha)
-      (natDegree_smul_le_of_le610 beta hbeta)
-      (natDegree_smul_le_of_le610 delta hdelta)
-      (natDegree_smul_le_of_le610 epsilon hepsilon)
-      (natDegree_smul_le_of_le610 zeta hzeta)
-      (natDegree_smul_le_of_le610 eta heta)
-      (natDegree_smul_le_of_le610 theta htheta)
+    rw [eq_C_of_natDegree_eq_zero hA, eq_C_of_natDegree_eq_zero hB,
+      eq_C_of_natDegree_eq_zero hC, eq_C_of_natDegree_eq_zero hD,
+      eq_C_of_natDegree_eq_zero hE]
+    simp only [degreeZeroPrimitivePolynomial610, degreeZeroBaseGroupPolynomial610,
+      degreeZeroAlphaGroupPolynomial610, degreeZeroBetaGroupPolynomial610,
+      degreeZeroDeltaGroupPolynomial610, degreeZeroEpsilonGroupPolynomial610,
+      degreeZeroZetaGroupPolynomial610, degreeZeroEtaGroupPolynomial610,
+      degreeZeroThetaGroupPolynomial610, ← Polynomial.C_pow, ← Polynomial.C_mul,
+      smul_C, ← Polynomial.C_add, ← Polynomial.C_sub, natDegree_C, le_refl]
   omega
 
 end SourcePrimitiveDegree610

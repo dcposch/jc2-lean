@@ -94,6 +94,13 @@ section BridgeIotaDepression610
 
 variable {F : Type*} [Field F] [CharZero F]
 
+-- Fix the existing arithmetic carrier without changing operator heads or expression form.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := F) (β := F) (γ := F))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := F) (β := F) (γ := F))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := F) (β := F) (γ := F))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := F) (β := F) (γ := F))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := F) (β := Nat) (γ := F))
+
 set_option maxHeartbeats 64000000 in
 /-- Depressed decic `z⁰` coefficient. -/
 def terminalDepressedX610 (h r b9 b8 b7 b6 b5 b4 b3 b2 b1 b0 : F) : F :=

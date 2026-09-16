@@ -75,7 +75,7 @@ set_option linter.unusedSectionVars false
 set_option linter.unusedVariables false
 set_option linter.unusedSimpArgs false
 
-set_option maxHeartbeats 30000000 in
+set_option maxHeartbeats 64000000 in
 theorem fiveToSix_contractedCusp_firstLoad_convolution68
     (alpha gamma epsilon zeta eta terminal : k)
     (A B c d e : k[X]) (N G S : ℕ)
@@ -102,63 +102,35 @@ theorem fiveToSix_contractedCusp_firstLoad_convolution68
   change 0 < mu ∧ _ ∧ _ ∧ _ at hstop
   have hmuPos := hstop.1
   have hwallCases := hstop.2.2.2
-  have hRG : R < G := by omega
+  have hRG : R < G := by clear * - hN hgt5 hle6 hS hSR hmuS hmuZ; omega
   have hmuGamma : mu < 4 * N - G := by
     rcases le_total S (R - S) with hleft | hright
-    · have htwice : 2 * S ≤ R := by omega
+    · have htwice : 2 * S ≤ R := by clear * - hN hgt5 hle6 hS hSR hmuS hmuZ hleft; omega
+      clear * - hN hgt5 hle6 hS hSR hmuS hmuZ htwice
       omega
-    · have htwice : 2 * (R - S) ≤ R := by omega
+    · have htwice : 2 * (R - S) ≤ R := by clear * - hN hgt5 hle6 hS hSR hmuS hmuZ hright; omega
+      clear * - hN hgt5 hle6 hS hSR hmuS hmuZ htwice
       omega
   have hDelta : Delta.natDegree ≤ U := by
     dsimp only [Delta, U, fiveToSixCuspDiscriminantPolynomial68]
-    first
-    | with_reducible apply leaf68_lt_of_bd
-    | with_reducible apply leaf68_le_of_bd
-    repeat'
-      first
-      | with_reducible exact leaf68_bd_of_le hdSharp
-      | with_reducible exact leaf68_bd_of_le heSharp
-      | with_reducible exact leaf68_bd_of_le hDelta
-      | exact leaf68_bd_of_le (by assumption)
-      | with_reducible apply leaf68_bd_smul
-      | with_reducible apply leaf68_bd_neg
-      | with_reducible apply leaf68_bd_sub
-      | with_reducible apply leaf68_bd_add
-      | with_reducible apply leaf68_bd_pow
-      | with_reducible apply leaf68_bd_deriv
-      | with_reducible apply leaf68_bd_mul
-      | with_reducible apply leaf68_bd_C
-      | omega
+    refine leaf68_le_of_bd (leaf68_bd_add (leaf68_bd_mul (leaf68_bd_of_le hA) (leaf68_bd_pow 2 (leaf68_bd_of_le hB))) (leaf68_bd_smul (3 : k) (leaf68_bd_pow 2 (leaf68_bd_of_le hc)))) ?_
+    clear * - hN hgt5 hle6 hS hSR hmuS hmuZ hRG hmuGamma
+    omega
   have hB2 : (B ^ 2).natDegree ≤ 6 * N - 2 * G := by
-    first
-    | with_reducible apply leaf68_lt_of_bd
-    | with_reducible apply leaf68_le_of_bd
-    repeat'
-      first
-      | with_reducible exact leaf68_bd_of_le hdSharp
-      | with_reducible exact leaf68_bd_of_le heSharp
-      | with_reducible exact leaf68_bd_of_le hDelta
-      | exact leaf68_bd_of_le (by assumption)
-      | with_reducible apply leaf68_bd_smul
-      | with_reducible apply leaf68_bd_neg
-      | with_reducible apply leaf68_bd_sub
-      | with_reducible apply leaf68_bd_add
-      | with_reducible apply leaf68_bd_pow
-      | with_reducible apply leaf68_bd_deriv
-      | with_reducible apply leaf68_bd_mul
-      | with_reducible apply leaf68_bd_C
-      | omega
+    refine leaf68_le_of_bd (leaf68_bd_pow 2 (leaf68_bd_of_le hB)) ?_
+    clear * - hN hgt5 hle6 hS hSR hmuS hmuZ hRG hmuGamma
+    omega
   have hB2top := coeff_mul_at_bounds68 B B (3 * N - G) (3 * N - G)
     hB hB
   rw [← pow_two, show (3 * N - G) + (3 * N - G) = 6 * N - 2 * G
-    from by omega] at hB2top
+    from by clear * - hle6; omega] at hB2top
   have hAB2top := coeff_mul_at_bounds68 A (B ^ 2)
     (2 * N) (6 * N - 2 * G) hA hB2
-  rw [show 2 * N + (6 * N - 2 * G) = U from by omega, hB2top]
+  rw [show 2 * N + (6 * N - 2 * G) = U from by clear * - hle6; omega, hB2top]
     at hAB2top
   have hc2top := coeff_mul_at_bounds68 c c (4 * N - G) (4 * N - G)
     hc hc
-  rw [← pow_two, show (4 * N - G) + (4 * N - G) = U from by omega]
+  rw [← pow_two, show (4 * N - G) + (4 * N - G) = U from by clear * - hle6; omega]
     at hc2top
   have hDeltaTop : Delta.coeff U = 0 := by
     dsimp only [Delta, fiveToSixCuspDiscriminantPolynomial68]
@@ -175,113 +147,42 @@ theorem fiveToSix_contractedCusp_firstLoad_convolution68
       (Delta * d).coeff (U + V - q) +
         (9 / 8 * zeta : k) * (A * c).coeff (U + V - q) -
         (3 / 2 : k) * (B * d ^ 2).coeff (U + V - q) = 0 := by
-    have hidx : U + V - q = 13 * N - 3 * G - S - q := by omega
+    have hidx : U + V - q = 13 * N - 3 * G - S - q := by
+      clear * - hN hgt5 hle6 hS hSR hmuS hmuZ hRG hmuGamma hq
+      omega
     have hBzero : B.coeff (U + V - q) = 0 := by
       apply coeff_eq_zero_of_natDegree_lt
+      clear * - hN hgt5 hle6 hS hSR hmuS hmuZ hRG hmuGamma hq hB
       omega
     have hczero : c.coeff (U + V - q) = 0 := by
       apply coeff_eq_zero_of_natDegree_lt
+      clear * - hN hgt5 hle6 hS hSR hmuS hmuZ hRG hmuGamma hq hc
       omega
     have hB3czero : (B ^ 3 * c).coeff (U + V - q) = 0 := by
       apply coeff_eq_zero_of_natDegree_lt
-      first
-      | with_reducible apply leaf68_lt_of_bd
-      | with_reducible apply leaf68_le_of_bd
-      repeat'
-        first
-        | with_reducible exact leaf68_bd_of_le hdSharp
-        | with_reducible exact leaf68_bd_of_le heSharp
-        | with_reducible exact leaf68_bd_of_le hDelta
-        | exact leaf68_bd_of_le (by assumption)
-        | with_reducible apply leaf68_bd_smul
-        | with_reducible apply leaf68_bd_neg
-        | with_reducible apply leaf68_bd_sub
-        | with_reducible apply leaf68_bd_add
-        | with_reducible apply leaf68_bd_pow
-        | with_reducible apply leaf68_bd_deriv
-        | with_reducible apply leaf68_bd_mul
-        | with_reducible apply leaf68_bd_C
-        | omega
+      refine leaf68_lt_of_bd (leaf68_bd_mul (leaf68_bd_pow 3 (leaf68_bd_of_le hB)) (leaf68_bd_of_le hc)) ?_
+      clear * - hN hgt5 hle6 hS hSR hmuS hmuZ hRG hmuGamma hq
+      omega
     have hB2zero : (B ^ 2).coeff (U + V - q) = 0 := by
       apply coeff_eq_zero_of_natDegree_lt
-      first
-      | with_reducible apply leaf68_lt_of_bd
-      | with_reducible apply leaf68_le_of_bd
-      repeat'
-        first
-        | with_reducible exact leaf68_bd_of_le hdSharp
-        | with_reducible exact leaf68_bd_of_le heSharp
-        | with_reducible exact leaf68_bd_of_le hDelta
-        | exact leaf68_bd_of_le (by assumption)
-        | with_reducible apply leaf68_bd_smul
-        | with_reducible apply leaf68_bd_neg
-        | with_reducible apply leaf68_bd_sub
-        | with_reducible apply leaf68_bd_add
-        | with_reducible apply leaf68_bd_pow
-        | with_reducible apply leaf68_bd_deriv
-        | with_reducible apply leaf68_bd_mul
-        | with_reducible apply leaf68_bd_C
-        | omega
+      refine leaf68_lt_of_bd (leaf68_bd_pow 2 (leaf68_bd_of_le hB)) ?_
+      clear * - hN hgt5 hle6 hS hSR hmuS hmuZ hRG hmuGamma hq
+      omega
     have hcdzero : (c * d).coeff (U + V - q) = 0 := by
       apply coeff_eq_zero_of_natDegree_lt
-      first
-      | with_reducible apply leaf68_lt_of_bd
-      | with_reducible apply leaf68_le_of_bd
-      repeat'
-        first
-        | with_reducible exact leaf68_bd_of_le hdSharp
-        | with_reducible exact leaf68_bd_of_le heSharp
-        | with_reducible exact leaf68_bd_of_le hDelta
-        | exact leaf68_bd_of_le (by assumption)
-        | with_reducible apply leaf68_bd_smul
-        | with_reducible apply leaf68_bd_neg
-        | with_reducible apply leaf68_bd_sub
-        | with_reducible apply leaf68_bd_add
-        | with_reducible apply leaf68_bd_pow
-        | with_reducible apply leaf68_bd_deriv
-        | with_reducible apply leaf68_bd_mul
-        | with_reducible apply leaf68_bd_C
-        | omega
+      refine leaf68_lt_of_bd (leaf68_bd_mul (leaf68_bd_of_le hc) (leaf68_bd_of_le hdSharp)) ?_
+      clear * - hN hgt5 hle6 hS hSR hmuS hmuZ hRG hmuGamma hq
+      omega
     have hBezero : (B * e).coeff (U + V - q) = 0 := by
       apply coeff_eq_zero_of_natDegree_lt
-      first
-      | with_reducible apply leaf68_lt_of_bd
-      | with_reducible apply leaf68_le_of_bd
-      repeat'
-        first
-        | with_reducible exact leaf68_bd_of_le hdSharp
-        | with_reducible exact leaf68_bd_of_le heSharp
-        | with_reducible exact leaf68_bd_of_le hDelta
-        | exact leaf68_bd_of_le (by assumption)
-        | with_reducible apply leaf68_bd_smul
-        | with_reducible apply leaf68_bd_neg
-        | with_reducible apply leaf68_bd_sub
-        | with_reducible apply leaf68_bd_add
-        | with_reducible apply leaf68_bd_pow
-        | with_reducible apply leaf68_bd_deriv
-        | with_reducible apply leaf68_bd_mul
-        | with_reducible apply leaf68_bd_C
-        | omega
+      refine leaf68_lt_of_bd (leaf68_bd_mul (leaf68_bd_of_le hB) (leaf68_bd_of_le heSharp)) ?_
+      clear * - hN hgt5 hle6 hS hSR hmuS hmuZ hRG hmuGamma hq
+      omega
     have hB3zero : (B ^ 3).coeff (U + V - q) = 0 := by
       apply coeff_eq_zero_of_natDegree_lt
-      first
-      | with_reducible apply leaf68_lt_of_bd
-      | with_reducible apply leaf68_le_of_bd
-      repeat'
-        first
-        | with_reducible exact leaf68_bd_of_le hdSharp
-        | with_reducible exact leaf68_bd_of_le heSharp
-        | with_reducible exact leaf68_bd_of_le hDelta
-        | exact leaf68_bd_of_le (by assumption)
-        | with_reducible apply leaf68_bd_smul
-        | with_reducible apply leaf68_bd_neg
-        | with_reducible apply leaf68_bd_sub
-        | with_reducible apply leaf68_bd_add
-        | with_reducible apply leaf68_bd_pow
-        | with_reducible apply leaf68_bd_deriv
-        | with_reducible apply leaf68_bd_mul
-        | with_reducible apply leaf68_bd_C
-        | omega
+      refine leaf68_lt_of_bd (leaf68_bd_pow 3 (leaf68_bd_of_le hB)) ?_
+      clear * - hN hgt5 hle6 hS hSR hmuS hmuZ hRG hmuGamma hq
+      omega
     have hz := congrArg (fun p : k[X] => p.coeff (U + V - q)) hidentity
     rw [hi3, hi4] at hz
     simp only [coeff_add, coeff_sub, coeff_smul, smul_eq_mul,
@@ -303,29 +204,33 @@ theorem fiveToSix_contractedCusp_firstLoad_convolution68
         have htZ : t < R - S := lt_of_lt_of_le htmu hmuZ
         have hAc : (A * c).coeff (U + V - t) = 0 := by
           apply coeff_eq_zero_of_natDegree_lt
-          compute_degree
+          refine leaf68_lt_of_bd (leaf68_bd_mul (leaf68_bd_of_le hA) (leaf68_bd_of_le hc)) ?_
+          clear * - hN hgt5 hle6 hS hSR hmuS hmuZ hRG hmuGamma htZ
           omega
         have hBd : (B * d ^ 2).coeff (U + V - t) = 0 := by
           apply coeff_eq_zero_of_natDegree_lt
-          compute_degree
+          refine leaf68_lt_of_bd (leaf68_bd_mul (leaf68_bd_of_le hB) (leaf68_bd_pow 2 (leaf68_bd_of_le hdSharp))) ?_
+          clear * - hN hgt5 hle6 hS hSR hmuS hmuZ hRG hmuGamma htS
           omega
         have hprodRaw := hcombination_coeff t (Nat.le_of_lt htmu)
         have hprod : (Delta * d).coeff (U + V - t) = 0 := by
           rw [hAc, hBd] at hprodRaw
           linear_combination hprodRaw
         have href := coeff_mul_at_reflect_of_left_lower_zero68
-          Delta d U V t hDelta hdSharp (by omega)
+          Delta d U V t hDelta hdSharp
+          (by clear * - hN hgt5 hle6 hS hSR hmuS hmuZ hRG hmuGamma htmu; omega)
           (by
             intro j hj
-            exact hprev j (by omega))
+            exact hprev j (by clear * - hj; omega))
         rw [href] at hprod
         exact (mul_eq_zero.mp hprod).resolve_right hdsR)
     intro q hq
-    exact hall q hq q (by omega)
+    exact hall q hq q (le_refl q)
 
   have hwallRaw := hcombination_coeff mu (le_refl mu)
   have hrefWall := coeff_mul_at_reflect_of_left_lower_zero68
-    Delta d U V mu hDelta hdSharp (by omega) hvanish
+    Delta d U V mu hDelta hdSharp
+    (by clear * - hN hgt5 hle6 hS hSR hmuS hmuZ hRG hmuGamma; omega) hvanish
   rw [hrefWall] at hwallRaw
   have hds0 : (d.reflect V).coeff 0 = d.coeff V := by
     simp only [coeff_reflect, revAt_zero]
@@ -333,28 +238,11 @@ theorem fiveToSix_contractedCusp_firstLoad_convolution68
   have hActop := coeff_mul_at_bounds68 A c (2 * N) (4 * N - G) hA hc
   have hd2bound : (d ^ 2).natDegree ≤ 2 * V := by
     dsimp only [V]
-    first
-    | with_reducible apply leaf68_lt_of_bd
-    | with_reducible apply leaf68_le_of_bd
-    repeat'
-      first
-      | with_reducible exact leaf68_bd_of_le hdSharp
-      | with_reducible exact leaf68_bd_of_le heSharp
-      | with_reducible exact leaf68_bd_of_le hDelta
-      | exact leaf68_bd_of_le (by assumption)
-      | with_reducible apply leaf68_bd_smul
-      | with_reducible apply leaf68_bd_neg
-      | with_reducible apply leaf68_bd_sub
-      | with_reducible apply leaf68_bd_add
-      | with_reducible apply leaf68_bd_pow
-      | with_reducible apply leaf68_bd_deriv
-      | with_reducible apply leaf68_bd_mul
-      | with_reducible apply leaf68_bd_C
-      | omega
+    exact (leaf68_bd_pow 2 (leaf68_bd_of_le hdSharp)).le
   have hd2top := coeff_mul_at_bounds68 d d V V hdSharp hdSharp
   rw [← pow_two] at hd2top
   have hd2top' : (d ^ 2).coeff (2 * V) = d.coeff V ^ 2 := by
-    rw [show 2 * V = V + V from by omega, hd2top]
+    rw [show 2 * V = V + V from by clear * - V; omega, hd2top]
     ring
   have hBdtop := coeff_mul_at_bounds68 B (d ^ 2)
     (3 * N - G) (2 * V) hB hd2bound
@@ -362,54 +250,28 @@ theorem fiveToSix_contractedCusp_firstLoad_convolution68
   have hAc_before (hq : mu < R - S) :
       (A * c).coeff (U + V - mu) = 0 := by
     apply coeff_eq_zero_of_natDegree_lt
-    first
-    | with_reducible apply leaf68_lt_of_bd
-    | with_reducible apply leaf68_le_of_bd
-    repeat'
-      first
-      | with_reducible exact leaf68_bd_of_le hdSharp
-      | with_reducible exact leaf68_bd_of_le heSharp
-      | with_reducible exact leaf68_bd_of_le hDelta
-      | exact leaf68_bd_of_le (by assumption)
-      | with_reducible apply leaf68_bd_smul
-      | with_reducible apply leaf68_bd_neg
-      | with_reducible apply leaf68_bd_sub
-      | with_reducible apply leaf68_bd_add
-      | with_reducible apply leaf68_bd_pow
-      | with_reducible apply leaf68_bd_deriv
-      | with_reducible apply leaf68_bd_mul
-      | with_reducible apply leaf68_bd_C
-      | omega
+    refine leaf68_lt_of_bd (leaf68_bd_mul (leaf68_bd_of_le hA) (leaf68_bd_of_le hc)) ?_
+    clear * - hN hgt5 hle6 hS hSR hmuS hmuZ hRG hmuGamma hq
+    omega
   have hAc_wall (hq : mu = R - S) :
       (A * c).coeff (U + V - mu) =
         A.coeff (2 * N) * c.coeff (4 * N - G) := by
-    rw [show U + V - mu = 2 * N + (4 * N - G) from by omega]
+    rw [show U + V - mu = 2 * N + (4 * N - G) from by
+      clear * - hN hgt5 hle6 hS hSR hmuS hmuZ hRG hmuGamma hq
+      omega]
     exact hActop
   have hBd_before (hq : mu < S) :
       (B * d ^ 2).coeff (U + V - mu) = 0 := by
     apply coeff_eq_zero_of_natDegree_lt
-    first
-    | with_reducible apply leaf68_lt_of_bd
-    | with_reducible apply leaf68_le_of_bd
-    repeat'
-      first
-      | with_reducible exact leaf68_bd_of_le hdSharp
-      | with_reducible exact leaf68_bd_of_le heSharp
-      | with_reducible exact leaf68_bd_of_le hDelta
-      | exact leaf68_bd_of_le (by assumption)
-      | with_reducible apply leaf68_bd_smul
-      | with_reducible apply leaf68_bd_neg
-      | with_reducible apply leaf68_bd_sub
-      | with_reducible apply leaf68_bd_add
-      | with_reducible apply leaf68_bd_pow
-      | with_reducible apply leaf68_bd_deriv
-      | with_reducible apply leaf68_bd_mul
-      | with_reducible apply leaf68_bd_C
-      | omega
+    refine leaf68_lt_of_bd (leaf68_bd_mul (leaf68_bd_of_le hB) (leaf68_bd_pow 2 (leaf68_bd_of_le hdSharp))) ?_
+    clear * - hN hgt5 hle6 hS hSR hmuS hmuZ hRG hmuGamma hq
+    omega
   have hBd_wall (hq : mu = S) :
       (B * d ^ 2).coeff (U + V - mu) =
         B.coeff (3 * N - G) * d.coeff V ^ 2 := by
-    rw [show U + V - mu = (3 * N - G) + 2 * V from by omega]
+    rw [show U + V - mu = (3 * N - G) + 2 * V from by
+      clear * - hN hgt5 hle6 hS hSR hmuS hmuZ hRG hmuGamma hq
+      omega]
     exact hBdtop
   change (∀ q, q < mu → (Delta.reflect U).coeff q = 0) ∧ _
   refine ⟨hvanish, ?_⟩
@@ -417,11 +279,11 @@ theorem fiveToSix_contractedCusp_firstLoad_convolution68
       ⟨heq, hmuS', hmuZ'⟩
   · left
     refine ⟨hlt, hmuS', ?_⟩
-    rw [hAc_before (by omega), hBd_wall hmuS', mul_zero] at hwallRaw
+    rw [hAc_before (by clear * - hlt hmuS'; omega), hBd_wall hmuS', mul_zero] at hwallRaw
     linear_combination hwallRaw
   · right; left
     refine ⟨hlt, hmuZ', ?_⟩
-    rw [hAc_wall hmuZ', hBd_before (by omega), mul_zero, sub_zero] at hwallRaw
+    rw [hAc_wall hmuZ', hBd_before (by clear * - hlt hmuZ'; omega), mul_zero, sub_zero] at hwallRaw
     linear_combination hwallRaw
   · right; right
     refine ⟨heq, hmuS', hmuZ', ?_⟩

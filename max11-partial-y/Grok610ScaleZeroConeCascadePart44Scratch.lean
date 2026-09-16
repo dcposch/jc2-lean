@@ -12,7 +12,7 @@ section PrimitivePolynomial610
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem algebraMap_degreeZeroDeltaGroupPolynomial610
     (A B C0 D0 : k[X]) :
     algebraMap k[X] (RatFunc k)

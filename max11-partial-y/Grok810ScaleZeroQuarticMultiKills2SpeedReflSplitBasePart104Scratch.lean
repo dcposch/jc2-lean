@@ -31,50 +31,50 @@ section QuarticKills810
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def kappaQuarticFaceBDFG810 (A B C D E F G : k[X]) : k[X] :=
   (-(15 / 128 : k)) • (B ^ 2 * D)
   + (5 / 16 : k) • (B * G)
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def degreeZeroKappaQuarticNoBDFG810
     (l beta gamma delta epsilon zeta eta theta : k)
-    (A B C D E F G : k[X]) : k[X] :=
-  (5 / 512 : k) • (A * B ^ 3)
-  - (15 / 128 : k) • (B * C ^ 2)
-  + (5 / 16 : k) • (C * F)
-  + (5 / 16 : k) • (D * E)
-  + (63 / 262144 * l : k) • A ^ 5
-  + (45 / 8192 * l : k) • (A ^ 3 * C)
-  - (9 / 16384 * l : k) • (A ^ 2 * B ^ 2)
-  + (27 / 1024 * l : k) • (A ^ 2 * E)
-  - (9 / 512 * l : k) • (A * B * D)
-  + (9 / 1024 * l : k) • (A * C ^ 2)
-  - (63 / 1024 * l : k) • (B ^ 2 * C)
-  + (9 / 64 * l : k) • (A * G)
-  + (9 / 64 * l : k) • (B * F)
-  + (9 / 64 * l : k) • (C * E)
-  + (9 / 128 * l : k) • D ^ 2
-  + (35 / 32768 * beta : k) • A ^ 4
-  + (21 / 1024 * beta : k) • (A ^ 2 * C)
-  + (7 / 1024 * beta : k) • (A * B ^ 2)
-  + (7 / 64 * beta : k) • (A * E)
-  - (7 / 64 * beta : k) • (B * D)
-  - (7 / 128 * beta : k) • C ^ 2
-  + (7 / 8 * beta : k) • G
-  - (3 / 16 * gamma : k) • (B * C)
-  + (3 / 4 * gamma : k) • F
-  + (5 / 1024 * delta : k) • A ^ 3
-  + (5 / 64 * delta : k) • (A * C)
-  - (15 / 128 * delta : k) • B ^ 2
-  + (5 / 8 * delta : k) • E
-  + (1 / 2 * epsilon : k) • D
-  + (3 / 128 * zeta : k) • A ^ 2
-  + (3 / 8 * zeta : k) • C
-  + (1 / 4 * eta : k) • B
-  + (1 / 8 * theta : k) • A
+    (A B C D E F G : k[X]) : k[X] := by
+  refine ?_ + (1 / 8 * theta : k) • A
+  refine ?_ + (1 / 4 * eta : k) • B
+  refine ?_ + (3 / 8 * zeta : k) • C
+  refine ?_ + (3 / 128 * zeta : k) • A ^ 2
+  refine ?_ + (1 / 2 * epsilon : k) • D
+  refine ?_ + (5 / 8 * delta : k) • E
+  refine ?_ - (15 / 128 * delta : k) • B ^ 2
+  refine ?_ + (5 / 64 * delta : k) • (A * C)
+  refine ?_ + (5 / 1024 * delta : k) • A ^ 3
+  refine ?_ + (3 / 4 * gamma : k) • F
+  refine ?_ - (3 / 16 * gamma : k) • (B * C)
+  refine ?_ + (7 / 8 * beta : k) • G
+  refine ?_ - (7 / 128 * beta : k) • C ^ 2
+  refine ?_ - (7 / 64 * beta : k) • (B * D)
+  refine ?_ + (7 / 64 * beta : k) • (A * E)
+  refine ?_ + (7 / 1024 * beta : k) • (A * B ^ 2)
+  refine ?_ + (21 / 1024 * beta : k) • (A ^ 2 * C)
+  refine ?_ + (35 / 32768 * beta : k) • A ^ 4
+  refine ?_ + (9 / 128 * l : k) • D ^ 2
+  refine ?_ + (9 / 64 * l : k) • (C * E)
+  refine ?_ + (9 / 64 * l : k) • (B * F)
+  refine ?_ + (9 / 64 * l : k) • (A * G)
+  refine ?_ - (63 / 1024 * l : k) • (B ^ 2 * C)
+  exact (5 / 512 : k) • (A * B ^ 3)
+    - (15 / 128 : k) • (B * C ^ 2)
+    + (5 / 16 : k) • (C * F)
+    + (5 / 16 : k) • (D * E)
+    + (63 / 262144 * l : k) • A ^ 5
+    + (45 / 8192 * l : k) • (A ^ 3 * C)
+    - (9 / 16384 * l : k) • (A ^ 2 * B ^ 2)
+    + (27 / 1024 * l : k) • (A ^ 2 * E)
+    - (9 / 512 * l : k) • (A * B * D)
+    + (9 / 1024 * l : k) • (A * C ^ 2)
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroKappaQuartic810_eq_BDFG_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -83,7 +83,8 @@ theorem degreeZeroKappaQuartic810_eq_BDFG_add_rest
         degreeZeroKappaQuarticNoBDFG810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
   simp only [degreeZeroKappaQuartic810, kappaQuarticFaceBDFG810, degreeZeroKappaQuarticNoBDFG810]
-  all_goals module
+  try simp only [neg_smul]
+  abel
 
 theorem kappaQuarticFaceBDFG810_coeff_top
     {A B C D E F G : k[X]}
@@ -111,58 +112,58 @@ theorem kappaQuarticFaceBDFG810_coeff_top
   rw [hcf_B2D, hcf_BG]
   ring
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def muQuarticFaceBDFG810 (A B C D E F G : k[X]) : k[X] :=
   (35 / 2048 : k) • B ^ 4
   + (5 / 16 : k) • (D * F)
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 def degreeZeroMuQuarticNoBDFG810
     (l beta gamma delta epsilon zeta eta theta : k)
-    (A B C D E F G : k[X]) : k[X] :=
-  (15 / 512 : k) • (A * B ^ 2 * C)
-  - (5 / 64 : k) • (A * B * F)
-  - (5 / 128 : k) • (A * D ^ 2)
-  - (15 / 128 : k) • (B ^ 2 * E)
-  - (15 / 64 : k) • (B * C * D)
-  - (5 / 128 : k) • C ^ 3
-  + (5 / 16 : k) • (C * G)
-  + (5 / 32 : k) • E ^ 2
-  - (45 / 262144 * l : k) • (A ^ 4 * B)
-  - (9 / 8192 * l : k) • (A ^ 3 * D)
-  - (9 / 8192 * l : k) • (A ^ 2 * B * C)
-  + (63 / 8192 * l : k) • (A * B ^ 3)
-  - (9 / 1024 * l : k) • (A ^ 2 * F)
-  - (9 / 512 * l : k) • (A * B * E)
-  - (9 / 512 * l : k) • (A * C * D)
-  - (63 / 1024 * l : k) • (B ^ 2 * D)
-  - (63 / 1024 * l : k) • (B * C ^ 2)
-  + (9 / 64 * l : k) • (B * G)
-  + (9 / 64 * l : k) • (C * F)
-  + (9 / 64 * l : k) • (D * E)
-  - (7 / 8192 * beta : k) • (A ^ 3 * B)
-  - (7 / 1024 * beta : k) • (A ^ 2 * D)
-  + (7 / 512 * beta : k) • (A * B * C)
-  + (21 / 1024 * beta : k) • B ^ 3
-  - (7 / 64 * beta : k) • (A * F)
-  - (7 / 64 * beta : k) • (B * E)
-  - (7 / 64 * beta : k) • (C * D)
-  + (3 / 128 * gamma : k) • (A * B ^ 2)
-  - (3 / 16 * gamma : k) • (B * D)
-  - (3 / 32 * gamma : k) • C ^ 2
-  + (3 / 4 * gamma : k) • G
-  - (5 / 1024 * delta : k) • (A ^ 2 * B)
-  - (5 / 64 * delta : k) • (A * D)
-  - (15 / 64 * delta : k) • (B * C)
-  + (5 / 8 * delta : k) • F
-  - (1 / 8 * epsilon : k) • B ^ 2
-  + (1 / 2 * epsilon : k) • E
-  - (3 / 64 * zeta : k) • (A * B)
-  + (3 / 8 * zeta : k) • D
-  + (1 / 4 * eta : k) • C
-  + (1 / 8 * theta : k) • B
+    (A B C D E F G : k[X]) : k[X] := by
+  refine ?_ + (1 / 8 * theta : k) • B
+  refine ?_ + (1 / 4 * eta : k) • C
+  refine ?_ + (3 / 8 * zeta : k) • D
+  refine ?_ - (3 / 64 * zeta : k) • (A * B)
+  refine ?_ + (1 / 2 * epsilon : k) • E
+  refine ?_ - (1 / 8 * epsilon : k) • B ^ 2
+  refine ?_ + (5 / 8 * delta : k) • F
+  refine ?_ - (15 / 64 * delta : k) • (B * C)
+  refine ?_ - (5 / 64 * delta : k) • (A * D)
+  refine ?_ - (5 / 1024 * delta : k) • (A ^ 2 * B)
+  refine ?_ + (3 / 4 * gamma : k) • G
+  refine ?_ - (3 / 32 * gamma : k) • C ^ 2
+  refine ?_ - (3 / 16 * gamma : k) • (B * D)
+  refine ?_ + (3 / 128 * gamma : k) • (A * B ^ 2)
+  refine ?_ - (7 / 64 * beta : k) • (C * D)
+  refine ?_ - (7 / 64 * beta : k) • (B * E)
+  refine ?_ - (7 / 64 * beta : k) • (A * F)
+  refine ?_ + (21 / 1024 * beta : k) • B ^ 3
+  refine ?_ + (7 / 512 * beta : k) • (A * B * C)
+  refine ?_ - (7 / 1024 * beta : k) • (A ^ 2 * D)
+  refine ?_ - (7 / 8192 * beta : k) • (A ^ 3 * B)
+  refine ?_ + (9 / 64 * l : k) • (D * E)
+  refine ?_ + (9 / 64 * l : k) • (C * F)
+  refine ?_ + (9 / 64 * l : k) • (B * G)
+  refine ?_ - (63 / 1024 * l : k) • (B * C ^ 2)
+  refine ?_ - (63 / 1024 * l : k) • (B ^ 2 * D)
+  refine ?_ - (9 / 512 * l : k) • (A * C * D)
+  refine ?_ - (9 / 512 * l : k) • (A * B * E)
+  refine ?_ - (9 / 1024 * l : k) • (A ^ 2 * F)
+  refine ?_ + (63 / 8192 * l : k) • (A * B ^ 3)
+  refine ?_ - (9 / 8192 * l : k) • (A ^ 2 * B * C)
+  exact (15 / 512 : k) • (A * B ^ 2 * C)
+    - (5 / 64 : k) • (A * B * F)
+    - (5 / 128 : k) • (A * D ^ 2)
+    - (15 / 128 : k) • (B ^ 2 * E)
+    - (15 / 64 : k) • (B * C * D)
+    - (5 / 128 : k) • C ^ 3
+    + (5 / 16 : k) • (C * G)
+    + (5 / 32 : k) • E ^ 2
+    - (45 / 262144 * l : k) • (A ^ 4 * B)
+    - (9 / 8192 * l : k) • (A ^ 3 * D)
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuQuartic810_eq_BDFG_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -171,7 +172,8 @@ theorem degreeZeroMuQuartic810_eq_BDFG_add_rest
         degreeZeroMuQuarticNoBDFG810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
   simp only [degreeZeroMuQuartic810, muQuarticFaceBDFG810, degreeZeroMuQuarticNoBDFG810]
-  all_goals module
+  try simp only [neg_smul]
+  abel
 
 theorem muQuarticFaceBDFG810_coeff_top
     {A B C D E F G : k[X]}
@@ -230,74 +232,74 @@ section QuarticKills810
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def nuQuarticFaceBDFG810 (A B C D E F G : k[X]) : k[X] :=
   (-(15 / 128 : k)) • (B ^ 2 * F)
   - (15 / 128 : k) • (B * D ^ 2)
   + (5 / 16 : k) • (D * G)
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 def degreeZeroNuQuarticNoBDFG810
     (l beta gamma delta epsilon zeta eta theta : k)
-    (A B C D E F G : k[X]) : k[X] :=
-  (-(5 / 4096 : k)) • (A ^ 2 * B ^ 3)
-  + (45 / 1024 : k) • (A * B ^ 2 * D)
-  + (15 / 1024 : k) • (A * B * C ^ 2)
-  + (35 / 512 : k) • (B ^ 3 * C)
-  - (5 / 128 : k) • (A * B * G)
-  - (5 / 128 : k) • (A * C * F)
-  - (5 / 128 : k) • (A * D * E)
-  - (15 / 64 : k) • (B * C * E)
-  - (15 / 128 : k) • (C ^ 2 * D)
-  + (5 / 16 : k) • (E * F)
-  + (105 / 4194304 * l : k) • A ^ 6
-  + (135 / 262144 * l : k) • (A ^ 4 * C)
-  + (9 / 4096 * l : k) • (A ^ 3 * E)
-  + (9 / 8192 * l : k) • (A ^ 2 * B * D)
-  + (9 / 16384 * l : k) • (A ^ 2 * C ^ 2)
-  + (63 / 4096 * l : k) • (A * B ^ 2 * C)
-  + (315 / 32768 * l : k) • B ^ 4
-  + (9 / 1024 * l : k) • (A ^ 2 * G)
-  - (9 / 256 * l : k) • (A * B * F)
-  - (9 / 512 * l : k) • (A * D ^ 2)
-  - (63 / 1024 * l : k) • (B ^ 2 * E)
-  - (63 / 512 * l : k) • (B * C * D)
-  - (21 / 1024 * l : k) • C ^ 3
-  + (9 / 64 * l : k) • (C * G)
-  + (9 / 64 * l : k) • (D * F)
-  + (9 / 128 * l : k) • E ^ 2
-  + (7 / 65536 * beta : k) • A ^ 5
-  + (7 / 4096 * beta : k) • (A ^ 3 * C)
-  - (7 / 16384 * beta : k) • (A ^ 2 * B ^ 2)
-  + (7 / 1024 * beta : k) • (A ^ 2 * E)
-  + (7 / 256 * beta : k) • (A * B * D)
-  + (63 / 1024 * beta : k) • (B ^ 2 * C)
-  - (7 / 64 * beta : k) • (B * F)
-  - (7 / 64 * beta : k) • (C * E)
-  - (7 / 128 * beta : k) • D ^ 2
-  + (3 / 128 * gamma : k) • (A * B * C)
-  + (5 / 128 * gamma : k) • B ^ 3
-  - (3 / 32 * gamma : k) • (A * F)
-  - (3 / 16 * gamma : k) • (B * E)
-  - (3 / 16 * gamma : k) • (C * D)
-  + (15 / 32768 * delta : k) • A ^ 4
-  + (5 / 1024 * delta : k) • (A ^ 2 * C)
-  + (15 / 512 * delta : k) • (A * B ^ 2)
-  - (15 / 64 * delta : k) • (B * D)
-  - (15 / 128 * delta : k) • C ^ 2
-  + (5 / 8 * delta : k) • G
-  - (1 / 16 * epsilon : k) • (A * D)
-  - (1 / 4 * epsilon : k) • (B * C)
-  + (1 / 2 * epsilon : k) • F
-  + (1 / 512 * zeta : k) • A ^ 3
-  - (15 / 128 * zeta : k) • B ^ 2
-  + (3 / 8 * zeta : k) • E
-  - (1 / 32 * eta : k) • (A * B)
-  + (1 / 4 * eta : k) • D
-  + (1 / 128 * theta : k) • A ^ 2
-  + (1 / 8 * theta : k) • C
+    (A B C D E F G : k[X]) : k[X] := by
+  refine ?_ + (1 / 8 * theta : k) • C
+  refine ?_ + (1 / 128 * theta : k) • A ^ 2
+  refine ?_ + (1 / 4 * eta : k) • D
+  refine ?_ - (1 / 32 * eta : k) • (A * B)
+  refine ?_ + (3 / 8 * zeta : k) • E
+  refine ?_ - (15 / 128 * zeta : k) • B ^ 2
+  refine ?_ + (1 / 512 * zeta : k) • A ^ 3
+  refine ?_ + (1 / 2 * epsilon : k) • F
+  refine ?_ - (1 / 4 * epsilon : k) • (B * C)
+  refine ?_ - (1 / 16 * epsilon : k) • (A * D)
+  refine ?_ + (5 / 8 * delta : k) • G
+  refine ?_ - (15 / 128 * delta : k) • C ^ 2
+  refine ?_ - (15 / 64 * delta : k) • (B * D)
+  refine ?_ + (15 / 512 * delta : k) • (A * B ^ 2)
+  refine ?_ + (5 / 1024 * delta : k) • (A ^ 2 * C)
+  refine ?_ + (15 / 32768 * delta : k) • A ^ 4
+  refine ?_ - (3 / 16 * gamma : k) • (C * D)
+  refine ?_ - (3 / 16 * gamma : k) • (B * E)
+  refine ?_ - (3 / 32 * gamma : k) • (A * F)
+  refine ?_ + (5 / 128 * gamma : k) • B ^ 3
+  refine ?_ + (3 / 128 * gamma : k) • (A * B * C)
+  refine ?_ - (7 / 128 * beta : k) • D ^ 2
+  refine ?_ - (7 / 64 * beta : k) • (C * E)
+  refine ?_ - (7 / 64 * beta : k) • (B * F)
+  refine ?_ + (63 / 1024 * beta : k) • (B ^ 2 * C)
+  refine ?_ + (7 / 256 * beta : k) • (A * B * D)
+  refine ?_ + (7 / 1024 * beta : k) • (A ^ 2 * E)
+  refine ?_ - (7 / 16384 * beta : k) • (A ^ 2 * B ^ 2)
+  refine ?_ + (7 / 4096 * beta : k) • (A ^ 3 * C)
+  refine ?_ + (7 / 65536 * beta : k) • A ^ 5
+  refine ?_ + (9 / 128 * l : k) • E ^ 2
+  refine ?_ + (9 / 64 * l : k) • (D * F)
+  refine ?_ + (9 / 64 * l : k) • (C * G)
+  refine ?_ - (21 / 1024 * l : k) • C ^ 3
+  refine ?_ - (63 / 512 * l : k) • (B * C * D)
+  refine ?_ - (63 / 1024 * l : k) • (B ^ 2 * E)
+  refine ?_ - (9 / 512 * l : k) • (A * D ^ 2)
+  refine ?_ - (9 / 256 * l : k) • (A * B * F)
+  refine ?_ + (9 / 1024 * l : k) • (A ^ 2 * G)
+  refine ?_ + (315 / 32768 * l : k) • B ^ 4
+  refine ?_ + (63 / 4096 * l : k) • (A * B ^ 2 * C)
+  refine ?_ + (9 / 16384 * l : k) • (A ^ 2 * C ^ 2)
+  refine ?_ + (9 / 8192 * l : k) • (A ^ 2 * B * D)
+  refine ?_ + (9 / 4096 * l : k) • (A ^ 3 * E)
+  refine ?_ + (135 / 262144 * l : k) • (A ^ 4 * C)
+  refine ?_ + (105 / 4194304 * l : k) • A ^ 6
+  exact (-(5 / 4096 : k)) • (A ^ 2 * B ^ 3)
+    + (45 / 1024 : k) • (A * B ^ 2 * D)
+    + (15 / 1024 : k) • (A * B * C ^ 2)
+    + (35 / 512 : k) • (B ^ 3 * C)
+    - (5 / 128 : k) • (A * B * G)
+    - (5 / 128 : k) • (A * C * F)
+    - (5 / 128 : k) • (A * D * E)
+    - (15 / 64 : k) • (B * C * E)
+    - (15 / 128 : k) • (C ^ 2 * D)
+    + (5 / 16 : k) • (E * F)
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroNuQuartic810_eq_BDFG_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -306,7 +308,8 @@ theorem degreeZeroNuQuartic810_eq_BDFG_add_rest
         degreeZeroNuQuarticNoBDFG810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
   simp only [degreeZeroNuQuartic810, nuQuarticFaceBDFG810, degreeZeroNuQuarticNoBDFG810]
-  all_goals module
+  try simp only [neg_smul]
+  abel
 
 theorem nuQuarticFaceBDFG810_coeff_top
     {A B C D E F G : k[X]}
@@ -392,7 +395,7 @@ def piQuarticInnerBCDG810 (b c d g : k) : k :=
 def primitiveQuarticInnerBCDG810 (b c d g : k) : k :=
   (-125 : k) * b ^ 4 * d + (-265 : k) * b ^ 3 * c ^ 2 + 120 * b ^ 3 * g + 720 * b * c * d ^ 2 + 240 * c ^ 3 * d + (-640 : k) * c * d * g
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem quarticInner_BCDG_identity
     (b c d g : k) :
     ((-32 / 35 : k) * b ^ 6 * c + (-320 / 49 : k) * b ^ 3 * c ^ 2 * d + (4608 / 245 : k) * b ^ 3 * d * g + (512 / 49 : k) * b ^ 2 * c ^ 4 + (-4096 / 49 : k) * b ^ 2 * c ^ 2 * g + (30720 / 343 : k) * c ^ 3 * d ^ 2 + (-49152 / 343 : k) * c * d ^ 2 * g) * kappaQuarticInnerBCDG810 b c d g +
@@ -402,50 +405,50 @@ theorem quarticInner_BCDG_identity
   simp only [kappaQuarticInnerBCDG810, muQuarticInnerBCDG810, nuQuarticInnerBCDG810, xiQuarticInnerBCDG810, omicronQuarticInnerBCDG810, piQuarticInnerBCDG810, primitiveQuarticInnerBCDG810]
   ring
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def kappaQuarticFaceBCDG810 (A B C D E F G : k[X]) : k[X] :=
   (-(15 / 128 : k)) • (B ^ 2 * D)
   - (15 / 128 : k) • (B * C ^ 2)
   + (5 / 16 : k) • (B * G)
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def degreeZeroKappaQuarticNoBCDG810
     (l beta gamma delta epsilon zeta eta theta : k)
-    (A B C D E F G : k[X]) : k[X] :=
-  (5 / 512 : k) • (A * B ^ 3)
-  + (5 / 16 : k) • (C * F)
-  + (5 / 16 : k) • (D * E)
-  + (63 / 262144 * l : k) • A ^ 5
-  + (45 / 8192 * l : k) • (A ^ 3 * C)
-  - (9 / 16384 * l : k) • (A ^ 2 * B ^ 2)
-  + (27 / 1024 * l : k) • (A ^ 2 * E)
-  - (9 / 512 * l : k) • (A * B * D)
-  + (9 / 1024 * l : k) • (A * C ^ 2)
-  - (63 / 1024 * l : k) • (B ^ 2 * C)
-  + (9 / 64 * l : k) • (A * G)
-  + (9 / 64 * l : k) • (B * F)
-  + (9 / 64 * l : k) • (C * E)
-  + (9 / 128 * l : k) • D ^ 2
-  + (35 / 32768 * beta : k) • A ^ 4
-  + (21 / 1024 * beta : k) • (A ^ 2 * C)
-  + (7 / 1024 * beta : k) • (A * B ^ 2)
-  + (7 / 64 * beta : k) • (A * E)
-  - (7 / 64 * beta : k) • (B * D)
-  - (7 / 128 * beta : k) • C ^ 2
-  + (7 / 8 * beta : k) • G
-  - (3 / 16 * gamma : k) • (B * C)
-  + (3 / 4 * gamma : k) • F
-  + (5 / 1024 * delta : k) • A ^ 3
-  + (5 / 64 * delta : k) • (A * C)
-  - (15 / 128 * delta : k) • B ^ 2
-  + (5 / 8 * delta : k) • E
-  + (1 / 2 * epsilon : k) • D
-  + (3 / 128 * zeta : k) • A ^ 2
-  + (3 / 8 * zeta : k) • C
-  + (1 / 4 * eta : k) • B
-  + (1 / 8 * theta : k) • A
+    (A B C D E F G : k[X]) : k[X] := by
+  refine ?_ + (1 / 8 * theta : k) • A
+  refine ?_ + (1 / 4 * eta : k) • B
+  refine ?_ + (3 / 8 * zeta : k) • C
+  refine ?_ + (3 / 128 * zeta : k) • A ^ 2
+  refine ?_ + (1 / 2 * epsilon : k) • D
+  refine ?_ + (5 / 8 * delta : k) • E
+  refine ?_ - (15 / 128 * delta : k) • B ^ 2
+  refine ?_ + (5 / 64 * delta : k) • (A * C)
+  refine ?_ + (5 / 1024 * delta : k) • A ^ 3
+  refine ?_ + (3 / 4 * gamma : k) • F
+  refine ?_ - (3 / 16 * gamma : k) • (B * C)
+  refine ?_ + (7 / 8 * beta : k) • G
+  refine ?_ - (7 / 128 * beta : k) • C ^ 2
+  refine ?_ - (7 / 64 * beta : k) • (B * D)
+  refine ?_ + (7 / 64 * beta : k) • (A * E)
+  refine ?_ + (7 / 1024 * beta : k) • (A * B ^ 2)
+  refine ?_ + (21 / 1024 * beta : k) • (A ^ 2 * C)
+  refine ?_ + (35 / 32768 * beta : k) • A ^ 4
+  refine ?_ + (9 / 128 * l : k) • D ^ 2
+  refine ?_ + (9 / 64 * l : k) • (C * E)
+  refine ?_ + (9 / 64 * l : k) • (B * F)
+  refine ?_ + (9 / 64 * l : k) • (A * G)
+  exact (5 / 512 : k) • (A * B ^ 3)
+    + (5 / 16 : k) • (C * F)
+    + (5 / 16 : k) • (D * E)
+    + (63 / 262144 * l : k) • A ^ 5
+    + (45 / 8192 * l : k) • (A ^ 3 * C)
+    - (9 / 16384 * l : k) • (A ^ 2 * B ^ 2)
+    + (27 / 1024 * l : k) • (A ^ 2 * E)
+    - (9 / 512 * l : k) • (A * B * D)
+    + (9 / 1024 * l : k) • (A * C ^ 2)
+    - (63 / 1024 * l : k) • (B ^ 2 * C)
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroKappaQuartic810_eq_BCDG_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -454,7 +457,8 @@ theorem degreeZeroKappaQuartic810_eq_BCDG_add_rest
         degreeZeroKappaQuarticNoBCDG810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
   simp only [degreeZeroKappaQuartic810, kappaQuarticFaceBCDG810, degreeZeroKappaQuarticNoBCDG810]
-  all_goals module
+  try simp only [neg_smul]
+  abel
 
 theorem kappaQuarticFaceBCDG810_coeff_top
     {A B C D E F G : k[X]}
@@ -519,58 +523,58 @@ section QuarticKills810
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def muQuarticFaceBCDG810 (A B C D E F G : k[X]) : k[X] :=
   (35 / 2048 : k) • B ^ 4
   - (15 / 64 : k) • (B * C * D)
   - (5 / 128 : k) • C ^ 3
   + (5 / 16 : k) • (C * G)
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def degreeZeroMuQuarticNoBCDG810
     (l beta gamma delta epsilon zeta eta theta : k)
-    (A B C D E F G : k[X]) : k[X] :=
-  (15 / 512 : k) • (A * B ^ 2 * C)
-  - (5 / 64 : k) • (A * B * F)
-  - (5 / 128 : k) • (A * D ^ 2)
-  - (15 / 128 : k) • (B ^ 2 * E)
-  + (5 / 16 : k) • (D * F)
-  + (5 / 32 : k) • E ^ 2
-  - (45 / 262144 * l : k) • (A ^ 4 * B)
-  - (9 / 8192 * l : k) • (A ^ 3 * D)
-  - (9 / 8192 * l : k) • (A ^ 2 * B * C)
-  + (63 / 8192 * l : k) • (A * B ^ 3)
-  - (9 / 1024 * l : k) • (A ^ 2 * F)
-  - (9 / 512 * l : k) • (A * B * E)
-  - (9 / 512 * l : k) • (A * C * D)
-  - (63 / 1024 * l : k) • (B ^ 2 * D)
-  - (63 / 1024 * l : k) • (B * C ^ 2)
-  + (9 / 64 * l : k) • (B * G)
-  + (9 / 64 * l : k) • (C * F)
-  + (9 / 64 * l : k) • (D * E)
-  - (7 / 8192 * beta : k) • (A ^ 3 * B)
-  - (7 / 1024 * beta : k) • (A ^ 2 * D)
-  + (7 / 512 * beta : k) • (A * B * C)
-  + (21 / 1024 * beta : k) • B ^ 3
-  - (7 / 64 * beta : k) • (A * F)
-  - (7 / 64 * beta : k) • (B * E)
-  - (7 / 64 * beta : k) • (C * D)
-  + (3 / 128 * gamma : k) • (A * B ^ 2)
-  - (3 / 16 * gamma : k) • (B * D)
-  - (3 / 32 * gamma : k) • C ^ 2
-  + (3 / 4 * gamma : k) • G
-  - (5 / 1024 * delta : k) • (A ^ 2 * B)
-  - (5 / 64 * delta : k) • (A * D)
-  - (15 / 64 * delta : k) • (B * C)
-  + (5 / 8 * delta : k) • F
-  - (1 / 8 * epsilon : k) • B ^ 2
-  + (1 / 2 * epsilon : k) • E
-  - (3 / 64 * zeta : k) • (A * B)
-  + (3 / 8 * zeta : k) • D
-  + (1 / 4 * eta : k) • C
-  + (1 / 8 * theta : k) • B
+    (A B C D E F G : k[X]) : k[X] := by
+  refine ?_ + (1 / 8 * theta : k) • B
+  refine ?_ + (1 / 4 * eta : k) • C
+  refine ?_ + (3 / 8 * zeta : k) • D
+  refine ?_ - (3 / 64 * zeta : k) • (A * B)
+  refine ?_ + (1 / 2 * epsilon : k) • E
+  refine ?_ - (1 / 8 * epsilon : k) • B ^ 2
+  refine ?_ + (5 / 8 * delta : k) • F
+  refine ?_ - (15 / 64 * delta : k) • (B * C)
+  refine ?_ - (5 / 64 * delta : k) • (A * D)
+  refine ?_ - (5 / 1024 * delta : k) • (A ^ 2 * B)
+  refine ?_ + (3 / 4 * gamma : k) • G
+  refine ?_ - (3 / 32 * gamma : k) • C ^ 2
+  refine ?_ - (3 / 16 * gamma : k) • (B * D)
+  refine ?_ + (3 / 128 * gamma : k) • (A * B ^ 2)
+  refine ?_ - (7 / 64 * beta : k) • (C * D)
+  refine ?_ - (7 / 64 * beta : k) • (B * E)
+  refine ?_ - (7 / 64 * beta : k) • (A * F)
+  refine ?_ + (21 / 1024 * beta : k) • B ^ 3
+  refine ?_ + (7 / 512 * beta : k) • (A * B * C)
+  refine ?_ - (7 / 1024 * beta : k) • (A ^ 2 * D)
+  refine ?_ - (7 / 8192 * beta : k) • (A ^ 3 * B)
+  refine ?_ + (9 / 64 * l : k) • (D * E)
+  refine ?_ + (9 / 64 * l : k) • (C * F)
+  refine ?_ + (9 / 64 * l : k) • (B * G)
+  refine ?_ - (63 / 1024 * l : k) • (B * C ^ 2)
+  refine ?_ - (63 / 1024 * l : k) • (B ^ 2 * D)
+  refine ?_ - (9 / 512 * l : k) • (A * C * D)
+  refine ?_ - (9 / 512 * l : k) • (A * B * E)
+  refine ?_ - (9 / 1024 * l : k) • (A ^ 2 * F)
+  exact (15 / 512 : k) • (A * B ^ 2 * C)
+    - (5 / 64 : k) • (A * B * F)
+    - (5 / 128 : k) • (A * D ^ 2)
+    - (15 / 128 : k) • (B ^ 2 * E)
+    + (5 / 16 : k) • (D * F)
+    + (5 / 32 : k) • E ^ 2
+    - (45 / 262144 * l : k) • (A ^ 4 * B)
+    - (9 / 8192 * l : k) • (A ^ 3 * D)
+    - (9 / 8192 * l : k) • (A ^ 2 * B * C)
+    + (63 / 8192 * l : k) • (A * B ^ 3)
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuQuartic810_eq_BCDG_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -579,7 +583,8 @@ theorem degreeZeroMuQuartic810_eq_BCDG_add_rest
         degreeZeroMuQuarticNoBCDG810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
   simp only [degreeZeroMuQuartic810, muQuarticFaceBCDG810, degreeZeroMuQuarticNoBCDG810]
-  all_goals module
+  try simp only [neg_smul]
+  abel
 
 theorem muQuarticFaceBCDG810_coeff_top
     {A B C D E F G : k[X]}
@@ -619,74 +624,74 @@ theorem muQuarticFaceBCDG810_coeff_top
   rw [hcf_B4, hcf_BCD, hcf_C3, hcf_CG]
   ring
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def nuQuarticFaceBCDG810 (A B C D E F G : k[X]) : k[X] :=
   (35 / 512 : k) • (B ^ 3 * C)
   - (15 / 128 : k) • (B * D ^ 2)
   - (15 / 128 : k) • (C ^ 2 * D)
   + (5 / 16 : k) • (D * G)
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 def degreeZeroNuQuarticNoBCDG810
     (l beta gamma delta epsilon zeta eta theta : k)
-    (A B C D E F G : k[X]) : k[X] :=
-  (-(5 / 4096 : k)) • (A ^ 2 * B ^ 3)
-  + (45 / 1024 : k) • (A * B ^ 2 * D)
-  + (15 / 1024 : k) • (A * B * C ^ 2)
-  - (5 / 128 : k) • (A * B * G)
-  - (5 / 128 : k) • (A * C * F)
-  - (5 / 128 : k) • (A * D * E)
-  - (15 / 128 : k) • (B ^ 2 * F)
-  - (15 / 64 : k) • (B * C * E)
-  + (5 / 16 : k) • (E * F)
-  + (105 / 4194304 * l : k) • A ^ 6
-  + (135 / 262144 * l : k) • (A ^ 4 * C)
-  + (9 / 4096 * l : k) • (A ^ 3 * E)
-  + (9 / 8192 * l : k) • (A ^ 2 * B * D)
-  + (9 / 16384 * l : k) • (A ^ 2 * C ^ 2)
-  + (63 / 4096 * l : k) • (A * B ^ 2 * C)
-  + (315 / 32768 * l : k) • B ^ 4
-  + (9 / 1024 * l : k) • (A ^ 2 * G)
-  - (9 / 256 * l : k) • (A * B * F)
-  - (9 / 512 * l : k) • (A * D ^ 2)
-  - (63 / 1024 * l : k) • (B ^ 2 * E)
-  - (63 / 512 * l : k) • (B * C * D)
-  - (21 / 1024 * l : k) • C ^ 3
-  + (9 / 64 * l : k) • (C * G)
-  + (9 / 64 * l : k) • (D * F)
-  + (9 / 128 * l : k) • E ^ 2
-  + (7 / 65536 * beta : k) • A ^ 5
-  + (7 / 4096 * beta : k) • (A ^ 3 * C)
-  - (7 / 16384 * beta : k) • (A ^ 2 * B ^ 2)
-  + (7 / 1024 * beta : k) • (A ^ 2 * E)
-  + (7 / 256 * beta : k) • (A * B * D)
-  + (63 / 1024 * beta : k) • (B ^ 2 * C)
-  - (7 / 64 * beta : k) • (B * F)
-  - (7 / 64 * beta : k) • (C * E)
-  - (7 / 128 * beta : k) • D ^ 2
-  + (3 / 128 * gamma : k) • (A * B * C)
-  + (5 / 128 * gamma : k) • B ^ 3
-  - (3 / 32 * gamma : k) • (A * F)
-  - (3 / 16 * gamma : k) • (B * E)
-  - (3 / 16 * gamma : k) • (C * D)
-  + (15 / 32768 * delta : k) • A ^ 4
-  + (5 / 1024 * delta : k) • (A ^ 2 * C)
-  + (15 / 512 * delta : k) • (A * B ^ 2)
-  - (15 / 64 * delta : k) • (B * D)
-  - (15 / 128 * delta : k) • C ^ 2
-  + (5 / 8 * delta : k) • G
-  - (1 / 16 * epsilon : k) • (A * D)
-  - (1 / 4 * epsilon : k) • (B * C)
-  + (1 / 2 * epsilon : k) • F
-  + (1 / 512 * zeta : k) • A ^ 3
-  - (15 / 128 * zeta : k) • B ^ 2
-  + (3 / 8 * zeta : k) • E
-  - (1 / 32 * eta : k) • (A * B)
-  + (1 / 4 * eta : k) • D
-  + (1 / 128 * theta : k) • A ^ 2
-  + (1 / 8 * theta : k) • C
+    (A B C D E F G : k[X]) : k[X] := by
+  refine ?_ + (1 / 8 * theta : k) • C
+  refine ?_ + (1 / 128 * theta : k) • A ^ 2
+  refine ?_ + (1 / 4 * eta : k) • D
+  refine ?_ - (1 / 32 * eta : k) • (A * B)
+  refine ?_ + (3 / 8 * zeta : k) • E
+  refine ?_ - (15 / 128 * zeta : k) • B ^ 2
+  refine ?_ + (1 / 512 * zeta : k) • A ^ 3
+  refine ?_ + (1 / 2 * epsilon : k) • F
+  refine ?_ - (1 / 4 * epsilon : k) • (B * C)
+  refine ?_ - (1 / 16 * epsilon : k) • (A * D)
+  refine ?_ + (5 / 8 * delta : k) • G
+  refine ?_ - (15 / 128 * delta : k) • C ^ 2
+  refine ?_ - (15 / 64 * delta : k) • (B * D)
+  refine ?_ + (15 / 512 * delta : k) • (A * B ^ 2)
+  refine ?_ + (5 / 1024 * delta : k) • (A ^ 2 * C)
+  refine ?_ + (15 / 32768 * delta : k) • A ^ 4
+  refine ?_ - (3 / 16 * gamma : k) • (C * D)
+  refine ?_ - (3 / 16 * gamma : k) • (B * E)
+  refine ?_ - (3 / 32 * gamma : k) • (A * F)
+  refine ?_ + (5 / 128 * gamma : k) • B ^ 3
+  refine ?_ + (3 / 128 * gamma : k) • (A * B * C)
+  refine ?_ - (7 / 128 * beta : k) • D ^ 2
+  refine ?_ - (7 / 64 * beta : k) • (C * E)
+  refine ?_ - (7 / 64 * beta : k) • (B * F)
+  refine ?_ + (63 / 1024 * beta : k) • (B ^ 2 * C)
+  refine ?_ + (7 / 256 * beta : k) • (A * B * D)
+  refine ?_ + (7 / 1024 * beta : k) • (A ^ 2 * E)
+  refine ?_ - (7 / 16384 * beta : k) • (A ^ 2 * B ^ 2)
+  refine ?_ + (7 / 4096 * beta : k) • (A ^ 3 * C)
+  refine ?_ + (7 / 65536 * beta : k) • A ^ 5
+  refine ?_ + (9 / 128 * l : k) • E ^ 2
+  refine ?_ + (9 / 64 * l : k) • (D * F)
+  refine ?_ + (9 / 64 * l : k) • (C * G)
+  refine ?_ - (21 / 1024 * l : k) • C ^ 3
+  refine ?_ - (63 / 512 * l : k) • (B * C * D)
+  refine ?_ - (63 / 1024 * l : k) • (B ^ 2 * E)
+  refine ?_ - (9 / 512 * l : k) • (A * D ^ 2)
+  refine ?_ - (9 / 256 * l : k) • (A * B * F)
+  refine ?_ + (9 / 1024 * l : k) • (A ^ 2 * G)
+  refine ?_ + (315 / 32768 * l : k) • B ^ 4
+  refine ?_ + (63 / 4096 * l : k) • (A * B ^ 2 * C)
+  refine ?_ + (9 / 16384 * l : k) • (A ^ 2 * C ^ 2)
+  refine ?_ + (9 / 8192 * l : k) • (A ^ 2 * B * D)
+  refine ?_ + (9 / 4096 * l : k) • (A ^ 3 * E)
+  refine ?_ + (135 / 262144 * l : k) • (A ^ 4 * C)
+  exact (-(5 / 4096 : k)) • (A ^ 2 * B ^ 3)
+    + (45 / 1024 : k) • (A * B ^ 2 * D)
+    + (15 / 1024 : k) • (A * B * C ^ 2)
+    - (5 / 128 : k) • (A * B * G)
+    - (5 / 128 : k) • (A * C * F)
+    - (5 / 128 : k) • (A * D * E)
+    - (15 / 128 : k) • (B ^ 2 * F)
+    - (15 / 64 : k) • (B * C * E)
+    + (5 / 16 : k) • (E * F)
+    + (105 / 4194304 * l : k) • A ^ 6
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroNuQuartic810_eq_BCDG_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -695,7 +700,8 @@ theorem degreeZeroNuQuartic810_eq_BCDG_add_rest
         degreeZeroNuQuarticNoBCDG810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
   simp only [degreeZeroNuQuartic810, nuQuarticFaceBCDG810, degreeZeroNuQuarticNoBCDG810]
-  all_goals module
+  try simp only [neg_smul]
+  abel
 
 theorem nuQuarticFaceBCDG810_coeff_top
     {A B C D E F G : k[X]}
@@ -775,7 +781,7 @@ def piQuarticInnerBCEG810 (b c e g : k) : k :=
 def primitiveQuarticInnerBCEG810 (b c e g : k) : k :=
   (-265 : k) * b ^ 3 * c ^ 2 + 120 * b ^ 3 * g + 720 * b * c ^ 2 * e + (-640 : k) * b * e * g
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem quarticInner_BCEG_identity
     (b c e g : k) :
     ((-139 / 21 : k) * b ^ 2 * c + (536 / 63 : k) * c * e) * kappaQuarticInnerBCEG810 b c e g +
@@ -787,50 +793,50 @@ theorem quarticInner_BCEG_identity
   simp only [kappaQuarticInnerBCEG810, muQuarticInnerBCEG810, nuQuarticInnerBCEG810, xiQuarticInnerBCEG810, omicronQuarticInnerBCEG810, piQuarticInnerBCEG810, primitiveQuarticInnerBCEG810]
   ring
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def kappaQuarticFaceBCEG810 (A B C D E F G : k[X]) : k[X] :=
   (-(15 / 128 : k)) • (B * C ^ 2)
   + (5 / 16 : k) • (B * G)
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def degreeZeroKappaQuarticNoBCEG810
     (l beta gamma delta epsilon zeta eta theta : k)
-    (A B C D E F G : k[X]) : k[X] :=
-  (5 / 512 : k) • (A * B ^ 3)
-  - (15 / 128 : k) • (B ^ 2 * D)
-  + (5 / 16 : k) • (C * F)
-  + (5 / 16 : k) • (D * E)
-  + (63 / 262144 * l : k) • A ^ 5
-  + (45 / 8192 * l : k) • (A ^ 3 * C)
-  - (9 / 16384 * l : k) • (A ^ 2 * B ^ 2)
-  + (27 / 1024 * l : k) • (A ^ 2 * E)
-  - (9 / 512 * l : k) • (A * B * D)
-  + (9 / 1024 * l : k) • (A * C ^ 2)
-  - (63 / 1024 * l : k) • (B ^ 2 * C)
-  + (9 / 64 * l : k) • (A * G)
-  + (9 / 64 * l : k) • (B * F)
-  + (9 / 64 * l : k) • (C * E)
-  + (9 / 128 * l : k) • D ^ 2
-  + (35 / 32768 * beta : k) • A ^ 4
-  + (21 / 1024 * beta : k) • (A ^ 2 * C)
-  + (7 / 1024 * beta : k) • (A * B ^ 2)
-  + (7 / 64 * beta : k) • (A * E)
-  - (7 / 64 * beta : k) • (B * D)
-  - (7 / 128 * beta : k) • C ^ 2
-  + (7 / 8 * beta : k) • G
-  - (3 / 16 * gamma : k) • (B * C)
-  + (3 / 4 * gamma : k) • F
-  + (5 / 1024 * delta : k) • A ^ 3
-  + (5 / 64 * delta : k) • (A * C)
-  - (15 / 128 * delta : k) • B ^ 2
-  + (5 / 8 * delta : k) • E
-  + (1 / 2 * epsilon : k) • D
-  + (3 / 128 * zeta : k) • A ^ 2
-  + (3 / 8 * zeta : k) • C
-  + (1 / 4 * eta : k) • B
-  + (1 / 8 * theta : k) • A
+    (A B C D E F G : k[X]) : k[X] := by
+  refine ?_ + (1 / 8 * theta : k) • A
+  refine ?_ + (1 / 4 * eta : k) • B
+  refine ?_ + (3 / 8 * zeta : k) • C
+  refine ?_ + (3 / 128 * zeta : k) • A ^ 2
+  refine ?_ + (1 / 2 * epsilon : k) • D
+  refine ?_ + (5 / 8 * delta : k) • E
+  refine ?_ - (15 / 128 * delta : k) • B ^ 2
+  refine ?_ + (5 / 64 * delta : k) • (A * C)
+  refine ?_ + (5 / 1024 * delta : k) • A ^ 3
+  refine ?_ + (3 / 4 * gamma : k) • F
+  refine ?_ - (3 / 16 * gamma : k) • (B * C)
+  refine ?_ + (7 / 8 * beta : k) • G
+  refine ?_ - (7 / 128 * beta : k) • C ^ 2
+  refine ?_ - (7 / 64 * beta : k) • (B * D)
+  refine ?_ + (7 / 64 * beta : k) • (A * E)
+  refine ?_ + (7 / 1024 * beta : k) • (A * B ^ 2)
+  refine ?_ + (21 / 1024 * beta : k) • (A ^ 2 * C)
+  refine ?_ + (35 / 32768 * beta : k) • A ^ 4
+  refine ?_ + (9 / 128 * l : k) • D ^ 2
+  refine ?_ + (9 / 64 * l : k) • (C * E)
+  refine ?_ + (9 / 64 * l : k) • (B * F)
+  refine ?_ + (9 / 64 * l : k) • (A * G)
+  refine ?_ - (63 / 1024 * l : k) • (B ^ 2 * C)
+  exact (5 / 512 : k) • (A * B ^ 3)
+    - (15 / 128 : k) • (B ^ 2 * D)
+    + (5 / 16 : k) • (C * F)
+    + (5 / 16 : k) • (D * E)
+    + (63 / 262144 * l : k) • A ^ 5
+    + (45 / 8192 * l : k) • (A ^ 3 * C)
+    - (9 / 16384 * l : k) • (A ^ 2 * B ^ 2)
+    + (27 / 1024 * l : k) • (A ^ 2 * E)
+    - (9 / 512 * l : k) • (A * B * D)
+    + (9 / 1024 * l : k) • (A * C ^ 2)
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroKappaQuartic810_eq_BCEG_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -839,7 +845,8 @@ theorem degreeZeroKappaQuartic810_eq_BCEG_add_rest
         degreeZeroKappaQuarticNoBCEG810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
   simp only [degreeZeroKappaQuartic810, kappaQuarticFaceBCEG810, degreeZeroKappaQuarticNoBCEG810]
-  all_goals module
+  try simp only [neg_smul]
+  abel
 
 theorem kappaQuarticFaceBCEG810_coeff_top
     {A B C D E F G : k[X]}
@@ -898,7 +905,7 @@ section QuarticKills810
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def muQuarticFaceBCEG810 (A B C D E F G : k[X]) : k[X] :=
   (35 / 2048 : k) • B ^ 4
   - (15 / 128 : k) • (B ^ 2 * E)
@@ -906,50 +913,50 @@ def muQuarticFaceBCEG810 (A B C D E F G : k[X]) : k[X] :=
   + (5 / 16 : k) • (C * G)
   + (5 / 32 : k) • E ^ 2
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def degreeZeroMuQuarticNoBCEG810
     (l beta gamma delta epsilon zeta eta theta : k)
-    (A B C D E F G : k[X]) : k[X] :=
-  (15 / 512 : k) • (A * B ^ 2 * C)
-  - (5 / 64 : k) • (A * B * F)
-  - (5 / 128 : k) • (A * D ^ 2)
-  - (15 / 64 : k) • (B * C * D)
-  + (5 / 16 : k) • (D * F)
-  - (45 / 262144 * l : k) • (A ^ 4 * B)
-  - (9 / 8192 * l : k) • (A ^ 3 * D)
-  - (9 / 8192 * l : k) • (A ^ 2 * B * C)
-  + (63 / 8192 * l : k) • (A * B ^ 3)
-  - (9 / 1024 * l : k) • (A ^ 2 * F)
-  - (9 / 512 * l : k) • (A * B * E)
-  - (9 / 512 * l : k) • (A * C * D)
-  - (63 / 1024 * l : k) • (B ^ 2 * D)
-  - (63 / 1024 * l : k) • (B * C ^ 2)
-  + (9 / 64 * l : k) • (B * G)
-  + (9 / 64 * l : k) • (C * F)
-  + (9 / 64 * l : k) • (D * E)
-  - (7 / 8192 * beta : k) • (A ^ 3 * B)
-  - (7 / 1024 * beta : k) • (A ^ 2 * D)
-  + (7 / 512 * beta : k) • (A * B * C)
-  + (21 / 1024 * beta : k) • B ^ 3
-  - (7 / 64 * beta : k) • (A * F)
-  - (7 / 64 * beta : k) • (B * E)
-  - (7 / 64 * beta : k) • (C * D)
-  + (3 / 128 * gamma : k) • (A * B ^ 2)
-  - (3 / 16 * gamma : k) • (B * D)
-  - (3 / 32 * gamma : k) • C ^ 2
-  + (3 / 4 * gamma : k) • G
-  - (5 / 1024 * delta : k) • (A ^ 2 * B)
-  - (5 / 64 * delta : k) • (A * D)
-  - (15 / 64 * delta : k) • (B * C)
-  + (5 / 8 * delta : k) • F
-  - (1 / 8 * epsilon : k) • B ^ 2
-  + (1 / 2 * epsilon : k) • E
-  - (3 / 64 * zeta : k) • (A * B)
-  + (3 / 8 * zeta : k) • D
-  + (1 / 4 * eta : k) • C
-  + (1 / 8 * theta : k) • B
+    (A B C D E F G : k[X]) : k[X] := by
+  refine ?_ + (1 / 8 * theta : k) • B
+  refine ?_ + (1 / 4 * eta : k) • C
+  refine ?_ + (3 / 8 * zeta : k) • D
+  refine ?_ - (3 / 64 * zeta : k) • (A * B)
+  refine ?_ + (1 / 2 * epsilon : k) • E
+  refine ?_ - (1 / 8 * epsilon : k) • B ^ 2
+  refine ?_ + (5 / 8 * delta : k) • F
+  refine ?_ - (15 / 64 * delta : k) • (B * C)
+  refine ?_ - (5 / 64 * delta : k) • (A * D)
+  refine ?_ - (5 / 1024 * delta : k) • (A ^ 2 * B)
+  refine ?_ + (3 / 4 * gamma : k) • G
+  refine ?_ - (3 / 32 * gamma : k) • C ^ 2
+  refine ?_ - (3 / 16 * gamma : k) • (B * D)
+  refine ?_ + (3 / 128 * gamma : k) • (A * B ^ 2)
+  refine ?_ - (7 / 64 * beta : k) • (C * D)
+  refine ?_ - (7 / 64 * beta : k) • (B * E)
+  refine ?_ - (7 / 64 * beta : k) • (A * F)
+  refine ?_ + (21 / 1024 * beta : k) • B ^ 3
+  refine ?_ + (7 / 512 * beta : k) • (A * B * C)
+  refine ?_ - (7 / 1024 * beta : k) • (A ^ 2 * D)
+  refine ?_ - (7 / 8192 * beta : k) • (A ^ 3 * B)
+  refine ?_ + (9 / 64 * l : k) • (D * E)
+  refine ?_ + (9 / 64 * l : k) • (C * F)
+  refine ?_ + (9 / 64 * l : k) • (B * G)
+  refine ?_ - (63 / 1024 * l : k) • (B * C ^ 2)
+  refine ?_ - (63 / 1024 * l : k) • (B ^ 2 * D)
+  refine ?_ - (9 / 512 * l : k) • (A * C * D)
+  refine ?_ - (9 / 512 * l : k) • (A * B * E)
+  exact (15 / 512 : k) • (A * B ^ 2 * C)
+    - (5 / 64 : k) • (A * B * F)
+    - (5 / 128 : k) • (A * D ^ 2)
+    - (15 / 64 : k) • (B * C * D)
+    + (5 / 16 : k) • (D * F)
+    - (45 / 262144 * l : k) • (A ^ 4 * B)
+    - (9 / 8192 * l : k) • (A ^ 3 * D)
+    - (9 / 8192 * l : k) • (A ^ 2 * B * C)
+    + (63 / 8192 * l : k) • (A * B ^ 3)
+    - (9 / 1024 * l : k) • (A ^ 2 * F)
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuQuartic810_eq_BCEG_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -958,7 +965,8 @@ theorem degreeZeroMuQuartic810_eq_BCEG_add_rest
         degreeZeroMuQuarticNoBCEG810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
   simp only [degreeZeroMuQuartic810, muQuarticFaceBCEG810, degreeZeroMuQuarticNoBCEG810]
-  all_goals module
+  try simp only [neg_smul]
+  abel
 
 theorem muQuarticFaceBCEG810_coeff_top
     {A B C D E F G : k[X]}
@@ -1004,74 +1012,74 @@ theorem muQuarticFaceBCEG810_coeff_top
   rw [hcf_B4, hcf_B2E, hcf_C3, hcf_CG, hcf_E2]
   ring
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def nuQuarticFaceBCEG810 (A B C D E F G : k[X]) : k[X] :=
   (35 / 512 : k) • (B ^ 3 * C)
   - (15 / 64 : k) • (B * C * E)
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 def degreeZeroNuQuarticNoBCEG810
     (l beta gamma delta epsilon zeta eta theta : k)
-    (A B C D E F G : k[X]) : k[X] :=
-  (-(5 / 4096 : k)) • (A ^ 2 * B ^ 3)
-  + (45 / 1024 : k) • (A * B ^ 2 * D)
-  + (15 / 1024 : k) • (A * B * C ^ 2)
-  - (5 / 128 : k) • (A * B * G)
-  - (5 / 128 : k) • (A * C * F)
-  - (5 / 128 : k) • (A * D * E)
-  - (15 / 128 : k) • (B ^ 2 * F)
-  - (15 / 128 : k) • (B * D ^ 2)
-  - (15 / 128 : k) • (C ^ 2 * D)
-  + (5 / 16 : k) • (D * G)
-  + (5 / 16 : k) • (E * F)
-  + (105 / 4194304 * l : k) • A ^ 6
-  + (135 / 262144 * l : k) • (A ^ 4 * C)
-  + (9 / 4096 * l : k) • (A ^ 3 * E)
-  + (9 / 8192 * l : k) • (A ^ 2 * B * D)
-  + (9 / 16384 * l : k) • (A ^ 2 * C ^ 2)
-  + (63 / 4096 * l : k) • (A * B ^ 2 * C)
-  + (315 / 32768 * l : k) • B ^ 4
-  + (9 / 1024 * l : k) • (A ^ 2 * G)
-  - (9 / 256 * l : k) • (A * B * F)
-  - (9 / 512 * l : k) • (A * D ^ 2)
-  - (63 / 1024 * l : k) • (B ^ 2 * E)
-  - (63 / 512 * l : k) • (B * C * D)
-  - (21 / 1024 * l : k) • C ^ 3
-  + (9 / 64 * l : k) • (C * G)
-  + (9 / 64 * l : k) • (D * F)
-  + (9 / 128 * l : k) • E ^ 2
-  + (7 / 65536 * beta : k) • A ^ 5
-  + (7 / 4096 * beta : k) • (A ^ 3 * C)
-  - (7 / 16384 * beta : k) • (A ^ 2 * B ^ 2)
-  + (7 / 1024 * beta : k) • (A ^ 2 * E)
-  + (7 / 256 * beta : k) • (A * B * D)
-  + (63 / 1024 * beta : k) • (B ^ 2 * C)
-  - (7 / 64 * beta : k) • (B * F)
-  - (7 / 64 * beta : k) • (C * E)
-  - (7 / 128 * beta : k) • D ^ 2
-  + (3 / 128 * gamma : k) • (A * B * C)
-  + (5 / 128 * gamma : k) • B ^ 3
-  - (3 / 32 * gamma : k) • (A * F)
-  - (3 / 16 * gamma : k) • (B * E)
-  - (3 / 16 * gamma : k) • (C * D)
-  + (15 / 32768 * delta : k) • A ^ 4
-  + (5 / 1024 * delta : k) • (A ^ 2 * C)
-  + (15 / 512 * delta : k) • (A * B ^ 2)
-  - (15 / 64 * delta : k) • (B * D)
-  - (15 / 128 * delta : k) • C ^ 2
-  + (5 / 8 * delta : k) • G
-  - (1 / 16 * epsilon : k) • (A * D)
-  - (1 / 4 * epsilon : k) • (B * C)
-  + (1 / 2 * epsilon : k) • F
-  + (1 / 512 * zeta : k) • A ^ 3
-  - (15 / 128 * zeta : k) • B ^ 2
-  + (3 / 8 * zeta : k) • E
-  - (1 / 32 * eta : k) • (A * B)
-  + (1 / 4 * eta : k) • D
-  + (1 / 128 * theta : k) • A ^ 2
-  + (1 / 8 * theta : k) • C
+    (A B C D E F G : k[X]) : k[X] := by
+  refine ?_ + (1 / 8 * theta : k) • C
+  refine ?_ + (1 / 128 * theta : k) • A ^ 2
+  refine ?_ + (1 / 4 * eta : k) • D
+  refine ?_ - (1 / 32 * eta : k) • (A * B)
+  refine ?_ + (3 / 8 * zeta : k) • E
+  refine ?_ - (15 / 128 * zeta : k) • B ^ 2
+  refine ?_ + (1 / 512 * zeta : k) • A ^ 3
+  refine ?_ + (1 / 2 * epsilon : k) • F
+  refine ?_ - (1 / 4 * epsilon : k) • (B * C)
+  refine ?_ - (1 / 16 * epsilon : k) • (A * D)
+  refine ?_ + (5 / 8 * delta : k) • G
+  refine ?_ - (15 / 128 * delta : k) • C ^ 2
+  refine ?_ - (15 / 64 * delta : k) • (B * D)
+  refine ?_ + (15 / 512 * delta : k) • (A * B ^ 2)
+  refine ?_ + (5 / 1024 * delta : k) • (A ^ 2 * C)
+  refine ?_ + (15 / 32768 * delta : k) • A ^ 4
+  refine ?_ - (3 / 16 * gamma : k) • (C * D)
+  refine ?_ - (3 / 16 * gamma : k) • (B * E)
+  refine ?_ - (3 / 32 * gamma : k) • (A * F)
+  refine ?_ + (5 / 128 * gamma : k) • B ^ 3
+  refine ?_ + (3 / 128 * gamma : k) • (A * B * C)
+  refine ?_ - (7 / 128 * beta : k) • D ^ 2
+  refine ?_ - (7 / 64 * beta : k) • (C * E)
+  refine ?_ - (7 / 64 * beta : k) • (B * F)
+  refine ?_ + (63 / 1024 * beta : k) • (B ^ 2 * C)
+  refine ?_ + (7 / 256 * beta : k) • (A * B * D)
+  refine ?_ + (7 / 1024 * beta : k) • (A ^ 2 * E)
+  refine ?_ - (7 / 16384 * beta : k) • (A ^ 2 * B ^ 2)
+  refine ?_ + (7 / 4096 * beta : k) • (A ^ 3 * C)
+  refine ?_ + (7 / 65536 * beta : k) • A ^ 5
+  refine ?_ + (9 / 128 * l : k) • E ^ 2
+  refine ?_ + (9 / 64 * l : k) • (D * F)
+  refine ?_ + (9 / 64 * l : k) • (C * G)
+  refine ?_ - (21 / 1024 * l : k) • C ^ 3
+  refine ?_ - (63 / 512 * l : k) • (B * C * D)
+  refine ?_ - (63 / 1024 * l : k) • (B ^ 2 * E)
+  refine ?_ - (9 / 512 * l : k) • (A * D ^ 2)
+  refine ?_ - (9 / 256 * l : k) • (A * B * F)
+  refine ?_ + (9 / 1024 * l : k) • (A ^ 2 * G)
+  refine ?_ + (315 / 32768 * l : k) • B ^ 4
+  refine ?_ + (63 / 4096 * l : k) • (A * B ^ 2 * C)
+  refine ?_ + (9 / 16384 * l : k) • (A ^ 2 * C ^ 2)
+  refine ?_ + (9 / 8192 * l : k) • (A ^ 2 * B * D)
+  refine ?_ + (9 / 4096 * l : k) • (A ^ 3 * E)
+  refine ?_ + (135 / 262144 * l : k) • (A ^ 4 * C)
+  refine ?_ + (105 / 4194304 * l : k) • A ^ 6
+  refine ?_ + (5 / 16 : k) • (E * F)
+  exact (-(5 / 4096 : k)) • (A ^ 2 * B ^ 3)
+    + (45 / 1024 : k) • (A * B ^ 2 * D)
+    + (15 / 1024 : k) • (A * B * C ^ 2)
+    - (5 / 128 : k) • (A * B * G)
+    - (5 / 128 : k) • (A * C * F)
+    - (5 / 128 : k) • (A * D * E)
+    - (15 / 128 : k) • (B ^ 2 * F)
+    - (15 / 128 : k) • (B * D ^ 2)
+    - (15 / 128 : k) • (C ^ 2 * D)
+    + (5 / 16 : k) • (D * G)
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroNuQuartic810_eq_BCEG_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -1080,7 +1088,8 @@ theorem degreeZeroNuQuartic810_eq_BCEG_add_rest
         degreeZeroNuQuarticNoBCEG810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
   simp only [degreeZeroNuQuartic810, nuQuarticFaceBCEG810, degreeZeroNuQuarticNoBCEG810]
-  all_goals module
+  try simp only [neg_smul]
+  abel
 
 theorem nuQuarticFaceBCEG810_coeff_top
     {A B C D E F G : k[X]}
@@ -1148,7 +1157,7 @@ def piQuarticInnerBDEG810 (b d e g : k) : k :=
 def primitiveQuarticInnerBDEG810 (b d e g : k) : k :=
   (-125 : k) * b ^ 4 * d + 120 * b ^ 3 * g + 680 * b ^ 2 * d * e + (-640 : k) * b * e * g + (-640 : k) * d * e ^ 2
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem quarticInner_BDEG_identity
     (b d e g : k) :
     ((-136 / 105 : k) * d ^ 2) * kappaQuarticInnerBDEG810 b d e g +
@@ -1160,50 +1169,50 @@ theorem quarticInner_BDEG_identity
   simp only [kappaQuarticInnerBDEG810, muQuarticInnerBDEG810, nuQuarticInnerBDEG810, xiQuarticInnerBDEG810, omicronQuarticInnerBDEG810, piQuarticInnerBDEG810, primitiveQuarticInnerBDEG810]
   ring
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def kappaQuarticFaceBDEG810 (A B C D E F G : k[X]) : k[X] :=
   (-(15 / 128 : k)) • (B ^ 2 * D)
   + (5 / 16 : k) • (B * G)
   + (5 / 16 : k) • (D * E)
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def degreeZeroKappaQuarticNoBDEG810
     (l beta gamma delta epsilon zeta eta theta : k)
-    (A B C D E F G : k[X]) : k[X] :=
-  (5 / 512 : k) • (A * B ^ 3)
-  - (15 / 128 : k) • (B * C ^ 2)
-  + (5 / 16 : k) • (C * F)
-  + (63 / 262144 * l : k) • A ^ 5
-  + (45 / 8192 * l : k) • (A ^ 3 * C)
-  - (9 / 16384 * l : k) • (A ^ 2 * B ^ 2)
-  + (27 / 1024 * l : k) • (A ^ 2 * E)
-  - (9 / 512 * l : k) • (A * B * D)
-  + (9 / 1024 * l : k) • (A * C ^ 2)
-  - (63 / 1024 * l : k) • (B ^ 2 * C)
-  + (9 / 64 * l : k) • (A * G)
-  + (9 / 64 * l : k) • (B * F)
-  + (9 / 64 * l : k) • (C * E)
-  + (9 / 128 * l : k) • D ^ 2
-  + (35 / 32768 * beta : k) • A ^ 4
-  + (21 / 1024 * beta : k) • (A ^ 2 * C)
-  + (7 / 1024 * beta : k) • (A * B ^ 2)
-  + (7 / 64 * beta : k) • (A * E)
-  - (7 / 64 * beta : k) • (B * D)
-  - (7 / 128 * beta : k) • C ^ 2
-  + (7 / 8 * beta : k) • G
-  - (3 / 16 * gamma : k) • (B * C)
-  + (3 / 4 * gamma : k) • F
-  + (5 / 1024 * delta : k) • A ^ 3
-  + (5 / 64 * delta : k) • (A * C)
-  - (15 / 128 * delta : k) • B ^ 2
-  + (5 / 8 * delta : k) • E
-  + (1 / 2 * epsilon : k) • D
-  + (3 / 128 * zeta : k) • A ^ 2
-  + (3 / 8 * zeta : k) • C
-  + (1 / 4 * eta : k) • B
-  + (1 / 8 * theta : k) • A
+    (A B C D E F G : k[X]) : k[X] := by
+  refine ?_ + (1 / 8 * theta : k) • A
+  refine ?_ + (1 / 4 * eta : k) • B
+  refine ?_ + (3 / 8 * zeta : k) • C
+  refine ?_ + (3 / 128 * zeta : k) • A ^ 2
+  refine ?_ + (1 / 2 * epsilon : k) • D
+  refine ?_ + (5 / 8 * delta : k) • E
+  refine ?_ - (15 / 128 * delta : k) • B ^ 2
+  refine ?_ + (5 / 64 * delta : k) • (A * C)
+  refine ?_ + (5 / 1024 * delta : k) • A ^ 3
+  refine ?_ + (3 / 4 * gamma : k) • F
+  refine ?_ - (3 / 16 * gamma : k) • (B * C)
+  refine ?_ + (7 / 8 * beta : k) • G
+  refine ?_ - (7 / 128 * beta : k) • C ^ 2
+  refine ?_ - (7 / 64 * beta : k) • (B * D)
+  refine ?_ + (7 / 64 * beta : k) • (A * E)
+  refine ?_ + (7 / 1024 * beta : k) • (A * B ^ 2)
+  refine ?_ + (21 / 1024 * beta : k) • (A ^ 2 * C)
+  refine ?_ + (35 / 32768 * beta : k) • A ^ 4
+  refine ?_ + (9 / 128 * l : k) • D ^ 2
+  refine ?_ + (9 / 64 * l : k) • (C * E)
+  refine ?_ + (9 / 64 * l : k) • (B * F)
+  refine ?_ + (9 / 64 * l : k) • (A * G)
+  exact (5 / 512 : k) • (A * B ^ 3)
+    - (15 / 128 : k) • (B * C ^ 2)
+    + (5 / 16 : k) • (C * F)
+    + (63 / 262144 * l : k) • A ^ 5
+    + (45 / 8192 * l : k) • (A ^ 3 * C)
+    - (9 / 16384 * l : k) • (A ^ 2 * B ^ 2)
+    + (27 / 1024 * l : k) • (A ^ 2 * E)
+    - (9 / 512 * l : k) • (A * B * D)
+    + (9 / 1024 * l : k) • (A * C ^ 2)
+    - (63 / 1024 * l : k) • (B ^ 2 * C)
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroKappaQuartic810_eq_BDEG_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -1212,7 +1221,8 @@ theorem degreeZeroKappaQuartic810_eq_BDEG_add_rest
         degreeZeroKappaQuarticNoBDEG810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
   simp only [degreeZeroKappaQuartic810, kappaQuarticFaceBDEG810, degreeZeroKappaQuarticNoBDEG810]
-  all_goals module
+  try simp only [neg_smul]
+  abel
 
 theorem kappaQuarticFaceBDEG810_coeff_top
     {A B C D E F G : k[X]}
@@ -1277,58 +1287,58 @@ section QuarticKills810
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def muQuarticFaceBDEG810 (A B C D E F G : k[X]) : k[X] :=
   (35 / 2048 : k) • B ^ 4
   - (15 / 128 : k) • (B ^ 2 * E)
   + (5 / 32 : k) • E ^ 2
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 def degreeZeroMuQuarticNoBDEG810
     (l beta gamma delta epsilon zeta eta theta : k)
-    (A B C D E F G : k[X]) : k[X] :=
-  (15 / 512 : k) • (A * B ^ 2 * C)
-  - (5 / 64 : k) • (A * B * F)
-  - (5 / 128 : k) • (A * D ^ 2)
-  - (15 / 64 : k) • (B * C * D)
-  - (5 / 128 : k) • C ^ 3
-  + (5 / 16 : k) • (C * G)
-  + (5 / 16 : k) • (D * F)
-  - (45 / 262144 * l : k) • (A ^ 4 * B)
-  - (9 / 8192 * l : k) • (A ^ 3 * D)
-  - (9 / 8192 * l : k) • (A ^ 2 * B * C)
-  + (63 / 8192 * l : k) • (A * B ^ 3)
-  - (9 / 1024 * l : k) • (A ^ 2 * F)
-  - (9 / 512 * l : k) • (A * B * E)
-  - (9 / 512 * l : k) • (A * C * D)
-  - (63 / 1024 * l : k) • (B ^ 2 * D)
-  - (63 / 1024 * l : k) • (B * C ^ 2)
-  + (9 / 64 * l : k) • (B * G)
-  + (9 / 64 * l : k) • (C * F)
-  + (9 / 64 * l : k) • (D * E)
-  - (7 / 8192 * beta : k) • (A ^ 3 * B)
-  - (7 / 1024 * beta : k) • (A ^ 2 * D)
-  + (7 / 512 * beta : k) • (A * B * C)
-  + (21 / 1024 * beta : k) • B ^ 3
-  - (7 / 64 * beta : k) • (A * F)
-  - (7 / 64 * beta : k) • (B * E)
-  - (7 / 64 * beta : k) • (C * D)
-  + (3 / 128 * gamma : k) • (A * B ^ 2)
-  - (3 / 16 * gamma : k) • (B * D)
-  - (3 / 32 * gamma : k) • C ^ 2
-  + (3 / 4 * gamma : k) • G
-  - (5 / 1024 * delta : k) • (A ^ 2 * B)
-  - (5 / 64 * delta : k) • (A * D)
-  - (15 / 64 * delta : k) • (B * C)
-  + (5 / 8 * delta : k) • F
-  - (1 / 8 * epsilon : k) • B ^ 2
-  + (1 / 2 * epsilon : k) • E
-  - (3 / 64 * zeta : k) • (A * B)
-  + (3 / 8 * zeta : k) • D
-  + (1 / 4 * eta : k) • C
-  + (1 / 8 * theta : k) • B
+    (A B C D E F G : k[X]) : k[X] := by
+  refine ?_ + (1 / 8 * theta : k) • B
+  refine ?_ + (1 / 4 * eta : k) • C
+  refine ?_ + (3 / 8 * zeta : k) • D
+  refine ?_ - (3 / 64 * zeta : k) • (A * B)
+  refine ?_ + (1 / 2 * epsilon : k) • E
+  refine ?_ - (1 / 8 * epsilon : k) • B ^ 2
+  refine ?_ + (5 / 8 * delta : k) • F
+  refine ?_ - (15 / 64 * delta : k) • (B * C)
+  refine ?_ - (5 / 64 * delta : k) • (A * D)
+  refine ?_ - (5 / 1024 * delta : k) • (A ^ 2 * B)
+  refine ?_ + (3 / 4 * gamma : k) • G
+  refine ?_ - (3 / 32 * gamma : k) • C ^ 2
+  refine ?_ - (3 / 16 * gamma : k) • (B * D)
+  refine ?_ + (3 / 128 * gamma : k) • (A * B ^ 2)
+  refine ?_ - (7 / 64 * beta : k) • (C * D)
+  refine ?_ - (7 / 64 * beta : k) • (B * E)
+  refine ?_ - (7 / 64 * beta : k) • (A * F)
+  refine ?_ + (21 / 1024 * beta : k) • B ^ 3
+  refine ?_ + (7 / 512 * beta : k) • (A * B * C)
+  refine ?_ - (7 / 1024 * beta : k) • (A ^ 2 * D)
+  refine ?_ - (7 / 8192 * beta : k) • (A ^ 3 * B)
+  refine ?_ + (9 / 64 * l : k) • (D * E)
+  refine ?_ + (9 / 64 * l : k) • (C * F)
+  refine ?_ + (9 / 64 * l : k) • (B * G)
+  refine ?_ - (63 / 1024 * l : k) • (B * C ^ 2)
+  refine ?_ - (63 / 1024 * l : k) • (B ^ 2 * D)
+  refine ?_ - (9 / 512 * l : k) • (A * C * D)
+  refine ?_ - (9 / 512 * l : k) • (A * B * E)
+  refine ?_ - (9 / 1024 * l : k) • (A ^ 2 * F)
+  refine ?_ + (63 / 8192 * l : k) • (A * B ^ 3)
+  exact (15 / 512 : k) • (A * B ^ 2 * C)
+    - (5 / 64 : k) • (A * B * F)
+    - (5 / 128 : k) • (A * D ^ 2)
+    - (15 / 64 : k) • (B * C * D)
+    - (5 / 128 : k) • C ^ 3
+    + (5 / 16 : k) • (C * G)
+    + (5 / 16 : k) • (D * F)
+    - (45 / 262144 * l : k) • (A ^ 4 * B)
+    - (9 / 8192 * l : k) • (A ^ 3 * D)
+    - (9 / 8192 * l : k) • (A ^ 2 * B * C)
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuQuartic810_eq_BDEG_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -1337,7 +1347,8 @@ theorem degreeZeroMuQuartic810_eq_BDEG_add_rest
         degreeZeroMuQuarticNoBDEG810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
   simp only [degreeZeroMuQuartic810, muQuarticFaceBDEG810, degreeZeroMuQuarticNoBDEG810]
-  all_goals module
+  try simp only [neg_smul]
+  abel
 
 theorem muQuarticFaceBDEG810_coeff_top
     {A B C D E F G : k[X]}
@@ -1371,74 +1382,74 @@ theorem muQuarticFaceBDEG810_coeff_top
   rw [hcf_B4, hcf_B2E, hcf_E2]
   ring
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def nuQuarticFaceBDEG810 (A B C D E F G : k[X]) : k[X] :=
   (-(15 / 128 : k)) • (B * D ^ 2)
   + (5 / 16 : k) • (D * G)
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 def degreeZeroNuQuarticNoBDEG810
     (l beta gamma delta epsilon zeta eta theta : k)
-    (A B C D E F G : k[X]) : k[X] :=
-  (-(5 / 4096 : k)) • (A ^ 2 * B ^ 3)
-  + (45 / 1024 : k) • (A * B ^ 2 * D)
-  + (15 / 1024 : k) • (A * B * C ^ 2)
-  + (35 / 512 : k) • (B ^ 3 * C)
-  - (5 / 128 : k) • (A * B * G)
-  - (5 / 128 : k) • (A * C * F)
-  - (5 / 128 : k) • (A * D * E)
-  - (15 / 128 : k) • (B ^ 2 * F)
-  - (15 / 64 : k) • (B * C * E)
-  - (15 / 128 : k) • (C ^ 2 * D)
-  + (5 / 16 : k) • (E * F)
-  + (105 / 4194304 * l : k) • A ^ 6
-  + (135 / 262144 * l : k) • (A ^ 4 * C)
-  + (9 / 4096 * l : k) • (A ^ 3 * E)
-  + (9 / 8192 * l : k) • (A ^ 2 * B * D)
-  + (9 / 16384 * l : k) • (A ^ 2 * C ^ 2)
-  + (63 / 4096 * l : k) • (A * B ^ 2 * C)
-  + (315 / 32768 * l : k) • B ^ 4
-  + (9 / 1024 * l : k) • (A ^ 2 * G)
-  - (9 / 256 * l : k) • (A * B * F)
-  - (9 / 512 * l : k) • (A * D ^ 2)
-  - (63 / 1024 * l : k) • (B ^ 2 * E)
-  - (63 / 512 * l : k) • (B * C * D)
-  - (21 / 1024 * l : k) • C ^ 3
-  + (9 / 64 * l : k) • (C * G)
-  + (9 / 64 * l : k) • (D * F)
-  + (9 / 128 * l : k) • E ^ 2
-  + (7 / 65536 * beta : k) • A ^ 5
-  + (7 / 4096 * beta : k) • (A ^ 3 * C)
-  - (7 / 16384 * beta : k) • (A ^ 2 * B ^ 2)
-  + (7 / 1024 * beta : k) • (A ^ 2 * E)
-  + (7 / 256 * beta : k) • (A * B * D)
-  + (63 / 1024 * beta : k) • (B ^ 2 * C)
-  - (7 / 64 * beta : k) • (B * F)
-  - (7 / 64 * beta : k) • (C * E)
-  - (7 / 128 * beta : k) • D ^ 2
-  + (3 / 128 * gamma : k) • (A * B * C)
-  + (5 / 128 * gamma : k) • B ^ 3
-  - (3 / 32 * gamma : k) • (A * F)
-  - (3 / 16 * gamma : k) • (B * E)
-  - (3 / 16 * gamma : k) • (C * D)
-  + (15 / 32768 * delta : k) • A ^ 4
-  + (5 / 1024 * delta : k) • (A ^ 2 * C)
-  + (15 / 512 * delta : k) • (A * B ^ 2)
-  - (15 / 64 * delta : k) • (B * D)
-  - (15 / 128 * delta : k) • C ^ 2
-  + (5 / 8 * delta : k) • G
-  - (1 / 16 * epsilon : k) • (A * D)
-  - (1 / 4 * epsilon : k) • (B * C)
-  + (1 / 2 * epsilon : k) • F
-  + (1 / 512 * zeta : k) • A ^ 3
-  - (15 / 128 * zeta : k) • B ^ 2
-  + (3 / 8 * zeta : k) • E
-  - (1 / 32 * eta : k) • (A * B)
-  + (1 / 4 * eta : k) • D
-  + (1 / 128 * theta : k) • A ^ 2
-  + (1 / 8 * theta : k) • C
+    (A B C D E F G : k[X]) : k[X] := by
+  refine ?_ + (1 / 8 * theta : k) • C
+  refine ?_ + (1 / 128 * theta : k) • A ^ 2
+  refine ?_ + (1 / 4 * eta : k) • D
+  refine ?_ - (1 / 32 * eta : k) • (A * B)
+  refine ?_ + (3 / 8 * zeta : k) • E
+  refine ?_ - (15 / 128 * zeta : k) • B ^ 2
+  refine ?_ + (1 / 512 * zeta : k) • A ^ 3
+  refine ?_ + (1 / 2 * epsilon : k) • F
+  refine ?_ - (1 / 4 * epsilon : k) • (B * C)
+  refine ?_ - (1 / 16 * epsilon : k) • (A * D)
+  refine ?_ + (5 / 8 * delta : k) • G
+  refine ?_ - (15 / 128 * delta : k) • C ^ 2
+  refine ?_ - (15 / 64 * delta : k) • (B * D)
+  refine ?_ + (15 / 512 * delta : k) • (A * B ^ 2)
+  refine ?_ + (5 / 1024 * delta : k) • (A ^ 2 * C)
+  refine ?_ + (15 / 32768 * delta : k) • A ^ 4
+  refine ?_ - (3 / 16 * gamma : k) • (C * D)
+  refine ?_ - (3 / 16 * gamma : k) • (B * E)
+  refine ?_ - (3 / 32 * gamma : k) • (A * F)
+  refine ?_ + (5 / 128 * gamma : k) • B ^ 3
+  refine ?_ + (3 / 128 * gamma : k) • (A * B * C)
+  refine ?_ - (7 / 128 * beta : k) • D ^ 2
+  refine ?_ - (7 / 64 * beta : k) • (C * E)
+  refine ?_ - (7 / 64 * beta : k) • (B * F)
+  refine ?_ + (63 / 1024 * beta : k) • (B ^ 2 * C)
+  refine ?_ + (7 / 256 * beta : k) • (A * B * D)
+  refine ?_ + (7 / 1024 * beta : k) • (A ^ 2 * E)
+  refine ?_ - (7 / 16384 * beta : k) • (A ^ 2 * B ^ 2)
+  refine ?_ + (7 / 4096 * beta : k) • (A ^ 3 * C)
+  refine ?_ + (7 / 65536 * beta : k) • A ^ 5
+  refine ?_ + (9 / 128 * l : k) • E ^ 2
+  refine ?_ + (9 / 64 * l : k) • (D * F)
+  refine ?_ + (9 / 64 * l : k) • (C * G)
+  refine ?_ - (21 / 1024 * l : k) • C ^ 3
+  refine ?_ - (63 / 512 * l : k) • (B * C * D)
+  refine ?_ - (63 / 1024 * l : k) • (B ^ 2 * E)
+  refine ?_ - (9 / 512 * l : k) • (A * D ^ 2)
+  refine ?_ - (9 / 256 * l : k) • (A * B * F)
+  refine ?_ + (9 / 1024 * l : k) • (A ^ 2 * G)
+  refine ?_ + (315 / 32768 * l : k) • B ^ 4
+  refine ?_ + (63 / 4096 * l : k) • (A * B ^ 2 * C)
+  refine ?_ + (9 / 16384 * l : k) • (A ^ 2 * C ^ 2)
+  refine ?_ + (9 / 8192 * l : k) • (A ^ 2 * B * D)
+  refine ?_ + (9 / 4096 * l : k) • (A ^ 3 * E)
+  refine ?_ + (135 / 262144 * l : k) • (A ^ 4 * C)
+  refine ?_ + (105 / 4194304 * l : k) • A ^ 6
+  refine ?_ + (5 / 16 : k) • (E * F)
+  exact (-(5 / 4096 : k)) • (A ^ 2 * B ^ 3)
+    + (45 / 1024 : k) • (A * B ^ 2 * D)
+    + (15 / 1024 : k) • (A * B * C ^ 2)
+    + (35 / 512 : k) • (B ^ 3 * C)
+    - (5 / 128 : k) • (A * B * G)
+    - (5 / 128 : k) • (A * C * F)
+    - (5 / 128 : k) • (A * D * E)
+    - (15 / 128 : k) • (B ^ 2 * F)
+    - (15 / 64 : k) • (B * C * E)
+    - (15 / 128 : k) • (C ^ 2 * D)
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroNuQuartic810_eq_BDEG_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -1447,7 +1458,8 @@ theorem degreeZeroNuQuartic810_eq_BDEG_add_rest
         degreeZeroNuQuarticNoBDEG810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
   simp only [degreeZeroNuQuartic810, nuQuarticFaceBDEG810, degreeZeroNuQuarticNoBDEG810]
-  all_goals module
+  try simp only [neg_smul]
+  abel
 
 theorem nuQuarticFaceBDEG810_coeff_top
     {A B C D E F G : k[X]}
@@ -1515,7 +1527,7 @@ def piQuarticInnerCDEF810 (c d e f : k) : k :=
 def primitiveQuarticInnerCDEF810 (c d e f : k) : k :=
   15 * c ^ 3 * d + (-80 : k) * c * e * f + (-40 : k) * d ^ 2 * f + (-40 : k) * d * e ^ 2
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem quarticInner_CDEF_identity
     (c d e f : k) :
     ((147 / 460 : k) * c * e + (33 / 460 : k) * d ^ 2) * kappaQuarticInnerCDEF810 c d e f +
@@ -1527,50 +1539,50 @@ theorem quarticInner_CDEF_identity
   simp only [kappaQuarticInnerCDEF810, muQuarticInnerCDEF810, nuQuarticInnerCDEF810, xiQuarticInnerCDEF810, omicronQuarticInnerCDEF810, piQuarticInnerCDEF810, primitiveQuarticInnerCDEF810]
   ring
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def kappaQuarticFaceCDEF810 (A B C D E F G : k[X]) : k[X] :=
   (5 / 16 : k) • (C * F)
   + (5 / 16 : k) • (D * E)
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def degreeZeroKappaQuarticNoCDEF810
     (l beta gamma delta epsilon zeta eta theta : k)
-    (A B C D E F G : k[X]) : k[X] :=
-  (5 / 512 : k) • (A * B ^ 3)
-  - (15 / 128 : k) • (B ^ 2 * D)
-  - (15 / 128 : k) • (B * C ^ 2)
-  + (5 / 16 : k) • (B * G)
-  + (63 / 262144 * l : k) • A ^ 5
-  + (45 / 8192 * l : k) • (A ^ 3 * C)
-  - (9 / 16384 * l : k) • (A ^ 2 * B ^ 2)
-  + (27 / 1024 * l : k) • (A ^ 2 * E)
-  - (9 / 512 * l : k) • (A * B * D)
-  + (9 / 1024 * l : k) • (A * C ^ 2)
-  - (63 / 1024 * l : k) • (B ^ 2 * C)
-  + (9 / 64 * l : k) • (A * G)
-  + (9 / 64 * l : k) • (B * F)
-  + (9 / 64 * l : k) • (C * E)
-  + (9 / 128 * l : k) • D ^ 2
-  + (35 / 32768 * beta : k) • A ^ 4
-  + (21 / 1024 * beta : k) • (A ^ 2 * C)
-  + (7 / 1024 * beta : k) • (A * B ^ 2)
-  + (7 / 64 * beta : k) • (A * E)
-  - (7 / 64 * beta : k) • (B * D)
-  - (7 / 128 * beta : k) • C ^ 2
-  + (7 / 8 * beta : k) • G
-  - (3 / 16 * gamma : k) • (B * C)
-  + (3 / 4 * gamma : k) • F
-  + (5 / 1024 * delta : k) • A ^ 3
-  + (5 / 64 * delta : k) • (A * C)
-  - (15 / 128 * delta : k) • B ^ 2
-  + (5 / 8 * delta : k) • E
-  + (1 / 2 * epsilon : k) • D
-  + (3 / 128 * zeta : k) • A ^ 2
-  + (3 / 8 * zeta : k) • C
-  + (1 / 4 * eta : k) • B
-  + (1 / 8 * theta : k) • A
+    (A B C D E F G : k[X]) : k[X] := by
+  refine ?_ + (1 / 8 * theta : k) • A
+  refine ?_ + (1 / 4 * eta : k) • B
+  refine ?_ + (3 / 8 * zeta : k) • C
+  refine ?_ + (3 / 128 * zeta : k) • A ^ 2
+  refine ?_ + (1 / 2 * epsilon : k) • D
+  refine ?_ + (5 / 8 * delta : k) • E
+  refine ?_ - (15 / 128 * delta : k) • B ^ 2
+  refine ?_ + (5 / 64 * delta : k) • (A * C)
+  refine ?_ + (5 / 1024 * delta : k) • A ^ 3
+  refine ?_ + (3 / 4 * gamma : k) • F
+  refine ?_ - (3 / 16 * gamma : k) • (B * C)
+  refine ?_ + (7 / 8 * beta : k) • G
+  refine ?_ - (7 / 128 * beta : k) • C ^ 2
+  refine ?_ - (7 / 64 * beta : k) • (B * D)
+  refine ?_ + (7 / 64 * beta : k) • (A * E)
+  refine ?_ + (7 / 1024 * beta : k) • (A * B ^ 2)
+  refine ?_ + (21 / 1024 * beta : k) • (A ^ 2 * C)
+  refine ?_ + (35 / 32768 * beta : k) • A ^ 4
+  refine ?_ + (9 / 128 * l : k) • D ^ 2
+  refine ?_ + (9 / 64 * l : k) • (C * E)
+  refine ?_ + (9 / 64 * l : k) • (B * F)
+  refine ?_ + (9 / 64 * l : k) • (A * G)
+  refine ?_ - (63 / 1024 * l : k) • (B ^ 2 * C)
+  exact (5 / 512 : k) • (A * B ^ 3)
+    - (15 / 128 : k) • (B ^ 2 * D)
+    - (15 / 128 : k) • (B * C ^ 2)
+    + (5 / 16 : k) • (B * G)
+    + (63 / 262144 * l : k) • A ^ 5
+    + (45 / 8192 * l : k) • (A ^ 3 * C)
+    - (9 / 16384 * l : k) • (A ^ 2 * B ^ 2)
+    + (27 / 1024 * l : k) • (A ^ 2 * E)
+    - (9 / 512 * l : k) • (A * B * D)
+    + (9 / 1024 * l : k) • (A * C ^ 2)
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroKappaQuartic810_eq_CDEF_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -1579,7 +1591,8 @@ theorem degreeZeroKappaQuartic810_eq_CDEF_add_rest
         degreeZeroKappaQuarticNoCDEF810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
   simp only [degreeZeroKappaQuartic810, kappaQuarticFaceCDEF810, degreeZeroKappaQuarticNoCDEF810]
-  all_goals module
+  try simp only [neg_smul]
+  abel
 
 theorem kappaQuarticFaceCDEF810_coeff_top
     {A B C D E F G : k[X]}
@@ -1638,58 +1651,58 @@ section QuarticKills810
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def muQuarticFaceCDEF810 (A B C D E F G : k[X]) : k[X] :=
   (-(5 / 128 : k)) • C ^ 3
   + (5 / 16 : k) • (D * F)
   + (5 / 32 : k) • E ^ 2
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 def degreeZeroMuQuarticNoCDEF810
     (l beta gamma delta epsilon zeta eta theta : k)
-    (A B C D E F G : k[X]) : k[X] :=
-  (15 / 512 : k) • (A * B ^ 2 * C)
-  + (35 / 2048 : k) • B ^ 4
-  - (5 / 64 : k) • (A * B * F)
-  - (5 / 128 : k) • (A * D ^ 2)
-  - (15 / 128 : k) • (B ^ 2 * E)
-  - (15 / 64 : k) • (B * C * D)
-  + (5 / 16 : k) • (C * G)
-  - (45 / 262144 * l : k) • (A ^ 4 * B)
-  - (9 / 8192 * l : k) • (A ^ 3 * D)
-  - (9 / 8192 * l : k) • (A ^ 2 * B * C)
-  + (63 / 8192 * l : k) • (A * B ^ 3)
-  - (9 / 1024 * l : k) • (A ^ 2 * F)
-  - (9 / 512 * l : k) • (A * B * E)
-  - (9 / 512 * l : k) • (A * C * D)
-  - (63 / 1024 * l : k) • (B ^ 2 * D)
-  - (63 / 1024 * l : k) • (B * C ^ 2)
-  + (9 / 64 * l : k) • (B * G)
-  + (9 / 64 * l : k) • (C * F)
-  + (9 / 64 * l : k) • (D * E)
-  - (7 / 8192 * beta : k) • (A ^ 3 * B)
-  - (7 / 1024 * beta : k) • (A ^ 2 * D)
-  + (7 / 512 * beta : k) • (A * B * C)
-  + (21 / 1024 * beta : k) • B ^ 3
-  - (7 / 64 * beta : k) • (A * F)
-  - (7 / 64 * beta : k) • (B * E)
-  - (7 / 64 * beta : k) • (C * D)
-  + (3 / 128 * gamma : k) • (A * B ^ 2)
-  - (3 / 16 * gamma : k) • (B * D)
-  - (3 / 32 * gamma : k) • C ^ 2
-  + (3 / 4 * gamma : k) • G
-  - (5 / 1024 * delta : k) • (A ^ 2 * B)
-  - (5 / 64 * delta : k) • (A * D)
-  - (15 / 64 * delta : k) • (B * C)
-  + (5 / 8 * delta : k) • F
-  - (1 / 8 * epsilon : k) • B ^ 2
-  + (1 / 2 * epsilon : k) • E
-  - (3 / 64 * zeta : k) • (A * B)
-  + (3 / 8 * zeta : k) • D
-  + (1 / 4 * eta : k) • C
-  + (1 / 8 * theta : k) • B
+    (A B C D E F G : k[X]) : k[X] := by
+  refine ?_ + (1 / 8 * theta : k) • B
+  refine ?_ + (1 / 4 * eta : k) • C
+  refine ?_ + (3 / 8 * zeta : k) • D
+  refine ?_ - (3 / 64 * zeta : k) • (A * B)
+  refine ?_ + (1 / 2 * epsilon : k) • E
+  refine ?_ - (1 / 8 * epsilon : k) • B ^ 2
+  refine ?_ + (5 / 8 * delta : k) • F
+  refine ?_ - (15 / 64 * delta : k) • (B * C)
+  refine ?_ - (5 / 64 * delta : k) • (A * D)
+  refine ?_ - (5 / 1024 * delta : k) • (A ^ 2 * B)
+  refine ?_ + (3 / 4 * gamma : k) • G
+  refine ?_ - (3 / 32 * gamma : k) • C ^ 2
+  refine ?_ - (3 / 16 * gamma : k) • (B * D)
+  refine ?_ + (3 / 128 * gamma : k) • (A * B ^ 2)
+  refine ?_ - (7 / 64 * beta : k) • (C * D)
+  refine ?_ - (7 / 64 * beta : k) • (B * E)
+  refine ?_ - (7 / 64 * beta : k) • (A * F)
+  refine ?_ + (21 / 1024 * beta : k) • B ^ 3
+  refine ?_ + (7 / 512 * beta : k) • (A * B * C)
+  refine ?_ - (7 / 1024 * beta : k) • (A ^ 2 * D)
+  refine ?_ - (7 / 8192 * beta : k) • (A ^ 3 * B)
+  refine ?_ + (9 / 64 * l : k) • (D * E)
+  refine ?_ + (9 / 64 * l : k) • (C * F)
+  refine ?_ + (9 / 64 * l : k) • (B * G)
+  refine ?_ - (63 / 1024 * l : k) • (B * C ^ 2)
+  refine ?_ - (63 / 1024 * l : k) • (B ^ 2 * D)
+  refine ?_ - (9 / 512 * l : k) • (A * C * D)
+  refine ?_ - (9 / 512 * l : k) • (A * B * E)
+  refine ?_ - (9 / 1024 * l : k) • (A ^ 2 * F)
+  refine ?_ + (63 / 8192 * l : k) • (A * B ^ 3)
+  exact (15 / 512 : k) • (A * B ^ 2 * C)
+    + (35 / 2048 : k) • B ^ 4
+    - (5 / 64 : k) • (A * B * F)
+    - (5 / 128 : k) • (A * D ^ 2)
+    - (15 / 128 : k) • (B ^ 2 * E)
+    - (15 / 64 : k) • (B * C * D)
+    + (5 / 16 : k) • (C * G)
+    - (45 / 262144 * l : k) • (A ^ 4 * B)
+    - (9 / 8192 * l : k) • (A ^ 3 * D)
+    - (9 / 8192 * l : k) • (A ^ 2 * B * C)
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuQuartic810_eq_CDEF_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -1698,7 +1711,8 @@ theorem degreeZeroMuQuartic810_eq_CDEF_add_rest
         degreeZeroMuQuarticNoCDEF810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
   simp only [degreeZeroMuQuartic810, muQuarticFaceCDEF810, degreeZeroMuQuarticNoCDEF810]
-  all_goals module
+  try simp only [neg_smul]
+  abel
 
 theorem muQuarticFaceCDEF810_coeff_top
     {A B C D E F G : k[X]}
@@ -1732,74 +1746,74 @@ theorem muQuarticFaceCDEF810_coeff_top
   rw [hcf_C3, hcf_DF, hcf_E2]
   ring
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def nuQuarticFaceCDEF810 (A B C D E F G : k[X]) : k[X] :=
   (-(15 / 128 : k)) • (C ^ 2 * D)
   + (5 / 16 : k) • (E * F)
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 def degreeZeroNuQuarticNoCDEF810
     (l beta gamma delta epsilon zeta eta theta : k)
-    (A B C D E F G : k[X]) : k[X] :=
-  (-(5 / 4096 : k)) • (A ^ 2 * B ^ 3)
-  + (45 / 1024 : k) • (A * B ^ 2 * D)
-  + (15 / 1024 : k) • (A * B * C ^ 2)
-  + (35 / 512 : k) • (B ^ 3 * C)
-  - (5 / 128 : k) • (A * B * G)
-  - (5 / 128 : k) • (A * C * F)
-  - (5 / 128 : k) • (A * D * E)
-  - (15 / 128 : k) • (B ^ 2 * F)
-  - (15 / 64 : k) • (B * C * E)
-  - (15 / 128 : k) • (B * D ^ 2)
-  + (5 / 16 : k) • (D * G)
-  + (105 / 4194304 * l : k) • A ^ 6
-  + (135 / 262144 * l : k) • (A ^ 4 * C)
-  + (9 / 4096 * l : k) • (A ^ 3 * E)
-  + (9 / 8192 * l : k) • (A ^ 2 * B * D)
-  + (9 / 16384 * l : k) • (A ^ 2 * C ^ 2)
-  + (63 / 4096 * l : k) • (A * B ^ 2 * C)
-  + (315 / 32768 * l : k) • B ^ 4
-  + (9 / 1024 * l : k) • (A ^ 2 * G)
-  - (9 / 256 * l : k) • (A * B * F)
-  - (9 / 512 * l : k) • (A * D ^ 2)
-  - (63 / 1024 * l : k) • (B ^ 2 * E)
-  - (63 / 512 * l : k) • (B * C * D)
-  - (21 / 1024 * l : k) • C ^ 3
-  + (9 / 64 * l : k) • (C * G)
-  + (9 / 64 * l : k) • (D * F)
-  + (9 / 128 * l : k) • E ^ 2
-  + (7 / 65536 * beta : k) • A ^ 5
-  + (7 / 4096 * beta : k) • (A ^ 3 * C)
-  - (7 / 16384 * beta : k) • (A ^ 2 * B ^ 2)
-  + (7 / 1024 * beta : k) • (A ^ 2 * E)
-  + (7 / 256 * beta : k) • (A * B * D)
-  + (63 / 1024 * beta : k) • (B ^ 2 * C)
-  - (7 / 64 * beta : k) • (B * F)
-  - (7 / 64 * beta : k) • (C * E)
-  - (7 / 128 * beta : k) • D ^ 2
-  + (3 / 128 * gamma : k) • (A * B * C)
-  + (5 / 128 * gamma : k) • B ^ 3
-  - (3 / 32 * gamma : k) • (A * F)
-  - (3 / 16 * gamma : k) • (B * E)
-  - (3 / 16 * gamma : k) • (C * D)
-  + (15 / 32768 * delta : k) • A ^ 4
-  + (5 / 1024 * delta : k) • (A ^ 2 * C)
-  + (15 / 512 * delta : k) • (A * B ^ 2)
-  - (15 / 64 * delta : k) • (B * D)
-  - (15 / 128 * delta : k) • C ^ 2
-  + (5 / 8 * delta : k) • G
-  - (1 / 16 * epsilon : k) • (A * D)
-  - (1 / 4 * epsilon : k) • (B * C)
-  + (1 / 2 * epsilon : k) • F
-  + (1 / 512 * zeta : k) • A ^ 3
-  - (15 / 128 * zeta : k) • B ^ 2
-  + (3 / 8 * zeta : k) • E
-  - (1 / 32 * eta : k) • (A * B)
-  + (1 / 4 * eta : k) • D
-  + (1 / 128 * theta : k) • A ^ 2
-  + (1 / 8 * theta : k) • C
+    (A B C D E F G : k[X]) : k[X] := by
+  refine ?_ + (1 / 8 * theta : k) • C
+  refine ?_ + (1 / 128 * theta : k) • A ^ 2
+  refine ?_ + (1 / 4 * eta : k) • D
+  refine ?_ - (1 / 32 * eta : k) • (A * B)
+  refine ?_ + (3 / 8 * zeta : k) • E
+  refine ?_ - (15 / 128 * zeta : k) • B ^ 2
+  refine ?_ + (1 / 512 * zeta : k) • A ^ 3
+  refine ?_ + (1 / 2 * epsilon : k) • F
+  refine ?_ - (1 / 4 * epsilon : k) • (B * C)
+  refine ?_ - (1 / 16 * epsilon : k) • (A * D)
+  refine ?_ + (5 / 8 * delta : k) • G
+  refine ?_ - (15 / 128 * delta : k) • C ^ 2
+  refine ?_ - (15 / 64 * delta : k) • (B * D)
+  refine ?_ + (15 / 512 * delta : k) • (A * B ^ 2)
+  refine ?_ + (5 / 1024 * delta : k) • (A ^ 2 * C)
+  refine ?_ + (15 / 32768 * delta : k) • A ^ 4
+  refine ?_ - (3 / 16 * gamma : k) • (C * D)
+  refine ?_ - (3 / 16 * gamma : k) • (B * E)
+  refine ?_ - (3 / 32 * gamma : k) • (A * F)
+  refine ?_ + (5 / 128 * gamma : k) • B ^ 3
+  refine ?_ + (3 / 128 * gamma : k) • (A * B * C)
+  refine ?_ - (7 / 128 * beta : k) • D ^ 2
+  refine ?_ - (7 / 64 * beta : k) • (C * E)
+  refine ?_ - (7 / 64 * beta : k) • (B * F)
+  refine ?_ + (63 / 1024 * beta : k) • (B ^ 2 * C)
+  refine ?_ + (7 / 256 * beta : k) • (A * B * D)
+  refine ?_ + (7 / 1024 * beta : k) • (A ^ 2 * E)
+  refine ?_ - (7 / 16384 * beta : k) • (A ^ 2 * B ^ 2)
+  refine ?_ + (7 / 4096 * beta : k) • (A ^ 3 * C)
+  refine ?_ + (7 / 65536 * beta : k) • A ^ 5
+  refine ?_ + (9 / 128 * l : k) • E ^ 2
+  refine ?_ + (9 / 64 * l : k) • (D * F)
+  refine ?_ + (9 / 64 * l : k) • (C * G)
+  refine ?_ - (21 / 1024 * l : k) • C ^ 3
+  refine ?_ - (63 / 512 * l : k) • (B * C * D)
+  refine ?_ - (63 / 1024 * l : k) • (B ^ 2 * E)
+  refine ?_ - (9 / 512 * l : k) • (A * D ^ 2)
+  refine ?_ - (9 / 256 * l : k) • (A * B * F)
+  refine ?_ + (9 / 1024 * l : k) • (A ^ 2 * G)
+  refine ?_ + (315 / 32768 * l : k) • B ^ 4
+  refine ?_ + (63 / 4096 * l : k) • (A * B ^ 2 * C)
+  refine ?_ + (9 / 16384 * l : k) • (A ^ 2 * C ^ 2)
+  refine ?_ + (9 / 8192 * l : k) • (A ^ 2 * B * D)
+  refine ?_ + (9 / 4096 * l : k) • (A ^ 3 * E)
+  refine ?_ + (135 / 262144 * l : k) • (A ^ 4 * C)
+  refine ?_ + (105 / 4194304 * l : k) • A ^ 6
+  refine ?_ + (5 / 16 : k) • (D * G)
+  exact (-(5 / 4096 : k)) • (A ^ 2 * B ^ 3)
+    + (45 / 1024 : k) • (A * B ^ 2 * D)
+    + (15 / 1024 : k) • (A * B * C ^ 2)
+    + (35 / 512 : k) • (B ^ 3 * C)
+    - (5 / 128 : k) • (A * B * G)
+    - (5 / 128 : k) • (A * C * F)
+    - (5 / 128 : k) • (A * D * E)
+    - (15 / 128 : k) • (B ^ 2 * F)
+    - (15 / 64 : k) • (B * C * E)
+    - (15 / 128 : k) • (B * D ^ 2)
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroNuQuartic810_eq_CDEF_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -1808,7 +1822,8 @@ theorem degreeZeroNuQuartic810_eq_CDEF_add_rest
         degreeZeroNuQuarticNoCDEF810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
   simp only [degreeZeroNuQuartic810, nuQuarticFaceCDEF810, degreeZeroNuQuarticNoCDEF810]
-  all_goals module
+  try simp only [neg_smul]
+  abel
 
 theorem nuQuarticFaceCDEF810_coeff_top
     {A B C D E F G : k[X]}
@@ -1867,76 +1882,76 @@ section QuarticKills810
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def xiQuarticFaceBCEG810 (A B C D E F G : k[X]) : k[X] :=
   (45 / 512 : k) • (B ^ 2 * C ^ 2)
   - (5 / 64 : k) • (B ^ 2 * G)
   - (15 / 128 : k) • (C ^ 2 * E)
   + (5 / 16 : k) • (E * G)
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 def degreeZeroXiQuarticNoBCEG810
     (l beta gamma delta epsilon zeta eta theta : k)
-    (A B C D E F G : k[X]) : k[X] :=
-  (-(15 / 2048 : k)) • (A * B ^ 4)
-  + (15 / 512 : k) • (A * B ^ 2 * E)
-  + (15 / 256 : k) • (A * B * C * D)
-  + (55 / 1024 : k) • (B ^ 3 * D)
-  - (5 / 64 : k) • (A * D * F)
-  - (25 / 128 : k) • (B * C * F)
-  - (25 / 128 : k) • (B * D * E)
-  - (15 / 128 : k) • (C * D ^ 2)
-  + (5 / 32 : k) • F ^ 2
-  - (45 / 262144 * l : k) • (A ^ 4 * D)
-  + (9 / 16384 * l : k) • (A ^ 3 * B * C)
-  - (9 / 16384 * l : k) • (A ^ 2 * B ^ 3)
-  - (9 / 8192 * l : k) • (A ^ 3 * F)
-  + (9 / 4096 * l : k) • (A ^ 2 * B * E)
-  - (9 / 8192 * l : k) • (A ^ 2 * C * D)
-  + (171 / 8192 * l : k) • (A * B ^ 2 * D)
-  + (9 / 1024 * l : k) • (A * B * C ^ 2)
-  + (63 / 2048 * l : k) • (B ^ 3 * C)
-  - (9 / 512 * l : k) • (A * C * F)
-  - (9 / 512 * l : k) • (A * D * E)
-  - (45 / 1024 * l : k) • (B ^ 2 * F)
-  - (27 / 256 * l : k) • (B * C * E)
-  - (27 / 512 * l : k) • (B * D ^ 2)
-  - (63 / 1024 * l : k) • (C ^ 2 * D)
-  + (9 / 64 * l : k) • (D * G)
-  + (9 / 64 * l : k) • (E * F)
-  - (7 / 8192 * beta : k) • (A ^ 3 * D)
-  + (7 / 2048 * beta : k) • (A ^ 2 * B * C)
-  - (7 / 1024 * beta : k) • (A * B ^ 3)
-  - (7 / 1024 * beta : k) • (A ^ 2 * F)
-  + (7 / 256 * beta : k) • (A * B * E)
-  + (7 / 512 * beta : k) • (A * C * D)
-  + (49 / 1024 * beta : k) • (B ^ 2 * D)
-  + (7 / 128 * beta : k) • (B * C ^ 2)
-  - (7 / 64 * beta : k) • (C * F)
-  - (7 / 64 * beta : k) • (D * E)
-  + (3 / 64 * gamma : k) • (A * B * D)
-  + (3 / 32 * gamma : k) • (B ^ 2 * C)
-  - (3 / 32 * gamma : k) • (B * F)
-  - (3 / 16 * gamma : k) • (C * E)
-  - (3 / 32 * gamma : k) • D ^ 2
-  - (5 / 1024 * delta : k) • (A ^ 2 * D)
-  + (5 / 128 * delta : k) • (A * B * C)
-  + (5 / 128 * delta : k) • B ^ 3
-  - (5 / 64 * delta : k) • (A * F)
-  - (5 / 32 * delta : k) • (B * E)
-  - (15 / 64 * delta : k) • (C * D)
-  + (1 / 32 * epsilon : k) • (A * B ^ 2)
-  - (3 / 16 * epsilon : k) • (B * D)
-  - (1 / 8 * epsilon : k) • C ^ 2
-  + (1 / 2 * epsilon : k) • G
-  - (3 / 64 * zeta : k) • (A * D)
-  - (3 / 16 * zeta : k) • (B * C)
-  + (3 / 8 * zeta : k) • F
-  - (1 / 16 * eta : k) • B ^ 2
-  + (1 / 4 * eta : k) • E
-  + (1 / 8 * theta : k) • D
+    (A B C D E F G : k[X]) : k[X] := by
+  refine ?_ + (1 / 8 * theta : k) • D
+  refine ?_ + (1 / 4 * eta : k) • E
+  refine ?_ - (1 / 16 * eta : k) • B ^ 2
+  refine ?_ + (3 / 8 * zeta : k) • F
+  refine ?_ - (3 / 16 * zeta : k) • (B * C)
+  refine ?_ - (3 / 64 * zeta : k) • (A * D)
+  refine ?_ + (1 / 2 * epsilon : k) • G
+  refine ?_ - (1 / 8 * epsilon : k) • C ^ 2
+  refine ?_ - (3 / 16 * epsilon : k) • (B * D)
+  refine ?_ + (1 / 32 * epsilon : k) • (A * B ^ 2)
+  refine ?_ - (15 / 64 * delta : k) • (C * D)
+  refine ?_ - (5 / 32 * delta : k) • (B * E)
+  refine ?_ - (5 / 64 * delta : k) • (A * F)
+  refine ?_ + (5 / 128 * delta : k) • B ^ 3
+  refine ?_ + (5 / 128 * delta : k) • (A * B * C)
+  refine ?_ - (5 / 1024 * delta : k) • (A ^ 2 * D)
+  refine ?_ - (3 / 32 * gamma : k) • D ^ 2
+  refine ?_ - (3 / 16 * gamma : k) • (C * E)
+  refine ?_ - (3 / 32 * gamma : k) • (B * F)
+  refine ?_ + (3 / 32 * gamma : k) • (B ^ 2 * C)
+  refine ?_ + (3 / 64 * gamma : k) • (A * B * D)
+  refine ?_ - (7 / 64 * beta : k) • (D * E)
+  refine ?_ - (7 / 64 * beta : k) • (C * F)
+  refine ?_ + (7 / 128 * beta : k) • (B * C ^ 2)
+  refine ?_ + (49 / 1024 * beta : k) • (B ^ 2 * D)
+  refine ?_ + (7 / 512 * beta : k) • (A * C * D)
+  refine ?_ + (7 / 256 * beta : k) • (A * B * E)
+  refine ?_ - (7 / 1024 * beta : k) • (A ^ 2 * F)
+  refine ?_ - (7 / 1024 * beta : k) • (A * B ^ 3)
+  refine ?_ + (7 / 2048 * beta : k) • (A ^ 2 * B * C)
+  refine ?_ - (7 / 8192 * beta : k) • (A ^ 3 * D)
+  refine ?_ + (9 / 64 * l : k) • (E * F)
+  refine ?_ + (9 / 64 * l : k) • (D * G)
+  refine ?_ - (63 / 1024 * l : k) • (C ^ 2 * D)
+  refine ?_ - (27 / 512 * l : k) • (B * D ^ 2)
+  refine ?_ - (27 / 256 * l : k) • (B * C * E)
+  refine ?_ - (45 / 1024 * l : k) • (B ^ 2 * F)
+  refine ?_ - (9 / 512 * l : k) • (A * D * E)
+  refine ?_ - (9 / 512 * l : k) • (A * C * F)
+  refine ?_ + (63 / 2048 * l : k) • (B ^ 3 * C)
+  refine ?_ + (9 / 1024 * l : k) • (A * B * C ^ 2)
+  refine ?_ + (171 / 8192 * l : k) • (A * B ^ 2 * D)
+  refine ?_ - (9 / 8192 * l : k) • (A ^ 2 * C * D)
+  refine ?_ + (9 / 4096 * l : k) • (A ^ 2 * B * E)
+  refine ?_ - (9 / 8192 * l : k) • (A ^ 3 * F)
+  refine ?_ - (9 / 16384 * l : k) • (A ^ 2 * B ^ 3)
+  refine ?_ + (9 / 16384 * l : k) • (A ^ 3 * B * C)
+  exact (-(15 / 2048 : k)) • (A * B ^ 4)
+    + (15 / 512 : k) • (A * B ^ 2 * E)
+    + (15 / 256 : k) • (A * B * C * D)
+    + (55 / 1024 : k) • (B ^ 3 * D)
+    - (5 / 64 : k) • (A * D * F)
+    - (25 / 128 : k) • (B * C * F)
+    - (25 / 128 : k) • (B * D * E)
+    - (15 / 128 : k) • (C * D ^ 2)
+    + (5 / 32 : k) • F ^ 2
+    - (45 / 262144 * l : k) • (A ^ 4 * D)
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiQuartic810_eq_BCEG_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -1945,7 +1960,8 @@ theorem degreeZeroXiQuartic810_eq_BCEG_add_rest
         degreeZeroXiQuarticNoBCEG810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
   simp only [degreeZeroXiQuartic810, xiQuarticFaceBCEG810, degreeZeroXiQuarticNoBCEG810]
-  all_goals module
+  try simp only [neg_smul]
+  abel
 
 theorem xiQuarticFaceBCEG810_coeff_top
     {A B C D E F G : k[X]}
@@ -1985,7 +2001,7 @@ theorem xiQuarticFaceBCEG810_coeff_top
   rw [hcf_B2C2, hcf_B2G, hcf_C2E, hcf_EG]
   ring
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def omicronQuarticFaceBCEG810 (A B C D E F G : k[X]) : k[X] :=
   (-(21 / 4096 : k)) • B ^ 5
   + (5 / 128 : k) • (B ^ 3 * E)
@@ -1993,109 +2009,109 @@ def omicronQuarticFaceBCEG810 (A B C D E F G : k[X]) : k[X] :=
   - (15 / 128 : k) • (B * C * G)
   - (5 / 64 : k) • (B * E ^ 2)
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 def degreeZeroOmicronQuarticNoBCEG810
     (l beta gamma delta epsilon zeta eta theta : k)
-    (A B C D E F G : k[X]) : k[X] :=
-  (-(5 / 65536 : k)) • (A ^ 3 * B ^ 3)
-  - (45 / 16384 : k) • (A ^ 2 * B ^ 2 * D)
-  + (15 / 16384 : k) • (A ^ 2 * B * C ^ 2)
-  - (35 / 2048 : k) • (A * B ^ 3 * C)
-  - (5 / 2048 : k) • (A ^ 2 * B * G)
-  - (5 / 2048 : k) • (A ^ 2 * C * F)
-  - (5 / 2048 : k) • (A ^ 2 * D * E)
-  + (25 / 1024 : k) • (A * B ^ 2 * F)
-  + (15 / 512 : k) • (A * B * C * E)
-  + (35 / 1024 : k) • (A * B * D ^ 2)
-  + (15 / 1024 : k) • (A * C ^ 2 * D)
-  + (135 / 1024 : k) • (B ^ 2 * C * D)
-  - (5 / 128 : k) • (A * D * G)
-  - (5 / 128 : k) • (A * E * F)
-  - (5 / 32 : k) • (B * D * F)
-  - (5 / 64 : k) • (C ^ 2 * F)
-  - (25 / 128 : k) • (C * D * E)
-  - (5 / 128 : k) • D ^ 3
-  + (5 / 16 : k) • (F * G)
-  + (135 / 33554432 * l : k) • A ^ 7
-  + (225 / 2097152 * l : k) • (A ^ 5 * C)
-  - (171 / 4194304 * l : k) • (A ^ 4 * B ^ 2)
-  + (81 / 262144 * l : k) • (A ^ 4 * E)
-  - (9 / 65536 * l : k) • (A ^ 3 * B * D)
-  + (99 / 131072 * l : k) • (A ^ 3 * C ^ 2)
-  - (45 / 131072 * l : k) • (A ^ 2 * B ^ 2 * C)
-  - (189 / 65536 * l : k) • (A * B ^ 4)
-  + (9 / 8192 * l : k) • (A ^ 3 * G)
-  - (9 / 4096 * l : k) • (A ^ 2 * B * F)
-  + (27 / 8192 * l : k) • (A ^ 2 * C * E)
-  + (45 / 4096 * l : k) • (A * B ^ 2 * E)
-  + (99 / 4096 * l : k) • (A * B * C * D)
-  + (9 / 8192 * l : k) • (A * C ^ 3)
-  + (189 / 8192 * l : k) • (B ^ 3 * D)
-  + (567 / 16384 * l : k) • (B ^ 2 * C ^ 2)
-  + (9 / 512 * l : k) • (A * C * G)
-  - (9 / 256 * l : k) • (A * D * F)
-  - (27 / 1024 * l : k) • (B ^ 2 * G)
-  - (9 / 128 * l : k) • (B * C * F)
-  - (45 / 512 * l : k) • (B * D * E)
-  - (45 / 1024 * l : k) • (C ^ 2 * E)
-  - (27 / 512 * l : k) • (C * D ^ 2)
-  + (9 / 64 * l : k) • (E * G)
-  + (9 / 128 * l : k) • F ^ 2
-  + (35 / 2097152 * beta : k) • A ^ 6
-  + (49 / 131072 * beta : k) • (A ^ 4 * C)
-  - (35 / 131072 * beta : k) • (A ^ 3 * B ^ 2)
-  + (7 / 8192 * beta : k) • (A ^ 3 * E)
-  - (7 / 4096 * beta : k) • (A ^ 2 * B * D)
-  + (21 / 8192 * beta : k) • (A ^ 2 * C ^ 2)
-  - (91 / 8192 * beta : k) • (A * B ^ 2 * C)
-  - (189 / 32768 * beta : k) • B ^ 4
-  + (7 / 512 * beta : k) • (A * C * E)
-  + (7 / 512 * beta : k) • (A * D ^ 2)
-  + (35 / 1024 * beta : k) • (B ^ 2 * E)
-  + (21 / 256 * beta : k) • (B * C * D)
-  + (7 / 512 * beta : k) • C ^ 3
-  - (7 / 64 * beta : k) • (D * F)
-  - (7 / 128 * beta : k) • E ^ 2
-  + (3 / 2048 * gamma : k) • (A ^ 2 * B * C)
-  - (9 / 1024 * gamma : k) • (A * B ^ 3)
-  - (3 / 512 * gamma : k) • (A ^ 2 * F)
-  + (3 / 128 * gamma : k) • (A * B * E)
-  + (3 / 128 * gamma : k) • (A * C * D)
-  + (9 / 128 * gamma : k) • (B ^ 2 * D)
-  + (9 / 128 * gamma : k) • (B * C ^ 2)
-  - (3 / 32 * gamma : k) • (C * F)
-  - (3 / 16 * gamma : k) • (D * E)
-  + (9 / 131072 * delta : k) • A ^ 5
-  + (5 / 4096 * delta : k) • (A ^ 3 * C)
-  - (5 / 4096 * delta : k) • (A ^ 2 * B ^ 2)
-  + (5 / 128 * delta : k) • (A * B * D)
-  + (5 / 512 * delta : k) • (A * C ^ 2)
-  + (45 / 512 * delta : k) • (B ^ 2 * C)
-  - (5 / 64 * delta : k) • (B * F)
-  - (5 / 32 * delta : k) • (C * E)
-  - (15 / 128 * delta : k) • D ^ 2
-  - (1 / 256 * epsilon : k) • (A ^ 2 * D)
-  + (1 / 32 * epsilon : k) • (A * B * C)
-  + (1 / 32 * epsilon : k) • B ^ 3
-  - (1 / 16 * epsilon : k) • (A * F)
-  - (1 / 8 * epsilon : k) • (B * E)
-  - (3 / 16 * epsilon : k) • (C * D)
-  + (9 / 32768 * zeta : k) • A ^ 4
-  + (3 / 1024 * zeta : k) • (A ^ 2 * C)
-  + (9 / 512 * zeta : k) • (A * B ^ 2)
-  - (9 / 64 * zeta : k) • (B * D)
-  - (9 / 128 * zeta : k) • C ^ 2
-  + (3 / 8 * zeta : k) • G
-  - (1 / 512 * eta : k) • (A ^ 2 * B)
-  - (1 / 32 * eta : k) • (A * D)
-  - (3 / 32 * eta : k) • (B * C)
-  + (1 / 4 * eta : k) • F
-  + (1 / 1024 * theta : k) • A ^ 3
-  + (1 / 64 * theta : k) • (A * C)
-  - (3 / 128 * theta : k) • B ^ 2
-  + (1 / 8 * theta : k) • E
+    (A B C D E F G : k[X]) : k[X] := by
+  refine ?_ + (1 / 8 * theta : k) • E
+  refine ?_ - (3 / 128 * theta : k) • B ^ 2
+  refine ?_ + (1 / 64 * theta : k) • (A * C)
+  refine ?_ + (1 / 1024 * theta : k) • A ^ 3
+  refine ?_ + (1 / 4 * eta : k) • F
+  refine ?_ - (3 / 32 * eta : k) • (B * C)
+  refine ?_ - (1 / 32 * eta : k) • (A * D)
+  refine ?_ - (1 / 512 * eta : k) • (A ^ 2 * B)
+  refine ?_ + (3 / 8 * zeta : k) • G
+  refine ?_ - (9 / 128 * zeta : k) • C ^ 2
+  refine ?_ - (9 / 64 * zeta : k) • (B * D)
+  refine ?_ + (9 / 512 * zeta : k) • (A * B ^ 2)
+  refine ?_ + (3 / 1024 * zeta : k) • (A ^ 2 * C)
+  refine ?_ + (9 / 32768 * zeta : k) • A ^ 4
+  refine ?_ - (3 / 16 * epsilon : k) • (C * D)
+  refine ?_ - (1 / 8 * epsilon : k) • (B * E)
+  refine ?_ - (1 / 16 * epsilon : k) • (A * F)
+  refine ?_ + (1 / 32 * epsilon : k) • B ^ 3
+  refine ?_ + (1 / 32 * epsilon : k) • (A * B * C)
+  refine ?_ - (1 / 256 * epsilon : k) • (A ^ 2 * D)
+  refine ?_ - (15 / 128 * delta : k) • D ^ 2
+  refine ?_ - (5 / 32 * delta : k) • (C * E)
+  refine ?_ - (5 / 64 * delta : k) • (B * F)
+  refine ?_ + (45 / 512 * delta : k) • (B ^ 2 * C)
+  refine ?_ + (5 / 512 * delta : k) • (A * C ^ 2)
+  refine ?_ + (5 / 128 * delta : k) • (A * B * D)
+  refine ?_ - (5 / 4096 * delta : k) • (A ^ 2 * B ^ 2)
+  refine ?_ + (5 / 4096 * delta : k) • (A ^ 3 * C)
+  refine ?_ + (9 / 131072 * delta : k) • A ^ 5
+  refine ?_ - (3 / 16 * gamma : k) • (D * E)
+  refine ?_ - (3 / 32 * gamma : k) • (C * F)
+  refine ?_ + (9 / 128 * gamma : k) • (B * C ^ 2)
+  refine ?_ + (9 / 128 * gamma : k) • (B ^ 2 * D)
+  refine ?_ + (3 / 128 * gamma : k) • (A * C * D)
+  refine ?_ + (3 / 128 * gamma : k) • (A * B * E)
+  refine ?_ - (3 / 512 * gamma : k) • (A ^ 2 * F)
+  refine ?_ - (9 / 1024 * gamma : k) • (A * B ^ 3)
+  refine ?_ + (3 / 2048 * gamma : k) • (A ^ 2 * B * C)
+  refine ?_ - (7 / 128 * beta : k) • E ^ 2
+  refine ?_ - (7 / 64 * beta : k) • (D * F)
+  refine ?_ + (7 / 512 * beta : k) • C ^ 3
+  refine ?_ + (21 / 256 * beta : k) • (B * C * D)
+  refine ?_ + (35 / 1024 * beta : k) • (B ^ 2 * E)
+  refine ?_ + (7 / 512 * beta : k) • (A * D ^ 2)
+  refine ?_ + (7 / 512 * beta : k) • (A * C * E)
+  refine ?_ - (189 / 32768 * beta : k) • B ^ 4
+  refine ?_ - (91 / 8192 * beta : k) • (A * B ^ 2 * C)
+  refine ?_ + (21 / 8192 * beta : k) • (A ^ 2 * C ^ 2)
+  refine ?_ - (7 / 4096 * beta : k) • (A ^ 2 * B * D)
+  refine ?_ + (7 / 8192 * beta : k) • (A ^ 3 * E)
+  refine ?_ - (35 / 131072 * beta : k) • (A ^ 3 * B ^ 2)
+  refine ?_ + (49 / 131072 * beta : k) • (A ^ 4 * C)
+  refine ?_ + (35 / 2097152 * beta : k) • A ^ 6
+  refine ?_ + (9 / 128 * l : k) • F ^ 2
+  refine ?_ + (9 / 64 * l : k) • (E * G)
+  refine ?_ - (27 / 512 * l : k) • (C * D ^ 2)
+  refine ?_ - (45 / 1024 * l : k) • (C ^ 2 * E)
+  refine ?_ - (45 / 512 * l : k) • (B * D * E)
+  refine ?_ - (9 / 128 * l : k) • (B * C * F)
+  refine ?_ - (27 / 1024 * l : k) • (B ^ 2 * G)
+  refine ?_ - (9 / 256 * l : k) • (A * D * F)
+  refine ?_ + (9 / 512 * l : k) • (A * C * G)
+  refine ?_ + (567 / 16384 * l : k) • (B ^ 2 * C ^ 2)
+  refine ?_ + (189 / 8192 * l : k) • (B ^ 3 * D)
+  refine ?_ + (9 / 8192 * l : k) • (A * C ^ 3)
+  refine ?_ + (99 / 4096 * l : k) • (A * B * C * D)
+  refine ?_ + (45 / 4096 * l : k) • (A * B ^ 2 * E)
+  refine ?_ + (27 / 8192 * l : k) • (A ^ 2 * C * E)
+  refine ?_ - (9 / 4096 * l : k) • (A ^ 2 * B * F)
+  refine ?_ + (9 / 8192 * l : k) • (A ^ 3 * G)
+  refine ?_ - (189 / 65536 * l : k) • (A * B ^ 4)
+  refine ?_ - (45 / 131072 * l : k) • (A ^ 2 * B ^ 2 * C)
+  refine ?_ + (99 / 131072 * l : k) • (A ^ 3 * C ^ 2)
+  refine ?_ - (9 / 65536 * l : k) • (A ^ 3 * B * D)
+  refine ?_ + (81 / 262144 * l : k) • (A ^ 4 * E)
+  refine ?_ - (171 / 4194304 * l : k) • (A ^ 4 * B ^ 2)
+  refine ?_ + (225 / 2097152 * l : k) • (A ^ 5 * C)
+  refine ?_ + (135 / 33554432 * l : k) • A ^ 7
+  refine ?_ + (5 / 16 : k) • (F * G)
+  refine ?_ - (5 / 128 : k) • D ^ 3
+  refine ?_ - (25 / 128 : k) • (C * D * E)
+  refine ?_ - (5 / 64 : k) • (C ^ 2 * F)
+  refine ?_ - (5 / 32 : k) • (B * D * F)
+  refine ?_ - (5 / 128 : k) • (A * E * F)
+  refine ?_ - (5 / 128 : k) • (A * D * G)
+  refine ?_ + (135 / 1024 : k) • (B ^ 2 * C * D)
+  refine ?_ + (15 / 1024 : k) • (A * C ^ 2 * D)
+  exact (-(5 / 65536 : k)) • (A ^ 3 * B ^ 3)
+    - (45 / 16384 : k) • (A ^ 2 * B ^ 2 * D)
+    + (15 / 16384 : k) • (A ^ 2 * B * C ^ 2)
+    - (35 / 2048 : k) • (A * B ^ 3 * C)
+    - (5 / 2048 : k) • (A ^ 2 * B * G)
+    - (5 / 2048 : k) • (A ^ 2 * C * F)
+    - (5 / 2048 : k) • (A ^ 2 * D * E)
+    + (25 / 1024 : k) • (A * B ^ 2 * F)
+    + (15 / 512 : k) • (A * B * C * E)
+    + (35 / 1024 : k) • (A * B * D ^ 2)
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronQuartic810_eq_BCEG_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -2104,7 +2120,8 @@ theorem degreeZeroOmicronQuartic810_eq_BCEG_add_rest
         degreeZeroOmicronQuarticNoBCEG810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
   simp only [degreeZeroOmicronQuartic810, omicronQuarticFaceBCEG810, degreeZeroOmicronQuarticNoBCEG810]
-  all_goals module
+  try simp only [neg_smul]
+  abel
 
 theorem omicronQuarticFaceBCEG810_coeff_top
     {A B C D E F G : k[X]}

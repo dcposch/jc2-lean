@@ -3,6 +3,7 @@ import Grok610ScaleZeroConeCascadePart06Scratch
 import Grok610ScaleZeroConeCascadePart08Scratch
 import Grok610ScaleZeroConeCascadePart12Scratch
 import Grok610ScaleZeroConeCascadePart57Scratch
+import Grok610ScaleZeroConeCascadeSpeedTPart00Scratch
 
 open scoped Polynomial.Bivariate
 noncomputable section
@@ -16,7 +17,7 @@ section HighBAndDCone610
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem extremeHighB_impossible
     (l alpha beta delta epsilon zeta eta theta j : k)
     (A B C0 D0 E0 : k[X]) (hj : j ≠ 0)
@@ -49,50 +50,74 @@ theorem extremeHighB_impossible
     have hbase :
         (degreeZeroBaseGroupHighBRest610 l A B C0 D0 E0).natDegree <
           5 * B.natDegree := by
-      simp only [degreeZeroBaseGroupHighBRest610]
-      compute_degree
+      refine (coneCascade610SpeedTBound_degreeZeroBaseGroupHighBRest610 l A B C0 D0 E0).trans_lt ?_
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+        Max11ReflectDeg.mdeg_nil_right, Nat.zero_mul, Nat.mul_zero,
+        Nat.add_zero, Nat.zero_add, Nat.one_mul, natDegree_zero]
       omega
     have halpha :
         (degreeZeroAlphaGroupPolynomial610 A B C0 D0 E0).natDegree <
           5 * B.natDegree := by
-      simp only [degreeZeroAlphaGroupPolynomial610]
-      compute_degree
+      refine (coneCascade610SpeedTBound_degreeZeroAlphaGroupPolynomial610 A B C0 D0 E0).trans_lt ?_
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+        Max11ReflectDeg.mdeg_nil_right, Nat.zero_mul, Nat.mul_zero,
+        Nat.add_zero, Nat.zero_add, Nat.one_mul, natDegree_zero]
       omega
     have hbeta :
         (degreeZeroBetaGroupPolynomial610 A B C0 D0 E0).natDegree <
           5 * B.natDegree := by
-      simp only [degreeZeroBetaGroupPolynomial610]
-      compute_degree
+      refine (coneCascade610SpeedTBound_degreeZeroBetaGroupPolynomial610 A B C0 D0 E0).trans_lt ?_
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+        Max11ReflectDeg.mdeg_nil_right, Nat.zero_mul, Nat.mul_zero,
+        Nat.add_zero, Nat.zero_add, Nat.one_mul, natDegree_zero]
       omega
     have hdelta :
         (degreeZeroDeltaGroupPolynomial610 A B C0 D0).natDegree <
           5 * B.natDegree := by
-      simp only [degreeZeroDeltaGroupPolynomial610]
-      compute_degree
+      refine (coneCascade610SpeedTBound_degreeZeroDeltaGroupPolynomial610 A B C0 D0).trans_lt ?_
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+        Max11ReflectDeg.mdeg_nil_right, Nat.zero_mul, Nat.mul_zero,
+        Nat.add_zero, Nat.zero_add, Nat.one_mul, natDegree_zero]
       omega
     have hepsilon :
         (degreeZeroEpsilonGroupPolynomial610 A B C0 D0).natDegree <
           5 * B.natDegree := by
-      simp only [degreeZeroEpsilonGroupPolynomial610]
-      compute_degree
+      refine (coneCascade610SpeedTBound_degreeZeroEpsilonGroupPolynomial610 A B C0 D0).trans_lt ?_
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+        Max11ReflectDeg.mdeg_nil_right, Nat.zero_mul, Nat.mul_zero,
+        Nat.add_zero, Nat.zero_add, Nat.one_mul, natDegree_zero]
       omega
     have hzeta :
         (degreeZeroZetaGroupPolynomial610 A B C0 D0).natDegree <
           5 * B.natDegree := by
-      simp only [degreeZeroZetaGroupPolynomial610]
-      compute_degree
+      refine (coneCascade610SpeedTBound_degreeZeroZetaGroupPolynomial610 A B C0 D0).trans_lt ?_
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+        Max11ReflectDeg.mdeg_nil_right, Nat.zero_mul, Nat.mul_zero,
+        Nat.add_zero, Nat.zero_add, Nat.one_mul, natDegree_zero]
       omega
     have heta :
         (degreeZeroEtaGroupPolynomial610 A B C0 D0).natDegree <
           5 * B.natDegree := by
-      simp only [degreeZeroEtaGroupPolynomial610]
-      compute_degree
+      refine (coneCascade610SpeedTBound_degreeZeroEtaGroupPolynomial610 A B C0 D0).trans_lt ?_
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+        Max11ReflectDeg.mdeg_nil_right, Nat.zero_mul, Nat.mul_zero,
+        Nat.add_zero, Nat.zero_add, Nat.one_mul, natDegree_zero]
       omega
     have htheta :
         (degreeZeroThetaGroupPolynomial610 A B C0 E0).natDegree <
           5 * B.natDegree := by
-      simp only [degreeZeroThetaGroupPolynomial610]
-      compute_degree
+      refine (coneCascade610SpeedTBound_degreeZeroThetaGroupPolynomial610 A B C0 E0).trans_lt ?_
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+        Max11ReflectDeg.mdeg_nil_right, Nat.zero_mul, Nat.mul_zero,
+        Nat.add_zero, Nat.zero_add, Nat.one_mul, natDegree_zero]
       omega
     simp only [degreeZeroPrimitiveHighBRest610]
     exact natDegree_add8_lt610 hbase (natDegree_smul_lt610 alpha halpha)

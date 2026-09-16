@@ -13,6 +13,7 @@ section PrimitivePolynomial610
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 /-- Integrated weight-fifteen primitive after the triangular residuals are
 ground constants. -/
 def degreeZeroIntegratedPrimitive610

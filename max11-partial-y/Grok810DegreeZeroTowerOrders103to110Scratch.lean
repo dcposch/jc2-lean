@@ -43,57 +43,70 @@ set_option linter.unusedSimpArgs false
 
 /-! ## Bookkeeping: orders `103`–`110`, remaining pole `9` -/
 
+set_option maxHeartbeats 64000000 in
 /-- Last compact-numerator order extracted in this batch. -/
 def degreeZeroTowerBatchLastOrder810 : ℕ := 110
 
+set_option maxHeartbeats 64000000 in
 /-- Next unused compact-numerator order after this batch. -/
 def degreeZeroTowerNextUnusedOrder810 : ℕ := 111
 
+set_option maxHeartbeats 64000000 in
 /-- Remaining pole of the order-`102` quotient after orders `103`–`110`:
 `17 - 8 = 9`, equivalently `119 - 110`. -/
 def degreeZeroRemainingPoleAfter110810 : ℕ := 9
 
+set_option maxHeartbeats 64000000 in
 /-- Vanishing multiplicity recorded by this batch on the order-`102`
 quotient: eight remaining-numerator peels. -/
 def degreeZeroTowerBatchDivisibility810 : ℕ := 8
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroTowerBatchLastOrder810_eq :
     degreeZeroTowerBatchLastOrder810 = 110 :=
   rfl
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroTowerNextUnusedOrder810_eq :
     degreeZeroTowerNextUnusedOrder810 = 111 :=
   rfl
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroRemainingPoleAfter110810_eq :
     degreeZeroRemainingPoleAfter110810 = 9 :=
   rfl
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroTowerBatchDivisibility810_eq :
     degreeZeroTowerBatchDivisibility810 = 8 :=
   rfl
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroTowerNextUnusedOrder810_succ :
     degreeZeroTowerNextUnusedOrder810 =
       degreeZeroTowerBatchLastOrder810 + 1 :=
   rfl
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroRemainingPoleAfter110810_eq_sub_batch :
     degreeZeroRemainingPoleAfter110810 =
       degreeZeroEffectiveTowerLength810 -
         degreeZeroTowerBatchDivisibility810 :=
   rfl
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroRemainingPoleAfter110810_eq_sub_clearing :
     degreeZeroRemainingPoleAfter110810 =
       degreeZeroSourceClearingPower810 -
         degreeZeroTowerBatchLastOrder810 :=
   rfl
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroTowerBatchLastOrder810_lt_ceiling :
     degreeZeroTowerBatchLastOrder810 < degreeZeroTowerCeiling810 := by
   decide
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroRemainingPoleAfter110810_ne_zero :
     degreeZeroRemainingPoleAfter110810 ≠ 0 := by
   decide
@@ -108,6 +121,7 @@ section DegreeZeroTowerDvd810
 
 variable {k : Type*} [Field k]
 
+set_option maxHeartbeats 64000000 in
 /-- A degree-one polynomial divides every polynomial vanishing at its
 unique root. -/
 theorem degreeZero_linearPolynomial_dvd_of_eval_eq_zero810
@@ -132,6 +146,7 @@ theorem degreeZero_linearPolynomial_dvd_of_eval_eq_zero810
       _ = C c * (X - C a) * C c⁻¹ := by ring
   exact hscaleDvd.trans hlinearRoot
 
+set_option maxHeartbeats 64000000 in
 /-- Cancel `m` polynomial powers from a pole-`(m+n)` clearing. -/
 theorem degreeZero_algebraMap_cancel_pow810
     (h0 Q : k[X]) (rho : RatFunc k) (m n : ℕ) (hh0 : h0 ≠ 0)
@@ -155,6 +170,7 @@ theorem degreeZero_algebraMap_cancel_pow810
       rw [pow_add]
       ring
 
+set_option maxHeartbeats 64000000 in
 /-- Cancel one polynomial power of a linear clearing. -/
 theorem degreeZero_algebraMap_cancel_one_clearing810
     (h0 old new : k[X]) (rho : RatFunc k) (r : ℕ) (hh0 : h0 ≠ 0)
@@ -171,6 +187,7 @@ theorem degreeZero_algebraMap_cancel_one_clearing810
         simpa [hfact, add_comm r 1] using hclear
       simpa [pow_one] using hclear')
 
+set_option maxHeartbeats 64000000 in
 /-- Evaluation of a remaining numerator `c₀ + h₀ · rest` at a root of
 the linear scale is the head `c₀`. -/
 theorem degreeZero_eval_head_of_linear_factor810
@@ -192,6 +209,7 @@ section DegreeZeroTowerRemainingHead810
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 /-- Cancel `m` polynomial powers from a pole-`(m+n)` clearing and apply
 the remaining pole-`n` obstruction.  Instantiating `m = 0` and `n = 17`
 recovers `degreeZeroSourceJetHead810_zero_of_deriv_eq_simplePole` on the
@@ -216,6 +234,7 @@ theorem degreeZero_remainingHead_eval_zero810
       h0 Q rho hdegree hroot hclearQ hderiv
   exact hhead.symm.trans hQ0
 
+set_option maxHeartbeats 64000000 in
 /-- If a remaining pole-`(r+1)` numerator vanishes at the linear root,
 one more linear factor cancels and the pole-`r` obstruction forces the
 new remaining numerator to vanish. -/
@@ -255,26 +274,32 @@ end DegreeZeroTowerRemainingHead810
 
 /-! ## Order `103` (quotient `h^1`, Plus `h^0`) -/
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`103` contribution of Plus block `0`. -/
 def degreeZeroOrder103Block0_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`103` contribution of Plus block `1`. -/
 def degreeZeroOrder103Block1_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`103` contribution of Plus block `2`. -/
 def degreeZeroOrder103Block2_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (129197014310191104 : R) * a4 ^ 4 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`103` contribution of Plus block `3`. -/
 def degreeZeroOrder103Block3_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`103` contribution of Plus block `4`. -/
 def degreeZeroOrder103Block4_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`103` contribution of Plus block `5`. -/
 def degreeZeroOrder103Block5_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (1614962678877388800 : R) * t0 * u1 * a4 ^ 3 * lambda
@@ -282,18 +307,22 @@ def degreeZeroOrder103Block5_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     - (2422444018316083200 : R) * v1 * u1 ^ 2 * a4 ^ 2 * lambda
     - (403740669719347200 : R) * u1 ^ 4 * a4 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`103` contribution of Plus block `6`. -/
 def degreeZeroOrder103Block6_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`103` contribution of Plus block `7`. -/
 def degreeZeroOrder103Block7_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`103` contribution of Plus block `8`. -/
 def degreeZeroOrder103Block8_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`103` contribution of Plus block `9`. -/
 def degreeZeroOrder103Block9_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (3330860525184614400 : R) * t0 ^ 2 * v1 * a4 ^ 3 * lambda
@@ -305,19 +334,22 @@ def degreeZeroOrder103Block9_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     + (3330860525184614400 : R) * v1 ^ 3 * u1 ^ 2 * a4 * lambda
     + (832715131296153600 : R) * v1 ^ 2 * u1 ^ 4 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`103` contribution of Plus block `10`. -/
 def degreeZeroOrder103Block10_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`103` contribution of Plus block `11`. -/
 def degreeZeroOrder103Block11_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`103` contribution of Plus block `12`. -/
 def degreeZeroOrder103Block12_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`103` contribution of Plus block `13`. -/
 def degreeZeroOrder103Block13_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (1422555015964262400 : R) * t0 ^ 4 * a4 ^ 3 * lambda
@@ -331,14 +363,17 @@ def degreeZeroOrder103Block13_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     - (284511003192852480 : R) * v1 ^ 6 * a4 * lambda
     - (853533009578557440 : R) * v1 ^ 5 * u1 ^ 2 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`103` contribution of Plus block `14`. -/
 def degreeZeroOrder103Block14_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`103` contribution of Plus block `15`. -/
 def degreeZeroOrder103Block15_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`103` contribution of Plus block `16`. -/
 def degreeZeroOrder103Block16_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (5227889683668664320 : R) * t0 ^ 5 * u1 * a4 ^ 2 * lambda
@@ -348,6 +383,7 @@ def degreeZeroOrder103Block16_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     + (34852597891124428800 : R) * t0 ^ 3 * v1 ^ 3 * u1 * a4 * lambda
     + (17426298945562214400 : R) * t0 ^ 3 * v1 ^ 2 * u1 ^ 3 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`103` contribution of Plus block `17`. -/
 def degreeZeroOrder103Block17_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (5227889683668664320 : R) * t0 ^ 2 * v1 ^ 5 * a4 * lambda
@@ -355,10 +391,12 @@ def degreeZeroOrder103Block17_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     + (1742629894556221440 : R) * t0 * v1 ^ 6 * u1 * lambda
     + (31118390974218240 : R) * v1 ^ 8 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`103` contribution of Plus block `18`. -/
 def degreeZeroOrder103Block18_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`103` contribution of Plus block `19`. -/
 def degreeZeroOrder103Block19_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (6208118999356538880 : R) * t0 ^ 6 * v1 * a4 ^ 2 * lambda
@@ -370,10 +408,12 @@ def degreeZeroOrder103Block19_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     - (12416237998713077760 : R) * t0 ^ 3 * v1 ^ 5 * u1 * lambda
     - (886874142765219840 : R) * t0 ^ 2 * v1 ^ 7 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`103` contribution of Plus block `20`. -/
 def degreeZeroOrder103Block20_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`103` contribution of Plus block `21`. -/
 def degreeZeroOrder103Block21_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (900731551245926400 : R) * t0 ^ 8 * a4 ^ 2 * lambda
@@ -384,6 +424,7 @@ def degreeZeroOrder103Block21_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     + (25220483434885939200 : R) * t0 ^ 5 * v1 ^ 4 * u1 * lambda
     + (4203413905814323200 : R) * t0 ^ 4 * v1 ^ 6 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`103` contribution of Plus block `22`. -/
 def degreeZeroOrder103Block22_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (1826483423359795200 : R) * t0 ^ 9 * u1 * a4 * lambda
@@ -392,6 +433,7 @@ def degreeZeroOrder103Block22_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     - (21917801080317542400 : R) * t0 ^ 7 * v1 ^ 3 * u1 * lambda
     - (7671230378111139840 : R) * t0 ^ 6 * v1 ^ 5 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`103` contribution of Plus block `23`. -/
 def degreeZeroOrder103Block23_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (155860783605596160 : R) * t0 ^ 12 * a4 * lambda
@@ -402,6 +444,7 @@ def degreeZeroOrder103Block23_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     + (9246572330758963200 : R) * t0 ^ 9 * v1 ^ 2 * u1 * lambda
     + (6934929248069222400 : R) * t0 ^ 8 * v1 ^ 4 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`103` contribution of Plus block `24`. -/
 def degreeZeroOrder103Block24_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (8020911814063155 : R) * t0 ^ 16 * lambda
@@ -409,6 +452,7 @@ def degreeZeroOrder103Block24_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     + (145370153939834880 : R) * t0 ^ 13 * u1 * lambda
     + (944906000608926720 : R) * t0 ^ 12 * v1 ^ 2 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Frozen order-`103` coefficient of the cleared numerator
 quotient (`h^1` of `degreeZeroSourceJetQuotient810`,
 `h^0` of `degreeZeroSourceJetPlus810`). -/
@@ -441,24 +485,29 @@ def degreeZeroOrder103810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w
 
 /-! ## Order `104` (quotient `h^2`, Plus `h^1`) -/
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`104` contribution of Plus block `0`. -/
 def degreeZeroOrder104Block0_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`104` contribution of Plus block `1`. -/
 def degreeZeroOrder104Block1_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (2296835809958952960 : R) * a4 ^ 3 * a3
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`104` contribution of Plus block `2`. -/
 def degreeZeroOrder104Block2_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`104` contribution of Plus block `3`. -/
 def degreeZeroOrder104Block3_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (1297036692682702848 : R) * u1 * a4 ^ 2 * b4
     + (3242591731706757120 : R) * u1 * a4 * a3 * b5
     + (1945555039024054272 : R) * a4 ^ 2 * a3 * b62
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`104` contribution of Plus block `4`. -/
 def degreeZeroOrder104Block4_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (13781014859753717760 : R) * t0 * u1 * a4 ^ 2 * a3
@@ -466,10 +515,12 @@ def degreeZeroOrder104Block4_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     + (21532835718365184000 : R) * v1 * u1 ^ 2 * a4 * a3
     + (1794402976530432000 : R) * u1 ^ 4 * a3
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`104` contribution of Plus block `5`. -/
 def degreeZeroOrder104Block5_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`104` contribution of Plus block `6`. -/
 def degreeZeroOrder104Block6_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (2756202971950743552 : R) * t0 * v1 * a4 ^ 2 * b4
@@ -478,7 +529,7 @@ def degreeZeroOrder104Block6_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     - (3445253714938429440 : R) * t0 * u1 ^ 2 * a3 * b5
     - (8268608915852230656 : R) * t0 * u1 * a4 * a3 * b62
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`104` contribution of Plus block `7`. -/
 def degreeZeroOrder104Block7_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (4823355200913801216 : R) * t0 * a4 ^ 2 * a3 * w1
@@ -492,6 +543,7 @@ def degreeZeroOrder104Block7_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     - (1607785066971267072 : R) * u1 ^ 3 * a3 * w1
     - (5512405943901487104 : R) * u1 ^ 2 * a4 * a3 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`104` contribution of Plus block `8`. -/
 def degreeZeroOrder104Block8_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (20187033485967360000 : R) * t0 ^ 2 * v1 * a4 ^ 2 * a3
@@ -501,10 +553,12 @@ def degreeZeroOrder104Block8_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     - (7401912278188032000 : R) * v1 ^ 4 * a4 * a3
     - (14803824556376064000 : R) * v1 ^ 3 * u1 ^ 2 * a3
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`104` contribution of Plus block `9`. -/
 def degreeZeroOrder104Block9_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`104` contribution of Plus block `10`. -/
 def degreeZeroOrder104Block10_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (1435522381224345600 : R) * t0 ^ 3 * a4 ^ 2 * b4
@@ -515,10 +569,12 @@ def degreeZeroOrder104Block10_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     + (1435522381224345600 : R) * t0 ^ 2 * u1 ^ 3 * b4
     + (6459850715509555200 : R) * t0 ^ 2 * u1 ^ 2 * a3 * b62
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`104` contribution of Plus block `11`. -/
-def degreeZeroOrder104Block11_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
-    (15072985002855628800 : R) * t0 ^ 2 * u1 * a4 * a3 * w1
+def degreeZeroOrder104Block11_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R := by
+  refine ?_ + (1076641785918259200 : R) * v1 ^ 4 * a3 * b62
+  refine ?_ + (717761190612172800 : R) * v1 ^ 4 * u1 * b4
+  exact (15072985002855628800 : R) * t0 ^ 2 * u1 * a4 * a3 * w1
     + (8613134287346073600 : R) * t0 ^ 2 * a4 ^ 2 * a3 * s1
     + (2871044762448691200 : R) * t0 * v1 ^ 3 * a4 * b4
     + (3588805953060864000 : R) * t0 * v1 ^ 3 * a3 * b5
@@ -528,9 +584,8 @@ def degreeZeroOrder104Block11_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     + (15072985002855628800 : R) * t0 * v1 * u1 ^ 2 * a3 * w1
     + (34452537149384294400 : R) * t0 * v1 * u1 * a4 * a3 * s1
     + (5742089524897382400 : R) * t0 * u1 ^ 3 * a3 * s1
-    + (717761190612172800 : R) * v1 ^ 4 * u1 * b4
-    + (1076641785918259200 : R) * v1 ^ 4 * a3 * b62
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`104` contribution of Plus block `12`. -/
 def degreeZeroOrder104Block12_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (2313097586933760000 : R) * t0 ^ 4 * a4 ^ 2 * a3
@@ -543,11 +598,12 @@ def degreeZeroOrder104Block12_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     + (5742089524897382400 : R) * v1 ^ 3 * a4 * a3 * s1
     + (8613134287346073600 : R) * v1 ^ 2 * u1 ^ 2 * a3 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`104` contribution of Plus block `13`. -/
 def degreeZeroOrder104Block13_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (1264493347523788800 : R) * v1 ^ 6 * a3
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`104` contribution of Plus block `14`. -/
 def degreeZeroOrder104Block14_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (2960764911275212800 : R) * t0 ^ 4 * u1 * a4 * b4
@@ -561,6 +617,7 @@ def degreeZeroOrder104Block14_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     - (10362677189463244800 : R) * t0 ^ 3 * u1 ^ 2 * a3 * w1
     - (23686119290201702400 : R) * t0 ^ 3 * u1 * a4 * a3 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`104` contribution of Plus block `15`. -/
 def degreeZeroOrder104Block15_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (5921529822550425600 : R) * t0 ^ 2 * v1 ^ 3 * u1 * b4
@@ -573,6 +630,7 @@ def degreeZeroOrder104Block15_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     - (23686119290201702400 : R) * t0 * v1 ^ 3 * u1 * a3 * s1
     - (1184305964510085120 : R) * v1 ^ 5 * a3 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`104` contribution of Plus block `16`. -/
 def degreeZeroOrder104Block16_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (3793480042571366400 : R) * t0 ^ 5 * u1 * a4 * a3
@@ -581,6 +639,7 @@ def degreeZeroOrder104Block16_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     - (69547134113808384000 : R) * t0 ^ 3 * v1 ^ 3 * u1 * a3
     - (14699735164964044800 : R) * t0 ^ 2 * v1 ^ 5 * a3
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`104` contribution of Plus block `17`. -/
 def degreeZeroOrder104Block17_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (3034784034057093120 : R) * t0 ^ 5 * v1 * a4 * b4
@@ -593,6 +652,7 @@ def degreeZeroOrder104Block17_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     + (26554360297999564800 : R) * t0 ^ 4 * v1 * u1 * a3 * w1
     + (30347840340570931200 : R) * t0 ^ 4 * v1 * a4 * a3 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`104` contribution of Plus block `18`. -/
 def degreeZeroOrder104Block18_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (2904383157593702400 : R) * t0 ^ 6 * v1 * a4 * a3
@@ -604,6 +664,7 @@ def degreeZeroOrder104Block18_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     + (60695680681141862400 : R) * t0 ^ 3 * v1 ^ 2 * u1 * a3 * s1
     + (15173920170285465600 : R) * t0 ^ 2 * v1 ^ 4 * a3 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`104` contribution of Plus block `19`. -/
 def degreeZeroOrder104Block19_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (442572671633326080 : R) * t0 ^ 7 * a4 * b4
@@ -612,6 +673,7 @@ def degreeZeroOrder104Block19_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     - (4647013052149923840 : R) * t0 ^ 6 * v1 * a3 * b62
     + (25413352628944896000 : R) * t0 ^ 4 * v1 ^ 4 * a3
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`104` contribution of Plus block `20`. -/
 def degreeZeroOrder104Block20_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (862238749910630400 : R) * t0 ^ 8 * a4 * a3
@@ -624,6 +686,7 @@ def degreeZeroOrder104Block20_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     - (37176104417199390720 : R) * t0 ^ 5 * v1 * u1 * a3 * s1
     - (30980087014332825600 : R) * t0 ^ 4 * v1 ^ 3 * a3 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`104` contribution of Plus block `21`. -/
 def degreeZeroOrder104Block21_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (394166285673431040 : R) * t0 ^ 8 * u1 * b4
@@ -633,6 +696,7 @@ def degreeZeroOrder104Block21_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     + (6306660570774896640 : R) * t0 ^ 7 * u1 * a3 * s1
     + (22073311997712138240 : R) * t0 ^ 6 * v1 ^ 2 * a3 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`104` contribution of Plus block `22`. -/
 def degreeZeroOrder104Block22_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (355844563455180800 : R) * t0 ^ 9 * v1 * b4
@@ -641,6 +705,7 @@ def degreeZeroOrder104Block22_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     + (500406417358848000 : R) * t0 ^ 8 * v1 ^ 2 * a3
     - (6405202142193254400 : R) * t0 ^ 8 * v1 * a3 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`104` contribution of Plus block `23`. -/
 def degreeZeroOrder104Block23_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (147882890811801600 : R) * t0 ^ 12 * a3
@@ -648,10 +713,12 @@ def degreeZeroOrder104Block23_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     + (913241711679897600 : R) * t0 ^ 10 * v1 * a3
     + (649416328305704960 : R) * t0 ^ 10 * a3 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`104` contribution of Plus block `24`. -/
 def degreeZeroOrder104Block24_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Frozen order-`104` coefficient of the cleared numerator
 quotient (`h^2` of `degreeZeroSourceJetQuotient810`,
 `h^1` of `degreeZeroSourceJetPlus810`). -/
@@ -684,26 +751,32 @@ def degreeZeroOrder104810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w
 
 /-! ## Order `105` (quotient `h^3`, Plus `h^2`) -/
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`105` contribution of Plus block `0`. -/
 def degreeZeroOrder105Block0_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`105` contribution of Plus block `1`. -/
 def degreeZeroOrder105Block1_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`105` contribution of Plus block `2`. -/
 def degreeZeroOrder105Block2_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (1550364171722293248 : R) * u1 * a4 ^ 2 * a3 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`105` contribution of Plus block `3`. -/
 def degreeZeroOrder105Block3_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`105` contribution of Plus block `4`. -/
 def degreeZeroOrder105Block4_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`105` contribution of Plus block `5`. -/
 def degreeZeroOrder105Block5_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (4844888036632166400 : R) * t0 * v1 * a4 ^ 2 * a3 * lambda
@@ -711,18 +784,22 @@ def degreeZeroOrder105Block5_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     - (4844888036632166400 : R) * v1 ^ 2 * u1 * a4 * a3 * lambda
     - (1614962678877388800 : R) * v1 * u1 ^ 3 * a3 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`105` contribution of Plus block `6`. -/
 def degreeZeroOrder105Block6_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`105` contribution of Plus block `7`. -/
 def degreeZeroOrder105Block7_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`105` contribution of Plus block `8`. -/
 def degreeZeroOrder105Block8_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`105` contribution of Plus block `9`. -/
 def degreeZeroOrder105Block9_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (3330860525184614400 : R) * t0 ^ 3 * a4 ^ 2 * a3 * lambda
@@ -732,18 +809,22 @@ def degreeZeroOrder105Block9_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     + (9992581575553843200 : R) * t0 * v1 ^ 2 * u1 ^ 2 * a3 * lambda
     + (1665430262592307200 : R) * v1 ^ 4 * u1 * a3 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`105` contribution of Plus block `10`. -/
 def degreeZeroOrder105Block10_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`105` contribution of Plus block `11`. -/
 def degreeZeroOrder105Block11_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`105` contribution of Plus block `12`. -/
 def degreeZeroOrder105Block12_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`105` contribution of Plus block `13`. -/
 def degreeZeroOrder105Block13_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (8535330095785574400 : R) * t0 ^ 4 * u1 * a4 * a3 * lambda
@@ -752,14 +833,17 @@ def degreeZeroOrder105Block13_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     - (17070660191571148800 : R) * t0 ^ 2 * v1 ^ 3 * u1 * a3 * lambda
     - (1707066019157114880 : R) * t0 * v1 ^ 5 * a3 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`105` contribution of Plus block `14`. -/
 def degreeZeroOrder105Block14_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`105` contribution of Plus block `15`. -/
 def degreeZeroOrder105Block15_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`105` contribution of Plus block `16`. -/
 def degreeZeroOrder105Block16_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (10455779367337328640 : R) * t0 ^ 5 * v1 * a4 * a3 * lambda
@@ -767,41 +851,50 @@ def degreeZeroOrder105Block16_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     + (26139448418343321600 : R) * t0 ^ 4 * v1 ^ 2 * u1 * a3 * lambda
     + (8713149472781107200 : R) * t0 ^ 3 * v1 ^ 4 * a3 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`105` contribution of Plus block `17`. -/
 def degreeZeroOrder105Block17_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`105` contribution of Plus block `18`. -/
 def degreeZeroOrder105Block18_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`105` contribution of Plus block `19`. -/
 def degreeZeroOrder105Block19_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (1773748285530439680 : R) * t0 ^ 7 * a4 * a3 * lambda
     - (12416237998713077760 : R) * t0 ^ 6 * v1 * u1 * a3 * lambda
     - (12416237998713077760 : R) * t0 ^ 5 * v1 ^ 3 * a3 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`105` contribution of Plus block `20`. -/
 def degreeZeroOrder105Block20_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`105` contribution of Plus block `21`. -/
 def degreeZeroOrder105Block21_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (1801463102491852800 : R) * t0 ^ 8 * u1 * a3 * lambda
     + (7205852409967411200 : R) * t0 ^ 7 * v1 ^ 2 * a3 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`105` contribution of Plus block `22`. -/
 def degreeZeroOrder105Block22_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (1826483423359795200 : R) * t0 ^ 9 * v1 * a3 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`105` contribution of Plus block `23`. -/
 def degreeZeroOrder105Block23_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (168119496922890240 : R) * t0 ^ 11 * a3 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`105` contribution of Plus block `24`. -/
 def degreeZeroOrder105Block24_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Frozen order-`105` coefficient of the cleared numerator
 quotient (`h^3` of `degreeZeroSourceJetQuotient810`,
 `h^2` of `degreeZeroSourceJetPlus810`). -/
@@ -834,23 +927,27 @@ def degreeZeroOrder105810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w
 
 /-! ## Order `106` (quotient `h^4`, Plus `h^3`) -/
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`106` contribution of Plus block `0`. -/
 def degreeZeroOrder106Block0_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`106` contribution of Plus block `1`. -/
 def degreeZeroOrder106Block1_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (6890507429876858880 : R) * u1 * a4 ^ 2 * a2
     - (6890507429876858880 : R) * u1 * a4 * a3 ^ 2
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`106` contribution of Plus block `2`. -/
 def degreeZeroOrder106Block2_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`106` contribution of Plus block `3`. -/
-def degreeZeroOrder106Block3_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
-    (972777519512027136 : R) * v1 * a4 ^ 2 * b3
+def degreeZeroOrder106Block3_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R := by
+  refine ?_ + (2269814212194729984 : R) * a4 * a3 ^ 2 * w1
+  exact (972777519512027136 : R) * v1 * a4 ^ 2 * b3
     + (2594073385365405696 : R) * v1 * a4 * a3 * b4
     + (3242591731706757120 : R) * v1 * a4 * a2 * b5
     + (1621295865853378560 : R) * v1 * a3 ^ 2 * b5
@@ -860,8 +957,8 @@ def degreeZeroOrder106Block3_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     + (3891110078048108544 : R) * u1 * a4 * a2 * b62
     + (1945555039024054272 : R) * u1 * a3 ^ 2 * b62
     + (2269814212194729984 : R) * a4 ^ 2 * a2 * w1
-    + (2269814212194729984 : R) * a4 * a3 ^ 2 * w1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`106` contribution of Plus block `4`. -/
 def degreeZeroOrder106Block4_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (13781014859753717760 : R) * t0 * v1 * a4 ^ 2 * a2
@@ -872,13 +969,14 @@ def degreeZeroOrder106Block4_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     + (10766417859182592000 : R) * v1 ^ 2 * u1 * a3 ^ 2
     + (7177611906121728000 : R) * v1 * u1 ^ 3 * a2
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`106` contribution of Plus block `5`. -/
 def degreeZeroOrder106Block5_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (1033576114481528832 : R) * t0 ^ 2 * a4 ^ 2 * b3
     - (2756202971950743552 : R) * t0 ^ 2 * a4 * a3 * b4
     - (3445253714938429440 : R) * t0 ^ 2 * a4 * a2 * b5
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`106` contribution of Plus block `6`. -/
 def degreeZeroOrder106Block6_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (1722626857469214720 : R) * t0 ^ 2 * a3 ^ 2 * b5
@@ -892,10 +990,13 @@ def degreeZeroOrder106Block6_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     - (9646710401827602432 : R) * t0 * u1 * a4 * a2 * w1
     - (4823355200913801216 : R) * t0 * u1 * a3 ^ 2 * w1
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`106` contribution of Plus block `7`. -/
-def degreeZeroOrder106Block7_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
-    - (5512405943901487104 : R) * t0 * a4 ^ 2 * a2 * s1
+def degreeZeroOrder106Block7_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R := by
+  refine ?_ - (1837468647967162368 : R) * u1 ^ 3 * a2 * s1
+  refine ?_ - (5512405943901487104 : R) * v1 * u1 * a3 ^ 2 * s1
+  refine ?_ - (11024811887802974208 : R) * v1 * u1 * a4 * a2 * s1
+  exact - (5512405943901487104 : R) * t0 * a4 ^ 2 * a2 * s1
     - (5512405943901487104 : R) * t0 * a4 * a3 ^ 2 * s1
     - (689050742987685888 : R) * v1 ^ 3 * a4 * b3
     - (918734323983581184 : R) * v1 ^ 3 * a3 * b4
@@ -905,10 +1006,8 @@ def degreeZeroOrder106Block7_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     - (4823355200913801216 : R) * v1 ^ 2 * a4 * a2 * w1
     - (2411677600456900608 : R) * v1 ^ 2 * a3 ^ 2 * w1
     - (4823355200913801216 : R) * v1 * u1 ^ 2 * a2 * w1
-    - (11024811887802974208 : R) * v1 * u1 * a4 * a2 * s1
-    - (5512405943901487104 : R) * v1 * u1 * a3 ^ 2 * s1
-    - (1837468647967162368 : R) * u1 ^ 3 * a2 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`106` contribution of Plus block `8`. -/
 def degreeZeroOrder106Block8_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (2691604464795648000 : R) * t0 ^ 3 * a4 ^ 2 * a2
@@ -921,14 +1020,18 @@ def degreeZeroOrder106Block8_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     - (32299253577547776000 : R) * t0 * v1 ^ 2 * u1 ^ 2 * a2
     - (7401912278188032000 : R) * v1 ^ 4 * u1 * a2
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`106` contribution of Plus block `9`. -/
 def degreeZeroOrder106Block9_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`106` contribution of Plus block `10`. -/
-def degreeZeroOrder106Block10_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
-    (2153283571836518400 : R) * t0 ^ 3 * u1 * a4 * b3
+def degreeZeroOrder106Block10_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R := by
+  refine ?_ + (7536492501427814400 : R) * t0 ^ 2 * u1 ^ 2 * a2 * w1
+  refine ?_ + (7536492501427814400 : R) * t0 ^ 2 * v1 * a3 ^ 2 * w1
+  refine ?_ + (15072985002855628800 : R) * t0 ^ 2 * v1 * a4 * a2 * w1
+  exact (2153283571836518400 : R) * t0 ^ 3 * u1 * a4 * b3
     + (2871044762448691200 : R) * t0 ^ 3 * u1 * a3 * b4
     + (3588805953060864000 : R) * t0 ^ 3 * u1 * a2 * b5
     + (4306567143673036800 : R) * t0 ^ 3 * a4 * a2 * b62
@@ -938,11 +1041,8 @@ def degreeZeroOrder106Block10_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     + (5383208929591296000 : R) * t0 ^ 2 * v1 ^ 2 * a2 * b5
     + (3229925357754777600 : R) * t0 ^ 2 * v1 * u1 ^ 2 * b3
     + (12919701431019110400 : R) * t0 ^ 2 * v1 * u1 * a2 * b62
-    + (15072985002855628800 : R) * t0 ^ 2 * v1 * a4 * a2 * w1
-    + (7536492501427814400 : R) * t0 ^ 2 * v1 * a3 ^ 2 * w1
-    + (7536492501427814400 : R) * t0 ^ 2 * u1 ^ 2 * a2 * w1
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`106` contribution of Plus block `11`. -/
 def degreeZeroOrder106Block11_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (17226268574692147200 : R) * t0 ^ 2 * u1 * a4 * a2 * s1
@@ -956,6 +1056,7 @@ def degreeZeroOrder106Block11_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     + (107664178591825920 : R) * v1 ^ 5 * b3
     + (1256082083571302400 : R) * v1 ^ 4 * a2 * w1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`106` contribution of Plus block `12`. -/
 def degreeZeroOrder106Block12_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (4626195173867520000 : R) * t0 ^ 4 * u1 * a4 * a2
@@ -967,14 +1068,18 @@ def degreeZeroOrder106Block12_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     + (5921529822550425600 : R) * t0 * v1 ^ 5 * a2
     + (5742089524897382400 : R) * v1 ^ 3 * u1 * a2 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`106` contribution of Plus block `13`. -/
 def degreeZeroOrder106Block13_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (2220573683456409600 : R) * t0 ^ 4 * v1 * a4 * b3
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`106` contribution of Plus block `14`. -/
-def degreeZeroOrder106Block14_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
-    - (2960764911275212800 : R) * t0 ^ 4 * v1 * a3 * b4
+def degreeZeroOrder106Block14_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R := by
+  refine ?_ - (1110286841728204800 : R) * t0 ^ 2 * v1 ^ 4 * b3
+  refine ?_ - (11843059645100851200 : R) * t0 ^ 3 * u1 ^ 2 * a2 * s1
+  refine ?_ - (11843059645100851200 : R) * t0 ^ 3 * v1 * a3 ^ 2 * s1
+  exact - (2960764911275212800 : R) * t0 ^ 4 * v1 * a3 * b4
     - (3700956139094016000 : R) * t0 ^ 4 * v1 * a2 * b5
     - (1110286841728204800 : R) * t0 ^ 4 * u1 ^ 2 * b3
     - (4441147366912819200 : R) * t0 ^ 4 * u1 * a2 * b62
@@ -984,16 +1089,15 @@ def degreeZeroOrder106Block14_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     - (8882294733825638400 : R) * t0 ^ 3 * v1 ^ 2 * a2 * b62
     - (20725354378926489600 : R) * t0 ^ 3 * v1 * u1 * a2 * w1
     - (23686119290201702400 : R) * t0 ^ 3 * v1 * a4 * a2 * s1
-    - (11843059645100851200 : R) * t0 ^ 3 * v1 * a3 ^ 2 * s1
-    - (11843059645100851200 : R) * t0 ^ 3 * u1 ^ 2 * a2 * s1
-    - (1110286841728204800 : R) * t0 ^ 2 * v1 ^ 4 * b3
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`106` contribution of Plus block `15`. -/
 def degreeZeroOrder106Block15_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (10362677189463244800 : R) * t0 ^ 2 * v1 ^ 3 * a2 * w1
     - (35529178935302553600 : R) * t0 ^ 2 * v1 ^ 2 * u1 * a2 * s1
     - (5921529822550425600 : R) * t0 * v1 ^ 4 * a2 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`106` contribution of Plus block `16`. -/
 def degreeZeroOrder106Block16_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (3793480042571366400 : R) * t0 ^ 5 * v1 * a4 * a2
@@ -1002,10 +1106,11 @@ def degreeZeroOrder106Block16_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     - (30822025345892352000 : R) * t0 ^ 4 * v1 ^ 2 * u1 * a2
     - (17386783528452096000 : R) * t0 ^ 3 * v1 ^ 4 * a2
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`106` contribution of Plus block `17`. -/
-def degreeZeroOrder106Block17_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
-    (379348004257136640 : R) * t0 ^ 6 * a4 * b3
+def degreeZeroOrder106Block17_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R := by
+  refine ?_ + (30347840340570931200 : R) * t0 ^ 4 * v1 * u1 * a2 * s1
+  exact (379348004257136640 : R) * t0 ^ 6 * a4 * b3
     + (505797339009515520 : R) * t0 ^ 6 * a3 * b4
     + (632246673761894400 : R) * t0 ^ 6 * a2 * b5
     + (2276088025542819840 : R) * t0 ^ 5 * v1 * u1 * b3
@@ -1015,8 +1120,8 @@ def degreeZeroOrder106Block17_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     + (3034784034057093120 : R) * t0 ^ 5 * a3 ^ 2 * s1
     + (1896740021285683200 : R) * t0 ^ 4 * v1 ^ 3 * b3
     + (13277180148999782400 : R) * t0 ^ 4 * v1 ^ 2 * a2 * w1
-    + (30347840340570931200 : R) * t0 ^ 4 * v1 * u1 * a2 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`106` contribution of Plus block `18`. -/
 def degreeZeroOrder106Block18_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (829823759312486400 : R) * t0 ^ 7 * a4 * a2
@@ -1025,6 +1130,7 @@ def degreeZeroOrder106Block18_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     + (11617532630374809600 : R) * t0 ^ 5 * v1 ^ 3 * a2
     + (20231893560380620800 : R) * t0 ^ 3 * v1 ^ 3 * a2 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`106` contribution of Plus block `19`. -/
 def degreeZeroOrder106Block19_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (331929503724994560 : R) * t0 ^ 7 * u1 * b3
@@ -1032,6 +1138,7 @@ def degreeZeroOrder106Block19_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     - (1161753263037480960 : R) * t0 ^ 6 * v1 ^ 2 * b3
     - (5421515227508244480 : R) * t0 ^ 6 * v1 * a2 * w1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`106` contribution of Plus block `20`. -/
 def degreeZeroOrder106Block20_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (862238749910630400 : R) * t0 ^ 8 * u1 * a2
@@ -1039,26 +1146,31 @@ def degreeZeroOrder106Block20_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     - (6196017402866565120 : R) * t0 ^ 6 * u1 * a2 * s1
     - (18588052208599695360 : R) * t0 ^ 5 * v1 ^ 2 * a2 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`106` contribution of Plus block `21`. -/
 def degreeZeroOrder106Block21_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (295624714255073280 : R) * t0 ^ 8 * v1 * b3
     + (689790999928504320 : R) * t0 ^ 8 * a2 * w1
     + (6306660570774896640 : R) * t0 ^ 7 * v1 * a2 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`106` contribution of Plus block `22`. -/
 def degreeZeroOrder106Block22_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (26688342259138560 : R) * t0 ^ 10 * b3
     - (889611408637952000 : R) * t0 ^ 9 * v1 * a2
     - (711689126910361600 : R) * t0 ^ 9 * a2 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`106` contribution of Plus block `23`. -/
 def degreeZeroOrder106Block23_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (166043947578163200 : R) * t0 ^ 11 * a2
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`106` contribution of Plus block `24`. -/
 def degreeZeroOrder106Block24_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Frozen order-`106` coefficient of the cleared numerator
 quotient (`h^4` of `degreeZeroSourceJetQuotient810`,
 `h^3` of `degreeZeroSourceJetPlus810`). -/
@@ -1091,14 +1203,17 @@ def degreeZeroOrder106810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w
 
 /-! ## Order `107` (quotient `h^5`, Plus `h^4`) -/
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`107` contribution of Plus block `0`. -/
 def degreeZeroOrder107Block0_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`107` contribution of Plus block `1`. -/
 def degreeZeroOrder107Block1_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`107` contribution of Plus block `2`. -/
 def degreeZeroOrder107Block2_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (1550364171722293248 : R) * v1 * a4 ^ 2 * a2 * lambda
@@ -1106,14 +1221,17 @@ def degreeZeroOrder107Block2_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     + (1550364171722293248 : R) * u1 ^ 2 * a4 * a2 * lambda
     + (775182085861146624 : R) * u1 ^ 2 * a3 ^ 2 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`107` contribution of Plus block `3`. -/
 def degreeZeroOrder107Block3_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`107` contribution of Plus block `4`. -/
 def degreeZeroOrder107Block4_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (2422444018316083200 : R) * t0 ^ 2 * a4 ^ 2 * a2 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`107` contribution of Plus block `5`. -/
 def degreeZeroOrder107Block5_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (2422444018316083200 : R) * t0 ^ 2 * a4 * a3 ^ 2 * lambda
@@ -1124,18 +1242,22 @@ def degreeZeroOrder107Block5_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     - (807481339438694400 : R) * v1 ^ 3 * a3 ^ 2 * lambda
     - (2422444018316083200 : R) * v1 ^ 2 * u1 ^ 2 * a2 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`107` contribution of Plus block `6`. -/
 def degreeZeroOrder107Block6_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`107` contribution of Plus block `7`. -/
 def degreeZeroOrder107Block7_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`107` contribution of Plus block `8`. -/
 def degreeZeroOrder107Block8_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`107` contribution of Plus block `9`. -/
 def degreeZeroOrder107Block9_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (6661721050369228800 : R) * t0 ^ 3 * u1 * a4 * a2 * lambda
@@ -1146,18 +1268,22 @@ def degreeZeroOrder107Block9_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     + (6661721050369228800 : R) * t0 * v1 ^ 3 * u1 * a2 * lambda
     + (333086052518461440 : R) * v1 ^ 5 * a2 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`107` contribution of Plus block `10`. -/
 def degreeZeroOrder107Block10_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`107` contribution of Plus block `11`. -/
 def degreeZeroOrder107Block11_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`107` contribution of Plus block `12`. -/
 def degreeZeroOrder107Block12_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`107` contribution of Plus block `13`. -/
 def degreeZeroOrder107Block13_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (8535330095785574400 : R) * t0 ^ 4 * v1 * a4 * a2 * lambda
@@ -1166,14 +1292,17 @@ def degreeZeroOrder107Block13_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     - (17070660191571148800 : R) * t0 ^ 3 * v1 ^ 2 * u1 * a2 * lambda
     - (4267665047892787200 : R) * t0 ^ 2 * v1 ^ 4 * a2 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`107` contribution of Plus block `14`. -/
 def degreeZeroOrder107Block14_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`107` contribution of Plus block `15`. -/
 def degreeZeroOrder107Block15_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`107` contribution of Plus block `16`. -/
 def degreeZeroOrder107Block16_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (1742629894556221440 : R) * t0 ^ 6 * a4 * a2 * lambda
@@ -1181,39 +1310,48 @@ def degreeZeroOrder107Block16_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     + (10455779367337328640 : R) * t0 ^ 5 * v1 * u1 * a2 * lambda
     + (8713149472781107200 : R) * t0 ^ 4 * v1 ^ 3 * a2 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`107` contribution of Plus block `17`. -/
 def degreeZeroOrder107Block17_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`107` contribution of Plus block `18`. -/
 def degreeZeroOrder107Block18_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`107` contribution of Plus block `19`. -/
 def degreeZeroOrder107Block19_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (1773748285530439680 : R) * t0 ^ 7 * u1 * a2 * lambda
     - (6208118999356538880 : R) * t0 ^ 6 * v1 ^ 2 * a2 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`107` contribution of Plus block `20`. -/
 def degreeZeroOrder107Block20_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`107` contribution of Plus block `21`. -/
 def degreeZeroOrder107Block21_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (1801463102491852800 : R) * t0 ^ 8 * v1 * a2 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`107` contribution of Plus block `22`. -/
 def degreeZeroOrder107Block22_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (182648342335979520 : R) * t0 ^ 10 * a2 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`107` contribution of Plus block `23`. -/
 def degreeZeroOrder107Block23_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`107` contribution of Plus block `24`. -/
 def degreeZeroOrder107Block24_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Frozen order-`107` coefficient of the cleared numerator
 quotient (`h^5` of `degreeZeroSourceJetQuotient810`,
 `h^4` of `degreeZeroSourceJetPlus810`). -/
@@ -1246,10 +1384,12 @@ def degreeZeroOrder107810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w
 
 /-! ## Order `108` (quotient `h^6`, Plus `h^5`) -/
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`108` contribution of Plus block `0`. -/
 def degreeZeroOrder108Block0_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`108` contribution of Plus block `1`. -/
 def degreeZeroOrder108Block1_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (6890507429876858880 : R) * v1 * a4 ^ 2 * a1
@@ -1258,6 +1398,7 @@ def degreeZeroOrder108Block1_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     - (6890507429876858880 : R) * u1 ^ 2 * a4 * a1
     - (6890507429876858880 : R) * u1 ^ 2 * a3 * a2
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`108` contribution of Plus block `2`. -/
 def degreeZeroOrder108Block2_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (648518346341351424 : R) * t0 * a4 ^ 2 * b2
@@ -1269,10 +1410,11 @@ def degreeZeroOrder108Block2_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     + (1297036692682702848 : R) * v1 * u1 * a4 * b2
     + (1945555039024054272 : R) * v1 * u1 * a3 * b3
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`108` contribution of Plus block `3`. -/
-def degreeZeroOrder108Block3_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
-    (2594073385365405696 : R) * v1 * u1 * a2 * b4
+def degreeZeroOrder108Block3_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R := by
+  refine ?_ + (864691128455135232 : R) * a3 ^ 3 * s1
+  exact (2594073385365405696 : R) * v1 * u1 * a2 * b4
     + (3242591731706757120 : R) * v1 * u1 * a1 * b5
     + (3891110078048108544 : R) * v1 * a4 * a1 * b62
     + (3891110078048108544 : R) * v1 * a3 * a2 * b62
@@ -1282,8 +1424,8 @@ def degreeZeroOrder108Block3_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     + (4539628424389459968 : R) * u1 * a3 * a2 * w1
     + (2594073385365405696 : R) * a4 ^ 2 * a1 * s1
     + (5188146770730811392 : R) * a4 * a3 * a2 * s1
-    + (864691128455135232 : R) * a3 ^ 3 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`108` contribution of Plus block `4`. -/
 def degreeZeroOrder108Block4_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (3014597000571125760 : R) * t0 ^ 2 * a4 ^ 2 * a1
@@ -1296,6 +1438,7 @@ def degreeZeroOrder108Block4_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     + (7177611906121728000 : R) * v1 ^ 3 * a3 * a2
     + (10766417859182592000 : R) * v1 ^ 2 * u1 ^ 2 * a1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`108` contribution of Plus block `5`. -/
 def degreeZeroOrder108Block5_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (1378101485975371776 : R) * t0 ^ 2 * u1 * a4 * b2
@@ -1304,10 +1447,12 @@ def degreeZeroOrder108Block5_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     - (3445253714938429440 : R) * t0 ^ 2 * u1 * a1 * b5
     - (4134304457926115328 : R) * t0 ^ 2 * a4 * a1 * b62
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`108` contribution of Plus block `6`. -/
-def degreeZeroOrder108Block6_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
-    - (4134304457926115328 : R) * t0 ^ 2 * a3 * a2 * b62
+def degreeZeroOrder108Block6_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R := by
+  refine ?_ - (11024811887802974208 : R) * t0 * u1 * a3 * a2 * s1
+  refine ?_ - (11024811887802974208 : R) * t0 * u1 * a4 * a1 * s1
+  exact - (4134304457926115328 : R) * t0 ^ 2 * a3 * a2 * b62
     - (1378101485975371776 : R) * t0 * v1 ^ 2 * a4 * b2
     - (2067152228963057664 : R) * t0 * v1 ^ 2 * a3 * b3
     - (2756202971950743552 : R) * t0 * v1 ^ 2 * a2 * b4
@@ -1317,9 +1462,8 @@ def degreeZeroOrder108Block6_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     - (9646710401827602432 : R) * t0 * v1 * a4 * a1 * w1
     - (9646710401827602432 : R) * t0 * v1 * a3 * a2 * w1
     - (4823355200913801216 : R) * t0 * u1 ^ 2 * a1 * w1
-    - (11024811887802974208 : R) * t0 * u1 * a4 * a1 * s1
-    - (11024811887802974208 : R) * t0 * u1 * a3 * a2 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`108` contribution of Plus block `7`. -/
 def degreeZeroOrder108Block7_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (459367161991790592 : R) * v1 ^ 3 * u1 * b2
@@ -1329,6 +1473,7 @@ def degreeZeroOrder108Block7_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     - (5512405943901487104 : R) * v1 ^ 2 * a3 * a2 * s1
     - (5512405943901487104 : R) * v1 * u1 ^ 2 * a1 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`108` contribution of Plus block `8`. -/
 def degreeZeroOrder108Block8_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (5383208929591296000 : R) * t0 ^ 3 * u1 * a4 * a1
@@ -1339,6 +1484,7 @@ def degreeZeroOrder108Block8_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     - (21532835718365184000 : R) * t0 * v1 ^ 3 * u1 * a1
     - (1480382455637606400 : R) * v1 ^ 5 * a1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`108` contribution of Plus block `9`. -/
 def degreeZeroOrder108Block9_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (1435522381224345600 : R) * t0 ^ 3 * v1 * a4 * b2
@@ -1346,7 +1492,7 @@ def degreeZeroOrder108Block9_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     + (2871044762448691200 : R) * t0 ^ 3 * v1 * a2 * b4
     + (3588805953060864000 : R) * t0 ^ 3 * v1 * a1 * b5
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`108` contribution of Plus block `10`. -/
 def degreeZeroOrder108Block10_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (717761190612172800 : R) * t0 ^ 3 * u1 ^ 2 * b2
@@ -1360,6 +1506,7 @@ def degreeZeroOrder108Block10_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     + (17226268574692147200 : R) * t0 ^ 2 * v1 * a3 * a2 * s1
     + (8613134287346073600 : R) * t0 ^ 2 * u1 ^ 2 * a1 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`108` contribution of Plus block `11`. -/
 def degreeZeroOrder108Block11_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (358880595306086400 : R) * t0 * v1 ^ 4 * b2
@@ -1367,6 +1514,7 @@ def degreeZeroOrder108Block11_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     + (17226268574692147200 : R) * t0 * v1 ^ 2 * u1 * a1 * s1
     + (1435522381224345600 : R) * v1 ^ 4 * a1 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`108` contribution of Plus block `12`. -/
 def degreeZeroOrder108Block12_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (4626195173867520000 : R) * t0 ^ 4 * v1 * a4 * a1
@@ -1375,6 +1523,7 @@ def degreeZeroOrder108Block12_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     + (25906692973658112000 : R) * t0 ^ 3 * v1 ^ 2 * u1 * a1
     + (10640248899895296000 : R) * t0 ^ 2 * v1 ^ 4 * a1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`108` contribution of Plus block `13`. -/
 def degreeZeroOrder108Block13_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (296076491127521280 : R) * t0 ^ 5 * a4 * b2
@@ -1383,6 +1532,7 @@ def degreeZeroOrder108Block13_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     - (740191227818803200 : R) * t0 ^ 5 * a1 * b5
     - (1480382455637606400 : R) * t0 ^ 4 * v1 * u1 * b2
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`108` contribution of Plus block `14`. -/
 def degreeZeroOrder108Block14_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (4441147366912819200 : R) * t0 ^ 4 * v1 * a1 * b62
@@ -1393,17 +1543,20 @@ def degreeZeroOrder108Block14_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     - (10362677189463244800 : R) * t0 ^ 3 * v1 ^ 2 * a1 * w1
     - (23686119290201702400 : R) * t0 ^ 3 * v1 * u1 * a1 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`108` contribution of Plus block `15`. -/
 def degreeZeroOrder108Block15_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (790308342202368000 : R) * t0 ^ 6 * a4 * a1
     + (790308342202368000 : R) * t0 ^ 6 * a3 * a2
     - (11843059645100851200 : R) * t0 ^ 2 * v1 ^ 3 * a1 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`108` contribution of Plus block `16`. -/
 def degreeZeroOrder108Block16_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (3793480042571366400 : R) * t0 ^ 5 * v1 * u1 * a1
     - (10274008448630784000 : R) * t0 ^ 4 * v1 ^ 3 * a1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`108` contribution of Plus block `17`. -/
 def degreeZeroOrder108Block17_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (252898669504757760 : R) * t0 ^ 6 * u1 * b2
@@ -1413,38 +1566,46 @@ def degreeZeroOrder108Block17_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     + (6069568068114186240 : R) * t0 ^ 5 * u1 * a1 * s1
     + (15173920170285465600 : R) * t0 ^ 4 * v1 ^ 2 * a1 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`108` contribution of Plus block `18`. -/
 def degreeZeroOrder108Block18_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (829823759312486400 : R) * t0 ^ 7 * u1 * a1
     + (1452191578796851200 : R) * t0 ^ 6 * v1 ^ 2 * a1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`108` contribution of Plus block `19`. -/
 def degreeZeroOrder108Block19_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (221286335816663040 : R) * t0 ^ 7 * v1 * b2
     - (774502175358320640 : R) * t0 ^ 7 * a1 * w1
     - (6196017402866565120 : R) * t0 ^ 6 * v1 * a1 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`108` contribution of Plus block `20`. -/
 def degreeZeroOrder108Block20_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (862238749910630400 : R) * t0 ^ 8 * v1 * a1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`108` contribution of Plus block `21`. -/
 def degreeZeroOrder108Block21_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (21898126981857280 : R) * t0 ^ 9 * b2
     + (788332571346862080 : R) * t0 ^ 8 * a1 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`108` contribution of Plus block `22`. -/
 def degreeZeroOrder108Block22_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (189042424335564800 : R) * t0 ^ 10 * a1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`108` contribution of Plus block `23`. -/
 def degreeZeroOrder108Block23_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`108` contribution of Plus block `24`. -/
 def degreeZeroOrder108Block24_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Frozen order-`108` coefficient of the cleared numerator
 quotient (`h^6` of `degreeZeroSourceJetQuotient810`,
 `h^5` of `degreeZeroSourceJetPlus810`). -/
@@ -1477,10 +1638,12 @@ def degreeZeroOrder108810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w
 
 /-! ## Order `109` (quotient `h^7`, Plus `h^6`) -/
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`109` contribution of Plus block `0`. -/
 def degreeZeroOrder109Block0_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`109` contribution of Plus block `1`. -/
 def degreeZeroOrder109Block1_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (1550364171722293248 : R) * t0 * a4 ^ 2 * a1 * lambda
@@ -1489,19 +1652,23 @@ def degreeZeroOrder109Block1_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     + (3100728343444586496 : R) * v1 * u1 * a4 * a1 * lambda
     + (3100728343444586496 : R) * v1 * u1 * a3 * a2 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`109` contribution of Plus block `2`. -/
 def degreeZeroOrder109Block2_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (516788057240764416 : R) * u1 ^ 3 * a1 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`109` contribution of Plus block `3`. -/
 def degreeZeroOrder109Block3_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`109` contribution of Plus block `4`. -/
 def degreeZeroOrder109Block4_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (4844888036632166400 : R) * t0 ^ 2 * u1 * a4 * a1 * lambda
     - (4844888036632166400 : R) * t0 ^ 2 * u1 * a3 * a2 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`109` contribution of Plus block `5`. -/
 def degreeZeroOrder109Block5_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (4844888036632166400 : R) * t0 * v1 ^ 2 * a4 * a1 * lambda
@@ -1509,18 +1676,22 @@ def degreeZeroOrder109Block5_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     - (4844888036632166400 : R) * t0 * v1 * u1 ^ 2 * a1 * lambda
     - (1614962678877388800 : R) * v1 ^ 3 * u1 * a1 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`109` contribution of Plus block `6`. -/
 def degreeZeroOrder109Block6_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`109` contribution of Plus block `7`. -/
 def degreeZeroOrder109Block7_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`109` contribution of Plus block `8`. -/
 def degreeZeroOrder109Block8_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`109` contribution of Plus block `9`. -/
 def degreeZeroOrder109Block9_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (6661721050369228800 : R) * t0 ^ 3 * v1 * a4 * a1 * lambda
@@ -1529,18 +1700,22 @@ def degreeZeroOrder109Block9_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     + (9992581575553843200 : R) * t0 ^ 2 * v1 ^ 2 * u1 * a1 * lambda
     + (1665430262592307200 : R) * t0 * v1 ^ 4 * a1 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`109` contribution of Plus block `10`. -/
 def degreeZeroOrder109Block10_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`109` contribution of Plus block `11`. -/
 def degreeZeroOrder109Block11_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`109` contribution of Plus block `12`. -/
 def degreeZeroOrder109Block12_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`109` contribution of Plus block `13`. -/
 def degreeZeroOrder109Block13_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (1707066019157114880 : R) * t0 ^ 5 * a4 * a1 * lambda
@@ -1548,51 +1723,63 @@ def degreeZeroOrder109Block13_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     - (8535330095785574400 : R) * t0 ^ 4 * v1 * u1 * a1 * lambda
     - (5690220063857049600 : R) * t0 ^ 3 * v1 ^ 3 * a1 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`109` contribution of Plus block `14`. -/
 def degreeZeroOrder109Block14_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`109` contribution of Plus block `15`. -/
 def degreeZeroOrder109Block15_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`109` contribution of Plus block `16`. -/
 def degreeZeroOrder109Block16_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (1742629894556221440 : R) * t0 ^ 6 * u1 * a1 * lambda
     + (5227889683668664320 : R) * t0 ^ 5 * v1 ^ 2 * a1 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`109` contribution of Plus block `17`. -/
 def degreeZeroOrder109Block17_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`109` contribution of Plus block `18`. -/
 def degreeZeroOrder109Block18_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`109` contribution of Plus block `19`. -/
 def degreeZeroOrder109Block19_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (1773748285530439680 : R) * t0 ^ 7 * v1 * a1 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`109` contribution of Plus block `20`. -/
 def degreeZeroOrder109Block20_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`109` contribution of Plus block `21`. -/
 def degreeZeroOrder109Block21_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (200162566943539200 : R) * t0 ^ 9 * a1 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`109` contribution of Plus block `22`. -/
 def degreeZeroOrder109Block22_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`109` contribution of Plus block `23`. -/
 def degreeZeroOrder109Block23_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`109` contribution of Plus block `24`. -/
 def degreeZeroOrder109Block24_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Frozen order-`109` coefficient of the cleared numerator
 quotient (`h^7` of `degreeZeroSourceJetQuotient810`,
 `h^6` of `degreeZeroSourceJetPlus810`). -/
@@ -1625,6 +1812,7 @@ def degreeZeroOrder109810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w
 
 /-! ## Order `110` (quotient `h^8`, Plus `h^7`) -/
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` contribution of Plus block `0`. -/
 def degreeZeroOrder110Block0_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (288230376151711744 : R) * a4 ^ 2 * b1
@@ -1637,6 +1825,7 @@ def degreeZeroOrder110Block0_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     - (2882303761517117440 : R) * a3 * a1 * b5
     - (1441151880758558720 : R) * a2 ^ 2 * b5
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` contribution of Plus block `1`. -/
 def degreeZeroOrder110Block1_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (3242591731706757120 : R) * t0 * a4 ^ 2 * a0
@@ -1648,10 +1837,14 @@ def degreeZeroOrder110Block1_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     - (6890507429876858880 : R) * v1 * u1 * a2 ^ 2
     - (2296835809958952960 : R) * u1 ^ 3 * a0
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` contribution of Plus block `2`. -/
-def degreeZeroOrder110Block2_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
-    (648518346341351424 : R) * t0 * u1 * a4 * b1
+def degreeZeroOrder110Block2_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R := by
+  refine ?_ + (324259173170675712 : R) * v1 * u1 ^ 2 * b1
+  refine ?_ + (1621295865853378560 : R) * v1 ^ 2 * a0 * b5
+  refine ?_ + (1297036692682702848 : R) * v1 ^ 2 * a1 * b4
+  refine ?_ + (972777519512027136 : R) * v1 ^ 2 * a2 * b3
+  exact (648518346341351424 : R) * t0 * u1 * a4 * b1
     + (1297036692682702848 : R) * t0 * u1 * a3 * b2
     + (1945555039024054272 : R) * t0 * u1 * a2 * b3
     + (2594073385365405696 : R) * t0 * u1 * a1 * b4
@@ -1661,11 +1854,8 @@ def degreeZeroOrder110Block2_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     + (1945555039024054272 : R) * t0 * a2 ^ 2 * b62
     + (324259173170675712 : R) * v1 ^ 2 * a4 * b1
     + (648518346341351424 : R) * v1 ^ 2 * a3 * b2
-    + (972777519512027136 : R) * v1 ^ 2 * a2 * b3
-    + (1297036692682702848 : R) * v1 ^ 2 * a1 * b4
-    + (1621295865853378560 : R) * v1 ^ 2 * a0 * b5
-    + (324259173170675712 : R) * v1 * u1 ^ 2 * b1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` contribution of Plus block `3`. -/
 def degreeZeroOrder110Block3_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (3891110078048108544 : R) * v1 * u1 * a0 * b62
@@ -1677,6 +1867,7 @@ def degreeZeroOrder110Block3_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     + (5188146770730811392 : R) * u1 * a3 * a1 * s1
     + (2594073385365405696 : R) * u1 * a2 ^ 2 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` contribution of Plus block `4`. -/
 def degreeZeroOrder110Block4_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (6029194001142251520 : R) * t0 ^ 2 * u1 * a4 * a0
@@ -1688,6 +1879,7 @@ def degreeZeroOrder110Block4_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     + (13781014859753717760 : R) * t0 * v1 * u1 ^ 2 * a0
     + (7177611906121728000 : R) * v1 ^ 3 * u1 * a0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` contribution of Plus block `5`. -/
 def degreeZeroOrder110Block5_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (689050742987685888 : R) * t0 ^ 2 * v1 * a4 * b1
@@ -1698,7 +1890,7 @@ def degreeZeroOrder110Block5_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     - (344525371493842944 : R) * t0 ^ 2 * u1 ^ 2 * b1
     - (4134304457926115328 : R) * t0 ^ 2 * u1 * a0 * b62
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` contribution of Plus block `6`. -/
 def degreeZeroOrder110Block6_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (4823355200913801216 : R) * t0 ^ 2 * a4 * a0 * w1
@@ -1712,12 +1904,14 @@ def degreeZeroOrder110Block6_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     - (5512405943901487104 : R) * t0 * v1 * a2 ^ 2 * s1
     - (5512405943901487104 : R) * t0 * u1 ^ 2 * a0 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` contribution of Plus block `7`. -/
 def degreeZeroOrder110Block7_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (57420895248973824 : R) * v1 ^ 4 * b1
     - (1607785066971267072 : R) * v1 ^ 3 * a0 * w1
     - (5512405943901487104 : R) * v1 ^ 2 * u1 * a0 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` contribution of Plus block `8`. -/
 def degreeZeroOrder110Block8_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (5383208929591296000 : R) * t0 ^ 3 * v1 * a4 * a0
@@ -1727,6 +1921,7 @@ def degreeZeroOrder110Block8_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     - (20187033485967360000 : R) * t0 ^ 2 * v1 ^ 2 * u1 * a0
     - (5383208929591296000 : R) * t0 * v1 ^ 4 * a0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` contribution of Plus block `9`. -/
 def degreeZeroOrder110Block9_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (179440297653043200 : R) * t0 ^ 4 * a4 * b1
@@ -1737,6 +1932,7 @@ def degreeZeroOrder110Block9_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 
     + (717761190612172800 : R) * t0 ^ 3 * v1 * u1 * b1
     + (4306567143673036800 : R) * t0 ^ 3 * v1 * a0 * b62
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` contribution of Plus block `10`. -/
 def degreeZeroOrder110Block10_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (5024328334285209600 : R) * t0 ^ 3 * u1 * a0 * w1
@@ -1747,10 +1943,12 @@ def degreeZeroOrder110Block10_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     + (7536492501427814400 : R) * t0 ^ 2 * v1 ^ 2 * a0 * w1
     + (17226268574692147200 : R) * t0 ^ 2 * v1 * u1 * a0 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` contribution of Plus block `11`. -/
 def degreeZeroOrder110Block11_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (5742089524897382400 : R) * t0 * v1 ^ 3 * a0 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` contribution of Plus block `12`. -/
 def degreeZeroOrder110Block12_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (740191227818803200 : R) * t0 ^ 5 * a4 * a0
@@ -1759,62 +1957,75 @@ def degreeZeroOrder110Block12_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1
     + (4626195173867520000 : R) * t0 ^ 4 * v1 * u1 * a0
     + (8635564324552704000 : R) * t0 ^ 3 * v1 ^ 3 * a0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` contribution of Plus block `13`. -/
 def degreeZeroOrder110Block13_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (148038245563760640 : R) * t0 ^ 5 * u1 * b1
     - (888229473382563840 : R) * t0 ^ 5 * a0 * b62
     - (370095613909401600 : R) * t0 ^ 4 * v1 ^ 2 * b1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` contribution of Plus block `14`. -/
 def degreeZeroOrder110Block14_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (5181338594731622400 : R) * t0 ^ 4 * v1 * a0 * w1
     - (5921529822550425600 : R) * t0 ^ 4 * u1 * a0 * s1
     - (11843059645100851200 : R) * t0 ^ 3 * v1 ^ 2 * a0 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` contribution of Plus block `15`. -/
 def degreeZeroOrder110Block15_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (790308342202368000 : R) * t0 ^ 6 * u1 * a0
     - (1896740021285683200 : R) * t0 ^ 5 * v1 ^ 2 * a0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` contribution of Plus block `16`. -/
 def degreeZeroOrder110Block16_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` contribution of Plus block `17`. -/
 def degreeZeroOrder110Block17_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (126449334752378880 : R) * t0 ^ 6 * v1 * b1
     + (885145343266652160 : R) * t0 ^ 6 * a0 * w1
     + (6069568068114186240 : R) * t0 ^ 5 * v1 * a0 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` contribution of Plus block `18`. -/
 def degreeZeroOrder110Block18_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (829823759312486400 : R) * t0 ^ 7 * v1 * a0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` contribution of Plus block `19`. -/
 def degreeZeroOrder110Block19_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (13830395988541440 : R) * t0 ^ 8 * b1
     - (885145343266652160 : R) * t0 ^ 7 * a0 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` contribution of Plus block `20`. -/
 def degreeZeroOrder110Block20_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (218981269818572800 : R) * t0 ^ 9 * a0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` contribution of Plus block `21`. -/
 def degreeZeroOrder110Block21_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` contribution of Plus block `22`. -/
 def degreeZeroOrder110Block22_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` contribution of Plus block `23`. -/
 def degreeZeroOrder110Block23_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` contribution of Plus block `24`. -/
 def degreeZeroOrder110Block24_810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Frozen order-`110` coefficient of the cleared numerator
 quotient (`h^8` of `degreeZeroSourceJetQuotient810`,
 `h^7` of `degreeZeroSourceJetPlus810`). -/
@@ -1847,10 +2058,31 @@ def degreeZeroOrder110810 {R : Type*} [CommRing R] (t0 v1 u1 a4 a3 a2 a1 a0 s1 w
 
 /-! ## Remaining Plus factor after order `110` (Plus `h^8` and higher) -/
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` Plus remainder contributed by Plus block `0`. -/
-def degreeZeroOrder110PlusBlock0_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
-    (648518346341351424 : R) * h ^ 8 * a0 ^ 2 * lambda
+def degreeZeroOrder110PlusBlock0_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R := by
+  refine ?_ - (729583139634020352 : R) * a3 ^ 2 * a2 * lambda
+  refine ?_ - (729583139634020352 : R) * a4 * a2 ^ 2 * lambda
+  refine ?_ - (1459166279268040704 : R) * a4 * a3 * a1 * lambda
+  refine ?_ - (729583139634020352 : R) * a4 ^ 2 * a0 * lambda
+  refine ?_ - (3458764513820540928 : R) * h * a2 * a1 * b62
+  refine ?_ - (3458764513820540928 : R) * h * a3 * a0 * b62
+  refine ?_ + (3242591731706757120 : R) * h * a3 * a2 ^ 2
+  refine ?_ + (3242591731706757120 : R) * h * a3 ^ 2 * a1
+  refine ?_ + (6485183463413514240 : R) * h * a4 * a2 * a1
+  refine ?_ + (6485183463413514240 : R) * h * a4 * a3 * a0
+  refine ?_ - (2305843009213693952 : R) * h * u1 * a0 * b4
+  refine ?_ - (1729382256910270464 : R) * h * u1 * a1 * b3
+  refine ?_ - (1152921504606846976 : R) * h * u1 * a2 * b2
+  refine ?_ - (576460752303423488 : R) * h * u1 * a3 * b1
+  refine ?_ - (1459166279268040704 : R) * h ^ 2 * u1 * a2 * a1 * lambda
+  refine ?_ - (1459166279268040704 : R) * h ^ 2 * u1 * a3 * a0 * lambda
+  refine ?_ - (2017612633061982208 : R) * h ^ 3 * a1 ^ 2 * w1
+  refine ?_ - (4035225266123964416 : R) * h ^ 3 * a2 * a0 * w1
+  refine ?_ + (3242591731706757120 : R) * h ^ 3 * u1 * a1 ^ 2
+  refine ?_ + (6485183463413514240 : R) * h ^ 3 * u1 * a2 * a0
+  refine ?_ - (1729382256910270464 : R) * h ^ 3 * v1 * a0 * b3
+  exact (648518346341351424 : R) * h ^ 8 * a0 ^ 2 * lambda
     + (4611686018427387904 : R) * h ^ 7 * a0 * b1
     - (1459166279268040704 : R) * h ^ 6 * t0 * a1 * a0 * lambda
     - (576460752303423488 : R) * h ^ 5 * t0 * a1 * b1
@@ -1860,32 +2092,20 @@ def degreeZeroOrder110PlusBlock0_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 
     - (729583139634020352 : R) * h ^ 4 * v1 * a1 ^ 2 * lambda
     - (576460752303423488 : R) * h ^ 3 * v1 * a2 * b1
     - (1152921504606846976 : R) * h ^ 3 * v1 * a1 * b2
-    - (1729382256910270464 : R) * h ^ 3 * v1 * a0 * b3
-    + (6485183463413514240 : R) * h ^ 3 * u1 * a2 * a0
-    + (3242591731706757120 : R) * h ^ 3 * u1 * a1 ^ 2
-    - (4035225266123964416 : R) * h ^ 3 * a2 * a0 * w1
-    - (2017612633061982208 : R) * h ^ 3 * a1 ^ 2 * w1
-    - (1459166279268040704 : R) * h ^ 2 * u1 * a3 * a0 * lambda
-    - (1459166279268040704 : R) * h ^ 2 * u1 * a2 * a1 * lambda
-    - (576460752303423488 : R) * h * u1 * a3 * b1
-    - (1152921504606846976 : R) * h * u1 * a2 * b2
-    - (1729382256910270464 : R) * h * u1 * a1 * b3
-    - (2305843009213693952 : R) * h * u1 * a0 * b4
-    + (6485183463413514240 : R) * h * a4 * a3 * a0
-    + (6485183463413514240 : R) * h * a4 * a2 * a1
-    + (3242591731706757120 : R) * h * a3 ^ 2 * a1
-    + (3242591731706757120 : R) * h * a3 * a2 ^ 2
-    - (3458764513820540928 : R) * h * a3 * a0 * b62
-    - (3458764513820540928 : R) * h * a2 * a1 * b62
-    - (729583139634020352 : R) * a4 ^ 2 * a0 * lambda
-    - (1459166279268040704 : R) * a4 * a3 * a1 * lambda
-    - (729583139634020352 : R) * a4 * a2 ^ 2 * lambda
-    - (729583139634020352 : R) * a3 ^ 2 * a2 * lambda
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` Plus remainder contributed by Plus block `1`. -/
-def degreeZeroOrder110PlusBlock1_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
-    (405323966463344640 : R) * h ^ 5 * t0 ^ 2 * a1 * a0
+def degreeZeroOrder110PlusBlock1_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R := by
+  refine ?_ + (1550364171722293248 : R) * v1 * u1 ^ 2 * a0 * lambda
+  refine ?_ + (775182085861146624 : R) * v1 ^ 2 * a2 ^ 2 * lambda
+  refine ?_ + (1550364171722293248 : R) * v1 ^ 2 * a3 * a1 * lambda
+  refine ?_ + (1550364171722293248 : R) * v1 ^ 2 * a4 * a0 * lambda
+  refine ?_ + (1550364171722293248 : R) * t0 * u1 * a2 ^ 2 * lambda
+  refine ?_ + (3100728343444586496 : R) * t0 * u1 * a3 * a1 * lambda
+  refine ?_ + (3100728343444586496 : R) * t0 * u1 * a4 * a0 * lambda
+  refine ?_ - (6890507429876858880 : R) * h * v1 ^ 2 * a2 * a1
+  refine ?_ - (6890507429876858880 : R) * h * v1 ^ 2 * a3 * a0
+  exact (405323966463344640 : R) * h ^ 5 * t0 ^ 2 * a1 * a0
     - (4611686018427387904 : R) * h ^ 5 * a1 * a0 * s1
     + (1550364171722293248 : R) * h ^ 4 * t0 ^ 2 * a2 * a0 * lambda
     + (775182085861146624 : R) * h ^ 4 * t0 ^ 2 * a1 ^ 2 * lambda
@@ -1895,20 +2115,12 @@ def degreeZeroOrder110PlusBlock1_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 
     + (3100728343444586496 : R) * h ^ 2 * t0 * v1 * a2 * a1 * lambda
     - (6485183463413514240 : R) * h * t0 * u1 * a3 * a0
     - (6485183463413514240 : R) * h * t0 * u1 * a2 * a1
-    - (6890507429876858880 : R) * h * v1 ^ 2 * a3 * a0
-    - (6890507429876858880 : R) * h * v1 ^ 2 * a2 * a1
-    + (3100728343444586496 : R) * t0 * u1 * a4 * a0 * lambda
-    + (3100728343444586496 : R) * t0 * u1 * a3 * a1 * lambda
-    + (1550364171722293248 : R) * t0 * u1 * a2 ^ 2 * lambda
-    + (1550364171722293248 : R) * v1 ^ 2 * a4 * a0 * lambda
-    + (1550364171722293248 : R) * v1 ^ 2 * a3 * a1 * lambda
-    + (775182085861146624 : R) * v1 ^ 2 * a2 ^ 2 * lambda
-    + (1550364171722293248 : R) * v1 * u1 ^ 2 * a0 * lambda
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` Plus remainder contributed by Plus block `2`. -/
-def degreeZeroOrder110PlusBlock2_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
-    (324259173170675712 : R) * h ^ 3 * t0 ^ 2 * a2 * b1
+def degreeZeroOrder110PlusBlock2_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R := by
+  refine ?_ + (4539628424389459968 : R) * h * t0 * a2 * a1 * w1
+  exact (324259173170675712 : R) * h ^ 3 * t0 ^ 2 * a2 * b1
     + (648518346341351424 : R) * h ^ 3 * t0 ^ 2 * a1 * b2
     + (972777519512027136 : R) * h ^ 3 * t0 ^ 2 * a0 * b3
     + (5188146770730811392 : R) * h ^ 3 * t0 * a2 * a0 * s1
@@ -1918,8 +2130,8 @@ def degreeZeroOrder110PlusBlock2_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 
     + (1945555039024054272 : R) * h * t0 * v1 * a1 * b3
     + (2594073385365405696 : R) * h * t0 * v1 * a0 * b4
     + (4539628424389459968 : R) * h * t0 * a3 * a0 * w1
-    + (4539628424389459968 : R) * h * t0 * a2 * a1 * w1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` Plus remainder contributed by Plus block `3`. -/
 def degreeZeroOrder110PlusBlock3_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (574208952489738240 : R) * h ^ 3 * t0 ^ 3 * a2 * a0
@@ -1929,6 +2141,7 @@ def degreeZeroOrder110PlusBlock3_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 
     + (5188146770730811392 : R) * h * v1 * a3 * a0 * s1
     + (5188146770730811392 : R) * h * v1 * a2 * a1 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` Plus remainder contributed by Plus block `4`. -/
 def degreeZeroOrder110PlusBlock4_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (1614962678877388800 : R) * h ^ 2 * t0 ^ 3 * a3 * a0 * lambda
@@ -1938,6 +2151,7 @@ def degreeZeroOrder110PlusBlock4_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 
     - (2422444018316083200 : R) * t0 ^ 2 * v1 * a2 ^ 2 * lambda
     - (2422444018316083200 : R) * t0 ^ 2 * u1 ^ 2 * a0 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` Plus remainder contributed by Plus block `5`. -/
 def degreeZeroOrder110PlusBlock5_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (229683580995895296 : R) * h * t0 ^ 3 * a3 * b1
@@ -1947,15 +2161,18 @@ def degreeZeroOrder110PlusBlock5_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 
     - (4844888036632166400 : R) * t0 * v1 ^ 2 * u1 * a0 * lambda
     - (403740669719347200 : R) * v1 ^ 4 * a0 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` Plus remainder contributed by Plus block `6`. -/
 def degreeZeroOrder110PlusBlock6_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (5512405943901487104 : R) * h * t0 ^ 2 * a3 * a0 * s1
     - (5512405943901487104 : R) * h * t0 ^ 2 * a2 * a1 * s1
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` Plus remainder contributed by Plus block `7`. -/
 def degreeZeroOrder110PlusBlock7_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` Plus remainder contributed by Plus block `8`. -/
 def degreeZeroOrder110PlusBlock8_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (672901116198912000 : R) * h * t0 ^ 4 * a3 * a0
@@ -1963,73 +2180,90 @@ def degreeZeroOrder110PlusBlock8_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 
     + (1665430262592307200 : R) * t0 ^ 4 * a4 * a0 * lambda
     + (1665430262592307200 : R) * t0 ^ 4 * a3 * a1 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` Plus remainder contributed by Plus block `9`. -/
 def degreeZeroOrder110PlusBlock9_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (832715131296153600 : R) * t0 ^ 4 * a2 ^ 2 * lambda
     + (6661721050369228800 : R) * t0 ^ 3 * v1 * u1 * a0 * lambda
     + (3330860525184614400 : R) * t0 ^ 2 * v1 ^ 3 * a0 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` Plus remainder contributed by Plus block `10`. -/
 def degreeZeroOrder110PlusBlock10_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` Plus remainder contributed by Plus block `11`. -/
 def degreeZeroOrder110PlusBlock11_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` Plus remainder contributed by Plus block `12`. -/
 def degreeZeroOrder110PlusBlock12_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` Plus remainder contributed by Plus block `13`. -/
 def degreeZeroOrder110PlusBlock13_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (1707066019157114880 : R) * t0 ^ 5 * u1 * a0 * lambda
     - (4267665047892787200 : R) * t0 ^ 4 * v1 ^ 2 * a0 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` Plus remainder contributed by Plus block `14`. -/
 def degreeZeroOrder110PlusBlock14_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` Plus remainder contributed by Plus block `15`. -/
 def degreeZeroOrder110PlusBlock15_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` Plus remainder contributed by Plus block `16`. -/
 def degreeZeroOrder110PlusBlock16_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     (1742629894556221440 : R) * t0 ^ 6 * v1 * a0 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` Plus remainder contributed by Plus block `17`. -/
 def degreeZeroOrder110PlusBlock17_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` Plus remainder contributed by Plus block `18`. -/
 def degreeZeroOrder110PlusBlock18_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` Plus remainder contributed by Plus block `19`. -/
 def degreeZeroOrder110PlusBlock19_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     - (221718535691304960 : R) * t0 ^ 8 * a0 * lambda
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` Plus remainder contributed by Plus block `20`. -/
 def degreeZeroOrder110PlusBlock20_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` Plus remainder contributed by Plus block `21`. -/
 def degreeZeroOrder110PlusBlock21_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` Plus remainder contributed by Plus block `22`. -/
 def degreeZeroOrder110PlusBlock22_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` Plus remainder contributed by Plus block `23`. -/
 def degreeZeroOrder110PlusBlock23_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`110` Plus remainder contributed by Plus block `24`. -/
 def degreeZeroOrder110PlusBlock24_810 {R : Type*} [CommRing R] (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) : R :=
     0
 
+set_option maxHeartbeats 64000000 in
 /-- Remaining factor of `degreeZeroSourceJetPlus810` after the
 orders `103` through `110` are peeled: the `h^8`-and-higher terms,
 shifted down by `h^8`. -/
@@ -2067,7 +2301,7 @@ section DegreeZeroTowerScale810
 variable {R : Type*} [CommRing R]
 
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroSourceJetPlusBlock0_810_orders103to110
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroSourceJetPlusBlock0_810 h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
@@ -2085,7 +2319,7 @@ private theorem degreeZeroSourceJetPlusBlock0_810_orders103to110
   ring
 
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroSourceJetPlusBlock1_810_orders103to110
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroSourceJetPlusBlock1_810 h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
@@ -2103,7 +2337,7 @@ private theorem degreeZeroSourceJetPlusBlock1_810_orders103to110
   ring
 
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroSourceJetPlusBlock2_810_orders103to110
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroSourceJetPlusBlock2_810 h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
@@ -2121,7 +2355,7 @@ private theorem degreeZeroSourceJetPlusBlock2_810_orders103to110
   ring
 
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroSourceJetPlusBlock3_810_orders103to110
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroSourceJetPlusBlock3_810 h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
@@ -2139,7 +2373,7 @@ private theorem degreeZeroSourceJetPlusBlock3_810_orders103to110
   ring
 
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroSourceJetPlusBlock4_810_orders103to110
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroSourceJetPlusBlock4_810 h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
@@ -2157,7 +2391,7 @@ private theorem degreeZeroSourceJetPlusBlock4_810_orders103to110
   ring
 
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroSourceJetPlusBlock5_810_orders103to110
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroSourceJetPlusBlock5_810 h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
@@ -2175,7 +2409,7 @@ private theorem degreeZeroSourceJetPlusBlock5_810_orders103to110
   ring
 
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroSourceJetPlusBlock6_810_orders103to110
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroSourceJetPlusBlock6_810 h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
@@ -2193,7 +2427,7 @@ private theorem degreeZeroSourceJetPlusBlock6_810_orders103to110
   ring
 
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroSourceJetPlusBlock7_810_orders103to110
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroSourceJetPlusBlock7_810 h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
@@ -2211,7 +2445,7 @@ private theorem degreeZeroSourceJetPlusBlock7_810_orders103to110
   ring
 
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroSourceJetPlusBlock8_810_orders103to110
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroSourceJetPlusBlock8_810 h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
@@ -2229,7 +2463,7 @@ private theorem degreeZeroSourceJetPlusBlock8_810_orders103to110
   ring
 
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroSourceJetPlusBlock9_810_orders103to110
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroSourceJetPlusBlock9_810 h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
@@ -2247,7 +2481,7 @@ private theorem degreeZeroSourceJetPlusBlock9_810_orders103to110
   ring
 
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroSourceJetPlusBlock10_810_orders103to110
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroSourceJetPlusBlock10_810 h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
@@ -2265,7 +2499,7 @@ private theorem degreeZeroSourceJetPlusBlock10_810_orders103to110
   ring
 
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroSourceJetPlusBlock11_810_orders103to110
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroSourceJetPlusBlock11_810 h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
@@ -2283,7 +2517,7 @@ private theorem degreeZeroSourceJetPlusBlock11_810_orders103to110
   ring
 
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroSourceJetPlusBlock12_810_orders103to110
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroSourceJetPlusBlock12_810 h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
@@ -2301,7 +2535,7 @@ private theorem degreeZeroSourceJetPlusBlock12_810_orders103to110
   ring
 
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroSourceJetPlusBlock13_810_orders103to110
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroSourceJetPlusBlock13_810 h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
@@ -2319,7 +2553,7 @@ private theorem degreeZeroSourceJetPlusBlock13_810_orders103to110
   ring
 
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroSourceJetPlusBlock14_810_orders103to110
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroSourceJetPlusBlock14_810 h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
@@ -2337,7 +2571,7 @@ private theorem degreeZeroSourceJetPlusBlock14_810_orders103to110
   ring
 
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroSourceJetPlusBlock15_810_orders103to110
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroSourceJetPlusBlock15_810 h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
@@ -2355,7 +2589,7 @@ private theorem degreeZeroSourceJetPlusBlock15_810_orders103to110
   ring
 
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroSourceJetPlusBlock16_810_orders103to110
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroSourceJetPlusBlock16_810 h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
@@ -2373,7 +2607,7 @@ private theorem degreeZeroSourceJetPlusBlock16_810_orders103to110
   ring
 
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroSourceJetPlusBlock17_810_orders103to110
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroSourceJetPlusBlock17_810 h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
@@ -2391,7 +2625,7 @@ private theorem degreeZeroSourceJetPlusBlock17_810_orders103to110
   ring
 
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroSourceJetPlusBlock18_810_orders103to110
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroSourceJetPlusBlock18_810 h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
@@ -2409,7 +2643,7 @@ private theorem degreeZeroSourceJetPlusBlock18_810_orders103to110
   ring
 
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroSourceJetPlusBlock19_810_orders103to110
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroSourceJetPlusBlock19_810 h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
@@ -2427,7 +2661,7 @@ private theorem degreeZeroSourceJetPlusBlock19_810_orders103to110
   ring
 
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroSourceJetPlusBlock20_810_orders103to110
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroSourceJetPlusBlock20_810 h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
@@ -2445,7 +2679,7 @@ private theorem degreeZeroSourceJetPlusBlock20_810_orders103to110
   ring
 
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroSourceJetPlusBlock21_810_orders103to110
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroSourceJetPlusBlock21_810 h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
@@ -2463,7 +2697,7 @@ private theorem degreeZeroSourceJetPlusBlock21_810_orders103to110
   ring
 
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroSourceJetPlusBlock22_810_orders103to110
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroSourceJetPlusBlock22_810 h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
@@ -2481,7 +2715,7 @@ private theorem degreeZeroSourceJetPlusBlock22_810_orders103to110
   ring
 
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroSourceJetPlusBlock23_810_orders103to110
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroSourceJetPlusBlock23_810 h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
@@ -2499,7 +2733,7 @@ private theorem degreeZeroSourceJetPlusBlock23_810_orders103to110
   ring
 
 
-set_option maxHeartbeats 200000000 in
+set_option maxHeartbeats 64000000 in
 private theorem degreeZeroSourceJetPlusBlock24_810_orders103to110
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroSourceJetPlusBlock24_810 h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
@@ -2517,7 +2751,7 @@ private theorem degreeZeroSourceJetPlusBlock24_810_orders103to110
   ring
 
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 /-- Plus remainder through order `110`. -/
 theorem degreeZeroSourceJetPlus810_orders103to110
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
@@ -2620,10 +2854,12 @@ theorem degreeZeroSourceJetPlus810_orders103to110
   rw [hb0, hb1, hb2, hb3, hb4, hb5, hb6, hb7, hb8, hb9, hb10, hb11, hb12, hb13, hb14,
     hb15, hb16, hb17, hb18, hb19, hb20, hb21, hb22, hb23, hb24]
   simp only [degreeZeroOrder103810, degreeZeroOrder104810, degreeZeroOrder105810, degreeZeroOrder106810, degreeZeroOrder107810, degreeZeroOrder108810, degreeZeroOrder109810, degreeZeroOrder110810, degreeZeroOrder110Plus810]
-  ring
+  simp only [mul_add]
+  ac_rfl
 
 #print axioms degreeZeroSourceJetPlus810_orders103to110
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroSourceJetPlus810_zero
     (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     degreeZeroSourceJetPlus810 0 t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62
@@ -2636,7 +2872,7 @@ theorem degreeZeroSourceJetPlus810_zero
 
 #print axioms degreeZeroSourceJetPlus810_zero
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 /-- Quotient expansion through order `110`. -/
 theorem degreeZeroSourceJetQuotient810_orders103to110
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
@@ -2679,7 +2915,7 @@ section DegreeZeroTowerMap810
 variable {R S : Type*} [CommRing R] [CommRing S]
 
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem map_degreeZeroOrder103810
     (phi : R →+* S) (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     phi (degreeZeroOrder103810 t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62
@@ -2691,7 +2927,7 @@ theorem map_degreeZeroOrder103810
     map_neg, map_ofNat, map_zero]
 
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem map_degreeZeroOrder104810
     (phi : R →+* S) (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     phi (degreeZeroOrder104810 t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62
@@ -2703,7 +2939,7 @@ theorem map_degreeZeroOrder104810
     map_neg, map_ofNat, map_zero]
 
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem map_degreeZeroOrder105810
     (phi : R →+* S) (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     phi (degreeZeroOrder105810 t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62
@@ -2715,7 +2951,7 @@ theorem map_degreeZeroOrder105810
     map_neg, map_ofNat, map_zero]
 
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem map_degreeZeroOrder106810
     (phi : R →+* S) (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     phi (degreeZeroOrder106810 t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62
@@ -2727,7 +2963,7 @@ theorem map_degreeZeroOrder106810
     map_neg, map_ofNat, map_zero]
 
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem map_degreeZeroOrder107810
     (phi : R →+* S) (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     phi (degreeZeroOrder107810 t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62
@@ -2739,7 +2975,7 @@ theorem map_degreeZeroOrder107810
     map_neg, map_ofNat, map_zero]
 
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem map_degreeZeroOrder108810
     (phi : R →+* S) (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     phi (degreeZeroOrder108810 t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62
@@ -2751,7 +2987,7 @@ theorem map_degreeZeroOrder108810
     map_neg, map_ofNat, map_zero]
 
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem map_degreeZeroOrder109810
     (phi : R →+* S) (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     phi (degreeZeroOrder109810 t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62
@@ -2763,7 +2999,7 @@ theorem map_degreeZeroOrder109810
     map_neg, map_ofNat, map_zero]
 
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem map_degreeZeroOrder110810
     (phi : R →+* S) (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     phi (degreeZeroOrder110810 t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62
@@ -2775,7 +3011,7 @@ theorem map_degreeZeroOrder110810
     map_neg, map_ofNat, map_zero]
 
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 theorem map_degreeZeroOrder110Plus810
     (phi : R →+* S) (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 lambda : R) :
     phi (degreeZeroOrder110Plus810 h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
@@ -2793,6 +3029,7 @@ section DegreeZeroTowerEval810
 variable {k : Type*} [CommRing k]
 
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOrder103810_eval
     (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 : k[X])
     (lambda a : k) :
@@ -2808,6 +3045,7 @@ theorem degreeZeroOrder103810_eval
         b5 b4 b3 b2 b1 (Polynomial.C lambda)
 
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOrder104810_eval
     (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 : k[X])
     (lambda a : k) :
@@ -2823,6 +3061,7 @@ theorem degreeZeroOrder104810_eval
         b5 b4 b3 b2 b1 (Polynomial.C lambda)
 
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOrder105810_eval
     (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 : k[X])
     (lambda a : k) :
@@ -2838,6 +3077,7 @@ theorem degreeZeroOrder105810_eval
         b5 b4 b3 b2 b1 (Polynomial.C lambda)
 
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOrder106810_eval
     (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 : k[X])
     (lambda a : k) :
@@ -2853,6 +3093,7 @@ theorem degreeZeroOrder106810_eval
         b5 b4 b3 b2 b1 (Polynomial.C lambda)
 
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOrder107810_eval
     (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 : k[X])
     (lambda a : k) :
@@ -2868,6 +3109,7 @@ theorem degreeZeroOrder107810_eval
         b5 b4 b3 b2 b1 (Polynomial.C lambda)
 
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOrder108810_eval
     (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 : k[X])
     (lambda a : k) :
@@ -2883,6 +3125,7 @@ theorem degreeZeroOrder108810_eval
         b5 b4 b3 b2 b1 (Polynomial.C lambda)
 
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOrder109810_eval
     (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 : k[X])
     (lambda a : k) :
@@ -2898,6 +3141,7 @@ theorem degreeZeroOrder109810_eval
         b5 b4 b3 b2 b1 (Polynomial.C lambda)
 
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOrder110810_eval
     (t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 : k[X])
     (lambda a : k) :
@@ -2913,6 +3157,7 @@ theorem degreeZeroOrder110810_eval
         b5 b4 b3 b2 b1 (Polynomial.C lambda)
 
 
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOrder110Plus810_eval
     (h t0 v1 u1 a4 a3 a2 a1 a0 s1 w1 b62 b5 b4 b3 b2 b1 : k[X])
     (lambda a : k) :
@@ -2947,6 +3192,7 @@ section DegreeZeroTowerHeads810
 variable {k : Type*} [Field k] [CharZero k]
 
 
+set_option maxHeartbeats 64000000 in
 /-- Named `h^1` coefficient of the order-`102` quotient, forced if
 it is the remaining pole-`16` head after cancelling `h₀^1`. -/
 theorem degreeZeroOrder103810_zero_of_remaining_pole
@@ -3037,8 +3283,7 @@ theorem degreeZeroOrder103810_zero_of_remaining_pole
               (algebraMap k[X] (RatFunc k) b3)
               (algebraMap k[X] (RatFunc k) b2)
               (algebraMap k[X] (RatFunc k) b1) (RatFunc.C lambda)) := by
-    have hpow : degreeZeroEffectiveTowerLength810 = 1 + 16 := rfl
-    rwa [hpow] at hclear
+    exact hclear
   exact degreeZero_remainingHead_eval_zero810 h0
     (degreeZeroSourceJetQuotient810 h0 t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
             b62 b5 b4 b3 b2 b1 (Polynomial.C lambda))
@@ -3069,6 +3314,7 @@ theorem degreeZeroOrder103810_zero_of_remaining_pole
 
 #print axioms degreeZeroOrder103810_zero_of_remaining_pole
 
+set_option maxHeartbeats 64000000 in
 /-- Named `h^2` coefficient of the order-`102` quotient, forced if
 it is the remaining pole-`15` head after cancelling `h₀^2`. -/
 theorem degreeZeroOrder104810_zero_of_remaining_pole
@@ -3159,8 +3405,7 @@ theorem degreeZeroOrder104810_zero_of_remaining_pole
               (algebraMap k[X] (RatFunc k) b3)
               (algebraMap k[X] (RatFunc k) b2)
               (algebraMap k[X] (RatFunc k) b1) (RatFunc.C lambda)) := by
-    have hpow : degreeZeroEffectiveTowerLength810 = 2 + 15 := rfl
-    rwa [hpow] at hclear
+    exact hclear
   exact degreeZero_remainingHead_eval_zero810 h0
     (degreeZeroSourceJetQuotient810 h0 t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
             b62 b5 b4 b3 b2 b1 (Polynomial.C lambda))
@@ -3191,6 +3436,7 @@ theorem degreeZeroOrder104810_zero_of_remaining_pole
 
 #print axioms degreeZeroOrder104810_zero_of_remaining_pole
 
+set_option maxHeartbeats 64000000 in
 /-- Named `h^3` coefficient of the order-`102` quotient, forced if
 it is the remaining pole-`14` head after cancelling `h₀^3`. -/
 theorem degreeZeroOrder105810_zero_of_remaining_pole
@@ -3281,8 +3527,7 @@ theorem degreeZeroOrder105810_zero_of_remaining_pole
               (algebraMap k[X] (RatFunc k) b3)
               (algebraMap k[X] (RatFunc k) b2)
               (algebraMap k[X] (RatFunc k) b1) (RatFunc.C lambda)) := by
-    have hpow : degreeZeroEffectiveTowerLength810 = 3 + 14 := rfl
-    rwa [hpow] at hclear
+    exact hclear
   exact degreeZero_remainingHead_eval_zero810 h0
     (degreeZeroSourceJetQuotient810 h0 t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
             b62 b5 b4 b3 b2 b1 (Polynomial.C lambda))
@@ -3313,6 +3558,7 @@ theorem degreeZeroOrder105810_zero_of_remaining_pole
 
 #print axioms degreeZeroOrder105810_zero_of_remaining_pole
 
+set_option maxHeartbeats 64000000 in
 /-- Named `h^4` coefficient of the order-`102` quotient, forced if
 it is the remaining pole-`13` head after cancelling `h₀^4`. -/
 theorem degreeZeroOrder106810_zero_of_remaining_pole
@@ -3403,8 +3649,7 @@ theorem degreeZeroOrder106810_zero_of_remaining_pole
               (algebraMap k[X] (RatFunc k) b3)
               (algebraMap k[X] (RatFunc k) b2)
               (algebraMap k[X] (RatFunc k) b1) (RatFunc.C lambda)) := by
-    have hpow : degreeZeroEffectiveTowerLength810 = 4 + 13 := rfl
-    rwa [hpow] at hclear
+    exact hclear
   exact degreeZero_remainingHead_eval_zero810 h0
     (degreeZeroSourceJetQuotient810 h0 t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
             b62 b5 b4 b3 b2 b1 (Polynomial.C lambda))
@@ -3435,6 +3680,7 @@ theorem degreeZeroOrder106810_zero_of_remaining_pole
 
 #print axioms degreeZeroOrder106810_zero_of_remaining_pole
 
+set_option maxHeartbeats 64000000 in
 /-- Named `h^5` coefficient of the order-`102` quotient, forced if
 it is the remaining pole-`12` head after cancelling `h₀^5`. -/
 theorem degreeZeroOrder107810_zero_of_remaining_pole
@@ -3525,8 +3771,7 @@ theorem degreeZeroOrder107810_zero_of_remaining_pole
               (algebraMap k[X] (RatFunc k) b3)
               (algebraMap k[X] (RatFunc k) b2)
               (algebraMap k[X] (RatFunc k) b1) (RatFunc.C lambda)) := by
-    have hpow : degreeZeroEffectiveTowerLength810 = 5 + 12 := rfl
-    rwa [hpow] at hclear
+    exact hclear
   exact degreeZero_remainingHead_eval_zero810 h0
     (degreeZeroSourceJetQuotient810 h0 t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
             b62 b5 b4 b3 b2 b1 (Polynomial.C lambda))
@@ -3557,6 +3802,7 @@ theorem degreeZeroOrder107810_zero_of_remaining_pole
 
 #print axioms degreeZeroOrder107810_zero_of_remaining_pole
 
+set_option maxHeartbeats 64000000 in
 /-- Named `h^6` coefficient of the order-`102` quotient, forced if
 it is the remaining pole-`11` head after cancelling `h₀^6`. -/
 theorem degreeZeroOrder108810_zero_of_remaining_pole
@@ -3647,8 +3893,7 @@ theorem degreeZeroOrder108810_zero_of_remaining_pole
               (algebraMap k[X] (RatFunc k) b3)
               (algebraMap k[X] (RatFunc k) b2)
               (algebraMap k[X] (RatFunc k) b1) (RatFunc.C lambda)) := by
-    have hpow : degreeZeroEffectiveTowerLength810 = 6 + 11 := rfl
-    rwa [hpow] at hclear
+    exact hclear
   exact degreeZero_remainingHead_eval_zero810 h0
     (degreeZeroSourceJetQuotient810 h0 t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
             b62 b5 b4 b3 b2 b1 (Polynomial.C lambda))
@@ -3679,6 +3924,7 @@ theorem degreeZeroOrder108810_zero_of_remaining_pole
 
 #print axioms degreeZeroOrder108810_zero_of_remaining_pole
 
+set_option maxHeartbeats 64000000 in
 /-- Named `h^7` coefficient of the order-`102` quotient, forced if
 it is the remaining pole-`10` head after cancelling `h₀^7`. -/
 theorem degreeZeroOrder109810_zero_of_remaining_pole
@@ -3769,8 +4015,7 @@ theorem degreeZeroOrder109810_zero_of_remaining_pole
               (algebraMap k[X] (RatFunc k) b3)
               (algebraMap k[X] (RatFunc k) b2)
               (algebraMap k[X] (RatFunc k) b1) (RatFunc.C lambda)) := by
-    have hpow : degreeZeroEffectiveTowerLength810 = 7 + 10 := rfl
-    rwa [hpow] at hclear
+    exact hclear
   exact degreeZero_remainingHead_eval_zero810 h0
     (degreeZeroSourceJetQuotient810 h0 t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
             b62 b5 b4 b3 b2 b1 (Polynomial.C lambda))
@@ -3801,6 +4046,7 @@ theorem degreeZeroOrder109810_zero_of_remaining_pole
 
 #print axioms degreeZeroOrder109810_zero_of_remaining_pole
 
+set_option maxHeartbeats 64000000 in
 /-- Named `h^8` coefficient of the order-`102` quotient, forced if
 it is the remaining pole-`9` head after cancelling `h₀^8`. -/
 theorem degreeZeroOrder110810_zero_of_remaining_pole
@@ -3891,8 +4137,7 @@ theorem degreeZeroOrder110810_zero_of_remaining_pole
               (algebraMap k[X] (RatFunc k) b3)
               (algebraMap k[X] (RatFunc k) b2)
               (algebraMap k[X] (RatFunc k) b1) (RatFunc.C lambda)) := by
-    have hpow : degreeZeroEffectiveTowerLength810 = 8 + 9 := rfl
-    rwa [hpow] at hclear
+    exact hclear
   exact degreeZero_remainingHead_eval_zero810 h0
     (degreeZeroSourceJetQuotient810 h0 t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
             b62 b5 b4 b3 b2 b1 (Polynomial.C lambda))
@@ -3923,6 +4168,7 @@ theorem degreeZeroOrder110810_zero_of_remaining_pole
 
 #print axioms degreeZeroOrder110810_zero_of_remaining_pole
 
+set_option maxHeartbeats 64000000 in
 /-- The order-`102` quotient vanishes at the linear root once the
 parent remaining-pole-`17` obstruction applies. -/
 theorem degreeZeroSourceJetQuotient810_eval_zero_of_deriv_eq_simplePole
@@ -3986,7 +4232,7 @@ theorem degreeZeroSourceJetQuotient810_eval_zero_of_deriv_eq_simplePole
 
 #print axioms degreeZeroSourceJetQuotient810_eval_zero_of_deriv_eq_simplePole
 
-set_option maxHeartbeats 1600000000 in
+set_option maxHeartbeats 64000000 in
 /-- Remaining-numerator peels of orders `103` through `110`.  After
 order `110` the remaining pole is `9`.  This is not a closure. -/
 theorem degreeZero_orders103to110_remaining_dvd810
@@ -4096,8 +4342,7 @@ theorem degreeZero_orders103to110_remaining_dvd810
               (algebraMap k[X] (RatFunc k) b3)
               (algebraMap k[X] (RatFunc k) b2)
               (algebraMap k[X] (RatFunc k) b1) (RatFunc.C lambda)) := by
-    have hpow : degreeZeroEffectiveTowerLength810 = 16 + 1 := rfl
-    rwa [hpow] at hclear
+    exact hclear
   have hclear17' :
       algebraMap k[X] (RatFunc k)
           (degreeZeroSourceJetQuotient810 h0 t0 v1 u1 a4 a3 a2 a1 a0 s1 w1
@@ -4144,6 +4389,7 @@ theorem degreeZero_orders103to110_remaining_dvd810
 
 #print axioms degreeZero_orders103to110_remaining_dvd810
 
+set_option maxHeartbeats 64000000 in
 /-- Batch `h₀^8`-divisibility of the order-`102` quotient through order
 `110`.  Remaining pole `9`; next unused compact-numerator order `111`. -/
 theorem degreeZero_orders103to110_pow_dvd810
