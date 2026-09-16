@@ -1,4 +1,4 @@
-import Grok68VanishingAInductionStepPart18Scratch
+import Grok68VanishingAInductionStepPart102Scratch
 
 /-! # Uniform producing induction on the `q=0` vanishing-A chamber
 

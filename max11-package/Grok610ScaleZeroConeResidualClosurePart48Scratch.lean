@@ -1,10 +1,5 @@
-import Grok610ScaleZeroConeResidualClosurePart24Scratch
-import Grok610ScaleZeroConeResidualClosurePart25Scratch
-import Grok610ScaleZeroConeResidualClosurePart26Scratch
-import Grok610ScaleZeroConeResidualClosurePart27Scratch
-import Grok610ScaleZeroConeResidualClosurePart34Scratch
-import Grok610ScaleZeroConeResidualClosurePart35Scratch
-import Grok610ScaleZeroConeResidualClosurePart47Scratch
+import Grok610ScaleZeroConeResidualClosurePart101Scratch
+import Grok610ScaleZeroConeResidualClosurePart102Scratch
 
 open scoped Polynomial.Bivariate
 noncomputable section
@@ -91,10 +86,10 @@ private theorem astra4b_structural_degreeZeroThetaGroupPolynomial610
   unfold degreeZeroThetaGroupPolynomial610
   exact (le_trans (natDegree_add_le _ _) (max_le_max (le_trans (natDegree_sub_le _ _) (max_le_max (le_trans (natDegree_sub_le _ _) (max_le_max (le_trans (natDegree_smul_le _ _) natDegree_pow_le) (le_trans (natDegree_smul_le _ _) (le_trans natDegree_mul_le (Nat.add_le_add (le_refl _) (le_refl _)))))) (le_trans (natDegree_smul_le _ _) natDegree_pow_le))) (le_trans (natDegree_smul_le _ _) (le_refl _))))
 
-open private zero_pow_two from Grok610ScaleZeroConeResidualClosurePart24Scratch in
-open private zero_pow_three from Grok610ScaleZeroConeResidualClosurePart25Scratch in
-open private zero_pow_four from Grok610ScaleZeroConeResidualClosurePart26Scratch in
-open private zero_pow_five from Grok610ScaleZeroConeResidualClosurePart27Scratch in
+open private zero_pow_two from Grok610ScaleZeroConeResidualClosurePart101Scratch in
+open private zero_pow_three from Grok610ScaleZeroConeResidualClosurePart101Scratch in
+open private zero_pow_four from Grok610ScaleZeroConeResidualClosurePart101Scratch in
+open private zero_pow_five from Grok610ScaleZeroConeResidualClosurePart101Scratch in
 set_option maxHeartbeats 64000000 in
 theorem uniqueNonconstantC0_impossible_of_cubic_ne
     (l alpha beta delta epsilon zeta eta theta j : k)

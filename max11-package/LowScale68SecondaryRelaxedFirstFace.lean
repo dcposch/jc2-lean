@@ -1,4 +1,4 @@
-import LowScale68SecondaryRelaxedFirstFacePart23Scratch
+import LowScale68SecondaryRelaxedFirstFacePart103Scratch
 
 /-! # Relaxed first `(6,8)` secondary face after `l = 0`
 

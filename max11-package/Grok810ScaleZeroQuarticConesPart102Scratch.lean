@@ -15,7 +15,7 @@ import Grok810ScaleZeroQuarticMultiKills4Part106Scratch
 import Grok810ScaleZeroQuarticMultiKills4bSpeedReflSplitPart3Scratch
 import Grok810ScaleZeroQuarticMultiKills5Scratch
 import Grok810ScaleZeroQuarticMultiKills6Part106Scratch
-import Grok810ScaleZeroQuarticMultiKills7SpeedReflValDegSplitPart106Scratch
+import Grok810ScaleZeroQuarticMultiKills7SpeedReflValDegSplitPart107Scratch
 
 /-! # Part 28 of `Grok810ScaleZeroQuarticConesScratch`.
 

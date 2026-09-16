@@ -1,4 +1,4 @@
-import Fable810ScaleZeroEleventhDefectSpeedTPart06Scratch
+import Fable810ScaleZeroEleventhDefectSpeedTPart102Scratch
 
 /-! # Scale-zero twelfth defect for the normalized `(8,10)`, `H = 0` leaf
 

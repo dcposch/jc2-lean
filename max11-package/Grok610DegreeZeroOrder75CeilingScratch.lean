@@ -1,4 +1,4 @@
-import Grok610DegreeZeroOrder74Part45Scratch
+import Grok610DegreeZeroOrder74Part103Scratch
 
 /-! # Order-`75` frozen-head ceiling of the `(6,10)` degree-zero tower
 

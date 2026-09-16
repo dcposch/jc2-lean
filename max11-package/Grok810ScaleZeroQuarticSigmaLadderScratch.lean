@@ -1,8 +1,5 @@
-import Grok810ScaleZeroQuarticSigmaLadderPart101Scratch
-import Grok810ScaleZeroQuarticSigmaLadderPart102Scratch
-import Grok810ScaleZeroQuarticSigmaLadderPart104Scratch
-import Grok810ScaleZeroQuarticSigmaLadderPart105Scratch
-import Grok810ScaleZeroQuarticSigmaLadderPart103Scratch
+import Grok810ScaleZeroQuarticSigmaLadderPart106Scratch
+import Grok810ScaleZeroQuarticSigmaLadderPart107Scratch
 
 /-! # Scale-zero quartic σ-defect ladder, `(8,10)`, cone `A`
 

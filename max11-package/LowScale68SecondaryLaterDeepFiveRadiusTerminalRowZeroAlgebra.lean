@@ -1,4 +1,4 @@
-import LowScale68SecondaryLaterDeepFiveRadiusTerminalRowZeroAlgebraPart02Scratch
+import LowScale68SecondaryLaterDeepFiveRadiusTerminalRowZeroAlgebraPart101Scratch
 
 /-! # Terminal row-zero algebra on `2g = 5n`, `h = 5n` -/
 

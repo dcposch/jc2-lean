@@ -1,4 +1,4 @@
-import Fable410ScaleTwoAlignedTenthFacePart16Scratch
+import Fable410ScaleTwoAlignedTenthFacePart101Scratch
 
 open scoped Polynomial.Bivariate
 

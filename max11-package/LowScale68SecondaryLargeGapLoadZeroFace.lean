@@ -1,4 +1,4 @@
-import LowScale68SecondaryLargeGapLoadZeroFacePart16Scratch
+import LowScale68SecondaryLargeGapLoadZeroFacePart102Scratch
 
 /-! # Residual faces in the large-gap load-zero chamber
 

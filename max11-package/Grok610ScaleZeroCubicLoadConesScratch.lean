@@ -1,4 +1,4 @@
-import Grok610ScaleZeroCubicLoadConesSpeedReflSplitPart3Scratch
+import Grok610ScaleZeroCubicLoadConesSpeedReflSplitPart101Scratch
 
 /-! # SPEED: drop-in for `Grok610ScaleZeroCubicLoadConesScratch`.  Every declaration now lives in the
 `SplitBase` / `SplitPart*` modules this imports, so every name the original

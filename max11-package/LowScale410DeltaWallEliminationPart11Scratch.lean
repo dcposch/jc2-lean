@@ -1,4 +1,4 @@
-import LowScale410DeltaWallEliminationPart10Scratch
+import LowScale410DeltaWallEliminationPart104Scratch
 
 /-!
 # Elimination of the pure delta wall
@@ -21,9 +21,9 @@ section DeltaWallElimination410
 
 variable {k : Type*} [Field k] [CharZero k]
 
-open private twoTerm_degree_eq410 from LowScale410DeltaWallEliminationPart02Scratch in
-open private deltaFiber_degree_one_impossible_of_degrees_zero from LowScale410DeltaWallEliminationPart08Scratch in
-open private deltaOnly410_zeroB_impossible from LowScale410DeltaWallEliminationPart10Scratch in
+open private twoTerm_degree_eq410 from LowScale410DeltaWallEliminationPart101Scratch in
+open private deltaFiber_degree_one_impossible_of_degrees_zero from LowScale410DeltaWallEliminationPart103Scratch in
+open private deltaOnly410_zeroB_impossible from LowScale410DeltaWallEliminationPart104Scratch in
 set_option maxHeartbeats 64000000 in
 private theorem deltaOnly410_zeroU_impossible
     (delta k2raw k2 k1 : k) (A B U : k[X])

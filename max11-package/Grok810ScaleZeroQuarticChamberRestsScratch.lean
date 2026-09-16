@@ -1,9 +1,6 @@
 import Grok810ScaleZeroQuarticChamberFacesPart104Scratch
-import Grok810ScaleZeroQuarticChamberFacesPart8Scratch
-import Grok810ScaleZeroQuarticChamberFacesPart7Scratch
-import Grok810ScaleZeroQuarticChamberFacesPart103Scratch
-import Grok810ScaleZeroQuarticChamberFacesPart102Scratch
-import Grok810ScaleZeroQuarticChamberFacesPart101Scratch
+import Grok810ScaleZeroQuarticChamberFacesPart106Scratch
+import Grok810ScaleZeroQuarticChamberFacesPart105Scratch
 import Grok810ScaleZeroQuarticChamberColumnsScratch
 
 /-! # Chamber rests and their bounds, `(8,10)` scale zero

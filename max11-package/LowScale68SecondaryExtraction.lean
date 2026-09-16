@@ -1,4 +1,4 @@
-import LowScale68SecondaryExtractionPart11Scratch
+import LowScale68SecondaryExtractionPart102Scratch
 
 /-! # Extracting the first `(6,8)` secondary face
 

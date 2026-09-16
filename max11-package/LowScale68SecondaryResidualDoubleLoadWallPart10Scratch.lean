@@ -1,4 +1,4 @@
-import LowScale68SecondaryResidualDoubleLoadWallPart09Scratch
+import LowScale68SecondaryResidualDoubleLoadWallPart102Scratch
 
 /-! # Mixed residual double face on the `(6,8)` wall `n = 3g`, `h = 2g`
 

@@ -1,4 +1,4 @@
-import LowScale68SecondaryResidualLoadZeroEndgamePart34Scratch
+import LowScale68SecondaryResidualLoadZeroEndgamePart104Scratch
 
 /-! # Residual endgame on the `(6,8)` strip `2g<n` after `l=0`
 

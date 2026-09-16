@@ -1,8 +1,6 @@
 import Grok810ScaleZeroQuarticChamberInnerScratch
-import Grok810ScaleZeroQuarticChamberKills4Part101Scratch
-import Grok810ScaleZeroQuarticChamberKills4Part102Scratch
-import Grok810ScaleZeroQuarticChamberKills4Part103Scratch
-import Grok810ScaleZeroQuarticChamberKills4Part104Scratch
+import Grok810ScaleZeroQuarticChamberKills4Part106Scratch
+import Grok810ScaleZeroQuarticChamberKills4Part107Scratch
 import Grok810ScaleZeroQuarticChamberKills4Part105Scratch
 
 /-! # Multi-carrier chamber kills, `(8,10)` scale zero

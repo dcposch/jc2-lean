@@ -1,4 +1,4 @@
-import LowScale68SecondaryLaterDeepLowerOpenMiddleHighCoincidentSevenEndgamePart05Scratch
+import LowScale68SecondaryLaterDeepLowerOpenMiddleHighCoincidentSevenEndgamePart101Scratch
 
 /-! # Closure for the coincident seven wall `2h=3g=7n` -/
 

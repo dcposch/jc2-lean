@@ -1,5 +1,4 @@
-import Grok810ScaleZeroConeDefectFacesSpeedTPart01Scratch
-import Grok810ScaleZeroConeDefectFacesSpeedTPart101Scratch
+import Grok810ScaleZeroConeDefectFacesSpeedTPart103Scratch
 
 open scoped Polynomial.Bivariate
 

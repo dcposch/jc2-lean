@@ -1,4 +1,4 @@
-import Fable410ScaleTwoAlignedEleventhFacePart02Scratch
+import Fable410ScaleTwoAlignedEleventhFacePart101Scratch
 import Grok810SpeedValLibScratch
 
 open scoped Polynomial.Bivariate

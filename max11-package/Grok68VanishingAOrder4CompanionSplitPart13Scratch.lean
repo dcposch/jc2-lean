@@ -1,4 +1,4 @@
-import Grok68VanishingAOrder4CompanionSplitPart12Scratch
+import Grok68VanishingAOrder4CompanionSplitPart102Scratch
 
 /-! # SPEED: theorems of `Grok68VanishingAOrder4CompanionScratch`, part 13 of 26, so that no single
 module retains all the reflective bridge proof terms at once.

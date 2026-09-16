@@ -1,4 +1,4 @@
-import LowScale68SecondaryLaterDeepLowerEndgamePart23Scratch
+import LowScale68SecondaryLaterDeepLowerEndgamePart102Scratch
 
 /-! # Later-deep lower `(6,8)` window `3n ≤ 2g ≤ 5n`
 

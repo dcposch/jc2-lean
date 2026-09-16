@@ -1,4 +1,4 @@
-import LowScale68SecondaryOneFormsPart02Scratch
+import LowScale68SecondaryOneFormsPart101Scratch
 
 /-! # The last two `(6,8)` secondary one-form equations
 
