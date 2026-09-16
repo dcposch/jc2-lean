@@ -29,7 +29,7 @@ section QuarticKills810
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 64000000 in
+set_option maxHeartbeats 16000000 in
 def omicronQuarticFaceBCEF810 (A B C D E F G : k[X]) : k[X] :=
   (-(21 / 4096 : k)) • B ^ 5
   + (5 / 128 : k) • (B ^ 3 * E)
@@ -37,7 +37,7 @@ def omicronQuarticFaceBCEF810 (A B C D E F G : k[X]) : k[X] :=
   - (5 / 64 : k) • (B * E ^ 2)
   - (5 / 64 : k) • (C ^ 2 * F)
 
-set_option maxHeartbeats 64000000 in
+set_option maxHeartbeats 32000000 in
 def degreeZeroOmicronQuarticNoBCEF810
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) : k[X] :=
@@ -139,7 +139,7 @@ def degreeZeroOmicronQuarticNoBCEF810
   - (3 / 128 * theta : k) • B ^ 2
   + (1 / 8 * theta : k) • E
 
-set_option maxHeartbeats 64000000 in
+set_option maxHeartbeats 32000000 in
 theorem degreeZeroOmicronQuartic810_eq_BCEF_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -147,11 +147,9 @@ theorem degreeZeroOmicronQuartic810_eq_BCEF_add_rest
       omicronQuarticFaceBCEF810 A B C D E F G +
         degreeZeroOmicronQuarticNoBCEF810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
-  dsimp only [degreeZeroOmicronQuartic810, omicronQuarticFaceBCEF810, degreeZeroOmicronQuarticNoBCEF810]
-  try simp only [neg_smul]
-  abel
+  simp only [degreeZeroOmicronQuartic810, omicronQuarticFaceBCEF810, degreeZeroOmicronQuarticNoBCEF810]
+  all_goals module
 
-set_option maxHeartbeats 64000000 in
 theorem omicronQuarticFaceBCEF810_coeff_top
     {A B C D E F G : k[X]}
     (hcone : QuarticRatioConeBCEF810 A B C D E F G)
@@ -196,19 +194,15 @@ theorem omicronQuarticFaceBCEF810_coeff_top
   rw [hcf_B5, hcf_B3E, hcf_BC3, hcf_BE2, hcf_C2F]
   ring
 
-set_option maxHeartbeats 64000000 in
 def kappaQuarticInnerBCEG810 (b c e g : k) : k :=
   (-15 : k) * b * c ^ 2 + 40 * b * g
 
-set_option maxHeartbeats 64000000 in
 def muQuarticInnerBCEG810 (b c e g : k) : k :=
   35 * b ^ 4 + (-240 : k) * b ^ 2 * e + (-80 : k) * c ^ 3 + 640 * c * g + 320 * e ^ 2
 
-set_option maxHeartbeats 64000000 in
 def nuQuarticInnerBCEG810 (b c e g : k) : k :=
   35 * b ^ 3 * c + (-120 : k) * b * c * e
 
-set_option maxHeartbeats 64000000 in
 def xiQuarticInnerBCEG810 (b c e g : k) : k :=
   45 * b ^ 2 * c ^ 2 + (-40 : k) * b ^ 2 * g + (-60 : k) * c ^ 2 * e + 160 * e * g
 
@@ -243,13 +237,13 @@ section QuarticKills810
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 64000000 in
+set_option maxHeartbeats 16000000 in
 def kappaQuarticFaceBCFG810 (A B C D E F G : k[X]) : k[X] :=
   (-(15 / 128 : k)) • (B * C ^ 2)
   + (5 / 16 : k) • (B * G)
   + (5 / 16 : k) • (C * F)
 
-set_option maxHeartbeats 64000000 in
+set_option maxHeartbeats 16000000 in
 def degreeZeroKappaQuarticNoBCFG810
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) : k[X] :=
@@ -286,7 +280,7 @@ def degreeZeroKappaQuarticNoBCFG810
   + (1 / 4 * eta : k) • B
   + (1 / 8 * theta : k) • A
 
-set_option maxHeartbeats 64000000 in
+set_option maxHeartbeats 16000000 in
 theorem degreeZeroKappaQuartic810_eq_BCFG_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -294,11 +288,9 @@ theorem degreeZeroKappaQuartic810_eq_BCFG_add_rest
       kappaQuarticFaceBCFG810 A B C D E F G +
         degreeZeroKappaQuarticNoBCFG810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
-  dsimp only [degreeZeroKappaQuartic810, kappaQuarticFaceBCFG810, degreeZeroKappaQuarticNoBCFG810]
-  try simp only [neg_smul]
-  abel
+  simp only [degreeZeroKappaQuartic810, kappaQuarticFaceBCFG810, degreeZeroKappaQuarticNoBCFG810]
+  all_goals module
 
-set_option maxHeartbeats 64000000 in
 theorem kappaQuarticFaceBCFG810_coeff_top
     {A B C D E F G : k[X]}
     (hcone : QuarticRatioConeBCFG810 A B C D E F G)
@@ -331,13 +323,13 @@ theorem kappaQuarticFaceBCFG810_coeff_top
   rw [hcf_BC2, hcf_BG, hcf_CF]
   ring
 
-set_option maxHeartbeats 64000000 in
+set_option maxHeartbeats 16000000 in
 def muQuarticFaceBCFG810 (A B C D E F G : k[X]) : k[X] :=
   (35 / 2048 : k) • B ^ 4
   - (5 / 128 : k) • C ^ 3
   + (5 / 16 : k) • (C * G)
 
-set_option maxHeartbeats 64000000 in
+set_option maxHeartbeats 32000000 in
 def degreeZeroMuQuarticNoBCFG810
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) : k[X] :=
@@ -382,7 +374,7 @@ def degreeZeroMuQuarticNoBCFG810
   + (1 / 4 * eta : k) • C
   + (1 / 8 * theta : k) • B
 
-set_option maxHeartbeats 64000000 in
+set_option maxHeartbeats 32000000 in
 theorem degreeZeroMuQuartic810_eq_BCFG_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -390,11 +382,9 @@ theorem degreeZeroMuQuartic810_eq_BCFG_add_rest
       muQuarticFaceBCFG810 A B C D E F G +
         degreeZeroMuQuarticNoBCFG810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
-  dsimp only [degreeZeroMuQuartic810, muQuarticFaceBCFG810, degreeZeroMuQuarticNoBCFG810]
-  try simp only [neg_smul]
-  abel
+  simp only [degreeZeroMuQuartic810, muQuarticFaceBCFG810, degreeZeroMuQuarticNoBCFG810]
+  all_goals module
 
-set_option maxHeartbeats 64000000 in
 theorem muQuarticFaceBCFG810_coeff_top
     {A B C D E F G : k[X]}
     (hcone : QuarticRatioConeBCFG810 A B C D E F G)
@@ -458,12 +448,12 @@ section QuarticKills810
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 64000000 in
+set_option maxHeartbeats 16000000 in
 def nuQuarticFaceBCFG810 (A B C D E F G : k[X]) : k[X] :=
   (35 / 512 : k) • (B ^ 3 * C)
   - (15 / 128 : k) • (B ^ 2 * F)
 
-set_option maxHeartbeats 64000000 in
+set_option maxHeartbeats 32000000 in
 def degreeZeroNuQuarticNoBCFG810
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) : k[X] :=
@@ -525,7 +515,7 @@ def degreeZeroNuQuarticNoBCFG810
   + (1 / 128 * theta : k) • A ^ 2
   + (1 / 8 * theta : k) • C
 
-set_option maxHeartbeats 64000000 in
+set_option maxHeartbeats 32000000 in
 theorem degreeZeroNuQuartic810_eq_BCFG_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -533,11 +523,9 @@ theorem degreeZeroNuQuartic810_eq_BCFG_add_rest
       nuQuarticFaceBCFG810 A B C D E F G +
         degreeZeroNuQuarticNoBCFG810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
-  dsimp only [degreeZeroNuQuartic810, nuQuarticFaceBCFG810, degreeZeroNuQuarticNoBCFG810]
-  try simp only [neg_smul]
-  abel
+  simp only [degreeZeroNuQuartic810, nuQuarticFaceBCFG810, degreeZeroNuQuarticNoBCFG810]
+  all_goals module
 
-set_option maxHeartbeats 64000000 in
 theorem nuQuarticFaceBCFG810_coeff_top
     {A B C D E F G : k[X]}
     (hcone : QuarticRatioConeBCFG810 A B C D E F G)
@@ -564,14 +552,14 @@ theorem nuQuarticFaceBCFG810_coeff_top
   rw [hcf_B3C, hcf_B2F]
   ring
 
-set_option maxHeartbeats 64000000 in
+set_option maxHeartbeats 16000000 in
 def xiQuarticFaceBCFG810 (A B C D E F G : k[X]) : k[X] :=
   (45 / 512 : k) • (B ^ 2 * C ^ 2)
   - (5 / 64 : k) • (B ^ 2 * G)
   - (25 / 128 : k) • (B * C * F)
   + (5 / 32 : k) • F ^ 2
 
-set_option maxHeartbeats 64000000 in
+set_option maxHeartbeats 32000000 in
 def degreeZeroXiQuarticNoBCFG810
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) : k[X] :=
@@ -633,7 +621,7 @@ def degreeZeroXiQuarticNoBCFG810
   + (1 / 4 * eta : k) • E
   + (1 / 8 * theta : k) • D
 
-set_option maxHeartbeats 64000000 in
+set_option maxHeartbeats 32000000 in
 theorem degreeZeroXiQuartic810_eq_BCFG_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -641,11 +629,9 @@ theorem degreeZeroXiQuartic810_eq_BCFG_add_rest
       xiQuarticFaceBCFG810 A B C D E F G +
         degreeZeroXiQuarticNoBCFG810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
-  dsimp only [degreeZeroXiQuartic810, xiQuarticFaceBCFG810, degreeZeroXiQuarticNoBCFG810]
-  try simp only [neg_smul]
-  abel
+  simp only [degreeZeroXiQuartic810, xiQuarticFaceBCFG810, degreeZeroXiQuarticNoBCFG810]
+  all_goals module
 
-set_option maxHeartbeats 64000000 in
 theorem xiQuarticFaceBCFG810_coeff_top
     {A B C D E F G : k[X]}
     (hcone : QuarticRatioConeBCFG810 A B C D E F G)
@@ -715,12 +701,12 @@ section QuarticKills810
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 64000000 in
+set_option maxHeartbeats 16000000 in
 def kappaQuarticFaceBDEF810 (A B C D E F G : k[X]) : k[X] :=
   (-(15 / 128 : k)) • (B ^ 2 * D)
   + (5 / 16 : k) • (D * E)
 
-set_option maxHeartbeats 64000000 in
+set_option maxHeartbeats 16000000 in
 def degreeZeroKappaQuarticNoBDEF810
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) : k[X] :=
@@ -758,7 +744,7 @@ def degreeZeroKappaQuarticNoBDEF810
   + (1 / 4 * eta : k) • B
   + (1 / 8 * theta : k) • A
 
-set_option maxHeartbeats 64000000 in
+set_option maxHeartbeats 16000000 in
 theorem degreeZeroKappaQuartic810_eq_BDEF_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -766,11 +752,9 @@ theorem degreeZeroKappaQuartic810_eq_BDEF_add_rest
       kappaQuarticFaceBDEF810 A B C D E F G +
         degreeZeroKappaQuarticNoBDEF810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
-  dsimp only [degreeZeroKappaQuartic810, kappaQuarticFaceBDEF810, degreeZeroKappaQuarticNoBDEF810]
-  try simp only [neg_smul]
-  abel
+  simp only [degreeZeroKappaQuartic810, kappaQuarticFaceBDEF810, degreeZeroKappaQuarticNoBDEF810]
+  all_goals module
 
-set_option maxHeartbeats 64000000 in
 theorem kappaQuarticFaceBDEF810_coeff_top
     {A B C D E F G : k[X]}
     (hcone : QuarticRatioConeBDEF810 A B C D E F G)
@@ -797,14 +781,14 @@ theorem kappaQuarticFaceBDEF810_coeff_top
   rw [hcf_B2D, hcf_DE]
   ring
 
-set_option maxHeartbeats 64000000 in
+set_option maxHeartbeats 16000000 in
 def muQuarticFaceBDEF810 (A B C D E F G : k[X]) : k[X] :=
   (35 / 2048 : k) • B ^ 4
   - (15 / 128 : k) • (B ^ 2 * E)
   + (5 / 16 : k) • (D * F)
   + (5 / 32 : k) • E ^ 2
 
-set_option maxHeartbeats 64000000 in
+set_option maxHeartbeats 16000000 in
 def degreeZeroMuQuarticNoBDEF810
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) : k[X] :=
@@ -848,7 +832,7 @@ def degreeZeroMuQuarticNoBDEF810
   + (1 / 4 * eta : k) • C
   + (1 / 8 * theta : k) • B
 
-set_option maxHeartbeats 64000000 in
+set_option maxHeartbeats 16000000 in
 theorem degreeZeroMuQuartic810_eq_BDEF_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -856,11 +840,9 @@ theorem degreeZeroMuQuartic810_eq_BDEF_add_rest
       muQuarticFaceBDEF810 A B C D E F G +
         degreeZeroMuQuarticNoBDEF810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
-  dsimp only [degreeZeroMuQuartic810, muQuarticFaceBDEF810, degreeZeroMuQuarticNoBDEF810]
-  try simp only [neg_smul]
-  abel
+  simp only [degreeZeroMuQuartic810, muQuarticFaceBDEF810, degreeZeroMuQuarticNoBDEF810]
+  all_goals module
 
-set_option maxHeartbeats 64000000 in
 theorem muQuarticFaceBDEF810_coeff_top
     {A B C D E F G : k[X]}
     (hcone : QuarticRatioConeBDEF810 A B C D E F G)
@@ -930,13 +912,13 @@ section QuarticKills810
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 64000000 in
+set_option maxHeartbeats 16000000 in
 def nuQuarticFaceBDEF810 (A B C D E F G : k[X]) : k[X] :=
   (-(15 / 128 : k)) • (B ^ 2 * F)
   - (15 / 128 : k) • (B * D ^ 2)
   + (5 / 16 : k) • (E * F)
 
-set_option maxHeartbeats 64000000 in
+set_option maxHeartbeats 32000000 in
 def degreeZeroNuQuarticNoBDEF810
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) : k[X] :=
@@ -997,7 +979,7 @@ def degreeZeroNuQuarticNoBDEF810
   + (1 / 128 * theta : k) • A ^ 2
   + (1 / 8 * theta : k) • C
 
-set_option maxHeartbeats 64000000 in
+set_option maxHeartbeats 32000000 in
 theorem degreeZeroNuQuartic810_eq_BDEF_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -1005,11 +987,9 @@ theorem degreeZeroNuQuartic810_eq_BDEF_add_rest
       nuQuarticFaceBDEF810 A B C D E F G +
         degreeZeroNuQuarticNoBDEF810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
-  dsimp only [degreeZeroNuQuartic810, nuQuarticFaceBDEF810, degreeZeroNuQuarticNoBDEF810]
-  try simp only [neg_smul]
-  abel
+  simp only [degreeZeroNuQuartic810, nuQuarticFaceBDEF810, degreeZeroNuQuarticNoBDEF810]
+  all_goals module
 
-set_option maxHeartbeats 64000000 in
 theorem nuQuarticFaceBDEF810_coeff_top
     {A B C D E F G : k[X]}
     (hcone : QuarticRatioConeBDEF810 A B C D E F G)
@@ -1042,13 +1022,13 @@ theorem nuQuarticFaceBDEF810_coeff_top
   rw [hcf_B2F, hcf_BD2, hcf_EF]
   ring
 
-set_option maxHeartbeats 64000000 in
+set_option maxHeartbeats 16000000 in
 def xiQuarticFaceBDEF810 (A B C D E F G : k[X]) : k[X] :=
   (55 / 1024 : k) • (B ^ 3 * D)
   - (25 / 128 : k) • (B * D * E)
   + (5 / 32 : k) • F ^ 2
 
-set_option maxHeartbeats 64000000 in
+set_option maxHeartbeats 32000000 in
 def degreeZeroXiQuarticNoBDEF810
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) : k[X] :=
@@ -1111,7 +1091,7 @@ def degreeZeroXiQuarticNoBDEF810
   + (1 / 4 * eta : k) • E
   + (1 / 8 * theta : k) • D
 
-set_option maxHeartbeats 64000000 in
+set_option maxHeartbeats 32000000 in
 theorem degreeZeroXiQuartic810_eq_BDEF_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -1119,11 +1099,9 @@ theorem degreeZeroXiQuartic810_eq_BDEF_add_rest
       xiQuarticFaceBDEF810 A B C D E F G +
         degreeZeroXiQuarticNoBDEF810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
-  dsimp only [degreeZeroXiQuartic810, xiQuarticFaceBDEF810, degreeZeroXiQuarticNoBDEF810]
-  try simp only [neg_smul]
-  abel
+  simp only [degreeZeroXiQuartic810, xiQuarticFaceBDEF810, degreeZeroXiQuarticNoBDEF810]
+  all_goals module
 
-set_option maxHeartbeats 64000000 in
 theorem xiQuarticFaceBDEF810_coeff_top
     {A B C D E F G : k[X]}
     (hcone : QuarticRatioConeBDEF810 A B C D E F G)
@@ -1187,7 +1165,7 @@ section QuarticKills810
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 64000000 in
+set_option maxHeartbeats 16000000 in
 def omicronQuarticFaceBDEF810 (A B C D E F G : k[X]) : k[X] :=
   (-(21 / 4096 : k)) • B ^ 5
   + (5 / 128 : k) • (B ^ 3 * E)
@@ -1195,7 +1173,7 @@ def omicronQuarticFaceBDEF810 (A B C D E F G : k[X]) : k[X] :=
   - (5 / 64 : k) • (B * E ^ 2)
   - (5 / 128 : k) • D ^ 3
 
-set_option maxHeartbeats 64000000 in
+set_option maxHeartbeats 32000000 in
 def degreeZeroOmicronQuarticNoBDEF810
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) : k[X] :=
@@ -1297,7 +1275,7 @@ def degreeZeroOmicronQuarticNoBDEF810
   - (3 / 128 * theta : k) • B ^ 2
   + (1 / 8 * theta : k) • E
 
-set_option maxHeartbeats 64000000 in
+set_option maxHeartbeats 32000000 in
 theorem degreeZeroOmicronQuartic810_eq_BDEF_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -1305,11 +1283,9 @@ theorem degreeZeroOmicronQuartic810_eq_BDEF_add_rest
       omicronQuarticFaceBDEF810 A B C D E F G +
         degreeZeroOmicronQuarticNoBDEF810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
-  dsimp only [degreeZeroOmicronQuartic810, omicronQuarticFaceBDEF810, degreeZeroOmicronQuarticNoBDEF810]
-  try simp only [neg_smul]
-  abel
+  simp only [degreeZeroOmicronQuartic810, omicronQuarticFaceBDEF810, degreeZeroOmicronQuarticNoBDEF810]
+  all_goals module
 
-set_option maxHeartbeats 64000000 in
 theorem omicronQuarticFaceBDEF810_coeff_top
     {A B C D E F G : k[X]}
     (hcone : QuarticRatioConeBDEF810 A B C D E F G)
@@ -1354,19 +1330,15 @@ theorem omicronQuarticFaceBDEF810_coeff_top
   rw [hcf_B5, hcf_B3E, hcf_BDF, hcf_BE2, hcf_D3]
   ring
 
-set_option maxHeartbeats 64000000 in
 def kappaQuarticInnerBDEG810 (b d e g : k) : k :=
   (-15 : k) * b ^ 2 * d + 40 * b * g + 40 * d * e
 
-set_option maxHeartbeats 64000000 in
 def muQuarticInnerBDEG810 (b d e g : k) : k :=
   35 * b ^ 4 + (-240 : k) * b ^ 2 * e + 320 * e ^ 2
 
-set_option maxHeartbeats 64000000 in
 def nuQuarticInnerBDEG810 (b d e g : k) : k :=
   (-15 : k) * b * d ^ 2 + 40 * d * g
 
-set_option maxHeartbeats 64000000 in
 def xiQuarticInnerBDEG810 (b d e g : k) : k :=
   55 * b ^ 3 * d + (-80 : k) * b ^ 2 * g + (-200 : k) * b * d * e + 320 * e * g
 
