@@ -940,7 +940,8 @@ roots = [
 name = "GCD369NoncubeDependency"
 srcDir = "../gcd3-69-noncube"
 roots = [
-  "Solution"
+  "Solution",
+  "SolutionSpeedTPart00Scratch"
 ]
 
 [[lean_lib]]
