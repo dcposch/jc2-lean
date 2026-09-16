@@ -42,6 +42,16 @@ theorem degreeZeroPiQuartic810_eq_ABDEF_add_rest
     piThetaGroupQuartic810, piQuarticFaceABDEF810, degreeZeroPiQuarticNoABDEF810]
   all_goals module
 
+section
+
+-- Fix scalar operation carriers for reflection coefficient elaboration.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroPiQuarticNoABDEF810` (87 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
@@ -104,11 +114,14 @@ theorem speedRefl_degreeZeroPiQuarticNoABDEF810_eq_polyOf
       [1, 1, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0], [0, 1, 0, 0, 1, 0, 0],
       [0, 0, 1, 1, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0], [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 1], [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0]] := by
-  simp only [degreeZeroPiQuarticNoABDEF810, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroPiQuarticNoABDEF810, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  simp only [sub_eq_add_neg, neg_smul, add_assoc]
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc, sub_eq_add_neg, neg_smul]
+
+end
 
 set_option maxHeartbeats 64000000 in
 theorem degreeZeroPiQuarticNoABDEF810_natDegree_lt
@@ -128,7 +141,7 @@ theorem degreeZeroPiQuarticNoABDEF810_natDegree_lt
     List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
     Nat.add_zero, Nat.zero_add, max_lt_iff]
   repeat' apply And.intro
-  all_goals omega
+  all_goals clear * - hApos hBpos hDpos hEpos hFpos hAB hAD hAE hAF hClt hGlt hC1 hG1; omega
 
 set_option maxHeartbeats 64000000 in
 theorem piQuarticFaceABDEF810_coeff_top
@@ -151,43 +164,43 @@ theorem piQuarticFaceABDEF810_coeff_top
     rw [← hdeg_A2B4, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow, leadingCoeff_pow]
   have hdeg_AB3D : ((A * B ^ 3 * D)).natDegree = 2 * A.natDegree + 4 * B.natDegree := by
     rw [natDegree_mul (mul_ne_zero hAne (pow_ne_zero 3 hBne)) hDne, natDegree_mul hAne (pow_ne_zero 3 hBne), natDegree_pow]
-    omega
+    clear * - hApos hBpos hDpos hEpos hFpos hAB hAD hAE hAF hClt hGlt; omega
   have hcf_AB3D : ((A * B ^ 3 * D)).coeff (2 * A.natDegree + 4 * B.natDegree) =
       A.leadingCoeff * B.leadingCoeff ^ 3 * D.leadingCoeff := by
     rw [← hdeg_AB3D, coeff_natDegree, leadingCoeff_mul, leadingCoeff_mul, leadingCoeff_pow]
   have hdeg_ABDE : ((A * B * D * E)).natDegree = 2 * A.natDegree + 4 * B.natDegree := by
     rw [natDegree_mul (mul_ne_zero (mul_ne_zero hAne hBne) hDne) hEne, natDegree_mul (mul_ne_zero hAne hBne) hDne, natDegree_mul hAne hBne]
-    omega
+    clear * - hApos hBpos hDpos hEpos hFpos hAB hAD hAE hAF hClt hGlt; omega
   have hcf_ABDE : ((A * B * D * E)).coeff (2 * A.natDegree + 4 * B.natDegree) =
       A.leadingCoeff * B.leadingCoeff * D.leadingCoeff * E.leadingCoeff := by
     rw [← hdeg_ABDE, coeff_natDegree, leadingCoeff_mul, leadingCoeff_mul, leadingCoeff_mul]
   have hdeg_AF2 : ((A * F ^ 2)).natDegree = 2 * A.natDegree + 4 * B.natDegree := by
     rw [natDegree_mul hAne (pow_ne_zero 2 hFne), natDegree_pow]
-    omega
+    clear * - hApos hBpos hDpos hEpos hFpos hAB hAD hAE hAF hClt hGlt; omega
   have hcf_AF2 : ((A * F ^ 2)).coeff (2 * A.natDegree + 4 * B.natDegree) =
       A.leadingCoeff * F.leadingCoeff ^ 2 := by
     rw [← hdeg_AF2, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow]
   have hdeg_B3F : ((B ^ 3 * F)).natDegree = 2 * A.natDegree + 4 * B.natDegree := by
     rw [natDegree_mul (pow_ne_zero 3 hBne) hFne, natDegree_pow]
-    omega
+    clear * - hApos hBpos hDpos hEpos hFpos hAB hAD hAE hAF hClt hGlt; omega
   have hcf_B3F : ((B ^ 3 * F)).coeff (2 * A.natDegree + 4 * B.natDegree) =
       B.leadingCoeff ^ 3 * F.leadingCoeff := by
     rw [← hdeg_B3F, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow]
   have hdeg_B2D2 : ((B ^ 2 * D ^ 2)).natDegree = 2 * A.natDegree + 4 * B.natDegree := by
     rw [natDegree_mul (pow_ne_zero 2 hBne) (pow_ne_zero 2 hDne), natDegree_pow, natDegree_pow]
-    omega
+    clear * - hApos hBpos hDpos hEpos hFpos hAB hAD hAE hAF hClt hGlt; omega
   have hcf_B2D2 : ((B ^ 2 * D ^ 2)).coeff (2 * A.natDegree + 4 * B.natDegree) =
       B.leadingCoeff ^ 2 * D.leadingCoeff ^ 2 := by
     rw [← hdeg_B2D2, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow, leadingCoeff_pow]
   have hdeg_BEF : ((B * E * F)).natDegree = 2 * A.natDegree + 4 * B.natDegree := by
     rw [natDegree_mul (mul_ne_zero hBne hEne) hFne, natDegree_mul hBne hEne]
-    omega
+    clear * - hApos hBpos hDpos hEpos hFpos hAB hAD hAE hAF hClt hGlt; omega
   have hcf_BEF : ((B * E * F)).coeff (2 * A.natDegree + 4 * B.natDegree) =
       B.leadingCoeff * E.leadingCoeff * F.leadingCoeff := by
     rw [← hdeg_BEF, coeff_natDegree, leadingCoeff_mul, leadingCoeff_mul]
   have hdeg_D2E : ((D ^ 2 * E)).natDegree = 2 * A.natDegree + 4 * B.natDegree := by
     rw [natDegree_mul (pow_ne_zero 2 hDne) hEne, natDegree_pow]
-    omega
+    clear * - hApos hBpos hDpos hEpos hFpos hAB hAD hAE hAF hClt hGlt; omega
   have hcf_D2E : ((D ^ 2 * E)).coeff (2 * A.natDegree + 4 * B.natDegree) =
       D.leadingCoeff ^ 2 * E.leadingCoeff := by
     rw [← hdeg_D2E, coeff_natDegree, leadingCoeff_mul, leadingCoeff_pow]
@@ -510,6 +523,16 @@ theorem degreeZeroPrimitiveQuartic810_eq_ABDEF_add_rest
     grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk15]
   all_goals module
 
+section
+
+-- Fix scalar operation carriers for reflection coefficient elaboration.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
 set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroPrimitiveQuarticNoABDEF810` (144 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
@@ -605,6 +628,9 @@ theorem speedRefl_degreeZeroPrimitiveQuarticNoABDEF810_eq_polyOf
       [1, 1, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0], [0, 1, 0, 0, 1, 0, 0],
       [0, 0, 1, 1, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0], [2, 0, 1, 0, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0],
       [1, 0, 0, 0, 1, 0, 0], [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1]] := by
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
   simp only [degreeZeroPrimitiveQuarticNoABDEF810,
     grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk01,
     grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk02,
@@ -620,11 +646,11 @@ theorem speedRefl_degreeZeroPrimitiveQuarticNoABDEF810_eq_polyOf
     grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk12,
     grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk13,
     grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk14,
-    grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk15, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    grok810MultiKills4Part05SpeedT_degreeZeroPrimitiveQuarticNoABDEF810_chunk15, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  simp only [sub_eq_add_neg, neg_smul, add_assoc]
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc, sub_eq_add_neg, neg_smul]
+
+end
 
 end QuarticKills810
 

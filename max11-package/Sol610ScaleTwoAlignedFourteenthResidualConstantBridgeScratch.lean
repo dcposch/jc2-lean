@@ -20,6 +20,7 @@ section FourteenthClearedNumerator610
 
 variable {R : Type*} [CommRing R]
 
+set_option maxHeartbeats 64000000 in
 /-- The 72-term integral numerator obtained by substituting the aligned
 depressed-coordinate numerators into `19042491875328 · ν`.  This definition
 is over a commutative ring, so it remains a genuine polynomial expression
@@ -99,6 +100,7 @@ def clearedFourteenthResidual610
     - (486 : R) * E ^ 2 * P
     + (729 : R) * E * V
 
+set_option maxHeartbeats 64000000 in
 /-- The source-polynomial specialization of the compact aligned numerator. -/
 def alignedClearedFourteenthDefect610
     (h a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : R) : R :=
@@ -142,7 +144,7 @@ section FourteenthNumericalClearing610
 
 variable {F : Type*} [Field F] [CharZero F]
 
-set_option maxHeartbeats 800000000 in
+set_option maxHeartbeats 64000000 in
 /-- Exact numerical and `h`-power clearing for the aligned weight-seventy
 residual.  The coefficient `19042491875328` and all 72 terms were
 independently reconstructed over `ℚ` by the bounded CAS ledger. -/
@@ -158,18 +160,22 @@ theorem fourteenthResidual610_eq_cleared_aligned
           (U / (11664 * h ^ 35)) (V / (186624 * h ^ 40))
           (W / (5038848 * h ^ 45)) =
       clearedFourteenthResidual610 A B C0 D E P Q R0 S T U V W := by
-  simp only [fourteenthResidual610, rawFourthTailCoefficient610,
-    rawFourthTailPure610, rawFourthTailLBlock610,
-    rawFourthTailAlphaBlock610, rawFourthTailBetaBlock610,
-    rawFourthTailDeltaBlock610, rawFourthTailEpsilonBlock610,
-    rawFourthTailEtaBlock610, rawFourthTailThetaBlock610,
-    rawFourthTailZetaBlock610, alphaResidual610, betaResidual610,
-    gammaResidual610, deltaResidual610, epsilonResidual610,
-    zetaResidual610, etaResidual610, thetaResidual610,
-    kappaResidual610, lambdaResidual610, clearedFourteenthResidual610,
-    zero_mul, zero_add]
-  field_simp [hh]
-  ring
+  calc
+    _ = (h ^ 70 * (h⁻¹) ^ 70) *
+        clearedFourteenthResidual610 A B C0 D E P Q R0 S T U V W := by
+      simp only [fourteenthResidual610, rawFourthTailCoefficient610,
+        rawFourthTailPure610, rawFourthTailLBlock610,
+        rawFourthTailAlphaBlock610, rawFourthTailBetaBlock610,
+        rawFourthTailDeltaBlock610, rawFourthTailEpsilonBlock610,
+        rawFourthTailEtaBlock610, rawFourthTailThetaBlock610,
+        rawFourthTailZetaBlock610, alphaResidual610, betaResidual610,
+        gammaResidual610, deltaResidual610, epsilonResidual610,
+        zetaResidual610, etaResidual610, thetaResidual610,
+        kappaResidual610, lambdaResidual610, clearedFourteenthResidual610,
+        zero_mul, zero_add, div_eq_mul_inv, mul_inv_rev, ← inv_pow]
+      ring
+    _ = _ := by
+      rw [← mul_pow, mul_inv_cancel₀ hh, one_pow, one_mul]
 
 end FourteenthNumericalClearing610
 

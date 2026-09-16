@@ -12,6 +12,7 @@ section DegreeLemmas610
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 theorem natDegree_add8_lt610
     {p1 p2 p3 p4 p5 p6 p7 p8 : k[X]} {d : ℕ}
     (h1 : p1.natDegree < d) (h2 : p2.natDegree < d)

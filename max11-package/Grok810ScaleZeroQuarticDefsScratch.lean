@@ -77,41 +77,41 @@ theorem quarticD810_add (A B D0 : k[X]) :
   simp only [quarticD810]
   exact sub_add_cancel _ _
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem quarticE810_inv (A C0 E0 : k[X]) :
     E0 =
       quarticE810 A C0 E0 + (1 / 2 : k) • (A * quarticC810 A C0) +
         (1 / 16 : k) • A ^ 3 := by
   simp only [quarticC810, quarticE810]
-  apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
-  simp only [Polynomial.smul_eq_C_mul, map_add, map_sub, map_mul,
-    map_pow, map_neg, map_zero, RatFunc.algebraMap_C, map_div₀,
-    map_ofNat, map_natCast, map_one]
+  apply (RatFunc.algebraMap_injective k)
+  simp only [Polynomial.smul_eq_C_mul, RingHom.map_add, RingHom.map_sub, RingHom.map_mul,
+    map_pow, RingHom.map_neg, RingHom.map_zero, RatFunc.algebraMap_C, map_div₀,
+    map_ofNat, map_natCast, RingHom.map_one]
   ring
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem quarticF810_inv (A B D0 F0 : k[X]) :
     F0 =
       quarticF810 A B D0 F0 + (1 / 4 : k) • (A * quarticD810 A B D0) +
         (1 / 16 : k) • (A ^ 2 * B) := by
   simp only [quarticD810, quarticF810]
-  apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
-  simp only [Polynomial.smul_eq_C_mul, map_add, map_sub, map_mul,
-    map_pow, map_neg, map_zero, RatFunc.algebraMap_C, map_div₀,
-    map_ofNat, map_natCast, map_one]
+  apply (RatFunc.algebraMap_injective k)
+  simp only [Polynomial.smul_eq_C_mul, RingHom.map_add, RingHom.map_sub, RingHom.map_mul,
+    map_pow, RingHom.map_neg, RingHom.map_zero, RatFunc.algebraMap_C, map_div₀,
+    map_ofNat, map_natCast, RingHom.map_one]
   ring
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem quarticG810_inv (A C0 E0 G0 : k[X]) :
     G0 =
       quarticG810 A C0 E0 G0 + (1 / 4 : k) • (A * quarticE810 A C0 E0) +
         (1 / 16 : k) • (A ^ 2 * quarticC810 A C0) +
         (1 / 256 : k) • A ^ 4 := by
   simp only [quarticC810, quarticE810, quarticG810]
-  apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
-  simp only [Polynomial.smul_eq_C_mul, map_add, map_sub, map_mul,
-    map_pow, map_neg, map_zero, RatFunc.algebraMap_C, map_div₀,
-    map_ofNat, map_natCast, map_one]
+  apply (RatFunc.algebraMap_injective k)
+  simp only [Polynomial.smul_eq_C_mul, RingHom.map_add, RingHom.map_sub, RingHom.map_mul,
+    map_pow, RingHom.map_neg, RingHom.map_zero, RatFunc.algebraMap_C, map_div₀,
+    map_ofNat, map_natCast, RingHom.map_one]
   ring
 
 end QuarticCoordinates810
@@ -123,7 +123,13 @@ section QuarticIntegrals810
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 16000000 in
+-- Resolve the polynomial carrier before elaborating the long additive chains.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k[X]) (β := k[X]) (γ := k[X]))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k[X]) (β := k[X]) (γ := k[X]))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k[X]) (β := Nat) (γ := k[X]))
+local infixr:73 (priority := high) " • " => (HSMul.hSMul (α := k) (β := k[X]) (γ := k[X]))
+
+set_option maxHeartbeats 64000000 in
 def degreeZeroKappaQuartic810
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) : k[X] :=
@@ -164,7 +170,7 @@ def degreeZeroKappaQuartic810
   + (1 / 8 * theta : k) • A
 
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 def degreeZeroMuQuartic810
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) : k[X] :=
@@ -213,7 +219,7 @@ def degreeZeroMuQuartic810
   + (1 / 8 * theta : k) • B
 
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 def degreeZeroNuQuartic810
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) : k[X] :=
@@ -278,7 +284,7 @@ def degreeZeroNuQuartic810
   + (1 / 8 * theta : k) • C
 
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 def degreeZeroXiQuartic810
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) : k[X] :=
@@ -345,7 +351,7 @@ def degreeZeroXiQuartic810
   + (1 / 8 * theta : k) • D
 
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 def degreeZeroOmicronQuartic810
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) : k[X] :=
@@ -453,7 +459,7 @@ def degreeZeroOmicronQuartic810
   + (1 / 8 * theta : k) • E
 
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 def piBaseGroupQuartic810
     (l : k) (A B C D E F G : k[X]) : k[X] :=
   (15 / 4096 : k) • (A ^ 2 * B ^ 4)
@@ -505,7 +511,7 @@ def piBaseGroupQuartic810
   + (9 / 8 * l : k) • (F * G)
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def piBetaGroupQuartic810
     (A B C D E F : k[X]) : k[X] :=
   (7 / 4096 : k) • (A ^ 3 * B * C)
@@ -525,7 +531,7 @@ def piBetaGroupQuartic810
   - (7 / 8 : k) • (E * F)
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def piGammaGroupQuartic810
     (A B C D E F : k[X]) : k[X] :=
   (-(3 / 32 : k)) • (A * B ^ 2 * C)
@@ -538,7 +544,7 @@ def piGammaGroupQuartic810
   - (3 / 4 : k) • E ^ 2
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def piDeltaGroupQuartic810
     (A B C D E F : k[X]) : k[X] :=
   (5 / 512 : k) • (A ^ 2 * B * C)
@@ -552,7 +558,7 @@ def piDeltaGroupQuartic810
   - (5 / 4 : k) • (D * E)
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def piEpsilonGroupQuartic810
     (A B C D E F : k[X]) : k[X] :=
   (1 / 4 : k) • (A * B * D)
@@ -562,7 +568,7 @@ def piEpsilonGroupQuartic810
   - (1 / 2 : k) • D ^ 2
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def piZetaGroupQuartic810
     (A B C D E F : k[X]) : k[X] :=
   (3 / 32 : k) • (A * B * C)
@@ -572,7 +578,7 @@ def piZetaGroupQuartic810
   - (3 / 4 : k) • (C * D)
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def piEtaGroupQuartic810
     (A B C D E G : k[X]) : k[X] :=
   (1 / 16 : k) • (A * B ^ 2)
@@ -581,7 +587,7 @@ def piEtaGroupQuartic810
   + (2 : k) • G
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def piThetaGroupQuartic810
     (A B C D F : k[X]) : k[X] :=
   (-(1 / 4 : k)) • (B * C)
@@ -601,7 +607,7 @@ def degreeZeroPiQuartic810
     theta • piThetaGroupQuartic810 A B C D F
 
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 def rhoBaseGroupQuartic810
     (l : k) (A B C D E F G : k[X]) : k[X] :=
   (-(5 / 65536 : k)) • (A ^ 4 * B ^ 3)
@@ -683,7 +689,7 @@ def rhoBaseGroupQuartic810
   + (9 / 16 * l : k) • G ^ 2
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def rhoBetaGroupQuartic810
     (A B C D E F : k[X]) : k[X] :=
   (25 / 1048576 : k) • A ^ 7
@@ -708,7 +714,7 @@ def rhoBetaGroupQuartic810
   - (7 / 16 : k) • F ^ 2
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def rhoGammaGroupQuartic810
     (A B C D E F : k[X]) : k[X] :=
   (3 / 2048 : k) • (A ^ 3 * B * C)
@@ -728,7 +734,7 @@ def rhoGammaGroupQuartic810
   - (3 / 4 : k) • (E * F)
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def rhoDeltaGroupQuartic810
     (A B C D E F : k[X]) : k[X] :=
   (25 / 262144 : k) • A ^ 6
@@ -748,7 +754,7 @@ def rhoDeltaGroupQuartic810
   - (5 / 16 : k) • E ^ 2
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def rhoEpsilonGroupQuartic810
     (A B C D E F : k[X]) : k[X] :=
   (-(1 / 256 : k)) • (A ^ 3 * D)
@@ -763,7 +769,7 @@ def rhoEpsilonGroupQuartic810
   - (1 / 2 : k) • (D * E)
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def rhoZetaGroupQuartic810
     (A B C D E F : k[X]) : k[X] :=
   (3 / 8192 : k) • A ^ 5
@@ -777,7 +783,7 @@ def rhoZetaGroupQuartic810
   - (3 / 16 : k) • D ^ 2
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def rhoEtaGroupQuartic810
     (A B C D E F : k[X]) : k[X] :=
   (-(1 / 512 : k)) • (A ^ 3 * B)
@@ -789,7 +795,7 @@ def rhoEtaGroupQuartic810
   - (1 / 4 : k) • (C * D)
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def rhoThetaGroupQuartic810
     (A B C D E G : k[X]) : k[X] :=
   (5 / 4096 : k) • A ^ 4
@@ -836,10 +842,10 @@ theorem degreeZeroKappaPolynomial810_eq_quartic
       degreeZeroKappaQuartic810 l beta gamma delta epsilon zeta eta theta
         A B C D E F G := by
   simp only [degreeZeroKappaPolynomial810, degreeZeroKappaQuartic810]
-  apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
-  simp only [Polynomial.smul_eq_C_mul, map_add, map_sub, map_mul,
-    map_pow, map_neg, map_zero, RatFunc.algebraMap_C, map_div₀,
-    map_ofNat, map_natCast, map_one]
+  apply (RatFunc.algebraMap_injective k)
+  simp only [Polynomial.smul_eq_C_mul, RingHom.map_add, RingHom.map_sub, RingHom.map_mul,
+    map_pow, RingHom.map_neg, RingHom.map_zero, RatFunc.algebraMap_C, map_div₀,
+    map_ofNat, map_natCast, RingHom.map_one]
   ring
 
 set_option maxHeartbeats 64000000 in
@@ -855,10 +861,10 @@ theorem degreeZeroMuPolynomial810_eq_quartic
       degreeZeroMuQuartic810 l beta gamma delta epsilon zeta eta theta
         A B C D E F G := by
   simp only [degreeZeroMuPolynomial810, degreeZeroMuQuartic810]
-  apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
-  simp only [Polynomial.smul_eq_C_mul, map_add, map_sub, map_mul,
-    map_pow, map_neg, map_zero, RatFunc.algebraMap_C, map_div₀,
-    map_ofNat, map_natCast, map_one]
+  apply (RatFunc.algebraMap_injective k)
+  simp only [Polynomial.smul_eq_C_mul, RingHom.map_add, RingHom.map_sub, RingHom.map_mul,
+    map_pow, RingHom.map_neg, RingHom.map_zero, RatFunc.algebraMap_C, map_div₀,
+    map_ofNat, map_natCast, RingHom.map_one]
   ring
 
 set_option maxHeartbeats 64000000 in
@@ -874,10 +880,10 @@ theorem degreeZeroNuPolynomial810_eq_quartic
       degreeZeroNuQuartic810 l beta gamma delta epsilon zeta eta theta
         A B C D E F G := by
   simp only [degreeZeroNuPolynomial810, degreeZeroNuQuartic810]
-  apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
-  simp only [Polynomial.smul_eq_C_mul, map_add, map_sub, map_mul,
-    map_pow, map_neg, map_zero, RatFunc.algebraMap_C, map_div₀,
-    map_ofNat, map_natCast, map_one]
+  apply (RatFunc.algebraMap_injective k)
+  simp only [Polynomial.smul_eq_C_mul, RingHom.map_add, RingHom.map_sub, RingHom.map_mul,
+    map_pow, RingHom.map_neg, RingHom.map_zero, RatFunc.algebraMap_C, map_div₀,
+    map_ofNat, map_natCast, RingHom.map_one]
   ring
 
 set_option maxHeartbeats 64000000 in
@@ -893,10 +899,10 @@ theorem degreeZeroXiPolynomial810_eq_quartic
       degreeZeroXiQuartic810 l beta gamma delta epsilon zeta eta theta
         A B C D E F G := by
   simp only [degreeZeroXiPolynomial810, degreeZeroXiQuartic810]
-  apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
-  simp only [Polynomial.smul_eq_C_mul, map_add, map_sub, map_mul,
-    map_pow, map_neg, map_zero, RatFunc.algebraMap_C, map_div₀,
-    map_ofNat, map_natCast, map_one]
+  apply (RatFunc.algebraMap_injective k)
+  simp only [Polynomial.smul_eq_C_mul, RingHom.map_add, RingHom.map_sub, RingHom.map_mul,
+    map_pow, RingHom.map_neg, RingHom.map_zero, RatFunc.algebraMap_C, map_div₀,
+    map_ofNat, map_natCast, RingHom.map_one]
   ring
 
 set_option maxHeartbeats 64000000 in
@@ -912,10 +918,10 @@ theorem degreeZeroOmicronPolynomial810_eq_quartic
       degreeZeroOmicronQuartic810 l beta gamma delta epsilon zeta eta theta
         A B C D E F G := by
   simp only [degreeZeroOmicronPolynomial810, degreeZeroOmicronQuartic810]
-  apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
-  simp only [Polynomial.smul_eq_C_mul, map_add, map_sub, map_mul,
-    map_pow, map_neg, map_zero, RatFunc.algebraMap_C, map_div₀,
-    map_ofNat, map_natCast, map_one]
+  apply (RatFunc.algebraMap_injective k)
+  simp only [Polynomial.smul_eq_C_mul, RingHom.map_add, RingHom.map_sub, RingHom.map_mul,
+    map_pow, RingHom.map_neg, RingHom.map_zero, RatFunc.algebraMap_C, map_div₀,
+    map_ofNat, map_natCast, RingHom.map_one]
   ring
 
 set_option maxHeartbeats 64000000 in
@@ -928,13 +934,13 @@ theorem piBaseGroupPolynomial810_eq_quartic
           (1 / 256 : k) • A ^ 4) =
       piBaseGroupQuartic810 l A B C D E F G := by
   simp only [piBaseGroupPolynomial810, piBaseGroupQuartic810]
-  apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
-  simp only [Polynomial.smul_eq_C_mul, map_add, map_sub, map_mul,
-    map_pow, map_neg, map_zero, RatFunc.algebraMap_C, map_div₀,
-    map_ofNat, map_natCast, map_one]
+  apply (RatFunc.algebraMap_injective k)
+  simp only [Polynomial.smul_eq_C_mul, RingHom.map_add, RingHom.map_sub, RingHom.map_mul,
+    map_pow, RingHom.map_neg, RingHom.map_zero, RatFunc.algebraMap_C, map_div₀,
+    map_ofNat, map_natCast, RingHom.map_one]
   ring
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem piBetaGroupPolynomial810_eq_quartic
     (A B C D E F : k[X]) :
     piBetaGroupPolynomial810 A B (C + (3 / 8 : k) • A ^ 2) (D + (1 / 2 : k) • (A * B))
@@ -942,13 +948,13 @@ theorem piBetaGroupPolynomial810_eq_quartic
         (F + (1 / 4 : k) • (A * D) + (1 / 16 : k) • (A ^ 2 * B)) =
       piBetaGroupQuartic810 A B C D E F := by
   simp only [piBetaGroupPolynomial810, piBetaGroupQuartic810]
-  apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
-  simp only [Polynomial.smul_eq_C_mul, map_add, map_sub, map_mul,
-    map_pow, map_neg, map_zero, RatFunc.algebraMap_C, map_div₀,
-    map_ofNat, map_natCast, map_one]
+  apply (RatFunc.algebraMap_injective k)
+  simp only [Polynomial.smul_eq_C_mul, RingHom.map_add, RingHom.map_sub, RingHom.map_mul,
+    map_pow, RingHom.map_neg, RingHom.map_zero, RatFunc.algebraMap_C, map_div₀,
+    map_ofNat, map_natCast, RingHom.map_one]
   ring
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem piGammaGroupPolynomial810_eq_quartic
     (A B C D E F : k[X]) :
     piGammaGroupPolynomial810 A B (C + (3 / 8 : k) • A ^ 2) (D + (1 / 2 : k) • (A * B))
@@ -956,13 +962,13 @@ theorem piGammaGroupPolynomial810_eq_quartic
         (F + (1 / 4 : k) • (A * D) + (1 / 16 : k) • (A ^ 2 * B)) =
       piGammaGroupQuartic810 A B C D E F := by
   simp only [piGammaGroupPolynomial810, piGammaGroupQuartic810]
-  apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
-  simp only [Polynomial.smul_eq_C_mul, map_add, map_sub, map_mul,
-    map_pow, map_neg, map_zero, RatFunc.algebraMap_C, map_div₀,
-    map_ofNat, map_natCast, map_one]
+  apply (RatFunc.algebraMap_injective k)
+  simp only [Polynomial.smul_eq_C_mul, RingHom.map_add, RingHom.map_sub, RingHom.map_mul,
+    map_pow, RingHom.map_neg, RingHom.map_zero, RatFunc.algebraMap_C, map_div₀,
+    map_ofNat, map_natCast, RingHom.map_one]
   ring
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem piDeltaGroupPolynomial810_eq_quartic
     (A B C D E F : k[X]) :
     piDeltaGroupPolynomial810 A B (C + (3 / 8 : k) • A ^ 2) (D + (1 / 2 : k) • (A * B))
@@ -970,13 +976,13 @@ theorem piDeltaGroupPolynomial810_eq_quartic
         (F + (1 / 4 : k) • (A * D) + (1 / 16 : k) • (A ^ 2 * B)) =
       piDeltaGroupQuartic810 A B C D E F := by
   simp only [piDeltaGroupPolynomial810, piDeltaGroupQuartic810]
-  apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
-  simp only [Polynomial.smul_eq_C_mul, map_add, map_sub, map_mul,
-    map_pow, map_neg, map_zero, RatFunc.algebraMap_C, map_div₀,
-    map_ofNat, map_natCast, map_one]
+  apply (RatFunc.algebraMap_injective k)
+  simp only [Polynomial.smul_eq_C_mul, RingHom.map_add, RingHom.map_sub, RingHom.map_mul,
+    map_pow, RingHom.map_neg, RingHom.map_zero, RatFunc.algebraMap_C, map_div₀,
+    map_ofNat, map_natCast, RingHom.map_one]
   ring
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem piEpsilonGroupPolynomial810_eq_quartic
     (A B C D E F : k[X]) :
     piEpsilonGroupPolynomial810 A B (C + (3 / 8 : k) • A ^ 2) (D + (1 / 2 : k) • (A * B))
@@ -984,13 +990,13 @@ theorem piEpsilonGroupPolynomial810_eq_quartic
         (F + (1 / 4 : k) • (A * D) + (1 / 16 : k) • (A ^ 2 * B)) =
       piEpsilonGroupQuartic810 A B C D E F := by
   simp only [piEpsilonGroupPolynomial810, piEpsilonGroupQuartic810]
-  apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
-  simp only [Polynomial.smul_eq_C_mul, map_add, map_sub, map_mul,
-    map_pow, map_neg, map_zero, RatFunc.algebraMap_C, map_div₀,
-    map_ofNat, map_natCast, map_one]
+  apply (RatFunc.algebraMap_injective k)
+  simp only [Polynomial.smul_eq_C_mul, RingHom.map_add, RingHom.map_sub, RingHom.map_mul,
+    map_pow, RingHom.map_neg, RingHom.map_zero, RatFunc.algebraMap_C, map_div₀,
+    map_ofNat, map_natCast, RingHom.map_one]
   ring
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem piZetaGroupPolynomial810_eq_quartic
     (A B C D E F : k[X]) :
     piZetaGroupPolynomial810 A B (C + (3 / 8 : k) • A ^ 2) (D + (1 / 2 : k) • (A * B))
@@ -998,13 +1004,13 @@ theorem piZetaGroupPolynomial810_eq_quartic
         (F + (1 / 4 : k) • (A * D) + (1 / 16 : k) • (A ^ 2 * B)) =
       piZetaGroupQuartic810 A B C D E F := by
   simp only [piZetaGroupPolynomial810, piZetaGroupQuartic810]
-  apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
-  simp only [Polynomial.smul_eq_C_mul, map_add, map_sub, map_mul,
-    map_pow, map_neg, map_zero, RatFunc.algebraMap_C, map_div₀,
-    map_ofNat, map_natCast, map_one]
+  apply (RatFunc.algebraMap_injective k)
+  simp only [Polynomial.smul_eq_C_mul, RingHom.map_add, RingHom.map_sub, RingHom.map_mul,
+    map_pow, RingHom.map_neg, RingHom.map_zero, RatFunc.algebraMap_C, map_div₀,
+    map_ofNat, map_natCast, RingHom.map_one]
   ring
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem piEtaGroupPolynomial810_eq_quartic
     (A B C D E G : k[X]) :
     piEtaGroupPolynomial810 A B (C + (3 / 8 : k) • A ^ 2) (D + (1 / 2 : k) • (A * B))
@@ -1013,26 +1019,26 @@ theorem piEtaGroupPolynomial810_eq_quartic
           (1 / 256 : k) • A ^ 4) =
       piEtaGroupQuartic810 A B C D E G := by
   simp only [piEtaGroupPolynomial810, piEtaGroupQuartic810]
-  apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
-  simp only [Polynomial.smul_eq_C_mul, map_add, map_sub, map_mul,
-    map_pow, map_neg, map_zero, RatFunc.algebraMap_C, map_div₀,
-    map_ofNat, map_natCast, map_one]
+  apply (RatFunc.algebraMap_injective k)
+  simp only [Polynomial.smul_eq_C_mul, RingHom.map_add, RingHom.map_sub, RingHom.map_mul,
+    map_pow, RingHom.map_neg, RingHom.map_zero, RatFunc.algebraMap_C, map_div₀,
+    map_ofNat, map_natCast, RingHom.map_one]
   ring
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem piThetaGroupPolynomial810_eq_quartic
     (A B C D F : k[X]) :
     piThetaGroupPolynomial810 A B (C + (3 / 8 : k) • A ^ 2) (D + (1 / 2 : k) • (A * B))
         (F + (1 / 4 : k) • (A * D) + (1 / 16 : k) • (A ^ 2 * B)) =
       piThetaGroupQuartic810 A B C D F := by
   simp only [piThetaGroupPolynomial810, piThetaGroupQuartic810]
-  apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
-  simp only [Polynomial.smul_eq_C_mul, map_add, map_sub, map_mul,
-    map_pow, map_neg, map_zero, RatFunc.algebraMap_C, map_div₀,
-    map_ofNat, map_natCast, map_one]
+  apply (RatFunc.algebraMap_injective k)
+  simp only [Polynomial.smul_eq_C_mul, RingHom.map_add, RingHom.map_sub, RingHom.map_mul,
+    map_pow, RingHom.map_neg, RingHom.map_zero, RatFunc.algebraMap_C, map_div₀,
+    map_ofNat, map_natCast, RingHom.map_one]
   ring
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroPiPolynomial810_eq_quartic
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -1061,13 +1067,13 @@ theorem rhoBaseGroupPolynomial810_eq_quartic
           (1 / 256 : k) • A ^ 4) =
       rhoBaseGroupQuartic810 l A B C D E F G := by
   simp only [rhoBaseGroupPolynomial810, rhoBaseGroupQuartic810]
-  apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
-  simp only [Polynomial.smul_eq_C_mul, map_add, map_sub, map_mul,
-    map_pow, map_neg, map_zero, RatFunc.algebraMap_C, map_div₀,
-    map_ofNat, map_natCast, map_one]
+  apply (RatFunc.algebraMap_injective k)
+  simp only [Polynomial.smul_eq_C_mul, RingHom.map_add, RingHom.map_sub, RingHom.map_mul,
+    map_pow, RingHom.map_neg, RingHom.map_zero, RatFunc.algebraMap_C, map_div₀,
+    map_ofNat, map_natCast, RingHom.map_one]
   ring
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem rhoBetaGroupPolynomial810_eq_quartic
     (A B C D E F : k[X]) :
     rhoBetaGroupPolynomial810 A B (C + (3 / 8 : k) • A ^ 2) (D + (1 / 2 : k) • (A * B))
@@ -1075,13 +1081,13 @@ theorem rhoBetaGroupPolynomial810_eq_quartic
         (F + (1 / 4 : k) • (A * D) + (1 / 16 : k) • (A ^ 2 * B)) =
       rhoBetaGroupQuartic810 A B C D E F := by
   simp only [rhoBetaGroupPolynomial810, rhoBetaGroupQuartic810]
-  apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
-  simp only [Polynomial.smul_eq_C_mul, map_add, map_sub, map_mul,
-    map_pow, map_neg, map_zero, RatFunc.algebraMap_C, map_div₀,
-    map_ofNat, map_natCast, map_one]
+  apply (RatFunc.algebraMap_injective k)
+  simp only [Polynomial.smul_eq_C_mul, RingHom.map_add, RingHom.map_sub, RingHom.map_mul,
+    map_pow, RingHom.map_neg, RingHom.map_zero, RatFunc.algebraMap_C, map_div₀,
+    map_ofNat, map_natCast, RingHom.map_one]
   ring
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem rhoGammaGroupPolynomial810_eq_quartic
     (A B C D E F : k[X]) :
     rhoGammaGroupPolynomial810 A B (C + (3 / 8 : k) • A ^ 2) (D + (1 / 2 : k) • (A * B))
@@ -1089,13 +1095,13 @@ theorem rhoGammaGroupPolynomial810_eq_quartic
         (F + (1 / 4 : k) • (A * D) + (1 / 16 : k) • (A ^ 2 * B)) =
       rhoGammaGroupQuartic810 A B C D E F := by
   simp only [rhoGammaGroupPolynomial810, rhoGammaGroupQuartic810]
-  apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
-  simp only [Polynomial.smul_eq_C_mul, map_add, map_sub, map_mul,
-    map_pow, map_neg, map_zero, RatFunc.algebraMap_C, map_div₀,
-    map_ofNat, map_natCast, map_one]
+  apply (RatFunc.algebraMap_injective k)
+  simp only [Polynomial.smul_eq_C_mul, RingHom.map_add, RingHom.map_sub, RingHom.map_mul,
+    map_pow, RingHom.map_neg, RingHom.map_zero, RatFunc.algebraMap_C, map_div₀,
+    map_ofNat, map_natCast, RingHom.map_one]
   ring
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem rhoDeltaGroupPolynomial810_eq_quartic
     (A B C D E F : k[X]) :
     rhoDeltaGroupPolynomial810 A B (C + (3 / 8 : k) • A ^ 2) (D + (1 / 2 : k) • (A * B))
@@ -1103,13 +1109,13 @@ theorem rhoDeltaGroupPolynomial810_eq_quartic
         (F + (1 / 4 : k) • (A * D) + (1 / 16 : k) • (A ^ 2 * B)) =
       rhoDeltaGroupQuartic810 A B C D E F := by
   simp only [rhoDeltaGroupPolynomial810, rhoDeltaGroupQuartic810]
-  apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
-  simp only [Polynomial.smul_eq_C_mul, map_add, map_sub, map_mul,
-    map_pow, map_neg, map_zero, RatFunc.algebraMap_C, map_div₀,
-    map_ofNat, map_natCast, map_one]
+  apply (RatFunc.algebraMap_injective k)
+  simp only [Polynomial.smul_eq_C_mul, RingHom.map_add, RingHom.map_sub, RingHom.map_mul,
+    map_pow, RingHom.map_neg, RingHom.map_zero, RatFunc.algebraMap_C, map_div₀,
+    map_ofNat, map_natCast, RingHom.map_one]
   ring
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem rhoEpsilonGroupPolynomial810_eq_quartic
     (A B C D E F : k[X]) :
     rhoEpsilonGroupPolynomial810 A B (C + (3 / 8 : k) • A ^ 2) (D + (1 / 2 : k) • (A * B))
@@ -1117,13 +1123,13 @@ theorem rhoEpsilonGroupPolynomial810_eq_quartic
         (F + (1 / 4 : k) • (A * D) + (1 / 16 : k) • (A ^ 2 * B)) =
       rhoEpsilonGroupQuartic810 A B C D E F := by
   simp only [rhoEpsilonGroupPolynomial810, rhoEpsilonGroupQuartic810]
-  apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
-  simp only [Polynomial.smul_eq_C_mul, map_add, map_sub, map_mul,
-    map_pow, map_neg, map_zero, RatFunc.algebraMap_C, map_div₀,
-    map_ofNat, map_natCast, map_one]
+  apply (RatFunc.algebraMap_injective k)
+  simp only [Polynomial.smul_eq_C_mul, RingHom.map_add, RingHom.map_sub, RingHom.map_mul,
+    map_pow, RingHom.map_neg, RingHom.map_zero, RatFunc.algebraMap_C, map_div₀,
+    map_ofNat, map_natCast, RingHom.map_one]
   ring
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem rhoZetaGroupPolynomial810_eq_quartic
     (A B C D E F : k[X]) :
     rhoZetaGroupPolynomial810 A B (C + (3 / 8 : k) • A ^ 2) (D + (1 / 2 : k) • (A * B))
@@ -1131,13 +1137,13 @@ theorem rhoZetaGroupPolynomial810_eq_quartic
         (F + (1 / 4 : k) • (A * D) + (1 / 16 : k) • (A ^ 2 * B)) =
       rhoZetaGroupQuartic810 A B C D E F := by
   simp only [rhoZetaGroupPolynomial810, rhoZetaGroupQuartic810]
-  apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
-  simp only [Polynomial.smul_eq_C_mul, map_add, map_sub, map_mul,
-    map_pow, map_neg, map_zero, RatFunc.algebraMap_C, map_div₀,
-    map_ofNat, map_natCast, map_one]
+  apply (RatFunc.algebraMap_injective k)
+  simp only [Polynomial.smul_eq_C_mul, RingHom.map_add, RingHom.map_sub, RingHom.map_mul,
+    map_pow, RingHom.map_neg, RingHom.map_zero, RatFunc.algebraMap_C, map_div₀,
+    map_ofNat, map_natCast, RingHom.map_one]
   ring
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem rhoEtaGroupPolynomial810_eq_quartic
     (A B C D E F : k[X]) :
     rhoEtaGroupPolynomial810 A B (C + (3 / 8 : k) • A ^ 2) (D + (1 / 2 : k) • (A * B))
@@ -1145,13 +1151,13 @@ theorem rhoEtaGroupPolynomial810_eq_quartic
         (F + (1 / 4 : k) • (A * D) + (1 / 16 : k) • (A ^ 2 * B)) =
       rhoEtaGroupQuartic810 A B C D E F := by
   simp only [rhoEtaGroupPolynomial810, rhoEtaGroupQuartic810]
-  apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
-  simp only [Polynomial.smul_eq_C_mul, map_add, map_sub, map_mul,
-    map_pow, map_neg, map_zero, RatFunc.algebraMap_C, map_div₀,
-    map_ofNat, map_natCast, map_one]
+  apply (RatFunc.algebraMap_injective k)
+  simp only [Polynomial.smul_eq_C_mul, RingHom.map_add, RingHom.map_sub, RingHom.map_mul,
+    map_pow, RingHom.map_neg, RingHom.map_zero, RatFunc.algebraMap_C, map_div₀,
+    map_ofNat, map_natCast, RingHom.map_one]
   ring
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem rhoThetaGroupPolynomial810_eq_quartic
     (A B C D E G : k[X]) :
     rhoThetaGroupPolynomial810 A B (C + (3 / 8 : k) • A ^ 2) (D + (1 / 2 : k) • (A * B))
@@ -1160,13 +1166,13 @@ theorem rhoThetaGroupPolynomial810_eq_quartic
           (1 / 256 : k) • A ^ 4) =
       rhoThetaGroupQuartic810 A B C D E G := by
   simp only [rhoThetaGroupPolynomial810, rhoThetaGroupQuartic810]
-  apply (FaithfulSMul.algebraMap_injective k[X] (RatFunc k))
-  simp only [Polynomial.smul_eq_C_mul, map_add, map_sub, map_mul,
-    map_pow, map_neg, map_zero, RatFunc.algebraMap_C, map_div₀,
-    map_ofNat, map_natCast, map_one]
+  apply (RatFunc.algebraMap_injective k)
+  simp only [Polynomial.smul_eq_C_mul, RingHom.map_add, RingHom.map_sub, RingHom.map_mul,
+    map_pow, RingHom.map_neg, RingHom.map_zero, RatFunc.algebraMap_C, map_div₀,
+    map_ofNat, map_natCast, RingHom.map_one]
   ring
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroPrimitivePolynomial810_eq_quartic
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -1196,7 +1202,7 @@ section QuarticResidual810
 
 variable {k : Type*} [Field k] [CharZero k] [IsAlgClosed k]
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem normalized810ScaleZero_quarticResidual
     {P Q : MvPolynomial (Fin 2) k} {H : k[X]}
     (hsource : Normalized810LeadingCoreSource P Q H 0) :

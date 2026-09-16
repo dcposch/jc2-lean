@@ -29,7 +29,7 @@ section QuarticKills810
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiQuarticNoBCEG810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X])
@@ -42,22 +42,16 @@ theorem degreeZeroXiQuarticNoBCEG810_natDegree_lt
   have hD1 : 3 * D.natDegree + 1 ≤ 5 * B.natDegree := Nat.succ_le_of_lt hDlt
   have hF1 : 3 * F.natDegree + 1 ≤ 7 * B.natDegree := Nat.succ_le_of_lt hFlt
   rw [speedRefl_degreeZeroXiQuarticNoBCEG810_eq_polyOf]
-  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
-    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+    Nat.add_zero, Nat.zero_add, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronQuarticNoBCEG810` (97 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -130,10 +124,10 @@ theorem speedRefl_degreeZeroOmicronQuarticNoBCEG810_eq_polyOf
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  module
+  simp only [neg_smul] <;> abel
 
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronQuarticNoBCEG810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X])
@@ -146,22 +140,16 @@ theorem degreeZeroOmicronQuarticNoBCEG810_natDegree_lt
   have hD1 : 3 * D.natDegree + 1 ≤ 5 * B.natDegree := Nat.succ_le_of_lt hDlt
   have hF1 : 3 * F.natDegree + 1 ≤ 7 * B.natDegree := Nat.succ_le_of_lt hFlt
   rw [speedRefl_degreeZeroOmicronQuarticNoBCEG810_eq_polyOf]
-  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
-    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+    Nat.add_zero, Nat.zero_add, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem quarticCone_BCEG_impossible
     {j t : k}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -315,7 +303,7 @@ theorem quarticCone_BCEG_impossible
 
 
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroKappaQuarticNoBCFG810` (32 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -349,10 +337,10 @@ theorem speedRefl_degreeZeroKappaQuarticNoBCFG810_eq_polyOf
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  module
+  simp only [neg_smul] <;> abel
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroKappaQuarticNoBCFG810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X])
@@ -365,22 +353,16 @@ theorem degreeZeroKappaQuarticNoBCFG810_natDegree_lt
   have hD1 : 3 * D.natDegree + 1 ≤ 5 * B.natDegree := Nat.succ_le_of_lt hDlt
   have hE1 : E.natDegree + 1 ≤ 2 * B.natDegree := Nat.succ_le_of_lt hElt
   rw [speedRefl_degreeZeroKappaQuarticNoBCFG810_eq_polyOf]
-  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
-    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+    Nat.add_zero, Nat.zero_add, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuQuarticNoBCFG810` (40 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -419,10 +401,10 @@ theorem speedRefl_degreeZeroMuQuarticNoBCFG810_eq_polyOf
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  module
+  simp only [neg_smul] <;> abel
 
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuQuarticNoBCFG810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X])
@@ -435,22 +417,16 @@ theorem degreeZeroMuQuarticNoBCFG810_natDegree_lt
   have hD1 : 3 * D.natDegree + 1 ≤ 5 * B.natDegree := Nat.succ_le_of_lt hDlt
   have hE1 : E.natDegree + 1 ≤ 2 * B.natDegree := Nat.succ_le_of_lt hElt
   rw [speedRefl_degreeZeroMuQuarticNoBCFG810_eq_polyOf]
-  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
-    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+    Nat.add_zero, Nat.zero_add, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroNuQuarticNoBCFG810` (57 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -499,10 +475,10 @@ theorem speedRefl_degreeZeroNuQuarticNoBCFG810_eq_polyOf
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  module
+  simp only [neg_smul] <;> abel
 
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroNuQuarticNoBCFG810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X])
@@ -515,22 +491,16 @@ theorem degreeZeroNuQuarticNoBCFG810_natDegree_lt
   have hD1 : 3 * D.natDegree + 1 ≤ 5 * B.natDegree := Nat.succ_le_of_lt hDlt
   have hE1 : E.natDegree + 1 ≤ 2 * B.natDegree := Nat.succ_le_of_lt hElt
   rw [speedRefl_degreeZeroNuQuarticNoBCFG810_eq_polyOf]
-  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
-    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+    Nat.add_zero, Nat.zero_add, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroXiQuarticNoBCFG810` (57 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -579,10 +549,10 @@ theorem speedRefl_degreeZeroXiQuarticNoBCFG810_eq_polyOf
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  module
+  simp only [neg_smul] <;> abel
 
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiQuarticNoBCFG810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X])
@@ -595,22 +565,16 @@ theorem degreeZeroXiQuarticNoBCFG810_natDegree_lt
   have hD1 : 3 * D.natDegree + 1 ≤ 5 * B.natDegree := Nat.succ_le_of_lt hDlt
   have hE1 : E.natDegree + 1 ≤ 2 * B.natDegree := Nat.succ_le_of_lt hElt
   rw [speedRefl_degreeZeroXiQuarticNoBCFG810_eq_polyOf]
-  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
-    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+    Nat.add_zero, Nat.zero_add, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem quarticCone_BCFG_impossible
     {j t : k}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -746,7 +710,7 @@ theorem quarticCone_BCFG_impossible
 
 
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroKappaQuarticNoBDEF810` (33 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -781,10 +745,10 @@ theorem speedRefl_degreeZeroKappaQuarticNoBDEF810_eq_polyOf
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  module
+  simp only [neg_smul] <;> abel
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroKappaQuarticNoBDEF810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X])
@@ -797,22 +761,16 @@ theorem degreeZeroKappaQuarticNoBDEF810_natDegree_lt
   have hC1 : 3 * C.natDegree + 1 ≤ 4 * B.natDegree := Nat.succ_le_of_lt hClt
   have hG1 : 3 * G.natDegree + 1 ≤ 8 * B.natDegree := Nat.succ_le_of_lt hGlt
   rw [speedRefl_degreeZeroKappaQuarticNoBDEF810_eq_polyOf]
-  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
-    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+    Nat.add_zero, Nat.zero_add, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuQuarticNoBDEF810` (39 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -850,10 +808,10 @@ theorem speedRefl_degreeZeroMuQuarticNoBDEF810_eq_polyOf
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  module
+  simp only [neg_smul] <;> abel
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuQuarticNoBDEF810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X])
@@ -866,22 +824,16 @@ theorem degreeZeroMuQuarticNoBDEF810_natDegree_lt
   have hC1 : 3 * C.natDegree + 1 ≤ 4 * B.natDegree := Nat.succ_le_of_lt hClt
   have hG1 : 3 * G.natDegree + 1 ≤ 8 * B.natDegree := Nat.succ_le_of_lt hGlt
   rw [speedRefl_degreeZeroMuQuarticNoBDEF810_eq_polyOf]
-  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
-    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+    Nat.add_zero, Nat.zero_add, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroNuQuarticNoBDEF810` (56 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -929,10 +881,10 @@ theorem speedRefl_degreeZeroNuQuarticNoBDEF810_eq_polyOf
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  module
+  simp only [neg_smul] <;> abel
 
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroNuQuarticNoBDEF810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X])
@@ -945,22 +897,16 @@ theorem degreeZeroNuQuarticNoBDEF810_natDegree_lt
   have hC1 : 3 * C.natDegree + 1 ≤ 4 * B.natDegree := Nat.succ_le_of_lt hClt
   have hG1 : 3 * G.natDegree + 1 ≤ 8 * B.natDegree := Nat.succ_le_of_lt hGlt
   rw [speedRefl_degreeZeroNuQuarticNoBDEF810_eq_polyOf]
-  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
-    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+    Nat.add_zero, Nat.zero_add, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroXiQuarticNoBDEF810` (58 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -1010,10 +956,10 @@ theorem speedRefl_degreeZeroXiQuarticNoBDEF810_eq_polyOf
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  module
+  simp only [neg_smul] <;> abel
 
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroXiQuarticNoBDEF810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X])
@@ -1026,22 +972,16 @@ theorem degreeZeroXiQuarticNoBDEF810_natDegree_lt
   have hC1 : 3 * C.natDegree + 1 ≤ 4 * B.natDegree := Nat.succ_le_of_lt hClt
   have hG1 : 3 * G.natDegree + 1 ≤ 8 * B.natDegree := Nat.succ_le_of_lt hGlt
   rw [speedRefl_degreeZeroXiQuarticNoBDEF810_eq_polyOf]
-  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
-    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+    Nat.add_zero, Nat.zero_add, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronQuarticNoBDEF810` (97 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -1114,10 +1054,10 @@ theorem speedRefl_degreeZeroOmicronQuarticNoBDEF810_eq_polyOf
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  module
+  simp only [neg_smul] <;> abel
 
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroOmicronQuarticNoBDEF810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X])
@@ -1130,22 +1070,16 @@ theorem degreeZeroOmicronQuarticNoBDEF810_natDegree_lt
   have hC1 : 3 * C.natDegree + 1 ≤ 4 * B.natDegree := Nat.succ_le_of_lt hClt
   have hG1 : 3 * G.natDegree + 1 ≤ 8 * B.natDegree := Nat.succ_le_of_lt hGlt
   rw [speedRefl_degreeZeroOmicronQuarticNoBDEF810_eq_polyOf]
-  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
-    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+    Nat.add_zero, Nat.zero_add, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem quarticCone_BDEF_impossible
     {j t : k}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -1299,7 +1233,7 @@ theorem quarticCone_BDEF_impossible
 
 
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroKappaQuarticNoBDEG810` (32 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -1333,10 +1267,10 @@ theorem speedRefl_degreeZeroKappaQuarticNoBDEG810_eq_polyOf
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  module
+  simp only [neg_smul] <;> abel
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroKappaQuarticNoBDEG810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X])
@@ -1349,22 +1283,16 @@ theorem degreeZeroKappaQuarticNoBDEG810_natDegree_lt
   have hC1 : 3 * C.natDegree + 1 ≤ 4 * B.natDegree := Nat.succ_le_of_lt hClt
   have hF1 : 3 * F.natDegree + 1 ≤ 7 * B.natDegree := Nat.succ_le_of_lt hFlt
   rw [speedRefl_degreeZeroKappaQuarticNoBDEG810_eq_polyOf]
-  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
-    Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+    List.map_cons, List.map_nil, Nat.zero_mul, Nat.one_mul,
+    Nat.add_zero, Nat.zero_add, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuQuarticNoBDEG810` (40 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -1403,7 +1331,7 @@ theorem speedRefl_degreeZeroMuQuarticNoBDEG810_eq_polyOf
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
     pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  module
+  simp only [neg_smul] <;> abel
 
 
 end QuarticKills810

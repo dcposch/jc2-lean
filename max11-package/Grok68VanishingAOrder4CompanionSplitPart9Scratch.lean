@@ -108,13 +108,27 @@ theorem fiveToSix_zetaFirst_B3_equality_support_qZero_clean_fourth_split68
   rcases hp with ⟨hN, hgt, hle, hA, hB, hc, hd0, he0, hatop, hcusp, had⟩
   rcases hs.1 with ⟨hsupport, hrows⟩
   rcases hsupport with ⟨hstop, hTD⟩
-  have hEq : 9 * N = 7 * S := by dsimp only at hTD; omega
+  have hEq : 9 * N = 7 * S := by
+    clear * - hTD hq
+    dsimp only at hTD
+    omega
   have hB' : B.natDegree ≤ D := by simpa [D, hGS] using hB
   have hc' : c.natDegree ≤ Cc := by simpa [Cc, hGS] using hc
-  have hd' : d.natDegree ≤ V := by dsimp only [V]; rw [hGS] at hd; omega
-  have he' : e.natDegree ≤ E := by dsimp only [E]; rw [hGS] at he; omega
+  have hd' : d.natDegree ≤ V := by
+    dsimp only [V]
+    rw [hGS] at hd
+    clear * - hd
+    omega
+  have he' : e.natDegree ≤ E := by
+    dsimp only [E]
+    rw [hGS] at he
+    clear * - he
+    omega
+  clear * - D Cc V E i0 i2 W0 W2 hEq hN hA hB' hc' hd' he'
   have harith : (N = 7 ∧ S = 9) ∨ (N = 14 ∧ S = 18) ∨ (N = 21 ∧ S = 27) ∨
-      (N = 28 ∧ S = 36) ∨ 35 ≤ N := by omega
+      (N = 28 ∧ S = 36) ∨ 35 ≤ N := by
+    clear * - hEq hN
+    omega
   have hdecomp0 :
       FiveToSixCuspZetaFirstB3EqualitySupportCleanRowZeroRemainder68
           gamma epsilon A B c d e =
@@ -128,9 +142,11 @@ theorem fiveToSix_zetaFirst_B3_equality_support_qZero_clean_fourth_split68
   have hdecomp2 :
       FiveToSixCuspZetaFirstB3EqualitySupportCleanRowTwoRemainder68
           gamma epsilon B c d =
-        ((9 * gamma : k) • (B * derivative c) +
-          (9 * gamma : k) • (c * derivative B)) -
-          (27 / 2 * epsilon : k) • derivative d := by rfl
+        (9 * gamma : k) • derivative (B * c) -
+          (27 / 2 * epsilon : k) • derivative d := by
+    dsimp only [FiveToSixCuspZetaFirstB3EqualitySupportCleanRowTwoRemainder68]
+    rw [derivative_mul, mul_comm (derivative B) c]
+    module
   -- Bound each derivative and product once, before specialising N and S.
   have hderA : (derivative A).natDegree ≤ 2 * N - 1 :=
     (natDegree_derivative_le A).trans (Nat.sub_le_sub_right hA 1)
@@ -162,19 +178,20 @@ theorem fiveToSix_zetaFirst_B3_equality_support_qZero_clean_fourth_split68
         (natDegree_sub_le_of_le (natDegree_add_le_of_le hdegBdd hdegdBdd) hdegBe)
         hdegdc) hdegdA
     dsimp only [D, Cc, V, E, i0] at hdeg ⊢
+    clear * - hEq hN hdeg
     omega
   have hlow2 : ((27 / 2 * epsilon : k) • derivative d).natDegree < i2 := by
     have hdeg := (natDegree_smul_le (27 / 2 * epsilon : k) (derivative d)).trans hderd
     dsimp only [V, i2] at hdeg ⊢
+    clear * - hEq hN hdeg
     omega
   have hmain0 :=
     (natDegree_smul_le (-(3 / 2 * gamma : k)) (B * derivative A * c)).trans
       (natDegree_mul_le_of_le (natDegree_mul_le_of_le hB' hderA) hc')
-  have hmain2 := natDegree_add_le_of_le
-    ((natDegree_smul_le (9 * gamma : k) (B * derivative c)).trans
-      (natDegree_mul_le_of_le hB' hderc))
-    ((natDegree_smul_le (9 * gamma : k) (c * derivative B)).trans
-      (natDegree_mul_le_of_le hc' hderB))
+  have hmain2 :=
+    (natDegree_smul_le (9 * gamma : k) (derivative (B * c))).trans
+      ((natDegree_derivative_le (B * c)).trans
+        (Nat.sub_le_sub_right (natDegree_mul_le_of_le hB' hc') 1))
   rcases harith with h7 | h14 | h21 | h28 | hlarge
   · left
     rcases h7 with ⟨hN7, hS9⟩
@@ -182,58 +199,18 @@ theorem fiveToSix_zetaFirst_B3_equality_support_qZero_clean_fourth_split68
     simp only [i0, i2, Nat.reduceMul, Nat.reduceSub] at hlow0 hlow2
     dsimp only [D, Cc, V, E] at hB' hc' hd' he'
     have hdA : (derivative A).natDegree ≤ 13 := by
-      have h := natDegree_derivative_le A; omega
+      exact (natDegree_derivative_le A).trans (Nat.sub_le_sub_right hA 1)
     have hBAc := coeff_mul_mul_three_below_bounds68 B (derivative A) c
-      3 13 10 (by omega) (by omega) (by omega) hB' hdA hc'
+      3 13 10 (by decide) (by decide) (by decide) hB' hdA hc'
     norm_num only [coeff_derivative] at hBAc
-    have hBc := coeff_mul_three_below_bounds68 B (derivative c) 3 9
-      (by omega) (by omega) hB'
-      (by have h := natDegree_derivative_le c; omega)
-    have hdB : (derivative B).natDegree ≤ 2 := by
-      have h := natDegree_derivative_le B; omega
-    have hcB : (c * derivative B).coeff 9 =
-        c.coeff 7 * (derivative B).coeff 2 +
-          c.coeff 8 * (derivative B).coeff 1 +
-          c.coeff 9 * (derivative B).coeff 0 := by
-      rw [coeff_mul, Finset.Nat.sum_antidiagonal_eq_sum_range_succ_mk]
-      have hmem7 : 7 ∈ Finset.range (9 + 1) := by simp
-      have hmem8 : 8 ∈ (Finset.range (9 + 1)).erase 7 := by simp
-      have hmem9 : 9 ∈ ((Finset.range (9 + 1)).erase 7).erase 8 := by simp
-      have hzero : ∀ i ∈ (((Finset.range (9 + 1)).erase 7).erase 8).erase 9,
-          c.coeff i * (derivative B).coeff (9 - i) = 0 := by
-        intro i hi
-        have hi9 := (Finset.mem_erase.mp hi).1
-        have hi8 := (Finset.mem_erase.mp (Finset.mem_erase.mp hi).2).1
-        have hi7 :=
-          (Finset.mem_erase.mp
-            (Finset.mem_erase.mp (Finset.mem_erase.mp hi).2).2).1
-        have hirange :=
-          (Finset.mem_erase.mp
-            (Finset.mem_erase.mp (Finset.mem_erase.mp hi).2).2).2
-        have hi9lt : i < 10 := Finset.mem_range.mp hirange
-        by_cases hgt : 10 ≤ i
-        · exact (Nat.lt_irrefl _ (hgt.trans_lt hi9lt)).elim
-        · have : 2 < 9 - i := by omega
-          rw [coeff_eq_zero_of_natDegree_lt (hdB.trans_lt this), mul_zero]
-      have hsum := Finset.add_sum_erase (Finset.range (9 + 1))
-        (fun i => c.coeff i * (derivative B).coeff (9 - i)) hmem7
-      have hsum2 := Finset.add_sum_erase ((Finset.range (9 + 1)).erase 7)
-        (fun i => c.coeff i * (derivative B).coeff (9 - i)) hmem8
-      have hsum3 := Finset.add_sum_erase
-        (((Finset.range (9 + 1)).erase 7).erase 8)
-        (fun i => c.coeff i * (derivative B).coeff (9 - i)) hmem9
-      have hz : ∑ i ∈ (((Finset.range (9 + 1)).erase 7).erase 8).erase 9,
-          c.coeff i * (derivative B).coeff (9 - i) = 0 :=
-        Finset.sum_eq_zero hzero
-      rw [← hsum, ← hsum2, ← hsum3, hz, add_zero]
-      ring
-    norm_num only [coeff_derivative] at hBc hcB
+    have hBc := coeff_mul_three_below_bounds68 B c 3 10
+      (by decide) (by decide) hB' hc'
     refine ⟨rfl, rfl, ?_, ?_⟩
     · simp only [hdecomp0, coeff_add, coeff_smul, hBAc,
         coeff_eq_zero_of_natDegree_lt hlow0, smul_eq_mul, add_zero]
       norm_num only [D, Cc, i0]
       ring
-    · simp only [hdecomp2, coeff_sub, coeff_add, coeff_smul, hBc, hcB,
+    · simp only [hdecomp2, coeff_sub, coeff_smul, coeff_derivative, hBc,
         coeff_eq_zero_of_natDegree_lt hlow2, smul_eq_mul, sub_zero]
       norm_num only [D, Cc, i2]
       ring
@@ -243,23 +220,18 @@ theorem fiveToSix_zetaFirst_B3_equality_support_qZero_clean_fourth_split68
     simp only [i0, i2, Nat.reduceMul, Nat.reduceSub] at hlow0 hlow2
     dsimp only [D, Cc, V, E] at hB' hc' hd' he'
     have hdA : (derivative A).natDegree ≤ 27 := by
-      have h := natDegree_derivative_le A; omega
+      exact (natDegree_derivative_le A).trans (Nat.sub_le_sub_right hA 1)
     have hBAc := coeff_mul_mul_two_below_bounds68 B (derivative A) c
-      6 27 20 (by omega) (by omega) (by omega) hB' hdA hc'
+      6 27 20 (by decide) (by decide) (by decide) hB' hdA hc'
     norm_num only [coeff_derivative] at hBAc
-    have hBc := coeff_mul_two_below_bounds68 B (derivative c) 6 19
-      (by omega) (by omega) hB'
-      (by have h := natDegree_derivative_le c; omega)
-    have hcB := coeff_mul_two_below_bounds68 c (derivative B) 20 5
-      (by omega) (by omega) hc'
-      (by have h := natDegree_derivative_le B; omega)
-    norm_num only [coeff_derivative] at hBc hcB
+    have hBc := coeff_mul_two_below_bounds68 B c 6 20
+      (by decide) (by decide) hB' hc'
     refine ⟨rfl, rfl, ?_, ?_⟩
     · simp only [hdecomp0, coeff_add, coeff_smul, hBAc,
         coeff_eq_zero_of_natDegree_lt hlow0, smul_eq_mul, add_zero]
       norm_num only [D, Cc, i0]
       ring
-    · simp only [hdecomp2, coeff_sub, coeff_add, coeff_smul, hBc, hcB,
+    · simp only [hdecomp2, coeff_sub, coeff_smul, coeff_derivative, hBc,
         coeff_eq_zero_of_natDegree_lt hlow2, smul_eq_mul, sub_zero]
       norm_num only [D, Cc, i2]
       ring
@@ -269,23 +241,18 @@ theorem fiveToSix_zetaFirst_B3_equality_support_qZero_clean_fourth_split68
     simp only [i0, i2, Nat.reduceMul, Nat.reduceSub] at hlow0 hlow2
     dsimp only [D, Cc, V, E] at hB' hc' hd' he'
     have hdA : (derivative A).natDegree ≤ 41 := by
-      have h := natDegree_derivative_le A; omega
+      exact (natDegree_derivative_le A).trans (Nat.sub_le_sub_right hA 1)
     have hBAc := coeff_mul_mul_one_below_bounds68 B (derivative A) c
-      9 41 30 (by omega) (by omega) (by omega) hB' hdA hc'
+      9 41 30 (by decide) (by decide) (by decide) hB' hdA hc'
     norm_num only [coeff_derivative] at hBAc
-    have hBc := coeff_mul_one_below_bounds68 B (derivative c) 9 29
-      (by omega) (by omega) hB'
-      (by have h := natDegree_derivative_le c; omega)
-    have hcB := coeff_mul_one_below_bounds68 c (derivative B) 30 8
-      (by omega) (by omega) hc'
-      (by have h := natDegree_derivative_le B; omega)
-    norm_num only [coeff_derivative] at hBc hcB
+    have hBc := coeff_mul_one_below_bounds68 B c 9 30
+      (by decide) (by decide) hB' hc'
     refine ⟨rfl, rfl, ?_, ?_⟩
     · simp only [hdecomp0, coeff_add, coeff_smul, hBAc,
         coeff_eq_zero_of_natDegree_lt hlow0, smul_eq_mul, add_zero]
       norm_num only [D, Cc, i0]
       ring
-    · simp only [hdecomp2, coeff_sub, coeff_add, coeff_smul, hBc, hcB,
+    · simp only [hdecomp2, coeff_sub, coeff_smul, coeff_derivative, hBc,
         coeff_eq_zero_of_natDegree_lt hlow2, smul_eq_mul, sub_zero]
       norm_num only [D, Cc, i2]
       ring
@@ -295,22 +262,18 @@ theorem fiveToSix_zetaFirst_B3_equality_support_qZero_clean_fourth_split68
     simp only [i0, i2, Nat.reduceMul, Nat.reduceSub] at hlow0 hlow2
     dsimp only [D, Cc, V, E] at hB' hc' hd' he'
     have hBAc := coeff_mul_mul_derivative_at_bounds68 B c A 12 40 56
-      (by omega) hB' hc' hA
+      (by decide) hB' hc' hA
     norm_num at hBAc
     have hBAc' : (B * derivative A * c).coeff 107 =
         B.coeff 12 * A.coeff 56 * c.coeff 40 * (56 : k) := by
       simpa only [mul_assoc, mul_comm, mul_left_comm] using hBAc
-    have hBc := coeff_mul_derivative_at_bounds68 B c 12 40
-      (by omega) hB' hc'
-    have hcB := coeff_mul_derivative_at_bounds68 c B 40 12
-      (by omega) hc' hB'
-    norm_num at hBc hcB
+    have hBc := coeff_mul_at_bounds68 B c 12 40 hB' hc'
     refine ⟨rfl, rfl, ?_, ?_⟩
     · simp only [hdecomp0, coeff_add, coeff_smul, hBAc',
         coeff_eq_zero_of_natDegree_lt hlow0, smul_eq_mul, add_zero]
       norm_num only [D, Cc, i0]
       ring
-    · simp only [hdecomp2, coeff_sub, coeff_add, coeff_smul, hBc, hcB,
+    · simp only [hdecomp2, coeff_sub, coeff_smul, coeff_derivative, hBc,
         coeff_eq_zero_of_natDegree_lt hlow2, smul_eq_mul, sub_zero]
       norm_num only [D, Cc, i2]
       ring
@@ -324,6 +287,7 @@ theorem fiveToSix_zetaFirst_B3_equality_support_qZero_clean_fourth_split68
       apply max_lt
       · apply lt_of_le_of_lt hmain0
         dsimp only [D, Cc, i0]
+        clear * - hEq hlarge
         omega
       · exact hlow0
     · apply coeff_eq_zero_of_natDegree_lt
@@ -334,6 +298,7 @@ theorem fiveToSix_zetaFirst_B3_equality_support_qZero_clean_fourth_split68
       apply max_lt
       · apply lt_of_le_of_lt hmain2
         dsimp only [D, Cc, i2]
+        clear * - hEq hlarge
         omega
       · exact hlow2
 

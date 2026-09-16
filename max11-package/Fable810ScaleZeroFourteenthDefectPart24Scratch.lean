@@ -81,6 +81,8 @@ theorem omicronResidual810_deriv_zero
         F0 * d V0 - (2 : F) * E0 * d W0 -
         (3 : F) * D0 * d X0 = 0) :
     d (omicronResidual810 L A B C0 D0 E0 F0 G0 P Q R S0 T0 U0 V0 W0) = 0 := by
+  have hquotient (m n : ℕ) : d ((m : F) / (n : F)) = 0 := by
+    rw [d.leibniz_div_const _ _ (d.map_natCast n), d.map_natCast, smul_zero]
   have h2 : d (2 : F) = 0 := d.map_natCast 2
   have h3 : d (3 : F) = 0 := d.map_natCast 3
   have h4 : d (4 : F) = 0 := d.map_natCast 4
@@ -110,58 +112,32 @@ theorem omicronResidual810_deriv_zero
     simp [Derivation.leibniz_inv, h4]
   have h18 : d (1 / 8 : F) = 0 := by
     simp [Derivation.leibniz_inv, h8]
-  have h38 : d (3 / 8 : F) = 0 := by
-    simp [Derivation.leibniz_div, h8, h3]
-  have h54 : d (5 / 4 : F) = 0 := by
-    simp [Derivation.leibniz_div, h4, h5]
-  have h98 : d (9 / 8 : F) = 0 := by
-    simp [Derivation.leibniz_div, h8, h9]
-  have h78 : d (7 / 8 : F) = 0 := by
-    simp [Derivation.leibniz_div, h8, h7]
-  have h34 : d (3 / 4 : F) = 0 := by
-    simp [Derivation.leibniz_div, h4, h3]
-  have h58 : d (5 / 8 : F) = 0 := by
-    simp [Derivation.leibniz_div, h8, h5]
-  have h516 : d (5 / 16 : F) = 0 := by
-    simp [Derivation.leibniz_div, h16, h5]
-  have h316 : d (3 / 16 : F) = 0 := by
-    simp [Derivation.leibniz_div, h16, h3]
-  have h532 : d (5 / 32 : F) = 0 := by
-    simp [Derivation.leibniz_div, h32, h5]
-  have h15128 : d (15 / 128 : F) = 0 := by
-    simp [Derivation.leibniz_div, h128, h15]
-  have h5128 : d (5 / 128 : F) = 0 := by
-    simp [Derivation.leibniz_div, h128, h5]
-  have h7128 : d (7 / 128 : F) = 0 := by
-    simp [Derivation.leibniz_div, h128, h7]
-  have h9128 : d (9 / 128 : F) = 0 := by
-    simp [Derivation.leibniz_div, h128, h9]
-  have h1564 : d (15 / 64 : F) = 0 := by
-    simp [Derivation.leibniz_div, h64, h15]
-  have h964 : d (9 / 64 : F) = 0 := by
-    simp [Derivation.leibniz_div, h64, h9]
-  have h764 : d (7 / 64 : F) = 0 := by
-    simp [Derivation.leibniz_div, h64, h7]
-  have h35512 : d (35 / 512 : F) = 0 := by
-    simp [Derivation.leibniz_div, h512, h35]
-  have h211024 : d (21 / 1024 : F) = 0 := by
-    simp [Derivation.leibniz_div, h1024, h21]
-  have h631024 : d (63 / 1024 : F) = 0 := by
-    simp [Derivation.leibniz_div, h1024, h63]
-  have h31532768 : d (315 / 32768 : F) = 0 := by
-    simp [Derivation.leibniz_div, h32768, h315]
-  have h778192 : d (77 / 8192 : F) = 0 := by
-    simp [Derivation.leibniz_div, h8192, h77]
-  have h3158192 : d (315 / 8192 : F) = 0 := by
-    simp [Derivation.leibniz_div, h8192, h315]
-  have h1051024 : d (105 / 1024 : F) = 0 := by
-    simp [Derivation.leibniz_div, h1024, h105]
-  have h63512 : d (63 / 512 : F) = 0 := by
-    simp [Derivation.leibniz_div, h512, h63]
-  have h332 : d (3 / 32 : F) = 0 := by
-    simp [Derivation.leibniz_div, h32, h3]
-  have h352048 : d (35 / 2048 : F) = 0 := by
-    simp [Derivation.leibniz_div, h2048, h35]
+  have h38 : d (3 / 8 : F) = 0 := hquotient 3 8
+  have h54 : d (5 / 4 : F) = 0 := hquotient 5 4
+  have h98 : d (9 / 8 : F) = 0 := hquotient 9 8
+  have h78 : d (7 / 8 : F) = 0 := hquotient 7 8
+  have h34 : d (3 / 4 : F) = 0 := hquotient 3 4
+  have h58 : d (5 / 8 : F) = 0 := hquotient 5 8
+  have h516 : d (5 / 16 : F) = 0 := hquotient 5 16
+  have h316 : d (3 / 16 : F) = 0 := hquotient 3 16
+  have h532 : d (5 / 32 : F) = 0 := hquotient 5 32
+  have h15128 : d (15 / 128 : F) = 0 := hquotient 15 128
+  have h5128 : d (5 / 128 : F) = 0 := hquotient 5 128
+  have h7128 : d (7 / 128 : F) = 0 := hquotient 7 128
+  have h9128 : d (9 / 128 : F) = 0 := hquotient 9 128
+  have h1564 : d (15 / 64 : F) = 0 := hquotient 15 64
+  have h964 : d (9 / 64 : F) = 0 := hquotient 9 64
+  have h764 : d (7 / 64 : F) = 0 := hquotient 7 64
+  have h35512 : d (35 / 512 : F) = 0 := hquotient 35 512
+  have h211024 : d (21 / 1024 : F) = 0 := hquotient 21 1024
+  have h631024 : d (63 / 1024 : F) = 0 := hquotient 63 1024
+  have h31532768 : d (315 / 32768 : F) = 0 := hquotient 315 32768
+  have h778192 : d (77 / 8192 : F) = 0 := hquotient 77 8192
+  have h3158192 : d (315 / 8192 : F) = 0 := hquotient 315 8192
+  have h1051024 : d (105 / 1024 : F) = 0 := hquotient 105 1024
+  have h63512 : d (63 / 512 : F) = 0 := hquotient 63 512
+  have h332 : d (3 / 32 : F) = 0 := hquotient 3 32
+  have h352048 : d (35 / 2048 : F) = 0 := hquotient 35 2048
 
   have h13 : d (13 : F) = 0 := d.map_natCast 13
   have h17 : d (17 : F) = 0 := d.map_natCast 17
@@ -175,60 +151,38 @@ theorem omicronResidual810_deriv_zero
   have h4096 : d (4096 : F) = 0 := d.map_natCast 4096
   have h16384 : d (16384 : F) = 0 := d.map_natCast 16384
   have h65536n : d (65536 : F) = 0 := d.map_natCast 65536
-  have h44132768 : d (441 / 32768 : F) = 0 := by
-    simp [Derivation.leibniz_div, h32768, h441]
-  have h44165536 : d (441 / 65536 : F) = 0 := by
-    simp [Derivation.leibniz_div, h65536n, h441]
-  have h4558192 : d (455 / 8192 : F) = 0 := by
-    simp [Derivation.leibniz_div, h8192, h455]
-  have h107116384 : d (1071 / 16384 : F) = 0 := by
-    simp [Derivation.leibniz_div, h16384, h1071]
-  have h1894096 : d (189 / 4096 : F) = 0 := by
-    simp [Derivation.leibniz_div, h4096, h189]
-  have h851024 : d (85 / 1024 : F) = 0 := by
-    simp [Derivation.leibniz_div, h1024, h85]
-  have h751024 : d (75 / 1024 : F) = 0 := by
-    simp [Derivation.leibniz_div, h1024, h75]
-  have h811024 : d (81 / 1024 : F) = 0 := by
-    simp [Derivation.leibniz_div, h1024, h81]
-  have h932 : d (9 / 32 : F) = 0 := by
-    simp [Derivation.leibniz_div, h32, h9]
-  have h732 : d (7 / 32 : F) = 0 := by
-    simp [Derivation.leibniz_div, h32, h7]
-  have h21128 : d (21 / 128 : F) = 0 := by
-    simp [Derivation.leibniz_div, h128, h21]
-  have h35128 : d (35 / 128 : F) = 0 := by
-    simp [Derivation.leibniz_div, h128, h35]
-  have h771024 : d (77 / 1024 : F) = 0 := by
-    simp [Derivation.leibniz_div, h1024, h77]
+  have h44132768 : d (441 / 32768 : F) = 0 := hquotient 441 32768
+  have h44165536 : d (441 / 65536 : F) = 0 := hquotient 441 65536
+  have h4558192 : d (455 / 8192 : F) = 0 := hquotient 455 8192
+  have h107116384 : d (1071 / 16384 : F) = 0 := hquotient 1071 16384
+  have h1894096 : d (189 / 4096 : F) = 0 := hquotient 189 4096
+  have h851024 : d (85 / 1024 : F) = 0 := hquotient 85 1024
+  have h751024 : d (75 / 1024 : F) = 0 := hquotient 75 1024
+  have h811024 : d (81 / 1024 : F) = 0 := hquotient 81 1024
+  have h932 : d (9 / 32 : F) = 0 := hquotient 9 32
+  have h732 : d (7 / 32 : F) = 0 := hquotient 7 32
+  have h21128 : d (21 / 128 : F) = 0 := hquotient 21 128
+  have h35128 : d (35 / 128 : F) = 0 := hquotient 35 128
+  have h771024 : d (77 / 1024 : F) = 0 := hquotient 77 1024
 
   have h256 : d (256 : F) = 0 := d.map_natCast 256
   have h45 : d (45 : F) = 0 := d.map_natCast 45
   have h225 : d (225 : F) = 0 := d.map_natCast 225
   have h385 : d (385 : F) = 0 := d.map_natCast 385
   have h945 : d (945 : F) = 0 := d.map_natCast 945
-  have h45256 : d (45 / 256 : F) = 0 := by
-    simp [Derivation.leibniz_div, h256, h45]
-  have h452048 : d (45 / 2048 : F) = 0 := by
-    simp [Derivation.leibniz_div, h2048, h45]
+  have h45256 : d (45 / 256 : F) = 0 := hquotient 45 256
+  have h452048 : d (45 / 2048 : F) = 0 := hquotient 45 2048
   have h1894096' : d (189 / 4096 : F) = 0 := by
     simp [Derivation.leibniz_div, h4096, h189]
-  have h94532768 : d (945 / 32768 : F) = 0 := by
-    simp [Derivation.leibniz_div, h32768, h945]
-  have h38565536 : d (385 / 65536 : F) = 0 := by
-    simp [Derivation.leibniz_div, h65536n, h385]
-  have h2251024 : d (225 / 1024 : F) = 0 := by
-    simp [Derivation.leibniz_div, h1024, h225]
-  have h7256 : d (7 / 256 : F) = 0 := by
-    simp [Derivation.leibniz_div, h256, h7]
-  have h3858192 : d (385 / 8192 : F) = 0 := by
-    simp [Derivation.leibniz_div, h8192, h385]
-  have h1532 : d (15 / 32 : F) = 0 := by
-    simp [Derivation.leibniz_div, h32, h15]
+  have h94532768 : d (945 / 32768 : F) = 0 := hquotient 945 32768
+  have h38565536 : d (385 / 65536 : F) = 0 := hquotient 385 65536
+  have h2251024 : d (225 / 1024 : F) = 0 := hquotient 225 1024
+  have h7256 : d (7 / 256 : F) = 0 := hquotient 7 256
+  have h3858192 : d (385 / 8192 : F) = 0 := hquotient 385 8192
+  have h1532 : d (15 / 32 : F) = 0 := hquotient 15 32
   have h116 : d (1 / 16 : F) = 0 := by
     simp [Derivation.leibniz_inv, h16]
-  have h35256 : d (35 / 256 : F) = 0 := by
-    simp [Derivation.leibniz_div, h256, h35]
+  have h35256 : d (35 / 256 : F) = 0 := hquotient 35 256
   have hn25 : d (25 : F) = 0 := d.map_natCast 25
   have hn27 : d (27 : F) = 0 := d.map_natCast 27
   have hn49 : d (49 : F) = 0 := d.map_natCast 49
@@ -247,56 +201,31 @@ theorem omicronResidual810_deriv_zero
   have hn12075 : d (12075 : F) = 0 := d.map_natCast 12075
   have hn262144 : d (262144 : F) = 0 := d.map_natCast 262144
   have hn4194304 : d (4194304 : F) = 0 := d.map_natCast 4194304
-  have hf25_128 : d (25 / 128 : F) = 0 := by
-    simp [Derivation.leibniz_div, h128, hn25]
-  have hf27_128 : d (27 / 128 : F) = 0 := by
-    simp [Derivation.leibniz_div, h128, hn27]
-  have hf27_256 : d (27 / 256 : F) = 0 := by
-    simp [Derivation.leibniz_div, h256, hn27]
-  have hf25_512 : d (25 / 512 : F) = 0 := by
-    simp [Derivation.leibniz_div, h512, hn25]
-  have hf27_512 : d (27 / 512 : F) = 0 := by
-    simp [Derivation.leibniz_div, h512, hn27]
-  have hf75_512 : d (75 / 512 : F) = 0 := by
-    simp [Derivation.leibniz_div, h512, h75]
-  have hf45_1024 : d (45 / 1024 : F) = 0 := by
-    simp [Derivation.leibniz_div, h1024, h45]
-  have hf49_1024 : d (49 / 1024 : F) = 0 := by
-    simp [Derivation.leibniz_div, h1024, hn49]
-  have hf55_1024 : d (55 / 1024 : F) = 0 := by
-    simp [Derivation.leibniz_div, h1024, hn55]
-  have hf135_1024 : d (135 / 1024 : F) = 0 := by
-    simp [Derivation.leibniz_div, h1024, hn135]
-  have hf195_1024 : d (195 / 1024 : F) = 0 := by
-    simp [Derivation.leibniz_div, h1024, hn195]
-  have hf63_2048 : d (63 / 2048 : F) = 0 := by
-    simp [Derivation.leibniz_div, h2048, h63]
-  have hf175_2048 : d (175 / 2048 : F) = 0 := by
-    simp [Derivation.leibniz_div, h2048, hn175]
-  have hf147_4096 : d (147 / 4096 : F) = 0 := by
-    simp [Derivation.leibniz_div, h4096, hn147]
-  have hf441_4096 : d (441 / 4096 : F) = 0 := by
-    simp [Derivation.leibniz_div, h4096, h441]
-  have hf665_4096 : d (665 / 4096 : F) = 0 := by
-    simp [Derivation.leibniz_div, h4096, hn665]
-  have hf819_8192 : d (819 / 8192 : F) = 0 := by
-    simp [Derivation.leibniz_div, h8192, hn819]
-  have hf819_16384 : d (819 / 16384 : F) = 0 := by
-    simp [Derivation.leibniz_div, h16384, hn819]
-  have hf945_16384 : d (945 / 16384 : F) = 0 := by
-    simp [Derivation.leibniz_div, h16384, h945]
-  have hf825_32768 : d (825 / 32768 : F) = 0 := by
-    simp [Derivation.leibniz_div, h32768, hn825]
-  have hf1575_32768 : d (1575 / 32768 : F) = 0 := by
-    simp [Derivation.leibniz_div, h32768, hn1575]
-  have hf357_65536 : d (357 / 65536 : F) = 0 := by
-    simp [Derivation.leibniz_div, h65536n, hn357]
-  have hf1925_65536 : d (1925 / 65536 : F) = 0 := by
-    simp [Derivation.leibniz_div, h65536n, hn1925]
-  have hf5985_262144 : d (5985 / 262144 : F) = 0 := by
-    simp [Derivation.leibniz_div, hn262144, hn5985]
-  have hf12075_4194304 : d (12075 / 4194304 : F) = 0 := by
-    simp [Derivation.leibniz_div, hn4194304, hn12075]
+  have hf25_128 : d (25 / 128 : F) = 0 := hquotient 25 128
+  have hf27_128 : d (27 / 128 : F) = 0 := hquotient 27 128
+  have hf27_256 : d (27 / 256 : F) = 0 := hquotient 27 256
+  have hf25_512 : d (25 / 512 : F) = 0 := hquotient 25 512
+  have hf27_512 : d (27 / 512 : F) = 0 := hquotient 27 512
+  have hf75_512 : d (75 / 512 : F) = 0 := hquotient 75 512
+  have hf45_1024 : d (45 / 1024 : F) = 0 := hquotient 45 1024
+  have hf49_1024 : d (49 / 1024 : F) = 0 := hquotient 49 1024
+  have hf55_1024 : d (55 / 1024 : F) = 0 := hquotient 55 1024
+  have hf135_1024 : d (135 / 1024 : F) = 0 := hquotient 135 1024
+  have hf195_1024 : d (195 / 1024 : F) = 0 := hquotient 195 1024
+  have hf63_2048 : d (63 / 2048 : F) = 0 := hquotient 63 2048
+  have hf175_2048 : d (175 / 2048 : F) = 0 := hquotient 175 2048
+  have hf147_4096 : d (147 / 4096 : F) = 0 := hquotient 147 4096
+  have hf441_4096 : d (441 / 4096 : F) = 0 := hquotient 441 4096
+  have hf665_4096 : d (665 / 4096 : F) = 0 := hquotient 665 4096
+  have hf819_8192 : d (819 / 8192 : F) = 0 := hquotient 819 8192
+  have hf819_16384 : d (819 / 16384 : F) = 0 := hquotient 819 16384
+  have hf945_16384 : d (945 / 16384 : F) = 0 := hquotient 945 16384
+  have hf825_32768 : d (825 / 32768 : F) = 0 := hquotient 825 32768
+  have hf1575_32768 : d (1575 / 32768 : F) = 0 := hquotient 1575 32768
+  have hf357_65536 : d (357 / 65536 : F) = 0 := hquotient 357 65536
+  have hf1925_65536 : d (1925 / 65536 : F) = 0 := hquotient 1925 65536
+  have hf5985_262144 : d (5985 / 262144 : F) = 0 := hquotient 5985 262144
+  have hf12075_4194304 : d (12075 / 4194304 : F) = 0 := hquotient 12075 4194304
   have hm165 : d (165 : F) = 0 := d.map_natCast 165
   have hm231 : d (231 : F) = 0 := d.map_natCast 231
   have hm245 : d (245 : F) = 0 := d.map_natCast 245
@@ -307,54 +236,30 @@ theorem omicronResidual810_deriv_zero
   have hm524288 : d (524288 : F) = 0 := d.map_natCast 524288
   have hg1_32 : d (1 / 32 : F) = 0 := by
     simp [Derivation.leibniz_inv, h32]
-  have hg5_64 : d (5 / 64 : F) = 0 := by
-    simp [Derivation.leibniz_div, h64, h5]
-  have hg3_128 : d (3 / 128 : F) = 0 := by
-    simp [Derivation.leibniz_div, h128, h3]
-  have hg15_256 : d (15 / 256 : F) = 0 := by
-    simp [Derivation.leibniz_div, h256, h15]
-  have hg21_256 : d (21 / 256 : F) = 0 := by
-    simp [Derivation.leibniz_div, h256, h21]
-  have hg45_512 : d (45 / 512 : F) = 0 := by
-    simp [Derivation.leibniz_div, h512, h45]
-  have hg49_512 : d (49 / 512 : F) = 0 := by
-    simp [Derivation.leibniz_div, h512, hn49]
-  have hg105_512 : d (105 / 512 : F) = 0 := by
-    simp [Derivation.leibniz_div, h512, h105]
-  have hg165_512 : d (165 / 512 : F) = 0 := by
-    simp [Derivation.leibniz_div, h512, hm165]
-  have hg9_1024 : d (9 / 1024 : F) = 0 := by
-    simp [Derivation.leibniz_div, h1024, h9]
-  have hg35_1024 : d (35 / 1024 : F) = 0 := by
-    simp [Derivation.leibniz_div, h1024, h35]
-  have hg165_2048 : d (165 / 2048 : F) = 0 := by
-    simp [Derivation.leibniz_div, h2048, hm165]
-  have hg189_2048 : d (189 / 2048 : F) = 0 := by
-    simp [Derivation.leibniz_div, h2048, h189]
-  have hg315_4096 : d (315 / 4096 : F) = 0 := by
-    simp [Derivation.leibniz_div, h4096, h315]
-  have hg525_4096 : d (525 / 4096 : F) = 0 := by
-    simp [Derivation.leibniz_div, h4096, hm525]
-  have hg189_8192 : d (189 / 8192 : F) = 0 := by
-    simp [Derivation.leibniz_div, h8192, h189]
-  have hg231_8192 : d (231 / 8192 : F) = 0 := by
-    simp [Derivation.leibniz_div, h8192, hm231]
-  have hg245_8192 : d (245 / 8192 : F) = 0 := by
-    simp [Derivation.leibniz_div, h8192, hm245]
-  have hg693_8192 : d (693 / 8192 : F) = 0 := by
-    simp [Derivation.leibniz_div, h8192, hm693]
-  have hg357_16384 : d (357 / 16384 : F) = 0 := by
-    simp [Derivation.leibniz_div, h16384, hn357]
-  have hg385_16384 : d (385 / 16384 : F) = 0 := by
-    simp [Derivation.leibniz_div, h16384, h385]
-  have hg1925_32768 : d (1925 / 32768 : F) = 0 := by
-    simp [Derivation.leibniz_div, h32768, hn1925]
-  have hg165_65536 : d (165 / 65536 : F) = 0 := by
-    simp [Derivation.leibniz_div, h65536n, hm165]
-  have hg4725_262144 : d (4725 / 262144 : F) = 0 := by
-    simp [Derivation.leibniz_div, hn262144, hm4725]
-  have hg7245_524288 : d (7245 / 524288 : F) = 0 := by
-    simp [Derivation.leibniz_div, hm524288, hm7245]
+  have hg5_64 : d (5 / 64 : F) = 0 := hquotient 5 64
+  have hg3_128 : d (3 / 128 : F) = 0 := hquotient 3 128
+  have hg15_256 : d (15 / 256 : F) = 0 := hquotient 15 256
+  have hg21_256 : d (21 / 256 : F) = 0 := hquotient 21 256
+  have hg45_512 : d (45 / 512 : F) = 0 := hquotient 45 512
+  have hg49_512 : d (49 / 512 : F) = 0 := hquotient 49 512
+  have hg105_512 : d (105 / 512 : F) = 0 := hquotient 105 512
+  have hg165_512 : d (165 / 512 : F) = 0 := hquotient 165 512
+  have hg9_1024 : d (9 / 1024 : F) = 0 := hquotient 9 1024
+  have hg35_1024 : d (35 / 1024 : F) = 0 := hquotient 35 1024
+  have hg165_2048 : d (165 / 2048 : F) = 0 := hquotient 165 2048
+  have hg189_2048 : d (189 / 2048 : F) = 0 := hquotient 189 2048
+  have hg315_4096 : d (315 / 4096 : F) = 0 := hquotient 315 4096
+  have hg525_4096 : d (525 / 4096 : F) = 0 := hquotient 525 4096
+  have hg189_8192 : d (189 / 8192 : F) = 0 := hquotient 189 8192
+  have hg231_8192 : d (231 / 8192 : F) = 0 := hquotient 231 8192
+  have hg245_8192 : d (245 / 8192 : F) = 0 := hquotient 245 8192
+  have hg693_8192 : d (693 / 8192 : F) = 0 := hquotient 693 8192
+  have hg357_16384 : d (357 / 16384 : F) = 0 := hquotient 357 16384
+  have hg385_16384 : d (385 / 16384 : F) = 0 := hquotient 385 16384
+  have hg1925_32768 : d (1925 / 32768 : F) = 0 := hquotient 1925 32768
+  have hg165_65536 : d (165 / 65536 : F) = 0 := hquotient 165 65536
+  have hg4725_262144 : d (4725 / 262144 : F) = 0 := hquotient 4725 262144
+  have hg7245_524288 : d (7245 / 524288 : F) = 0 := hquotient 7245 524288
   have hq11 : d (11 : F) = 0 := d.map_natCast 11
   have hq33 : d (33 : F) = 0 := d.map_natCast 33
   have hq99 : d (99 : F) = 0 := d.map_natCast 99
@@ -385,100 +290,53 @@ theorem omicronResidual810_deriv_zero
   have hq1048576 : d (1048576 : F) = 0 := d.map_natCast 1048576
   have hq2097152 : d (2097152 : F) = 0 := d.map_natCast 2097152
   have hq33554432 : d (33554432 : F) = 0 := d.map_natCast 33554432
-  have ho3_64 : d (3 / 64 : F) = 0 := by
-    simp [Derivation.leibniz_div, h64, h3]
-  have ho9_256 : d (9 / 256 : F) = 0 := by
-    simp [Derivation.leibniz_div, h256, h9]
-  have ho7_512 : d (7 / 512 : F) = 0 := by
-    simp [Derivation.leibniz_div, h512, h7]
-  have ho15_512 : d (15 / 512 : F) = 0 := by
-    simp [Derivation.leibniz_div, h512, h15]
-  have ho21_512 : d (21 / 512 : F) = 0 := by
-    simp [Derivation.leibniz_div, h512, h21]
-  have ho33_512 : d (33 / 512 : F) = 0 := by
-    simp [Derivation.leibniz_div, h512, hq33]
-  have ho11_1024 : d (11 / 1024 : F) = 0 := by
-    simp [Derivation.leibniz_div, h1024, hq11]
-  have ho27_1024 : d (27 / 1024 : F) = 0 := by
-    simp [Derivation.leibniz_div, h1024, hn27]
-  have ho81_2048 : d (81 / 2048 : F) = 0 := by
-    simp [Derivation.leibniz_div, h2048, h81]
-  have ho195_2048 : d (195 / 2048 : F) = 0 := by
-    simp [Derivation.leibniz_div, h2048, hn195]
-  have ho225_2048 : d (225 / 2048 : F) = 0 := by
-    simp [Derivation.leibniz_div, h2048, h225]
-  have ho261_2048 : d (261 / 2048 : F) = 0 := by
-    simp [Derivation.leibniz_div, h2048, hq261]
-  have ho21_4096 : d (21 / 4096 : F) = 0 := by
-    simp [Derivation.leibniz_div, h4096, h21]
-  have ho135_4096 : d (135 / 4096 : F) = 0 := by
-    simp [Derivation.leibniz_div, h4096, hn135]
-  have ho207_4096 : d (207 / 4096 : F) = 0 := by
-    simp [Derivation.leibniz_div, h4096, hq207]
-  have ho225_4096 : d (225 / 4096 : F) = 0 := by
-    simp [Derivation.leibniz_div, h4096, h225]
-  have ho273_4096 : d (273 / 4096 : F) = 0 := by
-    simp [Derivation.leibniz_div, h4096, hq273]
-  have ho567_4096 : d (567 / 4096 : F) = 0 := by
-    simp [Derivation.leibniz_div, h4096, hq567]
-  have ho99_8192 : d (99 / 8192 : F) = 0 := by
-    simp [Derivation.leibniz_div, h8192, hq99]
-  have ho147_8192 : d (147 / 8192 : F) = 0 := by
-    simp [Derivation.leibniz_div, h8192, hn147]
-  have ho273_8192 : d (273 / 8192 : F) = 0 := by
-    simp [Derivation.leibniz_div, h8192, hq273]
-  have ho477_8192 : d (477 / 8192 : F) = 0 := by
-    simp [Derivation.leibniz_div, h8192, hq477]
-  have ho567_8192 : d (567 / 8192 : F) = 0 := by
-    simp [Derivation.leibniz_div, h8192, hq567]
-  have ho725_8192 : d (725 / 8192 : F) = 0 := by
-    simp [Derivation.leibniz_div, h8192, hq725]
-  have ho795_8192 : d (795 / 8192 : F) = 0 := by
-    simp [Derivation.leibniz_div, h8192, hq795]
-  have ho305_16384 : d (305 / 16384 : F) = 0 := by
-    simp [Derivation.leibniz_div, h16384, hq305]
-  have ho495_16384 : d (495 / 16384 : F) = 0 := by
-    simp [Derivation.leibniz_div, h16384, hq495]
-  have ho567_16384 : d (567 / 16384 : F) = 0 := by
-    simp [Derivation.leibniz_div, h16384, hq567]
-  have ho1365_16384 : d (1365 / 16384 : F) = 0 := by
-    simp [Derivation.leibniz_div, h16384, hq1365]
-  have ho2475_16384 : d (2475 / 16384 : F) = 0 := by
-    simp [Derivation.leibniz_div, h16384, hq2475]
-  have ho189_32768 : d (189 / 32768 : F) = 0 := by
-    simp [Derivation.leibniz_div, h32768, h189]
-  have ho495_32768 : d (495 / 32768 : F) = 0 := by
-    simp [Derivation.leibniz_div, h32768, hq495]
-  have ho525_32768 : d (525 / 32768 : F) = 0 := by
-    simp [Derivation.leibniz_div, h32768, hm525]
-  have ho945_65536 : d (945 / 65536 : F) = 0 := by
-    simp [Derivation.leibniz_div, h65536n, h945]
-  have ho3591_65536 : d (3591 / 65536 : F) = 0 := by
-    simp [Derivation.leibniz_div, h65536n, hq3591]
-  have ho3745_65536 : d (3745 / 65536 : F) = 0 := by
-    simp [Derivation.leibniz_div, h65536n, hq3745]
-  have ho1089_131072 : d (1089 / 131072 : F) = 0 := by
-    simp [Derivation.leibniz_div, hq131072, hq1089]
-  have ho1953_131072 : d (1953 / 131072 : F) = 0 := by
-    simp [Derivation.leibniz_div, hq131072, hq1953]
-  have ho3591_131072 : d (3591 / 131072 : F) = 0 := by
-    simp [Derivation.leibniz_div, hq131072, hq3591]
-  have ho4095_131072 : d (4095 / 131072 : F) = 0 := by
-    simp [Derivation.leibniz_div, hq131072, hq4095]
-  have ho11151_131072 : d (11151 / 131072 : F) = 0 := by
-    simp [Derivation.leibniz_div, hq131072, hq11151]
-  have ho3087_262144 : d (3087 / 262144 : F) = 0 := by
-    simp [Derivation.leibniz_div, hn262144, hq3087]
-  have ho12705_1048576 : d (12705 / 1048576 : F) = 0 := by
-    simp [Derivation.leibniz_div, hq1048576, hq12705]
-  have ho3927_2097152 : d (3927 / 2097152 : F) = 0 := by
-    simp [Derivation.leibniz_div, hq2097152, hq3927]
-  have ho19845_2097152 : d (19845 / 2097152 : F) = 0 := by
-    simp [Derivation.leibniz_div, hq2097152, hq19845]
-  have ho103005_4194304 : d (103005 / 4194304 : F) = 0 := by
-    simp [Derivation.leibniz_div, hn4194304, hq103005]
-  have ho34155_33554432 : d (34155 / 33554432 : F) = 0 := by
-    simp [Derivation.leibniz_div, hq33554432, hq34155]
+  have ho3_64 : d (3 / 64 : F) = 0 := hquotient 3 64
+  have ho9_256 : d (9 / 256 : F) = 0 := hquotient 9 256
+  have ho7_512 : d (7 / 512 : F) = 0 := hquotient 7 512
+  have ho15_512 : d (15 / 512 : F) = 0 := hquotient 15 512
+  have ho21_512 : d (21 / 512 : F) = 0 := hquotient 21 512
+  have ho33_512 : d (33 / 512 : F) = 0 := hquotient 33 512
+  have ho11_1024 : d (11 / 1024 : F) = 0 := hquotient 11 1024
+  have ho27_1024 : d (27 / 1024 : F) = 0 := hquotient 27 1024
+  have ho81_2048 : d (81 / 2048 : F) = 0 := hquotient 81 2048
+  have ho195_2048 : d (195 / 2048 : F) = 0 := hquotient 195 2048
+  have ho225_2048 : d (225 / 2048 : F) = 0 := hquotient 225 2048
+  have ho261_2048 : d (261 / 2048 : F) = 0 := hquotient 261 2048
+  have ho21_4096 : d (21 / 4096 : F) = 0 := hquotient 21 4096
+  have ho135_4096 : d (135 / 4096 : F) = 0 := hquotient 135 4096
+  have ho207_4096 : d (207 / 4096 : F) = 0 := hquotient 207 4096
+  have ho225_4096 : d (225 / 4096 : F) = 0 := hquotient 225 4096
+  have ho273_4096 : d (273 / 4096 : F) = 0 := hquotient 273 4096
+  have ho567_4096 : d (567 / 4096 : F) = 0 := hquotient 567 4096
+  have ho99_8192 : d (99 / 8192 : F) = 0 := hquotient 99 8192
+  have ho147_8192 : d (147 / 8192 : F) = 0 := hquotient 147 8192
+  have ho273_8192 : d (273 / 8192 : F) = 0 := hquotient 273 8192
+  have ho477_8192 : d (477 / 8192 : F) = 0 := hquotient 477 8192
+  have ho567_8192 : d (567 / 8192 : F) = 0 := hquotient 567 8192
+  have ho725_8192 : d (725 / 8192 : F) = 0 := hquotient 725 8192
+  have ho795_8192 : d (795 / 8192 : F) = 0 := hquotient 795 8192
+  have ho305_16384 : d (305 / 16384 : F) = 0 := hquotient 305 16384
+  have ho495_16384 : d (495 / 16384 : F) = 0 := hquotient 495 16384
+  have ho567_16384 : d (567 / 16384 : F) = 0 := hquotient 567 16384
+  have ho1365_16384 : d (1365 / 16384 : F) = 0 := hquotient 1365 16384
+  have ho2475_16384 : d (2475 / 16384 : F) = 0 := hquotient 2475 16384
+  have ho189_32768 : d (189 / 32768 : F) = 0 := hquotient 189 32768
+  have ho495_32768 : d (495 / 32768 : F) = 0 := hquotient 495 32768
+  have ho525_32768 : d (525 / 32768 : F) = 0 := hquotient 525 32768
+  have ho945_65536 : d (945 / 65536 : F) = 0 := hquotient 945 65536
+  have ho3591_65536 : d (3591 / 65536 : F) = 0 := hquotient 3591 65536
+  have ho3745_65536 : d (3745 / 65536 : F) = 0 := hquotient 3745 65536
+  have ho1089_131072 : d (1089 / 131072 : F) = 0 := hquotient 1089 131072
+  have ho1953_131072 : d (1953 / 131072 : F) = 0 := hquotient 1953 131072
+  have ho3591_131072 : d (3591 / 131072 : F) = 0 := hquotient 3591 131072
+  have ho4095_131072 : d (4095 / 131072 : F) = 0 := hquotient 4095 131072
+  have ho11151_131072 : d (11151 / 131072 : F) = 0 := hquotient 11151 131072
+  have ho3087_262144 : d (3087 / 262144 : F) = 0 := hquotient 3087 262144
+  have ho12705_1048576 : d (12705 / 1048576 : F) = 0 := hquotient 12705 1048576
+  have ho3927_2097152 : d (3927 / 2097152 : F) = 0 := hquotient 3927 2097152
+  have ho19845_2097152 : d (19845 / 2097152 : F) = 0 := hquotient 19845 2097152
+  have ho103005_4194304 : d (103005 / 4194304 : F) = 0 := hquotient 103005 4194304
+  have ho34155_33554432 : d (34155 / 33554432 : F) = 0 := hquotient 34155 33554432
   have _hiota := hiota
   have hPderiv : d P = (5 / 4 : F) * d A := by
     have halpha' : d P - (5 / 4 : F) * d A = 0 := by

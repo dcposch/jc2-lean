@@ -14,6 +14,7 @@ section HighACone610
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 theorem uniqueHighA_impossible_of_l_ne610
     (l alpha beta delta epsilon zeta eta theta j : k)
     (A B C0 D0 E0 : k[X]) (hl : l ≠ 0) (hj : j ≠ 0)

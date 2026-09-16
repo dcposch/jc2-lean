@@ -113,8 +113,18 @@ theorem kappaQuarticColumnL810_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd0,
+    by simpa only [Nat.add_assoc] using hd1,
+    by simpa only [Nat.add_assoc] using hd2,
+    by simpa only [Nat.add_assoc] using hd3,
+    by simpa only [Nat.add_assoc] using hd4,
+    by simpa only [Nat.add_assoc] using hd5,
+    by simpa only [Nat.add_assoc] using hd6,
+    by simpa only [Nat.add_assoc] using hd7,
+    by simpa only [Nat.add_assoc] using hd8,
+    by simpa only [Nat.add_assoc] using hd9,
+    by simpa only [Nat.add_assoc] using hd10,
+    lt_of_le_of_lt (Nat.zero_le _) hd0⟩
 
 theorem kappaQuarticColumnL810_zero (A B C D E F G : k[X]) :
     kappaQuarticColumnL810 0 A B C D E F G = 0 := by
@@ -178,8 +188,14 @@ theorem kappaQuarticColumnBeta810_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd0,
+    by simpa only [Nat.add_assoc] using hd1,
+    by simpa only [Nat.add_assoc] using hd2,
+    by simpa only [Nat.add_assoc] using hd3,
+    by simpa only [Nat.add_assoc] using hd4,
+    by simpa only [Nat.add_assoc] using hd5,
+    by simpa only [Nat.add_assoc] using hd6,
+    lt_of_le_of_lt (Nat.zero_le _) hd0⟩
 
 theorem kappaQuarticColumnBeta810_zero (A B C D E F G : k[X]) :
     kappaQuarticColumnBeta810 0 A B C D E F G = 0 := by
@@ -230,8 +246,9 @@ theorem kappaQuarticColumnGamma810_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd0,
+    by simpa only [Nat.add_assoc] using hd1,
+    lt_of_le_of_lt (Nat.zero_le _) hd0⟩
 
 theorem kappaQuarticColumnGamma810_zero (A B C D E F G : k[X]) :
     kappaQuarticColumnGamma810 0 A B C D E F G = 0 := by
@@ -287,8 +304,11 @@ theorem kappaQuarticColumnDelta810_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd0,
+    by simpa only [Nat.add_assoc] using hd1,
+    by simpa only [Nat.add_assoc] using hd2,
+    by simpa only [Nat.add_assoc] using hd3,
+    lt_of_le_of_lt (Nat.zero_le _) hd0⟩
 
 theorem kappaQuarticColumnDelta810_zero (A B C D E F G : k[X]) :
     kappaQuarticColumnDelta810 0 A B C D E F G = 0 := by
@@ -337,8 +357,8 @@ theorem kappaQuarticColumnEpsilon810_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd0,
+    lt_of_le_of_lt (Nat.zero_le _) hd0⟩
 
 theorem kappaQuarticColumnEpsilon810_zero (A B C D E F G : k[X]) :
     kappaQuarticColumnEpsilon810 0 A B C D E F G = 0 := by
@@ -389,8 +409,9 @@ theorem kappaQuarticColumnZeta810_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd0,
+    by simpa only [Nat.add_assoc] using hd1,
+    lt_of_le_of_lt (Nat.zero_le _) hd0⟩
 
 theorem kappaQuarticColumnZeta810_zero (A B C D E F G : k[X]) :
     kappaQuarticColumnZeta810 0 A B C D E F G = 0 := by
@@ -439,8 +460,8 @@ theorem kappaQuarticColumnEta810_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd0,
+    lt_of_le_of_lt (Nat.zero_le _) hd0⟩
 
 theorem kappaQuarticColumnEta810_zero (A B C D E F G : k[X]) :
     kappaQuarticColumnEta810 0 A B C D E F G = 0 := by
@@ -489,8 +510,8 @@ theorem kappaQuarticColumnTheta810_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd0,
+    lt_of_le_of_lt (Nat.zero_le _) hd0⟩
 
 theorem kappaQuarticColumnTheta810_zero (A B C D E F G : k[X]) :
     kappaQuarticColumnTheta810 0 A B C D E F G = 0 := by
@@ -602,8 +623,19 @@ theorem muQuarticColumnL810_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd0,
+    by simpa only [Nat.add_assoc] using hd1,
+    by simpa only [Nat.add_assoc] using hd2,
+    by simpa only [Nat.add_assoc] using hd3,
+    by simpa only [Nat.add_assoc] using hd4,
+    by simpa only [Nat.add_assoc] using hd5,
+    by simpa only [Nat.add_assoc] using hd6,
+    by simpa only [Nat.add_assoc] using hd7,
+    by simpa only [Nat.add_assoc] using hd8,
+    by simpa only [Nat.add_assoc] using hd9,
+    by simpa only [Nat.add_assoc] using hd10,
+    by simpa only [Nat.add_assoc] using hd11,
+    lt_of_le_of_lt (Nat.zero_le _) hd0⟩
 
 theorem muQuarticColumnL810_zero (A B C D E F G : k[X]) :
     muQuarticColumnL810 0 A B C D E F G = 0 := by
@@ -667,8 +699,14 @@ theorem muQuarticColumnBeta810_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd0,
+    by simpa only [Nat.add_assoc] using hd1,
+    by simpa only [Nat.add_assoc] using hd2,
+    by simpa only [Nat.add_assoc] using hd3,
+    by simpa only [Nat.add_assoc] using hd4,
+    by simpa only [Nat.add_assoc] using hd5,
+    by simpa only [Nat.add_assoc] using hd6,
+    lt_of_le_of_lt (Nat.zero_le _) hd0⟩
 
 theorem muQuarticColumnBeta810_zero (A B C D E F G : k[X]) :
     muQuarticColumnBeta810 0 A B C D E F G = 0 := by
@@ -724,8 +762,11 @@ theorem muQuarticColumnGamma810_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd0,
+    by simpa only [Nat.add_assoc] using hd1,
+    by simpa only [Nat.add_assoc] using hd2,
+    by simpa only [Nat.add_assoc] using hd3,
+    lt_of_le_of_lt (Nat.zero_le _) hd0⟩
 
 theorem muQuarticColumnGamma810_zero (A B C D E F G : k[X]) :
     muQuarticColumnGamma810 0 A B C D E F G = 0 := by
@@ -781,8 +822,11 @@ theorem muQuarticColumnDelta810_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd0,
+    by simpa only [Nat.add_assoc] using hd1,
+    by simpa only [Nat.add_assoc] using hd2,
+    by simpa only [Nat.add_assoc] using hd3,
+    lt_of_le_of_lt (Nat.zero_le _) hd0⟩
 
 theorem muQuarticColumnDelta810_zero (A B C D E F G : k[X]) :
     muQuarticColumnDelta810 0 A B C D E F G = 0 := by
@@ -833,8 +877,9 @@ theorem muQuarticColumnEpsilon810_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd0,
+    by simpa only [Nat.add_assoc] using hd1,
+    lt_of_le_of_lt (Nat.zero_le _) hd0⟩
 
 theorem muQuarticColumnEpsilon810_zero (A B C D E F G : k[X]) :
     muQuarticColumnEpsilon810 0 A B C D E F G = 0 := by
@@ -885,8 +930,9 @@ theorem muQuarticColumnZeta810_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd0,
+    by simpa only [Nat.add_assoc] using hd1,
+    lt_of_le_of_lt (Nat.zero_le _) hd0⟩
 
 theorem muQuarticColumnZeta810_zero (A B C D E F G : k[X]) :
     muQuarticColumnZeta810 0 A B C D E F G = 0 := by
@@ -935,8 +981,8 @@ theorem muQuarticColumnEta810_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd0,
+    lt_of_le_of_lt (Nat.zero_le _) hd0⟩
 
 theorem muQuarticColumnEta810_zero (A B C D E F G : k[X]) :
     muQuarticColumnEta810 0 A B C D E F G = 0 := by
@@ -985,8 +1031,8 @@ theorem muQuarticColumnTheta810_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd0,
+    lt_of_le_of_lt (Nat.zero_le _) hd0⟩
 
 theorem muQuarticColumnTheta810_zero (A B C D E F G : k[X]) :
     muQuarticColumnTheta810 0 A B C D E F G = 0 := by
@@ -1115,8 +1161,24 @@ theorem xiQuarticColumnL810_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd0,
+    by simpa only [Nat.add_assoc] using hd1,
+    by simpa only [Nat.add_assoc] using hd2,
+    by simpa only [Nat.add_assoc] using hd3,
+    by simpa only [Nat.add_assoc] using hd4,
+    by simpa only [Nat.add_assoc] using hd5,
+    by simpa only [Nat.add_assoc] using hd6,
+    by simpa only [Nat.add_assoc] using hd7,
+    by simpa only [Nat.add_assoc] using hd8,
+    by simpa only [Nat.add_assoc] using hd9,
+    by simpa only [Nat.add_assoc] using hd10,
+    by simpa only [Nat.add_assoc] using hd11,
+    by simpa only [Nat.add_assoc] using hd12,
+    by simpa only [Nat.add_assoc] using hd13,
+    by simpa only [Nat.add_assoc] using hd14,
+    by simpa only [Nat.add_assoc] using hd15,
+    by simpa only [Nat.add_assoc] using hd16,
+    lt_of_le_of_lt (Nat.zero_le _) hd0⟩
 
 theorem xiQuarticColumnL810_zero (A B C D E F G : k[X]) :
     xiQuarticColumnL810 0 A B C D E F G = 0 := by
@@ -1188,8 +1250,17 @@ theorem xiQuarticColumnBeta810_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd0,
+    by simpa only [Nat.add_assoc] using hd1,
+    by simpa only [Nat.add_assoc] using hd2,
+    by simpa only [Nat.add_assoc] using hd3,
+    by simpa only [Nat.add_assoc] using hd4,
+    by simpa only [Nat.add_assoc] using hd5,
+    by simpa only [Nat.add_assoc] using hd6,
+    by simpa only [Nat.add_assoc] using hd7,
+    by simpa only [Nat.add_assoc] using hd8,
+    by simpa only [Nat.add_assoc] using hd9,
+    lt_of_le_of_lt (Nat.zero_le _) hd0⟩
 
 theorem xiQuarticColumnBeta810_zero (A B C D E F G : k[X]) :
     xiQuarticColumnBeta810 0 A B C D E F G = 0 := by
@@ -1248,8 +1319,12 @@ theorem xiQuarticColumnGamma810_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd0,
+    by simpa only [Nat.add_assoc] using hd1,
+    by simpa only [Nat.add_assoc] using hd2,
+    by simpa only [Nat.add_assoc] using hd3,
+    by simpa only [Nat.add_assoc] using hd4,
+    lt_of_le_of_lt (Nat.zero_le _) hd0⟩
 
 theorem xiQuarticColumnGamma810_zero (A B C D E F G : k[X]) :
     xiQuarticColumnGamma810 0 A B C D E F G = 0 := by
@@ -1310,8 +1385,13 @@ theorem xiQuarticColumnDelta810_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd0,
+    by simpa only [Nat.add_assoc] using hd1,
+    by simpa only [Nat.add_assoc] using hd2,
+    by simpa only [Nat.add_assoc] using hd3,
+    by simpa only [Nat.add_assoc] using hd4,
+    by simpa only [Nat.add_assoc] using hd5,
+    lt_of_le_of_lt (Nat.zero_le _) hd0⟩
 
 theorem xiQuarticColumnDelta810_zero (A B C D E F G : k[X]) :
     xiQuarticColumnDelta810 0 A B C D E F G = 0 := by
@@ -1367,8 +1447,11 @@ theorem xiQuarticColumnEpsilon810_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd0,
+    by simpa only [Nat.add_assoc] using hd1,
+    by simpa only [Nat.add_assoc] using hd2,
+    by simpa only [Nat.add_assoc] using hd3,
+    lt_of_le_of_lt (Nat.zero_le _) hd0⟩
 
 theorem xiQuarticColumnEpsilon810_zero (A B C D E F G : k[X]) :
     xiQuarticColumnEpsilon810 0 A B C D E F G = 0 := by
@@ -1421,8 +1504,10 @@ theorem xiQuarticColumnZeta810_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd0,
+    by simpa only [Nat.add_assoc] using hd1,
+    by simpa only [Nat.add_assoc] using hd2,
+    lt_of_le_of_lt (Nat.zero_le _) hd0⟩
 
 theorem xiQuarticColumnZeta810_zero (A B C D E F G : k[X]) :
     xiQuarticColumnZeta810 0 A B C D E F G = 0 := by
@@ -1473,8 +1558,9 @@ theorem xiQuarticColumnEta810_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd0,
+    by simpa only [Nat.add_assoc] using hd1,
+    lt_of_le_of_lt (Nat.zero_le _) hd0⟩
 
 theorem xiQuarticColumnEta810_zero (A B C D E F G : k[X]) :
     xiQuarticColumnEta810 0 A B C D E F G = 0 := by
@@ -1523,8 +1609,8 @@ theorem xiQuarticColumnTheta810_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd0,
+    lt_of_le_of_lt (Nat.zero_le _) hd0⟩
 
 theorem xiQuarticColumnTheta810_zero (A B C D E F G : k[X]) :
     xiQuarticColumnTheta810 0 A B C D E F G = 0 := by
@@ -1668,8 +1754,27 @@ theorem piQuarticColumnL1810_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd0,
+    by simpa only [Nat.add_assoc] using hd1,
+    by simpa only [Nat.add_assoc] using hd2,
+    by simpa only [Nat.add_assoc] using hd3,
+    by simpa only [Nat.add_assoc] using hd4,
+    by simpa only [Nat.add_assoc] using hd5,
+    by simpa only [Nat.add_assoc] using hd6,
+    by simpa only [Nat.add_assoc] using hd7,
+    by simpa only [Nat.add_assoc] using hd8,
+    by simpa only [Nat.add_assoc] using hd9,
+    by simpa only [Nat.add_assoc] using hd10,
+    by simpa only [Nat.add_assoc] using hd11,
+    by simpa only [Nat.add_assoc] using hd12,
+    by simpa only [Nat.add_assoc] using hd13,
+    by simpa only [Nat.add_assoc] using hd14,
+    by simpa only [Nat.add_assoc] using hd15,
+    by simpa only [Nat.add_assoc] using hd16,
+    by simpa only [Nat.add_assoc] using hd17,
+    by simpa only [Nat.add_assoc] using hd18,
+    by simpa only [Nat.add_assoc] using hd19,
+    lt_of_le_of_lt (Nat.zero_le _) hd0⟩
 
 theorem piQuarticColumnL1810_zero (A B C D E F G : k[X]) :
     piQuarticColumnL1810 0 A B C D E F G = 0 := by
@@ -1730,8 +1835,13 @@ theorem piQuarticColumnL2810_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd0,
+    by simpa only [Nat.add_assoc] using hd1,
+    by simpa only [Nat.add_assoc] using hd2,
+    by simpa only [Nat.add_assoc] using hd3,
+    by simpa only [Nat.add_assoc] using hd4,
+    by simpa only [Nat.add_assoc] using hd5,
+    lt_of_le_of_lt (Nat.zero_le _) hd0⟩
 
 theorem piQuarticColumnL2810_zero (A B C D E F G : k[X]) :
     piQuarticColumnL2810 0 A B C D E F G = 0 := by
@@ -1808,8 +1918,15 @@ theorem piQuarticColumnBeta810a_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd0,
+    by simpa only [Nat.add_assoc] using hd1,
+    by simpa only [Nat.add_assoc] using hd2,
+    by simpa only [Nat.add_assoc] using hd3,
+    by simpa only [Nat.add_assoc] using hd4,
+    by simpa only [Nat.add_assoc] using hd5,
+    by simpa only [Nat.add_assoc] using hd6,
+    by simpa only [Nat.add_assoc] using hd7,
+    lt_of_le_of_lt (Nat.zero_le _) hd0⟩
 
 set_option maxHeartbeats 64000000 in
 /-- Reflected monomial data for `piQuarticColumnBeta810b` (7 monomials).
@@ -1856,8 +1973,14 @@ theorem piQuarticColumnBeta810b_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd8,
+    by simpa only [Nat.add_assoc] using hd9,
+    by simpa only [Nat.add_assoc] using hd10,
+    by simpa only [Nat.add_assoc] using hd11,
+    by simpa only [Nat.add_assoc] using hd12,
+    by simpa only [Nat.add_assoc] using hd13,
+    by simpa only [Nat.add_assoc] using hd14,
+    lt_of_le_of_lt (Nat.zero_le _) hd8⟩
 
 def piQuarticColumnBeta810
     (beta : k)
@@ -1973,8 +2096,15 @@ theorem piQuarticColumnGamma810_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd0,
+    by simpa only [Nat.add_assoc] using hd1,
+    by simpa only [Nat.add_assoc] using hd2,
+    by simpa only [Nat.add_assoc] using hd3,
+    by simpa only [Nat.add_assoc] using hd4,
+    by simpa only [Nat.add_assoc] using hd5,
+    by simpa only [Nat.add_assoc] using hd6,
+    by simpa only [Nat.add_assoc] using hd7,
+    lt_of_le_of_lt (Nat.zero_le _) hd0⟩
 
 theorem piQuarticColumnGamma810_zero (A B C D E F G : k[X]) :
     piQuarticColumnGamma810 0 A B C D E F G = 0 := by
@@ -2043,8 +2173,16 @@ theorem piQuarticColumnDelta810_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd0,
+    by simpa only [Nat.add_assoc] using hd1,
+    by simpa only [Nat.add_assoc] using hd2,
+    by simpa only [Nat.add_assoc] using hd3,
+    by simpa only [Nat.add_assoc] using hd4,
+    by simpa only [Nat.add_assoc] using hd5,
+    by simpa only [Nat.add_assoc] using hd6,
+    by simpa only [Nat.add_assoc] using hd7,
+    by simpa only [Nat.add_assoc] using hd8,
+    lt_of_le_of_lt (Nat.zero_le _) hd0⟩
 
 theorem piQuarticColumnDelta810_zero (A B C D E F G : k[X]) :
     piQuarticColumnDelta810 0 A B C D E F G = 0 := by
@@ -2103,8 +2241,12 @@ theorem piQuarticColumnEpsilon810_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd0,
+    by simpa only [Nat.add_assoc] using hd1,
+    by simpa only [Nat.add_assoc] using hd2,
+    by simpa only [Nat.add_assoc] using hd3,
+    by simpa only [Nat.add_assoc] using hd4,
+    lt_of_le_of_lt (Nat.zero_le _) hd0⟩
 
 theorem piQuarticColumnEpsilon810_zero (A B C D E F G : k[X]) :
     piQuarticColumnEpsilon810 0 A B C D E F G = 0 := by
@@ -2163,8 +2305,12 @@ theorem piQuarticColumnZeta810_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd0,
+    by simpa only [Nat.add_assoc] using hd1,
+    by simpa only [Nat.add_assoc] using hd2,
+    by simpa only [Nat.add_assoc] using hd3,
+    by simpa only [Nat.add_assoc] using hd4,
+    lt_of_le_of_lt (Nat.zero_le _) hd0⟩
 
 theorem piQuarticColumnZeta810_zero (A B C D E F G : k[X]) :
     piQuarticColumnZeta810 0 A B C D E F G = 0 := by
@@ -2220,8 +2366,11 @@ theorem piQuarticColumnEta810_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd0,
+    by simpa only [Nat.add_assoc] using hd1,
+    by simpa only [Nat.add_assoc] using hd2,
+    by simpa only [Nat.add_assoc] using hd3,
+    lt_of_le_of_lt (Nat.zero_le _) hd0⟩
 
 theorem piQuarticColumnEta810_zero (A B C D E F G : k[X]) :
     piQuarticColumnEta810 0 A B C D E F G = 0 := by
@@ -2272,8 +2421,9 @@ theorem piQuarticColumnTheta810_natDegree_lt
     Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
     max_lt_iff]
-  repeat' apply And.intro
-  all_goals omega
+  exact ⟨by simpa only [Nat.add_assoc] using hd0,
+    by simpa only [Nat.add_assoc] using hd1,
+    lt_of_le_of_lt (Nat.zero_le _) hd0⟩
 
 theorem piQuarticColumnTheta810_zero (A B C D E F G : k[X]) :
     piQuarticColumnTheta810 0 A B C D E F G = 0 := by

@@ -12,7 +12,7 @@ section BridgeKappaDepressedRows610
 
 variable {k F : Type*} [Field k] [Field F] [Algebra k F] [CharZero F]
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem bridgeThetaResidual610_deriv_zero
     (d : Derivation k F F) (L A B C0 D0 E0 P Q R S0 T0 U0 W0 : F)
     (hL : d L = 0)
@@ -306,6 +306,7 @@ section BridgeKappaJet610
 
 variable {R : Type*} [CommRing R]
 
+set_option maxHeartbeats 64000000 in
 /-- Order-`48` head of the jet-substituted cleared `κ` defect: the
 coefficient of `h⁴⁸` after the fifteenth-face jet `p₅ = h⁵ w₁`,
 `p₄ = h³ a₄₁`, `p₃ = h p₃₁`, `q₈ = h⁷ s₁`, `q₇ = h⁵ u₁`, `q₆ = h⁴ b₆₂`,
@@ -330,7 +331,7 @@ section BridgeKappaDepressedRows610
 
 variable {k F : Type*} [Field k] [Field F] [Algebra k F] [CharZero F]
 
-set_option maxHeartbeats 80000000 in
+set_option maxHeartbeats 64000000 in
 theorem bridgeKappaResidual610_deriv_zero
     (d : Derivation k F F) (L A B C0 D0 E0 P Q R S0 T0 U0 V0 W0 : F)
     (hL : d L = 0)
@@ -822,7 +823,7 @@ section BridgeKappaJetFactor610
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 40000000 in
+set_option maxHeartbeats 64000000 in
 /-- On the fifteenth-face jet the cleared `κ` defect factors exactly as
 `h⁴⁸` times its factored order-`48` head plus `h` times the tail. -/
 theorem bridgeClearedKappaDefect610_jet_factored
@@ -836,6 +837,7 @@ theorem bridgeClearedKappaDefect610_jet_factored
           h * bridgeKappaJetTail610 h w1 a41 p31 s1 u1 b62 q52 p2 p1
             p0 q4 q3 q2 q1 (Polynomial.C lambda)) := by
   unfold bridgeClearedKappaDefect610 bridgeKappaJetHead610 bridgeKappaJetTail610
+  simp only [mul_pow, ← pow_mul, Nat.reduceMul]
   ring
 
 end BridgeKappaJetFactor610
@@ -851,6 +853,7 @@ section BridgeKappaJetFactor610
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 /-- Evaluation commutes with the order-`48` head. -/
 theorem bridgeKappaJetHead610_eval
     (a41 p31 s1 u1 q52 q4 : k[X]) (x : k) :
@@ -874,7 +877,7 @@ section BridgeKappaScalars610
 
 variable {F : Type*} [Field F] [CharZero F]
 
-set_option maxHeartbeats 4000000 in
+set_option maxHeartbeats 64000000 in
 /-- Chamber-free reduction of the vanishing order-`48` head modulo the
 tenth-face root laws alone: the head reduces to the exact factored
 relation `a₄₁ p₃₁³ = 0`. -/
@@ -905,7 +908,7 @@ section BridgeKappaPowerRelation610
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 80000000 in
+set_option maxHeartbeats 64000000 in
 /-- The tenth sextic/decic integral on a square-core ninth-power source:
 the cleared defect is a scalar times `h⁵⁵`.  The degree-`5` iota
 integral and the exact `18 q₀ h⁵⁰` residual remain available from the
@@ -1086,7 +1089,7 @@ theorem nonzeroFace610_bridgeKappaPowerRelation
       differentialJacobian_coeff_13_monicSexticDecic
         ratFuncDerivation68 f g hf_high hf6 hf5 hg_high hg10 hLconst
     have hbr := congrArg (fun t : (RatFunc k)[X] => t.coeff 13) hbracket
-    simpa [f, g, Polynomial.coeff_C, show (13 : ℕ) ≠ 0 by norm_num] using
+    simpa only [Polynomial.coeff_C, if_neg (by decide : (13 : ℕ) ≠ 0)] using
       hrow.symm.trans hbr
   have hrow12 :
       (10 : RatFunc k) * ratFuncDerivation68 (f.coeff 3) +
@@ -1096,7 +1099,7 @@ theorem nonzeroFace610_bridgeKappaPowerRelation
       differentialJacobian_coeff_12_monicSexticDecic
         ratFuncDerivation68 f g hf_high hf6 hf5 hg_high hg10 hLconst
     have hbr := congrArg (fun t : (RatFunc k)[X] => t.coeff 12) hbracket
-    simpa [f, g, Polynomial.coeff_C, show (12 : ℕ) ≠ 0 by norm_num] using
+    simpa only [Polynomial.coeff_C, if_neg (by decide : (12 : ℕ) ≠ 0)] using
       hrow.symm.trans hbr
   have hrow11 :
       (10 : RatFunc k) * ratFuncDerivation68 (f.coeff 2) +
@@ -1108,7 +1111,7 @@ theorem nonzeroFace610_bridgeKappaPowerRelation
       differentialJacobian_coeff_11_monicSexticDecic
         ratFuncDerivation68 f g hf_high hf6 hf5 hg_high hg10 hLconst
     have hbr := congrArg (fun t : (RatFunc k)[X] => t.coeff 11) hbracket
-    simpa [f, g, Polynomial.coeff_C, show (11 : ℕ) ≠ 0 by norm_num] using
+    simpa only [Polynomial.coeff_C, if_neg (by decide : (11 : ℕ) ≠ 0)] using
       hrow.symm.trans hbr
   have hrow10 :
       (10 : RatFunc k) * ratFuncDerivation68 (f.coeff 1) +
@@ -1122,7 +1125,7 @@ theorem nonzeroFace610_bridgeKappaPowerRelation
       differentialJacobian_coeff_10_monicSexticDecic
         ratFuncDerivation68 f g hf_high hf6 hf5 hg_high hg10 hLconst
     have hbr := congrArg (fun t : (RatFunc k)[X] => t.coeff 10) hbracket
-    simpa [f, g, Polynomial.coeff_C, show (10 : ℕ) ≠ 0 by norm_num] using
+    simpa only [Polynomial.coeff_C, if_neg (by decide : (10 : ℕ) ≠ 0)] using
       hrow.symm.trans hbr
   have hrow9 :
       (10 : RatFunc k) * ratFuncDerivation68 (f.coeff 0) +
@@ -1138,7 +1141,7 @@ theorem nonzeroFace610_bridgeKappaPowerRelation
       differentialJacobian_coeff_9_monicSexticDecic
         ratFuncDerivation68 f g hf_high hf6 hf5 hg_high hg10 hLconst
     have hbr := congrArg (fun t : (RatFunc k)[X] => t.coeff 9) hbracket
-    simpa [f, g, Polynomial.coeff_C, show (9 : ℕ) ≠ 0 by norm_num] using
+    simpa only [Polynomial.coeff_C, if_neg (by decide : (9 : ℕ) ≠ 0)] using
       hrow.symm.trans hbr
   have hrow7 :
       (8 : RatFunc k) * g.coeff 8 * ratFuncDerivation68 (f.coeff 0) +
@@ -1155,7 +1158,7 @@ theorem nonzeroFace610_bridgeKappaPowerRelation
       differentialJacobian_coeff_7_monicSexticDecic
         ratFuncDerivation68 f g hf_high hf6 hf5 hg_high hg10 hLconst
     have hbr := congrArg (fun t : (RatFunc k)[X] => t.coeff 7) hbracket
-    simpa [f, g, Polynomial.coeff_C, show (7 : ℕ) ≠ 0 by norm_num] using
+    simpa only [Polynomial.coeff_C, if_neg (by decide : (7 : ℕ) ≠ 0)] using
       hrow.symm.trans hbr
   have hrow8 :
       (9 : RatFunc k) * g.coeff 9 * ratFuncDerivation68 (f.coeff 0) +
@@ -1172,7 +1175,7 @@ theorem nonzeroFace610_bridgeKappaPowerRelation
       differentialJacobian_coeff_8_monicSexticDecic
         ratFuncDerivation68 f g hf_high hf6 hf5 hg_high hg10 hLconst
     have hbr := congrArg (fun t : (RatFunc k)[X] => t.coeff 8) hbracket
-    simpa [f, g, Polynomial.coeff_C, show (8 : ℕ) ≠ 0 by norm_num] using
+    simpa only [Polynomial.coeff_C, if_neg (by decide : (8 : ℕ) ≠ 0)] using
       hrow.symm.trans hbr
   have hrow6 :
       (7 : RatFunc k) * g.coeff 7 * ratFuncDerivation68 (f.coeff 0) +
@@ -1189,7 +1192,7 @@ theorem nonzeroFace610_bridgeKappaPowerRelation
       differentialJacobian_coeff_6_monicSexticDecic_bridge
         ratFuncDerivation68 f g hf_high hf6 hf5 hg_high hg10 hLconst
     have hbr := congrArg (fun t : (RatFunc k)[X] => t.coeff 6) hbracket
-    simpa [f, g, Polynomial.coeff_C, show (6 : ℕ) ≠ 0 by norm_num] using
+    simpa only [Polynomial.coeff_C, if_neg (by decide : (6 : ℕ) ≠ 0)] using
       hrow.symm.trans hbr
   have hrow4 :
       (5 : RatFunc k) * g.coeff 5 * ratFuncDerivation68 (f.coeff 0) +
@@ -1205,7 +1208,7 @@ theorem nonzeroFace610_bridgeKappaPowerRelation
       differentialJacobian_coeff_4_monicSexticDecic_bridge
         ratFuncDerivation68 f g hf_high hf6 hf5 hg_high hg10 hLconst
     have hbr := congrArg (fun t : (RatFunc k)[X] => t.coeff 4) hbracket
-    simpa [f, g, Polynomial.coeff_C, show (4 : ℕ) ≠ 0 by norm_num] using
+    simpa only [Polynomial.coeff_C, if_neg (by decide : (4 : ℕ) ≠ 0)] using
       hrow.symm.trans hbr
   have hf4 : f.coeff 4 =
       depressedA610 hRF (sexticDepressionR610 hRF a5) a5 a4 := by
@@ -1337,8 +1340,8 @@ theorem nonzeroFace610_bridgeKappaPowerRelation
       rw [hg9]
       simp [depressedL610, depressedL810, sexticDepressionR610,
         sourceToRatFunc68, sourceToRatFunc46, b9]
-    unfold bridgeClearedKappaDefect610 bridgeKappaResidual610 alphaResidual610 betaResidual610 deltaResidual610 epsilonResidual610 zetaResidual610 etaResidual610 bridgeThetaResidual610 at hF ⊢
-    simpa [gammaResidual610, map_sub, map_add, map_mul, map_pow, map_ofNat, map_neg, RatFunc.algebraMap_C, hRF, a5, a4, a3, a2, a1, a0, b8, b7, b6, b5, b4, b3, b2, b1, hf4, hf3, hf2, hf1, hf0, hg1, hg2, hg3, hg4, hg5, hg6, hg7, hg8', hg9L] using hF.symm
+    unfold bridgeClearedKappaDefect610 at hF ⊢
+    simpa [map_sub, map_add, map_mul, map_pow, map_ofNat, map_neg, RatFunc.algebraMap_C, hRF, a5, a4, a3, a2, a1, a0, b8, b7, b6, b5, b4, b3, b2, b1, hf4, hf3, hf2, hf1, hf0, hg1, hg2, hg3, hg4, hg5, hg6, hg7, hg8', hg9L] using hF.symm
   have htarget :
       algebraMap k[X] (RatFunc k)
           (bridgeClearedKappaDefect610 h0 (p.coeff 5) (p.coeff 4)

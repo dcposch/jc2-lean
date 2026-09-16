@@ -45,6 +45,7 @@ def fanOneB4Unique410 (a b u : ℕ) : Prop :=
 def fanOneU3Unique410 (a b u : ℕ) : Prop :=
   4 * a + b < 3 * u ∧ a + 2 * b + u < 3 * u ∧ 4 * b < 3 * u
 
+set_option maxHeartbeats 64000000 in
 /-- A nonzero scalar multiple of a unique positive-degree leading monomial
 cannot equal a constant polynomial. -/
 theorem smul_add_lower_ne_C410 (c q : k) (M R : k[X]) (d : ℕ)
@@ -101,6 +102,7 @@ def lWallFanRestOneU3_410
   (960 : k) • (A * B ^ 2 * U) +
     lWallIntermediateRestOne410 l beta gamma delta zeta eta theta A B U
 
+set_option maxHeartbeats 64000000 in
 theorem discriminantInvariantTwoNumerator410_eq_fanA5_add_rest
     (l beta gamma delta zeta eta theta : k) (A B U : k[X]) :
     discriminantInvariantTwoNumerator410 l beta gamma delta zeta eta theta
@@ -111,6 +113,7 @@ theorem discriminantInvariantTwoNumerator410_eq_fanA5_add_rest
   simp only [lWallFanRestTwoA5_410]
   module
 
+set_option maxHeartbeats 64000000 in
 theorem discriminantInvariantTwoNumerator410_eq_fanAB3_add_rest
     (l beta gamma delta zeta eta theta : k) (A B U : k[X]) :
     discriminantInvariantTwoNumerator410 l beta gamma delta zeta eta theta
@@ -121,6 +124,7 @@ theorem discriminantInvariantTwoNumerator410_eq_fanAB3_add_rest
   simp only [lWallFanRestTwoAB3_410]
   module
 
+set_option maxHeartbeats 64000000 in
 theorem discriminantInvariantTwoNumerator410_eq_fanBU2_add_rest
     (l beta gamma delta zeta eta theta : k) (A B U : k[X]) :
     discriminantInvariantTwoNumerator410 l beta gamma delta zeta eta theta
@@ -131,6 +135,7 @@ theorem discriminantInvariantTwoNumerator410_eq_fanBU2_add_rest
   simp only [lWallFanRestTwoBU2_410]
   module
 
+set_option maxHeartbeats 64000000 in
 theorem discriminantInvariantOneNumerator410_eq_fanA4B_add_rest
     (l beta gamma delta zeta eta theta : k) (A B U : k[X]) :
     discriminantInvariantOneNumerator410 l beta gamma delta zeta eta theta
@@ -141,6 +146,7 @@ theorem discriminantInvariantOneNumerator410_eq_fanA4B_add_rest
   simp only [lWallFanRestOneA4B_410]
   module
 
+set_option maxHeartbeats 64000000 in
 theorem discriminantInvariantOneNumerator410_eq_fanAB2U_add_rest
     (l beta gamma delta zeta eta theta : k) (A B U : k[X]) :
     discriminantInvariantOneNumerator410 l beta gamma delta zeta eta theta
@@ -151,6 +157,7 @@ theorem discriminantInvariantOneNumerator410_eq_fanAB2U_add_rest
   simp only [lWallFanRestOneAB2U_410]
   module
 
+set_option maxHeartbeats 64000000 in
 theorem discriminantInvariantOneNumerator410_eq_fanB4_add_rest
     (l beta gamma delta zeta eta theta : k) (A B U : k[X]) :
     discriminantInvariantOneNumerator410 l beta gamma delta zeta eta theta
@@ -161,6 +168,7 @@ theorem discriminantInvariantOneNumerator410_eq_fanB4_add_rest
   simp only [lWallFanRestOneB4_410]
   module
 
+set_option maxHeartbeats 64000000 in
 theorem discriminantInvariantOneNumerator410_eq_fanU3_add_rest
     (l beta gamma delta zeta eta theta : k) (A B U : k[X]) :
     discriminantInvariantOneNumerator410 l beta gamma delta zeta eta theta
@@ -173,6 +181,7 @@ theorem discriminantInvariantOneNumerator410_eq_fanU3_add_rest
 
 /-! ## Degree bounds for the exposed-vertex remainders -/
 
+set_option maxHeartbeats 64000000 in
 theorem lWallFanRestTwoA5_410_natDegree_lt
     (l beta gamma delta zeta eta theta : k) (A B U : k[X])
     (a b u : ℕ) (ha : 0 < a) (hb : 0 < b) (hu : 0 < u)
@@ -180,11 +189,65 @@ theorem lWallFanRestTwoA5_410_natDegree_lt
     (hunique : fanTwoA5Unique410 a b u) :
     (lWallFanRestTwoA5_410 l beta gamma delta zeta eta theta A B U).natDegree <
       5 * a := by
-  simp only [lWallFanRestTwoA5_410, lWallLowURestTwo410,
-    fanTwoA5Unique410] at *
-  compute_degree
-  omega
+  simp only [fanTwoA5Unique410] at hunique
+  rcases hunique with ⟨hunique1, hunique2, hunique3⟩
+  have hdeg0 : (a + (3 * b)) < 5 * a := by omega
+  have hdeg1 : (4 * a) < 5 * a := by omega
+  have hdeg2 : ((3 * a) + u) < 5 * a := by omega
+  have hdeg3 : (3 * a) < 5 * a := by omega
+  have hdeg4 : ((2 * a) + (2 * b)) < 5 * a := by omega
+  have hdeg5 : ((2 * a) + u) < 5 * a := by omega
+  have hdeg6 : (2 * a) < 5 * a := by omega
+  have hdeg7 : (a + (2 * b)) < 5 * a := by omega
+  have hdeg8 : (a + (2 * u)) < 5 * a := by omega
+  have hdeg9 : (a + u) < 5 * a := by omega
+  have hdeg10 : a < 5 * a := by omega
+  have hdeg11 : ((2 * b) + u) < 5 * a := by omega
+  have hdeg12 : (2 * b) < 5 * a := by omega
+  have hdeg13 : (b + (2 * u)) < 5 * a := by omega
+  have hdeg14 : (b + u) < 5 * a := by omega
+  have hdeg15 : b < 5 * a := by omega
+  have hdeg16 : (2 * u) < 5 * a := by omega
+  have hdeg17 : u < 5 * a := by omega
+  simp only [lWallFanRestTwoA5_410, lWallLowURestTwo410]
+  exact
+    ((natDegree_add_le _ _).trans_lt (max_lt
+      ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hA.le (natDegree_pow_le.trans (Nat.mul_le_mul_left 3 hB.le)))).trans_lt hdeg0))
+      ((natDegree_sub_le _ _).trans_lt (max_lt
+        ((natDegree_add_le _ _).trans_lt (max_lt
+          ((natDegree_add_le _ _).trans_lt (max_lt
+            ((natDegree_sub_le _ _).trans_lt (max_lt
+              ((natDegree_add_le _ _).trans_lt (max_lt
+                ((natDegree_add_le _ _).trans_lt (max_lt
+                  ((natDegree_sub_le _ _).trans_lt (max_lt
+                    ((natDegree_add_le _ _).trans_lt (max_lt
+                      ((natDegree_sub_le _ _).trans_lt (max_lt
+                        ((natDegree_add_le _ _).trans_lt (max_lt
+                          ((natDegree_sub_le _ _).trans_lt (max_lt
+                            ((natDegree_add_le _ _).trans_lt (max_lt
+                              ((natDegree_sub_le _ _).trans_lt (max_lt
+                                ((natDegree_sub_le _ _).trans_lt (max_lt
+                                  ((natDegree_add_le _ _).trans_lt (max_lt
+                                    ((natDegree_sub_le _ _).trans_lt (max_lt
+                                      ((natDegree_smul_le _ _).trans_lt ((natDegree_pow_le.trans (Nat.mul_le_mul_left 4 hA.le)).trans_lt hdeg1))
+                                      ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_pow_le.trans (Nat.mul_le_mul_left 3 hA.le)) hU.le)).trans_lt hdeg2))))
+                                    ((natDegree_smul_le _ _).trans_lt ((natDegree_pow_le.trans (Nat.mul_le_mul_left 3 hA.le)).trans_lt hdeg3))))
+                                  ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hA.le)) (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hB.le)))).trans_lt hdeg4))))
+                                ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hA.le)) hU.le)).trans_lt hdeg5))))
+                              ((natDegree_smul_le _ _).trans_lt ((natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hA.le)).trans_lt hdeg6))))
+                            ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hA.le (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hB.le)))).trans_lt hdeg7))))
+                          ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hA.le (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hU.le)))).trans_lt hdeg8))))
+                        ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hA.le hU.le)).trans_lt hdeg9))))
+                      ((natDegree_smul_le _ _).trans_lt (hA.le.trans_lt hdeg10))))
+                    ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hB.le)) hU.le)).trans_lt hdeg11))))
+                  ((natDegree_smul_le _ _).trans_lt ((natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hB.le)).trans_lt hdeg12))))
+                ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hB.le (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hU.le)))).trans_lt hdeg13))))
+              ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hB.le hU.le)).trans_lt hdeg14))))
+            ((natDegree_smul_le _ _).trans_lt (hB.le.trans_lt hdeg15))))
+          ((natDegree_smul_le _ _).trans_lt ((natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hU.le)).trans_lt hdeg16))))
+        ((natDegree_smul_le _ _).trans_lt (hU.le.trans_lt hdeg17))))))
 
+set_option maxHeartbeats 64000000 in
 theorem lWallFanRestTwoAB3_410_natDegree_lt
     (l beta gamma delta zeta eta theta : k) (A B U : k[X])
     (a b u : ℕ) (ha : 0 < a) (hb : 0 < b) (hu : 0 < u)
@@ -192,11 +255,65 @@ theorem lWallFanRestTwoAB3_410_natDegree_lt
     (hunique : fanTwoAB3Unique410 a b u) :
     (lWallFanRestTwoAB3_410 l beta gamma delta zeta eta theta A B U).natDegree <
       a + 3 * b := by
-  simp only [lWallFanRestTwoAB3_410, lWallLowURestTwo410,
-    fanTwoAB3Unique410] at *
-  compute_degree
-  omega
+  simp only [fanTwoAB3Unique410] at hunique
+  rcases hunique with ⟨hunique1, hunique2, hunique3⟩
+  have hdeg0 : (5 * a) < a + 3 * b := by omega
+  have hdeg1 : (4 * a) < a + 3 * b := by omega
+  have hdeg2 : ((3 * a) + u) < a + 3 * b := by omega
+  have hdeg3 : (3 * a) < a + 3 * b := by omega
+  have hdeg4 : ((2 * a) + (2 * b)) < a + 3 * b := by omega
+  have hdeg5 : ((2 * a) + u) < a + 3 * b := by omega
+  have hdeg6 : (2 * a) < a + 3 * b := by omega
+  have hdeg7 : (a + (2 * b)) < a + 3 * b := by omega
+  have hdeg8 : (a + (2 * u)) < a + 3 * b := by omega
+  have hdeg9 : (a + u) < a + 3 * b := by omega
+  have hdeg10 : a < a + 3 * b := by omega
+  have hdeg11 : ((2 * b) + u) < a + 3 * b := by omega
+  have hdeg12 : (2 * b) < a + 3 * b := by omega
+  have hdeg13 : (b + (2 * u)) < a + 3 * b := by omega
+  have hdeg14 : (b + u) < a + 3 * b := by omega
+  have hdeg15 : b < a + 3 * b := by omega
+  have hdeg16 : (2 * u) < a + 3 * b := by omega
+  have hdeg17 : u < a + 3 * b := by omega
+  simp only [lWallFanRestTwoAB3_410, lWallLowURestTwo410]
+  exact
+    ((natDegree_add_le _ _).trans_lt (max_lt
+      ((natDegree_smul_le _ _).trans_lt ((natDegree_pow_le.trans (Nat.mul_le_mul_left 5 hA.le)).trans_lt hdeg0))
+      ((natDegree_sub_le _ _).trans_lt (max_lt
+        ((natDegree_add_le _ _).trans_lt (max_lt
+          ((natDegree_add_le _ _).trans_lt (max_lt
+            ((natDegree_sub_le _ _).trans_lt (max_lt
+              ((natDegree_add_le _ _).trans_lt (max_lt
+                ((natDegree_add_le _ _).trans_lt (max_lt
+                  ((natDegree_sub_le _ _).trans_lt (max_lt
+                    ((natDegree_add_le _ _).trans_lt (max_lt
+                      ((natDegree_sub_le _ _).trans_lt (max_lt
+                        ((natDegree_add_le _ _).trans_lt (max_lt
+                          ((natDegree_sub_le _ _).trans_lt (max_lt
+                            ((natDegree_add_le _ _).trans_lt (max_lt
+                              ((natDegree_sub_le _ _).trans_lt (max_lt
+                                ((natDegree_sub_le _ _).trans_lt (max_lt
+                                  ((natDegree_add_le _ _).trans_lt (max_lt
+                                    ((natDegree_sub_le _ _).trans_lt (max_lt
+                                      ((natDegree_smul_le _ _).trans_lt ((natDegree_pow_le.trans (Nat.mul_le_mul_left 4 hA.le)).trans_lt hdeg1))
+                                      ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_pow_le.trans (Nat.mul_le_mul_left 3 hA.le)) hU.le)).trans_lt hdeg2))))
+                                    ((natDegree_smul_le _ _).trans_lt ((natDegree_pow_le.trans (Nat.mul_le_mul_left 3 hA.le)).trans_lt hdeg3))))
+                                  ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hA.le)) (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hB.le)))).trans_lt hdeg4))))
+                                ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hA.le)) hU.le)).trans_lt hdeg5))))
+                              ((natDegree_smul_le _ _).trans_lt ((natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hA.le)).trans_lt hdeg6))))
+                            ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hA.le (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hB.le)))).trans_lt hdeg7))))
+                          ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hA.le (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hU.le)))).trans_lt hdeg8))))
+                        ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hA.le hU.le)).trans_lt hdeg9))))
+                      ((natDegree_smul_le _ _).trans_lt (hA.le.trans_lt hdeg10))))
+                    ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hB.le)) hU.le)).trans_lt hdeg11))))
+                  ((natDegree_smul_le _ _).trans_lt ((natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hB.le)).trans_lt hdeg12))))
+                ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hB.le (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hU.le)))).trans_lt hdeg13))))
+              ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hB.le hU.le)).trans_lt hdeg14))))
+            ((natDegree_smul_le _ _).trans_lt (hB.le.trans_lt hdeg15))))
+          ((natDegree_smul_le _ _).trans_lt ((natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hU.le)).trans_lt hdeg16))))
+        ((natDegree_smul_le _ _).trans_lt (hU.le.trans_lt hdeg17))))))
 
+set_option maxHeartbeats 64000000 in
 theorem lWallFanRestTwoBU2_410_natDegree_lt
     (l beta gamma delta zeta eta theta : k) (A B U : k[X])
     (a b u : ℕ) (ha : 0 < a) (hb : 0 < b) (hu : 0 < u)
@@ -204,11 +321,65 @@ theorem lWallFanRestTwoBU2_410_natDegree_lt
     (hunique : fanTwoBU2Unique410 a b u) :
     (lWallFanRestTwoBU2_410 l beta gamma delta zeta eta theta A B U).natDegree <
       b + 2 * u := by
-  simp only [lWallFanRestTwoBU2_410, lWallIntermediateRestTwo410,
-    fanTwoBU2Unique410] at *
-  compute_degree
-  omega
+  simp only [fanTwoBU2Unique410] at hunique
+  rcases hunique with ⟨hunique1, hunique2, hunique3⟩
+  have hdeg0 : (a + (3 * b)) < b + 2 * u := by omega
+  have hdeg1 : (5 * a) < b + 2 * u := by omega
+  have hdeg2 : (4 * a) < b + 2 * u := by omega
+  have hdeg3 : ((3 * a) + u) < b + 2 * u := by omega
+  have hdeg4 : (3 * a) < b + 2 * u := by omega
+  have hdeg5 : ((2 * a) + (2 * b)) < b + 2 * u := by omega
+  have hdeg6 : ((2 * a) + u) < b + 2 * u := by omega
+  have hdeg7 : (2 * a) < b + 2 * u := by omega
+  have hdeg8 : (a + (2 * b)) < b + 2 * u := by omega
+  have hdeg9 : (a + (2 * u)) < b + 2 * u := by omega
+  have hdeg10 : (a + u) < b + 2 * u := by omega
+  have hdeg11 : a < b + 2 * u := by omega
+  have hdeg12 : ((2 * b) + u) < b + 2 * u := by omega
+  have hdeg13 : (2 * b) < b + 2 * u := by omega
+  have hdeg14 : (b + u) < b + 2 * u := by omega
+  have hdeg15 : b < b + 2 * u := by omega
+  have hdeg16 : (2 * u) < b + 2 * u := by omega
+  have hdeg17 : u < b + 2 * u := by omega
+  simp only [lWallFanRestTwoBU2_410, lWallIntermediateRestTwo410]
+  exact
+    ((natDegree_add_le _ _).trans_lt (max_lt
+      ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hA.le (natDegree_pow_le.trans (Nat.mul_le_mul_left 3 hB.le)))).trans_lt hdeg0))
+      ((natDegree_sub_le _ _).trans_lt (max_lt
+        ((natDegree_add_le _ _).trans_lt (max_lt
+          ((natDegree_add_le _ _).trans_lt (max_lt
+            ((natDegree_sub_le _ _).trans_lt (max_lt
+              ((natDegree_add_le _ _).trans_lt (max_lt
+                ((natDegree_sub_le _ _).trans_lt (max_lt
+                  ((natDegree_add_le _ _).trans_lt (max_lt
+                    ((natDegree_sub_le _ _).trans_lt (max_lt
+                      ((natDegree_add_le _ _).trans_lt (max_lt
+                        ((natDegree_sub_le _ _).trans_lt (max_lt
+                          ((natDegree_add_le _ _).trans_lt (max_lt
+                            ((natDegree_sub_le _ _).trans_lt (max_lt
+                              ((natDegree_sub_le _ _).trans_lt (max_lt
+                                ((natDegree_add_le _ _).trans_lt (max_lt
+                                  ((natDegree_sub_le _ _).trans_lt (max_lt
+                                    ((natDegree_add_le _ _).trans_lt (max_lt
+                                      ((natDegree_smul_le _ _).trans_lt ((natDegree_pow_le.trans (Nat.mul_le_mul_left 5 hA.le)).trans_lt hdeg1))
+                                      ((natDegree_smul_le _ _).trans_lt ((natDegree_pow_le.trans (Nat.mul_le_mul_left 4 hA.le)).trans_lt hdeg2))))
+                                    ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_pow_le.trans (Nat.mul_le_mul_left 3 hA.le)) hU.le)).trans_lt hdeg3))))
+                                  ((natDegree_smul_le _ _).trans_lt ((natDegree_pow_le.trans (Nat.mul_le_mul_left 3 hA.le)).trans_lt hdeg4))))
+                                ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hA.le)) (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hB.le)))).trans_lt hdeg5))))
+                              ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hA.le)) hU.le)).trans_lt hdeg6))))
+                            ((natDegree_smul_le _ _).trans_lt ((natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hA.le)).trans_lt hdeg7))))
+                          ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hA.le (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hB.le)))).trans_lt hdeg8))))
+                        ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hA.le (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hU.le)))).trans_lt hdeg9))))
+                      ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hA.le hU.le)).trans_lt hdeg10))))
+                    ((natDegree_smul_le _ _).trans_lt (hA.le.trans_lt hdeg11))))
+                  ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hB.le)) hU.le)).trans_lt hdeg12))))
+                ((natDegree_smul_le _ _).trans_lt ((natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hB.le)).trans_lt hdeg13))))
+              ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hB.le hU.le)).trans_lt hdeg14))))
+            ((natDegree_smul_le _ _).trans_lt (hB.le.trans_lt hdeg15))))
+          ((natDegree_smul_le _ _).trans_lt ((natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hU.le)).trans_lt hdeg16))))
+        ((natDegree_smul_le _ _).trans_lt (hU.le.trans_lt hdeg17))))))
 
+set_option maxHeartbeats 64000000 in
 theorem lWallFanRestOneA4B_410_natDegree_lt
     (l beta gamma delta zeta eta theta : k) (A B U : k[X])
     (a b u : ℕ) (ha : 0 < a) (hb : 0 < b) (hu : 0 < u)
@@ -216,11 +387,59 @@ theorem lWallFanRestOneA4B_410_natDegree_lt
     (hunique : fanOneA4BUnique410 a b u) :
     (lWallFanRestOneA4B_410 l beta gamma delta zeta eta theta A B U).natDegree <
       4 * a + b := by
-  simp only [lWallFanRestOneA4B_410, lWallLowURestOne410,
-    fanOneA4BUnique410] at *
-  compute_degree
-  omega
+  simp only [fanOneA4BUnique410] at hunique
+  rcases hunique with ⟨hunique1, hunique2, hunique3⟩
+  have hdeg0 : (4 * b) < 4 * a + b := by omega
+  have hdeg1 : ((3 * a) + b) < 4 * a + b := by omega
+  have hdeg2 : (((2 * a) + b) + u) < 4 * a + b := by omega
+  have hdeg3 : ((2 * a) + b) < 4 * a + b := by omega
+  have hdeg4 : (a + (3 * b)) < 4 * a + b := by omega
+  have hdeg5 : ((a + (2 * b)) + u) < 4 * a + b := by omega
+  have hdeg6 : (a + (2 * b)) < 4 * a + b := by omega
+  have hdeg7 : ((a + b) + u) < 4 * a + b := by omega
+  have hdeg8 : (a + b) < 4 * a + b := by omega
+  have hdeg9 : (3 * b) < 4 * a + b := by omega
+  have hdeg10 : (b + (2 * u)) < 4 * a + b := by omega
+  have hdeg11 : (b + u) < 4 * a + b := by omega
+  have hdeg12 : b < 4 * a + b := by omega
+  have hdeg13 : (3 * u) < 4 * a + b := by omega
+  have hdeg14 : (2 * u) < 4 * a + b := by omega
+  have hdeg15 : u < 4 * a + b := by omega
+  simp only [lWallFanRestOneA4B_410, lWallLowURestOne410]
+  exact
+    ((natDegree_add_le _ _).trans_lt (max_lt
+      ((natDegree_smul_le _ _).trans_lt ((natDegree_pow_le.trans (Nat.mul_le_mul_left 4 hB.le)).trans_lt hdeg0))
+      ((natDegree_sub_le _ _).trans_lt (max_lt
+        ((natDegree_add_le _ _).trans_lt (max_lt
+          ((natDegree_sub_le _ _).trans_lt (max_lt
+            ((natDegree_add_le _ _).trans_lt (max_lt
+              ((natDegree_sub_le _ _).trans_lt (max_lt
+                ((natDegree_add_le _ _).trans_lt (max_lt
+                  ((natDegree_sub_le _ _).trans_lt (max_lt
+                    ((natDegree_sub_le _ _).trans_lt (max_lt
+                      ((natDegree_add_le _ _).trans_lt (max_lt
+                        ((natDegree_sub_le _ _).trans_lt (max_lt
+                          ((natDegree_add_le _ _).trans_lt (max_lt
+                            ((natDegree_sub_le _ _).trans_lt (max_lt
+                              ((natDegree_sub_le _ _).trans_lt (max_lt
+                                ((natDegree_add_le _ _).trans_lt (max_lt
+                                  ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_pow_le.trans (Nat.mul_le_mul_left 3 hA.le)) hB.le)).trans_lt hdeg1))
+                                  ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_mul_le.trans (Nat.add_le_add (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hA.le)) hB.le)) hU.le)).trans_lt hdeg2))))
+                                ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hA.le)) hB.le)).trans_lt hdeg3))))
+                              ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hA.le (natDegree_pow_le.trans (Nat.mul_le_mul_left 3 hB.le)))).trans_lt hdeg4))))
+                            ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_mul_le.trans (Nat.add_le_add hA.le (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hB.le)))) hU.le)).trans_lt hdeg5))))
+                          ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hA.le (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hB.le)))).trans_lt hdeg6))))
+                        ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_mul_le.trans (Nat.add_le_add hA.le hB.le)) hU.le)).trans_lt hdeg7))))
+                      ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hA.le hB.le)).trans_lt hdeg8))))
+                    ((natDegree_smul_le _ _).trans_lt ((natDegree_pow_le.trans (Nat.mul_le_mul_left 3 hB.le)).trans_lt hdeg9))))
+                  ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hB.le (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hU.le)))).trans_lt hdeg10))))
+                ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hB.le hU.le)).trans_lt hdeg11))))
+              ((natDegree_smul_le _ _).trans_lt (hB.le.trans_lt hdeg12))))
+            ((natDegree_smul_le _ _).trans_lt ((natDegree_pow_le.trans (Nat.mul_le_mul_left 3 hU.le)).trans_lt hdeg13))))
+          ((natDegree_smul_le _ _).trans_lt ((natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hU.le)).trans_lt hdeg14))))
+        ((natDegree_smul_le _ _).trans_lt (hU.le.trans_lt hdeg15))))))
 
+set_option maxHeartbeats 64000000 in
 theorem lWallFanRestOneAB2U_410_natDegree_lt
     (l beta gamma delta zeta eta theta : k) (A B U : k[X])
     (a b u : ℕ) (ha : 0 < a) (hb : 0 < b) (hu : 0 < u)
@@ -228,11 +447,59 @@ theorem lWallFanRestOneAB2U_410_natDegree_lt
     (hunique : fanOneAB2UUnique410 a b u) :
     (lWallFanRestOneAB2U_410 l beta gamma delta zeta eta theta A B U).natDegree <
       a + 2 * b + u := by
-  simp only [lWallFanRestOneAB2U_410, lWallIntermediateRestOne410,
-    fanOneAB2UUnique410] at *
-  compute_degree
-  omega
+  simp only [fanOneAB2UUnique410] at hunique
+  rcases hunique with ⟨hunique1, hunique2, hunique3⟩
+  have hdeg0 : (3 * u) < a + 2 * b + u := by omega
+  have hdeg1 : ((4 * a) + b) < a + 2 * b + u := by omega
+  have hdeg2 : ((3 * a) + b) < a + 2 * b + u := by omega
+  have hdeg3 : (((2 * a) + b) + u) < a + 2 * b + u := by omega
+  have hdeg4 : ((2 * a) + b) < a + 2 * b + u := by omega
+  have hdeg5 : (a + (3 * b)) < a + 2 * b + u := by omega
+  have hdeg6 : (a + (2 * b)) < a + 2 * b + u := by omega
+  have hdeg7 : ((a + b) + u) < a + 2 * b + u := by omega
+  have hdeg8 : (a + b) < a + 2 * b + u := by omega
+  have hdeg9 : (4 * b) < a + 2 * b + u := by omega
+  have hdeg10 : (3 * b) < a + 2 * b + u := by omega
+  have hdeg11 : (b + (2 * u)) < a + 2 * b + u := by omega
+  have hdeg12 : (b + u) < a + 2 * b + u := by omega
+  have hdeg13 : b < a + 2 * b + u := by omega
+  have hdeg14 : (2 * u) < a + 2 * b + u := by omega
+  have hdeg15 : u < a + 2 * b + u := by omega
+  simp only [lWallFanRestOneAB2U_410, lWallIntermediateRestOne410]
+  exact
+    ((natDegree_add_le _ _).trans_lt (max_lt
+      ((natDegree_smul_le _ _).trans_lt ((natDegree_pow_le.trans (Nat.mul_le_mul_left 3 hU.le)).trans_lt hdeg0))
+      ((natDegree_sub_le _ _).trans_lt (max_lt
+        ((natDegree_add_le _ _).trans_lt (max_lt
+          ((natDegree_add_le _ _).trans_lt (max_lt
+            ((natDegree_sub_le _ _).trans_lt (max_lt
+              ((natDegree_add_le _ _).trans_lt (max_lt
+                ((natDegree_sub_le _ _).trans_lt (max_lt
+                  ((natDegree_sub_le _ _).trans_lt (max_lt
+                    ((natDegree_sub_le _ _).trans_lt (max_lt
+                      ((natDegree_add_le _ _).trans_lt (max_lt
+                        ((natDegree_sub_le _ _).trans_lt (max_lt
+                          ((natDegree_sub_le _ _).trans_lt (max_lt
+                            ((natDegree_sub_le _ _).trans_lt (max_lt
+                              ((natDegree_add_le _ _).trans_lt (max_lt
+                                ((natDegree_sub_le _ _).trans_lt (max_lt
+                                  ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_pow_le.trans (Nat.mul_le_mul_left 4 hA.le)) hB.le)).trans_lt hdeg1))
+                                  ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_pow_le.trans (Nat.mul_le_mul_left 3 hA.le)) hB.le)).trans_lt hdeg2))))
+                                ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_mul_le.trans (Nat.add_le_add (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hA.le)) hB.le)) hU.le)).trans_lt hdeg3))))
+                              ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hA.le)) hB.le)).trans_lt hdeg4))))
+                            ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hA.le (natDegree_pow_le.trans (Nat.mul_le_mul_left 3 hB.le)))).trans_lt hdeg5))))
+                          ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hA.le (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hB.le)))).trans_lt hdeg6))))
+                        ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_mul_le.trans (Nat.add_le_add hA.le hB.le)) hU.le)).trans_lt hdeg7))))
+                      ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hA.le hB.le)).trans_lt hdeg8))))
+                    ((natDegree_smul_le _ _).trans_lt ((natDegree_pow_le.trans (Nat.mul_le_mul_left 4 hB.le)).trans_lt hdeg9))))
+                  ((natDegree_smul_le _ _).trans_lt ((natDegree_pow_le.trans (Nat.mul_le_mul_left 3 hB.le)).trans_lt hdeg10))))
+                ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hB.le (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hU.le)))).trans_lt hdeg11))))
+              ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hB.le hU.le)).trans_lt hdeg12))))
+            ((natDegree_smul_le _ _).trans_lt (hB.le.trans_lt hdeg13))))
+          ((natDegree_smul_le _ _).trans_lt ((natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hU.le)).trans_lt hdeg14))))
+        ((natDegree_smul_le _ _).trans_lt (hU.le.trans_lt hdeg15))))))
 
+set_option maxHeartbeats 64000000 in
 theorem lWallFanRestOneB4_410_natDegree_lt
     (l beta gamma delta zeta eta theta : k) (A B U : k[X])
     (a b u : ℕ) (ha : 0 < a) (hb : 0 < b) (hu : 0 < u)
@@ -240,11 +507,59 @@ theorem lWallFanRestOneB4_410_natDegree_lt
     (hunique : fanOneB4Unique410 a b u) :
     (lWallFanRestOneB4_410 l beta gamma delta zeta eta theta A B U).natDegree <
       4 * b := by
-  simp only [lWallFanRestOneB4_410, lWallLowURestOne410,
-    fanOneB4Unique410] at *
-  compute_degree
-  omega
+  simp only [fanOneB4Unique410] at hunique
+  rcases hunique with ⟨hunique1, hunique2, hunique3⟩
+  have hdeg0 : ((4 * a) + b) < 4 * b := by omega
+  have hdeg1 : ((3 * a) + b) < 4 * b := by omega
+  have hdeg2 : (((2 * a) + b) + u) < 4 * b := by omega
+  have hdeg3 : ((2 * a) + b) < 4 * b := by omega
+  have hdeg4 : (a + (3 * b)) < 4 * b := by omega
+  have hdeg5 : ((a + (2 * b)) + u) < 4 * b := by omega
+  have hdeg6 : (a + (2 * b)) < 4 * b := by omega
+  have hdeg7 : ((a + b) + u) < 4 * b := by omega
+  have hdeg8 : (a + b) < 4 * b := by omega
+  have hdeg9 : (3 * b) < 4 * b := by omega
+  have hdeg10 : (b + (2 * u)) < 4 * b := by omega
+  have hdeg11 : (b + u) < 4 * b := by omega
+  have hdeg12 : b < 4 * b := by omega
+  have hdeg13 : (3 * u) < 4 * b := by omega
+  have hdeg14 : (2 * u) < 4 * b := by omega
+  have hdeg15 : u < 4 * b := by omega
+  simp only [lWallFanRestOneB4_410, lWallLowURestOne410]
+  exact
+    ((natDegree_add_le _ _).trans_lt (max_lt
+      ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_pow_le.trans (Nat.mul_le_mul_left 4 hA.le)) hB.le)).trans_lt hdeg0))
+      ((natDegree_sub_le _ _).trans_lt (max_lt
+        ((natDegree_add_le _ _).trans_lt (max_lt
+          ((natDegree_sub_le _ _).trans_lt (max_lt
+            ((natDegree_add_le _ _).trans_lt (max_lt
+              ((natDegree_sub_le _ _).trans_lt (max_lt
+                ((natDegree_add_le _ _).trans_lt (max_lt
+                  ((natDegree_sub_le _ _).trans_lt (max_lt
+                    ((natDegree_sub_le _ _).trans_lt (max_lt
+                      ((natDegree_add_le _ _).trans_lt (max_lt
+                        ((natDegree_sub_le _ _).trans_lt (max_lt
+                          ((natDegree_add_le _ _).trans_lt (max_lt
+                            ((natDegree_sub_le _ _).trans_lt (max_lt
+                              ((natDegree_sub_le _ _).trans_lt (max_lt
+                                ((natDegree_add_le _ _).trans_lt (max_lt
+                                  ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_pow_le.trans (Nat.mul_le_mul_left 3 hA.le)) hB.le)).trans_lt hdeg1))
+                                  ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_mul_le.trans (Nat.add_le_add (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hA.le)) hB.le)) hU.le)).trans_lt hdeg2))))
+                                ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hA.le)) hB.le)).trans_lt hdeg3))))
+                              ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hA.le (natDegree_pow_le.trans (Nat.mul_le_mul_left 3 hB.le)))).trans_lt hdeg4))))
+                            ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_mul_le.trans (Nat.add_le_add hA.le (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hB.le)))) hU.le)).trans_lt hdeg5))))
+                          ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hA.le (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hB.le)))).trans_lt hdeg6))))
+                        ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_mul_le.trans (Nat.add_le_add hA.le hB.le)) hU.le)).trans_lt hdeg7))))
+                      ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hA.le hB.le)).trans_lt hdeg8))))
+                    ((natDegree_smul_le _ _).trans_lt ((natDegree_pow_le.trans (Nat.mul_le_mul_left 3 hB.le)).trans_lt hdeg9))))
+                  ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hB.le (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hU.le)))).trans_lt hdeg10))))
+                ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hB.le hU.le)).trans_lt hdeg11))))
+              ((natDegree_smul_le _ _).trans_lt (hB.le.trans_lt hdeg12))))
+            ((natDegree_smul_le _ _).trans_lt ((natDegree_pow_le.trans (Nat.mul_le_mul_left 3 hU.le)).trans_lt hdeg13))))
+          ((natDegree_smul_le _ _).trans_lt ((natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hU.le)).trans_lt hdeg14))))
+        ((natDegree_smul_le _ _).trans_lt (hU.le.trans_lt hdeg15))))))
 
+set_option maxHeartbeats 64000000 in
 theorem lWallFanRestOneU3_410_natDegree_lt
     (l beta gamma delta zeta eta theta : k) (A B U : k[X])
     (a b u : ℕ) (ha : 0 < a) (hb : 0 < b) (hu : 0 < u)
@@ -252,13 +567,61 @@ theorem lWallFanRestOneU3_410_natDegree_lt
     (hunique : fanOneU3Unique410 a b u) :
     (lWallFanRestOneU3_410 l beta gamma delta zeta eta theta A B U).natDegree <
       3 * u := by
-  simp only [lWallFanRestOneU3_410, lWallIntermediateRestOne410,
-    fanOneU3Unique410] at *
-  compute_degree
-  omega
+  simp only [fanOneU3Unique410] at hunique
+  rcases hunique with ⟨hunique1, hunique2, hunique3⟩
+  have hdeg0 : ((a + (2 * b)) + u) < 3 * u := by omega
+  have hdeg1 : ((4 * a) + b) < 3 * u := by omega
+  have hdeg2 : ((3 * a) + b) < 3 * u := by omega
+  have hdeg3 : (((2 * a) + b) + u) < 3 * u := by omega
+  have hdeg4 : ((2 * a) + b) < 3 * u := by omega
+  have hdeg5 : (a + (3 * b)) < 3 * u := by omega
+  have hdeg6 : (a + (2 * b)) < 3 * u := by omega
+  have hdeg7 : ((a + b) + u) < 3 * u := by omega
+  have hdeg8 : (a + b) < 3 * u := by omega
+  have hdeg9 : (4 * b) < 3 * u := by omega
+  have hdeg10 : (3 * b) < 3 * u := by omega
+  have hdeg11 : (b + (2 * u)) < 3 * u := by omega
+  have hdeg12 : (b + u) < 3 * u := by omega
+  have hdeg13 : b < 3 * u := by omega
+  have hdeg14 : (2 * u) < 3 * u := by omega
+  have hdeg15 : u < 3 * u := by omega
+  simp only [lWallFanRestOneU3_410, lWallIntermediateRestOne410]
+  exact
+    ((natDegree_add_le _ _).trans_lt (max_lt
+      ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_mul_le.trans (Nat.add_le_add hA.le (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hB.le)))) hU.le)).trans_lt hdeg0))
+      ((natDegree_sub_le _ _).trans_lt (max_lt
+        ((natDegree_add_le _ _).trans_lt (max_lt
+          ((natDegree_add_le _ _).trans_lt (max_lt
+            ((natDegree_sub_le _ _).trans_lt (max_lt
+              ((natDegree_add_le _ _).trans_lt (max_lt
+                ((natDegree_sub_le _ _).trans_lt (max_lt
+                  ((natDegree_sub_le _ _).trans_lt (max_lt
+                    ((natDegree_sub_le _ _).trans_lt (max_lt
+                      ((natDegree_add_le _ _).trans_lt (max_lt
+                        ((natDegree_sub_le _ _).trans_lt (max_lt
+                          ((natDegree_sub_le _ _).trans_lt (max_lt
+                            ((natDegree_sub_le _ _).trans_lt (max_lt
+                              ((natDegree_add_le _ _).trans_lt (max_lt
+                                ((natDegree_sub_le _ _).trans_lt (max_lt
+                                  ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_pow_le.trans (Nat.mul_le_mul_left 4 hA.le)) hB.le)).trans_lt hdeg1))
+                                  ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_pow_le.trans (Nat.mul_le_mul_left 3 hA.le)) hB.le)).trans_lt hdeg2))))
+                                ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_mul_le.trans (Nat.add_le_add (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hA.le)) hB.le)) hU.le)).trans_lt hdeg3))))
+                              ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hA.le)) hB.le)).trans_lt hdeg4))))
+                            ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hA.le (natDegree_pow_le.trans (Nat.mul_le_mul_left 3 hB.le)))).trans_lt hdeg5))))
+                          ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hA.le (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hB.le)))).trans_lt hdeg6))))
+                        ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add (natDegree_mul_le.trans (Nat.add_le_add hA.le hB.le)) hU.le)).trans_lt hdeg7))))
+                      ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hA.le hB.le)).trans_lt hdeg8))))
+                    ((natDegree_smul_le _ _).trans_lt ((natDegree_pow_le.trans (Nat.mul_le_mul_left 4 hB.le)).trans_lt hdeg9))))
+                  ((natDegree_smul_le _ _).trans_lt ((natDegree_pow_le.trans (Nat.mul_le_mul_left 3 hB.le)).trans_lt hdeg10))))
+                ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hB.le (natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hU.le)))).trans_lt hdeg11))))
+              ((natDegree_smul_le _ _).trans_lt ((natDegree_mul_le.trans (Nat.add_le_add hB.le hU.le)).trans_lt hdeg12))))
+            ((natDegree_smul_le _ _).trans_lt (hB.le.trans_lt hdeg13))))
+          ((natDegree_smul_le _ _).trans_lt ((natDegree_pow_le.trans (Nat.mul_le_mul_left 2 hU.le)).trans_lt hdeg14))))
+        ((natDegree_smul_le _ _).trans_lt (hU.le.trans_lt hdeg15))))))
 
 /-! ## Constant invariants forbid every exposed unique vertex -/
 
+set_option maxHeartbeats 64000000 in
 theorem fanTwoA5_not_unique410
     (l beta gamma delta zeta eta theta k₂ : k) (A B U : k[X])
     (a b u : ℕ) (ha : 0 < a) (hb : 0 < b) (hu : 0 < u)
@@ -281,6 +644,7 @@ theorem fanTwoA5_not_unique410
         hA hB hU hunique
   · exact hTwo
 
+set_option maxHeartbeats 64000000 in
 theorem fanTwoAB3_not_unique410
     (l beta gamma delta zeta eta theta k₂ : k) (A B U : k[X])
     (a b u : ℕ) (ha : 0 < a) (hb : 0 < b) (hu : 0 < u)
@@ -303,6 +667,7 @@ theorem fanTwoAB3_not_unique410
         hA hB hU hunique
   · exact hTwo
 
+set_option maxHeartbeats 64000000 in
 theorem fanTwoBU2_not_unique410
     (l beta gamma delta zeta eta theta k₂ : k) (A B U : k[X])
     (a b u : ℕ) (ha : 0 < a) (hb : 0 < b) (hu : 0 < u)
@@ -325,6 +690,7 @@ theorem fanTwoBU2_not_unique410
         hA hB hU hunique
   · exact hTwo
 
+set_option maxHeartbeats 64000000 in
 theorem fanOneA4B_not_unique410
     (l beta gamma delta zeta eta theta k₁ : k) (A B U : k[X])
     (a b u : ℕ) (ha : 0 < a) (hb : 0 < b) (hu : 0 < u)
@@ -347,6 +713,7 @@ theorem fanOneA4B_not_unique410
         hA hB hU hunique
   · exact hOne
 
+set_option maxHeartbeats 64000000 in
 theorem fanOneAB2U_not_unique410
     (l beta gamma delta zeta eta theta k₁ : k) (A B U : k[X])
     (a b u : ℕ) (ha : 0 < a) (hb : 0 < b) (hu : 0 < u)
@@ -370,6 +737,7 @@ theorem fanOneAB2U_not_unique410
         hA hB hU hunique
   · exact hOne
 
+set_option maxHeartbeats 64000000 in
 theorem fanOneB4_not_unique410
     (l beta gamma delta zeta eta theta k₁ : k) (A B U : k[X])
     (a b u : ℕ) (ha : 0 < a) (hb : 0 < b) (hu : 0 < u)
@@ -392,6 +760,7 @@ theorem fanOneB4_not_unique410
         hA hB hU hunique
   · exact hOne
 
+set_option maxHeartbeats 64000000 in
 theorem fanOneU3_not_unique410
     (l beta gamma delta zeta eta theta k₁ : k) (A B U : k[X])
     (a b u : ℕ) (ha : 0 < a) (hb : 0 < b) (hu : 0 < u)
@@ -416,6 +785,7 @@ theorem fanOneU3_not_unique410
 
 /-! ## The complete arithmetic fan -/
 
+set_option maxHeartbeats 64000000 in
 theorem lWall410_fan_split_of_no_unique
     (a b u : ℕ) (ha : 0 < a) (hb : 0 < b) (hu : 0 < u)
     (hTwoA5 : ¬ fanTwoA5Unique410 a b u)
@@ -430,10 +800,25 @@ theorem lWall410_fan_split_of_no_unique
   have hfan :
       4 * a = 3 * b ∨
         (2 * u = a + 2 * b ∧ 4 * a < 3 * b ∧ 2 * b ≤ 3 * a) := by
-    simp only [fanTwoA5Unique410, fanTwoAB3Unique410,
-      fanTwoBU2Unique410, fanOneA4BUnique410, fanOneAB2UUnique410,
-      fanOneB4Unique410, fanOneU3Unique410] at *
-    omega
+    by_cases heq : 4 * a = 3 * b
+    · exact Or.inl heq
+    · right
+      have hlower : 4 * a < 3 * b := by
+        simp only [fanTwoA5Unique410] at hTwoA5
+        simp only [fanTwoBU2Unique410] at hTwoBU2
+        simp only [fanOneU3Unique410] at hOneU3
+        clear hTwoAB3 hOneA4B hOneAB2U hOneB4
+        by_cases hab : a < b <;> omega
+      have hplane : 2 * u = a + 2 * b := by
+        simp only [fanTwoAB3Unique410] at hTwoAB3
+        simp only [fanTwoBU2Unique410] at hTwoBU2
+        clear hTwoA5 hOneA4B hOneAB2U hOneB4 hOneU3
+        omega
+      have hupper : 2 * b ≤ 3 * a := by
+        simp only [fanOneB4Unique410] at hOneB4
+        clear hTwoA5 hTwoAB3 hTwoBU2 hOneA4B hOneAB2U hOneU3
+        omega
+      exact ⟨hplane, hlower, hupper⟩
   rcases hfan with hlower | hsector
   · left
     have hdiv : 3 ∣ a := by
@@ -445,6 +830,7 @@ theorem lWall410_fan_split_of_no_unique
   · right
     omega
 
+set_option maxHeartbeats 64000000 in
 /-- Polynomial form of the Newton-support connector.  No fan equation or
 degree-ratio bound is assumed. -/
 theorem lWall410_discriminant_fan_split
@@ -483,6 +869,7 @@ theorem lWall410_discriminant_fan_split
 
 /-! ## Elimination of the complete positive-degree wall -/
 
+set_option maxHeartbeats 64000000 in
 theorem lWall410_discriminant_all_positive_impossible
     (l beta gamma delta zeta eta theta k₂ k₁ terminal : k)
     (A B U : k[X]) (a b u : ℕ)
@@ -552,6 +939,7 @@ theorem lWall410_discriminant_all_positive_impossible
         l beta gamma delta zeta eta theta k₂ terminal A B U n hn
           hAne hBne hUne (by omega) (by omega) (by omega) hTwo hTerminal
 
+set_option maxHeartbeats 64000000 in
 /-- Source-coordinate form: every positive-degree normalized trajectory on
 the `l ≠ 0` wall is excluded by the two first integrals and terminal row. -/
 theorem lWall410_all_positive_original_impossible

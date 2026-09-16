@@ -13,7 +13,7 @@ section PrimitivePolynomial610
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroBaseGroupPolynomial610_eq_A7_add_rest
     (l : k) (A B C0 D0 E0 : k[X]) :
     degreeZeroBaseGroupPolynomial610 l A B C0 D0 E0 =

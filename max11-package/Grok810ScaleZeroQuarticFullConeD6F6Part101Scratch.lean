@@ -30,6 +30,14 @@ section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
 
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
 set_option maxHeartbeats 64000000
 
 
@@ -377,6 +385,14 @@ section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
 
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
 set_option maxHeartbeats 64000000
 
 
@@ -522,6 +538,14 @@ set_option maxHeartbeats 64000000
 section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
+
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
 
 set_option maxHeartbeats 64000000
 
@@ -669,6 +693,14 @@ set_option maxHeartbeats 64000000
 section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
+
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
 
 set_option maxHeartbeats 64000000
 
@@ -818,6 +850,14 @@ set_option maxHeartbeats 64000000
 section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
+
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
 
 set_option maxHeartbeats 64000000
 
@@ -969,6 +1009,14 @@ set_option maxHeartbeats 64000000
 section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
+
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
 
 set_option maxHeartbeats 64000000
 
@@ -1145,6 +1193,14 @@ section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
 
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
 set_option maxHeartbeats 64000000
 
 
@@ -1303,6 +1359,14 @@ set_option maxHeartbeats 64000000
 section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
+
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
 
 set_option maxHeartbeats 64000000
 
@@ -1556,6 +1620,14 @@ set_option maxHeartbeats 64000000
 section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
+
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
 
 set_option maxHeartbeats 64000000
 
@@ -1820,6 +1892,14 @@ section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
 
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
 set_option maxHeartbeats 64000000
 
 
@@ -2007,6 +2087,14 @@ set_option maxHeartbeats 64000000
 section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
+
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
 
 set_option maxHeartbeats 64000000
 
@@ -2273,6 +2361,14 @@ section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
 
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
 set_option maxHeartbeats 64000000
 
 
@@ -2518,6 +2614,14 @@ section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
 
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
 set_option maxHeartbeats 64000000
 
 
@@ -2700,6 +2804,14 @@ set_option maxHeartbeats 64000000
 section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
+
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
 
 set_option maxHeartbeats 64000000
 
@@ -2968,6 +3080,14 @@ section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
 
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
 set_option maxHeartbeats 64000000
 
 
@@ -3200,6 +3320,14 @@ set_option maxHeartbeats 64000000
 section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
+
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
 
 set_option maxHeartbeats 64000000
 
@@ -3470,6 +3598,14 @@ section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
 
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
 set_option maxHeartbeats 64000000
 
 
@@ -3655,6 +3791,14 @@ set_option maxHeartbeats 64000000
 section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
+
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
 
 set_option maxHeartbeats 64000000
 
@@ -3943,6 +4087,14 @@ section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
 
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
 set_option maxHeartbeats 64000000
 
 
@@ -4225,6 +4377,14 @@ section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
 
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
 set_option maxHeartbeats 64000000
 
 
@@ -4486,6 +4646,14 @@ section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
 
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
 set_option maxHeartbeats 64000000
 
 
@@ -4669,6 +4837,14 @@ set_option maxHeartbeats 64000000
 section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
+
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
 
 set_option maxHeartbeats 64000000
 
@@ -4899,6 +5075,14 @@ set_option maxHeartbeats 64000000
 section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
+
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
 
 set_option maxHeartbeats 64000000
 
@@ -5200,6 +5384,14 @@ section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
 
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
 set_option maxHeartbeats 64000000
 
 
@@ -5453,6 +5645,14 @@ section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
 
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
 set_option maxHeartbeats 64000000
 
 
@@ -5639,6 +5839,14 @@ set_option maxHeartbeats 64000000
 section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
+
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
 
 set_option maxHeartbeats 64000000
 
@@ -5904,6 +6112,14 @@ set_option maxHeartbeats 64000000
 section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
+
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
 
 set_option maxHeartbeats 64000000
 
@@ -6179,6 +6395,14 @@ set_option maxHeartbeats 64000000
 section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
+
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
 
 set_option maxHeartbeats 64000000
 
@@ -6477,6 +6701,14 @@ section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
 
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
 set_option maxHeartbeats 64000000
 
 
@@ -6741,6 +6973,14 @@ section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
 
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
 set_option maxHeartbeats 64000000
 
 
@@ -6927,6 +7167,14 @@ set_option maxHeartbeats 64000000
 section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
+
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
 
 set_option maxHeartbeats 64000000
 
@@ -7242,6 +7490,14 @@ section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
 
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
 set_option maxHeartbeats 64000000
 
 
@@ -7483,6 +7739,14 @@ set_option maxHeartbeats 64000000
 section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
+
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
 
 set_option maxHeartbeats 64000000
 
@@ -7774,6 +8038,14 @@ section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
 
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
 set_option maxHeartbeats 64000000
 
 
@@ -7957,6 +8229,14 @@ set_option maxHeartbeats 64000000
 section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
+
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
 
 set_option maxHeartbeats 64000000
 
@@ -8200,6 +8480,14 @@ set_option maxHeartbeats 64000000
 section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
+
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
 
 set_option maxHeartbeats 64000000
 
@@ -8463,6 +8751,14 @@ set_option maxHeartbeats 64000000
 section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
+
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
 
 set_option maxHeartbeats 64000000
 
@@ -8733,6 +9029,14 @@ set_option maxHeartbeats 64000000
 section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
+
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
 
 set_option maxHeartbeats 64000000
 
@@ -9013,6 +9317,14 @@ section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
 
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
 set_option maxHeartbeats 64000000
 
 
@@ -9275,6 +9587,14 @@ set_option maxHeartbeats 64000000
 section QuarticFullConeABCDEFG810D6F6
 
 variable {k : Type*} [Field k] [CharZero k]
+
+-- Preserve the arithmetic heads while making the scalar carrier explicit.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
 
 set_option maxHeartbeats 64000000
 

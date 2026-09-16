@@ -10,6 +10,14 @@ section DegreeZeroOrderFiveHead610
 
 variable {R : Type*} [CommRing R]
 
+-- Fix the existing carrier before elaborating the arithmetic tree.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := R) (β := R) (γ := R))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := R) (β := R) (γ := R))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := R) (β := R) (γ := R))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := R) (β := Nat) (γ := R))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := R))
+
+set_option maxHeartbeats 64000000 in
 /-- Remaining factor after `h^4` is removed on the `p32 = h · p32n`,
 `q41 = h · q41n`, `q3 = h · q3n` substitution. -/
 def degreeZeroPostCollapseP32Q41Q3ZeroOrderFourPlus610

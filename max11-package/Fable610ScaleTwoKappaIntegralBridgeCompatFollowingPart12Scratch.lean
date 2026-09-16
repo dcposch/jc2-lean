@@ -11,7 +11,7 @@ section BridgeMuJetFactor610
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- On the sibling-child deeper jet the cleared `μ` defect factors
 exactly as `h⁶¹` times its order-`61` head plus `h` times the deep
 tail. -/
@@ -28,6 +28,7 @@ theorem bridgeClearedMuDefect610_deepJet_factored
           h * bridgeMuDeepTail610 h w1 a42 p32 s2 u2 b63 q54 p21 p1
             p0 q42 q31 q2 q1 (Polynomial.C lambda)) := by
   unfold bridgeClearedMuDefect610 bridgeMuDeepHead610 bridgeMuDeepTail610
+  simp only [mul_pow, ← pow_mul, Nat.reduceMul]
   ring
 
 end BridgeMuJetFactor610

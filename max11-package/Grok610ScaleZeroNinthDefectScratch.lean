@@ -1,4 +1,4 @@
-import Grok610ScaleZeroEighthDefectScratch
+import Grok610ScaleZeroNinthDefectSpeedTPart01Scratch
 
 /-! # Scale-zero ninth cleared defect for the normalized `(6,10)`, `H = 0` leaf
 
@@ -54,325 +54,11 @@ variable {k : Type*} [Field k] [CharZero k]
 
 /-! ## Literal next Keller coefficient -/
 
-/-- The tenth row below the leading weighted-Wronskian row for outer
-degrees `(6,10)`.  Unused Jacobian coefficients of the eighth packet
-start at degree `5`. -/
-theorem scaleZeroRaw_tenthCoefficientJacobianRow_610 {K : Type*}
-    [Field K] [CharZero K] {p q : K[X][Y]} {j : K}
-    (hp : p.natDegree = 6) (hq : q.natDegree = 10)
-    (hjac : bivariateJacobian p q = Polynomial.C (Polynomial.C j)) :
-    (p.coeff 5).derivative * q.coeff 1 +
-        (p.coeff 4).derivative * (q.coeff 2 * Polynomial.C (2 : K)) +
-        (p.coeff 3).derivative * (q.coeff 3 * Polynomial.C (3 : K)) +
-        (p.coeff 2).derivative * (q.coeff 4 * Polynomial.C (4 : K)) +
-        (p.coeff 1).derivative * (q.coeff 5 * Polynomial.C (5 : K)) +
-        (p.coeff 0).derivative * (q.coeff 6 * Polynomial.C (6 : K)) -
-      ((p.coeff 6 * Polynomial.C (6 : K)) * (q.coeff 0).derivative +
-        (p.coeff 5 * Polynomial.C (5 : K)) * (q.coeff 1).derivative +
-        (p.coeff 4 * Polynomial.C (4 : K)) * (q.coeff 2).derivative +
-        (p.coeff 3 * Polynomial.C (3 : K)) * (q.coeff 3).derivative +
-        (p.coeff 2 * Polynomial.C (2 : K)) * (q.coeff 4).derivative +
-        p.coeff 1 * (q.coeff 5).derivative) =
-      0 := by
-  have hcoeff := congrArg (fun r : K[X][Y] => r.coeff 5) hjac
-  simp only [bivariateJacobian, Polynomial.coeff_sub, Polynomial.coeff_mul,
-    coeff_xderiv, Polynomial.coeff_derivative, Polynomial.coeff_C,
-    show (5 : ℕ) ≠ 0 by norm_num, ite_false] at hcoeff
-  have hanti : (Finset.HasAntidiagonal.antidiagonal 5 :
-      Finset (ℕ × ℕ)) =
-      ({(0, 5), (1, 4), (2, 3), (3, 2), (4, 1),
-        (5, 0)} : Finset (ℕ × ℕ)) := by decide
-  rw [hanti] at hcoeff
-  norm_num [hp, hq, Polynomial.coeff_eq_zero_of_natDegree_lt] at hcoeff ⊢
-  have hC2 : Polynomial.C (2 : K) = (2 : K[X]) :=
-    Polynomial.C_eq_natCast 2
-  have hC3 : Polynomial.C (3 : K) = (3 : K[X]) :=
-    Polynomial.C_eq_natCast 3
-  have hC4 : Polynomial.C (4 : K) = (4 : K[X]) :=
-    Polynomial.C_eq_natCast 4
-  have hC5 : Polynomial.C (5 : K) = (5 : K[X]) :=
-    Polynomial.C_eq_natCast 5
-  have hC6 : Polynomial.C (6 : K) = (6 : K[X]) :=
-    Polynomial.C_eq_natCast 6
-  rw [hC2, hC3, hC4, hC5, hC6]
-  linear_combination hcoeff
-
-/-- Source-facing degree-`5` Jacobian row of a normalized scale-zero
-`(6,10)` pair. -/
-theorem normalized610ScaleZero_tenthCoefficientJacobianRow
-    {P Q : MvPolynomial (Fin 2) k} {H : k[X]}
-    (hsource : Normalized610LeadingCoreSource P Q H 0) :
-    let p := (Polynomial.Bivariate.equivMvPolynomial k).symm P
-    let q := (Polynomial.Bivariate.equivMvPolynomial k).symm Q
-    (p.coeff 5).derivative * q.coeff 1 +
-        (p.coeff 4).derivative * (q.coeff 2 * Polynomial.C (2 : k)) +
-        (p.coeff 3).derivative * (q.coeff 3 * Polynomial.C (3 : k)) +
-        (p.coeff 2).derivative * (q.coeff 4 * Polynomial.C (4 : k)) +
-        (p.coeff 1).derivative * (q.coeff 5 * Polynomial.C (5 : k)) +
-        (p.coeff 0).derivative * (q.coeff 6 * Polynomial.C (6 : k)) -
-      ((p.coeff 6 * Polynomial.C (6 : k)) * (q.coeff 0).derivative +
-        (p.coeff 5 * Polynomial.C (5 : k)) * (q.coeff 1).derivative +
-        (p.coeff 4 * Polynomial.C (4 : k)) * (q.coeff 2).derivative +
-        (p.coeff 3 * Polynomial.C (3 : k)) * (q.coeff 3).derivative +
-        (p.coeff 2 * Polynomial.C (2 : k)) * (q.coeff 4).derivative +
-        p.coeff 1 * (q.coeff 5).derivative) =
-      0 := by
-  dsimp only
-  rcases hsource with
-    ⟨_hH, _hHdegree, hPdegree, hQdegree, _hp6, _hq10, hKeller⟩
-  let p := (Polynomial.Bivariate.equivMvPolynomial k).symm P
-  let q := (Polynomial.Bivariate.equivMvPolynomial k).symm Q
-  have hp : p.natDegree = 6 := by
-    simpa only [p, natDegree_bivariate_eq_degreeOf_y] using hPdegree
-  have hq : q.natDegree = 10 := by
-    simpa only [q, natDegree_bivariate_eq_degreeOf_y] using hQdegree
-  obtain ⟨j, _hj, hjac⟩ := bivariateJacobian_eq_C_of_keller hKeller
-  simpa only [p, q] using
-    scaleZeroRaw_tenthCoefficientJacobianRow_610 hp hq hjac
-
-/-- At scale zero the common core is constant, so the leading sextic
-coefficient of the degree-`5` row is a differential constant.  The row
-itself has no `p₆'` term. -/
-theorem scaleZero_tenthCoefficientJacobianRow_610
-    {p q : k[X][X]} {j : k} {H : k[X]}
-    (hp : p.natDegree = 6) (hq : q.natDegree = 10)
-    (hjac : bivariateJacobian p q = Polynomial.C (Polynomial.C j))
-    (hHdegree : H.natDegree = 0)
-    (hp6 : p.coeff 6 = H ^ 3) (hq10 : q.coeff 10 = H ^ 5) :
-    (p.coeff 5).derivative * q.coeff 1 +
-        (p.coeff 4).derivative * (q.coeff 2 * Polynomial.C (2 : k)) +
-        (p.coeff 3).derivative * (q.coeff 3 * Polynomial.C (3 : k)) +
-        (p.coeff 2).derivative * (q.coeff 4 * Polynomial.C (4 : k)) +
-        (p.coeff 1).derivative * (q.coeff 5 * Polynomial.C (5 : k)) +
-        (p.coeff 0).derivative * (q.coeff 6 * Polynomial.C (6 : k)) -
-      ((p.coeff 6 * Polynomial.C (6 : k)) * (q.coeff 0).derivative +
-        (p.coeff 5 * Polynomial.C (5 : k)) * (q.coeff 1).derivative +
-        (p.coeff 4 * Polynomial.C (4 : k)) * (q.coeff 2).derivative +
-        (p.coeff 3 * Polynomial.C (3 : k)) * (q.coeff 3).derivative +
-        (p.coeff 2 * Polynomial.C (2 : k)) * (q.coeff 4).derivative +
-        p.coeff 1 * (q.coeff 5).derivative) =
-      0 := by
-  obtain ⟨c, hc⟩ := natDegree_eq_zero.mp hHdegree
-  have hHder : H.derivative = 0 := by
-    rw [← hc, derivative_C]
-  have hp6der : (p.coeff 6).derivative = 0 := by
-    rw [hp6, derivative_pow, hHder, mul_zero]
-  have hq10der : (q.coeff 10).derivative = 0 := by
-    rw [hq10, derivative_pow, hHder, mul_zero]
-  have hrow := scaleZeroRaw_tenthCoefficientJacobianRow_610 hp hq hjac
-  simpa [hp6der, hq10der] using hrow
-
-/-- Source-facing scale-zero collapse of the degree-`5` row. -/
-theorem normalized610ScaleZero_tenthCoefficientJacobianRow_collapsed
-    {P Q : MvPolynomial (Fin 2) k} {H : k[X]}
-    (hsource : Normalized610LeadingCoreSource P Q H 0) :
-    let p := (Polynomial.Bivariate.equivMvPolynomial k).symm P
-    let q := (Polynomial.Bivariate.equivMvPolynomial k).symm Q
-    (p.coeff 5).derivative * q.coeff 1 +
-        (p.coeff 4).derivative * (q.coeff 2 * Polynomial.C (2 : k)) +
-        (p.coeff 3).derivative * (q.coeff 3 * Polynomial.C (3 : k)) +
-        (p.coeff 2).derivative * (q.coeff 4 * Polynomial.C (4 : k)) +
-        (p.coeff 1).derivative * (q.coeff 5 * Polynomial.C (5 : k)) +
-        (p.coeff 0).derivative * (q.coeff 6 * Polynomial.C (6 : k)) -
-      ((p.coeff 6 * Polynomial.C (6 : k)) * (q.coeff 0).derivative +
-        (p.coeff 5 * Polynomial.C (5 : k)) * (q.coeff 1).derivative +
-        (p.coeff 4 * Polynomial.C (4 : k)) * (q.coeff 2).derivative +
-        (p.coeff 3 * Polynomial.C (3 : k)) * (q.coeff 3).derivative +
-        (p.coeff 2 * Polynomial.C (2 : k)) * (q.coeff 4).derivative +
-        p.coeff 1 * (q.coeff 5).derivative) =
-      0 := by
-  dsimp only
-  rcases hsource with
-    ⟨_hH, hHdegree, hPdegree, hQdegree, hp6, hq10, hKeller⟩
-  let p := (Polynomial.Bivariate.equivMvPolynomial k).symm P
-  let q := (Polynomial.Bivariate.equivMvPolynomial k).symm Q
-  have hp : p.natDegree = 6 := by
-    simpa only [p, natDegree_bivariate_eq_degreeOf_y] using hPdegree
-  have hq : q.natDegree = 10 := by
-    simpa only [q, natDegree_bivariate_eq_degreeOf_y] using hQdegree
-  obtain ⟨j, _hj, hjac⟩ := bivariateJacobian_eq_C_of_keller hKeller
-  simpa only [p, q] using
-    scaleZero_tenthCoefficientJacobianRow_610 hp hq hjac hHdegree
-      (by simpa only [p] using hp6) (by simpa only [q] using hq10)
-
-/-! ## Weight-fifty cleared defect after a square root of the core -/
-
 section Depression610Tenth
 
 variable {F : Type*} [Field F] [CharZero F]
 
-/-- Depressed decic `z⁰` coefficient. -/
-def depressedX610 (h r b9 b8 b7 b6 b5 b4 b3 b2 b1 b0 : F) : F :=
-  r ^ 10 - (b9 / h ^ 9) * r ^ 9 + (b8 / h ^ 8) * r ^ 8 -
-    (b7 / h ^ 7) * r ^ 7 + (b6 / h ^ 6) * r ^ 6 -
-    (b5 / h ^ 5) * r ^ 5 + (b4 / h ^ 4) * r ^ 4 -
-    (b3 / h ^ 3) * r ^ 3 + (b2 / h ^ 2) * r ^ 2 -
-    (b1 / h) * r + b0
-
-/-- First residual of the degree-`5` row.  Equivalent to
-`X - γ E - (5/6) δ D - (2/3) ε C - (1/2) ζ B - (1/3) η A
-- (10/9) C E - (5/9) D² + (5/27) A² E + (10/27) A B D + (5/27) A C²
-+ (5/27) B² C - (10/81) A² B² - (20/243) A³ C + (7/729) A⁵
-- (4/9) α A E - (4/9) α B D - (2/9) α C² + (4/27) α A² C
-+ (4/27) α A B² - (5/243) α A⁴ - (7/36) β A D - (7/36) β B C
-+ (35/432) β A² B + (5/36) δ A B + (1/9) ε A²
-- (3/4) L B E - (3/4) L C D + (3/8) L A B C + (3/16) L A² D
-+ (1/16) L B³ - (3/32) L A³ B`
-on the second- through eighth-face integrals. -/
-def iotaResidual610
-    (L A B C0 D0 E0 P Q R S0 T0 U0 V0 X0 : F) : F :=
-  X0 - gammaResidual610 L A B C0 P R * E0 -
-    (5 / 6 : F) * deltaResidual610 L A B C0 D0 P Q S0 * D0 -
-    (2 / 3 : F) * epsilonResidual610 L A B C0 D0 E0 P Q R T0 * C0 -
-    (1 / 2 : F) * zetaResidual610 L A B C0 D0 E0 P Q R S0 U0 * B -
-    (1 / 3 : F) * etaResidual610 L A B C0 D0 E0 P Q R S0 T0 V0 * A -
-    (10 / 9 : F) * C0 * E0 - (5 / 9 : F) * D0 ^ 2 +
-    (5 / 27 : F) * A ^ 2 * E0 + (10 / 27 : F) * A * B * D0 +
-    (5 / 27 : F) * A * C0 ^ 2 + (5 / 27 : F) * B ^ 2 * C0 -
-    (10 / 81 : F) * A ^ 2 * B ^ 2 - (20 / 243 : F) * A ^ 3 * C0 +
-    (7 / 729 : F) * A ^ 5 -
-    (4 / 9 : F) * alphaResidual610 A P * A * E0 -
-    (4 / 9 : F) * alphaResidual610 A P * B * D0 -
-    (2 / 9 : F) * alphaResidual610 A P * C0 ^ 2 +
-    (4 / 27 : F) * alphaResidual610 A P * A ^ 2 * C0 +
-    (4 / 27 : F) * alphaResidual610 A P * A * B ^ 2 -
-    (5 / 243 : F) * alphaResidual610 A P * A ^ 4 -
-    (7 / 36 : F) * betaResidual610 L A B Q * A * D0 -
-    (7 / 36 : F) * betaResidual610 L A B Q * B * C0 +
-    (35 / 432 : F) * betaResidual610 L A B Q * A ^ 2 * B +
-    (5 / 36 : F) * deltaResidual610 L A B C0 D0 P Q S0 * A * B +
-    (1 / 9 : F) * epsilonResidual610 L A B C0 D0 E0 P Q R T0 * A ^ 2 -
-    (3 / 4 : F) * L * B * E0 - (3 / 4 : F) * L * C0 * D0 +
-    (3 / 8 : F) * L * A * B * C0 + (3 / 16 : F) * L * A ^ 2 * D0 +
-    (1 / 16 : F) * L * B ^ 3 - (3 / 32 : F) * L * A ^ 3 * B
-
-set_option maxHeartbeats 8000000 in
-/-- Polynomial numerator of `18 h⁵⁰ ι` on the ninth-power face. -/
-def localClearedTenthDefect610
-    (h a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 b0 : F[X]) (lambda : F) : F[X] :=
-    (30 : F[X]) * a0 * a2 * h ^ 48
-    - (15 : F[X]) * a0 * a3 * a5 * h ^ 42
-    - (9 : F[X]) * a0 * a3 * h ^ 47 * Polynomial.C lambda
-    - (30 : F[X]) * a0 * a4 ^ 2 * h ^ 42
-    + (18 : F[X]) * a0 * a4 * a5 * h ^ 41 * Polynomial.C lambda
-    + (24 : F[X]) * a0 * a4 * b8 * h ^ 38
-    + (15 : F[X]) * a0 * a5 ^ 4 * h ^ 30
-    - (9 : F[X]) * a0 * a5 ^ 3 * h ^ 35 * Polynomial.C lambda
-    - (24 : F[X]) * a0 * a5 ^ 2 * b8 * h ^ 32
-    + (21 : F[X]) * a0 * a5 * b7 * h ^ 38
-    - (18 : F[X]) * a0 * b6 * h ^ 44
-    + (15 : F[X]) * a1 ^ 2 * h ^ 48
-    - (15 : F[X]) * a1 * a2 * a5 * h ^ 42
-    - (9 : F[X]) * a1 * a2 * h ^ 47 * Polynomial.C lambda
-    - (60 : F[X]) * a1 * a3 * a4 * h ^ 42
-    + (18 : F[X]) * a1 * a3 * a5 * h ^ 41 * Polynomial.C lambda
-    + (24 : F[X]) * a1 * a3 * b8 * h ^ 38
-    + (45 : F[X]) * a1 * a4 ^ 2 * a5 * h ^ 36
-    + (9 : F[X]) * a1 * a4 ^ 2 * h ^ 41 * Polynomial.C lambda
-    + (15 : F[X]) * a1 * a4 * a5 ^ 3 * h ^ 30
-    - (27 : F[X]) * a1 * a4 * a5 ^ 2 * h ^ 35 * Polynomial.C lambda
-    - (48 : F[X]) * a1 * a4 * a5 * b8 * h ^ 32
-    + (21 : F[X]) * a1 * a4 * b7 * h ^ 38
-    - (15 : F[X]) * a1 * a5 ^ 5 * h ^ 24
-    + (9 : F[X]) * a1 * a5 ^ 4 * h ^ 29 * Polynomial.C lambda
-    + (24 : F[X]) * a1 * a5 ^ 3 * b8 * h ^ 26
-    - (21 : F[X]) * a1 * a5 ^ 2 * b7 * h ^ 32
-    + (18 : F[X]) * a1 * a5 * b6 * h ^ 38
-    - (15 : F[X]) * a1 * b5 * h ^ 44
-    - (30 : F[X]) * a2 ^ 2 * a4 * h ^ 42
-    + (9 : F[X]) * a2 ^ 2 * a5 * h ^ 41 * Polynomial.C lambda
-    + (12 : F[X]) * a2 ^ 2 * b8 * h ^ 38
-    - (30 : F[X]) * a2 * a3 ^ 2 * h ^ 42
-    + (90 : F[X]) * a2 * a3 * a4 * a5 * h ^ 36
-    + (18 : F[X]) * a2 * a3 * a4 * h ^ 41 * Polynomial.C lambda
-    + (15 : F[X]) * a2 * a3 * a5 ^ 3 * h ^ 30
-    - (27 : F[X]) * a2 * a3 * a5 ^ 2 * h ^ 35 * Polynomial.C lambda
-    - (48 : F[X]) * a2 * a3 * a5 * b8 * h ^ 32
-    + (21 : F[X]) * a2 * a3 * b7 * h ^ 38
-    + (30 : F[X]) * a2 * a4 ^ 3 * h ^ 36
-    - (45 : F[X]) * a2 * a4 ^ 2 * a5 ^ 2 * h ^ 30
-    - (27 : F[X]) * a2 * a4 ^ 2 * a5 * h ^ 35 * Polynomial.C lambda
-    - (24 : F[X]) * a2 * a4 ^ 2 * b8 * h ^ 32
-    - (30 : F[X]) * a2 * a4 * a5 ^ 4 * h ^ 24
-    + (36 : F[X]) * a2 * a4 * a5 ^ 3 * h ^ 29 * Polynomial.C lambda
-    + (72 : F[X]) * a2 * a4 * a5 ^ 2 * b8 * h ^ 26
-    - (42 : F[X]) * a2 * a4 * a5 * b7 * h ^ 32
-    + (18 : F[X]) * a2 * a4 * b6 * h ^ 38
-    + (15 : F[X]) * a2 * a5 ^ 6 * h ^ 18
-    - (9 : F[X]) * a2 * a5 ^ 5 * h ^ 23 * Polynomial.C lambda
-    - (24 : F[X]) * a2 * a5 ^ 4 * b8 * h ^ 20
-    + (21 : F[X]) * a2 * a5 ^ 3 * b7 * h ^ 26
-    - (18 : F[X]) * a2 * a5 ^ 2 * b6 * h ^ 32
-    + (15 : F[X]) * a2 * a5 * b5 * h ^ 38
-    - (12 : F[X]) * a2 * b4 * h ^ 44
-    + (15 : F[X]) * a3 ^ 3 * a5 * h ^ 36
-    + (3 : F[X]) * a3 ^ 3 * h ^ 41 * Polynomial.C lambda
-    + (45 : F[X]) * a3 ^ 2 * a4 ^ 2 * h ^ 36
-    - (45 : F[X]) * a3 ^ 2 * a4 * a5 ^ 2 * h ^ 30
-    - (27 : F[X]) * a3 ^ 2 * a4 * a5 * h ^ 35 * Polynomial.C lambda
-    - (24 : F[X]) * a3 ^ 2 * a4 * b8 * h ^ 32
-    - (15 : F[X]) * a3 ^ 2 * a5 ^ 4 * h ^ 24
-    + (18 : F[X]) * a3 ^ 2 * a5 ^ 3 * h ^ 29 * Polynomial.C lambda
-    + (36 : F[X]) * a3 ^ 2 * a5 ^ 2 * b8 * h ^ 26
-    - (21 : F[X]) * a3 ^ 2 * a5 * b7 * h ^ 32
-    + (9 : F[X]) * a3 ^ 2 * b6 * h ^ 38
-    - (75 : F[X]) * a3 * a4 ^ 3 * a5 * h ^ 30
-    - (9 : F[X]) * a3 * a4 ^ 3 * h ^ 35 * Polynomial.C lambda
-    + (30 : F[X]) * a3 * a4 ^ 2 * a5 ^ 3 * h ^ 24
-    + (54 : F[X]) * a3 * a4 ^ 2 * a5 ^ 2 * h ^ 29 * Polynomial.C lambda
-    + (72 : F[X]) * a3 * a4 ^ 2 * a5 * b8 * h ^ 26
-    - (21 : F[X]) * a3 * a4 ^ 2 * b7 * h ^ 32
-    + (45 : F[X]) * a3 * a4 * a5 ^ 5 * h ^ 18
-    - (45 : F[X]) * a3 * a4 * a5 ^ 4 * h ^ 23 * Polynomial.C lambda
-    - (96 : F[X]) * a3 * a4 * a5 ^ 3 * b8 * h ^ 20
-    + (63 : F[X]) * a3 * a4 * a5 ^ 2 * b7 * h ^ 26
-    - (36 : F[X]) * a3 * a4 * a5 * b6 * h ^ 32
-    + (15 : F[X]) * a3 * a4 * b5 * h ^ 38
-    - (15 : F[X]) * a3 * a5 ^ 7 * h ^ 12
-    + (9 : F[X]) * a3 * a5 ^ 6 * h ^ 17 * Polynomial.C lambda
-    + (24 : F[X]) * a3 * a5 ^ 5 * b8 * h ^ 14
-    - (21 : F[X]) * a3 * a5 ^ 4 * b7 * h ^ 20
-    + (18 : F[X]) * a3 * a5 ^ 3 * b6 * h ^ 26
-    - (15 : F[X]) * a3 * a5 ^ 2 * b5 * h ^ 32
-    + (12 : F[X]) * a3 * a5 * b4 * h ^ 38
-    - (9 : F[X]) * a3 * b3 * h ^ 44
-    - (6 : F[X]) * a4 ^ 5 * h ^ 30
-    + (30 : F[X]) * a4 ^ 4 * a5 ^ 2 * h ^ 24
-    + (9 : F[X]) * a4 ^ 4 * a5 * h ^ 29 * Polynomial.C lambda
-    + (6 : F[X]) * a4 ^ 4 * b8 * h ^ 26
-    - (30 : F[X]) * a4 ^ 3 * a5 ^ 3 * h ^ 23 * Polynomial.C lambda
-    - (48 : F[X]) * a4 ^ 3 * a5 ^ 2 * b8 * h ^ 20
-    + (21 : F[X]) * a4 ^ 3 * a5 * b7 * h ^ 26
-    - (6 : F[X]) * a4 ^ 3 * b6 * h ^ 32
-    - (30 : F[X]) * a4 ^ 2 * a5 ^ 6 * h ^ 12
-    + (27 : F[X]) * a4 ^ 2 * a5 ^ 5 * h ^ 17 * Polynomial.C lambda
-    + (60 : F[X]) * a4 ^ 2 * a5 ^ 4 * b8 * h ^ 14
-    - (42 : F[X]) * a4 ^ 2 * a5 ^ 3 * b7 * h ^ 20
-    + (27 : F[X]) * a4 ^ 2 * a5 ^ 2 * b6 * h ^ 26
-    - (15 : F[X]) * a4 ^ 2 * a5 * b5 * h ^ 32
-    + (6 : F[X]) * a4 ^ 2 * b4 * h ^ 38
-    + (15 : F[X]) * a4 * a5 ^ 8 * h ^ 6
-    - (9 : F[X]) * a4 * a5 ^ 7 * h ^ 11 * Polynomial.C lambda
-    - (24 : F[X]) * a4 * a5 ^ 6 * b8 * h ^ 8
-    + (21 : F[X]) * a4 * a5 ^ 5 * b7 * h ^ 14
-    - (18 : F[X]) * a4 * a5 ^ 4 * b6 * h ^ 20
-    + (15 : F[X]) * a4 * a5 ^ 3 * b5 * h ^ 26
-    - (12 : F[X]) * a4 * a5 ^ 2 * b4 * h ^ 32
-    + (9 : F[X]) * a4 * a5 * b3 * h ^ 38
-    - (6 : F[X]) * a4 * b2 * h ^ 44
-    - (2 : F[X]) * a5 ^ 10
-    + (1 : F[X]) * a5 ^ 9 * h ^ 5 * Polynomial.C lambda
-    + (3 : F[X]) * a5 ^ 8 * b8 * h ^ 2
-    - (3 : F[X]) * a5 ^ 7 * b7 * h ^ 8
-    + (3 : F[X]) * a5 ^ 6 * b6 * h ^ 14
-    - (3 : F[X]) * a5 ^ 5 * b5 * h ^ 20
-    + (3 : F[X]) * a5 ^ 4 * b4 * h ^ 26
-    - (3 : F[X]) * a5 ^ 3 * b3 * h ^ 32
-    + (3 : F[X]) * a5 ^ 2 * b2 * h ^ 38
-    - (3 : F[X]) * a5 * b1 * h ^ 44
-    + (18 : F[X]) * b0 * h ^ 50
-
-
+set_option maxHeartbeats 64000000 in
 /-- Exact denominator clearing for the decic `z⁰` coordinate on the
 ninth-power face. -/
 theorem depressedX610_eq_cleared
@@ -432,7 +118,7 @@ theorem depressedX610_eq_cleared
     ring
   exact hrewrite
 
-set_option maxHeartbeats 8000000 in
+set_option maxHeartbeats 64000000 in
 /-- Aligned specialization of the weight-fifty defect: the
 `λ`-monomials drop. -/
 theorem localClearedTenthDefect610_of_lambda_zero
@@ -536,7 +222,15 @@ theorem localClearedTenthDefect610_of_lambda_zero
     + (18 : F[X]) * b0 * h ^ 50 := by
   simp [localClearedTenthDefect610, map_zero]
 
-set_option maxHeartbeats 400000000 in
+-- Fix arithmetic inference while preserving the literal public expression.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := F) (β := F) (γ := F))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := F) (β := F) (γ := F))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := F) (β := F) (γ := F))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := F) (β := F) (γ := F))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := F) (β := Nat) (γ := F))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := F))
+
+set_option maxHeartbeats 64000000 in
 /-- SPEED (recipe R2, `scripts/coord/LEAN_SPEED_REPORT.md` §7): the weight-`50`
 clearing of `iotaResidual610` carried out on the *atoms* rather than on the fully
 substituted source polynomials.  `iotaResidual610` is weighted homogeneous, so
@@ -579,7 +273,7 @@ def speedIotaResidual610Scaled50 (h nL nA nB nC nD nE nP nQ nR nS nT nU nV nX : 
     - (1 / 1119744 : F) * nE * nR
     + (1 / 3359232 : F) * nX
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- The atom-level clearing: one `field_simp` over 15 atomic variables in
 place of the single enormous `field_simp` on the substituted rational function. -/
 theorem speedIotaResidual610Scaled50_eq (h : F) (hh : h ≠ 0) (nL nA nB nC nD nE nP nQ nR nS nT nU nV nX : F) :
@@ -627,7 +321,7 @@ theorem speedIotaResidual610Scaled50_eq (h : F) (hh : h ≠ 0) (nL nA nB nC nD n
   field_simp
   ring
 
-set_option maxHeartbeats 80000000 in
+set_option maxHeartbeats 64000000 in
 /-- Clearing the first integral
 `X - γ E - (5/6) δ D - (2/3) ε C - (1/2) ζ B - (1/3) η A
 - (10/9) C E - (5/9) D² + (5/27) A² E + (10/27) A B D + (5/27) A C²
@@ -931,6 +625,7 @@ section DepressedRow610Tenth
 
 variable {k F : Type*} [Field k] [Field F] [Algebra k F] [CharZero F]
 
+set_option maxHeartbeats 64000000 in
 /-- For a depressed monic sextic and a monic decic whose `z⁹` coefficient is
 already a differential constant, the degree-`5` Jacobian coefficient is
 exactly `6 R E' + 5 S D' + 4 T C' + 3 U B' + 2 V A' - D S' - 2 C T'
@@ -1232,7 +927,7 @@ theorem differentialJacobian_coeff_5_monicSexticDecic
   ring
 
 
-set_option maxHeartbeats 80000000 in
+set_option maxHeartbeats 64000000 in
 theorem iotaResidual610_deriv_zero
     (d : Derivation k F F) (L A B C0 D0 E0 P Q R S0 T0 U0 V0 X0 : F)
     (hL : d L = 0)
@@ -1734,6 +1429,7 @@ section AffineDecic610Tenth
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 /-- The `z⁰` coefficient of the affine depression of a degree-ten source. -/
 theorem affineDepress_degreeTen_coeff0_610
     (p : (RatFunc k)[X]) (h r : RatFunc k) (hh : h ≠ 0)
@@ -1951,7 +1647,7 @@ section NonzeroTenthDefect610
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 80000000 in
+set_option maxHeartbeats 64000000 in
 /-- The ninth sextic/decic integral on a square-core ninth-power source:
 the cleared defect is a scalar times `h⁵⁰`. -/
 theorem nonzeroFace610_tenthDefectPowerRelation
@@ -2381,11 +2077,10 @@ theorem nonzeroFace610_tenthDefectPowerRelation
       rw [hg9]
       simp [depressedL610, depressedL810, sexticDepressionR610,
         sourceToRatFunc68, sourceToRatFunc46, b9]
-    simpa [localClearedTenthDefect610, map_sub, map_add, map_mul, map_pow,
+    dsimp only [localClearedTenthDefect610]
+    simpa [map_sub, map_add, map_mul, map_pow,
       map_ofNat, map_neg, RatFunc.algebraMap_C, hRF, a5, a4, a3, a2, a1, a0,
-      b8, b7, b6, b5, b4, b3, b2, b1, b0, iotaResidual610, alphaResidual610,
-      betaResidual610, gammaResidual610, deltaResidual610,
-      epsilonResidual610, zetaResidual610, etaResidual610, hf4, hf3, hf2,
+      b8, b7, b6, b5, b4, b3, b2, b1, b0, hf4, hf3, hf2,
       hf1, hf0, hg0, hg2, hg3, hg4, hg5, hg6, hg7, hg8', hg9L] using hF.symm
   have htarget :
       algebraMap k[X] (RatFunc k)
@@ -2405,6 +2100,7 @@ end NonzeroTenthDefect610
 
 variable [IsAlgClosed k]
 
+set_option maxHeartbeats 64000000 in
 /-- Strongest exact ninth residual after the constant-scale source bridge:
 the cleared weight-fifty sextic/decic defect is a scalar times `h⁵⁰`.
 Both the vanishing and the nonzero values of `λ` are permitted. -/
@@ -2467,6 +2163,7 @@ theorem scaleZero_ninthClearedDefect_exists_C_610
   exact ⟨lambda, alpha, gamma, delta, eps, zeta, eta, theta, iota, kappa, hN, halpha,
     hgamma, hdelta, heps, hzeta, heta, htheta, hiota, hkappa⟩
 
+set_option maxHeartbeats 64000000 in
 /-- Source-facing ninth residual packet for a normalized scale-zero
 `(6,10)` pair.  The constants `λ`, `α`, `γ`, `δ`, `ε`, `ζ`, `η`, `θ`, `ι`, and
 `κ` may vanish. -/
@@ -2523,6 +2220,7 @@ theorem normalized610ScaleZero_exists_ninthClearedDefect
     by simpa only [p, q] using hN,
     by simpa only [p, q] using hZ⟩
 
+set_option maxHeartbeats 64000000 in
 /-- At scale zero the weight-fifty defect is a literal ground-field
 constant. -/
 theorem normalized610ScaleZero_ninthClearedDefect_exists_C
@@ -2575,6 +2273,7 @@ theorem normalized610ScaleZero_ninthClearedDefect_exists_C
     exact (map_mul (Polynomial.C : k →+* k[X]) kappa (t ^ 50)).symm
   exact hconst
 
+set_option maxHeartbeats 64000000 in
 /-- Newton degree of the ninth cleared sextic/decic defect at scale zero. -/
 theorem normalized610ScaleZero_ninthClearedDefect_natDegree_le_zero
     {P Q : MvPolynomial (Fin 2) k} {H : k[X]}
@@ -2605,6 +2304,7 @@ theorem normalized610ScaleZero_ninthClearedDefect_natDegree_le_zero
   rw [hY]
   exact (natDegree_C theta).le
 
+set_option maxHeartbeats 64000000 in
 /-- Exact ninth residual selector: `18 q₀ h⁵⁰` differs from a
 polynomial in the remaining ninth-defect monomials by a ground constant. -/
 theorem normalized610ScaleZero_ninthSourceResidual
@@ -2628,10 +2328,10 @@ theorem normalized610ScaleZero_ninthSourceResidual
   obtain ⟨t, lambda, theta, ht, hHsq, hY⟩ :=
     normalized610ScaleZero_ninthClearedDefect_exists_C hsource
   refine ⟨t, lambda, theta, ht, hHsq, ?_⟩
-  have hX := hY
-  simp only [localClearedTenthDefect610] at hX ⊢
-  linear_combination hX
+  rw [hY]
+  ring
 
+set_option maxHeartbeats 64000000 in
 /-- Aligned/nonzero split of the scale-zero ninth cleared defect: it
 vanishes, or it is a nonzero ground-field constant. -/
 theorem normalized610ScaleZero_ninthClearedDefectFirstFace
@@ -2668,6 +2368,7 @@ theorem normalized610ScaleZero_ninthClearedDefectFirstFace
     simpa only [htheta, Polynomial.C_0] using hY
   · exact Or.inr ⟨theta, htheta, hY⟩
 
+set_option maxHeartbeats 64000000 in
 /-- Explicit zero/nonzero constant branches of both the discriminator and
 the weight-fifty defect. -/
 theorem normalized610ScaleZero_ninthClearedDefectBranches
@@ -2740,6 +2441,7 @@ theorem normalized610ScaleZero_ninthClearedDefectBranches
       simpa only [htheta, Polynomial.C_0] using hY
     · exact Or.inr ⟨htheta, hY⟩
 
+set_option maxHeartbeats 64000000 in
 /-- Aligned branch `N = 0`: the weight-fifty defect is still a ground
 constant, now with `λ = 0`. -/
 theorem normalized610ScaleZero_ninthClearedDefect_of_aligned
@@ -2807,6 +2509,7 @@ theorem normalized610ScaleZero_ninthClearedDefect_of_aligned
     exact (map_mul (Polynomial.C : k →+* k[X]) kappa0 (t ^ 50)).symm
   exact hY
 
+set_option maxHeartbeats 64000000 in
 /-- Nonzero discriminator branch: `λ ≠ 0` and the weight-fifty defect
 is still a ground constant. -/
 theorem normalized610ScaleZero_ninthClearedDefect_of_nonzero

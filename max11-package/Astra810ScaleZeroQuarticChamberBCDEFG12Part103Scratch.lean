@@ -1,5 +1,6 @@
 import Grok810ScaleZeroQuarticChamberDefs4Scratch
 import Astra810ScaleZeroQuarticChamberBCDEFG12Part101Scratch
+import Max11SpeedReflectDegLibScratch
 
 /-! # BCDEFG12 chamber, part 2
 
@@ -158,6 +159,255 @@ theorem bcdefg12Kappa_split810
   module
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12KappaRest10810` (1 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12KappaRest10810
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12KappaRest10810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (1 / 8 * theta : k)
+      ]
+      [
+      [1, 0, 0, 0, 0, 0, 0]
+      ] := by
+  simp only [bcdefg12KappaRest10810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12KappaRest9810` (1 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12KappaRest9810
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12KappaRest9810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (1 / 4 * eta : k)
+      ]
+      [
+      [0, 1, 0, 0, 0, 0, 0]
+      ] := by
+  simp only [bcdefg12KappaRest9810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12KappaRest8810` (2 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12KappaRest8810
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12KappaRest8810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (3 / 128 * zeta : k), (3 / 8 * zeta : k)
+      ]
+      [
+      [2, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0]
+      ] := by
+  simp only [bcdefg12KappaRest8810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12KappaRest7810` (1 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12KappaRest7810
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12KappaRest7810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (1 / 2 * epsilon : k)
+      ]
+      [
+      [0, 0, 0, 1, 0, 0, 0]
+      ] := by
+  simp only [bcdefg12KappaRest7810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12KappaRest6810` (4 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12KappaRest6810
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12KappaRest6810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (5 / 1024 * delta : k), (5 / 64 * delta : k), (-15 / 128 * delta : k),
+      (5 / 8 * delta : k)
+      ]
+      [
+      [3, 0, 0, 0, 0, 0, 0], [1, 0, 1, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0]
+      ] := by
+  simp only [bcdefg12KappaRest6810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12KappaRest5810` (2 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12KappaRest5810
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12KappaRest5810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-3 / 16 * gamma : k), (3 / 4 * gamma : k)
+      ]
+      [
+      [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0]
+      ] := by
+  simp only [bcdefg12KappaRest5810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12KappaRest4810` (1 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12KappaRest4810
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12KappaRest4810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (7 / 8 * beta : k)
+      ]
+      [
+      [0, 0, 0, 0, 0, 0, 1]
+      ] := by
+  simp only [bcdefg12KappaRest4810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12KappaRest3810` (6 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12KappaRest3810
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12KappaRest3810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (35 / 32768 * beta : k), (21 / 1024 * beta : k), (7 / 1024 * beta : k),
+      (7 / 64 * beta : k), (-7 / 64 * beta : k), (-7 / 128 * beta : k)
+      ]
+      [
+      [4, 0, 0, 0, 0, 0, 0], [2, 0, 1, 0, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0], [1, 0, 0, 0, 1, 0, 0],
+      [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0]
+      ] := by
+  simp only [bcdefg12KappaRest3810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12KappaRest2810` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12KappaRest2810
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12KappaRest2810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (9 / 64 * l : k), (-63 / 1024 * l : k), (9 / 64 * l : k),
+      (9 / 64 * l : k), (9 / 128 * l : k)
+      ]
+      [
+      [1, 0, 0, 0, 0, 0, 1], [0, 2, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 1, 0], [0, 0, 1, 0, 1, 0, 0],
+      [0, 0, 0, 2, 0, 0, 0]
+      ] := by
+  simp only [bcdefg12KappaRest2810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12KappaRest1810` (6 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12KappaRest1810
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12KappaRest1810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (63 / 262144 * l : k), (45 / 8192 * l : k), (-9 / 16384 * l : k),
+      (27 / 1024 * l : k), (-9 / 512 * l : k), (9 / 1024 * l : k)
+      ]
+      [
+      [5, 0, 0, 0, 0, 0, 0], [3, 0, 1, 0, 0, 0, 0], [2, 2, 0, 0, 0, 0, 0], [2, 0, 0, 0, 1, 0, 0],
+      [1, 1, 0, 1, 0, 0, 0], [1, 0, 2, 0, 0, 0, 0]
+      ] := by
+  simp only [bcdefg12KappaRest1810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12KappaRest0810` (1 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12KappaRest0810
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12KappaRest0810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-15 / 128 : k)
+      ]
+      [
+      [0, 2, 0, 1, 0, 0, 0]
+      ] := by
+  simp only [bcdefg12KappaRest0810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
+
+set_option maxHeartbeats 64000000 in
 /-- All remainder chunks lie strictly below the face under the strict load bands. -/
 theorem bcdefg12Kappa_rest_lt810
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -172,70 +422,150 @@ theorem bcdefg12Kappa_rest_lt810
   obtain ⟨hcone, hBne, hCne, hDne, hEne, hFne, hGne, heq0, heq1, heq2, heq3, heq4, heq5, heq6, heq7, heq8, heq9, hlt0, hlt1, hlt2, hlt3, hlt4, hlt5, hlt6, hlt7, hlt8, hlt9, hlt10, hlt11, hlt12⟩ := hc
   obtain ⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩ := hcone
   have hr0 : (bcdefg12KappaRest0810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < A.natDegree + 3 * B.natDegree := by
-    simp only [bcdefg12KappaRest0810]
-    compute_degree
-    omega
+    rw [astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12KappaRest0810]
+    apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+    simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+      Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+      Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+      Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+      max_lt_iff]
+    repeat' apply And.intro
+    all_goals omega
   have hr1 : (bcdefg12KappaRest1810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < A.natDegree + 3 * B.natDegree := by
     rcases hbl with hz | hb
-    · simp only [bcdefg12KappaRest1810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
+    ·
+      simp only [bcdefg12KappaRest1810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
       omega
-    · simp only [bcdefg12KappaRest1810]
-      compute_degree
-      omega
+    ·
+      rw [astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12KappaRest1810]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+        Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+        Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+        max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hr2 : (bcdefg12KappaRest2810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < A.natDegree + 3 * B.natDegree := by
     rcases hbl with hz | hb
-    · simp only [bcdefg12KappaRest2810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
+    ·
+      simp only [bcdefg12KappaRest2810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
       omega
-    · simp only [bcdefg12KappaRest2810]
-      compute_degree
-      omega
+    ·
+      rw [astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12KappaRest2810]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+        Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+        Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+        max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hr3 : (bcdefg12KappaRest3810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < A.natDegree + 3 * B.natDegree := by
     rcases hbbeta with hz | hb
-    · simp only [bcdefg12KappaRest3810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
+    ·
+      simp only [bcdefg12KappaRest3810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
       omega
-    · simp only [bcdefg12KappaRest3810]
-      compute_degree
-      omega
+    ·
+      rw [astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12KappaRest3810]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+        Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+        Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+        max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hr4 : (bcdefg12KappaRest4810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < A.natDegree + 3 * B.natDegree := by
     rcases hbbeta with hz | hb
-    · simp only [bcdefg12KappaRest4810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
+    ·
+      simp only [bcdefg12KappaRest4810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
       omega
-    · simp only [bcdefg12KappaRest4810]
-      compute_degree
-      omega
+    ·
+      rw [astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12KappaRest4810]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+        Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+        Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+        max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hr5 : (bcdefg12KappaRest5810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < A.natDegree + 3 * B.natDegree := by
-    simp only [bcdefg12KappaRest5810]
-    compute_degree
-    omega
+    rw [astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12KappaRest5810]
+    apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+    simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+      Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+      Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+      Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+      max_lt_iff]
+    repeat' apply And.intro
+    all_goals omega
   have hr6 : (bcdefg12KappaRest6810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < A.natDegree + 3 * B.natDegree := by
     rcases hbdelta with hz | hb
-    · simp only [bcdefg12KappaRest6810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
+    ·
+      simp only [bcdefg12KappaRest6810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
       omega
-    · simp only [bcdefg12KappaRest6810]
-      compute_degree
-      omega
+    ·
+      rw [astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12KappaRest6810]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+        Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+        Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+        max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hr7 : (bcdefg12KappaRest7810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < A.natDegree + 3 * B.natDegree := by
-    simp only [bcdefg12KappaRest7810]
-    compute_degree
-    omega
+    rw [astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12KappaRest7810]
+    apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+    simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+      Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+      Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+      Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+      max_lt_iff]
+    repeat' apply And.intro
+    all_goals omega
   have hr8 : (bcdefg12KappaRest8810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < A.natDegree + 3 * B.natDegree := by
     rcases hbzeta with hz | hb
-    · simp only [bcdefg12KappaRest8810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
+    ·
+      simp only [bcdefg12KappaRest8810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
       omega
-    · simp only [bcdefg12KappaRest8810]
-      compute_degree
-      omega
+    ·
+      rw [astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12KappaRest8810]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+        Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+        Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+        max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hr9 : (bcdefg12KappaRest9810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < A.natDegree + 3 * B.natDegree := by
-    simp only [bcdefg12KappaRest9810]
-    compute_degree
-    omega
+    rw [astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12KappaRest9810]
+    apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+    simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+      Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+      Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+      Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+      max_lt_iff]
+    repeat' apply And.intro
+    all_goals omega
   have hr10 : (bcdefg12KappaRest10810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < A.natDegree + 3 * B.natDegree := by
     rcases hbtheta with hz | hb
-    · simp only [bcdefg12KappaRest10810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
+    ·
+      simp only [bcdefg12KappaRest10810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
       omega
-    · simp only [bcdefg12KappaRest10810]
-      compute_degree
-      omega
+    ·
+      rw [astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12KappaRest10810]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+        Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+        Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+        max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   unfold bcdefg12KappaRest810
   exact (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 hr0 hr1) hr2) hr3) hr4) hr5) hr6) hr7) hr8) hr9) hr10)
 
@@ -281,6 +611,257 @@ theorem bcdefg12Mu_split810
   module
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12MuRest10810` (1 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12MuRest10810
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12MuRest10810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (1 / 8 * theta : k)
+      ]
+      [
+      [0, 1, 0, 0, 0, 0, 0]
+      ] := by
+  simp only [bcdefg12MuRest10810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12MuRest9810` (1 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12MuRest9810
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12MuRest9810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (1 / 4 * eta : k)
+      ]
+      [
+      [0, 0, 1, 0, 0, 0, 0]
+      ] := by
+  simp only [bcdefg12MuRest9810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12MuRest8810` (2 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12MuRest8810
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12MuRest8810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-3 / 64 * zeta : k), (3 / 8 * zeta : k)
+      ]
+      [
+      [1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0]
+      ] := by
+  simp only [bcdefg12MuRest8810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12MuRest7810` (2 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12MuRest7810
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12MuRest7810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-1 / 8 * epsilon : k), (1 / 2 * epsilon : k)
+      ]
+      [
+      [0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0]
+      ] := by
+  simp only [bcdefg12MuRest7810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12MuRest6810` (4 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12MuRest6810
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12MuRest6810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-5 / 1024 * delta : k), (-5 / 64 * delta : k), (-15 / 64 * delta : k),
+      (5 / 8 * delta : k)
+      ]
+      [
+      [2, 1, 0, 0, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0]
+      ] := by
+  simp only [bcdefg12MuRest6810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12MuRest5810` (4 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12MuRest5810
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12MuRest5810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (3 / 128 * gamma : k), (-3 / 16 * gamma : k), (-3 / 32 * gamma : k),
+      (3 / 4 * gamma : k)
+      ]
+      [
+      [1, 2, 0, 0, 0, 0, 0], [0, 1, 0, 1, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1]
+      ] := by
+  simp only [bcdefg12MuRest5810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12MuRest4810` (1 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12MuRest4810
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12MuRest4810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-7 / 64 * beta : k)
+      ]
+      [
+      [0, 0, 1, 1, 0, 0, 0]
+      ] := by
+  simp only [bcdefg12MuRest4810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12MuRest3810` (6 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12MuRest3810
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12MuRest3810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-7 / 8192 * beta : k), (-7 / 1024 * beta : k), (7 / 512 * beta : k),
+      (-7 / 64 * beta : k), (21 / 1024 * beta : k), (-7 / 64 * beta : k)
+      ]
+      [
+      [3, 1, 0, 0, 0, 0, 0], [2, 0, 0, 1, 0, 0, 0], [1, 1, 1, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0],
+      [0, 3, 0, 0, 0, 0, 0], [0, 1, 0, 0, 1, 0, 0]
+      ] := by
+  simp only [bcdefg12MuRest3810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12MuRest2810` (6 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12MuRest2810
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12MuRest2810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-9 / 512 * l : k), (-63 / 1024 * l : k), (-63 / 1024 * l : k),
+      (9 / 64 * l : k), (9 / 64 * l : k), (9 / 64 * l : k)
+      ]
+      [
+      [1, 0, 1, 1, 0, 0, 0], [0, 2, 0, 1, 0, 0, 0], [0, 1, 2, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 1],
+      [0, 0, 1, 0, 0, 1, 0], [0, 0, 0, 1, 1, 0, 0]
+      ] := by
+  simp only [bcdefg12MuRest2810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12MuRest1810` (6 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12MuRest1810
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12MuRest1810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-45 / 262144 * l : k), (-9 / 8192 * l : k), (-9 / 8192 * l : k),
+      (-9 / 1024 * l : k), (63 / 8192 * l : k), (-9 / 512 * l : k)
+      ]
+      [
+      [4, 1, 0, 0, 0, 0, 0], [3, 0, 0, 1, 0, 0, 0], [2, 1, 1, 0, 0, 0, 0], [2, 0, 0, 0, 0, 1, 0],
+      [1, 3, 0, 0, 0, 0, 0], [1, 1, 0, 0, 1, 0, 0]
+      ] := by
+  simp only [bcdefg12MuRest1810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12MuRest0810` (4 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12MuRest0810
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12MuRest0810 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (35 / 2048 : k), (-15 / 128 : k), (-15 / 64 : k),
+      (5 / 16 : k)
+      ]
+      [
+      [0, 4, 0, 0, 0, 0, 0], [0, 2, 0, 0, 1, 0, 0], [0, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 0, 1, 0]
+      ] := by
+  simp only [bcdefg12MuRest0810, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
+
+set_option maxHeartbeats 64000000 in
 /-- All remainder chunks lie strictly below the face under the strict load bands. -/
 theorem bcdefg12Mu_rest_lt810
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -295,70 +876,150 @@ theorem bcdefg12Mu_rest_lt810
   obtain ⟨hcone, hBne, hCne, hDne, hEne, hFne, hGne, heq0, heq1, heq2, heq3, heq4, heq5, heq6, heq7, heq8, heq9, hlt0, hlt1, hlt2, hlt3, hlt4, hlt5, hlt6, hlt7, hlt8, hlt9, hlt10, hlt11, hlt12⟩ := hc
   obtain ⟨hApos, hAB, hAC, hAD, hAE, hAF, hAG⟩ := hcone
   have hr0 : (bcdefg12MuRest0810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 3 * C.natDegree := by
-    simp only [bcdefg12MuRest0810]
-    compute_degree
-    omega
+    rw [astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12MuRest0810]
+    apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+    simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+      Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+      Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+      Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+      max_lt_iff]
+    repeat' apply And.intro
+    all_goals omega
   have hr1 : (bcdefg12MuRest1810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 3 * C.natDegree := by
     rcases hbl with hz | hb
-    · simp only [bcdefg12MuRest1810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
+    ·
+      simp only [bcdefg12MuRest1810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
       omega
-    · simp only [bcdefg12MuRest1810]
-      compute_degree
-      omega
+    ·
+      rw [astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12MuRest1810]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+        Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+        Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+        max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hr2 : (bcdefg12MuRest2810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 3 * C.natDegree := by
     rcases hbl with hz | hb
-    · simp only [bcdefg12MuRest2810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
+    ·
+      simp only [bcdefg12MuRest2810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
       omega
-    · simp only [bcdefg12MuRest2810]
-      compute_degree
-      omega
+    ·
+      rw [astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12MuRest2810]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+        Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+        Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+        max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hr3 : (bcdefg12MuRest3810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 3 * C.natDegree := by
     rcases hbbeta with hz | hb
-    · simp only [bcdefg12MuRest3810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
+    ·
+      simp only [bcdefg12MuRest3810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
       omega
-    · simp only [bcdefg12MuRest3810]
-      compute_degree
-      omega
+    ·
+      rw [astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12MuRest3810]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+        Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+        Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+        max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hr4 : (bcdefg12MuRest4810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 3 * C.natDegree := by
     rcases hbbeta with hz | hb
-    · simp only [bcdefg12MuRest4810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
+    ·
+      simp only [bcdefg12MuRest4810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
       omega
-    · simp only [bcdefg12MuRest4810]
-      compute_degree
-      omega
+    ·
+      rw [astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12MuRest4810]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+        Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+        Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+        max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hr5 : (bcdefg12MuRest5810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 3 * C.natDegree := by
-    simp only [bcdefg12MuRest5810]
-    compute_degree
-    omega
+    rw [astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12MuRest5810]
+    apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+    simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+      Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+      Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+      Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+      max_lt_iff]
+    repeat' apply And.intro
+    all_goals omega
   have hr6 : (bcdefg12MuRest6810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 3 * C.natDegree := by
     rcases hbdelta with hz | hb
-    · simp only [bcdefg12MuRest6810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
+    ·
+      simp only [bcdefg12MuRest6810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
       omega
-    · simp only [bcdefg12MuRest6810]
-      compute_degree
-      omega
+    ·
+      rw [astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12MuRest6810]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+        Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+        Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+        max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hr7 : (bcdefg12MuRest7810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 3 * C.natDegree := by
-    simp only [bcdefg12MuRest7810]
-    compute_degree
-    omega
+    rw [astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12MuRest7810]
+    apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+    simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+      Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+      Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+      Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+      max_lt_iff]
+    repeat' apply And.intro
+    all_goals omega
   have hr8 : (bcdefg12MuRest8810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 3 * C.natDegree := by
     rcases hbzeta with hz | hb
-    · simp only [bcdefg12MuRest8810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
+    ·
+      simp only [bcdefg12MuRest8810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
       omega
-    · simp only [bcdefg12MuRest8810]
-      compute_degree
-      omega
+    ·
+      rw [astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12MuRest8810]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+        Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+        Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+        max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   have hr9 : (bcdefg12MuRest9810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 3 * C.natDegree := by
-    simp only [bcdefg12MuRest9810]
-    compute_degree
-    omega
+    rw [astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12MuRest9810]
+    apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+    simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+      Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+      Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+      Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+      max_lt_iff]
+    repeat' apply And.intro
+    all_goals omega
   have hr10 : (bcdefg12MuRest10810 l beta gamma delta epsilon zeta eta theta A B C D E F G).natDegree < 3 * C.natDegree := by
     rcases hbtheta with hz | hb
-    · simp only [bcdefg12MuRest10810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
+    ·
+      simp only [bcdefg12MuRest10810, hz, mul_zero, zero_smul, add_zero, natDegree_zero]
       omega
-    · simp only [bcdefg12MuRest10810]
-      compute_degree
-      omega
+    ·
+      rw [astra4aaChamberRefl_ChamberBCDEFG12Part103_bcdefg12MuRest10810]
+      apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+      simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+        Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+        Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+        Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+        max_lt_iff]
+      repeat' apply And.intro
+      all_goals omega
   unfold bcdefg12MuRest810
   exact (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 (natDegree_add_lt810 hr0 hr1) hr2) hr3) hr4) hr5) hr6) hr7) hr8) hr9) hr10)
 

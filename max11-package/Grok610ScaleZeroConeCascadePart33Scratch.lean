@@ -19,6 +19,7 @@ section PrimitivePolynomial610
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
 /-- Primitive with `B = 0` and the load face `β A⁶` deleted. -/
 def degreeZeroPrimitiveHighA_B0_noA6_Rest610
     (l alpha beta delta epsilon zeta eta theta : k)

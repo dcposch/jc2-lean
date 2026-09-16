@@ -1144,6 +1144,28 @@ def bcdefg12N2RestLF0
   + (-15 / 128 : k) • (B * D ^ 2)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12N2RestLF0` (3 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part101_bcdefg12N2RestLF0
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12N2RestLF0 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (35 / 512 : k), (-15 / 128 : k), (-15 / 128 : k)
+      ]
+      [
+      [0, 3, 1, 0, 0, 0, 0], [0, 2, 0, 0, 0, 1, 0], [0, 1, 0, 2, 0, 0, 0]
+      ] := by
+  simp only [bcdefg12N2RestLF0, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
+
+set_option maxHeartbeats 64000000 in
 /-- This chunk lies below the face degree. -/
 theorem bcdefg12N2RestLF0_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -1153,9 +1175,15 @@ theorem bcdefg12N2RestLF0_natDegree_lt
       A.natDegree + 2 * B.natDegree + D.natDegree := by
   rcases hc with ⟨hcone, hB, hC, hD, hE, hF, hG, h1, h2, h3, h4, h5, h6, h7, h8, h9, h10, h11, h12, h13, h14, h15, h16, h17, h18, h19, h20, h21, h22, h23⟩
   have hApos := hcone.1
-  simp only [bcdefg12N2RestLF0]
-  compute_degree
-  omega
+  rw [astra4aaChamberRefl_ChamberBCDEFG12Part101_bcdefg12N2RestLF0]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- A chunk with at most six monomials. -/
@@ -1168,6 +1196,30 @@ def bcdefg12N2RestL0
   + (-9 / 8192 * l : k) • (A ^ 2 * B * D)
   + (27 / 16384 * l : k) • (A ^ 2 * C ^ 2)
   + (63 / 8192 * l : k) • (A * B ^ 2 * C)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12N2RestL0` (6 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part101_bcdefg12N2RestL0
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12N2RestL0 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (231 / 4194304 * l : k), (315 / 262144 * l : k), (45 / 8192 * l : k),
+      (-9 / 8192 * l : k), (27 / 16384 * l : k), (63 / 8192 * l : k)
+      ]
+      [
+      [6, 0, 0, 0, 0, 0, 0], [4, 0, 1, 0, 0, 0, 0], [3, 0, 0, 0, 1, 0, 0], [2, 1, 0, 1, 0, 0, 0],
+      [2, 0, 2, 0, 0, 0, 0], [1, 2, 1, 0, 0, 0, 0]
+      ] := by
+  simp only [bcdefg12N2RestL0, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
 
 set_option maxHeartbeats 64000000 in
 /-- This chunk lies below the face degree. -/
@@ -1184,9 +1236,16 @@ theorem bcdefg12N2RestL0_natDegree_lt
   · subst l
     simp only [bcdefg12N2RestL0, mul_zero, zero_smul, add_zero, natDegree_zero]
     omega
-  · simp only [bcdefg12N2RestL0]
-    compute_degree
-    omega
+  ·
+    rw [astra4aaChamberRefl_ChamberBCDEFG12Part101_bcdefg12N2RestL0]
+    apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+    simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+      Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+      Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+      Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+      max_lt_iff]
+    repeat' apply And.intro
+    all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- A chunk with at most six monomials. -/
@@ -1199,6 +1258,30 @@ def bcdefg12N2RestL1
   + (-9 / 1024 * l : k) • (A * D ^ 2)
   + (-63 / 1024 * l : k) • (B ^ 2 * E)
   + (-63 / 512 * l : k) • (B * C * D)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12N2RestL1` (6 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part101_bcdefg12N2RestL1
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12N2RestL1 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (315 / 32768 * l : k), (27 / 1024 * l : k), (-9 / 512 * l : k),
+      (-9 / 1024 * l : k), (-63 / 1024 * l : k), (-63 / 512 * l : k)
+      ]
+      [
+      [0, 4, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 1], [1, 1, 0, 0, 0, 1, 0], [1, 0, 0, 2, 0, 0, 0],
+      [0, 2, 0, 0, 1, 0, 0], [0, 1, 1, 1, 0, 0, 0]
+      ] := by
+  simp only [bcdefg12N2RestL1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
 
 set_option maxHeartbeats 64000000 in
 /-- This chunk lies below the face degree. -/
@@ -1215,9 +1298,16 @@ theorem bcdefg12N2RestL1_natDegree_lt
   · subst l
     simp only [bcdefg12N2RestL1, mul_zero, zero_smul, add_zero, natDegree_zero]
     omega
-  · simp only [bcdefg12N2RestL1]
-    compute_degree
-    omega
+  ·
+    rw [astra4aaChamberRefl_ChamberBCDEFG12Part101_bcdefg12N2RestL1]
+    apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+    simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+      Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+      Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+      Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+      max_lt_iff]
+    repeat' apply And.intro
+    all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- A chunk with at most six monomials. -/
@@ -1230,6 +1320,30 @@ def bcdefg12N2RestL2
   + (9 / 128 * l : k) • (E ^ 2)
   + (-9 / 131072 * l : k) • (A ^ 3 * B ^ 2)
   + (9 / 512 * l : k) • (A * C * E)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12N2RestL2` (6 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part101_bcdefg12N2RestL2
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12N2RestL2 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-21 / 1024 * l : k), (9 / 64 * l : k), (9 / 64 * l : k),
+      (9 / 128 * l : k), (-9 / 131072 * l : k), (9 / 512 * l : k)
+      ]
+      [
+      [0, 0, 3, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 1], [0, 0, 0, 1, 0, 1, 0], [0, 0, 0, 0, 2, 0, 0],
+      [3, 2, 0, 0, 0, 0, 0], [1, 0, 1, 0, 1, 0, 0]
+      ] := by
+  simp only [bcdefg12N2RestL2, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
 
 set_option maxHeartbeats 64000000 in
 /-- This chunk lies below the face degree. -/
@@ -1246,9 +1360,16 @@ theorem bcdefg12N2RestL2_natDegree_lt
   · subst l
     simp only [bcdefg12N2RestL2, mul_zero, zero_smul, add_zero, natDegree_zero]
     omega
-  · simp only [bcdefg12N2RestL2]
-    compute_degree
-    omega
+  ·
+    rw [astra4aaChamberRefl_ChamberBCDEFG12Part101_bcdefg12N2RestL2]
+    apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+    simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+      Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+      Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+      Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+      max_lt_iff]
+    repeat' apply And.intro
+    all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- A chunk with at most six monomials. -/
@@ -1261,6 +1382,30 @@ def bcdefg12N2RestBeta0
   + (21 / 1024 * beta : k) • (A ^ 2 * E)
   + (7 / 512 * beta : k) • (A * B * D)
   + (63 / 1024 * beta : k) • (B ^ 2 * C)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12N2RestBeta0` (6 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part101_bcdefg12N2RestBeta0
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12N2RestBeta0 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (63 / 262144 * beta : k), (35 / 8192 * beta : k), (7 / 16384 * beta : k),
+      (21 / 1024 * beta : k), (7 / 512 * beta : k), (63 / 1024 * beta : k)
+      ]
+      [
+      [5, 0, 0, 0, 0, 0, 0], [3, 0, 1, 0, 0, 0, 0], [2, 2, 0, 0, 0, 0, 0], [2, 0, 0, 0, 1, 0, 0],
+      [1, 1, 0, 1, 0, 0, 0], [0, 2, 1, 0, 0, 0, 0]
+      ] := by
+  simp only [bcdefg12N2RestBeta0, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
 
 set_option maxHeartbeats 64000000 in
 /-- This chunk lies below the face degree. -/
@@ -1277,9 +1422,16 @@ theorem bcdefg12N2RestBeta0_natDegree_lt
   · subst beta
     simp only [bcdefg12N2RestBeta0, mul_zero, zero_smul, add_zero, natDegree_zero]
     omega
-  · simp only [bcdefg12N2RestBeta0]
-    compute_degree
-    omega
+  ·
+    rw [astra4aaChamberRefl_ChamberBCDEFG12Part101_bcdefg12N2RestBeta0]
+    apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+    simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+      Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+      Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+      Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+      max_lt_iff]
+    repeat' apply And.intro
+    all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- A chunk with at most six monomials. -/
@@ -1291,6 +1443,30 @@ def bcdefg12N2RestBeta1
   + (-7 / 128 * beta : k) • (D ^ 2)
   + (-7 / 1024 * beta : k) • (A * C ^ 2)
   + (7 / 64 * beta : k) • (A * G)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12N2RestBeta1` (5 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part101_bcdefg12N2RestBeta1
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12N2RestBeta1 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-7 / 64 * beta : k), (-7 / 64 * beta : k), (-7 / 128 * beta : k),
+      (-7 / 1024 * beta : k), (7 / 64 * beta : k)
+      ]
+      [
+      [0, 1, 0, 0, 0, 1, 0], [0, 0, 1, 0, 1, 0, 0], [0, 0, 0, 2, 0, 0, 0], [1, 0, 2, 0, 0, 0, 0],
+      [1, 0, 0, 0, 0, 0, 1]
+      ] := by
+  simp only [bcdefg12N2RestBeta1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
 
 set_option maxHeartbeats 64000000 in
 /-- This chunk lies below the face degree. -/
@@ -1307,9 +1483,16 @@ theorem bcdefg12N2RestBeta1_natDegree_lt
   · subst beta
     simp only [bcdefg12N2RestBeta1, mul_zero, zero_smul, add_zero, natDegree_zero]
     omega
-  · simp only [bcdefg12N2RestBeta1]
-    compute_degree
-    omega
+  ·
+    rw [astra4aaChamberRefl_ChamberBCDEFG12Part101_bcdefg12N2RestBeta1]
+    apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+    simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+      Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+      Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+      Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+      max_lt_iff]
+    repeat' apply And.intro
+    all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- A chunk with at most six monomials. -/
@@ -1321,6 +1504,28 @@ def bcdefg12N2RestGamma0
   + (-3 / 16 * gamma : k) • (C * D)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12N2RestGamma0` (3 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part101_bcdefg12N2RestGamma0
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12N2RestGamma0 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (5 / 128 * gamma : k), (-3 / 16 * gamma : k), (-3 / 16 * gamma : k)
+      ]
+      [
+      [0, 3, 0, 0, 0, 0, 0], [0, 1, 0, 0, 1, 0, 0], [0, 0, 1, 1, 0, 0, 0]
+      ] := by
+  simp only [bcdefg12N2RestGamma0, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
+
+set_option maxHeartbeats 64000000 in
 /-- This chunk lies below the face degree. -/
 theorem bcdefg12N2RestGamma0_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -1330,9 +1535,15 @@ theorem bcdefg12N2RestGamma0_natDegree_lt
       A.natDegree + 2 * B.natDegree + D.natDegree := by
   rcases hc with ⟨hcone, hB, hC, hD, hE, hF, hG, h1, h2, h3, h4, h5, h6, h7, h8, h9, h10, h11, h12, h13, h14, h15, h16, h17, h18, h19, h20, h21, h22, h23⟩
   have hApos := hcone.1
-  simp only [bcdefg12N2RestGamma0]
-  compute_degree
-  omega
+  rw [astra4aaChamberRefl_ChamberBCDEFG12Part101_bcdefg12N2RestGamma0]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 end Max11DegreeRoutes
 /-! # BCDEFG12 chamber, part 19
@@ -1378,6 +1589,30 @@ def bcdefg12N2RestDelta0
   + (5 / 8 * delta : k) • (G)
 
 set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12N2RestDelta0` (6 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part101_bcdefg12N2RestDelta0
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12N2RestDelta0 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (35 / 32768 * delta : k), (15 / 1024 * delta : k), (15 / 1024 * delta : k),
+      (-15 / 64 * delta : k), (-15 / 128 * delta : k), (5 / 8 * delta : k)
+      ]
+      [
+      [4, 0, 0, 0, 0, 0, 0], [2, 0, 1, 0, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0], [0, 1, 0, 1, 0, 0, 0],
+      [0, 0, 2, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1]
+      ] := by
+  simp only [bcdefg12N2RestDelta0, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
+
+set_option maxHeartbeats 64000000 in
 /-- This chunk lies below the face degree. -/
 theorem bcdefg12N2RestDelta0_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -1392,9 +1627,16 @@ theorem bcdefg12N2RestDelta0_natDegree_lt
   · subst delta
     simp only [bcdefg12N2RestDelta0, mul_zero, zero_smul, add_zero, natDegree_zero]
     omega
-  · simp only [bcdefg12N2RestDelta0]
-    compute_degree
-    omega
+  ·
+    rw [astra4aaChamberRefl_ChamberBCDEFG12Part101_bcdefg12N2RestDelta0]
+    apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+    simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+      Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+      Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+      Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+      max_lt_iff]
+    repeat' apply And.intro
+    all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- A chunk with at most six monomials. -/
@@ -1402,6 +1644,28 @@ def bcdefg12N2RestDelta1
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) : k[X] :=
   (5 / 64 * delta : k) • (A * E)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12N2RestDelta1` (1 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part101_bcdefg12N2RestDelta1
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12N2RestDelta1 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (5 / 64 * delta : k)
+      ]
+      [
+      [1, 0, 0, 0, 1, 0, 0]
+      ] := by
+  simp only [bcdefg12N2RestDelta1, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
 
 set_option maxHeartbeats 64000000 in
 /-- This chunk lies below the face degree. -/
@@ -1418,9 +1682,16 @@ theorem bcdefg12N2RestDelta1_natDegree_lt
   · subst delta
     simp only [bcdefg12N2RestDelta1, mul_zero, zero_smul, add_zero, natDegree_zero]
     omega
-  · simp only [bcdefg12N2RestDelta1]
-    compute_degree
-    omega
+  ·
+    rw [astra4aaChamberRefl_ChamberBCDEFG12Part101_bcdefg12N2RestDelta1]
+    apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+    simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+      Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+      Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+      Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+      max_lt_iff]
+    repeat' apply And.intro
+    all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- A chunk with at most six monomials. -/
@@ -1429,6 +1700,28 @@ def bcdefg12N2RestEpsilon0
     (A B C D E F G : k[X]) : k[X] :=
   (-1 / 4 * epsilon : k) • (B * C)
   + (1 / 2 * epsilon : k) • (F)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12N2RestEpsilon0` (2 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part101_bcdefg12N2RestEpsilon0
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12N2RestEpsilon0 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (-1 / 4 * epsilon : k), (1 / 2 * epsilon : k)
+      ]
+      [
+      [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0]
+      ] := by
+  simp only [bcdefg12N2RestEpsilon0, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
 
 set_option maxHeartbeats 64000000 in
 /-- This chunk lies below the face degree. -/
@@ -1440,9 +1733,15 @@ theorem bcdefg12N2RestEpsilon0_natDegree_lt
       A.natDegree + 2 * B.natDegree + D.natDegree := by
   rcases hc with ⟨hcone, hB, hC, hD, hE, hF, hG, h1, h2, h3, h4, h5, h6, h7, h8, h9, h10, h11, h12, h13, h14, h15, h16, h17, h18, h19, h20, h21, h22, h23⟩
   have hApos := hcone.1
-  simp only [bcdefg12N2RestEpsilon0]
-  compute_degree
-  omega
+  rw [astra4aaChamberRefl_ChamberBCDEFG12Part101_bcdefg12N2RestEpsilon0]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- A chunk with at most six monomials. -/
@@ -1453,6 +1752,29 @@ def bcdefg12N2RestZeta0
   + (-15 / 128 * zeta : k) • (B ^ 2)
   + (3 / 8 * zeta : k) • (E)
   + (3 / 64 * zeta : k) • (A * C)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12N2RestZeta0` (4 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part101_bcdefg12N2RestZeta0
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12N2RestZeta0 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (5 / 1024 * zeta : k), (-15 / 128 * zeta : k), (3 / 8 * zeta : k),
+      (3 / 64 * zeta : k)
+      ]
+      [
+      [3, 0, 0, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0], [1, 0, 1, 0, 0, 0, 0]
+      ] := by
+  simp only [bcdefg12N2RestZeta0, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
 
 set_option maxHeartbeats 64000000 in
 /-- This chunk lies below the face degree. -/
@@ -1469,9 +1791,16 @@ theorem bcdefg12N2RestZeta0_natDegree_lt
   · subst zeta
     simp only [bcdefg12N2RestZeta0, mul_zero, zero_smul, add_zero, natDegree_zero]
     omega
-  · simp only [bcdefg12N2RestZeta0]
-    compute_degree
-    omega
+  ·
+    rw [astra4aaChamberRefl_ChamberBCDEFG12Part101_bcdefg12N2RestZeta0]
+    apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+    simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+      Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+      Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+      Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+      max_lt_iff]
+    repeat' apply And.intro
+    all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- A chunk with at most six monomials. -/
@@ -1479,6 +1808,28 @@ def bcdefg12N2RestEta0
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) : k[X] :=
   (1 / 4 * eta : k) • (D)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12N2RestEta0` (1 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part101_bcdefg12N2RestEta0
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12N2RestEta0 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (1 / 4 * eta : k)
+      ]
+      [
+      [0, 0, 0, 1, 0, 0, 0]
+      ] := by
+  simp only [bcdefg12N2RestEta0, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
 
 set_option maxHeartbeats 64000000 in
 /-- This chunk lies below the face degree. -/
@@ -1490,9 +1841,15 @@ theorem bcdefg12N2RestEta0_natDegree_lt
       A.natDegree + 2 * B.natDegree + D.natDegree := by
   rcases hc with ⟨hcone, hB, hC, hD, hE, hF, hG, h1, h2, h3, h4, h5, h6, h7, h8, h9, h10, h11, h12, h13, h14, h15, h16, h17, h18, h19, h20, h21, h22, h23⟩
   have hApos := hcone.1
-  simp only [bcdefg12N2RestEta0]
-  compute_degree
-  omega
+  rw [astra4aaChamberRefl_ChamberBCDEFG12Part101_bcdefg12N2RestEta0]
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+    Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+    max_lt_iff]
+  repeat' apply And.intro
+  all_goals omega
 
 set_option maxHeartbeats 64000000 in
 /-- A chunk with at most six monomials. -/
@@ -1501,6 +1858,28 @@ def bcdefg12N2RestTheta0
     (A B C D E F G : k[X]) : k[X] :=
   (3 / 128 * theta : k) • (A ^ 2)
   + (1 / 8 * theta : k) • (C)
+
+set_option maxHeartbeats 64000000 in
+/-- Reflected monomial data for `bcdefg12N2RestTheta0` (2 monomials).
+The reflective degree checker of `Max11SpeedReflectDegLibScratch`
+replaces `compute_degree` on every bound of this polynomial. -/
+private theorem astra4aaChamberRefl_ChamberBCDEFG12Part101_bcdefg12N2RestTheta0
+    (l beta gamma delta epsilon zeta eta theta : k)
+    (A B C D E F G : k[X]) :
+    bcdefg12N2RestTheta0 l beta gamma delta epsilon zeta eta theta A B C D E F G =
+      Max11ReflectDeg.polyOf [A, B, C, D, E, F, G]
+      [
+      (3 / 128 * theta : k), (1 / 8 * theta : k)
+      ]
+      [
+      [2, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0]
+      ] := by
+  simp only [bcdefg12N2RestTheta0, Max11ReflectDeg.polyOf_cons,
+    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+    Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc, neg_smul, add_assoc]
+  all_goals rfl
+
 
 set_option maxHeartbeats 64000000 in
 /-- This chunk lies below the face degree. -/
@@ -1517,8 +1896,15 @@ theorem bcdefg12N2RestTheta0_natDegree_lt
   · subst theta
     simp only [bcdefg12N2RestTheta0, mul_zero, zero_smul, add_zero, natDegree_zero]
     omega
-  · simp only [bcdefg12N2RestTheta0]
-    compute_degree
-    omega
+  ·
+    rw [astra4aaChamberRefl_ChamberBCDEFG12Part101_bcdefg12N2RestTheta0]
+    apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+    simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+      Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+      Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
+      Nat.zero_mul, Nat.one_mul, Nat.add_zero, Nat.zero_add,
+      max_lt_iff]
+    repeat' apply And.intro
+    all_goals omega
 
 end Max11DegreeRoutes

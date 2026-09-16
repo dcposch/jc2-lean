@@ -932,6 +932,109 @@ def speedNuResidual810Scaled91 (h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV n
       (fable810twelfthSpeedT_speedNuResidual810Scaled91_chunk02
       (fable810twelfthSpeedT_speedNuResidual810Scaled91_chunk01 h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW) h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW) h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW) h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW) h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW) h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW) h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW) h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW) h nL nA nB nC nD nE nF nG nP nQ nR nS nT nU nV nW
 
+-- Fix the scalar carrier before elaborating the large arithmetic tree.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := F) (β := F) (γ := F))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := F) (β := F) (γ := F))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := F) (β := F) (γ := F))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := F) (β := F) (γ := F))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := F) (β := Nat) (γ := F))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := F))
+
+set_option maxHeartbeats 64000000 in
+/-- Flatten the residual before substituting rational atoms, so denominator
+clearing visits 86 monomials instead of the nested residual expression. -/
+private theorem fable810twelfthRound4_nuResidual810_eq_flat
+    (L A B C0 D0 E0 F0 G0 P Q R S0 T0 U0 V0 W0 : F) :
+    nuResidual810 L A B C0 D0 E0 F0 G0 P Q R S0 T0 U0 V0 W0 =
+    - (292929 / 4194304 : F) * L * A ^ 6
+    + (118755 / 262144 : F) * L * A ^ 4 * C0
+    + (118755 / 131072 : F) * L * A ^ 3 * B ^ 2
+    - (4095 / 8192 : F) * L * A ^ 3 * E0
+    - (12285 / 8192 : F) * L * A ^ 2 * B * D0
+    - (12285 / 16384 : F) * L * A ^ 2 * C0 ^ 2
+    + (585 / 1024 : F) * L * A ^ 2 * G0
+    - (12285 / 8192 : F) * L * A * B ^ 2 * C0
+    + (585 / 512 : F) * L * A * B * F0
+    + (585 / 512 : F) * L * A * C0 * E0
+    + (585 / 1024 : F) * L * A * D0 ^ 2
+    - (4095 / 32768 : F) * L * B ^ 4
+    + (585 / 1024 : F) * L * B ^ 2 * E0
+    + (585 / 512 : F) * L * B * C0 * D0
+    + (195 / 1024 : F) * L * C0 ^ 3
+    - (45 / 64 : F) * L * C0 * G0
+    - (45 / 64 : F) * L * D0 * F0
+    - (45 / 128 : F) * L * E0 ^ 2
+    - (488215 / 1048576 : F) * A ^ 5 * B
+    + (18473 / 262144 : F) * A ^ 5 * Q
+    + (13195 / 32768 : F) * A ^ 4 * B * P
+    + (65975 / 131072 : F) * A ^ 4 * D0
+    - (2275 / 32768 : F) * A ^ 4 * S0
+    + (65975 / 32768 : F) * A ^ 3 * B * C0
+    - (1365 / 4096 : F) * A ^ 3 * B * R
+    - (3185 / 8192 : F) * A ^ 3 * C0 * Q
+    - (455 / 1024 : F) * A ^ 3 * D0 * P
+    - (2275 / 4096 : F) * A ^ 3 * F0
+    + (65 / 1024 : F) * A ^ 3 * U0
+    + (65975 / 65536 : F) * A ^ 2 * B ^ 3
+    - (9555 / 16384 : F) * A ^ 2 * B ^ 2 * Q
+    - (1365 / 1024 : F) * A ^ 2 * B * C0 * P
+    - (6825 / 4096 : F) * A ^ 2 * B * E0
+    + (65 / 256 : F) * A ^ 2 * B * T0
+    - (6825 / 4096 : F) * A ^ 2 * C0 * D0
+    + (325 / 1024 : F) * A ^ 2 * C0 * S0
+    + (195 / 512 : F) * A ^ 2 * D0 * R
+    + (455 / 1024 : F) * A ^ 2 * E0 * Q
+    + (65 / 128 : F) * A ^ 2 * F0 * P
+    - (5 / 128 : F) * A ^ 2 * W0
+    - (455 / 1024 : F) * A * B ^ 3 * P
+    - (6825 / 4096 : F) * A * B ^ 2 * D0
+    + (325 / 1024 : F) * A * B ^ 2 * S0
+    - (6825 / 4096 : F) * A * B * C0 ^ 2
+    + (195 / 256 : F) * A * B * C0 * R
+    + (455 / 512 : F) * A * B * D0 * Q
+    + (65 / 64 : F) * A * B * E0 * P
+    + (325 / 256 : F) * A * B * G0
+    - (5 / 32 : F) * A * B * V0
+    + (455 / 1024 : F) * A * C0 ^ 2 * Q
+    + (65 / 64 : F) * A * C0 * D0 * P
+    + (325 / 256 : F) * A * C0 * F0
+    - (15 / 64 : F) * A * C0 * U0
+    + (325 / 256 : F) * A * D0 * E0
+    - (5 / 16 : F) * A * D0 * T0
+    - (25 / 64 : F) * A * E0 * S0
+    - (15 / 32 : F) * A * F0 * R
+    - (35 / 64 : F) * A * G0 * Q
+    - (2275 / 4096 : F) * B ^ 3 * C0
+    + (65 / 512 : F) * B ^ 3 * R
+    + (455 / 1024 : F) * B ^ 2 * C0 * Q
+    + (65 / 128 : F) * B ^ 2 * D0 * P
+    + (325 / 512 : F) * B ^ 2 * F0
+    - (15 / 128 : F) * B ^ 2 * U0
+    + (65 / 128 : F) * B * C0 ^ 2 * P
+    + (325 / 256 : F) * B * C0 * E0
+    - (5 / 16 : F) * B * C0 * T0
+    + (325 / 512 : F) * B * D0 ^ 2
+    - (25 / 64 : F) * B * D0 * S0
+    - (15 / 32 : F) * B * E0 * R
+    - (35 / 64 : F) * B * F0 * Q
+    - (5 / 8 : F) * B * G0 * P
+    + (325 / 512 : F) * C0 ^ 2 * D0
+    - (25 / 128 : F) * C0 ^ 2 * S0
+    - (15 / 32 : F) * C0 * D0 * R
+    - (35 / 64 : F) * C0 * E0 * Q
+    - (5 / 8 : F) * C0 * F0 * P
+    + (1 / 8 : F) * C0 * W0
+    - (35 / 128 : F) * D0 ^ 2 * Q
+    - (5 / 8 : F) * D0 * E0 * P
+    - (25 / 32 : F) * D0 * G0
+    + (1 / 4 : F) * D0 * V0
+    - (25 / 32 : F) * E0 * F0
+    + (3 / 8 : F) * E0 * U0
+    + (1 / 2 : F) * F0 * T0
+    + (5 / 8 : F) * G0 * S0 := by
+  simp only [nuResidual810, thetaResidual810, etaResidual810, zetaResidual810, epsilonResidual810, deltaResidual810, gammaResidual810, betaResidual810, alphaResidual810]
+  ring
+
 set_option maxHeartbeats 64000000 in
 /-- The atom-level clearing: one `field_simp` over 17 atomic variables in
 place of the single enormous `field_simp` on the substituted rational function. -/
@@ -976,17 +1079,10 @@ theorem speedNuResidual810Scaled91_eq (h : F) (hh : h ≠ 0) (nL nA nB nC nD nE 
   have hp49 : h ^ 49 ≠ 0 := pow_ne_zero 49 hh
   have hp56 : h ^ 56 ≠ 0 := pow_ne_zero 56 hh
   have hp63 : h ^ 63 ≠ 0 := pow_ne_zero 63 hh
-  simp only [alphaResidual810, betaResidual810, deltaResidual810, epsilonResidual810, etaResidual810, gammaResidual810, nuResidual810, thetaResidual810, zetaResidual810, speedNuResidual810Scaled91]
+  rw [fable810twelfthRound4_nuResidual810_eq_flat]
+  simp only [speedNuResidual810Scaled91]
   field_simp
   ring
-
--- Fix the scalar carrier before elaborating the large arithmetic tree.
-local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := F) (β := F) (γ := F))
-local infixl:65 (priority := high) " - " => (HSub.hSub (α := F) (β := F) (γ := F))
-local infixl:70 (priority := high) " * " => (HMul.hMul (α := F) (β := F) (γ := F))
-local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := F) (β := F) (γ := F))
-local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := F) (β := Nat) (γ := F))
-local prefix:75 (priority := high) "-" => (Neg.neg (α := F))
 
 set_option maxHeartbeats 64000000 in
 /-- Clearing the first integral `ν` of the degree-`4` row against `h⁹¹`
@@ -1664,6 +1760,8 @@ theorem nuResidual810_deriv_zero
         (3 : F) * D0 * d V0 - (4 : F) * C0 * d W0 -
         (5 : F) * B * d X0 = 0) :
     d (nuResidual810 L A B C0 D0 E0 F0 G0 P Q R S0 T0 U0 V0 W0) = 0 := by
+  have hquotient (m n : ℕ) : d ((m : F) / (n : F)) = 0 := by
+    rw [d.leibniz_div_const _ _ (d.map_natCast n), d.map_natCast, smul_zero]
   have h2 : d (2 : F) = 0 := d.map_natCast 2
   have h3 : d (3 : F) = 0 := d.map_natCast 3
   have h4 : d (4 : F) = 0 := d.map_natCast 4
@@ -1693,58 +1791,32 @@ theorem nuResidual810_deriv_zero
     simp [Derivation.leibniz_inv, h4]
   have h18 : d (1 / 8 : F) = 0 := by
     simp [Derivation.leibniz_inv, h8]
-  have h38 : d (3 / 8 : F) = 0 := by
-    simp [Derivation.leibniz_div, h8, h3]
-  have h54 : d (5 / 4 : F) = 0 := by
-    simp [Derivation.leibniz_div, h4, h5]
-  have h98 : d (9 / 8 : F) = 0 := by
-    simp [Derivation.leibniz_div, h8, h9]
-  have h78 : d (7 / 8 : F) = 0 := by
-    simp [Derivation.leibniz_div, h8, h7]
-  have h34 : d (3 / 4 : F) = 0 := by
-    simp [Derivation.leibniz_div, h4, h3]
-  have h58 : d (5 / 8 : F) = 0 := by
-    simp [Derivation.leibniz_div, h8, h5]
-  have h516 : d (5 / 16 : F) = 0 := by
-    simp [Derivation.leibniz_div, h16, h5]
-  have h316 : d (3 / 16 : F) = 0 := by
-    simp [Derivation.leibniz_div, h16, h3]
-  have h532 : d (5 / 32 : F) = 0 := by
-    simp [Derivation.leibniz_div, h32, h5]
-  have h15128 : d (15 / 128 : F) = 0 := by
-    simp [Derivation.leibniz_div, h128, h15]
-  have h5128 : d (5 / 128 : F) = 0 := by
-    simp [Derivation.leibniz_div, h128, h5]
-  have h7128 : d (7 / 128 : F) = 0 := by
-    simp [Derivation.leibniz_div, h128, h7]
-  have h9128 : d (9 / 128 : F) = 0 := by
-    simp [Derivation.leibniz_div, h128, h9]
-  have h1564 : d (15 / 64 : F) = 0 := by
-    simp [Derivation.leibniz_div, h64, h15]
-  have h964 : d (9 / 64 : F) = 0 := by
-    simp [Derivation.leibniz_div, h64, h9]
-  have h764 : d (7 / 64 : F) = 0 := by
-    simp [Derivation.leibniz_div, h64, h7]
-  have h35512 : d (35 / 512 : F) = 0 := by
-    simp [Derivation.leibniz_div, h512, h35]
-  have h211024 : d (21 / 1024 : F) = 0 := by
-    simp [Derivation.leibniz_div, h1024, h21]
-  have h631024 : d (63 / 1024 : F) = 0 := by
-    simp [Derivation.leibniz_div, h1024, h63]
-  have h31532768 : d (315 / 32768 : F) = 0 := by
-    simp [Derivation.leibniz_div, h32768, h315]
-  have h778192 : d (77 / 8192 : F) = 0 := by
-    simp [Derivation.leibniz_div, h8192, h77]
-  have h3158192 : d (315 / 8192 : F) = 0 := by
-    simp [Derivation.leibniz_div, h8192, h315]
-  have h1051024 : d (105 / 1024 : F) = 0 := by
-    simp [Derivation.leibniz_div, h1024, h105]
-  have h63512 : d (63 / 512 : F) = 0 := by
-    simp [Derivation.leibniz_div, h512, h63]
-  have h332 : d (3 / 32 : F) = 0 := by
-    simp [Derivation.leibniz_div, h32, h3]
-  have h352048 : d (35 / 2048 : F) = 0 := by
-    simp [Derivation.leibniz_div, h2048, h35]
+  have h38 : d (3 / 8 : F) = 0 := hquotient 3 8
+  have h54 : d (5 / 4 : F) = 0 := hquotient 5 4
+  have h98 : d (9 / 8 : F) = 0 := hquotient 9 8
+  have h78 : d (7 / 8 : F) = 0 := hquotient 7 8
+  have h34 : d (3 / 4 : F) = 0 := hquotient 3 4
+  have h58 : d (5 / 8 : F) = 0 := hquotient 5 8
+  have h516 : d (5 / 16 : F) = 0 := hquotient 5 16
+  have h316 : d (3 / 16 : F) = 0 := hquotient 3 16
+  have h532 : d (5 / 32 : F) = 0 := hquotient 5 32
+  have h15128 : d (15 / 128 : F) = 0 := hquotient 15 128
+  have h5128 : d (5 / 128 : F) = 0 := hquotient 5 128
+  have h7128 : d (7 / 128 : F) = 0 := hquotient 7 128
+  have h9128 : d (9 / 128 : F) = 0 := hquotient 9 128
+  have h1564 : d (15 / 64 : F) = 0 := hquotient 15 64
+  have h964 : d (9 / 64 : F) = 0 := hquotient 9 64
+  have h764 : d (7 / 64 : F) = 0 := hquotient 7 64
+  have h35512 : d (35 / 512 : F) = 0 := hquotient 35 512
+  have h211024 : d (21 / 1024 : F) = 0 := hquotient 21 1024
+  have h631024 : d (63 / 1024 : F) = 0 := hquotient 63 1024
+  have h31532768 : d (315 / 32768 : F) = 0 := hquotient 315 32768
+  have h778192 : d (77 / 8192 : F) = 0 := hquotient 77 8192
+  have h3158192 : d (315 / 8192 : F) = 0 := hquotient 315 8192
+  have h1051024 : d (105 / 1024 : F) = 0 := hquotient 105 1024
+  have h63512 : d (63 / 512 : F) = 0 := hquotient 63 512
+  have h332 : d (3 / 32 : F) = 0 := hquotient 3 32
+  have h352048 : d (35 / 2048 : F) = 0 := hquotient 35 2048
 
   have h13 : d (13 : F) = 0 := d.map_natCast 13
   have h17 : d (17 : F) = 0 := d.map_natCast 17
@@ -1758,60 +1830,38 @@ theorem nuResidual810_deriv_zero
   have h4096 : d (4096 : F) = 0 := d.map_natCast 4096
   have h16384 : d (16384 : F) = 0 := d.map_natCast 16384
   have h65536n : d (65536 : F) = 0 := d.map_natCast 65536
-  have h44132768 : d (441 / 32768 : F) = 0 := by
-    simp [Derivation.leibniz_div, h32768, h441]
-  have h44165536 : d (441 / 65536 : F) = 0 := by
-    simp [Derivation.leibniz_div, h65536n, h441]
-  have h4558192 : d (455 / 8192 : F) = 0 := by
-    simp [Derivation.leibniz_div, h8192, h455]
-  have h107116384 : d (1071 / 16384 : F) = 0 := by
-    simp [Derivation.leibniz_div, h16384, h1071]
-  have h1894096 : d (189 / 4096 : F) = 0 := by
-    simp [Derivation.leibniz_div, h4096, h189]
-  have h851024 : d (85 / 1024 : F) = 0 := by
-    simp [Derivation.leibniz_div, h1024, h85]
-  have h751024 : d (75 / 1024 : F) = 0 := by
-    simp [Derivation.leibniz_div, h1024, h75]
-  have h811024 : d (81 / 1024 : F) = 0 := by
-    simp [Derivation.leibniz_div, h1024, h81]
-  have h932 : d (9 / 32 : F) = 0 := by
-    simp [Derivation.leibniz_div, h32, h9]
-  have h732 : d (7 / 32 : F) = 0 := by
-    simp [Derivation.leibniz_div, h32, h7]
-  have h21128 : d (21 / 128 : F) = 0 := by
-    simp [Derivation.leibniz_div, h128, h21]
-  have h35128 : d (35 / 128 : F) = 0 := by
-    simp [Derivation.leibniz_div, h128, h35]
-  have h771024 : d (77 / 1024 : F) = 0 := by
-    simp [Derivation.leibniz_div, h1024, h77]
+  have h44132768 : d (441 / 32768 : F) = 0 := hquotient 441 32768
+  have h44165536 : d (441 / 65536 : F) = 0 := hquotient 441 65536
+  have h4558192 : d (455 / 8192 : F) = 0 := hquotient 455 8192
+  have h107116384 : d (1071 / 16384 : F) = 0 := hquotient 1071 16384
+  have h1894096 : d (189 / 4096 : F) = 0 := hquotient 189 4096
+  have h851024 : d (85 / 1024 : F) = 0 := hquotient 85 1024
+  have h751024 : d (75 / 1024 : F) = 0 := hquotient 75 1024
+  have h811024 : d (81 / 1024 : F) = 0 := hquotient 81 1024
+  have h932 : d (9 / 32 : F) = 0 := hquotient 9 32
+  have h732 : d (7 / 32 : F) = 0 := hquotient 7 32
+  have h21128 : d (21 / 128 : F) = 0 := hquotient 21 128
+  have h35128 : d (35 / 128 : F) = 0 := hquotient 35 128
+  have h771024 : d (77 / 1024 : F) = 0 := hquotient 77 1024
 
   have h256 : d (256 : F) = 0 := d.map_natCast 256
   have h45 : d (45 : F) = 0 := d.map_natCast 45
   have h225 : d (225 : F) = 0 := d.map_natCast 225
   have h385 : d (385 : F) = 0 := d.map_natCast 385
   have h945 : d (945 : F) = 0 := d.map_natCast 945
-  have h45256 : d (45 / 256 : F) = 0 := by
-    simp [Derivation.leibniz_div, h256, h45]
-  have h452048 : d (45 / 2048 : F) = 0 := by
-    simp [Derivation.leibniz_div, h2048, h45]
+  have h45256 : d (45 / 256 : F) = 0 := hquotient 45 256
+  have h452048 : d (45 / 2048 : F) = 0 := hquotient 45 2048
   have h1894096' : d (189 / 4096 : F) = 0 := by
     simp [Derivation.leibniz_div, h4096, h189]
-  have h94532768 : d (945 / 32768 : F) = 0 := by
-    simp [Derivation.leibniz_div, h32768, h945]
-  have h38565536 : d (385 / 65536 : F) = 0 := by
-    simp [Derivation.leibniz_div, h65536n, h385]
-  have h2251024 : d (225 / 1024 : F) = 0 := by
-    simp [Derivation.leibniz_div, h1024, h225]
-  have h7256 : d (7 / 256 : F) = 0 := by
-    simp [Derivation.leibniz_div, h256, h7]
-  have h3858192 : d (385 / 8192 : F) = 0 := by
-    simp [Derivation.leibniz_div, h8192, h385]
-  have h1532 : d (15 / 32 : F) = 0 := by
-    simp [Derivation.leibniz_div, h32, h15]
+  have h94532768 : d (945 / 32768 : F) = 0 := hquotient 945 32768
+  have h38565536 : d (385 / 65536 : F) = 0 := hquotient 385 65536
+  have h2251024 : d (225 / 1024 : F) = 0 := hquotient 225 1024
+  have h7256 : d (7 / 256 : F) = 0 := hquotient 7 256
+  have h3858192 : d (385 / 8192 : F) = 0 := hquotient 385 8192
+  have h1532 : d (15 / 32 : F) = 0 := hquotient 15 32
   have h116 : d (1 / 16 : F) = 0 := by
     simp [Derivation.leibniz_inv, h16]
-  have h35256 : d (35 / 256 : F) = 0 := by
-    simp [Derivation.leibniz_div, h256, h35]
+  have h35256 : d (35 / 256 : F) = 0 := hquotient 35 256
   have hn25 : d (25 : F) = 0 := d.map_natCast 25
   have hn27 : d (27 : F) = 0 := d.map_natCast 27
   have hn49 : d (49 : F) = 0 := d.map_natCast 49
@@ -1830,56 +1880,31 @@ theorem nuResidual810_deriv_zero
   have hn12075 : d (12075 : F) = 0 := d.map_natCast 12075
   have hn262144 : d (262144 : F) = 0 := d.map_natCast 262144
   have hn4194304 : d (4194304 : F) = 0 := d.map_natCast 4194304
-  have hf25_128 : d (25 / 128 : F) = 0 := by
-    simp [Derivation.leibniz_div, h128, hn25]
-  have hf27_128 : d (27 / 128 : F) = 0 := by
-    simp [Derivation.leibniz_div, h128, hn27]
-  have hf27_256 : d (27 / 256 : F) = 0 := by
-    simp [Derivation.leibniz_div, h256, hn27]
-  have hf25_512 : d (25 / 512 : F) = 0 := by
-    simp [Derivation.leibniz_div, h512, hn25]
-  have hf27_512 : d (27 / 512 : F) = 0 := by
-    simp [Derivation.leibniz_div, h512, hn27]
-  have hf75_512 : d (75 / 512 : F) = 0 := by
-    simp [Derivation.leibniz_div, h512, h75]
-  have hf45_1024 : d (45 / 1024 : F) = 0 := by
-    simp [Derivation.leibniz_div, h1024, h45]
-  have hf49_1024 : d (49 / 1024 : F) = 0 := by
-    simp [Derivation.leibniz_div, h1024, hn49]
-  have hf55_1024 : d (55 / 1024 : F) = 0 := by
-    simp [Derivation.leibniz_div, h1024, hn55]
-  have hf135_1024 : d (135 / 1024 : F) = 0 := by
-    simp [Derivation.leibniz_div, h1024, hn135]
-  have hf195_1024 : d (195 / 1024 : F) = 0 := by
-    simp [Derivation.leibniz_div, h1024, hn195]
-  have hf63_2048 : d (63 / 2048 : F) = 0 := by
-    simp [Derivation.leibniz_div, h2048, h63]
-  have hf175_2048 : d (175 / 2048 : F) = 0 := by
-    simp [Derivation.leibniz_div, h2048, hn175]
-  have hf147_4096 : d (147 / 4096 : F) = 0 := by
-    simp [Derivation.leibniz_div, h4096, hn147]
-  have hf441_4096 : d (441 / 4096 : F) = 0 := by
-    simp [Derivation.leibniz_div, h4096, h441]
-  have hf665_4096 : d (665 / 4096 : F) = 0 := by
-    simp [Derivation.leibniz_div, h4096, hn665]
-  have hf819_8192 : d (819 / 8192 : F) = 0 := by
-    simp [Derivation.leibniz_div, h8192, hn819]
-  have hf819_16384 : d (819 / 16384 : F) = 0 := by
-    simp [Derivation.leibniz_div, h16384, hn819]
-  have hf945_16384 : d (945 / 16384 : F) = 0 := by
-    simp [Derivation.leibniz_div, h16384, h945]
-  have hf825_32768 : d (825 / 32768 : F) = 0 := by
-    simp [Derivation.leibniz_div, h32768, hn825]
-  have hf1575_32768 : d (1575 / 32768 : F) = 0 := by
-    simp [Derivation.leibniz_div, h32768, hn1575]
-  have hf357_65536 : d (357 / 65536 : F) = 0 := by
-    simp [Derivation.leibniz_div, h65536n, hn357]
-  have hf1925_65536 : d (1925 / 65536 : F) = 0 := by
-    simp [Derivation.leibniz_div, h65536n, hn1925]
-  have hf5985_262144 : d (5985 / 262144 : F) = 0 := by
-    simp [Derivation.leibniz_div, hn262144, hn5985]
-  have hf12075_4194304 : d (12075 / 4194304 : F) = 0 := by
-    simp [Derivation.leibniz_div, hn4194304, hn12075]
+  have hf25_128 : d (25 / 128 : F) = 0 := hquotient 25 128
+  have hf27_128 : d (27 / 128 : F) = 0 := hquotient 27 128
+  have hf27_256 : d (27 / 256 : F) = 0 := hquotient 27 256
+  have hf25_512 : d (25 / 512 : F) = 0 := hquotient 25 512
+  have hf27_512 : d (27 / 512 : F) = 0 := hquotient 27 512
+  have hf75_512 : d (75 / 512 : F) = 0 := hquotient 75 512
+  have hf45_1024 : d (45 / 1024 : F) = 0 := hquotient 45 1024
+  have hf49_1024 : d (49 / 1024 : F) = 0 := hquotient 49 1024
+  have hf55_1024 : d (55 / 1024 : F) = 0 := hquotient 55 1024
+  have hf135_1024 : d (135 / 1024 : F) = 0 := hquotient 135 1024
+  have hf195_1024 : d (195 / 1024 : F) = 0 := hquotient 195 1024
+  have hf63_2048 : d (63 / 2048 : F) = 0 := hquotient 63 2048
+  have hf175_2048 : d (175 / 2048 : F) = 0 := hquotient 175 2048
+  have hf147_4096 : d (147 / 4096 : F) = 0 := hquotient 147 4096
+  have hf441_4096 : d (441 / 4096 : F) = 0 := hquotient 441 4096
+  have hf665_4096 : d (665 / 4096 : F) = 0 := hquotient 665 4096
+  have hf819_8192 : d (819 / 8192 : F) = 0 := hquotient 819 8192
+  have hf819_16384 : d (819 / 16384 : F) = 0 := hquotient 819 16384
+  have hf945_16384 : d (945 / 16384 : F) = 0 := hquotient 945 16384
+  have hf825_32768 : d (825 / 32768 : F) = 0 := hquotient 825 32768
+  have hf1575_32768 : d (1575 / 32768 : F) = 0 := hquotient 1575 32768
+  have hf357_65536 : d (357 / 65536 : F) = 0 := hquotient 357 65536
+  have hf1925_65536 : d (1925 / 65536 : F) = 0 := hquotient 1925 65536
+  have hf5985_262144 : d (5985 / 262144 : F) = 0 := hquotient 5985 262144
+  have hf12075_4194304 : d (12075 / 4194304 : F) = 0 := hquotient 12075 4194304
   have _hiota := hiota
   have hPderiv : d P = (5 / 4 : F) * d A := by
     have halpha' : d P - (5 / 4 : F) * d A = 0 := by
@@ -2669,8 +2694,7 @@ theorem nonzeroFace810_thirteenthDefectPowerRelation
           algebraMap k (RatFunc k) a := by
     apply GCD369RatFuncConstantsOfPolynomialDerivative
       ratFuncDerivation46_polynomial
-    simpa [ratFuncDerivation68, ratFuncDerivation46_apply] using
-      hnu0deriv
+    exact hnu0deriv
   have hclear :
       algebraMap k[X] (RatFunc k)
           (localClearedThirteenthDefect810 h0 (p.coeff 7) (p.coeff 6)
@@ -2690,10 +2714,11 @@ theorem nonzeroFace810_thirteenthDefectPowerRelation
       rw [hg9]
       simp [depressedL810, octicDepressionR810, sourceToRatFunc68,
         sourceToRatFunc46, b9]
-    simpa [localClearedThirteenthDefect810, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk01, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk02, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk03, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk04, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk05, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk06, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk07, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk08, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk09, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk10, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk11, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk12, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk13, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk14, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk15, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk16, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk17, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk18, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk19, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk20, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk21, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk22, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk23, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk24, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk25, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk26, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk27, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk28, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk29, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk30, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk31, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk32, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk33, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk34, map_sub, map_mul, map_pow,
+    conv_rhs => rw [hf6, hf5, hf4, hf3, hf2, hf1, hf0, hg1, hg2, hg3, hg4, hg5, hg6, hg7, hg8', hg9L, hF]
+    simp only [localClearedThirteenthDefect810, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk01, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk02, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk03, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk04, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk05, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk06, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk07, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk08, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk09, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk10, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk11, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk12, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk13, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk14, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk15, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk16, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk17, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk18, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk19, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk20, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk21, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk22, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk23, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk24, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk25, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk26, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk27, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk28, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk29, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk30, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk31, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk32, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk33, fable810twelfthSpeedT_localClearedThirteenthDefect810_chunk34, map_sub, map_mul, map_pow,
       map_ofNat, map_neg, map_add, RatFunc.algebraMap_C, h, a7, a6, a5,
       a4, a3, a2, a1, a0, b8, b7, b6, b5, b4, b3, b2, b1, hf6, hf5, hf4, hf3, hf2, hf1,
-      hf0, hg1, hg2, hg3, hg4, hg5, hg6, hg7, hg8', hg9L] using hF.symm
+      hf0, hg1, hg2, hg3, hg4, hg5, hg6, hg7, hg8', hg9L]
   have htarget :
       algebraMap k[X] (RatFunc k)
           (localClearedThirteenthDefect810 h0 (p.coeff 7) (p.coeff 6)
@@ -3351,25 +3376,5 @@ theorem normalized810ScaleZero_nonzero_exists_twelfthClearedDefect
 end ScaleZeroTwelfthDefect810
 
 
-#print axioms fableScaleZero_thirteenthCoefficientJacobianRow_raw_810
-#print axioms scaleZero_thirteenthCoefficientJacobianRow_810
-#print axioms normalized810ScaleZero_thirteenthCoefficientJacobianRow
-#print axioms normalized810ScaleZero_thirteenthCoefficientJacobianRow_collapsed
-#print axioms differentialJacobian_coeff_4_monicOcticDecic
-#print axioms scaleZero_monicOcticDecic_degree4Row_810
-#print axioms nuResidual810_deriv_zero
-#print axioms scaleZero_nuResidual_deriv_zero_810
-#print axioms thirteenthDefect_eq_clearedNu810
-#print axioms nonzeroFace810_thirteenthDefectPowerRelation
-#print axioms scaleZero_twelfthClearedDefect_exists_C_810
-#print axioms scaleZero_alignedTwelfthClearedDefect_exists_C_810
-#print axioms scaleZero_nonzeroTwelfthClearedDefect_exists_C_810
-#print axioms normalized810ScaleZero_exists_twelfthClearedDefect
-#print axioms normalized810ScaleZero_twelfthClearedDefect_exists_C
-#print axioms normalized810ScaleZero_twelfthClearedDefect_natDegree_le_zero
-#print axioms normalized810ScaleZero_twelfthClearedDefectFirstFace
-#print axioms normalized810ScaleZero_twelfthClearedDefectBranches
-#print axioms normalized810ScaleZero_aligned_exists_twelfthClearedDefect
-#print axioms normalized810ScaleZero_nonzero_exists_twelfthClearedDefect
 
 end Max11DegreeRoutes

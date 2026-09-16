@@ -27,6 +27,7 @@ section AlignedSquareSourceEqExpansion810Band
 
 variable {R : Type*} [CommRing R]
 
+set_option maxHeartbeats 64000000 in
 def asqBand810Src0b0
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : R) : R :=
     (4611686018427387904 : R) * h ^ 118 * a0 * b1
@@ -60,13 +61,13 @@ def asqBand810Src0b0
     + (-4035225266123964416 : R) * h ^ 110 * a2 * a0 * b7
     + (-2017612633061982208 : R) * h ^ 110 * a1 ^ 2 * b7
 
-set_option maxHeartbeats 1600000000 in
+set_option maxHeartbeats 64000000 in
 theorem asqBand810Src0_split (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : R) :
     degreeZeroClearedSourceBlock0_810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 0 =
       asqBand810Src0b0 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 := by
-  simp only [degreeZeroClearedSourceBlock0_810, asqBand810Src0b0]
-  try ring
+  simp only [degreeZeroClearedSourceBlock0_810, asqBand810Src0b0, mul_zero, zero_mul, sub_zero, zero_add, add_zero, sub_eq_add_neg, neg_mul, mul_neg, neg_zero]
 
+set_option maxHeartbeats 64000000 in
 def asqBand810Src1b0
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : R) : R :=
     (-4611686018427387904 : R) * h ^ 110 * a1 * a0 * b8
@@ -94,13 +95,13 @@ def asqBand810Src1b0
     + (-6890507429876858880 : R) * h ^ 104 * a5 * a4 * a3 ^ 2
     + (-2296835809958952960 : R) * h ^ 104 * a4 ^ 3 * a3
 
-set_option maxHeartbeats 1600000000 in
+set_option maxHeartbeats 64000000 in
 theorem asqBand810Src1_split (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : R) :
     degreeZeroClearedSourceBlock1_810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 0 =
       asqBand810Src1b0 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 := by
-  simp only [degreeZeroClearedSourceBlock1_810, asqBand810Src1b0]
-  try ring
+  simp only [degreeZeroClearedSourceBlock1_810, asqBand810Src1b0, mul_zero, zero_mul, sub_zero, zero_add, add_zero, sub_eq_add_neg, neg_mul, mul_neg, neg_zero]
 
+set_option maxHeartbeats 64000000 in
 def asqBand810Src2b0
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : R) : R :=
     (324259173170675712 : R) * h ^ 102 * a7 ^ 2 * a2 * b1
@@ -137,13 +138,13 @@ def asqBand810Src2b0
     + (1297036692682702848 : R) * h ^ 102 * a6 * a5 * a4 * b2
     + (1945555039024054272 : R) * h ^ 102 * a6 * a5 * a3 * b3
 
-set_option maxHeartbeats 1600000000 in
+set_option maxHeartbeats 64000000 in
 theorem asqBand810Src2_split (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : R) :
     degreeZeroClearedSourceBlock2_810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 0 =
       asqBand810Src2b0 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 := by
-  simp only [degreeZeroClearedSourceBlock2_810, asqBand810Src2b0]
-  try ring
+  simp only [degreeZeroClearedSourceBlock2_810, asqBand810Src2b0, mul_zero, zero_mul, sub_zero, zero_add, add_zero, sub_eq_add_neg, neg_mul, mul_neg, neg_zero]
 
+set_option maxHeartbeats 64000000 in
 def asqBand810Src3b0
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : R) : R :=
     (2594073385365405696 : R) * h ^ 102 * a6 * a5 * a2 * b4
@@ -187,13 +188,13 @@ def asqBand810Src3b0
     + (6029194001142251520 : R) * h ^ 96 * a7 ^ 2 * a6 * a3 * a0
     + (6029194001142251520 : R) * h ^ 96 * a7 ^ 2 * a6 * a2 * a1
 
-set_option maxHeartbeats 1600000000 in
+set_option maxHeartbeats 64000000 in
 theorem asqBand810Src3_split (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : R) :
     degreeZeroClearedSourceBlock3_810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 0 =
       asqBand810Src3b0 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 := by
-  simp only [degreeZeroClearedSourceBlock3_810, asqBand810Src3b0]
-  try ring
+  simp only [degreeZeroClearedSourceBlock3_810, asqBand810Src3b0, mul_zero, zero_mul, sub_zero, zero_add, add_zero, sub_eq_add_neg, neg_mul, mul_neg, neg_zero]
 
+set_option maxHeartbeats 64000000 in
 def asqBand810Src4b0
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : R) : R :=
     (6029194001142251520 : R) * h ^ 96 * a7 ^ 2 * a5 * a4 * a0
@@ -228,12 +229,11 @@ def asqBand810Src4b0
     + (1794402976530432000 : R) * h ^ 96 * a5 ^ 4 * a3
     + (3588805953060864000 : R) * h ^ 96 * a5 ^ 3 * a4 ^ 2
 
-set_option maxHeartbeats 1600000000 in
+set_option maxHeartbeats 64000000 in
 theorem asqBand810Src4_split (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : R) :
     degreeZeroClearedSourceBlock4_810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 0 =
       asqBand810Src4b0 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 := by
-  simp only [degreeZeroClearedSourceBlock4_810, asqBand810Src4b0]
-  try ring
+  simp only [degreeZeroClearedSourceBlock4_810, asqBand810Src4b0, mul_zero, zero_mul, sub_zero, zero_add, add_zero, sub_eq_add_neg, neg_mul, mul_neg, neg_zero]
 
 end AlignedSquareSourceEqExpansion810Band
 
@@ -266,6 +266,7 @@ section AlignedSquareSourceEqExpansion810Band
 
 variable {R : Type*} [CommRing R]
 
+set_option maxHeartbeats 64000000 in
 def asqBand810Src5b0
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : R) : R :=
     (-229683580995895296 : R) * h ^ 94 * a7 ^ 3 * a3 * b1
@@ -288,13 +289,13 @@ def asqBand810Src5b0
     + (-3445253714938429440 : R) * h ^ 94 * a7 ^ 2 * a4 * a2 * b5
     + (-4134304457926115328 : R) * h ^ 94 * a7 ^ 2 * a4 * a1 * b6
 
-set_option maxHeartbeats 1600000000 in
+set_option maxHeartbeats 64000000 in
 theorem asqBand810Src5_split (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : R) :
     degreeZeroClearedSourceBlock5_810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 0 =
       asqBand810Src5b0 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 := by
-  simp only [degreeZeroClearedSourceBlock5_810, asqBand810Src5b0]
-  try ring
+  simp only [degreeZeroClearedSourceBlock5_810, asqBand810Src5b0, mul_zero, zero_mul, sub_zero, zero_add, add_zero, sub_eq_add_neg, neg_mul, mul_neg, neg_zero]
 
+set_option maxHeartbeats 64000000 in
 def asqBand810Src6b0
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : R) : R :=
     (-4823355200913801216 : R) * h ^ 94 * a7 ^ 2 * a4 * a0 * b7
@@ -338,13 +339,13 @@ def asqBand810Src6b0
     + (-4823355200913801216 : R) * h ^ 94 * a7 * a5 * a3 ^ 2 * b7
     + (-11024811887802974208 : R) * h ^ 94 * a7 * a5 * a3 * a2 * b8
 
-set_option maxHeartbeats 1600000000 in
+set_option maxHeartbeats 64000000 in
 theorem asqBand810Src6_split (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : R) :
     degreeZeroClearedSourceBlock6_810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 0 =
       asqBand810Src6b0 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 := by
-  simp only [degreeZeroClearedSourceBlock6_810, asqBand810Src6b0]
-  try ring
+  simp only [degreeZeroClearedSourceBlock6_810, asqBand810Src6b0, mul_zero, zero_mul, sub_zero, zero_add, add_zero, sub_eq_add_neg, neg_mul, mul_neg, neg_zero]
 
+set_option maxHeartbeats 64000000 in
 def asqBand810Src7b0
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : R) : R :=
     (-1378101485975371776 : R) * h ^ 94 * a7 * a4 ^ 3 * b6
@@ -388,17 +389,18 @@ def asqBand810Src7b0
     + (-2411677600456900608 : R) * h ^ 94 * a5 ^ 2 * a4 ^ 2 * b7
     + (-5512405943901487104 : R) * h ^ 94 * a5 ^ 2 * a4 * a3 * b8
 
-set_option maxHeartbeats 1600000000 in
+set_option maxHeartbeats 64000000 in
 theorem asqBand810Src7_split (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : R) :
     degreeZeroClearedSourceBlock7_810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 0 =
       asqBand810Src7b0 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 := by
-  simp only [degreeZeroClearedSourceBlock7_810, asqBand810Src7b0]
-  try ring
+  simp only [degreeZeroClearedSourceBlock7_810, asqBand810Src7b0, mul_zero, zero_mul, sub_zero, zero_add, add_zero, sub_eq_add_neg, neg_mul, mul_neg, neg_zero]
 
+set_option maxHeartbeats 64000000 in
 def asqBand810Src8b0
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : R) : R :=
     (-1837468647967162368 : R) * h ^ 94 * a5 * a4 ^ 3 * b8
 
+set_option maxHeartbeats 64000000 in
 def asqBand810Src8b1
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : R) : R :=
     (672901116198912000 : R) * h ^ 88 * a7 ^ 4 * a3 * a0
@@ -439,14 +441,14 @@ def asqBand810Src8b1
     + (-14803824556376064000 : R) * h ^ 88 * a6 ^ 2 * a5 ^ 3 * a4
     + (-1480382455637606400 : R) * h ^ 88 * a6 * a5 ^ 5
 
-set_option maxHeartbeats 1600000000 in
+set_option maxHeartbeats 64000000 in
 theorem asqBand810Src8_split (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : R) :
     degreeZeroClearedSourceBlock8_810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 0 =
       asqBand810Src8b0 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 +
       asqBand810Src8b1 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 := by
-  simp only [degreeZeroClearedSourceBlock8_810, asqBand810Src8b0, asqBand810Src8b1]
-  try ring
+  simp only [degreeZeroClearedSourceBlock8_810, asqBand810Src8b0, asqBand810Src8b1, mul_zero, zero_mul, sub_zero, zero_add, add_zero, sub_eq_add_neg, neg_mul, mul_neg, neg_zero, add_assoc]
 
+set_option maxHeartbeats 64000000 in
 def asqBand810Src9b1
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : R) : R :=
     (179440297653043200 : R) * h ^ 86 * a7 ^ 4 * a4 * b1
@@ -461,12 +463,11 @@ def asqBand810Src9b1
     + (3588805953060864000 : R) * h ^ 86 * a7 ^ 3 * a6 * a1 * b5
     + (4306567143673036800 : R) * h ^ 86 * a7 ^ 3 * a6 * a0 * b6
 
-set_option maxHeartbeats 1600000000 in
+set_option maxHeartbeats 64000000 in
 theorem asqBand810Src9_split (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : R) :
     degreeZeroClearedSourceBlock9_810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 0 =
       asqBand810Src9b1 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 := by
-  simp only [degreeZeroClearedSourceBlock9_810, asqBand810Src9b1]
-  try ring
+  simp only [degreeZeroClearedSourceBlock9_810, asqBand810Src9b1, mul_zero, zero_mul, sub_zero, zero_add, add_zero, sub_eq_add_neg, neg_mul, mul_neg, neg_zero]
 
 end AlignedSquareSourceEqExpansion810Band
 
@@ -499,6 +500,7 @@ section AlignedSquareSourceEqExpansion810Band
 
 variable {R : Type*} [CommRing R]
 
+set_option maxHeartbeats 64000000 in
 set_option maxHeartbeats 64000000 in
 def asqBand810Src10b1
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : R) : R :=
@@ -547,9 +549,9 @@ set_option maxHeartbeats 64000000 in
 theorem asqBand810Src10_split (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : R) :
     degreeZeroClearedSourceBlock10_810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 0 =
       asqBand810Src10b1 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 := by
-  simp only [degreeZeroClearedSourceBlock10_810, asqBand810Src10b1]
-  try ring
+  simp only [degreeZeroClearedSourceBlock10_810, asqBand810Src10b1, mul_zero, zero_mul, sub_zero, zero_add, add_zero, sub_eq_add_neg, neg_mul, mul_neg, neg_zero]
 
+set_option maxHeartbeats 64000000 in
 set_option maxHeartbeats 64000000 in
 def asqBand810Src11b1
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : R) : R :=
@@ -598,9 +600,9 @@ set_option maxHeartbeats 64000000 in
 theorem asqBand810Src11_split (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : R) :
     degreeZeroClearedSourceBlock11_810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 0 =
       asqBand810Src11b1 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 := by
-  simp only [degreeZeroClearedSourceBlock11_810, asqBand810Src11b1]
-  try ring
+  simp only [degreeZeroClearedSourceBlock11_810, asqBand810Src11b1, mul_zero, zero_mul, sub_zero, zero_add, add_zero, sub_eq_add_neg, neg_mul, mul_neg, neg_zero]
 
+set_option maxHeartbeats 64000000 in
 set_option maxHeartbeats 64000000 in
 def asqBand810Src12b1
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : R) : R :=
@@ -616,6 +618,7 @@ def asqBand810Src12b1
     + (5742089524897382400 : R) * h ^ 86 * a6 * a5 ^ 3 * a4 * b8
     + (287104476244869120 : R) * h ^ 86 * a5 ^ 5 * b8
 
+set_option maxHeartbeats 64000000 in
 set_option maxHeartbeats 64000000 in
 def asqBand810Src12b2
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : R) : R :=
@@ -654,9 +657,9 @@ theorem asqBand810Src12_split (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1
     degreeZeroClearedSourceBlock12_810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 0 =
       asqBand810Src12b1 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 +
       asqBand810Src12b2 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 := by
-  simp only [degreeZeroClearedSourceBlock12_810, asqBand810Src12b1, asqBand810Src12b2]
-  try ring
+  simp only [degreeZeroClearedSourceBlock12_810, asqBand810Src12b1, asqBand810Src12b2, mul_zero, zero_mul, sub_zero, zero_add, add_zero, sub_eq_add_neg, neg_mul, mul_neg, neg_zero, add_assoc]
 
+set_option maxHeartbeats 64000000 in
 set_option maxHeartbeats 64000000 in
 def asqBand810Src13b2
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : R) : R :=
@@ -679,9 +682,9 @@ set_option maxHeartbeats 64000000 in
 theorem asqBand810Src13_split (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : R) :
     degreeZeroClearedSourceBlock13_810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 0 =
       asqBand810Src13b2 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 := by
-  simp only [degreeZeroClearedSourceBlock13_810, asqBand810Src13b2]
-  try ring
+  simp only [degreeZeroClearedSourceBlock13_810, asqBand810Src13b2, mul_zero, zero_mul, sub_zero, zero_add, add_zero, sub_eq_add_neg, neg_mul, mul_neg, neg_zero]
 
+set_option maxHeartbeats 64000000 in
 set_option maxHeartbeats 64000000 in
 def asqBand810Src14b2
     (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : R) : R :=
@@ -730,8 +733,7 @@ set_option maxHeartbeats 64000000 in
 theorem asqBand810Src14_split (h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : R) :
     degreeZeroClearedSourceBlock14_810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 0 =
       asqBand810Src14b2 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 := by
-  simp only [degreeZeroClearedSourceBlock14_810, asqBand810Src14b2]
-  try ring
+  simp only [degreeZeroClearedSourceBlock14_810, asqBand810Src14b2, mul_zero, zero_mul, sub_zero, zero_add, add_zero, sub_eq_add_neg, neg_mul, mul_neg, neg_zero]
 
 end AlignedSquareSourceEqExpansion810Band
 

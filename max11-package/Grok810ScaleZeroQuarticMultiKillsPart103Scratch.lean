@@ -28,7 +28,7 @@ section QuarticKills810
 variable {k : Type*} [Field k] [CharZero k]
 
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuQuartic810_eq_ABC_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -37,10 +37,20 @@ theorem degreeZeroMuQuartic810_eq_ABC_add_rest
         degreeZeroMuQuarticNoABC810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
   simp only [degreeZeroMuQuartic810, muQuarticFaceABC810, degreeZeroMuQuarticNoABC810]
-  all_goals module
+  try simp only [neg_smul]
+  abel
 
 
-set_option maxHeartbeats 400000000 in
+section
+
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuQuarticNoABC810` (40 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -75,14 +85,19 @@ theorem speedRefl_degreeZeroMuQuarticNoABC810_eq_polyOf
       [0, 0, 2, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1], [2, 1, 0, 0, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0],
       [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0], [0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0],
       [1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0]] := by
-  simp only [degreeZeroMuQuarticNoABC810, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroMuQuarticNoABC810, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 
-set_option maxHeartbeats 32000000 in
+
+end
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuQuarticNoABC810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X])
@@ -96,21 +111,17 @@ theorem degreeZeroMuQuarticNoABC810_natDegree_lt
   have hF1 : 2 * F.natDegree + 1 ≤ 7 * A.natDegree := Nat.succ_le_of_lt hFlt
   have hG1 : G.natDegree + 1 ≤ 4 * A.natDegree := Nat.succ_le_of_lt hGlt
   rw [speedRefl_degreeZeroMuQuarticNoABC810_eq_polyOf]
-  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 
+set_option maxHeartbeats 64000000 in
 theorem muQuarticFaceABC810_coeff_top
     {A B C D E F G : k[X]}
     (hcone : QuarticRatioConeABC810 A B C D E F G)
@@ -173,7 +184,16 @@ section QuarticKills810
 variable {k : Type*} [Field k] [CharZero k]
 
 
-set_option maxHeartbeats 400000000 in
+section
+
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroPiQuarticNoACG810` (92 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -238,14 +258,19 @@ theorem speedRefl_degreeZeroPiQuarticNoACG810_eq_polyOf
       [0, 0, 0, 2, 0, 0, 0], [1, 1, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0],
       [0, 1, 0, 0, 1, 0, 0], [0, 0, 1, 1, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0], [0, 1, 0, 1, 0, 0, 0],
       [0, 0, 2, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1], [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0]] := by
-  simp only [degreeZeroPiQuarticNoACG810, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroPiQuarticNoACG810, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 
-set_option maxHeartbeats 32000000 in
+
+end
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroPiQuarticNoACG810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X])
@@ -259,21 +284,17 @@ theorem degreeZeroPiQuarticNoACG810_natDegree_lt
   have hE1 : E.natDegree + 1 ≤ 3 * A.natDegree := Nat.succ_le_of_lt hElt
   have hF1 : 2 * F.natDegree + 1 ≤ 7 * A.natDegree := Nat.succ_le_of_lt hFlt
   rw [speedRefl_degreeZeroPiQuarticNoACG810_eq_polyOf]
-  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 
+set_option maxHeartbeats 64000000 in
 theorem piQuarticFaceACG810_coeff_top
     {A B C D E F G : k[X]}
     (hcone : QuarticRatioConeACG810 A B C D E F G)
@@ -306,7 +327,7 @@ theorem piQuarticFaceACG810_coeff_top
   ring
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem quarticCone_ACG_impossible
     {j t : k}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -431,7 +452,7 @@ section QuarticKills810
 variable {k : Type*} [Field k] [CharZero k]
 
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuQuartic810_eq_BCD_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -440,10 +461,20 @@ theorem degreeZeroMuQuartic810_eq_BCD_add_rest
         degreeZeroMuQuarticNoBCD810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
   simp only [degreeZeroMuQuartic810, muQuarticFaceBCD810, degreeZeroMuQuarticNoBCD810]
-  all_goals module
+  try simp only [neg_smul]
+  abel
 
 
-set_option maxHeartbeats 400000000 in
+section
+
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuQuarticNoBCD810` (40 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -478,14 +509,19 @@ theorem speedRefl_degreeZeroMuQuarticNoBCD810_eq_polyOf
       [0, 0, 2, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1], [2, 1, 0, 0, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0],
       [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0], [0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0],
       [1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0]] := by
-  simp only [degreeZeroMuQuarticNoBCD810, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroMuQuarticNoBCD810, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 
-set_option maxHeartbeats 32000000 in
+
+end
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuQuarticNoBCD810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X])
@@ -499,21 +535,17 @@ theorem degreeZeroMuQuarticNoBCD810_natDegree_lt
   have hF1 : 3 * F.natDegree + 1 ≤ 7 * B.natDegree := Nat.succ_le_of_lt hFlt
   have hG1 : 3 * G.natDegree + 1 ≤ 8 * B.natDegree := Nat.succ_le_of_lt hGlt
   rw [speedRefl_degreeZeroMuQuarticNoBCD810_eq_polyOf]
-  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 
+set_option maxHeartbeats 64000000 in
 theorem muQuarticFaceBCD810_coeff_top
     {A B C D E F G : k[X]}
     (hcone : QuarticRatioConeBCD810 A B C D E F G)
@@ -576,7 +608,7 @@ section QuarticKills810
 variable {k : Type*} [Field k] [CharZero k]
 
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroNuQuarticNoABC810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X])
@@ -590,21 +622,17 @@ theorem degreeZeroNuQuarticNoABC810_natDegree_lt
   have hF1 : 2 * F.natDegree + 1 ≤ 7 * A.natDegree := Nat.succ_le_of_lt hFlt
   have hG1 : G.natDegree + 1 ≤ 4 * A.natDegree := Nat.succ_le_of_lt hGlt
   rw [speedRefl_degreeZeroNuQuarticNoABC810_eq_polyOf]
-  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 
+set_option maxHeartbeats 64000000 in
 theorem nuQuarticFaceABC810_coeff_top
     {A B C D E F G : k[X]}
     (hcone : QuarticRatioConeABC810 A B C D E F G)
@@ -637,7 +665,7 @@ theorem nuQuarticFaceABC810_coeff_top
   ring
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem quarticCone_ABC_impossible
     {j t : k}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -750,6 +778,7 @@ theorem quarticCone_ABC_impossible
 
 
 
+set_option maxHeartbeats 64000000 in
 def kappaQuarticInnerABD810 (a b d : k) : k :=
   5 * a * b ^ 3 + (-60 : k) * b ^ 2 * d
 
@@ -784,7 +813,7 @@ section QuarticKills810
 variable {k : Type*} [Field k] [CharZero k]
 
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroNuQuarticNoBCD810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X])
@@ -798,21 +827,17 @@ theorem degreeZeroNuQuarticNoBCD810_natDegree_lt
   have hF1 : 3 * F.natDegree + 1 ≤ 7 * B.natDegree := Nat.succ_le_of_lt hFlt
   have hG1 : 3 * G.natDegree + 1 ≤ 8 * B.natDegree := Nat.succ_le_of_lt hGlt
   rw [speedRefl_degreeZeroNuQuarticNoBCD810_eq_polyOf]
-  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 
+set_option maxHeartbeats 64000000 in
 theorem nuQuarticFaceBCD810_coeff_top
     {A B C D E F G : k[X]}
     (hcone : QuarticRatioConeBCD810 A B C D E F G)
@@ -845,7 +870,7 @@ theorem nuQuarticFaceBCD810_coeff_top
   ring
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem quarticCone_BCD_impossible
     {j t : k}
     (l beta gamma delta epsilon zeta eta theta : k)
@@ -958,6 +983,7 @@ theorem quarticCone_BCD_impossible
 
 
 
+set_option maxHeartbeats 64000000 in
 def kappaQuarticInnerBCF810 (b c f : k) : k :=
   (-15 : k) * b * c ^ 2 + 40 * c * f
 
@@ -992,15 +1018,26 @@ section QuarticKills810
 variable {k : Type*} [Field k] [CharZero k]
 
 
+set_option maxHeartbeats 64000000 in
 def piQuarticInnerABD810 (a b d : k) : k :=
   15 * a ^ 2 * b ^ 4 + (-480 : k) * a * b ^ 3 * d + 1440 * b ^ 2 * d ^ 2
 
 
+set_option maxHeartbeats 64000000 in
 def primitiveQuarticInnerABD810 (a b d : k) : k :=
   (-5 : k) * a ^ 4 * b ^ 3 + (-60 : k) * a ^ 3 * b ^ 2 * d + (-800 : k) * a ^ 2 * b * d ^ 2 + 520 * a * b ^ 5 + 2560 * a * d ^ 3 + (-4000 : k) * b ^ 4 * d
 
 
-set_option maxHeartbeats 32000000 in
+section
+
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
+set_option maxHeartbeats 64000000 in
 theorem quarticInner_ABD_identity
     (a b d : k) :
     ((-37 / 38400 : k) * a ^ 2 * d + (-7 / 3200 : k) * b ^ 3) * kappaQuarticInnerABD810 a b d +
@@ -1012,7 +1049,10 @@ theorem quarticInner_ABD_identity
   ring
 
 
-set_option maxHeartbeats 16000000 in
+
+end
+
+set_option maxHeartbeats 64000000 in
 def kappaQuarticFaceABD810 (A B C D E F G : k[X]) : k[X] :=
   (5 / 512 : k) • (A * B ^ 3)
   - (15 / 128 : k) • (B ^ 2 * D)
@@ -1048,15 +1088,26 @@ section QuarticKills810
 variable {k : Type*} [Field k] [CharZero k]
 
 
+set_option maxHeartbeats 64000000 in
 def piQuarticInnerBCF810 (b c f : k) : k :=
   (-35 : k) * b ^ 4 * c + 50 * b ^ 3 * f + 15 * c ^ 4
 
 
+set_option maxHeartbeats 64000000 in
 def primitiveQuarticInnerBCF810 (b c f : k) : k :=
   (-265 : k) * b ^ 3 * c ^ 2 + 680 * b ^ 2 * c * f + (-640 : k) * b * f ^ 2
 
 
-set_option maxHeartbeats 32000000 in
+section
+
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
+set_option maxHeartbeats 64000000 in
 theorem quarticInner_BCF_identity
     (b c f : k) :
     ((32 / 21 : k) * c) * kappaQuarticInnerBCF810 b c f +
@@ -1067,7 +1118,10 @@ theorem quarticInner_BCF_identity
   ring
 
 
-set_option maxHeartbeats 16000000 in
+
+end
+
+set_option maxHeartbeats 64000000 in
 def kappaQuarticFaceBCF810 (A B C D E F G : k[X]) : k[X] :=
   (-(15 / 128 : k)) • (B * C ^ 2)
   + (5 / 16 : k) • (C * F)
@@ -1103,7 +1157,7 @@ section QuarticKills810
 variable {k : Type*} [Field k] [CharZero k]
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def degreeZeroKappaQuarticNoABD810
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) : k[X] :=
@@ -1142,7 +1196,7 @@ def degreeZeroKappaQuarticNoABD810
   + (1 / 8 * theta : k) • A
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroKappaQuartic810_eq_ABD_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -1151,10 +1205,20 @@ theorem degreeZeroKappaQuartic810_eq_ABD_add_rest
         degreeZeroKappaQuarticNoABD810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
   simp only [degreeZeroKappaQuartic810, kappaQuarticFaceABD810, degreeZeroKappaQuarticNoABD810]
-  all_goals module
+  try simp only [neg_smul]
+  abel
 
 
-set_option maxHeartbeats 400000000 in
+section
+
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroKappaQuarticNoABD810` (33 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -1185,14 +1249,19 @@ theorem speedRefl_degreeZeroKappaQuarticNoABD810_eq_polyOf
       [3, 0, 0, 0, 0, 0, 0], [1, 0, 1, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0],
       [0, 0, 0, 1, 0, 0, 0], [2, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0],
       [1, 0, 0, 0, 0, 0, 0]] := by
-  simp only [degreeZeroKappaQuarticNoABD810, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroKappaQuarticNoABD810, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 
-set_option maxHeartbeats 16000000 in
+
+end
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroKappaQuarticNoABD810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X])
@@ -1206,19 +1275,14 @@ theorem degreeZeroKappaQuarticNoABD810_natDegree_lt
   have hF1 : 2 * F.natDegree + 1 ≤ 7 * A.natDegree := Nat.succ_le_of_lt hFlt
   have hG1 : G.natDegree + 1 ≤ 4 * A.natDegree := Nat.succ_le_of_lt hGlt
   rw [speedRefl_degreeZeroKappaQuarticNoABD810_eq_polyOf]
-  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 
 end QuarticKills810
@@ -1251,6 +1315,7 @@ section QuarticKills810
 variable {k : Type*} [Field k] [CharZero k]
 
 
+set_option maxHeartbeats 64000000 in
 theorem kappaQuarticFaceABD810_coeff_top
     {A B C D E F G : k[X]}
     (hcone : QuarticRatioConeABD810 A B C D E F G)
@@ -1277,13 +1342,13 @@ theorem kappaQuarticFaceABD810_coeff_top
   ring
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def muQuarticFaceABD810 (A B C D E F G : k[X]) : k[X] :=
   (35 / 2048 : k) • B ^ 4
   - (5 / 128 : k) • (A * D ^ 2)
 
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 def degreeZeroMuQuarticNoABD810
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) : k[X] :=
@@ -1330,7 +1395,7 @@ def degreeZeroMuQuarticNoABD810
   + (1 / 8 * theta : k) • B
 
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuQuartic810_eq_ABD_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -1339,7 +1404,8 @@ theorem degreeZeroMuQuartic810_eq_ABD_add_rest
         degreeZeroMuQuarticNoABD810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
   simp only [degreeZeroMuQuartic810, muQuarticFaceABD810, degreeZeroMuQuarticNoABD810]
-  all_goals module
+  try simp only [neg_smul]
+  abel
 
 
 end QuarticKills810
@@ -1372,7 +1438,7 @@ section QuarticKills810
 variable {k : Type*} [Field k] [CharZero k]
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def degreeZeroKappaQuarticNoBCF810
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) : k[X] :=
@@ -1411,7 +1477,7 @@ def degreeZeroKappaQuarticNoBCF810
   + (1 / 8 * theta : k) • A
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroKappaQuartic810_eq_BCF_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -1420,10 +1486,20 @@ theorem degreeZeroKappaQuartic810_eq_BCF_add_rest
         degreeZeroKappaQuarticNoBCF810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
   simp only [degreeZeroKappaQuartic810, kappaQuarticFaceBCF810, degreeZeroKappaQuarticNoBCF810]
-  all_goals module
+  try simp only [neg_smul]
+  abel
 
 
-set_option maxHeartbeats 400000000 in
+section
+
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroKappaQuarticNoBCF810` (33 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -1454,14 +1530,19 @@ theorem speedRefl_degreeZeroKappaQuarticNoBCF810_eq_polyOf
       [3, 0, 0, 0, 0, 0, 0], [1, 0, 1, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0],
       [0, 0, 0, 1, 0, 0, 0], [2, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0],
       [1, 0, 0, 0, 0, 0, 0]] := by
-  simp only [degreeZeroKappaQuarticNoBCF810, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroKappaQuarticNoBCF810, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 
-set_option maxHeartbeats 16000000 in
+
+end
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroKappaQuarticNoBCF810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X])
@@ -1475,19 +1556,14 @@ theorem degreeZeroKappaQuarticNoBCF810_natDegree_lt
   have hE1 : E.natDegree + 1 ≤ 2 * B.natDegree := Nat.succ_le_of_lt hElt
   have hG1 : 3 * G.natDegree + 1 ≤ 8 * B.natDegree := Nat.succ_le_of_lt hGlt
   rw [speedRefl_degreeZeroKappaQuarticNoBCF810_eq_polyOf]
-  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 
 end QuarticKills810
@@ -1520,6 +1596,7 @@ section QuarticKills810
 variable {k : Type*} [Field k] [CharZero k]
 
 
+set_option maxHeartbeats 64000000 in
 theorem kappaQuarticFaceBCF810_coeff_top
     {A B C D E F G : k[X]}
     (hcone : QuarticRatioConeBCF810 A B C D E F G)
@@ -1546,13 +1623,13 @@ theorem kappaQuarticFaceBCF810_coeff_top
   ring
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def muQuarticFaceBCF810 (A B C D E F G : k[X]) : k[X] :=
   (35 / 2048 : k) • B ^ 4
   - (5 / 128 : k) • C ^ 3
 
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 def degreeZeroMuQuarticNoBCF810
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) : k[X] :=
@@ -1599,7 +1676,7 @@ def degreeZeroMuQuarticNoBCF810
   + (1 / 8 * theta : k) • B
 
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuQuartic810_eq_BCF_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -1608,7 +1685,8 @@ theorem degreeZeroMuQuartic810_eq_BCF_add_rest
         degreeZeroMuQuarticNoBCF810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
   simp only [degreeZeroMuQuartic810, muQuarticFaceBCF810, degreeZeroMuQuarticNoBCF810]
-  all_goals module
+  try simp only [neg_smul]
+  abel
 
 
 end QuarticKills810
@@ -1641,7 +1719,16 @@ section QuarticKills810
 variable {k : Type*} [Field k] [CharZero k]
 
 
-set_option maxHeartbeats 400000000 in
+section
+
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuQuarticNoABD810` (41 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -1677,14 +1764,19 @@ theorem speedRefl_degreeZeroMuQuarticNoABD810_eq_polyOf
       [1, 0, 0, 1, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0], [0, 2, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 1, 0, 0], [1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0],
       [0, 1, 0, 0, 0, 0, 0]] := by
-  simp only [degreeZeroMuQuarticNoABD810, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroMuQuarticNoABD810, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 
-set_option maxHeartbeats 32000000 in
+
+end
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuQuarticNoABD810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X])
@@ -1698,21 +1790,17 @@ theorem degreeZeroMuQuarticNoABD810_natDegree_lt
   have hF1 : 2 * F.natDegree + 1 ≤ 7 * A.natDegree := Nat.succ_le_of_lt hFlt
   have hG1 : G.natDegree + 1 ≤ 4 * A.natDegree := Nat.succ_le_of_lt hGlt
   rw [speedRefl_degreeZeroMuQuarticNoABD810_eq_polyOf]
-  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 
+set_option maxHeartbeats 64000000 in
 theorem muQuarticFaceABD810_coeff_top
     {A B C D E F G : k[X]}
     (hcone : QuarticRatioConeABD810 A B C D E F G)
@@ -1739,7 +1827,7 @@ theorem muQuarticFaceABD810_coeff_top
   ring
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def nuQuarticFaceABD810 (A B C D E F G : k[X]) : k[X] :=
   (-(5 / 4096 : k)) • (A ^ 2 * B ^ 3)
   + (45 / 1024 : k) • (A * B ^ 2 * D)
@@ -1776,7 +1864,16 @@ section QuarticKills810
 variable {k : Type*} [Field k] [CharZero k]
 
 
-set_option maxHeartbeats 400000000 in
+section
+
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroMuQuarticNoBCF810` (41 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -1812,14 +1909,19 @@ theorem speedRefl_degreeZeroMuQuarticNoBCF810_eq_polyOf
       [1, 0, 0, 1, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0], [0, 2, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 1, 0, 0], [1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0],
       [0, 1, 0, 0, 0, 0, 0]] := by
-  simp only [degreeZeroMuQuarticNoBCF810, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroMuQuarticNoBCF810, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 
-set_option maxHeartbeats 32000000 in
+
+end
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroMuQuarticNoBCF810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X])
@@ -1833,21 +1935,17 @@ theorem degreeZeroMuQuarticNoBCF810_natDegree_lt
   have hE1 : E.natDegree + 1 ≤ 2 * B.natDegree := Nat.succ_le_of_lt hElt
   have hG1 : 3 * G.natDegree + 1 ≤ 8 * B.natDegree := Nat.succ_le_of_lt hGlt
   rw [speedRefl_degreeZeroMuQuarticNoBCF810_eq_polyOf]
-  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 
+set_option maxHeartbeats 64000000 in
 theorem muQuarticFaceBCF810_coeff_top
     {A B C D E F G : k[X]}
     (hcone : QuarticRatioConeBCF810 A B C D E F G)
@@ -1874,7 +1972,7 @@ theorem muQuarticFaceBCF810_coeff_top
   ring
 
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 def omicronQuarticFaceBCF810 (A B C D E F G : k[X]) : k[X] :=
   (-(21 / 4096 : k)) • B ^ 5
   + (45 / 1024 : k) • (B * C ^ 3)
@@ -1911,7 +2009,7 @@ section QuarticKills810
 variable {k : Type*} [Field k] [CharZero k]
 
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 def degreeZeroNuQuarticNoABD810
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) : k[X] :=
@@ -1973,7 +2071,7 @@ def degreeZeroNuQuarticNoABD810
   + (1 / 8 * theta : k) • C
 
 
-set_option maxHeartbeats 32000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroNuQuartic810_eq_ABD_add_rest
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X]) :
@@ -1982,10 +2080,20 @@ theorem degreeZeroNuQuartic810_eq_ABD_add_rest
         degreeZeroNuQuarticNoABD810 l beta gamma delta epsilon zeta eta theta
           A B C D E F G := by
   simp only [degreeZeroNuQuartic810, nuQuarticFaceABD810, degreeZeroNuQuarticNoABD810]
-  all_goals module
+  try simp only [neg_smul]
+  abel
 
 
-set_option maxHeartbeats 400000000 in
+section
+
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k) (β := k) (γ := k))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := k) (β := k) (γ := k))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := k) (β := k) (γ := k))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k) (β := Nat) (γ := k))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := k))
+
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroNuQuarticNoABD810` (56 monomials, 7 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -2029,14 +2137,19 @@ theorem speedRefl_degreeZeroNuQuarticNoABD810_eq_polyOf
       [0, 0, 2, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 1, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 1, 0], [3, 0, 0, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0],
       [1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0], [2, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0]] := by
-  simp only [degreeZeroNuQuarticNoABD810, Max11ReflectDeg.polyOf_cons,
-    Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
+  unfold Max11ReflectDeg.polyOf
+  rw [List.sum_eq_foldl]
+  dsimp only [List.zipWith, List.foldl]
+  simp only [degreeZeroNuQuarticNoABD810, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  module
+    pow_zero, pow_one, mul_one, one_mul, zero_add, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul]
 
 
-set_option maxHeartbeats 32000000 in
+
+end
+
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroNuQuarticNoABD810_natDegree_lt
     (l beta gamma delta epsilon zeta eta theta : k)
     (A B C D E F G : k[X])
@@ -2050,19 +2163,14 @@ theorem degreeZeroNuQuarticNoABD810_natDegree_lt
   have hF1 : 2 * F.natDegree + 1 ≤ 7 * A.natDegree := Nat.succ_le_of_lt hFlt
   have hG1 : G.natDegree + 1 ≤ 4 * A.natDegree := Nat.succ_le_of_lt hGlt
   rw [speedRefl_degreeZeroNuQuarticNoABD810_eq_polyOf]
-  refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-    Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
-    Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-    List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
+  apply Max11ReflectDeg.natDegree_lt_of_bnd_lt
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    Max11ReflectDeg.mdeg_nil_right, List.map_cons, List.map_nil,
     Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-    mul_one, one_mul, and_true, true_and, natDegree_zero]
+    Nat.mul_one, Nat.one_mul, max_lt_iff]
   repeat' apply And.intro
-  all_goals first
-    | (right; right; omega)
-    | (left; norm_num; done)
-    | (right; left; simp; done)
-    | trivial
+  all_goals omega
 
 
 end QuarticKills810

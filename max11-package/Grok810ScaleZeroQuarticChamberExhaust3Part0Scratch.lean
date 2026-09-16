@@ -37,6 +37,566 @@ variable {k : Type*} [Field k] [CharZero k]
 section QuarticChamberExhaust810
 
 set_option maxHeartbeats 64000000 in
+/-- Reusable arithmetic implication for one cost chamber. -/
+private theorem astra4zExhaustTailBCDEF0
+    (a b c d e f g : ℕ)
+    (hApos : 0 < a) (hAB : 2 * b < 3 * a) (hAC : c < 2 * a) (hAD : 2 * d < 5 * a) (hAE : e < 3 * a) (hAF : 2 * f < 7 * a) (hAG : g < 4 * a)
+    (hGn : g = 0)
+    (hs : 2 * f < a + 4 * b ∧
+      4 * d < a + 6 * b ∧
+      4 * e < 3 * a + 6 * b ∧
+      2 * c < a + 2 * b) :
+    2 * f < a + 4 * b ∧
+    c + f < a + 3 * b ∧
+    4 * d < a + 6 * b ∧
+    d + e < a + 3 * b ∧
+    2 * d + 2 * f < 3 * a + 6 * b ∧
+    4 * e < 3 * a + 6 * b ∧
+    e + f < 2 * a + 3 * b ∧
+    4 * f < 5 * a + 6 * b ∧
+    2 * c < a + 2 * b ∧
+    d < a + b ∧
+    2 * e < 3 * a + 2 * b ∧
+    2 * c < a + 2 * b ∧
+    2 * c + 2 * d < 3 * a + 4 * b ∧
+    c + e < 2 * a + 2 * b ∧
+    2 * c < a + 2 * b ∧
+    2 * c + d < 2 * a + 3 * b ∧
+    4 * c + 2 * e < 5 * a + 6 * b := by
+  omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reusable arithmetic implication for one cost chamber. -/
+private theorem astra4zExhaustTailBCDEF1
+    (a b c d e f g : ℕ)
+    (hApos : 0 < a) (hAB : 2 * b < 3 * a) (hAC : c < 2 * a) (hAD : 2 * d < 5 * a) (hAE : e < 3 * a) (hAF : 2 * f < 7 * a) (hAG : g < 4 * a)
+    (hGn : g = 0)
+    (hs : a + 2 * b = 2 * c ∧
+      c + f < a + 3 * b ∧
+      4 * d < a + 6 * b ∧
+      4 * e < 3 * a + 6 * b) :
+    a + 2 * b = 2 * c ∧
+    a + 2 * b = 2 * c ∧
+    a + 2 * b = 2 * c ∧
+    2 * f < a + 4 * b ∧
+    c + f < a + 3 * b ∧
+    4 * d < a + 6 * b ∧
+    d + e < a + 3 * b ∧
+    2 * d + 2 * f < 3 * a + 6 * b ∧
+    4 * e < 3 * a + 6 * b ∧
+    e + f < 2 * a + 3 * b ∧
+    4 * f < 5 * a + 6 * b ∧
+    d < a + b ∧
+    2 * e < 3 * a + 2 * b ∧
+    2 * c + 2 * d < 3 * a + 4 * b ∧
+    c + e < 2 * a + 2 * b ∧
+    2 * c + d < 2 * a + 3 * b ∧
+    4 * c + 2 * e < 5 * a + 6 * b := by
+  omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reusable arithmetic implication for one cost chamber. -/
+private theorem astra4zExhaustTailBCDEF15
+    (a b c d e f g : ℕ)
+    (hApos : 0 < a) (hAB : 2 * b < 3 * a) (hAC : c < 2 * a) (hAD : 2 * d < 5 * a) (hAE : e < 3 * a) (hAF : 2 * f < 7 * a) (hAG : g < 4 * a)
+    (hGn : g = 0)
+    (hs : a + 2 * b = 2 * c ∧
+      2 * a + b = f ∧
+      d < a + b ∧
+      2 * e < 3 * a + 2 * b) :
+    a + 2 * b = 2 * c ∧
+    2 * a + b = f ∧
+    2 * d < b + f ∧
+    2 * d + 2 * e < a + 2 * b + 2 * f ∧
+    d < a + b ∧
+    2 * e < a + b + f ∧
+    2 * e < 3 * a + 2 * b ∧
+    a + 4 * b < 2 * f ∧
+    b + c < f ∧
+    2 * b + 2 * d < a + 2 * f ∧
+    b + e < a + f ∧
+    4 * c < a + 2 * f ∧
+    c + d < a + f ∧
+    2 * c + 2 * e < 3 * a + 2 * f ∧
+    3 * c < a + b + f ∧
+    4 * c + 2 * d < 3 * a + 2 * b + 2 * f ∧
+    2 * c + e < 2 * a + b + f := by
+  omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reusable arithmetic implication for one cost chamber. -/
+private theorem astra4zExhaustTailBCDEF2
+    (a b c d e f g : ℕ)
+    (hApos : 0 < a) (hAB : 2 * b < 3 * a) (hAC : c < 2 * a) (hAD : 2 * d < 5 * a) (hAE : e < 3 * a) (hAF : 2 * f < 7 * a) (hAG : g < 4 * a)
+    (hGn : g = 0)
+    (hs : 2 * c < a + 2 * b ∧
+      2 * d < b + f ∧
+      2 * e < a + b + f ∧
+      f < 2 * a + b ∧
+      a + 4 * b < 2 * f) :
+    2 * c < a + 2 * b ∧
+    2 * d < b + f ∧
+    2 * d + 2 * e < a + 2 * b + 2 * f ∧
+    d < a + b ∧
+    2 * e < a + b + f ∧
+    2 * e < 3 * a + 2 * b ∧
+    f < 2 * a + b ∧
+    a + 4 * b < 2 * f ∧
+    b + c < f ∧
+    2 * b + 2 * d < a + 2 * f ∧
+    b + e < a + f ∧
+    4 * c < a + 2 * f ∧
+    c + d < a + f ∧
+    2 * c + 2 * e < 3 * a + 2 * f ∧
+    3 * c < a + b + f ∧
+    4 * c + 2 * d < 3 * a + 2 * b + 2 * f ∧
+    2 * c + e < 2 * a + b + f := by
+  omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reusable arithmetic implication for one cost chamber. -/
+private theorem astra4zExhaustTailBCDEF25
+    (a b c d e f g : ℕ)
+    (hApos : 0 < a) (hAB : 2 * b < 3 * a) (hAC : c < 2 * a) (hAD : 2 * d < 5 * a) (hAE : e < 3 * a) (hAF : 2 * f < 7 * a) (hAG : g < 4 * a)
+    (hGn : g = 0)
+    (hs : 2 * a + b = f ∧
+      2 * c < a + 2 * b ∧
+      d < a + b ∧
+      2 * e < 3 * a + 2 * b) :
+    2 * a + b = f ∧
+    2 * c < a + 2 * b ∧
+    2 * d < b + f ∧
+    2 * d + 2 * e < a + 2 * b + 2 * f ∧
+    d < a + b ∧
+    2 * e < a + b + f ∧
+    2 * e < 3 * a + 2 * b ∧
+    a + 4 * b < 2 * f ∧
+    b + c < f ∧
+    2 * b + 2 * d < a + 2 * f ∧
+    b + e < a + f ∧
+    4 * c < a + 2 * f ∧
+    c + d < a + f ∧
+    2 * c + 2 * e < 3 * a + 2 * f ∧
+    3 * c < a + b + f ∧
+    4 * c + 2 * d < 3 * a + 2 * b + 2 * f ∧
+    2 * c + e < 2 * a + b + f := by
+  omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reusable arithmetic implication for one cost chamber. -/
+private theorem astra4zExhaustTailBCDEF26
+    (a b c d e f g : ℕ)
+    (hApos : 0 < a) (hAB : 2 * b < 3 * a) (hAC : c < 2 * a) (hAD : 2 * d < 5 * a) (hAE : e < 3 * a) (hAF : 2 * f < 7 * a) (hAG : g < 4 * a)
+    (hGn : g = 0)
+    (hs : a + 2 * f < 4 * c ∧
+      a + 2 * d < 3 * c ∧
+      2 * e < 3 * c ∧
+      a + 2 * b < 2 * c) :
+    a + b + f < 3 * c ∧
+    a + 2 * f < 4 * c ∧
+    a + 2 * d < 3 * c ∧
+    a + 2 * d + 2 * e < 6 * c ∧
+    d + f < 3 * c ∧
+    2 * e < 3 * c ∧
+    2 * e + 2 * f < a + 6 * c ∧
+    2 * f < a + 3 * c ∧
+    a + 2 * b < 2 * c ∧
+    a + 2 * b < 2 * c ∧
+    a + 4 * b + 2 * d < 6 * c ∧
+    2 * b + e < 3 * c ∧
+    a + 2 * b < 2 * c ∧
+    b + d < 2 * c ∧
+    2 * b + 2 * e < a + 4 * c ∧
+    2 * d < a + 2 * c ∧
+    e < a + c := by
+  omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reusable arithmetic implication for one cost chamber. -/
+private theorem astra4zExhaustTailBCDEF27
+    (a b c d e f g : ℕ)
+    (hApos : 0 < a) (hAB : 2 * b < 3 * a) (hAC : c < 2 * a) (hAD : 2 * d < 5 * a) (hAE : e < 3 * a) (hAF : 2 * f < 7 * a) (hAG : g < 4 * a)
+    (hGn : g = 0)
+    (hs : a + 2 * b < 2 * c ∧
+      a + 4 * d < 2 * c + 2 * f ∧
+      4 * e < a + 2 * c + 2 * f ∧
+      2 * f < 3 * a + 2 * c ∧
+      4 * c < a + 2 * f) :
+    a + 2 * b < 2 * c ∧
+    a + 4 * d < 2 * c + 2 * f ∧
+    d + e < c + f ∧
+    2 * d < a + 2 * c ∧
+    4 * e < a + 2 * c + 2 * f ∧
+    e < a + c ∧
+    2 * f < 3 * a + 2 * c ∧
+    a + 3 * b < c + f ∧
+    a + 4 * b < 2 * f ∧
+    2 * b + d < c + f ∧
+    4 * b + 2 * e < a + 2 * c + 2 * f ∧
+    b + c < f ∧
+    2 * b + 2 * d < a + 2 * f ∧
+    b + e < a + f ∧
+    4 * c < a + 2 * f ∧
+    c + d < a + f ∧
+    2 * c + 2 * e < 3 * a + 2 * f := by
+  omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reusable arithmetic implication for one cost chamber. -/
+private theorem astra4zExhaustTailBCDEF28
+    (a b c d e f g : ℕ)
+    (hApos : 0 < a) (hAB : 2 * b < 3 * a) (hAC : c < 2 * a) (hAD : 2 * d < 5 * a) (hAE : e < 3 * a) (hAF : 2 * f < 7 * a) (hAG : g < 4 * a)
+    (hGn : g = 0)
+    (hs : a + 2 * f = 4 * c ∧
+      a + 4 * d < 2 * c + 2 * f ∧
+      4 * e < a + 2 * c + 2 * f ∧
+      b + c < f) :
+    a + 2 * f = 4 * c ∧
+    a + 2 * b < 2 * c ∧
+    a + 4 * d < 2 * c + 2 * f ∧
+    d + e < c + f ∧
+    2 * d < a + 2 * c ∧
+    4 * e < a + 2 * c + 2 * f ∧
+    e < a + c ∧
+    2 * f < 3 * a + 2 * c ∧
+    a + 3 * b < c + f ∧
+    a + 4 * b < 2 * f ∧
+    2 * b + d < c + f ∧
+    4 * b + 2 * e < a + 2 * c + 2 * f ∧
+    b + c < f ∧
+    2 * b + 2 * d < a + 2 * f ∧
+    b + e < a + f ∧
+    c + d < a + f ∧
+    2 * c + 2 * e < 3 * a + 2 * f := by
+  omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reusable arithmetic implication for one cost chamber. -/
+private theorem astra4zExhaustTailBCDEF3
+    (a b c d e f g : ℕ)
+    (hApos : 0 < a) (hAB : 2 * b < 3 * a) (hAC : c < 2 * a) (hAD : 2 * d < 5 * a) (hAE : e < 3 * a) (hAF : 2 * f < 7 * a) (hAG : g < 4 * a)
+    (hGn : g = 0)
+    (hs : 2 * f = a + 4 * b ∧
+      2 * d < b + f ∧
+      2 * e < a + b + f ∧
+      3 * c < a + b + f) :
+    2 * f = a + 4 * b ∧
+    2 * c < a + 2 * b ∧
+    2 * d < b + f ∧
+    2 * d + 2 * e < a + 2 * b + 2 * f ∧
+    d < a + b ∧
+    2 * e < a + b + f ∧
+    2 * e < 3 * a + 2 * b ∧
+    f < 2 * a + b ∧
+    b + c < f ∧
+    2 * b + 2 * d < a + 2 * f ∧
+    b + e < a + f ∧
+    4 * c < a + 2 * f ∧
+    c + d < a + f ∧
+    2 * c + 2 * e < 3 * a + 2 * f ∧
+    3 * c < a + b + f ∧
+    4 * c + 2 * d < 3 * a + 2 * b + 2 * f ∧
+    2 * c + e < 2 * a + b + f := by
+  omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reusable arithmetic implication for one cost chamber. -/
+private theorem astra4zExhaustTailBCDEF38
+    (a b c d e f g : ℕ)
+    (hApos : 0 < a) (hAB : 2 * b < 3 * a) (hAC : c < 2 * a) (hAD : 2 * d < 5 * a) (hAE : e < 3 * a) (hAF : 2 * f < 7 * a) (hAG : g < 4 * a)
+    (hGn : g = 0)
+    (hs : 3 * a + 2 * c = 2 * f ∧
+      a + 2 * b < 2 * c ∧
+      2 * d < a + 2 * c ∧
+      e < a + c) :
+    3 * a + 2 * c = 2 * f ∧
+    a + 2 * b < 2 * c ∧
+    a + 4 * d < 2 * c + 2 * f ∧
+    d + e < c + f ∧
+    2 * d < a + 2 * c ∧
+    4 * e < a + 2 * c + 2 * f ∧
+    e < a + c ∧
+    a + 3 * b < c + f ∧
+    a + 4 * b < 2 * f ∧
+    2 * b + d < c + f ∧
+    4 * b + 2 * e < a + 2 * c + 2 * f ∧
+    b + c < f ∧
+    2 * b + 2 * d < a + 2 * f ∧
+    b + e < a + f ∧
+    4 * c < a + 2 * f ∧
+    c + d < a + f ∧
+    2 * c + 2 * e < 3 * a + 2 * f := by
+  omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reusable arithmetic implication for one cost chamber. -/
+private theorem astra4zExhaustTailBCDEF39
+    (a b c d e f g : ℕ)
+    (hApos : 0 < a) (hAB : 2 * b < 3 * a) (hAC : c < 2 * a) (hAD : 2 * d < 5 * a) (hAE : e < 3 * a) (hAF : 2 * f < 7 * a) (hAG : g < 4 * a)
+    (hGn : g = 0)
+    (hs : b + f < 2 * d ∧
+      2 * c + 2 * f < a + 4 * d ∧
+      2 * e < a + 2 * d ∧
+      f < a + d ∧
+      a + 6 * b < 4 * d ∧
+      3 * c < a + 2 * d) :
+    b + f < 2 * d ∧
+    2 * c + 2 * f < a + 4 * d ∧
+    2 * e < a + 2 * d ∧
+    f < a + d ∧
+    2 * e < a + 2 * d ∧
+    2 * e + 2 * f < 3 * a + 4 * d ∧
+    f < a + d ∧
+    a + 6 * b < 4 * d ∧
+    2 * b + c < 2 * d ∧
+    4 * b < a + 2 * d ∧
+    2 * b + e < a + 2 * d ∧
+    2 * b + 4 * c < a + 4 * d ∧
+    b + c < a + d ∧
+    2 * b + 2 * c + 2 * e < 3 * a + 4 * d ∧
+    3 * c < a + 2 * d ∧
+    4 * c < 3 * a + 2 * d ∧
+    2 * c + e < 2 * a + 2 * d := by
+  omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reusable arithmetic implication for one cost chamber. -/
+private theorem astra4zExhaustTailBCDEF4
+    (a b c d e f g : ℕ)
+    (hApos : 0 < a) (hAB : 2 * b < 3 * a) (hAC : c < 2 * a) (hAD : 2 * d < 5 * a) (hAE : e < 3 * a) (hAF : 2 * f < 7 * a) (hAG : g < 4 * a)
+    (hGn : g = 0)
+    (hs : a + 2 * b = 2 * c ∧
+      2 * d < b + f ∧
+      2 * e < a + b + f ∧
+      f < 2 * a + b ∧
+      3 * c < a + b + f) :
+    a + 2 * b = 2 * c ∧
+    2 * d < b + f ∧
+    2 * d + 2 * e < a + 2 * b + 2 * f ∧
+    d < a + b ∧
+    2 * e < a + b + f ∧
+    2 * e < 3 * a + 2 * b ∧
+    f < 2 * a + b ∧
+    a + 4 * b < 2 * f ∧
+    b + c < f ∧
+    2 * b + 2 * d < a + 2 * f ∧
+    b + e < a + f ∧
+    4 * c < a + 2 * f ∧
+    c + d < a + f ∧
+    2 * c + 2 * e < 3 * a + 2 * f ∧
+    3 * c < a + b + f ∧
+    4 * c + 2 * d < 3 * a + 2 * b + 2 * f ∧
+    2 * c + e < 2 * a + b + f := by
+  omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reusable arithmetic implication for one cost chamber. -/
+private theorem astra4zExhaustTailBCDEF43
+    (a b c d e f g : ℕ)
+    (hApos : 0 < a) (hAB : 2 * b < 3 * a) (hAC : c < 2 * a) (hAD : 2 * d < 5 * a) (hAE : e < 3 * a) (hAF : 2 * f < 7 * a) (hAG : g < 4 * a)
+    (hGn : g = 0)
+    (hs : a + d = f ∧
+      3 * a + 4 * d = 2 * e + 2 * f ∧
+      b + f < 2 * d ∧
+      2 * c + 2 * f < a + 4 * d) :
+    a + 2 * d = 2 * e ∧
+    a + d = f ∧
+    a + 2 * d = 2 * e ∧
+    3 * a + 4 * d = 2 * e + 2 * f ∧
+    a + d = f ∧
+    b + f < 2 * d ∧
+    2 * c + 2 * f < a + 4 * d ∧
+    a + 6 * b < 4 * d ∧
+    2 * b + c < 2 * d ∧
+    4 * b < a + 2 * d ∧
+    2 * b + e < a + 2 * d ∧
+    2 * b + 4 * c < a + 4 * d ∧
+    b + c < a + d ∧
+    2 * b + 2 * c + 2 * e < 3 * a + 4 * d ∧
+    3 * c < a + 2 * d ∧
+    4 * c < 3 * a + 2 * d ∧
+    2 * c + e < 2 * a + 2 * d := by
+  omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reusable arithmetic implication for one cost chamber. -/
+private theorem astra4zExhaustTailBCDEF44
+    (a b c d e f g : ℕ)
+    (hApos : 0 < a) (hAB : 2 * b < 3 * a) (hAC : c < 2 * a) (hAD : 2 * d < 5 * a) (hAE : e < 3 * a) (hAF : 2 * f < 7 * a) (hAG : g < 4 * a)
+    (hGn : g = 0)
+    (hs : a + 2 * d = 2 * e ∧
+      b + f < 2 * d ∧
+      2 * c + 2 * f < a + 4 * d ∧
+      2 * e + 2 * f < 3 * a + 4 * d ∧
+      a + 6 * b < 4 * d ∧
+      3 * c < a + 2 * d) :
+    a + 2 * d = 2 * e ∧
+    a + 2 * d = 2 * e ∧
+    b + f < 2 * d ∧
+    2 * c + 2 * f < a + 4 * d ∧
+    f < a + d ∧
+    2 * e + 2 * f < 3 * a + 4 * d ∧
+    f < a + d ∧
+    a + 6 * b < 4 * d ∧
+    2 * b + c < 2 * d ∧
+    4 * b < a + 2 * d ∧
+    2 * b + e < a + 2 * d ∧
+    2 * b + 4 * c < a + 4 * d ∧
+    b + c < a + d ∧
+    2 * b + 2 * c + 2 * e < 3 * a + 4 * d ∧
+    3 * c < a + 2 * d ∧
+    4 * c < 3 * a + 2 * d ∧
+    2 * c + e < 2 * a + 2 * d := by
+  omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reusable arithmetic implication for one cost chamber. -/
+private theorem astra4zExhaustTailBCDEF48
+    (a b c d e f g : ℕ)
+    (hApos : 0 < a) (hAB : 2 * b < 3 * a) (hAC : c < 2 * a) (hAD : 2 * d < 5 * a) (hAE : e < 3 * a) (hAF : 2 * f < 7 * a) (hAG : g < 4 * a)
+    (hGn : g = 0)
+    (hs : a + d = f ∧
+      b + f < 2 * d ∧
+      2 * c + 2 * f < a + 4 * d ∧
+      2 * e + 2 * f < 3 * a + 4 * d) :
+    a + d = f ∧
+    a + d = f ∧
+    b + f < 2 * d ∧
+    2 * c + 2 * f < a + 4 * d ∧
+    2 * e < a + 2 * d ∧
+    2 * e < a + 2 * d ∧
+    2 * e + 2 * f < 3 * a + 4 * d ∧
+    a + 6 * b < 4 * d ∧
+    2 * b + c < 2 * d ∧
+    4 * b < a + 2 * d ∧
+    2 * b + e < a + 2 * d ∧
+    2 * b + 4 * c < a + 4 * d ∧
+    b + c < a + d ∧
+    2 * b + 2 * c + 2 * e < 3 * a + 4 * d ∧
+    3 * c < a + 2 * d ∧
+    4 * c < 3 * a + 2 * d ∧
+    2 * c + e < 2 * a + 2 * d := by
+  omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reusable arithmetic implication for one cost chamber. -/
+private theorem astra4zExhaustTailBCDEF49
+    (a b c d e f g : ℕ)
+    (hApos : 0 < a) (hAB : 2 * b < 3 * a) (hAC : c < 2 * a) (hAD : 2 * d < 5 * a) (hAE : e < 3 * a) (hAF : 2 * f < 7 * a) (hAG : g < 4 * a)
+    (hGn : g = 0)
+    (hs : a + b + f < 2 * e ∧
+      a + 2 * c + 2 * f < 4 * e ∧
+      a + 2 * d < 2 * e ∧
+      2 * f < a + 2 * e ∧
+      3 * a + 6 * b < 4 * e ∧
+      3 * c < 2 * e) :
+    a + b + f < 2 * e ∧
+    a + 2 * c + 2 * f < 4 * e ∧
+    a + 2 * d < 2 * e ∧
+    a + 2 * d < 2 * e ∧
+    d + f < 2 * e ∧
+    2 * f < a + 2 * e ∧
+    2 * f < a + 2 * e ∧
+    3 * a + 6 * b < 4 * e ∧
+    a + 2 * b + c < 2 * e ∧
+    a + 4 * b + 2 * d < 4 * e ∧
+    2 * b < e ∧
+    a + 2 * b + 4 * c < 4 * e ∧
+    b + c + d < 2 * e ∧
+    2 * b + 2 * c < a + 2 * e ∧
+    3 * c < 2 * e ∧
+    4 * c + 2 * d < a + 4 * e ∧
+    2 * c < a + e := by
+  omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reusable arithmetic implication for one cost chamber. -/
+private theorem astra4zExhaustTailBCDEF5
+    (a b c d e f g : ℕ)
+    (hApos : 0 < a) (hAB : 2 * b < 3 * a) (hAC : c < 2 * a) (hAD : 2 * d < 5 * a) (hAE : e < 3 * a) (hAF : 2 * f < 7 * a) (hAG : g < 4 * a)
+    (hGn : g = 0)
+    (hs : a + 2 * f = 4 * c ∧
+      a + b + f = 3 * c ∧
+      2 * d < b + f ∧
+      2 * e < a + b + f) :
+    a + 2 * b = 2 * c ∧
+    2 * f = a + 4 * b ∧
+    f = b + c ∧
+    a + 2 * f = 4 * c ∧
+    a + b + f = 3 * c ∧
+    2 * d < b + f ∧
+    2 * d + 2 * e < a + 2 * b + 2 * f ∧
+    d < a + b ∧
+    2 * e < a + b + f ∧
+    2 * e < 3 * a + 2 * b ∧
+    f < 2 * a + b ∧
+    2 * b + 2 * d < a + 2 * f ∧
+    b + e < a + f ∧
+    c + d < a + f ∧
+    2 * c + 2 * e < 3 * a + 2 * f ∧
+    4 * c + 2 * d < 3 * a + 2 * b + 2 * f ∧
+    2 * c + e < 2 * a + b + f := by
+  omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reusable arithmetic implication for one cost chamber. -/
+private theorem astra4zExhaustTailBCDEF53
+    (a b c d e f g : ℕ)
+    (hApos : 0 < a) (hAB : 2 * b < 3 * a) (hAC : c < 2 * a) (hAD : 2 * d < 5 * a) (hAE : e < 3 * a) (hAF : 2 * f < 7 * a) (hAG : g < 4 * a)
+    (hGn : g = 0)
+    (hs : a + 2 * e = 2 * f ∧
+      a + b + f < 2 * e ∧
+      a + 2 * c + 2 * f < 4 * e ∧
+      d + f < 2 * e) :
+    a + 2 * e = 2 * f ∧
+    a + 2 * e = 2 * f ∧
+    a + b + f < 2 * e ∧
+    a + 2 * c + 2 * f < 4 * e ∧
+    a + 2 * d < 2 * e ∧
+    a + 2 * d < 2 * e ∧
+    d + f < 2 * e ∧
+    3 * a + 6 * b < 4 * e ∧
+    a + 2 * b + c < 2 * e ∧
+    a + 4 * b + 2 * d < 4 * e ∧
+    2 * b < e ∧
+    a + 2 * b + 4 * c < 4 * e ∧
+    b + c + d < 2 * e ∧
+    2 * b + 2 * c < a + 2 * e ∧
+    3 * c < 2 * e ∧
+    4 * c + 2 * d < a + 4 * e ∧
+    2 * c < a + e := by
+  omega
+
+set_option maxHeartbeats 64000000 in
+/-- Reusable arithmetic implication for one cost chamber. -/
+private theorem astra4zExhaustTailBCDEF54
+    (a b c d e f g : ℕ)
+    (hApos : 0 < a) (hAB : 2 * b < 3 * a) (hAC : c < 2 * a) (hAD : 2 * d < 5 * a) (hAE : e < 3 * a) (hAF : 2 * f < 7 * a) (hAG : g < 4 * a)
+    (hGn : g = 0)
+    (hs : 2 * a + b < f ∧
+      3 * a + 2 * c < 2 * f ∧
+      a + d < f ∧
+      a + 2 * e < 2 * f) :
+    2 * a + b < f ∧
+    3 * a + 2 * c < 2 * f ∧
+    a + d < f ∧
+    3 * a + 2 * d + 2 * e < 4 * f ∧
+    a + d < f ∧
+    a + 2 * e < 2 * f ∧
+    a + 2 * e < 2 * f ∧
+    5 * a + 6 * b < 4 * f ∧
+    2 * a + 2 * b + c < 2 * f ∧
+    3 * a + 4 * b + 2 * d < 4 * f ∧
+    a + 2 * b + e < 2 * f ∧
+    3 * a + 2 * b + 4 * c < 4 * f ∧
+    a + b + c + d < 2 * f ∧
+    a + 2 * b + 2 * c + 2 * e < 4 * f ∧
+    a + 3 * c < 2 * f ∧
+    a + 4 * c + 2 * d < 4 * f ∧
+    2 * c + e < 2 * f := by
+  omega
+
+set_option maxHeartbeats 64000000 in
 /-- Exhaust of the cost-argmin taxonomy on the live set `BCDEF`. -/
 theorem quarticChamberSupport810_of_live_BCDEF
     (A B C D E F G : k[X])
@@ -56,159 +616,47 @@ theorem quarticChamberSupport810_of_live_BCDEF
           rcases lt_trichotomy (B.natDegree + F.natDegree) (2 * D.natDegree) with ht4a | ht4b | ht4c
           · -- B.natDegree + F.natDegree < 2 * D.natDegree
             rcases lt_trichotomy (A.natDegree + 6 * B.natDegree) (4 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF39 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF39 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF39 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
             · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF40 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF0 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
           · -- B.natDegree + F.natDegree = 2 * D.natDegree
             rcases lt_trichotomy (A.natDegree + 6 * B.natDegree) (4 * D.natDegree) with ht5a | ht5b | ht5c
             · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF16 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
             · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF17 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF0 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
           · -- B.natDegree + F.natDegree > 2 * D.natDegree
             rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF3 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-        · -- D.natDegree = A.natDegree + B.natDegree
-          rcases lt_trichotomy (B.natDegree + F.natDegree) (2 * D.natDegree) with ht4a | ht4b | ht4c
-          · -- B.natDegree + F.natDegree < 2 * D.natDegree
-            rcases lt_trichotomy (A.natDegree + 6 * B.natDegree) (4 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF39 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- B.natDegree + F.natDegree = 2 * D.natDegree
-            rcases lt_trichotomy (A.natDegree + 6 * B.natDegree) (4 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF16 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- B.natDegree + F.natDegree > 2 * D.natDegree
-            rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-        · -- D.natDegree > A.natDegree + B.natDegree
-          rcases lt_trichotomy (B.natDegree + F.natDegree) (2 * D.natDegree) with ht4a | ht4b | ht4c
-          · -- B.natDegree + F.natDegree < 2 * D.natDegree
-            rcases lt_trichotomy (4 * B.natDegree) (A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF39 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- B.natDegree + F.natDegree = 2 * D.natDegree
-            rcases lt_trichotomy (4 * B.natDegree) (A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF16 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- B.natDegree + F.natDegree > 2 * D.natDegree
-            rcases lt_trichotomy (2 * B.natDegree + 2 * D.natDegree) (A.natDegree + 2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF2 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF3 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF3 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF0 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF39 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF39 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF39 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF39 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
       · -- F.natDegree = A.natDegree + D.natDegree
         rcases lt_trichotomy (D.natDegree) (A.natDegree + B.natDegree) with ht3a | ht3b | ht3c
         · -- D.natDegree < A.natDegree + B.natDegree
           rcases lt_trichotomy (B.natDegree + F.natDegree) (2 * D.natDegree) with ht4a | ht4b | ht4c
-          · -- B.natDegree + F.natDegree < 2 * D.natDegree
-            rcases lt_trichotomy (A.natDegree + 6 * B.natDegree) (4 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF48 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-          · -- B.natDegree + F.natDegree = 2 * D.natDegree
-            rcases lt_trichotomy (A.natDegree + 6 * B.natDegree) (4 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF21 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+          · exact (by omega : False).elim
+          · exact (by omega : False).elim
           · -- B.natDegree + F.natDegree > 2 * D.natDegree
             rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF3 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-        · -- D.natDegree = A.natDegree + B.natDegree
-          rcases lt_trichotomy (B.natDegree + F.natDegree) (2 * D.natDegree) with ht4a | ht4b | ht4c
-          · -- B.natDegree + F.natDegree < 2 * D.natDegree
-            rcases lt_trichotomy (A.natDegree + 6 * B.natDegree) (4 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF48 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- B.natDegree + F.natDegree = 2 * D.natDegree
-            rcases lt_trichotomy (A.natDegree + 6 * B.natDegree) (4 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF21 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- B.natDegree + F.natDegree > 2 * D.natDegree
-            rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-        · -- D.natDegree > A.natDegree + B.natDegree
-          rcases lt_trichotomy (B.natDegree + F.natDegree) (2 * D.natDegree) with ht4a | ht4b | ht4c
-          · -- B.natDegree + F.natDegree < 2 * D.natDegree
-            rcases lt_trichotomy (4 * B.natDegree) (A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF48 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- B.natDegree + F.natDegree = 2 * D.natDegree
-            rcases lt_trichotomy (4 * B.natDegree) (A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF21 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- B.natDegree + F.natDegree > 2 * D.natDegree
-            rcases lt_trichotomy (2 * B.natDegree + 2 * D.natDegree) (A.natDegree + 2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF2 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF3 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF3 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF0 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF21 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF48 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF48 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
       · -- F.natDegree > A.natDegree + D.natDegree
         rcases lt_trichotomy (D.natDegree) (A.natDegree + B.natDegree) with ht3a | ht3b | ht3c
         · -- D.natDegree < A.natDegree + B.natDegree
           rcases lt_trichotomy (2 * A.natDegree + B.natDegree) (F.natDegree) with ht4a | ht4b | ht4c
-          · -- 2 * A.natDegree + B.natDegree < F.natDegree
-            rcases lt_trichotomy (5 * A.natDegree + 6 * B.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-          · -- 2 * A.natDegree + B.natDegree = F.natDegree
-            rcases lt_trichotomy (5 * A.natDegree + 6 * B.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF25 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+          · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF54 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+          · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF25 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF25 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
           · -- 2 * A.natDegree + B.natDegree > F.natDegree
             rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF3 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-        · -- D.natDegree = A.natDegree + B.natDegree
-          rcases lt_trichotomy (2 * A.natDegree + B.natDegree) (F.natDegree) with ht4a | ht4b | ht4c
-          · -- 2 * A.natDegree + B.natDegree < F.natDegree
-            rcases lt_trichotomy (5 * A.natDegree + 6 * B.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * A.natDegree + B.natDegree = F.natDegree
-            rcases lt_trichotomy (5 * A.natDegree + 6 * B.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF25 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * A.natDegree + B.natDegree > F.natDegree
-            rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-        · -- D.natDegree > A.natDegree + B.natDegree
-          rcases lt_trichotomy (2 * A.natDegree + B.natDegree) (F.natDegree) with ht4a | ht4b | ht4c
-          · -- 2 * A.natDegree + B.natDegree < F.natDegree
-            rcases lt_trichotomy (3 * A.natDegree + 4 * B.natDegree + 2 * D.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * A.natDegree + B.natDegree = F.natDegree
-            rcases lt_trichotomy (3 * A.natDegree + 4 * B.natDegree + 2 * D.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF25 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * A.natDegree + B.natDegree > F.natDegree
-            rcases lt_trichotomy (2 * B.natDegree + 2 * D.natDegree) (A.natDegree + 2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF2 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF3 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF3 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF0 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF54 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF54 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
     · -- 2 * E.natDegree = A.natDegree + 2 * D.natDegree
       rcases lt_trichotomy (F.natDegree) (A.natDegree + D.natDegree) with ht2a | ht2b | ht2c
       · -- F.natDegree < A.natDegree + D.natDegree
@@ -217,159 +665,47 @@ theorem quarticChamberSupport810_of_live_BCDEF
           rcases lt_trichotomy (B.natDegree + F.natDegree) (2 * D.natDegree) with ht4a | ht4b | ht4c
           · -- B.natDegree + F.natDegree < 2 * D.natDegree
             rcases lt_trichotomy (A.natDegree + 6 * B.natDegree) (4 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF44 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF44 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF44 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
             · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF45 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF0 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
           · -- B.natDegree + F.natDegree = 2 * D.natDegree
             rcases lt_trichotomy (A.natDegree + 6 * B.natDegree) (4 * D.natDegree) with ht5a | ht5b | ht5c
             · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF19 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
             · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF20 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF0 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
           · -- B.natDegree + F.natDegree > 2 * D.natDegree
             rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF3 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-        · -- D.natDegree = A.natDegree + B.natDegree
-          rcases lt_trichotomy (B.natDegree + F.natDegree) (2 * D.natDegree) with ht4a | ht4b | ht4c
-          · -- B.natDegree + F.natDegree < 2 * D.natDegree
-            rcases lt_trichotomy (A.natDegree + 6 * B.natDegree) (4 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF44 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- B.natDegree + F.natDegree = 2 * D.natDegree
-            rcases lt_trichotomy (A.natDegree + 6 * B.natDegree) (4 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF19 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- B.natDegree + F.natDegree > 2 * D.natDegree
-            rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-        · -- D.natDegree > A.natDegree + B.natDegree
-          rcases lt_trichotomy (B.natDegree + F.natDegree) (2 * D.natDegree) with ht4a | ht4b | ht4c
-          · -- B.natDegree + F.natDegree < 2 * D.natDegree
-            rcases lt_trichotomy (4 * B.natDegree) (A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF44 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- B.natDegree + F.natDegree = 2 * D.natDegree
-            rcases lt_trichotomy (4 * B.natDegree) (A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF19 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- B.natDegree + F.natDegree > 2 * D.natDegree
-            rcases lt_trichotomy (2 * B.natDegree + 2 * D.natDegree) (A.natDegree + 2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF2 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF3 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF3 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF0 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF44 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF44 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF44 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF44 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
       · -- F.natDegree = A.natDegree + D.natDegree
         rcases lt_trichotomy (D.natDegree) (A.natDegree + B.natDegree) with ht3a | ht3b | ht3c
         · -- D.natDegree < A.natDegree + B.natDegree
           rcases lt_trichotomy (B.natDegree + F.natDegree) (2 * D.natDegree) with ht4a | ht4b | ht4c
-          · -- B.natDegree + F.natDegree < 2 * D.natDegree
-            rcases lt_trichotomy (A.natDegree + 6 * B.natDegree) (4 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF43 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-          · -- B.natDegree + F.natDegree = 2 * D.natDegree
-            rcases lt_trichotomy (A.natDegree + 6 * B.natDegree) (4 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF18 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+          · exact (by omega : False).elim
+          · exact (by omega : False).elim
           · -- B.natDegree + F.natDegree > 2 * D.natDegree
             rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF3 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-        · -- D.natDegree = A.natDegree + B.natDegree
-          rcases lt_trichotomy (B.natDegree + F.natDegree) (2 * D.natDegree) with ht4a | ht4b | ht4c
-          · -- B.natDegree + F.natDegree < 2 * D.natDegree
-            rcases lt_trichotomy (A.natDegree + 6 * B.natDegree) (4 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF43 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- B.natDegree + F.natDegree = 2 * D.natDegree
-            rcases lt_trichotomy (A.natDegree + 6 * B.natDegree) (4 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF18 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- B.natDegree + F.natDegree > 2 * D.natDegree
-            rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-        · -- D.natDegree > A.natDegree + B.natDegree
-          rcases lt_trichotomy (B.natDegree + F.natDegree) (2 * D.natDegree) with ht4a | ht4b | ht4c
-          · -- B.natDegree + F.natDegree < 2 * D.natDegree
-            rcases lt_trichotomy (4 * B.natDegree) (A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF43 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- B.natDegree + F.natDegree = 2 * D.natDegree
-            rcases lt_trichotomy (4 * B.natDegree) (A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF18 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- B.natDegree + F.natDegree > 2 * D.natDegree
-            rcases lt_trichotomy (2 * B.natDegree + 2 * D.natDegree) (A.natDegree + 2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF2 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF3 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF3 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF0 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF18 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF43 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF43 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
       · -- F.natDegree > A.natDegree + D.natDegree
         rcases lt_trichotomy (D.natDegree) (A.natDegree + B.natDegree) with ht3a | ht3b | ht3c
         · -- D.natDegree < A.natDegree + B.natDegree
           rcases lt_trichotomy (2 * A.natDegree + B.natDegree) (F.natDegree) with ht4a | ht4b | ht4c
-          · -- 2 * A.natDegree + B.natDegree < F.natDegree
-            rcases lt_trichotomy (5 * A.natDegree + 6 * B.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-          · -- 2 * A.natDegree + B.natDegree = F.natDegree
-            rcases lt_trichotomy (5 * A.natDegree + 6 * B.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF25 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+          · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF54 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+          · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF25 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF25 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
           · -- 2 * A.natDegree + B.natDegree > F.natDegree
             rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF3 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-        · -- D.natDegree = A.natDegree + B.natDegree
-          rcases lt_trichotomy (2 * A.natDegree + B.natDegree) (F.natDegree) with ht4a | ht4b | ht4c
-          · -- 2 * A.natDegree + B.natDegree < F.natDegree
-            rcases lt_trichotomy (5 * A.natDegree + 6 * B.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * A.natDegree + B.natDegree = F.natDegree
-            rcases lt_trichotomy (5 * A.natDegree + 6 * B.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF25 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * A.natDegree + B.natDegree > F.natDegree
-            rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-        · -- D.natDegree > A.natDegree + B.natDegree
-          rcases lt_trichotomy (2 * A.natDegree + B.natDegree) (F.natDegree) with ht4a | ht4b | ht4c
-          · -- 2 * A.natDegree + B.natDegree < F.natDegree
-            rcases lt_trichotomy (3 * A.natDegree + 4 * B.natDegree + 2 * D.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * A.natDegree + B.natDegree = F.natDegree
-            rcases lt_trichotomy (3 * A.natDegree + 4 * B.natDegree + 2 * D.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF25 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * A.natDegree + B.natDegree > F.natDegree
-            rcases lt_trichotomy (2 * B.natDegree + 2 * D.natDegree) (A.natDegree + 2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF2 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF3 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF3 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF0 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF54 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF54 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
     · -- 2 * E.natDegree > A.natDegree + 2 * D.natDegree
       rcases lt_trichotomy (2 * F.natDegree) (A.natDegree + 2 * E.natDegree) with ht2a | ht2b | ht2c
       · -- 2 * F.natDegree < A.natDegree + 2 * E.natDegree
@@ -378,159 +714,47 @@ theorem quarticChamberSupport810_of_live_BCDEF
           rcases lt_trichotomy (A.natDegree + B.natDegree + F.natDegree) (2 * E.natDegree) with ht4a | ht4b | ht4c
           · -- A.natDegree + B.natDegree + F.natDegree < 2 * E.natDegree
             rcases lt_trichotomy (3 * A.natDegree + 6 * B.natDegree) (4 * E.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF49 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF49 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF49 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
             · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF50 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF0 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
           · -- A.natDegree + B.natDegree + F.natDegree = 2 * E.natDegree
             rcases lt_trichotomy (3 * A.natDegree + 6 * B.natDegree) (4 * E.natDegree) with ht5a | ht5b | ht5c
             · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF22 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
             · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF23 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF0 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
           · -- A.natDegree + B.natDegree + F.natDegree > 2 * E.natDegree
             rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF3 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-        · -- 2 * E.natDegree = 3 * A.natDegree + 2 * B.natDegree
-          rcases lt_trichotomy (A.natDegree + B.natDegree + F.natDegree) (2 * E.natDegree) with ht4a | ht4b | ht4c
-          · -- A.natDegree + B.natDegree + F.natDegree < 2 * E.natDegree
-            rcases lt_trichotomy (3 * A.natDegree + 6 * B.natDegree) (4 * E.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF49 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- A.natDegree + B.natDegree + F.natDegree = 2 * E.natDegree
-            rcases lt_trichotomy (3 * A.natDegree + 6 * B.natDegree) (4 * E.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF22 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- A.natDegree + B.natDegree + F.natDegree > 2 * E.natDegree
-            rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-        · -- 2 * E.natDegree > 3 * A.natDegree + 2 * B.natDegree
-          rcases lt_trichotomy (A.natDegree + B.natDegree + F.natDegree) (2 * E.natDegree) with ht4a | ht4b | ht4c
-          · -- A.natDegree + B.natDegree + F.natDegree < 2 * E.natDegree
-            rcases lt_trichotomy (2 * B.natDegree) (E.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF49 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- A.natDegree + B.natDegree + F.natDegree = 2 * E.natDegree
-            rcases lt_trichotomy (2 * B.natDegree) (E.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF22 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- A.natDegree + B.natDegree + F.natDegree > 2 * E.natDegree
-            rcases lt_trichotomy (B.natDegree + E.natDegree) (A.natDegree + F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF2 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF3 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF3 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF0 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF49 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF49 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF49 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF49 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
       · -- 2 * F.natDegree = A.natDegree + 2 * E.natDegree
         rcases lt_trichotomy (2 * E.natDegree) (3 * A.natDegree + 2 * B.natDegree) with ht3a | ht3b | ht3c
         · -- 2 * E.natDegree < 3 * A.natDegree + 2 * B.natDegree
           rcases lt_trichotomy (A.natDegree + B.natDegree + F.natDegree) (2 * E.natDegree) with ht4a | ht4b | ht4c
-          · -- A.natDegree + B.natDegree + F.natDegree < 2 * E.natDegree
-            rcases lt_trichotomy (3 * A.natDegree + 6 * B.natDegree) (4 * E.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF53 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-          · -- A.natDegree + B.natDegree + F.natDegree = 2 * E.natDegree
-            rcases lt_trichotomy (3 * A.natDegree + 6 * B.natDegree) (4 * E.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF24 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+          · exact (by omega : False).elim
+          · exact (by omega : False).elim
           · -- A.natDegree + B.natDegree + F.natDegree > 2 * E.natDegree
             rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF3 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-        · -- 2 * E.natDegree = 3 * A.natDegree + 2 * B.natDegree
-          rcases lt_trichotomy (A.natDegree + B.natDegree + F.natDegree) (2 * E.natDegree) with ht4a | ht4b | ht4c
-          · -- A.natDegree + B.natDegree + F.natDegree < 2 * E.natDegree
-            rcases lt_trichotomy (3 * A.natDegree + 6 * B.natDegree) (4 * E.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF53 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- A.natDegree + B.natDegree + F.natDegree = 2 * E.natDegree
-            rcases lt_trichotomy (3 * A.natDegree + 6 * B.natDegree) (4 * E.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF24 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- A.natDegree + B.natDegree + F.natDegree > 2 * E.natDegree
-            rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-        · -- 2 * E.natDegree > 3 * A.natDegree + 2 * B.natDegree
-          rcases lt_trichotomy (A.natDegree + B.natDegree + F.natDegree) (2 * E.natDegree) with ht4a | ht4b | ht4c
-          · -- A.natDegree + B.natDegree + F.natDegree < 2 * E.natDegree
-            rcases lt_trichotomy (2 * B.natDegree) (E.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF53 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- A.natDegree + B.natDegree + F.natDegree = 2 * E.natDegree
-            rcases lt_trichotomy (2 * B.natDegree) (E.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF24 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- A.natDegree + B.natDegree + F.natDegree > 2 * E.natDegree
-            rcases lt_trichotomy (B.natDegree + E.natDegree) (A.natDegree + F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF2 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF3 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF3 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF0 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF24 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF53 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF53 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
       · -- 2 * F.natDegree > A.natDegree + 2 * E.natDegree
         rcases lt_trichotomy (2 * E.natDegree) (3 * A.natDegree + 2 * B.natDegree) with ht3a | ht3b | ht3c
         · -- 2 * E.natDegree < 3 * A.natDegree + 2 * B.natDegree
           rcases lt_trichotomy (2 * A.natDegree + B.natDegree) (F.natDegree) with ht4a | ht4b | ht4c
-          · -- 2 * A.natDegree + B.natDegree < F.natDegree
-            rcases lt_trichotomy (5 * A.natDegree + 6 * B.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-          · -- 2 * A.natDegree + B.natDegree = F.natDegree
-            rcases lt_trichotomy (5 * A.natDegree + 6 * B.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF25 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+          · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF54 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+          · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF25 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF25 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
           · -- 2 * A.natDegree + B.natDegree > F.natDegree
             rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF3 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-        · -- 2 * E.natDegree = 3 * A.natDegree + 2 * B.natDegree
-          rcases lt_trichotomy (2 * A.natDegree + B.natDegree) (F.natDegree) with ht4a | ht4b | ht4c
-          · -- 2 * A.natDegree + B.natDegree < F.natDegree
-            rcases lt_trichotomy (5 * A.natDegree + 6 * B.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * A.natDegree + B.natDegree = F.natDegree
-            rcases lt_trichotomy (5 * A.natDegree + 6 * B.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF25 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * A.natDegree + B.natDegree > F.natDegree
-            rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-        · -- 2 * E.natDegree > 3 * A.natDegree + 2 * B.natDegree
-          rcases lt_trichotomy (2 * A.natDegree + B.natDegree) (F.natDegree) with ht4a | ht4b | ht4c
-          · -- 2 * A.natDegree + B.natDegree < F.natDegree
-            rcases lt_trichotomy (A.natDegree + 2 * B.natDegree + E.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * A.natDegree + B.natDegree = F.natDegree
-            rcases lt_trichotomy (A.natDegree + 2 * B.natDegree + E.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF25 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * A.natDegree + B.natDegree > F.natDegree
-            rcases lt_trichotomy (B.natDegree + E.natDegree) (A.natDegree + F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF2 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF2 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF3 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF3 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF0 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF0 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF54 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF54 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
   · -- 2 * C.natDegree = A.natDegree + 2 * B.natDegree
     rcases lt_trichotomy (2 * E.natDegree) (A.natDegree + 2 * D.natDegree) with ht1a | ht1b | ht1c
     · -- 2 * E.natDegree < A.natDegree + 2 * D.natDegree
@@ -541,159 +765,47 @@ theorem quarticChamberSupport810_of_live_BCDEF
           rcases lt_trichotomy (B.natDegree + F.natDegree) (2 * D.natDegree) with ht4a | ht4b | ht4c
           · -- B.natDegree + F.natDegree < 2 * D.natDegree
             rcases lt_trichotomy (A.natDegree + 6 * B.natDegree) (4 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF39 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF39 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF39 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
             · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF41 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF1 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
           · -- B.natDegree + F.natDegree = 2 * D.natDegree
             rcases lt_trichotomy (A.natDegree + 6 * B.natDegree) (4 * D.natDegree) with ht5a | ht5b | ht5c
             · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF6 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
             · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF7 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF1 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
           · -- B.natDegree + F.natDegree > 2 * D.natDegree
             rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF5 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-        · -- D.natDegree = A.natDegree + B.natDegree
-          rcases lt_trichotomy (B.natDegree + F.natDegree) (2 * D.natDegree) with ht4a | ht4b | ht4c
-          · -- B.natDegree + F.natDegree < 2 * D.natDegree
-            rcases lt_trichotomy (A.natDegree + 6 * B.natDegree) (4 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF39 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- B.natDegree + F.natDegree = 2 * D.natDegree
-            rcases lt_trichotomy (A.natDegree + 6 * B.natDegree) (4 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF6 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- B.natDegree + F.natDegree > 2 * D.natDegree
-            rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-        · -- D.natDegree > A.natDegree + B.natDegree
-          rcases lt_trichotomy (B.natDegree + F.natDegree) (2 * D.natDegree) with ht4a | ht4b | ht4c
-          · -- B.natDegree + F.natDegree < 2 * D.natDegree
-            rcases lt_trichotomy (4 * B.natDegree) (A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF39 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- B.natDegree + F.natDegree = 2 * D.natDegree
-            rcases lt_trichotomy (4 * B.natDegree) (A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF6 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- B.natDegree + F.natDegree > 2 * D.natDegree
-            rcases lt_trichotomy (2 * B.natDegree + 2 * D.natDegree) (A.natDegree + 2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF4 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF5 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF5 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF1 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF39 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF39 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF39 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF39 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
       · -- F.natDegree = A.natDegree + D.natDegree
         rcases lt_trichotomy (D.natDegree) (A.natDegree + B.natDegree) with ht3a | ht3b | ht3c
         · -- D.natDegree < A.natDegree + B.natDegree
           rcases lt_trichotomy (B.natDegree + F.natDegree) (2 * D.natDegree) with ht4a | ht4b | ht4c
-          · -- B.natDegree + F.natDegree < 2 * D.natDegree
-            rcases lt_trichotomy (A.natDegree + 6 * B.natDegree) (4 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF48 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-          · -- B.natDegree + F.natDegree = 2 * D.natDegree
-            rcases lt_trichotomy (A.natDegree + 6 * B.natDegree) (4 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF11 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+          · exact (by omega : False).elim
+          · exact (by omega : False).elim
           · -- B.natDegree + F.natDegree > 2 * D.natDegree
             rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF5 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-        · -- D.natDegree = A.natDegree + B.natDegree
-          rcases lt_trichotomy (B.natDegree + F.natDegree) (2 * D.natDegree) with ht4a | ht4b | ht4c
-          · -- B.natDegree + F.natDegree < 2 * D.natDegree
-            rcases lt_trichotomy (A.natDegree + 6 * B.natDegree) (4 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF48 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- B.natDegree + F.natDegree = 2 * D.natDegree
-            rcases lt_trichotomy (A.natDegree + 6 * B.natDegree) (4 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF11 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- B.natDegree + F.natDegree > 2 * D.natDegree
-            rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-        · -- D.natDegree > A.natDegree + B.natDegree
-          rcases lt_trichotomy (B.natDegree + F.natDegree) (2 * D.natDegree) with ht4a | ht4b | ht4c
-          · -- B.natDegree + F.natDegree < 2 * D.natDegree
-            rcases lt_trichotomy (4 * B.natDegree) (A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF48 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- B.natDegree + F.natDegree = 2 * D.natDegree
-            rcases lt_trichotomy (4 * B.natDegree) (A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF11 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- B.natDegree + F.natDegree > 2 * D.natDegree
-            rcases lt_trichotomy (2 * B.natDegree + 2 * D.natDegree) (A.natDegree + 2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF4 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF5 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF5 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF1 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF11 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF48 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF48 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
       · -- F.natDegree > A.natDegree + D.natDegree
         rcases lt_trichotomy (D.natDegree) (A.natDegree + B.natDegree) with ht3a | ht3b | ht3c
         · -- D.natDegree < A.natDegree + B.natDegree
           rcases lt_trichotomy (2 * A.natDegree + B.natDegree) (F.natDegree) with ht4a | ht4b | ht4c
-          · -- 2 * A.natDegree + B.natDegree < F.natDegree
-            rcases lt_trichotomy (5 * A.natDegree + 6 * B.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-          · -- 2 * A.natDegree + B.natDegree = F.natDegree
-            rcases lt_trichotomy (5 * A.natDegree + 6 * B.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF15 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+          · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF54 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+          · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF15 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF15 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
           · -- 2 * A.natDegree + B.natDegree > F.natDegree
             rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF5 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-        · -- D.natDegree = A.natDegree + B.natDegree
-          rcases lt_trichotomy (2 * A.natDegree + B.natDegree) (F.natDegree) with ht4a | ht4b | ht4c
-          · -- 2 * A.natDegree + B.natDegree < F.natDegree
-            rcases lt_trichotomy (5 * A.natDegree + 6 * B.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * A.natDegree + B.natDegree = F.natDegree
-            rcases lt_trichotomy (5 * A.natDegree + 6 * B.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF15 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * A.natDegree + B.natDegree > F.natDegree
-            rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-        · -- D.natDegree > A.natDegree + B.natDegree
-          rcases lt_trichotomy (2 * A.natDegree + B.natDegree) (F.natDegree) with ht4a | ht4b | ht4c
-          · -- 2 * A.natDegree + B.natDegree < F.natDegree
-            rcases lt_trichotomy (3 * A.natDegree + 4 * B.natDegree + 2 * D.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * A.natDegree + B.natDegree = F.natDegree
-            rcases lt_trichotomy (3 * A.natDegree + 4 * B.natDegree + 2 * D.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF15 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * A.natDegree + B.natDegree > F.natDegree
-            rcases lt_trichotomy (2 * B.natDegree + 2 * D.natDegree) (A.natDegree + 2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF4 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF5 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF5 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF1 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF54 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF54 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
     · -- 2 * E.natDegree = A.natDegree + 2 * D.natDegree
       rcases lt_trichotomy (F.natDegree) (A.natDegree + D.natDegree) with ht2a | ht2b | ht2c
       · -- F.natDegree < A.natDegree + D.natDegree
@@ -702,159 +814,47 @@ theorem quarticChamberSupport810_of_live_BCDEF
           rcases lt_trichotomy (B.natDegree + F.natDegree) (2 * D.natDegree) with ht4a | ht4b | ht4c
           · -- B.natDegree + F.natDegree < 2 * D.natDegree
             rcases lt_trichotomy (A.natDegree + 6 * B.natDegree) (4 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF44 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF44 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF44 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
             · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF46 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF1 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
           · -- B.natDegree + F.natDegree = 2 * D.natDegree
             rcases lt_trichotomy (A.natDegree + 6 * B.natDegree) (4 * D.natDegree) with ht5a | ht5b | ht5c
             · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF9 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
             · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF10 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF1 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
           · -- B.natDegree + F.natDegree > 2 * D.natDegree
             rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF5 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-        · -- D.natDegree = A.natDegree + B.natDegree
-          rcases lt_trichotomy (B.natDegree + F.natDegree) (2 * D.natDegree) with ht4a | ht4b | ht4c
-          · -- B.natDegree + F.natDegree < 2 * D.natDegree
-            rcases lt_trichotomy (A.natDegree + 6 * B.natDegree) (4 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF44 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- B.natDegree + F.natDegree = 2 * D.natDegree
-            rcases lt_trichotomy (A.natDegree + 6 * B.natDegree) (4 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF9 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- B.natDegree + F.natDegree > 2 * D.natDegree
-            rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-        · -- D.natDegree > A.natDegree + B.natDegree
-          rcases lt_trichotomy (B.natDegree + F.natDegree) (2 * D.natDegree) with ht4a | ht4b | ht4c
-          · -- B.natDegree + F.natDegree < 2 * D.natDegree
-            rcases lt_trichotomy (4 * B.natDegree) (A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF44 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- B.natDegree + F.natDegree = 2 * D.natDegree
-            rcases lt_trichotomy (4 * B.natDegree) (A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF9 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- B.natDegree + F.natDegree > 2 * D.natDegree
-            rcases lt_trichotomy (2 * B.natDegree + 2 * D.natDegree) (A.natDegree + 2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF4 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF5 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF5 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF1 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF44 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF44 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF44 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF44 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
       · -- F.natDegree = A.natDegree + D.natDegree
         rcases lt_trichotomy (D.natDegree) (A.natDegree + B.natDegree) with ht3a | ht3b | ht3c
         · -- D.natDegree < A.natDegree + B.natDegree
           rcases lt_trichotomy (B.natDegree + F.natDegree) (2 * D.natDegree) with ht4a | ht4b | ht4c
-          · -- B.natDegree + F.natDegree < 2 * D.natDegree
-            rcases lt_trichotomy (A.natDegree + 6 * B.natDegree) (4 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF43 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-          · -- B.natDegree + F.natDegree = 2 * D.natDegree
-            rcases lt_trichotomy (A.natDegree + 6 * B.natDegree) (4 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF8 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+          · exact (by omega : False).elim
+          · exact (by omega : False).elim
           · -- B.natDegree + F.natDegree > 2 * D.natDegree
             rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF5 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-        · -- D.natDegree = A.natDegree + B.natDegree
-          rcases lt_trichotomy (B.natDegree + F.natDegree) (2 * D.natDegree) with ht4a | ht4b | ht4c
-          · -- B.natDegree + F.natDegree < 2 * D.natDegree
-            rcases lt_trichotomy (A.natDegree + 6 * B.natDegree) (4 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF43 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- B.natDegree + F.natDegree = 2 * D.natDegree
-            rcases lt_trichotomy (A.natDegree + 6 * B.natDegree) (4 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF8 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- B.natDegree + F.natDegree > 2 * D.natDegree
-            rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-        · -- D.natDegree > A.natDegree + B.natDegree
-          rcases lt_trichotomy (B.natDegree + F.natDegree) (2 * D.natDegree) with ht4a | ht4b | ht4c
-          · -- B.natDegree + F.natDegree < 2 * D.natDegree
-            rcases lt_trichotomy (4 * B.natDegree) (A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF43 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- B.natDegree + F.natDegree = 2 * D.natDegree
-            rcases lt_trichotomy (4 * B.natDegree) (A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF8 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- B.natDegree + F.natDegree > 2 * D.natDegree
-            rcases lt_trichotomy (2 * B.natDegree + 2 * D.natDegree) (A.natDegree + 2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF4 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF5 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF5 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF1 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF8 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF43 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF43 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
       · -- F.natDegree > A.natDegree + D.natDegree
         rcases lt_trichotomy (D.natDegree) (A.natDegree + B.natDegree) with ht3a | ht3b | ht3c
         · -- D.natDegree < A.natDegree + B.natDegree
           rcases lt_trichotomy (2 * A.natDegree + B.natDegree) (F.natDegree) with ht4a | ht4b | ht4c
-          · -- 2 * A.natDegree + B.natDegree < F.natDegree
-            rcases lt_trichotomy (5 * A.natDegree + 6 * B.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-          · -- 2 * A.natDegree + B.natDegree = F.natDegree
-            rcases lt_trichotomy (5 * A.natDegree + 6 * B.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF15 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+          · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF54 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+          · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF15 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF15 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
           · -- 2 * A.natDegree + B.natDegree > F.natDegree
             rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF5 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-        · -- D.natDegree = A.natDegree + B.natDegree
-          rcases lt_trichotomy (2 * A.natDegree + B.natDegree) (F.natDegree) with ht4a | ht4b | ht4c
-          · -- 2 * A.natDegree + B.natDegree < F.natDegree
-            rcases lt_trichotomy (5 * A.natDegree + 6 * B.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * A.natDegree + B.natDegree = F.natDegree
-            rcases lt_trichotomy (5 * A.natDegree + 6 * B.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF15 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * A.natDegree + B.natDegree > F.natDegree
-            rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-        · -- D.natDegree > A.natDegree + B.natDegree
-          rcases lt_trichotomy (2 * A.natDegree + B.natDegree) (F.natDegree) with ht4a | ht4b | ht4c
-          · -- 2 * A.natDegree + B.natDegree < F.natDegree
-            rcases lt_trichotomy (3 * A.natDegree + 4 * B.natDegree + 2 * D.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * A.natDegree + B.natDegree = F.natDegree
-            rcases lt_trichotomy (3 * A.natDegree + 4 * B.natDegree + 2 * D.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF15 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * A.natDegree + B.natDegree > F.natDegree
-            rcases lt_trichotomy (2 * B.natDegree + 2 * D.natDegree) (A.natDegree + 2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF4 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF5 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF5 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF1 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF54 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF54 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
     · -- 2 * E.natDegree > A.natDegree + 2 * D.natDegree
       rcases lt_trichotomy (2 * F.natDegree) (A.natDegree + 2 * E.natDegree) with ht2a | ht2b | ht2c
       · -- 2 * F.natDegree < A.natDegree + 2 * E.natDegree
@@ -863,159 +863,47 @@ theorem quarticChamberSupport810_of_live_BCDEF
           rcases lt_trichotomy (A.natDegree + B.natDegree + F.natDegree) (2 * E.natDegree) with ht4a | ht4b | ht4c
           · -- A.natDegree + B.natDegree + F.natDegree < 2 * E.natDegree
             rcases lt_trichotomy (3 * A.natDegree + 6 * B.natDegree) (4 * E.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF49 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF49 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF49 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
             · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF51 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF1 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
           · -- A.natDegree + B.natDegree + F.natDegree = 2 * E.natDegree
             rcases lt_trichotomy (3 * A.natDegree + 6 * B.natDegree) (4 * E.natDegree) with ht5a | ht5b | ht5c
             · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF12 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
             · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF13 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF1 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
           · -- A.natDegree + B.natDegree + F.natDegree > 2 * E.natDegree
             rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF5 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-        · -- 2 * E.natDegree = 3 * A.natDegree + 2 * B.natDegree
-          rcases lt_trichotomy (A.natDegree + B.natDegree + F.natDegree) (2 * E.natDegree) with ht4a | ht4b | ht4c
-          · -- A.natDegree + B.natDegree + F.natDegree < 2 * E.natDegree
-            rcases lt_trichotomy (3 * A.natDegree + 6 * B.natDegree) (4 * E.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF49 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- A.natDegree + B.natDegree + F.natDegree = 2 * E.natDegree
-            rcases lt_trichotomy (3 * A.natDegree + 6 * B.natDegree) (4 * E.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF12 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- A.natDegree + B.natDegree + F.natDegree > 2 * E.natDegree
-            rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-        · -- 2 * E.natDegree > 3 * A.natDegree + 2 * B.natDegree
-          rcases lt_trichotomy (A.natDegree + B.natDegree + F.natDegree) (2 * E.natDegree) with ht4a | ht4b | ht4c
-          · -- A.natDegree + B.natDegree + F.natDegree < 2 * E.natDegree
-            rcases lt_trichotomy (2 * B.natDegree) (E.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF49 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- A.natDegree + B.natDegree + F.natDegree = 2 * E.natDegree
-            rcases lt_trichotomy (2 * B.natDegree) (E.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF12 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- A.natDegree + B.natDegree + F.natDegree > 2 * E.natDegree
-            rcases lt_trichotomy (B.natDegree + E.natDegree) (A.natDegree + F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF4 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF5 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF5 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF1 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF49 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF49 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF49 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF49 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
       · -- 2 * F.natDegree = A.natDegree + 2 * E.natDegree
         rcases lt_trichotomy (2 * E.natDegree) (3 * A.natDegree + 2 * B.natDegree) with ht3a | ht3b | ht3c
         · -- 2 * E.natDegree < 3 * A.natDegree + 2 * B.natDegree
           rcases lt_trichotomy (A.natDegree + B.natDegree + F.natDegree) (2 * E.natDegree) with ht4a | ht4b | ht4c
-          · -- A.natDegree + B.natDegree + F.natDegree < 2 * E.natDegree
-            rcases lt_trichotomy (3 * A.natDegree + 6 * B.natDegree) (4 * E.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF53 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-          · -- A.natDegree + B.natDegree + F.natDegree = 2 * E.natDegree
-            rcases lt_trichotomy (3 * A.natDegree + 6 * B.natDegree) (4 * E.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF14 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+          · exact (by omega : False).elim
+          · exact (by omega : False).elim
           · -- A.natDegree + B.natDegree + F.natDegree > 2 * E.natDegree
             rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF5 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-        · -- 2 * E.natDegree = 3 * A.natDegree + 2 * B.natDegree
-          rcases lt_trichotomy (A.natDegree + B.natDegree + F.natDegree) (2 * E.natDegree) with ht4a | ht4b | ht4c
-          · -- A.natDegree + B.natDegree + F.natDegree < 2 * E.natDegree
-            rcases lt_trichotomy (3 * A.natDegree + 6 * B.natDegree) (4 * E.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF53 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- A.natDegree + B.natDegree + F.natDegree = 2 * E.natDegree
-            rcases lt_trichotomy (3 * A.natDegree + 6 * B.natDegree) (4 * E.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF14 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- A.natDegree + B.natDegree + F.natDegree > 2 * E.natDegree
-            rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-        · -- 2 * E.natDegree > 3 * A.natDegree + 2 * B.natDegree
-          rcases lt_trichotomy (A.natDegree + B.natDegree + F.natDegree) (2 * E.natDegree) with ht4a | ht4b | ht4c
-          · -- A.natDegree + B.natDegree + F.natDegree < 2 * E.natDegree
-            rcases lt_trichotomy (2 * B.natDegree) (E.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF53 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- A.natDegree + B.natDegree + F.natDegree = 2 * E.natDegree
-            rcases lt_trichotomy (2 * B.natDegree) (E.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF14 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- A.natDegree + B.natDegree + F.natDegree > 2 * E.natDegree
-            rcases lt_trichotomy (B.natDegree + E.natDegree) (A.natDegree + F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF4 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF5 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF5 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF1 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF14 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF53 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF53 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
       · -- 2 * F.natDegree > A.natDegree + 2 * E.natDegree
         rcases lt_trichotomy (2 * E.natDegree) (3 * A.natDegree + 2 * B.natDegree) with ht3a | ht3b | ht3c
         · -- 2 * E.natDegree < 3 * A.natDegree + 2 * B.natDegree
           rcases lt_trichotomy (2 * A.natDegree + B.natDegree) (F.natDegree) with ht4a | ht4b | ht4c
-          · -- 2 * A.natDegree + B.natDegree < F.natDegree
-            rcases lt_trichotomy (5 * A.natDegree + 6 * B.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-          · -- 2 * A.natDegree + B.natDegree = F.natDegree
-            rcases lt_trichotomy (5 * A.natDegree + 6 * B.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF15 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+          · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF54 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+          · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF15 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF15 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
           · -- 2 * A.natDegree + B.natDegree > F.natDegree
             rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF5 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-        · -- 2 * E.natDegree = 3 * A.natDegree + 2 * B.natDegree
-          rcases lt_trichotomy (2 * A.natDegree + B.natDegree) (F.natDegree) with ht4a | ht4b | ht4c
-          · -- 2 * A.natDegree + B.natDegree < F.natDegree
-            rcases lt_trichotomy (5 * A.natDegree + 6 * B.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * A.natDegree + B.natDegree = F.natDegree
-            rcases lt_trichotomy (5 * A.natDegree + 6 * B.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF15 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * A.natDegree + B.natDegree > F.natDegree
-            rcases lt_trichotomy (A.natDegree + 4 * B.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-        · -- 2 * E.natDegree > 3 * A.natDegree + 2 * B.natDegree
-          rcases lt_trichotomy (2 * A.natDegree + B.natDegree) (F.natDegree) with ht4a | ht4b | ht4c
-          · -- 2 * A.natDegree + B.natDegree < F.natDegree
-            rcases lt_trichotomy (A.natDegree + 2 * B.natDegree + E.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * A.natDegree + B.natDegree = F.natDegree
-            rcases lt_trichotomy (A.natDegree + 2 * B.natDegree + E.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF15 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * A.natDegree + B.natDegree > F.natDegree
-            rcases lt_trichotomy (B.natDegree + E.natDegree) (A.natDegree + F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF4 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF4 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF5 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF5 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF1 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF1 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF54 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF54 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
   · -- 2 * C.natDegree > A.natDegree + 2 * B.natDegree
     rcases lt_trichotomy (2 * E.natDegree) (A.natDegree + 2 * D.natDegree) with ht1a | ht1b | ht1c
     · -- 2 * E.natDegree < A.natDegree + 2 * D.natDegree
@@ -1026,159 +914,47 @@ theorem quarticChamberSupport810_of_live_BCDEF
           rcases lt_trichotomy (2 * C.natDegree + 2 * F.natDegree) (A.natDegree + 4 * D.natDegree) with ht4a | ht4b | ht4c
           · -- 2 * C.natDegree + 2 * F.natDegree < A.natDegree + 4 * D.natDegree
             rcases lt_trichotomy (3 * C.natDegree) (A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF39 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF39 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF39 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
             · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF42 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF26 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
           · -- 2 * C.natDegree + 2 * F.natDegree = A.natDegree + 4 * D.natDegree
             rcases lt_trichotomy (3 * C.natDegree) (A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
             · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF29 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
             · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF30 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF26 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
           · -- 2 * C.natDegree + 2 * F.natDegree > A.natDegree + 4 * D.natDegree
             rcases lt_trichotomy (4 * C.natDegree) (A.natDegree + 2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF28 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-        · -- 2 * D.natDegree = A.natDegree + 2 * C.natDegree
-          rcases lt_trichotomy (2 * C.natDegree + 2 * F.natDegree) (A.natDegree + 4 * D.natDegree) with ht4a | ht4b | ht4c
-          · -- 2 * C.natDegree + 2 * F.natDegree < A.natDegree + 4 * D.natDegree
-            rcases lt_trichotomy (3 * C.natDegree) (A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF39 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * C.natDegree + 2 * F.natDegree = A.natDegree + 4 * D.natDegree
-            rcases lt_trichotomy (3 * C.natDegree) (A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF29 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * C.natDegree + 2 * F.natDegree > A.natDegree + 4 * D.natDegree
-            rcases lt_trichotomy (4 * C.natDegree) (A.natDegree + 2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-        · -- 2 * D.natDegree > A.natDegree + 2 * C.natDegree
-          rcases lt_trichotomy (2 * C.natDegree + 2 * F.natDegree) (A.natDegree + 4 * D.natDegree) with ht4a | ht4b | ht4c
-          · -- 2 * C.natDegree + 2 * F.natDegree < A.natDegree + 4 * D.natDegree
-            rcases lt_trichotomy (4 * C.natDegree) (3 * A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF39 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * C.natDegree + 2 * F.natDegree = A.natDegree + 4 * D.natDegree
-            rcases lt_trichotomy (4 * C.natDegree) (3 * A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF29 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * C.natDegree + 2 * F.natDegree > A.natDegree + 4 * D.natDegree
-            rcases lt_trichotomy (C.natDegree + D.natDegree) (A.natDegree + F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF27 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF28 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF28 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF26 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF39 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF39 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF39 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF39 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
       · -- F.natDegree = A.natDegree + D.natDegree
         rcases lt_trichotomy (2 * D.natDegree) (A.natDegree + 2 * C.natDegree) with ht3a | ht3b | ht3c
         · -- 2 * D.natDegree < A.natDegree + 2 * C.natDegree
           rcases lt_trichotomy (2 * C.natDegree + 2 * F.natDegree) (A.natDegree + 4 * D.natDegree) with ht4a | ht4b | ht4c
-          · -- 2 * C.natDegree + 2 * F.natDegree < A.natDegree + 4 * D.natDegree
-            rcases lt_trichotomy (3 * C.natDegree) (A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF48 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-          · -- 2 * C.natDegree + 2 * F.natDegree = A.natDegree + 4 * D.natDegree
-            rcases lt_trichotomy (3 * C.natDegree) (A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF34 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+          · exact (by omega : False).elim
+          · exact (by omega : False).elim
           · -- 2 * C.natDegree + 2 * F.natDegree > A.natDegree + 4 * D.natDegree
             rcases lt_trichotomy (4 * C.natDegree) (A.natDegree + 2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF28 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-        · -- 2 * D.natDegree = A.natDegree + 2 * C.natDegree
-          rcases lt_trichotomy (2 * C.natDegree + 2 * F.natDegree) (A.natDegree + 4 * D.natDegree) with ht4a | ht4b | ht4c
-          · -- 2 * C.natDegree + 2 * F.natDegree < A.natDegree + 4 * D.natDegree
-            rcases lt_trichotomy (3 * C.natDegree) (A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF48 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * C.natDegree + 2 * F.natDegree = A.natDegree + 4 * D.natDegree
-            rcases lt_trichotomy (3 * C.natDegree) (A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF34 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * C.natDegree + 2 * F.natDegree > A.natDegree + 4 * D.natDegree
-            rcases lt_trichotomy (4 * C.natDegree) (A.natDegree + 2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-        · -- 2 * D.natDegree > A.natDegree + 2 * C.natDegree
-          rcases lt_trichotomy (2 * C.natDegree + 2 * F.natDegree) (A.natDegree + 4 * D.natDegree) with ht4a | ht4b | ht4c
-          · -- 2 * C.natDegree + 2 * F.natDegree < A.natDegree + 4 * D.natDegree
-            rcases lt_trichotomy (4 * C.natDegree) (3 * A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF48 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * C.natDegree + 2 * F.natDegree = A.natDegree + 4 * D.natDegree
-            rcases lt_trichotomy (4 * C.natDegree) (3 * A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF34 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * C.natDegree + 2 * F.natDegree > A.natDegree + 4 * D.natDegree
-            rcases lt_trichotomy (C.natDegree + D.natDegree) (A.natDegree + F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF27 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF28 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF28 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF26 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF34 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF48 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF48 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
       · -- F.natDegree > A.natDegree + D.natDegree
         rcases lt_trichotomy (2 * D.natDegree) (A.natDegree + 2 * C.natDegree) with ht3a | ht3b | ht3c
         · -- 2 * D.natDegree < A.natDegree + 2 * C.natDegree
           rcases lt_trichotomy (3 * A.natDegree + 2 * C.natDegree) (2 * F.natDegree) with ht4a | ht4b | ht4c
-          · -- 3 * A.natDegree + 2 * C.natDegree < 2 * F.natDegree
-            rcases lt_trichotomy (A.natDegree + 3 * C.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-          · -- 3 * A.natDegree + 2 * C.natDegree = 2 * F.natDegree
-            rcases lt_trichotomy (A.natDegree + 3 * C.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF38 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+          · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF54 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+          · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF38 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF38 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
           · -- 3 * A.natDegree + 2 * C.natDegree > 2 * F.natDegree
             rcases lt_trichotomy (4 * C.natDegree) (A.natDegree + 2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF28 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-        · -- 2 * D.natDegree = A.natDegree + 2 * C.natDegree
-          rcases lt_trichotomy (3 * A.natDegree + 2 * C.natDegree) (2 * F.natDegree) with ht4a | ht4b | ht4c
-          · -- 3 * A.natDegree + 2 * C.natDegree < 2 * F.natDegree
-            rcases lt_trichotomy (A.natDegree + 3 * C.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 3 * A.natDegree + 2 * C.natDegree = 2 * F.natDegree
-            rcases lt_trichotomy (A.natDegree + 3 * C.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF38 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 3 * A.natDegree + 2 * C.natDegree > 2 * F.natDegree
-            rcases lt_trichotomy (4 * C.natDegree) (A.natDegree + 2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-        · -- 2 * D.natDegree > A.natDegree + 2 * C.natDegree
-          rcases lt_trichotomy (3 * A.natDegree + 2 * C.natDegree) (2 * F.natDegree) with ht4a | ht4b | ht4c
-          · -- 3 * A.natDegree + 2 * C.natDegree < 2 * F.natDegree
-            rcases lt_trichotomy (A.natDegree + 4 * C.natDegree + 2 * D.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 3 * A.natDegree + 2 * C.natDegree = 2 * F.natDegree
-            rcases lt_trichotomy (A.natDegree + 4 * C.natDegree + 2 * D.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF38 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 3 * A.natDegree + 2 * C.natDegree > 2 * F.natDegree
-            rcases lt_trichotomy (C.natDegree + D.natDegree) (A.natDegree + F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF27 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF28 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF28 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF26 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF54 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF54 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
     · -- 2 * E.natDegree = A.natDegree + 2 * D.natDegree
       rcases lt_trichotomy (F.natDegree) (A.natDegree + D.natDegree) with ht2a | ht2b | ht2c
       · -- F.natDegree < A.natDegree + D.natDegree
@@ -1187,159 +963,47 @@ theorem quarticChamberSupport810_of_live_BCDEF
           rcases lt_trichotomy (2 * C.natDegree + 2 * F.natDegree) (A.natDegree + 4 * D.natDegree) with ht4a | ht4b | ht4c
           · -- 2 * C.natDegree + 2 * F.natDegree < A.natDegree + 4 * D.natDegree
             rcases lt_trichotomy (3 * C.natDegree) (A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF44 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF44 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF44 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
             · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF47 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF26 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
           · -- 2 * C.natDegree + 2 * F.natDegree = A.natDegree + 4 * D.natDegree
             rcases lt_trichotomy (3 * C.natDegree) (A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
             · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF32 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
             · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF33 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF26 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
           · -- 2 * C.natDegree + 2 * F.natDegree > A.natDegree + 4 * D.natDegree
             rcases lt_trichotomy (4 * C.natDegree) (A.natDegree + 2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF28 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-        · -- 2 * D.natDegree = A.natDegree + 2 * C.natDegree
-          rcases lt_trichotomy (2 * C.natDegree + 2 * F.natDegree) (A.natDegree + 4 * D.natDegree) with ht4a | ht4b | ht4c
-          · -- 2 * C.natDegree + 2 * F.natDegree < A.natDegree + 4 * D.natDegree
-            rcases lt_trichotomy (3 * C.natDegree) (A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF44 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * C.natDegree + 2 * F.natDegree = A.natDegree + 4 * D.natDegree
-            rcases lt_trichotomy (3 * C.natDegree) (A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF32 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * C.natDegree + 2 * F.natDegree > A.natDegree + 4 * D.natDegree
-            rcases lt_trichotomy (4 * C.natDegree) (A.natDegree + 2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-        · -- 2 * D.natDegree > A.natDegree + 2 * C.natDegree
-          rcases lt_trichotomy (2 * C.natDegree + 2 * F.natDegree) (A.natDegree + 4 * D.natDegree) with ht4a | ht4b | ht4c
-          · -- 2 * C.natDegree + 2 * F.natDegree < A.natDegree + 4 * D.natDegree
-            rcases lt_trichotomy (4 * C.natDegree) (3 * A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF44 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * C.natDegree + 2 * F.natDegree = A.natDegree + 4 * D.natDegree
-            rcases lt_trichotomy (4 * C.natDegree) (3 * A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF32 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * C.natDegree + 2 * F.natDegree > A.natDegree + 4 * D.natDegree
-            rcases lt_trichotomy (C.natDegree + D.natDegree) (A.natDegree + F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF27 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF28 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF28 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF26 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF44 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF44 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF44 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF44 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
       · -- F.natDegree = A.natDegree + D.natDegree
         rcases lt_trichotomy (2 * D.natDegree) (A.natDegree + 2 * C.natDegree) with ht3a | ht3b | ht3c
         · -- 2 * D.natDegree < A.natDegree + 2 * C.natDegree
           rcases lt_trichotomy (2 * C.natDegree + 2 * F.natDegree) (A.natDegree + 4 * D.natDegree) with ht4a | ht4b | ht4c
-          · -- 2 * C.natDegree + 2 * F.natDegree < A.natDegree + 4 * D.natDegree
-            rcases lt_trichotomy (3 * C.natDegree) (A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF43 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-          · -- 2 * C.natDegree + 2 * F.natDegree = A.natDegree + 4 * D.natDegree
-            rcases lt_trichotomy (3 * C.natDegree) (A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF31 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+          · exact (by omega : False).elim
+          · exact (by omega : False).elim
           · -- 2 * C.natDegree + 2 * F.natDegree > A.natDegree + 4 * D.natDegree
             rcases lt_trichotomy (4 * C.natDegree) (A.natDegree + 2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF28 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-        · -- 2 * D.natDegree = A.natDegree + 2 * C.natDegree
-          rcases lt_trichotomy (2 * C.natDegree + 2 * F.natDegree) (A.natDegree + 4 * D.natDegree) with ht4a | ht4b | ht4c
-          · -- 2 * C.natDegree + 2 * F.natDegree < A.natDegree + 4 * D.natDegree
-            rcases lt_trichotomy (3 * C.natDegree) (A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF43 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * C.natDegree + 2 * F.natDegree = A.natDegree + 4 * D.natDegree
-            rcases lt_trichotomy (3 * C.natDegree) (A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF31 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * C.natDegree + 2 * F.natDegree > A.natDegree + 4 * D.natDegree
-            rcases lt_trichotomy (4 * C.natDegree) (A.natDegree + 2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-        · -- 2 * D.natDegree > A.natDegree + 2 * C.natDegree
-          rcases lt_trichotomy (2 * C.natDegree + 2 * F.natDegree) (A.natDegree + 4 * D.natDegree) with ht4a | ht4b | ht4c
-          · -- 2 * C.natDegree + 2 * F.natDegree < A.natDegree + 4 * D.natDegree
-            rcases lt_trichotomy (4 * C.natDegree) (3 * A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF43 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * C.natDegree + 2 * F.natDegree = A.natDegree + 4 * D.natDegree
-            rcases lt_trichotomy (4 * C.natDegree) (3 * A.natDegree + 2 * D.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF31 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 2 * C.natDegree + 2 * F.natDegree > A.natDegree + 4 * D.natDegree
-            rcases lt_trichotomy (C.natDegree + D.natDegree) (A.natDegree + F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF27 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF28 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF28 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF26 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF31 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF43 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF43 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
       · -- F.natDegree > A.natDegree + D.natDegree
         rcases lt_trichotomy (2 * D.natDegree) (A.natDegree + 2 * C.natDegree) with ht3a | ht3b | ht3c
         · -- 2 * D.natDegree < A.natDegree + 2 * C.natDegree
           rcases lt_trichotomy (3 * A.natDegree + 2 * C.natDegree) (2 * F.natDegree) with ht4a | ht4b | ht4c
-          · -- 3 * A.natDegree + 2 * C.natDegree < 2 * F.natDegree
-            rcases lt_trichotomy (A.natDegree + 3 * C.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-          · -- 3 * A.natDegree + 2 * C.natDegree = 2 * F.natDegree
-            rcases lt_trichotomy (A.natDegree + 3 * C.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF38 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+          · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF54 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+          · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF38 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF38 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
           · -- 3 * A.natDegree + 2 * C.natDegree > 2 * F.natDegree
             rcases lt_trichotomy (4 * C.natDegree) (A.natDegree + 2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF28 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-        · -- 2 * D.natDegree = A.natDegree + 2 * C.natDegree
-          rcases lt_trichotomy (3 * A.natDegree + 2 * C.natDegree) (2 * F.natDegree) with ht4a | ht4b | ht4c
-          · -- 3 * A.natDegree + 2 * C.natDegree < 2 * F.natDegree
-            rcases lt_trichotomy (A.natDegree + 3 * C.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 3 * A.natDegree + 2 * C.natDegree = 2 * F.natDegree
-            rcases lt_trichotomy (A.natDegree + 3 * C.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF38 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 3 * A.natDegree + 2 * C.natDegree > 2 * F.natDegree
-            rcases lt_trichotomy (4 * C.natDegree) (A.natDegree + 2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-        · -- 2 * D.natDegree > A.natDegree + 2 * C.natDegree
-          rcases lt_trichotomy (3 * A.natDegree + 2 * C.natDegree) (2 * F.natDegree) with ht4a | ht4b | ht4c
-          · -- 3 * A.natDegree + 2 * C.natDegree < 2 * F.natDegree
-            rcases lt_trichotomy (A.natDegree + 4 * C.natDegree + 2 * D.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 3 * A.natDegree + 2 * C.natDegree = 2 * F.natDegree
-            rcases lt_trichotomy (A.natDegree + 4 * C.natDegree + 2 * D.natDegree) (4 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF38 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 3 * A.natDegree + 2 * C.natDegree > 2 * F.natDegree
-            rcases lt_trichotomy (C.natDegree + D.natDegree) (A.natDegree + F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF27 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF28 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF28 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF26 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF54 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF54 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
     · -- 2 * E.natDegree > A.natDegree + 2 * D.natDegree
       rcases lt_trichotomy (2 * F.natDegree) (A.natDegree + 2 * E.natDegree) with ht2a | ht2b | ht2c
       · -- 2 * F.natDegree < A.natDegree + 2 * E.natDegree
@@ -1348,160 +1012,47 @@ theorem quarticChamberSupport810_of_live_BCDEF
           rcases lt_trichotomy (A.natDegree + 2 * C.natDegree + 2 * F.natDegree) (4 * E.natDegree) with ht4a | ht4b | ht4c
           · -- A.natDegree + 2 * C.natDegree + 2 * F.natDegree < 4 * E.natDegree
             rcases lt_trichotomy (3 * C.natDegree) (2 * E.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF49 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF49 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF49 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
             · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF52 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF26 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
           · -- A.natDegree + 2 * C.natDegree + 2 * F.natDegree = 4 * E.natDegree
             rcases lt_trichotomy (3 * C.natDegree) (2 * E.natDegree) with ht5a | ht5b | ht5c
             · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF35 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
             · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF36 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF26 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
           · -- A.natDegree + 2 * C.natDegree + 2 * F.natDegree > 4 * E.natDegree
             rcases lt_trichotomy (4 * C.natDegree) (A.natDegree + 2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF28 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-        · -- E.natDegree = A.natDegree + C.natDegree
-          rcases lt_trichotomy (A.natDegree + 2 * C.natDegree + 2 * F.natDegree) (4 * E.natDegree) with ht4a | ht4b | ht4c
-          · -- A.natDegree + 2 * C.natDegree + 2 * F.natDegree < 4 * E.natDegree
-            rcases lt_trichotomy (3 * C.natDegree) (2 * E.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF49 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- A.natDegree + 2 * C.natDegree + 2 * F.natDegree = 4 * E.natDegree
-            rcases lt_trichotomy (3 * C.natDegree) (2 * E.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF35 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- A.natDegree + 2 * C.natDegree + 2 * F.natDegree > 4 * E.natDegree
-            rcases lt_trichotomy (4 * C.natDegree) (A.natDegree + 2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-        · -- E.natDegree > A.natDegree + C.natDegree
-          rcases lt_trichotomy (A.natDegree + 2 * C.natDegree + 2 * F.natDegree) (4 * E.natDegree) with ht4a | ht4b | ht4c
-          · -- A.natDegree + 2 * C.natDegree + 2 * F.natDegree < 4 * E.natDegree
-            rcases lt_trichotomy (2 * C.natDegree) (A.natDegree + E.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF49 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- A.natDegree + 2 * C.natDegree + 2 * F.natDegree = 4 * E.natDegree
-            rcases lt_trichotomy (2 * C.natDegree) (A.natDegree + E.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF35 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- A.natDegree + 2 * C.natDegree + 2 * F.natDegree > 4 * E.natDegree
-            rcases lt_trichotomy (2 * C.natDegree + 2 * E.natDegree) (3 * A.natDegree + 2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF27 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF28 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF28 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF26 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF49 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF49 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF49 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF49 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
       · -- 2 * F.natDegree = A.natDegree + 2 * E.natDegree
         rcases lt_trichotomy (E.natDegree) (A.natDegree + C.natDegree) with ht3a | ht3b | ht3c
         · -- E.natDegree < A.natDegree + C.natDegree
           rcases lt_trichotomy (A.natDegree + 2 * C.natDegree + 2 * F.natDegree) (4 * E.natDegree) with ht4a | ht4b | ht4c
-          · -- A.natDegree + 2 * C.natDegree + 2 * F.natDegree < 4 * E.natDegree
-            rcases lt_trichotomy (3 * C.natDegree) (2 * E.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF53 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-          · -- A.natDegree + 2 * C.natDegree + 2 * F.natDegree = 4 * E.natDegree
-            rcases lt_trichotomy (3 * C.natDegree) (2 * E.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF37 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+          · exact (by omega : False).elim
+          · exact (by omega : False).elim
           · -- A.natDegree + 2 * C.natDegree + 2 * F.natDegree > 4 * E.natDegree
             rcases lt_trichotomy (4 * C.natDegree) (A.natDegree + 2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF28 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-        · -- E.natDegree = A.natDegree + C.natDegree
-          rcases lt_trichotomy (A.natDegree + 2 * C.natDegree + 2 * F.natDegree) (4 * E.natDegree) with ht4a | ht4b | ht4c
-          · -- A.natDegree + 2 * C.natDegree + 2 * F.natDegree < 4 * E.natDegree
-            rcases lt_trichotomy (3 * C.natDegree) (2 * E.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF53 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- A.natDegree + 2 * C.natDegree + 2 * F.natDegree = 4 * E.natDegree
-            rcases lt_trichotomy (3 * C.natDegree) (2 * E.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF37 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- A.natDegree + 2 * C.natDegree + 2 * F.natDegree > 4 * E.natDegree
-            rcases lt_trichotomy (4 * C.natDegree) (A.natDegree + 2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-        · -- E.natDegree > A.natDegree + C.natDegree
-          rcases lt_trichotomy (A.natDegree + 2 * C.natDegree + 2 * F.natDegree) (4 * E.natDegree) with ht4a | ht4b | ht4c
-          · -- A.natDegree + 2 * C.natDegree + 2 * F.natDegree < 4 * E.natDegree
-            rcases lt_trichotomy (2 * C.natDegree) (A.natDegree + E.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF53 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- A.natDegree + 2 * C.natDegree + 2 * F.natDegree = 4 * E.natDegree
-            rcases lt_trichotomy (2 * C.natDegree) (A.natDegree + E.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF37 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- A.natDegree + 2 * C.natDegree + 2 * F.natDegree > 4 * E.natDegree
-            rcases lt_trichotomy (2 * C.natDegree + 2 * E.natDegree) (3 * A.natDegree + 2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF27 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF28 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF28 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF26 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF37 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF53 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF53 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
       · -- 2 * F.natDegree > A.natDegree + 2 * E.natDegree
         rcases lt_trichotomy (E.natDegree) (A.natDegree + C.natDegree) with ht3a | ht3b | ht3c
         · -- E.natDegree < A.natDegree + C.natDegree
           rcases lt_trichotomy (3 * A.natDegree + 2 * C.natDegree) (2 * F.natDegree) with ht4a | ht4b | ht4c
-          · -- 3 * A.natDegree + 2 * C.natDegree < 2 * F.natDegree
-            rcases lt_trichotomy (A.natDegree + 3 * C.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-          · -- 3 * A.natDegree + 2 * C.natDegree = 2 * F.natDegree
-            rcases lt_trichotomy (A.natDegree + 3 * C.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF38 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
+          · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF54 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+          · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF38 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF38 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
           · -- 3 * A.natDegree + 2 * C.natDegree > 2 * F.natDegree
             rcases lt_trichotomy (4 * C.natDegree) (A.natDegree + 2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF28 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-        · -- E.natDegree = A.natDegree + C.natDegree
-          rcases lt_trichotomy (3 * A.natDegree + 2 * C.natDegree) (2 * F.natDegree) with ht4a | ht4b | ht4c
-          · -- 3 * A.natDegree + 2 * C.natDegree < 2 * F.natDegree
-            rcases lt_trichotomy (A.natDegree + 3 * C.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 3 * A.natDegree + 2 * C.natDegree = 2 * F.natDegree
-            rcases lt_trichotomy (A.natDegree + 3 * C.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF38 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 3 * A.natDegree + 2 * C.natDegree > 2 * F.natDegree
-            rcases lt_trichotomy (4 * C.natDegree) (A.natDegree + 2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-        · -- E.natDegree > A.natDegree + C.natDegree
-          rcases lt_trichotomy (3 * A.natDegree + 2 * C.natDegree) (2 * F.natDegree) with ht4a | ht4b | ht4c
-          · -- 3 * A.natDegree + 2 * C.natDegree < 2 * F.natDegree
-            rcases lt_trichotomy (2 * C.natDegree + E.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 3 * A.natDegree + 2 * C.natDegree = 2 * F.natDegree
-            rcases lt_trichotomy (2 * C.natDegree + E.natDegree) (2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF38 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-          · -- 3 * A.natDegree + 2 * C.natDegree > 2 * F.natDegree
-            rcases lt_trichotomy (2 * C.natDegree + 2 * E.natDegree) (3 * A.natDegree + 2 * F.natDegree) with ht5a | ht5b | ht5c
-            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, by omega⟩)
-            · exact (by omega : False).elim
-            · exact (by omega : False).elim
-
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF27 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF27 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF28 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF28 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+            · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF26 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF26 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF54 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
+        · exact QuarticChamberSupport810.size5 (QuarticChamberSupportSize5810.cBCDEF54 ⟨hA, hBne, hCne, hDne, hEne, hFne, hGz, astra4zExhaustTailBCDEF54 A.natDegree B.natDegree C.natDegree D.natDegree E.natDegree F.natDegree G.natDegree hApos hAB hAC hAD hAE hAF hAG hGn (by omega)⟩)
 end QuarticChamberExhaust810
 
 end Max11DegreeRoutes

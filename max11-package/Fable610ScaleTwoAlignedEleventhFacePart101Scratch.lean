@@ -8,6 +8,7 @@ open MvPolynomial Polynomial
 namespace Max11DegreeRoutes
 set_option maxRecDepth 100000000
 
+set_option maxHeartbeats 64000000 in
 /-- The eleventh row below the leading weighted-Wronskian row for
 outer degrees `(6,10)`: the degree-`4` Jacobian coefficient, the first
 aligned row with no `p₆`-term — the leading coefficient has left the
@@ -54,7 +55,7 @@ open MvPolynomial Polynomial
 namespace Max11DegreeRoutes
 set_option maxRecDepth 100000000
 
-set_option maxHeartbeats 1600000000 in
+set_option maxHeartbeats 64000000 in
 /-- Cleared eleventh defect of the degree-`4` aligned `(6,10)` row,
 kept in factored form through the third defect `D`, the fifth defect
 `F`, the sixth defect `G`, the seventh defect `I`, the eighth defect
@@ -155,6 +156,7 @@ open MvPolynomial Polynomial
 namespace Max11DegreeRoutes
 set_option maxRecDepth 100000000
 
+set_option maxHeartbeats 64000000 in
 /-- Scalar resolution of the eleventh-row peeled head at the root
 against `e₂(a) = 0`, the `u₂` root product, and the carried tenth-face
 tie `135 s = 92160 x² (81 p - y)²`: the head equation forces the exact
@@ -188,7 +190,7 @@ open MvPolynomial Polynomial
 namespace Max11DegreeRoutes
 set_option maxRecDepth 100000000
 
-set_option maxHeartbeats 1600000000 in
+set_option maxHeartbeats 64000000 in
 /-- Peeled square-chamber form of the consumed degree-`4` row
 (`h₀⁴⁴ · h₀² · h₀ · h₀` cancelled along the seventh-face
 divisibilities, the eighth-face product divisor `u₂`, the tenth-face
@@ -273,6 +275,7 @@ open MvPolynomial Polynomial
 namespace Max11DegreeRoutes
 set_option maxRecDepth 100000000
 
+set_option maxHeartbeats 64000000 in
 /-- Residue of the vanished nonsquare eleventh defect after the
 carried divisor cascade (`t₁, t₂`, then the `p₂` divisor `u` squared,
 then the `t₃` divisor cubed, then the `v` divisor squared) peels
@@ -305,6 +308,7 @@ open MvPolynomial Polynomial
 namespace Max11DegreeRoutes
 set_option maxRecDepth 100000000
 
+set_option maxHeartbeats 64000000 in
 /-- In the square chamber the squared weight-`55/2` integral has a
 polynomial square root: `Λ = μ₄ h₀⁵⁵` with `μ₄² = κ₁₀`.  The constant
 `μ₄` is preserved, not cleared. -/
@@ -352,6 +356,7 @@ open MvPolynomial Polynomial
 namespace Max11DegreeRoutes
 set_option maxRecDepth 100000000
 
+set_option maxHeartbeats 64000000 in
 /-- In the nonsquare chamber the odd exponent forces both the constant
 and the eleventh defect to vanish: `κ₁₀ = 0` and `Λ ≡ 0`, exactly as
 for `D`, `F`, `I`, and `L`. -/
@@ -420,7 +425,7 @@ open MvPolynomial Polynomial
 namespace Max11DegreeRoutes
 set_option maxRecDepth 100000000
 
-set_option maxHeartbeats 6400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Descent of the consumed degree-`4` row in the nonsquare chamber:
 the eleventh defect vanishes identically, the `H²²`-peeled core
 absorbs the undecic head through the seventh-face divisibilities,
@@ -459,112 +464,188 @@ theorem alignedNonsquareEleventh_descent_610 {K : Type*}
   unfold alignedEleventhDefect610 at hL'
   rw [hD0, hF0, hG, hI0, hJ, hL0, hg1, hf] at hL'
   have hcore :
-      ((15049359360 : K[X]) * f ^ 5 * g1 - (22574039040 : K[X]) * f ^ 4 *
-      a3 - (54344908800 : K[X]) * f ^ 4 * g1 ^ 3 + (150493593600 : K[X]) *
-      f ^ 3 * a3 * g1 ^ 2 + (57967902720 : K[X]) * f ^ 3 * g1 ^ 5 -
-      (135444234240 : K[X]) * f ^ 2 * a3 ^ 2 * g1 - (163034726400 : K[X])
-      * f ^ 2 * a3 * g1 ^ 4 - (26223575040 : K[X]) * f ^ 2 * g1 ^ 7 +
-      (38698352640 : K[X]) * f * a3 ^ 3 + (150493593600 : K[X]) * f * a3 ^
-      2 * g1 ^ 3 + (57967902720 : K[X]) * f * a3 * g1 ^ 6 + (5341839360 :
-      K[X]) * f * g1 ^ 9 - (45148078080 : K[X]) * a3 ^ 3 * g1 ^ 2 -
-      (32606945280 : K[X]) * a3 ^ 2 * g1 ^ 5 - (6555893760 : K[X]) * a3 *
-      g1 ^ 8 - (404684800 : K[X]) * g1 ^ 11) + H * (-((90296156160 : K[X])
-      * f ^ 3 * g1 * a2) + (116095057920 : K[X]) * f ^ 2 * a3 * a2 +
-      (150493593600 : K[X]) * f ^ 2 * g1 ^ 3 * a2 - (270888468480 : K[X])
-      * f * a3 * g1 ^ 2 * a2 - (65213890560 : K[X]) * f * g1 ^ 5 * a2 +
-      (116095057920 : K[X]) * a3 ^ 2 * g1 * a2 + (75246796800 : K[X]) * a3
-      * g1 ^ 4 * a2 + (8281128960 : K[X]) * g1 ^ 7 * a2 - Polynomial.C κ *
-      ((2866544640 : K[X]) * f ^ 4 * g1) + Polynomial.C κ * ((4299816960 :
-      K[X]) * f ^ 3 * a3) + Polynomial.C κ * ((7007109120 : K[X]) * f ^ 3
-      * g1 ^ 3) - Polynomial.C κ * ((17199267840 : K[X]) * f ^ 2 * a3 * g1
-      ^ 2) - Polynomial.C κ * ((4904976384 : K[X]) * f ^ 2 * g1 ^ 5) +
-      Polynomial.C κ * ((12899450880 : K[X]) * f * a3 ^ 2 * g1) +
-      Polynomial.C κ * ((10510663680 : K[X]) * f * a3 * g1 ^ 4) +
-      Polynomial.C κ * ((1323565056 : K[X]) * f * g1 ^ 7) - Polynomial.C κ
-      * ((2579890176 : K[X]) * a3 ^ 3) - Polynomial.C κ * ((5733089280 :
-      K[X]) * a3 ^ 2 * g1 ^ 3) - Polynomial.C κ * ((1634992128 : K[X]) *
-      a3 * g1 ^ 6) - Polynomial.C κ * ((122552320 : K[X]) * g1 ^ 9)) + H ^
-      2 * ((38698352640 : K[X]) * f ^ 3 * a1 - (135444234240 : K[X]) * f ^
-      2 * g1 ^ 2 * a1 + (232190115840 : K[X]) * f * a3 * g1 * a1 +
-      (75246796800 : K[X]) * f * g1 ^ 4 * a1 + (116095057920 : K[X]) * f *
-      g1 * a2 ^ 2 - (87071293440 : K[X]) * a3 ^ 2 * a1 - (90296156160 :
-      K[X]) * a3 * g1 ^ 3 * a1 - (87071293440 : K[X]) * a3 * a2 ^ 2 -
-      (10868981760 : K[X]) * g1 ^ 6 * a1 - (45148078080 : K[X]) * g1 ^ 3 *
-      a2 ^ 2 + Polynomial.C κ * ((12899450880 : K[X]) * f ^ 2 * g1 * a2) -
-      Polynomial.C κ * ((15479341056 : K[X]) * f * a3 * a2) - Polynomial.C
-      κ * ((11466178560 : K[X]) * f * g1 ^ 3 * a2) + Polynomial.C κ *
-      ((12899450880 : K[X]) * a3 * g1 ^ 2 * a2) + Polynomial.C κ *
-      ((2102132736 : K[X]) * g1 ^ 5 * a2)) + H ^ 3 * ((116095057920 :
-      K[X]) * f ^ 2 * g1 * a0 - (174142586880 : K[X]) * f * a3 * a0 -
-      (90296156160 : K[X]) * f * g1 ^ 3 * a0 - (174142586880 : K[X]) * f *
-      a1 * a2 + (116095057920 : K[X]) * a3 * g1 ^ 2 * a0 + (15049359360 :
-      K[X]) * g1 ^ 5 * a0 + (116095057920 : K[X]) * g1 ^ 2 * a1 * a2 -
-      Polynomial.C κ₅ * ((663552 : K[X]) * f ^ 2 * g1) + Polynomial.C κ₅ *
-      ((995328 : K[X]) * f * a3) + Polynomial.C κ₅ * ((516096 : K[X]) * f
-      * g1 ^ 3) - Polynomial.C κ₅ * ((663552 : K[X]) * a3 * g1 ^ 2) -
-      Polynomial.C κ₅ * ((86016 : K[X]) * g1 ^ 5) - Polynomial.C κ *
-      ((7739670528 : K[X]) * f ^ 2 * a1) + Polynomial.C κ * ((12899450880
-      : K[X]) * f * g1 ^ 2 * a1) - Polynomial.C κ * ((15479341056 : K[X])
-      * a3 * g1 * a1) - Polynomial.C κ * ((2866544640 : K[X]) * g1 ^ 4 *
-      a1) - Polynomial.C κ * ((7739670528 : K[X]) * g1 * a2 ^ 2)) + H ^ 4
-      * (-((174142586880 : K[X]) * g1 * a0 * a2) - (87071293440 : K[X]) *
-      g1 * a1 ^ 2 + Polynomial.C κ₇ * ((6912 : K[X]) * f * g1) -
-      Polynomial.C κ₇ * ((10368 : K[X]) * a3) - Polynomial.C κ₇ * ((1920 :
-      K[X]) * g1 ^ 3) + Polynomial.C κ₅ * ((995328 : K[X]) * g1 * a2) -
-      Polynomial.C κ * ((15479341056 : K[X]) * f * g1 * a0) + Polynomial.C
-      κ * ((23219011584 : K[X]) * a3 * a0) + Polynomial.C κ * ((4299816960
-      : K[X]) * g1 ^ 3 * a0) + Polynomial.C κ * ((23219011584 : K[X]) * a1
-      * a2)) + H ^ 5 * ((522427760640 : K[X]) * a0 * a1 - Polynomial.C κ₅
-      * ((2985984 : K[X]) * a1)) = 0 := by
+      Max11ReflectVal.polyR [Polynomial.C κ, Polynomial.C κ₅, Polynomial.C κ₇, f, g1, a3, H, a2, a1, a0]
+      [(-2866544640 : K[X]), (7007109120 : K[X]), (4299816960 : K[X]), (-4904976384 : K[X]), (-17199267840 : K[X]), (12899450880 : K[X]), (-7739670528 : K[X]), (1323565056 : K[X]), (10510663680 : K[X]), (-11466178560 : K[X])]
+      [[1, 0, 0, 4, 1, 0, 1, 0, 0, 0],
+        [1, 0, 0, 3, 3, 0, 1, 0, 0, 0],
+        [1, 0, 0, 3, 0, 1, 1, 0, 0, 0],
+        [1, 0, 0, 2, 5, 0, 1, 0, 0, 0],
+        [1, 0, 0, 2, 2, 1, 1, 0, 0, 0],
+        [1, 0, 0, 2, 1, 0, 2, 1, 0, 0],
+        [1, 0, 0, 2, 0, 0, 3, 0, 1, 0],
+        [1, 0, 0, 1, 7, 0, 1, 0, 0, 0],
+        [1, 0, 0, 1, 4, 1, 1, 0, 0, 0],
+        [1, 0, 0, 1, 3, 0, 2, 1, 0, 0]] +
+      Max11ReflectVal.polyR [Polynomial.C κ, Polynomial.C κ₅, Polynomial.C κ₇, f, g1, a3, H, a2, a1, a0]
+      [(12899450880 : K[X]), (12899450880 : K[X]), (-15479341056 : K[X]), (-15479341056 : K[X]), (-122552320 : K[X]), (-1634992128 : K[X]), (2102132736 : K[X]), (-2866544640 : K[X]), (-5733089280 : K[X]), (4299816960 : K[X])]
+      [[1, 0, 0, 1, 2, 0, 3, 0, 1, 0],
+        [1, 0, 0, 1, 1, 2, 1, 0, 0, 0],
+        [1, 0, 0, 1, 1, 0, 4, 0, 0, 1],
+        [1, 0, 0, 1, 0, 1, 2, 1, 0, 0],
+        [1, 0, 0, 0, 9, 0, 1, 0, 0, 0],
+        [1, 0, 0, 0, 6, 1, 1, 0, 0, 0],
+        [1, 0, 0, 0, 5, 0, 2, 1, 0, 0],
+        [1, 0, 0, 0, 4, 0, 3, 0, 1, 0],
+        [1, 0, 0, 0, 3, 2, 1, 0, 0, 0],
+        [1, 0, 0, 0, 3, 0, 4, 0, 0, 1]] +
+      Max11ReflectVal.polyR [Polynomial.C κ, Polynomial.C κ₅, Polynomial.C κ₇, f, g1, a3, H, a2, a1, a0]
+      [(12899450880 : K[X]), (-15479341056 : K[X]), (-7739670528 : K[X]), (-2579890176 : K[X]), (23219011584 : K[X]), (23219011584 : K[X]), (-663552 : K[X]), (516096 : K[X]), (995328 : K[X]), (-86016 : K[X])]
+      [[1, 0, 0, 0, 2, 1, 2, 1, 0, 0],
+        [1, 0, 0, 0, 1, 1, 3, 0, 1, 0],
+        [1, 0, 0, 0, 1, 0, 3, 2, 0, 0],
+        [1, 0, 0, 0, 0, 3, 1, 0, 0, 0],
+        [1, 0, 0, 0, 0, 1, 4, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 4, 1, 1, 0],
+        [0, 1, 0, 2, 1, 0, 3, 0, 0, 0],
+        [0, 1, 0, 1, 3, 0, 3, 0, 0, 0],
+        [0, 1, 0, 1, 0, 1, 3, 0, 0, 0],
+        [0, 1, 0, 0, 5, 0, 3, 0, 0, 0]] +
+      Max11ReflectVal.polyR [Polynomial.C κ, Polynomial.C κ₅, Polynomial.C κ₇, f, g1, a3, H, a2, a1, a0]
+      [(-663552 : K[X]), (995328 : K[X]), (-2985984 : K[X]), (6912 : K[X]), (-1920 : K[X]), (-10368 : K[X]), (15049359360 : K[X]), (-54344908800 : K[X]), (-22574039040 : K[X]), (57967902720 : K[X])]
+      [[0, 1, 0, 0, 2, 1, 3, 0, 0, 0],
+        [0, 1, 0, 0, 1, 0, 4, 1, 0, 0],
+        [0, 1, 0, 0, 0, 0, 5, 0, 1, 0],
+        [0, 0, 1, 1, 1, 0, 4, 0, 0, 0],
+        [0, 0, 1, 0, 3, 0, 4, 0, 0, 0],
+        [0, 0, 1, 0, 0, 1, 4, 0, 0, 0],
+        [0, 0, 0, 5, 1, 0, 0, 0, 0, 0],
+        [0, 0, 0, 4, 3, 0, 0, 0, 0, 0],
+        [0, 0, 0, 4, 0, 1, 0, 0, 0, 0],
+        [0, 0, 0, 3, 5, 0, 0, 0, 0, 0]] +
+      Max11ReflectVal.polyR [Polynomial.C κ, Polynomial.C κ₅, Polynomial.C κ₇, f, g1, a3, H, a2, a1, a0]
+      [(150493593600 : K[X]), (-90296156160 : K[X]), (38698352640 : K[X]), (-26223575040 : K[X]), (-163034726400 : K[X]), (150493593600 : K[X]), (-135444234240 : K[X]), (-135444234240 : K[X]), (116095057920 : K[X]), (116095057920 : K[X])]
+      [[0, 0, 0, 3, 2, 1, 0, 0, 0, 0],
+        [0, 0, 0, 3, 1, 0, 1, 1, 0, 0],
+        [0, 0, 0, 3, 0, 0, 2, 0, 1, 0],
+        [0, 0, 0, 2, 7, 0, 0, 0, 0, 0],
+        [0, 0, 0, 2, 4, 1, 0, 0, 0, 0],
+        [0, 0, 0, 2, 3, 0, 1, 1, 0, 0],
+        [0, 0, 0, 2, 2, 0, 2, 0, 1, 0],
+        [0, 0, 0, 2, 1, 2, 0, 0, 0, 0],
+        [0, 0, 0, 2, 1, 0, 3, 0, 0, 1],
+        [0, 0, 0, 2, 0, 1, 1, 1, 0, 0]] +
+      Max11ReflectVal.polyR [Polynomial.C κ, Polynomial.C κ₅, Polynomial.C κ₇, f, g1, a3, H, a2, a1, a0]
+      [(5341839360 : K[X]), (57967902720 : K[X]), (-65213890560 : K[X]), (75246796800 : K[X]), (150493593600 : K[X]), (-90296156160 : K[X]), (-270888468480 : K[X]), (232190115840 : K[X]), (116095057920 : K[X]), (38698352640 : K[X])]
+      [[0, 0, 0, 1, 9, 0, 0, 0, 0, 0],
+        [0, 0, 0, 1, 6, 1, 0, 0, 0, 0],
+        [0, 0, 0, 1, 5, 0, 1, 1, 0, 0],
+        [0, 0, 0, 1, 4, 0, 2, 0, 1, 0],
+        [0, 0, 0, 1, 3, 2, 0, 0, 0, 0],
+        [0, 0, 0, 1, 3, 0, 3, 0, 0, 1],
+        [0, 0, 0, 1, 2, 1, 1, 1, 0, 0],
+        [0, 0, 0, 1, 1, 1, 2, 0, 1, 0],
+        [0, 0, 0, 1, 1, 0, 2, 2, 0, 0],
+        [0, 0, 0, 1, 0, 3, 0, 0, 0, 0]] +
+      Max11ReflectVal.polyR [Polynomial.C κ, Polynomial.C κ₅, Polynomial.C κ₇, f, g1, a3, H, a2, a1, a0]
+      [(-174142586880 : K[X]), (-174142586880 : K[X]), (-404684800 : K[X]), (-6555893760 : K[X]), (8281128960 : K[X]), (-10868981760 : K[X]), (-32606945280 : K[X]), (15049359360 : K[X]), (75246796800 : K[X]), (-90296156160 : K[X])]
+      [[0, 0, 0, 1, 0, 1, 3, 0, 0, 1],
+        [0, 0, 0, 1, 0, 0, 3, 1, 1, 0],
+        [0, 0, 0, 0, 11, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 8, 1, 0, 0, 0, 0],
+        [0, 0, 0, 0, 7, 0, 1, 1, 0, 0],
+        [0, 0, 0, 0, 6, 0, 2, 0, 1, 0],
+        [0, 0, 0, 0, 5, 2, 0, 0, 0, 0],
+        [0, 0, 0, 0, 5, 0, 3, 0, 0, 1],
+        [0, 0, 0, 0, 4, 1, 1, 1, 0, 0],
+        [0, 0, 0, 0, 3, 1, 2, 0, 1, 0]] +
+      Max11ReflectVal.polyR [Polynomial.C κ, Polynomial.C κ₅, Polynomial.C κ₇, f, g1, a3, H, a2, a1, a0]
+      [(-45148078080 : K[X]), (-45148078080 : K[X]), (116095057920 : K[X]), (116095057920 : K[X]), (116095057920 : K[X]), (-174142586880 : K[X]), (-87071293440 : K[X]), (-87071293440 : K[X]), (-87071293440 : K[X]), (522427760640 : K[X])]
+      [[0, 0, 0, 0, 3, 0, 2, 2, 0, 0],
+        [0, 0, 0, 0, 2, 3, 0, 0, 0, 0],
+        [0, 0, 0, 0, 2, 1, 3, 0, 0, 1],
+        [0, 0, 0, 0, 2, 0, 3, 1, 1, 0],
+        [0, 0, 0, 0, 1, 2, 1, 1, 0, 0],
+        [0, 0, 0, 0, 1, 0, 4, 1, 0, 1],
+        [0, 0, 0, 0, 1, 0, 4, 0, 2, 0],
+        [0, 0, 0, 0, 0, 2, 2, 0, 1, 0],
+        [0, 0, 0, 0, 0, 1, 2, 2, 0, 0],
+        [0, 0, 0, 0, 0, 0, 5, 0, 1, 1]] = 0 := by
+    simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_cons, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, mul_one, one_mul, add_zero, zero_add]
     apply mul_left_cancel₀ (pow_ne_zero 22 hH)
     linear_combination hL'
+  simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_cons, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, mul_one, one_mul, add_zero, zero_add] at hcore
   have hR2n :
-      (-((13271040 : K[X]) * t1 ^ 2 * g1 ^ 7) + (8847360 : K[X]) * t1 * t2
-      * g1 ^ 6 - (716636160 : K[X]) * t1 * g1 ^ 5 * a2 - (1474560 : K[X])
-      * t2 ^ 2 * g1 ^ 5 + (238878720 : K[X]) * t2 * g1 ^ 4 * a2 -
-      (9674588160 : K[X]) * g1 ^ 3 * a2 ^ 2) + H * ((247726080 : K[X]) *
-      t1 ^ 3 * g1 ^ 5 - (154828800 : K[X]) * t1 ^ 2 * t2 * g1 ^ 4 +
-      (7166361600 : K[X]) * t1 ^ 2 * g1 ^ 3 * a2 + (29491200 : K[X]) * t1
-      * t2 ^ 2 * g1 ^ 3 - (2388787200 : K[X]) * t1 * t2 * g1 ^ 2 * a2 +
-      (2149908480 : K[X]) * t1 * g1 ^ 4 * a1 + (38698352640 : K[X]) * t1 *
-      g1 * a2 ^ 2 - (1638400 : K[X]) * t2 ^ 3 * g1 ^ 2 + (159252480 :
-      K[X]) * t2 ^ 2 * g1 * a2 - (716636160 : K[X]) * t2 * g1 ^ 3 * a1 -
-      (3224862720 : K[X]) * t2 * a2 ^ 2 + (58047528960 : K[X]) * g1 ^ 2 *
-      a1 * a2 - Polynomial.C κ * ((31850496 : K[X]) * t1 ^ 2 * g1 ^ 5) +
-      Polynomial.C κ * ((17694720 : K[X]) * t1 * t2 * g1 ^ 4) -
-      Polynomial.C κ * ((1146617856 : K[X]) * t1 * g1 ^ 3 * a2) -
-      Polynomial.C κ * ((2359296 : K[X]) * t2 ^ 2 * g1 ^ 3) + Polynomial.C
-      κ * ((286654464 : K[X]) * t2 * g1 ^ 2 * a2) - Polynomial.C κ *
-      ((7739670528 : K[X]) * g1 * a2 ^ 2)) + H ^ 2 * (-((371589120 : K[X])
-      * t1 ^ 4 * g1 ^ 3) + (165150720 : K[X]) * t1 ^ 3 * t2 * g1 ^ 2 -
-      (3344302080 : K[X]) * t1 ^ 3 * g1 * a2 - (20643840 : K[X]) * t1 ^ 2
-      * t2 ^ 2 * g1 + (477757440 : K[X]) * t1 ^ 2 * t2 * a2 - (10749542400
-      : K[X]) * t1 ^ 2 * g1 ^ 2 * a1 + (655360 : K[X]) * t1 * t2 ^ 3 +
-      (2866544640 : K[X]) * t1 * t2 * g1 * a1 - (6449725440 : K[X]) * t1 *
-      g1 ^ 3 * a0 - (58047528960 : K[X]) * t1 * a1 * a2 - (119439360 :
-      K[X]) * t2 ^ 2 * a1 + (2149908480 : K[X]) * t2 * g1 ^ 2 * a0 -
-      (174142586880 : K[X]) * g1 * a0 * a2 - (87071293440 : K[X]) * g1 *
-      a1 ^ 2 + Polynomial.C κ₅ * ((36864 : K[X]) * t1 * g1 ^ 3) -
-      Polynomial.C κ₅ * ((12288 : K[X]) * t2 * g1 ^ 2) + Polynomial.C κ₅ *
-      ((995328 : K[X]) * g1 * a2) + Polynomial.C κ * ((123863040 : K[X]) *
-      t1 ^ 3 * g1 ^ 3) - Polynomial.C κ * ((53084160 : K[X]) * t1 ^ 2 * t2
-      * g1 ^ 2) + Polynomial.C κ * ((1433272320 : K[X]) * t1 ^ 2 * g1 *
-      a2) + Polynomial.C κ * ((5898240 : K[X]) * t1 * t2 ^ 2 * g1) -
-      Polynomial.C κ * ((191102976 : K[X]) * t1 * t2 * a2) + Polynomial.C
-      κ * ((2579890176 : K[X]) * t1 * g1 ^ 2 * a1) - Polynomial.C κ *
-      ((131072 : K[X]) * t2 ^ 3) - Polynomial.C κ * ((573308928 : K[X]) *
-      t2 * g1 * a1) + Polynomial.C κ * ((23219011584 : K[X]) * a1 * a2)) +
-      H ^ 3 * ((61931520 : K[X]) * t1 ^ 5 * g1 - (10321920 : K[X]) * t1 ^
-      4 * t2 + (1433272320 : K[X]) * t1 ^ 3 * a1 + (12899450880 : K[X]) *
-      t1 ^ 2 * g1 * a0 - (2149908480 : K[X]) * t1 * t2 * a0 +
-      (522427760640 : K[X]) * a0 * a1 + Polynomial.C κ₇ * ((2304 : K[X]) *
-      t1 * g1) - Polynomial.C κ₇ * ((384 : K[X]) * t2) - Polynomial.C κ₅ *
-      ((73728 : K[X]) * t1 ^ 2 * g1) + Polynomial.C κ₅ * ((12288 : K[X]) *
-      t1 * t2) - Polynomial.C κ₅ * ((2985984 : K[X]) * a1) - Polynomial.C
-      κ * ((35389440 : K[X]) * t1 ^ 4 * g1) + Polynomial.C κ * ((5898240 :
-      K[X]) * t1 ^ 3 * t2) - Polynomial.C κ * ((859963392 : K[X]) * t1 ^ 2
-      * a1) - Polynomial.C κ * ((5159780352 : K[X]) * t1 * g1 * a0) +
-      Polynomial.C κ * ((859963392 : K[X]) * t2 * a0)) = 0 := by
+      Max11ReflectVal.polyR [Polynomial.C κ, Polynomial.C κ₅, Polynomial.C κ₇, t1, g1, t2, a2, H, a1, a0]
+      [(-35389440 : K[X]), (123863040 : K[X]), (5898240 : K[X]), (-31850496 : K[X]), (-53084160 : K[X]), (1433272320 : K[X]), (-859963392 : K[X]), (17694720 : K[X]), (-1146617856 : K[X]), (2579890176 : K[X])]
+      [[1, 0, 0, 4, 1, 0, 0, 3, 0, 0],
+        [1, 0, 0, 3, 3, 0, 0, 2, 0, 0],
+        [1, 0, 0, 3, 0, 1, 0, 3, 0, 0],
+        [1, 0, 0, 2, 5, 0, 0, 1, 0, 0],
+        [1, 0, 0, 2, 2, 1, 0, 2, 0, 0],
+        [1, 0, 0, 2, 1, 0, 1, 2, 0, 0],
+        [1, 0, 0, 2, 0, 0, 0, 3, 1, 0],
+        [1, 0, 0, 1, 4, 1, 0, 1, 0, 0],
+        [1, 0, 0, 1, 3, 0, 1, 1, 0, 0],
+        [1, 0, 0, 1, 2, 0, 0, 2, 1, 0]] +
+      Max11ReflectVal.polyR [Polynomial.C κ, Polynomial.C κ₅, Polynomial.C κ₇, t1, g1, t2, a2, H, a1, a0]
+      [(5898240 : K[X]), (-5159780352 : K[X]), (-191102976 : K[X]), (-2359296 : K[X]), (286654464 : K[X]), (-573308928 : K[X]), (-7739670528 : K[X]), (-131072 : K[X]), (859963392 : K[X]), (23219011584 : K[X])]
+      [[1, 0, 0, 1, 1, 2, 0, 2, 0, 0],
+        [1, 0, 0, 1, 1, 0, 0, 3, 0, 1],
+        [1, 0, 0, 1, 0, 1, 1, 2, 0, 0],
+        [1, 0, 0, 0, 3, 2, 0, 1, 0, 0],
+        [1, 0, 0, 0, 2, 1, 1, 1, 0, 0],
+        [1, 0, 0, 0, 1, 1, 0, 2, 1, 0],
+        [1, 0, 0, 0, 1, 0, 2, 1, 0, 0],
+        [1, 0, 0, 0, 0, 3, 0, 2, 0, 0],
+        [1, 0, 0, 0, 0, 1, 0, 3, 0, 1],
+        [1, 0, 0, 0, 0, 0, 1, 2, 1, 0]] +
+      Max11ReflectVal.polyR [Polynomial.C κ, Polynomial.C κ₅, Polynomial.C κ₇, t1, g1, t2, a2, H, a1, a0]
+      [(-73728 : K[X]), (36864 : K[X]), (12288 : K[X]), (-12288 : K[X]), (995328 : K[X]), (-2985984 : K[X]), (2304 : K[X]), (-384 : K[X]), (61931520 : K[X]), (-371589120 : K[X])]
+      [[0, 1, 0, 2, 1, 0, 0, 3, 0, 0],
+        [0, 1, 0, 1, 3, 0, 0, 2, 0, 0],
+        [0, 1, 0, 1, 0, 1, 0, 3, 0, 0],
+        [0, 1, 0, 0, 2, 1, 0, 2, 0, 0],
+        [0, 1, 0, 0, 1, 0, 1, 2, 0, 0],
+        [0, 1, 0, 0, 0, 0, 0, 3, 1, 0],
+        [0, 0, 1, 1, 1, 0, 0, 3, 0, 0],
+        [0, 0, 1, 0, 0, 1, 0, 3, 0, 0],
+        [0, 0, 0, 5, 1, 0, 0, 3, 0, 0],
+        [0, 0, 0, 4, 3, 0, 0, 2, 0, 0]] +
+      Max11ReflectVal.polyR [Polynomial.C κ, Polynomial.C κ₅, Polynomial.C κ₇, t1, g1, t2, a2, H, a1, a0]
+      [(-10321920 : K[X]), (247726080 : K[X]), (165150720 : K[X]), (-3344302080 : K[X]), (1433272320 : K[X]), (-13271040 : K[X]), (-154828800 : K[X]), (7166361600 : K[X]), (-10749542400 : K[X]), (-20643840 : K[X])]
+      [[0, 0, 0, 4, 0, 1, 0, 3, 0, 0],
+        [0, 0, 0, 3, 5, 0, 0, 1, 0, 0],
+        [0, 0, 0, 3, 2, 1, 0, 2, 0, 0],
+        [0, 0, 0, 3, 1, 0, 1, 2, 0, 0],
+        [0, 0, 0, 3, 0, 0, 0, 3, 1, 0],
+        [0, 0, 0, 2, 7, 0, 0, 0, 0, 0],
+        [0, 0, 0, 2, 4, 1, 0, 1, 0, 0],
+        [0, 0, 0, 2, 3, 0, 1, 1, 0, 0],
+        [0, 0, 0, 2, 2, 0, 0, 2, 1, 0],
+        [0, 0, 0, 2, 1, 2, 0, 2, 0, 0]] +
+      Max11ReflectVal.polyR [Polynomial.C κ, Polynomial.C κ₅, Polynomial.C κ₇, t1, g1, t2, a2, H, a1, a0]
+      [(12899450880 : K[X]), (477757440 : K[X]), (8847360 : K[X]), (-716636160 : K[X]), (2149908480 : K[X]), (29491200 : K[X]), (-6449725440 : K[X]), (-2388787200 : K[X]), (2866544640 : K[X]), (38698352640 : K[X])]
+      [[0, 0, 0, 2, 1, 0, 0, 3, 0, 1],
+        [0, 0, 0, 2, 0, 1, 1, 2, 0, 0],
+        [0, 0, 0, 1, 6, 1, 0, 0, 0, 0],
+        [0, 0, 0, 1, 5, 0, 1, 0, 0, 0],
+        [0, 0, 0, 1, 4, 0, 0, 1, 1, 0],
+        [0, 0, 0, 1, 3, 2, 0, 1, 0, 0],
+        [0, 0, 0, 1, 3, 0, 0, 2, 0, 1],
+        [0, 0, 0, 1, 2, 1, 1, 1, 0, 0],
+        [0, 0, 0, 1, 1, 1, 0, 2, 1, 0],
+        [0, 0, 0, 1, 1, 0, 2, 1, 0, 0]] +
+      Max11ReflectVal.polyR [Polynomial.C κ, Polynomial.C κ₅, Polynomial.C κ₇, t1, g1, t2, a2, H, a1, a0]
+      [(655360 : K[X]), (-2149908480 : K[X]), (-58047528960 : K[X]), (-1474560 : K[X]), (238878720 : K[X]), (-716636160 : K[X]), (-9674588160 : K[X]), (-1638400 : K[X]), (2149908480 : K[X]), (58047528960 : K[X])]
+      [[0, 0, 0, 1, 0, 3, 0, 2, 0, 0],
+        [0, 0, 0, 1, 0, 1, 0, 3, 0, 1],
+        [0, 0, 0, 1, 0, 0, 1, 2, 1, 0],
+        [0, 0, 0, 0, 5, 2, 0, 0, 0, 0],
+        [0, 0, 0, 0, 4, 1, 1, 0, 0, 0],
+        [0, 0, 0, 0, 3, 1, 0, 1, 1, 0],
+        [0, 0, 0, 0, 3, 0, 2, 0, 0, 0],
+        [0, 0, 0, 0, 2, 3, 0, 1, 0, 0],
+        [0, 0, 0, 0, 2, 1, 0, 2, 0, 1],
+        [0, 0, 0, 0, 2, 0, 1, 1, 1, 0]] +
+      Max11ReflectVal.polyR [Polynomial.C κ, Polynomial.C κ₅, Polynomial.C κ₇, t1, g1, t2, a2, H, a1, a0]
+      [(159252480 : K[X]), (-174142586880 : K[X]), (-87071293440 : K[X]), (-119439360 : K[X]), (-3224862720 : K[X]), (522427760640 : K[X])]
+      [[0, 0, 0, 0, 1, 2, 1, 1, 0, 0],
+        [0, 0, 0, 0, 1, 0, 1, 2, 0, 1],
+        [0, 0, 0, 0, 1, 0, 0, 2, 2, 0],
+        [0, 0, 0, 0, 0, 2, 0, 2, 1, 0],
+        [0, 0, 0, 0, 0, 1, 2, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 3, 1, 1]] = 0 := by
+    simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_cons, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, mul_one, one_mul, add_zero, zero_add]
     apply mul_left_cancel₀ (pow_ne_zero 2 hH)
     linear_combination hcore + (-((61931520 : K[X]) * t1 ^ 4 * g1 * H ^ 4 - (423198720 : K[X]) * t1 ^
       3 * g1 ^ 3 * H ^ 3 + (185794560 : K[X]) * t1 ^ 3 * g1 * f * H ^ 3 -
@@ -663,42 +744,73 @@ theorem alignedNonsquareEleventh_descent_610 {K : Type*}
       ((573308928 : K[X]) * g1 * a1 * H ^ 3) - Polynomial.C κ * ((95551488
       : K[X]) * a3 ^ 2 * H) + Polynomial.C κ * ((859963392 : K[X]) * a0 *
       H ^ 4))) * ht2
+  simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_cons, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, mul_one, one_mul, add_zero, zero_add] at hR2n
   have hR3n :
-      ((35389440 : K[X]) * t1 ^ 3 * g1 ^ 5 - (17694720 : K[X]) * t1 ^ 2 *
-      t2 * g1 ^ 4 + (2949120 : K[X]) * t1 * t2 ^ 2 * g1 ^ 3 - (163840 :
-      K[X]) * t2 ^ 3 * g1 ^ 2) + H * (-((247726080 : K[X]) * t1 ^ 4 * g1 ^
-      3) + (106168320 : K[X]) * t1 ^ 3 * t2 * g1 ^ 2 - (14745600 : K[X]) *
-      t1 ^ 2 * t2 ^ 2 * g1 + (53084160 : K[X]) * t1 ^ 2 * u * g1 ^ 3 -
-      (8599633920 : K[X]) * t1 ^ 2 * g1 ^ 2 * a1 + (655360 : K[X]) * t1 *
-      t2 ^ 3 - (14745600 : K[X]) * t1 * t2 * u * g1 ^ 2 + (2149908480 :
-      K[X]) * t1 * t2 * g1 * a1 + (983040 : K[X]) * t2 ^ 2 * u * g1 -
-      (119439360 : K[X]) * t2 ^ 2 * a1 - (1474560 : K[X]) * u ^ 2 * g1 ^ 3
-      + (716636160 : K[X]) * u * g1 ^ 2 * a1 - (87071293440 : K[X]) * g1 *
-      a1 ^ 2 + Polynomial.C κ * ((70778880 : K[X]) * t1 ^ 3 * g1 ^ 3) -
-      Polynomial.C κ * ((28311552 : K[X]) * t1 ^ 2 * t2 * g1 ^ 2) +
-      Polynomial.C κ * ((3538944 : K[X]) * t1 * t2 ^ 2 * g1) -
-      Polynomial.C κ * ((7077888 : K[X]) * t1 * u * g1 ^ 3) + Polynomial.C
-      κ * ((1719926784 : K[X]) * t1 * g1 ^ 2 * a1) - Polynomial.C κ *
-      ((131072 : K[X]) * t2 ^ 3) + Polynomial.C κ * ((1179648 : K[X]) * t2
-      * u * g1 ^ 2) - Polynomial.C κ * ((286654464 : K[X]) * t2 * g1 *
-      a1)) + H ^ 2 * ((61931520 : K[X]) * t1 ^ 5 * g1 - (10321920 : K[X])
-      * t1 ^ 4 * t2 - (41287680 : K[X]) * t1 ^ 3 * u * g1 + (1433272320 :
-      K[X]) * t1 ^ 3 * a1 + (5898240 : K[X]) * t1 ^ 2 * t2 * u +
-      (12899450880 : K[X]) * t1 ^ 2 * g1 * a0 - (2149908480 : K[X]) * t1 *
-      t2 * a0 + (5898240 : K[X]) * t1 * u ^ 2 * g1 - (716636160 : K[X]) *
-      t1 * u * a1 - (491520 : K[X]) * t2 * u ^ 2 - (2149908480 : K[X]) * u
-      * g1 * a0 + (522427760640 : K[X]) * a0 * a1 + Polynomial.C κ₇ *
-      ((2304 : K[X]) * t1 * g1) - Polynomial.C κ₇ * ((384 : K[X]) * t2) -
-      Polynomial.C κ₅ * ((73728 : K[X]) * t1 ^ 2 * g1) + Polynomial.C κ₅ *
-      ((12288 : K[X]) * t1 * t2) + Polynomial.C κ₅ * ((12288 : K[X]) * u *
-      g1) - Polynomial.C κ₅ * ((2985984 : K[X]) * a1) - Polynomial.C κ *
-      ((35389440 : K[X]) * t1 ^ 4 * g1) + Polynomial.C κ * ((5898240 :
-      K[X]) * t1 ^ 3 * t2) + Polynomial.C κ * ((17694720 : K[X]) * t1 ^ 2
-      * u * g1) - Polynomial.C κ * ((859963392 : K[X]) * t1 ^ 2 * a1) -
-      Polynomial.C κ * ((2359296 : K[X]) * t1 * t2 * u) - Polynomial.C κ *
-      ((5159780352 : K[X]) * t1 * g1 * a0) + Polynomial.C κ * ((859963392
-      : K[X]) * t2 * a0) - Polynomial.C κ * ((1179648 : K[X]) * u ^ 2 *
-      g1) + Polynomial.C κ * ((286654464 : K[X]) * u * a1)) = 0 := by
+      Max11ReflectVal.polyR [Polynomial.C κ, Polynomial.C κ₇, Polynomial.C κ₅, t1, g1, t2, H, u, a1, a0]
+      [(-35389440 : K[X]), (70778880 : K[X]), (5898240 : K[X]), (-28311552 : K[X]), (17694720 : K[X]), (-859963392 : K[X]), (-7077888 : K[X]), (1719926784 : K[X]), (3538944 : K[X]), (-5159780352 : K[X])]
+      [[1, 0, 0, 4, 1, 0, 2, 0, 0, 0],
+        [1, 0, 0, 3, 3, 0, 1, 0, 0, 0],
+        [1, 0, 0, 3, 0, 1, 2, 0, 0, 0],
+        [1, 0, 0, 2, 2, 1, 1, 0, 0, 0],
+        [1, 0, 0, 2, 1, 0, 2, 1, 0, 0],
+        [1, 0, 0, 2, 0, 0, 2, 0, 1, 0],
+        [1, 0, 0, 1, 3, 0, 1, 1, 0, 0],
+        [1, 0, 0, 1, 2, 0, 1, 0, 1, 0],
+        [1, 0, 0, 1, 1, 2, 1, 0, 0, 0],
+        [1, 0, 0, 1, 1, 0, 2, 0, 0, 1]] +
+      Max11ReflectVal.polyR [Polynomial.C κ, Polynomial.C κ₇, Polynomial.C κ₅, t1, g1, t2, H, u, a1, a0]
+      [(-2359296 : K[X]), (1179648 : K[X]), (-286654464 : K[X]), (-1179648 : K[X]), (-131072 : K[X]), (859963392 : K[X]), (286654464 : K[X]), (2304 : K[X]), (-384 : K[X]), (-73728 : K[X])]
+      [[1, 0, 0, 1, 0, 1, 2, 1, 0, 0],
+        [1, 0, 0, 0, 2, 1, 1, 1, 0, 0],
+        [1, 0, 0, 0, 1, 1, 1, 0, 1, 0],
+        [1, 0, 0, 0, 1, 0, 2, 2, 0, 0],
+        [1, 0, 0, 0, 0, 3, 1, 0, 0, 0],
+        [1, 0, 0, 0, 0, 1, 2, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 2, 1, 1, 0],
+        [0, 1, 0, 1, 1, 0, 2, 0, 0, 0],
+        [0, 1, 0, 0, 0, 1, 2, 0, 0, 0],
+        [0, 0, 1, 2, 1, 0, 2, 0, 0, 0]] +
+      Max11ReflectVal.polyR [Polynomial.C κ, Polynomial.C κ₇, Polynomial.C κ₅, t1, g1, t2, H, u, a1, a0]
+      [(12288 : K[X]), (12288 : K[X]), (-2985984 : K[X]), (61931520 : K[X]), (-247726080 : K[X]), (-10321920 : K[X]), (35389440 : K[X]), (106168320 : K[X]), (-41287680 : K[X]), (1433272320 : K[X])]
+      [[0, 0, 1, 1, 0, 1, 2, 0, 0, 0],
+        [0, 0, 1, 0, 1, 0, 2, 1, 0, 0],
+        [0, 0, 1, 0, 0, 0, 2, 0, 1, 0],
+        [0, 0, 0, 5, 1, 0, 2, 0, 0, 0],
+        [0, 0, 0, 4, 3, 0, 1, 0, 0, 0],
+        [0, 0, 0, 4, 0, 1, 2, 0, 0, 0],
+        [0, 0, 0, 3, 5, 0, 0, 0, 0, 0],
+        [0, 0, 0, 3, 2, 1, 1, 0, 0, 0],
+        [0, 0, 0, 3, 1, 0, 2, 1, 0, 0],
+        [0, 0, 0, 3, 0, 0, 2, 0, 1, 0]] +
+      Max11ReflectVal.polyR [Polynomial.C κ, Polynomial.C κ₇, Polynomial.C κ₅, t1, g1, t2, H, u, a1, a0]
+      [(-17694720 : K[X]), (53084160 : K[X]), (-8599633920 : K[X]), (-14745600 : K[X]), (12899450880 : K[X]), (5898240 : K[X]), (2949120 : K[X]), (-14745600 : K[X]), (2149908480 : K[X]), (5898240 : K[X])]
+      [[0, 0, 0, 2, 4, 1, 0, 0, 0, 0],
+        [0, 0, 0, 2, 3, 0, 1, 1, 0, 0],
+        [0, 0, 0, 2, 2, 0, 1, 0, 1, 0],
+        [0, 0, 0, 2, 1, 2, 1, 0, 0, 0],
+        [0, 0, 0, 2, 1, 0, 2, 0, 0, 1],
+        [0, 0, 0, 2, 0, 1, 2, 1, 0, 0],
+        [0, 0, 0, 1, 3, 2, 0, 0, 0, 0],
+        [0, 0, 0, 1, 2, 1, 1, 1, 0, 0],
+        [0, 0, 0, 1, 1, 1, 1, 0, 1, 0],
+        [0, 0, 0, 1, 1, 0, 2, 2, 0, 0]] +
+      Max11ReflectVal.polyR [Polynomial.C κ, Polynomial.C κ₇, Polynomial.C κ₅, t1, g1, t2, H, u, a1, a0]
+      [(655360 : K[X]), (-2149908480 : K[X]), (-716636160 : K[X]), (-1474560 : K[X]), (-163840 : K[X]), (716636160 : K[X]), (983040 : K[X]), (-2149908480 : K[X]), (-87071293440 : K[X]), (-119439360 : K[X])]
+      [[0, 0, 0, 1, 0, 3, 1, 0, 0, 0],
+        [0, 0, 0, 1, 0, 1, 2, 0, 0, 1],
+        [0, 0, 0, 1, 0, 0, 2, 1, 1, 0],
+        [0, 0, 0, 0, 3, 0, 1, 2, 0, 0],
+        [0, 0, 0, 0, 2, 3, 0, 0, 0, 0],
+        [0, 0, 0, 0, 2, 0, 1, 1, 1, 0],
+        [0, 0, 0, 0, 1, 2, 1, 1, 0, 0],
+        [0, 0, 0, 0, 1, 0, 2, 1, 0, 1],
+        [0, 0, 0, 0, 1, 0, 1, 0, 2, 0],
+        [0, 0, 0, 0, 0, 2, 1, 0, 1, 0]] +
+      Max11ReflectVal.polyR [Polynomial.C κ, Polynomial.C κ₇, Polynomial.C κ₅, t1, g1, t2, H, u, a1, a0]
+      [(-491520 : K[X]), (522427760640 : K[X])]
+      [[0, 0, 0, 0, 0, 1, 2, 2, 0, 0],
+        [0, 0, 0, 0, 0, 0, 2, 0, 1, 1]] = 0 := by
+    simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_cons, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, mul_one, one_mul, add_zero, zero_add]
     apply mul_left_cancel₀ hH
     linear_combination hR2n + (-(-((41287680 : K[X]) * t1 ^ 3 * g1 * H ^ 2) + (5898240 : K[X]) * t1 ^
       2 * t2 * H ^ 2 + (70778880 : K[X]) * t1 ^ 2 * g1 ^ 3 * H - (22118400
@@ -716,31 +828,52 @@ theorem alignedNonsquareEleventh_descent_610 {K : Type*}
       ((2359296 : K[X]) * t2 * g1 ^ 2 * H) - Polynomial.C κ * ((1179648 :
       K[X]) * u * g1 * H ^ 2) - Polynomial.C κ * ((95551488 : K[X]) * g1 *
       a2 * H) + Polynomial.C κ * ((286654464 : K[X]) * a1 * H ^ 2))) * hu
+  simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_cons, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, mul_one, one_mul, add_zero, zero_add] at hR3n
   have hR4n :
-      (-((1474560 : K[X]) * u ^ 2 * g1 ^ 3) + (716636160 : K[X]) * u * g1
-      ^ 2 * a1 - (87071293440 : K[X]) * g1 * a1 ^ 2) + H * (-((5898240 :
-      K[X]) * t1 ^ 3 * u * g1) + (1433272320 : K[X]) * t1 ^ 3 * a1 +
-      (2949120 : K[X]) * t1 * u ^ 2 * g1 - (2949120 : K[X]) * t1 * u * t3
-      * g1 ^ 2 - (716636160 : K[X]) * t1 * u * a1 + (716636160 : K[X]) *
-      t1 * t3 * g1 * a1 - (2149908480 : K[X]) * u * g1 * a0 +
-      (522427760640 : K[X]) * a0 * a1 + Polynomial.C κ₅ * ((12288 : K[X])
-      * u * g1) - Polynomial.C κ₅ * ((2985984 : K[X]) * a1) + Polynomial.C
-      κ * ((3538944 : K[X]) * t1 ^ 2 * u * g1) - Polynomial.C κ *
-      ((859963392 : K[X]) * t1 ^ 2 * a1) - Polynomial.C κ * ((1179648 :
-      K[X]) * u ^ 2 * g1) + Polynomial.C κ * ((1179648 : K[X]) * u * t3 *
-      g1 ^ 2) + Polynomial.C κ * ((286654464 : K[X]) * u * a1) -
-      Polynomial.C κ * ((286654464 : K[X]) * t3 * g1 * a1)) + H ^ 2 *
-      (-((10321920 : K[X]) * t1 ^ 4 * t3) + (5898240 : K[X]) * t1 ^ 2 * u
-      * t3 - (2949120 : K[X]) * t1 ^ 2 * t3 ^ 2 * g1 - (2149908480 : K[X])
-      * t1 * t3 * a0 - (491520 : K[X]) * u ^ 2 * t3 + (983040 : K[X]) * u
-      * t3 ^ 2 * g1 - (163840 : K[X]) * t3 ^ 3 * g1 ^ 2 - (119439360 :
-      K[X]) * t3 ^ 2 * a1 - Polynomial.C κ₇ * ((384 : K[X]) * t3) +
-      Polynomial.C κ₅ * ((12288 : K[X]) * t1 * t3) + Polynomial.C κ *
-      ((5898240 : K[X]) * t1 ^ 3 * t3) - Polynomial.C κ * ((2359296 :
-      K[X]) * t1 * u * t3) + Polynomial.C κ * ((1179648 : K[X]) * t1 * t3
-      ^ 2 * g1) + Polynomial.C κ * ((859963392 : K[X]) * t3 * a0)) + H ^ 3
-      * ((655360 : K[X]) * t1 * t3 ^ 3 - Polynomial.C κ * ((131072 : K[X])
-      * t3 ^ 3)) = 0 := by
+      Max11ReflectVal.polyR [Polynomial.C κ₅, Polynomial.C κ, Polynomial.C κ₇, u, g1, a1, H, t1, t3, a0]
+      [(12288 : K[X]), (-2985984 : K[X]), (12288 : K[X]), (-1179648 : K[X]), (1179648 : K[X]), (3538944 : K[X]), (286654464 : K[X]), (-2359296 : K[X]), (-286654464 : K[X]), (1179648 : K[X])]
+      [[1, 0, 0, 1, 1, 0, 1, 0, 0, 0],
+        [1, 0, 0, 0, 0, 1, 1, 0, 0, 0],
+        [1, 0, 0, 0, 0, 0, 2, 1, 1, 0],
+        [0, 1, 0, 2, 1, 0, 1, 0, 0, 0],
+        [0, 1, 0, 1, 2, 0, 1, 0, 1, 0],
+        [0, 1, 0, 1, 1, 0, 1, 2, 0, 0],
+        [0, 1, 0, 1, 0, 1, 1, 0, 0, 0],
+        [0, 1, 0, 1, 0, 0, 2, 1, 1, 0],
+        [0, 1, 0, 0, 1, 1, 1, 0, 1, 0],
+        [0, 1, 0, 0, 1, 0, 2, 1, 2, 0]] +
+      Max11ReflectVal.polyR [Polynomial.C κ₅, Polynomial.C κ, Polynomial.C κ₇, u, g1, a1, H, t1, t3, a0]
+      [(-859963392 : K[X]), (-131072 : K[X]), (5898240 : K[X]), (859963392 : K[X]), (-384 : K[X]), (-1474560 : K[X]), (2949120 : K[X]), (-491520 : K[X]), (716636160 : K[X]), (-2949120 : K[X])]
+      [[0, 1, 0, 0, 0, 1, 1, 2, 0, 0],
+        [0, 1, 0, 0, 0, 0, 3, 0, 3, 0],
+        [0, 1, 0, 0, 0, 0, 2, 3, 1, 0],
+        [0, 1, 0, 0, 0, 0, 2, 0, 1, 1],
+        [0, 0, 1, 0, 0, 0, 2, 0, 1, 0],
+        [0, 0, 0, 2, 3, 0, 0, 0, 0, 0],
+        [0, 0, 0, 2, 1, 0, 1, 1, 0, 0],
+        [0, 0, 0, 2, 0, 0, 2, 0, 1, 0],
+        [0, 0, 0, 1, 2, 1, 0, 0, 0, 0],
+        [0, 0, 0, 1, 2, 0, 1, 1, 1, 0]] +
+      Max11ReflectVal.polyR [Polynomial.C κ₅, Polynomial.C κ, Polynomial.C κ₇, u, g1, a1, H, t1, t3, a0]
+      [(983040 : K[X]), (-5898240 : K[X]), (-2149908480 : K[X]), (-716636160 : K[X]), (5898240 : K[X]), (-163840 : K[X]), (-87071293440 : K[X]), (716636160 : K[X]), (-2949120 : K[X]), (-119439360 : K[X])]
+      [[0, 0, 0, 1, 1, 0, 2, 0, 2, 0],
+        [0, 0, 0, 1, 1, 0, 1, 3, 0, 0],
+        [0, 0, 0, 1, 1, 0, 1, 0, 0, 1],
+        [0, 0, 0, 1, 0, 1, 1, 1, 0, 0],
+        [0, 0, 0, 1, 0, 0, 2, 2, 1, 0],
+        [0, 0, 0, 0, 2, 0, 2, 0, 3, 0],
+        [0, 0, 0, 0, 1, 2, 0, 0, 0, 0],
+        [0, 0, 0, 0, 1, 1, 1, 1, 1, 0],
+        [0, 0, 0, 0, 1, 0, 2, 2, 2, 0],
+        [0, 0, 0, 0, 0, 1, 2, 0, 2, 0]] +
+      Max11ReflectVal.polyR [Polynomial.C κ₅, Polynomial.C κ, Polynomial.C κ₇, u, g1, a1, H, t1, t3, a0]
+      [(1433272320 : K[X]), (522427760640 : K[X]), (655360 : K[X]), (-10321920 : K[X]), (-2149908480 : K[X])]
+      [[0, 0, 0, 0, 0, 1, 1, 3, 0, 0],
+        [0, 0, 0, 0, 0, 1, 1, 0, 0, 1],
+        [0, 0, 0, 0, 0, 0, 3, 1, 3, 0],
+        [0, 0, 0, 0, 0, 0, 2, 4, 1, 0],
+        [0, 0, 0, 0, 0, 0, 2, 1, 1, 1]] = 0 := by
+    simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_cons, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, mul_one, one_mul, add_zero, zero_add]
     apply mul_left_cancel₀ hH
     linear_combination hR3n + (-(-((10321920 : K[X]) * t1 ^ 4 * H ^ 2) + (41287680 : K[X]) * t1 ^ 3 *
       g1 ^ 2 * H - (10813440 : K[X]) * t1 ^ 2 * t2 * g1 * H + (5898240 :
@@ -766,6 +899,7 @@ theorem alignedNonsquareEleventh_descent_610 {K : Type*}
       H) - Polynomial.C κ * ((131072 : K[X]) * t3 ^ 2 * H ^ 3) -
       Polynomial.C κ * ((286654464 : K[X]) * g1 * a1 * H) + Polynomial.C κ
       * ((859963392 : K[X]) * a0 * H ^ 2))) * ht3
+  simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_cons, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, mul_one, one_mul, add_zero, zero_add] at hR4n
   simp only [alignedEleventhNonsquareResidue610]
   apply mul_left_cancel₀ (mul_ne_zero
     (show (-128 : K[X]) ≠ 0 by norm_num) (pow_ne_zero 2 hH))

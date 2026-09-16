@@ -28,8 +28,41 @@ section NoncubicBetaDegreeZero410
 
 variable {k : Type*} [Field k] [CharZero k]
 
+private structure Astra4oBound410 (p : k[X]) (u : ℕ) : Prop where
+  le : p.natDegree ≤ u
+
+private theorem astra4o_bd_self410 (p : k[X]) : Astra4oBound410 p p.natDegree := ⟨le_rfl⟩
+
+private theorem astra4o_bd_smul410 (r : k) {p : k[X]} {u : ℕ}
+    (hp : Astra4oBound410 p u) : Astra4oBound410 (r • p) u :=
+  ⟨(natDegree_smul_le r p).trans hp.le⟩
+
+private theorem astra4o_bd_add410 {p q : k[X]} {u v : ℕ}
+    (hp : Astra4oBound410 p u) (hq : Astra4oBound410 q v) :
+    Astra4oBound410 (p + q) (max u v) :=
+  ⟨(natDegree_add_le p q).trans (max_le_max hp.le hq.le)⟩
+
+private theorem astra4o_bd_sub410 {p q : k[X]} {u v : ℕ}
+    (hp : Astra4oBound410 p u) (hq : Astra4oBound410 q v) :
+    Astra4oBound410 (p - q) (max u v) :=
+  ⟨(natDegree_sub_le p q).trans (max_le_max hp.le hq.le)⟩
+
+private theorem astra4o_bd_mul410 {p q : k[X]} {u v : ℕ}
+    (hp : Astra4oBound410 p u) (hq : Astra4oBound410 q v) :
+    Astra4oBound410 (p * q) (u + v) :=
+  ⟨natDegree_mul_le.trans (Nat.add_le_add hp.le hq.le)⟩
+
+private theorem astra4o_bd_pow410 {p : k[X]} {u : ℕ} (m : ℕ)
+    (hp : Astra4oBound410 p u) : Astra4oBound410 (p ^ m) (m * u) :=
+  ⟨natDegree_pow_le.trans (Nat.mul_le_mul (le_refl m) hp.le)⟩
+
+private theorem astra4o_lt_of_bd410 {p : k[X]} {u b : ℕ}
+    (hp : Astra4oBound410 p u) (h : u < b) : p.natDegree < b :=
+  lt_of_le_of_lt hp.le h
+
 /-! ## Constant-`A` chamber -/
 
+set_option maxHeartbeats 64000000 in
 /-- Everything except the `C0^3` zero-load face of `I1`. -/
 def noncubicBetaConstantAOneRest410
     (beta gamma delta zeta eta theta : k) (A B C0 : k[X]) : k[X] :=
@@ -40,6 +73,7 @@ def noncubicBetaConstantAOneRest410
       betaLoadOnePolynomial410 beta A B C0 +
         betaLoadOneRest410 gamma delta zeta eta theta A B C0
 
+set_option maxHeartbeats 64000000 in
 theorem firstIntegralOne410_eq_Ccube_add_constantA_rest
     (beta gamma delta zeta eta theta : k) (A B C0 : k[X]) :
     firstIntegralOnePolynomial410 0 beta gamma delta zeta eta theta
@@ -52,6 +86,7 @@ theorem firstIntegralOne410_eq_Ccube_add_constantA_rest
   simp only [noncubicBetaConstantAOneRest410]
   abel
 
+set_option maxHeartbeats 64000000 in
 theorem noncubicBetaConstantAOneRest410_natDegree_lt
     (beta gamma delta zeta eta theta : k) (A B C0 : k[X])
     (hA0 : A.natDegree = 0) (hB0 : B.natDegree = 0)
@@ -59,11 +94,13 @@ theorem noncubicBetaConstantAOneRest410_natDegree_lt
     (noncubicBetaConstantAOneRest410
       beta gamma delta zeta eta theta A B C0).natDegree <
         3 * C0.natDegree := by
-  simp only [noncubicBetaConstantAOneRest410, betaLoadOnePolynomial410,
+  dsimp only [noncubicBetaConstantAOneRest410, betaLoadOnePolynomial410,
     betaLoadOneRest410]
-  compute_degree
+  refine astra4o_lt_of_bd410 (astra4o_bd_add410 (astra4o_bd_add410 (astra4o_bd_sub410 (astra4o_bd_sub410 (astra4o_bd_sub410 (astra4o_bd_add410 (astra4o_bd_add410 (astra4o_bd_smul410 (-(5 / 256 : k)) (astra4o_bd_pow410 6 (astra4o_bd_self410 A))) (astra4o_bd_smul410 (15 / 64 : k) (astra4o_bd_mul410 (astra4o_bd_pow410 4 (astra4o_bd_self410 A)) (astra4o_bd_self410 C0)))) (astra4o_bd_smul410 (15 / 32 : k) (astra4o_bd_mul410 (astra4o_bd_pow410 3 (astra4o_bd_self410 A)) (astra4o_bd_pow410 2 (astra4o_bd_self410 B))))) (astra4o_bd_smul410 (15 / 16 : k) (astra4o_bd_mul410 (astra4o_bd_pow410 2 (astra4o_bd_self410 A)) (astra4o_bd_pow410 2 (astra4o_bd_self410 C0))))) (astra4o_bd_smul410 (15 / 8 : k) (astra4o_bd_mul410 (astra4o_bd_mul410 (astra4o_bd_self410 A) (astra4o_bd_pow410 2 (astra4o_bd_self410 B))) (astra4o_bd_self410 C0)))) (astra4o_bd_smul410 (5 / 32 : k) (astra4o_bd_pow410 4 (astra4o_bd_self410 B)))) (astra4o_bd_sub410 (astra4o_bd_sub410 (astra4o_bd_smul410 (35 / 128 * beta : k) (astra4o_bd_mul410 (astra4o_bd_pow410 3 (astra4o_bd_self410 A)) (astra4o_bd_self410 B))) (astra4o_bd_smul410 (21 / 16 * beta : k) (astra4o_bd_mul410 (astra4o_bd_mul410 (astra4o_bd_self410 A) (astra4o_bd_self410 B)) (astra4o_bd_self410 C0)))) (astra4o_bd_smul410 (7 / 32 * beta : k) (astra4o_bd_pow410 3 (astra4o_bd_self410 B))))) (astra4o_bd_add410 (astra4o_bd_add410 (astra4o_bd_sub410 (astra4o_bd_sub410 (astra4o_bd_add410 (astra4o_bd_sub410 (astra4o_bd_add410 (astra4o_bd_sub410 (astra4o_bd_sub410 (astra4o_bd_smul410 (3 / 32 * gamma : k) (astra4o_bd_pow410 4 (astra4o_bd_self410 A))) (astra4o_bd_smul410 (3 / 4 * gamma : k) (astra4o_bd_mul410 (astra4o_bd_pow410 2 (astra4o_bd_self410 A)) (astra4o_bd_self410 C0)))) (astra4o_bd_smul410 (3 / 4 * gamma : k) (astra4o_bd_mul410 (astra4o_bd_self410 A) (astra4o_bd_pow410 2 (astra4o_bd_self410 B))))) (astra4o_bd_smul410 (3 / 2 * gamma : k) (astra4o_bd_pow410 2 (astra4o_bd_self410 C0)))) (astra4o_bd_smul410 (15 / 32 * delta : k) (astra4o_bd_mul410 (astra4o_bd_pow410 2 (astra4o_bd_self410 A)) (astra4o_bd_self410 B)))) (astra4o_bd_smul410 (5 / 4 * delta : k) (astra4o_bd_mul410 (astra4o_bd_self410 B) (astra4o_bd_self410 C0)))) (astra4o_bd_smul410 (3 / 4 * zeta : k) (astra4o_bd_mul410 (astra4o_bd_self410 A) (astra4o_bd_self410 B)))) (astra4o_bd_smul410 (1 / 2 * eta : k) (astra4o_bd_pow410 2 (astra4o_bd_self410 A)))) (astra4o_bd_smul410 (2 * eta : k) (astra4o_bd_self410 C0))) (astra4o_bd_smul410 (theta) (astra4o_bd_self410 B)))) ?_
+  clear * - hA0 hB0 hCpos
   omega
 
+set_option maxHeartbeats 64000000 in
 theorem noncubicBeta_degreeZero_constantA_C_positive_impossible
     (beta gamma delta zeta eta theta k1 : k) (A B C0 : k[X])
     (hA0 : A.natDegree = 0) (hB0 : B.natDegree = 0)
@@ -92,6 +129,7 @@ theorem noncubicBeta_degreeZero_constantA_C_positive_impossible
 
 /-! ## Positive-`A` chamber -/
 
+set_option maxHeartbeats 64000000 in
 /-- Constancy of the nonzero cubic core, with constant nonzero `B`, forces
 the balanced degree `deg C0 = 2 deg A`. -/
 theorem noncubicBeta_constantCore_balanced
@@ -108,7 +146,8 @@ theorem noncubicBeta_constantCore_balanced
   · have hrest :
         ((-(24 : k)) • (A * C0) - (4 : k) • B ^ 2).natDegree <
           3 * A.natDegree := by
-      compute_degree
+      refine astra4o_lt_of_bd410 (astra4o_bd_sub410 (astra4o_bd_smul410 (-(24 : k)) (astra4o_bd_mul410 (astra4o_bd_self410 A) (astra4o_bd_self410 C0))) (astra4o_bd_smul410 (4 : k) (astra4o_bd_pow410 2 (astra4o_bd_self410 B)))) ?_
+      clear * - hApos hB0 hlow
       omega
     have hfaceDeg : (A ^ 3).natDegree = 3 * A.natDegree := by
       rw [natDegree_pow]
@@ -129,7 +168,8 @@ theorem noncubicBeta_constantCore_balanced
     have hrest :
         ((5 : k) • A ^ 3 - (4 : k) • B ^ 2).natDegree <
           A.natDegree + C0.natDegree := by
-      compute_degree
+      refine astra4o_lt_of_bd410 (astra4o_bd_sub410 (astra4o_bd_smul410 (5 : k) (astra4o_bd_pow410 3 (astra4o_bd_self410 A))) (astra4o_bd_smul410 (4 : k) (astra4o_bd_pow410 2 (astra4o_bd_self410 B)))) ?_
+      clear * - hApos hB0 hhigh
       omega
     have hfaceDeg : (A * C0).natDegree =
         A.natDegree + C0.natDegree := by
@@ -144,6 +184,7 @@ theorem noncubicBeta_constantCore_balanced
       (A.natDegree + C0.natDegree) (by norm_num) (mul_ne_zero hA hC0)
       (by omega) hfaceDeg hrest heqCore).elim
 
+set_option maxHeartbeats 64000000 in
 /-- Leading equation of a constant cubic core on its balanced positive
 degree chamber. -/
 theorem noncubicBeta_constantCore_balanced_leadingCoeff
@@ -178,6 +219,7 @@ theorem noncubicBeta_constantCore_balanced_leadingCoeff
     smul_eq_mul, mul_zero, sub_zero] at hcoeff
   exact hcoeff
 
+set_option maxHeartbeats 64000000 in
 /-- The omitted terms below the balanced positive-degree `I1` face,
 including the genuine nonzero beta contribution. -/
 def noncubicBetaBalancedOneRest410
@@ -185,6 +227,7 @@ def noncubicBetaBalancedOneRest410
   betaCubicBalancedStrictOneRest410 gamma delta zeta eta theta A B C0 +
     betaLoadOnePolynomial410 beta A B C0
 
+set_option maxHeartbeats 64000000 in
 theorem firstIntegralOne410_eq_noncubicBalancedFace_add_rest
     (beta gamma delta zeta eta theta : k) (A B C0 : k[X]) :
     firstIntegralOnePolynomial410 0 beta gamma delta zeta eta theta
@@ -198,6 +241,7 @@ theorem firstIntegralOne410_eq_noncubicBalancedFace_add_rest
     betaCubicBalancedStrictOneRest410, noncubicBetaBalancedOneRest410]
   abel
 
+set_option maxHeartbeats 64000000 in
 theorem noncubicBetaBalancedOneRest410_natDegree_lt
     (beta gamma delta zeta eta theta : k) (A B C0 : k[X])
     (hApos : 0 < A.natDegree) (hB0 : B.natDegree = 0)
@@ -205,12 +249,17 @@ theorem noncubicBetaBalancedOneRest410_natDegree_lt
     (noncubicBetaBalancedOneRest410
       beta gamma delta zeta eta theta A B C0).natDegree <
         6 * A.natDegree := by
-  simp only [noncubicBetaBalancedOneRest410,
-    betaCubicBalancedStrictOneRest410, betaLoadOnePolynomial410,
-    betaLoadOneRest410]
-  compute_degree
-  omega
+  dsimp only [noncubicBetaBalancedOneRest410]
+  refine (natDegree_add_le _ _).trans_lt (max_lt ?_ ?_)
+  · exact betaCubicBalancedStrictOneRest410_natDegree_lt
+      gamma delta zeta eta theta A B C0 hApos hbalanced
+      (by clear * - hApos hB0; omega)
+  · dsimp only [betaLoadOnePolynomial410]
+    refine astra4o_lt_of_bd410 (astra4o_bd_sub410 (astra4o_bd_sub410 (astra4o_bd_smul410 (35 / 128 * beta : k) (astra4o_bd_mul410 (astra4o_bd_pow410 3 (astra4o_bd_self410 A)) (astra4o_bd_self410 B))) (astra4o_bd_smul410 (21 / 16 * beta : k) (astra4o_bd_mul410 (astra4o_bd_mul410 (astra4o_bd_self410 A) (astra4o_bd_self410 B)) (astra4o_bd_self410 C0)))) (astra4o_bd_smul410 (7 / 32 * beta : k) (astra4o_bd_pow410 3 (astra4o_bd_self410 B)))) ?_
+    clear * - hApos hB0 hbalanced
+    omega
 
+set_option maxHeartbeats 64000000 in
 theorem noncubicBeta_degreeZero_positiveA_impossible
     (beta gamma delta zeta eta theta k1 : k) (A B C0 : k[X])
     (hApos : 0 < A.natDegree) (hB0 : B.natDegree = 0)
@@ -284,6 +333,7 @@ theorem noncubicBeta_degreeZero_positiveA_impossible
 
 /-! ## Complete component deletion and packet refinement -/
 
+set_option maxHeartbeats 64000000 in
 theorem noncubicBeta_degreeZero_component_impossible
     (alpha beta gamma delta epsilon zeta eta theta iota k1 terminal : k)
     (A B C0 : k[X])
@@ -308,6 +358,7 @@ theorem noncubicBeta_degreeZero_component_impossible
         alpha beta gamma delta epsilon zeta eta theta iota terminal
           A B C0 hA0 hB0 (by omega) hterminal hLower
 
+set_option maxHeartbeats 64000000 in
 /-- Genuine beta packet after deleting both the cubic wall and the exact
 degree-zero `I1` component. -/
 def PositiveNoncubicBetaNewtonResidual410
@@ -326,6 +377,7 @@ def PositiveNoncubicBetaNewtonResidual410
           (firstIntegralOnePolynomial410 0 0 0 0 0 0 0 A B C0).natDegree
           (betaLoadOneRest410 gamma delta zeta eta theta A B C0).natDegree
 
+set_option maxHeartbeats 64000000 in
 def DegreeZeroDeletedEarlyLoadResidual410
     (beta gamma delta zeta eta theta : k) (A B C0 : k[X]) : Prop :=
   (beta ≠ 0 ∧ B ≠ 0 ∧
@@ -336,6 +388,7 @@ def DegreeZeroDeletedEarlyLoadResidual410
     (beta = 0 ∧ gamma = 0 ∧ delta ≠ 0 ∧
       (zeta ≠ 0 ∨ eta ≠ 0 ∨ theta ≠ 0))
 
+set_option maxHeartbeats 64000000 in
 theorem constantIntegral410_degreeZeroDeleted_earlyLoad_residual
     (l alpha beta gamma delta epsilon zeta eta theta iota k2 k1
       terminal : k)
@@ -391,6 +444,7 @@ theorem constantIntegral410_degreeZeroDeleted_earlyLoad_residual
         hbound⟩
   · exact Or.inr hlater
 
+set_option maxHeartbeats 64000000 in
 theorem integrated410_degreeZeroDeleted_earlyLoad_residual
     (l alpha beta gamma delta epsilon zeta eta theta iota terminal : k)
     (A B C0 : k[X]) (hterminal : terminal ≠ 0)
@@ -409,6 +463,7 @@ theorem integrated410_degreeZeroDeleted_earlyLoad_residual
 
 variable [IsAlgClosed k]
 
+set_option maxHeartbeats 64000000 in
 theorem normalized410ScaleZero_degreeZeroDeleted_earlyLoad_residual
     {P Q : MvPolynomial (Fin 2) k} {H : k[X]}
     (hsource : Normalized410LeadingCoreSource P Q H 0) :

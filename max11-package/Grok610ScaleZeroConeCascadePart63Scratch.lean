@@ -19,6 +19,7 @@ section Residual610
 
 variable {k : Type*} [Field k] [CharZero k] [IsAlgClosed k]
 
+set_option maxHeartbeats 64000000 in
 /-- Exact residual of the scale-zero cone cascade.
 
 The free core has polynomial representatives, the integrated primitive

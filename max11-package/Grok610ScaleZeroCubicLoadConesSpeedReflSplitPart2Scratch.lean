@@ -56,21 +56,248 @@ theorem degreeZeroOmicronCubicNoSigmaCE610_natDegree_lt_of_loadCone
 
   rw [speedRefl_degreeZeroOmicronCubicNoSigmaCE610_eq_polyOf]
   refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  rcases hb with rfl | hb <;> rcases hd with rfl | hd <;>
-    rcases hz with rfl | hz <;> rcases ht with rfl | ht <;>
-    rcases hBcmp with rfl | hBcmp <;> rcases hDcmp with rfl | hDcmp <;>
-      (simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-                  Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
-                  Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-                  List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
-                  Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-                  mul_one, one_mul, and_true, true_and, natDegree_zero];
-       repeat' apply And.intro) <;>
-        first
-          | (right; right; omega)
-          | (left; norm_num; done)
-          | (right; left; simp; done)
-          | trivial
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, True.intro⟩
+  · rcases hBcmp with hBcmp0 | hBcmp
+    · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hBcmp0]))
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · rcases hBcmp with hBcmp0 | hBcmp
+    · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hBcmp0]))
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · rcases hBcmp with hBcmp0 | hBcmp
+    · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hBcmp0]))
+    · rcases hDcmp with hDcmp0 | hDcmp
+      · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hDcmp0]))
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil]
+        omega -splitDisjunctions
+  · rcases hBcmp with hBcmp0 | hBcmp
+    · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hBcmp0]))
+    · rcases hDcmp with hDcmp0 | hDcmp
+      · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hDcmp0]))
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil]
+        omega -splitDisjunctions
+  · rcases hBcmp with hBcmp0 | hBcmp
+    · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hBcmp0]))
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · rcases hBcmp with hBcmp0 | hBcmp
+    · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hBcmp0]))
+    · rcases hDcmp with hDcmp0 | hDcmp
+      · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hDcmp0]))
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil]
+        omega -splitDisjunctions
+  · rcases hDcmp with hDcmp0 | hDcmp
+    · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hDcmp0]))
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · left; simp
+  · left; simp
+  · left; simp
+  · left; simp
+  · left; simp
+  · left; simp
+  · left; simp
+  · left; simp
+  · left; simp
+  · left; simp
+  · left; simp
+  · rcases hBcmp with hBcmp0 | hBcmp
+    · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hBcmp0]))
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · rcases hBcmp with hBcmp0 | hBcmp
+    · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hBcmp0]))
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · rcases hDcmp with hDcmp0 | hDcmp
+    · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hDcmp0]))
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · rcases hBcmp with hBcmp0 | hBcmp
+    · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hBcmp0]))
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · rcases hBcmp with hBcmp0 | hBcmp
+    · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hBcmp0]))
+    · rcases hDcmp with hDcmp0 | hDcmp
+      · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hDcmp0]))
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil]
+        omega -splitDisjunctions
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil]
+    omega -splitDisjunctions
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil]
+    omega -splitDisjunctions
+  · rcases hb with hb0 | hb
+    · exact Or.inl (by simp [hb0])
+    · rcases hDcmp with hDcmp0 | hDcmp
+      · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hDcmp0]))
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil]
+        omega -splitDisjunctions
+  · rcases hb with hb0 | hb
+    · exact Or.inl (by simp [hb0])
+    · rcases hBcmp with hBcmp0 | hBcmp
+      · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hBcmp0]))
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil]
+        omega -splitDisjunctions
+  · rcases hb with hb0 | hb
+    · exact Or.inl (by simp [hb0])
+    · rcases hBcmp with hBcmp0 | hBcmp
+      · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hBcmp0]))
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil]
+        omega -splitDisjunctions
+  · rcases hb with hb0 | hb
+    · exact Or.inl (by simp [hb0])
+    · rcases hDcmp with hDcmp0 | hDcmp
+      · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hDcmp0]))
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil]
+        omega -splitDisjunctions
+  · rcases hb with hb0 | hb
+    · exact Or.inl (by simp [hb0])
+    · rcases hBcmp with hBcmp0 | hBcmp
+      · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hBcmp0]))
+      · rcases hDcmp with hDcmp0 | hDcmp
+        · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hDcmp0]))
+        · right; right
+          simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+            List.map_cons, List.map_nil]
+          omega -splitDisjunctions
+  · rcases hb with hb0 | hb
+    · exact Or.inl (by simp [hb0])
+    · rcases hBcmp with hBcmp0 | hBcmp
+      · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hBcmp0]))
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil]
+        omega -splitDisjunctions
+  · rcases hb with hb0 | hb
+    · exact Or.inl (by simp [hb0])
+    · rcases hDcmp with hDcmp0 | hDcmp
+      · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hDcmp0]))
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil]
+        omega -splitDisjunctions
+  · rcases hd with hd0 | hd
+    · exact Or.inl (by simp [hd0])
+    · rcases hDcmp with hDcmp0 | hDcmp
+      · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hDcmp0]))
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil]
+        omega -splitDisjunctions
+  · rcases hd with hd0 | hd
+    · exact Or.inl (by simp [hd0])
+    · rcases hBcmp with hBcmp0 | hBcmp
+      · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hBcmp0]))
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil]
+        omega -splitDisjunctions
+  · rcases hd with hd0 | hd
+    · exact Or.inl (by simp [hd0])
+    · rcases hBcmp with hBcmp0 | hBcmp
+      · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hBcmp0]))
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil]
+        omega -splitDisjunctions
+  · rcases hd with hd0 | hd
+    · exact Or.inl (by simp [hd0])
+    · rcases hDcmp with hDcmp0 | hDcmp
+      · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hDcmp0]))
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil]
+        omega -splitDisjunctions
+  · rcases hBcmp with hBcmp0 | hBcmp
+    · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hBcmp0]))
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · rcases hBcmp with hBcmp0 | hBcmp
+    · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hBcmp0]))
+    · rcases hDcmp with hDcmp0 | hDcmp
+      · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hDcmp0]))
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil]
+        omega -splitDisjunctions
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil]
+    omega -splitDisjunctions
+  · rcases hz with hz0 | hz
+    · exact Or.inl (by simp [hz0])
+    · rcases hDcmp with hDcmp0 | hDcmp
+      · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hDcmp0]))
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil]
+        omega -splitDisjunctions
+  · rcases hz with hz0 | hz
+    · exact Or.inl (by simp [hz0])
+    · rcases hBcmp with hBcmp0 | hBcmp
+      · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hBcmp0]))
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil]
+        omega -splitDisjunctions
+  · rcases hBcmp with hBcmp0 | hBcmp
+    · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hBcmp0]))
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil]
+    omega -splitDisjunctions
+  · rcases ht with ht0 | ht
+    · exact Or.inl (by simp [ht0])
+    · rcases hDcmp with hDcmp0 | hDcmp
+      · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hDcmp0]))
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil]
+        omega -splitDisjunctions
 
 
 
@@ -176,7 +403,7 @@ theorem cubicLoadSigmaCone_CE_impossible {j t : k}
 
 
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroKappaCubicNoSigmaDE610` (30 monomials, 5 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -208,8 +435,8 @@ theorem speedRefl_degreeZeroKappaCubicNoSigmaDE610_eq_polyOf
   simp only [degreeZeroKappaCubicNoSigmaDE610, Max11ReflectDeg.polyOf_cons,
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  module
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul, add_assoc]
 
 
 set_option maxHeartbeats 64000000 in
@@ -239,21 +466,156 @@ theorem degreeZeroKappaCubicNoSigmaDE610_natDegree_lt_of_loadCone
 
   rw [speedRefl_degreeZeroKappaCubicNoSigmaDE610_eq_polyOf]
   refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  rcases hb with rfl | hb <;> rcases hd with rfl | hd <;>
-    rcases hz with rfl | hz <;> rcases ht with rfl | ht <;>
-    rcases hBcmp with rfl | hBcmp <;> rcases hCcmp with rfl | hCcmp <;>
-      (simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-                  Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
-                  Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-                  List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
-                  Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-                  mul_one, one_mul, and_true, true_and, natDegree_zero];
-       repeat' apply And.intro) <;>
-        first
-          | (right; right; omega)
-          | (left; norm_num; done)
-          | (right; left; simp; done)
-          | trivial
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, True.intro⟩
+  · rcases hBcmp with hBcmp0 | hBcmp
+    · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hBcmp0]))
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · rcases hBcmp with hBcmp0 | hBcmp
+    · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hBcmp0]))
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · rcases hBcmp with hBcmp0 | hBcmp
+    · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hBcmp0]))
+    · rcases hCcmp with hCcmp0 | hCcmp
+      · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hCcmp0]))
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil]
+        omega -splitDisjunctions
+  · left; simp
+  · left; simp
+  · left; simp
+  · left; simp
+  · left; simp
+  · left; simp
+  · left; simp
+  · left; simp
+  · left; simp
+  · rcases hBcmp with hBcmp0 | hBcmp
+    · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hBcmp0]))
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · rcases hBcmp with hBcmp0 | hBcmp
+    · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hBcmp0]))
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · rcases hCcmp with hCcmp0 | hCcmp
+    · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hCcmp0]))
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · rcases hb with hb0 | hb
+    · exact Or.inl (by simp [hb0])
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · rcases hb with hb0 | hb
+    · exact Or.inl (by simp [hb0])
+    · rcases hCcmp with hCcmp0 | hCcmp
+      · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hCcmp0]))
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil]
+        omega -splitDisjunctions
+  · rcases hb with hb0 | hb
+    · exact Or.inl (by simp [hb0])
+    · rcases hBcmp with hBcmp0 | hBcmp
+      · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hBcmp0]))
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil]
+        omega -splitDisjunctions
+  · rcases hb with hb0 | hb
+    · exact Or.inl (by simp [hb0])
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · rcases hb with hb0 | hb
+    · exact Or.inl (by simp [hb0])
+    · rcases hBcmp with hBcmp0 | hBcmp
+      · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hBcmp0]))
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil]
+        omega -splitDisjunctions
+  · rcases hb with hb0 | hb
+    · exact Or.inl (by simp [hb0])
+    · rcases hCcmp with hCcmp0 | hCcmp
+      · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hCcmp0]))
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil]
+        omega -splitDisjunctions
+  · rcases hd with hd0 | hd
+    · exact Or.inl (by simp [hd0])
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · rcases hd with hd0 | hd
+    · exact Or.inl (by simp [hd0])
+    · rcases hCcmp with hCcmp0 | hCcmp
+      · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hCcmp0]))
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil]
+        omega -splitDisjunctions
+  · rcases hd with hd0 | hd
+    · exact Or.inl (by simp [hd0])
+    · rcases hBcmp with hBcmp0 | hBcmp
+      · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hBcmp0]))
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil]
+        omega -splitDisjunctions
+  · rcases hd with hd0 | hd
+    · exact Or.inl (by simp [hd0])
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil]
+    omega -splitDisjunctions
+  · rcases hz with hz0 | hz
+    · exact Or.inl (by simp [hz0])
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · rcases hz with hz0 | hz
+    · exact Or.inl (by simp [hz0])
+    · rcases hCcmp with hCcmp0 | hCcmp
+      · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hCcmp0]))
+      · right; right
+        simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+          List.map_cons, List.map_nil]
+        omega -splitDisjunctions
+  · rcases hBcmp with hBcmp0 | hBcmp
+    · exact Or.inr (Or.inl (by simp [Max11ReflectDeg.mono, hBcmp0]))
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · rcases ht with ht0 | ht
+    · exact Or.inl (by simp [ht0])
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
 
 
 
@@ -317,7 +679,7 @@ theorem cubicLoadSigmaCone_DE_impossible {j t : k}
 
 
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronCubicNoSigmaBCD610` (44 monomials, 5 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -357,8 +719,8 @@ theorem speedRefl_degreeZeroOmicronCubicNoSigmaBCD610_eq_polyOf
   simp only [degreeZeroOmicronCubicNoSigmaBCD610, Max11ReflectDeg.polyOf_cons,
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  module
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul, add_assoc]
 
 
 set_option maxHeartbeats 64000000 in
@@ -395,20 +757,178 @@ theorem degreeZeroOmicronCubicNoSigmaBCD610_natDegree_lt_of_loadCone
     · exact Nat.succ_le_of_lt hlt
   rw [speedRefl_degreeZeroOmicronCubicNoSigmaBCD610_eq_polyOf]
   refine Max11ReflectDeg.natDegree_polyOf_lt_of_degOk (by omega) ?_
-  rcases hb with rfl | hb <;> rcases hd with rfl | hd <;>
-    rcases hz with rfl | hz <;> rcases ht with rfl | ht <;>
-      (simp only [Max11ReflectDeg.degOk_cons, Max11ReflectDeg.degOk_nil_left,
-                  Max11ReflectDeg.degOk_nil_right, Max11ReflectDeg.mdeg_cons,
-                  Max11ReflectDeg.mdeg_nil_left, Max11ReflectDeg.mdeg_nil_right,
-                  List.map_cons, List.map_nil, mul_zero, zero_mul, neg_zero,
-                  Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add,
-                  mul_one, one_mul, and_true, true_and, natDegree_zero];
-       repeat' apply And.intro) <;>
-        first
-          | (right; right; omega)
-          | (left; norm_num; done)
-          | (right; left; simp; done)
-          | trivial
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, True.intro⟩
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil]
+    omega -splitDisjunctions
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil]
+    omega -splitDisjunctions
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil]
+    omega -splitDisjunctions
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil]
+    omega -splitDisjunctions
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil]
+    omega -splitDisjunctions
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil]
+    omega -splitDisjunctions
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil]
+    omega -splitDisjunctions
+  · left; simp
+  · left; simp
+  · left; simp
+  · left; simp
+  · left; simp
+  · left; simp
+  · left; simp
+  · left; simp
+  · left; simp
+  · left; simp
+  · left; simp
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil]
+    omega -splitDisjunctions
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil]
+    omega -splitDisjunctions
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil]
+    omega -splitDisjunctions
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil]
+    omega -splitDisjunctions
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil]
+    omega -splitDisjunctions
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil]
+    omega -splitDisjunctions
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil]
+    omega -splitDisjunctions
+  · rcases hb with hb0 | hb
+    · exact Or.inl (by simp [hb0])
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · rcases hb with hb0 | hb
+    · exact Or.inl (by simp [hb0])
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · rcases hb with hb0 | hb
+    · exact Or.inl (by simp [hb0])
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · rcases hb with hb0 | hb
+    · exact Or.inl (by simp [hb0])
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · rcases hb with hb0 | hb
+    · exact Or.inl (by simp [hb0])
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · rcases hb with hb0 | hb
+    · exact Or.inl (by simp [hb0])
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · rcases hb with hb0 | hb
+    · exact Or.inl (by simp [hb0])
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · rcases hd with hd0 | hd
+    · exact Or.inl (by simp [hd0])
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · rcases hd with hd0 | hd
+    · exact Or.inl (by simp [hd0])
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · rcases hd with hd0 | hd
+    · exact Or.inl (by simp [hd0])
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · rcases hd with hd0 | hd
+    · exact Or.inl (by simp [hd0])
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil]
+    omega -splitDisjunctions
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil]
+    omega -splitDisjunctions
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil]
+    omega -splitDisjunctions
+  · rcases hz with hz0 | hz
+    · exact Or.inl (by simp [hz0])
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · rcases hz with hz0 | hz
+    · exact Or.inl (by simp [hz0])
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil]
+    omega -splitDisjunctions
+  · right; right
+    simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+      List.map_cons, List.map_nil]
+    omega -splitDisjunctions
+  · rcases ht with ht0 | ht
+    · exact Or.inl (by simp [ht0])
+    · right; right
+      simp only [Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_right,
+        List.map_cons, List.map_nil]
+      omega -splitDisjunctions
 
 
 
@@ -482,7 +1002,7 @@ theorem cubicLoadSigmaCone_BCD_impossible {j t : k}
 
 
 
-set_option maxHeartbeats 400000000 in
+set_option maxHeartbeats 64000000 in
 /-- Reflected form of `degreeZeroOmicronCubicNoSigmaBDE610` (44 monomials, 5 atoms):
 the CAS-emitted coefficient list and exponent vectors.  Proved once, and
 used by every case-fan branch below, so the polynomial is reflected once
@@ -522,8 +1042,8 @@ theorem speedRefl_degreeZeroOmicronCubicNoSigmaBDE610_eq_polyOf
   simp only [degreeZeroOmicronCubicNoSigmaBDE610, Max11ReflectDeg.polyOf_cons,
     Max11ReflectDeg.polyOf_nil_right, Max11ReflectDeg.mono_cons,
     Max11ReflectDeg.mono_nil_left, Max11ReflectDeg.mono_nil_right,
-    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
-  module
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc,
+    sub_eq_add_neg, neg_smul, add_assoc]
 
 
 end CubicLoadSigmaSingleMonomial610

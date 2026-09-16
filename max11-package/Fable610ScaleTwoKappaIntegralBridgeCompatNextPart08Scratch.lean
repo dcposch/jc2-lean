@@ -10,7 +10,14 @@ section BridgeLambdaJet610
 
 variable {R : Type*} [CommRing R]
 
-set_option maxHeartbeats 40000000 in
+-- Fix the carrier while retaining the original arithmetic heads and expression.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := R) (β := R) (γ := R))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := R) (β := R) (γ := R))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := R) (β := R) (γ := R))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := R) (β := Nat) (γ := R))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := R))
+
+set_option maxHeartbeats 64000000 in
 /-- Tail of the jet-substituted cleared `λ` defect above order `h⁵³`. -/
 def bridgeLambdaJetTail610
     (hh w1 a41 p31 s1 u1 b62 q52 p2 p1 p0 q4 q3 q2 q1 lam : R) : R :=

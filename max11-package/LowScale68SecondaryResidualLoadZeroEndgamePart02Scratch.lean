@@ -28,7 +28,19 @@ set_option linter.unusedSimpArgs false
 
 /-! ## Load cutoffs after `l=0` -/
 
-set_option maxHeartbeats 2000000 in
+private theorem speedTLoadZero_add_lt {p q : k[X]} {b : ℕ}
+    (hp : p.natDegree < b) (hq : q.natDegree < b) : (p + q).natDegree < b :=
+  (natDegree_add_le p q).trans_lt (max_lt hp hq)
+
+private theorem speedTLoadZero_sub_lt {p q : k[X]} {b : ℕ}
+    (hp : p.natDegree < b) (hq : q.natDegree < b) : (p - q).natDegree < b :=
+  (natDegree_sub_le p q).trans_lt (max_lt hp hq)
+
+private theorem speedTLoadZero_smul_lt (a : k) {p : k[X]} {b : ℕ}
+    (hp : p.natDegree < b) : (a • p).natDegree < b :=
+  (natDegree_smul_le a p).trans_lt hp
+
+set_option maxHeartbeats 64000000 in
 theorem secondaryLoadInvariantFourPolynomial68_degree_lt_cubicFace_of_l_eq_zero
     (beta gamma delta epsilon zeta : k) (A B c D e : k[X])
     (n g h : ℕ) (hg : 0 < g) (hgh : g < h) (hsmall : 2 * g < n)
@@ -42,10 +54,31 @@ theorem secondaryLoadInvariantFourPolynomial68_degree_lt_cubicFace_of_l_eq_zero
         9 * n - 3 * g := by
   simp only [secondaryLoadInvariantFourPolynomial68, zero_mul, mul_zero,
     zero_smul, smul_zero, add_zero, sub_zero]
-  compute_degree
-  omega
+  have hA2 : (A ^ 2).natDegree ≤ 2 * A.natDegree := natDegree_pow_le
+  have hA3 : (A ^ 3).natDegree ≤ 3 * A.natDegree := natDegree_pow_le
+  have hB2 : (B ^ 2).natDegree ≤ 2 * B.natDegree := natDegree_pow_le
+  have hB3 : (B ^ 3).natDegree ≤ 3 * B.natDegree := natDegree_pow_le
+  have hAB : (A * B).natDegree ≤ A.natDegree + B.natDegree := natDegree_mul_le
+  have hAc : (A * c).natDegree ≤ A.natDegree + c.natDegree := natDegree_mul_le
+  have hA2B : (A ^ 2 * B).natDegree ≤ 2 * A.natDegree + B.natDegree :=
+    natDegree_mul_le.trans (Nat.add_le_add hA2 (le_refl _))
+  have hAD : (A * D).natDegree ≤ A.natDegree + D.natDegree := natDegree_mul_le
+  have hBc : (B * c).natDegree ≤ B.natDegree + c.natDegree := natDegree_mul_le
+  have hA3B : (A ^ 3 * B).natDegree ≤ 3 * A.natDegree + B.natDegree :=
+    natDegree_mul_le.trans (Nat.add_le_add hA3 (le_refl _))
+  have hA2D : (A ^ 2 * D).natDegree ≤ 2 * A.natDegree + D.natDegree :=
+    natDegree_mul_le.trans (Nat.add_le_add hA2 (le_refl _))
+  have hABc : (A * B * c).natDegree ≤ A.natDegree + B.natDegree + c.natDegree :=
+    natDegree_mul_le.trans (Nat.add_le_add hAB (le_refl _))
+  have hBe : (B * e).natDegree ≤ B.natDegree + e.natDegree := natDegree_mul_le
+  have hDc : (D * c).natDegree ≤ D.natDegree + c.natDegree := natDegree_mul_le
+  repeat' first
+    | with_reducible apply speedTLoadZero_add_lt
+    | with_reducible apply speedTLoadZero_sub_lt
+    | with_reducible apply speedTLoadZero_smul_lt
+  all_goals omega
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 /-- Cubic-invariant loads already sit below the residual middle even with
 the `l A^3 B` term, once `2g<n` and `h<2g`. -/
 theorem secondaryLoadInvariantThreePolynomial68_degree_lt_middle_of_twoGap
@@ -60,10 +93,31 @@ theorem secondaryLoadInvariantThreePolynomial68_degree_lt_middle_of_twoGap
       l beta gamma delta epsilon zeta A B c D e).natDegree <
         10 * n - g - h := by
   simp only [secondaryLoadInvariantThreePolynomial68]
-  compute_degree
-  omega
+  have hA2 : (A ^ 2).natDegree ≤ 2 * A.natDegree := natDegree_pow_le
+  have hA3 : (A ^ 3).natDegree ≤ 3 * A.natDegree := natDegree_pow_le
+  have hB2 : (B ^ 2).natDegree ≤ 2 * B.natDegree := natDegree_pow_le
+  have hB3 : (B ^ 3).natDegree ≤ 3 * B.natDegree := natDegree_pow_le
+  have hAB : (A * B).natDegree ≤ A.natDegree + B.natDegree := natDegree_mul_le
+  have hAc : (A * c).natDegree ≤ A.natDegree + c.natDegree := natDegree_mul_le
+  have hA2B : (A ^ 2 * B).natDegree ≤ 2 * A.natDegree + B.natDegree :=
+    natDegree_mul_le.trans (Nat.add_le_add hA2 (le_refl _))
+  have hAD : (A * D).natDegree ≤ A.natDegree + D.natDegree := natDegree_mul_le
+  have hBc : (B * c).natDegree ≤ B.natDegree + c.natDegree := natDegree_mul_le
+  have hA3B : (A ^ 3 * B).natDegree ≤ 3 * A.natDegree + B.natDegree :=
+    natDegree_mul_le.trans (Nat.add_le_add hA3 (le_refl _))
+  have hA2D : (A ^ 2 * D).natDegree ≤ 2 * A.natDegree + D.natDegree :=
+    natDegree_mul_le.trans (Nat.add_le_add hA2 (le_refl _))
+  have hABc : (A * B * c).natDegree ≤ A.natDegree + B.natDegree + c.natDegree :=
+    natDegree_mul_le.trans (Nat.add_le_add hAB (le_refl _))
+  have hBe : (B * e).natDegree ≤ B.natDegree + e.natDegree := natDegree_mul_le
+  have hDc : (D * c).natDegree ≤ D.natDegree + c.natDegree := natDegree_mul_le
+  repeat' first
+    | with_reducible apply speedTLoadZero_add_lt
+    | with_reducible apply speedTLoadZero_sub_lt
+    | with_reducible apply speedTLoadZero_smul_lt
+  all_goals omega
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 theorem secondaryLoadInvariantThreePolynomial68_degree_lt_double_of_twoGap
     (l beta gamma delta epsilon zeta : k) (A B c D e : k[X])
     (n g : ℕ) (hg : 0 < g) (hsmall : 2 * g < n)
@@ -76,10 +130,31 @@ theorem secondaryLoadInvariantThreePolynomial68_degree_lt_double_of_twoGap
       l beta gamma delta epsilon zeta A B c D e).natDegree <
         10 * n - 3 * g := by
   simp only [secondaryLoadInvariantThreePolynomial68]
-  compute_degree
-  omega
+  have hA2 : (A ^ 2).natDegree ≤ 2 * A.natDegree := natDegree_pow_le
+  have hA3 : (A ^ 3).natDegree ≤ 3 * A.natDegree := natDegree_pow_le
+  have hB2 : (B ^ 2).natDegree ≤ 2 * B.natDegree := natDegree_pow_le
+  have hB3 : (B ^ 3).natDegree ≤ 3 * B.natDegree := natDegree_pow_le
+  have hAB : (A * B).natDegree ≤ A.natDegree + B.natDegree := natDegree_mul_le
+  have hAc : (A * c).natDegree ≤ A.natDegree + c.natDegree := natDegree_mul_le
+  have hA2B : (A ^ 2 * B).natDegree ≤ 2 * A.natDegree + B.natDegree :=
+    natDegree_mul_le.trans (Nat.add_le_add hA2 (le_refl _))
+  have hAD : (A * D).natDegree ≤ A.natDegree + D.natDegree := natDegree_mul_le
+  have hBc : (B * c).natDegree ≤ B.natDegree + c.natDegree := natDegree_mul_le
+  have hA3B : (A ^ 3 * B).natDegree ≤ 3 * A.natDegree + B.natDegree :=
+    natDegree_mul_le.trans (Nat.add_le_add hA3 (le_refl _))
+  have hA2D : (A ^ 2 * D).natDegree ≤ 2 * A.natDegree + D.natDegree :=
+    natDegree_mul_le.trans (Nat.add_le_add hA2 (le_refl _))
+  have hABc : (A * B * c).natDegree ≤ A.natDegree + B.natDegree + c.natDegree :=
+    natDegree_mul_le.trans (Nat.add_le_add hAB (le_refl _))
+  have hBe : (B * e).natDegree ≤ B.natDegree + e.natDegree := natDegree_mul_le
+  have hDc : (D * c).natDegree ≤ D.natDegree + c.natDegree := natDegree_mul_le
+  repeat' first
+    | with_reducible apply speedTLoadZero_add_lt
+    | with_reducible apply speedTLoadZero_sub_lt
+    | with_reducible apply speedTLoadZero_smul_lt
+  all_goals omega
 
-set_option maxHeartbeats 2000000 in
+set_option maxHeartbeats 64000000 in
 theorem secondaryLoadInvariantThreePolynomial68_degree_lt_cubicFace_of_twoGap
     (l beta gamma delta epsilon zeta : k) (A B c D e : k[X])
     (n g h : ℕ) (hg : 0 < g) (hgh : g < h) (hsmall : 2 * g < n)
@@ -92,8 +167,29 @@ theorem secondaryLoadInvariantThreePolynomial68_degree_lt_cubicFace_of_twoGap
       l beta gamma delta epsilon zeta A B c D e).natDegree <
         10 * n - 3 * g := by
   simp only [secondaryLoadInvariantThreePolynomial68]
-  compute_degree
-  omega
+  have hA2 : (A ^ 2).natDegree ≤ 2 * A.natDegree := natDegree_pow_le
+  have hA3 : (A ^ 3).natDegree ≤ 3 * A.natDegree := natDegree_pow_le
+  have hB2 : (B ^ 2).natDegree ≤ 2 * B.natDegree := natDegree_pow_le
+  have hB3 : (B ^ 3).natDegree ≤ 3 * B.natDegree := natDegree_pow_le
+  have hAB : (A * B).natDegree ≤ A.natDegree + B.natDegree := natDegree_mul_le
+  have hAc : (A * c).natDegree ≤ A.natDegree + c.natDegree := natDegree_mul_le
+  have hA2B : (A ^ 2 * B).natDegree ≤ 2 * A.natDegree + B.natDegree :=
+    natDegree_mul_le.trans (Nat.add_le_add hA2 (le_refl _))
+  have hAD : (A * D).natDegree ≤ A.natDegree + D.natDegree := natDegree_mul_le
+  have hBc : (B * c).natDegree ≤ B.natDegree + c.natDegree := natDegree_mul_le
+  have hA3B : (A ^ 3 * B).natDegree ≤ 3 * A.natDegree + B.natDegree :=
+    natDegree_mul_le.trans (Nat.add_le_add hA3 (le_refl _))
+  have hA2D : (A ^ 2 * D).natDegree ≤ 2 * A.natDegree + D.natDegree :=
+    natDegree_mul_le.trans (Nat.add_le_add hA2 (le_refl _))
+  have hABc : (A * B * c).natDegree ≤ A.natDegree + B.natDegree + c.natDegree :=
+    natDegree_mul_le.trans (Nat.add_le_add hAB (le_refl _))
+  have hBe : (B * e).natDegree ≤ B.natDegree + e.natDegree := natDegree_mul_le
+  have hDc : (D * c).natDegree ≤ D.natDegree + c.natDegree := natDegree_mul_le
+  repeat' first
+    | with_reducible apply speedTLoadZero_add_lt
+    | with_reducible apply speedTLoadZero_sub_lt
+    | with_reducible apply speedTLoadZero_smul_lt
+  all_goals omega
 
 end ResidualLoadZeroEndgame68
 end Max11DegreeRoutes

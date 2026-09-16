@@ -71,6 +71,7 @@ set_option linter.unusedSectionVars false
 set_option linter.unusedVariables false
 set_option linter.unusedSimpArgs false
 
+set_option maxHeartbeats 64000000 in
 private theorem fiveToSix_loadRowZero_eq68
     (alpha gamma epsilon zeta eta : k) (A B c D e E0 Ur W : k[X])
     (hE0 : E0 = (1 / 27 : k) • A ^ 3 + (1 / 3 : k) • (A * c) + e)
@@ -94,6 +95,7 @@ private theorem fiveToSix_loadRowZero_eq68
   simp only [Polynomial.smul_eq_C_mul]
   ring
 
+set_option maxHeartbeats 64000000 in
 private theorem fiveToSix_coreRowZero_coeff68
     (A B c D e : k[X]) (n g j : ℕ) (hj : j = 13 * n - 2 * g - 1)
     (hn : 0 < n) (hwindow : 5 * n < 2 * g ∧ 2 * g ≤ 6 * n)
@@ -109,35 +111,20 @@ private theorem fiveToSix_coreRowZero_coeff68
           (c.coeff (4 * n - g)) (D.coeff (5 * n - g))
           (e.coeff (6 * n - g)) := by
   have hA2deg : (A ^ 2).natDegree ≤ 4 * n := by
-    apply leaf68_le_of_bd
-    repeat'
-      first
-      | with_reducible exact leaf68_bd_of_le hA
-      | with_reducible exact leaf68_bd_of_le hB
-      | with_reducible exact leaf68_bd_of_le hc
-      | with_reducible exact leaf68_bd_of_le hD
-      | with_reducible exact leaf68_bd_of_le he
-      | with_reducible apply leaf68_bd_smul
-      | with_reducible apply leaf68_bd_neg
-      | with_reducible apply leaf68_bd_sub
-      | with_reducible apply leaf68_bd_add
-      | with_reducible apply leaf68_bd_pow
-      | with_reducible apply leaf68_bd_deriv
-      | with_reducible apply leaf68_bd_mul
-      | with_reducible apply leaf68_bd_C
-      | omega
+    exact leaf68_le_of_bd (leaf68_bd_pow 2 (leaf68_bd_of_le hA)) (by clear * - hn hwindow hj; omega)
   have hA2 : (A ^ 2).coeff (4 * n) = A.coeff (2 * n) ^ 2 := by
     have h := coeff_pow_at_bound68 A (2 * n) 2 hA
-    have hi : 2 * (2 * n) = 4 * n := by omega
+    have hi : 2 * (2 * n) = 4 * n := by clear * - hn hwindow hj; omega
     simpa only [hi] using h
   have h1 : (A ^ 2 * B * c * derivative A).coeff j =
       A.coeff (2 * n) ^ 2 * B.coeff (3 * n - g) *
         c.coeff (4 * n - g) * A.coeff (2 * n) *
           ((2 * n : ℕ) : k) := by
     have h := coeff_mul_mul_mul_derivative_at_bounds68 (A ^ 2) B c A
-      (4 * n) (3 * n - g) (4 * n - g) (2 * n) (by omega)
+      (4 * n) (3 * n - g) (4 * n - g) (2 * n) (by clear * - hn hwindow hj; omega)
       hA2deg hB hc hA
     have hi : 4 * n + (3 * n - g) + (4 * n - g) + 2 * n - 1 = j := by
+      clear * - hn hwindow hj
       omega
     rw [hi, hA2] at h
     exact h
@@ -146,17 +133,19 @@ private theorem fiveToSix_coreRowZero_coeff68
         c.coeff (4 * n - g) * A.coeff (2 * n) *
           ((2 * n : ℕ) : k) := by
     have h := coeff_mul_mul_mul_derivative_at_bounds68 A D c A
-      (2 * n) (5 * n - g) (4 * n - g) (2 * n) (by omega)
+      (2 * n) (5 * n - g) (4 * n - g) (2 * n) (by clear * - hn hwindow hj; omega)
       hA hD hc hA
     have hi : 2 * n + (5 * n - g) + (4 * n - g) + 2 * n - 1 = j := by
+      clear * - hn hwindow hj
       omega
     simpa only [hi] using h
   have h3 : (D * e * derivative A).coeff j =
       D.coeff (5 * n - g) * e.coeff (6 * n - g) *
         A.coeff (2 * n) * ((2 * n : ℕ) : k) := by
     have h := coeff_mul_mul_derivative_at_bounds68 D e A
-      (5 * n - g) (6 * n - g) (2 * n) (by omega) hD he hA
+      (5 * n - g) (6 * n - g) (2 * n) (by clear * - hn hwindow hj; omega) hD he hA
     have hi : (5 * n - g) + (6 * n - g) + 2 * n - 1 = j := by
+      clear * - hn hwindow hj
       omega
     simpa only [hi] using h
   simp only [firstSecondaryCoreRowZeroPolynomial68, coeff_smul, coeff_sub,
@@ -165,6 +154,7 @@ private theorem fiveToSix_coreRowZero_coeff68
   simp only [firstSecondaryZero68]
   ring
 
+set_option maxHeartbeats 64000000 in
 /-- The terminal lower row gives the ordinary scalar `F₀=0` throughout
 `5n < 2g ≤ 6n` after `l=beta=delta=0`. -/
 theorem lowerRowZeroPolynomial68_fiveToSix_forces_firstSecondaryZero
@@ -223,23 +213,7 @@ theorem lowerRowZeroPolynomial68_fiveToSix_forces_firstSecondaryZero
       j := by
     simp only [cubicRemainderRowZeroPolynomial68]
     dsimp only [j]
-    apply leaf68_lt_of_bd
-    repeat'
-      first
-      | with_reducible exact leaf68_bd_of_le hA
-      | with_reducible exact leaf68_bd_of_le hB
-      | with_reducible exact leaf68_bd_of_le hc
-      | with_reducible exact leaf68_bd_of_le hD
-      | with_reducible exact leaf68_bd_of_le he
-      | with_reducible apply leaf68_bd_smul
-      | with_reducible apply leaf68_bd_neg
-      | with_reducible apply leaf68_bd_sub
-      | with_reducible apply leaf68_bd_add
-      | with_reducible apply leaf68_bd_pow
-      | with_reducible apply leaf68_bd_deriv
-      | with_reducible apply leaf68_bd_mul
-      | with_reducible apply leaf68_bd_C
-      | omega
+    exact leaf68_lt_of_bd (leaf68_bd_smul _ (leaf68_bd_sub (leaf68_bd_sub (leaf68_bd_add (leaf68_bd_sub (leaf68_bd_add (leaf68_bd_add (leaf68_bd_add (leaf68_bd_smul _ (leaf68_bd_mul (leaf68_bd_mul (leaf68_bd_mul (leaf68_bd_of_le hA) (leaf68_bd_of_le hB)) (leaf68_bd_of_le hD)) (leaf68_bd_deriv (leaf68_bd_of_le hB)))) (leaf68_bd_smul _ (leaf68_bd_mul (leaf68_bd_mul (leaf68_bd_mul (leaf68_bd_of_le hA) (leaf68_bd_of_le hB)) (leaf68_bd_of_le hc)) (leaf68_bd_deriv (leaf68_bd_of_le hc))))) (leaf68_bd_smul _ (leaf68_bd_mul (leaf68_bd_mul (leaf68_bd_pow 2 (leaf68_bd_of_le hB)) (leaf68_bd_of_le hD)) (leaf68_bd_deriv (leaf68_bd_of_le hA))))) (leaf68_bd_smul _ (leaf68_bd_mul (leaf68_bd_mul (leaf68_bd_of_le hB) (leaf68_bd_pow 2 (leaf68_bd_of_le hc))) (leaf68_bd_deriv (leaf68_bd_of_le hA))))) (leaf68_bd_smul _ (leaf68_bd_mul (leaf68_bd_mul (leaf68_bd_of_le hB) (leaf68_bd_of_le hD)) (leaf68_bd_deriv (leaf68_bd_of_le hD))))) (leaf68_bd_smul _ (leaf68_bd_mul (leaf68_bd_mul (leaf68_bd_of_le hB) (leaf68_bd_of_le hc)) (leaf68_bd_deriv (leaf68_bd_of_le he))))) (leaf68_bd_smul _ (leaf68_bd_mul (leaf68_bd_pow 2 (leaf68_bd_of_le hD)) (leaf68_bd_deriv (leaf68_bd_of_le hB))))) (leaf68_bd_smul _ (leaf68_bd_mul (leaf68_bd_mul (leaf68_bd_of_le hD) (leaf68_bd_of_le hc)) (leaf68_bd_deriv (leaf68_bd_of_le hc)))))) (by clear * - hn hwindow; omega)
   have hloadEq :
       cubicLoadRowZeroPolynomial68 0 alpha 0 gamma 0 epsilon zeta eta
         A B c D e = Ur * derivative E0 - D * derivative W :=
@@ -247,93 +221,20 @@ theorem lowerRowZeroPolynomial68_fiveToSix_forces_firstSecondaryZero
       rfl rfl rfl
   have hEdeg : E0.natDegree ≤ 6 * n := by
     simp only [E0]
-    apply leaf68_le_of_bd
-    repeat'
-      first
-      | with_reducible exact leaf68_bd_of_le hA
-      | with_reducible exact leaf68_bd_of_le hB
-      | with_reducible exact leaf68_bd_of_le hc
-      | with_reducible exact leaf68_bd_of_le hD
-      | with_reducible exact leaf68_bd_of_le he
-      | with_reducible exact leaf68_bd_of_le hEdeg
-      | with_reducible apply leaf68_bd_smul
-      | with_reducible apply leaf68_bd_neg
-      | with_reducible apply leaf68_bd_sub
-      | with_reducible apply leaf68_bd_add
-      | with_reducible apply leaf68_bd_pow
-      | with_reducible apply leaf68_bd_deriv
-      | with_reducible apply leaf68_bd_mul
-      | with_reducible apply leaf68_bd_C
-      | omega
+    exact leaf68_le_of_bd (leaf68_bd_add (leaf68_bd_add (leaf68_bd_smul _ (leaf68_bd_pow 3 (leaf68_bd_of_le hA))) (leaf68_bd_smul _ (leaf68_bd_mul (leaf68_bd_of_le hA) (leaf68_bd_of_le hc)))) (leaf68_bd_of_le he)) (by clear * - hn hwindow; omega)
   have hUrdeg : Ur.natDegree ≤ 3 * n - g := by
     simp only [Ur]
-    apply leaf68_le_of_bd
-    repeat'
-      first
-      | with_reducible exact leaf68_bd_of_le hA
-      | with_reducible exact leaf68_bd_of_le hB
-      | with_reducible exact leaf68_bd_of_le hc
-      | with_reducible exact leaf68_bd_of_le hD
-      | with_reducible exact leaf68_bd_of_le he
-      | with_reducible exact leaf68_bd_of_le hEdeg
-      | with_reducible exact leaf68_bd_of_le hUrdeg
-      | with_reducible apply leaf68_bd_smul
-      | with_reducible apply leaf68_bd_neg
-      | with_reducible apply leaf68_bd_sub
-      | with_reducible apply leaf68_bd_add
-      | with_reducible apply leaf68_bd_pow
-      | with_reducible apply leaf68_bd_deriv
-      | with_reducible apply leaf68_bd_mul
-      | with_reducible apply leaf68_bd_C
-      | omega
+    exact leaf68_le_of_bd (leaf68_bd_add (leaf68_bd_smul _ (leaf68_bd_of_le hB)) (leaf68_bd_C _)) (by clear * - hn hwindow; omega)
   have hWdeg : W.natDegree ≤ 4 * n := by
     simp only [W]
-    apply leaf68_le_of_bd
-    repeat'
-      first
-      | with_reducible exact leaf68_bd_of_le hA
-      | with_reducible exact leaf68_bd_of_le hB
-      | with_reducible exact leaf68_bd_of_le hc
-      | with_reducible exact leaf68_bd_of_le hD
-      | with_reducible exact leaf68_bd_of_le he
-      | with_reducible exact leaf68_bd_of_le hEdeg
-      | with_reducible exact leaf68_bd_of_le hUrdeg
-      | with_reducible exact leaf68_bd_of_le hWdeg
-      | with_reducible apply leaf68_bd_smul
-      | with_reducible apply leaf68_bd_neg
-      | with_reducible apply leaf68_bd_sub
-      | with_reducible apply leaf68_bd_add
-      | with_reducible apply leaf68_bd_pow
-      | with_reducible apply leaf68_bd_deriv
-      | with_reducible apply leaf68_bd_mul
-      | with_reducible apply leaf68_bd_C
-      | omega
+    exact leaf68_le_of_bd (leaf68_bd_add (leaf68_bd_add (leaf68_bd_add (leaf68_bd_smul _ (leaf68_bd_pow 2 (leaf68_bd_of_le hA))) (leaf68_bd_smul _ (leaf68_bd_of_le hc))) (leaf68_bd_smul _ (leaf68_bd_of_le hA))) (leaf68_bd_C _)) (by clear * - hn hwindow; omega)
   clear_value E0 Ur W
   have hloaddeg :
       (cubicLoadRowZeroPolynomial68 0 alpha 0 gamma 0 epsilon zeta eta
         A B c D e).natDegree < j := by
     rw [hloadEq]
     dsimp only [j]
-    apply leaf68_lt_of_bd
-    repeat'
-      first
-      | with_reducible exact leaf68_bd_of_le hA
-      | with_reducible exact leaf68_bd_of_le hB
-      | with_reducible exact leaf68_bd_of_le hc
-      | with_reducible exact leaf68_bd_of_le hD
-      | with_reducible exact leaf68_bd_of_le he
-      | with_reducible exact leaf68_bd_of_le hEdeg
-      | with_reducible exact leaf68_bd_of_le hUrdeg
-      | with_reducible exact leaf68_bd_of_le hWdeg
-      | with_reducible apply leaf68_bd_smul
-      | with_reducible apply leaf68_bd_neg
-      | with_reducible apply leaf68_bd_sub
-      | with_reducible apply leaf68_bd_add
-      | with_reducible apply leaf68_bd_pow
-      | with_reducible apply leaf68_bd_deriv
-      | with_reducible apply leaf68_bd_mul
-      | with_reducible apply leaf68_bd_C
-      | omega
+    exact leaf68_lt_of_bd (leaf68_bd_sub (leaf68_bd_mul (leaf68_bd_of_le hUrdeg) (leaf68_bd_deriv (leaf68_bd_of_le hEdeg))) (leaf68_bd_mul (leaf68_bd_of_le hD) (leaf68_bd_deriv (leaf68_bd_of_le hWdeg)))) (by clear * - hn hwindow; omega)
   rw [hcore, coeff_eq_zero_of_natDegree_lt hremdeg,
     coeff_eq_zero_of_natDegree_lt hloaddeg] at hrowCoeff
   simp only [add_zero] at hrowCoeff

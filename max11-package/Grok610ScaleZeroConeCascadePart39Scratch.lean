@@ -13,7 +13,7 @@ section PrimitivePolynomial610
 
 variable {k : Type*} [Field k] [CharZero k]
 
-set_option maxHeartbeats 16000000 in
+set_option maxHeartbeats 64000000 in
 theorem degreeZeroPrimitivePolynomial610_eq_betaE2_add_rest
     (l alpha beta delta epsilon zeta eta theta : k)
     (A B C0 D0 E0 : k[X]) :

@@ -21,6 +21,37 @@ section GroundIntegration410
 
 variable {k : Type*} [Field k] [CharZero k]
 
+set_option maxHeartbeats 64000000 in
+/-- Coefficient extraction with opaque scalar rows, shared by ground integration. -/
+private theorem astra4q_ground_rows_zero
+    (a11 a10 a9 a8 a7 a6 a5 a4 a3 a2 a1 a0 terminal : RatFunc k)
+    (h : C a11 * X ^ 11 +
+      C a10 * X ^ 10 +
+      C a9 * X ^ 9 +
+      C a8 * X ^ 8 +
+      C a7 * X ^ 7 +
+      C a6 * X ^ 6 +
+      C a5 * X ^ 5 +
+      C a4 * X ^ 4 +
+      C a3 * X ^ 3 +
+      C a2 * X ^ 2 +
+      C a1 * X +
+      C a0 = C terminal) :
+    a11 = 0 ∧ a10 = 0 ∧ a9 = 0 ∧ a8 = 0 ∧ a7 = 0 ∧ a6 = 0 ∧ a5 = 0 ∧ a4 = 0 ∧ a3 = 0 := by
+  have h11 := congrArg (fun f : (RatFunc k)[X] => f.coeff 11) h
+  have h10 := congrArg (fun f : (RatFunc k)[X] => f.coeff 10) h
+  have h9 := congrArg (fun f : (RatFunc k)[X] => f.coeff 9) h
+  have h8 := congrArg (fun f : (RatFunc k)[X] => f.coeff 8) h
+  have h7 := congrArg (fun f : (RatFunc k)[X] => f.coeff 7) h
+  have h6 := congrArg (fun f : (RatFunc k)[X] => f.coeff 6) h
+  have h5 := congrArg (fun f : (RatFunc k)[X] => f.coeff 5) h
+  have h4 := congrArg (fun f : (RatFunc k)[X] => f.coeff 4) h
+  have h3 := congrArg (fun f : (RatFunc k)[X] => f.coeff 3) h
+  norm_num [coeff_add, coeff_C, coeff_C_mul, coeff_mul_X_pow', coeff_X,
+    coeff_X_pow] at h11 h10 h9 h8 h7 h6 h5 h4 h3
+  exact ⟨h11, h10, h9, h8, h7, h6, h5, h4, h3⟩
+
+set_option maxHeartbeats 64000000 in
 /-- Coefficientwise derivative of the depressed decic before imposing
 constancy of its nonic coefficient. -/
 theorem coefficientDeriv_depressedDecic410_full
@@ -34,6 +65,7 @@ theorem coefficientDeriv_depressedDecic410_full
   simp [depressedDecic410, Polynomial.coeff_X, Polynomial.coeff_C]
   split_ifs <;> simp_all
 
+set_option maxHeartbeats 64000000 in
 /-- The omitted top row of the displayed `(4,10)` normal form: a constant
 bracket forces the nonic coefficient `L` to be a differential constant. -/
 theorem depressedL_deriv_zero410
@@ -60,6 +92,7 @@ theorem depressedL_deriv_zero410
     coeff_mul_X_pow', coeff_X, coeff_X_pow] at h12
   exact h12
 
+set_option maxHeartbeats 64000000 in
 /-- All ten depressed decic coefficients have the integrated Faber form over
 ground constants.  The constants are arbitrary: this theorem contains no
 wall or vanishing assertion. -/
@@ -176,17 +209,8 @@ theorem depressedCoefficients_integrate_over_ground410
   have hb := hbracket
   rw [differentialJacobian_depressed410_eq d L P Q R S T U V W Z
     A B C0 hLderiv] at hb
-  have h11 := congrArg (fun f : (RatFunc k)[X] => f.coeff 11) hb
-  have h10 := congrArg (fun f : (RatFunc k)[X] => f.coeff 10) hb
-  have h9 := congrArg (fun f : (RatFunc k)[X] => f.coeff 9) hb
-  have h8 := congrArg (fun f : (RatFunc k)[X] => f.coeff 8) hb
-  have h7 := congrArg (fun f : (RatFunc k)[X] => f.coeff 7) hb
-  have h6 := congrArg (fun f : (RatFunc k)[X] => f.coeff 6) hb
-  have h5 := congrArg (fun f : (RatFunc k)[X] => f.coeff 5) hb
-  have h4 := congrArg (fun f : (RatFunc k)[X] => f.coeff 4) hb
-  have h3 := congrArg (fun f : (RatFunc k)[X] => f.coeff 3) hb
-  norm_num [coeff_add, coeff_C, coeff_C_mul, coeff_mul_X_pow', coeff_X,
-    coeff_X_pow] at h11 h10 h9 h8 h7 h6 h5 h4 h3
+  obtain ⟨h11, h10, h9, h8, h7, h6, h5, h4, h3⟩ :=
+    astra4q_ground_rows_zero _ _ _ _ _ _ _ _ _ _ _ _ terminal hb
   rw [hL] at h10 h9 h8
   let alphaR : RatFunc k := P - (5 / 2 : RatFunc k) * A
   have halphaD : d alphaR = 0 := by
@@ -196,8 +220,7 @@ theorem depressedCoefficients_integrate_over_ground410
   obtain ⟨alpha, halpha⟩ := descend alphaR halphaD
   have hP : P = integratedP410 A (RatFunc.C alpha) := by
     rw [← halpha]
-    simp only [alphaR, integratedP410]
-    ring
+    simp only [alphaR, integratedP410, add_zero, add_sub_cancel]
   let betaR : RatFunc k := Q -
     ((9 / 4 : RatFunc k) * RatFunc.C l * A + (5 / 2 : RatFunc k) * B)
   have hbetaD : d betaR = 0 := by
@@ -207,8 +230,7 @@ theorem depressedCoefficients_integrate_over_ground410
   obtain ⟨beta, hbeta⟩ := descend betaR hbetaD
   have hQ : Q = integratedQ410 (RatFunc.C l) A B (RatFunc.C beta) := by
     rw [← hbeta]
-    simp only [betaR, integratedQ410]
-    ring
+    simp only [betaR, integratedQ410, add_zero, add_sub_cancel]
   let gammaR : RatFunc k := R - integratedR410 (RatFunc.C l) A B C0
     (RatFunc.C alpha) 0
   have hgammaD : d gammaR = 0 := by
@@ -221,8 +243,7 @@ theorem depressedCoefficients_integrate_over_ground410
   have hR : R = integratedR410 (RatFunc.C l) A B C0
       (RatFunc.C alpha) (RatFunc.C gamma) := by
     rw [← hgamma]
-    simp only [gammaR, integratedR410]
-    ring
+    simp only [gammaR, integratedR410, add_zero, add_sub_cancel]
   let deltaR : RatFunc k := S - integratedS410 (RatFunc.C l) A B C0
     (RatFunc.C alpha) (RatFunc.C beta) 0
   have hdeltaD : d deltaR = 0 := by
@@ -236,8 +257,7 @@ theorem depressedCoefficients_integrate_over_ground410
   have hS : S = integratedS410 (RatFunc.C l) A B C0
       (RatFunc.C alpha) (RatFunc.C beta) (RatFunc.C delta) := by
     rw [← hdelta]
-    simp only [deltaR, integratedS410]
-    ring
+    simp only [deltaR, integratedS410, add_zero, add_sub_cancel]
   let epsilonR : RatFunc k := T - integratedT410 (RatFunc.C l) A B C0
     (RatFunc.C alpha) (RatFunc.C beta) (RatFunc.C gamma) 0
   have hepsilonD : d epsilonR = 0 := by
@@ -252,8 +272,7 @@ theorem depressedCoefficients_integrate_over_ground410
       (RatFunc.C alpha) (RatFunc.C beta) (RatFunc.C gamma)
       (RatFunc.C epsilon) := by
     rw [← hepsilon]
-    simp only [epsilonR, integratedT410]
-    ring
+    simp only [epsilonR, integratedT410, add_zero, add_sub_cancel]
   let zetaR : RatFunc k := U - integratedU410 (RatFunc.C l) A B C0
     (RatFunc.C alpha) (RatFunc.C beta) (RatFunc.C gamma)
     (RatFunc.C delta) 0
@@ -270,8 +289,7 @@ theorem depressedCoefficients_integrate_over_ground410
       (RatFunc.C alpha) (RatFunc.C beta) (RatFunc.C gamma)
       (RatFunc.C delta) (RatFunc.C zeta) := by
     rw [← hzeta]
-    simp only [zetaR, integratedU410]
-    ring
+    simp only [zetaR, integratedU410, add_zero, add_sub_cancel]
   let etaR : RatFunc k := V - integratedV410 (RatFunc.C l) A B C0
     (RatFunc.C alpha) (RatFunc.C beta) (RatFunc.C gamma)
     (RatFunc.C delta) (RatFunc.C epsilon) 0
@@ -288,8 +306,7 @@ theorem depressedCoefficients_integrate_over_ground410
       (RatFunc.C alpha) (RatFunc.C beta) (RatFunc.C gamma)
       (RatFunc.C delta) (RatFunc.C epsilon) (RatFunc.C eta) := by
     rw [← heta]
-    simp only [etaR, integratedV410]
-    ring
+    simp only [etaR, integratedV410, add_zero, add_sub_cancel]
   let thetaR : RatFunc k := W - integratedW410 (RatFunc.C l) A B C0
     (RatFunc.C alpha) (RatFunc.C beta) (RatFunc.C gamma)
     (RatFunc.C delta) (RatFunc.C epsilon) (RatFunc.C zeta) 0
@@ -307,8 +324,7 @@ theorem depressedCoefficients_integrate_over_ground410
       (RatFunc.C delta) (RatFunc.C epsilon) (RatFunc.C zeta)
       (RatFunc.C theta) := by
     rw [← htheta]
-    simp only [thetaR, integratedW410]
-    ring
+    simp only [thetaR, integratedW410, add_zero, add_sub_cancel]
   let iotaR : RatFunc k := Z - integratedZ410 (RatFunc.C l) A B C0
     (RatFunc.C alpha) (RatFunc.C beta) (RatFunc.C gamma)
     (RatFunc.C delta) (RatFunc.C epsilon) (RatFunc.C zeta)
@@ -359,11 +375,11 @@ theorem depressedCoefficients_integrate_over_ground410
       (RatFunc.C delta) (RatFunc.C epsilon) (RatFunc.C zeta)
       (RatFunc.C eta) (RatFunc.C iota) := by
     rw [← hiota]
-    simp only [iotaR, integratedZ410]
-    ring
+    simp only [iotaR, integratedZ410, add_zero, add_sub_cancel]
   exact ⟨l, alpha, beta, gamma, delta, epsilon, zeta, eta, theta, iota,
     hL, hP, hQ, hR, hS, hT, hU, hV, hW, hZ⟩
 
+set_option maxHeartbeats 64000000 in
 /-- The exact ground-integration bridge required by the source-facing
 early-load reduction. -/
 theorem scaleZero410_groundIntegrationBridge :

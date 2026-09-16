@@ -46,6 +46,13 @@ section DegreeZeroCompactBlockClearing810
 
 variable {F : Type*} [Field F] [CharZero F]
 
+-- Resolve arithmetic carriers before elaborating the existing expressions.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := F) (β := F) (γ := F))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := F) (β := F) (γ := F))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := F) (β := F) (γ := F))
+local infixl:70 (priority := high) " / " => (HDiv.hDiv (α := F) (β := F) (γ := F))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := F) (β := Nat) (γ := F))
+
 set_option maxHeartbeats 64000000 in
 /-- Rational-coefficient clearing proof for compact block `16`. -/
 theorem nonzeroFace5SpeedT_block16_eq_expansion
@@ -69,8 +76,9 @@ theorem nonzeroFace5SpeedT_block16_eq_expansion
         (degreeZeroVBar810 h a7 b8 b7 b6 b5 b4 b3 b2 lambda / 16777216)
         (degreeZeroWBar810 h a7 b8 b7 b6 b5 b4 b3 b2 b1 lambda / 67108864)) =
       degreeZeroCompactBlock16Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.monoR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, degreeZeroCompactBlock16_810,
-    degreeZeroCompactBlock16Expansion810,
+  unfold degreeZeroCompactBlock16Expansion810 Max11ReflectVal.polyR Max11ReflectVal.monoR
+  dsimp only [List.zipWith, List.prod, List.sum, List.foldr, List.foldl]
+  simp only [pow_zero, pow_one, one_mul, mul_one, degreeZeroCompactBlock16_810,
     degreeZeroCompactToSourceIntegerScale810, degreeZeroLBar810, degreeZeroABar810, degreeZeroBBar810, degreeZeroCBar810, degreeZeroDBar810, degreeZeroEBar810, degreeZeroFBar810, degreeZeroGBar810, degreeZeroPBar810, degreeZeroQBar810, degreeZeroRBar810, degreeZeroSBar810, degreeZeroTBar810, degreeZeroUBar810, degreeZeroVBar810, degreeZeroWBar810]
   ring
 
@@ -99,8 +107,9 @@ theorem nonzeroFace5SpeedT_block17_eq_expansion
         (degreeZeroVBar810 h a7 b8 b7 b6 b5 b4 b3 b2 lambda / 16777216)
         (degreeZeroWBar810 h a7 b8 b7 b6 b5 b4 b3 b2 b1 lambda / 67108864)) =
       degreeZeroCompactBlock17Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.monoR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, degreeZeroCompactBlock17_810,
-    degreeZeroCompactBlock17Expansion810,
+  unfold degreeZeroCompactBlock17Expansion810 Max11ReflectVal.polyR Max11ReflectVal.monoR
+  dsimp only [List.zipWith, List.prod, List.sum, List.foldr, List.foldl]
+  simp only [pow_zero, pow_one, one_mul, mul_one, degreeZeroCompactBlock17_810,
     degreeZeroCompactToSourceIntegerScale810, degreeZeroLBar810, degreeZeroABar810, degreeZeroBBar810, degreeZeroCBar810, degreeZeroDBar810, degreeZeroEBar810, degreeZeroFBar810, degreeZeroGBar810, degreeZeroPBar810, degreeZeroQBar810, degreeZeroRBar810, degreeZeroSBar810, degreeZeroTBar810, degreeZeroUBar810, degreeZeroVBar810, degreeZeroWBar810]
   ring
 
@@ -129,8 +138,9 @@ theorem nonzeroFace5SpeedT_block18_eq_expansion
         (degreeZeroVBar810 h a7 b8 b7 b6 b5 b4 b3 b2 lambda / 16777216)
         (degreeZeroWBar810 h a7 b8 b7 b6 b5 b4 b3 b2 b1 lambda / 67108864)) =
       degreeZeroCompactBlock18Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.monoR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, degreeZeroCompactBlock18_810,
-    degreeZeroCompactBlock18Expansion810,
+  unfold degreeZeroCompactBlock18Expansion810 Max11ReflectVal.polyR Max11ReflectVal.monoR
+  dsimp only [List.zipWith, List.prod, List.sum, List.foldr, List.foldl]
+  simp only [pow_zero, pow_one, one_mul, mul_one, degreeZeroCompactBlock18_810,
     degreeZeroCompactToSourceIntegerScale810, degreeZeroLBar810, degreeZeroABar810, degreeZeroBBar810, degreeZeroCBar810, degreeZeroDBar810, degreeZeroEBar810, degreeZeroFBar810, degreeZeroGBar810, degreeZeroPBar810, degreeZeroQBar810, degreeZeroRBar810, degreeZeroSBar810, degreeZeroTBar810, degreeZeroUBar810, degreeZeroVBar810, degreeZeroWBar810]
   ring
 
@@ -159,8 +169,9 @@ theorem nonzeroFace5SpeedT_block19_eq_expansion
         (degreeZeroVBar810 h a7 b8 b7 b6 b5 b4 b3 b2 lambda / 16777216)
         (degreeZeroWBar810 h a7 b8 b7 b6 b5 b4 b3 b2 b1 lambda / 67108864)) =
       degreeZeroCompactBlock19Expansion810 h a7 a6 a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 lambda := by
-  simp only [Max11ReflectVal.polyR_cons, Max11ReflectVal.monoR_cons, Max11ReflectVal.polyR_nil_left, Max11ReflectVal.polyR_nil_right, Max11ReflectVal.monoR_nil_left, Max11ReflectVal.monoR_nil_right, pow_zero, pow_one, one_mul, mul_one, degreeZeroCompactBlock19_810,
-    degreeZeroCompactBlock19Expansion810,
+  unfold degreeZeroCompactBlock19Expansion810 Max11ReflectVal.polyR Max11ReflectVal.monoR
+  dsimp only [List.zipWith, List.prod, List.sum, List.foldr, List.foldl]
+  simp only [pow_zero, pow_one, one_mul, mul_one, degreeZeroCompactBlock19_810,
     degreeZeroCompactToSourceIntegerScale810, degreeZeroLBar810, degreeZeroABar810, degreeZeroBBar810, degreeZeroCBar810, degreeZeroDBar810, degreeZeroEBar810, degreeZeroFBar810, degreeZeroGBar810, degreeZeroPBar810, degreeZeroQBar810, degreeZeroRBar810, degreeZeroSBar810, degreeZeroTBar810, degreeZeroUBar810, degreeZeroVBar810, degreeZeroWBar810]
   ring
 

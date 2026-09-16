@@ -28,6 +28,12 @@ section QuarticKills810
 
 variable {k : Type*} [Field k] [CharZero k]
 
+-- Expose polynomial carriers while preserving every original expression.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := k[X]) (β := k[X]) (γ := k[X]))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := k[X]) (β := k[X]) (γ := k[X]))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := k[X]) (β := Nat) (γ := k[X]))
+local infixr:73 (priority := high) " • " => (HSMul.hSMul (α := k) (β := k[X]) (γ := k[X]))
+
 
 set_option maxHeartbeats 64000000 in
 def muQuarticFaceB810 (A B C D E F G : k[X]) : k[X] :=

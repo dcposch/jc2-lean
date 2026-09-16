@@ -10,7 +10,14 @@ section BridgeLambdaDepression610
 
 variable {F : Type*} [Field F] [CharZero F]
 
-set_option maxHeartbeats 8000000 in
+-- Fix the carrier while retaining the original arithmetic heads and expression.
+local infixl:65 (priority := high) " + " => (HAdd.hAdd (α := F[X]) (β := F[X]) (γ := F[X]))
+local infixl:65 (priority := high) " - " => (HSub.hSub (α := F[X]) (β := F[X]) (γ := F[X]))
+local infixl:70 (priority := high) " * " => (HMul.hMul (α := F[X]) (β := F[X]) (γ := F[X]))
+local infixr:80 (priority := high) " ^ " => (HPow.hPow (α := F[X]) (β := Nat) (γ := F[X]))
+local prefix:75 (priority := high) "-" => (Neg.neg (α := F[X]))
+
+set_option maxHeartbeats 64000000 in
 /-- Polynomial numerator of `258280326 h⁶⁰ λ` on the ninth-power face. -/
 def bridgeClearedLambdaDefect610
     (h a5 a4 a3 a2 a1 a0 b8 b7 b6 b5 b4 b3 b2 b1 : F[X]) (lambda : F) : F[X] :=

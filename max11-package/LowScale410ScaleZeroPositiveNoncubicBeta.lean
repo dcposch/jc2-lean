@@ -1,4 +1,5 @@
 import LowScale410ScaleZeroNoncubicBetaDegreeZero
+import Max11SpeedReflectDegLibScratch
 
 /-!
 # The positive genuine noncubic beta packet
@@ -26,6 +27,7 @@ variable {k : Type*} [Field k] [CharZero k]
 
 /-! ## The two unbalanced constant-`B` cones -/
 
+set_option maxHeartbeats 64000000 in
 /-- Everything except the `A^6` face of `I1`. -/
 def noncubicBetaAHighOneRest410
     (beta gamma delta zeta eta theta : k) (A B C0 : k[X]) : k[X] :=
@@ -36,6 +38,7 @@ def noncubicBetaAHighOneRest410
     (5 / 4 : k) • C0 ^ 3 + betaLoadOnePolynomial410 beta A B C0 +
       betaLoadOneRest410 gamma delta zeta eta theta A B C0
 
+set_option maxHeartbeats 64000000 in
 theorem firstIntegralOne410_eq_Asix_add_AHigh_rest
     (beta gamma delta zeta eta theta : k) (A B C0 : k[X]) :
     firstIntegralOnePolynomial410 0 beta gamma delta zeta eta theta
@@ -48,6 +51,21 @@ theorem firstIntegralOne410_eq_Asix_add_AHigh_rest
   simp only [noncubicBetaAHighOneRest410]
   abel
 
+set_option maxHeartbeats 64000000 in
+/-- Reflect the unchanged polynomial into coefficient and exponent data. -/
+private theorem astra4kSpeedT_noncubicBetaAHighOneRest410_eq_polyOf
+    (beta gamma delta zeta eta theta : k) (A B C0 : k[X]) :
+    noncubicBetaAHighOneRest410 beta gamma delta zeta eta theta A B C0 =
+      Max11ReflectDeg.polyOf [A, B, C0]
+        [(15 / 64 : k), (15 / 32 : k), (-(15 / 16) : k), (-(15 / 8) : k), (-(5 / 32) : k), (5 / 4 : k), (35 / 128 * beta : k), (-(21 / 16 * beta) : k), (-(7 / 32 * beta) : k), (3 / 32 * gamma : k), (-(3 / 4 * gamma) : k), (-(3 / 4 * gamma) : k), (3 / 2 * gamma : k), (-(15 / 32 * delta) : k), (5 / 4 * delta : k), (-(3 / 4 * zeta) : k), (-(1 / 2 * eta) : k), (2 * eta : k), (theta : k)]
+        [[4, 0, 1], [3, 2, 0], [2, 0, 2], [1, 2, 1], [0, 4, 0], [0, 0, 3], [3, 1, 0], [1, 1, 1], [0, 3, 0], [4, 0, 0], [2, 0, 1], [1, 2, 0], [0, 0, 2], [2, 1, 0], [0, 1, 1], [1, 1, 0], [2, 0, 0], [0, 0, 1], [0, 1, 0]] := by
+  simp only [noncubicBetaAHighOneRest410, betaLoadOnePolynomial410, betaLoadOneRest410,
+    Max11ReflectDeg.polyOf_cons, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  module
+
+set_option maxHeartbeats 64000000 in
 theorem noncubicBetaAHighOneRest410_natDegree_lt
     (beta gamma delta zeta eta theta : k) (A B C0 : k[X])
     (hApos : 0 < A.natDegree) (hB0 : B.natDegree = 0)
@@ -55,11 +73,15 @@ theorem noncubicBetaAHighOneRest410_natDegree_lt
     (noncubicBetaAHighOneRest410
       beta gamma delta zeta eta theta A B C0).natDegree <
         6 * A.natDegree := by
-  simp only [noncubicBetaAHighOneRest410, betaLoadOnePolynomial410,
-    betaLoadOneRest410]
-  compute_degree
-  omega
+  rw [astra4kSpeedT_noncubicBetaAHighOneRest410_eq_polyOf]
+  refine Max11ReflectDeg.natDegree_lt_of_bnd_lt ?_
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    List.map_cons, List.map_nil, Nat.mul_zero, Nat.zero_mul,
+    Nat.mul_one, Nat.one_mul, Nat.add_zero, Nat.zero_add, max_lt_iff, max_le_iff]
+  repeat' apply And.intro <;> omega
 
+set_option maxHeartbeats 64000000 in
 theorem noncubicBeta_constantB_AHigh_impossible
     (beta gamma delta zeta eta theta k1 : k) (A B C0 : k[X])
     (hApos : 0 < A.natDegree) (hB0 : B.natDegree = 0)
@@ -86,6 +108,21 @@ theorem noncubicBeta_constantB_AHigh_impossible
     (6 * A.natDegree) (by norm_num) (pow_ne_zero 6 hA)
     (by omega) hfaceDeg hrest) heq
 
+set_option maxHeartbeats 64000000 in
+/-- Reflect the unchanged polynomial into coefficient and exponent data. -/
+private theorem astra4kSpeedT_noncubicBetaConstantAOneRest410_eq_polyOf
+    (beta gamma delta zeta eta theta : k) (A B C0 : k[X]) :
+    noncubicBetaConstantAOneRest410 beta gamma delta zeta eta theta A B C0 =
+      Max11ReflectDeg.polyOf [A, B, C0]
+        [(-(5 / 256) : k), (15 / 64 : k), (15 / 32 : k), (-(15 / 16) : k), (-(15 / 8) : k), (-(5 / 32) : k), (35 / 128 * beta : k), (-(21 / 16 * beta) : k), (-(7 / 32 * beta) : k), (3 / 32 * gamma : k), (-(3 / 4 * gamma) : k), (-(3 / 4 * gamma) : k), (3 / 2 * gamma : k), (-(15 / 32 * delta) : k), (5 / 4 * delta : k), (-(3 / 4 * zeta) : k), (-(1 / 2 * eta) : k), (2 * eta : k), (theta : k)]
+        [[6, 0, 0], [4, 0, 1], [3, 2, 0], [2, 0, 2], [1, 2, 1], [0, 4, 0], [3, 1, 0], [1, 1, 1], [0, 3, 0], [4, 0, 0], [2, 0, 1], [1, 2, 0], [0, 0, 2], [2, 1, 0], [0, 1, 1], [1, 1, 0], [2, 0, 0], [0, 0, 1], [0, 1, 0]] := by
+  simp only [noncubicBetaConstantAOneRest410, betaLoadOnePolynomial410, betaLoadOneRest410,
+    Max11ReflectDeg.polyOf_cons, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  module
+
+set_option maxHeartbeats 64000000 in
 theorem noncubicBetaConstantAOneRest410_natDegree_lt_CHigh
     (beta gamma delta zeta eta theta : k) (A B C0 : k[X])
     (hB0 : B.natDegree = 0)
@@ -93,11 +130,15 @@ theorem noncubicBetaConstantAOneRest410_natDegree_lt_CHigh
     (noncubicBetaConstantAOneRest410
       beta gamma delta zeta eta theta A B C0).natDegree <
         3 * C0.natDegree := by
-  simp only [noncubicBetaConstantAOneRest410, betaLoadOnePolynomial410,
-    betaLoadOneRest410]
-  compute_degree
-  omega
+  rw [astra4kSpeedT_noncubicBetaConstantAOneRest410_eq_polyOf]
+  refine Max11ReflectDeg.natDegree_lt_of_bnd_lt ?_
+  simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+    Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+    List.map_cons, List.map_nil, Nat.mul_zero, Nat.zero_mul,
+    Nat.mul_one, Nat.one_mul, Nat.add_zero, Nat.zero_add, max_lt_iff, max_le_iff]
+  repeat' apply And.intro <;> omega
 
+set_option maxHeartbeats 64000000 in
 theorem noncubicBeta_constantB_CHigh_impossible
     (beta gamma delta zeta eta theta k1 : k) (A B C0 : k[X])
     (hB0 : B.natDegree = 0)
@@ -127,6 +168,7 @@ theorem noncubicBeta_constantB_CHigh_impossible
 
 /-! ## The balanced no-drop cone -/
 
+set_option maxHeartbeats 64000000 in
 theorem betaCubicBalancedStrictOneFace410_eq_discriminantCube
     (A C0 : k[X]) :
     betaCubicBalancedStrictOneFace410 A C0 =
@@ -147,6 +189,7 @@ theorem betaCubicBalancedStrictOneFace410_eq_discriminantCube
         (-(5 : k) • (A ^ 2 - (4 : k) • C0) ^ 3) := by rw [hscale]
     _ = -(5 / 256 : k) • (A ^ 2 - (4 : k) • C0) ^ 3 := by module
 
+set_option maxHeartbeats 64000000 in
 theorem noncubicBeta_constantB_balanced_nodrop_impossible
     (beta gamma delta zeta eta theta k1 : k) (A B C0 : k[X])
     (hApos : 0 < A.natDegree) (hB0 : B.natDegree = 0)
@@ -202,6 +245,21 @@ theorem noncubicBeta_constantB_balanced_nodrop_impossible
     (6 * A.natDegree) (by norm_num) (pow_ne_zero 3 hU)
     (by omega) hfaceDeg hrest) heq
 
+set_option maxHeartbeats 64000000 in
+/-- Reflect the unchanged polynomial into coefficient and exponent data. -/
+private theorem astra4kSpeedT_betaOneCorePolynomial410_eq_polyOf
+    (A B C0 : k[X]) :
+    betaOneCorePolynomial410 A B C0 =
+      Max11ReflectDeg.polyOf [A, B, C0]
+        [(5 : k), (-(24) : k), (-(4) : k)]
+        [[3, 0, 0], [1, 0, 1], [0, 2, 0]] := by
+  simp only [betaOneCorePolynomial410,
+    Max11ReflectDeg.polyOf_cons, Max11ReflectDeg.polyOf_nil_right,
+    Max11ReflectDeg.mono_cons, Max11ReflectDeg.mono_nil_left,
+    pow_zero, pow_one, mul_one, one_mul, add_zero, mul_assoc]
+  module
+
+set_option maxHeartbeats 64000000 in
 /-- Sharp classification of the constant-`B`, positive beta face: it must
 be balanced and its discriminant leading coefficient must drop. -/
 theorem positiveNoncubicBeta_constantB_forces_discriminant_drop
@@ -224,9 +282,13 @@ theorem positiveNoncubicBeta_constantB_forces_discriminant_drop
           (betaOneCorePolynomial410 A B C0).natDegree = 0 := by
         have hcorele :
             (betaOneCorePolynomial410 A B C0).natDegree ≤ 0 := by
-          simp only [betaOneCorePolynomial410]
-          compute_degree
-          omega
+          rw [astra4kSpeedT_betaOneCorePolynomial410_eq_polyOf]
+          refine le_trans (Max11ReflectDeg.natDegree_polyOf_le _ _ _) ?_
+          simp only [Max11ReflectDeg.bnd_cons, Max11ReflectDeg.bnd_nil,
+            Max11ReflectDeg.mdeg_cons, Max11ReflectDeg.mdeg_nil_left,
+            List.map_cons, List.map_nil, Nat.mul_zero, Nat.zero_mul,
+            Nat.mul_one, Nat.one_mul, Nat.add_zero, Nat.zero_add, max_lt_iff, max_le_iff]
+          repeat' apply And.intro <;> omega
         omega
       omega
   refine ⟨hApos, ?_⟩
@@ -245,6 +307,7 @@ theorem positiveNoncubicBeta_constantB_forces_discriminant_drop
 
 /-! ## Refined packet and source transport -/
 
+set_option maxHeartbeats 64000000 in
 def DroppedNoncubicBetaNewtonResidual410
     (gamma delta zeta eta theta : k) (A B C0 : k[X]) : Prop :=
   (betaTwoCorePolynomial410 A B C0 = 0 ∨
@@ -265,6 +328,7 @@ def DroppedNoncubicBetaNewtonResidual410
           C0.natDegree = 2 * A.natDegree ∧
           A.leadingCoeff ^ 2 = 4 * C0.leadingCoeff))
 
+set_option maxHeartbeats 64000000 in
 def DroppedNoncubicEarlyLoadResidual410
     (beta gamma delta zeta eta theta : k) (A B C0 : k[X]) : Prop :=
   (beta ≠ 0 ∧ B ≠ 0 ∧
@@ -275,6 +339,7 @@ def DroppedNoncubicEarlyLoadResidual410
     (beta = 0 ∧ gamma = 0 ∧ delta ≠ 0 ∧
       (zeta ≠ 0 ∨ eta ≠ 0 ∨ theta ≠ 0))
 
+set_option maxHeartbeats 64000000 in
 theorem constantIntegral410_droppedNoncubic_earlyLoad_residual
     (l alpha beta gamma delta epsilon zeta eta theta iota k2 k1
       terminal : k)
@@ -311,6 +376,7 @@ theorem constantIntegral410_droppedNoncubic_earlyLoad_residual
           hbeta.2.2.2.2.1 hOne0⟩
   · exact Or.inr hlater
 
+set_option maxHeartbeats 64000000 in
 theorem integrated410_droppedNoncubic_earlyLoad_residual
     (l alpha beta gamma delta epsilon zeta eta theta iota terminal : k)
     (A B C0 : k[X]) (hterminal : terminal ≠ 0)
@@ -329,6 +395,7 @@ theorem integrated410_droppedNoncubic_earlyLoad_residual
 
 variable [IsAlgClosed k]
 
+set_option maxHeartbeats 64000000 in
 theorem normalized410ScaleZero_droppedNoncubic_earlyLoad_residual
     {P Q : MvPolynomial (Fin 2) k} {H : k[X]}
     (hsource : Normalized410LeadingCoreSource P Q H 0) :
