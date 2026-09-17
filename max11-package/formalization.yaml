@@ -196,8 +196,8 @@ status:
     unconditional headline (6) together with the supporting results;
     `comparator-conditional.json` (Max11Assembly, 35 theorems): the same
     composition with the five leaf routes (5) as additional explicit
-    hypotheses, registered separately only because the unconditional closure
-    exceeds the verifier's single-run budget;
+    hypotheses, registered separately as the assembly of the five leaf entries
+    (each leaf is also certified on its own);
     `comparator-leaf46.json` (LowScale46ScaleTwo, 2 theorems): exactly the
     two (4,6) leaf theorems, i.e. every normalized (4,6) leading-core source
     at scale 0 or 2 generates, over algebraically closed K of characteristic
@@ -983,10 +983,9 @@ alignment:
         is proved in this repository and certified as its own Comparator
         configuration (`comparator-leaf*.json`); the unconditional theorem
         `Max11PlaneKellerGenerationWithClassicalInterfaces` composes them and
-        is certified by `comparator.json`.  The conditional entry exists only
-        because the unconditional closure exceeds the verifier's single-run
-        budget; it must be read together with the leaf entries.  Certified
-        by comparator-conditional.json
+        is certified by `comparator.json`.  The conditional entry records the
+        assembly step separately and must be read together with the leaf
+        entries.  Certified by comparator-conditional.json
     - source: "Original: complete exclusion of the normalized (4,6) low-scale sources at scales 0 and 2"
       lean: "Max11DegreeRoutes.proved_planeKellerNormalized46LowScaleRoute"
       module: "LowScale46ScaleTwo"

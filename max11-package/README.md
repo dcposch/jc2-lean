@@ -75,7 +75,7 @@ file and nothing else.  The challenge module for all of them is
 | Comparator file | Solution module | Certifies |
 |---|---|---|
 | `comparator.json` | `Max11Solution` | the unconditional headline above (40 theorems, including the supporting results) |
-| `comparator-conditional.json` | `Max11Assembly` | the same composition with the five leaf routes as additional explicit hypotheses (35 theorems); registered separately only because the unconditional closure exceeds the verifier's single-run budget, and to be read together with the leaf entries |
+| `comparator-conditional.json` | `Max11Assembly` | the same composition with the five leaf routes as additional explicit hypotheses (35 theorems); registered separately as the assembly step over the five leaf entries, to be read together with them |
 | `comparator-leaf46.json` | `LowScale46ScaleTwo` | `proved_planeKellerNormalized46LowScaleRoute` and `proved_planeKellerNormalized46ScaleTwoRoute`: every normalized `(4,6)` leading-core source at scale `0` or `2` generates |
 | `comparator-leaf410.json` | `Grok410ChainPromotionScratch` | `planeKellerNormalized410LowScaleRoute_proved` |
 | `comparator-leaf68.json` | `Grok68TerminalZeroMeetingCellScratch` | `proved_planeKellerNormalized68LowScaleRoute` |
@@ -123,9 +123,8 @@ import LowScale46ScaleTwo
 ```
 
 Measured on a 4 vCPU / 16 GiB replica of the Palomar runner: the `(4,6)`
-closure builds in under 1 h 20 min; the unconditional headline closure (2,585
-modules) takes about 7 h 30 min and is the reason the conditional and leaf
-configurations exist.
+closure builds in under 1 h 20 min; the unconditional headline closure (1,796
+modules) builds in about 4 h 50 min with peak memory under 11 GiB.
 
 ## Licence
 
